@@ -1,0 +1,122 @@
+<resources>
+
+    <!-- Base application theme. -->
+    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="colorControlHighlight">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:windowBackground">@drawable/bg_gradient_bottom</item>
+    </style>
+
+    <style name="AppThemeFullView" parent="Theme.AppCompat.NoActionBar">
+        <!-- Customize your theme here. -->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <item name="colorAccent">@color/colorAccent</item>
+        <item name="colorControlActivated">@android:color/white</item>
+        <item name="colorControlHighlight">@android:color/white</item>
+        <item name="colorControlNormal">@android:color/white</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:windowBackground">@drawable/bg_gradient_bottom</item>
+        <item name="android:windowTranslucentStatus">true</item>
+    </style>
+
+    <style name="TextAppearence.App.TextInputLayout" parent="@android:style/TextAppearance">
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="ButtonBarBottom" parent="Base.Widget.AppCompat.Button">
+        <item name="android:buttonStyle">@drawable/button_tab</item>
+    </style>
+
+    <style name="switchStyle" parent="Theme.AppCompat.Light">
+        <item name="colorControlActivated">@color/greencolor</item>
+        <item name="colorSwitchThumbNormal">@color/colorAccent</item>
+        <item name="android:colorForeground">@color/grayColor</item>
+    </style>
+
+    <style name="textTitle">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">22sp</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textAlignment">center</item>
+    </style>
+
+    <style name="textSubTitle" parent="textTitle">
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="textDescInputs">
+        <item name="android:layout_centerHorizontal">true</item>
+
+    </style>
+
+    <style name="buttonRoundedBlue">
+        <item name="android:layout_marginEnd">60dp</item>
+        <item name="android:layout_marginLeft">60dp</item>
+        <item name="android:layout_marginRight">60dp</item>
+        <item name="android:layout_marginStart">60dp</item>
+        <item name="android:background">@drawable/button_rounded_blue</item>
+        <item name="android:textColor">@android:color/white</item>
+
+    </style>
+
+    <style name="buttonSquareRoundedBlue">
+        <item name="android:background">@drawable/button_rounded_square_blue</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="buttonRoundedStroke">
+        <item name="android:layout_marginEnd">60dp</item>
+        <item name="android:layout_marginLeft">60dp</item>
+        <item name="android:layout_marginRight">60dp</item>
+        <item name="android:layout_marginStart">60dp</item>
+        <item name="android:background">@drawable/button_rounded_stroke</item>
+        <item name="android:textColor">@android:color/white</item>
+    </style>
+
+    <style name="textHelp">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/whiteColor_disable</item>
+        <item name="android:textSize">12sp</item>
+    </style>
+
+    <style name="textPinPadButton">
+        <item name="android:layout_margin">5dp</item>
+        <item name="android:padding">5dp</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:textAlignment">center</item>
+        <item name="android:gravity">center</item>
+        <item name="android:textColor">?attr/colorAccent</item>
+        <item name="android:textSize">24sp</item>
+    </style>
+
+    <style name="AppTheme.AppBarOverlay" parent="ThemeOverlay.AppCompat.Dark.ActionBar" />
+
+    <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
+
+    <style name="MultiChoiceDialog" parent="@android:style/Theme.Dialog">
+        <item name="android:textColor">@color/black</item>
+        <item name="android:windowTitleBackgroundStyle">@style/DialogTitleBackground</item>
+        <item name="android:windowBackground">@color/redcolor</item>
+    </style>
+
+    <style name="DialogTitleBackground" >
+        <item name="android:background">@color/colorAccent</item>
+    </style>
+
+    <style name="Theme_DialogPrueba" parent="@android:style/Theme.Holo.Light.Panel">
+        <item name="android:textColor">@android:color/black</item>
+        <item name="android:textSize">18dp</item>
+        <item name="android:gravity">center_horizontal</item>
+    </style>
+</resources>
+

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+
+    <string-array name="dominios_array">
+        <item>gmail.com</item>
+        <item>yahoo.com</item>
+        <item>yahoo.mx</item>
+        <item>yahoo.com.mx</item>
+        <item>hotmail.com</item>
+        <item>aol.com</item>
+        <item>outlook.com</item>
+        <item>outlook.es</item>
+        <item>me.com</item>
+        <item>msn.com</item>
+        <item>live.com</item>
+        <item>icloud.com</item>
+        <item>live.com.mx</item>
+        <item>mail.com</item>
+        <item>prodigy.net</item>
+        <item>yahoo.it</item>
+        <item>hotmail.es</item>
+        <item>outlook.mx</item>
+        <item>google.com</item>
+        <item>pagatodo.com</item>
+    </string-array>
+    
+    <string-array name="descuentos_array">
+        <item>Descuento 10%</item>
+        <item>Descuento 15%</item>
+        <item>Descuento 20%</item>        
+        <item>Promoción</item>
+        <item>Cortesía</item>
+        <item>Precio Especial</item>
+    </string-array>
+    <!--
+         
+    -->
+    <string-array name="descripciones_array">
+        <item>Descuento 10%</item>
+        <item>Descuento 15%</item>
+        <item>Descuento 20%</item>
+        <item>Cortesia</item>
+        <item>Precio Especial</item>
+        <item>Promoción</item>
+    </string-array>
+    
+    <string-array name="meses_array">
+        <item>Ene</item>
+        <item>Feb</item>
+        <item>Mar</item>
+        <item>Abr</item>
+        <item>May</item>
+        <item>Jun</item>
+        <item>Jul</item>
+        <item>Ago</item>
+        <item>Sep</item>
+        <item>Oct</item>
+        <item>Nov</item>
+        <item>Dic</item>
+    </string-array>
+    
+
+</resources>

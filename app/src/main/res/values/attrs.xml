@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="PagosGallery">
+        <attr name="android:galleryItemBackground" />
+    </declare-styleable>
+
+    <declare-styleable name="custom_font">
+
+        <attr name="font_type" format="enum">
+            <enum name="angelina" value="0" />
+            <enum name="glyphicons_halflings_regular" value="1" />
+            <enum name="SourceSansPro_Light" value="2" />
+            <enum name="SourceSansPro_Regular" value="3" />
+            <enum name="SourceSansPro_Semibold" value="4" />
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="MaterialImageButton">
+        <attr name="imageSrc" format="reference"/>
+        <attr name="buttonRippleColor" format="color"/>
+        <attr name="imageTint" format="color"/>
+        <attr name="imagePadding" format="dimension"/>
+        <attr name="imageStartPadding" format="dimension"/>
+        <attr name="imageEndPadding" format="dimension"/>
+        <attr name="imageTopPadding" format="dimension"/>
+        <attr name="imageBottomPadding" format="dimension"/>
+    </declare-styleable>
+
+    <declare-styleable name="MaterialButton">
+        <attr name="intercepterOnclick" format="boolean"/>
+        <attr name="buttonRippleColor2" format="color"/>
+        <attr name="buttonNormalColor" format="color"/>
+        <attr name="selectedTextColor" format="color"/>
+        <attr name="cornerRadius" format="dimension"/>
+        <attr name="buttonStrokeColor" format="color"/>
+        <attr name="overBackground" format="reference"/>
+        <attr name="buttonShape"/>
+
+        <attr name="filling_color" format="color"/>
+        <attr name="outline_color" format="color"/>
+
+    </declare-styleable>
+
+    <declare-styleable name="StyleTextView">
+        <attr name="tipo" format="enum">
+            <enum name="Titulo"         value="0"/>
+            <enum name="Subtitulo"      value="1"/>
+            <enum name="Descripcion"    value="2"/>
+            <enum name="Indicacion"     value="3"/>
+            <enum name="Text"           value="4"/>
+        </attr>
+    </declare-styleable>
+
+    <attr name="buttonShape" format="enum">
+        <enum name="rectangle" value="0"/>
+        <enum name="oval" value="1"/>
+    </attr>
+
+</resources>

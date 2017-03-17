@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#293943</color>
+    <color name="colorPrimaryDark">#141C21</color>
+    <color name="colorAccent">#10B2E6</color>
+
+    <color name="bluecolor_disable">#be10b2e6</color>
+    <color name="redcolor">#D50000</color>
+    <color name="greencolor">#00c900</color>
+    <color name="bgColor">#293943</color>
+    <color name="whiteColor">#FFF</color>
+    <color name="whiteColor_disable">#beffffff</color>
+    <color name="grayColor">#808080</color>
+    <color name="bg_progress">#d73b3939</color>
+    <color name="bg_card_confirmation">#1e2429</color>
+
+    <color name="circlegreen">#00c900</color>
+    <color name="circlecarousel1">#00b6df</color>
+    <color name="circlecarousel2">#e20c0f</color>
+    <color name="circlecarousel3">#0f47e1</color>
+    <color name="circlecarousel4">#e18700</color>
+    <color name="circlecarousel5">#da01de</color>
+    <color name="circlecarousel6">#d40655</color>
+    <color name="circlecarousel7">#0041c2</color>
+    <color name="circlecarousel8">#ecdc00</color>
+    <color name="black">#000000</color>
+    <color name="purpura">#d907f1</color>
+
+</resources>

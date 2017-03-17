@@ -1,0 +1,216 @@
+<resources>
+    <string name="app_name">Ya Ganaste</string>
+    <!--Url's-->
+    <!--UrlProd-->
+    <!--<string name="baseurl">https://wcf.yaganaste.com:8030/ServicioYaGanaste.svc</string>-->
+    <!--Url QA-->
+    <string name="baseurl">http://189.201.137.21:8030/ServicioYaGanaste.svc</string>
+    <string name="baseurlAdministrativa">http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc</string>
+    <string name="baseurlTransaccional">http://189.201.137.21:8032/ServicioYaGanasteTrans.svc</string>
+
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
+        AIzaSyCyPrjBMcKrfBLeINIck6TXWoB2JuiYABc
+    </string>
+
+    <string name="activateMobileServiceUrl">/ActivacionServicioMovil</string>
+    <string name="updateAvatarUrl">/ActualizarAvatar</string>
+    <string name="updateSessionUrl">/ActualizarInformacionSesion</string>
+    <string name="assignPaswordUrl">/AsignarContrasena</string>
+    <string name="assignAccountAvailableUrl">/AsignarCuentaDisponible</string>
+    <string name="assignNIPUrl">/AsignarNIP</string>
+    <string name="assignCard2AccountUrl">/AsociarTarjetaCuenta</string>
+    <string name="lockTempCardUrl">/BloquearTemporalmenteTarjeta</string>
+    <string name="changePasswordUrl">/CambiarContrasena</string>
+    <string name="uploadDocumentsUrl">/CargaDocumentos</string>
+    <string name="logoutUrl">/CerrarSesion</string>
+    <string name="consultAssignCardUrl">/ConsultarAsignacionTarjeta</string>
+    <string name="getMovementsByMonthUrl">/ConsultarMovimientosMes</string>
+    <string name="getBalanceUrl">/ConsultarSaldo</string>
+    <string name="getAccountOwnerUrl">/ConsultarTitularCuenta</string>
+    <string name="createAgentUrl">/CrearAgente</string>
+    <string name="createClientUrl">/CrearCliente</string>
+    <string name="createUserUrl">/CrearUsuarioFWS</string>
+    <string name="executeTransactionUrl">/EjecutarTransaccion</string>
+    <string name="deleteAvatarUrl">/EliminarAvatar</string>
+    <string name="loginUrl">/IniciarSesion</string>
+    <string name="searchOfficesUrl">/LocalizarSucursales</string>
+    <string name="getCatalogsUrl">/ObtenerCatalogos</string>
+    <string name="getNeighborhoodByZipUrl">/ObtenerColoniasPorCP</string>
+    <string name="getSMSNumberUrl">/ObtenerNumeroSMS</string>
+    <string name="recoverPasswordUrl">/RecuperarContrasena</string>
+    <string name="validateStatusTransactionUrl">/ValidarEstatusTransaccion</string>
+    <string name="validateStatusUserUrl">/ValidarEstatusUsuario</string>
+    <string name="validateFormatPasswordUrl">/ValidarFormatoContrasena</string>
+    <string name="verifyActivateUrl">/VerificarActivacion</string>
+    <string name="getStatusCard">/ObtenerEstatusTarjeta</string>
+    <string name="getSucursales">/LocalizarSucursales</string>
+    <!--Url's end-->
+
+    <!--Url's start Adquirente-->
+    <!--baseURL Prod-->
+    <!--<string name="baseUrlAdq">https://agentemovil.pagatodo.com/agentemovil.svc</string>-->
+    <!--baseUrl Desarrollo-->
+    <string name="baseUrlAdq">http://agentemovildes.pagatodo.com/agentemovil.svc</string>
+    <string name="adqLogin">/agMov/login</string>
+    <string name="adqRegisterDongle">/agMov/register_dongle</string>
+    <string name="adqTransactionEmv">/agMov/transactionEmvDepositAccount</string>
+    <string name="adqRegisterNIP">/agMov/nip</string>
+    <string name="adqGetSessionAgente">/agMov/sesion_agente</string>
+    <string name="adqRegisterDeviceData">/agMov/registerDeviceData</string>
+    <string name="adqRegisterNotification">/agMov/registerNotifications</string>
+    <string name="adqAuthNIP">/gMov/auth_nip</string>
+    <string name="adqTransactionCard">/agMov/transactionEMVSwipe</string>
+    <string name="adqSignatureVaucher">/agMov/signBankTransaction</string>
+    <string name="adqConsultTransaction">/agMov/getStatusTransactionEMVSwipe</string>
+    <string name="adqSendTicket">/agMov/sendTicket</string>
+    <string name="adqResumeDay">/agMov/getResumenYG?fecha=</string>
+    <string name="adqResumeMonth">/agMov/getResumenMonthYG?fecha=</string>
+    <string name="adqGetBalance">/agMov/getSaldo</string>
+    <!---->
+    <string name="txt_registrate">Registrate</string>
+    <string name="txt_inicia_sesion">INICIA TU REGISTRO</string><!--TODO licencia que se tomaron los de QA lo cambio por que esta reportado-->
+    <string name="lets_start">Vamos a Comenzar</string>
+    <string name="ingress_your_mail">Ingresa tu Correo Electrónico</string>
+    <string name="next">CONTINUAR</string>
+    <string name="ingress_your_data_card">Ingresa los Datos de tu Tarjeta</string>
+    <string name="card_number">Número de Tarjeta</string>
+    <string name="not_have_card">NO TENGO TARJETA</string>
+    <string name="example_mail">algun@mail.com</string>
+    <string name="write_your_name">Escribe tu Nombre</string>
+    <string name="second_last_name">Segundo Apellido</string>
+    <string name="last_name">Primer Apellido</string>
+    <string name="your_password_need_to_have">Tu Contraseña Debe ser al Menos de 8 Caracteres, Incluyendo al Menos una Letra Mayúscula y un Número. No Debe Incluir Tres Caracteres Idénticos en Forma Consecutiva ni Valores Consecutivos</string>
+    <string name="create_your_pass">Crea una contraseña</string>
+    <string name="more_data_and_finish">Unos Datos más\ny Habremos Terminado</string>
+    <string name="put_your_birthday">Indícanos tu Fecha de Nacimiento</string>
+    <string name="put_your_gender">Indícanos tu Género</string>
+    <string name="birth_place">Entidad de Nacimiento</string>
+    <string name="add_your_address">Agrega tu Dirección</string>
+    <string name="street">Calle, Avenida o Vía</string>
+    <string name="colonia">Colonia</string>
+    <string name="terms_and_conditions">Al Continuar, Indicas que Leíste y Aceptas Nuestros Términos y Condiciones</string>
+    <string name="postal_code">C.P.</string>
+    <string name="intern_number">No. Interior</string>
+    <string name="outside_number">No. Exterior</string>
+    <string name="are_you_want_get_payments">¿Te Gustaría Recibir\nPagos con Tarjeta?</string>
+    <string name="yes_i_want_card_payments">SÍ QUIERO ACEPTAR TARJETA</string>
+    <string name="i_dont_want_card_payments">NO QUIERO ACEPTAR TARJETA</string>
+    <string name="are_you_have_card_reader">¿Ya Cuentas con\nNuestro Lector de Tarjetas?</string>
+    <string name="lorem_ipsum">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.</string>
+    <string name="i_have_it">YA LO TENGO</string>
+    <string name="idont_have_it">NO TENGO LECTOR</string>
+    <string name="where_buyit">¿Dónde Comprarlo?</string>
+    <string name="plug_your_card_reader">Inserta tu Lector\npara Asociarlo a tu Cuenta</string>
+    <string name="if_you_want_get_cards">Si en el Futuro Quieres Recibir Tarjetas</string>
+    <string name="get_our_lector">Adquiere Nuestro Lector en:</string>
+    <string name="are_you_want_sell">¿Quieres Vender Tiempo Aire\ny/o Recibir Pagos de Servicios?</string>
+    <string name="no">No</string>
+    <string name="yes">Si</string>
+    <string name="help_us_to_know_your_commerce">Ayúdanos a Conocer\nMejor tu Comercio</string>
+    <string name="commerce_name">Nombre del Comercio</string>
+    <string name="r_social">Razon Social</string>
+    <string name="my_commerce_is">Mi Comercio es…</string>
+    <string name="giro_commerce">Giro del comercio</string>
+    <string name="this_is_optional">Este Dato es Opcional</string>
+    <string name="short_form_and_finish">Favor de Completar este Breve Cuestionario y Habremos Terminado</string>
+    <string name="answer_the_next_form">Contesta el Cuestionario Según\ntu Caso o lo más Apegado</string>
+    <string name="your_sells_exceds">¿Tus Ventas Exceden los\n50,000 00/100 MN al Mes</string>
+    <string name="are_you_gonna_have_transactions">¿Vas a Realizar Más de 100\nTransacciones al Mes?</string>
+    <string name="are_you_sell_differente_type">¿Utilizarás el Servicio para Ventas\nDiferentes a tu Giro?</string>
+    <string name="are_you_or_parent_have_public_charge">¿Tu o Algún Familiar Desempeñan o\nhan Desempeñado Cargos Públicos en\nTerritorio Nacional o Extranjero?</string>
+    <string name="are_you_do_sells_outsite">¿Haces Ventas Fuera de tu\nDomicilio Comercial?</string>
+    <string name="the_benefits_are_for_you">¿Los Beneficios de las Ventas\nson Para ti?</string>
+    <string name="sync_your_phone">Estamos Asociando\ntu Teléfono con tu Cuenta</string>
+    <string name="can_be_late">*Esto Podría Demorar Unos Minutos</string>
+    <string name="register_compleate">¡Registro Completo!</string>
+    <string name="pinpad_template">%1$s%2$s</string>
+    <string name="please_ingress_the_sms_pin">Por Favor, Ingresa el PIN\nque te ha llegado</string>
+    <string name="developed_by">Desarollado Por:</string>
+    <string name="version_app_build">Versión: 1.0 Build: 2.1.1.12</string>
+    <string name="pagatodo_public_url">www.pagatodo.com</string>
+    <string name="if_you_want_change_you_pass">Si Deseas Cambiar tu Contraseña Primero\nIntroduce la Actual</string>
+    <string name="txt_current_pass">Contraseña Actual</string>
+    <string name="txt_new_pass">Nueva Contraseña</string>
+    <string name="txt_leyenda_password">(Tu Contraseña Debe ser al Menos de 8 Caracteres, Incluyendo al Menos una Letra Mayúscula y un Número. No Debe Incluir Tres Caracteres Idénticos en Forma Consecutiva ni Valores Consecutivos)</string>
+    <string name="title_dialogs">Ya Ganaste</string>
+    <string name="accept_alerts">OK</string>
+    <string name="error_message_ingress_pass">Ingresa tu Contraseña Actual</string>
+    <string name="error_message_current_pass">Ingresa tu Nueva Contraseña</string>
+    <string name="error_message_verify_new_pass">Ingresa la Confirmación de la Nueva Contraseña</string>
+    <string name="lorem_ipsum_extended">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas Letraset\", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.\" Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, \"consecteur\", en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de \"de Finnibus Bonorum et Malorum\" (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45 antes de Cristo. Este libro es un tratado de teoría de éticas, muy popular durante el Renacimiento. La primera linea del Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", viene de una linea en la sección 1.10.32  El trozo de texto estándar de Lorem Ipsum usado desde el año 1500 es reproducido debajo para aquellos interesados. Las secciones 1.10.32 y 1.10.33 de \"de Finibus Bonorum et Malorum\" por Cicero son también reproducidas en su forma original exacta, acompañadas por versiones en Inglés de la traducción realizada en 1914 por H. Rackham</string>
+    <string name="txt_felicidades">Felicidades</string>
+    <string name="txt_leyenda_felicidades">Tu aplicación Ya Ganaste Está Preparada Para que Comiences una Nueva Experiencia y Disfrutes de Todos los Beneficios</string>
+    <string name="txt_comenzar">COMENZAR</string>
+    <string name="activate_now">¡ACTÍVALA YA SIN COSTO!</string>
+    <string name="txt_escribe_tu_pass">Ingresa tu Contraseña</string>
+    <string name="txt_login">INGRESAR</string>
+    <string name="recover_pass">Recupera tu Contraseña</string>
+    <string name="ingress_mail_to_recover_pass">Ingresa el Correo Electrónico\ncon el que Registraste tu\nCuenta Ya Ganaste</string>
+    <string name="txt_mail">Correo Electrónico</string>
+    <string name="send">ENVIAR</string>
+    <string name="check_your_mail">Revisa tu Correo Electrónico</string>
+    <string name="txt_escribe_tu_correo">Escribe tu Correo Electrónico</string>
+    <string name="txt_phone">Teléfono</string>
+    <string name="txt_referencia_envio">Referencia De Envío</string>
+    <string name="txt_referencia_servicio">Referencia</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="messages">Mensajes</string>
+    <string name="confirm_pass">Confirma tu Contraseña</string>
+    <string name="txt_ubica">Ubica Los Puntos Donde Puedes Realizar Tus Depósitos YA!</string>
+    <string name="txt_depositar_cuenta">Depositar A Mi Cuenta</string>
+    <string name="txt_ver_mapa">VER MAPA</string>
+    <string name="txt_importe">Importe:</string>
+    <string name="txt_fecha">Fecha:</string>
+    <string name="txt_hora">Hora:</string>
+    <string name="txt_fecha_hora">Fecha y Hora:</string>
+    <string name="txt_concepto">Concepto:</string>
+    <string name="inserta_el_lector_para_ncontinuar">Inserta el Lector Para\nContinuar</string>
+    <string name="finalizar">Finalizar</string>
+    <string name="insert_slide_card">Inserta o desliza la tarjeta</string>
+    <string name="no_internet_access">No Cuentas con Conexión a Internet</string>
+    <string name="something_is_wrong_try_again">Algo Salio mal, Intenta de Nuevo</string>
+    <string name="tag_number">Número de TAG</string>
+    <string name="msgJsonObj">Mensaje</string>
+    <string name="actionJsonObj">CodigoRespuesta</string>
+    <string name="omitir">OMITIR</string>
+    <string name="hi_user_login">Hola %s</string>
+    <string name="we_need_your_files">Necesitamos tus Documentos</string>
+    <string name="omit_files_message">En Caso de no Tener tus Documentos a la Mano, Podrás Continuar con el Registro, Pero Deberás Agregarlos Posteriormente</string>
+    <string name="omit">Omitir</string>
+
+    <!-- Lectura Dongle -->
+    <string name="device_no_response">Lector no Responde, por Favor Vuelva a Conectarlo</string>
+    <string name="device_busy">Lector Ocupado, por Favor Espere</string>
+    <string name="input_invalid">Lectura Incorrecta, Intente de Nuevo.</string>
+    <string name="comm_error">No fue Posible Comunicarse con el Lector, Revise su Entrada de Audio.</string>
+    <string name="registro_automatico">Inserta el Lector Para Registrarlo a su Cuenta</string>
+    <string name="registro_small">Inserta el Lector Para Registrarlo</string>
+    <string name="error_de_lectura">No fue Posible Completar la Operación, iIntenta de Nuevo.</string>
+
+    <string name="cobrar">Cobrar</string>
+    <string name="validatelector">Validando el Lector ...</string>
+    <string name="startpayment">Realizando Pago ...</string>
+    <string name="validatelectorOk">Lector Validado</string>
+    <string name="initlector">Configurando el Lector ...</string>
+    <string name="readcard">Leyendo tarjeta, Espere...</string>
+    <string name="fecha_formater">%1$s/%2$s/%3$s</string>
+    <string name="metodo_transaction">TransactionEmvDepositAccount</string>
+    <string name="rfc">RFC</string>
+    <string name="phone_number">Teléfono del Comercio</string>
+    <string name="title_activity_depositos_maps">Depositos</string>
+    <string name="rfchomoclave">Homoclave</string>
+    <string name="title_activity_plug_card_reader_to_register">PlugCardReaderToRegisterActivity
+    </string>
+    <string name="cuenta_personal">CUENTA PERSONAL</string>
+    <string name="cobros_con_tarjeta">COBROS CON TARJETA</string>
+    <string name="saldo_comercial">SALDO COMERCIAL</string>
+
+    <string name="action_picture">Seleccionar Fotografía</string>
+    <string name="action_take_picture">Abrir Cámara</string>
+    <string name="action_select_picture">Abrir Galería</string>
+    <string name="action_select_picture_cancel">Cancelar</string>
+
+
+</resources>

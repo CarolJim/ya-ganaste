@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "112028682808",
+    "project_id": "api-project-112028682808"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:112028682808:android:f4ada9db08f94a2d",
+        "android_client_info": {
+          "package_name": "com.pagatodo.cocacola"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "112028682808-h0nrguc3tm4nj9mf6shl9kkvpjk04ip0.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.pagatodo.cocacola",
+            "certificate_hash": "A4EADD15B99817EFB63D6E03CF7F0547B4AF6E54"
+          }
+        },
+        {
+          "client_id": "112028682808-i241sj133sjd11e3oh07nf9ge6fitbak.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBuxbt8l1fKXzEoymGFf9iocqgfOODGHL8"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 1
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

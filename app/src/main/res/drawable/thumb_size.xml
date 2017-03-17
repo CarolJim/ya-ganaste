@@ -1,0 +1,20 @@
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item>
+        <shape>
+            <size
+                android:width="90dp"
+                android:height="45dp" />
+
+            <solid android:color="@android:color/transparent" />
+        </shape>
+    </item>
+    <item android:drawable="@drawable/skb_thumb" />
+
+    <item
+        android:width="60dp"
+        android:height="30dp"
+        android:drawable="@drawable/icono_flecha"
+        android:gravity="center" />
+
+</layer-list>
