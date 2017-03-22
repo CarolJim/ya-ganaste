@@ -35,4 +35,8 @@ public abstract class GenericFragment<T> extends Fragment {
         return getClass().getSimpleName();
     };
 
+    /**
+     * Método para inicializar los views del fragment
+     * */
+    public abstract void initViews();
 }

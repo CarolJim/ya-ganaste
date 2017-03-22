@@ -13,6 +13,10 @@ public class ValidarEstatusUsuarioRequest implements Serializable{
     public ValidarEstatusUsuarioRequest() {
     }
 
+    public ValidarEstatusUsuarioRequest(String usuario) {
+        Usuario = usuario;
+    }
+
     public String getUsuario() {
         return Usuario;
     }

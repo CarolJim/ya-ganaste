@@ -42,10 +42,19 @@ public class JsonManager {
         return deepJson;
     }
 
-    public static String madeJsonFromObject(Object oRequest) {
+    public static JSONObject madeJsonFromObject(Object oRequest) {
         Gson gson = new GsonBuilder().setDateFormat("yyyy-MM-dd HH:mm:ss").create();
         String tmp = gson.toJson(oRequest);
-        return tmp;
+
+        JSONObject jsonObject = new JSONObject();
+
+        try {
+            jsonObject = new JSONObject(tmp);
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+        return jsonObject;
 
     }
 

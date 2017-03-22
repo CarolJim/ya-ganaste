@@ -49,14 +49,14 @@ public class WsCaller implements IServiceConsumer {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "Response Success: " + response.toString());
-                        request.getRequestResult().onSuccess(new DataSourceResult(DataSource.WS,UtilsNet.jsonToObject(response.toString(),request.getTypeResponse())));
+                        request.getRequestResult().onSuccess(new DataSourceResult(request.getMethod_name(),DataSource.WS,UtilsNet.jsonToObject(response.toString(),request.getTypeResponse())));
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "Request Failed: " + error.getMessage());
-                        request.getRequestResult().onFailed(new DataSourceResult(DataSource.WS,null));
+                        request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(),DataSource.WS,null));
                     }
                 },request.getHeaders());
 

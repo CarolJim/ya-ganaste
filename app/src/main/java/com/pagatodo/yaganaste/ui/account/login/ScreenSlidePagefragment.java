@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui.login;
+package com.pagatodo.yaganaste.ui.account.login;
 
 import android.content.Context;
 import android.os.Bundle;
@@ -23,6 +23,7 @@ public class ScreenSlidePagefragment extends GenericFragment implements  View.On
     private Context context;
     private ImageView img_background;
     private int idImageResourceBackground;
+    private  View view;
 
 
     public static ScreenSlidePagefragment newInstance(@DrawableRes int idImageResource) {
@@ -49,13 +50,17 @@ public class ScreenSlidePagefragment extends GenericFragment implements  View.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.lyt_viewpager_fragment, container, false);
-        img_background = (ImageView)view.findViewById(R.id.img_pager);
-        img_background.setImageResource(idImageResourceBackground);
+        view = inflater.inflate(R.layout.lyt_viewpager_fragment, container, false);
+
 
         return view;
     }
 
+    @Override
+    public void initViews() {
+        img_background = (ImageView)view.findViewById(R.id.img_pager);
+        img_background.setImageResource(idImageResourceBackground);
+    }
 
     @Override
     public void onClick(View view) {

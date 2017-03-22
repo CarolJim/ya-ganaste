@@ -17,14 +17,15 @@ public class Recursos {
 	//URL DE WS
 	static {
 		if (DEBUG) {
-			URL_SERVER_ADTVO = "http://agentemovildes.pagatodo.com/agentemovil.svc/agMov/";
-			URL_SERVER_TRANS = "http://agentemovildes.pagatodo.com/agentemovil.svc/agMov/";
+			URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
+			URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
 			URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc/agMov/";
 		} else {
-			URL_SERVER_ADTVO = "http://agentemovildes.pagatodo.com/agentemovil.svc/agMov/";
-			URL_SERVER_TRANS = "http://agentemovildes.pagatodo.com/agentemovil.svc/agMov/";
+			URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
+			URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
 			URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc/agMov/";
 		}
+
 	}
 
 	//MAPS

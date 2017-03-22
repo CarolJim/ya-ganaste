@@ -1,17 +1,11 @@
 <resources>
-    <string name="app_name">Ya Ganaste</string>
-    <!--Url's-->
-    <!--UrlProd-->
-    <!--<string name="baseurl">https://wcf.yaganaste.com:8030/ServicioYaGanaste.svc</string>-->
-    <!--Url QA-->
-    <string name="baseurl">http://189.201.137.21:8030/ServicioYaGanaste.svc</string>
-    <string name="baseurlAdministrativa">http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc</string>
-    <string name="baseurlTransaccional">http://189.201.137.21:8032/ServicioYaGanasteTrans.svc</string>
+    <string name="app_name">Ya Ganaste PT</string>
 
     <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">
         AIzaSyCyPrjBMcKrfBLeINIck6TXWoB2JuiYABc
     </string>
 
+    <!--Métodos de WS YaGanaste-->
     <string name="activateMobileServiceUrl">/ActivacionServicioMovil</string>
     <string name="updateAvatarUrl">/ActualizarAvatar</string>
     <string name="updateSessionUrl">/ActualizarInformacionSesion</string>
@@ -44,13 +38,8 @@
     <string name="verifyActivateUrl">/VerificarActivacion</string>
     <string name="getStatusCard">/ObtenerEstatusTarjeta</string>
     <string name="getSucursales">/LocalizarSucursales</string>
-    <!--Url's end-->
 
-    <!--Url's start Adquirente-->
-    <!--baseURL Prod-->
-    <!--<string name="baseUrlAdq">https://agentemovil.pagatodo.com/agentemovil.svc</string>-->
-    <!--baseUrl Desarrollo-->
-    <string name="baseUrlAdq">http://agentemovildes.pagatodo.com/agentemovil.svc</string>
+    <!--Métodos de WS Adquiriente-->
     <string name="adqLogin">/agMov/login</string>
     <string name="adqRegisterDongle">/agMov/register_dongle</string>
     <string name="adqTransactionEmv">/agMov/transactionEmvDepositAccount</string>
@@ -66,7 +55,8 @@
     <string name="adqResumeDay">/agMov/getResumenYG?fecha=</string>
     <string name="adqResumeMonth">/agMov/getResumenMonthYG?fecha=</string>
     <string name="adqGetBalance">/agMov/getSaldo</string>
-    <!---->
+
+    <!--Textos de la Aplicación-->
     <string name="txt_registrate">Registrate</string>
     <string name="txt_inicia_sesion">INICIA TU REGISTRO</string><!--TODO licencia que se tomaron los de QA lo cambio por que esta reportado-->
     <string name="lets_start">Vamos a Comenzar</string>

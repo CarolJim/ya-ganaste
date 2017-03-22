@@ -6,6 +6,8 @@ import org.json.JSONObject;
 
 import java.lang.reflect.Type;
 import java.util.HashMap;
+import java.util.Map;
+
 /**
  * Created on 16/02/2017.
  *
@@ -16,7 +18,7 @@ public class WsRequest {
 
     private int method;
 
-    private HashMap<String,String> headers;
+    private Map<String,String> headers;
 
     private String _url_request;
 
@@ -72,11 +74,11 @@ public class WsRequest {
     }
 
 
-    public HashMap<String, String> getHeaders() {
+    public Map<String, String> getHeaders() {
         return headers;
     }
 
-    public void setHeaders(HashMap<String, String> headers) {
+    public void setHeaders(Map<String, String> headers) {
         this.headers = headers;
     }
 

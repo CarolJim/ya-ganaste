@@ -1,16 +1,12 @@
 package com.pagatodo.yaganaste.net;
 
 import com.android.volley.Request;
-import com.google.gson.Gson;
-import com.google.gson.GsonBuilder;
 import com.pagatodo.yaganaste.interfaces.enums.HttpMethods;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.utils.JsonManager;
-
 import org.json.JSONObject;
-
 import java.lang.reflect.Type;
-import java.util.HashMap;
+import java.util.Map;
 
 import static com.pagatodo.yaganaste.utils.Recursos.TIMEOUT;
 
@@ -36,7 +32,7 @@ public class NetFacade {
      * @param  requestResult {@link IRequestResult} interface para obtener el resultado
      *                                              de la petición.
      */
-    public static void  consumeWS(WebService method_name, HttpMethods method, String urlService, HashMap<String,String> headers, Object oRequest, Type responseType, IRequestResult requestResult){
+    public static void  consumeWS(WebService method_name, HttpMethods method, String urlService, Map<String,String> headers, Object oRequest, Type responseType, IRequestResult requestResult){
 
         WsCaller wsCaller = new WsCaller();
         wsCaller.sendJsonPost(createRequest(method_name, method, urlService,oRequest ,headers,responseType, requestResult));
@@ -59,7 +55,7 @@ public class NetFacade {
      *@return WsRequest petición para el servicio
      */
 
-    public static WsRequest createRequest(WebService method_name, HttpMethods method, String urlService, Object oRequest, HashMap<String,String> headers, Type responseType, IRequestResult requestResult){
+    public static WsRequest createRequest(WebService method_name, HttpMethods method, String urlService, Object oRequest, Map<String,String> headers, Type responseType, IRequestResult requestResult){
 
         if (oRequest == null)
             return null;
@@ -73,7 +69,6 @@ public class NetFacade {
         request.setRequestResult(requestResult);
         request.setTypeResponse(responseType);
         request.setTimeOut(TIMEOUT);
-
         return request;
     }
 
@@ -84,8 +79,7 @@ public class NetFacade {
      */
     private static JSONObject createParams(Object oRequest){
 
-           // JsonManager.madeJson()
-        return  null;
+        return   JsonManager.madeJsonFromObject(oRequest);
 
     }
 
