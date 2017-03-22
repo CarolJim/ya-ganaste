@@ -1,5 +1,9 @@
 package com.pagatodo.yaganaste.net;
 
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
+
+import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.HashMap;
 /**
@@ -16,13 +20,15 @@ public class WsRequest {
 
     private String _url_request;
 
-    private String params;
+    private JSONObject body;
 
     private IRequestResult requestResult;
 
     private int timeOut;
 
     private Type typeResponse;
+
+    private WebService method_name;
 
 
     public int getMethod() {
@@ -41,12 +47,12 @@ public class WsRequest {
         this._url_request = _url_request;
     }
 
-    public String getParams() {
-        return params;
+    public JSONObject getBody() {
+        return body;
     }
 
-    public void setParams(String params) {
-        this.params = params;
+    public void setBody(JSONObject body) {
+        this.body = body;
     }
 
     public IRequestResult getRequestResult() {
@@ -81,5 +87,13 @@ public class WsRequest {
 
     public void setTypeResponse(Type typeResponse) {
         this.typeResponse = typeResponse;
+    }
+
+    public WebService getMethod_name() {
+        return method_name;
+    }
+
+    public void setMethod_name(WebService method_name) {
+        this.method_name = method_name;
     }
 }

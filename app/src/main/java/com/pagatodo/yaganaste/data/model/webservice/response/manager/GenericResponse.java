@@ -1,17 +1,50 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.manager;
 
-import com.pagatodo.yaganaste.data.model.webservice.Respuesta;
-
 import java.io.Serializable;
 
 /**
- * Created by jvazquez on 14/02/2017.
+ * Created by flima on 21/03/2017.
  */
 
 public class GenericResponse implements Serializable {
-    public Respuesta respuesta;
 
-    public GenericResponse(){
-        respuesta = new Respuesta();
+    private int IdOperacion;
+    private int CodigoRespuesta;
+    private int Accion;
+    private String Mensaje = "";
+
+    public GenericResponse() {
+    }
+
+    public int getIdOperacion() {
+        return IdOperacion;
+    }
+
+    public void setIdOperacion(int idOperacion) {
+        IdOperacion = idOperacion;
+    }
+
+    public int getCodigoRespuesta() {
+        return CodigoRespuesta;
+    }
+
+    public void setCodigoRespuesta(int codigoRespuesta) {
+        CodigoRespuesta = codigoRespuesta;
+    }
+
+    public int getAccion() {
+        return Accion;
+    }
+
+    public void setAccion(int accion) {
+        Accion = accion;
+    }
+
+    public String getMensaje() {
+        return Mensaje;
+    }
+
+    public void setMensaje(String mensaje) {
+        Mensaje = mensaje;
     }
 }

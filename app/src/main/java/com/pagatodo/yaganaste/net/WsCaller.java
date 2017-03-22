@@ -40,11 +40,11 @@ public class WsCaller implements IServiceConsumer {
 
         VolleySingleton volleySingleton = VolleySingleton.getInstance(App.getInstance().getApplicationContext());
         Log.d(TAG, "Request Success: " + request.get_url_request());
-        Log.d(TAG, "Params Request: " + request.getParams()!= null ? request.getParams() : "No Params" );
-        JsonObjectRequest jsonRequest =  new JsonObjectRequest(
+        Log.d(TAG, "Body Request: " + request.getBody()!= null ? request.getBody().toString() : "No Body" );
+        CustomJsonObjectRequest jsonRequest =  new CustomJsonObjectRequest(
                 request.getMethod(),
                 request.get_url_request(),
-                request.getParams(),
+                request.getBody(),
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -58,25 +58,7 @@ public class WsCaller implements IServiceConsumer {
                         Log.d(TAG, "Request Failed: " + error.getMessage());
                         request.getRequestResult().onFailed(new DataSourceResult(DataSource.WS,null));
                     }
-                }
-        ){
-            @Override
-            public Map<String, String> getHeaders() throws AuthFailureError {
-                Map<String, String> params = new HashMap<String, String>();
-                params.put("Content-type", "application/json");
-                /*Seteamos headers*/
-                if(request.getHeaders()!=null){
-                    for (Map.Entry<String,String> entry : request.getHeaders().entrySet()) {
-                        String key = entry.getKey();
-                        String value = entry.getValue();
-                        params.put(key, value);
-                        Log.d(TAG, "Header Request: " + String.format("%s:%s",key,value));
-                    }
-                }
-
-                return params;
-            }
-        };
+                },request.getHeaders());
 
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
                 request.getTimeOut(),

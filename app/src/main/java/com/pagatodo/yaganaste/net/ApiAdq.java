@@ -8,5 +8,4 @@ package com.pagatodo.yaganaste.net;
 
 public class ApiAdq {
 
-    private String U
 }

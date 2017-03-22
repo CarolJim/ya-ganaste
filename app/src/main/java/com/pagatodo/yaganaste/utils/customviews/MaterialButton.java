@@ -18,7 +18,6 @@ import android.util.AttributeSet;
 import android.util.TypedValue;
 import android.view.View;
 
-
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.Utils;
