@@ -12,11 +12,10 @@ public class Api {
     public static final Map<String, String> headersYaGanaste;
     static
     {
-        headersYaGanaste = new HashMap<String, String>();
-        headersYaGanaste.put( RequestHeaders.IdDispositivo, "2");
+        headersYaGanaste = new HashMap<>();
+        headersYaGanaste.put(RequestHeaders.IdDispositivo, "2");
         headersYaGanaste.put(RequestHeaders.NombreUsuario, RequestHeaders.getUsername());
         headersYaGanaste.put(RequestHeaders.IdComponente, "1");
-        headersYaGanaste.put(RequestHeaders.IdOperacion, "1");
     }
 
     public static final Map<String, String> headersAdq;

@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class LoginAdqRequest implements Serializable{
+public class LoginAdqRequest extends AdqRequest implements Serializable{
 
     private String user = "";
     private String pass = "";

@@ -29,6 +29,10 @@ public class UsuarioClienteResponse  implements Serializable {
     }
 
 
+    public UsuarioClienteResponse(int idUsuario) {
+        IdUsuario = idUsuario;
+    }
+
     public int getIdUsuario() {
         return IdUsuario;
     }

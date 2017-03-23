@@ -28,7 +28,6 @@ public class App extends MultiDexApplication {
         this.prefs = new Preferencias(this);
         context = this;
         RequestHeaders.initHeaders(this);
-        // Required initialization logic here!
     }
 
     // Called by the system when the device configuration changes while your component is running.

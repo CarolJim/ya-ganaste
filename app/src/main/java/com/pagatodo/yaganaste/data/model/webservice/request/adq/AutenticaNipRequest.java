@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class AutenticaNipRequest implements Serializable{
+public class AutenticaNipRequest extends AdqRequest implements Serializable{
 
     private String nip = "";
 

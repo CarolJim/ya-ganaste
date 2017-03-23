@@ -6,22 +6,22 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class TransaccionesPDSRequest extends AdqRequest implements Serializable{
+public class EnviarTicketCompraRequest extends AdqRequest implements Serializable{
 
-    private DataPago pdsData;
+    private String email;
     private ImplicitData implicitData;
+    private String name = "";
 
-    public TransaccionesPDSRequest() {
-        pdsData = new DataPago();
+    public EnviarTicketCompraRequest() {
         implicitData = new ImplicitData();
     }
 
-    public DataPago getPdsData() {
-        return pdsData;
+    public String getEmail() {
+        return email;
     }
 
-    public void setPdsData(DataPago pdsData) {
-        this.pdsData = pdsData;
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public ImplicitData getImplicitData() {
@@ -30,5 +30,13 @@ public class TransaccionesPDSRequest extends AdqRequest implements Serializable{
 
     public void setImplicitData(ImplicitData implicitData) {
         this.implicitData = implicitData;
+    }
+
+    public String getName() {
+        return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 }

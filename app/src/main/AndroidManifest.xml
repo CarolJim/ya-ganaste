@@ -61,7 +61,7 @@
         </activity>
 
         <activity
-            android:name=".ui._controllers.LoginActivity"
+            android:name=".ui._controllers.AccountActivity"
             android:windowSoftInputMode="adjustPan" />
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

@@ -19,18 +19,20 @@ public class Recursos {
 		if (DEBUG) {
 			URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
 			URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
-			URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc/agMov/";
+			URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc/agMov";
 		} else {
 			URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
 			URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
-			URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc/agMov/";
+			URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc/agMov";
 		}
 
 	}
 
+	/*Estatus Respuesta de Ws YaGanaste*/
+
 	//MAPS
 	public final static int ZoomMap = 16;
-
+	public static final int CODE_OK = 0;
 
 	/*Preferencias de Sesion*/
 	//public static final String DATE_SESION = "DATE_SESION";
@@ -62,6 +64,7 @@ public class Recursos {
 	public static final int RECARGA = 1;
 	public static final int PAGO_DE_SERVICIO = 2;
 	public static final int ENVIO_DE_DINERO = 3;
+
 
 
 

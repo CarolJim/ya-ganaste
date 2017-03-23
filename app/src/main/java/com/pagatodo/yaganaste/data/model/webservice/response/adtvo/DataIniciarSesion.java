@@ -22,6 +22,14 @@ public class DataIniciarSesion implements Serializable{
         Usuario = new UsuarioClienteResponse();
     }
 
+    public DataIniciarSesion(boolean esUsuario,boolean esCliente, boolean esAgente, boolean conCuenta,UsuarioClienteResponse dataUser) {
+        EsUsuario = esUsuario;
+        EsCliente = esCliente;
+        EsAgente = esAgente;
+        ConCuenta = conCuenta;
+        Usuario = dataUser;
+    }
+
     public boolean isEsUsuario() {
         return EsUsuario;
     }

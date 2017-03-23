@@ -10,7 +10,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 
 
-public class MainActivity extends AppCompatActivity {
+public class MainTabActivity extends AppCompatActivity {
     private Preferencias pref;
 
     @Override

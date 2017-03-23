@@ -5,7 +5,7 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.pagatodo.yaganaste.ui._controllers.LoginActivity">
+    tools:context="com.pagatodo.yaganaste.ui._controllers.AccountActivity">
 
     <include
         android:id="@+id/toolbarLy"

@@ -30,13 +30,21 @@
     <string name="searchOfficesUrl">/LocalizarSucursales</string>
     <string name="getCatalogsUrl">/ObtenerCatalogos</string>
     <string name="getNeighborhoodByZipUrl">/ObtenerColoniasPorCP</string>
+    <string name="getDocuments">/ObtenerDocumentos</string>
     <string name="getSMSNumberUrl">/ObtenerNumeroSMS</string>
     <string name="recoverPasswordUrl">/RecuperarContrasena</string>
     <string name="validateStatusTransactionUrl">/ValidarEstatusTransaccion</string>
     <string name="validateStatusUserUrl">/ValidarEstatusUsuario</string>
     <string name="validateFormatPasswordUrl">/ValidarFormatoContrasena</string>
     <string name="verifyActivateUrl">/VerificarActivacion</string>
+    <string name="imageResourceUrl">/RecursoImagen</string>
+    <string name="activateAprovSoftTokenUrl">/ActivacionAprovSofttoken</string>
+    <string name="verifyActivateAprovSoftTokenUrl">/VerificarActivacionAprovSoftoken</string>
+    <string name="initOnlineTransactionUrl">/IniciarTransaccionOnline</string>
+    <string name="getJsonWebTokenUrlUrl">/GetJsonWebTokenUrl</string>
+    <string name="fondearCupoUrl">/FondearCupo</string>
     <string name="getStatusCard">/ObtenerEstatusTarjeta</string>
+    <string name="getBalanceAdqUrl">/ConsultarSaldoADQ</string>
     <string name="getSucursales">/LocalizarSucursales</string>
 
     <!--Métodos de WS Adquiriente-->

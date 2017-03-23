@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class TransaccionEMVDepositRequest implements Serializable{
+public class TransaccionEMVDepositRequest extends AdqRequest implements Serializable{
 
     private String amount = "";
     private EmvData emvData;
