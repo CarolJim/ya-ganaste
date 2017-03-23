@@ -13,6 +13,9 @@ public class DataIniciarSesion implements Serializable{
     private boolean EsAgente;
     private boolean EsAgenteRechazado;
     private boolean ConCuenta;
+    private boolean AsignoNip; // TODO validar, ya que no se encuentra en la documentacion
+    private int EstatusDocumentacion; // TODO validar, ya que no se encuentra en la documentacion
+    private int EstatusAgente; // TODO validar, ya que no se encuentra en la documentacion
     private boolean RequiereActivacionSMS;
     private String Semilla = "";
     private UsuarioClienteResponse Usuario;
@@ -29,6 +32,8 @@ public class DataIniciarSesion implements Serializable{
         ConCuenta = conCuenta;
         Usuario = dataUser;
     }
+
+
 
     public boolean isEsUsuario() {
         return EsUsuario;
@@ -92,5 +97,29 @@ public class DataIniciarSesion implements Serializable{
 
     public void setUsuario(UsuarioClienteResponse usuario) {
         Usuario = usuario;
+    }
+
+    public boolean isAsignoNip() {
+        return AsignoNip;
+    }
+
+    public void setAsignoNip(boolean asignoNip) {
+        AsignoNip = asignoNip;
+    }
+
+    public int getEstatusDocumentacion() {
+        return EstatusDocumentacion;
+    }
+
+    public void setEstatusDocumentacion(int estatusDocumentacion) {
+        EstatusDocumentacion = estatusDocumentacion;
+    }
+
+    public int getEstatusAgente() {
+        return EstatusAgente;
+    }
+
+    public void setEstatusAgente(int estatusAgente) {
+        EstatusAgente = estatusAgente;
     }
 }

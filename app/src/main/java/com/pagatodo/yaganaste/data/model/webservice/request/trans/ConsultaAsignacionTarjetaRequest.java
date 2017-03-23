@@ -12,6 +12,10 @@ public class ConsultaAsignacionTarjetaRequest implements Serializable{
     public ConsultaAsignacionTarjetaRequest() {
     }
 
+    public ConsultaAsignacionTarjetaRequest(String numeroTarjeta) {
+        NumeroTarjeta = numeroTarjeta;
+    }
+
     public String getNumeroTarjeta() {
         return NumeroTarjeta;
     }

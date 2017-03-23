@@ -22,6 +22,8 @@ public class UsuarioClienteResponse  implements Serializable {
     private String NumeroAgente = "";
     private String PetroNumero = "";
     private String ClaveAgente = "";
+    private int TipoAgente;
+
 
 
     public UsuarioClienteResponse() {
@@ -127,5 +129,13 @@ public class UsuarioClienteResponse  implements Serializable {
 
     public void setClaveAgente(String claveAgente) {
         ClaveAgente = claveAgente;
+    }
+
+    public int getTipoAgente() {
+        return TipoAgente;
+    }
+
+    public void setTipoAgente(int tipoAgente) {
+        TipoAgente = tipoAgente;
     }
 }

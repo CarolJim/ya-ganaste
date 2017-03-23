@@ -3,6 +3,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.*;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.*;
+import java.util.Map;
 import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.*;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.*;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
@@ -25,7 +26,7 @@ public class ApiAdtvo extends Api {
     public static void activacionServicioMovil(ActivacionServicioMovilRequest request, IRequestResult result) {
         NetFacade.consumeWS(ACTIVACION_SERVICIO_MOVIL,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.activateMobileServiceUrl),
-                headersYaGanaste,request, ActivacionServicioMovilResponse.class,result);
+                getHeadersYaGanaste(),request, ActivacionServicioMovilResponse.class,result);
     }
 
     /**
@@ -35,9 +36,12 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void actualizarAvatar(ActualizarAvatarRequest request, IRequestResult result) {
+
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(ACTUALIZAR_AVATAR,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.updateAvatarUrl),
-                headersYaGanaste,request, ActualizarAvatarResponse.class,result);
+                headers,request, ActualizarAvatarResponse.class,result);
     }
 
     /**
@@ -47,9 +51,13 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void actualizarInformacionSesion(ActualizarInformacionSesionRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
+
         NetFacade.consumeWS(ACTUALIZAR_INFO_SESION,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.updateSessionUrl),
-                headersYaGanaste,request, ActualizarInformacionSesionResponse.class,result);
+                headers,request, ActualizarInformacionSesionResponse.class,result);
     }
 
     /**
@@ -61,7 +69,7 @@ public class ApiAdtvo extends Api {
     public static void asigarContrasenia(AsignarContraseniaRequest request, IRequestResult result) {
         NetFacade.consumeWS(ASIGNAR_CONTRASENIA,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.assignPaswordUrl),
-                headersYaGanaste,request, AsignarContraseniaResponse.class,result);
+                getHeadersYaGanaste(),request, AsignarContraseniaResponse.class,result);
     }
 
     /**
@@ -71,9 +79,12 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void cambiarContrasenia(CambiarContraseniaRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
         NetFacade.consumeWS(CAMBIAR_CONTRASENIA,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.changePasswordUrl),
-                headersYaGanaste,request, CambiarContraseniaResponse.class,result);
+                headers,request, CambiarContraseniaResponse.class,result);
     }
 
     /**
@@ -83,9 +94,11 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void cargaDocumentos(CargaDocumentosRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(CARGA_DOCUMENTOS,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.uploadDocumentsUrl),
-                headersYaGanaste,request, CargaDocumentosResponse.class,result);
+                headers,request, CargaDocumentosResponse.class,result);
     }
 
     /**
@@ -95,9 +108,11 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void cerrarSesion(CerrarSesionRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(CERRAR_SESION,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.logoutUrl),
-                headersYaGanaste,request, CerrarSesionResponse.class,result);
+                headers,request, CerrarSesionResponse.class,result);
     }
 
     /**
@@ -107,9 +122,11 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void consultarMovimientosMes(ConsultarMovimientosRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(CONSULTAR_MOVIMIENTOS_MES,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getMovementsByMonthUrl),
-                headersYaGanaste,request, ConsultarMovimientosMesResponse.class,result);
+                headers,request, ConsultarMovimientosMesResponse.class,result);
     }
 
     /**
@@ -119,9 +136,12 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void crearAgente(CrearAgenteRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.IdCuenta);
         NetFacade.consumeWS(CREAR_AGENTE,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.createAgentUrl),
-                headersYaGanaste,request, CrearAgenteResponse.class,result);
+                headers,request, CrearAgenteResponse.class,result);
     }
 
     /**
@@ -133,7 +153,7 @@ public class ApiAdtvo extends Api {
     public static void crearUsuarioFWS(CrearUsuarioFWSRequest request, IRequestResult result) {
         NetFacade.consumeWS(CREAR_USUARIO_FWS,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.createUserUrl),
-                headersYaGanaste,request, CrearUsuarioFWSResponse.class,result);
+                getHeadersYaGanaste(),request, CrearUsuarioFWSResponse.class,result);
     }
 
     /**
@@ -143,9 +163,11 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void eliminarAvatar(EliminarAvatarRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(ELIMINAR_AVATAR,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.deleteAvatarUrl),
-                headersYaGanaste,request, EliminarAvatarResponse.class,result);
+                headers,request, EliminarAvatarResponse.class,result);
     }
 
     /**
@@ -155,9 +177,14 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void iniciarSesion(IniciarSesionRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
+        if (!RequestHeaders.getTokenauth().equals(""))
+            headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
+
         NetFacade.consumeWS(INICIAR_SESION,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.loginUrl),
-                headersYaGanaste,request, IniciarSesionResponse.class,result);
+                headers,request, IniciarSesionResponse.class,result);
     }
 
     /**
@@ -169,7 +196,7 @@ public class ApiAdtvo extends Api {
     public static void localizarSucursales(LocalizarSucursalesRequest request, IRequestResult result) {
         NetFacade.consumeWS(LOCALIZAR_SUCURSALES,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getSucursales),
-                headersYaGanaste,request, LocalizarSucursalesResponse.class,result);
+                getHeadersYaGanaste(),request, LocalizarSucursalesResponse.class,result);
     }
 
     /**
@@ -181,7 +208,7 @@ public class ApiAdtvo extends Api {
     public static void obtenerCatalogos(ObtenerCatalogoRequest request, IRequestResult result) {
         NetFacade.consumeWS(OBTENER_CATALOGOS,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getCatalogsUrl),
-                headersYaGanaste,request, ObtenerCatalogosResponse.class,result);
+                getHeadersYaGanaste(),request, ObtenerCatalogosResponse.class,result);
     }
 
     /**
@@ -193,7 +220,7 @@ public class ApiAdtvo extends Api {
     public static void obtenerColoniasPorCP(ObtenerColoniasPorCPRequest request, IRequestResult result) {
         NetFacade.consumeWS(OBTENER_COLONIAS_CP,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getNeighborhoodByZipUrl),
-                headersYaGanaste,request, ObtenerColoniasPorCPResponse.class,result);
+                getHeadersYaGanaste(),request, ObtenerColoniasPorCPResponse.class,result);
     }
 
     /**
@@ -203,9 +230,11 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void obtenerDocumentos(ObtenerDocumentosRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(OBTENER_DOCUMENTOS,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getDocuments),
-                headersYaGanaste,request, ObtenerDocumentosResponse.class,result);
+                headers,request, ObtenerDocumentosResponse.class,result);
     }
 
     /**
@@ -215,9 +244,11 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void obtenerNumeroSMS(ObtenerNumeroSMSRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(OBTENER_NUMERO_SMS,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.getSMSNumberUrl),
-                headersYaGanaste,request, ObtenerNumeroSMSResponse.class,result);
+                headers,request, ObtenerNumeroSMSResponse.class,result);
     }
 
     /**
@@ -227,9 +258,12 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void recuperarContrasenia(RecuperarContraseniaRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
+
         NetFacade.consumeWS(RECUPERAR_CONTRASENIA,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.recoverPasswordUrl),
-                headersYaGanaste,request, RecuperarContraseniaResponse.class,result);
+                headers,request, RecuperarContraseniaResponse.class,result);
     }
 
     /**
@@ -242,7 +276,7 @@ public class ApiAdtvo extends Api {
     public static void validarEstatusUsuario(ValidarEstatusUsuarioRequest request, IRequestResult result) {
         NetFacade.consumeWS(VALIDAR_ESTATUS_USUARIO,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.validateStatusUserUrl),
-                headersYaGanaste,request, ValidarEstatusUsuarioResponse.class,result);
+                getHeadersYaGanaste(),request, ValidarEstatusUsuarioResponse.class,result);
     }
 
     /**
@@ -254,7 +288,7 @@ public class ApiAdtvo extends Api {
     public static void validarFormatoContrasenia(ValidarFormatoContraseniaRequest request, IRequestResult result) {
         NetFacade.consumeWS(VALIDAR_FORMATO_CONTRASENIA,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.validateFormatPasswordUrl),
-                headersYaGanaste,request, ValidarFormatoContraseniaResponse.class,result);
+                getHeadersYaGanaste(),request, ValidarFormatoContraseniaResponse.class,result);
     }
 
     /**
@@ -267,9 +301,12 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void verificarActivacion(VerificarActivacionRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(VERIFICAR_ACTIVACION,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.verifyActivateUrl),
-                headersYaGanaste,request, VerificarActivacionResponse.class,result);
+                headers,request, VerificarActivacionResponse.class,result);
     }
 
     /**
@@ -282,7 +319,7 @@ public class ApiAdtvo extends Api {
     public static void recursoImagen(RecursoImagenRequest request, IRequestResult result) {
         NetFacade.consumeWS(RECURSO_IMAGEN,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.verifyActivateUrl),
-                headersYaGanaste,request, null,result);
+                getHeadersYaGanaste(),request, null,result);
     }
 
     /**
@@ -292,9 +329,12 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void activacionAprovSofttoken(ActivacionAprovSofttokenRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.IdCuenta);
         NetFacade.consumeWS(ACTIVACION_APROV_SOFTTOKEN,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.activateAprovSoftTokenUrl),
-                headersYaGanaste,request, ActivacionAprovSofttokenResponse.class,result);
+                headers,request, ActivacionAprovSofttokenResponse.class,result);
     }
 
     /**
@@ -304,9 +344,12 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void verificarActivacionAprovSofttoken(VerificarActivacionAprovSofttokenRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.IdCuenta);
         NetFacade.consumeWS(VERIFICAR_ACTIVACION_APROV_SOFTTOKEN,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.verifyActivateAprovSoftTokenUrl),
-                headersYaGanaste,request, VerificarActivacionAprovSofttokenResponse.class,result);
+                headers,request, VerificarActivacionAprovSofttokenResponse.class,result);
     }
 
     /**
@@ -317,9 +360,14 @@ public class ApiAdtvo extends Api {
      * */
     /*TODO revisar request de este servicio*/
     public static void iniciarTransaccionOnline(IniciarTransaccionOnlineRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdTransaccionFreja, RequestHeaders.getIdTransaccionFreja());
+        headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
+
         NetFacade.consumeWS(INICIAR_TRANSACCION_ONLINE,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.initOnlineTransactionUrl),
-                headersYaGanaste,request, IniciarTransaccionOnlineResponse.class,result);
+                headers,request, IniciarTransaccionOnlineResponse.class,result);
     }
 
     /**
@@ -330,9 +378,12 @@ public class ApiAdtvo extends Api {
      * */
     /*TODO revisar request de este servicio*/
     public static void getJsonWebTokenUrl(GetJsonWebTokenRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         NetFacade.consumeWS(GET_JSONWEBTOKEN,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getJsonWebTokenUrlUrl),
-                headersYaGanaste,request, GetJsonWebTokenResponse.class,result);
+                headers,request, GetJsonWebTokenResponse.class,result);
     }
 
 }

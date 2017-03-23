@@ -9,22 +9,20 @@ import java.util.Map;
 
 public class Api {
 
-    public static final Map<String, String> headersYaGanaste;
-    static
-    {
-        headersYaGanaste = new HashMap<>();
+    public static Map<String, String> getHeadersYaGanaste(){
+        Map<String, String> headersYaGanaste = new HashMap<>();
         headersYaGanaste.put(RequestHeaders.IdDispositivo, "2");
         headersYaGanaste.put(RequestHeaders.NombreUsuario, RequestHeaders.getUsername());
         headersYaGanaste.put(RequestHeaders.IdComponente, "1");
+        return headersYaGanaste;
     }
 
-    public static final Map<String, String> headersAdq;
-    static
-    {
+    public static Map<String, String> getHeadersAdq(){
+        Map<String, String> headersAdq = new HashMap<>();
         headersAdq = new HashMap<String, String>();
         headersAdq.put("Version", "1.0.7");
         headersAdq.put("SO", "Android");
+        return headersAdq;
     }
-
 
 }

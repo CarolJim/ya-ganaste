@@ -16,6 +16,14 @@ public class RequestHeaders {
     public static String TokenDispositivo = "TokenDispositivo";
     public static String TokenSesion = "TokenSesion";
     public static String IdCuenta = "IdCuenta";
+    public static String TokenCuenta = "TokenCuenta";
+
+    public static String IdTransaccionFreja = "IdTransaccionFreja";
+    public static String TokenFreja = "TokenFreja";
+
+    /*Adq Headers*/
+    public static String IdCuentaAdq = "ID";
+    public static String TokenAdq= "Token";
 
     private static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
@@ -94,4 +102,66 @@ public class RequestHeaders {
         editor.putString(TokenSesion, tokensesion);
         editor.apply();
     }
+
+    public static String getTokenFreja() {
+        return sharedPreferences.getString(TokenFreja, "");
+    }
+
+    public static void setTokenFreja(String tokenFreja) {
+        editor = sharedPreferences.edit();
+        editor.putString(TokenFreja, tokenFreja);
+        editor.apply();
+    }
+
+    public static String getIdTransaccionFreja() {
+        return sharedPreferences.getString(IdTransaccionFreja, "");
+    }
+
+    public static void setIdTransaccionFreja(String transaccionFreja) {
+        editor = sharedPreferences.edit();
+        editor.putString(IdTransaccionFreja, transaccionFreja);
+        editor.apply();
+    }
+
+    public static String getIdCuenta() {
+        return sharedPreferences.getString(IdCuenta, "");
+    }
+
+    public static void setIdCuenta(String idCuenta) {
+        editor = sharedPreferences.edit();
+        editor.putString(IdCuenta, idCuenta);
+        editor.apply();
+    }
+
+
+    public static String getTokenCuenta() {
+        return sharedPreferences.getString(TokenCuenta, "");
+    }
+
+    public static void setTokenCuenta(String tokenCuenta) {
+        editor = sharedPreferences.edit();
+        editor.putString(TokenCuenta, tokenCuenta);
+        editor.apply();
+    }
+
+    public static String getTokenAdq() {
+        return sharedPreferences.getString(TokenAdq, "");
+    }
+
+    public static void setTokenAdq(String tokenAdq) {
+        editor = sharedPreferences.edit();
+        editor.putString(TokenAdq, tokenAdq);
+        editor.apply();
+    }
+
+    public static String getIdCuentaAdq() {
+        return sharedPreferences.getString(IdCuentaAdq, "");
+    }
+
+    public static void setIdCuentaAdq(String idCuentaAdq) {
+        editor = sharedPreferences.edit();
+        editor.putString(IdCuentaAdq, idCuentaAdq);
+        editor.apply();
+    }
+
 }

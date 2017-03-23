@@ -8,17 +8,17 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
 
 public class ObtenerColoniasPorCPResponse extends GenericResponse {
 
-    private DataActualizarAvatar Data;
+    private DataObtenerColoniasPorCP Data;
 
     public ObtenerColoniasPorCPResponse() {
-        Data = new DataActualizarAvatar();
+        Data = new DataObtenerColoniasPorCP();
     }
 
-    public DataActualizarAvatar getData() {
+    public DataObtenerColoniasPorCP getData() {
         return Data;
     }
 
-    public void setData(DataActualizarAvatar data) {
+    public void setData(DataObtenerColoniasPorCP data) {
         Data = data;
     }
 }

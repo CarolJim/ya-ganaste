@@ -22,6 +22,14 @@ public final class ExtraInfoUser {
     private int statusAgent;
     private int tipoAgente;
 
+    public ExtraInfoUser() {
+    }
+
+    public ExtraInfoUser(boolean needSetPin, int statusDocuments, int statusAgent) {
+        this.needSetPin = needSetPin;
+        this.statusDocuments = statusDocuments;
+        this.statusAgent = statusAgent;
+    }
 
     public boolean isNeedSetPin() {
         return needSetPin;

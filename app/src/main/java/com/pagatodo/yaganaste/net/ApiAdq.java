@@ -3,6 +3,9 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.*;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.*;
+
+import java.util.Map;
+
 import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.*;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.*;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADQ;
@@ -25,7 +28,7 @@ public class ApiAdq extends Api {
     public static void loginAdq(LoginAdqRequest request, IRequestResult result) {
         NetFacade.consumeWS(LOGIN_ADQ,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqLogin),
-                headersAdq,request, LoginAdqResponse.class,result);
+                getHeadersAdq(),request, LoginAdqResponse.class,result);
     }
 
     /**
@@ -35,9 +38,13 @@ public class ApiAdq extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void registroDongle(RegistroDongleRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+
         NetFacade.consumeWS(REGISTRO_DONGLE,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqRegisterDongle),
-                headersAdq,request, RegistroDongleResponse.class,result);
+                headers,request, RegistroDongleResponse.class,result);
     }
 
     /**
@@ -47,9 +54,12 @@ public class ApiAdq extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void registraNIP(RegistraNipRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWS(REGISTRA_NIP,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqRegisterNIP),
-                headersAdq,request, RegistraNIPResponse.class,result);
+                headers,request, RegistraNIPResponse.class,result);
     }
 
     /**
@@ -59,9 +69,12 @@ public class ApiAdq extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void consultaSesionAgente(ConsultaSesionAgenteRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWS(CONSULTA_SESION_AGENTE,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetSessionAgente),
-                headersAdq,request, ConsultaSesionAgenteResponse.class,result);
+                headers,request, ConsultaSesionAgenteResponse.class,result);
     }
 
     /**
@@ -73,7 +86,7 @@ public class ApiAdq extends Api {
     public static void registroDeviceData(RegistroDeviceDataRequest request, IRequestResult result) {
         NetFacade.consumeWS(REGISTRO_DEVICE_DATA,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqRegisterDeviceData),
-                headersAdq,request, RegistroDeviceDataResponse.class,result);
+                getHeadersAdq(),request, RegistroDeviceDataResponse.class,result);
     }
 
     /**
@@ -85,7 +98,7 @@ public class ApiAdq extends Api {
     public static void registraNotificacion(RegistraNotificacionRequest request, IRequestResult result) {
         NetFacade.consumeWS(REGISTRA_NOTIFICACION,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqRegisterNotification),
-                headersAdq,request, RegistraNotificacionResponse.class,result);
+                getHeadersAdq(),request, RegistraNotificacionResponse.class,result);
     }
 
     /**
@@ -95,9 +108,13 @@ public class ApiAdq extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void autenticaNIP(AutenticaNipRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+
         NetFacade.consumeWS(AUTENTICA_NIP,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqAuthNIP),
-                headersAdq,request, AutenticaNIPResponse.class,result);
+                headers,request, AutenticaNIPResponse.class,result);
     }
 
     /**
@@ -107,9 +124,13 @@ public class ApiAdq extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void transaccionEMVDeposit(TransaccionEMVDepositRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+
         NetFacade.consumeWS(TRANSACCIONES_EMV_DEPOSIT,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqTransactionEmv),
-                headersAdq,request, TransaccionEMVDepositResponse.class,result);
+                headers,request, TransaccionEMVDepositResponse.class,result);
     }
 
     /**
@@ -119,9 +140,13 @@ public class ApiAdq extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void firmaDeVoucher(FirmaDeVoucherRequest request, IRequestResult result) {
+
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWS(FIRMA_DE_VOUCHER,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqSignatureVaucher),
-                headersAdq,request, FirmaDeVoucherResponse.class,result);
+                headers,request, FirmaDeVoucherResponse.class,result);
     }
 
     /**
@@ -131,9 +156,12 @@ public class ApiAdq extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void enviarTicketCompra(EnviarTicketCompraRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWS(ENVIAR_TICKET_COMPRA,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqSendTicket),
-                headersAdq,request, EnviarTicketCompraResponse.class,result);
+                headers,request, EnviarTicketCompraResponse.class,result);
     }
 
     /**
@@ -143,9 +171,13 @@ public class ApiAdq extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void resumenMovimientosMes(ResumenMovimientosMesRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+
         NetFacade.consumeWS(CONSULTA_MOVIMIENTOS_MES_ADQ,
                 METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqResumeMonth),
-                headersAdq,request, ResumenMovimientosAdqResponse.class,result);
+                headers,request, ResumenMovimientosAdqResponse.class,result);
     }
 
     /**
@@ -155,9 +187,12 @@ public class ApiAdq extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void consultaSaldoCupo(ConsultaSaldoCupoRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWS(CONSULTA_SALDO_CUPO,
                 METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetBalance),
-                headersAdq,request, ConsultaSaldoCupoResponse.class,result);
+                headers,request, ConsultaSaldoCupoResponse.class,result);
     }
 
 }

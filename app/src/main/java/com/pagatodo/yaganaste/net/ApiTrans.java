@@ -4,6 +4,9 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.*;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.*;
+
+import java.util.Map;
+
 import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.*;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.*;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_TRANS;
@@ -23,9 +26,12 @@ public class ApiTrans extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void asignarCuentaDisponible(AsignarCuentaDisponibleRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+
         NetFacade.consumeWS(ASIGNAR_CUENTA_DISPONIBLE,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.assignAccountAvailableUrl),
-                headersYaGanaste,request, AsignarCuentaDisponibleResponse.class,result);
+                headers,request, AsignarCuentaDisponibleResponse.class,result);
     }
 
     /**
@@ -35,9 +41,12 @@ public class ApiTrans extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void asignarNip(AsignarNIPRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         NetFacade.consumeWS(ASIGNAR_NIP,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.assignNIPUrl),
-                headersYaGanaste,request, AsignarNIPResponse.class,result);
+                headers,request, AsignarNIPResponse.class,result);
     }
 
     /**
@@ -49,7 +58,7 @@ public class ApiTrans extends Api {
     public static void asociarTarjetaCuenta(AsociarTarjetaCuentaRequest request, IRequestResult result) {
         NetFacade.consumeWS(ASOCIAR_TARJETA_CUENTA,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.assignCard2AccountUrl),
-                headersYaGanaste,request, AsociarTarjetaCuentaResponse.class,result);
+                getHeadersYaGanaste(),request, AsociarTarjetaCuentaResponse.class,result);
     }
 
     /**
@@ -59,9 +68,12 @@ public class ApiTrans extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void bloquearTemporalmenteTarjeta(BloquearTemporalmenteTarjetaRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         NetFacade.consumeWS(BLOQUEAR_TEMPORALMENTE_TARJETA,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.lockTempCardUrl),
-                headersYaGanaste,request, BloquearTemporalmenteTarjetaResponse.class,result);
+                headers,request, BloquearTemporalmenteTarjetaResponse.class,result);
     }
 
     /**
@@ -73,7 +85,7 @@ public class ApiTrans extends Api {
     public static void consultaAsignacionTarjeta(ConsultaAsignacionTarjetaRequest request, IRequestResult result) {
         NetFacade.consumeWS(CONSULTAR_ASIGNACION_TARJETA,
                 METHOD_GET, URL_SERVER_TRANS + App.getContext().getString(R.string.consultAssignCardUrl),
-                headersYaGanaste,request, ConsultarAsignacionTarjetaResponse.class,result);
+                getHeadersYaGanaste(),request, ConsultarAsignacionTarjetaResponse.class,result);
     }
 
     /**
@@ -83,9 +95,12 @@ public class ApiTrans extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void consultarSaldo(ConsultarSaldoRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
         NetFacade.consumeWS(CONSULTAR_SALDO,
                 METHOD_GET, URL_SERVER_TRANS + App.getContext().getString(R.string.getBalanceUrl),
-                headersYaGanaste,request, ConsultarSaldoResponse.class,result);
+                headers,request, ConsultarSaldoResponse.class,result);
     }
 
     /**
@@ -95,9 +110,11 @@ public class ApiTrans extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void consultarTitularCuenta(ConsultarTitularCuentaRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(CONSULTAR_TITULAR_CUENTA,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.getAccountOwnerUrl),
-                headersYaGanaste,request, ConsultarTitularCuentaResponse.class,result);
+                headers,request, ConsultarTitularCuentaResponse.class,result);
     }
 
     /**
@@ -107,9 +124,11 @@ public class ApiTrans extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void crearCliente(CrearClienteRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(CREAR_CLIENTE,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.createClientUrl),
-                headersYaGanaste,request, CrearClienteResponse.class,result);
+                headers,request, CrearClienteResponse.class,result);
     }
 
     /**
@@ -119,9 +138,15 @@ public class ApiTrans extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void ejecutarTransaccion(EjecutarTransaccionRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdTransaccionFreja, RequestHeaders.getIdTransaccionFreja());
+        headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
+        headers.put(RequestHeaders.TokenCuenta, RequestHeaders.getTokenCuenta());
+
         NetFacade.consumeWS(EJECUTAR_TRANSACCION,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.executeTransactionUrl),
-                headersYaGanaste,request, EjecutarTransaccionResponse.class,result);
+                headers,request, EjecutarTransaccionResponse.class,result);
     }
 
     /**
@@ -132,9 +157,15 @@ public class ApiTrans extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void validarEstatusTransaccion(ValidarTransaccionRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdTransaccionFreja, RequestHeaders.getIdTransaccionFreja());
+        headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
+        headers.put(RequestHeaders.TokenCuenta, RequestHeaders.getTokenCuenta());
+
         NetFacade.consumeWS(VALIDAR_ESTATUS_TRANSACCION,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.validateStatusTransactionUrl),
-                headersYaGanaste,request, ValidarEstatusTransaccionResponse.class,result);
+                headers,request, ValidarEstatusTransaccionResponse.class,result);
     }
 
     /**
@@ -145,9 +176,11 @@ public class ApiTrans extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void fondearCupo(FondearCUPORequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(FONDEAR_CUPO,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.fondearCupoUrl),
-                headersYaGanaste,request, FondearCupoResponse.class,result);
+                headers,request, FondearCupoResponse.class,result);
     }
 
     /**
@@ -157,9 +190,12 @@ public class ApiTrans extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void obtenerEstatusTarjeta(ObtenerEstatusTarjetaRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         NetFacade.consumeWS(OBTENER_ESTATUS_TARJETA,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.getStatusCard),
-                headersYaGanaste,request, ObtenerEstatusTarjetaResponse.class,result);
+                getHeadersYaGanaste(),request, ObtenerEstatusTarjetaResponse.class,result);
     }
 
     /**
@@ -169,8 +205,11 @@ public class ApiTrans extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void consultarSaldoADQ(ConsultarSaldoADQRequest request, IRequestResult result) {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         NetFacade.consumeWS(CONSULTAR_SALDO_ADQ,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.getBalanceAdqUrl),
-                headersYaGanaste,request, ConsultarSaldoADQResponse.class,result);
+                headers,request, ConsultarSaldoADQResponse.class,result);
     }
 }
