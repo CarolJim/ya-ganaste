@@ -1,10 +1,13 @@
 package com.pagatodo.yaganaste.net;
 
 import com.android.volley.Request;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequest;
 import com.pagatodo.yaganaste.interfaces.enums.HttpMethods;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.utils.JsonManager;
+
 import org.json.JSONObject;
+
 import java.lang.reflect.Type;
 import java.util.Map;
 
@@ -79,8 +82,16 @@ public class NetFacade {
      */
     private static JSONObject createParams(Object oRequest){
 
-        return   JsonManager.madeJsonFromObject(oRequest);
+        if(oRequest != null) {
+            JSONObject tmp = JsonManager.madeJsonFromObject(oRequest);
+            if (oRequest instanceof AdqRequest) {
+                return JsonManager.madeJsonAdquirente(tmp);
+            } else {
+                return JsonManager.madeJson(tmp);
+            }
+        }
 
+        return null;
     }
 
     /**

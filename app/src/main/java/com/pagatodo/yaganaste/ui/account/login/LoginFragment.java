@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.UI;
 
 
 /**
@@ -45,7 +46,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        UI.showToast("LoginFragment",getActivity());
     }
 
     @Override

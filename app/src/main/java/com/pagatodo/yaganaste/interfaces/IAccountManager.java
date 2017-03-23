@@ -6,7 +6,7 @@ package com.pagatodo.yaganaste.interfaces;
 
 public interface IAccountManager {
 
-    public void setUserStatus(boolean isUser);
+    public void setUserStatus(String event);
 
 
 }

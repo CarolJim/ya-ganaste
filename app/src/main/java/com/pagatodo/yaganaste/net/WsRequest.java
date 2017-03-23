@@ -5,7 +5,6 @@ import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import org.json.JSONObject;
 
 import java.lang.reflect.Type;
-import java.util.HashMap;
 import java.util.Map;
 
 /**

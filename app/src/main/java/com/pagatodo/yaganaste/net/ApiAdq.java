@@ -1,4 +1,11 @@
 package com.pagatodo.yaganaste.net;
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.*;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.*;
+import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.*;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.*;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADQ;
 
 /**
  * Created by flima on 17/03/2017.
@@ -6,6 +13,151 @@ package com.pagatodo.yaganaste.net;
  * Clase para gestionar el WS de Adquiriente.
  */
 
-public class ApiAdq {
+public class ApiAdq extends Api {
+
+    /**
+     * Verifica que el usuario\contraseña este dado de alta en la plataforma PagaTodo,
+     * además de verificar que la versión del aplicativo coincida con la versión del web service.
+     *
+     * @param request {@link LoginAdqRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void loginAdq(LoginAdqRequest request, IRequestResult result) {
+        NetFacade.consumeWS(LOGIN_ADQ,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqLogin),
+                headersAdq,request, LoginAdqResponse.class,result);
+    }
+
+    /**
+     * Correlaciona un dongle con el usuario.
+     *
+     * @param request {@link RegistroDongleRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void registroDongle(RegistroDongleRequest request, IRequestResult result) {
+        NetFacade.consumeWS(REGISTRO_DONGLE,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqRegisterDongle),
+                headersAdq,request, RegistroDongleResponse.class,result);
+    }
+
+    /**
+     * Registra el NIP del usuario tendrá que digitar antes de enviar una compra.
+     *
+     * @param request {@link RegistraNipRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void registraNIP(RegistraNipRequest request, IRequestResult result) {
+        NetFacade.consumeWS(REGISTRA_NIP,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqRegisterNIP),
+                headersAdq,request, RegistraNIPResponse.class,result);
+    }
+
+    /**
+     * Consulta el estado de la sesión del agente.
+     *
+     * @param request {@link ConsultaSesionAgenteRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void consultaSesionAgente(ConsultaSesionAgenteRequest request, IRequestResult result) {
+        NetFacade.consumeWS(CONSULTA_SESION_AGENTE,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetSessionAgente),
+                headersAdq,request, ConsultaSesionAgenteResponse.class,result);
+    }
+
+    /**
+     * Registra los datos relacionados con el dispositivo.
+     *
+     * @param request {@link RegistroDeviceDataRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void registroDeviceData(RegistroDeviceDataRequest request, IRequestResult result) {
+        NetFacade.consumeWS(REGISTRO_DEVICE_DATA,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqRegisterDeviceData),
+                headersAdq,request, RegistroDeviceDataResponse.class,result);
+    }
+
+    /**
+     * Registra una notificación.
+     *
+     * @param request {@link RegistraNotificacionRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void registraNotificacion(RegistraNotificacionRequest request, IRequestResult result) {
+        NetFacade.consumeWS(REGISTRA_NOTIFICACION,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqRegisterNotification),
+                headersAdq,request, RegistraNotificacionResponse.class,result);
+    }
+
+    /**
+     * Verifica que el Nip enviado sea valido.
+     *
+     * @param request {@link AutenticaNipRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void autenticaNIP(AutenticaNipRequest request, IRequestResult result) {
+        NetFacade.consumeWS(AUTENTICA_NIP,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqAuthNIP),
+                headersAdq,request, AutenticaNIPResponse.class,result);
+    }
+
+    /**
+     * Recibe un pago con tarjeta.
+     *
+     * @param request {@link TransaccionEMVDepositRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void transaccionEMVDeposit(TransaccionEMVDepositRequest request, IRequestResult result) {
+        NetFacade.consumeWS(TRANSACCIONES_EMV_DEPOSIT,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqTransactionEmv),
+                headersAdq,request, TransaccionEMVDepositResponse.class,result);
+    }
+
+    /**
+     * Guarda la información referente a la firma del voucher.
+     *
+     * @param request {@link FirmaDeVoucherRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void firmaDeVoucher(FirmaDeVoucherRequest request, IRequestResult result) {
+        NetFacade.consumeWS(FIRMA_DE_VOUCHER,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqSignatureVaucher),
+                headersAdq,request, FirmaDeVoucherResponse.class,result);
+    }
+
+    /**
+     * Envía el ticket de compra.
+     *
+     * @param request {@link EnviarTicketCompraRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void enviarTicketCompra(EnviarTicketCompraRequest request, IRequestResult result) {
+        NetFacade.consumeWS(ENVIAR_TICKET_COMPRA,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqSendTicket),
+                headersAdq,request, EnviarTicketCompraResponse.class,result);
+    }
+
+    /**
+     * Resumen de movimientos por día.
+     *
+     * @param request {@link ResumenMovimientosMesRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void resumenMovimientosMes(ResumenMovimientosMesRequest request, IRequestResult result) {
+        NetFacade.consumeWS(CONSULTA_MOVIMIENTOS_MES_ADQ,
+                METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqResumeMonth),
+                headersAdq,request, ResumenMovimientosAdqResponse.class,result);
+    }
+
+    /**
+     * Resumen de movimientos por día.
+     *
+     * @param request {@link ConsultaSaldoCupoRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void consultaSaldoCupo(ConsultaSaldoCupoRequest request, IRequestResult result) {
+        NetFacade.consumeWS(CONSULTA_SALDO_CUPO,
+                METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetBalance),
+                headersAdq,request, ConsultaSaldoCupoResponse.class,result);
+    }
 
 }
