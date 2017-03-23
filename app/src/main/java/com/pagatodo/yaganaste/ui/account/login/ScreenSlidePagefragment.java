@@ -11,7 +11,6 @@ import android.widget.ImageView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
-import static com.facebook.FacebookSdk.getApplicationContext;
 
 /**
  * Created by mariofernandezbermudez on 02/02/17.
@@ -38,7 +37,7 @@ public class ScreenSlidePagefragment extends GenericFragment implements  View.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setRetainInstance(true);
-        context = getApplicationContext();
+        context = getContext();
 
         if (getArguments() != null) {
             Bundle arg = getArguments();

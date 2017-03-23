@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.utils.customviews;
 
 import android.content.Context;
 import android.graphics.Typeface;
+import android.os.Build;
+import android.support.annotation.RequiresApi;
 import android.util.AttributeSet;
 
 import com.pagatodo.yaganaste.utils.FontCache;
@@ -14,10 +16,12 @@ public class StyleButton extends MaterialButton {
 
     public static final String ANDROID_SCHEMA = "http://schemas.android.com/apk/res/android";
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public StyleButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public StyleButton(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
@@ -26,7 +30,7 @@ public class StyleButton extends MaterialButton {
     protected void applyCustomFont(Context context) {
 //        super.applyCustomFont(context);
 
-        Typeface customFont = FontCache.getTypeface("fonts/Gotham/Gotham-Medium.ttf", context);
+        Typeface customFont = FontCache.getTypeface("fonts/Gotham/Gotham-Medium.otf", context);
         setTypeface(customFont);
     }
 /*

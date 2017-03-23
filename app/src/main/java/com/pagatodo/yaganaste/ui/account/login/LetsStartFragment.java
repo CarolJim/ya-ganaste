@@ -8,6 +8,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
+
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IAccountValidation;
 import com.pagatodo.yaganaste.net.UtilsNet;
@@ -20,10 +21,11 @@ import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class LetsStartFragment extends GenericFragment implements View.OnClickListener,IAccountValidation {
+public class LetsStartFragment extends GenericFragment implements View.OnClickListener, IAccountValidation {
 
     public final static String EVENT_GET_CARD = "GO_GET_CARD";
     public final static String EVENT_LOGIN = "GO_LOGIN";
@@ -92,7 +94,7 @@ public class LetsStartFragment extends GenericFragment implements View.OnClickLi
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
 
             case R.id.btnLetsStartNext:
 
@@ -105,7 +107,7 @@ public class LetsStartFragment extends GenericFragment implements View.OnClickLi
         }
     }
 
-    private void validarUsuario(){
+    private void validarUsuario() {
         if (!edtUserEmail.getText().toString().replaceAll("\\s", "").isEmpty()) {
             if (Validations.isMail(edtUserEmail)) {
                 if (UtilsNet.isOnline(getActivity())) {
@@ -114,18 +116,18 @@ public class LetsStartFragment extends GenericFragment implements View.OnClickLi
                     Toast.makeText(getActivity(), R.string.no_internet_access, Toast.LENGTH_SHORT).show();
                 }
             } else {
-                Toast.makeText(getActivity(),"El Correo no es Válido", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getActivity(), "El Correo no es Válido", Toast.LENGTH_SHORT).show();
             }
         } else {
             edtUserEmail.setText("");
-            Toast.makeText(getActivity(),"Introduce un Correo Válido (*)", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getActivity(), "Introduce un Correo Válido (*)", Toast.LENGTH_SHORT).show();
         }
     }
 
     @Override
     public void eventTypeUser(String event) {
 
-        onEventListener.onEvent(event,null);
+        onEventListener.onEvent(event, null);
 
     }
 }

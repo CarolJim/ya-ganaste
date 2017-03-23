@@ -62,7 +62,7 @@ public class GetCardFragment extends GenericFragment implements View.OnClickList
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootview = inflater.inflate(R.layout.fragment_login, container, false);
+        rootview = inflater.inflate(R.layout.fragment_get_card, container, false);
         initViews();
         return rootview;
     }

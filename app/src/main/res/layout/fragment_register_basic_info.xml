@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lets_start"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui._controllers.LoginActivity">
+
+    <include
+        android:id="@+id/toolbarLy"
+        layout="@layout/toolbar" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtLetsStartTitle"
+        style="@style/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbarLy"
+        app:tipo="Descripcion"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/lets_start_basic_info" />
+
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtRegisterBasicMail"
+        style="@style/textSubTitle"
+        app:tipo="InputTextDescription"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtLetsStartTitle"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:text="@string/example_mail" />
+
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:layout_below="@+id/txtRegisterBasicMail">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
+            android:id="@+id/edtxtRegisterBasicName"
+            style="@style/InputTextForms"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:inputType="text"
+            android:maxLength="30" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txtRegisterBasicNameDesc"
+            style="@style/textDescInputs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtxtRegisterBasicName"
+            app:tipo="Indicacion"
+            android:text="@string/write_your_name" />
+
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

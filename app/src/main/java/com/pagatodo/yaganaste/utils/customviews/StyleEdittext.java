@@ -99,7 +99,7 @@ public class StyleEdittext extends AppCompatEditText {
     private void customFont(Context context, AttributeSet attrs) {
         int textStyle = attrs.getAttributeIntValue(ANDROID_SCHEMA, "textStyle", 0);
 
-        Typeface customFont = FontCache.getTypeface("fonts/Gotham/Gotham-Medium.ttf", context);
+        Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
         setTypeface(customFont);
     }
 
@@ -107,14 +107,14 @@ public class StyleEdittext extends AppCompatEditText {
 
         switch (textStyle) {
             case 1: // bold
-                return FontCache.getTypeface("fonts/Roboto-Bold.ttf", context);
+                return FontCache.getTypeface("fonts/roboto/Roboto-Bold.ttf", context);
 
             case 2: // italic
-                return FontCache.getTypeface("fonts/Roboto-Italic.ttf", context);
+                return FontCache.getTypeface("fonts/roboto/Roboto-LightItalic.ttf", context);
 
             case 0: // regular
             default:
-                return FontCache.getTypeface("fonts/Roboto-Regular.ttf", context);
+                return FontCache.getTypeface("fonts/roboto/Roboto-Thin.ttf", context);
         }
     }
 

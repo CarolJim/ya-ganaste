@@ -38,23 +38,29 @@ public class StyleTextView extends AppCompatTextView {
     }
 
     private void applyFont(Context context) {
-        Typeface customFont = FontCache.getTypeface("fonts/Gotham/Gotham-Medium.ttf", context);
+        Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Regular.ttf", context);
         if(type != null){
             switch (type){
                 case TITULO:
-                    customFont = FontCache.getTypeface("fonts/Gotham/Gotham-Bold.ttf", context);
+                    customFont = FontCache.getTypeface("fonts/roboto/Roboto-Bold.ttf", context);
                     break;
                 case SUBTITULO:
-                    customFont = FontCache.getTypeface("fonts/Gotham/Gotham-Medium.ttf", context);
+                    customFont = FontCache.getTypeface("fonts/roboto/Roboto-Medium.ttf", context);
                     break;
                 case DESCRIPCION:
-                    customFont = FontCache.getTypeface("fonts/Gotham/Gotham-Book.ttf", context);
+                    customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
                     break;
                 case INDICACION:
-                    customFont = FontCache.getTypeface("fonts/Gotham/Gotham-Light.ttf", context);
+                    customFont = FontCache.getTypeface("fonts/roboto/Roboto-Thin.ttf", context);
                     break;
                 case TEXTO:
-                    customFont = FontCache.getTypeface("fonts/Gotham/Gotham-Medium.ttf", context);
+                    customFont = FontCache.getTypeface("fonts/roboto/Roboto-Regular.ttf", context);
+                    break;
+                case INPUTTEXT:
+                    customFont = FontCache.getTypeface("fonts/roboto/Roboto-Medium.ttf", context);
+                    break;
+                case INPUTDESCRIPTION:
+                    customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
                     break;
             }
         }
@@ -80,10 +86,16 @@ public class StyleTextView extends AppCompatTextView {
                 case "4":
                     type = TYPE.TEXTO;
                     break;
+                case "5":
+                    type = TYPE.INPUTTEXT;
+                    break;
+                case "6":
+                    type = TYPE.INPUTDESCRIPTION;
+                    break;
             }
         }
         a.recycle();
     }
-    enum TYPE {TITULO, SUBTITULO, DESCRIPCION, INDICACION, TEXTO}
+    enum TYPE {TITULO, SUBTITULO, DESCRIPCION, INDICACION, TEXTO, INPUTTEXT, INPUTDESCRIPTION}
 
 }

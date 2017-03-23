@@ -5,7 +5,7 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui._controllers.LoginActivity">
+    tools:context="com.pagatodo.yaganaste.ui._controllers.LoginActivity">
 
     <include
         android:id="@+id/toolbarLy"
@@ -18,34 +18,45 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbarLy"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:text="@string/lets_start" />
+        android:text="@string/ingress_your_data_card" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-        android:id="@+id/edtxtLetsStartMail"
+        android:id="@+id/edtxtGetCard"
+        style="@style/InputTextForms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtLetsStartTitle"
-        style="@style/InputTextForms"
-        android:inputType="textEmailAddress"
-        android:maxLength="50" />
+        android:inputType="number"
+        android:maxLength="16" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtLetsStartMailDesc"
         style="@style/textDescInputs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/edtxtLetsStartMail"
-        android:text="@string/ingress_your_mail" />
+        android:layout_below="@+id/edtxtGetCard"
+        android:text="@string/card_number" />
+
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
-        android:id="@+id/btnLetsStartNext"
+        android:id="@+id/btnNoCard"
+        style="@style/buttonRoundedBlue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnGetCardNext"
+        android:layout_marginBottom="@dimen/btn_margin_bottom"
+        android:text="@string/not_have_card"
+        app:cornerRadius="@dimen/btn_corner_radius" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btnGetCardNext"
         style="@style/buttonRoundedBlue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
-        app:cornerRadius="@dimen/btn_corner_radius"
-        android:text="@string/next" />
+        android:text="@string/next"
+        app:cornerRadius="@dimen/btn_corner_radius" />
 
 
 </RelativeLayout>

@@ -6,4 +6,7 @@
     <dimen name="dimen_margin_pinpad">45dp</dimen>
     <dimen name="thumb_off_set">15dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
+
+    <dimen name="btn_margin_bottom">20dp</dimen>
+    <dimen name="btn_corner_radius">24dp</dimen>
 </resources>

@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.login.LetsStartFragment;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.register.GetCardFragment;
+import com.pagatodo.yaganaste.ui.account.register.RegisterBasicInfoFragment;
 
 import static com.pagatodo.yaganaste.ui.account.login.LetsStartFragment.EVENT_GET_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.LetsStartFragment.EVENT_LOGIN;
@@ -29,7 +30,8 @@ public class LoginActivity extends SupportFragmentActivity implements OnEventLis
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_activity);
-        loadFragment(LetsStartFragment.newInstance(), DIRECTION.FORDWARD, true);
+        //loadFragment(LetsStartFragment.newInstance(), DIRECTION.FORDWARD, true);
+        loadFragment(RegisterBasicInfoFragment.newInstance(), DIRECTION.FORDWARD, true);
         pref = App.getInstance().getPrefs();
     }
 

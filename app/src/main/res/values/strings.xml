@@ -60,6 +60,7 @@
     <string name="txt_registrate">Registrate</string>
     <string name="txt_inicia_sesion">INICIA TU REGISTRO</string><!--TODO licencia que se tomaron los de QA lo cambio por que esta reportado-->
     <string name="lets_start">Vamos a Comenzar</string>
+    <string name="lets_start_basic_info">Vamos a Comenzar tu Registro en Ya Ganaste</string>
     <string name="ingress_your_mail">Ingresa tu Correo Electrónico</string>
     <string name="next">CONTINUAR</string>
     <string name="ingress_your_data_card">Ingresa los Datos de tu Tarjeta</string>
@@ -143,6 +144,7 @@
     <string name="txt_phone">Teléfono</string>
     <string name="txt_referencia_envio">Referencia De Envío</string>
     <string name="txt_referencia_servicio">Referencia</string>
+
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
