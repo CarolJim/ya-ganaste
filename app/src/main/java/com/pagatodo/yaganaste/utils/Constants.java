@@ -11,5 +11,4 @@ public class Constants {
     public static final int PERMISSION_CAMERA_RESQUEST = 112;
     public static final int PERMISSION_LOCATION_RESQUEST = 113;
 
-
 }

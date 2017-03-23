@@ -1,0 +1,11 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.pagatodo.yaganaste.utils.customviews.StyleTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/textView_spinner"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:padding="7dp"
+    app:tipo="Titulo">
+
+</com.pagatodo.yaganaste.utils.customviews.StyleTextView>

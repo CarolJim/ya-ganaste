@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.utils;
 /**
  * Created by flima on 23/02/2017.
  */
+
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
@@ -10,12 +11,15 @@ import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
+
 /**
  * Created by Fausto on 6/29/16.
  */
 public class DateUtil {
 
-    public static DatePickerDialog getMaterialDatePicker(DatePickerDialog.OnDateSetListener callback){
+    public static String simpleDateFormat = "yyyy/MM/dd";
+
+    public static DatePickerDialog getMaterialDatePicker(DatePickerDialog.OnDateSetListener callback) {
         Calendar now = Calendar.getInstance();
         DatePickerDialog dpd = DatePickerDialog.newInstance(
                 callback,
@@ -27,7 +31,7 @@ public class DateUtil {
         return dpd;
     }
 
-    public static TimePickerDialog getMaterialTimePicker(TimePickerDialog.OnTimeSetListener callback){
+    public static TimePickerDialog getMaterialTimePicker(TimePickerDialog.OnTimeSetListener callback) {
         Calendar now = Calendar.getInstance();
         TimePickerDialog tpd = TimePickerDialog.newInstance(
                 callback,
@@ -39,25 +43,24 @@ public class DateUtil {
         return tpd;
     }
 
-    public static String formatDate(int dayOfMonth,int monthOfYear,int year){
+    public static String formatDate(int dayOfMonth, int monthOfYear, int year) {
 
-        String day ="";
-        String month ="";
+        String day = "";
+        String month = "";
         int iMonth = ++monthOfYear;
-        if(dayOfMonth < 10){
-            day = String.format("0%s",dayOfMonth);
-        }
-        else{
-            day= String.format("%s",dayOfMonth);
-        }
-
-        if( iMonth < 10){
-            month = String.format("0%s",iMonth);
-        }else{
-            month= String.format("%s",iMonth);
+        if (dayOfMonth < 10) {
+            day = String.format("0%s", dayOfMonth);
+        } else {
+            day = String.format("%s", dayOfMonth);
         }
 
-        String date = String.format("%s/%s/%s",day,month, year);
+        if (iMonth < 10) {
+            month = String.format("0%s", iMonth);
+        } else {
+            month = String.format("%s", iMonth);
+        }
+
+        String date = String.format("%s/%s/%s", day, month, year);
 
         return date;
 
@@ -69,7 +72,7 @@ public class DateUtil {
         return cal;
     }
 
-    public static Calendar getCalendarYearsAgo(int yearsAgo){
+    public static Calendar getCalendarYearsAgo(int yearsAgo) {
         Calendar c = Calendar.getInstance();
 
         c.set(c.get(Calendar.YEAR) - yearsAgo, c.get(Calendar.MONTH),
@@ -96,7 +99,7 @@ public class DateUtil {
 
             date = sdf.parse(dateAsString);
 
-        }catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -104,6 +107,10 @@ public class DateUtil {
     }
 
 
-
+    public static String getBirthDateString(Calendar date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormat, Locale.US);
+        String result = dateFormat.format(date.getTime());
+        return result;
+    }
 
 }

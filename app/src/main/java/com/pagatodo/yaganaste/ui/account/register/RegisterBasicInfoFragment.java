@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -15,7 +16,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class RegisterBasicInfoFragment extends GenericFragment implements View.OnClickListener{
+public class RegisterBasicInfoFragment extends GenericFragment implements View.OnClickListener {
 
     private View rootview;
 
@@ -44,6 +45,7 @@ public class RegisterBasicInfoFragment extends GenericFragment implements View.O
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
 
     }
 
@@ -74,7 +76,7 @@ public class RegisterBasicInfoFragment extends GenericFragment implements View.O
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
 
             default:
                 break;

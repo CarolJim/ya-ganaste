@@ -5,6 +5,8 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".ui._controllers.AccountActivity">
 
     <include
@@ -22,10 +24,10 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
         android:id="@+id/edtxtLetsStartMail"
+        style="@style/InputTextForms"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtLetsStartTitle"
-        style="@style/InputTextForms"
         android:inputType="textEmailAddress"
         android:maxLength="50" />
 
@@ -44,8 +46,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
-        app:cornerRadius="@dimen/btn_corner_radius"
-        android:text="@string/next" />
+        android:text="@string/next"
+        app:cornerRadius="@dimen/btn_corner_radius" />
 
 
 </RelativeLayout>

@@ -1,0 +1,68 @@
+package com.pagatodo.yaganaste.ui._adapters;
+
+import android.app.Activity;
+import android.content.Context;
+import android.support.annotation.LayoutRes;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
+import android.widget.TextView;
+
+import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
+
+/**
+ * Created by Jordan on 23/03/2017.
+ */
+
+public class EnumSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
+    Context mContext;
+    int mLayoutResourceId;
+    IEnumSpinner[] mItems;
+
+    public EnumSpinnerAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull IEnumSpinner[] objects) {
+        super(context, resource, objects);
+        this.mLayoutResourceId = resource;
+        this.mContext = context;
+        this.mItems = objects;
+    }
+
+    @NonNull
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+        View row = convertView;
+        Holder holder;
+
+        if (row == null) {
+            LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
+            row = inflater.inflate(mLayoutResourceId, parent, false);
+
+            holder = new Holder();
+            holder.txtTitle = (TextView) row.findViewById(R.id.textView_spinner);
+
+            row.setTag(holder);
+        } else {
+            holder = (Holder) row.getTag();
+        }
+
+        IEnumSpinner item = mItems[position];
+        holder.txtTitle.setText(item.getName());
+        return row;
+    }
+
+    @Override
+    public long getItemId(int position) {
+        return super.getItemId(position);
+    }
+
+    public String getItemIdString(int position){
+        return mItems[position].getId();
+    }
+
+    static class Holder {
+        TextView txtTitle;
+    }
+}
