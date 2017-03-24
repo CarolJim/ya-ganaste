@@ -8,9 +8,16 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -19,6 +26,23 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 public class RegisterBasicInfoFragment extends GenericFragment implements View.OnClickListener {
 
     private View rootview;
+    @BindView(R.id.edtxtRegisterBasicName)
+    StyleEdittext edtxtRegisterBasicName;
+    @BindView(R.id.edtxtRegisterBasicLastName)
+    StyleEdittext edtxtRegisterBasicLastName;
+    @BindView(R.id.edtxtRegisterBasicSecondLastName)
+    StyleEdittext edtxtRegisterBasicSecondLastName;
+    @BindView(R.id.edtxtRegisterBasicPass)
+    StyleEdittext edtxtRegisterBasicPass;
+    @BindView(R.id.txtRegisterBasicPassMessage)
+    StyleTextView txtRegisterBasicPassMessage;
+    @BindView(R.id.btnRegisterBasicNext)
+    StyleButton btnRegisterBasicNext;
+    @BindView(R.id.txtRegisterBasicMail)
+    StyleTextView txtRegisterBasicMail;
+    @BindView(R.id.imgRegisterBasicPass)
+    ImageView imgRegisterBasicPass;
+
 
     public RegisterBasicInfoFragment() {
     }
@@ -71,7 +95,8 @@ public class RegisterBasicInfoFragment extends GenericFragment implements View.O
 
     @Override
     public void initViews() {
-
+        ButterKnife.bind(this, rootview);
+        btnRegisterBasicNext.setOnClickListener(this);
     }
 
     @Override

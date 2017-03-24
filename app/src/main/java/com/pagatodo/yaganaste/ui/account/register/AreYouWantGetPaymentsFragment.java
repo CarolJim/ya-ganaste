@@ -10,6 +10,10 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -18,6 +22,11 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 public class AreYouWantGetPaymentsFragment extends GenericFragment implements View.OnClickListener{
 
     private View rootview;
+
+    @BindView(R.id.btnWantPaymentsCardYes)
+    StyleButton btnWantPaymentsCardYes;
+    @BindView(R.id.btnWantPaymentsCardNo)
+    StyleButton btnWantPaymentsCardNo;
 
     public AreYouWantGetPaymentsFragment() {
     }
@@ -62,20 +71,27 @@ public class AreYouWantGetPaymentsFragment extends GenericFragment implements Vi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootview = inflater.inflate(R.layout.fragment_login, container, false);
+        rootview = inflater.inflate(R.layout.fragment_are_you_want_get_payments_card, container, false);
         initViews();
         return rootview;
     }
 
     @Override
     public void initViews() {
-
+        ButterKnife.bind(this, rootview);
+        btnWantPaymentsCardNo.setOnClickListener(this);
+        btnWantPaymentsCardYes.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.btnWantPaymentsCardNo:
 
+                break;
+            case R.id.btnWantPaymentsCardYes:
+
+                break;
             default:
                 break;
         }

@@ -11,6 +11,13 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 
 /**
@@ -19,6 +26,17 @@ import com.pagatodo.yaganaste.utils.UI;
 public class LoginFragment extends GenericFragment implements View.OnClickListener{
 
     private View rootview;
+
+    @BindView(R.id.edtxtLoginExistUserWritePass)
+    StyleEdittext edtxtPassword;
+    @BindView(R.id.btnLoginExistUser)
+    StyleButton btnLogin;
+    @BindView(R.id.imgLoginExistProfile)
+    CircleImageView imgLoginExistProfile;
+    @BindView(R.id.txtLoginExistBalanceUsername)
+    StyleButton txtLoginExistBalanceUsername;
+    @BindView(R.id.txtLoginExistUserRecoverPass)
+    StyleTextView txtLoginExistUserRecoverPass;
 
     public LoginFragment() {
         // Required empty public constructor
@@ -71,13 +89,20 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void initViews() {
-
+        ButterKnife.bind(this, rootview);
+        btnLogin.setOnClickListener(this);
+        txtLoginExistUserRecoverPass.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.btnLoginExistUser:
 
+                break;
+            case R.id.txtLoginExistUserRecoverPass:
+
+                break;
             default:
                 break;
         }

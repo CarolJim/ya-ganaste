@@ -10,6 +10,11 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
@@ -18,6 +23,12 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 public class AreYouHaveCardReaderFragment extends GenericFragment implements View.OnClickListener{
 
     private View rootview;
+    @BindView(R.id.btnHaveReaderIHaveIt)
+    StyleButton btnHaveReaderIHaveIt;
+    @BindView(R.id.btnHaveReaderIdontHave)
+    StyleButton btnHaveReaderIdontHave;
+    @BindView(R.id.txtHaveCardReaderWhereBuy)
+    StyleTextView txtHaveCardReaderWhereBuy;
 
     public AreYouHaveCardReaderFragment() {
     }
@@ -62,20 +73,27 @@ public class AreYouHaveCardReaderFragment extends GenericFragment implements Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootview = inflater.inflate(R.layout.fragment_login, container, false);
+        rootview = inflater.inflate(R.layout.fragment_are_you_have_card_reader, container, false);
         initViews();
         return rootview;
     }
 
     @Override
     public void initViews() {
-
+        ButterKnife.bind(this, rootview);
+        btnHaveReaderIHaveIt.setOnClickListener(this);
+        btnHaveReaderIdontHave.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.btnHaveReaderIHaveIt:
 
+                break;
+            case R.id.btnHaveReaderIdontHave:
+
+                break;
             default:
                 break;
         }

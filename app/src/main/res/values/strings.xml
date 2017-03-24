@@ -110,6 +110,7 @@
     <string name="r_social">Razon Social</string>
     <string name="my_commerce_is">Mi Comercio es…</string>
     <string name="giro_commerce">Giro del comercio</string>
+    <string name="subgiro_commerce">SubGiro del comercio</string>
     <string name="this_is_optional">Este Dato es Opcional</string>
     <string name="short_form_and_finish">Favor de Completar este Breve Cuestionario y Habremos Terminado</string>
     <string name="answer_the_next_form">Contesta el Cuestionario Según\ntu Caso o lo más Apegado</string>

@@ -19,8 +19,15 @@ import android.util.DisplayMetrics;
 import android.util.Patterns;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.GiroComercio;
+
+import org.json.JSONArray;
+import org.json.JSONException;
+import org.json.JSONObject;
 
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
@@ -43,12 +50,16 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.List;
 import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+import java.lang.reflect.Type;
+
 
 @SuppressLint("SimpleDateFormat")
 public class Utils {
@@ -195,7 +206,7 @@ public class Utils {
     }
 
     //TAG: TELEFONO
-    public static boolean parserTelefono(String phone){
+    public static boolean parserTelefono(String phone) {
         boolean result = false;
 
 
@@ -470,7 +481,6 @@ public class Utils {
     }
 
 
-
     @SuppressLint("DefaultLocale")
     public static String Bytes2HexString(byte[] b) {
         String ret = "";
@@ -606,7 +616,6 @@ public class Utils {
     }
 
 
-
     public static String segmentofinal(String segmentofinal, String operacion) {
         String cadena = "";
         String res;
@@ -732,7 +741,6 @@ public class Utils {
     }
 
 
-
     public static String formatFecha(Activity context, String fecha) {
         String[] meses = context.getResources().getStringArray(
                 R.array.meses_array);
@@ -776,6 +784,7 @@ public class Utils {
         }
         return fechaFormateada;
     }
+
     @SuppressLint("SimpleDateFormat")
     public static Date cambiarFormatoFechaDate(String fecha) {
         DateFormatSymbols mesesFormato = cambioFormatoMeses();
@@ -950,8 +959,6 @@ public class Utils {
     }
 
 
-
-
     public static int convertDpToPixels(int dp) {
         DisplayMetrics displayMetrics = App.getInstance().getResources().getDisplayMetrics();
         int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
@@ -972,7 +979,8 @@ public class Utils {
         fechahoranew = Utils.cambiarFormatoFecha(fechayhora);
         return fechahoranew;
     }
-    public static String getLastWeek(){
+
+    public static String getLastWeek() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date()); // Configuramos la fecha que se recibe
         calendar.add(Calendar.WEEK_OF_MONTH, -1);
@@ -988,7 +996,8 @@ public class Utils {
         }
         return "";
     }
-    public static String getCurrentWeekFormmated(){
+
+    public static String getCurrentWeekFormmated() {
         DateFormatSymbols mesesFormato = cambioFormatoMeses();
         String output = "dd/MMM/yy";
         SimpleDateFormat formatoSalida = new SimpleDateFormat(output, mesesFormato);
@@ -1000,22 +1009,25 @@ public class Utils {
         }
         return "";
     }
-    public static Calendar getCalendarOfLastWeek(){
+
+    public static Calendar getCalendarOfLastWeek() {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(new Date()); // Configuramos la fecha que se recibe
         calendar.add(Calendar.WEEK_OF_MONTH, -1);
         return calendar;
     }
+
     /**
      * Formatear la fecha con la hora
+     *
      * @param date dateFormat "dd/MMM/yy"
      * @return date output "dd/MMM/yy kk:mm"
      */
-    public static Date reFormmatingDate(String date){
+    public static Date reFormmatingDate(String date) {
         try {
             date += " 23:59";
             return new SimpleDateFormat("dd/MMM/yy kk:mm", cambioFormatoMeses()).parse(date);
-        }catch (ParseException e){
+        } catch (ParseException e) {
             return null;
         }
     }
@@ -1080,19 +1092,19 @@ public class Utils {
         return getCurriencyValueNoDecimals(getDoubleValue(value));
     }
 
-    public static String getCleanValue(double value){
+    public static String getCleanValue(double value) {
         return clean(getCurrencyValue(getRoundValue(value)));
     }
 
-    public static String getCleanValue(String value){
+    public static String getCleanValue(String value) {
         return getCleanValue(getRoundValue(getDoubleValue(value)));
     }
 
-    private static String clean(String value){
-        return value.replace("$","").replace(",", "");
+    private static String clean(String value) {
+        return value.replace("$", "").replace(",", "");
     }
 
-    public static boolean ValidarMonto(String monto){
+    public static boolean ValidarMonto(String monto) {
         Pattern pattern = Pattern.compile(PATERN_MONTO);
         Matcher matcher = pattern.matcher(monto);
         return matcher.matches();
@@ -1100,9 +1112,9 @@ public class Utils {
 
     /*No sirve*/
     @Deprecated
-    public static String FormatMonto(String monto){
+    public static String FormatMonto(String monto) {
         String value = new String();
-        if(monto != null && ValidarMonto(monto)) {
+        if (monto != null && ValidarMonto(monto)) {
 
             NumberFormat nf = NumberFormat.getNumberInstance(Locale.ENGLISH);
             DecimalFormat df = (DecimalFormat) nf;
@@ -1114,27 +1126,46 @@ public class Utils {
     }
 
 
-    public static String formatDatePickerDialog(int dayOfMonth,int monthOfYear,int year){
+    public static String formatDatePickerDialog(int dayOfMonth, int monthOfYear, int year) {
 
-        String day ="";
-        String month ="";
+        String day = "";
+        String month = "";
         int iMonth = ++monthOfYear;
-        if(dayOfMonth < 10){
-            day = String.format("0%s",dayOfMonth);
-        }
-        else{
-            day= String.format("%s",dayOfMonth);
-        }
-
-        if( iMonth < 10){
-            month = String.format("0%s",iMonth);
-        }else{
-            month= String.format("%s",iMonth);
+        if (dayOfMonth < 10) {
+            day = String.format("0%s", dayOfMonth);
+        } else {
+            day = String.format("%s", dayOfMonth);
         }
 
-        String date = String.format("%s/%s/%s",day,month, year);
+        if (iMonth < 10) {
+            month = String.format("0%s", iMonth);
+        } else {
+            month = String.format("%s", iMonth);
+        }
+
+        String date = String.format("%s/%s/%s", day, month, year);
 
         return date;
 
+    }
+
+    public static List<GiroComercio> getGirosArray(Context context) {
+        List<GiroComercio> giroComercioList = null;
+        Gson gson = new Gson();
+        try {
+            InputStream inputStream = context.getAssets().open("files/giros_comercio.json");
+            int size = inputStream.available();
+
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            inputStream.close();
+            Type listType = new TypeToken<List<GiroComercio>>(){}.getType();
+            giroComercioList = gson.fromJson(new String(buffer, "UTF-8"), listType);
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return giroComercioList;
     }
 }
