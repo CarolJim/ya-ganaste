@@ -92,16 +92,15 @@ public class ApiTrans extends Api {
     /**
      * Método que se invoca cuando se desea consultar el Saldo del Cliente.
      *
-     * @param request {@link ConsultarSaldoRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void consultarSaldo(ConsultarSaldoRequest request, IRequestResult result)  throws OfflineException {
+    public static void consultarSaldo(IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
         NetFacade.consumeWS(CONSULTAR_SALDO,
                 METHOD_GET, URL_SERVER_TRANS + App.getContext().getString(R.string.getBalanceUrl),
-                headers,request, ConsultarSaldoResponse.class,result);
+                headers,null, ConsultarSaldoResponse.class,result);
     }
 
     /**
@@ -202,15 +201,14 @@ public class ApiTrans extends Api {
     /**
      * Consulta el saldo de adquirente.
      *
-     * @param request {@link ConsultarSaldoADQRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void consultarSaldoADQ(ConsultarSaldoADQRequest request, IRequestResult result)  throws OfflineException {
+    public static void consultarSaldoADQ(IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         NetFacade.consumeWS(CONSULTAR_SALDO_ADQ,
                 METHOD_GET, URL_SERVER_TRANS + App.getContext().getString(R.string.getBalanceAdqUrl),
-                headers,request, ConsultarSaldoADQResponse.class,result);
+                headers,null, ConsultarSaldoADQResponse.class,result);
     }
 }

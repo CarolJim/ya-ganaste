@@ -49,17 +49,16 @@ public class ApiAdtvo extends Api {
     /**
      * Método que se invoca cuando se desea actualizar la información obtenida del Usuario/Cliente.
      *
-     * @param request {@link ActualizarInformacionSesionRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void actualizarInformacionSesion(ActualizarInformacionSesionRequest request, IRequestResult result)  throws OfflineException {
+    public static void actualizarInformacionSesion(IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
 
         NetFacade.consumeWS(ACTUALIZAR_INFO_SESION,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.updateSessionUrl),
-                headers,request, ActualizarInformacionSesionResponse.class,result);
+                headers,null, ActualizarInformacionSesionResponse.class,result);
     }
 
     /**
@@ -106,15 +105,14 @@ public class ApiAdtvo extends Api {
     /**
      * Método que se invoca cuando se desea Cerrar una Sesión activa.
      *
-     * @param request {@link CerrarSesionRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void cerrarSesion(CerrarSesionRequest request, IRequestResult result)  throws OfflineException {
+    public static void cerrarSesion(IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(CERRAR_SESION,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.logoutUrl),
-                headers,request, CerrarSesionResponse.class,result);
+                headers,null, CerrarSesionResponse.class,result);
     }
 
     /**
@@ -161,15 +159,14 @@ public class ApiAdtvo extends Api {
     /**
      * Método que se invoca para remover la imagen asignada para el Avatar.
      *
-     * @param request {@link EliminarAvatarRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void eliminarAvatar(EliminarAvatarRequest request, IRequestResult result)  throws OfflineException {
+    public static void eliminarAvatar(IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(ELIMINAR_AVATAR,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.deleteAvatarUrl),
-                headers,request, EliminarAvatarResponse.class,result);
+                headers,null, EliminarAvatarResponse.class,result);
     }
 
     /**
@@ -228,15 +225,14 @@ public class ApiAdtvo extends Api {
     /**
      * Método que se invoca para Consultar el estatus de los Documentos de los Comercios.
      *
-     * @param request {@link ObtenerDocumentosRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void obtenerDocumentos(ObtenerDocumentosRequest request, IRequestResult result)  throws OfflineException {
+    public static void obtenerDocumentos(IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(OBTENER_DOCUMENTOS,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.getDocuments),
-                headers,request, ObtenerDocumentosResponse.class,result);
+                headers,null, ObtenerDocumentosResponse.class,result);
     }
 
     /**
@@ -245,12 +241,12 @@ public class ApiAdtvo extends Api {
      * @param request {@link ObtenerNumeroSMSRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void obtenerNumeroSMS(ObtenerNumeroSMSRequest request, IRequestResult result)  throws OfflineException {
+    public static void obtenerNumeroSMS(IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(OBTENER_NUMERO_SMS,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.getSMSNumberUrl),
-                headers,request, ObtenerNumeroSMSResponse.class,result);
+                headers,null, ObtenerNumeroSMSResponse.class,result);
     }
 
     /**
@@ -299,29 +295,27 @@ public class ApiAdtvo extends Api {
      * varias veces este servicio para comprobar la activación del Servicio Móvil, para lo cual se recomienda hacer en
      * intervalos de tiempo de 30 segundos.
      *
-     * @param request {@link VerificarActivacionRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void verificarActivacion(VerificarActivacionRequest request, IRequestResult result)   throws OfflineException {
+    public static void verificarActivacion(IRequestResult result)   throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(VERIFICAR_ACTIVACION,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.verifyActivateUrl),
-                headers,request, VerificarActivacionResponse.class,result);
+                headers,null, VerificarActivacionResponse.class,result);
     }
 
     /**
      * No Description
      *
-     * @param request {@link RecursoImagenRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     /*TODO validar este servicio y sun funcionalidad*/
-    public static void recursoImagen(RecursoImagenRequest request, IRequestResult result)  throws OfflineException {
+    public static void recursoImagen(IRequestResult result)  throws OfflineException {
         NetFacade.consumeWS(RECURSO_IMAGEN,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.verifyActivateUrl),
-                getHeadersYaGanaste(),request, null,result);
+                getHeadersYaGanaste(),null, null,result);
     }
 
     /**
