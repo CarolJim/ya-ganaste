@@ -4,6 +4,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.*;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.*;
+import com.pagatodo.yaganaste.exceptions.OfflineException;
 
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class ApiTrans extends Api {
      * @param request {@link AsignarCuentaDisponibleRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void asignarCuentaDisponible(AsignarCuentaDisponibleRequest request, IRequestResult result) {
+    public static void asignarCuentaDisponible(AsignarCuentaDisponibleRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
 
@@ -40,7 +41,7 @@ public class ApiTrans extends Api {
      * @param request {@link AsignarNIPRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void asignarNip(AsignarNIPRequest request, IRequestResult result) {
+    public static void asignarNip(AsignarNIPRequest request, IRequestResult result)   throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
@@ -55,7 +56,7 @@ public class ApiTrans extends Api {
      * @param request {@link AsociarTarjetaCuentaRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void asociarTarjetaCuenta(AsociarTarjetaCuentaRequest request, IRequestResult result) {
+    public static void asociarTarjetaCuenta(AsociarTarjetaCuentaRequest request, IRequestResult result)  throws OfflineException {
         NetFacade.consumeWS(ASOCIAR_TARJETA_CUENTA,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.assignCard2AccountUrl),
                 getHeadersYaGanaste(),request, AsociarTarjetaCuentaResponse.class,result);
@@ -67,7 +68,7 @@ public class ApiTrans extends Api {
      * @param request {@link BloquearTemporalmenteTarjetaRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void bloquearTemporalmenteTarjeta(BloquearTemporalmenteTarjetaRequest request, IRequestResult result) {
+    public static void bloquearTemporalmenteTarjeta(BloquearTemporalmenteTarjetaRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
@@ -82,7 +83,7 @@ public class ApiTrans extends Api {
      * @param request {@link ConsultaAsignacionTarjetaRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void consultaAsignacionTarjeta(ConsultaAsignacionTarjetaRequest request, IRequestResult result) {
+    public static void consultaAsignacionTarjeta(ConsultaAsignacionTarjetaRequest request, IRequestResult result)   throws OfflineException {
         NetFacade.consumeWS(CONSULTAR_ASIGNACION_TARJETA,
                 METHOD_GET, URL_SERVER_TRANS + App.getContext().getString(R.string.consultAssignCardUrl),
                 getHeadersYaGanaste(),request, ConsultarAsignacionTarjetaResponse.class,result);
@@ -94,7 +95,7 @@ public class ApiTrans extends Api {
      * @param request {@link ConsultarSaldoRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void consultarSaldo(ConsultarSaldoRequest request, IRequestResult result) {
+    public static void consultarSaldo(ConsultarSaldoRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
@@ -109,7 +110,7 @@ public class ApiTrans extends Api {
      * @param request {@link ConsultarTitularCuentaRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void consultarTitularCuenta(ConsultarTitularCuentaRequest request, IRequestResult result) {
+    public static void consultarTitularCuenta(ConsultarTitularCuentaRequest request, IRequestResult result)   throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(CONSULTAR_TITULAR_CUENTA,
@@ -123,7 +124,7 @@ public class ApiTrans extends Api {
      * @param request {@link CrearClienteRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void crearCliente(CrearClienteRequest request, IRequestResult result) {
+    public static void crearCliente(CrearClienteRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(CREAR_CLIENTE,
@@ -137,7 +138,7 @@ public class ApiTrans extends Api {
      * @param request {@link EjecutarTransaccionRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void ejecutarTransaccion(EjecutarTransaccionRequest request, IRequestResult result) {
+    public static void ejecutarTransaccion(EjecutarTransaccionRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.IdTransaccionFreja, RequestHeaders.getIdTransaccionFreja());
@@ -156,7 +157,7 @@ public class ApiTrans extends Api {
      * @param request {@link ValidarTransaccionRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void validarEstatusTransaccion(ValidarTransaccionRequest request, IRequestResult result) {
+    public static void validarEstatusTransaccion(ValidarTransaccionRequest request, IRequestResult result)   throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.IdTransaccionFreja, RequestHeaders.getIdTransaccionFreja());
@@ -175,7 +176,7 @@ public class ApiTrans extends Api {
      * @param request {@link FondearCUPORequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void fondearCupo(FondearCUPORequest request, IRequestResult result) {
+    public static void fondearCupo(FondearCUPORequest request, IRequestResult result)   throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(FONDEAR_CUPO,
@@ -189,7 +190,7 @@ public class ApiTrans extends Api {
      * @param request {@link ObtenerEstatusTarjetaRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void obtenerEstatusTarjeta(ObtenerEstatusTarjetaRequest request, IRequestResult result) {
+    public static void obtenerEstatusTarjeta(ObtenerEstatusTarjetaRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
@@ -204,7 +205,7 @@ public class ApiTrans extends Api {
      * @param request {@link ConsultarSaldoADQRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void consultarSaldoADQ(ConsultarSaldoADQRequest request, IRequestResult result) {
+    public static void consultarSaldoADQ(ConsultarSaldoADQRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());

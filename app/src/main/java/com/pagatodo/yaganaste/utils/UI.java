@@ -12,6 +12,10 @@ public class UI {
 	public static void showToast(String message, Context context){
 		Toast.makeText(context,message, Toast.LENGTH_LONG).show();
 	}
+
+	public static void showToastShort(String message, Context context){
+		Toast.makeText(context,message, Toast.LENGTH_SHORT).show();
+	}
 	
 	public static AlertDialog.Builder showAlertDialog(String message, String button, Context context, final DialogDoubleActions dialogActions){
 		AlertDialog.Builder builder = new AlertDialog.Builder(context, R.style.Theme_DialogPrueba);

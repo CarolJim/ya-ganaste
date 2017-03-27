@@ -1168,4 +1168,8 @@ public class Utils {
 
         return giroComercioList;
     }
+
+    public static String getTokenDevice(Context context) {
+        return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
 }
