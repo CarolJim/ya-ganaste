@@ -4,12 +4,17 @@ package com.pagatodo.yaganaste.ui.account.register;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatRadioButton;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RadioGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+
+import butterknife.BindView;
 
 
 /**
@@ -18,6 +23,16 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 public class TienesTarjetaFragment extends GenericFragment implements View.OnClickListener{
 
     private View rootview;
+    @BindView(R.id.radioHasCard)
+    RadioGroup radioHasCard;
+    @BindView(R.id.radioBtnYes)
+    AppCompatRadioButton radioBtnYes;
+    @BindView(R.id.radioBtnNo)
+    AppCompatRadioButton radioBtnNo;
+    @BindView(R.id.btnBackTienesTarjeta)
+    Button btnBackTienesTarjeta;
+    @BindView(R.id.btnNextTienesTarjeta)
+    Button btnNextTienesTarjeta;
 
     public TienesTarjetaFragment() {
     }
@@ -62,7 +77,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootview = inflater.inflate(R.layout.fragment_login, container, false);
+        rootview = inflater.inflate(R.layout.fragment_tienes_tarjeta, container, false);
         initViews();
         return rootview;
     }

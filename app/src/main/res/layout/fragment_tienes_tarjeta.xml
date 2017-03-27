@@ -15,7 +15,7 @@
         layout="@layout/toolbar" />
 
     <RadioGroup
-        android:id="@+id/radioGender"
+        android:id="@+id/radioHasCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_medium"
@@ -23,59 +23,19 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/radioBtnFemale"
+            android:id="@+id/radioBtnYes"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:text="Mujer" />
+            android:text="Si" />
 
         <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/radioBtnMale"
+            android:id="@+id/radioBtnNo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:text="Hombre" />
+            android:text="No" />
     </RadioGroup>
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editNames"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Nombre(s)" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editFirstLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Primer Apellido" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editSecoundLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Segundo Apellido" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editBirthDay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Fecha de Nacimiento" />
-
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editBirthPlace"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Lugar de Nacimiento" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -83,7 +43,7 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnBackDatosPersonales"
+            android:id="@+id/btnBackTienesTarjeta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
@@ -91,12 +51,13 @@
             android:text="Volever" />
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnNextDatosPersonales"
+            android:id="@+id/btnNextTienesTarjeta"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
             android:layout_weight=".9"
             android:text="@string/next" />
     </LinearLayout>
+
 
 </LinearLayout>

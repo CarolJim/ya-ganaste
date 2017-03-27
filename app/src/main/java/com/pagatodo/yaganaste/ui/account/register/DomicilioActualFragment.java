@@ -7,17 +7,39 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DomicilioActualFragment extends GenericFragment implements View.OnClickListener{
+public class DomicilioActualFragment extends GenericFragment implements View.OnClickListener {
 
     private View rootview;
+
+    @BindView(R.id.editStreet)
+    EditText editStreet;
+    @BindView(R.id.editExtNumber)
+    EditText editExtNumber;
+    @BindView(R.id.editIntNumber)
+    EditText editIntNumber;
+    @BindView(R.id.editZipCode)
+    EditText editZipCode;
+    @BindView(R.id.editState)
+    EditText editState;
+    @BindView(R.id.spColonia)
+    EditText spColonia;
+    @BindView(R.id.btnBackDomicilioActual)
+    Button btnBackDomicilioActual;
+    @BindView(R.id.btnNextDomicilioActual)
+    Button btnNextDomicilioActual;
 
     public DomicilioActualFragment() {
     }
@@ -69,12 +91,12 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
     @Override
     public void initViews() {
-
+        ButterKnife.bind(this, rootview);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
 
             default:
                 break;

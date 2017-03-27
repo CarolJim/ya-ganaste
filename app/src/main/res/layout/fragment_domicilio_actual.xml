@@ -14,68 +14,66 @@
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
 
-    <RadioGroup
-        android:id="@+id/radioGender"
+    <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/editStreet"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:hint="Calle" />
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/radioBtnFemale"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/editExtNumber"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:text="Mujer" />
+            android:hint="NoExterior" />
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/radioBtnMale"
-            android:layout_width="wrap_content"
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/editIntNumber"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight=".5"
-            android:text="Hombre" />
-    </RadioGroup>
+            android:hint="NoInterior" />
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editNames"
+    </LinearLayout>
+
+    <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Nombre(s)" />
+        android:orientation="horizontal">
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editFirstLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Primer Apellido" />
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/editZipCode"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:hint="Código Postal" />
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editSecoundLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Segundo Apellido" />
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/editState"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight=".5"
+            android:hint="Estado" />
+    </LinearLayout>
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editBirthDay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Fecha de Nacimiento" />
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editBirthPlace"
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/spColonia"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Lugar de Nacimiento" />
+        android:layout_height="wrap_content">
+
+    </android.support.v7.widget.AppCompatSpinner>
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -83,7 +81,7 @@
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnBackDatosPersonales"
+            android:id="@+id/btnBackDomicilioActual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
@@ -91,7 +89,7 @@
             android:text="Volever" />
 
         <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnNextDatosPersonales"
+            android:id="@+id/btnNextDomicilioActual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
