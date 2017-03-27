@@ -13,6 +13,10 @@ public class ValidarFormatoContraseniaRequest implements Serializable{
     public ValidarFormatoContraseniaRequest() {
     }
 
+    public ValidarFormatoContraseniaRequest(String contrasena) {
+        Contrasena = contrasena;
+    }
+
     public String getContrasena() {
         return Contrasena;
     }

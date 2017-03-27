@@ -51,7 +51,7 @@ public class WsCaller implements IServiceConsumer {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "Request Failed: " + error.getMessage());
-                        request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(),DataSource.WS,null));
+                        request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(),DataSource.WS,CustomErrors.getError(error)));
                     }
                 },request.getHeaders());
 

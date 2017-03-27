@@ -2,23 +2,26 @@ package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * Created by flima on 21/03/2017.
  */
 
 public class ObtenerColoniasPorCPResponse extends GenericResponse {
 
-    private DataObtenerColoniasPorCP Data;
+    private List<ColoniasResponse> Data;
 
     public ObtenerColoniasPorCPResponse() {
-        Data = new DataObtenerColoniasPorCP();
+        Data = new ArrayList<ColoniasResponse>();
     }
 
-    public DataObtenerColoniasPorCP getData() {
+    public List<ColoniasResponse> getData() {
         return Data;
     }
 
-    public void setData(DataObtenerColoniasPorCP data) {
+    public void setData(List<ColoniasResponse> data) {
         Data = data;
     }
 }

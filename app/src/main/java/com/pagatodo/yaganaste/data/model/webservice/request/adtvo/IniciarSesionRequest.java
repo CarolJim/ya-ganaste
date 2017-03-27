@@ -9,12 +9,17 @@ import java.io.Serializable;
 public class IniciarSesionRequest implements Serializable{
 
     private String UsuarioCorreo = "";
-    private String Telefono = "";
     private String Contrasena = "";
+    private String Telefono = "";
 
     public IniciarSesionRequest() {
     }
 
+    public IniciarSesionRequest(String usuarioCorreo, String contrasena,String telefono) {
+        UsuarioCorreo = usuarioCorreo;
+        Contrasena = contrasena;
+        Telefono = telefono;
+    }
 
     public String getUsuarioCorreo() {
         return UsuarioCorreo;

@@ -20,6 +20,15 @@ public class CrearUsuarioFWSRequest implements Serializable{
 
     }
 
+    public CrearUsuarioFWSRequest(String usuario, String nombre, String primerApellido, String segundoApellido, String correo, String contrasena) {
+        Usuario = usuario;
+        Nombre = nombre;
+        PrimerApellido = primerApellido;
+        SegundoApellido = segundoApellido;
+        Correo = correo;
+        Contrasena = contrasena;
+    }
+
     public int getTipoAgente() {
         return TipoAgente;
     }

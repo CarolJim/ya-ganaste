@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class ColoniasResponse implements Serializable{
 
-    private int ColoniaId;
+    private String ColoniaId;
     private String Colonia = "";
     private String IdMunicipio = "";
     private String Municipio = "";
@@ -21,11 +21,11 @@ public class ColoniasResponse implements Serializable{
 
     }
 
-    public int getColoniaId() {
+    public String getColoniaId() {
         return ColoniaId;
     }
 
-    public void setColoniaId(int coloniaId) {
+    public void setColoniaId(String coloniaId) {
         ColoniaId = coloniaId;
     }
 

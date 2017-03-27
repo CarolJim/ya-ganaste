@@ -13,14 +13,13 @@ public class SingletonUser {
     private ExtraInfoUser dataExtraUser;
 
     private SingletonUser(){
-
+        dataUser = new DataIniciarSesion();
+        dataExtraUser = new ExtraInfoUser();
     }
 
     public static synchronized SingletonUser getInstance(){
-
         if(user == null)
             user = new SingletonUser();
-
         return user;
     }
 

@@ -209,7 +209,7 @@ public class ApiTrans extends Api {
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         NetFacade.consumeWS(CONSULTAR_SALDO_ADQ,
-                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.getBalanceAdqUrl),
+                METHOD_GET, URL_SERVER_TRANS + App.getContext().getString(R.string.getBalanceAdqUrl),
                 headers,request, ConsultarSaldoADQResponse.class,result);
     }
 }

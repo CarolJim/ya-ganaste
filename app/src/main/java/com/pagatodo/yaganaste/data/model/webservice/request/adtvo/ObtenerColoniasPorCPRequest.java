@@ -13,6 +13,10 @@ public class ObtenerColoniasPorCPRequest implements Serializable{
     public ObtenerColoniasPorCPRequest() {
     }
 
+    public ObtenerColoniasPorCPRequest(String codigoPostal) {
+        CodigoPostal = codigoPostal;
+    }
+
     public String getCodigoPostal() {
         return CodigoPostal;
     }

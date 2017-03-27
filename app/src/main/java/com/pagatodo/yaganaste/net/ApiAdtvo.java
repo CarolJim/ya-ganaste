@@ -25,7 +25,7 @@ public class ApiAdtvo extends Api {
      * */
     public static void activacionServicioMovil(ActivacionServicioMovilRequest request, IRequestResult result) {
         NetFacade.consumeWS(ACTIVACION_SERVICIO_MOVIL,
-                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.activateMobileServiceUrl),
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.activateMobileServiceUrl),
                 getHeadersYaGanaste(),request, ActivacionServicioMovilResponse.class,result);
     }
 
@@ -195,7 +195,7 @@ public class ApiAdtvo extends Api {
      * */
     public static void localizarSucursales(LocalizarSucursalesRequest request, IRequestResult result) {
         NetFacade.consumeWS(LOCALIZAR_SUCURSALES,
-                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getSucursales),
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.getSucursales),
                 getHeadersYaGanaste(),request, LocalizarSucursalesResponse.class,result);
     }
 
@@ -207,7 +207,7 @@ public class ApiAdtvo extends Api {
      * */
     public static void obtenerCatalogos(ObtenerCatalogoRequest request, IRequestResult result) {
         NetFacade.consumeWS(OBTENER_CATALOGOS,
-                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getCatalogsUrl),
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.getCatalogsUrl),
                 getHeadersYaGanaste(),request, ObtenerCatalogosResponse.class,result);
     }
 
@@ -233,7 +233,7 @@ public class ApiAdtvo extends Api {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(OBTENER_DOCUMENTOS,
-                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getDocuments),
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.getDocuments),
                 headers,request, ObtenerDocumentosResponse.class,result);
     }
 
@@ -305,7 +305,7 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(VERIFICAR_ACTIVACION,
-                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.verifyActivateUrl),
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.verifyActivateUrl),
                 headers,request, VerificarActivacionResponse.class,result);
     }
 
