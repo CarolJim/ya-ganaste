@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lets_start"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    tools:context=".ui._controllers.AccountActivity">
+
+    <include
+        android:id="@+id/toolbarLy"
+        layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbarLy"
+        android:layout_weight=".5">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txt_aviso_title"
+            style="@style/textSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/title_aviso"
+            app:tipo="Subtitulo" />
+
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txt_aviso_subtitle"
+            style="@style/textSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_aviso_title"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:text="@string/txt_validacion_docs"
+            app:tipo="Descripcion" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txt_aviso_body"
+            style="@style/textSubTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txt_aviso_subtitle"
+            android:layout_marginTop="@dimen/margin_big"
+            android:text="@string/txt_validacion_docs_2"
+            app:tipo="Descripcion" />
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbarLy"
+        android:layout_weight=".5"
+        android:orientation="vertical">
+
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnAdviceDocumentsNext"
+            style="@style/buttonRoundedBlue"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/txtAdviceDocumentsBack"
+            android:layout_marginBottom="@dimen/btn_margin_bottom"
+            android:text="@string/next"
+            app:cornerRadius="@dimen/btn_corner_radius" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/txtAdviceDocumentsBack"
+            style="@style/buttonRoundedStroke"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_big"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:text="@string/back"
+            app:cornerRadius="@dimen/btn_corner_radius" />
+    </RelativeLayout>
+
+</LinearLayout>

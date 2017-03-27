@@ -97,8 +97,9 @@
                 style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/space_between_forms"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_medium"
                 app:backgroundTint="@android:color/white" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -114,8 +115,9 @@
                 style="@style/Widget.AppCompat.Spinner.Underlined"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_horizontal_margin"
                 android:layout_marginTop="@dimen/space_between_forms"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_medium"
                 app:backgroundTint="@android:color/white" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -131,6 +133,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
+                android:visibility="gone"
                 android:orientation="horizontal">
 
                 <RelativeLayout
@@ -146,6 +149,9 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="textCapCharacters"
+                        android:nextFocusDown="@+id/edtxtRegisterCommerceRFCHomoclave"
+                        android:nextFocusForward="@+id/edtxtRegisterCommerceRFCHomoclave"
+                        android:nextFocusRight="@+id/edtxtRegisterCommerceRFCHomoclave"
                         android:maxLength="10" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView

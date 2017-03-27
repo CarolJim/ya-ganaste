@@ -15,6 +15,7 @@ import android.widget.ArrayAdapter;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.GiroComercio;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.register.adapters.GiroArrayAdapter;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
@@ -26,11 +27,14 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.interfaces.enums.GiroAdapterType.GIRO;
+import static com.pagatodo.yaganaste.interfaces.enums.GiroAdapterType.SUBGIRO;
+
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class RegisterComerceFragment extends GenericFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener {
+public class RegisterComerceFragment extends GenericFragment implements View.OnClickListener{
 
     private View rootview;
 
@@ -42,6 +46,8 @@ public class RegisterComerceFragment extends GenericFragment implements View.OnC
     StyleEdittext edtxtRegisterCommerceNumber;
     @BindView(R.id.spinnerRegisterCommerceGiro)
     AppCompatSpinner spinnerRegisterCommerceGiro;
+    @BindView(R.id.spinnerRegisterCommerceSubGiro)
+    AppCompatSpinner spinnerRegisterCommerceSubGiro;
     @BindView(R.id.edtxtRegisterCommerceRFC)
     StyleEdittext edtxtRegisterCommerceRFC;
     @BindView(R.id.edtxtRegisterCommerceRFCHomoclave)
@@ -51,11 +57,13 @@ public class RegisterComerceFragment extends GenericFragment implements View.OnC
     @BindView(R.id.txtRegisterCommerceMail)
     StyleTextView txtRegisterCommerceMail;
 
-    private ArrayAdapter<GiroComercio> adapterGiro;
-    private ArrayAdapter<GiroComercio> adapterSubgiro;
     private List<GiroComercio> girosComercioComplete;
     private List<GiroComercio> girosComercio;
-    private List<GiroComercio> subGiroComercio;
+    private List<GiroComercio> subGirosComercio;
+    private GiroArrayAdapter giroArrayAdapter;
+    private GiroArrayAdapter subGiroArrayAdapter;
+    private int giroSelected;
+    private GiroComercio giroComercioItem;
 
     public RegisterComerceFragment() {
     }
@@ -110,15 +118,57 @@ public class RegisterComerceFragment extends GenericFragment implements View.OnC
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnRegisterCommerce.setOnClickListener(this);
+        giroArrayAdapter = new GiroArrayAdapter(getActivity(),R.layout.spinner_layout, girosComercio, GIRO);
+        spinnerRegisterCommerceGiro.setAdapter(giroArrayAdapter);
+        spinnerRegisterCommerceGiro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                giroSelected = giroArrayAdapter.getGiroId(position);
+                generateSubgirosArray(giroSelected);
+                subGiroArrayAdapter = new GiroArrayAdapter(getActivity(), R.layout.spinner_layout, subGirosComercio, SUBGIRO);
+                subGiroArrayAdapter.notifyDataSetChanged();
+                spinnerRegisterCommerceSubGiro.setAdapter(subGiroArrayAdapter);
 
+            }
 
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
+
+        spinnerRegisterCommerceSubGiro.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                giroComercioItem = subGiroArrayAdapter.getItemSelected(position);
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+
+            }
+        });
     }
 
-    private void initValues(){
+    private void initValues() {
         girosComercioComplete = Utils.getGirosArray(getActivity());
-        girosComercio = new ArrayList<GiroComercio>();
-        for (GiroComercio giroComercio: girosComercioComplete) {
+        girosComercio = new ArrayList<>();
+        subGirosComercio = new ArrayList<>();
+        ArrayList<Integer> mGirosIds = new ArrayList<>();
+        for (GiroComercio giroComercio : girosComercioComplete) {
+            if (!mGirosIds.contains(giroComercio.getIdGiro())) {
+                mGirosIds.add(giroComercio.getIdGiro());
+                girosComercio.add(giroComercio);
+            }
+        }
+    }
 
+    private void generateSubgirosArray(int idGiroSelected) {
+        subGirosComercio.clear();
+        for (GiroComercio giroComercio : girosComercioComplete) {
+            if (giroComercio.getIdGiro() == idGiroSelected) {
+                subGirosComercio.add(giroComercio);
+            }
         }
     }
 
@@ -133,14 +183,6 @@ public class RegisterComerceFragment extends GenericFragment implements View.OnC
         }
     }
 
-    @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-
-    }
 }
 
