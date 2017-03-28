@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_lets_start"
@@ -14,70 +14,105 @@
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editStreet"
+    <RelativeLayout
+        android:id="@+id/layoutContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTitleDomicilioActual"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Calle" />
+        android:layout_marginTop="-9dp"
+        android:background="@drawable/rounded_border_layout"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.AppCompatEditText
+            android:id="@+id/editStreet"
+            style="@style/EditTextStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:hint="Calle" />
+
+        <LinearLayout
+            android:id="@+id/layNumbers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editStreet"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/editExtNumber"
+                style="@style/EditTextStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:hint="NoExterior" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/editIntNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextStyle"
+                android:layout_weight=".5"
+                android:hint="NoInterior" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layNumbers"
+            android:orientation="horizontal">
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/editZipCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                style="@style/EditTextStyle"
+                android:layout_weight=".5"
+                android:hint="Código Postal" />
+
+            <android.support.v7.widget.AppCompatEditText
+                android:id="@+id/editState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                style="@style/EditTextStyle"
+                android:hint="Estado" />
+        </LinearLayout>
+
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spColonia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_big"
+            android:layout_marginBottom="@dimen/margin_big"
+            android:layout_below="@+id/layoutAddress">
+
+        </android.support.v7.widget.AppCompatSpinner>
+
+    </RelativeLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtTitleDomicilioActual"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbarLy"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/margin_big"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Datos Personales"
+        app:tipo="Titulo" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/editExtNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:hint="NoExterior" />
-
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/editIntNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:hint="NoInterior" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/editZipCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:hint="Código Postal" />
-
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/editState"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:hint="Estado" />
-    </LinearLayout>
-
-
-    <android.support.v7.widget.AppCompatSpinner
-        android:id="@+id/spColonia"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.v7.widget.AppCompatSpinner>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutContent"
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatButton
@@ -97,4 +132,4 @@
             android:text="@string/next" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

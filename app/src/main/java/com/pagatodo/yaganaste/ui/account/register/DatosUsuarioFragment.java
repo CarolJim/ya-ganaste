@@ -7,10 +7,13 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -24,11 +27,13 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     private View rootview;
 
     @BindView(R.id.edtitEmail)
-    EditText editMail;
+    CustomValidationEditText editMail;
     @BindView(R.id.editPassword)
-    EditText editPassword;
+    CustomValidationEditText editPassword;
     @BindView(R.id.editPasswordConfirmation)
-    EditText editPasswordConfirm;
+    CustomValidationEditText editPasswordConfirm;
+    @BindView(R.id.btnNextDatosUsuario)
+    Button btnNextDatosUsuario;
 
     public DatosUsuarioFragment() {
     }
@@ -81,12 +86,14 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        btnNextDatosUsuario.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-
+            case R.id.btnNextDatosUsuario:
+                break;
             default:
                 break;
         }

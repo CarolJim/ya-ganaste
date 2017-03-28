@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_lets_start"
@@ -14,72 +14,121 @@
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
 
-    <RadioGroup
-        android:id="@+id/radioGender"
+    <RelativeLayout
+        android:id="@+id/layoutContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTitleDatosPersonales"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
-        android:orientation="horizontal">
+        android:layout_marginTop="-9dp"
+        android:background="@drawable/rounded_border_layout"
+        android:orientation="vertical">
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/radioBtnFemale"
-            android:layout_width="wrap_content"
+        <RadioGroup
+            android:id="@+id/radioGender"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:text="Mujer" />
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_big"
+            android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/radioBtnMale"
-            android:layout_width="wrap_content"
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radioBtnFemale"
+                style="@style/RadioButtonTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="true"
+                android:layout_weight=".5"
+                android:text="Mujer" />
+
+            <android.support.v7.widget.AppCompatRadioButton
+                android:id="@+id/radioBtnMale"
+                style="@style/RadioButtonTheme"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight=".5"
+                android:text="Hombre" />
+        </RadioGroup>
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/editNames"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:text="Hombre" />
-    </RadioGroup>
+            android:layout_below="@+id/radioGender"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:formato="text"
+            app:hintText="Nombre(s)" />
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editNames"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Nombre(s)" />
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/editFirstLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editNames"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:formato="text"
+            app:hintText="Primer Apellido" />
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editFirstLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Primer Apellido" />
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/editSecoundLastName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editFirstLastName"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:formato="text"
+            app:hintText="Segundo Apellido" />
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editSecoundLastName"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Segundo Apellido" />
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/editBirthDay"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editSecoundLastName"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:formato="text"
+            app:hintText="Fecha de Nacimiento" />
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editBirthDay"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Fecha de Nacimiento" />
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/editBirthPlace"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editBirthDay"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_medium"
+            app:formato="text"
+            app:hintText="Lugar de Nacimiento" />
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editBirthPlace"
-        android:layout_width="match_parent"
+    </RelativeLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtTitleDatosPersonales"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Lugar de Nacimiento" />
+        android:layout_below="@+id/toolbarLy"
+        android:layout_centerInParent="true"
+        android:layout_marginTop="@dimen/margin_big"
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Datos Personales"
+        app:tipo="Titulo" />
+
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutContent"
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatButton
@@ -99,4 +148,4 @@
             android:text="@string/next" />
     </LinearLayout>
 
-</LinearLayout>
+</RelativeLayout>

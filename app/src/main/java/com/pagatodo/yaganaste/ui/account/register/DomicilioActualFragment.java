@@ -4,6 +4,8 @@ package com.pagatodo.yaganaste.ui.account.register;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatEditText;
+import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,17 +27,17 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     private View rootview;
 
     @BindView(R.id.editStreet)
-    EditText editStreet;
+    AppCompatEditText editStreet;
     @BindView(R.id.editExtNumber)
-    EditText editExtNumber;
+    AppCompatEditText editExtNumber;
     @BindView(R.id.editIntNumber)
-    EditText editIntNumber;
+    AppCompatEditText editIntNumber;
     @BindView(R.id.editZipCode)
-    EditText editZipCode;
+    AppCompatEditText editZipCode;
     @BindView(R.id.editState)
-    EditText editState;
+    AppCompatEditText editState;
     @BindView(R.id.spColonia)
-    EditText spColonia;
+    AppCompatSpinner spColonia;
     @BindView(R.id.btnBackDomicilioActual)
     Button btnBackDomicilioActual;
     @BindView(R.id.btnNextDomicilioActual)
@@ -84,7 +86,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootview = inflater.inflate(R.layout.fragment_login, container, false);
+        rootview = inflater.inflate(R.layout.fragment_domicilio_actual, container, false);
         initViews();
         return rootview;
     }

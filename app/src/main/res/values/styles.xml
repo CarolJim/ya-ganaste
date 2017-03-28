@@ -113,7 +113,7 @@
         <item name="android:windowBackground">@color/redcolor</item>
     </style>
 
-    <style name="DialogTitleBackground" >
+    <style name="DialogTitleBackground">
         <item name="android:background">@color/colorAccent</item>
     </style>
 
@@ -130,6 +130,21 @@
         <item name="android:layout_marginStart">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_marginTop">@dimen/activity_horizontal_margin</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingLeft">@dimen/margin_medium</item>
+        <item name="android:layout_marginTop">@dimen/margin_big</item>
+        <item name="android:background">@drawable/rounded_border_edittext</item>
+    </style>
+
+
+    <style name="RadioButtonTheme" parent="Base.Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:colorAccent">@color/colorAccent</item>
+        <item name="android:colorActivatedHighlight">@color/colorAccent</item>
+        <item name="android:colorPrimary">@color/colorPrimary</item>
     </style>
 </resources>
 

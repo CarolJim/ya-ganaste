@@ -58,4 +58,25 @@
         <enum name="oval" value="1" />
     </attr>
 
+    <declare-styleable name="ValidatedEdittext">
+        <attr name="tipovalidacion" format="enum">
+            <enum name="email" value="0"/>
+            <enum name="password" value="1"/>
+            <enum name="phone" value="2"/>
+            <enum name="zipcode" value="3"/>
+            <enum name="text" value="4"/>
+        </attr>
+    </declare-styleable>
+
+    <declare-styleable name="CustomValidationEditText">
+        <attr name="formato" format="enum">
+            <enum name="email" value="0"/>
+            <enum name="password" value="1"/>
+            <enum name="phone" value="2"/>
+            <enum name="zipcode" value="3"/>
+            <enum name="text" value="4"/>
+        </attr>
+        <attr name="hintText" format="string"/>
+        <attr name="maxLength" format="integer"/>
+    </declare-styleable>
 </resources>

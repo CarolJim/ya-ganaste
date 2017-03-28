@@ -25,5 +25,6 @@
     <color name="circlecarousel8">#ecdc00</color>
     <color name="black">#000000</color>
     <color name="purpura">#d907f1</color>
+    <color name="transparent">#00FFFFFF</color>
 
 </resources>

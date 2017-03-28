@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_lets_start"
@@ -14,39 +14,74 @@
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/edtitEmail"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:hint="Correo Electrónico"/>
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editPassword"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_below="@+id/txtTitleDatosUsuario"
         android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginTop="@dimen/margin_big"
-        android:hint="Contraseña"/>
+        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginTop="-9dp"
+        android:background="@drawable/rounded_border_layout"
+        android:orientation="vertical">
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editPasswordConfirmation"
-        android:layout_width="match_parent"
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/edtitEmail"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_big"
+            app:formato="email"
+            app:hintText="Correo Electrónico" />
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/editPassword"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtitEmail"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_big"
+            app:formato="password"
+            app:hintText="Contraseña" />
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/editPasswordConfirmation"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editPassword"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_big"
+            android:layout_marginBottom="@dimen/margin_doble"
+            app:formato="password"
+            app:hintText="Confirmar contraseña" />
+    </RelativeLayout>
+
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtTitleDatosUsuario"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_below="@+id/toolbarLy"
+        android:layout_centerInParent="true"
         android:layout_marginTop="@dimen/margin_big"
-        android:hint="Confirmar contraseña"/>
+        android:background="@color/colorPrimary"
+        android:gravity="center"
+        android:paddingLeft="8dp"
+        android:paddingRight="8dp"
+        android:text="Datos del Usuario"
+        app:tipo="Titulo" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btnNextDatosUsuario"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginTop="@dimen/margin_big"
-        android:text="@string/next"
-        />
-</LinearLayout>
+        android:layout_alignParentBottom="true"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/btn_margin_bottom"
+        android:background="@color/colorAccent"
+        android:text="@string/next" />
+</RelativeLayout>

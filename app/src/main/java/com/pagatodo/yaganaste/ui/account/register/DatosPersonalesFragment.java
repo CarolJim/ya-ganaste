@@ -16,6 +16,7 @@ import android.widget.RadioGroup;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 
 import java.util.Calendar;
 
@@ -36,15 +37,15 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     @BindView(R.id.radioBtnMale)
     AppCompatRadioButton radioBtnMale;
     @BindView(R.id.editNames)
-    EditText editNames;
+    CustomValidationEditText editNames;
     @BindView(R.id.editFirstLastName)
-    EditText editFirstLastName;
+    CustomValidationEditText editFirstLastName;
     @BindView(R.id.editSecoundLastName)
-    EditText editSecoundLastName;
+    CustomValidationEditText editSecoundLastName;
     @BindView(R.id.editBirthDay)
-    EditText editBirthDay;
+    CustomValidationEditText editBirthDay;
     @BindView(R.id.editBirthPlace)
-    EditText editBirthPlace;
+    CustomValidationEditText editBirthPlace;
 
 
     public DatosPersonalesFragment() {
@@ -104,7 +105,7 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.edtxtRegisterAddressBirthDay:
+            case R.id.editBirthDay:
                 Calendar newCalendar = Calendar.getInstance();
                 DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                     @Override

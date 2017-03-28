@@ -13,6 +13,9 @@ import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.register.AdviceDocumentsFragment;
 import com.pagatodo.yaganaste.ui.account.register.AreYouHaveCardReaderFragment;
 import com.pagatodo.yaganaste.ui.account.register.AreYouWantGetPaymentsFragment;
+import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
+import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
+import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.GetCardFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterAddressFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterBasicInfoFragment;
@@ -31,7 +34,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_activity);
         //loadFragment(LetsStartFragment.newInstance(), DIRECTION.FORDWARD, true);
-        loadFragment(AdviceDocumentsFragment.newInstance(), DIRECTION.FORDWARD, true);
+        loadFragment(DomicilioActualFragment.newInstance(), DIRECTION.FORDWARD, true);
         pref = App.getInstance().getPrefs();
     }
 
