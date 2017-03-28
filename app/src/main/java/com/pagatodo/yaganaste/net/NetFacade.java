@@ -1,10 +1,16 @@
 package com.pagatodo.yaganaste.net;
 
+import android.widget.Toast;
+
 import com.android.volley.Request;
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequest;
+import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.HttpMethods;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.utils.JsonManager;
+import com.pagatodo.yaganaste.utils.UI;
 
 import org.json.JSONObject;
 
@@ -35,16 +41,15 @@ public class NetFacade {
      * @param  requestResult {@link IRequestResult} interface para obtener el resultado
      *                                              de la petición.
      */
-    public static void  consumeWS(WebService method_name, HttpMethods method, String urlService, Map<String,String> headers, Object oRequest, Type responseType, IRequestResult requestResult){
+    public static void  consumeWS(WebService method_name, HttpMethods method, String urlService, Map<String,String> headers, Object oRequest, Type responseType, IRequestResult requestResult) throws OfflineException {
 
-        WsCaller wsCaller = new WsCaller();
-        wsCaller.sendJsonPost(createRequest(method_name, method, urlService,oRequest ,headers,responseType, requestResult));
-        /*switch (method){
-
-            case METHOD_POST:
-                wsCaller.sendJsonPost(createRequest(method, urlService,oRequest ,headers,responseType, requestResult));
-                break;
-        }*/
+        if(UtilsNet.isOnline(App.getContext())) {
+            WsCaller wsCaller = new WsCaller();
+            wsCaller.sendJsonPost(createRequest(method_name, method, urlService, oRequest, headers, responseType, requestResult));
+        }else{
+            UI.showToastShort(App.getContext().getString(R.string.no_internet_access),App.getContext());
+            throw new OfflineException();
+        }
     }
 
     /**
@@ -59,9 +64,6 @@ public class NetFacade {
      */
 
     public static WsRequest createRequest(WebService method_name, HttpMethods method, String urlService, Object oRequest, Map<String,String> headers, Type responseType, IRequestResult requestResult){
-
-        if (oRequest == null)
-            return null;
 
         WsRequest request = new WsRequest();
         request.setMethod_name(method_name);

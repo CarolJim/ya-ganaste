@@ -3,6 +3,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.*;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.*;
+import com.pagatodo.yaganaste.exceptions.OfflineException;
 
 import java.util.Map;
 
@@ -25,7 +26,7 @@ public class ApiAdq extends Api {
      * @param request {@link LoginAdqRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void loginAdq(LoginAdqRequest request, IRequestResult result) {
+    public static void loginAdq(LoginAdqRequest request, IRequestResult result)  throws OfflineException {
         NetFacade.consumeWS(LOGIN_ADQ,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqLogin),
                 getHeadersAdq(),request, LoginAdqResponse.class,result);
@@ -37,7 +38,7 @@ public class ApiAdq extends Api {
      * @param request {@link RegistroDongleRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void registroDongle(RegistroDongleRequest request, IRequestResult result) {
+    public static void registroDongle(RegistroDongleRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
@@ -53,7 +54,7 @@ public class ApiAdq extends Api {
      * @param request {@link RegistraNipRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void registraNIP(RegistraNipRequest request, IRequestResult result) {
+    public static void registraNIP(RegistraNipRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
@@ -68,7 +69,7 @@ public class ApiAdq extends Api {
      * @param request {@link ConsultaSesionAgenteRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void consultaSesionAgente(ConsultaSesionAgenteRequest request, IRequestResult result) {
+    public static void consultaSesionAgente(ConsultaSesionAgenteRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
@@ -83,7 +84,7 @@ public class ApiAdq extends Api {
      * @param request {@link RegistroDeviceDataRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void registroDeviceData(RegistroDeviceDataRequest request, IRequestResult result) {
+    public static void registroDeviceData(RegistroDeviceDataRequest request, IRequestResult result)  throws OfflineException {
         NetFacade.consumeWS(REGISTRO_DEVICE_DATA,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqRegisterDeviceData),
                 getHeadersAdq(),request, RegistroDeviceDataResponse.class,result);
@@ -95,7 +96,7 @@ public class ApiAdq extends Api {
      * @param request {@link RegistraNotificacionRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void registraNotificacion(RegistraNotificacionRequest request, IRequestResult result) {
+    public static void registraNotificacion(RegistraNotificacionRequest request, IRequestResult result)  throws OfflineException {
         NetFacade.consumeWS(REGISTRA_NOTIFICACION,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqRegisterNotification),
                 getHeadersAdq(),request, RegistraNotificacionResponse.class,result);
@@ -107,7 +108,7 @@ public class ApiAdq extends Api {
      * @param request {@link AutenticaNipRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void autenticaNIP(AutenticaNipRequest request, IRequestResult result) {
+    public static void autenticaNIP(AutenticaNipRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
@@ -123,7 +124,7 @@ public class ApiAdq extends Api {
      * @param request {@link TransaccionEMVDepositRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void transaccionEMVDeposit(TransaccionEMVDepositRequest request, IRequestResult result) {
+    public static void transaccionEMVDeposit(TransaccionEMVDepositRequest request, IRequestResult result)   throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
@@ -139,7 +140,7 @@ public class ApiAdq extends Api {
      * @param request {@link FirmaDeVoucherRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void firmaDeVoucher(FirmaDeVoucherRequest request, IRequestResult result) {
+    public static void firmaDeVoucher(FirmaDeVoucherRequest request, IRequestResult result)  throws OfflineException {
 
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
@@ -155,7 +156,7 @@ public class ApiAdq extends Api {
      * @param request {@link EnviarTicketCompraRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void enviarTicketCompra(EnviarTicketCompraRequest request, IRequestResult result) {
+    public static void enviarTicketCompra(EnviarTicketCompraRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
@@ -170,7 +171,7 @@ public class ApiAdq extends Api {
      * @param request {@link ResumenMovimientosMesRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void resumenMovimientosMes(ResumenMovimientosMesRequest request, IRequestResult result) {
+    public static void resumenMovimientosMes(ResumenMovimientosMesRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
@@ -186,7 +187,7 @@ public class ApiAdq extends Api {
      * @param request {@link ConsultaSaldoCupoRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void consultaSaldoCupo(ConsultaSaldoCupoRequest request, IRequestResult result) {
+    public static void consultaSaldoCupo(ConsultaSaldoCupoRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());

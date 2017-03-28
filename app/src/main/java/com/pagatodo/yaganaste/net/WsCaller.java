@@ -35,7 +35,8 @@ public class WsCaller implements IServiceConsumer {
 
         VolleySingleton volleySingleton = VolleySingleton.getInstance(App.getInstance().getApplicationContext());
         Log.d(TAG, "Request Success: " + request.get_url_request());
-        Log.d(TAG, "Body Request: " + request.getBody()!= null ? request.getBody().toString() : "No Body" );
+        if(request.getBody()!= null)
+            Log.d(TAG, "Body Request: "+ request.getBody().toString());
         CustomJsonObjectRequest jsonRequest =  new CustomJsonObjectRequest(
                 request.getMethod(),
                 request.get_url_request(),
