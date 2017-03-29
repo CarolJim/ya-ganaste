@@ -34,6 +34,8 @@
             android:layout_marginRight="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_big"
             app:formato="email"
+            app:maxLength="50"
+            app:isSingleLine="true"
             app:hintText="Correo Electrónico" />
 
         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
@@ -45,6 +47,8 @@
             android:layout_marginRight="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_big"
             app:formato="password"
+            app:maxLength="16"
+            app:isSingleLine="true"
             app:hintText="Contraseña" />
 
         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
@@ -52,36 +56,40 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editPassword"
+            android:layout_marginBottom="@dimen/margin_big"
             android:layout_marginLeft="@dimen/margin_medium"
             android:layout_marginRight="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_big"
-            android:layout_marginBottom="@dimen/margin_doble"
             app:formato="password"
+            app:maxLength="16"
+            app:isSingleLine="true"
             app:hintText="Confirmar contraseña" />
     </RelativeLayout>
 
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtTitleDatosUsuario"
+        style="@style/TitleMargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbarLy"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="@dimen/margin_big"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
         android:text="Datos del Usuario"
-        app:tipo="Titulo" />
+        app:tipo="Descripcion" />
 
-    <android.support.v7.widget.AppCompatButton
-        android:id="@+id/btnNextDatosUsuario"
-        android:layout_width="wrap_content"
+    <RelativeLayout
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_centerInParent="true"
-        android:layout_marginBottom="@dimen/btn_margin_bottom"
-        android:background="@color/colorAccent"
-        android:text="@string/next" />
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:orientation="horizontal">
+
+        <android.support.v7.widget.AppCompatButton
+            android:id="@+id/btnNextDatosUsuario"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:backgroundTint="@color/colorAccent"
+            android:layout_centerInParent="true"
+            android:text="@string/next" />
+    </RelativeLayout>
 </RelativeLayout>

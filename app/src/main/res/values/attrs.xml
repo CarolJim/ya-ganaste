@@ -78,5 +78,9 @@
         </attr>
         <attr name="hintText" format="string"/>
         <attr name="maxLength" format="integer"/>
+        <attr name="imageIsGone" format="boolean"/>
+        <attr name="maxLines" format="integer"/>
+        <attr name="isSingleLine" format="boolean"/>
+        <attr name="isTextEnabled" format="boolean"/>
     </declare-styleable>
 </resources>

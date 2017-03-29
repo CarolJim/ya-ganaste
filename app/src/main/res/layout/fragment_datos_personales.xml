@@ -29,27 +29,41 @@
             android:id="@+id/radioGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_big"
-            android:orientation="horizontal">
+            android:gravity="center"
+            android:orientation="horizontal"
+            android:theme="@style/RadioButtonTheme">
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <android.support.v7.widget.AppCompatRadioButton
                 android:id="@+id/radioBtnFemale"
-                style="@style/RadioButtonTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:checked="true"
-                android:layout_weight=".5"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:text="Mujer" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
 
             <android.support.v7.widget.AppCompatRadioButton
                 android:id="@+id/radioBtnMale"
-                style="@style/RadioButtonTheme"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_weight=".5"
+                android:layout_gravity="center"
+                android:gravity="center"
                 android:text="Hombre" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="0dp"
+                android:layout_weight="1" />
         </RadioGroup>
 
         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
@@ -61,7 +75,10 @@
             android:layout_marginRight="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_medium"
             app:formato="text"
-            app:hintText="Nombre(s)" />
+            app:hintText="Nombre(s)"
+            app:imageIsGone="true"
+            app:isSingleLine="true"
+            app:maxLength="30" />
 
         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
             android:id="@+id/editFirstLastName"
@@ -72,7 +89,10 @@
             android:layout_marginRight="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_medium"
             app:formato="text"
-            app:hintText="Primer Apellido" />
+            app:hintText="Primer Apellido"
+            app:imageIsGone="true"
+            app:isSingleLine="true"
+            app:maxLength="30" />
 
         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
             android:id="@+id/editSecoundLastName"
@@ -83,7 +103,10 @@
             android:layout_marginRight="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_medium"
             app:formato="text"
-            app:hintText="Segundo Apellido" />
+            app:hintText="Segundo Apellido"
+            app:imageIsGone="true"
+            app:isSingleLine="true"
+            app:maxLength="30" />
 
         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
             android:id="@+id/editBirthDay"
@@ -94,57 +117,51 @@
             android:layout_marginRight="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_medium"
             app:formato="text"
-            app:hintText="Fecha de Nacimiento" />
+            app:isTextEnabled="false"
+            app:hintText="Fecha de Nacimiento"
+            app:imageIsGone="true" />
 
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-            android:id="@+id/editBirthPlace"
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spinnerBirthPlace"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editBirthDay"
-            android:layout_marginBottom="@dimen/margin_medium"
-            android:layout_marginLeft="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/margin_medium"
-            android:layout_marginTop="@dimen/margin_medium"
-            app:formato="text"
-            app:hintText="Lugar de Nacimiento" />
+            android:layout_margin="@dimen/activity_horizontal_margin"
+            android:layout_marginTop="@dimen/space_between_forms"
+            android:background="@color/transparent" />
 
     </RelativeLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtTitleDatosPersonales"
+        style="@style/TitleMargin"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbarLy"
-        android:layout_centerInParent="true"
-        android:layout_marginTop="@dimen/margin_big"
-        android:background="@color/colorPrimary"
-        android:gravity="center"
-        android:paddingLeft="8dp"
-        android:paddingRight="8dp"
         android:text="Datos Personales"
-        app:tipo="Titulo" />
+        app:tipo="Descripcion" />
 
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layoutContent"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btnBackDatosPersonales"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_big"
-            android:layout_weight=".1"
-            android:text="Volever" />
+            android:layout_weight=".2"
+            android:text="VOLVER" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btnNextDatosPersonales"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_big"
-            android:layout_weight=".9"
+            android:layout_weight=".8"
             android:text="@string/next" />
     </LinearLayout>
 

@@ -56,9 +56,19 @@ public class ValidateForm {
         return phonePattern.matcher(phone).matches();
     }
 
-    private final static Pattern zipCodePattern = Pattern.compile("d{5}");
+    private final static Pattern zipCodePattern = Pattern.compile("^[0-9]{5}$");
 
-    public static boolean isValidZipCode(String zipCode){
+    /*
+            ^           # Assert position at the beginning of the string.
+            [0-9]{5}    # Match a digit, exactly five times.
+            (?:         # Group but don't capture:
+              -         #   Match a literal "-".
+              [0-9]{4}  #   Match a digit, exactly four times.
+            )           # End the non-capturing group.
+              ?         #   Make the group optional.
+            $           # Assert position at the end of the string.
+     */
+    public static boolean isValidZipCode(String zipCode) {
         return zipCodePattern.matcher(zipCode).matches();
     }
 

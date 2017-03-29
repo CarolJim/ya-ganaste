@@ -14,6 +14,7 @@ import android.widget.EditText;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,15 +28,15 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     private View rootview;
 
     @BindView(R.id.editStreet)
-    AppCompatEditText editStreet;
+    CustomValidationEditText editStreet;
     @BindView(R.id.editExtNumber)
-    AppCompatEditText editExtNumber;
+    CustomValidationEditText editExtNumber;
     @BindView(R.id.editIntNumber)
-    AppCompatEditText editIntNumber;
+    CustomValidationEditText editIntNumber;
     @BindView(R.id.editZipCode)
-    AppCompatEditText editZipCode;
+    CustomValidationEditText editZipCode;
     @BindView(R.id.editState)
-    AppCompatEditText editState;
+    CustomValidationEditText editState;
     @BindView(R.id.spColonia)
     AppCompatSpinner spColonia;
     @BindView(R.id.btnBackDomicilioActual)

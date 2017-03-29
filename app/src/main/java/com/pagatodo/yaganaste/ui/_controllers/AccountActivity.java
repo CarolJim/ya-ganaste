@@ -34,7 +34,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_activity);
         //loadFragment(LetsStartFragment.newInstance(), DIRECTION.FORDWARD, true);
-        loadFragment(DomicilioActualFragment.newInstance(), DIRECTION.FORDWARD, true);
+        loadFragment(DatosPersonalesFragment.newInstance(), DIRECTION.FORDWARD, true);
         pref = App.getInstance().getPrefs();
     }
 

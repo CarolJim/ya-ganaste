@@ -27,4 +27,7 @@
     <color name="purpura">#d907f1</color>
     <color name="transparent">#00FFFFFF</color>
 
+    <color name="edittext_back">#435D6E</color>
+    <color name="line_border">#23313C</color>
+
 </resources>

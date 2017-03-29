@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataEstatusUs
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
+import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountIteractor;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
@@ -35,7 +36,7 @@ public class AccountIteractor implements IAccountIteractor,IRequestResult {
 
 
     @Override
-    public void validateUserStatus(String usuario) {
+    public void validateUserStatus(String usuario) throws OfflineException {
         RequestHeaders.setUsername(usuario); // Seteamos el usuario en el Header
         ValidarEstatusUsuarioRequest request = new ValidarEstatusUsuarioRequest(usuario);
         ApiAdtvo.validarEstatusUsuario(request,this);

@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.presenters;
 
+import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountIteractor;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAccountPresenter;
@@ -21,7 +22,7 @@ public class AccountPresenter implements IAccountPresenter, IAccountManager {
     }
 
     @Override
-    public void initValidationLogin(String usuario) {
+    public void initValidationLogin(String usuario) throws OfflineException {
         accountIteractor.validateUserStatus(usuario);
     }
 

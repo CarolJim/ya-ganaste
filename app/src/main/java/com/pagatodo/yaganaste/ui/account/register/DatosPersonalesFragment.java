@@ -6,15 +6,21 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatRadioButton;
+import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.enums.States;
+import com.pagatodo.yaganaste.ui._adapters.EnumSpinnerAdapter;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 
@@ -27,7 +33,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DatosPersonalesFragment extends GenericFragment implements View.OnClickListener{
+public class DatosPersonalesFragment extends GenericFragment implements View.OnClickListener, AdapterView.OnItemSelectedListener{
 
     private View rootview;
     @BindView(R.id.radioGender)
@@ -44,9 +50,9 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     CustomValidationEditText editSecoundLastName;
     @BindView(R.id.editBirthDay)
     CustomValidationEditText editBirthDay;
-    @BindView(R.id.editBirthPlace)
-    CustomValidationEditText editBirthPlace;
-
+    @BindView(R.id.spinnerBirthPlace)
+    AppCompatSpinner spinnerBirthPlace;
+    StatesSpinnerAdapter adapterBirthPlace;
 
     public DatosPersonalesFragment() {
     }
@@ -100,6 +106,10 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     public void initViews() {
         ButterKnife.bind(this, rootview);
         editBirthDay.setOnClickListener(this);
+
+        adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout, States.values());
+        spinnerBirthPlace.setAdapter(adapterBirthPlace);
+        spinnerBirthPlace.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -122,5 +132,17 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         }
     }
 
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        if(position > 0){
+            Toast.makeText(getActivity(), adapterBirthPlace.getItemName(position), Toast.LENGTH_SHORT ).show();
+        }
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }
 
