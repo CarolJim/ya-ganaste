@@ -21,6 +21,19 @@
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:padding="@dimen/generic_padig">
 
+        <ImageView
+            android:id="@+id/imgLoginExistLeft"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_centerVertical="true"
+            android:layout_alignParentRight="true"
+            android:visibility="invisible"
+            app:srcCompat="@drawable/chevron_left"
+            tools:ignore="ContentDescription" />
+
+
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgLoginExistProfile"
             android:layout_width="140dp"
@@ -32,6 +45,17 @@
             android:src="@mipmap/icon_user"
             app:civ_border_color="@color/colorAccent"
             app:civ_border_width="2dp" />
+
+        <ImageView
+            android:id="@+id/imgLoginExistRight"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentRight="true"
+            android:layout_centerVertical="true"
+            android:visibility="visible"
+            app:srcCompat="@drawable/chevron_right"
+            tools:ignore="ContentDescription" />
 
     </RelativeLayout>
 

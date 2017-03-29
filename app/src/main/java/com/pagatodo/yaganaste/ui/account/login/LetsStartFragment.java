@@ -9,10 +9,9 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.interfaces.IAccountValidation;
-import com.pagatodo.yaganaste.net.UtilsNet;
-import com.pagatodo.yaganaste.presenters.AccountPresenter;
+import com.pagatodo.yaganaste.interfaces.IAccountView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.AccountPresenterOld;
 import com.pagatodo.yaganaste.utils.Validations;
 import com.pagatodo.yaganaste.utils.customviews.MaterialButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
@@ -22,16 +21,14 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class LetsStartFragment extends GenericFragment implements View.OnClickListener,IAccountValidation {
+public class LetsStartFragment extends GenericFragment implements View.OnClickListener,IAccountView {
 
-    public final static String EVENT_GET_CARD = "GO_GET_CARD";
-    public final static String EVENT_LOGIN = "GO_LOGIN";
     private View rootview;
     @BindView(R.id.edtxtLetsStartMail)
     public StyleEdittext edtUserEmail;
     @BindView(R.id.btnLetsStartNext)
     public MaterialButton btnValidateUser;
-    private AccountPresenter accountPresenter;
+    private AccountPresenterOld accountPresenter;
 
     public LetsStartFragment() {
     }
@@ -55,7 +52,7 @@ public class LetsStartFragment extends GenericFragment implements View.OnClickLi
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        accountPresenter = new AccountPresenter(this);
+        accountPresenter = new AccountPresenterOld(this);
     }
 
     @Override
@@ -97,11 +94,7 @@ public class LetsStartFragment extends GenericFragment implements View.OnClickLi
     private void validarUsuario(){
         if (!edtUserEmail.getText().toString().replaceAll("\\s", "").isEmpty()) {
             if (Validations.isMail(edtUserEmail)) {
-                if (UtilsNet.isOnline(getActivity())) {
                     accountPresenter.initValidationLogin(edtUserEmail.getText().toString().trim());
-                } else {
-                    Toast.makeText(getActivity(), R.string.no_internet_access, Toast.LENGTH_SHORT).show();
-                }
             } else {
                 Toast.makeText(getActivity(),"El Correo no es Válido", Toast.LENGTH_SHORT).show();
             }
@@ -111,8 +104,24 @@ public class LetsStartFragment extends GenericFragment implements View.OnClickLi
         }
     }
 
+
     @Override
-    public void eventTypeUser(String event) {
+    public void nextStepAccountFlow(String event) {
         onEventListener.onEvent(event,null);
+    }
+
+    @Override
+    public void showLoader(String message) {
+
+    }
+
+    @Override
+    public void hideLoader() {
+
+    }
+
+    @Override
+    public void showError(Object error) {
+
     }
 }

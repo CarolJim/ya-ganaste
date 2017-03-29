@@ -6,6 +6,8 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -14,15 +16,21 @@ import android.widget.ArrayAdapter;
 import android.widget.DatePicker;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.interfaces.IAccountAddressRegisterView;
 import com.pagatodo.yaganaste.interfaces.enums.Genders;
 import com.pagatodo.yaganaste.interfaces.enums.States;
 import com.pagatodo.yaganaste.ui._adapters.EnumSpinnerAdapter;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.AccountPresenterOld;
 import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -31,7 +39,7 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class RegisterAddressFragment extends GenericFragment implements View.OnClickListener {
+public class RegisterAddressFragment extends GenericFragment implements View.OnClickListener,IAccountAddressRegisterView {
 
     private View rootview;
 
@@ -55,7 +63,12 @@ public class RegisterAddressFragment extends GenericFragment implements View.OnC
     StyleButton btnRegisterAddressNext;
 
 
-    ArrayAdapter<String>  adapterColonia;
+    private ArrayAdapter<String>  adapterColonia;
+    private List<ColoniasResponse> listaColonias;
+    private List<String> coloniasNombre;
+
+    private AccountPresenterOld accountPresenter;
+
 
     public RegisterAddressFragment() {
     }
@@ -83,7 +96,7 @@ public class RegisterAddressFragment extends GenericFragment implements View.OnC
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-
+        //accountPresenter = new AccountPresenterOld(this);
     }
 
     @Override
@@ -115,11 +128,36 @@ public class RegisterAddressFragment extends GenericFragment implements View.OnC
         spinnerBirthPlace.setAdapter(adapterBirthPlace);
         EnumSpinnerAdapter adapterGender = new EnumSpinnerAdapter(getContext(), R.layout.spinner_layout, Genders.values());
         spinnerGender.setAdapter(adapterGender);
-
-        adapterColonia = new ArrayAdapter<String>(getContext(), R.layout.spinner_layout, R.id.textView_spinner, new String[]{" "});
+        coloniasNombre = new ArrayList<String>();
+        adapterColonia = new ArrayAdapter<String>(getContext(), R.layout.spinner_layout, R.id.textView_spinner,coloniasNombre);
         spRegisterAddressColonia.setAdapter(adapterColonia);
 
         btnRegisterAddressNext.setOnClickListener(this);
+
+
+        edtxtRegisterAddressCP.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                if (s!= null && s.toString().length() > 4) {
+                    accountPresenter.getNeighborhoods(s.toString().trim());//Buscamos por CP
+                } else {
+                    if(listaColonias != null) {
+                        listaColonias.clear();
+                        fillAdapter();
+                    }
+                }
+            }
+        });
 
     }
 
@@ -148,5 +186,45 @@ public class RegisterAddressFragment extends GenericFragment implements View.OnC
         }
     }
 
+    @Override
+    public void setNeighborhoodsAvaliables(List<ColoniasResponse> listaColonias) {
+
+       this.listaColonias = listaColonias;
+        fillAdapter();
+    }
+
+    private void fillAdapter(){
+        coloniasNombre.clear();
+        for(ColoniasResponse coloniasResponse : this.listaColonias){
+            coloniasNombre.add(coloniasResponse.getColonia());
+        }
+
+        adapterColonia.notifyDataSetChanged();
+    }
+
+    @Override
+    public void showLoader(String message) {
+
+    }
+
+    @Override
+    public void hideLoader() {
+
+    }
+
+    @Override
+    public void nextStepRegister(String event, Object data) {
+
+    }
+
+    @Override
+    public void backStepRegister(String event, Object data) {
+
+    }
+
+    @Override
+    public void showError(Object error) {
+        UI.showToastShort(error.toString(),getActivity());
+    }
 }
 

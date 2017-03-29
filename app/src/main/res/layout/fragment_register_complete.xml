@@ -1,0 +1,73 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lets_start"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".ui._controllers.AccountActivity">
+
+    <include
+        android:id="@+id/toolbarLy"
+        layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:id="@+id/layoutImagenLogin"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/toolbarLy"
+        android:layout_marginTop="@dimen/activity_horizontal_margin"
+        android:padding="@dimen/generic_padig">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/imgLoginExistProfile"
+            android:layout_width="140dp"
+            android:layout_height="140dp"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal"
+            android:layout_margin="15dp"
+            android:src="@mipmap/ic_validate_blue"
+            app:civ_border_color="@color/colorAccent"
+            app:civ_border_width="2dp" />
+    </RelativeLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtCongratulation"
+        style="@style/textTitle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/layoutImagenLogin"
+        android:text="@string/txt_felicidades"
+        app:tipo="Descripcion" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtLoginExistUserRecoverPass"
+        style="@style/textDescInputs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtCongratulation"
+        android:layout_marginBottom="@dimen/btn_margin_bottom"
+        android:text="@string/congratulation_text1" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        style="@style/textDescInputs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_above="@+id/btnCongratulationNext"
+        android:layout_marginBottom="@dimen/btn_margin_bottom"
+        android:text="@string/congratulation_text2" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btnCongratulationNext"
+        style="@style/buttonRoundedBlue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/btn_margin_bottom"
+        android:text="@string/next"
+        app:cornerRadius="@dimen/btn_corner_radius" />
+</RelativeLayout>

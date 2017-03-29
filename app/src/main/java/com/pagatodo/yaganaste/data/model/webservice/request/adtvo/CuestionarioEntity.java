@@ -14,6 +14,11 @@ public class CuestionarioEntity implements Serializable{
     public CuestionarioEntity() {
     }
 
+    public CuestionarioEntity(int preguntaId, boolean valor) {
+        PreguntaId = preguntaId;
+        Valor = valor;
+    }
+
     public int getPreguntaId() {
         return PreguntaId;
     }

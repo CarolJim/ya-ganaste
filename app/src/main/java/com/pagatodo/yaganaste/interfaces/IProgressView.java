@@ -1,12 +1,17 @@
 package com.pagatodo.yaganaste.interfaces;
 
 /**
- * Created by flima on 20/02/2017.
+ * Created by flima on 22/03/2017.
  */
 
 public interface IProgressView<T> {
 
-    public void showProgress(String message);
-    public void hideProgress();
+    //Mostrar Loader personalizado
+    public void showLoader(String message);
+    //Mostrar Loader personalizado
+    public void hideLoader();
+    //Mostramos error personalido
     public void showError(T error);
+
+
 }

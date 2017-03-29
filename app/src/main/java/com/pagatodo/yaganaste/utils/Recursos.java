@@ -64,6 +64,13 @@ public class Recursos {
 	public static final int RECARGA = 1;
 	public static final int PAGO_DE_SERVICIO = 2;
 	public static final int ENVIO_DE_DINERO = 3;
+	/*Id's de Preguntas  en Cuestionario Negocio*/ //TODO esto debería de ser un catálogo de ws
+	public static final int PREGUNTA_VENTAS = 1;
+	public static final int PREGUNTA_TRANSACCIONES = 2;
+	public static final int PREGUNTA_GIRO = 3;
+	public static final int PREGUNTA_FAMILIAR = 4;
+	public static final int PREGUNTA_DOMICILIO = 5;
+	public static final int PREGUNTA_BENEFICIARIOS = 6;
 
 
 

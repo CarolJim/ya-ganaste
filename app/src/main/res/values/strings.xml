@@ -88,7 +88,7 @@
     <string name="add_your_address">Agrega tu Dirección</string>
     <string name="street">Calle, Avenida o Vía</string>
     <string name="colonia">Colonia</string>
-    <string name="terms_and_conditions">Al Continuar, Indicas que Leíste y Aceptas Nuestros Términos y Condiciones</string>
+    <string name="terms_and_conditions">Al Continuar Reconozco Ser Mayor de Edad, Así Como Haber Leído y Aceptado los Términos y Condiciones y el Aviso de Privacidad </string>
     <string name="postal_code">C.P.</string>
     <string name="intern_number">No. Interior</string>
     <string name="outside_number">No. Exterior</string>
@@ -139,7 +139,7 @@
     <string name="error_message_current_pass">Ingresa tu Nueva Contraseña</string>
     <string name="error_message_verify_new_pass">Ingresa la Confirmación de la Nueva Contraseña</string>
     <string name="lorem_ipsum_extended">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas Letraset\", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.\" Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, \"consecteur\", en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de \"de Finnibus Bonorum et Malorum\" (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45 antes de Cristo. Este libro es un tratado de teoría de éticas, muy popular durante el Renacimiento. La primera linea del Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", viene de una linea en la sección 1.10.32  El trozo de texto estándar de Lorem Ipsum usado desde el año 1500 es reproducido debajo para aquellos interesados. Las secciones 1.10.32 y 1.10.33 de \"de Finibus Bonorum et Malorum\" por Cicero son también reproducidas en su forma original exacta, acompañadas por versiones en Inglés de la traducción realizada en 1914 por H. Rackham</string>
-    <string name="txt_felicidades">Felicidades</string>
+    <string name="txt_felicidades">¡Felicidades!</string>
     <string name="txt_leyenda_felicidades">Tu aplicación Ya Ganaste Está Preparada Para que Comiences una Nueva Experiencia y Disfrutes de Todos los Beneficios</string>
     <string name="txt_comenzar">COMENZAR</string>
     <string name="activate_now">¡ACTÍVALA YA SIN COSTO!</string>
@@ -215,6 +215,46 @@
     <string name="action_take_picture">Abrir Cámara</string>
     <string name="action_select_picture">Abrir Galería</string>
     <string name="action_select_picture_cancel">Cancelar</string>
-
+    <!--datos_usuario-->
+    <string name="datos_usuario_correo">Introduce un Correo Válido (*)</string>
+    <string name="datos_usuario_correo_formato">El Correo No es Válido</string>
+    <string name="datos_usuario_correo_confirma">Debes confirmar el correo.</string>
+    <string name="datos_usuario_correo_no_coinciden">El correo no coincide.</string>
+    <string name="datos_usuario_pass">Introduce la Contraseña.</string>
+    <string name="datos_usuario_pass_confirm">Debes Confirmar la Contraseña.</string>
+    <string name="datos_usuario_pass_no_coinciden">La Contraseña No Coincide.</string>
+    <string name="datos_usuario_pass_formato">Verifica tu Contraseña.</string>
+    <!--datos_personal-->
+    <string name="datos_personal_nombre">Nombre Requerido, Verifique su Información.</string>
+    <string name="datos_personal_paterno">Primer Apellido Requerido, Verifique su Información.</string>
+    <string name="datos_personal_fecha">Fecha de Nacimiento Requerida, Verifique su Información.</string>
+    <string name="datos_personal_estado">Lugar de Nacimiento Requerido, Verifique su Información.</string>
+    <!--datos_domicilio-->
+    <string name="datos_domicilio_calle">Called Requerida, Verifique su Información.</string>
+    <string name="datos_domicilio_num_ext">Número Exterior Requerido, Verifique su Información.</string>
+    <string name="datos_domicilio_cp">Código Postal Requerido, Verifique su Información.</string>
+    <string name="datos_domicilio_colonia">Colonia Requerida, Verifique su Información.</string>
+    <string name="datos_domicilio_terminos">Debes aceptar los términos y condiciones.</string>
+    <!--activacion_sms-->
+    <string name="activacion_sms_mes_1">Para Terminar tu Registro, Debemos Asociar tu Teléfono a tu Cuenta YA Ganaste.</string>
+    <string name="activacion_sms_mes_2">Te Pedimos Enviar un SMS de Validación.</string>
+    <string name="activacion_sms_loader">Estamos Verificando tu SMS.\nNos Tomara Solo Unos Segundos.</string>
+    <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
+    <!--tienes_tarjeta-->
+    <string name="tienes_tarjeta_asignando">Estamos asignandote una cuenta.</string>
+    <string name="tienes_tarjeta_validando_cuenta">Estamos Validando tu cuenta.</string>
+    <string name="tienes_tarjeta_no">No te Preocupes ¡Ya te Asignamos Una!\nTu Número de Tarjeta es:</string>
+    <!--tienes_tarjeta-->
+    <string name="permission_request">Solicitud de Permisos</string>
+    <string name="permission_request_desc">Debes Aceptar Todos los Permisos para el Correcto Funcionamiento de Ya Ganaste.</string>
+    <!--felicidades-->
+    <string name="congratulation_text1">Tu Cuenta Ya Ganaste Está Lista</string>
+    <string name="congratulation_text2">A Continuación te Eneseñaremos Todo lo\nQue Puedes Hacer Con Ella...</string>
+    <!--Registro Agente-->
+    <string name="datos_negocio_nombre">Nombre Requerido, Verifique su Información.</string>
+    <string name="datos_negocio_giro">Giro Requerido, Verifique su Información.</string>
+    <string name="datos_negocio_telefono">Teléfono Requerido, Verifique su Información.</string>
+    <string name="datos_negocio_preguntas">Debes contestar Todas las Preguntas.</string>
 
 </resources>
+

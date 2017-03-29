@@ -62,6 +62,8 @@ public enum WebService {
     TRANSACCIONES_PDS,
     CONSULTA_MOVIMIENTOS_MES_ADQ,
     CONSULTA_SALDO_CUPO,
+    /**Servicio para crer usuario**/
+    CREAR_USUARIO_COMPLETO
 
 }
 

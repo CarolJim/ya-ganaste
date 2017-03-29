@@ -120,7 +120,7 @@ public abstract class SupportFragmentActivity extends AppCompatActivity {
     protected void checkPermissions(){
 
         if(!ValidatePermissions.isAllPermissionsActives(this,ValidatePermissions.getPermissionsCheck())){
-            ValidatePermissions.showDialogPermission(this,actionsDialog);
+            ValidatePermissions.showDialogPermission(this,getString(R.string.permission_request),getString(R.string.permission_request_desc),actionsDialog);
         }
     }
 
@@ -137,9 +137,7 @@ public abstract class SupportFragmentActivity extends AppCompatActivity {
     private DialogDoubleActions actionsDialog = new DialogDoubleActions() {
         @Override
         public void actionConfirm(Object... params) {
-
             ValidatePermissions.openDetailsApp(SupportFragmentActivity.this,Constants.PERMISSION_GENERAL);
-
         }
 
         @Override

@@ -25,10 +25,6 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.GiroComercio;
 
-import org.json.JSONArray;
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -40,6 +36,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.math.RoundingMode;
 import java.security.MessageDigest;
@@ -50,7 +47,6 @@ import java.text.DecimalFormatSymbols;
 import java.text.NumberFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -58,7 +54,6 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import java.lang.reflect.Type;
 
 
 @SuppressLint("SimpleDateFormat")
@@ -1171,5 +1166,20 @@ public class Utils {
 
     public static String getTokenDevice(Context context) {
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
+    }
+
+    public static String bin2hex(byte[] data) {
+        return String.format("%0" + (data.length * 2) + 'x', new BigInteger(1, data));
+    }
+
+    public static byte[] getHash(String password) {
+        MessageDigest digest = null;
+        try {
+            digest = MessageDigest.getInstance("SHA-256");
+        } catch (NoSuchAlgorithmException e1) {
+            e1.printStackTrace();
+        }
+        digest.reset();
+        return digest.digest(password.getBytes());
     }
 }

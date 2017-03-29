@@ -2,14 +2,49 @@ package com.pagatodo.yaganaste.net;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.request.trans.*;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.*;
+import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsociarTarjetaCuentaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.trans.BloquearTemporalmenteTarjetaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultaAsignacionTarjetaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultarTitularCuentaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.trans.CrearClienteRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.trans.EjecutarTransaccionRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.trans.FondearCUPORequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.trans.ObtenerEstatusTarjetaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.trans.ValidarTransaccionRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarNIPResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsociarTarjetaCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.BloquearTemporalmenteTarjetaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarAsignacionTarjetaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoADQResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarTitularCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.CrearClienteResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.FondearCupoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ObtenerEstatusTarjetaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ValidarEstatusTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 
 import java.util.Map;
 
-import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.*;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.*;
+import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_GET;
+import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_POST;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASOCIAR_TARJETA_CUENTA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.BLOQUEAR_TEMPORALMENTE_TARJETA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_TITULAR_CUENTA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_CLIENTE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.EJECUTAR_TRANSACCION;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.FONDEAR_CUPO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTATUS_TARJETA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_TRANSACCION;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_TRANS;
 
 /**

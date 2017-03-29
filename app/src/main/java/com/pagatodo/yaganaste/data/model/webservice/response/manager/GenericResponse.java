@@ -16,6 +16,11 @@ public class GenericResponse implements Serializable {
     public GenericResponse() {
     }
 
+    public GenericResponse(int idOperacion, String mensaje) {
+        IdOperacion = idOperacion;
+        Mensaje = mensaje;
+    }
+
     public int getIdOperacion() {
         return IdOperacion;
     }

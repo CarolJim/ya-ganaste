@@ -65,17 +65,21 @@
         android:id="@+id/editBirthDay"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:focusableInTouchMode="false"
+        android:focusable="false"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
         android:hint="Fecha de Nacimiento" />
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editBirthPlace"
+    <android.support.v7.widget.AppCompatSpinner
+        android:id="@+id/spinnerBirthPlace"
+        style="@style/Widget.AppCompat.Spinner.Underlined"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Lugar de Nacimiento" />
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/space_between_forms"
+        app:backgroundTint="@android:color/white" />
+
 
     <LinearLayout
         android:layout_width="match_parent"

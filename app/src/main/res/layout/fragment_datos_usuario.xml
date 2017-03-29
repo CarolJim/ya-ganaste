@@ -23,6 +23,15 @@
         android:hint="Correo Electrónico"/>
 
     <android.support.v7.widget.AppCompatEditText
+        android:id="@+id/edtitConfirmEmail"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_big"
+        android:hint="Confirmar Correo Electrónico"/>
+
+    <android.support.v7.widget.AppCompatEditText
         android:id="@+id/editPassword"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -39,6 +48,18 @@
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginTop="@dimen/margin_big"
         android:hint="Confirmar contraseña"/>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtRegisterBasicPassMessage"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginLeft="@dimen/margin_big"
+        android:layout_marginRight="@dimen/margin_big"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:gravity="center"
+        android:text="@string/your_password_need_to_have"
+        app:tipo="Descripcion" />
 
     <android.support.v7.widget.AppCompatButton
         android:id="@+id/btnNextDatosUsuario"

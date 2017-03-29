@@ -30,7 +30,7 @@ public class LandingFragment extends GenericFragment implements View.OnClickList
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onAttach(Context context){
         super.onAttach(context);
         Activity activity = null;
 

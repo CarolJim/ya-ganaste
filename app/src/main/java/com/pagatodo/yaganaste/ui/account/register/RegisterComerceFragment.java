@@ -10,7 +10,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.GiroComercio;

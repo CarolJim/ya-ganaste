@@ -18,7 +18,6 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_activity);
-
         pref = App.getInstance().getPrefs();
 
         Toast.makeText(this,"MainActivity",Toast.LENGTH_SHORT).show();

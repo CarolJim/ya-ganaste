@@ -62,6 +62,14 @@ public class EnumSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
         return mItems[position].getId();
     }
 
+    public int getPositionItemByName(String name){
+        for(int position = 0 ; position< mItems.length;position++){
+            if(mItems[position].getName().equals(name))
+               return position;
+        }
+        return 0;
+    }
+
     static class Holder {
         TextView txtTitle;
     }

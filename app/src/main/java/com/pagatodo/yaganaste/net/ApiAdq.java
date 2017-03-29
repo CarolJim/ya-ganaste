@@ -1,14 +1,49 @@
 package com.pagatodo.yaganaste.net;
+
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.request.adq.*;
-import com.pagatodo.yaganaste.data.model.webservice.response.adq.*;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.AutenticaNipRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.ConsultaSaldoCupoRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.ConsultaSesionAgenteRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.EnviarTicketCompraRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.FirmaDeVoucherRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistraNipRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistraNotificacionRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistroDeviceDataRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistroDongleRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.AutenticaNIPResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSesionAgenteResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.EnviarTicketCompraResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.FirmaDeVoucherResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.LoginAdqResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistraNIPResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistraNotificacionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistroDeviceDataResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistroDongleResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 
 import java.util.Map;
 
-import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.*;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.*;
+import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_GET;
+import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_POST;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.AUTENTICA_NIP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_MOVIMIENTOS_MES_ADQ;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_CUPO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SESION_AGENTE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGIN_ADQ;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRA_NIP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRA_NOTIFICACION;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DEVICE_DATA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADQ;
 
 /**

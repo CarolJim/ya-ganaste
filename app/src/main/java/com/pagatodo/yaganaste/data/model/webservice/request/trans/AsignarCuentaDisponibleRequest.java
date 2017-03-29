@@ -12,6 +12,10 @@ public class AsignarCuentaDisponibleRequest implements Serializable{
     public AsignarCuentaDisponibleRequest() {
     }
 
+    public AsignarCuentaDisponibleRequest(int idCuenta) {
+        IdCuenta = idCuenta;
+    }
+
     public int getIdCuenta() {
         return IdCuenta;
     }

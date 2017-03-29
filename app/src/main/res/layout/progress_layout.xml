@@ -1,25 +1,36 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:orientation="vertical" android:layout_width="match_parent"
+<LinearLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/process"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:visibility="visible">
+
+<RelativeLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#80000000"
-    android:gravity="center"
-    android:clickable="true"
-    android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:background="@drawable/bg_loading_white" >
 
-<ProgressBar
-android:layout_width="wrap_content"
-android:layout_height="wrap_content"
-android:id="@+id/progressBar"
-android:layout_gravity="center_horizontal" />
-
+    <pl.droidsonroids.gif.GifImageView
+        android:id="@+id/imgloader"
+        android:layout_width="140dp"
+        android:layout_height="140dp"
+        android:layout_centerInParent="true"
+        android:src="@mipmap/load_reloj"
+        android:visibility="visible"
+        tools:ignore="ContentDescription" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txtMessageProgress"
+        android:id="@+id/txtMessage"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:gravity="center"/>
+        android:gravity="center"
+        android:visibility="visible"
+        android:text="Cargando..."
+        android:textColor="@color/whiteColor"
+        android:layout_alignBottom="@+id/imgloader"/>
 
-    </LinearLayout>
+</RelativeLayout>
+
+</LinearLayout>

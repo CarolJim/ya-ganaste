@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.utils;
 import android.Manifest;
 import android.app.Activity;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
@@ -11,6 +12,7 @@ import android.net.Uri;
 import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AlertDialog;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -28,7 +30,11 @@ public class ValidatePermissions {
     /**
      * Arreglo de permisos que se tienen que validar
      * */
-    public static String[] permissionsCheck = new String[]{Manifest.permission.CAMERA,Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION};
+    public static String[] permissionsCheck = new String[]{
+            Manifest.permission.CAMERA,
+            Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.ACCESS_COARSE_LOCATION,
+            Manifest.permission.SEND_SMS};
 
     /**
      * Devuelve el arreglo de permisos a validar.
@@ -121,31 +127,14 @@ public class ValidatePermissions {
      *@params explanation {@link String} texto con la explicación del permiso.
      *@params PERMISSIONS_REQUEST entero con el request de la solicitud de permiso.
      * */
-    public static void checkSinglePermissionWithExplanation(final Activity activity,String permission,String explanation,int PERMISSION_REQUEST){
+    public static void checkSinglePermissionWithExplanation(final Activity activity,String permission,String title,String explanation,DialogDoubleActions actionsDialog,int PERMISSION_REQUEST){
         // Here, thisActivity is the current activity
         if (ContextCompat.checkSelfPermission(activity,permission)
                 != PackageManager.PERMISSION_GRANTED) {
-
             // Should we show an explanation?
             if (ActivityCompat.shouldShowRequestPermissionRationale(activity,permission)) {
-
-                DialogDoubleActions actionsDialog = new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        /*Implementamos acción de btn de confirmación*/
-
-                    }
-
-                    @Override
-                    public void actionCancel(Object... params) {
-                    /*Implementamos acción de btn de cancelación*/
-                    }
-                };
-
-                showDialogPermission(activity,actionsDialog);
-
+                showDialogPermission(activity,title,explanation,actionsDialog);
             } else {
-
                 ActivityCompat.requestPermissions(activity,
                         new String[]{permission},
                         PERMISSION_REQUEST);
@@ -181,9 +170,20 @@ public class ValidatePermissions {
      *@params activity {@link Activity} activity
      *@params actionsDialog {@link DialogDoubleActions} con las acciones del Dialog
      * */
-    public static void showDialogPermission(final Activity activity,DialogDoubleActions actionsDialog ){
+    public static void showDialogPermission(final Activity activity,String title,String msg,final DialogDoubleActions actionsDialog ){
 
-
+        new AlertDialog.Builder(activity)
+                .setTitle(title)
+                .setMessage(msg)
+                .setPositiveButton(android.R.string.ok, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        actionsDialog.actionConfirm();
+                        dialog.dismiss();
+                    }
+                })
+                .setCancelable(false)
+                .show();
     }
 
 

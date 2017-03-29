@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lets_start"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".ui._controllers.AccountActivity">
+
+    <include
+        android:id="@+id/toolbarLy"
+        layout="@layout/toolbar" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="@dimen/activity_horizontal_margin"
+        android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtMessage1"
+        style="@style/textDescInputs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:gravity="center"
+        android:text="@string/activacion_sms_mes_1" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        style="@style/textDescInputs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/txtMessage1"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:text="@string/activacion_sms_mes_2" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btnAssociateNext"
+        style="@style/buttonRoundedBlue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/btn_margin_bottom"
+        android:text="@string/next"
+        app:cornerRadius="@dimen/btn_corner_radius" />
+    </RelativeLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@+id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+</RelativeLayout>

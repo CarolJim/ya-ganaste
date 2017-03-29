@@ -14,7 +14,6 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.GiroComercio;
 import com.pagatodo.yaganaste.interfaces.enums.GiroAdapterType;
-import com.pagatodo.yaganaste.ui._adapters.EnumSpinnerAdapter;
 
 import java.util.List;
 

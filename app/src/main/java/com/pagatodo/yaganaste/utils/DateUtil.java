@@ -17,7 +17,7 @@ import java.util.Locale;
  */
 public class DateUtil {
 
-    public static String simpleDateFormat = "yyyy/MM/dd";
+    public static String simpleDateFormat = "dd/MM/yyyy";
 
     public static DatePickerDialog getMaterialDatePicker(DatePickerDialog.OnDateSetListener callback) {
         Calendar now = Calendar.getInstance();
