@@ -15,66 +15,56 @@
         layout="@layout/toolbar" />
 
 
-    <RelativeLayout
+    <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtTitleDatosUsuario"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:layout_marginTop="-9dp"
-        android:background="@drawable/rounded_border_layout"
-        android:orientation="vertical">
-
-
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-            android:id="@+id/edtitEmail"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/margin_medium"
-            android:layout_marginTop="@dimen/margin_big"
-            app:formato="email"
-            app:maxLength="50"
-            app:isSingleLine="true"
-            app:hintText="Correo Electrónico" />
-
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-            android:id="@+id/editPassword"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/edtitEmail"
-            android:layout_marginLeft="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/margin_medium"
-            android:layout_marginTop="@dimen/margin_big"
-            app:formato="password"
-            app:maxLength="16"
-            app:isSingleLine="true"
-            app:hintText="Contraseña" />
-
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-            android:id="@+id/editPasswordConfirmation"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editPassword"
-            android:layout_marginBottom="@dimen/margin_big"
-            android:layout_marginLeft="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/margin_medium"
-            android:layout_marginTop="@dimen/margin_big"
-            app:formato="password"
-            app:maxLength="16"
-            app:isSingleLine="true"
-            app:hintText="Confirmar contraseña" />
-    </RelativeLayout>
-
-
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txtTitleDatosUsuario"
-        style="@style/TitleMargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         android:layout_below="@+id/toolbarLy"
-        android:text="Datos del Usuario"
-        app:tipo="Descripcion" />
+        android:layout_marginLeft="@dimen/margin_big"
+        android:layout_marginRight="@dimen/margin_big"
+        android:layout_marginTop="@dimen/margin_big"
+        app:title="Datos del Usuario">
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/edtitEmail"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_doble"
+                app:formato="email"
+                app:hintText="Correo Electrónico"
+                app:isSingleLine="true"
+                app:maxLength="50" />
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/editPassword"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edtitEmail"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_big"
+                app:formato="password"
+                app:hintText="Contraseña"
+                app:isSingleLine="true"
+                app:maxLength="16" />
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/editPasswordConfirmation"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editPassword"
+                android:layout_marginBottom="@dimen/margin_big"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_big"
+                app:formato="password"
+                app:hintText="Confirmar contraseña"
+                app:isSingleLine="true"
+                app:maxLength="16" />
+
+    </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -88,8 +78,8 @@
             android:id="@+id/btnNextDatosUsuario"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/colorAccent"
             android:layout_centerInParent="true"
+            android:backgroundTint="@color/colorAccent"
             android:text="@string/next" />
     </RelativeLayout>
 </RelativeLayout>

@@ -14,16 +14,16 @@
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
 
-    <RelativeLayout
+    <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
         android:id="@+id/layoutContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtTitleDomicilioActual"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:layout_marginTop="-9dp"
-        android:background="@drawable/rounded_border_layout"
-        android:orientation="vertical">
+        android:layout_below="@+id/toolbarLy"
+        android:layout_marginLeft="@dimen/margin_big"
+        android:layout_marginRight="@dimen/margin_big"
+        android:layout_marginTop="@dimen/margin_big"
+        android:orientation="vertical"
+        app:title="Domicilio Actual">
 
         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
             android:id="@+id/editStreet"
@@ -31,7 +31,7 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_medium"
             android:layout_marginRight="@dimen/margin_medium"
-            android:layout_marginTop="@dimen/margin_big"
+            android:layout_marginTop="@dimen/margin_doble"
             app:formato="text"
             app:hintText="Calle"
             app:isSingleLine="true"
@@ -49,7 +49,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:layout_weight=".5"
                 app:formato="text"
@@ -61,7 +61,7 @@
                 android:id="@+id/editIntNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:layout_weight=".5"
@@ -84,7 +84,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:layout_weight=".5"
                 app:formato="zipcode"
@@ -96,7 +96,7 @@
                 android:id="@+id/editState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginLeft="@dimen/margin_small"
                 android:layout_marginRight="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:layout_weight=".5"
@@ -114,16 +114,7 @@
 
         </android.support.v7.widget.AppCompatSpinner>
 
-    </RelativeLayout>
-
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txtTitleDomicilioActual"
-        style="@style/TitleMargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbarLy"
-        android:text="Datos Personales"
-        app:tipo="Descripcion" />
+    </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
 
     <LinearLayout

@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.ui.account.register.GetCardFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterAddressFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterBasicInfoFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterComerceFragment;
+import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
 
 import static com.pagatodo.yaganaste.ui.account.login.LetsStartFragment.EVENT_GET_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.LetsStartFragment.EVENT_LOGIN;
@@ -34,7 +35,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_activity);
         //loadFragment(LetsStartFragment.newInstance(), DIRECTION.FORDWARD, true);
-        loadFragment(DatosPersonalesFragment.newInstance(), DIRECTION.FORDWARD, true);
+        loadFragment(TienesTarjetaFragment.newInstance(), DIRECTION.FORDWARD, true);
         pref = App.getInstance().getPrefs();
     }
 
