@@ -18,6 +18,7 @@ import java.util.Locale;
 public class DateUtil {
 
     public static String simpleDateFormat = "dd/MM/yyyy";
+    public static String simpleDateFormatFirstYear = "yyyy-MM-dd";
 
     public static DatePickerDialog getMaterialDatePicker(DatePickerDialog.OnDateSetListener callback) {
         Calendar now = Calendar.getInstance();
@@ -112,5 +113,13 @@ public class DateUtil {
         String result = dateFormat.format(date.getTime());
         return result;
     }
+
+    public static String getDateStringFirstYear(Calendar date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormatFirstYear, Locale.US);
+        String result = dateFormat.format(date.getTime());
+        return result;
+    }
+
+
 
 }

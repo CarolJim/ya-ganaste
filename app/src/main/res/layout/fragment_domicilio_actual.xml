@@ -7,85 +7,135 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
 
-    <LinearLayout
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
+
 
     <include
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
 
-    <android.support.v7.widget.AppCompatEditText
-        android:id="@+id/editStreet"
+    <RelativeLayout
+        android:id="@+id/layoutContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_below="@+id/txtTitleDomicilioActual"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
-        android:hint="Calle" />
+        android:layout_marginTop="-9dp"
+        android:background="@drawable/rounded_border_layout"
+        android:orientation="vertical">
 
-    <LinearLayout
-        android:layout_width="match_parent"
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/editStreet"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_big"
+            app:formato="text"
+            app:hintText="Calle"
+            app:isSingleLine="true"
+            app:maxLength="30" />
+
+        <LinearLayout
+            android:id="@+id/layNumbers"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/editStreet"
+            android:orientation="horizontal">
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/editExtNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_weight=".5"
+                app:formato="text"
+                app:hintText="NoExterior"
+                app:isSingleLine="true"
+                app:maxLength="4" />
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/editIntNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_weight=".5"
+                app:formato="text"
+                app:hintText="NoInterior"
+                app:isSingleLine="true"
+                app:maxLength="5" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutAddress"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layNumbers"
+            android:orientation="horizontal">
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/editZipCode"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_weight=".5"
+                app:formato="zipcode"
+                app:hintText="Código Postal"
+                app:isSingleLine="true"
+                app:maxLength="5" />
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/editState"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_weight=".5"
+                app:hintText="Estado" />
+        </LinearLayout>
+
+
+        <android.support.v7.widget.AppCompatSpinner
+            android:id="@+id/spColonia"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutAddress"
+            android:layout_marginBottom="@dimen/margin_big"
+            android:layout_marginTop="@dimen/margin_big">
+
+        </android.support.v7.widget.AppCompatSpinner>
+
+    </RelativeLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtTitleDomicilioActual"
+        style="@style/TitleMargin"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/editExtNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:hint="NoExterior" />
-
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/editIntNumber"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:hint="NoInterior" />
-
-    </LinearLayout>
-
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/editZipCode"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:hint="Código Postal" />
-
-        <android.support.v7.widget.AppCompatEditText
-            android:id="@+id/editState"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:focusable="false"
-            android:enabled="false"
-            android:hint="Estado" />
-    </LinearLayout>
-
-
-    <android.support.v7.widget.AppCompatSpinner
-        android:id="@+id/spColonia"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-    </android.support.v7.widget.AppCompatSpinner>
+        android:layout_below="@+id/toolbarLy"
+        android:text="Datos Personales"
+        app:tipo="Descripcion" />
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_above="@+id/layoutBtnDomicilio"
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatRadioButton
@@ -111,8 +161,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layoutBtnDomicilio"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
         android:orientation="horizontal">
 
         <android.support.v7.widget.AppCompatButton
@@ -120,18 +174,24 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
-            android:layout_weight=".1"
-            android:text="Volver" />
+            android:layout_weight=".2"
+            android:text="VOLVER" />
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btnNextDomicilioActual"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
-            android:layout_weight=".9"
+            android:layout_weight=".8"
             android:text="@string/next" />
     </LinearLayout>
 
-    </LinearLayout>
+    </RelativeLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@+id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
 </RelativeLayout>

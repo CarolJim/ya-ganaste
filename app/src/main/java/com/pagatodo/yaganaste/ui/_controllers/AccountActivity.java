@@ -1,11 +1,13 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.view.Window;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
@@ -20,6 +22,10 @@ import com.pagatodo.yaganaste.ui.account.register.RegisterAddressFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterBasicInfoFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
+
+import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_LOGIN;
+import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_REGISTER;
+import static com.pagatodo.yaganaste.ui._controllers.MainActivity.SELECTION;
 
 
 public class AccountActivity extends SupportFragmentActivity implements OnEventListener{
@@ -48,15 +54,25 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     private DomicilioActualFragment domicilioActualFragment;
     private TienesTarjetaFragment tienesTarjetaFragment;
 
+    private String action="";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_activity);
-        //loadFragment(LetsStartFragment.newInstance(), DIRECTION.FORDWARD, true);
-        loadFragment(AsociatePhoneAccountFragment.newInstance(), DIRECTION.FORDWARD, true);
+        action = getIntent().getExtras().getString(SELECTION);
+        //initFragments();
         pref = App.getInstance().getPrefs();
-        initFragments();
+        switch (action){
+            case GO_TO_LOGIN:
+                loadFragment(LoginFragment.newInstance(), DIRECTION.FORDWARD, true);
+                break;
+
+            case GO_TO_REGISTER:
+                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.FORDWARD, true);
+                break;
+        }
     }
 
     @Override
@@ -69,7 +85,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 break;
 
             case EVENT_GO_GET_CARD:
-                loadFragment(tienesTarjetaFragment, DIRECTION.FORDWARD, true);
+                loadFragment(TienesTarjetaFragment.newInstance(), DIRECTION.FORDWARD, true);
                 break;
 
             case EVENT_GO_BASIC_INFO:
@@ -97,26 +113,26 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 break;
 
             case EVENT_DATA_USER:
-                loadFragment(datosUsuarioFragment, DIRECTION.FORDWARD, true);
+                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.FORDWARD, true);
                 break;
             case EVENT_DATA_USER_BACK:
-                loadFragment(datosUsuarioFragment, DIRECTION.BACK, true);
+                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.BACK, true);
                 break;
 
             case EVENT_PERSONAL_DATA:
-                loadFragment(datosPersonalesFragment, DIRECTION.FORDWARD, false);
+                loadFragment(DatosPersonalesFragment.newInstance(), DIRECTION.FORDWARD, false);
                 break;
 
             case EVENT_PERSONAL_DATA_BACK:
-                loadFragment(datosPersonalesFragment, DIRECTION.BACK, false);
+                loadFragment(DatosPersonalesFragment.newInstance(), DIRECTION.BACK, false);
                 break;
 
             case EVENT_ADDRESS_DATA:
-                loadFragment(domicilioActualFragment, DIRECTION.FORDWARD, false);
+                loadFragment(DomicilioActualFragment.newInstance(), DIRECTION.FORDWARD, false);
                 break;
 
             case EVENT_ADDRESS_DATA_BACK:
-                loadFragment(domicilioActualFragment, DIRECTION.BACK, false);
+                loadFragment(DomicilioActualFragment.newInstance(), DIRECTION.BACK, false);
                 break;
 
             case EVENT_COUCHMARK:
@@ -133,28 +149,37 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         datosPersonalesFragment = DatosPersonalesFragment.newInstance();
         domicilioActualFragment = DomicilioActualFragment.newInstance();
         tienesTarjetaFragment = TienesTarjetaFragment.newInstance();
+    }
 
-       /* datosPersonalesFragment.getView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if( keyCode == KeyEvent.KEYCODE_BACK )
-                {
-                    onEvent(EVENT_GO_DATA_USER_BACK,null);
-                }
-                return false;
-            }
-        });
+    @Override
+    public void onBackPressed() {
 
-        domicilioActualFragment.getView().setOnKeyListener(new View.OnKeyListener() {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if( keyCode == KeyEvent.KEYCODE_BACK )
-                {
-                    onEvent(EVENT_GO_PERSONAL_DATA_BACK,null);
-                }
-                return false;
-            }
-        });*/
+        Fragment currentFragment = getCurrentFragment();
+        if(currentFragment instanceof LoginFragment){
+            finish();
+        }else if(currentFragment instanceof DatosUsuarioFragment){
+            resetRegisterData();// Eliminamos la información de registro almacenada.
+            finish();
+        }else if(currentFragment instanceof DatosPersonalesFragment){
+            onEvent(EVENT_DATA_USER_BACK,null);
+        }else if(currentFragment instanceof DomicilioActualFragment){
+            onEvent(EVENT_PERSONAL_DATA_BACK,null);
+        }else if(currentFragment instanceof TienesTarjetaFragment){
+            resetRegisterData();// Eliminamos la información de registro almacenada.
+            finish();
+        }
+        else if(currentFragment instanceof AsociatePhoneAccountFragment){
+            resetRegisterData();// Eliminamos la información de registro almacenada.
+            finish();
+        }else{
+            resetRegisterData();// Eliminamos la información de registro almacenada.
+            super.onBackPressed();
+        }
+    }
+
+    private void resetRegisterData(){
+        RegisterUser.resetRegisterUser();
+
     }
 }
 

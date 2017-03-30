@@ -113,7 +113,7 @@
         <item name="android:windowBackground">@color/redcolor</item>
     </style>
 
-    <style name="DialogTitleBackground" >
+    <style name="DialogTitleBackground">
         <item name="android:background">@color/colorAccent</item>
     </style>
 
@@ -130,6 +130,29 @@
         <item name="android:layout_marginStart">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_marginTop">@dimen/activity_horizontal_margin</item>
         <item name="android:gravity">center</item>
+    </style>
+
+    <style name="EditTextStyle">
+        <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
+        <item name="android:paddingLeft">@dimen/margin_medium</item>
+        <item name="android:layout_marginTop">@dimen/margin_big</item>
+        <item name="android:background">@drawable/rounded_border_edittext</item>
+    </style>
+
+    <style name="TitleMargin">
+        <item name="android:layout_centerInParent">true</item>
+        <item name="android:layout_marginTop">@dimen/margin_big</item>
+        <item name="android:background">@color/colorPrimary</item>
+        <item name="android:gravity">center</item>
+        <item name="android:paddingLeft">8dp</item>
+        <item name="android:paddingRight">8dp</item>
+        <item name="android:textSize">18sp</item>
+    </style>
+
+    <style name="RadioButtonTheme" parent="@style/AppTheme">
+        <item name="colorControlActivated">@color/colorAccent</item>
+        <item name="colorControlNormal">@color/whiteColor</item>
     </style>
 </resources>
 

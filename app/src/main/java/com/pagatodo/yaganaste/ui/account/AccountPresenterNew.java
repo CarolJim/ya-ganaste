@@ -54,6 +54,13 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
         accountView.hideLoader();
     }
 
+
+    @Override
+    public void createUser() {
+        accountView.showLoader(App.getInstance().getString(R.string.msg_register));
+        accountIteractor.createUser();
+    }
+
     @Override
     public void login(TypeLogin type,String user, String password) {
         accountView.showLoader("");
@@ -98,13 +105,18 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
     public void doPullActivationSMS(String message) {
         accountView.showLoader(message);
         accountIteractor.verifyActivationSMS();
-
     }
 
     @Override
     public void onError(WebService ws,Object error) {
         accountView.hideLoader();
-        if(accountView instanceof IUserDataRegisterView){
+        if(accountView instanceof IAccountRegisterView){
+            if (ws == CREAR_USUARIO_COMPLETO) {
+                ((IAccountRegisterView) accountView).clientCreateFailed(error.toString());
+            }else if(ws == OBTENER_COLONIAS_CP){
+                ((IAccountRegisterView) accountView).showError(error.toString());
+            }
+        } else if(accountView instanceof IUserDataRegisterView){
             if(ws == VALIDAR_FORMATO_CONTRASENIA) {
                 ((IUserDataRegisterView) accountView).validationPasswordFailed(error.toString());
             }
@@ -121,7 +133,14 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
 
     @Override
     public void onSucces(WebService ws,Object data) {
-        if(accountView instanceof IUserDataRegisterView){
+        if(accountView instanceof IAccountRegisterView){
+            if (ws == CREAR_USUARIO_COMPLETO) {
+                ((IAccountRegisterView) accountView).clientCreatedSuccess(data.toString());
+            }else if(ws == OBTENER_COLONIAS_CP){
+                ((IAccountRegisterView) accountView).setNeighborhoodsAvaliables((List<ColoniasResponse>) data);
+            }
+
+        }else if(accountView instanceof IUserDataRegisterView){
             if(ws == VALIDAR_FORMATO_CONTRASENIA) {
                 ((IUserDataRegisterView) accountView).validationPasswordSucces();
             }
@@ -129,32 +148,14 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
             if (ws == OBTENER_COLONIAS_CP) {
                 ((IAccountAddressRegisterView) accountView).setNeighborhoodsAvaliables((List<ColoniasResponse>) data);
             }
-        }else if(accountView instanceof IAccountRegisterView){
-            if (ws == CREAR_USUARIO_COMPLETO) {
-                ((IAccountRegisterView) accountView).userCreatedSuccess(data.toString());
-            }
-            else if(ws == CONSULTAR_ASIGNACION_TARJETA){
-                ((IAccountRegisterView) accountView).accountConfirmed(data.toString());
-            }
         }else if(accountView instanceof IVerificationSMSView) {
-
             if(ws == OBTENER_NUMERO_SMS) {
                 ((IVerificationSMSView) accountView).messageCreated((MessageValidation) data);
             }else if(ws == VERIFICAR_ACTIVACION){ // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).smsVerificationSuccess();
-
             }
-
         }else if(ws == CERRAR_SESION){
             Log.i(TAG,"La sesión se ha cerrado.");
         }
-
-
-    }
-
-    @Override
-    public void createUser() {
-        accountView.showLoader("");
-        accountIteractor.createUser();
     }
 }

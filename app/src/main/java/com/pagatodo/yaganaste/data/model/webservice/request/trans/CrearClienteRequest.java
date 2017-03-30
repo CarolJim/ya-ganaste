@@ -12,11 +12,12 @@ public class CrearClienteRequest implements Serializable{
     private String PrimerApellido = "";
     private String SegundoApellido = "";
     private String FechaNacimiento = "";
+    private String Genero = "";
     private String RFC = "";
     private String CURP = "";
     private int IdPaisNacimiento;
     private String Nacionalidad = "";
-    private int IdEstadoNacimiento;
+    private String IdEstadoNacimiento;
     private String Correo = "";
     private String Telefono = "";
     private String TelefonoCelular = "";
@@ -96,11 +97,11 @@ public class CrearClienteRequest implements Serializable{
         Nacionalidad = nacionalidad;
     }
 
-    public int getIdEstadoNacimiento() {
+    public String getIdEstadoNacimiento() {
         return IdEstadoNacimiento;
     }
 
-    public void setIdEstadoNacimiento(int idEstadoNacimiento) {
+    public void setIdEstadoNacimiento(String idEstadoNacimiento) {
         IdEstadoNacimiento = idEstadoNacimiento;
     }
 
@@ -174,5 +175,13 @@ public class CrearClienteRequest implements Serializable{
 
     public void setNumeroInterior(String numeroInterior) {
         NumeroInterior = numeroInterior;
+    }
+
+    public String getGenero() {
+        return Genero;
+    }
+
+    public void setGenero(String genero) {
+        Genero = genero;
     }
 }

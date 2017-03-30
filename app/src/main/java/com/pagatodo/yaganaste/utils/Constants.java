@@ -12,6 +12,6 @@ public class Constants {
     public static final int PERMISSION_LOCATION_RESQUEST = 113;
     public static final int PERMISSION_SMS_RESQUEST = 114;
 
-    public static final int DELAY_MESSAGE_PROGRESS = 1000;
+    public static final int DELAY_MESSAGE_PROGRESS = 1500;
 
 }

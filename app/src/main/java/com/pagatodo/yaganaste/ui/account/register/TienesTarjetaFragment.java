@@ -14,6 +14,7 @@ import android.widget.RadioGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
+import com.pagatodo.yaganaste.interfaces.IAccountView2;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -35,7 +36,7 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class TienesTarjetaFragment extends GenericFragment implements View.OnClickListener, ValidationForms,IAccountRegisterView {
+public class TienesTarjetaFragment extends GenericFragment implements View.OnClickListener, ValidationForms,IAccountView2 {
 
     private static int LENGTH_CARD = 16;
     private View rootview;
@@ -112,7 +113,6 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         ButterKnife.bind(this, rootview);
         progressLayout.setVisibility(GONE);
         btnNextTienesTarjeta.setOnClickListener(this);
-        btnBackTienesTarjeta.setOnClickListener(this);
         radioHasCard.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, int checkedId) {
@@ -151,10 +151,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     }
 
     private void createAccount(){
-        if(isCardAssigned){
-             /*TODO Realizar el registro del usuario implementando la llamda al ( a los ) servicios necesarios.*/
-            accountPresenter.createUser();
-        }
+
     }
 
     @Override
@@ -188,16 +185,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     }
 
 
-    @Override
-    public void userCreatedSuccess(String message) {
-        progressLayout.setTextMessage(message);
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                hideLoader();
-                nextStepRegister(EVENT_GO_ASOCIATE_PHONE,null); // Mostramos la pantalla para obtener tarjeta.
-            }
-        }, DELAY_MESSAGE_PROGRESS);
-    }
+
 
     @Override
     public void nextStepRegister(String event, Object data) {
@@ -225,26 +213,5 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         UI.showToastShort(error.toString(),getActivity());
     }
 
-
-    @Override
-    public void accountAvaliableAssigned(String result) {
-        progressLayout.setTextMessage(result);
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                isCardAssigned = true;
-                hideLoader();
-                txtMessageCard.setText(getString(R.string.tienes_tarjeta_no));
-            }
-        }, DELAY_MESSAGE_PROGRESS);
-
-
-    }
-
-    @Override
-    public void accountConfirmed(String result) {
-        hideLoader();
-        isCardAssigned = true;
-        createAccount();
-    }
 }
 

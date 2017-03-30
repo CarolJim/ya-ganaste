@@ -1,64 +1,69 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.os.Handler;
+import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewOutlineProvider;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
-import android.widget.Spinner;
-
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
-import com.pagatodo.yaganaste.interfaces.IAccountAddressRegisterView;
+import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PERSONAL_DATA_BACK;
+import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DomicilioActualFragment extends GenericFragment implements View.OnClickListener, ValidationForms,IAccountAddressRegisterView {
+public class DomicilioActualFragment extends GenericFragment implements View.OnClickListener, ValidationForms,IAccountRegisterView {
 
     private static int MIN_LENGHT_VALIDATION_CP = 4;
     private View rootview;
     @BindView(R.id.editStreet)
-    EditText editStreet;
+    CustomValidationEditText editStreet;
     @BindView(R.id.editExtNumber)
-    EditText editExtNumber;
+    CustomValidationEditText editExtNumber;
     @BindView(R.id.editIntNumber)
-    EditText editIntNumber;
+    CustomValidationEditText editIntNumber;
     @BindView(R.id.editZipCode)
-    EditText editZipCode;
+    CustomValidationEditText editZipCode;
     @BindView(R.id.editState)
-    EditText editState;
+    CustomValidationEditText editState;
     @BindView(R.id.spColonia)
-    Spinner spColonia;
+    AppCompatSpinner spColonia;
     @BindView(R.id.radioBtnTerms)
     RadioButton radioBtnTerms;
     @BindView(R.id.btnBackDomicilioActual)
     Button btnBackDomicilioActual;
     @BindView(R.id.btnNextDomicilioActual)
     Button btnNextDomicilioActual;
+    @BindView(R.id.progressLayout)
+    ProgressLayout progressLayout;
 
 
     private ArrayAdapter<String> adapterColonia;
@@ -71,6 +76,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     private String codigoPostal = "";
     private String estado = "";
     private String colonia = "";
+    private String Idcolonia = "";
     private boolean cpDefault;
     private AccountPresenterNew accountPresenter;
 
@@ -126,6 +132,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         spColonia.setAdapter(adapterColonia);
         btnNextDomicilioActual.setOnClickListener(this);
         btnBackDomicilioActual.setOnClickListener(this);
+        editState.setTextEnabled(false);
         setCurrentData();// Seteamos datos si hay registro en proceso.
 
     }
@@ -147,7 +154,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     /*Implementación ValidateForm*/
     @Override
     public void setValidationRules() {
-        editZipCode.addTextChangedListener(textWatcherZipCode);
+        editZipCode.addCustomTextWatcher(textWatcherZipCode);
     }
 
     private void fillAdapter(){
@@ -160,7 +167,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
         //Seteamos los datos del CP
         if(cpDefault) {
-            editZipCode.removeTextChangedListener(textWatcherZipCode);
+            //editZipCode.removeCustomTextWatcher(textWatcherZipCode);
             cpDefault = false;
             setCPDataCurrent();
         }
@@ -215,8 +222,10 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         registerUser.setCodigoPostal(codigoPostal);
         registerUser.setEstadoDomicilio(estado);
         registerUser.setColonia(colonia);
-        editZipCode.removeTextChangedListener(textWatcherZipCode);
-        nextStepRegister(EVENT_GO_GET_CARD,null);//Mostramos la siguiente pantalla de registro.
+        registerUser.setIdColonia(Idcolonia);
+        editZipCode.removeCustomTextWatcher(textWatcherZipCode);
+        //TODO Creamos usuario Implementando la secuencia necesaria de métodos.
+        accountPresenter.createUser();
     }
 
     @Override
@@ -226,13 +235,19 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         numInt = editIntNumber.getText().toString().trim();
         codigoPostal = editZipCode.getText().toString().trim();
         estado = editState.getText().toString().trim();
-        if(spColonia.getSelectedItem() != null)
+        if(spColonia.getSelectedItem() != null) {
             colonia = spColonia.getSelectedItem().toString();
+            for(ColoniasResponse coloniaInfo : listaColonias){
+                if(coloniaInfo.getColonia().equals(colonia)){
+                    Idcolonia = coloniaInfo.getColoniaId();
+                }
+            }
+        }
     }
 
     private void setCPDataCurrent(){
         RegisterUser registerUser = RegisterUser.getInstance();
-        editZipCode.setText(registerUser.getCodigoPostal());
+        //editZipCode.setText(registerUser.getCodigoPostal());
         this.estadoDomicilio = registerUser.getEstadoDomicilio();
         editState.setText(this.estadoDomicilio);
         for (int position = 0 ; position<coloniasNombre.size(); position++){
@@ -256,17 +271,18 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             cpDefault = true;
 
         setValidationRules();
-
+        editZipCode.setText(registerUser.getCodigoPostal());
     }
 
     @Override
     public void showLoader(String message) {
-
+        progressLayout.setTextMessage(message);
+        progressLayout.setVisibility(VISIBLE);
     }
 
     @Override
     public void hideLoader() {
-
+        progressLayout.setVisibility(GONE);
     }
 
     @Override
@@ -284,6 +300,21 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         onEventListener.onEvent(event,data);
     }
 
+    @Override
+    public void clientCreatedSuccess(String message) {
+        showLoader(message);
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                hideLoader();
+                nextStepRegister(EVENT_GO_GET_CARD,null); // Mostramos la pantalla para obtener tarjeta.
+            }
+        }, DELAY_MESSAGE_PROGRESS);
+    }
+
+    @Override
+    public void clientCreateFailed(String error) {
+        showError(error);
+    }
 
     TextWatcher textWatcherZipCode = new TextWatcher() {
         @Override

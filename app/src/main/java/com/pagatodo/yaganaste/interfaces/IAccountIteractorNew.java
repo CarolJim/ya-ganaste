@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.interfaces;
 
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioFWSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.interfaces.enums.TypeLogin;
 
@@ -15,6 +16,9 @@ public interface IAccountIteractorNew {
     public void checkCard(String numberCard);
     public void validatePassword(String password);
     public void createUser();
+    public void createUserFWS(CrearUsuarioFWSRequest request);
+    public void activationLogin();
+    public void createClient();
     public void getNeighborhoodByZipCode(String zipCode);
     public void assigmentAccountAvaliable(int idAccount);
     public void getSMSNumber();

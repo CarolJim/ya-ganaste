@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterOld;
@@ -84,14 +85,18 @@ public class LetsStartFragment extends GenericFragment implements View.OnClickLi
         switch (view.getId()){
 
             case R.id.btnLetsStartNext:
-                validarUsuario();
+                try {
+                    validarUsuario();
+                } catch (OfflineException e) {
+                    e.printStackTrace();
+                }
                 break;
             default:
                 break;
         }
     }
 
-    private void validarUsuario(){
+    private void validarUsuario() throws OfflineException {
         if (!edtUserEmail.getText().toString().replaceAll("\\s", "").isEmpty()) {
             if (Validations.isMail(edtUserEmail)) {
                     accountPresenter.initValidationLogin(edtUserEmail.getText().toString().trim());

@@ -9,13 +9,16 @@ public class RegisterUser {
     //Dato de usuario
     private String email = "";
     private String contrasenia = "";
+    private String telefono = "";
     //Datos Personales
     private String genero = "";
     private String nombre = "";
     private String apellidoPaterno = "";
     private String apellidoMaterno = "";
     private String fechaNacimiento = "";
+    private String fechaNacimientoToShow = "";
     private String lugarNacimiento = "";
+    private String idEstadoNacimineto = "";
     //Datos Domicilio Actual
     private String calle = "";
     private String numExterior = "";
@@ -23,6 +26,7 @@ public class RegisterUser {
     private String codigoPostal = "";
     private String estadoDomicilio = "";
     private String colonia = "";
+    private String idColonia = "";
     private boolean aceptaTerminos;
 
 
@@ -39,6 +43,10 @@ public class RegisterUser {
 
         return registerUser;
 
+    }
+
+    public static void resetRegisterUser(){
+        registerUser = null;
     }
 
     public String getEmail() {
@@ -95,6 +103,14 @@ public class RegisterUser {
 
     public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
+    }
+
+    public String getFechaNacimientoToShow() {
+        return fechaNacimientoToShow;
+    }
+
+    public void setFechaNacimientoToShow(String fechaNacimientoToShow) {
+        this.fechaNacimientoToShow = fechaNacimientoToShow;
     }
 
     public String getLugarNacimiento() {
@@ -161,4 +177,27 @@ public class RegisterUser {
         this.aceptaTerminos = aceptaTerminos;
     }
 
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
+    }
+
+    public String getIdEstadoNacimineto() {
+        return idEstadoNacimineto;
+    }
+
+    public void setIdEstadoNacimineto(String idEstadoNacimineto) {
+        this.idEstadoNacimineto = idEstadoNacimineto;
+    }
+
+    public String getIdColonia() {
+        return idColonia;
+    }
+
+    public void setIdColonia(String idColonia) {
+        this.idColonia = idColonia;
+    }
 }

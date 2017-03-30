@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pagatodo.yaganaste.ui._controllers.MainActivity">
+
+    <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
+        android:id="@+id/viewpager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="10dp"
+        android:background="@color/whiteColor"/>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btnMainCreateAccount"
+        style="@style/buttonRoundedBlue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/btnMainLogin"
+        android:layout_marginBottom="30dp"
+        android:text="@string/txt_inicia_sesion" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btnMainLogin"
+        style="@style/buttonRoundedBlue"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="30dp"
+        android:textAllCaps="true"
+        android:text="Ingresar" />
+
+</RelativeLayout>

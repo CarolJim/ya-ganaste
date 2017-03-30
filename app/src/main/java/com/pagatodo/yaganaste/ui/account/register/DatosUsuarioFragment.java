@@ -9,8 +9,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.EditText;
-
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
@@ -19,6 +17,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Validations;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
@@ -34,22 +33,22 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     private static int MIN_LENGHT_VALIDATION_PASS = 2;
     private View rootview;
     @BindView(R.id.edtitEmail)
-    EditText editMail;
+    CustomValidationEditText editMail;
     @BindView(R.id.edtitConfirmEmail)
-    EditText edidConfirmEmail;
+    CustomValidationEditText edtitConfirmEmail;
     @BindView(R.id.editPassword)
-    EditText editPassword;
+    CustomValidationEditText editPassword;
     @BindView(R.id.editPasswordConfirmation)
-    EditText editPasswordConfirm;
-    @BindView(R.id.txtRegisterBasicPassMessage)
-    StyleTextView txtRegisterBasicPassMessage;
+    CustomValidationEditText editPasswordConfirm;
     @BindView(R.id.btnNextDatosUsuario)
     Button btnNextDatosUsuario;
+    @BindView(R.id.txtRegisterBasicPassMessage)
+    StyleTextView txtRegisterBasicPassMessage;
     private String email = "";
     private String emailConfirmation = "";
     private String password = "";
     private String passwordConfirmation = "";
-    private boolean isValidPassword = false;
+    private boolean isValidPassword = true;
     private AccountPresenterNew accountPresenter;
 
     public DatosUsuarioFragment() {
@@ -118,7 +117,90 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void setValidationRules() {
-        editPassword.addTextChangedListener(new TextWatcher() {
+
+        editMail.addCustomTextWatcher(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(edtitConfirmEmail.isValidText()){
+                    edtitConfirmEmail.setText("");
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        edtitConfirmEmail.addCustomTextWatcher(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().isEmpty()){
+                    if(editMail.getText() != null && editMail.isValidText()){
+                        if(s.toString().equals(editMail.getText())){
+                            edtitConfirmEmail.setIsValid();
+                        }else{
+                            edtitConfirmEmail.setIsInvalid();
+                        }
+                    }else{
+                        edtitConfirmEmail.setIsInvalid();
+                    }
+                }else{
+                    edtitConfirmEmail.imageViewIsGone(true);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        editPasswordConfirm.addCustomTextWatcher(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!s.toString().isEmpty()){
+                    if(editPassword.getText() != null && editPassword.isValidText()){
+                        if(s.toString().equals(editPassword.getText())){
+                            editPasswordConfirm.setIsValid();
+                        }else{
+                            editPasswordConfirm.setIsInvalid();
+                        }
+                    }else{
+                        editPasswordConfirm.setIsInvalid();
+                    }
+                }else{
+                    editPasswordConfirm.imageViewIsGone(true);
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        editPassword.addCustomTextWatcher(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+                if(editPasswordConfirm.isValidText()){
+                    editPasswordConfirm.setText("");
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        /*editPassword.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -129,12 +211,12 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
             @Override
             public void afterTextChanged(Editable s) {
-                if (s.toString().length() > MIN_LENGHT_VALIDATION_PASS) {
+                if (s.toString().length() > MIN_LENGHT_VALIDATION_PASS) {*/
                     /*Consumimos servicio de validación de contraseña*/
-                    accountPresenter.validatePasswordFormat(s.toString().trim());
+           /*         accountPresenter.validatePasswordFormat(s.toString().trim());
                 }
             }
-        });
+        });*/
     }
 
     @Override
@@ -200,7 +282,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @Override
     public void getDataForm() {
         email = editMail.getText().toString().trim();
-        emailConfirmation = edidConfirmEmail.getText().toString().trim();
+        emailConfirmation = edtitConfirmEmail.getText().toString().trim();
         password = editPassword.getText().toString().trim();
         passwordConfirmation = editPasswordConfirm.getText().toString().trim();
     }
@@ -208,11 +290,18 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     private void setCurrentData(){
         RegisterUser registerUser = RegisterUser.getInstance();
         editMail.setText(registerUser.getEmail());
-        edidConfirmEmail.setText(registerUser.getEmail());
+        edtitConfirmEmail.setText(registerUser.getEmail());
         editPassword.setText(registerUser.getContrasenia());
         editPasswordConfirm.setText(registerUser.getContrasenia());
         isValidPassword = true;
     }
+
+    /*private void cleanCurrentData(){
+        editMail.setText("");
+        edtitConfirmEmail.setText("");
+        editPassword.setText("");
+        editPasswordConfirm.setText("");
+    }*/
 
     @Override
     public void nextStepRegister(String event, Object data) {

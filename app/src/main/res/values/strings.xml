@@ -235,6 +235,7 @@
     <string name="datos_domicilio_cp">Código Postal Requerido, Verifique su Información.</string>
     <string name="datos_domicilio_colonia">Colonia Requerida, Verifique su Información.</string>
     <string name="datos_domicilio_terminos">Debes aceptar los términos y condiciones.</string>
+    <string name="msg_register">Registrando Usuario...</string>
     <!--activacion_sms-->
     <string name="activacion_sms_mes_1">Para Terminar tu Registro, Debemos Asociar tu Teléfono a tu Cuenta YA Ganaste.</string>
     <string name="activacion_sms_mes_2">Te Pedimos Enviar un SMS de Validación.</string>
