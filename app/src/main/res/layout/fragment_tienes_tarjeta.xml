@@ -14,72 +14,175 @@
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
 
-    <LinearLayout
+    <ScrollView
+        android:id="@+id/scrollViewTarjeta"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_alignParentBottom="true"
+        android:fillViewport="true"
+        android:layout_below="@+id/toolbarLy">
 
-    <RadioGroup
-        android:id="@+id/radioHasCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:orientation="horizontal">
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/radioBtnNo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:text="No" />
+            <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+                android:id="@+id/layoutContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_big"
+                android:layout_marginRight="@dimen/margin_big"
+                android:layout_marginTop="@dimen/margin_big"
+                app:title="¿Tienes Tarjeta Ya Ganaste?">
 
-        <android.support.v7.widget.AppCompatRadioButton
-            android:id="@+id/radioBtnYes"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".5"
-            android:text="Si" />
-    </RadioGroup>
+                <RadioGroup
+                    android:id="@+id/radioHasCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_doble"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:theme="@style/RadioButtonTheme">
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txtMessageCard"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content" />
+                    <android.support.v4.widget.Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-        android:id="@+id/editCardNumber"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:enabled="false"/>
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/radioBtnYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="Si" />
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:orientation="horizontal">
+                    <android.support.v4.widget.Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnBackTienesTarjeta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_big"
-            android:layout_weight=".1"
-            android:text="Volver" />
+                    <android.support.v7.widget.AppCompatRadioButton
+                        android:id="@+id/radioBtnNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="No" />
 
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnNextTienesTarjeta"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_big"
-            android:layout_weight=".9"
-            android:text="@string/next" />
-    </LinearLayout>
+                    <android.support.v4.widget.Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
 
-    </LinearLayout>
+                </RadioGroup>
 
-    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
-        android:id="@+id/progressLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+                <android.support.v4.widget.Space
+                    android:id="@+id/spaceCenter"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_big"
+                    android:layout_below="@+id/radioHasCard" />
+
+
+                <RelativeLayout
+                    android:id="@+id/layoutCard"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/spaceCenter"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_medium">
+
+                    <FrameLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <ImageView
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerInside"
+                            android:src="@drawable/card_yaganaste" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:orientation="vertical"
+                            android:weightSum="100">
+
+                            <android.support.v4.widget.Space
+                                android:layout_width="match_parent"
+                                android:layout_height="0dp"
+                                android:layout_weight="60" />
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:orientation="horizontal"
+                                android:weightSum="100">
+
+                                <android.support.v4.widget.Space
+                                    android:layout_width="0dp"
+                                    android:layout_height="match_parent"
+                                    android:layout_weight="10" />
+
+                                <EditText
+                                    android:id="@+id/editNumber"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:background="@color/transparent"
+                                    android:cursorVisible="false"
+                                    android:enabled="false"
+                                    android:inputType="number"
+                                    android:maxLength="19"
+                                    android:textColor="@color/whiteColor" />
+                            </LinearLayout>
+
+                        </LinearLayout>
+
+                    </FrameLayout>
+
+                </RelativeLayout>
+
+                <android.support.v4.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/margin_big"
+                    android:layout_below="@+id/layoutCard" />
+
+            </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:gravity="bottom"
+                android:layout_below="@+id/layoutContent"
+                android:layout_marginTop="@dimen/margin_big"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:orientation="horizontal">
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btnBackTienesTarjeta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".2"
+                    android:text="Volever" />
+
+                <android.support.v7.widget.AppCompatButton
+                    android:id="@+id/btnNextTienesTarjeta"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight=".8"
+                    android:text="@string/next" />
+            </LinearLayout>
+
+        </RelativeLayout>
+
+    </ScrollView>
+
+
+
 
 </RelativeLayout>

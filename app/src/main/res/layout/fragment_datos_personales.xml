@@ -14,22 +14,22 @@
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
 
-    <RelativeLayout
+    <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
         android:id="@+id/layoutContent"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtTitleDatosPersonales"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:layout_marginTop="-9dp"
-        android:background="@drawable/rounded_border_layout"
-        android:orientation="vertical">
+        android:layout_below="@+id/toolbarLy"
+        android:layout_marginLeft="@dimen/margin_big"
+        android:layout_marginRight="@dimen/margin_big"
+        android:layout_marginTop="@dimen/margin_big"
+        app:title="Datos Personales">
+
 
         <RadioGroup
             android:id="@+id/radioGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_big"
+            android:layout_marginTop="@dimen/margin_doble"
             android:gravity="center"
             android:orientation="horizontal"
             android:theme="@style/RadioButtonTheme">
@@ -117,10 +117,10 @@
             android:layout_marginRight="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_medium"
             app:formato="text"
-            app:isTextEnabled="false"
             android:focusableInTouchMode="false"
             app:hintText="Fecha de Nacimiento"
-            app:imageIsGone="true" />
+            app:imageIsGone="true"
+            app:isTextEnabled="false" />
 
         <android.support.v7.widget.AppCompatSpinner
             android:id="@+id/spinnerBirthPlace"
@@ -131,16 +131,7 @@
             android:layout_marginTop="@dimen/space_between_forms"
             android:background="@color/transparent" />
 
-    </RelativeLayout>
-
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txtTitleDatosPersonales"
-        style="@style/TitleMargin"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbarLy"
-        android:text="Datos Personales"
-        app:tipo="Descripcion" />
+    </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
 
     <LinearLayout

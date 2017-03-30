@@ -83,4 +83,8 @@
         <attr name="isSingleLine" format="boolean"/>
         <attr name="isTextEnabled" format="boolean"/>
     </declare-styleable>
+
+    <declare-styleable name="BorderTitleLayout">
+        <attr name="title" format="string"/>
+    </declare-styleable>
 </resources>

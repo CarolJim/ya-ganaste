@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.ui.account.register.PinConfirmationFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterAddressFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterBasicInfoFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
+import com.pagatodo.yaganaste.ui.account.register.RegisterComerceFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
 
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_LOGIN;
@@ -62,7 +63,6 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_activity);
         action = getIntent().getExtras().getString(SELECTION);
-        //initFragments();
         pref = App.getInstance().getPrefs();
         switch (action){
             case GO_TO_LOGIN:
