@@ -33,6 +33,7 @@ public class Recursos {
 	//MAPS
 	public final static int ZoomMap = 16;
 	public static final int CODE_OK = 0;
+	public static final int ERROR_LOGIN= 91;
 
 	/*Preferencias de Sesion*/
 	//public static final String DATE_SESION = "DATE_SESION";

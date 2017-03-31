@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.register.AreYouWantGetPaymentsFragment;
+import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsociatePhoneAccountFragment;
 import com.pagatodo.yaganaste.ui.account.register.Couchmark;
 import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
@@ -21,7 +22,6 @@ import com.pagatodo.yaganaste.ui.account.register.PinConfirmationFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterAddressFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterBasicInfoFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
-import com.pagatodo.yaganaste.ui.account.register.RegisterComerceFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
 
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_LOGIN;
@@ -48,6 +48,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     public final static String EVENT_PERSONAL_DATA_BACK = "EVENT_GO_PERSONAL_DATA_BACK";
     public final static String EVENT_ADDRESS_DATA = "EVENT_GO_ADDRESS_DATA";
     public final static String EVENT_ADDRESS_DATA_BACK = "EVENT_GO_ADDRESS_DATA_BACK";
+    public final static String EVENT_GO_ASSIGN_PIN = "EVENT_GO_ASSIGN_PIN";
     public final static String EVENT_COUCHMARK = "EVENT_GO_COUCHMARK";
 
     private DatosUsuarioFragment datosUsuarioFragment;
@@ -82,10 +83,6 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
 
             case EVENT_GO_LOGIN:
                 loadFragment(LoginFragment.newInstance(), DIRECTION.FORDWARD, true);
-                break;
-
-            case EVENT_GO_GET_CARD:
-                loadFragment(TienesTarjetaFragment.newInstance(), DIRECTION.FORDWARD, true);
                 break;
 
             case EVENT_GO_BASIC_INFO:
@@ -134,7 +131,12 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
             case EVENT_ADDRESS_DATA_BACK:
                 loadFragment(DomicilioActualFragment.newInstance(), DIRECTION.BACK, false);
                 break;
-
+            case EVENT_GO_GET_CARD:
+                loadFragment(TienesTarjetaFragment.newInstance(), DIRECTION.FORDWARD, true);
+                break;
+            case EVENT_GO_ASSIGN_PIN:
+                loadFragment(AsignarNIPFragment.newInstance(), DIRECTION.FORDWARD, false);
+                break;
             case EVENT_COUCHMARK:
                 loadFragment(Couchmark.newInstance(), DIRECTION.FORDWARD, false);
                 break;
@@ -167,8 +169,10 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         }else if(currentFragment instanceof TienesTarjetaFragment){
             resetRegisterData();// Eliminamos la información de registro almacenada.
             finish();
-        }
-        else if(currentFragment instanceof AsociatePhoneAccountFragment){
+        }  else if(currentFragment instanceof AsignarNIPFragment){
+            resetRegisterData();// Eliminamos la información de registro almacenada.
+            finish();
+        }else if(currentFragment instanceof AsociatePhoneAccountFragment){
             resetRegisterData();// Eliminamos la información de registro almacenada.
             finish();
         }else{

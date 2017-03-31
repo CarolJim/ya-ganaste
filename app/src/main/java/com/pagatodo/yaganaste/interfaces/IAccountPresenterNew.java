@@ -8,14 +8,15 @@ import com.pagatodo.yaganaste.interfaces.enums.TypeLogin;
 
 public interface IAccountPresenterNew {
 
-    public void initValidationLogin(String usuario);
+    public void validateEmail(String usuario);
     public void login(TypeLogin type, String usuario, String password);
     public void logout();
     public void checkCardAssigment(String numberCard);
     public void validatePasswordFormat(String password);
     public void createUser();
     public void getNeighborhoods(String zipCode);
-    public void assignCard();
+    public void assignAccount();
+    public void assignNIP(String nip);
     public void gerNumberToSMS();
     public void doPullActivationSMS(String message);
 }

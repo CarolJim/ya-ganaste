@@ -24,6 +24,7 @@
     <string name="createAgentUrl">/CrearAgente</string>
     <string name="createClientUrl">/CrearCliente</string>
     <string name="createUserUrl">/CrearUsuarioFWS</string>
+    <string name="createUserLoginUrl">/CrearUsuarioFWSInicioSesion</string>
     <string name="executeTransactionUrl">/EjecutarTransaccion</string>
     <string name="deleteAvatarUrl">/EliminarAvatar</string>
     <string name="loginUrl">/IniciarSesion</string>
@@ -216,6 +217,7 @@
     <string name="action_select_picture">Abrir Galería</string>
     <string name="action_select_picture_cancel">Cancelar</string>
     <!--datos_usuario-->
+    <string name="datos_usuario_correo_existe">Este Correo Ya ha Sido Registrado.</string>
     <string name="datos_usuario_correo">Introduce un Correo Válido (*)</string>
     <string name="datos_usuario_correo_formato">El Correo No es Válido</string>
     <string name="datos_usuario_correo_confirma">Debes confirmar el correo.</string>
@@ -242,12 +244,15 @@
     <string name="activacion_sms_loader">Estamos Verificando tu SMS.\nNos Tomara Solo Unos Segundos.</string>
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
     <!--tienes_tarjeta-->
+    <string name="tienes_tarjeta_numero">Verifica el Número de Tu Tarjeta.</string>
     <string name="tienes_tarjeta_asignando">Estamos asignandote una cuenta.</string>
-    <string name="tienes_tarjeta_validando_cuenta">Estamos Validando tu cuenta.</string>
+    <string name="tienes_tarjeta_validando_tarjeta">Estamos Validando Tu Tarjeta.</string>
     <string name="tienes_tarjeta_no">No te Preocupes ¡Ya te Asignamos Una!\nTu Número de Tarjeta es:</string>
+    <string name="tienes_tarjeta_asignando_nip">Estamos Asignanado Tu NIP.</string>
     <!--tienes_tarjeta-->
     <string name="permission_request">Solicitud de Permisos</string>
     <string name="permission_request_desc">Debes Aceptar Todos los Permisos para el Correcto Funcionamiento de Ya Ganaste.</string>
+    <string name="asignar_pin">Verifica tu NIP.</string>
     <!--felicidades-->
     <string name="congratulation_text1">Tu Cuenta Ya Ganaste Está Lista</string>
     <string name="congratulation_text2">A Continuación te Eneseñaremos Todo lo\nQue Puedes Hacer Con Ella...</string>
@@ -256,6 +261,8 @@
     <string name="datos_negocio_giro">Giro Requerido, Verifique su Información.</string>
     <string name="datos_negocio_telefono">Teléfono Requerido, Verifique su Información.</string>
     <string name="datos_negocio_preguntas">Debes contestar Todas las Preguntas.</string>
+    <!--Server problem-->
+    <string name="message_generic_ws">Ocurrio un problema. Intente más tarde.</string>
 
 </resources>
 

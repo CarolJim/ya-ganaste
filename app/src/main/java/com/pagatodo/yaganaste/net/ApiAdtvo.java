@@ -32,6 +32,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CargaDocument
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CerrarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioFWSInicioSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioFWSResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EliminarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GetJsonWebTokenResponse;
@@ -64,6 +65,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_MOVIMIENTOS_MES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_FWS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_FWS_LOGIN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ELIMINAR_AVATAR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_JSONWEBTOKEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION;
@@ -225,6 +227,22 @@ public class ApiAdtvo extends Api {
         NetFacade.consumeWS(CREAR_USUARIO_FWS,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.createUserUrl),
                 getHeadersYaGanaste(),request, CrearUsuarioFWSResponse.class,result);
+    }
+
+    /**
+     * Método que se invoca cuando se desea generar un nuevo Usuario en el FWS Externo de BPT
+     * y obtener un TokenSesion para continuar con el flujo de registro sin necesidad de lanzar
+     * otra conexión.
+     *
+     * @param request {@link CrearUsuarioFWSRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void crearUsuarioFWSInicioSesion(CrearUsuarioFWSRequest request, IRequestResult result)  throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
+        NetFacade.consumeWS(CREAR_USUARIO_FWS_LOGIN,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.createUserLoginUrl),
+                headers,request, CrearUsuarioFWSInicioSesionResponse.class,result);
     }
 
     /**

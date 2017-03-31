@@ -5,6 +5,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatRadioButton;
@@ -24,17 +25,28 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.IAccountCardView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
+import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class TienesTarjetaFragment extends GenericFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener {
+public class TienesTarjetaFragment extends GenericFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener,IAccountCardView {
 
+    private static int LEGTH_CARD_NUMBER_FORMAT = 19;
     private View rootview;
     @BindView(R.id.radioHasCard)
     RadioGroup radioHasCard;
@@ -42,15 +54,16 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     AppCompatRadioButton radioBtnYes;
     @BindView(R.id.radioBtnNo)
     AppCompatRadioButton radioBtnNo;
-    @BindView(R.id.btnBackTienesTarjeta)
-    Button btnBackTienesTarjeta;
     @BindView(R.id.btnNextTienesTarjeta)
     Button btnNextTienesTarjeta;
     @BindView(R.id.layoutCard)
     RelativeLayout layoutCard;
     @BindView(R.id.editNumber)
     EditText editNumber;
+    @BindView(R.id.progressLayout)
+    ProgressLayout progressLayout;
     InputMethodManager imm;
+    private AccountPresenterNew accountPresenter;
 
     int keyDel;
     String a;
@@ -81,6 +94,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
+        accountPresenter = new AccountPresenterNew(this);
     }
 
     @Override
@@ -106,6 +120,8 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
+        btnNextTienesTarjeta.setOnClickListener(this);
         final Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Light.ttf");
         radioHasCard.setOnCheckedChangeListener(this);
         imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
@@ -177,6 +193,10 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     public void onClick(View view) {
         switch (view.getId()) {
 
+            case R.id.btnNextTienesTarjeta:
+                selectNextAction();
+                break;
+
             default:
                 break;
         }
@@ -202,5 +222,68 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             default:
                 break;
         }
+    }
+
+    private void selectNextAction(){
+
+        if(radioBtnNo.isChecked()){ // Selecciona que no tiene tarjeta
+            /*TODO Asignar cuenta*/
+            assingAccountAvaliable();
+        }else{
+            String numberCard = editNumber.getText() != null  ? editNumber.getText().toString().trim() : "";
+            if(radioBtnYes.isChecked() && numberCard.length() == LEGTH_CARD_NUMBER_FORMAT){ // Validamos que ingrese la tarjeta
+                accountPresenter.checkCardAssigment(numberCard);
+            }else{
+                UI.showToastShort(getString(R.string.tienes_tarjeta_numero),getActivity());
+            }
+        }
+    }
+
+    private void assingAccountAvaliable(){
+        accountPresenter.assignAccount();
+    }
+
+    @Override
+    public void accountAssigned(String message) {
+        showLoader(message);
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                hideLoader();
+                nextStepRegister(EVENT_GO_ASSIGN_PIN,null);// Mostramos la pantalla para obtener tarjeta.
+            }
+        }, DELAY_MESSAGE_PROGRESS);
+
+    }
+
+    @Override
+    public void cardIsValidate(String message) {
+        /*TODO verificar una ves validada ¿que se hace?*/
+        assingAccountAvaliable();
+    }
+
+    @Override
+    public void showLoader(String message) {
+        progressLayout.setVisibility(VISIBLE);
+        progressLayout.setTextMessage(message);
+    }
+
+    @Override
+    public void hideLoader() {
+        progressLayout.setVisibility(GONE);
+    }
+
+    @Override
+    public void showError(Object error) {
+        UI.showToastShort(error.toString(),getActivity());
+    }
+
+    @Override
+    public void nextStepRegister(String event, Object data) {
+        onEventListener.onEvent(event,data);
+    }
+
+    @Override
+    public void backStepRegister(String event, Object data) {
+        onEventListener.onEvent(event,data);
     }
 }

@@ -18,11 +18,14 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Validations;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PERSONAL_DATA;
 
 /**
@@ -31,6 +34,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PERSO
 public class DatosUsuarioFragment extends GenericFragment implements View.OnClickListener,ValidationForms, IUserDataRegisterView {
 
     private static int MIN_LENGHT_VALIDATION_PASS = 2;
+    private static String CHECK_EMAIL_STATUS = "CHECK_EMAIL_STATUS";
     private View rootview;
     @BindView(R.id.edtitEmail)
     CustomValidationEditText editMail;
@@ -44,11 +48,16 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     Button btnNextDatosUsuario;
     @BindView(R.id.txtRegisterBasicPassMessage)
     StyleTextView txtRegisterBasicPassMessage;
+    @BindView(R.id.progressLayout)
+    ProgressLayout progressLayout;
+
     private String email = "";
     private String emailConfirmation = "";
     private String password = "";
     private String passwordConfirmation = "";
     private boolean isValidPassword = true;
+    private boolean emailValidatedByWS = false; // Indica que el email ha sido validado por el ws.
+    private boolean userExist = false; // Indica que el email ya se encuentra registrado.
     private AccountPresenterNew accountPresenter;
 
     public DatosUsuarioFragment() {
@@ -118,6 +127,19 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @Override
     public void setValidationRules() {
 
+        edtitConfirmEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    if(editMail.isValidText() && !emailValidatedByWS){
+                        // Validamos el email.
+                        editMail.imageViewIsGone(true);
+                        accountPresenter.validateEmail(editMail.getText());
+                    }
+                }
+            }
+        });
+
         editMail.addCustomTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -128,9 +150,13 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                 if(edtitConfirmEmail.isValidText()){
                     edtitConfirmEmail.setText("");
                 }
+                if(editMail.isValidText() && emailValidatedByWS){
+                    emailValidatedByWS = false;//Si esta validado y cambia, volvemos a solicitar la validacion.
+                }
             }
             @Override
             public void afterTextChanged(Editable s) {
+
             }
         });
 
@@ -222,6 +248,12 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @Override
     public void validateForm() {
         getDataForm();
+
+        if(userExist){
+            showValidationError(getString(R.string.datos_usuario_correo_existe));
+            return;
+        }
+
         if (email.replaceAll("\\s", "").isEmpty()) {
             showValidationError(getString(R.string.datos_usuario_correo));
             return;
@@ -315,10 +347,13 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showLoader(String message) {
+        progressLayout.setVisibility(VISIBLE);
+        progressLayout.setTextMessage(message);
     }
 
     @Override
     public void hideLoader() {
+        progressLayout.setVisibility(GONE);
     }
 
     @Override
@@ -336,5 +371,22 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     public void validationPasswordFailed(String message) {//Mostrar imagen en edtText
         isValidPassword = false;
         txtRegisterBasicPassMessage.setText(message);
+    }
+
+    @Override
+    public void isEmailAvaliable() {
+        hideLoader();
+        emailValidatedByWS = true;
+        userExist = false;
+        editMail.setIsValid();
+    }
+
+    @Override
+    public void isEmailRegistered() {
+        hideLoader();
+        emailValidatedByWS = false;
+        userExist = true;
+        editMail.setIsInvalid();
+        showValidationError(getString(R.string.datos_usuario_correo_existe));
     }
 }

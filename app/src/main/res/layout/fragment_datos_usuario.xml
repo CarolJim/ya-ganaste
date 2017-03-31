@@ -13,12 +13,14 @@
     <include
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
-
+<RelativeLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_below="@+id/toolbarLy">
 
     <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbarLy"
         android:layout_marginLeft="@dimen/margin_big"
         android:layout_marginRight="@dimen/margin_big"
         android:layout_marginTop="@dimen/margin_big"
@@ -78,7 +80,6 @@
 
     </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -108,4 +109,12 @@
             android:backgroundTint="@color/colorAccent"
             android:text="@string/next" />
     </RelativeLayout>
+
+</RelativeLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 </RelativeLayout>

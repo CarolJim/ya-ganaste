@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui.account;
 
-import android.os.Handler;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -8,30 +7,34 @@ import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioFWSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultaAsignacionTarjetaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.CrearClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioFWSInicioSesionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataEstatusUsuario;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataUsuarioFWSInicioSesion;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarNIPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarAsignacionTarjetaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.CrearClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataConsultarAsignacion;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataCuentaDisponible;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountIteractorNew;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
@@ -44,16 +47,11 @@ import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.List;
 
-import static com.pagatodo.yaganaste.interfaces.enums.DataSource.WS;
 import static com.pagatodo.yaganaste.interfaces.enums.TypeLogin.LOGIN_AFTER_REGISTER;
 import static com.pagatodo.yaganaste.interfaces.enums.TypeLogin.LOGIN_NORMAL;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_COMPLETO;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_PAYMENTS;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAIN_TAB_ACTIVITY;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_PIN_CONFIRMATION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LOGIN;
 
 /**
  * Created by flima on 22/03/2017.
@@ -64,7 +62,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
     private String TAG = AccountInteractorNew.class.getName();
     private IAccountManager accountManager;
     private TypeLogin typeLogin;
-    private IniciarSesionRequest loginRequest;
+    private CrearUsuarioFWSRequest crearUsuarioFWSRequest;
     private boolean logOutBeforeLogin;
 
     public AccountInteractorNew(IAccountManager accountManager){
@@ -83,9 +81,9 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
     }
 
     @Override
-    public void login() {
+    public void login(IniciarSesionRequest request) {
         try{
-            ApiAdtvo.iniciarSesion(this.loginRequest,this);
+            ApiAdtvo.iniciarSesion(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
         }
@@ -101,15 +99,13 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
     }
 
     @Override
-    public void checkSessionState(TypeLogin type,IniciarSesionRequest request) {
-        this.typeLogin = type;
-        this.loginRequest = request;
+    public void checkSessionState(CrearUsuarioFWSRequest request) {
         if(!RequestHeaders.getTokensesion().isEmpty()) {
             logOutBeforeLogin = true;
             logout();
         }else{
             logOutBeforeLogin = false;
-            login();
+            createUserFWSWithLogin(request); // Creamos usuario.
         }
     }
 
@@ -153,13 +149,26 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                 registerUser.getApellidoMaterno(),
                 registerUser.getEmail(),
                 registerUser.getContrasenia());
-        createUserFWS(request);// Creamos Usuario FWS.
+
+        this.crearUsuarioFWSRequest = request;
+
+        checkSessionState(request);
+        //createUserFWS(request);// Creamos Usuario FWS.
     }
 
     @Override
     public void createUserFWS(CrearUsuarioFWSRequest request) {
         try {
             ApiAdtvo.crearUsuarioFWS(request,this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void createUserFWSWithLogin(CrearUsuarioFWSRequest request) {
+        try {
+            ApiAdtvo.crearUsuarioFWSInicioSesion(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
         }
@@ -173,7 +182,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                 RegisterUser.getInstance().getTelefono());
         /**Se verifica primero el estatus del usuario, si esta logueado en la db primero se cierra sesión y
          * posteriormente se consume el método de login()*/
-        checkSessionState(LOGIN_AFTER_REGISTER,request);
+        //checkSessionState(LOGIN_AFTER_REGISTER,request);
 
         /*this.typeLogin = LOGIN_AFTER_REGISTER;
         this.loginRequest = request;
@@ -212,6 +221,17 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
         }
     }
 
+
+    @Override
+    public void assignmentNIP(AsignarNIPRequest request) {
+        try {
+            ApiTrans.asignarNip(request,this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+        }
+
+    }
+
     @Override
     public void getSMSNumber() {
         try {
@@ -246,6 +266,10 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
 
         switch (dataSourceResult.getWebService()) {
 
+            case VALIDAR_ESTATUS_USUARIO:
+                processStatusEmail(dataSourceResult);
+                break;
+
             case INICIAR_SESION:
                 if(this.typeLogin == LOGIN_NORMAL)
                     processLogin(dataSourceResult);
@@ -257,7 +281,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                 RequestHeaders.setTokensesion("");//Reseteamos el token de sesión
                 if(logOutBeforeLogin){
                     logOutBeforeLogin = false;
-                    login();
+                    createUserFWSWithLogin(this.crearUsuarioFWSRequest);
                 }else {
                     //TODO Evento para llevar al usuario al splash
                 }
@@ -276,6 +300,10 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                 processUserCreated(dataSourceResult);
                 break;
 
+            case CREAR_USUARIO_FWS_LOGIN:
+                processUserCreatedLoged(dataSourceResult);
+                break;
+
             case CREAR_CLIENTE:
                 processClientCreated(dataSourceResult);
                 break;
@@ -288,12 +316,16 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                 processAssigmentAccount(dataSourceResult);
                 break;
 
+            case ASIGNAR_NIP:
+                processNIPAssigned(dataSourceResult);
+                break;
+
             case OBTENER_NUMERO_SMS:
                 processNumberSMS(dataSourceResult);
                 break;
 
             case VERIFICAR_ACTIVACION:
-                processNumberSMS(dataSourceResult);
+                processVerifyActivation(dataSourceResult);
                 break;
 
             default:
@@ -306,6 +338,38 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
         /**TODO Casos de Servicio fallido*/
         accountManager.onError(error.getWebService(),error.getData().toString());
     }
+
+    /**
+     * Método para decidir si es dirigido al {@link com.pagatodo.yaganaste.ui.account.login.LoginFragment} o al
+     * {@link com.pagatodo.yaganaste.ui.account.register.GetCardFragment} dependiendo su estatus de usuario
+     * @param  response {@link DataSourceResult} respuesta del servicio
+     * */
+    private void processStatusEmail(DataSourceResult response){
+        ValidarEstatusUsuarioResponse  data = (ValidarEstatusUsuarioResponse) response.getData();
+        DataEstatusUsuario userStatus = data.getData();
+        String eventTypeUser = "";
+        if(data.getCodigoRespuesta() == CODE_OK){
+           // RequestHeaders.setOperation(String.valueOf(data.getIdOperacion()));//TODO validar razon de esta asignación
+            //Seteamos los datos del usuario en el SingletonUser.
+            if(userStatus.isEsUsuario()){
+                SingletonUser user = SingletonUser.getInstance();
+                user.getDataUser().setEsUsuario(userStatus.isEsUsuario());
+                user.getDataUser().setEsCliente(userStatus.isEsCliente());
+                user.getDataUser().setEsAgente(userStatus.isEsAgente());
+                user.getDataUser().setConCuenta(userStatus.isConCuenta());
+                user.getDataUser().getUsuario().setIdUsuario(userStatus.getIdUsuario());
+                accountManager.onSucces(response.getWebService(),true);
+            }else{
+                accountManager.onSucces(response.getWebService(),false);
+            }
+
+        }else{
+            //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
+            accountManager.onError(response.getWebService(),data.getMensaje());
+        }
+
+    }
+
 
     /**
      * Método para procesar respuesta del Login.
@@ -333,7 +397,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                 Log.w(TAG, "parseJson Card Account: " + dataCard.getIdCuenta());
                 SingletonUser user = SingletonUser.getInstance();
                 user.getDataExtraUser().setNeedSetPin(true);//TODO Validar esta bandera
-                accountManager.onSucces(response.getWebService(),"");
+                accountManager.onSucces(response.getWebService(),"Tarjeta Válida");
             } else {
                 /*TODO enviar mensaje a vista*/
                 accountManager.onError(response.getWebService(),"Esta Tarjeta Ya Ha Sido Asignada, Ingresa Otra Tarjeta o Selecciona la Opción NO TENGO TARJETA");
@@ -367,6 +431,29 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             RequestHeaders.setUsername(RegisterUser.getInstance().getEmail());
             activationLogin();
         }else{
+            accountManager.onError(CREAR_USUARIO_COMPLETO,data.getMensaje());
+        }
+    }
+
+    /**
+     * Método para procesar la respuesta del servicio en la creación de un nuevo usuario FWS obteniendo un TokenSession.
+     * @param  response {@link DataSourceResult} respuesta del servicio
+     * */
+    private void processUserCreatedLoged(DataSourceResult response) {
+        CrearUsuarioFWSInicioSesionResponse data = (CrearUsuarioFWSInicioSesionResponse) response.getData();
+        DataUsuarioFWSInicioSesion dataUser = data.getData();
+        if(data.getCodigoRespuesta() == CODE_OK){
+            RequestHeaders.setUsername(RegisterUser.getInstance().getEmail());
+            RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion()); // Guardamos el Token de Sesión
+            //Seteamos los datos del usuario en el SingletonUser.
+            SingletonUser user = SingletonUser.getInstance();
+            user.getDataUser().setRequiereActivacionSMS(dataUser.isRequiereActivacionSMS());
+            user.getDataUser().setSemilla(dataUser.getSemilla());
+            createClient();// Creamos Cliente
+        }else if(data.getCodigoRespuesta() == ERROR_LOGIN) {
+
+
+        }else {
             accountManager.onError(CREAR_USUARIO_COMPLETO,data.getMensaje());
         }
     }
@@ -433,11 +520,37 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
      * */
     private void processAssigmentAccount(DataSourceResult response) {
         AsignarCuentaDisponibleResponse data = (AsignarCuentaDisponibleResponse) response.getData();
+        DataCuentaDisponible cuentaAsiganadaData = data.getData();
         if(data.getCodigoRespuesta() == CODE_OK){
+            //Obtenemos cuenta asiganada.
+            CuentaResponse cuenta = cuentaAsiganadaData.getCuenta();
+            SingletonUser user = SingletonUser.getInstance();
+            if(user.getDataUser().getUsuario().getCuentas().isEmpty()){
+                user.getDataUser().getUsuario().getCuentas().add(new CuentaResponse());
+            }
+
+            RequestHeaders.setIdCuenta(String.format("%s",cuenta.getIdCuenta()));
+            // Asignamos la cuenta al usuario TODO el servicio maneja lista en login
+            user.getDataUser().getUsuario().getCuentas().get(0).setIdCuenta(cuenta.getIdCuenta());
+            Card.getInstance().setIdAccount(cuenta.getIdCuenta());
+            accountManager.onSucces(response.getWebService(),data.getMensaje());
 
         }else{
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(),data.getMensaje());//Retornamos mensaje de error.
+        }
+    }
+
+    /**
+     * Método para procesar la respuesta una vez que se asigno el NIP a la tarjeta.
+     * @param  response {@link DataSourceResult} respuesta del servicio
+     * */
+    private void processNIPAssigned(DataSourceResult response) {
+        AsignarNIPResponse data = (AsignarNIPResponse) response.getData();
+        if(data.getCodigoRespuesta() == CODE_OK) {
+            accountManager.onSucces(response.getWebService(),data.getMensaje());
+        }else{
+            accountManager.onError(response.getWebService(),data.getMensaje());
         }
     }
 

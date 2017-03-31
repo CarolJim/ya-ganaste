@@ -55,11 +55,4 @@ public class Card {
         IdAccount = idAccount;
     }
 
-    public static Card getCardData() {
-        return cardData;
-    }
-
-    public static void setCardData(Card cardData) {
-        Card.cardData = cardData;
-    }
 }
