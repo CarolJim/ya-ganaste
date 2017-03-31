@@ -49,4 +49,28 @@ public class GiroComercio implements Serializable{
     public String getnSubgiro() {
         return nSubgiro;
     }
+
+    public void setIdSubgiro(int idSubgiro) {
+        this.idSubgiro = idSubgiro;
+    }
+
+    public void setIdSubgiroCRM(String idSubgiroCRM) {
+        this.idSubgiroCRM = idSubgiroCRM;
+    }
+
+    public void setIdGiro(int idGiro) {
+        this.idGiro = idGiro;
+    }
+
+    public void setIdGiroCRM(String idGiroCRM) {
+        this.idGiroCRM = idGiroCRM;
+    }
+
+    public void setnGiro(String nGiro) {
+        this.nGiro = nGiro;
+    }
+
+    public void setnSubgiro(String nSubgiro) {
+        this.nSubgiro = nSubgiro;
+    }
 }

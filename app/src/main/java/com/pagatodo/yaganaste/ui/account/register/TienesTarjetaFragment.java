@@ -6,8 +6,6 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.v4.content.ContextCompat;
-import android.support.v7.widget.AppCompatRadioButton;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.util.TypedValue;
@@ -20,6 +18,7 @@ import android.view.WindowManager;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
@@ -39,9 +38,9 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     @BindView(R.id.radioHasCard)
     RadioGroup radioHasCard;
     @BindView(R.id.radioBtnYes)
-    AppCompatRadioButton radioBtnYes;
+    RadioButton radioBtnYes;
     @BindView(R.id.radioBtnNo)
-    AppCompatRadioButton radioBtnNo;
+    RadioButton radioBtnNo;
     @BindView(R.id.btnBackTienesTarjeta)
     Button btnBackTienesTarjeta;
     @BindView(R.id.btnNextTienesTarjeta)

@@ -19,21 +19,20 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentBottom="true"
-        android:fillViewport="true"
-        android:layout_below="@+id/toolbarLy">
+        android:layout_below="@+id/toolbarLy"
+        android:fillViewport="true">
 
         <RelativeLayout
+            android:id="@+id/layoutScrollCard"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="wrap_content">
 
             <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
                 android:id="@+id/layoutContent"
+                style="@style/BorderTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_big"
-                android:layout_marginRight="@dimen/margin_big"
-                android:layout_marginTop="@dimen/margin_big"
-                app:title="¿Tienes Tarjeta Ya Ganaste?">
+                app:title="@string/doYouHaveCardTitle">
 
                 <RadioGroup
                     android:id="@+id/radioHasCard"
@@ -49,26 +48,27 @@
                         android:layout_height="0dp"
                         android:layout_weight="1" />
 
-                    <android.support.v7.widget.AppCompatRadioButton
-                        android:id="@+id/radioBtnYes"
+                    <RadioButton
+                        android:id="@+id/radioBtnNo"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="Si" />
+                        android:text="@string/no" />
+
 
                     <android.support.v4.widget.Space
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_weight="1" />
 
-                    <android.support.v7.widget.AppCompatRadioButton
-                        android:id="@+id/radioBtnNo"
+                    <RadioButton
+                        android:id="@+id/radioBtnYes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="No" />
+                        android:text="@string/yes" />
 
                     <android.support.v4.widget.Space
                         android:layout_width="0dp"
@@ -93,10 +93,12 @@
                     android:layout_marginRight="@dimen/margin_medium">
 
                     <FrameLayout
+                        android:id="@+id/frameYaGanasteCard"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
                         <ImageView
+                            android:id="@+id/imgYaGanasteCard"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:adjustViewBounds="true"
@@ -154,35 +156,34 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/layoutContent"
+                android:layout_gravity="bottom"
                 android:layout_marginLeft="@dimen/margin_medium"
                 android:layout_marginRight="@dimen/margin_medium"
-                android:gravity="bottom"
-                android:layout_below="@+id/layoutContent"
                 android:layout_marginTop="@dimen/margin_big"
-                android:layout_alignParentBottom="true"
-                android:layout_gravity="bottom"
+                android:gravity="bottom"
                 android:orientation="horizontal">
 
-                <android.support.v7.widget.AppCompatButton
+                <Button
                     android:id="@+id/btnBackTienesTarjeta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight=".2"
-                    android:text="Volever" />
+                    android:text="@string/backButton"
+                    android:textAllCaps="false" />
 
-                <android.support.v7.widget.AppCompatButton
+                <Button
                     android:id="@+id/btnNextTienesTarjeta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight=".8"
-                    android:text="@string/next" />
+                    android:text="@string/nextButton"
+                    android:textAllCaps="false" />
             </LinearLayout>
 
         </RelativeLayout>
 
     </ScrollView>
-
-
-
 
 </RelativeLayout>

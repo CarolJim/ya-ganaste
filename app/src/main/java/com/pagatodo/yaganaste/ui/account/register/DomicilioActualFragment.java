@@ -14,6 +14,8 @@ import android.view.ViewOutlineProvider;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
+import android.widget.Spinner;
+
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
@@ -55,7 +57,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     @BindView(R.id.editState)
     CustomValidationEditText editState;
     @BindView(R.id.spColonia)
-    AppCompatSpinner spColonia;
+    Spinner spColonia;
     @BindView(R.id.radioBtnTerms)
     RadioButton radioBtnTerms;
     @BindView(R.id.btnBackDomicilioActual)

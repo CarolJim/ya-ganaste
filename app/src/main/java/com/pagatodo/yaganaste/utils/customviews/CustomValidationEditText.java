@@ -5,13 +5,10 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
-import android.support.v7.widget.AppCompatEditText;
-import android.support.v7.widget.AppCompatImageView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.text.method.PasswordTransformationMethod;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
@@ -28,9 +25,9 @@ import com.pagatodo.yaganaste.utils.ValidateForm;
 
 public class CustomValidationEditText extends LinearLayout {
     //@BindView(R.id.editTextCustom)
-    AppCompatEditText editText;
+    EditText editText;
     //@BindView(R.id.imageViewValidation)
-    AppCompatImageView imageView;
+    ImageView imageView;
     Boolean isValid = false;
 
     String hint = "";
@@ -60,8 +57,8 @@ public class CustomValidationEditText extends LinearLayout {
     private void init(Context context, AttributeSet attrs) {
         View.inflate(context, R.layout.edittext_layout, this);
         //ButterKnife.bind(context, this);
-        editText = (AppCompatEditText) findViewById(R.id.editTextCustom);
-        imageView = (AppCompatImageView) findViewById(R.id.imageViewValidation);
+        editText = (EditText) findViewById(R.id.editTextCustom);
+        imageView = (ImageView) findViewById(R.id.imageViewValidation);
         //imageView.setBackgroundResource(R.drawable.validation_fail);
 
         if (attrs != null) {
@@ -170,7 +167,7 @@ public class CustomValidationEditText extends LinearLayout {
                             result = ValidateForm.isValidZipCode(txt);
                             break;
                         case "4"://text
-                            result = txt != null && !txt.isEmpty() ? true : false;
+                            result = !txt.isEmpty();
                             break;
                         default:
                             result = false;
@@ -248,12 +245,12 @@ public class CustomValidationEditText extends LinearLayout {
 
     public void setSingleLine(boolean singleLine) {
         //editText.setSingleLine(singleLine);
-        if(singleLine){
+        if (singleLine) {
             editText.setLines(1);
         }
     }
 
-    public void setTextEnabled(boolean isEnabled){
+    public void setTextEnabled(boolean isEnabled) {
         editText.setEnabled(isEnabled);
     }
 
@@ -263,11 +260,11 @@ public class CustomValidationEditText extends LinearLayout {
         this.setOnClickListener(onClickListener);
     }
 
-    public void addCustomTextWatcher(TextWatcher watcher){
+    public void addCustomTextWatcher(TextWatcher watcher) {
         editText.addTextChangedListener(watcher);
     }
 
-    public void removeCustomTextWatcher(TextWatcher watcher){
+    public void removeCustomTextWatcher(TextWatcher watcher) {
         editText.removeTextChangedListener(watcher);
     }
 }

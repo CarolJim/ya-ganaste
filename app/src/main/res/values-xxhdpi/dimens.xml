@@ -6,11 +6,17 @@
     <dimen name="dimen_margin_pinpad">45dp</dimen>
     <dimen name="thumb_off_set">15dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
-    <dimen name="margin_big">32dp</dimen>
+
+
     <dimen name="margin_doble">64dp</dimen>
+    <dimen name="margin_regular">48dp</dimen>
+    <dimen name="margin_big">32dp</dimen>
+    <dimen name="space_between_elements">20dp</dimen>
     <dimen name="margin_medium">16dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="generic_padig">16dp</dimen>
+
+
 
     <dimen name="btn_margin_bottom">20dp</dimen>
     <dimen name="btn_corner_radius">24dp</dimen>

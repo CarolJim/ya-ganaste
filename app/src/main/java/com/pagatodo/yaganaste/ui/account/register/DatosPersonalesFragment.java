@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
@@ -40,9 +41,9 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     @BindView(R.id.radioGender)
     RadioGroup radioGroupGender;
     @BindView(R.id.radioBtnFemale)
-    AppCompatRadioButton radioBtnFemale;
+    RadioButton radioBtnFemale;
     @BindView(R.id.radioBtnMale)
-    AppCompatRadioButton radioBtnMale;
+    RadioButton radioBtnMale;
     @BindView(R.id.editNames)
     CustomValidationEditText editNames;
     @BindView(R.id.editFirstLastName)

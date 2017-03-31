@@ -20,7 +20,7 @@
         android:layout_height="wrap_content"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@mipmap/logo_header"
-        tools:ignore="ContentDescription" />
+        android:src="@drawable/logo_header"
+        tools:ignore="ContentDescription" />"
 
 </RelativeLayout>
