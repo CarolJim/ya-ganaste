@@ -33,6 +33,9 @@ public class Recursos {
 	//MAPS
 	public final static int ZoomMap = 16;
 	public static final int CODE_OK = 0;
+	public static final int CODE_OFFLINE = -1;
+	public static final int INVALID_TOKEN = 3001;
+    public static final int INCORRECT_FORMAT = -2;
 
 	/*Preferencias de Sesion*/
 	//public static final String DATE_SESION = "DATE_SESION";
@@ -75,6 +78,12 @@ public class Recursos {
 
 
 
+
+
+	/* Codigos de Acciones*/
+
+	public static final int NO_ACTION = -2;
+	public static final int GO_LOGIN = -3;
 
 
 }

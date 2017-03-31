@@ -22,5 +22,27 @@ public class ResumenMovimientosAdqResponse implements Serializable{
         result = new DataResultAdq();
     }
 
+    public List<DataMovimientoAdq> getMovimientos() {
+        return movimientos;
+    }
 
+    public DataResultAdq getResult() {
+        return result;
+    }
+
+    public String getSaldoActual() {
+        return saldoActual;
+    }
+
+    public String getSaldoInicial() {
+        return saldoInicial;
+    }
+
+    public String getTotalAbonos() {
+        return totalAbonos;
+    }
+
+    public String getTotalCargos() {
+        return totalCargos;
+    }
 }

@@ -257,5 +257,13 @@
     <string name="datos_negocio_telefono">Teléfono Requerido, Verifique su Información.</string>
     <string name="datos_negocio_preguntas">Debes contestar Todas las Preguntas.</string>
 
+    <!-- Strings Menu Principal-->
+    <string name="main_tab_inicio">Inicio</string>
+    <string name="main_tab_pagos">Pagos</string>
+    <string name="main_tab_depositos">Depósitos</string>
+    <string name="main_tab_adquiriente">Adquirente</string>
+    <string name="no_movimientos">No Tienes Movimientos Para Este Mes</string>
+    <string name="error_respuesta">Ocurrió un Error con la Respuesta del Servidor, Intenta de Nuevo</string>
+
 </resources>
 

@@ -87,4 +87,9 @@
     <declare-styleable name="BorderTitleLayout">
         <attr name="title" format="string"/>
     </declare-styleable>
+
+    <declare-styleable name="GenericTabLayout">
+        <attr name="tabLayout" format="reference"/>
+    </declare-styleable>
+
 </resources>

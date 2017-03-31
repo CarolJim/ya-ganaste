@@ -4,12 +4,21 @@ package com.pagatodo.yaganaste.utils;
  * Created by flima on 23/02/2017.
  */
 
+import android.util.Log;
+
+import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
+import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
 import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
+import java.text.DateFormat;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 import java.util.Locale;
 
 /**
@@ -120,6 +129,48 @@ public class DateUtil {
         return result;
     }
 
+
+
+
+    public static List<MonthsMovementsTab> getLastMovementstMonths() {
+
+        Calendar calendar = Calendar.getInstance(new Locale("MX"));
+        LinkedList<MonthsMovementsTab> names = new LinkedList<>();
+
+        for (int subs = 0 ; subs >= -3 ; subs--) {
+            calendar.add(Calendar.MONTH, subs);
+            names.addFirst(new MonthsMovementsTab(getMonthShortName(calendar), calendar.get(Calendar.MONTH),
+                    calendar.get(Calendar.YEAR)));
+        }
+
+        names.addLast(new MonthsMovementsTab("Todos", -1, -1));
+        return names;
+    }
+
+    public static String getMonthShortName(Calendar calendar){
+        return StringUtils.capitalize(calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, new Locale("es","MX")));
+    }
+
+    public static AdquirentePaymentsTab getTabAdquirente() {
+        DateFormat dateFormat = new SimpleDateFormat("MM-yyyy", Locale.US);
+        Date date = new Date();
+        String formatDate = dateFormat.format(date);
+        // TODO: 28/03/2017 Para pruebas
+        formatDate = "02-2017";
+        return new AdquirentePaymentsTab("", formatDate);
+    }
+
+
+    public static Date getAdquirenteMovementDate(String movDate) {
+        DateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy hh:mm:ss", Locale.US);
+        Date date = null;
+        try {
+            date = dateFormat.parse(movDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
 
 
 }
