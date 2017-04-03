@@ -28,6 +28,7 @@ public class DateUtil {
 
     public static String simpleDateFormat = "dd/MM/yyyy";
     public static String simpleDateFormatFirstYear = "yyyy-MM-dd";
+    public static String screenShotDateFormat = "yyyy-MM-dd_hh:mm:ss";
 
     public static DatePickerDialog getMaterialDatePicker(DatePickerDialog.OnDateSetListener callback) {
         Calendar now = Calendar.getInstance();

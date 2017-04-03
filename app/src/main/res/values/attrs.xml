@@ -4,7 +4,7 @@
         <attr name="android:galleryItemBackground" />
     </declare-styleable>
 
-    <declare-styleable name="custom_font">
+    <declare-styleable name="CustomFontTextView">
 
         <attr name="font_type" format="enum">
             <enum name="angelina" value="0" />

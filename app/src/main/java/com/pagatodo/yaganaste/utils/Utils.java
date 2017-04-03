@@ -17,6 +17,7 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
 import android.util.Patterns;
+import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -1154,7 +1155,8 @@ public class Utils {
             byte[] buffer = new byte[size];
             inputStream.read(buffer);
             inputStream.close();
-            Type listType = new TypeToken<List<GiroComercio>>(){}.getType();
+            Type listType = new TypeToken<List<GiroComercio>>() {
+            }.getType();
             giroComercioList = gson.fromJson(new String(buffer, "UTF-8"), listType);
 
         } catch (IOException e) {
@@ -1181,5 +1183,37 @@ public class Utils {
         }
         digest.reset();
         return digest.digest(password.getBytes());
+    }
+
+    public static String getScreenShotPath(View v1) {
+        Date now = new Date();
+        DateFormat.format(DateUtil.screenShotDateFormat, now);
+        String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
+
+        try {
+
+            // View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            v1.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
+                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
+            v1.layout(0, 0, v1.getMeasuredWidth(), v1.getMeasuredHeight());
+
+            v1.buildDrawingCache(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            File imageFile = new File(mPath);
+
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+
+        } catch (Throwable ex) {
+            ex.printStackTrace();
+        }finally {
+            mPath = "";
+        }
+
+        return mPath;
     }
 }
