@@ -154,5 +154,46 @@
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="colorControlNormal">@color/whiteColor</item>
     </style>
-</resources>
 
+    <style name="SpinnerNoArrow" parent="@android:style/Widget.Spinner">
+        <item name="android:background">@android:drawable/edit_text</item>
+        <item name="android:padding">0dp</item>
+        <item name="android:layout_marginLeft">@dimen/margin_medium</item>
+        <item name="android:layout_marginRight">@dimen/margin_medium</item>
+        <item name="android:layout_marginTop">@dimen/space_between_elements</item>
+    </style>
+
+    <style name="FragmentElement">
+        <item name="android:layout_marginLeft">@dimen/margin_medium</item>
+        <item name="android:layout_marginRight">@dimen/margin_medium</item>
+        <item name="android:layout_marginTop">@dimen/space_between_elements</item>
+    </style>
+
+    <style name="FragmentElementTop" parent="FragmentElement">
+        <item name="android:layout_marginTop">@dimen/margin_doble</item>
+    </style>
+
+    <style name="FragmentElementBottom" parent="FragmentElement">
+        <item name="android:layout_marginBottom">@dimen/margin_big</item>
+    </style>
+
+    <style name="BorderTitleStyle">
+        <item name="android:layout_marginLeft">@dimen/margin_big</item>
+        <item name="android:layout_marginRight">@dimen/margin_big</item>
+        <item name="android:layout_marginTop">@dimen/margin_big</item>
+    </style>
+
+    <style name="MainTabText">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">10sp</item>
+        <item name="tipo">Subtitulo</item>
+    </style>
+
+
+    <style name="ItemMovement">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">12sp</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+</resources>

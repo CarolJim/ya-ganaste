@@ -1,6 +1,9 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.Manifest;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.Window;
 
@@ -8,7 +11,9 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.register.AreYouWantGetPaymentsFragment;
@@ -18,15 +23,19 @@ import com.pagatodo.yaganaste.ui.account.register.Couchmark;
 import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
 import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
+import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
 import com.pagatodo.yaganaste.ui.account.register.PinConfirmationFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterAddressFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterBasicInfoFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
+import com.pagatodo.yaganaste.utils.Constants;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.SELECTION;
+import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 
 public class AccountActivity extends SupportFragmentActivity implements OnEventListener{
@@ -38,7 +47,6 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     public final static String EVENT_GO_REGISTER_ADDRESS = "EVENT_GO_REGISTER_ADDRESS";
     public final static String EVENT_GO_GET_PAYMENTS = "EVENT_GO_GET_PAYMENTS";
     public final static String EVENT_GO_ASOCIATE_PHONE = "EVENT_GO_ASOCIATE_PHONE";
-    public final static String EVENT_GO_REGISTER_COMPLETE = "EVENT_GO_REGISTER_COMPLETE";
     public final static String EVENT_GO_PIN_CONFIRMATION = "EVENT_GO_PIN_CONFIRMATION";
     public final static String EVENT_GO_MAIN_TAB_ACTIVITY = "EVENT_GO_MAIN_TAB_ACTIVITY";
     //Nuevo diseño-flujo
@@ -50,11 +58,15 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     public final static String EVENT_ADDRESS_DATA_BACK = "EVENT_GO_ADDRESS_DATA_BACK";
     public final static String EVENT_GO_ASSIGN_PIN = "EVENT_GO_ASSIGN_PIN";
     public final static String EVENT_COUCHMARK = "EVENT_GO_COUCHMARK";
+    public final static String EVENT_GO_REGISTER_COMPLETE = "EVENT_GO_REGISTER_COMPLETE";
+    public final static String EVENT_GO_MAINTAB = "EVENT_GO_MAINTAB";
 
     private DatosUsuarioFragment datosUsuarioFragment;
     private DatosPersonalesFragment datosPersonalesFragment;
     private DomicilioActualFragment domicilioActualFragment;
     private TienesTarjetaFragment tienesTarjetaFragment;
+
+    private PermisosFragment permisosFragment;
 
     private String action="";
 
@@ -65,15 +77,26 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         setContentView(R.layout.login_activity);
         action = getIntent().getExtras().getString(SELECTION);
         pref = App.getInstance().getPrefs();
-        switch (action){
+
+        switch (action) {
             case GO_TO_LOGIN:
-                loadFragment(LoginFragment.newInstance(), DIRECTION.FORDWARD, true);
+                loadFragment(LoginFragment.newInstance(), DIRECTION.FORDWARD, false);
                 break;
 
             case GO_TO_REGISTER:
-                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.FORDWARD, true);
+                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.FORDWARD, false);
                 break;
+
         }
+
+
+/*
+        /*Validamos Permisos
+        ValidatePermissions.checkPermissions(this, new String[]{
+                Manifest.permission.SEND_SMS,
+                Manifest.permission.CAMERA,
+                Manifest.permission.ACCESS_FINE_LOCATION,
+                Manifest.permission.READ_EXTERNAL_STORAGE}, 1);*/
     }
 
     @Override
@@ -82,38 +105,14 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         switch (event){
 
             case EVENT_GO_LOGIN:
-                loadFragment(LoginFragment.newInstance(), DIRECTION.FORDWARD, true);
-                break;
-
-            case EVENT_GO_BASIC_INFO:
-                loadFragment(RegisterBasicInfoFragment.newInstance(), DIRECTION.FORDWARD, true);
-                break;
-
-            case EVENT_GO_REGISTER_ADDRESS:
-                loadFragment(RegisterAddressFragment.newInstance(), DIRECTION.FORDWARD, true);
-                break;
-
-            case EVENT_GO_GET_PAYMENTS:
-                loadFragment(AreYouWantGetPaymentsFragment.newInstance(), DIRECTION.FORDWARD, true);
-                break;
-
-            case EVENT_GO_ASOCIATE_PHONE:
-                loadFragment(AsociatePhoneAccountFragment.newInstance(), DIRECTION.FORDWARD, true);
-                break;
-
-            case EVENT_GO_PIN_CONFIRMATION:
-                loadFragment(PinConfirmationFragment.newInstance(), DIRECTION.FORDWARD, true);
-                break;
-
-            case EVENT_GO_REGISTER_COMPLETE:
-                loadFragment(RegisterCompleteFragment.newInstance(), DIRECTION.FORDWARD, true);
+                loadFragment(LoginFragment.newInstance(), DIRECTION.FORDWARD, false);
                 break;
 
             case EVENT_DATA_USER:
-                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.FORDWARD, true);
+                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.FORDWARD, false);
                 break;
             case EVENT_DATA_USER_BACK:
-                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.BACK, true);
+                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.BACK, false);
                 break;
 
             case EVENT_PERSONAL_DATA:
@@ -137,13 +136,27 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
             case EVENT_GO_ASSIGN_PIN:
                 loadFragment(AsignarNIPFragment.newInstance(), DIRECTION.FORDWARD, false);
                 break;
+
+            case EVENT_GO_ASOCIATE_PHONE:
+                loadFragment(AsociatePhoneAccountFragment.newInstance(), DIRECTION.FORDWARD, false);
+                break;
+
+            case EVENT_GO_REGISTER_COMPLETE:
+                loadFragment(RegisterCompleteFragment.newInstance(), DIRECTION.FORDWARD, false);
+                break;
+
+
             case EVENT_COUCHMARK:
                 loadFragment(Couchmark.newInstance(), DIRECTION.FORDWARD, false);
                 break;
 
+            case EVENT_GO_MAINTAB:
+                resetRegisterData();
+                Intent intent = new Intent(AccountActivity.this, TabActivity.class);
+                startActivity(intent);
+                finish();
+                break;
         }
-
-
     }
 
     private void initFragments(){
@@ -183,7 +196,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
 
     private void resetRegisterData(){
         RegisterUser.resetRegisterUser();
-
     }
+
 }
 

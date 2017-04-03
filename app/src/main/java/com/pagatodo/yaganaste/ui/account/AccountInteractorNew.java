@@ -51,6 +51,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.TypeLogin.LOGIN_AFTER_REGI
 import static com.pagatodo.yaganaste.interfaces.enums.TypeLogin.LOGIN_NORMAL;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_COMPLETO;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LOGIN;
 
 /**
@@ -449,6 +450,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             SingletonUser user = SingletonUser.getInstance();
             user.getDataUser().setRequiereActivacionSMS(dataUser.isRequiereActivacionSMS());
             user.getDataUser().setSemilla(dataUser.getSemilla());
+            user.getDataUser().getUsuario().setIdUsuario(dataUser.getUsuario().getIdUsuario());
             createClient();// Creamos Cliente
         }else if(data.getCodigoRespuesta() == ERROR_LOGIN) {
 
@@ -568,7 +570,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             String tokenValidationSHA = Utils.bin2hex(Utils.getHash(tokenValidation));
             String message = String.format("%sT%sT%s",
                     user.getDataUser().getUsuario().getIdUsuario(),
-                    user.getDataExtraUser().getIdCuentaUser(), tokenValidationSHA);
+                    user.getDataUser().getUsuario().getCuentas().get(0).getIdCuenta(), tokenValidationSHA);
 
             MessageValidation messageValidation = new MessageValidation(phone,message);
             accountManager.onSucces(response.getWebService(),messageValidation);
@@ -585,11 +587,14 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
      * */
     private void processVerifyActivation(DataSourceResult response) {
         VerificarActivacionResponse data = (VerificarActivacionResponse) response.getData();
-        if(data.getCodigoRespuesta() == CODE_OK){
+        if(data.getCodigoRespuesta() == CODE_OK) {
             SingletonUser user = SingletonUser.getInstance();
             user.getDataExtraUser().setPhone(data.getData().getNumeroTelefono());
             RequestHeaders.setTokenauth(data.getData().getTokenAutenticacion());
-            accountManager.onSucces(response.getWebService(),"");
+            accountManager.onSucces(response.getWebService(), "");
+        }else if(data.getCodigoRespuesta() == DEVICE_ALREADY_ASSIGNED){
+            //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
+            accountManager.onError(response.getWebService(),new Object[]{DEVICE_ALREADY_ASSIGNED,data.getMensaje()});//Retornamos mensaje de error.
         }else{
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(),data.getMensaje());//Retornamos mensaje de error.

@@ -78,7 +78,7 @@ public class BorderTitleLayout extends RelativeLayout {
 
 
         int left = getPaddingLeft();
-        int top = getPaddingTop() + ( heightText /2 );
+        int top = (int) (getPaddingTop() + ( heightText * 0.6 ));
         int right = getWidth() - getPaddingRight();
         int bottom = getHeight() - getPaddingBottom();
 

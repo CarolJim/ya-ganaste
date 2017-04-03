@@ -31,10 +31,10 @@ public class ValidatePermissions {
      * Arreglo de permisos que se tienen que validar
      * */
     public static String[] permissionsCheck = new String[]{
+            Manifest.permission.SEND_SMS,
             Manifest.permission.CAMERA,
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.ACCESS_COARSE_LOCATION,
-            Manifest.permission.SEND_SMS};
+            Manifest.permission.READ_EXTERNAL_STORAGE};
 
     /**
      * Devuelve el arreglo de permisos a validar.
@@ -151,18 +151,32 @@ public class ValidatePermissions {
     public static void checkPermissions(Activity activity,String[] listPermissions,int PERMISSIONS_REQUEST){
 
         for(String permission : listPermissions){
+
             // Here, thisActivity is the current activity
             if (ContextCompat.checkSelfPermission(activity,permission)
                     != PackageManager.PERMISSION_GRANTED) {
                     // No explanation needed, we can request the permission.
                     ActivityCompat.requestPermissions(activity,
-                            listPermissions,
+                            updatePermissionsRequired(activity,listPermissions),
                             PERMISSIONS_REQUEST);
                 break;
+            }
+        }
+    }
 
+    private static String[] updatePermissionsRequired(Activity activity,String[] permissionsCheck){
+       List<String> listPermision = new ArrayList<String>();
+        for (String permission : permissionsCheck){
+            if(!isPermissionActive(activity,permission)){
+                listPermision.add(permission);
+            }
         }
 
-        }
+        String[] permissionCheckUpdated = new String[listPermision.size()];
+        for(int i = 0 ; i < listPermision.size(); i++)
+            permissionCheckUpdated[i] = listPermision.get(i);
+
+        return permissionCheckUpdated;
     }
 
     /**

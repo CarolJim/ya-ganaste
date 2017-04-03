@@ -8,7 +8,7 @@ import java.io.Serializable;
 
 public class ConsultarMovimientosRequest implements Serializable{
 
-    private int Mes;
+    private String Mes;
     private String Anio = "";
     private String IdMovimiento = "";
     private String Direccion = "";
@@ -16,11 +16,11 @@ public class ConsultarMovimientosRequest implements Serializable{
     public ConsultarMovimientosRequest() {
     }
 
-    public int getMes() {
+    public String getMes() {
         return Mes;
     }
 
-    public void setMes(int mes) {
+    public void setMes(String mes) {
         Mes = mes;
     }
 

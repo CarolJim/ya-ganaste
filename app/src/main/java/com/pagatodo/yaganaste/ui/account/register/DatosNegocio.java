@@ -22,10 +22,12 @@ import com.pagatodo.yaganaste.interfaces.IAccountView;
 import com.pagatodo.yaganaste.interfaces.IAccountView2;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.GiroArrayAdapter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.Validations;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,10 +45,26 @@ import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_VENTAS;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DatosNegocio extends GenericFragment implements View.OnClickListener,ValidationForms,IAccountView2 {
+public class DatosNegocio extends GenericFragment implements View.OnClickListener, ValidationForms, IAccountView2 {
 
     private View rootview;
-    @BindView(R.id.editNameBussiness)
+    @BindView(R.id.editBussinesName)
+    CustomValidationEditText editBussinesName;
+    @BindView(R.id.spinnerBussineLine)
+    Spinner spinnerBussineLine;
+    @BindView(R.id.editBussinesPhone)
+    CustomValidationEditText editBussinesPhone;
+    @BindView(R.id.radioPublicServant)
+    RadioGroup radioPublicServant;
+    @BindView(R.id.radioBtnPublicServantNo)
+    RadioButton radioBtnPublicServantNo;
+    @BindView(R.id.radioBtnPublicServantYes)
+    RadioButton radioBtnPublicServantYes;
+    @BindView(R.id.btnBackDatosPersonales)
+    Button btnBackDatosPersonales;
+    @BindView(R.id.btnNextDatosPersonales)
+    Button btnNextDatosPersonales;
+    /*@BindView(R.id.editNameBussiness)
     EditText editNameBussiness;
     @BindView(R.id.spnAreaBussinnes)
     Spinner spnAreaBussinnes;
@@ -64,10 +82,7 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
     RadioButton radioBtnNoMaxTransacciones;
     @BindView(R.id.radioBtnSiMaxTransacciones)
     RadioButton radioBtnSiMaxTransacciones;
-    @BindView(R.id.btnBackDatosPersonales)
-    Button btnBackDatosPersonales;
-    @BindView(R.id.btnNextDatosPersonales)
-    Button btnNextDatosPersonales;
+   */
 
     private String nombre = "";
     private String giro = "";
@@ -77,9 +92,9 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
 
     private List<GiroComercio> girosComercioComplete;
     private List<GiroComercio> girosComercio;
-   // private List<GiroComercio> subGirosComercio;
-    private GiroArrayAdapter giroArrayAdapter;
-   // private GiroArrayAdapter subGiroArrayAdapter;
+    // private List<GiroComercio> subGirosComercio;
+    private BussinesLineSpinnerAdapter giroArrayAdapter;
+    // private GiroArrayAdapter subGiroArrayAdapter;
     private int giroSelected;
 
 
@@ -133,33 +148,39 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
         btnBackDatosPersonales.setOnClickListener(this);
         btnNextDatosPersonales.setOnClickListener(this);
 
-        giroArrayAdapter = new GiroArrayAdapter(getActivity(),R.layout.spinner_layout, girosComercio, GIRO);
-        spnAreaBussinnes.setAdapter(giroArrayAdapter);
+        giroArrayAdapter = new BussinesLineSpinnerAdapter(getActivity(), R.layout.spinner_layout, girosComercio);
+        spinnerBussineLine.setAdapter(giroArrayAdapter);
+
+        /*spnAreaBussinnes.setAdapter(giroArrayAdapter);
         spnAreaBussinnes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 giroSelected = giroArrayAdapter.getGiroId(position);
+                */
                 /*generateSubgirosArray(giroSelected);
                 subGiroArrayAdapter = new GiroArrayAdapter(getActivity(), R.layout.spinner_layout, subGirosComercio, SUBGIRO);
                 subGiroArrayAdapter.notifyDataSetChanged();
                 spinnerRegisterCommerceSubGiro.setAdapter(subGiroArrayAdapter);*/
 
-            }
+            /*}
 
             @Override
             public void onNothingSelected(AdapterView<?> parent) {
 
             }
         });
-
+        */
         setCurrentData();// Seteamos datos si hay registro en proceso.
     }
 
     private void initValues() {
         girosComercioComplete = Utils.getGirosArray(getActivity());
         girosComercio = new ArrayList<>();
-       // subGirosComercio = new ArrayList<>();
         ArrayList<Integer> mGirosIds = new ArrayList<>();
+        // subGirosComercio = new ArrayList<>();
+        GiroComercio giroHint = new GiroComercio();
+        giroHint.setnGiro("Giro Comercial");
+        girosComercio.add(giroHint);
         for (GiroComercio giroComercio : girosComercioComplete) {
             if (!mGirosIds.contains(giroComercio.getIdGiro())) {
                 mGirosIds.add(giroComercio.getIdGiro());
@@ -170,7 +191,7 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
 
             case R.id.btnBackDatosPersonales:
                 getActivity().finish();
@@ -192,37 +213,37 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
     public void validateForm() {
         getDataForm();
 
-        if(nombre.isEmpty()){
+        /*if (nombre.isEmpty()) {
             showValidationError(getString(R.string.datos_negocio_nombre));
             return;
         }
 
-        if(giro.isEmpty()){
+        if (giro.isEmpty()) {
             showValidationError(getString(R.string.datos_negocio_giro));
             return;
         }
 
-        if(telefono.isEmpty()){
+        if (telefono.isEmpty()) {
             showValidationError(getString(R.string.datos_negocio_telefono));
             return;
         }
 
-        if(!radioBtnSiVentas.isChecked() && !radioBtnNoVentas.isChecked()){
+        if (!radioBtnSiVentas.isChecked() && !radioBtnNoVentas.isChecked()) {
             showValidationError(getString(R.string.datos_negocio_preguntas));
             return;
         }
 
-        if(!radioBtnSiMaxTransacciones.isChecked() && !radioBtnNoMaxTransacciones.isChecked()){
+        if (!radioBtnSiMaxTransacciones.isChecked() && !radioBtnNoMaxTransacciones.isChecked()) {
             showValidationError(getString(R.string.datos_negocio_preguntas));
             return;
         }
-
-        onValidationSuccess();
+        */
+        //onValidationSuccess();
     }
 
     @Override
     public void showValidationError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+        UI.showToastShort(error.toString(), getActivity());
     }
 
     @Override
@@ -232,33 +253,33 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
         registerAgent.setNombre(nombre);
         registerAgent.setGiro(giroSelected);
         registerAgent.setTelefono(telefono);
-        registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_VENTAS,respuestaLimiteVentas));
-        registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_TRANSACCIONES,respuestaNumeroTransacciones));
+        registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_VENTAS, respuestaLimiteVentas));
+        registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_TRANSACCIONES, respuestaNumeroTransacciones));
         registerAgent.setNombre(nombre);
-        nextStepRegister(EVENT_GO_BUSSINES_ADDRESS,null);//Mostramos la siguiente pantalla de registro.
+        nextStepRegister(EVENT_GO_BUSSINES_ADDRESS, null);//Mostramos la siguiente pantalla de registro.
     }
 
     @Override
     public void getDataForm() {
-        nombre = editNameBussiness.getText().toString().trim();
+        /*nombre = editNameBussiness.getText().toString().trim();
         giro = spnAreaBussinnes.getSelectedItem().toString();
         telefono = editPhone.getText().toString().trim();
         respuestaLimiteVentas = radioBtnSiVentas.isChecked();
-        respuestaNumeroTransacciones = radioBtnSiMaxTransacciones.isChecked();
+        respuestaNumeroTransacciones = radioBtnSiMaxTransacciones.isChecked();*/
     }
 
-    private void setCurrentData(){
+    private void setCurrentData() {
 
     }
 
     @Override
     public void nextStepRegister(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backStepRegister(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
@@ -273,7 +294,7 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
 
     @Override
     public void showError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+        UI.showToastShort(error.toString(), getActivity());
     }
 }
 

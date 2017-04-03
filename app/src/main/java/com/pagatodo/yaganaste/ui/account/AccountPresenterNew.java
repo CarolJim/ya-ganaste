@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.interfaces.enums.TypeLogin;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 
 import java.util.List;
+import java.util.function.ObjLongConsumer;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
@@ -35,6 +36,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
+import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 
 /**
  * Created by flima on 22/03/2017.
@@ -144,7 +146,14 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
             }
         }else if(accountView instanceof IVerificationSMSView) {
             if(ws == VERIFICAR_ACTIVACION){
-                ((IVerificationSMSView) accountView).smsVerificationFailed(error.toString());
+                if(error instanceof Object[]) {
+                    /*Aqui recibimos una respuesta que contiene el código de respuesta del WS y el mensaje del mismo.*/
+                    Object[] responseCode = (Object[]) error;
+                    if ((int)responseCode[0] == DEVICE_ALREADY_ASSIGNED)
+                        ((IVerificationSMSView) accountView).devicesAlreadyAssign(responseCode[1].toString());
+                } else{
+                    ((IVerificationSMSView) accountView).smsVerificationFailed(error.toString());
+                }
             }else{
                 accountView.showError(error);
             }

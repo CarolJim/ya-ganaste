@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
@@ -74,8 +75,8 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
             row = inflater.inflate(R.layout.spinner_custom_layout, parent, false);
 
             holder = new StatesSpinnerAdapter.ViewHolder();
-            holder.editText = (AppCompatEditText) row.findViewById(R.id.editTextCustomSpinner);
-            holder.downArrow = (AppCompatImageView)row.findViewById(R.id.imageViewCustomSpinner);
+            holder.editText = (EditText) row.findViewById(R.id.editTextCustomSpinner);
+            holder.downArrow = (ImageView)row.findViewById(R.id.imageViewCustomSpinner);
             row.setTag(holder);
         }else {
             holder = (StatesSpinnerAdapter.ViewHolder) row.getTag();
@@ -121,8 +122,8 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
     }
 
     static class ViewHolder{
-        AppCompatEditText editText;
-        AppCompatImageView downArrow;
+        EditText editText;
+        ImageView downArrow;
     }
 
     public int getPositionItemByName(String name){

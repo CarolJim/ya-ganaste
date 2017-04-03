@@ -7,10 +7,17 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+
+import butterknife.BindView;
 
 
 /**
@@ -19,6 +26,30 @@ import com.pagatodo.yaganaste.utils.UI;
 public class DomicilioNegocio extends GenericFragment implements View.OnClickListener{
 
     private View rootview;
+
+    @BindView(R.id.editBussinesStreet)
+    CustomValidationEditText editBussinesStreet;
+    @BindView(R.id.editBussinesExtNumber)
+    CustomValidationEditText editBussinesExtNumber;
+    @BindView(R.id.editBussinesIntNumber)
+    CustomValidationEditText editBussinesIntNumber;
+    @BindView(R.id.editBussinesZipCode)
+    CustomValidationEditText editBussinesZipCode;
+    @BindView(R.id.editBussinesState)
+    CustomValidationEditText editBussinesState;
+    @BindView(R.id.spBussinesColonia)
+    Spinner spBussinesColonia;
+    @BindView(R.id.radioIsBussinesAddress)
+    RadioGroup radioIsBussinesAddress;
+    @BindView(R.id.radioBtnIsBussinesAddressNo)
+    RadioButton radioBtnIsBussinesAddressNo;
+    @BindView(R.id.radioBtnIsBussinesAddressYes)
+    RadioButton radioBtnIsBussinesAddressYes;
+    @BindView(R.id.btnBackBussinesAddress)
+    Button btnBackBussinesAddress;
+    @BindView(R.id.btnNextBussinesAddress)
+    Button btnNextBussinesAddress;
+
 
     public DomicilioNegocio() {
     }
@@ -57,7 +88,7 @@ public class DomicilioNegocio extends GenericFragment implements View.OnClickLis
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.fragment_direccion_negocio, container, false);
+        rootview = inflater.inflate(R.layout.fragment_domicilio_negocio, container, false);
         initViews();
         return rootview;
     }

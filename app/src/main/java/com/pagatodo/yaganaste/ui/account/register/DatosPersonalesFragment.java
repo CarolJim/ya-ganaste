@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.DatePicker;
+import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
@@ -40,9 +41,9 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     @BindView(R.id.radioGender)
     RadioGroup radioGroupGender;
     @BindView(R.id.radioBtnFemale)
-    AppCompatRadioButton radioBtnFemale;
+    RadioButton radioBtnFemale;
     @BindView(R.id.radioBtnMale)
-    AppCompatRadioButton radioBtnMale;
+    RadioButton radioBtnMale;
     @BindView(R.id.editNames)
     CustomValidationEditText editNames;
     @BindView(R.id.editFirstLastName)
@@ -53,9 +54,9 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     CustomValidationEditText editBirthDay;
     @BindView(R.id.spinnerBirthPlace)
     AppCompatSpinner spinnerBirthPlace;
-    @BindView(R.id.btnBackDatosPersonales)
+    @BindView(R.id.btnBackPersonalInfo)
     Button btnBackDatosPersonales;
-    @BindView(R.id.btnNextDatosPersonales)
+    @BindView(R.id.btnNextPersonalInfo)
     Button btnNextDatosPersonales;
     StatesSpinnerAdapter adapterBirthPlace;
 
@@ -128,10 +129,10 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
             case R.id.editBirthDay:
 
                 break;
-            case R.id.btnBackDatosPersonales:
+            case R.id.btnBackPersonalInfo:
                 backStepRegister(EVENT_DATA_USER_BACK,null);
                 break;
-            case  R.id.btnNextDatosPersonales:
+            case  R.id.btnNextPersonalInfo:
                 validateForm();
             default:
                 break;

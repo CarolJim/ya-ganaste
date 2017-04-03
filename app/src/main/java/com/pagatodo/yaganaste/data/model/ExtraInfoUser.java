@@ -7,14 +7,11 @@ package com.pagatodo.yaganaste.data.model;
 public final class ExtraInfoUser {
 
     private boolean needSetPin = false;
-    private int idCuentaUser;
     private String mail = "";
     private String phone = "";
     private String pass = "";
     private String saldo = "";
     private String saldoAdq = "";
-
-    private boolean fromLogin;
     private String clabe = "";
 
     /*Estatus de usuario/agente*/
@@ -37,14 +34,6 @@ public final class ExtraInfoUser {
 
     public void setNeedSetPin(boolean needSetPin) {
         this.needSetPin = needSetPin;
-    }
-
-    public int getIdCuentaUser() {
-        return idCuentaUser;
-    }
-
-    public void setIdCuentaUser(int idCuentaUser) {
-        this.idCuentaUser = idCuentaUser;
     }
 
     public String getMail() {
@@ -85,14 +74,6 @@ public final class ExtraInfoUser {
 
     public void setSaldoAdq(String saldoAdq) {
         this.saldoAdq = saldoAdq;
-    }
-
-    public boolean isFromLogin() {
-        return fromLogin;
-    }
-
-    public void setFromLogin(boolean fromLogin) {
-        this.fromLogin = fromLogin;
     }
 
     public String getClabe() {
