@@ -1,6 +1,8 @@
 package com.pagatodo.yaganaste.net;
 
 import com.android.volley.VolleyError;
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.R;
 
 /**
  * Created on 16/02/2017.
@@ -16,10 +18,17 @@ public class CustomErrors {
 
     public static String getError(VolleyError error){
         String errorMessage ="";
-        switch (error.networkResponse.statusCode){
 
-            default:
-                errorMessage = error.getMessage();
+        if(error != null && error.networkResponse != null) {
+            switch (error.networkResponse.statusCode) {
+
+                default:
+                    if(error.getMessage() != null)
+                        errorMessage = error.getMessage();
+            }
+
+        }else{
+            errorMessage = App.getInstance().getString(R.string.message_generic_ws);
         }
 
         return errorMessage;

@@ -12,4 +12,5 @@ public interface IVerificationSMSView extends IAccountView2{
     public void messageCreated(MessageValidation messageValidation);
     public void smsVerificationSuccess();
     public void smsVerificationFailed(String message);
+    public void devicesAlreadyAssign(String message);
 }

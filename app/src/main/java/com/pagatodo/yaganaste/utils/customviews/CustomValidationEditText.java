@@ -133,6 +133,9 @@ public class CustomValidationEditText extends LinearLayout {
                     editText.setInputType(InputType.TYPE_CLASS_TEXT);
                     setValidationListener(txt);
                     break;
+                case "5"://number
+                    editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    break;
             }
 
 
@@ -266,5 +269,9 @@ public class CustomValidationEditText extends LinearLayout {
 
     public void removeCustomTextWatcher(TextWatcher watcher) {
         editText.removeTextChangedListener(watcher);
+    }
+
+    public void setOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener){
+        editText.setOnFocusChangeListener(onFocusChangeListener);
     }
 }

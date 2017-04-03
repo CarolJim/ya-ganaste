@@ -161,29 +161,27 @@
                 android:layout_gravity="bottom"
                 android:layout_marginLeft="@dimen/margin_medium"
                 android:layout_marginRight="@dimen/margin_medium"
+                android:gravity="bottom|center_horizontal"
                 android:layout_marginTop="@dimen/margin_big"
-                android:gravity="bottom"
                 android:orientation="horizontal">
-
-                <Button
-                    android:id="@+id/btnBackTienesTarjeta"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".2"
-                    android:text="@string/backButton"
-                    android:textAllCaps="false" />
 
                 <Button
                     android:id="@+id/btnNextTienesTarjeta"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight=".8"
-                    android:text="@string/nextButton"
+                    android:text="@string/next"
                     android:textAllCaps="false" />
             </LinearLayout>
 
         </RelativeLayout>
 
     </ScrollView>
+
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
 </RelativeLayout>

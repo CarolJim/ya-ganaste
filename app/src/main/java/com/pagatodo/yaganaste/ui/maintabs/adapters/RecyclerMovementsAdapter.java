@@ -78,7 +78,7 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerMo
         }
     }
 
-    class RecyclerViewHolderMovements extends RecyclerView.ViewHolder {
+    public static class RecyclerViewHolderMovements extends RecyclerView.ViewHolder {
 
         View layoutMovementTypeColor;
         TextView txtItemMovDate;

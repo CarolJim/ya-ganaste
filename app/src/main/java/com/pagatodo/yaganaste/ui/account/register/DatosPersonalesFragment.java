@@ -54,9 +54,9 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     CustomValidationEditText editBirthDay;
     @BindView(R.id.spinnerBirthPlace)
     AppCompatSpinner spinnerBirthPlace;
-    @BindView(R.id.btnBackDatosPersonales)
+    @BindView(R.id.btnBackPersonalInfo)
     Button btnBackDatosPersonales;
-    @BindView(R.id.btnNextDatosPersonales)
+    @BindView(R.id.btnNextPersonalInfo)
     Button btnNextDatosPersonales;
     StatesSpinnerAdapter adapterBirthPlace;
 
@@ -129,10 +129,10 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
             case R.id.editBirthDay:
 
                 break;
-            case R.id.btnBackDatosPersonales:
+            case R.id.btnBackPersonalInfo:
                 backStepRegister(EVENT_DATA_USER_BACK,null);
                 break;
-            case  R.id.btnNextDatosPersonales:
+            case  R.id.btnNextPersonalInfo:
                 validateForm();
             default:
                 break;

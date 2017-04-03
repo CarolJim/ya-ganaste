@@ -5,6 +5,8 @@ package com.pagatodo.yaganaste.interfaces;
  */
 
 public interface IUserDataRegisterView<T> extends IAccountView2 {
+    public void isEmailAvaliable();
+    public void isEmailRegistered();
     public void validationPasswordSucces();
     public void validationPasswordFailed(String message);
 }

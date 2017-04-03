@@ -9,6 +9,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.telephony.SmsManager;
 import android.view.LayoutInflater;
@@ -17,6 +18,7 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
+import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -32,7 +34,10 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
+import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
 
 /**
@@ -78,7 +83,6 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         accountPresenter = new AccountPresenterNew(this);
-        ActivityCompat.requestPermissions(getActivity(), new String[]{Manifest.permission.SEND_SMS}, 1);
     }
 
     @Override
@@ -126,16 +130,23 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
     public void smsVerificationFailed(String message) {
         if (counterRetry < 4) {
             counterRetry++;
-            timer.schedule(new TimerTask() {
-                @Override
+            showLoader(String.format("Verificando activación de dispositivo\nIntento %d", counterRetry));
+            new Handler().postDelayed(new Runnable() {
                 public void run() {
                     accountPresenter.doPullActivationSMS(String.format("Verificando activación de dispositivo\nIntento %d", counterRetry));
                 }
             }, CHECK_SMS_VALIDATE_DELAY);
         } else {
             showError(message);
-            //finish();
+            goToLogin();
         }
+    }
+
+    @Override
+    public void devicesAlreadyAssign(String message) {
+        //UI.showToast(message,getActivity());
+        //goToLogin();
+        nextStepRegister(EVENT_GO_REGISTER_COMPLETE,null);
     }
 
     @Override
@@ -169,6 +180,40 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
         sendSMS(messageValidation.getPhone(),messageValidation.getMessage());
     }
 
+    /**BroadcastReceiver para realizar el envío del SMS**/
+    BroadcastReceiver broadcastReceiverSend = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context arg0, Intent arg1) {
+            switch (getResultCode()) {
+                case Activity.RESULT_OK:
+                    UI.showToastShort("Mensaje Enviado",getActivity());
+
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            accountPresenter.doPullActivationSMS(getString(R.string.activacion_sms_verificando));
+                        }
+                    }, CHECK_SMS_VALIDATE_DELAY);
+
+                    break;
+                case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+                    UI.showToastShort("Falla al Enviar el Mensaje",getActivity());
+                    goToLogin();
+                    break;
+                case SmsManager.RESULT_ERROR_NO_SERVICE:
+                    UI.showToastShort("Sin Servicio",getActivity());
+                    goToLogin();
+                    break;
+                case SmsManager.RESULT_ERROR_NULL_PDU:
+                    UI.showToastShort("Null PDU",getActivity());
+                    goToLogin();
+                    break;
+                case SmsManager.RESULT_ERROR_RADIO_OFF:
+                    UI.showToastShort("Sin Señal Telefónica",getActivity());
+                    goToLogin();
+                    break;
+            }
+        }
+    };
 
     private void sendSMS(String phoneNumber, String message) {
         String SENT = "SMS_SENT";
@@ -181,40 +226,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
                 new Intent(DELIVERED), 0);
 
         //---when the SMS has been sent---
-        getActivity().registerReceiver(new BroadcastReceiver() {
-            @Override
-            public void onReceive(Context arg0, Intent arg1) {
-                switch (getResultCode()) {
-                    case Activity.RESULT_OK:
-                        UI.showToastShort("Mensaje Enviado",getActivity());
-                        Timer timer = new Timer();
-                        timer.schedule(new TimerTask() {
-                            @Override
-                            public void run() {
-                                accountPresenter.doPullActivationSMS(getString(R.string.activacion_sms_verificando));
-                            }
-                        }, CHECK_SMS_VALIDATE_DELAY);
-                        break;
-                    case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                        UI.showToastShort("Falla al Enviar el Mensaje",getActivity());
-                        //finish();
-                        break;
-                    case SmsManager.RESULT_ERROR_NO_SERVICE:
-                        UI.showToastShort("Sin Servicio",getActivity());
-                        //finish();
-                        break;
-                    case SmsManager.RESULT_ERROR_NULL_PDU:
-                        UI.showToastShort("Null PDU",getActivity());
-                        //finish();
-                        break;
-                    case SmsManager.RESULT_ERROR_RADIO_OFF:
-                        UI.showToastShort("Sin Señal Telefónica",getActivity());
-                        //finish();
-                        break;
-                }
-            }
-        }, new IntentFilter(SENT));
-
+        getActivity().registerReceiver(broadcastReceiverSend, new IntentFilter(SENT));
         //---when the SMS has been delivered---
         broadcastReceiver = new BroadcastReceiver() {
             @Override
@@ -240,11 +252,23 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
     @Override
     public void onDestroy() {
         super.onDestroy();
+
+        try {
+            getActivity().unregisterReceiver( broadcastReceiverSend);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
         try {
             getActivity().unregisterReceiver(broadcastReceiver);
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void goToLogin(){
+        RegisterUser.resetRegisterUser();
+        nextStepRegister(EVENT_GO_LOGIN,null);
     }
 }
 

@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
+import android.Manifest;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
@@ -18,6 +19,8 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
+
+import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 
 /**
@@ -120,6 +123,7 @@ public abstract class SupportFragmentActivity extends AppCompatActivity {
     protected void checkPermissions(){
 
         if(!ValidatePermissions.isAllPermissionsActives(this,ValidatePermissions.getPermissionsCheck())){
+            ValidatePermissions.checkPermissions(this, ValidatePermissions.getPermissionsCheck(), PERMISSION_GENERAL);
             ValidatePermissions.showDialogPermission(this,getString(R.string.permission_request),getString(R.string.permission_request_desc),actionsDialog);
         }
     }

@@ -17,6 +17,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_COUCHMARK;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 
 
 /**
@@ -81,7 +82,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
         switch (view.getId()){
             case R.id.btnCongratulationNext:
 
-                onEventListener.onEvent(EVENT_COUCHMARK,null);
+                onEventListener.onEvent(EVENT_GO_MAINTAB,null);
 
                 break;
             default:

@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.trans;
 
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 
 /**
@@ -8,6 +9,18 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
 
 public class AsignarCuentaDisponibleResponse extends GenericResponse {
 
+    private DataCuentaDisponible Data;
+
     public AsignarCuentaDisponibleResponse() {
+
+        Data = new DataCuentaDisponible();
+    }
+
+    public DataCuentaDisponible getData() {
+        return Data;
+    }
+
+    public void setData(DataCuentaDisponible data) {
+        Data = data;
     }
 }
