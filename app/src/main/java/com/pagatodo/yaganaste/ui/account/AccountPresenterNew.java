@@ -43,7 +43,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
  */
 
 public class AccountPresenterNew implements IAccountPresenterNew, IAccountManager {
-    private String TAG = AccountPresenterNew.class.getName();
+    private static final String TAG = AccountPresenterNew.class.getName();
     private IAccountIteractorNew accountIteractor;
     private IAccountView2 accountView;
 
