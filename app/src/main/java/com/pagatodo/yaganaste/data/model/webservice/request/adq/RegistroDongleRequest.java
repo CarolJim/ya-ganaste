@@ -13,6 +13,10 @@ public class RegistroDongleRequest extends AdqRequest implements Serializable{
     public RegistroDongleRequest() {
     }
 
+    public RegistroDongleRequest(String serial) {
+        Serial = serial;
+    }
+
     public String getSerial() {
         return Serial;
     }

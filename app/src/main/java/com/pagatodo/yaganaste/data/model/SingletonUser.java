@@ -11,6 +11,7 @@ public class SingletonUser {
     public static SingletonUser user;
     private DataIniciarSesion dataUser;
     private ExtraInfoUser dataExtraUser;
+    private String pathPictureTemp = "";
 
     private SingletonUser(){
         dataUser = new DataIniciarSesion();
@@ -38,5 +39,13 @@ public class SingletonUser {
 
     public void setDataExtraUser(ExtraInfoUser dataExtraUser) {
         this.dataExtraUser = dataExtraUser;
+    }
+
+    public String getPathPictureTemp() {
+        return pathPictureTemp;
+    }
+
+    public void setPathPictureTemp(String pathPictureTemp) {
+        this.pathPictureTemp = pathPictureTemp;
     }
 }

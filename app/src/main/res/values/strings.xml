@@ -297,5 +297,20 @@
     <string name="no_movimientos">No Tienes Movimientos Para Este Mes</string>
     <string name="error_respuesta">Ocurrió un Error con la Respuesta del Servidor, Intenta de Nuevo</string>
 
+    <!-- Strings Adq-->
+    <string name="skipButton">Más Tarde</string>
+    <string name="YesButton">Sí</string>
+    <string name="adq_message_hardsell">La Solución Más Completa\ny la Más Económica.</string>
+    <string name="adq_title_hardsell">Cobra Con Tarjeta y</string>
+    <string name="adq_subtitle_hardsell">¡Paga Menos Comisión!</string>
+    <string name="adq_more_hardsell">Conoce Más</string>
+
+    <string name="adq_title_thanks">¡Gracias!</string>
+    <string name="adq_subtitle_thanks">Tus Documentos Están\nSiendo Revisados</string>
+    <string name="adq_title_thanks_msg">Este Proceso Puede Tardar\nHasta 48 Horas Hábiles</string>
+
+    <string name="adq_subtitle_accept">Tus Documentos Han Sido\nAprobados</string>
+    <string name="adq_msg_accept">A continuación, te Enseñaremos tu\nNueva Sección de Cobros</string>
+
 </resources>
 

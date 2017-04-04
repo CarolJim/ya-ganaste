@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lets_start"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:background="@color/whiteColor"
+    android:focusableInTouchMode="true"
+    tools:context=".ui._controllers.AccountActivity">
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/titleHardsell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/grayColor"
+        android:layout_marginTop="@dimen/margin_small"
+        android:text="@string/adq_title_hardsell"/>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/subtitleHardsell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_below="@+id/titleHardsell"
+        android:textColor="@color/colorAccent"
+        android:text="@string/adq_subtitle_hardsell"/>
+
+    <ImageView
+        android:id="@+id/imgHardsell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:src="@drawable/card_yaganaste"
+        android:adjustViewBounds="true"
+        android:scaleType="centerCrop"
+        android:padding="10dp"
+        android:layout_below="@+id/subtitleHardsell"/>
+
+
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/grayColor"
+        android:layout_below="@+id/imgHardsell"
+        android:text="@string/adq_more_hardsell"/>
+
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textColor="@color/grayColor"
+        android:layout_above="@+id/layoutBtnHardsell"
+        android:layout_marginBottom="@dimen/margin_small"
+        android:text="@string/adq_message_hardsell"/>
+
+
+    <LinearLayout
+        android:id="@+id/layoutBtnHardsell"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:padding="@dimen/margin_small"
+        android:background="@color/colorAccent"
+        android:orientation="horizontal">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnHardSellSkip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/skipButton"
+            android:textAllCaps="true" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnHardSellNext"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/YesButton"
+            android:textAllCaps="true" />
+    </LinearLayout>
+
+</RelativeLayout>

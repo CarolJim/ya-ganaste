@@ -5,10 +5,15 @@
     android:layout_width="wrap_content"
     android:layout_height="wrap_content">
 
+    <RelativeLayout
+        android:layout_width="85dp"
+        android:layout_height="86dp"
+        android:id="@+id/layoutImg">
+
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgItemGalleryMark"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:src="@mipmap/blacksquare"
@@ -26,5 +31,17 @@
         app:srcCompat="@drawable/camera_blue"
         tools:ignore="ContentDescription" />
 
+
+    </RelativeLayout>
+
+
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgItemGalleryStatus"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_alignRight="@+id/layoutImg"
+        android:src="@drawable/card_yaganaste"
+        app:civ_border_color="@color/redcolor"/>
 
 </RelativeLayout>

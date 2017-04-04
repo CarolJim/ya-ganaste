@@ -1,37 +1,39 @@
-package com.pagatodo.yaganaste.ui.account.register;
+package com.pagatodo.yaganaste.ui.adquirente;
 
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_COUCHMARK;
-
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class RegistroNegocioCompletoFragment extends GenericFragment implements View.OnClickListener{
+public class HardSellAdqFragment extends GenericFragment implements View.OnClickListener{
 
     private View rootview;
-    @BindView(R.id.btnCongratulationNext)
-    StyleButton btnCongratulationNext;
 
-    public RegistroNegocioCompletoFragment() {
+
+    @BindView(R.id.btnHardSellNext)
+    StyleButton btnHardSellNext;
+
+    public HardSellAdqFragment() {
     }
 
-    public static RegistroNegocioCompletoFragment newInstance() {
-        RegistroNegocioCompletoFragment fragmentRegister = new RegistroNegocioCompletoFragment();
+    public static HardSellAdqFragment newInstance() {
+        HardSellAdqFragment fragmentRegister = new HardSellAdqFragment();
         Bundle args = new Bundle();
         fragmentRegister.setArguments(args);
         return fragmentRegister;
@@ -41,14 +43,18 @@ public class RegistroNegocioCompletoFragment extends GenericFragment implements 
     public void onAttach(Context context) {
         super.onAttach(context);
         Activity activity = null;
+
         if (context instanceof Activity) {
             activity = (Activity) context;
         }
+
     }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
     }
 
     @Override
@@ -59,12 +65,14 @@ public class RegistroNegocioCompletoFragment extends GenericFragment implements 
     @Override
     public void onStop() {
         super.onStop();
+
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.fragment_register_complete, container, false);
+
+        rootview = inflater.inflate(R.layout.fragment_hardsell_adq, container, false);
         initViews();
         return rootview;
     }
@@ -72,19 +80,25 @@ public class RegistroNegocioCompletoFragment extends GenericFragment implements 
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        btnCongratulationNext.setOnClickListener(this);
+        btnHardSellNext.setOnClickListener(this);
+
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btnCongratulationNext:
 
-                onEventListener.onEvent(EVENT_COUCHMARK,null);
+            case R.id.btnHardSellNext:
+
+                Intent intentAdq = new Intent(getActivity(), BussinesActivity.class);
+                startActivity(intentAdq);
 
                 break;
+
             default:
                 break;
         }
     }
+
 }
+

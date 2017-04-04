@@ -44,7 +44,7 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
  */
 public class DomicilioActualFragment extends GenericFragment implements View.OnClickListener, ValidationForms,IAccountRegisterView {
 
-    private static int MIN_LENGHT_VALIDATION_CP = 4;
+    public static int MIN_LENGHT_VALIDATION_CP = 4;
     private View rootview;
     @BindView(R.id.editStreet)
     CustomValidationEditText editStreet;

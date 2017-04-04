@@ -14,6 +14,10 @@ public class LoginAdqRequest extends AdqRequest implements Serializable{
     public LoginAdqRequest() {
     }
 
+    public LoginAdqRequest(String user, String pass) {
+        this.user = user;
+        this.pass = pass;
+    }
 
     public String getUser() {
         return user;

@@ -14,7 +14,7 @@
         layout="@layout/toolbar" />
 
     <RelativeLayout
-        android:id="@+id/layoutImagenLogin"
+        android:id="@id/layoutImageResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbarLy"
@@ -22,7 +22,7 @@
         android:padding="@dimen/generic_padig">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgCompleted"
+            android:id="@+id/imgResult"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:layout_centerHorizontal="true"
@@ -35,16 +35,16 @@
     </RelativeLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txtTitle"
+        android:id="@+id/txtTitleResult"
         style="@style/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/layoutImagenLogin"
+        android:layout_below="@+id/layoutImageResult"
         android:text="@string/txt_felicidades"
         app:tipo="Descripcion" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txtSubtitle"
+        android:id="@+id/txtSubtitleResult"
         style="@style/textDescInputs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -53,22 +53,40 @@
         android:layout_marginBottom="@dimen/btn_margin_bottom"/>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txtMessage"
+        android:id="@+id/txtMessageResult"
         style="@style/textDescInputs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_above="@+id/btnNextComplete"
+        android:layout_above="@+id/layoutButtonsResult"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:text="@string/congratulation_text2" />
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleButton
-        android:id="@+id/btnNextComplete"
-        style="@style/buttonRoundedBlue"
+    <LinearLayout
+        android:id="@+id/layoutButtonsResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/btn_margin_bottom"
-        android:text="@string/next"
-        app:cornerRadius="@dimen/btn_corner_radius" />
+        android:orientation="horizontal">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnSecondaryAction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/next"
+            android:visibility="gone"
+            app:cornerRadius="@dimen/btn_corner_radius" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnPrimaryAction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:text="@string/next"
+            app:cornerRadius="@dimen/btn_corner_radius" />
+
+
+    </LinearLayout>
+
 </RelativeLayout>

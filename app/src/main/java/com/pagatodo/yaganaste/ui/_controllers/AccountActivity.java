@@ -35,6 +35,7 @@ import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.SELECTION;
+import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 
@@ -142,7 +143,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 break;
 
             case EVENT_GO_REGISTER_COMPLETE:
-                loadFragment(RegisterCompleteFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(RegisterCompleteFragment.newInstance(EMISOR), DIRECTION.FORDWARD, false);
                 break;
 
 
