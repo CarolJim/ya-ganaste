@@ -161,11 +161,7 @@ public class MaterialButton extends AppCompatButton implements View.OnClickListe
             int heightSize = MeasureSpec.getSize(heightMeasureSpec);
             int size;
             size = Math.min(widthMeasureSpec, heightMeasureSpec);
-            //int finalMeasureSpec = MeasureSpec.makeMeasureSpec(size, MeasureSpec.EXACTLY);
             super.onMeasure(size, size);
-            /*if ( ((ViewGroup)getParent()).getChildCount() == 1){
-                ((ViewGroup)getParent()).measure();
-            }*/
         } else {
             super.onMeasure(widthMeasureSpec, heightMeasureSpec);
         }

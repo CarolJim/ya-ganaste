@@ -58,9 +58,8 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
 
     public void setUpWithoutViewPager(@NonNull T[] values) {
         this.customValues = values;
-        final int count = values.length;
-        for (int i = 0; i < count; i++) {
-            addTab(newTab().setText(values[i].getName(getContext())), false);
+        for (T value : values) {
+            addTab(newTab().setText(value.getName(getContext())), false);
         }
         setCustomSelectedView(R.layout.tab_ad_emisor_selected);
         getTabAt(0).select();
@@ -127,9 +126,6 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
 
     @Override
     public void onTabSelected(final Tab tab) {
-        //LinearLayout fromLayuot = ((LinearLayout) ((ViewGroup) ((ViewGroup) getChildAt(0)).getChildAt(tab.getPosition())).getChildAt(2));
-        //LinearLayout fromLayuot = ((LinearLayout) ((ViewGroup) ((ViewGroup) getChildAt(0)).getChildAt(tab.getPosition())).getChildAt(2));
-
         ViewGroup customParen = (ViewGroup) LayoutInflater.from(getContext()).inflate(selectedLayout, null, false);
 
         ((ViewGroup) ((ViewGroup) getChildAt(0)).getChildAt(tab.getPosition())).removeViewAt(2);
@@ -164,7 +160,7 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
         private ImageView mImage;
 
         private TabHolder(View view){
-            this.mText = ((TextView)view.findViewById(android.R.id.text1));
+            this.mText = (TextView)view.findViewById(android.R.id.text1);
             this.mImage = (ImageView)view.findViewById(android.R.id.icon);
         }
     }
