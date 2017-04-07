@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.ui.account.register.Couchmark;
 import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
 import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
+import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
 import com.pagatodo.yaganaste.ui.account.register.PinConfirmationFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterAddressFragment;
@@ -89,6 +90,8 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
 
         }
 
+        Intent intent = new Intent(this, LandingFragment.class);
+        startActivity(intent);
 
 /*
         /*Validamos Permisos

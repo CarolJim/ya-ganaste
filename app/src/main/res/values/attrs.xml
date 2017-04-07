@@ -76,6 +76,7 @@
             <enum name="zipcode" value="3"/>
             <enum name="text" value="4"/>
             <enum name="number" value="5"/>
+            <enum name="celphone" value="6"/>
         </attr>
         <attr name="hintText" format="string"/>
         <attr name="maxLength" format="integer"/>

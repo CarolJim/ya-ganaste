@@ -30,5 +30,6 @@
 
     <color name="edittext_back">#435D6E</color>
     <color name="line_border">#23313C</color>
+    <color name="colorAccentTransparent">#8810B2E6</color>
 
 </resources>

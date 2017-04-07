@@ -297,5 +297,8 @@
     <string name="no_movimientos">No Tienes Movimientos Para Este Mes</string>
     <string name="error_respuesta">Ocurrió un Error con la Respuesta del Servidor, Intenta de Nuevo</string>
 
+    <string name="child_tab_recharge">Recargas</string>
+    <string name="child_tab_services">Servicios</string>
+    <string name="child_tab_mony_send">Envíos</string>
 </resources>
 

@@ -136,6 +136,10 @@ public class CustomValidationEditText extends LinearLayout {
                 case "5"://number
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                     break;
+                case "6"://cellPhone
+                    editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_CLASS_PHONE);
+                    setValidationListener(txt);
+                    break;
             }
 
 
@@ -171,6 +175,9 @@ public class CustomValidationEditText extends LinearLayout {
                             break;
                         case "4"://text
                             result = !txt.isEmpty();
+                            break;
+                        case "5"://cellPhone
+                            result = ValidateForm.isValidCellPhone(txt.trim());
                             break;
                         default:
                             result = false;

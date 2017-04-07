@@ -21,6 +21,4 @@
         android:text="Deposito"
         android:id="@android:id/text1"/>
 
-
-
 </LinearLayout>

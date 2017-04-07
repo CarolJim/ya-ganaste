@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
+import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.TabPresenter;
@@ -35,6 +36,10 @@ public class TabActivity extends SupportFragmentActivity implements TabsView {
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_main_tab);
         load();
+
+
+        Intent intent = new Intent(this, LandingFragment.class);
+        startActivity(intent);
     }
 
     private void load() {

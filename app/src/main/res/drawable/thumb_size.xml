@@ -1,20 +1,19 @@
+<?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
-
     <item>
-        <shape>
+        <shape android:shape="rectangle">
             <size
-                android:width="90dp"
-                android:height="45dp" />
-
-            <solid android:color="@android:color/transparent" />
+                android:width="@dimen/seekbar_thumb_width"
+                android:height="@dimen/seekbar_thumb_height" />
+            <solid android:color="@color/colorAccent" />
+            <corners android:radius="@dimen/seekbar_radius" />
         </shape>
     </item>
-    <item android:drawable="@drawable/skb_thumb" />
 
     <item
-        android:width="60dp"
-        android:height="30dp"
-        android:drawable="@drawable/icono_flecha"
-        android:gravity="center" />
-
+        android:width="@dimen/seekbar_thumb_arrow_width"
+        android:height="@dimen/seekbar_thumb__arrow_height"
+        android:drawable="@drawable/arrow_icon"
+        android:gravity="center|right"
+        android:right="5dp" />
 </layer-list>

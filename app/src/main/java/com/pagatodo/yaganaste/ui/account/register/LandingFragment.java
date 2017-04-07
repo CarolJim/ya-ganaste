@@ -75,10 +75,10 @@ public class LandingFragment extends Activity implements Animation.AnimationList
 
     @Override
     public void onAnimationStart(Animation animation) {
-        if(animation == animFadeIn){
+        if (animation == animFadeIn) {
 
         }
-        if(animation == animFadeOut){
+        if (animation == animFadeOut) {
             animaationEnd = false;
         }
 
@@ -96,31 +96,21 @@ public class LandingFragment extends Activity implements Animation.AnimationList
                     tutorialPage2.startAnimation(animFadeIn);
                     break;
                 case 1:
-                    tutorialPage1.setVisibility(View.GONE);
                     tutorialPage2.setVisibility(View.GONE);
                     tutorialPage3.setVisibility(View.VISIBLE);
                     tutorialPage3.startAnimation(animFadeIn);
                     break;
                 case 2:
-                    tutorialPage1.setVisibility(View.GONE);
-                    tutorialPage2.setVisibility(View.GONE);
                     tutorialPage3.setVisibility(View.GONE);
                     tutorialPage4.setVisibility(View.VISIBLE);
                     tutorialPage4.startAnimation(animFadeIn);
                     break;
                 case 3:
-                    tutorialPage1.setVisibility(View.GONE);
-                    tutorialPage2.setVisibility(View.GONE);
-                    tutorialPage3.setVisibility(View.GONE);
                     tutorialPage4.setVisibility(View.GONE);
                     tutorialPage5.setVisibility(View.VISIBLE);
                     tutorialPage5.startAnimation(animFadeIn);
                     break;
                 case 4:
-                    tutorialPage1.setVisibility(View.GONE);
-                    tutorialPage2.setVisibility(View.GONE);
-                    tutorialPage3.setVisibility(View.GONE);
-                    tutorialPage4.setVisibility(View.GONE);
                     tutorialPage5.setVisibility(View.GONE);
                     tutorialPage6.setVisibility(View.VISIBLE);
                     tutorialPage6.startAnimation(animFadeIn);
@@ -214,7 +204,7 @@ public class LandingFragment extends Activity implements Animation.AnimationList
     }
 
 
-    private void finishActivity(){
+    private void finishActivity() {
         this.finish();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }

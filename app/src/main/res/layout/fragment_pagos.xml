@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:id="@+id/containerPay"
+        android:layout_width="250dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:orientation="vertical"
+        android:layout_marginTop="30dp">
+
+        <FrameLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@mipmap/sombra_base">
+
+            <RelativeLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="left">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgPagosUserProfile"
+                    android:layout_width="85dp"
+                    android:layout_height="86dp"
+                    android:src="@mipmap/icon_user"
+                    app:civ_border_color="@color/colorAccent"
+                    app:civ_border_width="2dp" />
+
+            </RelativeLayout>
+
+
+            <RelativeLayout
+                android:id="@+id/rlimgPagosServiceToPay"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="right">
+
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgPagosServiceToPay"
+                    android:layout_width="85dp"
+                    android:layout_height="85dp"
+                    android:src="@mipmap/circulo_add_servicio"
+                    app:civ_border_color="@color/black"
+                    app:civ_border_width="2dp" />
+            </RelativeLayout>
+
+        </FrameLayout>
+
+        <RelativeLayout
+            android:id="@+id/containerPayPutHere"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="left">
+
+            <LinearLayout
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dp"
+                    android:gravity="center"
+                    android:orientation="vertical">
+
+                    <com.gorrotowi.simplerobototextview.RobotoTextView
+                        android:id="@+id/txtPagosUserName"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:maxLines="2"
+                        android:maxWidth="100dp"
+                        android:textColor="@color/colorAccent"
+                        android:textSize="18sp"
+                        app:font="light"
+                        tools:text="Marcela" />
+
+                    <RelativeLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content">
+
+                        <com.gorrotowi.simplerobototextview.RobotoTextView
+                            android:id="@+id/txtPagosYourBalance"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerVertical="true"
+                            android:text="Tu Saldo: $20."
+                            android:textSize="12sp"
+                            app:font="condensedLight" />
+
+                        <com.gorrotowi.simplerobototextview.RobotoTextView
+                            android:id="@+id/txtPagosYourBalanceCents"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_toEndOf="@+id/txtPagosYourBalance"
+                            android:layout_toRightOf="@+id/txtPagosYourBalance"
+                            android:text="00"
+                            android:textSize="8sp"
+                            app:font="condensedLight" />
+                    </RelativeLayout>
+                </LinearLayout>
+            </LinearLayout>
+
+
+
+        </RelativeLayout>
+
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:visibility="visible"
+            android:layout_height="match_parent">
+
+            <LinearLayout
+                android:id="@+id/layoutRecargas"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="visible">
+
+                <com.pagatodo.ganaste.carousel.Carousel
+                    android:id="@+id/carouselRecargas"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="10dp"/>
+
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutPDA"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+                <com.pagatodo.ganaste.carousel.Carousel
+                    android:id="@+id/carouselPDA"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="10dp" />
+            </LinearLayout>
+            <LinearLayout
+                android:id="@+id/layoutBanks"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="gone">
+                <com.pagatodo.ganaste.carousel.Carousel
+                    android:id="@+id/carouselBanks"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:layout_margin="10dp" />
+
+            </LinearLayout>
+
+            <com.gorrotowi.simplerobototextview.RobotoTextView
+                android:id="@+id/txtLoadingServices"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:minHeight="250dp"
+                android:gravity="center"
+                android:text="Cargando servicios...(*)"
+                android:textSize="20sp" />
+
+
+        </RelativeLayout>
+
+        <ImageView
+            android:id="@+id/imgPagosFavs"
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:src="@mipmap/circulo_favorito"
+            android:visibility="visible"
+            android:layout_marginBottom="8dp"
+            android:padding="4dp"
+            android:layout_gravity="center_horizontal|bottom"
+            tools:ignore="ContentDescription" />
+
+    </RelativeLayout>
+
+</LinearLayout>
