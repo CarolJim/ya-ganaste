@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.HomeFragmentPresenter;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
+import com.pagatodo.yaganaste.utils.customviews.yaganasteviews.TabLayoutEmAd;
 
 
 /**
@@ -23,10 +24,11 @@ import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 
 public class HomeTabFragment extends GenericFragment<Void> implements TabsView {
 
-    private TabLayout tabAdquirente;
+    //private TabLayout tabAdquirente;
     private ViewPager pagerAdquirente;
     private View rootView;
     private HomeFragmentPresenter homeFragmentPresenter;
+    private TabLayoutEmAd tabLayoutEmAd;
 
     public static HomeTabFragment newInstance(){
         HomeTabFragment homeTabFragment = new HomeTabFragment();
@@ -54,7 +56,8 @@ public class HomeTabFragment extends GenericFragment<Void> implements TabsView {
 
     @Override
     public void initViews() {
-        tabAdquirente = (TabLayout) rootView.findViewById(R.id.tab_adquirente);
+        //tabAdquirente = (TabLayout) rootView.findViewById(R.id.tab_adquirente);
+        tabLayoutEmAd = (TabLayoutEmAd) rootView.findViewById(R.id.tab_em_adq);
         pagerAdquirente = (ViewPager) rootView.findViewById(R.id.pager_adquirente);
         homeFragmentPresenter.getPagerData(ViewPagerDataFactory.TABS.HOME_FRAGMENT);
     }
@@ -62,6 +65,7 @@ public class HomeTabFragment extends GenericFragment<Void> implements TabsView {
     @Override
     public void loadViewPager(ViewPagerData viewPagerData) {
         pagerAdquirente.setAdapter(new GenericPagerAdapter<>(getActivity(), getChildFragmentManager(), viewPagerData.getFragmentList(), viewPagerData.getTabData()));
-        tabAdquirente.setupWithViewPager(pagerAdquirente);
+        tabLayoutEmAd.setUpWithViewPager(pagerAdquirente);
+        //tabAdquirente.setupWithViewPager(pagerAdquirente);
     }
 }

@@ -2,13 +2,14 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-
+import android.support.v7.widget.RecyclerView;
+import android.view.View;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
+import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AccountMovementsPresenter;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
 
 import java.util.List;
 
@@ -19,7 +20,6 @@ import java.util.List;
 
 public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovementsTab, ItemMovements<MovimientosResponse>> {
 
-    private MovementsPresenter<MonthsMovementsTab> movementsPresenter;
 
     public static PersonalAccountFragment newInstance(){
         PersonalAccountFragment homeTabFragment = new PersonalAccountFragment();
@@ -45,22 +45,17 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
     }
 
     @Override
-    protected void getDataForTab(MonthsMovementsTab dataToRequest) {
-        movementsPresenter.getRemoteMovementsData(dataToRequest);
+    public void loadMovementsResult(List<ItemMovements<MovimientosResponse>> movementsList) {
+        updateRecyclerData(createAdapter(movementsList), movementsList);
     }
 
+    protected RecyclerView.Adapter createAdapter(List<ItemMovements<MovimientosResponse>> movementsList) {
+        return new RecyclerMovementsAdapter<MovimientosResponse>(getContext(), movementsList, this);
+    }
 
     @Override
-    public void loadMovementsResult(List<ItemMovements<MovimientosResponse>> movementsList) {
-
-        /*rvAdapter = new RecyclerViewAdapterMovements(getContext(), movements, new RecyclerViewClickListener() {
-            @Override
-            public void onRecyclerItemClick(View v, int position) {
-                SingletonSesion.setIsFlowUser(true);
-                startActivity(new Intent(getActivity(), MovementDetailActivity.class).putExtra("movement", movementList.get(position).toString()));
-            }
-        });
-        recyclerView.setAdapter(rvAdapter);*/
+    public void onRecyclerItemClick(View v, int position) {
+        //**SingletonSesion.setIsFlowUser(true);
+        //**startActivity(new Intent(getActivity(), MovementDetailActivity.class).putExtra("movement", movementList.get(position).toString()));
     }
-
 }

@@ -139,8 +139,10 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
         }
+        startActivity(TabActivity.createIntent(this));
 
-        startActivity(intent);
+        //startActivity(intent);
+
     }
 
 

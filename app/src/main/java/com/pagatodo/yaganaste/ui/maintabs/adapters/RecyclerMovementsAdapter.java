@@ -1,6 +1,8 @@
 package com.pagatodo.yaganaste.ui.maintabs.adapters;
 
 import android.content.Context;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -24,10 +26,14 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerMo
     private Context context;
     private OnRecyclerItemClickListener listener;
 
-    public RecyclerMovementsAdapter(Context context, List<ItemMovements<T>> itemMovementses, OnRecyclerItemClickListener listener) {
+    public RecyclerMovementsAdapter(@NonNull Context context, @NonNull List<ItemMovements<T>> itemMovementses, @Nullable OnRecyclerItemClickListener listener) {
         this.itemMovementses = itemMovementses;
         this.context = context;
         this.listener = listener;
+    }
+
+    public RecyclerMovementsAdapter(@NonNull Context context, @NonNull List<ItemMovements<T>> itemMovementses) {
+        this(context, itemMovementses, null);
     }
 
     @Override
