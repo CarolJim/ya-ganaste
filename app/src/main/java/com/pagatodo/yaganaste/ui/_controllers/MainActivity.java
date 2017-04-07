@@ -142,13 +142,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnMainLogin:
-                intent.putExtra(SELECTION,GO_TO_LOGIN);
-                startActivity(intent);
-                //Intent intentLogin = new Intent(MainActivity.this, TabActivity.class);
-                //startActivity(intentLogin);
+                startActivity(TabActivity.createIntent(this));
                 finish();
                 break;
         }
+
+
+        //startActivity(intent);
+
     }
 
 

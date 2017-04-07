@@ -1,0 +1,122 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:background="@color/bgColor">
+
+            <LinearLayout
+                android:id="@+id/ll_emisor_border_container"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:orientation="vertical"
+                android:weightSum="2">
+
+                <View
+                    android:id="@+id/view_emisor_border"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.25"
+                    android:background="@drawable/adq_em_big_tab"/>
+
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_adquirente_border_container"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:orientation="vertical"
+                android:weightSum="2"
+                android:layout_marginLeft="-3dp">
+
+                <View
+                    android:id="@+id/view_adquirente_border"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.25"
+                    android:background="@drawable/adq_em_small_tab"/>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="horizontal"
+            android:weightSum="4"
+            android:visibility="visible">
+
+            <LinearLayout
+                android:id="@+id/ll_content_parent_emisor"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5"
+                android:orientation="vertical"
+                android:weightSum="2">
+
+                <com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout
+                    android:id="@+id/ll_material_emisor_container"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="2"
+                    app:buttonStrokeColor="@color/transparent"
+                    app:cornerRadius="6dp">
+
+                    <com.pagatodo.yaganaste.utils.customviews.yaganasteviews.CardEmisorSelected
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+
+                </com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/ll_content_parent_adquirente"
+                android:layout_marginLeft="-3dp"
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1.5"
+                android:orientation="vertical"
+                android:weightSum="2">
+
+                <com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout
+                    android:id="@+id/ll_material_adquirente_container"
+                    android:layout_marginLeft="-3dp"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1.25"
+                    app:buttonStrokeColor="@color/transparent"
+                    app:cornerRadius="6dp">
+
+                    <com.pagatodo.yaganaste.utils.customviews.yaganasteviews.CardAdq
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"/>
+                </com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout>
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+
+
+
+
+    </FrameLayout>
+
+</LinearLayout>

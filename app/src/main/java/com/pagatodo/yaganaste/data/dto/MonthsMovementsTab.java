@@ -18,6 +18,8 @@ public class MonthsMovementsTab implements IEnumTab {
 
     public MonthsMovementsTab(String name, int month, int year) {
         this.name = name;
+        this.month = month;
+        this.year = year;
     }
 
     @Override

@@ -9,32 +9,43 @@
         android:id="@+id/tab_months"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorHeight="0dp"/>
+        app:tabIndicatorHeight="0dp"
+        android:background="@color/bgColor"/>
 
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <android.support.v7.widget.RecyclerView
-            android:id="@+id/recycler_movements"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="20dp"
-            android:scrollbars="vertical" />
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_marginBottom="20dp">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/recycler_movements"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:scrollbars="vertical" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_info_movements"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:text="@string/no_movimientos"
+                android:textSize="18sp"
+                android:visibility="gone"
+                style="@style/MainTabText" />
+
+        </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
 
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txt_info_movements"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:text="@string/no_movimientos"
-        android:textSize="18sp"
-        android:visibility="visible"
-        style="@style/MainTabText" />
+
 
 </LinearLayout>

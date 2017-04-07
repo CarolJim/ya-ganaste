@@ -106,6 +106,7 @@ public class MaterialButton extends AppCompatButton implements View.OnClickListe
         normalBackground.setCornerRadius(cornerRadius);
         normalBackground.setColor(colorNormal);
         normalBackground.setStroke((int) Utils.convertDpToPixels(2), strokeColor);
+        normalBackground.setAlpha(128);
 
         GradientDrawable pressedDrawable = new GradientDrawable();
         pressedDrawable.setShape(shape);
