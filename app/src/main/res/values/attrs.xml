@@ -4,7 +4,7 @@
         <attr name="android:galleryItemBackground" />
     </declare-styleable>
 
-    <declare-styleable name="custom_font">
+    <declare-styleable name="CustomFontTextView">
 
         <attr name="font_type" format="enum">
             <enum name="angelina" value="0" />
@@ -76,6 +76,7 @@
             <enum name="zipcode" value="3"/>
             <enum name="text" value="4"/>
             <enum name="number" value="5"/>
+            <enum name="celphone" value="6"/>
         </attr>
         <attr name="hintText" format="string"/>
         <attr name="maxLength" format="integer"/>

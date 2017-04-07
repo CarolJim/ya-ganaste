@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.ui.account.register.Couchmark;
 import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
 import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
+import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
@@ -29,6 +30,7 @@ import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
+import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 
 
 public class AccountActivity extends SupportFragmentActivity implements OnEventListener{
@@ -86,7 +88,6 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 break;
 
         }
-
 
 /*
         /*Validamos Permisos
@@ -150,6 +151,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 break;
 
             case EVENT_GO_REGISTER_COMPLETE:
+                pref.clearPreference(COUCHMARK_EMISOR);
                 loadFragment(RegisterCompleteFragment.newInstance(EMISOR), DIRECTION.FORDWARD, false);
                 break;
             case EVENT_COUCHMARK:

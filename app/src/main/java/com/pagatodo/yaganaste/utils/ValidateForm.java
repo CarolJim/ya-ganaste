@@ -56,6 +56,12 @@ public class ValidateForm {
         return phonePattern.matcher(phone).matches();
     }
 
+    private final static Pattern cellPhonePattern = Pattern.compile("d{10}");
+
+    public static boolean isValidCellPhone(String cellPhone){
+        return  cellPhonePattern.matcher(cellPhone).matches();
+    }
+
     private final static Pattern zipCodePattern = Pattern.compile("^[0-9]{5}$");
 
     /*

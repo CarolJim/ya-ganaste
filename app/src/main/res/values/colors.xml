@@ -3,6 +3,7 @@
     <color name="colorPrimary">#293943</color>
     <color name="colorPrimaryDark">#141C21</color>
     <color name="colorAccent">#10B2E6</color>
+    <color name="colorPrimaryAlpha">#c0293943</color>
 
     <color name="bluecolor_disable">#be10b2e6</color>
     <color name="redcolor">#D50000</color>
@@ -29,5 +30,6 @@
 
     <color name="edittext_back">#435D6E</color>
     <color name="line_border">#23313C</color>
+    <color name="colorAccentTransparent">#8810B2E6</color>
 
 </resources>

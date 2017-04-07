@@ -31,7 +31,7 @@ import butterknife.ButterKnife;
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 
-public class MainActivity extends AppCompatActivity implements View.OnClickListener{
+public class MainActivity extends AppCompatActivity implements View.OnClickListener {
 
     public final static String SELECTION = "SELECTION";
     public final static String GO_TO_LOGIN = "GO_TO_LOGIN";
@@ -85,14 +85,14 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     }
 
-    private void initViews(){
+    private void initViews() {
         ButterKnife.bind(this);
         btnMainCreateAccount.setOnClickListener(this);
         btnMainLogin.setOnClickListener(this);
         listSlides = new ArrayList<Fragment>();
 
-        for(int index = 0 ; index < imgs.length; index++){
-            listSlides.add(ScreenSlidePagefragment.newInstance(imgs[index],topText[index],bothText[index]));
+        for (int index = 0; index < imgs.length; index++) {
+            listSlides.add(ScreenSlidePagefragment.newInstance(imgs[index], topText[index], bothText[index]));
         }
 
         /*
@@ -132,23 +132,23 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        Intent intent = new Intent(MainActivity.this,AccountActivity.class);
+        Intent intent = new Intent(MainActivity.this, AccountActivity.class);
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btnMainCreateAccount:
                 intent.putExtra(SELECTION,GO_TO_REGISTER);
                 startActivity(intent);
-                break;
-
-            case R.id.btnMainLogin:
-                Intent intentLogin = new Intent(MainActivity.this, TabActivity.class);
-                startActivity(intentLogin);
                 finish();
                 break;
 
+            case R.id.btnMainLogin:
+                intent.putExtra(SELECTION,GO_TO_LOGIN);
+                startActivity(intent);
+                //Intent intentLogin = new Intent(MainActivity.this, TabActivity.class);
+                //startActivity(intentLogin);
+                finish();
+                break;
         }
-
-
     }
 
 

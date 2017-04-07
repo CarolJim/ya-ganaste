@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_child_tab"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:focusable="true"
+    android:focusableInTouchMode="true">
+
+
+    <RelativeLayout
+        android:id="@+id/customTab"
+        android:layout_width="match_parent"
+        android:layout_height="40dp"
+        android:layout_marginTop="30dp"
+        android:clipToPadding="false">
+
+        <Button
+            android:id="@+id/tab_recargas"
+            style="@style/ButtonTabs"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentLeft="true"
+            android:layout_marginRight="-2dp"
+            android:background="@drawable/tab_selected"
+            android:text="Recargas" />
+
+        <Button
+            android:id="@+id/tab_servicios"
+            style="@style/ButtonTabs"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_gravity="top"
+            android:layout_toLeftOf="@+id/tab_envios"
+            android:layout_toRightOf="@+id/tab_recargas"
+            android:background="@drawable/right_tab"
+            android:text="Servicios" />
+
+        <Button
+            android:id="@+id/tab_envios"
+            style="@style/ButtonTabs"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_alignParentRight="true"
+            android:layout_marginLeft="-2dp"
+            android:background="@drawable/tab_unselected"
+            android:text="Envios" />
+
+
+    </RelativeLayout>
+
+
+    <FrameLayout
+        android:id="@+id/child_framelayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+</LinearLayout>

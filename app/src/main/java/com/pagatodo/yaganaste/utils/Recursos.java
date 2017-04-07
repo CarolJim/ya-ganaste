@@ -41,6 +41,7 @@ public class Recursos {
 
 	/*Preferencias de Sesion*/
 	public static final String CODE_ACTIVATION_FREJA = "CODEACTIVATIONFREJA";
+	public static String COUCHMARK_EMISOR = "COUCHMARKEMISOR";
 
 	/**Catálogos**/
 	/*PTH – Estatus Comercios*/
@@ -86,7 +87,6 @@ public class Recursos {
 
 	public static final int NO_ACTION = -2;
 	public static final int GO_LOGIN = -3;
-
 
 
 

@@ -315,5 +315,8 @@
 
     <string name="usuario_no_existe">Este correo no se encuentra registrado.</string>
 
+    <string name="child_tab_recharge">Recargas</string>
+    <string name="child_tab_services">Servicios</string>
+    <string name="child_tab_mony_send">Envíos</string>
 </resources>
 

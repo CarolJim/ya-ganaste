@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.interfaces.enums.AdqEmTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
 
 import java.util.ArrayList;
@@ -37,7 +38,7 @@ public class ViewPagerDataFactory {
         switch (type){
             case MAIN:
                 fragmentList.add(HomeTabFragment.newInstance());
-                fragmentList.add(HomeTabFragment.newInstance());
+                fragmentList.add(PaymentsTabFragment.newInstance());
                 fragmentList.add(HomeTabFragment.newInstance());
                 fragmentList.add(HomeTabFragment.newInstance());
 

@@ -432,12 +432,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                     if (dataUser.isAsignoNip()) { // NO necesita NIP
                         if(!dataUser.isRequiereActivacionSMS()){// No Requiere Activacion de SMS
                             /*TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento*/
-                            boolean couchMarkShowed = true;
-                            if(couchMarkShowed){ // Si ya se mostro el Couchmark
                                 stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
-                            }else{
-                                stepByUserStatus = EVENT_COUCHMARK; // Mostramos couckmark
-                            }
                         }else{ // Requiere Activacion SMS
                             stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
                         }
