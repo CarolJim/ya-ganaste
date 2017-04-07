@@ -144,7 +144,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone">
 
-                <com.pagatodo.ganaste.carousel.Carousel
+                <com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
                     android:id="@+id/carouselPDA"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
@@ -157,7 +157,7 @@
                 android:layout_height="wrap_content"
                 android:visibility="gone">
 
-                <com.pagatodo.ganaste.carousel.Carousel
+                <com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
                     android:id="@+id/carouselBanks"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
