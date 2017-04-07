@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
@@ -10,8 +11,8 @@
         android:layout_width="250dp"
         android:layout_height="wrap_content"
         android:layout_gravity="center_horizontal"
-        android:orientation="vertical"
-        android:layout_marginTop="30dp">
+        android:layout_marginTop="30dp"
+        android:orientation="vertical">
 
         <FrameLayout
             android:layout_width="match_parent"
@@ -71,32 +72,32 @@
                     android:gravity="center"
                     android:orientation="vertical">
 
-                    <com.gorrotowi.simplerobototextview.RobotoTextView
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtPagosUserName"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:maxLines="2"
                         android:maxWidth="100dp"
+                        android:text="Marcela"
                         android:textColor="@color/colorAccent"
                         android:textSize="18sp"
-                        app:font="light"
-                        tools:text="Marcela" />
+                        app:tipo="Subtitulo" />
 
                     <RelativeLayout
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content">
 
-                        <com.gorrotowi.simplerobototextview.RobotoTextView
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             android:id="@+id/txtPagosYourBalance"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_centerVertical="true"
                             android:text="Tu Saldo: $20."
                             android:textSize="12sp"
-                            app:font="condensedLight" />
+                            app:tipo="Subtitulo" />
 
-                        <com.gorrotowi.simplerobototextview.RobotoTextView
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             android:id="@+id/txtPagosYourBalanceCents"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
@@ -104,11 +105,10 @@
                             android:layout_toRightOf="@+id/txtPagosYourBalance"
                             android:text="00"
                             android:textSize="8sp"
-                            app:font="condensedLight" />
+                            app:tipo="Subtitulo" />
                     </RelativeLayout>
                 </LinearLayout>
             </LinearLayout>
-
 
 
         </RelativeLayout>
@@ -121,8 +121,8 @@
 
         <RelativeLayout
             android:layout_width="match_parent"
-            android:visibility="visible"
-            android:layout_height="match_parent">
+            android:layout_height="match_parent"
+            android:visibility="visible">
 
             <LinearLayout
                 android:id="@+id/layoutRecargas"
@@ -130,29 +130,33 @@
                 android:layout_height="match_parent"
                 android:visibility="visible">
 
-                <com.pagatodo.ganaste.carousel.Carousel
+                <com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
                     android:id="@+id/carouselRecargas"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:layout_margin="10dp"/>
+                    android:layout_margin="10dp" />
 
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/layoutPDA"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone">
+
                 <com.pagatodo.ganaste.carousel.Carousel
                     android:id="@+id/carouselPDA"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_margin="10dp" />
             </LinearLayout>
+
             <LinearLayout
                 android:id="@+id/layoutBanks"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:visibility="gone">
+
                 <com.pagatodo.ganaste.carousel.Carousel
                     android:id="@+id/carouselBanks"
                     android:layout_width="match_parent"
@@ -161,14 +165,15 @@
 
             </LinearLayout>
 
-            <com.gorrotowi.simplerobototextview.RobotoTextView
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtLoadingServices"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:minHeight="250dp"
                 android:gravity="center"
+                android:minHeight="250dp"
                 android:text="Cargando servicios...(*)"
-                android:textSize="20sp" />
+                android:textSize="20sp"
+                app:tipo="Titulo"/>
 
 
         </RelativeLayout>
@@ -180,11 +185,11 @@
             android:layout_alignParentBottom="true"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:src="@mipmap/circulo_favorito"
-            android:visibility="visible"
+            android:layout_gravity="center_horizontal|bottom"
             android:layout_marginBottom="8dp"
             android:padding="4dp"
-            android:layout_gravity="center_horizontal|bottom"
+            android:src="@mipmap/circulo_favorito"
+            android:visibility="visible"
             tools:ignore="ContentDescription" />
 
     </RelativeLayout>

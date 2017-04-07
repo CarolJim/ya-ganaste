@@ -92,6 +92,8 @@ public class PaymentsTabFragment extends GenericFragment implements View.OnClick
         botonRecargas.setOnClickListener(this);
         botonServicios.setOnClickListener(this);
         botonEnvios.setOnClickListener(this);
+
+        loadFragment(PaymentsFragmentCarousel.newInstance(), SupportFragmentActivity.DIRECTION.NONE, false);
     }
 
 

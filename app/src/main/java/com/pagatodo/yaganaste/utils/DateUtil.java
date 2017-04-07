@@ -8,8 +8,6 @@ import android.util.Log;
 
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
-import com.wdullaer.materialdatetimepicker.date.DatePickerDialog;
-import com.wdullaer.materialdatetimepicker.time.TimePickerDialog;
 
 import java.text.DateFormat;
 import java.text.ParseException;
@@ -30,7 +28,7 @@ public class DateUtil {
     public static String simpleDateFormatFirstYear = "yyyy-MM-dd";
     public static String screenShotDateFormat = "yyyy-MM-dd_hh:mm:ss";
 
-    public static DatePickerDialog getMaterialDatePicker(DatePickerDialog.OnDateSetListener callback) {
+    /*public static DatePickerDialog getMaterialDatePicker(DatePickerDialog.OnDateSetListener callback) {
         Calendar now = Calendar.getInstance();
         DatePickerDialog dpd = DatePickerDialog.newInstance(
                 callback,
@@ -52,7 +50,7 @@ public class DateUtil {
         );
 
         return tpd;
-    }
+    }*/
 
     public static String formatDate(int dayOfMonth, int monthOfYear, int year) {
 
