@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
 
-import android.Manifest;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
@@ -10,7 +9,6 @@ import android.content.Intent;
 import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
 import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +18,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
+import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.UI;
@@ -27,17 +26,14 @@ import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import java.util.Timer;
-import java.util.TimerTask;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
-import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
 
 /**
@@ -78,11 +74,16 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
         }
     }
 
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        accountPresenter = new AccountPresenterNew(this);
+        accountPresenter = ((AccountActivity)getActivity()).getPresenter();
+        accountPresenter.setIView(this);
+        //accountPresenter = new AccountPresenterNew(getActivity(),this);
+        //RequestHeaders.setUsername("mailprueba200@mail.com");
+        //RequestHeaders.setTokensesion("72186BF634808214F348AC75ED3CF8D66C7BF42A0403F1CE8E483F1307FA1148670195A73B082434C0537317459DBD8F");
+        //RequestHeaders.setUsername("userd@mail.com");
+        //RequestHeaders.setTokensesion("6137E51838FDBEA96161DD34B6426CAA99D5D958E8F213307B34F832E993E4A389A221A7D04A89FFE1E36509A3451CAC");
     }
 
     @Override
@@ -115,6 +116,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
         switch (view.getId()){
             case R.id.btnAssociateNext:
                 accountPresenter.gerNumberToSMS();
+                //executeProvisioning();
                 break;
             default:
                 break;
@@ -123,7 +125,29 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
 
     @Override
     public void smsVerificationSuccess() {
+        //nextStepRegister(EVENT_GO_REGISTER_COMPLETE,null);
+        executeProvisioning();
+    }
+
+    @Override
+    public void provisingCompleted(String message) {
+
+        UI.showToastShort(message,getActivity());
         nextStepRegister(EVENT_GO_REGISTER_COMPLETE,null);
+    }
+
+    @Override
+    public void verifyActivationProvisingFailed(String message) {
+        showError(message);
+    }
+
+    @Override
+    public void activationProvisingFailed(String message) {
+        showError(message);
+    }
+
+    private void executeProvisioning(){
+        accountPresenter.getActivationCode();
     }
 
     @Override
@@ -138,15 +162,17 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
             }, CHECK_SMS_VALIDATE_DELAY);
         } else {
             showError(message);
+            //executeProvisioning();
             goToLogin();
         }
     }
 
     @Override
     public void devicesAlreadyAssign(String message) {
-        //UI.showToast(message,getActivity());
-        //goToLogin();
-        nextStepRegister(EVENT_GO_REGISTER_COMPLETE,null);
+        UI.showToast(message,getActivity());
+        goToLogin(); // TODO Se sigue al siguiente paso solo para realizar pruebas.
+        //executeProvisioning();
+        //nextStepRegister(EVENT_GO_REGISTER_COMPLETE,null);
     }
 
     @Override

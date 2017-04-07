@@ -1,12 +1,14 @@
 package com.pagatodo.yaganaste.data.model.webservice.request.adtvo;
 
+import com.pagatodo.yaganaste.data.model.webservice.request.Request;
+
 import java.io.Serializable;
 
 /**
  * Created by flima on 21/03/2017.
  */
 
-public class CrearUsuarioFWSRequest implements Serializable{
+public class CrearUsuarioFWSRequest extends Request implements Serializable{
 
     private int TipoAgente;
     private String Usuario = "";

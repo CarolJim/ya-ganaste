@@ -1,68 +1,25 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
-import android.util.Log;
-
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.model.Card;
-import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
-import com.pagatodo.yaganaste.data.model.RegisterUser;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistroDongleRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioFWSRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultaAsignacionTarjetaRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.trans.CrearClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioFWSInicioSesionResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataEstatusUsuario;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataUsuarioFWSInicioSesion;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarNIPResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarAsignacionTarjetaResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.CrearClienteResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataConsultarAsignacion;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataCuentaDisponible;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
-import com.pagatodo.yaganaste.interfaces.IAccountIteractorNew;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
-import com.pagatodo.yaganaste.interfaces.enums.DataSource;
-import com.pagatodo.yaganaste.interfaces.enums.TypeLogin;
-import com.pagatodo.yaganaste.net.Api;
 import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
-import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.net.IRequestResult;
-import com.pagatodo.yaganaste.net.RequestHeaders;
-import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.DataSource.WS;
-import static com.pagatodo.yaganaste.interfaces.enums.TypeLogin.LOGIN_AFTER_REGISTER;
-import static com.pagatodo.yaganaste.interfaces.enums.TypeLogin.LOGIN_NORMAL;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_COMPLETO;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
-import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
-import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LOGIN;
 
 /**
  * Created by flima on 22/03/2017.

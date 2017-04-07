@@ -28,8 +28,9 @@ android:visibility="visible">
         android:gravity="center"
         android:visibility="visible"
         android:text="Cargando..."
+        android:paddingTop="85dp"
         android:textColor="@color/whiteColor"
-        android:layout_alignBottom="@+id/imgloader"/>
+        android:layout_centerVertical="true"/>
 
 </RelativeLayout>
 

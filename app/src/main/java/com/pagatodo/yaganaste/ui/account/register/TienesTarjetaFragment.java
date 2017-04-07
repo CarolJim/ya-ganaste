@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
 import android.text.Editable;
+import android.text.InputType;
 import android.text.TextWatcher;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
@@ -25,9 +27,11 @@ import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;
+import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import butterknife.BindView;
@@ -36,7 +40,6 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
 
@@ -59,9 +62,10 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     RelativeLayout layoutCard;
     @BindView(R.id.editNumber)
     EditText editNumber;
+    @BindView(R.id.keyboard_view)
+    CustomKeyboardView keyboardView;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
-    InputMethodManager imm;
     private AccountPresenterNew accountPresenter;
 
     int keyDel;
@@ -92,7 +96,9 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        accountPresenter = new AccountPresenterNew(this);
+        accountPresenter = ((AccountActivity)getActivity()).getPresenter();
+        accountPresenter.setIView(this);
+        //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
 
     @Override
@@ -112,17 +118,19 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
 
         rootview = inflater.inflate(R.layout.fragment_tienes_tarjeta, container, false);
         initViews();
+        getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return rootview;
     }
 
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        keyboardView.setKeyBoard(getActivity(),R.xml.keyboard_nip);
+        keyboardView.setPreviewEnabled(false);
 
         btnNextTienesTarjeta.setOnClickListener(this);
         final Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Light.ttf");
         radioHasCard.setOnCheckedChangeListener(this);
-        imm = (InputMethodManager) getContext().getSystemService(Context.INPUT_METHOD_SERVICE);
 
         editNumber.setTypeface(typeface);
         ViewTreeObserver viewTreeObserver = layoutCard.getViewTreeObserver();
@@ -185,6 +193,29 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             }
         });
 
+        editNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    keyboardView.showCustomKeyboard(v);
+                }else{
+                    keyboardView.hideCustomKeyboard();}
+            }
+        });
+
+        editNumber.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                EditText edittext = (EditText) v;
+                int inType = edittext.getInputType();       // Backup the input type
+                edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
+                edittext.onTouchEvent(event);               // Call native handler
+                keyboardView.showCustomKeyboard(v);
+                edittext.setInputType(inType);              // Restore input type
+                return true; // Consume touch event
+            }
+        });
+
     }
 
     @Override
@@ -208,14 +239,14 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                 editNumber.requestFocus();
                 editNumber.setEnabled(true);
                 editNumber.setCursorVisible(true);
-                imm.showSoftInput(editNumber, InputMethodManager.SHOW_IMPLICIT);
+                keyboardView.showCustomKeyboard(editNumber);
                 break;
             case R.id.radioBtnNo:
                 editNumber.setText("");
                 editNumber.setFocusableInTouchMode(false);
                 editNumber.clearFocus();
                 editNumber.setEnabled(false);
-                imm.hideSoftInputFromWindow(rootview.getWindowToken(), 0);
+                keyboardView.hideCustomKeyboard();
                 break;
             default:
                 break;
@@ -250,7 +281,6 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                 nextStepRegister(EVENT_GO_ASSIGN_PIN,null);// Mostramos la pantalla para obtener tarjeta.
             }
         }, DELAY_MESSAGE_PROGRESS);
-
     }
 
     @Override
@@ -283,5 +313,13 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     @Override
     public void backStepRegister(String event, Object data) {
         onEventListener.onEvent(event,data);
+    }
+
+    public boolean isCustomKeyboardVisible() {
+        return keyboardView.getVisibility() == View.VISIBLE;
+    }
+
+    public void hideKeyboard(){
+        keyboardView.hideCustomKeyboard();
     }
 }

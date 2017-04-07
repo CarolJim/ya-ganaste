@@ -43,7 +43,18 @@ public class NetFacade {
 
         if(UtilsNet.isOnline(App.getContext())) {
             WsCaller wsCaller = new WsCaller();
-            wsCaller.sendJsonPost(createRequest(method_name, method, urlService, oRequest, headers, responseType, requestResult));
+            wsCaller.sendJsonPost(createRequest(method_name, method, urlService, oRequest,true, headers, responseType, requestResult));
+        }else{
+            UI.showToastShort(App.getContext().getString(R.string.no_internet_access),App.getContext());
+            throw new OfflineException();
+        }
+    }
+
+    public static void consumeWS(WebService method_name, HttpMethods method, String urlService, Map<String,String> headers, Object oRequest,boolean envolve, Type responseType, IRequestResult requestResult) throws OfflineException {
+
+        if(UtilsNet.isOnline(App.getContext())) {
+            WsCaller wsCaller = new WsCaller();
+            wsCaller.sendJsonPost(createRequest(method_name, method, urlService, oRequest,envolve, headers, responseType, requestResult));
         }else{
             UI.showToastShort(App.getContext().getString(R.string.no_internet_access),App.getContext());
             throw new OfflineException();
@@ -61,14 +72,14 @@ public class NetFacade {
      *@return WsRequest petición para el servicio
      */
 
-    public static WsRequest createRequest(WebService method_name, HttpMethods method, String urlService, Object oRequest, Map<String,String> headers, Type responseType, IRequestResult requestResult){
+    public static WsRequest createRequest(WebService method_name, HttpMethods method, String urlService, Object oRequest,boolean envolve, Map<String,String> headers, Type responseType, IRequestResult requestResult){
 
         WsRequest request = new WsRequest();
         request.setMethod_name(method_name);
         request.setHeaders(headers);
         request.setMethod(getMethodType(method));
         request.set_url_request(urlService);
-        request.setBody(createParams(oRequest));
+        request.setBody(createParams(envolve,oRequest));
         request.setRequestResult(requestResult);
         request.setTypeResponse(responseType);
         request.setTimeOut(TIMEOUT);
@@ -80,17 +91,20 @@ public class NetFacade {
      *
      * @return JSONObject con parámetros de la solicitud
      */
-    private static JSONObject createParams(Object oRequest){
+    private static JSONObject createParams(boolean envolve,Object oRequest){
 
         if(oRequest != null) {
             JSONObject tmp = JsonManager.madeJsonFromObject(oRequest);
-            if (oRequest instanceof AdqRequest) {
-                return JsonManager.madeJsonAdquirente(tmp);
-            } else {
-                return JsonManager.madeJson(tmp);
+            if(envolve){
+                if (oRequest instanceof AdqRequest) {
+                    return JsonManager.madeJsonAdquirente(tmp);
+                } else {
+                    return JsonManager.madeJson(tmp);
+                }
+            }else{
+                return tmp;
             }
         }
-
         return null;
     }
 

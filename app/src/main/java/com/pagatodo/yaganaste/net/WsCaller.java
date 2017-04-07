@@ -11,6 +11,8 @@ import com.pagatodo.yaganaste.interfaces.enums.DataSource;
 
 import org.json.JSONObject;
 
+import java.util.Map;
+
 /**
  * Created on 16/02/2017.
  *
@@ -34,7 +36,16 @@ public class WsCaller implements IServiceConsumer {
     public void sendJsonPost(final WsRequest request){
 
         VolleySingleton volleySingleton = VolleySingleton.getInstance(App.getInstance().getApplicationContext());
-        Log.d(TAG, "Request Success: " + request.get_url_request());
+        Log.d(TAG, "Request: " + request.get_url_request());
+        if(request.getHeaders() != null && request.getHeaders().size() > 0) {
+            Log.d(TAG, "Headers:");
+            for (String name : request.getHeaders().keySet()) {
+                String key = name.toString();
+                String value = request.getHeaders().get(name).toString();
+                Log.d(TAG, key + ":" + value);
+            }
+        }
+
         if(request.getBody()!= null)
             Log.d(TAG, "Body Request: "+ request.getBody().toString());
         CustomJsonObjectRequest jsonRequest =  new CustomJsonObjectRequest(

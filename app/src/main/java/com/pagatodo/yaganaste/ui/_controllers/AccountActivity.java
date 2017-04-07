@@ -1,42 +1,34 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.Window;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
-import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
+import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
-import com.pagatodo.yaganaste.ui.account.register.AreYouWantGetPaymentsFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsociatePhoneAccountFragment;
+import com.pagatodo.yaganaste.ui.account.register.ConfirmarNIPFragment;
 import com.pagatodo.yaganaste.ui.account.register.Couchmark;
 import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
 import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
-import com.pagatodo.yaganaste.ui.account.register.PinConfirmationFragment;
-import com.pagatodo.yaganaste.ui.account.register.RegisterAddressFragment;
-import com.pagatodo.yaganaste.ui.account.register.RegisterBasicInfoFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
-import com.pagatodo.yaganaste.utils.Constants;
-import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
-import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 
 public class AccountActivity extends SupportFragmentActivity implements OnEventListener{
@@ -58,6 +50,8 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     public final static String EVENT_ADDRESS_DATA = "EVENT_GO_ADDRESS_DATA";
     public final static String EVENT_ADDRESS_DATA_BACK = "EVENT_GO_ADDRESS_DATA_BACK";
     public final static String EVENT_GO_ASSIGN_PIN = "EVENT_GO_ASSIGN_PIN";
+    public final static String EVENT_GO_CONFIRM_PIN = "EVENT_GO_CONFIRM_PIN";
+    public final static String EVENT_GO_CONFIRM_PIN_BACK = "EVENT_GO_CONFIRM_PIN_BACK";
     public final static String EVENT_COUCHMARK = "EVENT_GO_COUCHMARK";
     public final static String EVENT_GO_REGISTER_COMPLETE = "EVENT_GO_REGISTER_COMPLETE";
     public final static String EVENT_GO_MAINTAB = "EVENT_GO_MAINTAB";
@@ -68,6 +62,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     private TienesTarjetaFragment tienesTarjetaFragment;
 
     private PermisosFragment permisosFragment;
+    private AccountPresenterNew presenterAccount;
 
     private String action="";
 
@@ -78,6 +73,8 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         setContentView(R.layout.login_activity);
         action = getIntent().getExtras().getString(SELECTION);
         pref = App.getInstance().getPrefs();
+        resetRegisterData();
+        presenterAccount = new AccountPresenterNew(this);
 
         switch (action) {
             case GO_TO_LOGIN:
@@ -98,6 +95,11 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 Manifest.permission.CAMERA,
                 Manifest.permission.ACCESS_FINE_LOCATION,
                 Manifest.permission.READ_EXTERNAL_STORAGE}, 1);*/
+    }
+
+    public AccountPresenterNew getPresenter(){
+
+        return this.presenterAccount;
     }
 
     @Override
@@ -137,7 +139,12 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
             case EVENT_GO_ASSIGN_PIN:
                 loadFragment(AsignarNIPFragment.newInstance(), DIRECTION.FORDWARD, false);
                 break;
-
+            case EVENT_GO_CONFIRM_PIN:
+                loadFragment(ConfirmarNIPFragment.newInstance(o.toString()), DIRECTION.FORDWARD, false);
+                break;
+            case EVENT_GO_CONFIRM_PIN_BACK:
+                loadFragment(AsignarNIPFragment.newInstance(), DIRECTION.BACK, false);
+                break;
             case EVENT_GO_ASOCIATE_PHONE:
                 loadFragment(AsociatePhoneAccountFragment.newInstance(), DIRECTION.FORDWARD, false);
                 break;
@@ -145,8 +152,6 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
             case EVENT_GO_REGISTER_COMPLETE:
                 loadFragment(RegisterCompleteFragment.newInstance(EMISOR), DIRECTION.FORDWARD, false);
                 break;
-
-
             case EVENT_COUCHMARK:
                 loadFragment(Couchmark.newInstance(), DIRECTION.FORDWARD, false);
                 break;
@@ -181,11 +186,26 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         }else if(currentFragment instanceof DomicilioActualFragment){
             onEvent(EVENT_PERSONAL_DATA_BACK,null);
         }else if(currentFragment instanceof TienesTarjetaFragment){
-            resetRegisterData();// Eliminamos la información de registro almacenada.
-            finish();
-        }  else if(currentFragment instanceof AsignarNIPFragment){
-            resetRegisterData();// Eliminamos la información de registro almacenada.
-            finish();
+
+            if(((TienesTarjetaFragment)currentFragment).isCustomKeyboardVisible()){
+                ((TienesTarjetaFragment)currentFragment).hideKeyboard();
+            }else{
+                resetRegisterData();// Eliminamos la información de registro almacenada.
+                finish();
+            }
+        }else if(currentFragment instanceof AsignarNIPFragment){
+            if(((AsignarNIPFragment)currentFragment).isCustomKeyboardVisible()){
+                ((AsignarNIPFragment)currentFragment).hideKeyboard();
+            }else{
+                resetRegisterData();// Eliminamos la información de registro almacenada.
+                finish();
+            }
+        }else if(currentFragment instanceof ConfirmarNIPFragment){
+            if(((ConfirmarNIPFragment)currentFragment).isCustomKeyboardVisible()){
+                ((ConfirmarNIPFragment)currentFragment).hideKeyboard();
+            }else{
+                onEvent(EVENT_GO_CONFIRM_PIN_BACK,null);
+            }
         }else if(currentFragment instanceof AsociatePhoneAccountFragment){
             resetRegisterData();// Eliminamos la información de registro almacenada.
             finish();
@@ -195,8 +215,10 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         }
     }
 
+    /*Se eliminan los datos almacenados en Memoria*/
     private void resetRegisterData(){
         RegisterUser.resetRegisterUser();
+        Card.resetCardData();
     }
 
 }

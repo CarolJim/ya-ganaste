@@ -23,6 +23,10 @@ public class Card {
         return cardData;
     }
 
+    public static void resetCardData(){
+        cardData = null;
+    }
+
     public boolean isHasClient() {
         return hasClient;
     }

@@ -12,6 +12,7 @@ public class SingletonUser {
     private DataIniciarSesion dataUser;
     private ExtraInfoUser dataExtraUser;
     private String pathPictureTemp = "";
+    private String activacionCodeFreja = "";
 
     private SingletonUser(){
         dataUser = new DataIniciarSesion();
@@ -47,5 +48,13 @@ public class SingletonUser {
 
     public void setPathPictureTemp(String pathPictureTemp) {
         this.pathPictureTemp = pathPictureTemp;
+    }
+
+    public String getActivacionCodeFreja() {
+        return activacionCodeFreja;
+    }
+
+    public void setActivacionCodeFreja(String activacionCodeFreja) {
+        this.activacionCodeFreja = activacionCodeFreja;
     }
 }

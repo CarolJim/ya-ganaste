@@ -7,9 +7,7 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.Button;
-import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -18,15 +16,12 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.GiroComercio;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEntity;
-import com.pagatodo.yaganaste.interfaces.IAccountView;
 import com.pagatodo.yaganaste.interfaces.IAccountView2;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
-import com.pagatodo.yaganaste.ui.account.register.adapters.GiroArrayAdapter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
-import com.pagatodo.yaganaste.utils.Validations;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 
 import java.util.ArrayList;
@@ -35,12 +30,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.interfaces.enums.GiroAdapterType.GIRO;
-import static com.pagatodo.yaganaste.interfaces.enums.GiroAdapterType.SUBGIRO;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADDRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_FAMILIAR;
-import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_TRANSACCIONES;
-import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_VENTAS;
 
 
 /**

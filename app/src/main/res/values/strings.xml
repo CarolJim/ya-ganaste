@@ -40,7 +40,7 @@
     <string name="verifyActivateUrl">/VerificarActivacion</string>
     <string name="imageResourceUrl">/RecursoImagen</string>
     <string name="activateAprovSoftTokenUrl">/ActivacionAprovSofttoken</string>
-    <string name="verifyActivateAprovSoftTokenUrl">/VerificarActivacionAprovSoftoken</string>
+    <string name="verifyActivateAprovSoftTokenUrl">/VerificarActivacionAprovSofttoken</string>
     <string name="initOnlineTransactionUrl">/IniciarTransaccionOnline</string>
     <string name="getJsonWebTokenUrlUrl">/GetJsonWebTokenUrl</string>
     <string name="fondearCupoUrl">/FondearCupo</string>
@@ -271,6 +271,7 @@
     <string name="permission_request">Solicitud de Permisos</string>
     <string name="permission_request_desc">Debes Aceptar Todos los Permisos para el Correcto Funcionamiento de Ya Ganaste.</string>
     <string name="asignar_pin">Verifica tu NIP.</string>
+    <string name="confirmar_pin">El NIP no coincide</string>
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
@@ -311,6 +312,8 @@
 
     <string name="adq_subtitle_accept">Tus Documentos Han Sido\nAprobados</string>
     <string name="adq_msg_accept">A continuación, te Enseñaremos tu\nNueva Sección de Cobros</string>
+
+    <string name="usuario_no_existe">Este correo no se encuentra registrado.</string>
 
 </resources>
 

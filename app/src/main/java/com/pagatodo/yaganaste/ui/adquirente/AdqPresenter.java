@@ -37,7 +37,7 @@ public class AdqPresenter extends DocumentsPresenter implements IAdqAccountPrese
     }
 
     @Override
-    public void goToNextStepAccount(String event) {
+    public void goToNextStepAccount(String event,Object data) {
         iAdqView.hideLoader();
     }
 

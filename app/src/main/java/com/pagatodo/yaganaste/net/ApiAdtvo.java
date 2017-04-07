@@ -267,7 +267,7 @@ public class ApiAdtvo extends Api {
     public static void iniciarSesion(IniciarSesionRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
-        if (!RequestHeaders.getTokenauth().equals(""))
+        if (!RequestHeaders.getTokenauth().equals(""))//Si ya se almaceno el tokenAuth, se envia en el login
             headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
 
         NetFacade.consumeWS(INICIAR_SESION,
@@ -327,7 +327,6 @@ public class ApiAdtvo extends Api {
     /**
      * Método que se invoca para obtener el Número de Teléfono al cual se debe enviar el SMS para la activación del Servicio Móvil.
      *
-     * @param request {@link ObtenerNumeroSMSRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void obtenerNumeroSMS(IRequestResult result)  throws OfflineException {
@@ -416,10 +415,10 @@ public class ApiAdtvo extends Api {
     public static void activacionAprovSofttoken(ActivacionAprovSofttokenRequest request, IRequestResult result)   throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        headers.put(RequestHeaders.IdCuenta, RequestHeaders.IdCuenta);
+        //headers.put(RequestHeaders.IdCuenta, RequestHeaders.IdCuenta);
         NetFacade.consumeWS(ACTIVACION_APROV_SOFTTOKEN,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.activateAprovSoftTokenUrl),
-                headers,request, ActivacionAprovSofttokenResponse.class,result);
+                headers,request,false, ActivacionAprovSofttokenResponse.class,result);
     }
 
     /**
@@ -431,10 +430,10 @@ public class ApiAdtvo extends Api {
     public static void verificarActivacionAprovSofttoken(VerificarActivacionAprovSofttokenRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        headers.put(RequestHeaders.IdCuenta, RequestHeaders.IdCuenta);
+        //headers.put(RequestHeaders.IdCuenta, RequestHeaders.IdCuenta);
         NetFacade.consumeWS(VERIFICAR_ACTIVACION_APROV_SOFTTOKEN,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.verifyActivateAprovSoftTokenUrl),
-                headers,request, VerificarActivacionAprovSofttokenResponse.class,result);
+                headers,request,false, VerificarActivacionAprovSofttokenResponse.class,result);
     }
 
     /**
