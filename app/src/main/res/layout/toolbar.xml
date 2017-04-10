@@ -22,6 +22,6 @@
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
         android:src="@drawable/logo_header"
-        tools:ignore="ContentDescription" />"
+        tools:ignore="ContentDescription" />
 
 </RelativeLayout>
