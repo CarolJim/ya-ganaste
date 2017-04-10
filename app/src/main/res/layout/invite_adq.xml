@@ -19,32 +19,45 @@
         android:gravity="center_vertical">
 
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:orientation="horizontal"
-                android:gravity="center_vertical">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="3"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
 
-                <ImageView
-                    android:layout_width="0dp"
-                    android:layout_weight="1"
-                    android:layout_height="wrap_content"
-                    android:src="@drawable/icon_tab_dongle_white"
-                    android:adjustViewBounds="true"
-                    android:scaleType="fitCenter"
-                    tools:ignore="ContentDescription"
-                    android:padding="7dp"/>
+            <ImageView
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="wrap_content"
+                android:src="@drawable/icon_tab_dongle_white"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                tools:ignore="ContentDescription"
+                android:padding="7dp"/>
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:gravity="center_vertical"
-                    android:maxLines="1"
-                    style="@style/MainTabText"
-                    android:textSize="@dimen/ad_em_tab_mount_text_size"
-                    android:text="$2750.00"/>
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_saldo_adq"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical"
+                android:maxLines="1"
+                style="@style/MainTabText"
+                android:textSize="@dimen/ad_em_tab_mount_text_size"
+                android:text="$2750.00"
+                android:visibility="gone"/>
 
-            </LinearLayout>
+        </LinearLayout>
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txt_invite"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_gravity="center"
+            style="@style/MainTabText"
+            android:textSize="@dimen/emisor_text_size"
+            android:text="@string/cobros_tarjeta"/>
 
     </LinearLayout>
 

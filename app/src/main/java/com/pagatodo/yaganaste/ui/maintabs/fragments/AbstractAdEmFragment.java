@@ -36,7 +36,7 @@ import java.util.List;
  * @author Juan Guerra on 27/11/2016.
  */
 
-public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> extends GenericFragment<Void>
+public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> extends GenericFragment
         implements TabsView<T>, MovementsView<ItemRecycler>, SwipeRefreshLayout.OnRefreshListener,
         TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener {
 

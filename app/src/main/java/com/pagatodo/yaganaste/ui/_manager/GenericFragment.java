@@ -7,10 +7,10 @@ import android.support.v4.app.Fragment;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 
 /**
- * Created by jguerras on 10/11/2016.
+ * @author jguerras on 10/11/2016.
  */
 
-public abstract class GenericFragment<T> extends Fragment {
+public abstract class GenericFragment extends Fragment {
 
     protected OnEventListener onEventListener;
 
@@ -27,8 +27,6 @@ public abstract class GenericFragment<T> extends Fragment {
         super.onDetach();
         this.onEventListener = null;
     }
-
-//    public abstract T getFragmentData();
 
     @NonNull
     public String getFragmentTag(){

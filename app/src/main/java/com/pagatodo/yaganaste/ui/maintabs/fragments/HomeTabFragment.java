@@ -10,11 +10,13 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.HomeFragmentPresenter;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
+import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.yaganasteviews.TabLayoutEmAd;
 
 
@@ -22,10 +24,9 @@ import com.pagatodo.yaganaste.utils.customviews.yaganasteviews.TabLayoutEmAd;
  * @author Juan Guerra on 10/11/2016.
  */
 
-public class HomeTabFragment extends GenericFragment<Void> implements TabsView {
+public class HomeTabFragment extends GenericFragment implements TabsView, TabLayoutEmAd.AdquirenteCallback {
 
-    //private TabLayout tabAdquirente;
-    private ViewPager pagerAdquirente;
+    private NoSwipeViewPager pagerAdquirente;
     private View rootView;
     private HomeFragmentPresenter homeFragmentPresenter;
     private TabLayoutEmAd tabLayoutEmAd;
@@ -56,16 +57,24 @@ public class HomeTabFragment extends GenericFragment<Void> implements TabsView {
 
     @Override
     public void initViews() {
-        //tabAdquirente = (TabLayout) rootView.findViewById(R.id.tab_adquirente);
         tabLayoutEmAd = (TabLayoutEmAd) rootView.findViewById(R.id.tab_em_adq);
-        pagerAdquirente = (ViewPager) rootView.findViewById(R.id.pager_adquirente);
+        pagerAdquirente = (NoSwipeViewPager) rootView.findViewById(R.id.pager_adquirente);
         homeFragmentPresenter.getPagerData(ViewPagerDataFactory.TABS.HOME_FRAGMENT);
+        tabLayoutEmAd.setAdquirenteCallback(this);
     }
 
     @Override
     public void loadViewPager(ViewPagerData viewPagerData) {
         pagerAdquirente.setAdapter(new GenericPagerAdapter<>(getActivity(), getChildFragmentManager(), viewPagerData.getFragmentList(), viewPagerData.getTabData()));
         tabLayoutEmAd.setUpWithViewPager(pagerAdquirente);
-        //tabAdquirente.setupWithViewPager(pagerAdquirente);
+        // TODO: 10/04/2017 Esto se debe hacer desde la clase Tab, al momento de setear todos los datos para las pestañas
+        pagerAdquirente.setIsSwipeable(false);
+    }
+
+    @Override
+    public void onClickAdquirente(boolean isAdquirente) {
+        if (onEventListener != null) {
+            onEventListener.onEvent(TabActivity.EVENT_ADQUIRENTE_SELECTED, isAdquirente);
+        }
     }
 }
