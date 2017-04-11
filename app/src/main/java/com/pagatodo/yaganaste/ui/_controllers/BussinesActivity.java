@@ -1,23 +1,16 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
 import android.content.Intent;
-import android.database.Cursor;
-import android.graphics.Bitmap;
-import android.net.Uri;
 import android.os.Bundle;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.util.Log;
-import android.view.View;
 import android.view.Window;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
-import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.account.register.DatosNegocio;
 import com.pagatodo.yaganaste.ui.account.register.Documentos;
@@ -28,7 +21,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MA
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 
 
-public class BussinesActivity extends SupportFragmentActivity implements OnEventListener{
+public class BussinesActivity extends SupportFragmentActivity implements OnEventListener {
     private Preferencias pref;
 
     //Nuevo diseño-flujo
@@ -48,31 +41,31 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_activity);
-       // initFragments();
-        loadFragment(Documentos.newInstance(), DIRECTION.FORDWARD, true);
+        // initFragments();
+        loadFragment(Documentos.newInstance(), Direction.FORDWARD, true);
         pref = App.getInstance().getPrefs();
     }
 
     @Override
     public void onEvent(String event, Object o) {
-        switch (event){
+        switch (event) {
             case EVENT_GO_BUSSINES_DATA:
-                loadFragment(DatosNegocio.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(DatosNegocio.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_DATA_BACK:
-                loadFragment(DatosNegocio.newInstance(), DIRECTION.BACK, false);
+                loadFragment(DatosNegocio.newInstance(), Direction.BACK, false);
                 break;
             case EVENT_GO_BUSSINES_ADDRESS:
-                loadFragment(DomicilioNegocio.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(DomicilioNegocio.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_ADDRESS_BACK:
-                loadFragment(DomicilioNegocio.newInstance(), DIRECTION.BACK, false);
+                loadFragment(DomicilioNegocio.newInstance(), Direction.BACK, false);
                 break;
             case EVENT_GO_BUSSINES_DOCUMENTS:
-                loadFragment(Documentos.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(Documentos.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_COMPLETE:
-                loadFragment(RegisterCompleteFragment.newInstance(ADQ_REVISION), DIRECTION.FORDWARD, false);
+                loadFragment(RegisterCompleteFragment.newInstance(ADQ_REVISION), Direction.FORDWARD, false);
                 break;
 
             case EVENT_GO_MAINTAB:
@@ -82,7 +75,7 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
         }
     }
 
-    private void initFragments(){
+    private void initFragments() {
         datosNegocioFragment = DatosNegocio.newInstance();
         domicilioNegocioFragment = DomicilioNegocio.newInstance();
         documentosFragment = Documentos.newInstance();
@@ -95,7 +88,7 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
         fragment.onActivityResult(requestCode, resultCode, data);
     }
 
-    private void resetRegisterData(){
+    private void resetRegisterData() {
         RegisterAgent.resetRegisterAgent();
     }
 }

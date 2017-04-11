@@ -3,10 +3,7 @@ package com.pagatodo.yaganaste.ui.maintabs.adapters;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 
-import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosCarouselFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.RecargasCarouselFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.ServiciosCarouselFragment;
 
@@ -24,7 +21,7 @@ public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAd
 
     @Override
     public Fragment getItem(int position) {
-        switch (position){
+        switch (position) {
             case 0:
                 return RecargasCarouselFragment.newInstance();
             case 1:
