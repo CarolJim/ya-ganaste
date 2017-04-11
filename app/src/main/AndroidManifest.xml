@@ -76,6 +76,11 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
+            android:name=".ui._controllers.AdqActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
             android:name=".ui._controllers.TabActivity"
             android:windowSoftInputMode="adjustPan" />
         <!--

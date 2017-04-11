@@ -13,7 +13,13 @@ android {
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
+
+        ndk {
+            abiFilters "armeabi", "armeabi-v7a"
+        }
     }
+
+
     buildTypes {
         release {
             minifyEnabled false
@@ -27,6 +33,7 @@ repositories {
 
 dependencies {
     compile files('libs/frejaMobileCore_486c0fb7a51.jar')
+    compile files('libs/dspread_android_sdk_2.4.3.jar')
     compile fileTree(include: ['*.jar'], dir: 'libs')
     androidTestCompile('com.android.support.test.espresso:espresso-core:2.2.2', {
         exclude group: 'com.android.support', module: 'support-annotations'

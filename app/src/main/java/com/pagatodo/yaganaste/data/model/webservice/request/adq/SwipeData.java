@@ -8,11 +8,13 @@ import java.io.Serializable;
 
 public class SwipeData implements Serializable{
 
+    private static final long serialVersionUID = -7628328369292811451L;
     private String encCardData = "";
     private String ksn = "";
     private String track1Length = "";
     private String track2Length = "";
     private String track3Length = "";
+    public String cvv;
 
     public SwipeData() {
     }
@@ -55,5 +57,13 @@ public class SwipeData implements Serializable{
 
     public void setTrack3Length(String track3Length) {
         this.track3Length = track3Length;
+    }
+
+    public String getCvv() {
+        return cvv;
+    }
+
+    public void setCvv(String cvv) {
+        this.cvv = cvv;
     }
 }

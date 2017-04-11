@@ -8,7 +8,9 @@ import java.io.Serializable;
 
 public class EmvData implements Serializable{
 
+    private static final long serialVersionUID = 3130552833240813302L;
     private String tlv = "";
+    public String originalData= "";
 
     public EmvData() {
     }
@@ -19,5 +21,13 @@ public class EmvData implements Serializable{
 
     public void setTlv(String tlv) {
         this.tlv = tlv;
+    }
+
+    public String getOriginalData() {
+        return originalData;
+    }
+
+    public void setOriginalData(String originalData) {
+        this.originalData = originalData;
     }
 }

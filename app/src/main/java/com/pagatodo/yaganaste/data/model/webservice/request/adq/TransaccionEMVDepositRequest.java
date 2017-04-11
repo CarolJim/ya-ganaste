@@ -8,10 +8,12 @@ import java.io.Serializable;
 
 public class TransaccionEMVDepositRequest extends AdqRequest implements Serializable{
 
+    private static final long serialVersionUID = 891915655067780642L;
+
     private String amount = "";
     private EmvData emvData;
     private ImplicitData implicitData;
-    private String isEMVTransaction;
+    private boolean isEMVTransaction;
     private String noSerie = "";
     private String noTicket = "";
     private String noTransaction = "";
@@ -20,7 +22,17 @@ public class TransaccionEMVDepositRequest extends AdqRequest implements Serializ
     private String TipoCliente = "";
     private AccountDepositData accountDepositData;
 
+    public String cardHolderName;
+    public String maskedPAN;
+    public String noAuthorization;
+    public String aditionalAmount;
+
+
     public TransaccionEMVDepositRequest() {
+        implicitData = new ImplicitData();
+        swipeData = new SwipeData();
+        accountDepositData = new AccountDepositData();
+
     }
 
     public String getAmount() {
@@ -47,11 +59,11 @@ public class TransaccionEMVDepositRequest extends AdqRequest implements Serializ
         this.implicitData = implicitData;
     }
 
-    public String getIsEMVTransaction() {
+    public boolean getIsEMVTransaction() {
         return isEMVTransaction;
     }
 
-    public void setIsEMVTransaction(String isEMVTransaction) {
+    public void setIsEMVTransaction(boolean isEMVTransaction) {
         this.isEMVTransaction = isEMVTransaction;
     }
 
@@ -109,5 +121,45 @@ public class TransaccionEMVDepositRequest extends AdqRequest implements Serializ
 
     public void setAccountDepositData(AccountDepositData accountDepositData) {
         this.accountDepositData = accountDepositData;
+    }
+
+    public boolean isEMVTransaction() {
+        return isEMVTransaction;
+    }
+
+    public void setEMVTransaction(boolean EMVTransaction) {
+        isEMVTransaction = EMVTransaction;
+    }
+
+    public String getCardHolderName() {
+        return cardHolderName;
+    }
+
+    public void setCardHolderName(String cardHolderName) {
+        this.cardHolderName = cardHolderName;
+    }
+
+    public String getMaskedPAN() {
+        return maskedPAN;
+    }
+
+    public void setMaskedPAN(String maskedPAN) {
+        this.maskedPAN = maskedPAN;
+    }
+
+    public String getNoAuthorization() {
+        return noAuthorization;
+    }
+
+    public void setNoAuthorization(String noAuthorization) {
+        this.noAuthorization = noAuthorization;
+    }
+
+    public String getAditionalAmount() {
+        return aditionalAmount;
+    }
+
+    public void setAditionalAmount(String aditionalAmount) {
+        this.aditionalAmount = aditionalAmount;
     }
 }

@@ -7,6 +7,10 @@
     android:orientation="vertical"
     tools:context="com.pagatodo.yaganaste.ui._controllers.MainActivity">
 
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         style="@style/textSubTitle"
         android:id="@+id/titleAmount"
@@ -71,11 +75,39 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/btnCharge"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="30dp"
         android:layout_marginBottom="30dp"
+        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
         android:text="@string/cobrar" />
+
+</RelativeLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
+        android:id="@+id/keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_above="@+id/relativeAd"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:focusable="true"
+        android:background="@android:color/transparent"
+        android:keyBackground="@color/colorPrimary"
+        android:focusableInTouchMode="true"
+        android:visibility="gone" />
+    <LinearLayout
+        android:id="@+id/relativeAd"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:keyBackground="@color/colorPrimary"
+        android:gravity="center"
+        android:visibility="visible"
+        android:orientation="vertical">
+
+    </LinearLayout>
 
 </RelativeLayout>
