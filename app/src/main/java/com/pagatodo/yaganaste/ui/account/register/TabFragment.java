@@ -21,7 +21,7 @@ import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
  * @author Juan Guerra on 10/11/2016.
  */
 
-public class TabFragment extends GenericFragment<Void> implements TabsView {
+public class TabFragment extends GenericFragment implements TabsView {
 
     private TabLayout tabAdquirente;
     private ViewPager pagerAdquirente;
