@@ -8,7 +8,7 @@ import com.pagatodo.yaganaste.interfaces.enums.WebService;
 
 public interface IAccountManager<T> {
 
-    public void goToNextStepAccount(String event);
+    public void goToNextStepAccount(String event, T data);
     public void onSucces(WebService ws,T msgSuccess);
     public void onError(WebService ws,T error);
 

@@ -21,6 +21,15 @@ public class RegisterAgent {
     private String latitud = "";
     private String longitud = "";
     private List<CuestionarioEntity> cuestionario;
+    //Datos Domicilio Actual
+    private String calle = "";
+    private String numExterior = "";
+    private String numInterior = "";
+    private String codigoPostal = "";
+    private String estadoDomicilio = "";
+    private String colonia = "";
+    private String idColonia = "";
+
     private static RegisterAgent registerUser;
 
     private RegisterAgent(){
@@ -108,11 +117,71 @@ public class RegisterAgent {
         this.cuestionario = cuestionario;
     }
 
+    public String getCalle() {
+        return calle;
+    }
+
+    public void setCalle(String calle) {
+        this.calle = calle;
+    }
+
+    public String getNumExterior() {
+        return numExterior;
+    }
+
+    public void setNumExterior(String numExterior) {
+        this.numExterior = numExterior;
+    }
+
+    public String getNumInterior() {
+        return numInterior;
+    }
+
+    public void setNumInterior(String numInterior) {
+        this.numInterior = numInterior;
+    }
+
+    public String getCodigoPostal() {
+        return codigoPostal;
+    }
+
+    public void setCodigoPostal(String codigoPostal) {
+        this.codigoPostal = codigoPostal;
+    }
+
+    public String getEstadoDomicilio() {
+        return estadoDomicilio;
+    }
+
+    public void setEstadoDomicilio(String estadoDomicilio) {
+        this.estadoDomicilio = estadoDomicilio;
+    }
+
+    public String getColonia() {
+        return colonia;
+    }
+
+    public void setColonia(String colonia) {
+        this.colonia = colonia;
+    }
+
+    public String getIdColonia() {
+        return idColonia;
+    }
+
+    public void setIdColonia(String idColonia) {
+        this.idColonia = idColonia;
+    }
+
     public static RegisterAgent getRegisterUser() {
         return registerUser;
     }
 
     public static void setRegisterUser(RegisterAgent registerUser) {
         RegisterAgent.registerUser = registerUser;
+    }
+
+    public static void resetRegisterAgent(){
+        registerUser = null;
     }
 }

@@ -40,7 +40,8 @@ public class Recursos {
 	public static final int DEVICE_ALREADY_ASSIGNED = 224;
 
 	/*Preferencias de Sesion*/
-	//public static final String DATE_SESION = "DATE_SESION";
+	public static final String CODE_ACTIVATION_FREJA = "CODEACTIVATIONFREJA";
+	public static String COUCHMARK_EMISOR = "COUCHMARKEMISOR";
 
 	/**Catálogos**/
 	/*PTH – Estatus Comercios*/
@@ -86,6 +87,7 @@ public class Recursos {
 
 	public static final int NO_ACTION = -2;
 	public static final int GO_LOGIN = -3;
+
 
 
 }

@@ -12,4 +12,5 @@ public interface ProvisioningManager extends ErrorFmcManager{
     void setActivationCode(String activationCode);
     void setPinPolicy(int min, int max);
     void endProvisioning();
+    void endTokenNotification();
 }

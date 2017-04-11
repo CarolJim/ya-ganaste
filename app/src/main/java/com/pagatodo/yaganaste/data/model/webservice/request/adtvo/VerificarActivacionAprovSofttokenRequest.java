@@ -13,6 +13,10 @@ public class VerificarActivacionAprovSofttokenRequest implements Serializable{
     public VerificarActivacionAprovSofttokenRequest() {
     }
 
+    public VerificarActivacionAprovSofttokenRequest(String codigoActivacion) {
+        this.codigoActivacion = codigoActivacion;
+    }
+
     public String getCodigoActivacion() {
         return codigoActivacion;
     }

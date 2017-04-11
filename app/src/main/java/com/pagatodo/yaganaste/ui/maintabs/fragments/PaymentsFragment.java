@@ -2,13 +2,14 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.RecyclerView;
 import android.view.View;
-
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
+import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
-
+import com.pagatodo.yaganaste.ui.maintabs.presenters.AdqPaymentesPresenter;
 import java.util.List;
 
 
@@ -17,6 +18,7 @@ import java.util.List;
  */
 
 public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab,ItemMovements<DataMovimientoAdq>> {
+
 
     public static PaymentsFragment newInstance(){
         PaymentsFragment homeTabFragment = new PaymentsFragment();
@@ -28,6 +30,7 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.movementsPresenter = new AdqPaymentesPresenter(this);
     }
 
     @Override
@@ -43,12 +46,16 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     }
 
     @Override
-    protected void getDataForTab(AdquirentePaymentsTab dataToRequest) {
+    public void loadMovementsResult(List<ItemMovements<DataMovimientoAdq>> movements) {
+        updateRecyclerData(createAdapter(movements), movements);
+    }
 
+    protected RecyclerView.Adapter createAdapter(List<ItemMovements<DataMovimientoAdq>> movementsList) {
+        return new RecyclerMovementsAdapter<DataMovimientoAdq>(getContext(), movementsList, this);
     }
 
     @Override
-    public void loadMovementsResult(List<ItemMovements<DataMovimientoAdq>> movements) {
+    public void onRecyclerItemClick(View v, int position) {
 
     }
 }

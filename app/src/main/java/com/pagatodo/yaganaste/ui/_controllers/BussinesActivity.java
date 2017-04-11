@@ -1,18 +1,31 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.content.Intent;
+import android.database.Cursor;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
+import android.support.v4.app.Fragment;
+import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.RegisterAgent;
+import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
-import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.account.register.DatosNegocio;
 import com.pagatodo.yaganaste.ui.account.register.Documentos;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioNegocio;
-import com.pagatodo.yaganaste.ui.account.register.RegistroNegocioCompletoFragment;
+import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
+
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 
 
 public class BussinesActivity extends SupportFragmentActivity implements OnEventListener{
@@ -29,15 +42,14 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
     private DatosNegocio datosNegocioFragment;
     private DomicilioNegocio domicilioNegocioFragment;
     private Documentos documentosFragment;
-    private RegistroNegocioCompletoFragment registroNegocioCompletoFragment;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_activity);
-        initFragments();
-        loadFragment(datosNegocioFragment, Direction.FORDWARD, true);
+       // initFragments();
+        loadFragment(Documentos.newInstance(), DIRECTION.FORDWARD, true);
         pref = App.getInstance().getPrefs();
     }
 
@@ -45,22 +57,27 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
     public void onEvent(String event, Object o) {
         switch (event){
             case EVENT_GO_BUSSINES_DATA:
-                loadFragment(datosNegocioFragment, Direction.FORDWARD, false);
+                loadFragment(DatosNegocio.newInstance(), DIRECTION.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_DATA_BACK:
-                loadFragment(datosNegocioFragment, Direction.BACK, false);
+                loadFragment(DatosNegocio.newInstance(), DIRECTION.BACK, false);
                 break;
             case EVENT_GO_BUSSINES_ADDRESS:
-                loadFragment(domicilioNegocioFragment, Direction.FORDWARD, false);
+                loadFragment(DomicilioNegocio.newInstance(), DIRECTION.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_ADDRESS_BACK:
-                loadFragment(domicilioNegocioFragment, Direction.BACK, false);
+                loadFragment(DomicilioNegocio.newInstance(), DIRECTION.BACK, false);
                 break;
             case EVENT_GO_BUSSINES_DOCUMENTS:
-                loadFragment(documentosFragment, Direction.FORDWARD, false);
+                loadFragment(Documentos.newInstance(), DIRECTION.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_COMPLETE:
-                loadFragment(registroNegocioCompletoFragment, Direction.FORDWARD, false);
+                loadFragment(RegisterCompleteFragment.newInstance(ADQ_REVISION), DIRECTION.FORDWARD, false);
+                break;
+
+            case EVENT_GO_MAINTAB:
+                resetRegisterData();
+                finish();
                 break;
         }
     }
@@ -69,7 +86,17 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
         datosNegocioFragment = DatosNegocio.newInstance();
         domicilioNegocioFragment = DomicilioNegocio.newInstance();
         documentosFragment = Documentos.newInstance();
-        registroNegocioCompletoFragment = RegistroNegocioCompletoFragment.newInstance();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Fragment fragment = getCurrentFragment();
+        fragment.onActivityResult(requestCode, resultCode, data);
+    }
+
+    private void resetRegisterData(){
+        RegisterAgent.resetRegisterAgent();
     }
 }
 

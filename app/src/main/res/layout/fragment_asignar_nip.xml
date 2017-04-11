@@ -60,6 +60,31 @@
 
 </RelativeLayout>
 
+    <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
+        android:id="@+id/keyboard_view"
+        android:layout_width="match_parent"
+        android:layout_height="200dp"
+        android:layout_above="@+id/relativeAd"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:focusable="true"
+        android:background="@android:color/transparent"
+        android:keyBackground="@color/colorPrimary"
+        android:focusableInTouchMode="true"
+        android:visibility="gone" />
+    <LinearLayout
+        android:id="@+id/relativeAd"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:keyBackground="@color/colorPrimary"
+        android:gravity="center"
+        android:visibility="visible"
+        android:orientation="vertical">
+
+    </LinearLayout>
+
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressIndicator"

@@ -22,7 +22,7 @@
         android:padding="@dimen/generic_padig">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/imgLoginExistProfile"
+            android:id="@+id/imgCompleted"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:layout_centerHorizontal="true"
@@ -35,7 +35,7 @@
     </RelativeLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txtCongratulation"
+        android:id="@+id/txtTitle"
         style="@style/textTitle"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -44,25 +44,26 @@
         app:tipo="Descripcion" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txtLoginExistUserRecoverPass"
+        android:id="@+id/txtSubtitle"
         style="@style/textDescInputs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtCongratulation"
-        android:layout_marginBottom="@dimen/btn_margin_bottom"
-        android:text="@string/congratulation_text1" />
+        android:layout_below="@+id/txtTitle"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/btn_margin_bottom"/>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtMessage"
         style="@style/textDescInputs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_above="@+id/btnCongratulationNext"
+        android:layout_above="@+id/btnNextComplete"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:text="@string/congratulation_text2" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
-        android:id="@+id/btnCongratulationNext"
+        android:id="@+id/btnNextComplete"
         style="@style/buttonRoundedBlue"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

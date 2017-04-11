@@ -4,13 +4,11 @@ import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
-import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.ViewOutlineProvider;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -21,6 +19,7 @@ import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.UI;
@@ -29,6 +28,7 @@ import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -44,7 +44,7 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
  */
 public class DomicilioActualFragment extends GenericFragment implements View.OnClickListener, ValidationForms,IAccountRegisterView {
 
-    private static int MIN_LENGHT_VALIDATION_CP = 4;
+    public static int MIN_LENGHT_VALIDATION_CP = 4;
     private View rootview;
     @BindView(R.id.editStreet)
     CustomValidationEditText editStreet;
@@ -104,7 +104,9 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        accountPresenter = new AccountPresenterNew(this);
+        accountPresenter = ((AccountActivity)getActivity()).getPresenter();
+        accountPresenter.setIView(this);
+        //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
 
     @Override

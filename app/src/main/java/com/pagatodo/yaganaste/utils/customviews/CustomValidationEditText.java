@@ -281,4 +281,8 @@ public class CustomValidationEditText extends LinearLayout {
     public void setOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener){
         editText.setOnFocusChangeListener(onFocusChangeListener);
     }
+
+    public EditText getEditText(){
+        return editText;
+    }
 }

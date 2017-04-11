@@ -8,8 +8,10 @@ import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
 import com.pagatodo.yaganaste.interfaces.enums.AdqEmTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.InviteAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
 
@@ -39,8 +41,8 @@ public class ViewPagerDataFactory {
             case MAIN:
                 fragmentList.add(HomeTabFragment.newInstance());
                 fragmentList.add(PaymentsTabFragment.newInstance());
-                fragmentList.add(HomeTabFragment.newInstance());
-                fragmentList.add(HomeTabFragment.newInstance());
+                fragmentList.add(BlankFragment.newInstance());
+                fragmentList.add(InviteAdquirenteFragment.newInstance());
 
                 return new ViewPagerData<> (fragmentList, MainTab.values());
 

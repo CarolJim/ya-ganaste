@@ -33,7 +33,7 @@ public class AdqPaymentesPresenter implements MovementsPresenter<AdquirentePayme
 
     @Override
     public void getRemoteMovementsData(AdquirentePaymentsTab data) {
-
+        movementsView.showLoader("");
         ResumenMovimientosMesRequest resumenMovimientosMesRequest = new ResumenMovimientosMesRequest();
         resumenMovimientosMesRequest.setFecha(data.getDate());
         movementsIteractor.getMovements(resumenMovimientosMesRequest);
@@ -56,10 +56,13 @@ public class AdqPaymentesPresenter implements MovementsPresenter<AdquirentePayme
             //// TODO: 28/03/2017 Verificar que codigo es 3
         }
         movementsView.loadMovementsResult(movementsList);
+        movementsView.hideLoader();
     }
 
     @Override
     public void onFailed(int errorCode, int action, String error) {
+        movementsView.hideLoader();
+        movementsView.showError(error);
 
     }
 }

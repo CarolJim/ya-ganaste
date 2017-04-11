@@ -6,7 +6,7 @@ package com.pagatodo.yaganaste.interfaces;
  * Interfaz que proporciona los métodos básicos para gestionar el flujo del Login en la aplicación.
  */
 
-public interface ILoginView extends IProgressView{
+public interface ILoginView extends IAccountView2{
     public void loginSucced();
     public void recoveryPasswordSucced();
 }

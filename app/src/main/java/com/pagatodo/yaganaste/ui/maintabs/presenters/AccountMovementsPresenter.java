@@ -31,6 +31,7 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
 
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data) {
+        movementsView.showLoader("");
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
         if (data.getYear() == -1){
             request.setAnio("");
@@ -62,11 +63,12 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
             , date[0], date[1], MovementColorsFactory.getColorMovement(movimientosResponse.getTipoMovimiento()), movimientosResponse));
         }
         movementsView.loadMovementsResult(movementsList);
-
+        movementsView.hideLoader();
     }
 
     @Override
     public void onFailed(int errorCode, int action, String error) {
-
+        movementsView.hideLoader();
+        movementsView.showError(error);
     }
 }

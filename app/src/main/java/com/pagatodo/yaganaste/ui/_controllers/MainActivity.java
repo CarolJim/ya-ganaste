@@ -88,6 +88,7 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initViews() {
         ButterKnife.bind(this);
         btnMainCreateAccount.setOnClickListener(this);
+        btnMainLogin.setOnClickListener(this);
         listSlides = new ArrayList<Fragment>();
 
         for (int index = 0; index < imgs.length; index++) {
@@ -131,16 +132,24 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     @Override
     public void onClick(View v) {
 
-        Intent intent = new Intent(MainActivity.this, TabActivity.class);
+        Intent intent = new Intent(MainActivity.this, AccountActivity.class);
 
         switch (v.getId()) {
             case R.id.btnMainCreateAccount:
-                intent.putExtra(SELECTION, GO_TO_REGISTER);
+                intent.putExtra(SELECTION,GO_TO_REGISTER);
+                startActivity(intent);
+                finish();
                 break;
 
+            case R.id.btnMainLogin:
+                startActivity(TabActivity.createIntent(this));
+                finish();
+                break;
         }
 
-        startActivity(intent);
+
+        //startActivity(intent);
+
     }
 
 

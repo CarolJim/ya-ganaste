@@ -40,7 +40,7 @@
     <string name="verifyActivateUrl">/VerificarActivacion</string>
     <string name="imageResourceUrl">/RecursoImagen</string>
     <string name="activateAprovSoftTokenUrl">/ActivacionAprovSofttoken</string>
-    <string name="verifyActivateAprovSoftTokenUrl">/VerificarActivacionAprovSoftoken</string>
+    <string name="verifyActivateAprovSoftTokenUrl">/VerificarActivacionAprovSofttoken</string>
     <string name="initOnlineTransactionUrl">/IniciarTransaccionOnline</string>
     <string name="getJsonWebTokenUrlUrl">/GetJsonWebTokenUrl</string>
     <string name="fondearCupoUrl">/FondearCupo</string>
@@ -106,7 +106,7 @@
     <string name="get_our_lector">Adquiere Nuestro Lector en:</string>
     <string name="are_you_want_sell">¿Quieres Vender Tiempo Aire\ny/o Recibir Pagos de Servicios?</string>
     <string name="no">No</string>
-    <string name="yes">Si</string>
+    <string name="yes">Sí</string>
     <string name="help_us_to_know_your_commerce">Ayúdanos a Conocer\nMejor tu Comercio</string>
     <string name="commerce_name">Nombre del Comercio</string>
     <string name="r_social">Razon Social</string>
@@ -271,6 +271,7 @@
     <string name="permission_request">Solicitud de Permisos</string>
     <string name="permission_request_desc">Debes Aceptar Todos los Permisos para el Correcto Funcionamiento de Ya Ganaste.</string>
     <string name="asignar_pin">Verifica tu NIP.</string>
+    <string name="confirmar_pin">El NIP no coincide</string>
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
@@ -297,8 +298,34 @@
     <string name="no_movimientos">No Tienes Movimientos Para Este Mes</string>
     <string name="error_respuesta">Ocurrió un Error con la Respuesta del Servidor, Intenta de Nuevo</string>
 
+    <!-- Strings Adq-->
+    <string name="skipButton">Más Tarde</string>
+    <string name="YesButton">Sí</string>
+    <string name="adq_message_hardsell">La Solución Más Completa\ny la Más Económica.</string>
+    <string name="adq_title_hardsell">Cobra Con Tarjeta y</string>
+    <string name="adq_subtitle_hardsell">¡Paga Menos Comisión!</string>
+    <string name="adq_more_hardsell">Conoce Más</string>
+
+    <string name="adq_title_thanks">¡Gracias!</string>
+    <string name="adq_subtitle_thanks">Tus Documentos Están\nSiendo Revisados</string>
+    <string name="adq_title_thanks_msg">Este Proceso Puede Tardar\nHasta 48 Horas Hábiles</string>
+
+    <string name="adq_subtitle_accept">Tus Documentos Han Sido\nAprobados</string>
+    <string name="adq_msg_accept">A continuación, te Enseñaremos tu\nNueva Sección de Cobros</string>
+
+    <string name="usuario_no_existe">Este correo no se encuentra registrado.</string>
+
     <string name="child_tab_recharge">Recargas</string>
     <string name="child_tab_services">Servicios</string>
     <string name="child_tab_mony_send">Envíos</string>
+
+    <string name="saldo_pendiente">Saldo Pendiente de Reembolso</string>
+    <string name="saldo_en_cuenta">Saldo en Cuenta</string>
+
+    <string name="linea_credito">Línea de Crédito*</string>
+    <string name="monto_depositar">Monto a Depositar</string>
+    <string name="saldo_disponible">Saldo Disponible</string>
+    <string name="cobros_tarjeta">Cobros con Tarjeta</string>
+    <string name="mas_tarde">Más Tarde</string>
 </resources>
 

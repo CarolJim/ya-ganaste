@@ -17,12 +17,15 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
+import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.TabPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.TabPresenterImpl;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericTabLayout;
 
 import java.util.ArrayList;
@@ -33,15 +36,17 @@ import java.util.List;
  * @author Juan Guerra on 27/11/2016.
  */
 
-public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> extends GenericFragment<Void>
+public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> extends GenericFragment
         implements TabsView<T>, MovementsView<ItemRecycler>, SwipeRefreshLayout.OnRefreshListener,
-        TabLayout.OnTabSelectedListener {
+        TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener {
 
     private List<List<ItemRecycler>> movementsList;
 
     private View rootView;
     protected GenericTabLayout<T> tabMonths;
     private TabPresenter tabPresenter;
+
+    protected MovementsPresenter<T> movementsPresenter;
 
     private RecyclerView recyclerMovements;
     private TextView txtInfoMovements;
@@ -99,7 +104,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         recyclerMovements.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerMovements.setHasFixedSize(true);
 
-        this.tabMonths = (GenericTabLayout)rootView.findViewById(R.id.tab_months);
+        this.tabMonths = (GenericTabLayout<T>)rootView.findViewById(R.id.tab_months);
         tabPresenter.getPagerData(getTab());
     }
 
@@ -115,32 +120,39 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void onRefresh() {
-
+        getDataForTab(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()));
     }
 
     protected abstract void onTabLoaded();
 
     protected abstract ViewPagerDataFactory.TABS getTab();
 
-    protected abstract void getDataForTab(T dataToRequest);
-
-
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         Log.d("TAB", "Se selecciono la tab: " + tab.getPosition());
         if (movementsList.get(tab.getPosition()) != null) {
-            //updateRecyclerData(movementsList.get(tab.getPosition()));
+            updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
         } else {
-            tabMonths.getCurrentData(tab.getPosition());
-
+            getDataForTab(tabMonths.getCurrentData(tab.getPosition()));
         }
-
-
     }
 
-    protected void updateRecyclerData(RecyclerView.Adapter adapter) {
+    protected void getDataForTab(T dataToRequest) {
+        txtInfoMovements.setVisibility(View.VISIBLE);
+        movementsPresenter.getRemoteMovementsData(dataToRequest);
+    }
+
+    private void updateRecyclerData(RecyclerView.Adapter adapter) {
         recyclerMovements.setAdapter(adapter);
     }
+
+    protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemRecycler> movements) {
+        movementsList.add(tabMonths.getSelectedTabPosition(), movements);
+        txtInfoMovements.setVisibility(movements.isEmpty() ? View.VISIBLE : View.GONE);
+        updateRecyclerData(adapter);
+    }
+
+    protected abstract RecyclerView.Adapter createAdapter(List<ItemRecycler> movementsList);
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
@@ -154,6 +166,17 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void showError(String error) {
-
+        UI.showToastShort(error, getActivity());
     }
+
+    @Override
+    public void showLoader(String message) {
+        swipeContainer.setRefreshing(true);
+    }
+
+    @Override
+    public void hideLoader() {
+        swipeContainer.setRefreshing(false);
+    }
+
 }
