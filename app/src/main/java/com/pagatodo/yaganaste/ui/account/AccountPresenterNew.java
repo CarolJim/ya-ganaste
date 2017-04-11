@@ -294,6 +294,11 @@ public class AccountPresenterNew extends ProvisioningPresenterAbs implements IAc
     }
 
     @Override
+    public void endTokenNotification() {
+        
+    }
+
+    @Override
     public void handleException(Exception e) {
 
         Log.i(TAG,e.toString());
