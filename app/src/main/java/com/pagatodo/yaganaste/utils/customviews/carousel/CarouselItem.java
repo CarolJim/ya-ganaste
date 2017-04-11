@@ -82,7 +82,7 @@ public class CarouselItem extends FrameLayout
         this.gestureType = gestureType;
         this.imageUrl = imageUrl;
         inflateLayout(color);
-        Glide.with(getContext()).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
+        Glide.with(context).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
 
     }
 

@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -10,7 +12,8 @@ import java.util.List;
 
 public class DataObtenerCatalogos implements Serializable {
 
-    private String Version ="";
+    private String Version = "";
+    @SerializedName("ListaComercios")
     private List<ComercioResponse> Comercios;
 
     public DataObtenerCatalogos() {

@@ -7,23 +7,12 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
-import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
-import com.pagatodo.yaganaste.ui.account.register.AreYouWantGetPaymentsFragment;
-import com.pagatodo.yaganaste.ui.account.register.AsociatePhoneAccountFragment;
-import com.pagatodo.yaganaste.ui.account.register.Couchmark;
 import com.pagatodo.yaganaste.ui.account.register.DatosNegocio;
-import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
-import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.Documentos;
-import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioNegocio;
-import com.pagatodo.yaganaste.ui.account.register.PinConfirmationFragment;
-import com.pagatodo.yaganaste.ui.account.register.RegisterAddressFragment;
-import com.pagatodo.yaganaste.ui.account.register.RegisterBasicInfoFragment;
-import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegistroNegocioCompletoFragment;
-import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
 
 
 public class BussinesActivity extends SupportFragmentActivity implements OnEventListener{
@@ -48,7 +37,7 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_activity);
         initFragments();
-        loadFragment(datosNegocioFragment, DIRECTION.FORDWARD, true);
+        loadFragment(datosNegocioFragment, Direction.FORDWARD, true);
         pref = App.getInstance().getPrefs();
     }
 
@@ -56,22 +45,22 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
     public void onEvent(String event, Object o) {
         switch (event){
             case EVENT_GO_BUSSINES_DATA:
-                loadFragment(datosNegocioFragment, DIRECTION.FORDWARD, false);
+                loadFragment(datosNegocioFragment, Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_DATA_BACK:
-                loadFragment(datosNegocioFragment, DIRECTION.BACK, false);
+                loadFragment(datosNegocioFragment, Direction.BACK, false);
                 break;
             case EVENT_GO_BUSSINES_ADDRESS:
-                loadFragment(domicilioNegocioFragment, DIRECTION.FORDWARD, false);
+                loadFragment(domicilioNegocioFragment, Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_ADDRESS_BACK:
-                loadFragment(domicilioNegocioFragment, DIRECTION.BACK, false);
+                loadFragment(domicilioNegocioFragment, Direction.BACK, false);
                 break;
             case EVENT_GO_BUSSINES_DOCUMENTS:
-                loadFragment(documentosFragment, DIRECTION.FORDWARD, false);
+                loadFragment(documentosFragment, Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_COMPLETE:
-                loadFragment(registroNegocioCompletoFragment, DIRECTION.FORDWARD, false);
+                loadFragment(registroNegocioCompletoFragment, Direction.FORDWARD, false);
                 break;
         }
     }

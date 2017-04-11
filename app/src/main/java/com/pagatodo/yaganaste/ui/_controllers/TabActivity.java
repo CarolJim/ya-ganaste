@@ -15,8 +15,8 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.TabPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.TabPresenter;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 
 

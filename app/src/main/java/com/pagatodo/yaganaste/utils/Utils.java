@@ -26,6 +26,9 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.GiroComercio;
 
+import org.json.JSONException;
+import org.json.JSONObject;
+
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -1166,6 +1169,24 @@ public class Utils {
         return giroComercioList;
     }
 
+    public static String getJSONStringFromAssets(Context context, String uri) {
+        String response = "";
+        try {
+            InputStream inputStream = context.getAssets().open(uri);
+            int size = inputStream.available();
+
+            byte[] buffer = new byte[size];
+            inputStream.read(buffer);
+            inputStream.close();
+
+            response = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+        }
+
+        return response;
+    }
+
     public static String getTokenDevice(Context context) {
         return Settings.Secure.getString(context.getContentResolver(), Settings.Secure.ANDROID_ID);
     }
@@ -1210,7 +1231,7 @@ public class Utils {
 
         } catch (Throwable ex) {
             ex.printStackTrace();
-        }finally {
+        } finally {
             mPath = "";
         }
 

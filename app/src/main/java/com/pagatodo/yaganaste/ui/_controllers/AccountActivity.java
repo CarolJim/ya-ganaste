@@ -1,9 +1,7 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
-import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.view.Window;
 
@@ -11,12 +9,10 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
-import com.pagatodo.yaganaste.interfaces.enums.MainTab;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
-import com.pagatodo.yaganaste.ui.account.register.AreYouWantGetPaymentsFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsociatePhoneAccountFragment;
 import com.pagatodo.yaganaste.ui.account.register.Couchmark;
@@ -25,18 +21,12 @@ import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
-import com.pagatodo.yaganaste.ui.account.register.PinConfirmationFragment;
-import com.pagatodo.yaganaste.ui.account.register.RegisterAddressFragment;
-import com.pagatodo.yaganaste.ui.account.register.RegisterBasicInfoFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
-import com.pagatodo.yaganaste.utils.Constants;
-import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.SELECTION;
-import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 
 public class AccountActivity extends SupportFragmentActivity implements OnEventListener{
@@ -81,11 +71,11 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
 
         switch (action) {
             case GO_TO_LOGIN:
-                loadFragment(LoginFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case GO_TO_REGISTER:
-                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(DatosUsuarioFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
         }
@@ -108,49 +98,49 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         switch (event){
 
             case EVENT_GO_LOGIN:
-                loadFragment(LoginFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_DATA_USER:
-                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(DatosUsuarioFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_DATA_USER_BACK:
-                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.BACK, false);
+                loadFragment(DatosUsuarioFragment.newInstance(), Direction.BACK, false);
                 break;
 
             case EVENT_PERSONAL_DATA:
-                loadFragment(DatosPersonalesFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(DatosPersonalesFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_PERSONAL_DATA_BACK:
-                loadFragment(DatosPersonalesFragment.newInstance(), DIRECTION.BACK, false);
+                loadFragment(DatosPersonalesFragment.newInstance(), Direction.BACK, false);
                 break;
 
             case EVENT_ADDRESS_DATA:
-                loadFragment(DomicilioActualFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(DomicilioActualFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_ADDRESS_DATA_BACK:
-                loadFragment(DomicilioActualFragment.newInstance(), DIRECTION.BACK, false);
+                loadFragment(DomicilioActualFragment.newInstance(), Direction.BACK, false);
                 break;
             case EVENT_GO_GET_CARD:
-                loadFragment(TienesTarjetaFragment.newInstance(), DIRECTION.FORDWARD, true);
+                loadFragment(TienesTarjetaFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_ASSIGN_PIN:
-                loadFragment(AsignarNIPFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(AsignarNIPFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_GO_ASOCIATE_PHONE:
-                loadFragment(AsociatePhoneAccountFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(AsociatePhoneAccountFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_GO_REGISTER_COMPLETE:
-                loadFragment(RegisterCompleteFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(RegisterCompleteFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
 
             case EVENT_COUCHMARK:
-                loadFragment(Couchmark.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(Couchmark.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_GO_MAINTAB:

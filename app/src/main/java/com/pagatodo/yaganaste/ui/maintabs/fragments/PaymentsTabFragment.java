@@ -2,14 +2,11 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
-import android.support.v4.view.ViewPager;
 import android.util.DisplayMetrics;
+import android.util.Log;
+import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,10 +16,11 @@ import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.dto.ViewPagerData;
-import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
+import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
 import butterknife.BindView;
@@ -32,27 +30,29 @@ import butterknife.ButterKnife;
  * Created by Jordan on 06/04/2017.
  */
 
-public class PaymentsTabFragment extends GenericFragment implements View.OnClickListener {
+public class PaymentsTabFragment extends SupportFragment implements View.OnClickListener, View.OnDragListener {
 
     private View rootView;
 
-    @BindView(R.id.child_framelayout)
-    FrameLayout frameLayout;
+    //@BindView(R.id.container)
+    //FrameLayout frameLayout;
+    @BindView(R.id.payment_view_pager)
+    NoSwipeViewPager payment_view_pager;
     @BindView(R.id.tab_recargas)
     Button botonRecargas;
     @BindView(R.id.tab_servicios)
     Button botonServicios;
     @BindView(R.id.tab_envios)
     Button botonEnvios;
+    @BindView(R.id.rlimgPagosServiceToPay)
+    RelativeLayout rlimgPagosServiceToPay;
 
-    private FragmentManager fragmentManager;
-
+    MovementsTab prevTAB;
 
     public static PaymentsTabFragment newInstance() {
         PaymentsTabFragment paymentsTabFragment = new PaymentsTabFragment();
         Bundle args = new Bundle();
         paymentsTabFragment.setArguments(args);
-
         return paymentsTabFragment;
     }
 
@@ -76,13 +76,15 @@ public class PaymentsTabFragment extends GenericFragment implements View.OnClick
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
+        //initFragment();
 
-        fragmentManager = getFragmentManager();
+        payment_view_pager.setAdapter(new FragmentPagerAdapter(getFragmentManager()));
+        payment_view_pager.setOffscreenPageLimit(1);
+        payment_view_pager.setCurrentItem(0);
 
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
         windowManager.getDefaultDisplay().getMetrics(dm);
-        int widthInDP = Math.round(dm.widthPixels / dm.density);
         int widthButton = dm.widthPixels / 3;
 
         botonRecargas.setWidth(widthButton);
@@ -93,35 +95,61 @@ public class PaymentsTabFragment extends GenericFragment implements View.OnClick
         botonServicios.setOnClickListener(this);
         botonEnvios.setOnClickListener(this);
 
-        loadFragment(PaymentsFragmentCarousel.newInstance(), SupportFragmentActivity.DIRECTION.NONE, false);
+        rlimgPagosServiceToPay.setOnDragListener(this);
     }
 
+    @Override
+    public void initFragment() {
+        this.fragmentManager = getFragmentManager();
+        loadFragment(RecargasCarouselFragment.newInstance(), Direction.NONE, false);
+        prevTAB = MovementsTab.TAB1;
+    }
 
     @Override
     public void onClick(View v) {
+        //Fragment curentFragment = fragmentManager.findFragmentById(R.id.container);
         switch (v.getId()) {
             case R.id.tab_recargas:
-                botonRecargas.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.tab_selected));
-                botonServicios.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.right_tab));
-                botonEnvios.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.tab_unselected));
-                bringViewToFront((RelativeLayout) v.getParent(), v.getId());
-
+                changeBackTabs(v, MovementsTab.TAB1);
+                //loadFragment(RecargasCarouselFragment.newInstance(), Direction.BACK, false);
+                //prevTAB = MovementsTab.TAB1;
+                payment_view_pager.setCurrentItem(0);
                 break;
             case R.id.tab_servicios:
-                botonRecargas.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.left_tab));
-                botonServicios.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.tab_selected));
-                botonEnvios.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.right_tab));
-                bringViewToFront((RelativeLayout) v.getParent(), v.getId());
+                changeBackTabs(v, MovementsTab.TAB2);
+                //Direction direction = prevTAB == MovementsTab.TAB1 ? Direction.FORDWARD : Direction.BACK;
+                //loadFragment(ServiciosCarouselFragment.newInstance(), direction, false);
+                //prevTAB = MovementsTab.TAB2;
+                payment_view_pager.setCurrentItem(1);
                 break;
             case R.id.tab_envios:
-                botonRecargas.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.tab_unselected));
-                botonServicios.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.left_tab));
-                botonEnvios.setBackground(ContextCompat.getDrawable(getContext(), R.drawable.tab_selected));
-                bringViewToFront((RelativeLayout) v.getParent(), v.getId());
+                changeBackTabs(v, MovementsTab.TAB3);
+                //loadFragment(EnviosCarouselFragment.newInstance(), Direction.FORDWARD, false);
+                //prevTAB = MovementsTab.TAB3;
+                payment_view_pager.setCurrentItem(2);
                 break;
             default:
                 break;
         }
+    }
+
+    private void changeBackTabs(View v, MovementsTab TAB){
+        botonRecargas.setBackground(ContextCompat.getDrawable(getContext(),
+                TAB == MovementsTab.TAB1 ? R.drawable.tab_selected
+                : TAB == MovementsTab.TAB2 ?  R.drawable.left_tab
+                : TAB == MovementsTab.TAB3 ?   R.drawable.tab_unselected
+                : 0));
+        botonServicios.setBackground(ContextCompat.getDrawable(getContext(),
+                TAB == MovementsTab.TAB1 ? R.drawable.right_tab
+                        : TAB == MovementsTab.TAB2 ?  R.drawable.tab_selected
+                        : TAB == MovementsTab.TAB3 ?   R.drawable.left_tab
+                        : 0));
+        botonEnvios.setBackground(ContextCompat.getDrawable(getContext(),
+                TAB == MovementsTab.TAB1 ? R.drawable.tab_unselected
+                        : TAB == MovementsTab.TAB2 ?  R.drawable.right_tab
+                        : TAB == MovementsTab.TAB3 ?   R.drawable.tab_selected
+                        : 0));
+        bringViewToFront((RelativeLayout) v.getParent(), v.getId());
     }
 
     public void bringViewToFront(RelativeLayout parent, int id) {
@@ -136,15 +164,13 @@ public class PaymentsTabFragment extends GenericFragment implements View.OnClick
         parent.getChildAt(childPosition).bringToFront();
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull SupportFragmentActivity.DIRECTION direction,
-                                boolean addToBackStack) {
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if (!direction.equals(SupportFragmentActivity.DIRECTION.NONE)) {
-            fragmentTransaction.setCustomAnimations(direction.getEnterAnimation(), direction.getExitAnimation());
+
+    @Override
+    public boolean onDrag(View v, DragEvent event) {
+
+        if (event.getAction() == DragEvent.ACTION_DROP) {
+            Log.i(getTag(), String.valueOf(v.getId()));
         }
-        if (addToBackStack) {
-            fragmentTransaction.addToBackStack(null);
-        }
-        fragmentTransaction.replace(R.id.child_framelayout, fragment, fragment.getFragmentTag()).commit();
+        return true;
     }
 }
