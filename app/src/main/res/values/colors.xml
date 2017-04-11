@@ -12,6 +12,7 @@
     <color name="whiteColor">#FFF</color>
     <color name="whiteColor_disable">#beffffff</color>
     <color name="grayColor">#808080</color>
+    <color name="lightGrayColor">#beb8b8</color>
     <color name="bg_progress">#d73b3939</color>
     <color name="bg_card_confirmation">#1e2429</color>
 

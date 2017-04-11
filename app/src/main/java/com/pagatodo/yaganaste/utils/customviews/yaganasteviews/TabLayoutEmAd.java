@@ -5,15 +5,14 @@ import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.utils.DimUtils;
 import com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout;
+import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
 /**
  * @author Juan Guerra on 05/04/2017.
@@ -29,13 +28,19 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     private MaterialLinearLayout llMaterialEmisorContainer;
     private LinearLayout llContentParentAdquirente;
     private MaterialLinearLayout llMaterialAdquirenteContainer;
-    private ViewPager mViewPager;
+    private NoSwipeViewPager mViewPager;
 
     private CardAdq cardAdq;
     private CardAdqCredSelected cardAdqCredSelected;
     private CardAdqSelected cardAdqSelected;
     private CardEmisor cardEmisor;
     private CardEmisorSelected cardEmisorSelected;
+
+    private AdquirenteCallback adquirenteCallback;
+
+    public interface AdquirenteCallback {
+        void onClickAdquirente(boolean isAdquirente);
+    }
 
     public TabLayoutEmAd(Context context) {
         this(context, null);
@@ -70,9 +75,10 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     private void init() {
         cardEmisor = new CardEmisor(getContext());
         cardEmisorSelected = new CardEmisorSelected(getContext());
+        cardAdq = new CardAdq(getContext());
     }
 
-    public void setUpWithViewPager(ViewPager viewPager) {
+    public void setUpWithViewPager(NoSwipeViewPager viewPager) {
         if (viewPager != null) {
             mViewPager = viewPager;
             viewPager.addOnPageChangeListener(this);
@@ -81,124 +87,48 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.ll_material_emisor_container:
-                if (mViewPager != null) {
+        if (mViewPager != null) {
+            switch (v.getId()) {
+                case R.id.ll_material_emisor_container:
                     mViewPager.setCurrentItem(0);
-                }
-                //configEmisorSelected();
-                break;
+                    break;
 
-            case R.id.ll_material_adquirente_container:
-                if (mViewPager != null) {
-                    mViewPager.setCurrentItem(1);
-                }
-                //configAdquirenteSelected();
-                break;
+                case R.id.ll_material_adquirente_container:
+                    clickAdquirente();
+                    break;
 
-            default:
-                break;
+                default:
+                    break;
+            }
         }
     }
 
-    private void configEmisorSelected() {
+    private void clickAdquirente() {
+        if (cardAdq.isAdquirente()) {
+            mViewPager.setCurrentItem(1);
+        }
+        if (adquirenteCallback != null ) {
+            adquirenteCallback.onClickAdquirente(cardAdq.isAdquirente());
+        }
 
-        LinearLayout.LayoutParams llEmisorBorederContainerParams = (LinearLayout.LayoutParams)llEmisorBorderContainer.getLayoutParams();
-        llEmisorBorederContainerParams.weight = 2.5f;
-        llEmisorBorederContainerParams.rightMargin = 0;
-        llEmisorBorderContainer.setLayoutParams(llEmisorBorederContainerParams);
-
-        viewEmisorBorder.setBackgroundResource(R.drawable.adq_em_big_tab);
-        viewEmisorBorder.setRotationY(0);
-
-        LinearLayout.LayoutParams llAdquirenteBorderContainerParams = (LinearLayout.LayoutParams)llAdquirenteBorderContainer.getLayoutParams();
-        llAdquirenteBorderContainerParams.weight = 1.5f;
-        llAdquirenteBorderContainerParams.leftMargin = DimUtils.convertDpToPixels(-3);
-        llAdquirenteBorderContainer.setLayoutParams(llAdquirenteBorderContainerParams);
-
-        viewAdquirenteBorder.setBackgroundResource(R.drawable.adq_em_small_tab);
-
-        LinearLayout.LayoutParams llContentParentEmisorParams = (LinearLayout.LayoutParams)llContentParentEmisor.getLayoutParams();
-        llContentParentEmisorParams.weight = 2.5f;
-        llContentParentEmisorParams.leftMargin = 0;
-        llContentParentEmisor.setLayoutParams(llContentParentEmisorParams);
-
-        LinearLayout.LayoutParams llMaterialEmisorContainerParams = (LinearLayout.LayoutParams)llMaterialEmisorContainer.getLayoutParams();
-        llMaterialEmisorContainerParams.weight = 2f;
-        llMaterialEmisorContainerParams.leftMargin = 0;
-        llMaterialEmisorContainer.setLayoutParams(llMaterialEmisorContainerParams);
-
-        LinearLayout.LayoutParams llContentParentAdquirenteParams = (LinearLayout.LayoutParams)llContentParentAdquirente.getLayoutParams();
-        llContentParentAdquirenteParams.weight = 1.5f;
-        llContentParentAdquirenteParams.leftMargin = DimUtils.convertDpToPixels(-3);
-        llContentParentAdquirente.setLayoutParams(llContentParentAdquirenteParams);
-
-        LinearLayout.LayoutParams llMaterialAdquirenteContainerParams = (LinearLayout.LayoutParams)llMaterialAdquirenteContainer.getLayoutParams();
-        llMaterialAdquirenteContainerParams.weight = 1.25f;
-        llMaterialAdquirenteContainerParams.leftMargin = DimUtils.convertDpToPixels(-3);
-        llMaterialAdquirenteContainer.setLayoutParams(llMaterialAdquirenteContainerParams);
     }
-
-    private void configAdquirenteSelected() {
-
-        LinearLayout.LayoutParams llEmisorBorederContainerParams = (LinearLayout.LayoutParams)llEmisorBorderContainer.getLayoutParams();
-        llEmisorBorederContainerParams.weight = 1.5f;
-        llEmisorBorederContainerParams.rightMargin = DimUtils.convertDpToPixels(-3);
-        llEmisorBorderContainer.setLayoutParams(llEmisorBorederContainerParams);
-
-        viewEmisorBorder.setBackgroundResource(R.drawable.adq_em_small_tab);
-        viewEmisorBorder.setRotationY(180);
-
-        LinearLayout.LayoutParams llAdquirenteBorderContainerParams = (LinearLayout.LayoutParams)llAdquirenteBorderContainer.getLayoutParams();
-        llAdquirenteBorderContainerParams.weight = 2.5f;
-        llAdquirenteBorderContainerParams.leftMargin = 0;
-        llAdquirenteBorderContainer.setLayoutParams(llAdquirenteBorderContainerParams);
-
-        viewAdquirenteBorder.setBackgroundResource(R.drawable.adq_em_big_tab);
-
-        LinearLayout.LayoutParams llContentParentEmisorParams = (LinearLayout.LayoutParams)llContentParentEmisor.getLayoutParams();
-        llContentParentEmisorParams.weight = 1.5f;
-        llContentParentEmisorParams.leftMargin = DimUtils.convertDpToPixels(-3);
-        llContentParentEmisor.setLayoutParams(llContentParentEmisorParams);
-
-        LinearLayout.LayoutParams llMaterialEmisorContainerParams = (LinearLayout.LayoutParams)llMaterialEmisorContainer.getLayoutParams();
-        llMaterialEmisorContainerParams.weight = 1.25f;
-        llMaterialEmisorContainerParams.leftMargin = DimUtils.convertDpToPixels(-3);
-        llMaterialEmisorContainer.setLayoutParams(llMaterialEmisorContainerParams);
-
-        LinearLayout.LayoutParams llContentParentAdquirenteParams = (LinearLayout.LayoutParams)llContentParentAdquirente.getLayoutParams();
-        llContentParentAdquirenteParams.weight = 2.5f;
-        llContentParentAdquirenteParams.leftMargin = 0;
-        llContentParentAdquirente.setLayoutParams(llContentParentAdquirenteParams);
-
-        LinearLayout.LayoutParams llMaterialAdquirenteContainerParams = (LinearLayout.LayoutParams)llMaterialAdquirenteContainer.getLayoutParams();
-        llMaterialAdquirenteContainerParams.weight = 2f;
-        llMaterialAdquirenteContainerParams.leftMargin = DimUtils.convertDpToPixels(0);
-        llMaterialAdquirenteContainer.setLayoutParams(llMaterialAdquirenteContainerParams);
-    }
-
 
     @Override
     public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
-        //No-op
-        Log.d("Hola","Page selected: " + mViewPager.getCurrentItem() +  "    Position Offset: " + positionOffset);
         animateTabs(positionOffset, mViewPager.getCurrentItem());
     }
 
     @Override
     public void onPageSelected(int position) {
-        Log.d("Hola", "Page Selected");
+        //No-OP
     }
 
     @Override
     public void onPageScrollStateChanged(int state) {
         //No-op
-
     }
 
-
     private void animateTabs(float offset, int position) {
-
         if ( offset <= 0.0 ) {
             offset = position;
         }
@@ -208,66 +138,36 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         llEmisorBorederContainerParams.rightMargin = DimUtils.convertDpToPixels(-3 * offset);
         llEmisorBorderContainer.setLayoutParams(llEmisorBorederContainerParams);
 
-        //LinearLayout.LayoutParams viewEmisorBorderParams = (LinearLayout.LayoutParams)viewEmisorBorder.getLayoutParams();
-
         if (offset <= 0.0) {
             viewEmisorBorder.setBackgroundResource(R.drawable.adq_em_big_tab);
             viewEmisorBorder.setRotationY(0);
-            //viewEmisorBorderParams.weight = 1.25f;
-
             llMaterialEmisorContainer.removeAllViews();
             llMaterialEmisorContainer.addView(cardEmisorSelected,
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         } else if (offset >= 1.0){
             viewEmisorBorder.setBackgroundResource(R.drawable.adq_em_small_tab);
             viewEmisorBorder.setRotationY(180);
-            //viewEmisorBorderParams.weight = 1.25f;
-
             llMaterialEmisorContainer.removeAllViews();
             llMaterialEmisorContainer.addView(cardEmisor,
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        } else {
-            /*if (position == 1) {
-                viewEmisorBorderParams.weight = 1.25f + 0.75f*(1 - offset);
-            } else {
-                viewEmisorBorderParams.weight = 1.25f + 0.75f* offset;
-            }*/
         }
-
-        //viewEmisorBorder.setLayoutParams(viewEmisorBorderParams);
 
         LinearLayout.LayoutParams llAdquirenteBorderContainerParams = (LinearLayout.LayoutParams)llAdquirenteBorderContainer.getLayoutParams();
         llAdquirenteBorderContainerParams.weight = 1.5f + offset;
         llAdquirenteBorderContainerParams.leftMargin = DimUtils.convertDpToPixels(-3 * (1 - offset));
         llAdquirenteBorderContainer.setLayoutParams(llAdquirenteBorderContainerParams);
 
-
-        //LinearLayout.LayoutParams viewAdquirenteBorderParams = (LinearLayout.LayoutParams)viewAdquirenteBorder.getLayoutParams();
-
         if (offset <= 0) {
             viewAdquirenteBorder.setBackgroundResource(R.drawable.adq_em_small_tab);
-            //viewAdquirenteBorderParams.weight = 1.25f;
-
             llMaterialAdquirenteContainer.removeAllViews();
-            llMaterialAdquirenteContainer.addView(new CardAdq(getContext()),
+            llMaterialAdquirenteContainer.addView(cardAdq,
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         } else if (offset >= 1){
             viewAdquirenteBorder.setBackgroundResource(R.drawable.adq_em_big_tab);
-            //viewAdquirenteBorderParams.weight = 1.25f;
-
             llMaterialAdquirenteContainer.removeAllViews();
-            llMaterialAdquirenteContainer.addView(new CardAdqCredSelected(getContext()),
+            llMaterialAdquirenteContainer.addView(new CardAdqSelected(getContext()),
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        }/* else {
-            if (position == 0) {
-                viewAdquirenteBorderParams.weight = 1.25f + 0.75f * offset;
-            } else {
-                viewAdquirenteBorderParams.weight = 1.25f + 0.75f * (1 - offset);
-            }
         }
-        viewAdquirenteBorder.setLayoutParams(viewAdquirenteBorderParams);*/
-
-
 
         LinearLayout.LayoutParams llContentParentEmisorParams = (LinearLayout.LayoutParams)llContentParentEmisor.getLayoutParams();
         llContentParentEmisorParams.weight = 2.5f - offset;
@@ -291,4 +191,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
     }
 
+    public void setAdquirenteCallback(AdquirenteCallback adquirenteCallback) {
+        this.adquirenteCallback = adquirenteCallback;
+    }
 }

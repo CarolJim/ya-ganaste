@@ -47,7 +47,7 @@
                     android:maxLines="1"
                     android:textSize="@dimen/emisor_text_size"
                     app:tipo="Subtitulo"
-                    android:text="Saldo en Cuenta"/>
+                    android:text="@string/saldo_en_cuenta"/>
 
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"

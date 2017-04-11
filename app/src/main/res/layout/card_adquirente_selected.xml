@@ -34,6 +34,7 @@
                     android:orientation="vertical">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txt_nombre_negocio"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -43,6 +44,7 @@
                         android:text="Abarrotes 'Mi Lupita'"/>
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txt_saldo_adq"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="center_vertical"
@@ -53,24 +55,15 @@
                         android:textColor="@color/colorAccent"/>
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        android:layout_width="wrap_content"
+                        android:id="@+id/txt_status"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:maxLines="1"
+                        android:gravity="center"
                         style="@style/MainTabText"
                         android:textSize="@dimen/ad_em_tab_text_size"
-                        android:text="Saldo Pendiente"
+                        android:text="@string/saldo_pendiente"
                         android:textColor="@color/colorAccent"/>
 
-                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center_vertical"
-                        android:maxLines="1"
-                        style="@style/MainTabText"
-                        android:textSize="@dimen/ad_em_tab_text_size"
-                        android:text="de Reembolso"
-                        android:textColor="@color/colorAccent"/>
 
 
                 </LinearLayout>

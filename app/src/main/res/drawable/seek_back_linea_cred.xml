@@ -5,9 +5,10 @@
         <shape>
             <solid android:color="@color/black"/>
             <corners android:radius="8dp"/>
-            <stroke android:color="@color/bgColor"
-                android:width="2dp"/>
+            <stroke android:color="@color/transparent"
+                android:width="7dp"/>
         </shape>
+
     </item>
 
     <item android:id="@android:id/progress">
@@ -15,8 +16,8 @@
             <shape>
                 <solid android:color="@color/colorAccent"/>
                 <corners android:radius="8dp" />
-                <stroke android:color="@color/bgColor"
-                    android:width="2dp"/>
+                <stroke android:color="@color/transparent"
+                    android:width="7dp"/>
             </shape>
         </clip>
     </item>

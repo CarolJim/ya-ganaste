@@ -9,6 +9,7 @@ import android.graphics.drawable.RippleDrawable;
 import android.graphics.drawable.StateListDrawable;
 import android.os.Build;
 import android.support.annotation.ColorInt;
+import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.util.TypedValue;
@@ -26,7 +27,6 @@ import com.pagatodo.yaganaste.utils.Utils;
 
 public class MaterialLinearLayout extends LinearLayout implements View.OnClickListener{
 
-    private static final int VERSION = Build.VERSION.SDK_INT;
     private OnClickListener mClickListener;
 
     View view;
@@ -56,12 +56,10 @@ public class MaterialLinearLayout extends LinearLayout implements View.OnClickLi
 
             Drawable normalBackGround = configurationParams.getDrawable(R.styleable.MaterialLinearLayout_normalBackGround);
 
-
-
-            if (VERSION < Build.VERSION_CODES.LOLLIPOP) {
-               changeRippleColor(selectedColor, cornerRadius, buttonStrokeColor);
-            } else {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                 changeRippleColorMaterial(selectedColor, cornerRadius, buttonStrokeColor, selectedStrokeColor, normalBackGround);
+            } else {
+                changeRippleColor(selectedColor, cornerRadius, buttonStrokeColor);
             }
         } catch (Exception e){
             e.printStackTrace();
@@ -91,6 +89,7 @@ public class MaterialLinearLayout extends LinearLayout implements View.OnClickLi
         setBackground(states);
     }
 
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void changeRippleColorMaterial(@ColorInt int colorSelected,
                                            int cornerRadius, @ColorInt int strokeColor, @ColorInt int selectedStrokeColor, Drawable normalDrawable) throws Exception{
 

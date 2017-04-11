@@ -97,7 +97,7 @@
             android:layout_height="wrap_content"
             android:visibility="gone"/>
 
-        <android.support.v4.view.ViewPager
+        <com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager
             android:id="@+id/pager_adquirente"
             android:layout_width="match_parent"
             android:layout_height="0dp"
