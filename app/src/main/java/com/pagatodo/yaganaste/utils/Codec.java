@@ -1,5 +1,9 @@
 package com.pagatodo.yaganaste.utils;
 
+import android.util.Log;
+
+import java.util.zip.CRC32;
+
 /**
  *
  * @author carlos.
@@ -29,6 +33,15 @@ public class Codec {
 			b[i] = (byte)(Integer.parseInt(s2, 16) & 0xff);
 		}
 		return b;
+	}
+
+	public static String applyCRC32(String s){
+		CRC32 crc = new CRC32();
+		crc.update(s.getBytes());
+		String encode = String.format("%08X", crc.getValue());
+		Log.i("CRC32", String.format("Source: %s ----- Result: %s",s,encode));
+		return encode;
+
 	}
 
 }

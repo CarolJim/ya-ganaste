@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.account;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
@@ -48,6 +49,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
+import static com.pagatodo.yaganaste.utils.Recursos.CRC32_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 
 /**
@@ -85,8 +87,8 @@ public class AccountPresenterNew extends ProvisioningPresenterAbs implements IAc
     @Override
     public void createUser() {
         accountView.showLoader(App.getInstance().getString(R.string.msg_register));
-
         RegisterUser registerUser = RegisterUser.getInstance();
+        prefs.saveData(CRC32_FREJA,registerUser.getContrasenia());//Freja
         CrearUsuarioFWSRequest request = new CrearUsuarioFWSRequest(
                 registerUser.getEmail(),
                 registerUser.getNombre(),
@@ -246,9 +248,8 @@ public class AccountPresenterNew extends ProvisioningPresenterAbs implements IAc
                 getPinPolicy(); // Obtenemos las Reglas del Pin
 
             }else if(ws == ACTIVACION_APROV_SOFTTOKEN){// Error activación de Aprovisionamiento
-
-                ((IVerificationSMSView) accountView).provisingCompleted(data.toString());
-
+                subscribePushNotification();
+                //((IVerificationSMSView) accountView).provisingCompleted(data.toString());
             }
         }else if(ws == CERRAR_SESION){
             Log.i(TAG,"La sesión se ha cerrado.");
@@ -272,7 +273,6 @@ public class AccountPresenterNew extends ProvisioningPresenterAbs implements IAc
     }
 
     /**Implementación de Freja**/
-
     @Override
     public void setActivationCode(String activationCode) {
         SingletonUser.getInstance().setActivacionCodeFreja(activationCode);// Almacenamos el activationCode de FREJA
@@ -291,6 +291,11 @@ public class AccountPresenterNew extends ProvisioningPresenterAbs implements IAc
     public void endProvisioning() { // Finaliza el proceso con FREJA
         String activationCode = SingletonUser.getInstance().getActivacionCodeFreja();
         activationAprov(activationCode);
+    }
+
+    @Override
+    public void subscribePushNotification() {
+        setTokenNotificationId(FirebaseInstanceId.getInstance().getToken(),"1234");
     }
 
     @Override

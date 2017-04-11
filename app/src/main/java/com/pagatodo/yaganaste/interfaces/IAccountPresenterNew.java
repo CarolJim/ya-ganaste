@@ -22,4 +22,5 @@ public interface IAccountPresenterNew {
     public void doPullActivationSMS(String message);
     public void verifyActivationAprov(String codeActivation);
     public void activationAprov(String codeActivation);
+    public void subscribePushNotification();
 }
