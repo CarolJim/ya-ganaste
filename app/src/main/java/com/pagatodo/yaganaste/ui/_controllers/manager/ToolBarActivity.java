@@ -14,6 +14,7 @@ import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.animation.Animation;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -34,6 +35,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity {
 
     private View toolbarLayout;
     public static final String EVENT_CHANGE_TOOLBAR_VISIBILITY = "eventChangeToolbarVisibility";
+
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {

@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -11,20 +12,26 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
 
+import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
+import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Jordan on 06/04/2017.
@@ -34,8 +41,8 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     private View rootView;
 
-    //@BindView(R.id.container)
-    //FrameLayout frameLayout;
+    @BindView(R.id.container)
+    FrameLayout container;
     @BindView(R.id.payment_view_pager)
     NoSwipeViewPager payment_view_pager;
     @BindView(R.id.tab_recargas)
@@ -46,8 +53,12 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     Button botonEnvios;
     @BindView(R.id.rlimgPagosServiceToPay)
     RelativeLayout rlimgPagosServiceToPay;
+    @BindView(R.id.imgPagosServiceToPay)
+    CircleImageView imgPagosServiceToPay;
+    MovementsTab currentTab = MovementsTab.TAB1;
 
-    MovementsTab prevTAB;
+    private Animation animIn, animOut;
+    private PaymentsTabPresenter paymentsTabPresenter;
 
     public static PaymentsTabFragment newInstance() {
         PaymentsTabFragment paymentsTabFragment = new PaymentsTabFragment();
@@ -59,6 +70,16 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        paymentsTabPresenter = new PaymentsTabPresenter();
+
+        animIn = AnimationUtils.loadAnimation(getContext(), R.anim.slide_from_left);
+        animOut = AnimationUtils.loadAnimation(getContext(), R.anim.slide_to_right);
+        animIn.setDuration(1000);
+        animOut.setDuration(1000);
+    }
+
+    public PaymentsTabPresenter getPresenter() {
+        return this.paymentsTabPresenter;
     }
 
     @Nullable
@@ -76,11 +97,10 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        //initFragment();
 
-        payment_view_pager.setAdapter(new FragmentPagerAdapter(getFragmentManager()));
-        payment_view_pager.setOffscreenPageLimit(1);
+        payment_view_pager.setAdapter(new FragmentPagerAdapter(getChildFragmentManager()));
         payment_view_pager.setCurrentItem(0);
+        bringViewToFront((RelativeLayout) botonRecargas.getParent(), botonRecargas.getId());
 
         DisplayMetrics dm = new DisplayMetrics();
         WindowManager windowManager = (WindowManager) getContext().getSystemService(Context.WINDOW_SERVICE);
@@ -98,56 +118,51 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         rlimgPagosServiceToPay.setOnDragListener(this);
     }
 
-    @Override
-    public void initFragment() {
-        this.fragmentManager = getFragmentManager();
-        loadFragment(RecargasCarouselFragment.newInstance(), Direction.NONE, false);
-        prevTAB = MovementsTab.TAB1;
-    }
 
     @Override
     public void onClick(View v) {
-        //Fragment curentFragment = fragmentManager.findFragmentById(R.id.container);
         switch (v.getId()) {
             case R.id.tab_recargas:
-                changeBackTabs(v, MovementsTab.TAB1);
-                //loadFragment(RecargasCarouselFragment.newInstance(), Direction.BACK, false);
-                //prevTAB = MovementsTab.TAB1;
-                payment_view_pager.setCurrentItem(0);
+                tabSelector(v, MovementsTab.TAB1);
                 break;
             case R.id.tab_servicios:
-                changeBackTabs(v, MovementsTab.TAB2);
-                //Direction direction = prevTAB == MovementsTab.TAB1 ? Direction.FORDWARD : Direction.BACK;
-                //loadFragment(ServiciosCarouselFragment.newInstance(), direction, false);
-                //prevTAB = MovementsTab.TAB2;
-                payment_view_pager.setCurrentItem(1);
+                tabSelector(v, MovementsTab.TAB2);
                 break;
             case R.id.tab_envios:
-                changeBackTabs(v, MovementsTab.TAB3);
-                //loadFragment(EnviosCarouselFragment.newInstance(), Direction.FORDWARD, false);
-                //prevTAB = MovementsTab.TAB3;
-                payment_view_pager.setCurrentItem(2);
+                tabSelector(v, MovementsTab.TAB3);
                 break;
             default:
                 break;
         }
     }
 
-    private void changeBackTabs(View v, MovementsTab TAB){
+    private void tabSelector(View v, MovementsTab TAB) {
+        currentTab = TAB;
+        changeBackTabs(v, TAB);
+        payment_view_pager.setVisibility(View.VISIBLE);
+        container.setVisibility(View.GONE);
+        payment_view_pager.setCurrentItem(TAB.getId() - 1);
+        removeLastFragment();
+        onEventListener.onEvent(TabActivity.EVENT_CHANGE_MAIN_TAB_VISIBILITY, true);
+        imgPagosServiceToPay.setBorderColor(Color.BLACK);
+        imgPagosServiceToPay.setImageResource(R.mipmap.circulo_add_servicio);
+    }
+
+    private void changeBackTabs(View v, MovementsTab TAB) {
         botonRecargas.setBackground(ContextCompat.getDrawable(getContext(),
                 TAB == MovementsTab.TAB1 ? R.drawable.tab_selected
-                : TAB == MovementsTab.TAB2 ?  R.drawable.left_tab
-                : TAB == MovementsTab.TAB3 ?   R.drawable.tab_unselected
-                : 0));
+                        : TAB == MovementsTab.TAB2 ? R.drawable.left_tab
+                        : TAB == MovementsTab.TAB3 ? R.drawable.tab_unselected
+                        : 0));
         botonServicios.setBackground(ContextCompat.getDrawable(getContext(),
                 TAB == MovementsTab.TAB1 ? R.drawable.right_tab
-                        : TAB == MovementsTab.TAB2 ?  R.drawable.tab_selected
-                        : TAB == MovementsTab.TAB3 ?   R.drawable.left_tab
+                        : TAB == MovementsTab.TAB2 ? R.drawable.tab_selected
+                        : TAB == MovementsTab.TAB3 ? R.drawable.left_tab
                         : 0));
         botonEnvios.setBackground(ContextCompat.getDrawable(getContext(),
                 TAB == MovementsTab.TAB1 ? R.drawable.tab_unselected
-                        : TAB == MovementsTab.TAB2 ?  R.drawable.right_tab
-                        : TAB == MovementsTab.TAB3 ?   R.drawable.tab_selected
+                        : TAB == MovementsTab.TAB2 ? R.drawable.right_tab
+                        : TAB == MovementsTab.TAB3 ? R.drawable.tab_selected
                         : 0));
         bringViewToFront((RelativeLayout) v.getParent(), v.getId());
     }
@@ -170,6 +185,29 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
         if (event.getAction() == DragEvent.ACTION_DROP) {
             Log.i(getTag(), String.valueOf(v.getId()));
+            CarouselItem item = paymentsTabPresenter.getCarouselItem();
+            Glide.with(getContext()).load(item.getImageUrl()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).into(imgPagosServiceToPay);
+            imgPagosServiceToPay.setBorderColor(Color.parseColor(item.getColor()));
+            onEventListener.onEvent(TabActivity.EVENT_HIDE_MANIN_TAB, false);
+
+            payment_view_pager.startAnimation(animOut);
+            payment_view_pager.setVisibility(View.GONE);
+
+
+            container.setVisibility(View.VISIBLE);
+            container.startAnimation(animIn);
+
+            switch (currentTab){
+                case TAB1:
+                    loadFragment(RecargasFormFragment.newInstance(), Direction.NONE, false);
+                    break;
+                case TAB2:
+                    loadFragment(ServiciosFormFragment.newInstance(), Direction.NONE, false);
+                    break;
+                case TAB3:
+                    loadFragment(EnviosFormFragment.newInstance(), Direction.NONE, false);
+                    break;
+            }
         }
         return true;
     }

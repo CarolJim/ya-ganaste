@@ -5,13 +5,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
-import com.pagatodo.yaganaste.utils.customviews.carousel.Carousel;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -22,22 +19,14 @@ public class EnviosCarouselFragment extends PaymentsFragmentCarousel {
 
     private View rootView;
 
-    @BindView(R.id.carouselEnvios)
-    Carousel carouselEnvios;
-    @BindView(R.id.layoutCarouselEnvios)
-    LinearLayout layoutCarouselEnvios;
-
     public static EnviosCarouselFragment newInstance() {
         EnviosCarouselFragment fragmentCarousel = new EnviosCarouselFragment();
         Bundle args = new Bundle();
+        args.putString("TAB", MovementsTab.TAB3.name());
         fragmentCarousel.setArguments(args);
         return fragmentCarousel;
     }
 
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
 
     @Nullable
     @Override
@@ -55,10 +44,8 @@ public class EnviosCarouselFragment extends PaymentsFragmentCarousel {
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        this.carouselMain = carouselEnvios;
-        layoutCarouselEnvios.setVisibility(View.VISIBLE);
-        this.current_tab = MovementsTab.TAB3;
-        loadCatalogos();
+        layoutCarouselMain.setVisibility(View.VISIBLE);
+        setCarouselAdapter(this.paymentsCarouselPresenter.getCarouselItems());
     }
 
     @Override

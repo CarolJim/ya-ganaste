@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/FragmentElement"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/margin_big">
 
     <RelativeLayout
         android:layout_width="match_parent"
@@ -28,6 +29,7 @@
                 android:id="@+id/serviceImport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_between_elements"
                 app:formato="number"
                 app:hintText="Importe"
                 app:isSingleLine="true"
@@ -37,6 +39,7 @@
                 android:id="@+id/serviceConcept"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/space_between_elements"
                 app:formato="text"
                 app:hintText="Concepto"
                 app:isSingleLine="true"
@@ -49,7 +52,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/containerServiciosForm"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/margin_doble"
             android:layout_marginRight="@dimen/margin_doble"
             android:layout_marginTop="@dimen/margin_doble">
@@ -58,6 +60,7 @@
                 android:id="@+id/myseek"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_doble"
                 android:background="@drawable/seek_background"
                 android:clickable="false"
                 android:max="100"

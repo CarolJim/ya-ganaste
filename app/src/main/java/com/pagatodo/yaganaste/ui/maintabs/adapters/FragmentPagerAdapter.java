@@ -21,7 +21,7 @@ public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAd
 
     @Override
     public Fragment getItem(int position) {
-        switch (position) {
+        switch (position){
             case 0:
                 return RecargasCarouselFragment.newInstance();
             case 1:

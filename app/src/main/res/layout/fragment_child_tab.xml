@@ -88,6 +88,9 @@
                     android:id="@+id/imgPagosServiceToPay"
                     android:layout_width="85dp"
                     android:layout_height="85dp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:src="@mipmap/circulo_add_servicio"
                     app:civ_border_color="@color/black"
                     app:civ_border_width="2dp" />
@@ -158,13 +161,15 @@
 
     </LinearLayout>
 
-    <!--FrameLayout
-        android:id="@+id/container"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"/-->
     <com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager
         android:id="@+id/payment_view_pager"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"/>
+        android:layout_height="match_parent" />
+
+    <FrameLayout
+        android:id="@+id/container"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
 
 </LinearLayout>

@@ -5,13 +5,10 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
-import com.pagatodo.yaganaste.utils.customviews.carousel.Carousel;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -20,24 +17,14 @@ import butterknife.ButterKnife;
 
 public class RecargasCarouselFragment extends PaymentsFragmentCarousel {
 
-
     private View rootView;
-
-    @BindView(R.id.carouselRecargas)
-    Carousel carouselRecargas;
-    @BindView(R.id.layoutCarouselRecargas)
-    LinearLayout layoutCarouselRecargas;
 
     public static RecargasCarouselFragment newInstance() {
         RecargasCarouselFragment fragmentCarousel = new RecargasCarouselFragment();
         Bundle args = new Bundle();
+        args.putString("TAB", MovementsTab.TAB1.name());
         fragmentCarousel.setArguments(args);
         return fragmentCarousel;
-    }
-
-    @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Nullable
@@ -56,10 +43,9 @@ public class RecargasCarouselFragment extends PaymentsFragmentCarousel {
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        this.carouselMain = carouselRecargas;
-        layoutCarouselRecargas.setVisibility(View.VISIBLE);
-        this.current_tab = MovementsTab.TAB1;
-        loadCatalogos();
+        layoutCarouselMain.setVisibility(View.VISIBLE);
+        //this.current_tab = MovementsTab.TAB1;
+        setCarouselAdapter(this.paymentsCarouselPresenter.getCarouselItems());
     }
 
     @Override

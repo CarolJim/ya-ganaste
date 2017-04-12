@@ -6,16 +6,15 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.Window;
+import android.view.animation.Animation;
+import android.view.animation.AnimationUtils;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
-import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
-import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
@@ -37,17 +36,22 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
     public static final String EVENT_GO_HOME = "2";
     public static final String EVENT_CHANGE_MAIN_TAB_VISIBILITY = "3";
 
+    public static final String EVENT_HIDE_MANIN_TAB = "eventhideToolbar";
+    public static final String EVENT_SHOW_MAIN_TAB = "eventShowToolbar";
+    private Animation animShow, animHide;
+
     public static Intent createIntent(Context from) {
         return new Intent(from, TabActivity.class);
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tab);
         load();
 
-        if(!pref.containsData(COUCHMARK_EMISOR)){
-            pref.saveDataBool(COUCHMARK_EMISOR,true);
+        if (!pref.containsData(COUCHMARK_EMISOR)) {
+            pref.saveDataBool(COUCHMARK_EMISOR, true);
             Intent intent = new Intent(this, LandingFragment.class);
             startActivity(intent);
         }
@@ -60,6 +64,8 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         mainViewPager = (ViewPager) findViewById(R.id.main_view_pager);
         mainTab = (TabLayout) findViewById(R.id.main_tab);
         tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN);
+        animHide = AnimationUtils.loadAnimation(this, R.anim.view_hide);
+        animShow = AnimationUtils.loadAnimation(this, R.anim.view_show);
     }
 
     @Override
@@ -79,13 +85,23 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
     @Override
     public void onEvent(String event, Object data) {
         if (event.equals(EVENT_ADQUIRENTE_SELECTED)) {
-            onAdquirenteSelected((boolean)data);
+            onAdquirenteSelected((boolean) data);
         } else if (event.equals(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY)) {
-            changeToolbarVisibility((boolean)data);
+            changeToolbarVisibility((boolean) data);
         } else if (event.equals(EVENT_GO_HOME)) {
             goHome();
         } else if (event.equals(EVENT_CHANGE_MAIN_TAB_VISIBILITY)) {
-            mainTab.setVisibility((boolean)data ? View.VISIBLE : View.GONE);
+            mainTab.setVisibility((boolean) data ? View.VISIBLE : View.GONE);
+        } else if (event.equals(EVENT_HIDE_MANIN_TAB)) {
+            if (mainTab.getVisibility() == View.VISIBLE) {
+                mainTab.startAnimation(animHide);
+                mainTab.setVisibility(View.GONE);
+            }
+        } else if (event.equals(EVENT_SHOW_MAIN_TAB)) {
+            if (mainTab.getVisibility() == View.GONE) {
+                mainTab.setVisibility(View.VISIBLE);
+                mainTab.startAnimation(animShow);
+            }
         }
     }
 

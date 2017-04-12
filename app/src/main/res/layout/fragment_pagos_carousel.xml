@@ -16,7 +16,7 @@
             android:layout_height="match_parent"
             android:visibility="visible">
 
-            <!--LinearLayout
+            <LinearLayout
                 android:id="@+id/layoutCarouselMain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -24,48 +24,6 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
                     android:id="@+id/carouselMain"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_margin="10dp" />
-
-            </LinearLayout-->
-
-            <LinearLayout
-                android:id="@+id/layoutCarouselRecargas"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
-
-                <com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
-                    android:id="@+id/carouselRecargas"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_margin="10dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutCarouselServicios"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
-
-                <com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
-                    android:id="@+id/carouselServicios"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_margin="10dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutCarouselEnvios"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:visibility="gone">
-
-                <com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
-                    android:id="@+id/carouselEnvios"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_margin="10dp" />

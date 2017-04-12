@@ -3,9 +3,9 @@ package com.pagatodo.yaganaste.ui._controllers.manager;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.annotation.AnimRes;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
@@ -19,14 +19,19 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
  */
 
 public abstract class SupportFragment extends GenericFragment {
-    
+
     protected FragmentManager fragmentManager;
     private
     @IdRes
     int containerID;
+    GenericFragment lastFragment;
 
-    public void initFragment(){};
-    
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        fragmentManager = getFragmentManager();
+        containerID = -1;
+    }
 
     protected void loadFragment(@NonNull GenericFragment fragment) {
         loadFragment(fragment, R.id.container, Direction.NONE, false);
@@ -67,7 +72,15 @@ public abstract class SupportFragment extends GenericFragment {
         if (addToBackStack) {
             fragmentTransaction.addToBackStack(null);
         }
+        lastFragment = fragment;
         fragmentTransaction.replace(idContainer, fragment, fragment.getFragmentTag()).commit();
+    }
+
+    protected void removeLastFragment(){
+        if(lastFragment != null){
+            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+            fragmentTransaction.remove(lastFragment).commit();
+        }
     }
 
     protected Fragment getCurrentFragment() {
@@ -87,8 +100,6 @@ public abstract class SupportFragment extends GenericFragment {
 
         mProgressDialog = ProgressDialog.show(c, title, msg);
     }
-
-
 
     protected static void dismissProgress(ProgressDialog mProgressDialog) {
         if (mProgressDialog != null) {
