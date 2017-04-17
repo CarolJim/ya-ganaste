@@ -27,9 +27,9 @@ public class MovementColorsFactory {
         colors.put(2, R.color.greencolor);
         colors.put(3, R.color.purpura);
         colors.put(4, 0);
-    };
+    }
     @ColorRes
     public static int getColorMovement(int typeMovement) {
-        return colors.get(R.color.colorAccent);
+        return colors.get(typeMovement, R.color.colorAccent);
     }
 }

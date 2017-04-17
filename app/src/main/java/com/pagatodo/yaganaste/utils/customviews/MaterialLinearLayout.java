@@ -82,10 +82,12 @@ public class MaterialLinearLayout extends LinearLayout implements View.OnClickLi
         pressedDrawable.setCornerRadius(cornerRadius);
         pressedDrawable.setColor(colorSelected);
         pressedDrawable.setStroke((int)Utils.convertDpToPixels(2), strokeColor);
+        pressedDrawable.setAlpha(128);
 
         StateListDrawable states = new StateListDrawable();
         states.addState(new int[]{android.R.attr.state_pressed}, pressedDrawable);
         states.addState(new int[]{}, normalBackground);
+        states.setAlpha(128);
         setBackground(states);
     }
 

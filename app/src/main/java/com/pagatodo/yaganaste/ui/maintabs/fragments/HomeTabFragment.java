@@ -68,7 +68,7 @@ public class HomeTabFragment extends GenericFragment implements TabsView, TabLay
         pagerAdquirente.setAdapter(new GenericPagerAdapter<>(getActivity(), getChildFragmentManager(), viewPagerData.getFragmentList(), viewPagerData.getTabData()));
         tabLayoutEmAd.setUpWithViewPager(pagerAdquirente);
         // TODO: 10/04/2017 Esto se debe hacer desde la clase Tab, al momento de setear todos los datos para las pestañas
-        pagerAdquirente.setIsSwipeable(false);
+        pagerAdquirente.setIsSwipeable(true);
     }
 
     @Override

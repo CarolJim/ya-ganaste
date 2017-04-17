@@ -7,6 +7,7 @@ import android.view.View;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
+import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AdqPaymentesPresenter;
@@ -55,7 +56,8 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     }
 
     @Override
-    public void onRecyclerItemClick(View v, int position) {
-
+    protected void performClickOnRecycler(ItemMovements<DataMovimientoAdq> itemClicked) {
+        startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
     }
+
 }
