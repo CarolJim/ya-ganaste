@@ -3,7 +3,9 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.util.Log;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
@@ -13,6 +15,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.utils.customviews.ListDialog;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.Carousel;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselAdapter;
@@ -21,12 +24,13 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import java.util.ArrayList;
 
 import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * Created by Jordan on 06/04/2017.
  */
 
-public abstract class PaymentsFragmentCarousel extends GenericFragment {
+public abstract class PaymentsFragmentCarousel extends GenericFragment{
 
     @BindView(R.id.carouselMain)
     Carousel carouselMain;
@@ -36,9 +40,12 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment {
     @BindView(R.id.txtLoadingServices)
     StyleTextView txtLoadingServices;
 
+    View rootView;
+
     Carousel.ImageAdapter mainImageAdapter = null;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     PaymentsTabPresenter paymentsTabPresenter;
+    PaymentsTabFragment fragment;
 
     MovementsTab current_tab;
 
@@ -48,7 +55,8 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment {
         this.current_tab = MovementsTab.valueOf(getArguments().getString("TAB"));
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab);
         try {
-            paymentsTabPresenter = ((PaymentsTabFragment) getParentFragment()).getPresenter();
+            fragment = (PaymentsTabFragment) getParentFragment();
+            paymentsTabPresenter = fragment.getPresenter();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -61,13 +69,37 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment {
         carouselMain.setSelection(2, false);
     }
 
+
+    @Nullable
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_pagos_carousel, container, false);
+
+    }
+
+
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        this.rootView = view;
+        initViews();
+    }
+
+
+    @Override
+    public void initViews() {
+        ButterKnife.bind(this, rootView);
+        layoutCarouselMain.setVisibility(View.VISIBLE);
+        setCarouselAdapter(this.paymentsCarouselPresenter.getCarouselItems());
+
+    }
+
     @Override
     public void onResume() {
         super.onResume();
         carouselMain.setOnDragCarouselListener(new CarouselAdapter.OnDragCarouselListener() {
             @Override
             public void onStarDrag(CarouselItem item) {
-                Log.e(getTag(), "onStarDrag: " + item.getIndex() + ", ItemId: " + item.getIdComercio());
+                Log.e(getTag(), "onStarDrag: " + item.getIndex() + ", ItemId: " + item.getComercio().getIdComercio());
                 paymentsTabPresenter.setCarouselItem(item);
             }
         });
@@ -75,7 +107,10 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment {
         carouselMain.setOnItemClickListener(new CarouselAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CarouselAdapter<?> parent, CarouselItem view, int position, long id) {
-
+                if(position == 0){
+                    ListDialog dialog = new ListDialog(getContext(), paymentsCarouselPresenter.getCarouselItems(), paymentsTabPresenter, fragment);
+                    dialog.show();
+                }
             }
         });
     }

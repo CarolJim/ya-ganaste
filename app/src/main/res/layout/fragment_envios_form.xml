@@ -28,7 +28,8 @@
             app:formato="number"
             app:hintText="Número de Tarjeta (16 Digitos)"
             app:isSingleLine="true"
-            app:maxLength="16" />
+            app:maxLength="16"
+            android:visibility="gone"/>
 
         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
             android:id="@+id/amountToSend"

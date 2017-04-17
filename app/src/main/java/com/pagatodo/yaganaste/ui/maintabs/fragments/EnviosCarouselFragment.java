@@ -28,25 +28,6 @@ public class EnviosCarouselFragment extends PaymentsFragmentCarousel {
     }
 
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_pagos_carousel, container, false);
-    }
-
-
-    @Override
-    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        this.rootView = view;
-        initViews();
-    }
-
-    @Override
-    public void initViews() {
-        ButterKnife.bind(this, rootView);
-        layoutCarouselMain.setVisibility(View.VISIBLE);
-        setCarouselAdapter(this.paymentsCarouselPresenter.getCarouselItems());
-    }
 
     @Override
     public void onResume() {

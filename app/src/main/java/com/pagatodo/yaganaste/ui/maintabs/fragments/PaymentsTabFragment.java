@@ -121,13 +121,19 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tab_recargas:
-                tabSelector(v, MovementsTab.TAB1);
+                if (currentTab != MovementsTab.TAB1) {
+                    tabSelector(v, MovementsTab.TAB1);
+                }
                 break;
             case R.id.tab_servicios:
-                tabSelector(v, MovementsTab.TAB2);
+                if (currentTab != MovementsTab.TAB2) {
+                    tabSelector(v, MovementsTab.TAB2);
+                }
                 break;
             case R.id.tab_envios:
-                tabSelector(v, MovementsTab.TAB3);
+                if (currentTab != MovementsTab.TAB3) {
+                    tabSelector(v, MovementsTab.TAB3);
+                }
                 break;
             default:
                 break;
@@ -183,28 +189,35 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
         if (event.getAction() == DragEvent.ACTION_DROP) {
             Log.i(getTag(), String.valueOf(v.getId()));
-            CarouselItem item = paymentsTabPresenter.getCarouselItem();
-            Glide.with(getContext()).load(item.getImageUrl()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).into(imgPagosServiceToPay);
-            imgPagosServiceToPay.setBorderColor(Color.parseColor(item.getColor()));
-            onEventListener.onEvent(TabActivity.EVENT_CHANGE_MAIN_TAB_VISIBILITY, false);
-
-            //payment_view_pager.startAnimation(animOut);
-            payment_view_pager.setVisibility(View.GONE);
-            container.setVisibility(View.VISIBLE);
-            //container.startAnimation(animIn);
-
-            switch (currentTab) {
-                case TAB1:
-                    loadFragment(RecargasFormFragment.newInstance(), Direction.NONE, false);
-                    break;
-                case TAB2:
-                    loadFragment(ServiciosFormFragment.newInstance(), Direction.NONE, false);
-                    break;
-                case TAB3:
-                    loadFragment(EnviosFormFragment.newInstance(), Direction.NONE, false);
-                    break;
-            }
+            changeImgageToPay();
+            openPaymentFragment();
         }
         return true;
+    }
+
+    public void changeImgageToPay() {
+        CarouselItem item = paymentsTabPresenter.getCarouselItem();
+        Glide.with(getContext()).load(item.getImageUrl()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).into(imgPagosServiceToPay);
+        imgPagosServiceToPay.setBorderColor(Color.parseColor(item.getColor()));
+        onEventListener.onEvent(TabActivity.EVENT_CHANGE_MAIN_TAB_VISIBILITY, false);
+    }
+
+    public void openPaymentFragment() {
+        //payment_view_pager.startAnimation(animOut);
+        payment_view_pager.setVisibility(View.GONE);
+        container.setVisibility(View.VISIBLE);
+        //container.startAnimation(animIn);
+
+        switch (currentTab) {
+            case TAB1:
+                loadFragment(RecargasFormFragment.newInstance(), Direction.NONE, false);
+                break;
+            case TAB2:
+                loadFragment(ServiciosFormFragment.newInstance(), Direction.NONE, false);
+                break;
+            case TAB3:
+                loadFragment(EnviosFormFragment.newInstance(), Direction.NONE, false);
+                break;
+        }
     }
 }

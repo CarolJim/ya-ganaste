@@ -29,7 +29,7 @@ public abstract class SupportFragment extends GenericFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fragmentManager = getFragmentManager();
+        fragmentManager = getChildFragmentManager();
         containerID = -1;
     }
 

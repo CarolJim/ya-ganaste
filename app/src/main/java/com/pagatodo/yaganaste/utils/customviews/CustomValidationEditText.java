@@ -106,7 +106,7 @@ public class CustomValidationEditText extends LinearLayout {
         }
     }
 
-    private void setHintText(String txt) {
+    public void setHintText(String txt) {
         editText.setHint(txt);
     }
 
@@ -176,7 +176,10 @@ public class CustomValidationEditText extends LinearLayout {
                         case "4"://text
                             result = !txt.isEmpty();
                             break;
-                        case "5"://cellPhone
+                        case "5"://number
+                            result = !txt.isEmpty();
+                            break;
+                        case "6"://cellPhone
                             result = ValidateForm.isValidCellPhone(txt.trim());
                             break;
                         default:

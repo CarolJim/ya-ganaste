@@ -2,7 +2,8 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <item>
+    <item
+        android:bottom="2dp">
         <shape android:shape="rectangle">
             <stroke
                 android:width="2dp"
@@ -15,8 +16,7 @@
     </item>
 
     <item
-        android:right="2dp"
-        android:top="10dp">
+        android:top="15dp">
         <shape android:shape="rectangle">
             <stroke
                 android:width="2dp"
@@ -25,6 +25,18 @@
         </shape>
     </item>
 
+    <item
+        android:left="6dp"
+        android:bottom="2dp">
+        <shape android:shape="rectangle">
+            <stroke
+                android:width="2dp"
+                android:color="@color/grayColor" />
+            <corners
+                android:bottomLeftRadius="6dp"
+                android:topRightRadius="6dp" />
+        </shape>
+    </item>
 
     <item
         android:top="2dp"
@@ -40,4 +52,8 @@
                 android:bottomLeftRadius="5.5dp"/>
         </shape>
     </item>
+
+
+
+
 </layer-list>
