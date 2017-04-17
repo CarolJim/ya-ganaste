@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.account.register.DatosNegocio;
 import com.pagatodo.yaganaste.ui.account.register.Documentos;
@@ -51,16 +52,16 @@ public class AdqActivity extends SupportFragmentActivity implements OnEventListe
     public void onEvent(String event, Object o) {
         switch (event){
             case EVENT_GO_INSERT_DONGLE:
-                loadFragment(InsertDongleFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(InsertDongleFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_TRANSACTION_RESULT:
-                loadFragment(TransactionResultFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(TransactionResultFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_GET_SIGNATURE:
-                loadFragment(GetSignatureFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(GetSignatureFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_DETAIL_TRANSACTION:
-                loadFragment(DetailTransactionFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(DetailTransactionFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_GO_MAINTAB:

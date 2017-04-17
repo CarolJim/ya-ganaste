@@ -16,6 +16,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
@@ -47,61 +48,41 @@ public abstract class SupportFragmentActivity extends AppCompatActivity {
         checkPermissions();
     }
 
-    public enum DIRECTION{
-        FORDWARD(R.anim.slide_from_right,R.anim.slide_to_left),
-        BACK(R.anim.slide_from_left, R.anim.slide_to_right),
-        NONE(0,0);
-
-        private int enterAnimation;
-        private int exitAnimation;
-        private DIRECTION (@AnimRes int enterAnimation, @AnimRes int exitAnimation){
-            this.enterAnimation = enterAnimation;
-            this.exitAnimation = exitAnimation;
-        }
-
-        public int getEnterAnimation() {
-            return enterAnimation;
-        }
-        public int getExitAnimation() {
-            return exitAnimation;
-        }
-    }
-
     protected void loadFragment(@NonNull GenericFragment fragment){
-        loadFragment(fragment, R.id.container, DIRECTION.NONE, false);
+        loadFragment(fragment, R.id.container, Direction.NONE, false);
     }
 
     protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer){
-        loadFragment(fragment, idContainer, DIRECTION.NONE, false);
+        loadFragment(fragment, idContainer, Direction.NONE, false);
     }
 
     protected void loadFragment(@NonNull GenericFragment fragment, boolean addToBackStack){
-        loadFragment(fragment, R.id.container, DIRECTION.NONE, addToBackStack);
+        loadFragment(fragment, R.id.container, Direction.NONE, addToBackStack);
     }
 
     protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, boolean addToBackStack){
-        loadFragment(fragment, idContainer, DIRECTION.NONE, addToBackStack);
+        loadFragment(fragment, idContainer, Direction.NONE, addToBackStack);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull DIRECTION direction){
-        loadFragment(fragment, R.id.container, direction, false);
+    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction){
+        loadFragment(fragment, R.id.container, Direction, false);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull DIRECTION direction){
-        loadFragment(fragment, idContainer, direction, false);
+    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction Direction){
+        loadFragment(fragment, idContainer, Direction, false);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull DIRECTION direction,
+    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction,
                                 boolean addToBackStack){
-        loadFragment(fragment, R.id.container, direction, addToBackStack);
+        loadFragment(fragment, R.id.container, Direction, addToBackStack);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull DIRECTION direction,
+    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction Direction,
                                 boolean addToBackStack){
         this.containerID = idContainer;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if (!direction.equals(DIRECTION.NONE)){
-            fragmentTransaction.setCustomAnimations(direction.getEnterAnimation(), direction.getExitAnimation());
+        if (!Direction.equals(Direction.NONE)){
+            fragmentTransaction.setCustomAnimations(Direction.getEnterAnimation(), Direction.getExitAnimation());
         }
         if (addToBackStack){
             fragmentTransaction.addToBackStack(null);

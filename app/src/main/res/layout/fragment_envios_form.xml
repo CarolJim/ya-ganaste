@@ -4,6 +4,7 @@
     style="@style/FragmentElement"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:layout_marginTop="@dimen/margin_big"
     android:orientation="vertical">
 
     <RelativeLayout
@@ -89,7 +90,6 @@
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:layout_below="@+id/containerEnviosForm"
-            android:layout_marginBottom="@dimen/activity_horizontal_margin"
             android:layout_marginLeft="@dimen/margin_doble"
             android:layout_marginRight="@dimen/margin_doble"
             android:layout_marginTop="@dimen/margin_big">
@@ -98,6 +98,7 @@
                 android:id="@+id/myseek"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="@dimen/margin_doble"
                 android:background="@drawable/seek_background"
                 android:clickable="false"
                 android:max="100"

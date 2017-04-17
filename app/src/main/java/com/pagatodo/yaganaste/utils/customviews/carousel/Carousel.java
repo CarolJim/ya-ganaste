@@ -749,11 +749,15 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         }
 
         public Object getItem(int position) {
-            return position;
+            if (position >= mImages.size()) {
+                return new CarouselItem(mContext);
+            } else{
+                return mImages.get(position);
+            }
         }
 
         public long getItemId(int position) {
-            return position;
+            return mImages.get(position).getId();
         }
 
         public View getView(int position, View convertView, ViewGroup parent) {
@@ -1320,11 +1324,11 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
      * layout paramters.
      *
      * @param child    The view to position
-     * @param offset   Offset from the selected position
-     * @param x        X-coordintate indicating where this view should be placed. This
+     * @param angleOffset   Offset from the selected position
+     * @param lastMeasureHeigth        X-coordintate indicating where this view should be placed. This
      *                 will either be the left or right edge of the view, depending on
      *                 the fromLeft paramter
-     * @param fromLeft Are we posiitoning views based on the left edge? (i.e.,
+     * @param lastMeasureWidth Are we posiitoning views based on the left edge? (i.e.,
      *                 building from left to right)?
      */
     private void setUpChild(CarouselItem child, int index, float angleOffset,

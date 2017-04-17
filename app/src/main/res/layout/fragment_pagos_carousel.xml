@@ -6,159 +6,24 @@
     android:layout_height="match_parent"
     android:orientation="vertical">
 
-    <LinearLayout
-        android:id="@+id/containerPay"
-        android:layout_width="250dp"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center_horizontal"
-        android:layout_marginTop="30dp"
-        android:orientation="vertical">
-
-        <FrameLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:background="@mipmap/sombra_base">
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="left">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgPagosUserProfile"
-                    android:layout_width="85dp"
-                    android:layout_height="86dp"
-                    android:src="@mipmap/icon_user"
-                    app:civ_border_color="@color/colorAccent"
-                    app:civ_border_width="2dp" />
-
-            </RelativeLayout>
-
-
-            <RelativeLayout
-                android:id="@+id/rlimgPagosServiceToPay"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="right">
-
-                <de.hdodenhof.circleimageview.CircleImageView
-                    android:id="@+id/imgPagosServiceToPay"
-                    android:layout_width="85dp"
-                    android:layout_height="85dp"
-                    android:src="@mipmap/circulo_add_servicio"
-                    app:civ_border_color="@color/black"
-                    app:civ_border_width="2dp" />
-            </RelativeLayout>
-
-        </FrameLayout>
-
-        <RelativeLayout
-            android:id="@+id/containerPayPutHere"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="left">
-
-            <LinearLayout
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-
-                <LinearLayout
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center_horizontal"
-                    android:layout_marginTop="10dp"
-                    android:gravity="center"
-                    android:orientation="vertical">
-
-                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        android:id="@+id/txtPagosUserName"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:maxLines="2"
-                        android:maxWidth="100dp"
-                        android:text="Marcela"
-                        android:textColor="@color/colorAccent"
-                        android:textSize="18sp"
-                        app:tipo="Subtitulo" />
-
-                    <RelativeLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content">
-
-                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                            android:id="@+id/txtPagosYourBalance"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_centerVertical="true"
-                            android:text="Tu Saldo: $20."
-                            android:textSize="12sp"
-                            app:tipo="Subtitulo" />
-
-                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                            android:id="@+id/txtPagosYourBalanceCents"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_toEndOf="@+id/txtPagosYourBalance"
-                            android:layout_toRightOf="@+id/txtPagosYourBalance"
-                            android:text="00"
-                            android:textSize="8sp"
-                            app:tipo="Subtitulo" />
-                    </RelativeLayout>
-                </LinearLayout>
-            </LinearLayout>
-
-
-        </RelativeLayout>
-
-    </LinearLayout>
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
 
         <RelativeLayout
+            android:id="@+id/mainLayoutCarousel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:visibility="visible">
 
             <LinearLayout
-                android:id="@+id/layoutRecargas"
+                android:id="@+id/layoutCarouselMain"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:visibility="visible">
-
-                <com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
-                    android:id="@+id/carouselRecargas"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_margin="10dp" />
-
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutPDA"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
                 android:visibility="gone">
 
                 <com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
-                    android:id="@+id/carouselPDA"
-                    android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_margin="10dp" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/layoutBanks"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:visibility="gone">
-
-                <com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
-                    android:id="@+id/carouselBanks"
+                    android:id="@+id/carouselMain"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
                     android:layout_margin="10dp" />
@@ -173,7 +38,7 @@
                 android:minHeight="250dp"
                 android:text="Cargando servicios...(*)"
                 android:textSize="20sp"
-                app:tipo="Titulo"/>
+                app:tipo="Titulo" />
 
 
         </RelativeLayout>

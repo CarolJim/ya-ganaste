@@ -50,13 +50,13 @@ public class ValidateForm {
         return passwprdPattern.matcher(pass).matches();
     }
 
-    private final static Pattern phonePattern = Pattern.compile("d{7}");
+    private final static Pattern phonePattern = Pattern.compile("^[0-9]{7}$");
 
     public static boolean isValidPhone(String phone) {
         return phonePattern.matcher(phone).matches();
     }
 
-    private final static Pattern cellPhonePattern = Pattern.compile("d{10}");
+    private final static Pattern cellPhonePattern = Pattern.compile("^[0-9]{10}$");
 
     public static boolean isValidCellPhone(String cellPhone){
         return  cellPhonePattern.matcher(cellPhone).matches();

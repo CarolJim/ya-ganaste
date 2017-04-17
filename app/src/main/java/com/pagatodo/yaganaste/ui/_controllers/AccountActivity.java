@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
@@ -33,7 +34,7 @@ import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragmen
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 
 
-public class AccountActivity extends SupportFragmentActivity implements OnEventListener{
+public class AccountActivity extends SupportFragmentActivity implements OnEventListener {
     private Preferencias pref;
 
     public final static String EVENT_GO_LOGIN = "EVENT_GO_LOGIN";
@@ -66,7 +67,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     private PermisosFragment permisosFragment;
     private AccountPresenterNew presenterAccount;
 
-    private String action="";
+    private String action = "";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -80,11 +81,11 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
 
         switch (action) {
             case GO_TO_LOGIN:
-                loadFragment(LoginFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case GO_TO_REGISTER:
-                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(DatosUsuarioFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
         }
@@ -98,7 +99,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 Manifest.permission.READ_EXTERNAL_STORAGE}, 1);*/
     }
 
-    public AccountPresenterNew getPresenter(){
+    public AccountPresenterNew getPresenter() {
 
         return this.presenterAccount;
     }
@@ -106,56 +107,56 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     @Override
     public void onEvent(String event, Object o) {
 
-        switch (event){
+        switch (event) {
 
             case EVENT_GO_LOGIN:
-                loadFragment(LoginFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_DATA_USER:
-                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(DatosUsuarioFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_DATA_USER_BACK:
-                loadFragment(DatosUsuarioFragment.newInstance(), DIRECTION.BACK, false);
+                loadFragment(DatosUsuarioFragment.newInstance(), Direction.BACK, false);
                 break;
 
             case EVENT_PERSONAL_DATA:
-                loadFragment(DatosPersonalesFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(DatosPersonalesFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_PERSONAL_DATA_BACK:
-                loadFragment(DatosPersonalesFragment.newInstance(), DIRECTION.BACK, false);
+                loadFragment(DatosPersonalesFragment.newInstance(), Direction.BACK, false);
                 break;
 
             case EVENT_ADDRESS_DATA:
-                loadFragment(DomicilioActualFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(DomicilioActualFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_ADDRESS_DATA_BACK:
-                loadFragment(DomicilioActualFragment.newInstance(), DIRECTION.BACK, false);
+                loadFragment(DomicilioActualFragment.newInstance(), Direction.BACK, false);
                 break;
             case EVENT_GO_GET_CARD:
-                loadFragment(TienesTarjetaFragment.newInstance(), DIRECTION.FORDWARD, true);
+                loadFragment(TienesTarjetaFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_ASSIGN_PIN:
-                loadFragment(AsignarNIPFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(AsignarNIPFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CONFIRM_PIN:
-                loadFragment(ConfirmarNIPFragment.newInstance(o.toString()), DIRECTION.FORDWARD, false);
+                loadFragment(ConfirmarNIPFragment.newInstance(o.toString()), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CONFIRM_PIN_BACK:
-                loadFragment(AsignarNIPFragment.newInstance(), DIRECTION.BACK, false);
+                loadFragment(AsignarNIPFragment.newInstance(), Direction.BACK, false);
                 break;
             case EVENT_GO_ASOCIATE_PHONE:
-                loadFragment(AsociatePhoneAccountFragment.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(AsociatePhoneAccountFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_GO_REGISTER_COMPLETE:
                 pref.clearPreference(COUCHMARK_EMISOR);
-                loadFragment(RegisterCompleteFragment.newInstance(EMISOR), DIRECTION.FORDWARD, false);
+                loadFragment(RegisterCompleteFragment.newInstance(EMISOR), Direction.FORDWARD, false);
                 break;
             case EVENT_COUCHMARK:
-                loadFragment(Couchmark.newInstance(), DIRECTION.FORDWARD, false);
+                loadFragment(Couchmark.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case EVENT_GO_MAINTAB:
@@ -167,7 +168,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         }
     }
 
-    private void initFragments(){
+    private void initFragments() {
         datosUsuarioFragment = DatosUsuarioFragment.newInstance();
         datosPersonalesFragment = DatosPersonalesFragment.newInstance();
         domicilioActualFragment = DomicilioActualFragment.newInstance();
@@ -178,47 +179,47 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     public void onBackPressed() {
 
         Fragment currentFragment = getCurrentFragment();
-        if(currentFragment instanceof LoginFragment){
+        if (currentFragment instanceof LoginFragment) {
             finish();
-        }else if(currentFragment instanceof DatosUsuarioFragment){
+        } else if (currentFragment instanceof DatosUsuarioFragment) {
             resetRegisterData();// Eliminamos la información de registro almacenada.
             finish();
-        }else if(currentFragment instanceof DatosPersonalesFragment){
-            onEvent(EVENT_DATA_USER_BACK,null);
-        }else if(currentFragment instanceof DomicilioActualFragment){
-            onEvent(EVENT_PERSONAL_DATA_BACK,null);
-        }else if(currentFragment instanceof TienesTarjetaFragment){
+        } else if (currentFragment instanceof DatosPersonalesFragment) {
+            onEvent(EVENT_DATA_USER_BACK, null);
+        } else if (currentFragment instanceof DomicilioActualFragment) {
+            onEvent(EVENT_PERSONAL_DATA_BACK, null);
+        } else if (currentFragment instanceof TienesTarjetaFragment) {
 
-            if(((TienesTarjetaFragment)currentFragment).isCustomKeyboardVisible()){
-                ((TienesTarjetaFragment)currentFragment).hideKeyboard();
-            }else{
+            if (((TienesTarjetaFragment) currentFragment).isCustomKeyboardVisible()) {
+                ((TienesTarjetaFragment) currentFragment).hideKeyboard();
+            } else {
                 resetRegisterData();// Eliminamos la información de registro almacenada.
                 finish();
             }
-        }else if(currentFragment instanceof AsignarNIPFragment){
-            if(((AsignarNIPFragment)currentFragment).isCustomKeyboardVisible()){
-                ((AsignarNIPFragment)currentFragment).hideKeyboard();
-            }else{
+        } else if (currentFragment instanceof AsignarNIPFragment) {
+            if (((AsignarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
+                ((AsignarNIPFragment) currentFragment).hideKeyboard();
+            } else {
                 resetRegisterData();// Eliminamos la información de registro almacenada.
                 finish();
             }
-        }else if(currentFragment instanceof ConfirmarNIPFragment){
-            if(((ConfirmarNIPFragment)currentFragment).isCustomKeyboardVisible()){
-                ((ConfirmarNIPFragment)currentFragment).hideKeyboard();
-            }else{
-                onEvent(EVENT_GO_CONFIRM_PIN_BACK,null);
+        } else if (currentFragment instanceof ConfirmarNIPFragment) {
+            if (((ConfirmarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
+                ((ConfirmarNIPFragment) currentFragment).hideKeyboard();
+            } else {
+                onEvent(EVENT_GO_CONFIRM_PIN_BACK, null);
             }
-        }else if(currentFragment instanceof AsociatePhoneAccountFragment){
+        } else if (currentFragment instanceof AsociatePhoneAccountFragment) {
             resetRegisterData();// Eliminamos la información de registro almacenada.
             finish();
-        }else{
+        } else {
             resetRegisterData();// Eliminamos la información de registro almacenada.
             super.onBackPressed();
         }
     }
 
     /*Se eliminan los datos almacenados en Memoria*/
-    private void resetRegisterData(){
+    private void resetRegisterData() {
         RegisterUser.resetRegisterUser();
         Card.resetCardData();
     }
