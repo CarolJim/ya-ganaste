@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste;
 
 import android.app.Activity;
+import android.app.Application;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
@@ -21,7 +22,7 @@ import com.pagatodo.yaganaste.utils.UI;
  * Created by flima on 17/03/17.
  */
 
-public class App extends MultiDexApplication {
+public class App extends Application {
     private static App m_singleton;
 
     private Preferencias prefs;
@@ -33,11 +34,11 @@ public class App extends MultiDexApplication {
     public void onCreate() {
         super.onCreate();
         m_singleton = this;
-        MultiDex.install(this);
+        //MultiDex.install(this);
         this.prefs = new Preferencias(this);
+        System.loadLibrary("a01jni");
         context = this;
         RequestHeaders.initHeaders(this);
-        System.loadLibrary("a01jni");
         initEMVListener();
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {

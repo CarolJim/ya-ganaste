@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.freja.provisioning.iteractor;
 
+import com.pagatodo.yaganaste.freja.provisioning.asynk.SetTokenRequest;
 import com.verisec.freja.mobile.core.exceptions.FmcCodeException;
 import com.verisec.freja.mobile.core.exceptions.FmcInternalException;
 
@@ -18,7 +19,7 @@ import com.pagatodo.yaganaste.freja.provisioning.asynk.ActivationCodeRequest;
  * @version 1.0
  */
 
-public class ProvisioningIteractorImp extends FmcIteractorImp implements ProvisioningIteractor, ActivationCodeRequest.ActivationCodeCallback, PinPolicyCallback, VerifyPinRequest.VerifyPinCallback {
+public class ProvisioningIteractorImp extends FmcIteractorImp implements ProvisioningIteractor, ActivationCodeRequest.ActivationCodeCallback, PinPolicyCallback, VerifyPinRequest.VerifyPinCallback, SetTokenRequest.SetTokenCallback {
 
     private ProvisioningManager provisioningManager;
     private Executor mExecutor;
@@ -69,18 +70,23 @@ public class ProvisioningIteractorImp extends FmcIteractorImp implements Provisi
     }
 
     @Override
+    public void onVerifyPinSuccessful() {
+        provisioningManager.endProvisioning();
+    }
+
+    @Override
     public void setTokenNotificationId(String tokenNotificationId, byte[] nip) {
-        try {
-            fmcManager.getFmcWSHandler().setTokenNotificationId(tokenNotificationId, nip);
-            Arrays.fill(nip, (byte)0XFF);
-        } catch (FmcInternalException | FmcCodeException e) {
-            provisioningManager.handleException(e);
+        SetTokenRequest setTokenRequest = new SetTokenRequest(fmcManager, this, tokenNotificationId);
+        if (mExecutor == null){
+            setTokenRequest.execute(nip);
+        } else {
+            setTokenRequest.executeOnExecutor(mExecutor, nip);
         }
     }
 
     @Override
-    public void onVerifyPinSuccessful() {
-        provisioningManager.endProvisioning();
+    public void onSetTokenSuccess() {
+        provisioningManager.endTokenNotification();
     }
 
     @Override
@@ -97,4 +103,6 @@ public class ProvisioningIteractorImp extends FmcIteractorImp implements Provisi
     public void throwInitException(Exception e) {
         provisioningManager.handleException(e);
     }
+
+
 }

@@ -134,7 +134,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                 Log.i("IposListener: ","=====>>   starReaderEmvSwipe ");
                 getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
                 App.getInstance().pos.openAudio();
-                initListenerDongle();
+                App.getInstance().pos.getQposId();
+                //initListenerDongle();
+                //initListenerDongle();
                 /*if(!prefs.contains(Recursos.KSN_LECTOR)) {
                     App.getInstance().pos.getQposId();
                     App.getInstance().pos.getQposInfo();
@@ -144,7 +146,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     showProgress(getResources().getString(R.string.readcard));
                 }*/
 
-                App.getInstance().pos.getQposId();
+                //App.getInstance().pos.getQposId();
                 //App.getInstance().pos.getQposInfo();
                 showLoader(getResources().getString(R.string.validatelector));
             }
@@ -227,7 +229,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         Log.i("IposListener: ","=====>>    REQUEST_PIN");
                         break;
                     case SW_TIMEOUT:
-                        //initListenerDongle();
+                        initListenerDongle();
                         hideLoader();
                         Toast.makeText(getActivity(), "Vuelve a conectar el Lector.", Toast.LENGTH_SHORT).show();
                         showInsertDongle();
@@ -249,6 +251,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         Log.i("IposListener: ","=====>>    ENCENDIDO");
                         //closeProgress();
                         hideLoader();
+                        //readDongle();
                         break;
                     default:
                         Log.i("IposListener: ","=====>>    default");
@@ -264,6 +267,15 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
 
     /****/
+
+    private void readDongle(){
+
+        getKSN();
+    }
+
+    public void getKSN() {
+        App.getInstance().pos.getQposId();
+    }
 
     public InsertDongleFragment() {
     }

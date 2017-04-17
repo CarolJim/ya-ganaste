@@ -13,7 +13,7 @@ public interface IVerificationSMSView extends IAccountView2{
     public void smsVerificationSuccess();
     public void smsVerificationFailed(String message);
     public void devicesAlreadyAssign(String message);
-    public void provisingCompleted(String message);
+    public void provisingCompleted();
     public void verifyActivationProvisingFailed(String message);
     public void activationProvisingFailed(String message);
 
