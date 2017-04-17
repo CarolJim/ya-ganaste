@@ -12,8 +12,10 @@ import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
+import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.register.DatosNegocio;
 import com.pagatodo.yaganaste.ui.account.register.Documentos;
+import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioNegocio;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 
@@ -41,8 +43,9 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.login_activity);
-        // initFragments();
-        loadFragment(Documentos.newInstance(), Direction.FORDWARD, true);
+
+       // initFragments();
+        loadFragment(DatosNegocio.newInstance(), Direction.FORDWARD, true);
         pref = App.getInstance().getPrefs();
     }
 
@@ -73,6 +76,27 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
                 finish();
                 break;
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        Fragment currentFragment = getCurrentFragment();
+        if (currentFragment instanceof DatosNegocio) {
+            RegisterAgent.resetRegisterAgent();
+            finish();
+        } else if (currentFragment instanceof DomicilioNegocio) {
+            onEvent(EVENT_GO_BUSSINES_DATA_BACK, null);
+        } else if (currentFragment instanceof Documentos) {
+            onEvent(EVENT_GO_BUSSINES_ADDRESS_BACK, null);
+        } else if (currentFragment instanceof Documentos) {
+            onEvent(EVENT_GO_BUSSINES_ADDRESS_BACK, null);
+        } else if (currentFragment instanceof RegisterCompleteFragment) {
+
+        } else {
+            RegisterAgent.resetRegisterAgent();
+            finish();
+        }
+
     }
 
     private void initFragments() {

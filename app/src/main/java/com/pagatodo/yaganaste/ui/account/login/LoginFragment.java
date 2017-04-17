@@ -179,11 +179,13 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void showValidationError(Object error) {
         UI.showToastShort(error.toString(),getActivity());
+        setEnableViews(true);
     }
 
     @Override
     public void onValidationSuccess() {
-        /*TODO Validar si se debe de cerrar sesuón antes de realizar el login*/
+
+        setEnableViews(false);
         accountPresenter.login(username,password); // Realizamos el  Login
         //loginSucced();
     }
@@ -203,6 +205,13 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void recoveryPasswordSucced() {
+
+    }
+
+    private void setEnableViews(boolean isEnable){
+        edtUserName.setEnabled(isEnable);
+        edtUserPass.setEnabled(isEnable);
+        btnLogin.setEnabled(isEnable);
 
     }
 }

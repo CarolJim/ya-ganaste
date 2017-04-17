@@ -79,6 +79,22 @@ public class AdqPresenter extends DocumentsPresenter implements IAdqAccountPrese
 
     }
 
+
+    @Override
+    public void validateDongle(String zipCode) {
+
+    }
+
+    @Override
+    public void initTransaction(String zipCode) {
+
+    }
+
+    @Override
+    public void sendTicket(String zipCode) {
+
+    }
+
     @Override
     public void onError(WebService ws,Object error) {
         iAdqView.hideLoader();

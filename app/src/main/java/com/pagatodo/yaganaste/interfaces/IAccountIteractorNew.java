@@ -28,6 +28,4 @@ public interface IAccountIteractorNew <T>{
     public void getSMSNumber();
     public void verifyActivationSMS();
     public void assignmentNIP(AsignarNIPRequest request);
-    public void verifyActivationAprov(VerificarActivacionAprovSofttokenRequest request);
-    public void activationAprov(ActivacionAprovSofttokenRequest request);
 }

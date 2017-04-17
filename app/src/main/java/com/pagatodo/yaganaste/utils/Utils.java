@@ -16,6 +16,7 @@ import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.util.Patterns;
 import android.view.View;
 import android.widget.TextView;
@@ -24,6 +25,7 @@ import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.GiroComercio;
 
 import org.json.JSONException;
@@ -1236,5 +1238,13 @@ public class Utils {
         }
 
         return mPath;
+    }
+
+    public static int getTransactionSequence() {
+        Preferencias prefs = App.getInstance().getPrefs();
+        int value = (Integer.parseInt(prefs.loadData(Recursos.TRANSACTION_SEQUENCE)) + 1) % 1000000;
+        Log.i("IposListener: ","=====>>  transaction  "+value);
+        prefs.saveData(Recursos.TRANSACTION_SEQUENCE, Integer.toString(value));
+        return value;
     }
 }

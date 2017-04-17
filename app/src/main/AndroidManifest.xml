@@ -76,6 +76,11 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity
+            android:name=".ui._controllers.AdqActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" />
+
+        <activity
             android:name=".ui._controllers.TabActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
@@ -92,9 +97,9 @@
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"
             android:theme="@android:style/Theme.Translucent"/>
-        <meta-data
+       <!-- <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />
+            android:value="@string/google_maps_key" />-->
 
         <service
             android:name=".net.MessagingService">

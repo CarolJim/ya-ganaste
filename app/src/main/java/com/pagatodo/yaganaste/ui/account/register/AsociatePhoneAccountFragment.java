@@ -17,10 +17,12 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.AprovPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -39,7 +41,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_RE
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class AsociatePhoneAccountFragment extends GenericFragment implements View.OnClickListener,IVerificationSMSView {
+public class AsociatePhoneAccountFragment extends GenericFragment implements View.OnClickListener,IVerificationSMSView,IAprovView {
 
     private static final String TAG = AsociatePhoneAccountFragment.class.getSimpleName();
     private static final long CHECK_SMS_VALIDATE_DELAY = 10000;
@@ -55,6 +57,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
     BroadcastReceiver broadcastReceiver;
 
     private AccountPresenterNew accountPresenter;
+    private AprovPresenter aprovPresenter;
     public AsociatePhoneAccountFragment() {
     }
 
@@ -79,11 +82,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
         super.onCreate(savedInstanceState);
         accountPresenter = ((AccountActivity)getActivity()).getPresenter();
         accountPresenter.setIView(this);
-        //accountPresenter = new AccountPresenterNew(getActivity(),this);
-        //RequestHeaders.setUsername("mailprueba200@mail.com");
-        //RequestHeaders.setTokensesion("72186BF634808214F348AC75ED3CF8D66C7BF42A0403F1CE8E483F1307FA1148670195A73B082434C0537317459DBD8F");
-        //RequestHeaders.setUsername("userd@mail.com");
-        //RequestHeaders.setTokensesion("6137E51838FDBEA96161DD34B6426CAA99D5D958E8F213307B34F832E993E4A389A221A7D04A89FFE1E36509A3451CAC");
+        aprovPresenter = new AprovPresenter(getActivity(),this);
     }
 
     @Override
@@ -125,15 +124,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
 
     @Override
     public void smsVerificationSuccess() {
-        //nextStepRegister(EVENT_GO_REGISTER_COMPLETE,null);
         executeProvisioning();
-    }
-
-    @Override
-    public void provisingCompleted(String message) {
-
-        UI.showToastShort(message,getActivity());
-        nextStepRegister(EVENT_GO_REGISTER_COMPLETE,null);
     }
 
     @Override
@@ -147,7 +138,29 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
     }
 
     private void executeProvisioning(){
-        accountPresenter.getActivationCode();
+        aprovPresenter.getActivationCode();
+    }
+
+    @Override
+    public void showErrorAprov(Object error) {
+        showError(error.toString());
+        finishAssociation();
+    }
+
+    /*Una vez aprovisionado, se suscribe a las notificationes*/
+    @Override
+    public void provisingCompleted() {
+        aprovPresenter.subscribePushNotification();
+    }
+
+    @Override
+    public void subscribeNotificationSuccess() {
+        /*TODO Almacenar preference indicando que ya se encuentra registrado a las notificaciones desde presenter*/
+        finishAssociation();
+    }
+
+    public void finishAssociation(){
+        nextStepRegister(EVENT_GO_REGISTER_COMPLETE,null);
     }
 
     @Override
@@ -170,9 +183,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
     @Override
     public void devicesAlreadyAssign(String message) {
         UI.showToast(message,getActivity());
-        goToLogin(); // TODO Se sigue al siguiente paso solo para realizar pruebas.
-        //executeProvisioning();
-        //nextStepRegister(EVENT_GO_REGISTER_COMPLETE,null);
+        goToLogin();
     }
 
     @Override
@@ -280,7 +291,7 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
         super.onDestroy();
 
         try {
-            getActivity().unregisterReceiver( broadcastReceiverSend);
+            getActivity().unregisterReceiver(broadcastReceiverSend);
         } catch (Exception e) {
             e.printStackTrace();
         }

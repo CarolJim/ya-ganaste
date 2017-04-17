@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.account;
 import android.content.Context;
 import android.util.Log;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
@@ -31,6 +32,7 @@ import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.utils.Codec;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.List;
@@ -48,21 +50,20 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
+import static com.pagatodo.yaganaste.utils.Recursos.CRC32_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 
 /**
  * Created by flima on 22/03/2017.
  */
 
-public class AccountPresenterNew extends ProvisioningPresenterAbs implements IAccountPresenterNew, IAccountManager {
+public class AccountPresenterNew implements IAccountPresenterNew, IAccountManager {
     private static final String TAG = AccountPresenterNew.class.getName();
     private IAccountIteractorNew accountIteractor;
     private IAccountView2 accountView;
     private Preferencias prefs = App.getInstance().getPrefs();
 
     public AccountPresenterNew(Context context) {
-        super(context);
-        //this.accountView = accountView;
         accountIteractor = new AccountInteractorNew(this);
     }
 
@@ -85,8 +86,8 @@ public class AccountPresenterNew extends ProvisioningPresenterAbs implements IAc
     @Override
     public void createUser() {
         accountView.showLoader(App.getInstance().getString(R.string.msg_register));
-
         RegisterUser registerUser = RegisterUser.getInstance();
+        prefs.saveData(CRC32_FREJA, Codec.applyCRC32(registerUser.getContrasenia()));//Freja
         CrearUsuarioFWSRequest request = new CrearUsuarioFWSRequest(
                 registerUser.getEmail(),
                 registerUser.getNombre(),
@@ -190,10 +191,6 @@ public class AccountPresenterNew extends ProvisioningPresenterAbs implements IAc
                 } else{
                     ((IVerificationSMSView) accountView).smsVerificationFailed(error.toString());
                 }
-            }else if(ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN){
-                ((IVerificationSMSView) accountView).verifyActivationProvisingFailed(error.toString());
-            }else if(ws == ACTIVACION_APROV_SOFTTOKEN){
-                ((IVerificationSMSView) accountView).activationProvisingFailed(error.toString());
             }else{
                 accountView.showError(error);
             }
@@ -241,90 +238,10 @@ public class AccountPresenterNew extends ProvisioningPresenterAbs implements IAc
                 ((IVerificationSMSView) accountView).messageCreated((MessageValidation) data);
             }else if(ws == VERIFICAR_ACTIVACION){ // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).smsVerificationSuccess();
-            }else if(ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN){ // Error en Verificacion de Aprovisionamiento
-
-                getPinPolicy(); // Obtenemos las Reglas del Pin
-
-            }else if(ws == ACTIVACION_APROV_SOFTTOKEN){// Error activación de Aprovisionamiento
-
-                ((IVerificationSMSView) accountView).provisingCompleted(data.toString());
-
             }
         }else if(ws == CERRAR_SESION){
             Log.i(TAG,"La sesión se ha cerrado.");
         }
     }
 
-    /***
-     *Implementación de Aprovisionamiento*
-     *
-     * */
-    @Override
-    public void verifyActivationAprov(String codeActivation) {
-        VerificarActivacionAprovSofttokenRequest request = new VerificarActivacionAprovSofttokenRequest(codeActivation);
-        accountIteractor.verifyActivationAprov(request);
-    }
-
-    @Override
-    public void activationAprov(String codeActivation) {
-        ActivacionAprovSofttokenRequest request = new ActivacionAprovSofttokenRequest(codeActivation);
-        accountIteractor.activationAprov(request);
-    }
-
-    /**Implementación de Freja**/
-
-    @Override
-    public void setActivationCode(String activationCode) {
-        SingletonUser.getInstance().setActivacionCodeFreja(activationCode);// Almacenamos el activationCode de FREJA
-        verifyActivationAprov(activationCode);
-        //activationAprov(activationCode);
-    }
-
-    @Override
-    public void setPinPolicy(int min, int max) { // OnSuccess de getPinPolicy()
-        /*TODO se realiza validación del PIN*/
-        /**Se envía la misma contraseña que ingreso el usuario en su cuenta de Ya Ganaste*/
-        registerPin("1234");
-    }
-
-    @Override
-    public void endProvisioning() { // Finaliza el proceso con FREJA
-        String activationCode = SingletonUser.getInstance().getActivacionCodeFreja();
-        activationAprov(activationCode);
-    }
-
-    @Override
-    public void endTokenNotification() {
-        
-    }
-
-    @Override
-    public void handleException(Exception e) {
-
-        Log.i(TAG,e.toString());
-
-    }
-
-    @Override
-    public void onError(Errors error) {
-
-        switch (error){
-
-            case NO_ACTIVATION_CODE:
-
-                break;
-
-            case NO_PIN_POLICY:
-
-                break;
-
-            case NO_NIP:
-
-                break;
-
-            case BAD_CHANGE_POLICY:
-
-                break;
-        }
-    }
 }

@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.view.ViewPager;
@@ -10,6 +11,7 @@ import android.widget.Button;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
+import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -50,7 +52,7 @@ public class InviteAdquirenteFragment extends GenericFragment implements View.On
     @Override
     public void initViews() {
         rootView.findViewById(R.id.btn_mas_tarde).setOnClickListener(this);
-        rootView.findViewById(R.id.btn_mas_tarde).setOnClickListener(this);
+        rootView.findViewById(R.id.btn_si).setOnClickListener(this);
     }
 
     @Override
@@ -69,6 +71,10 @@ public class InviteAdquirenteFragment extends GenericFragment implements View.On
                 if (onEventListener != null) {
                     onEventListener.onEvent(TabActivity.EVENT_GO_HOME, null);
                 }
+                break;
+
+            case R.id.btn_si:
+                startActivity(new Intent(getActivity(), BussinesActivity.class));
                 break;
 
             default:

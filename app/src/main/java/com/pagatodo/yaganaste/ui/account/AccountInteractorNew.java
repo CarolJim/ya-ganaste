@@ -267,25 +267,6 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
         }
     }
 
-
-    @Override
-    public void verifyActivationAprov(VerificarActivacionAprovSofttokenRequest request) {
-        try {
-            ApiAdtvo.verificarActivacionAprovSofttoken(request,this);
-        } catch (OfflineException e) {
-            e.printStackTrace();
-        }
-    }
-
-    @Override
-    public void activationAprov(ActivacionAprovSofttokenRequest request) {
-        try {
-            ApiAdtvo.activacionAprovSofttoken(request,this);
-        } catch (OfflineException e) {
-            e.printStackTrace();
-        }
-    }
-
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
 
@@ -358,15 +339,6 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                 processVerifyActivation(dataSourceResult);
                 break;
 
-            case VERIFICAR_ACTIVACION_APROV_SOFTTOKEN:
-                processVerifyActivationAprov(dataSourceResult);
-                break;
-
-
-            case ACTIVACION_APROV_SOFTTOKEN:
-                processActivationAprov(dataSourceResult);
-                break;
-
             case ACTUALIZAR_INFO_SESION:
                 proccesDataSession(dataSourceResult);
                 break;
@@ -383,8 +355,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
     }
 
     /**
-     * Método para decidir si es dirigido al {@link com.pagatodo.yaganaste.ui.account.login.LoginFragment} o al
-     * {@link com.pagatodo.yaganaste.ui.account.register.GetCardFragment} dependiendo su estatus de usuario
+     * Método para decidir a donde dirigir al usuario dependiendo su estatus de usuario
      * @param  response {@link DataSourceResult} respuesta del servicio
      * */
     private void processStatusEmail(DataSourceResult response){
@@ -513,6 +484,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
      * @param  response {@link DataSourceResult} respuesta del servicio
      * */
     private void processUserCreatedLoged(DataSourceResult response) {
+        /*TODO Manejo de excepcion de Servicio.*/
         CrearUsuarioFWSInicioSesionResponse data = (CrearUsuarioFWSInicioSesionResponse) response.getData();
         DataUsuarioFWSInicioSesion dataUser = data.getData();
         if(data.getCodigoRespuesta() == CODE_OK){
@@ -676,26 +648,6 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
         }
     }
 
-
-    private void processVerifyActivationAprov(DataSourceResult response) {
-        VerificarActivacionAprovSofttokenResponse data = (VerificarActivacionAprovSofttokenResponse) response.getData();
-        if(data.getCodigoRespuesta() == CODE_OK) {
-            accountManager.onSucces(response.getWebService(), "");
-        }else{
-            //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
-            accountManager.onError(response.getWebService(),data.getMensaje());//Retornamos mensaje de error.
-        }
-    }
-
-    private void processActivationAprov(DataSourceResult response) {
-        ActivacionAprovSofttokenResponse data = (ActivacionAprovSofttokenResponse) response.getData();
-        if(data.getCodigoRespuesta() == CODE_OK) {
-            accountManager.onSucces(response.getWebService(), "Aprovisionamiento Exitoso.");
-        }else{
-            //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
-            accountManager.onError(response.getWebService(),data.getMensaje());//Retornamos mensaje de error.
-        }
-    }
 
     private void proccesDataSession(DataSourceResult response) {
         ActualizarInformacionSesionResponse data = (ActualizarInformacionSesionResponse) response.getData();

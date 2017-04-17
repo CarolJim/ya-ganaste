@@ -42,6 +42,7 @@ public class Recursos {
 	/*Preferencias de Sesion*/
 	public static final String CODE_ACTIVATION_FREJA = "CODEACTIVATIONFREJA";
 	public static String COUCHMARK_EMISOR = "COUCHMARKEMISOR";
+	public static String CRC32_FREJA = "CRC32FREJA";
 
 	/**Catálogos**/
 	/*PTH – Estatus Comercios*/
@@ -88,6 +89,45 @@ public class Recursos {
 	public static final int NO_ACTION = -2;
 	public static final int GO_LOGIN = -3;
 
+	/*Adq / Dongle*/
+	public static final int ENCENDIENDO = 100;
+	public static final int ENCENDIDO = 110;
+	public static final int APAGANDO = 120;
+	public static final int APAGADO = 130;
+	public static final int DESCONECTADO = 140;
+	public static final int LEYENDO = 150;
+	public static final int SW_ERROR = 160;
+	public static final int LECTURA_OK = 170;
+	public static final int SW_TIMEOUT = 180;
+	public static final int ENCENDIDO_TIMEOUT = 190;
+	public static final int BATTERY_LOW = 200;
+	public static final int READ_KSN = 210;
+	public static final int READ_KSN_ERROR = 220;
+	public static final int ERROR_LECTOR = 230;
+	public static final int CONFIG_READER_OK = 240;
+	public static final int CONFIG_READER_OK_ERROR = 250;
+	public static final int READ_BATTERY_LEVEL = 260;
+	public static final int EMV_DETECTED = 270;
+	public static final int REQUEST_AMOUNT = 280;
+	public static final int REQUEST_TIME = 290;
+	public static final int REQUEST_IS_SERVER_CONNECTED = 300;
+	public static final int REQUEST_FINAL_CONFIRM = 310;
+	public static final int REQUEST_PIN = 320;
+	public static final int REQUEST_SELECT_APP = 330;
 
+	public static final String TRANSACTION_SEQUENCE = "TRANSACTION_SEQUENCE";
+	public static final String IPOS_READER_STATES = "EMVSWIPE_STATES";
+	public static final int READER_TRANSACTION = 0x31;
+
+	public static final String MSJ = "MSJ";
+	public static final String ESTADO = "ESTADO";
+	public static final String VALOR = "VALOR";
+	public static final String TRANSACTION = "TRANSACTION";
+	public static final String APP_LIST = "APP_LIST";
+	public static final String ERROR = "ERROR";
+	public static final String IDERROR = "IDERROR";
+	public static final String BATTERY_LEVEL = "BATTERY_LEVEL";
+	public static final String READER_IS_CHARGING = "READER_IS_CHARGING";
+	public static final String KSN_LECTOR = "KSN_LECTOR";
 
 }

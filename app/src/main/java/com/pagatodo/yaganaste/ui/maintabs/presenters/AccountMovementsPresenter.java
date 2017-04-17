@@ -55,8 +55,8 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
 
         List<ItemMovements<MovimientosResponse>> movementsList = new ArrayList<>();
         String[] date;
-        for (MovimientosResponse movimientosResponse : response.getData().getListaMovimientos()) {
-            date = movimientosResponse.getFechaMovimiento().split("\\.");
+        for (MovimientosResponse movimientosResponse : response.getData()) {
+            date = movimientosResponse.getFechaMovimiento().split(" ");
             // TODO: 28/03/2017 Verificar si el color debe ser local o si viene del servicio
             movementsList.add(new ItemMovements<>(movimientosResponse.getDetalle(), movimientosResponse.getDescripcion(),
                     (movimientosResponse.getTipoMovimiento() != 1 ? movimientosResponse.getImporte(): -movimientosResponse.getImporte())

@@ -46,6 +46,10 @@ public class Preferencias {
 		return type.cast(Utils.stringToObject(this.preferences.getString(key, null)));
 	}
 
+	public String loadData(String key){
+		return this.preferences.getString(key, null);
+	}
+
 	public void clearPreferences(){
 		SharedPreferences.Editor editor = this.preferences.edit();
 		editor.clear();
