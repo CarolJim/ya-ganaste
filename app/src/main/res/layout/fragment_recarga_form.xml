@@ -1,60 +1,55 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/FragmentElement"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:layout_marginTop="@dimen/margin_big">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/containerRecargaForm"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/containerRecargaForm"
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/recargaNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:formato="celphone"
+            app:hintText="Teléfono (10 Digitos)"
+            app:isSingleLine="true"
+            app:maxLength="10" />
 
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/recargaNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:formato="celphone"
-                app:hintText="Teléfono (10 Digitos)"
-                app:isSingleLine="true"
-                app:maxLength="10" />
-
-            <Spinner
-                android:id="@+id/montoRecarga"
-                style="@style/CustomSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_between_elements"
-                android:backgroundTint="@color/transparent" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/containerSlideButon"
+        <Spinner
+            android:id="@+id/montoRecarga"
+            style="@style/CustomSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/containerRecargaForm"
-            android:layout_marginLeft="@dimen/margin_doble"
-            android:layout_marginRight="@dimen/margin_doble"
-            android:layout_marginTop="@dimen/margin_doble">
+            android:layout_marginTop="@dimen/space_between_elements"
+            android:backgroundTint="@color/transparent" />
+    </LinearLayout>
 
-            <SeekBar
-                android:id="@+id/myseek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_doble"
-                android:background="@drawable/seek_background"
-                android:clickable="false"
-                android:max="100"
-                android:progressDrawable="@android:color/transparent"
-                android:thumb="@drawable/thumb_size"
-                android:thumbOffset="15dp" />
-        </RelativeLayout>
+    <RelativeLayout
+        android:id="@+id/containerSlideButon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/containerRecargaForm"
+        android:layout_marginLeft="@dimen/margin_doble"
+        android:layout_marginRight="@dimen/margin_doble"
+        android:layout_marginTop="@dimen/margin_doble">
+
+        <SeekBar
+            android:id="@+id/myseek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_doble"
+            android:background="@drawable/seek_background"
+            android:clickable="false"
+            android:max="100"
+            android:progressDrawable="@android:color/transparent"
+            android:thumb="@drawable/thumb_size"
+            android:thumbOffset="15dp" />
     </RelativeLayout>
-</ScrollView>
+</RelativeLayout>

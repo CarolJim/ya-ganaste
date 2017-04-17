@@ -12,8 +12,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -57,7 +55,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     CircleImageView imgPagosServiceToPay;
     MovementsTab currentTab = MovementsTab.TAB1;
 
-    private Animation animIn, animOut;
+    //private Animation animIn, animOut;
     private PaymentsTabPresenter paymentsTabPresenter;
 
     public static PaymentsTabFragment newInstance() {
@@ -72,10 +70,10 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         super.onCreate(savedInstanceState);
         paymentsTabPresenter = new PaymentsTabPresenter();
 
-        animIn = AnimationUtils.loadAnimation(getContext(), R.anim.slide_from_left);
+        /*animIn = AnimationUtils.loadAnimation(getContext(), R.anim.slide_from_left);
         animOut = AnimationUtils.loadAnimation(getContext(), R.anim.slide_to_right);
         animIn.setDuration(1000);
-        animOut.setDuration(1000);
+        animOut.setDuration(1000);*/
     }
 
     public PaymentsTabPresenter getPresenter() {
@@ -188,16 +186,14 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
             CarouselItem item = paymentsTabPresenter.getCarouselItem();
             Glide.with(getContext()).load(item.getImageUrl()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).into(imgPagosServiceToPay);
             imgPagosServiceToPay.setBorderColor(Color.parseColor(item.getColor()));
-            onEventListener.onEvent(TabActivity.EVENT_HIDE_MANIN_TAB, false);
+            onEventListener.onEvent(TabActivity.EVENT_CHANGE_MAIN_TAB_VISIBILITY, false);
 
-            payment_view_pager.startAnimation(animOut);
+            //payment_view_pager.startAnimation(animOut);
             payment_view_pager.setVisibility(View.GONE);
-
-
             container.setVisibility(View.VISIBLE);
-            container.startAnimation(animIn);
+            //container.startAnimation(animIn);
 
-            switch (currentTab){
+            switch (currentTab) {
                 case TAB1:
                     loadFragment(RecargasFormFragment.newInstance(), Direction.NONE, false);
                     break;

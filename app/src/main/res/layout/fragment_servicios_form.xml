@@ -1,72 +1,68 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/FragmentElement"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_big">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/containerServiciosForm"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/containerServiciosForm"
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/referenceNumber"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            app:formato="text"
+            app:hintText="Referencia"
+            app:isSingleLine="true"
+            app:maxLength="20" />
 
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/referenceNumber"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                app:formato="text"
-                app:hintText="Referencia"
-                app:isSingleLine="true"
-                app:maxLength="20" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/serviceImport"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_between_elements"
-                app:formato="number"
-                app:hintText="Importe"
-                app:isSingleLine="true"
-                app:maxLength="10" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/serviceConcept"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_between_elements"
-                app:formato="text"
-                app:hintText="Concepto"
-                app:isSingleLine="true"
-                app:maxLength="40" />
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/containerSlideButon"
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/serviceImport"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/containerServiciosForm"
-            android:layout_marginLeft="@dimen/margin_doble"
-            android:layout_marginRight="@dimen/margin_doble"
-            android:layout_marginTop="@dimen/margin_doble">
+            android:layout_marginTop="@dimen/space_between_elements"
+            app:formato="number"
+            app:hintText="Importe"
+            app:isSingleLine="true"
+            app:maxLength="10" />
 
-            <SeekBar
-                android:id="@+id/myseek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_doble"
-                android:background="@drawable/seek_background"
-                android:clickable="false"
-                android:max="100"
-                android:progressDrawable="@android:color/transparent"
-                android:thumb="@drawable/thumb_size"
-                android:thumbOffset="15dp" />
-        </RelativeLayout>
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/serviceConcept"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_between_elements"
+            app:formato="text"
+            app:hintText="Concepto"
+            app:isSingleLine="true"
+            app:maxLength="40" />
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/containerSlideButon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/containerServiciosForm"
+        android:layout_marginLeft="@dimen/margin_doble"
+        android:layout_marginRight="@dimen/margin_doble"
+        android:layout_marginTop="@dimen/margin_doble">
+
+        <SeekBar
+            android:id="@+id/myseek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_doble"
+            android:background="@drawable/seek_background"
+            android:clickable="false"
+            android:max="100"
+            android:progressDrawable="@android:color/transparent"
+            android:thumb="@drawable/thumb_size"
+            android:thumbOffset="15dp" />
     </RelativeLayout>
-</ScrollView>
+
+</RelativeLayout>
