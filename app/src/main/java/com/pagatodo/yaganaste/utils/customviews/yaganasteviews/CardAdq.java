@@ -42,7 +42,7 @@ public class CardAdq extends LinearLayoutCompat {
 
         saldoAdq = (TextView) findViewById(R.id.txt_saldo_adq);
         txtInvite = (TextView) findViewById(R.id.txt_invite);
-        isAdquirente = false;
+        isAdquirente = true;
     }
 
     public void updateSaldo(String saldo) {

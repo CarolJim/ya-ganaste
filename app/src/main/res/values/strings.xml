@@ -327,5 +327,12 @@
     <string name="saldo_disponible">Saldo Disponible</string>
     <string name="cobros_tarjeta">Cobros con Tarjeta</string>
     <string name="mas_tarde">Más Tarde</string>
+
+    <string name="cancelar_operacion">Cancelar Operación</string>
+
+    <string name="autorizacion">Autorización:</string>
+    <string name="tarjeta">Tarjeta:</string>
+    <string name="emisor">Emisor:</string>
+
 </resources>
 

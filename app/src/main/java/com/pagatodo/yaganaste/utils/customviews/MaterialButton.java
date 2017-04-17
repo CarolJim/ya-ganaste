@@ -106,17 +106,18 @@ public class MaterialButton extends AppCompatButton implements View.OnClickListe
         normalBackground.setCornerRadius(cornerRadius);
         normalBackground.setColor(colorNormal);
         normalBackground.setStroke((int) Utils.convertDpToPixels(2), strokeColor);
-        normalBackground.setAlpha(128);
 
         GradientDrawable pressedDrawable = new GradientDrawable();
         pressedDrawable.setShape(shape);
         pressedDrawable.setCornerRadius(cornerRadius);
         pressedDrawable.setColor(colorSelected);
         pressedDrawable.setStroke((int) Utils.convertDpToPixels(2), colorSelected);
+        pressedDrawable.setAlpha(128);
 
         StateListDrawable states = new StateListDrawable();
         states.addState(new int[]{android.R.attr.state_pressed}, pressedDrawable);
         states.addState(new int[]{}, normalBackground);
+        states.setAlpha(128);
         setBackground(states);
     }
 
