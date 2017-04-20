@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.animation.Animation;
@@ -18,9 +19,13 @@ import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.TabPresenter;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
+
+import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 
@@ -118,6 +123,22 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         TabLayout.Tab current = mainTab.getTabAt(0);
         if (current != null) {
             current.select();
+        }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        List<Fragment> fragmentList = fragmentManager.getFragments();
+        if (requestCode == Constants.CONTACTS_CONTRACT || requestCode == Constants.BARCODE_READER_REQUEST_CODE) {
+            if (fragmentList != null) {
+                for (Fragment fragment : fragmentList) {
+                    if (fragment instanceof PaymentsTabFragment) {
+                        fragment.onActivityResult(requestCode, resultCode, data);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

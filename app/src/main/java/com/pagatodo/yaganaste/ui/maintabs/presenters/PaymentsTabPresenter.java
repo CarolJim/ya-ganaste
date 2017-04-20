@@ -11,12 +11,16 @@ public class PaymentsTabPresenter implements IPaymentsTabPresenter {
     private CarouselItem carouselItem;
 
     public PaymentsTabPresenter(){
+
     }
 
+
+    @Override
     public CarouselItem getCarouselItem() {
         return carouselItem;
     }
 
+    @Override
     public void setCarouselItem(CarouselItem carouselItem) {
         this.carouselItem = carouselItem;
     }

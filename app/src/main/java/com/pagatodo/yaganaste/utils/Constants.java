@@ -14,4 +14,10 @@ public class Constants {
 
     public static final int DELAY_MESSAGE_PROGRESS = 1500;
 
+
+    //region requests codes
+    public static int CONTACTS_CONTRACT = 50;
+    public static int BARCODE_READER_REQUEST_CODE = 60;
+
+    //endregion
 }

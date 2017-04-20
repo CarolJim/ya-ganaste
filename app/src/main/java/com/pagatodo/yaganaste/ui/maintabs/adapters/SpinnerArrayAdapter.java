@@ -38,6 +38,7 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
         return mItems.size();
     }
 
+
     @Override
     public View getDropDownView(int position, View convertView, ViewGroup parent) {
         View row = convertView;

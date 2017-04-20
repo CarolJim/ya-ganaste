@@ -2,8 +2,7 @@
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
 
-    <item
-        android:bottom="2dp">
+    <item android:bottom="2dp">
         <shape android:shape="rectangle">
             <stroke
                 android:width="2dp"
@@ -15,19 +14,18 @@
         </shape>
     </item>
 
-    <item
-        android:top="15dp">
+    <item android:top="15dp">
         <shape android:shape="rectangle">
             <stroke
                 android:width="2dp"
                 android:color="@color/colorAccent" />
-            <corners android:bottomLeftRadius="6dp"/>
+            <corners android:bottomLeftRadius="6dp" />
         </shape>
     </item>
 
     <item
-        android:left="6dp"
-        android:bottom="2dp">
+        android:bottom="2dp"
+        android:left="6dp">
         <shape android:shape="rectangle">
             <stroke
                 android:width="2dp"
@@ -39,21 +37,21 @@
     </item>
 
     <item
-        android:top="2dp"
-        android:right="2dp"
+        android:bottom="2dp"
         android:left="2dp"
-        android:bottom="2dp">
+        android:right="2dp"
+        android:top="2dp">
         <shape android:shape="rectangle">
-            <solid android:color="@color/colorPrimaryDark"/>
-            <padding android:bottom="3dp"
-                android:left="3dp"/>
-            <corners android:topLeftRadius="5.5dp"
-                android:topRightRadius="5.5dp"
-                android:bottomLeftRadius="5.5dp"/>
+            <solid android:color="@color/colorPrimaryDark" />
+            <padding
+                android:bottom="3dp"
+                android:left="3dp" />
+            <corners
+                android:bottomLeftRadius="5.5dp"
+                android:topLeftRadius="5.5dp"
+                android:topRightRadius="5.5dp" />
         </shape>
     </item>
-
-
 
 
 </layer-list>

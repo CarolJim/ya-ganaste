@@ -1,9 +1,11 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -24,12 +26,18 @@ import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.pagatodo.yaganaste.utils.Constants.*;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 
 /**
  * Created by Jordan on 06/04/2017.
@@ -197,7 +205,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public void changeImgageToPay() {
         CarouselItem item = paymentsTabPresenter.getCarouselItem();
-        Glide.with(getContext()).load(item.getImageUrl()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).into(imgPagosServiceToPay);
+        Glide.with(getContext()).load(item.getImageUrl()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).dontAnimate().into(imgPagosServiceToPay);
         imgPagosServiceToPay.setBorderColor(Color.parseColor(item.getColor()));
         onEventListener.onEvent(TabActivity.EVENT_CHANGE_MAIN_TAB_VISIBILITY, false);
     }
@@ -218,6 +226,32 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
             case TAB3:
                 loadFragment(EnviosFormFragment.newInstance(), Direction.NONE, false);
                 break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        List<Fragment> fragmentList = fragmentManager.getFragments();
+
+        if (requestCode == CONTACTS_CONTRACT) {
+            if (fragmentList != null) {
+                for (Fragment fragment : fragmentList) {
+                    if(fragment instanceof RecargasFormFragment) {
+                        fragment.onActivityResult(requestCode, resultCode, data);
+                        break;
+                    }
+                }
+            }
+        }else if(requestCode == BARCODE_READER_REQUEST_CODE){
+            if (fragmentList != null) {
+                for (Fragment fragment : fragmentList) {
+                    if(fragment instanceof ServiciosFormFragment) {
+                        fragment.onActivityResult(requestCode, resultCode, data);
+                        break;
+                    }
+                }
+            }
         }
     }
 }

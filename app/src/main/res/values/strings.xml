@@ -168,10 +168,12 @@
     <string name="txt_ubica">Ubica Los Puntos Donde Puedes Realizar Tus Depósitos YA!</string>
     <string name="txt_depositar_cuenta">Depositar A Mi Cuenta</string>
     <string name="txt_ver_mapa">VER MAPA</string>
+    <string name="hint_importe">Importe</string>
     <string name="txt_importe">Importe:</string>
     <string name="txt_fecha">Fecha:</string>
     <string name="txt_hora">Hora:</string>
     <string name="txt_fecha_hora">Fecha y Hora:</string>
+    <string name="hint_concepto">Concepto</string>
     <string name="txt_concepto">Concepto:</string>
     <string name="inserta_el_lector_para_ncontinuar">Inserta el Lector Para\nContinuar</string>
     <string name="finalizar">Finalizar</string>
@@ -179,6 +181,7 @@
     <string name="no_internet_access">No Cuentas con Conexión a Internet</string>
     <string name="something_is_wrong_try_again">Algo Salio mal, Intenta de Nuevo</string>
     <string name="tag_number">Número de TAG</string>
+    <string name="phone_number_hint">Teléfono (10 Digitos)</string>
     <string name="msgJsonObj">Mensaje</string>
     <string name="actionJsonObj">CodigoRespuesta</string>
     <string name="omitir">OMITIR</string>
@@ -333,6 +336,11 @@
     <string name="autorizacion">Autorización:</string>
     <string name="tarjeta">Tarjeta:</string>
     <string name="emisor">Emisor:</string>
+
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">El acceso a la cámara es necesario para la detección de código de barras</string>
+    <string name="no_camera_permission">Esta acción no se puede ejecutar porque no tiene el permiso de cámara.</string>
+    <string name="low_storage_error">No se pueden descargar las dependencias del detector de códigos de barras debido al bajo almacenamiento del dispositivo</string>
 
 </resources>
 
