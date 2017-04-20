@@ -28,4 +28,11 @@
 
     <dimen name="size_thumb_adquirente">11dp</dimen>
 
+    <dimen name="online_movements_small">10sp</dimen>
+    <dimen name="online_movements_small_b">12sp</dimen>
+    <dimen name="online_movements_medium">18sp</dimen>
+    <dimen name="online_movements_big">33sp</dimen>
+
+    <dimen name="space">8dp</dimen>
+    <dimen name="double_space">27dp</dimen>
 </resources>

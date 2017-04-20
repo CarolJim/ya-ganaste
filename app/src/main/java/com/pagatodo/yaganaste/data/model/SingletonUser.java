@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSe
 public class SingletonUser {
 
     public static SingletonUser user;
+
     private DataIniciarSesion dataUser;
     private ExtraInfoUser dataExtraUser;
     private String pathPictureTemp = "";

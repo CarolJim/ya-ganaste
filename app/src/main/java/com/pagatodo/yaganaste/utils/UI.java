@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.utils;
 import android.app.AlertDialog;
 import android.content.Context;
 import android.content.DialogInterface;
+import android.support.annotation.StringRes;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
@@ -10,6 +11,10 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 public class UI {
 	
 	public static void showToast(String message, Context context){
+		Toast.makeText(context,message, Toast.LENGTH_LONG).show();
+	}
+
+	public static void showToast(@StringRes int message, Context context){
 		Toast.makeText(context,message, Toast.LENGTH_LONG).show();
 	}
 

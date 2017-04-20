@@ -1,0 +1,130 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center_horizontal"
+            android:paddingStart="@dimen/margin_regular"
+            android:paddingLeft="@dimen/margin_regular"
+            android:paddingRight="@dimen/margin_regular"
+            android:paddingEnd="@dimen/margin_regular">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/este_movimiento"
+                android:textSize="@dimen/online_movements_small"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_type_tx"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="Envio de Dinero"
+                android:textSize="@dimen/online_movements_medium"
+                android:textColor="@color/colorAccent"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/importe"
+                android:textSize="@dimen/online_movements_small_b"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_mount"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="$100.00"
+                android:textSize="@dimen/online_movements_big"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_details"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="A la Cuenta: "
+                android:textSize="@dimen/online_movements_small_b"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_reference"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="**** **** **** 8765"
+                android:textSize="@dimen/online_movements_small_b"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/double_space" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/ingresa_tu_contrasenia"
+                android:gravity="center_horizontal"
+                android:textSize="@dimen/online_movements_small"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/space" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
+                android:id="@+id/edt_nip"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:hint="@string/password"
+                android:inputType="textPassword" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/double_space" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btn_continue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/nextButton"
+                app:overBackground="@drawable/button_shape"/>
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@+id/progress_indicator"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+
+</FrameLayout>

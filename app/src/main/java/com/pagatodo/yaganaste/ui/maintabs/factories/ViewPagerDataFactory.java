@@ -25,7 +25,7 @@ import java.util.List;
 public class ViewPagerDataFactory {
 
     private ViewPagerDataFactory() {
-        throw new IllegalCallException("You do can not create an instance for ViewPagerDataFactory");
+        throw new IllegalCallException("You can not create an instance for ViewPagerDataFactory");
     }
 
     public enum TABS {

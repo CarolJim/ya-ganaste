@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.utils.DimUtils;
 import com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
@@ -31,15 +32,14 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     private NoSwipeViewPager mViewPager;
 
     private CardAdq cardAdq;
-    private CardAdqCredSelected cardAdqCredSelected;
-    private CardAdqSelected cardAdqSelected;
+    private TabViewElement cardAdqSel;
     private CardEmisor cardEmisor;
     private CardEmisorSelected cardEmisorSelected;
 
-    private AdquirenteCallback adquirenteCallback;
+    private InviteAdquirenteCallback inviteAdquirenteCallback;
 
-    public interface AdquirenteCallback {
-        void onClickAdquirente(boolean isAdquirente);
+    public interface InviteAdquirenteCallback {
+        void onInviteAdquirente();
     }
 
     public TabLayoutEmAd(Context context) {
@@ -76,6 +76,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         cardEmisor = new CardEmisor(getContext());
         cardEmisorSelected = new CardEmisorSelected(getContext());
         cardAdq = new CardAdq(getContext());
+        updateData();
     }
 
     public void setUpWithViewPager(NoSwipeViewPager viewPager) {
@@ -104,11 +105,10 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     }
 
     private void clickAdquirente() {
-        if (cardAdq.isAdquirente()) {
+        if (SingletonUser.getInstance().getDataUser().isEsAgente()) {
             mViewPager.setCurrentItem(1);
-        }
-        if (adquirenteCallback != null ) {
-            adquirenteCallback.onClickAdquirente(cardAdq.isAdquirente());
+        } else if (inviteAdquirenteCallback != null ) {
+            inviteAdquirenteCallback.onInviteAdquirente();
         }
 
     }
@@ -165,7 +165,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         } else if (offset >= 1){
             viewAdquirenteBorder.setBackgroundResource(R.drawable.adq_em_big_tab);
             llMaterialAdquirenteContainer.removeAllViews();
-            llMaterialAdquirenteContainer.addView(new CardAdqSelected(getContext()),
+            llMaterialAdquirenteContainer.addView(cardAdqSel,
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         }
 
@@ -191,7 +191,23 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
     }
 
-    public void setAdquirenteCallback(AdquirenteCallback adquirenteCallback) {
-        this.adquirenteCallback = adquirenteCallback;
+    public void setInviteAdquirenteCallback(InviteAdquirenteCallback inviteAdquirenteCallback) {
+        this.inviteAdquirenteCallback = inviteAdquirenteCallback;
+    }
+
+
+
+
+    /*Delegated Method*/
+    public void updateData() {
+        cardEmisor.updateData();
+        cardEmisorSelected.updateData();
+        // TODO: 19/04/2017 En esta parte verificar si es adquirente normal o con credito
+        if (SingletonUser.getInstance().getDataUser().isEsAgente()) {
+            cardAdqSel = new CardAdqSelected(getContext());
+        }
+        if (cardAdqSel != null) {
+            cardAdqSel.updateData();
+        }
     }
 }

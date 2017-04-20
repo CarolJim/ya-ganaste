@@ -100,6 +100,8 @@
             android:windowSoftInputMode="adjustPan" />
 
         <activity android:name=".ui._controllers.DetailsActivity" />
+        <activity android:name=".ui._controllers.OnlineTxActivity" />
+        <activity android:name=".ui.otp.activities.OtpCodeActivity" />
 
         <activity android:name=".ui._controllers.ScannVisionActivity"/>
 
@@ -107,6 +109,9 @@
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
 
+        <!-- <meta-data
+             android:name="com.google.android.geo.API_KEY"
+             android:value="@string/google_maps_key" />-->
         <!-- <meta-data
              android:name="com.google.android.geo.API_KEY"
              android:value="@string/google_maps_key" />-->
