@@ -18,7 +18,7 @@ import com.pagatodo.yaganaste.utils.customviews.SeekBarNoTouch;
  * @author Juan Guerra on 05/04/2017.
  */
 
-public class CardAdqCredSelected extends LinearLayoutCompat {
+public class CardAdqCredSelected extends TabViewElement{
 
     private SeekBar seekLineaCredito;
     private TextView txtLineaCredito;
@@ -70,5 +70,10 @@ public class CardAdqCredSelected extends LinearLayoutCompat {
 
         seekSaldoDisponible.setProgress(100 - seekMontoDepositar.getProgress());
         txtSaldoDisponible.setText(StringUtils.getCurrencyValue(saldoDisponible));
+    }
+
+    @Override
+    public void updateData() {
+        // TODO: 19/04/2017 Verificar como se van a actualizar estos datos
     }
 }

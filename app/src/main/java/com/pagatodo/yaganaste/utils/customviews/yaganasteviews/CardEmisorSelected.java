@@ -10,14 +10,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.utils.StringUtils;
-import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * @author Juan Guerra on 05/04/2017.
  */
 
-public class CardEmisorSelected extends LinearLayoutCompat {
+public class CardEmisorSelected extends TabViewElement{
 
     private TextView txtSaldo;
     private TextView txtNombre;
@@ -41,14 +44,14 @@ public class CardEmisorSelected extends LinearLayoutCompat {
         addView(child, params);
         txtSaldo = (TextView)findViewById(R.id.txt_saldo);
         txtNombre = (TextView)findViewById(R.id.txt_nombre);
+        updateData();
     }
 
-    public void updateDatosEmisor(String nombre, String saldo) {
-        this.txtNombre.setText(nombre);
-        this.txtSaldo.setText(StringUtils.getCurrencyValue(saldo));
+    @Override
+    public void updateData() {
+        UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
+        txtNombre.setText(userData.getNombre() + SPACE + userData.getPrimerApellido() + SPACE + userData.getSegundoApellido());
+        txtSaldo.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDataExtraUser().getSaldo()));
     }
 
-    public void updateDatosEmisor(String nombre, double saldo) {
-        updateDatosEmisor(nombre, String.valueOf(saldo));
-    }
 }

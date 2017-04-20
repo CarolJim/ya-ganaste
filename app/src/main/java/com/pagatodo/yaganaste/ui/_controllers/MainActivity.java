@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenter
 import com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs;
 import com.pagatodo.yaganaste.ui._manager.PagerAdapter;
 import com.pagatodo.yaganaste.ui.account.login.ScreenSlidePagefragment;
+import com.pagatodo.yaganaste.ui.otp.activities.OtpCodeActivity;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.ViewPagerCustomDuration;
 
@@ -142,8 +143,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
                 break;
 
             case R.id.btnMainLogin:
-                startActivity(TabActivity.createIntent(this));
-                finish();
+                //startActivity(TabActivity.createIntent(this));
+                startActivity(OtpCodeActivity.createIntent(this, "123456"));
                 break;
         }
 

@@ -2,14 +2,13 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
@@ -24,7 +23,7 @@ import com.pagatodo.yaganaste.utils.customviews.yaganasteviews.TabLayoutEmAd;
  * @author Juan Guerra on 10/11/2016.
  */
 
-public class HomeTabFragment extends GenericFragment implements TabsView, TabLayoutEmAd.AdquirenteCallback {
+public class HomeTabFragment extends GenericFragment implements TabsView, TabLayoutEmAd.InviteAdquirenteCallback {
 
     private NoSwipeViewPager pagerAdquirente;
     private View rootView;
@@ -60,21 +59,20 @@ public class HomeTabFragment extends GenericFragment implements TabsView, TabLay
         tabLayoutEmAd = (TabLayoutEmAd) rootView.findViewById(R.id.tab_em_adq);
         pagerAdquirente = (NoSwipeViewPager) rootView.findViewById(R.id.pager_adquirente);
         homeFragmentPresenter.getPagerData(ViewPagerDataFactory.TABS.HOME_FRAGMENT);
-        tabLayoutEmAd.setAdquirenteCallback(this);
+        tabLayoutEmAd.setInviteAdquirenteCallback(this);
     }
 
     @Override
     public void loadViewPager(ViewPagerData viewPagerData) {
         pagerAdquirente.setAdapter(new GenericPagerAdapter<>(getActivity(), getChildFragmentManager(), viewPagerData.getFragmentList(), viewPagerData.getTabData()));
-        tabLayoutEmAd.setUpWithViewPager(pagerAdquirente);
-        // TODO: 10/04/2017 Esto se debe hacer desde la clase Tab, al momento de setear todos los datos para las pestañas
-        pagerAdquirente.setIsSwipeable(true);
+        pagerAdquirente.setIsSwipeable(SingletonUser.getInstance().getDataUser().isEsAgente());
     }
 
     @Override
-    public void onClickAdquirente(boolean isAdquirente) {
+    public void onInviteAdquirente() {
         if (onEventListener != null) {
-            onEventListener.onEvent(TabActivity.EVENT_ADQUIRENTE_SELECTED, isAdquirente);
+            onEventListener.onEvent(TabActivity.EVENT_INVITE_ADQUIRENTE, null);
         }
     }
+
 }

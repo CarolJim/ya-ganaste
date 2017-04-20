@@ -10,13 +10,13 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 
 /**
  * @author Juan Guerra on 05/04/2017.
  */
 
-public class CardAdqSelected extends LinearLayoutCompat {
+public class CardAdqSelected extends TabViewElement{
 
     private TextView txtNombreNegocio;
     private TextView txtSaldoAdq;
@@ -45,13 +45,9 @@ public class CardAdqSelected extends LinearLayoutCompat {
         txtStatus = (TextView)findViewById(R.id.txt_status);
     }
 
-    public void updateDatosAdquirente (String nombreNegocio, String saldoAdq, String status) {
-        this.txtNombreNegocio.setText(nombreNegocio);
-        this.txtSaldoAdq.setText(StringUtils.getCurrencyValue(saldoAdq));
-        this.txtStatus.setText(status);
-    }
-
-    public void updateDatosAdquirente (String nombreNegocio, double saldoAdq, String status) {
-        updateDatosAdquirente(nombreNegocio, String.valueOf(saldoAdq), status);
+    @Override
+    public void updateData() {
+        this.txtNombreNegocio.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombreComercio());
+        this.txtSaldoAdq.setText(SingletonUser.getInstance().getDataExtraUser().getSaldoAdq());
     }
 }

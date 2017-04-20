@@ -11,13 +11,14 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
 /**
  * @author Juan Guerra on 05/04/2017.
  */
 
-public class CardEmisor extends LinearLayout {
+public class CardEmisor extends TabViewElement{
 
     private TextView txtSaldoEm;
 
@@ -41,12 +42,8 @@ public class CardEmisor extends LinearLayout {
         txtSaldoEm = (TextView)findViewById(R.id.txt_saldo);
     }
 
-    public void updateSaldo(String saldo) {
-        txtSaldoEm.setText(StringUtils.getCurrencyValue(saldo));
+    @Override
+    public void updateData() {
+        txtSaldoEm.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDataExtraUser().getSaldo()));
     }
-
-    public void updateSaldo(double saldo) {
-        updateSaldo(String.valueOf(saldo));
-    }
-
 }

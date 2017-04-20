@@ -99,10 +99,12 @@
             android:theme="@android:style/Theme.Translucent"/>
 
         <activity android:name=".ui._controllers.DetailsActivity" />
+        <activity android:name=".ui._controllers.OnlineTxActivity" />
+        <activity android:name=".ui.otp.activities.OtpCodeActivity" />
 
-       <!-- <meta-data
-            android:name="com.google.android.geo.API_KEY"
-            android:value="@string/google_maps_key" />-->
+        <!-- <meta-data
+             android:name="com.google.android.geo.API_KEY"
+             android:value="@string/google_maps_key" />-->
 
         <service
             android:name=".notifications.MessagingService">

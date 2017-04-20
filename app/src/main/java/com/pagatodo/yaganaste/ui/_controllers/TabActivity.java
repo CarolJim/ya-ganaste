@@ -25,14 +25,14 @@ import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 
 
-public class TabActivity extends ToolBarActivity implements TabsView, OnEventListener<Object> {
+public class TabActivity extends ToolBarActivity implements TabsView, OnEventListener {
     private Preferencias pref;
 
     private ViewPager mainViewPager;
     private TabLayout mainTab;
     private TabPresenter tabPresenter;
 
-    public static final String EVENT_ADQUIRENTE_SELECTED = "1";
+    public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_GO_HOME = "2";
     public static final String EVENT_CHANGE_MAIN_TAB_VISIBILITY = "3";
 
@@ -84,8 +84,8 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
 
     @Override
     public void onEvent(String event, Object data) {
-        if (event.equals(EVENT_ADQUIRENTE_SELECTED)) {
-            onAdquirenteSelected((boolean) data);
+        if (event.equals(EVENT_INVITE_ADQUIRENTE)) {
+            onInviteAdquirente();
         } else if (event.equals(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY)) {
             changeToolbarVisibility((boolean) data);
         } else if (event.equals(EVENT_GO_HOME)) {
@@ -105,12 +105,10 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         }
     }
 
-    private void onAdquirenteSelected(boolean isAdquirente) {
-        if (!isAdquirente) {
-            TabLayout.Tab current = mainTab.getTabAt(mainTab.getTabCount() - 1);
-            if (current != null) {
-                current.select();
-            }
+    private void onInviteAdquirente() {
+        TabLayout.Tab current = mainTab.getTabAt(mainTab.getTabCount() - 1);
+        if (current != null) {
+            current.select();
         }
     }
 

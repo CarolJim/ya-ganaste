@@ -334,5 +334,36 @@
     <string name="tarjeta">Tarjeta:</string>
     <string name="emisor">Emisor:</string>
 
+
+
+    <!-- Autorizaciones Online -->
+    <string name="este_movimiento">Este Movimiento Requiere Autorización: </string>
+    <string name="importe">Importe:</string>
+    <string name="ingresa_tu_contrasenia">Ingresa tu Contraseña para Autorizar este Movimiento en tu
+    Banca en Línea</string>
+    
+    <string name="autorizacion_completa">¡Aurotización Completa!</string>
+    <string name="revisa_el_resumen">Revisa el Resumen de este Movimiento en tu Banca en Línea</string>
+    <string name="terminar">Terminar</string>
+
+    <string name="nip_empty">Debes Introducir tu NIP para Poder Aprobar esta Transacción</string>
+
+    <string name="tx_expired">La Transacción ha Expirado</string>
+
+    <string name="verifying_transaction">Verificando Transacción</string>
+    <string name="aproving_transaction">Aprovando Transacción</string>
+    <string name="ingresa_tu_contrasenia_otp">Ingresa tu Contraseña para Generar un Código de Acceso</string>
+
+    <string name="no_offline_token">El Dispositivo no Cuenta con Token Offline, Asegurate de que
+    tu Dispositivo esté Asociado por SMS</string>
+
+    <string name="tu_codigo">Tu Código de Acceso es:</string>
+    <string name="caduca_en"><![CDATA[Caduca en <b><font color="#10B2E6">%1$s</font></b> Minutos]]></string>
+
+    <string name="codigo_expirado">Tú Código de Acceso ha Expirado, Puedes Volver a Generar Otro</string>
+
+    <string name="volver">Volver</string>
+
+
 </resources>
 
