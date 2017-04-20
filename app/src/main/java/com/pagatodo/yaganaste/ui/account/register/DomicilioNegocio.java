@@ -23,7 +23,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasRespo
 import com.pagatodo.yaganaste.interfaces.IAdqRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.adquirente.AdqPresenter;
+import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 
@@ -82,7 +82,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     private boolean respuestaDomicilio;
 
     private boolean cpDefault;
-    private AdqPresenter adqPresenter;
+    private AccountAdqPresenter adqPresenter;
 
     public DomicilioNegocio() {
     }
@@ -107,7 +107,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        adqPresenter = new AdqPresenter(this);
+        adqPresenter = new AccountAdqPresenter(this);
     }
 
     @Override

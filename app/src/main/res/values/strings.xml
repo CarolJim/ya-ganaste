@@ -327,5 +327,15 @@
     <string name="saldo_disponible">Saldo Disponible</string>
     <string name="cobros_tarjeta">Cobros con Tarjeta</string>
     <string name="mas_tarde">Más Tarde</string>
+
+    <string name="correo_enviar_ticket">¿A Qué Correo Electrónico\nEnviamos Tu Recibo?</string>
+    <string name="gracias_por_compra">¡Gracias Por tu Compra!</string>
+    <string name="mensaje_pagaste1">Pagaste:</string>
+    <string name="mensaje_pagaste2">con tu tarjeta:</string>
+
+    <string name="monto_cobrar">Monto a cobrar</string>
+    <string name="retirar_tarjeta">Retira la Tarjeta</string>
+    <string name="tu_firma">Tu Firma</string>
+    <string name="pago_por">Pago por </string>
 </resources>
 

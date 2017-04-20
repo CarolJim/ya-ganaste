@@ -5,6 +5,7 @@ import android.widget.SeekBar;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.customviews.SeekYaGanaste;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -17,7 +18,7 @@ public abstract class PaymentFormBaseFragment extends GenericFragment implements
     public View rootview;
 
     @BindView(R.id.myseek)
-    SeekBar mySeekBar;
+    protected SeekBar mySeekBar;
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -43,7 +44,8 @@ public abstract class PaymentFormBaseFragment extends GenericFragment implements
     public void initViews() {
         ButterKnife.bind(this, rootview);
         mySeekBar.setOnSeekBarChangeListener(this);
+
     }
 
-    void continuePayment(){};
+    protected void continuePayment(){};
 }

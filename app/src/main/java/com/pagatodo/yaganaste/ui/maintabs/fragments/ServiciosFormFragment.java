@@ -36,7 +36,7 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment {
     }
 
     @Override
-    void continuePayment() {
+    public void continuePayment() {
         super.continuePayment();
     }
 }

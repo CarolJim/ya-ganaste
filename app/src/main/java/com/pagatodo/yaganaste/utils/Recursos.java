@@ -39,6 +39,11 @@ public class Recursos {
     public static final int INCORRECT_FORMAT = -2;
 	public static final int DEVICE_ALREADY_ASSIGNED = 224;
 
+	/*WS Adq*/
+	public static final String ADQ_CODE_OK = "00";
+	public static final int ADQ_TRANSACTION_APROVE = 0;
+	public static final int ADQ_TRANSACTION_ERROR = 1;
+
 	/*Preferencias de Sesion*/
 	public static final String CODE_ACTIVATION_FREJA = "CODEACTIVATIONFREJA";
 	public static String COUCHMARK_EMISOR = "COUCHMARKEMISOR";

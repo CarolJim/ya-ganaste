@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.interfaces;
 
+import com.pagatodo.yaganaste.data.model.TransactionAdqResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 
 import java.util.List;
@@ -12,6 +13,6 @@ public interface IAdqTransactionRegisterView extends IAccountView2 {
 
     public void showInsertDongle();
     public void showInsertCard();
-    public void transactionSuccess();
-    public void transactionFailed();
+    public void dongleValidated();
+    public void transactionResult(String message);
 }

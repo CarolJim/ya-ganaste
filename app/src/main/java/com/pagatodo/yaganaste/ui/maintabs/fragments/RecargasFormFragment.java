@@ -45,7 +45,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment {
     }
 
     @Override
-    void continuePayment() {
+    public void continuePayment() {
         Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
     }
 }
