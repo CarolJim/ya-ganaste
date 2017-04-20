@@ -1,72 +1,129 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/FragmentElement"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_big">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/containerServiciosForm"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
 
         <LinearLayout
-            android:id="@+id/containerServiciosForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:orientation="vertical">
+            android:background="@drawable/rounded_border_edittext"
+            android:orientation="horizontal"
+            android:weightSum="100">
 
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            <EditText
                 android:id="@+id/referenceNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:formato="text"
-                app:hintText="Referencia"
-                app:isSingleLine="true"
-                app:maxLength="20" />
+                android:layout_marginLeft="15dp"
+                android:layout_weight="20"
+                android:background="@null"
+                android:backgroundTint="@color/transparent"
+                android:hint="@string/txt_referencia_servicio"
+                android:inputType="number"
+                android:longClickable="false"
+                android:maxLength="30"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                android:textSize="14sp" />
 
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            <RelativeLayout
+                android:id="@+id/layoutImageReference"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="80">
+
+                <ImageView
+                    android:id="@+id/imgMakePaymentRef"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerInParent="true"
+                    android:layout_margin="5dp"
+                    android:src="@mipmap/icono_camara_servicios" />
+            </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_between_elements"
+            android:background="@drawable/rounded_border_edittext"
+            android:orientation="horizontal">
+
+            <EditText
                 android:id="@+id/serviceImport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_between_elements"
-                app:formato="number"
-                app:hintText="Importe"
-                app:isSingleLine="true"
-                app:maxLength="10" />
+                android:layout_marginLeft="15dp"
+                android:background="@null"
+                android:backgroundTint="@color/transparent"
+                android:hint="@string/hint_importe"
+                android:inputType="number"
+                android:longClickable="false"
+                android:maxLength="10"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                android:textSize="14sp" />
 
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_between_elements"
+            android:background="@drawable/rounded_border_edittext"
+            android:orientation="horizontal">
+
+            <EditText
                 android:id="@+id/serviceConcept"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_between_elements"
-                app:formato="text"
-                app:hintText="Concepto"
-                app:isSingleLine="true"
-                app:maxLength="40" />
+                android:layout_marginLeft="15dp"
+                android:background="@null"
+                android:backgroundTint="@color/transparent"
+                android:hint="@string/hint_concepto"
+                android:inputType="text"
+                android:longClickable="false"
+                android:maxLength="40"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                android:textSize="14sp" />
+
         </LinearLayout>
 
-        <RelativeLayout
-            android:id="@+id/containerSlideButon"
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/containerSlideButon"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/containerServiciosForm"
+        android:layout_marginLeft="@dimen/margin_doble"
+        android:layout_marginRight="@dimen/margin_doble"
+        android:layout_marginTop="@dimen/margin_doble">
+
+        <SeekBar
+            android:id="@+id/myseek"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/containerServiciosForm"
-            android:layout_marginLeft="@dimen/margin_doble"
-            android:layout_marginRight="@dimen/margin_doble"
-            android:layout_marginTop="@dimen/margin_doble">
-
-            <SeekBar
-                android:id="@+id/myseek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_doble"
-                android:background="@drawable/seek_background"
-                android:clickable="false"
-                android:max="100"
-                android:progressDrawable="@android:color/transparent"
-                android:thumb="@drawable/thumb_size"
-                android:thumbOffset="15dp" />
-        </RelativeLayout>
+            android:layout_marginBottom="@dimen/margin_doble"
+            android:background="@drawable/seek_background"
+            android:clickable="false"
+            android:max="100"
+            android:progressDrawable="@android:color/transparent"
+            android:thumb="@drawable/thumb_size"
+            android:thumbOffset="15dp" />
     </RelativeLayout>
-</ScrollView>
+
+</RelativeLayout>

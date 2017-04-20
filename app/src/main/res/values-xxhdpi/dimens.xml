@@ -30,4 +30,13 @@
     <dimen name="emisor_text_size">13sp</dimen>
 
     <dimen name="size_thumb_adquirente">13dp</dimen>
+
+    <dimen name="online_movements_small">17sp</dimen>
+    <dimen name="online_movements_small_b">20sp</dimen>
+    <dimen name="online_movements_medium">25sp</dimen>
+    <dimen name="online_movements_big">41sp</dimen>
+
+    <dimen name="space">14dp</dimen>
+    <dimen name="double_space">45dp</dimen>
+
 </resources>

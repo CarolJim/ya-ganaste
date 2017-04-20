@@ -168,10 +168,12 @@
     <string name="txt_ubica">Ubica Los Puntos Donde Puedes Realizar Tus Depósitos YA!</string>
     <string name="txt_depositar_cuenta">Depositar A Mi Cuenta</string>
     <string name="txt_ver_mapa">VER MAPA</string>
+    <string name="hint_importe">Importe</string>
     <string name="txt_importe">Importe:</string>
     <string name="txt_fecha">Fecha:</string>
     <string name="txt_hora">Hora:</string>
     <string name="txt_fecha_hora">Fecha y Hora:</string>
+    <string name="hint_concepto">Concepto</string>
     <string name="txt_concepto">Concepto:</string>
     <string name="inserta_el_lector_para_ncontinuar">Inserta el Lector Para\nContinuar</string>
     <string name="finalizar">Finalizar</string>
@@ -179,6 +181,7 @@
     <string name="no_internet_access">No Cuentas con Conexión a Internet</string>
     <string name="something_is_wrong_try_again">Algo Salio mal, Intenta de Nuevo</string>
     <string name="tag_number">Número de TAG</string>
+    <string name="phone_number_hint">Teléfono (10 Digitos)</string>
     <string name="msgJsonObj">Mensaje</string>
     <string name="actionJsonObj">CodigoRespuesta</string>
     <string name="omitir">OMITIR</string>
@@ -337,5 +340,47 @@
     <string name="retirar_tarjeta">Retira la Tarjeta</string>
     <string name="tu_firma">Tu Firma</string>
     <string name="pago_por">Pago por </string>
+
+    <string name="cancelar_operacion">Cancelar Operación</string>
+
+    <string name="autorizacion">Autorización:</string>
+    <string name="tarjeta">Tarjeta:</string>
+    <string name="emisor">Emisor:</string>
+
+
+    <!-- Autorizaciones Online -->
+    <string name="este_movimiento">Este Movimiento Requiere Autorización: </string>
+    <string name="importe">Importe:</string>
+    <string name="ingresa_tu_contrasenia">Ingresa tu Contraseña para Autorizar este Movimiento en tu
+    Banca en Línea</string>
+
+    <string name="autorizacion_completa">¡Aurotización Completa!</string>
+    <string name="revisa_el_resumen">Revisa el Resumen de este Movimiento en tu Banca en Línea</string>
+    <string name="terminar">Terminar</string>
+
+    <string name="nip_empty">Debes Introducir tu NIP para Poder Aprobar esta Transacción</string>
+
+    <string name="tx_expired">La Transacción ha Expirado</string>
+
+    <string name="verifying_transaction">Verificando Transacción</string>
+    <string name="aproving_transaction">Aprovando Transacción</string>
+    <string name="ingresa_tu_contrasenia_otp">Ingresa tu Contraseña para Generar un Código de Acceso</string>
+
+    <string name="no_offline_token">El Dispositivo no Cuenta con Token Offline, Asegurate de que
+    tu Dispositivo esté Asociado por SMS</string>
+
+    <string name="tu_codigo">Tu Código de Acceso es:</string>
+    <string name="caduca_en"><![CDATA[Caduca en <b><font color="#10B2E6">%1$s</font></b> Minutos]]></string>
+
+    <string name="codigo_expirado">Tú Código de Acceso ha Expirado, Puedes Volver a Generar Otro</string>
+
+    <string name="volver">Volver</string>
+
+
+    <string name="ok">OK</string>
+    <string name="permission_camera_rationale">El acceso a la cámara es necesario para la detección de código de barras</string>
+    <string name="no_camera_permission">Esta acción no se puede ejecutar porque no tiene el permiso de cámara.</string>
+    <string name="low_storage_error">No se pueden descargar las dependencias del detector de códigos de barras debido al bajo almacenamiento del dispositivo</string>
+
 </resources>
 

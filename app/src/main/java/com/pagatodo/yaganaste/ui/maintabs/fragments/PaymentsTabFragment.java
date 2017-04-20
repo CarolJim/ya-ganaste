@@ -1,9 +1,11 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.util.DisplayMetrics;
 import android.util.Log;
@@ -12,8 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.RelativeLayout;
@@ -26,12 +26,18 @@ import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
+
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+
+import static com.pagatodo.yaganaste.utils.Constants.*;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 
 /**
  * Created by Jordan on 06/04/2017.
@@ -57,7 +63,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     CircleImageView imgPagosServiceToPay;
     MovementsTab currentTab = MovementsTab.TAB1;
 
-    private Animation animIn, animOut;
+    //private Animation animIn, animOut;
     private PaymentsTabPresenter paymentsTabPresenter;
 
     public static PaymentsTabFragment newInstance() {
@@ -72,10 +78,10 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         super.onCreate(savedInstanceState);
         paymentsTabPresenter = new PaymentsTabPresenter();
 
-        animIn = AnimationUtils.loadAnimation(getContext(), R.anim.slide_from_left);
+        /*animIn = AnimationUtils.loadAnimation(getContext(), R.anim.slide_from_left);
         animOut = AnimationUtils.loadAnimation(getContext(), R.anim.slide_to_right);
         animIn.setDuration(1000);
-        animOut.setDuration(1000);
+        animOut.setDuration(1000);*/
     }
 
     public PaymentsTabPresenter getPresenter() {
@@ -123,13 +129,19 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.tab_recargas:
-                tabSelector(v, MovementsTab.TAB1);
+                if (currentTab != MovementsTab.TAB1) {
+                    tabSelector(v, MovementsTab.TAB1);
+                }
                 break;
             case R.id.tab_servicios:
-                tabSelector(v, MovementsTab.TAB2);
+                if (currentTab != MovementsTab.TAB2) {
+                    tabSelector(v, MovementsTab.TAB2);
+                }
                 break;
             case R.id.tab_envios:
-                tabSelector(v, MovementsTab.TAB3);
+                if (currentTab != MovementsTab.TAB3) {
+                    tabSelector(v, MovementsTab.TAB3);
+                }
                 break;
             default:
                 break;
@@ -185,30 +197,61 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
         if (event.getAction() == DragEvent.ACTION_DROP) {
             Log.i(getTag(), String.valueOf(v.getId()));
-            CarouselItem item = paymentsTabPresenter.getCarouselItem();
-            Glide.with(getContext()).load(item.getImageUrl()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).into(imgPagosServiceToPay);
-            imgPagosServiceToPay.setBorderColor(Color.parseColor(item.getColor()));
-            onEventListener.onEvent(TabActivity.EVENT_HIDE_MANIN_TAB, false);
-
-            payment_view_pager.startAnimation(animOut);
-            payment_view_pager.setVisibility(View.GONE);
-
-
-            container.setVisibility(View.VISIBLE);
-            container.startAnimation(animIn);
-
-            switch (currentTab){
-                case TAB1:
-                    loadFragment(RecargasFormFragment.newInstance(), Direction.NONE, false);
-                    break;
-                case TAB2:
-                    loadFragment(ServiciosFormFragment.newInstance(), Direction.NONE, false);
-                    break;
-                case TAB3:
-                    loadFragment(EnviosFormFragment.newInstance(), Direction.NONE, false);
-                    break;
-            }
+            changeImgageToPay();
+            openPaymentFragment();
         }
         return true;
+    }
+
+    public void changeImgageToPay() {
+        CarouselItem item = paymentsTabPresenter.getCarouselItem();
+        Glide.with(getContext()).load(item.getImageUrl()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).dontAnimate().into(imgPagosServiceToPay);
+        imgPagosServiceToPay.setBorderColor(Color.parseColor(item.getColor()));
+        onEventListener.onEvent(TabActivity.EVENT_CHANGE_MAIN_TAB_VISIBILITY, false);
+    }
+
+    public void openPaymentFragment() {
+        //payment_view_pager.startAnimation(animOut);
+        payment_view_pager.setVisibility(View.GONE);
+        container.setVisibility(View.VISIBLE);
+        //container.startAnimation(animIn);
+
+        switch (currentTab) {
+            case TAB1:
+                loadFragment(RecargasFormFragment.newInstance(), Direction.NONE, false);
+                break;
+            case TAB2:
+                loadFragment(ServiciosFormFragment.newInstance(), Direction.NONE, false);
+                break;
+            case TAB3:
+                loadFragment(EnviosFormFragment.newInstance(), Direction.NONE, false);
+                break;
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        List<Fragment> fragmentList = fragmentManager.getFragments();
+
+        if (requestCode == CONTACTS_CONTRACT) {
+            if (fragmentList != null) {
+                for (Fragment fragment : fragmentList) {
+                    if(fragment instanceof RecargasFormFragment) {
+                        fragment.onActivityResult(requestCode, resultCode, data);
+                        break;
+                    }
+                }
+            }
+        }else if(requestCode == BARCODE_READER_REQUEST_CODE){
+            if (fragmentList != null) {
+                for (Fragment fragment : fragmentList) {
+                    if(fragment instanceof ServiciosFormFragment) {
+                        fragment.onActivityResult(requestCode, resultCode, data);
+                        break;
+                    }
+                }
+            }
+        }
     }
 }

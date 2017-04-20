@@ -1,0 +1,42 @@
+{
+  "project_info": {
+    "project_number": "704882119354",
+    "firebase_url": "https://ya-ganaste-6f7e7.firebaseio.com",
+    "project_id": "ya-ganaste-6f7e7",
+    "storage_bucket": "ya-ganaste-6f7e7.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:704882119354:android:4ebc6fd4b0e54b51",
+        "android_client_info": {
+          "package_name": "com.pagatodo.yaganaste"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "704882119354-4ugq3k16p14fm0qjn77ns8k2tuag6dfd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAYhHYJj6oWfAQ-rKpemzwQc0tITjvZ0kA"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 1,
+          "other_platform_oauth_client": []
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

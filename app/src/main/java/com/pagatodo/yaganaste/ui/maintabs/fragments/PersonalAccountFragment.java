@@ -7,6 +7,7 @@ import android.view.View;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
+import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AccountMovementsPresenter;
@@ -54,8 +55,9 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
     }
 
     @Override
-    public void onRecyclerItemClick(View v, int position) {
-        //**SingletonSesion.setIsFlowUser(true);
-        //**startActivity(new Intent(getActivity(), MovementDetailActivity.class).putExtra("movement", movementList.get(position).toString()));
+    protected void performClickOnRecycler(ItemMovements<MovimientosResponse> itemClicked) {
+        startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
     }
+
+
 }

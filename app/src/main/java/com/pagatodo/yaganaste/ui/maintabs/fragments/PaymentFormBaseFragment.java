@@ -16,19 +16,16 @@ import butterknife.ButterKnife;
 
 public abstract class PaymentFormBaseFragment extends GenericFragment implements SeekBar.OnSeekBarChangeListener {
     public View rootview;
+    protected boolean isValid = false;
 
     @BindView(R.id.myseek)
     protected SeekBar mySeekBar;
 
     @Override
-    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
-
-    }
+    public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {};
 
     @Override
-    public void onStartTrackingTouch(SeekBar seekBar) {
-
-    }
+    public void onStartTrackingTouch(SeekBar seekBar) {};
 
     @Override
     public void onStopTrackingTouch(SeekBar seekBar) {
@@ -48,4 +45,5 @@ public abstract class PaymentFormBaseFragment extends GenericFragment implements
     }
 
     protected void continuePayment(){};
+        //mySeekBar.setEnabled(false);
 }

@@ -1,110 +1,106 @@
 <?xml version="1.0" encoding="utf-8"?>
-<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/FragmentElement"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_big"
     android:orientation="vertical">
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/containerEnviosForm"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <LinearLayout
-            android:id="@+id/containerEnviosForm"
+        <Spinner
+            android:id="@+id/tipoEnvio"
+            style="@style/CustomSpinner"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
-
-            <Spinner
-                android:id="@+id/tipoEnvio"
-                style="@style/CustomSpinner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:backgroundTint="@color/transparent" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/cardNumner"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_between_elements"
-                app:formato="number"
-                app:hintText="Número de Tarjeta (16 Digitos)"
-                app:isSingleLine="true"
-                app:maxLength="16" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/amountToSend"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_between_elements"
-                app:formato="number"
-                app:hintText="Importe a Enviar"
-                app:isSingleLine="true"
-                app:maxLength="16" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/receiverName"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_between_elements"
-                app:formato="number"
-                app:hintText="Nombre del Destinatario"
-                app:isSingleLine="true"
-                app:maxLength="16" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/concept"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_between_elements"
-                app:formato="number"
-                app:hintText="Concepto"
-                app:isSingleLine="true"
-                app:maxLength="16" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/numberReference"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_between_elements"
-                app:formato="number"
-                app:hintText="Referencia Numérica"
-                app:isSingleLine="true"
-                app:maxLength="16" />
-            <!--com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_big"
-                android:layout_marginRight="@dimen/margin_big"
-                android:layout_marginTop="@dimen/margin_doble"
-                android:text="La Comision por realizar la Operación es de $0"
-                android:textSize="11sp"
-                app:tipo="Text" /-->
-        </LinearLayout>
-
-        <RelativeLayout
-            android:id="@+id/containerSlideButon"
-            android:layout_width="fill_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/containerEnviosForm"
-            android:layout_marginLeft="@dimen/margin_doble"
-            android:layout_marginRight="@dimen/margin_doble"
-            android:layout_marginTop="@dimen/margin_big">
+            android:backgroundTint="@color/transparent" />
 
-            <SeekBar
-                android:id="@+id/myseek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_doble"
-                android:background="@drawable/seek_background"
-                android:clickable="false"
-                android:max="100"
-                android:progressDrawable="@android:color/transparent"
-                android:thumb="@drawable/thumb_size"
-                android:thumbOffset="15dp" />
-        </RelativeLayout>
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/cardNumner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_between_elements"
+            app:formato="number"
+            app:hintText="Número de Tarjeta (16 Digitos)"
+            app:isSingleLine="true"
+            app:maxLength="16"
+            android:visibility="gone"/>
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/amountToSend"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_between_elements"
+            app:formato="number"
+            app:hintText="Importe a Enviar"
+            app:isSingleLine="true"
+            app:maxLength="16" />
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/receiverName"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_between_elements"
+            app:formato="number"
+            app:hintText="Nombre del Destinatario"
+            app:isSingleLine="true"
+            app:maxLength="16" />
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/concept"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_between_elements"
+            app:formato="number"
+            app:hintText="Concepto"
+            app:isSingleLine="true"
+            app:maxLength="16" />
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            android:id="@+id/numberReference"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_between_elements"
+            app:formato="number"
+            app:hintText="Referencia Numérica"
+            app:isSingleLine="true"
+            app:maxLength="16" />
+        <!--com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_big"
+            android:layout_marginRight="@dimen/margin_big"
+            android:layout_marginTop="@dimen/margin_doble"
+            android:text="La Comision por realizar la Operación es de $0"
+            android:textSize="11sp"
+            app:tipo="Text" /-->
+    </LinearLayout>
+
+    <RelativeLayout
+        android:id="@+id/containerSlideButon"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/containerEnviosForm"
+        android:layout_marginLeft="@dimen/margin_doble"
+        android:layout_marginRight="@dimen/margin_doble"
+        android:layout_marginTop="@dimen/margin_big">
+
+        <SeekBar
+            android:id="@+id/myseek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_doble"
+            android:background="@drawable/seek_background"
+            android:clickable="false"
+            android:max="100"
+            android:progressDrawable="@android:color/transparent"
+            android:thumb="@drawable/thumb_size"
+            android:thumbOffset="15dp" />
     </RelativeLayout>
-</ScrollView>
+</RelativeLayout>

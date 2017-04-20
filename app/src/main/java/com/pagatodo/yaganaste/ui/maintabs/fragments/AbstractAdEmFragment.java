@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
+import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
@@ -28,6 +29,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.TabPresenterImpl;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericTabLayout;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -179,4 +181,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         swipeContainer.setRefreshing(false);
     }
 
+    @Override
+    public void onRecyclerItemClick(View v, int position) {
+        performClickOnRecycler(movementsList.get(tabMonths.getSelectedTabPosition()).get(position));
+    }
+
+    protected abstract void performClickOnRecycler(ItemRecycler itemClicked);
 }

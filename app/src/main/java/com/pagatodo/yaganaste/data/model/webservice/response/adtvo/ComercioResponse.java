@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -117,5 +118,14 @@ public class ComercioResponse implements Serializable{
 
     public void setSobrecargo(Double sobrecargo) {
         Sobrecargo = sobrecargo;
+    }
+
+    public ArrayList<String> getMontosStringList(){
+        ArrayList<String> response = new ArrayList<>();
+        for (Double m: ListaMontos) {
+            response.add("$" +  m.toString() + ".00");
+        }
+
+        return response;
     }
 }

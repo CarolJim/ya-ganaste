@@ -14,6 +14,7 @@ import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -39,7 +40,7 @@ public class CarouselItem extends FrameLayout
     private boolean empty;
     private Matrix mCIMatrix;
     private int gestureType;
-    private int idComercio;
+    private ComercioResponse comercio;
 
     public CarouselItem(Context context) {
         super(context);
@@ -47,53 +48,53 @@ public class CarouselItem extends FrameLayout
         inflateLayout();
     }
 
-    public CarouselItem(Context context, int idComercio) {
+    public CarouselItem(Context context, ComercioResponse comercio) {
         super(context);
         this.context = context;
-        this.idComercio = idComercio;
+        this.comercio = comercio;
         inflateLayout();
     }
 
-    public CarouselItem(Context context, int resource, int gestureType, int idComercio) {
+    public CarouselItem(Context context, int resource, int gestureType, ComercioResponse comercio) {
         super(context);
         this.context = context;
         this.gestureType = gestureType;
         inflateLayout();
         this.drawable = resource;
-        this.idComercio = idComercio;
+        this.comercio = comercio;
         mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
 
     }
 
-    public CarouselItem(Context context, String imageUrl, int gestureType, int idComercio) {
+    public CarouselItem(Context context, String imageUrl, int gestureType, ComercioResponse comercio) {
         super(context);
         this.context = context;
         this.gestureType = gestureType;
         this.imageUrl = imageUrl;
-        this.idComercio = idComercio;
+        this.comercio = comercio;
         inflateLayout();
         Glide.with(getContext()).load(imageUrl).crossFade(0).into(mImage);
 
     }
 
-    public CarouselItem(Context context, int resource, String color, int gestureType, int idComercio) {
+    public CarouselItem(Context context, int resource, String color, int gestureType, ComercioResponse comercio) {
         super(context);
         this.context = context;
         this.gestureType = gestureType;
         this.drawable = resource;
-        this.idComercio = idComercio;
+        this.comercio = comercio;
         this.color = color;
         inflateLayout(color);
         mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
 
     }
 
-    public CarouselItem(Context context, String imageUrl, String color, int gestureType, int idComercio) {
+    public CarouselItem(Context context, String imageUrl, String color, int gestureType, ComercioResponse comercio) {
         super(context);
         this.context = context;
         this.gestureType = gestureType;
         this.imageUrl = imageUrl;
-        this.idComercio = idComercio;
+        this.comercio = comercio;
         this.color = color;
         inflateLayout(color);
         Glide.with(context).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
@@ -259,8 +260,8 @@ public class CarouselItem extends FrameLayout
         this.mCIMatrix = mMatrix;
     }
 
-    public int getIdComercio(){
-        return this.idComercio;
+    public ComercioResponse getComercio(){
+        return this.comercio;
     }
 
     public String getColor() {

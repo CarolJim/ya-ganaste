@@ -10,17 +10,17 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
 /**
  * @author Juan Guerra on 05/04/2017.
  */
 
-public class CardAdq extends LinearLayoutCompat {
+public class CardAdq extends TabViewElement{
 
     private TextView saldoAdq;
     private TextView txtInvite;
-    private boolean isAdquirente;
 
     public CardAdq(Context context) {
         this(context, null);
@@ -42,21 +42,15 @@ public class CardAdq extends LinearLayoutCompat {
 
         saldoAdq = (TextView) findViewById(R.id.txt_saldo_adq);
         txtInvite = (TextView) findViewById(R.id.txt_invite);
-        isAdquirente = false;
     }
 
-    public void updateSaldo(String saldo) {
-        saldoAdq.setVisibility(VISIBLE);
-        saldoAdq.setText(StringUtils.getCurrencyValue(saldo));
+    @Override
+    public void updateData() {
+        if (SingletonUser.getInstance().getDataUser().isEsAgente()) {
+            txtInvite.setVisibility(GONE);
+            saldoAdq.setVisibility(VISIBLE);
+            saldoAdq.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDataExtraUser().getSaldoAdq()));
+        }
     }
 
-    public void updateSaldo(double saldo) {
-        txtInvite.setVisibility(GONE);
-        updateSaldo(String.valueOf(saldo));
-        isAdquirente = true;
-    }
-
-    public boolean isAdquirente() {
-        return this.isAdquirente;
-    }
 }

@@ -22,7 +22,7 @@ import com.pagatodo.yaganaste.utils.UI;
  * Created by flima on 17/03/17.
  */
 
-public class App extends Application {
+public class App extends MultiDexApplication {
     private static App m_singleton;
 
     private Preferencias prefs;

@@ -31,7 +31,7 @@ public abstract class GenericFragment extends Fragment {
     @NonNull
     public String getFragmentTag(){
         return getClass().getSimpleName();
-    };
+    }
 
     /**
      * Método para inicializar los views del fragment

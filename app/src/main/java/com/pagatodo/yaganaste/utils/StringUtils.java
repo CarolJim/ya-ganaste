@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.utils;
 
+import android.text.SpannableStringBuilder;
 import android.widget.TextView;
 
 import java.math.RoundingMode;
@@ -71,6 +72,12 @@ public class StringUtils {
 
     public static int getIntValue(String value){
         return getDoubleValue(value).intValue();
+    }
+
+    public static SpannableStringBuilder getSpannable (String formatted) {
+        SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
+        spannableStringBuilder.append(formatted);
+        return spannableStringBuilder;
     }
 
 }
