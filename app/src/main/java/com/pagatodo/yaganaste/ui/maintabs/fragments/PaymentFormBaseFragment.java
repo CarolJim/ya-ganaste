@@ -5,7 +5,6 @@ import android.widget.SeekBar;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.customviews.SeekYaGanaste;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
