@@ -39,11 +39,11 @@ public class CardEmisor extends TabViewElement{
         View child = LayoutInflater.from(getContext()).inflate(R.layout.card_emisor, null);
         LinearLayoutCompat.LayoutParams params = new LinearLayoutCompat.LayoutParams(LinearLayoutCompat.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 0);
         addView(child, params);
-        txtSaldoEm = (TextView)findViewById(R.id.txt_saldo);
+        txtSaldoEm = (TextView)findViewById(R.id.txt_saldo_em);
     }
 
     @Override
     public void updateData() {
-        txtSaldoEm.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDataExtraUser().getSaldo()));
+        txtSaldoEm.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()));
     }
 }

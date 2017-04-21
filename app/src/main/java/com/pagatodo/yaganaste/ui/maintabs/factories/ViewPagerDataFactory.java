@@ -4,10 +4,12 @@ import android.support.v4.app.Fragment;
 
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
 import com.pagatodo.yaganaste.interfaces.enums.AdqEmTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
+import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
@@ -42,7 +44,11 @@ public class ViewPagerDataFactory {
                 fragmentList.add(HomeTabFragment.newInstance());
                 fragmentList.add(PaymentsTabFragment.newInstance());
                 fragmentList.add(BlankFragment.newInstance());
-                fragmentList.add(InviteAdquirenteFragment.newInstance());
+                if(!SingletonUser.getInstance().getDataUser().isEsAgente())
+                    fragmentList.add(InviteAdquirenteFragment.newInstance());
+                else {
+                    fragmentList.add(GetMountFragment.newInstance());
+                }
 
                 return new ViewPagerData<> (fragmentList, MainTab.values());
 

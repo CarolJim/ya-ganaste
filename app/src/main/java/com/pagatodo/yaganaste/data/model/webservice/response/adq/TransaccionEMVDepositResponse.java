@@ -25,7 +25,6 @@ public class TransaccionEMVDepositResponse  implements Serializable {
     private String tipoTarjetaBanco = "";
     private String tlvResult = "";
 
-    private String amount = "";
 
     public TransaccionEMVDepositResponse() {
         error = new DataResultAdq();
@@ -159,12 +158,5 @@ public class TransaccionEMVDepositResponse  implements Serializable {
         this.tlvResult = tlvResult;
     }
 
-    public String getAmount() {
-        return amount;
-    }
-
-    public void setAmount(String amount) {
-        this.amount = amount;
-    }
 }
 

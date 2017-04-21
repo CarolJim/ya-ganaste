@@ -48,6 +48,6 @@ public class CardAdqSelected extends TabViewElement{
     @Override
     public void updateData() {
         this.txtNombreNegocio.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombreComercio());
-        this.txtSaldoAdq.setText(SingletonUser.getInstance().getDataExtraUser().getSaldoAdq());
+        this.txtSaldoAdq.setText(SingletonUser.getInstance().getDatosSaldo().getSaldoAdq());
     }
 }

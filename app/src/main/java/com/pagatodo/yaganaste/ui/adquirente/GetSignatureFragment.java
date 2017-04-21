@@ -13,14 +13,13 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.TransactionAdqResult;
+import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountView2;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
-import com.pagatodo.yaganaste.utils.customviews.SigningView;
 import com.pagatodo.yaganaste.utils.customviews.SigningViewYaGanaste;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -29,7 +28,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
-import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.KEY_TRANSACTION_DATA;
 
 
 /**
@@ -88,7 +86,7 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        emvDepositResponse  = TransactionAdqResult.getCurrentTransaction().getTransaccionResponse();
+        emvDepositResponse  = TransactionAdqData.getCurrentTransaction().getTransaccionResponse();
         adqPresenter = new AdqPresenter(this);
     }
 

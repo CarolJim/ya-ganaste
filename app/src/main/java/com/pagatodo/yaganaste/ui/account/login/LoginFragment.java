@@ -157,6 +157,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void showError(Object error) {
         UI.showToastShort(error.toString(),getActivity());
+        setEnableViews(true);
     }
 
     /*Implementación de ValidationForm*/

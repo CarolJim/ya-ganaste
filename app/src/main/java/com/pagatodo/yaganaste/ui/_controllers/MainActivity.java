@@ -135,15 +135,18 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-
         Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+
+
         switch (v.getId()) {
+
             case R.id.btnMainCreateAccount:
                 intent.putExtra(SELECTION,GO_TO_REGISTER);
                 startActivity(intent);
                 break;
 
             case R.id.btnMainLogin:
+                //Intent intentMain = new Intent(MainActivity.this, TabActivity.class);
                 intent.putExtra(SELECTION,GO_TO_LOGIN);
                 startActivity(intent);
                 //startActivity(TabActivity.createIntent(this));

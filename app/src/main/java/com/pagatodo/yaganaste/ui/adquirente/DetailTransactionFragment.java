@@ -11,7 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.TransactionAdqResult;
+import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountView2;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -20,12 +20,9 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
-import com.pagatodo.yaganaste.utils.customviews.StyleButton;
-import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -76,7 +73,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        emvDepositResponse  = TransactionAdqResult.getCurrentTransaction().getTransaccionResponse();
+        emvDepositResponse  = TransactionAdqData.getCurrentTransaction().getTransaccionResponse();
         adqPresenter = new AdqPresenter(this);
     }
 
@@ -131,7 +128,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
 
     @Override
     public void onValidationSuccess() {
-        adqPresenter.sendTicket();
+        adqPresenter.sendTicket(emailToSend);
     }
 
     @Override

@@ -12,12 +12,14 @@ public class SingletonUser {
 
     private DataIniciarSesion dataUser;
     private ExtraInfoUser dataExtraUser;
+    private DatosSaldo datosSaldo;
     private String pathPictureTemp = "";
     private String activacionCodeFreja = "";
 
     private SingletonUser(){
         dataUser = new DataIniciarSesion();
         dataExtraUser = new ExtraInfoUser();
+        datosSaldo = new DatosSaldo();
     }
 
     public static synchronized SingletonUser getInstance(){
@@ -57,5 +59,13 @@ public class SingletonUser {
 
     public void setActivacionCodeFreja(String activacionCodeFreja) {
         this.activacionCodeFreja = activacionCodeFreja;
+    }
+
+    public DatosSaldo getDatosSaldo() {
+        return datosSaldo;
+    }
+
+    public void setDatosSaldo(DatosSaldo datosSaldo) {
+        this.datosSaldo = datosSaldo;
     }
 }

@@ -1,26 +1,18 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
 import android.content.Intent;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Window;
 
-import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.data.model.RegisterAgent;
-import com.pagatodo.yaganaste.data.model.TransactionAdqResult;
-import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
+import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
-import com.pagatodo.yaganaste.ui.account.register.DatosNegocio;
-import com.pagatodo.yaganaste.ui.account.register.Documentos;
-import com.pagatodo.yaganaste.ui.account.register.DomicilioNegocio;
-import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.adquirente.DetailTransactionFragment;
 import com.pagatodo.yaganaste.ui.adquirente.GetSignatureFragment;
 import com.pagatodo.yaganaste.ui.adquirente.InsertDongleFragment;
@@ -28,7 +20,6 @@ import com.pagatodo.yaganaste.ui.adquirente.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.TransactionResultFragment;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
-import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 
 
 public class AdqActivity extends SupportFragmentActivity implements OnEventListener{
@@ -49,7 +40,7 @@ public class AdqActivity extends SupportFragmentActivity implements OnEventListe
         setContentView(R.layout.login_activity);
         pref = App.getInstance().getPrefs();
         onEvent(EVENT_GO_INSERT_DONGLE,null);
-        App.getInstance().initEMVListener();
+        //App.getInstance().initEMVListener();
 
     }
 
@@ -60,7 +51,7 @@ public class AdqActivity extends SupportFragmentActivity implements OnEventListe
                 loadFragment(InsertDongleFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_TRANSACTION_RESULT:
-                loadFragment(TransactionResultFragment.newInstance(TransactionAdqResult.getCurrentTransaction().getPageResult()), Direction.FORDWARD, false);
+                loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_REMOVE_CARD:
                 loadFragment(RemoveCardFragment.newInstance(), Direction.FORDWARD, false);
