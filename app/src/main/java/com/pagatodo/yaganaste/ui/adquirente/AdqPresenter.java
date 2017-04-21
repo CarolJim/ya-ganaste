@@ -1,35 +1,19 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
-import android.os.Handler;
-import android.util.Log;
-
-import com.pagatodo.yaganaste.data.model.TransactionAdqResult;
-import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
-import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAccountView2;
-import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
-import com.pagatodo.yaganaste.interfaces.IAdqAccountPresenter;
 import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqPresenter;
-import com.pagatodo.yaganaste.interfaces.IAdqRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
-import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
-import com.pagatodo.yaganaste.ui.account.AccountAdqInteractor;
 
-import java.util.List;
-
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
-import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
 /**
  * Created by flima on 17/04/2017.
@@ -55,7 +39,6 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
     public void initTransaction() {
         iAdqView.showLoader("Estamos en Proceso de Cobro");
         adqInteractor.initPayment(null);
-
     }
 
     @Override
@@ -65,9 +48,9 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
     }
 
     @Override
-    public void sendTicket() {
-        iAdqView.showLoader("Enviando Ticket");
-        adqInteractor.sendTicket(null);
+    public void sendTicket(String email) {
+            iAdqView.showLoader("Enviando Ticket");
+            adqInteractor.sendTicket(null);
     }
 
     @Override

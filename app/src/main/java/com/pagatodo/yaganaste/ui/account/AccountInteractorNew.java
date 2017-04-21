@@ -6,22 +6,20 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.Card;
+import com.pagatodo.yaganaste.data.model.DatosSaldo;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionAprovSofttokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioFWSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActivacionAprovSofttokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultaAsignacionTarjetaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.CrearClienteRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioFWSInicioSesionResponse;
@@ -34,7 +32,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoni
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarNIPResponse;
@@ -58,7 +55,6 @@ import java.util.List;
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.CREATE_USER;
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.LOGIN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_COMPLETO;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_COUCHMARK;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
@@ -397,13 +393,15 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             //Seteamos los datos del usuario en el SingletonUser.
             SingletonUser user = SingletonUser.getInstance();
             user.setDataUser(dataUser);
+            user.getDataUser().setEsAgente(true);/*TODO Testin de flujo Adq*/
             if(dataUser.isEsUsuario()) { // Si Usuario
                 RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
                 if(dataUser.isConCuenta()){// Si Cuenta
                     if (dataUser.isAsignoNip()) { // NO necesita NIP
                         if(!dataUser.isRequiereActivacionSMS()){// No Requiere Activacion de SMS
                             /*TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento*/
-                                stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
+                            user.setDatosSaldo(new DatosSaldo(String.format("%s",dataUser.getUsuario().getCuentas().get(0).getSaldo())));
+                            stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
                         }else{ // Requiere Activacion SMS
                             stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
                         }

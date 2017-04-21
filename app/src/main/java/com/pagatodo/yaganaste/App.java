@@ -22,11 +22,9 @@ import com.pagatodo.yaganaste.utils.UI;
  * Created by flima on 17/03/17.
  */
 
-public class App extends MultiDexApplication {
+public class App extends Application {
     private static App m_singleton;
-
     private Preferencias prefs;
-    private static Context context;
     public QPOSService pos;
     public IposListener emvListener;
 
@@ -35,8 +33,8 @@ public class App extends MultiDexApplication {
         super.onCreate();
         m_singleton = this;
         //MultiDex.install(this);
+
         this.prefs = new Preferencias(this);
-        context = this;
         System.loadLibrary("a01jni");
         initEMVListener();
         RequestHeaders.initHeaders(this);
@@ -108,15 +106,16 @@ public class App extends MultiDexApplication {
         return m_singleton;
     }
 
-
-    public Preferencias getPrefs() {
-        return this.prefs;
-    }
-
     public static Context getContext(){
-        return context;
+        return m_singleton.getApplicationContext();
     }
 
+
+    @Override
+    protected void attachBaseContext(Context base) {
+        super.attachBaseContext(base);
+        MultiDex.install(base);
+    }
     //Inicializa Lector Ipos
     public void initEMVListener() {
         emvListener = new IposListener(getApplicationContext());
@@ -128,4 +127,10 @@ public class App extends MultiDexApplication {
         Log.i("=====", "===========>>>");
         Log.i("=====", "===========>>> initEMVListener");
     }
+
+
+    public Preferencias getPrefs() {
+        return this.prefs;
+    }
+
 }

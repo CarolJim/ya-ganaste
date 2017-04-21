@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.data.model;
 
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
-import com.pagatodo.yaganaste.interfaces.Command;
 
 import java.io.Serializable;
 
@@ -9,22 +8,25 @@ import java.io.Serializable;
  * Created by flima on 17/04/2017.
  */
 
-public  class TransactionAdqResult  implements Serializable{
+public  class TransactionAdqData implements Serializable{
 
     private int statusTransaction;
     private int responseCode;
     private PageResult pageResult;
     private TransaccionEMVDepositResponse transaccionResponse;
+    private String amount = "";
+    private String description = "";
 
-    private static TransactionAdqResult transactionAdqResult;
+    private static TransactionAdqData transactionAdqResult;
 
-    private TransactionAdqResult() {
+    private TransactionAdqData() {
+        transaccionResponse = new TransaccionEMVDepositResponse();
     }
 
-    public synchronized static TransactionAdqResult getCurrentTransaction(){
+    public synchronized static TransactionAdqData getCurrentTransaction(){
 
         if(transactionAdqResult == null){
-            transactionAdqResult = new TransactionAdqResult();
+            transactionAdqResult = new TransactionAdqData();
         }
 
         return transactionAdqResult;
@@ -33,6 +35,10 @@ public  class TransactionAdqResult  implements Serializable{
 
     public static void resetCurrentTransaction(){
         transactionAdqResult = null;
+    }
+
+    public static void resetEMDepositAccount(){
+        transactionAdqResult.transaccionResponse = new TransaccionEMVDepositResponse();
     }
 
     public int getStatusTransaction() {
@@ -65,6 +71,22 @@ public  class TransactionAdqResult  implements Serializable{
 
     public void setTransaccionResponse(TransaccionEMVDepositResponse transaccionResponse) {
         this.transaccionResponse = transaccionResponse;
+    }
+
+    public String getAmount() {
+        return amount;
+    }
+
+    public void setAmount(String amount) {
+        this.amount = amount;
+    }
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
 

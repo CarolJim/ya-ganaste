@@ -7,7 +7,6 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -22,13 +21,11 @@ import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.data.model.TransactionAdqResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -42,9 +39,7 @@ import static android.content.Context.AUDIO_SERVICE;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
-import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_COMPLETE;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
-import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
@@ -80,12 +75,12 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     private AudioManager audioManager;
     private Handler handlerSwipe;
+    private IntentFilter broadcastEMVSwipe;
     public Preferencias prefs;
     private int currentVolumenDevice;
     private int maxVolumenDevice;
 
     protected boolean isReaderConected = false;
-    private IntentFilter broadcastEMVSwipe;
 
     private String amount = "";
     private String detailAmount = "";
@@ -104,6 +99,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         getActivity().registerReceiver(headPhonesReceiver, filter);
         handlerSwipe = new Handler();
+
+        App.getInstance().initEMVListener();// Inicializamos el listener
 
         adqPresenter = new AdqPresenter(this);
 
@@ -163,6 +160,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
             int mensaje = intent.getIntExtra(MSJ, -1);
             String error = intent.getStringExtra(ERROR);
+            Log.e(TAG, "onReceive: " + mensaje);
             //Procesar lectura mientras no se este validando Dongle
             //if(!validatingDng){
 
@@ -334,7 +332,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
-        //App.getInstance().pos.openAudio();
+        App.getInstance().pos.openAudio();
         maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
     }

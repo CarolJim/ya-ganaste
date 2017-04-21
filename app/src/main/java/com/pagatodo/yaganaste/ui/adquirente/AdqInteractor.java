@@ -1,18 +1,12 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
-import android.Manifest;
-import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.net.Uri;
 import android.os.Handler;
-import android.support.v4.app.ActivityCompat;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.PageResult;
-import com.pagatodo.yaganaste.data.model.TransactionAdqResult;
+import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.EnviarTicketCompraRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.FirmaDeVoucherRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistroDongleRequest;
@@ -22,14 +16,10 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.FirmaDeVoucherR
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistroDongleResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
 import com.pagatodo.yaganaste.interfaces.Command;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAccountView2;
 import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
 import com.pagatodo.yaganaste.net.IRequestResult;
-import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
-import com.pagatodo.yaganaste.utils.Constants;
-import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import java.io.Serializable;
 
@@ -38,9 +28,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHE
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
-import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SIGNATURE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_REMOVE_CARD;
-import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
@@ -86,7 +74,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         new Handler().postDelayed(new Runnable() {
             public void run() {
 
-                TransactionAdqResult result = TransactionAdqResult.getCurrentTransaction();
+                TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
                 result.setStatusTransaction(ADQ_TRANSACTION_APROVE);
                 result.setResponseCode(0);
                 PageResult pageResult = new PageResult(R.mipmap.icon_validate_green,"Aprobada","El Pago Fue Completado\nCorrectamente.",false);
@@ -133,6 +121,8 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                     @Override
                     public void action(Context context,Object[] data) {
                         ((Activity)context).finish(); // Finalizamos la AdqActivity//TODO regresar al fragment GetAmount precargado.
+                        //Borramos los datos de la transacción
+                        TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
                     }
                 });*/
 
@@ -171,13 +161,16 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         new Handler().postDelayed(new Runnable() {
             public void run() {
 
-                TransactionAdqResult result = TransactionAdqResult.getCurrentTransaction();
+                TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
                 PageResult pageResult = new PageResult(R.mipmap.ic_validate_blue, "¡Listo!", "El Recibo Fue\nEnviado con Éxito.", false);
                 pageResult.setActionBtnPrimary(new Command() {
                     @Override
                     public void action(Context context, Object... params) {
                         IAccountView2 viewInterface = (IAccountView2) params[0];
                         viewInterface.nextStepRegister(EVENT_GO_MAINTAB, "Ejecución Éxitosa");
+                        //Borramos los datos de la transacción
+                        TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
+
                     }
                 });
 

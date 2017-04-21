@@ -7,14 +7,9 @@
     android:orientation="vertical"
     tools:context="com.pagatodo.yaganaste.ui._controllers.MainActivity">
 
-
-    <include
-        android:id="@+id/toolbarLy"
-        layout="@layout/toolbar" />
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbarLy"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium">
 
@@ -86,7 +81,6 @@
             android:id="@+id/myseek"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_doble"
             android:background="@drawable/seek_background"
             android:clickable="false"
             android:max="100"
@@ -95,7 +89,6 @@
             android:thumbOffset="15dp"
             android:layout_marginLeft="@dimen/margin_medium"
             android:layout_marginRight="@dimen/margin_medium"
-            android:layout_marginTop="@dimen/margin_doble"
             android:layout_below="@+id/conceptLayout"/>
 
 </RelativeLayout>

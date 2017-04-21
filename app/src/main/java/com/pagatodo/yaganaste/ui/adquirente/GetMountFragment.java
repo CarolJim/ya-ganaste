@@ -14,6 +14,8 @@ import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -127,10 +129,11 @@ public class GetMountFragment extends PaymentFormBaseFragment {
                 float current_mount = Float.parseFloat(valueAmount);
                 String current_concept = edtConcept.getText().toString().trim();//Se agrega Concepto opcional
                 if (current_mount >= MIN_AMOUNT) {
-
+                    TransactionAdqData.getCurrentTransaction().setAmount(String.format("%s",current_mount));
+                    TransactionAdqData.getCurrentTransaction().setDescription(current_concept);
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
                     startActivity(intent);
-
+                    setData("","");
                 } else showValidationError("El monto tiene que ser mayor");
             } catch (NumberFormatException e) {
                 showValidationError("Ingresa un monto válido.");
@@ -148,4 +151,16 @@ public class GetMountFragment extends PaymentFormBaseFragment {
         UI.showToast(error, getActivity());
         mySeekBar.setProgress(0);
     }
+
+    private void setData(String amount,String concept){
+        edtMount.setText(amount);
+        edtConcept.setText(concept);
+    }
+
+    @Override
+    public void onResume(){
+        super.onResume();
+        setData(TransactionAdqData.getCurrentTransaction().getAmount(),TransactionAdqData.getCurrentTransaction().getDescription());
+    }
 }
+

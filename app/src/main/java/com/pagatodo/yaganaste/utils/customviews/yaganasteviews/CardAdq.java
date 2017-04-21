@@ -49,7 +49,7 @@ public class CardAdq extends TabViewElement{
         if (SingletonUser.getInstance().getDataUser().isEsAgente()) {
             txtInvite.setVisibility(GONE);
             saldoAdq.setVisibility(VISIBLE);
-            saldoAdq.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDataExtraUser().getSaldoAdq()));
+            saldoAdq.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoAdq()));
         }
     }
 

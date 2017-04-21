@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces;
 
+import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 
 /**

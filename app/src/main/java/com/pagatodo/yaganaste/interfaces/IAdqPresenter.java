@@ -8,5 +8,5 @@ public interface IAdqPresenter {
     public void validateDongle(String serial);
     public void initTransaction();
     public void sendSignature();
-    public void sendTicket();
+    public void sendTicket(String email);
 }

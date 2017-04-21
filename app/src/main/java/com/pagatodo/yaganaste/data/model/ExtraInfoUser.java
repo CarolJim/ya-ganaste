@@ -10,8 +10,6 @@ public final class ExtraInfoUser {
     private String mail = "";
     private String phone = "";
     private String pass = "";
-    private String saldo = "";
-    private String saldoAdq = "";
     private String clabe = "";
 
     /*Estatus de usuario/agente*/
@@ -20,12 +18,6 @@ public final class ExtraInfoUser {
     private int tipoAgente;
 
     public ExtraInfoUser() {
-    }
-
-    public ExtraInfoUser(boolean needSetPin, int statusDocuments, int statusAgent) {
-        this.needSetPin = needSetPin;
-        this.statusDocuments = statusDocuments;
-        this.statusAgent = statusAgent;
     }
 
     public boolean isNeedSetPin() {
@@ -58,22 +50,6 @@ public final class ExtraInfoUser {
 
     public void setPass(String pass) {
         this.pass = pass;
-    }
-
-    public String getSaldo() {
-        return saldo;
-    }
-
-    public void setSaldo(String saldo) {
-        this.saldo = saldo;
-    }
-
-    public String getSaldoAdq() {
-        return saldoAdq;
-    }
-
-    public void setSaldoAdq(String saldoAdq) {
-        this.saldoAdq = saldoAdq;
     }
 
     public String getClabe() {
