@@ -34,7 +34,8 @@ public class ValidatePermissions {
             Manifest.permission.SEND_SMS,
             Manifest.permission.CAMERA,
             Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.READ_EXTERNAL_STORAGE};
+            Manifest.permission.READ_EXTERNAL_STORAGE
+            ,Manifest.permission.CALL_PHONE};
 
     /**
      * Devuelve el arreglo de permisos a validar.

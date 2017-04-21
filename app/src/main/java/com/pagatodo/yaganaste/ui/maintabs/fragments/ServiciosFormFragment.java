@@ -89,7 +89,9 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
     }
 
     @Override
-    void continuePayment() {
+    protected void continuePayment() {
+        super.continuePayment();
+
         if (!isValid) {
             showError();
             mySeekBar.setProgress(0);

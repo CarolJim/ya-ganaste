@@ -114,4 +114,10 @@
         <attr name="seekThumbColor" format="color"/>
     </declare-styleable>
 
+    <declare-styleable name="MontoTextView">
+        <attr name="dotBottom" format="boolean"/>
+        <attr name="symbolSmaller" format="boolean"/>
+        <attr name="decimalLenght" format="integer"/>
+    </declare-styleable>
+
 </resources>

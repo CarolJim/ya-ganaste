@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -105,7 +104,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
         tipoEnvio.setAdapter(dataAdapter);
         tipoEnvio.setOnItemSelectedListener(this);
         amountToSend.addTextChangedListener(new NumberTextWatcher(amountToSend));
-        
+
     }
 
     @Override

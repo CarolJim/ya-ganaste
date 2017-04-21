@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
+import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
 
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_REGISTER;

@@ -48,20 +48,9 @@
         style="@style/textDescInputs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/txtTitle"
+        android:layout_below="@+id/txtTitleResult"
         android:gravity="center"
         android:layout_marginBottom="@dimen/btn_margin_bottom"/>
-
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txtMessageResult"
-        style="@style/textDescInputs"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_above="@+id/layoutButtonsResult"
-        android:layout_marginBottom="@dimen/btn_margin_bottom"
-        android:text="@string/congratulation_text2" />
-
     <LinearLayout
         android:id="@+id/layoutButtonsResult"
         android:layout_width="match_parent"
@@ -70,20 +59,21 @@
         android:orientation="horizontal">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
-            android:id="@+id/btnSecondaryAction"
+            android:id="@+id/btnNextResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
             android:text="@string/next"
-            android:visibility="gone"
+            android:visibility="visible"
             app:cornerRadius="@dimen/btn_corner_radius" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
-            android:id="@+id/btnPrimaryAction"
+            android:id="@+id/btnErrorResult"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_weight="1"
-            android:text="@string/next"
+            android:visibility="visible"
+            android:text="Reintentar"
             app:cornerRadius="@dimen/btn_corner_radius" />
 
 

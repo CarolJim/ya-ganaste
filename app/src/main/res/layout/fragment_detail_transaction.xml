@@ -1,0 +1,155 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lets_start"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    tools:context=".ui._controllers.AccountActivity">
+
+    <include
+        android:id="@+id/toolbarLy"
+        layout="@layout/toolbar" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbarLy"
+        android:layout_marginLeft="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:orientation="vertical">
+
+        <RelativeLayout
+            android:id="@+id/layoutImageResult"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_weight="1.5"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:padding="@dimen/generic_padig">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txtThanksBuy"
+                style="@style/textTitle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/gracias_por_compra"
+                android:layout_marginTop="@dimen/margin_medium"
+                app:tipo="Descripcion" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txtPaymentMessage1"
+                style="@style/textDetailTransaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtThanksBuy"
+                android:text="@string/mensaje_pagaste1"
+                android:layout_marginTop="@dimen/margin_small"
+                app:tipo="Descripcion" />
+
+            <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+                android:id="@+id/txtAmountPayment"
+                style="@style/textDetailTransaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtPaymentMessage1"
+                android:layout_marginTop="@dimen/margin_small"
+                android:textSize="28sp"
+                android:text="70"
+                app:dotBottom="false"
+                app:symbolSmaller="true"/>
+
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txtPaymentMessage2"
+                style="@style/textDetailTransaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtAmountPayment"
+                android:text="@string/mensaje_pagaste2"
+                android:layout_marginTop="@dimen/margin_small"
+                app:tipo="Descripcion" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:layout_below="@+id/txtPaymentMessage2"
+                android:layout_marginTop="@dimen/margin_small"
+                android:orientation="horizontal">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    style="@style/textDetailTransaction"
+                    android:id="@+id/txtNumberCard"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="*************4565"/>
+
+                <ImageView
+                    android:id="@+id/imgTypeCard"
+                    android:layout_width="30dp"
+                    android:layout_height="30dp"
+                    android:src="@mipmap/master_icon"/>
+
+            </LinearLayout>
+
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:id="@+id/layoutButtonsResult"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:paddingRight="@dimen/margin_medium"
+            android:paddingLeft="@dimen/margin_medium"
+            android:layout_weight="1.8">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txtQuestionEmail"
+                style="@style/textTitleDetailTransaction"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="@string/correo_enviar_ticket"
+                app:tipo="Descripcion" />
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/edtEmailSendticket"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/txtQuestionEmail"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:text="@string/txt_felicidades"
+                app:formato="email" />
+
+            <SeekBar
+                android:id="@+id/myseek"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/margin_doble"
+                android:background="@drawable/seek_background"
+                android:clickable="false"
+                android:max="100"
+                android:progressDrawable="@android:color/transparent"
+                android:thumb="@drawable/thumb_size"
+                android:thumbOffset="15dp" />
+
+
+        </RelativeLayout>
+
+
+
+    </LinearLayout>
+
+
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@+id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+
+</RelativeLayout>

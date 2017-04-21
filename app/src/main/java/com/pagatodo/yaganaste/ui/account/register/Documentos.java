@@ -27,7 +27,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.adquirente.AdqPresenter;
+import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.UI;
@@ -83,7 +83,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     private int documentProcessed = 0;
     private BitmapLoader bitmapLoader;
     private String imgs[] = new String[4];
-    private AdqPresenter adqPresenter;
+    private AccountAdqPresenter adqPresenter;
 
 
     public Documentos() {
@@ -108,7 +108,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adqPresenter = new AdqPresenter(this);
+        adqPresenter = new AccountAdqPresenter(this);
     }
 
     @Override

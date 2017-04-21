@@ -7,9 +7,16 @@
     android:orientation="vertical"
     tools:context="com.pagatodo.yaganaste.ui._controllers.MainActivity">
 
+
+    <include
+        android:id="@+id/toolbarLy"
+        layout="@layout/toolbar" />
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbarLy"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         style="@style/textSubTitle"
@@ -17,7 +24,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="20dp"
-        android:text="Ingresa el Importe a Cobrar"
+        android:text="@string/monto_cobrar"
         android:textColor="@color/whiteColor" />
 
     <LinearLayout
@@ -34,54 +41,62 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
             android:id="@+id/edtMount"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="@null"
-            android:drawableTint="@color/grayColor"
+            android:background="@drawable/back_edittext_gray"
+            android:paddingBottom="10dp"
             android:gravity="center"
             android:hint="$0.00"
             android:maxLength="11"
             android:inputType="numberDecimal"
             android:imeOptions="actionNext"
-            android:textColor="@color/colorAccent"
+            android:textColor="@color/whiteColor"
             android:textSize="46sp"/>
 
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/conceptLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="6dp"
         android:layout_marginLeft="15dp"
         android:layout_marginRight="15dp"
-        android:layout_marginTop="20dp"
+        android:layout_marginTop="@dimen/margin_big"
+        android:padding="4dp"
         android:orientation="vertical"
         android:layout_below="@+id/layoutAmount"
         android:gravity="center">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
             android:id="@+id/edtConcept"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:focusable="true"
-            android:drawableTint="@color/grayColor"
-            android:background="@null"
+            android:background="@drawable/back_edittext_gray"
+            android:padding="8dp"
             android:gravity="center"
-            android:inputType="text"
+            android:inputType="text|textNoSuggestions"
             android:textStyle="normal"
             android:hint="Concepto (Opcional)"
-            android:textColor="@color/colorAccent" />
+            android:textColor="@color/whiteColor" />
     </LinearLayout>
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleButton
-        android:id="@+id/btnCharge"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="30dp"
-        android:layout_marginBottom="30dp"
-        android:layout_centerHorizontal="true"
-        android:layout_alignParentBottom="true"
-        android:text="@string/cobrar" />
+        <SeekBar
+            android:id="@+id/myseek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/margin_doble"
+            android:background="@drawable/seek_background"
+            android:clickable="false"
+            android:max="100"
+            android:progressDrawable="@android:color/transparent"
+            android:thumb="@drawable/thumb_size"
+            android:thumbOffset="15dp"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_doble"
+            android:layout_below="@+id/conceptLayout"/>
 
 </RelativeLayout>
 

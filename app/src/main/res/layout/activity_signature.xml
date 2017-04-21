@@ -31,12 +31,12 @@
                 android:gravity="center_vertical"
                 android:layout_alignParentLeft="true"
                 android:orientation="horizontal">
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/pago_por"
-                android:textSize="11sp"
-                android:layout_alignParentLeft="true"/>
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="@string/pago_por"
+                    android:textSize="11sp"
+                    android:layout_alignParentLeft="true"/>
 
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txtAmount"

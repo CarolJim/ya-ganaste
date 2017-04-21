@@ -7,6 +7,7 @@ import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.ActivityInfo;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
@@ -21,10 +22,12 @@ import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.TransactionAdqResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -38,6 +41,10 @@ import butterknife.ButterKnife;
 import static android.content.Context.AUDIO_SERVICE;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_COMPLETE;
+import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
@@ -83,6 +90,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private String amount = "";
     private String detailAmount = "";
 
+    private AdqPresenter adqPresenter;
+
+    private boolean isWaitingCard = false;
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -93,6 +104,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         getActivity().registerReceiver(headPhonesReceiver, filter);
         handlerSwipe = new Handler();
+
+        adqPresenter = new AdqPresenter(this);
+
+        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 
     }
 
@@ -106,15 +121,17 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         isReaderConected = false;
                         //validatingDng = false; // Cancelar Validacion
                         unregisterReceiverDongle();
+                        hideLoader();
                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,0,0);
                         showInsertDongle();
                         Log.i("IposListener: ","isReaderConected  false");
                         break;
                     case 1:
-
+                        isReaderConected = true;
+                        //checkDongleStatus("1234");
+                        getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
                         maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
-                        isReaderConected = true;
                         //validatingDng = false; // Cancelar Validacion
                         //insertCard();
                         handlerSwipe.postDelayed(starReaderEmvSwipe, 500);
@@ -132,22 +149,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         public void run() {
             if (isReaderConected) {
                 Log.i("IposListener: ","=====>>   starReaderEmvSwipe ");
-                getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
                 App.getInstance().pos.openAudio();
-                App.getInstance().pos.getQposId();
-                //initListenerDongle();
-                //initListenerDongle();
-                /*if(!prefs.contains(Recursos.KSN_LECTOR)) {
-                    App.getInstance().pos.getQposId();
-                    App.getInstance().pos.getQposInfo();
-                    showProgress(getResources().getString(R.string.initlector));
-                }else{
-                    App.getInstance().pos.doTradeNoPinpad(30);
-                    showProgress(getResources().getString(R.string.readcard));
-                }*/
-
                 //App.getInstance().pos.getQposId();
-                //App.getInstance().pos.getQposInfo();
                 showLoader(getResources().getString(R.string.validatelector));
             }
         }
@@ -237,26 +240,21 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         break;
                     case SW_ERROR:
                         Log.i("IposListener: ","=====>>    SW_ERROR");
-                        //closeProgress();
                         hideLoader();
-                       // if(!isWaitingCard)
-                          //  resetReceiverDongle();
-                        //else {
+                        if(!isWaitingCard)
+                            unregisterReceiverDongle();
+                        else {
                             Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
-                            //Toast.makeText(getActivity(), "Vuelve a conectar el Lector.", Toast.LENGTH_SHORT).show();
-                           showInsertDongle();
-                        //}
+                            showInsertDongle();
+                        }
                         break;
                     case ENCENDIDO:
                         Log.i("IposListener: ","=====>>    ENCENDIDO");
-                        //closeProgress();
+                        getKSN();
                         hideLoader();
-                        //readDongle();
                         break;
                     default:
                         Log.i("IposListener: ","=====>>    default");
-                        //App.getInstance().pos.doTradeNoPinpad(30);
-                        //closeProgress();
                         hideLoader();
                         break;
                 }
@@ -268,14 +266,18 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     /****/
 
-    private void readDongle(){
+    private void checkDongleStatus(String serial){
+        adqPresenter.validateDongle(serial);
+    }
 
+    private void readDongle(){
         getKSN();
     }
 
     public void getKSN() {
         App.getInstance().pos.getQposId();
     }
+
 
     public InsertDongleFragment() {
     }
@@ -298,6 +300,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     }
 
+    @Override
+    public void onDetach() {
+        super.onDetach();
+    }
 
 
     @Override
@@ -328,7 +334,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
-        App.getInstance().pos.openAudio();
+        //App.getInstance().pos.openAudio();
         maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
     }
@@ -384,26 +390,47 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         imgInsertDongle.setVisibility(View.INVISIBLE);
         imgInsertCard.setVisibility(VISIBLE);
         tv_lector.setVisibility(View.INVISIBLE);
+
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+               adqPresenter.initTransaction();
+            }
+        }, DELAY_MESSAGE_PROGRESS*3); // 5 SEG
     }
 
     @Override
-    public void transactionSuccess() {
+    public void dongleValidated() {
+        hideLoader();
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                showInsertCard();
 
+            }
+        }, DELAY_MESSAGE_PROGRESS);
     }
 
     @Override
-    public void transactionFailed() {
+    public void transactionResult(final String message) {
+       showLoader(message);
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                hideLoader();
+                nextStepRegister(EVENT_GO_TRANSACTION_RESULT,message);
+            }
+        }, DELAY_MESSAGE_PROGRESS);
+
 
     }
 
     @Override
     public void nextStepRegister(String event, Object data) {
-
+        onEventListener.onEvent(event,data);
     }
 
     @Override
     public void backStepRegister(String event, Object data) {
-
+        onEventListener.onEvent(event,data);
     }
 
     @Override
@@ -419,6 +446,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showError(Object error) {
+        UI.showToast(error.toString(),getActivity());
 
     }
 

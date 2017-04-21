@@ -105,8 +105,10 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
         spinnerMontoRecarga.setAdapter(dataAdapter);
     }
 
+
+
     @Override
-    void continuePayment() {
+    protected void continuePayment() {
         if (!isValid) {
             showError();
             mySeekBar.setProgress(0);

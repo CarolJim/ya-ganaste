@@ -3,21 +3,64 @@ package com.pagatodo.yaganaste.ui.adquirente;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.TransactionAdqResult;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
+import com.pagatodo.yaganaste.interfaces.IAccountView2;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
+import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
+import com.pagatodo.yaganaste.utils.customviews.SigningView;
+import com.pagatodo.yaganaste.utils.customviews.SigningViewYaGanaste;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static android.view.View.GONE;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.KEY_TRANSACTION_DATA;
 
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class GetSignatureFragment extends GenericFragment implements View.OnClickListener{
+public class GetSignatureFragment extends GenericFragment implements View.OnClickListener,IAccountView2{
 
     private View rootview;
+    @BindView(R.id.txtAmount)
+    MontoTextView txtAmount;
+    @BindView(R.id.txtNumberCard)
+    StyleTextView txtNumberCard;
+    @BindView(R.id.imgTypeCard)
+    ImageView imgTypeCard;
+    @BindView(R.id.txtNameOwnerCard)
+    StyleTextView txtNameOwnerCard;
+    @BindView(R.id.btnClear)
+    StyleButton btnClear;
+    @BindView(R.id.btnSendSignature)
+    StyleButton btnSendSignature;
+    @BindView(R.id.signature_here)
+    StyleTextView firma_aqui;
+    @BindView(R.id.layout_content_firma)
+    FrameLayout layout_content_firma;
+    @BindView(R.id.progressLayout)
+    ProgressLayout progressLayout;
+
+    private SigningViewYaGanaste signingView;
+    private TransaccionEMVDepositResponse emvDepositResponse;
+
+    private AdqPresenter adqPresenter;
 
     public GetSignatureFragment() {
     }
@@ -44,7 +87,9 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
+        emvDepositResponse  = TransactionAdqResult.getCurrentTransaction().getTransaccionResponse();
+        adqPresenter = new AdqPresenter(this);
     }
 
     @Override
@@ -62,24 +107,85 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        rootview = inflater.inflate(R.layout.fragment_login, container, false);
+        rootview = inflater.inflate(R.layout.activity_signature, container, false);
         initViews();
         return rootview;
     }
 
     @Override
     public void initViews() {
+        ButterKnife.bind(this, rootview);
+        signingView = new SigningViewYaGanaste(getActivity(), firma_aqui,btnSendSignature);
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+        layout_content_firma.addView(this.signingView,params);
+        signingView.setDrawingCacheEnabled(true);
+        signingView.buildDrawingCache();
+        btnClear.setOnClickListener(this);
+        btnSendSignature.setOnClickListener(this);
+        btnClear.setBackgroundResource(R.drawable.button_rounded_transparent);
+        btnSendSignature.setBackgroundResource(R.drawable.button_rounded_transparent);
+
+
+        /*Seteamos los datos de la transacción*/
+        //txtAmount.setText(String.format("$%s",emvDepositResponse.getAmount()));
+        txtAmount.setText(String.format("$%s","790"));
+        //txtNumberCard.setText(emvDepositResponse.getMaskedPan());
+        txtNumberCard.setText("*** **** **** 6543");
+        //txtNameOwnerCard.setText(String.format("%s",emvDepositResponse.getName()));
+        txtNameOwnerCard.setText("Maria de la Luz Rodríguez");
 
     }
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
+            case R.id.btnClear:
+                signingView.clear();
+                signingView.setHasSignature(false);
+                btnSendSignature.setBackgroundResource(R.drawable.button_rounded_transparent);
+                break;
+
+            case R.id.btnSendSignature:
+                sendSignature();
+                break;
 
             default:
                 break;
         }
     }
 
+    private void sendSignature(){
+        if(signingView.hasSignature()){
+            adqPresenter.sendSignature();
+        }else {
+            showError("No se ha Capturado una Firma");
+        }
+    }
+
+    @Override
+    public void nextStepRegister(String event, Object data) {
+        onEventListener.onEvent(event,data);
+    }
+
+    @Override
+    public void backStepRegister(String event, Object data) {
+        onEventListener.onEvent(event,data);
+    }
+
+    @Override
+    public void showLoader(String message) {
+        progressLayout.setTextMessage(message);
+        progressLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void hideLoader() {
+        progressLayout.setVisibility(GONE);
+    }
+
+    @Override
+    public void showError(Object error) {
+        UI.showToast(error.toString(),getActivity());
+    }
 }
 

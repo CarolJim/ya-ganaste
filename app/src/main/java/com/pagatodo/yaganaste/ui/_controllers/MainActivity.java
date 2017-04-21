@@ -6,11 +6,13 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.View;
 import android.view.Window;
 import android.widget.RadioGroup;
 import android.widget.Toast;
 
+import com.google.firebase.iid.FirebaseInstanceId;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
@@ -18,6 +20,7 @@ import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.provisioning.manager.ProvisioningManager;
 import com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenter;
 import com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs;
+import com.pagatodo.yaganaste.net.FirebaseInstanceServer;
 import com.pagatodo.yaganaste.ui._manager.PagerAdapter;
 import com.pagatodo.yaganaste.ui.account.login.ScreenSlidePagefragment;
 import com.pagatodo.yaganaste.ui.otp.activities.OtpCodeActivity;
@@ -82,6 +85,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
         setContentView(R.layout.activity_main);
         initViews();
 
+        Log.i("FCM","IDNOTI: " + FirebaseInstanceId.getInstance().getToken());
+
         pref = App.getInstance().getPrefs();
 
     }
@@ -126,28 +131,26 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });*/
 
-
     }
-
 
     @Override
     public void onClick(View v) {
 
         Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-
         switch (v.getId()) {
             case R.id.btnMainCreateAccount:
                 intent.putExtra(SELECTION,GO_TO_REGISTER);
                 startActivity(intent);
-                finish();
                 break;
 
             case R.id.btnMainLogin:
+                intent.putExtra(SELECTION,GO_TO_LOGIN);
+                startActivity(intent);
                 //startActivity(TabActivity.createIntent(this));
-                startActivity(OtpCodeActivity.createIntent(this, "123456"));
+                //startActivity(OtpCodeActivity.createIntent(this, "123456"));
+
                 break;
         }
-
 
         //startActivity(intent);
 

@@ -36,10 +36,10 @@ public class App extends MultiDexApplication {
         m_singleton = this;
         //MultiDex.install(this);
         this.prefs = new Preferencias(this);
-        System.loadLibrary("a01jni");
         context = this;
-        RequestHeaders.initHeaders(this);
+        System.loadLibrary("a01jni");
         initEMVListener();
+        RequestHeaders.initHeaders(this);
 
         registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
             @Override
