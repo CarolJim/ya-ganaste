@@ -7,13 +7,10 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
-import android.text.Editable;
-import android.text.TextWatcher;
-import android.util.Log;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -26,22 +23,22 @@ import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.RecargasPresenter;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsFormPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsTabPresenter;
-import com.pagatodo.yaganaste.utils.Constants;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IRecargasPresenter;
 
 import java.util.List;
 
 import butterknife.BindView;
 
-import static com.pagatodo.yaganaste.utils.Constants.*;
+import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
+import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 
 /**
  * Created by Jordan on 12/04/2017.
  */
 
 public class RecargasFormFragment extends PaymentFormBaseFragment implements PaymentsManager,
-        View.OnClickListener, TextWatcher, AdapterView.OnItemSelectedListener {
+        View.OnClickListener {
 
     @BindView(R.id.recargaNumber)
     EditText recargaNumber;
@@ -52,12 +49,10 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
 
     private SpinnerArrayAdapter dataAdapter;
     private IPaymentsTabPresenter paymentsTabPresenter;
-    private IPaymentsFormPresenter recargasPresenter;
+    private IRecargasPresenter recargasPresenter;
     private ComercioResponse comercioItem;
     private String errorText;
 
-    private Double monto;
-    private String numero = "";
     boolean isIAVE;
 
     public static RecargasFormFragment newInstance() {
@@ -74,7 +69,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             paymentsTabPresenter = ((PaymentsTabFragment) getParentFragment()).getPresenter();
 
             comercioItem = paymentsTabPresenter.getCarouselItem().getComercio();
-            isIAVE = comercioItem.getIdComercio() == 7;
+            isIAVE = comercioItem.getIdComercio() == IAVE_ID;
             recargasPresenter = new RecargasPresenter(this, isIAVE);
             List<Double> montos = comercioItem.getListaMontos();
             montos.add(0, 0.0);
@@ -98,15 +93,16 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
         super.initViews();
         if (isIAVE) {
             recargaNumber.setHint(getString(R.string.tag_number));
+            int maxLength = 12;
+            InputFilter[] fArray = new InputFilter[1];
+            fArray[0] = new InputFilter.LengthFilter(maxLength);
+            recargaNumber.setFilters(fArray);
             layoutImageContact.setVisibility(View.GONE);
         } else {
             recargaNumber.setHint(getString(R.string.phone_number_hint));
             layoutImageContact.setOnClickListener(this);
         }
-        recargaNumber.addTextChangedListener(this);
-
         spinnerMontoRecarga.setAdapter(dataAdapter);
-        spinnerMontoRecarga.setOnItemSelectedListener(this);
     }
 
     @Override
@@ -159,22 +155,6 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
         recargaNumber.setText(phoneNo);
     }
 
-    @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-        Log.i(getFragmentTag(), s.toString());
-        numero = s.toString().trim();
-        recargasPresenter.validateFields(numero, monto);
-    }
 
     @Override
     public void showError() {
@@ -198,17 +178,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     }
 
     @Override
-    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-        monto = (Double) dataAdapter.getItem(position);
-        recargasPresenter.validateFields(recargaNumber.getText().toString().trim(), monto);
-    }
-
-    @Override
-    public void onNothingSelected(AdapterView<?> parent) {
-    }
-
-    @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-
+        recargasPresenter.validateFields(recargaNumber.getText().toString().trim(), (Double) spinnerMontoRecarga.getSelectedItem());
     }
 }

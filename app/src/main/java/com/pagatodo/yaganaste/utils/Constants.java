@@ -20,4 +20,8 @@ public class Constants {
     public static int BARCODE_READER_REQUEST_CODE = 60;
 
     //endregion
+
+    //region Comercios Id
+    public static final int IAVE_ID = 7;
+    //endregion
 }

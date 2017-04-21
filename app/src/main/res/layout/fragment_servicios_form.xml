@@ -24,6 +24,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:layout_weight="20"
                 android:background="@null"
                 android:backgroundTint="@color/transparent"
@@ -65,10 +66,11 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:background="@null"
                 android:backgroundTint="@color/transparent"
                 android:hint="@string/hint_importe"
-                android:inputType="number"
+                android:inputType="numberDecimal"
                 android:longClickable="false"
                 android:maxLength="10"
                 android:paddingBottom="6dp"
@@ -90,6 +92,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
                 android:background="@null"
                 android:backgroundTint="@color/transparent"
                 android:hint="@string/hint_concepto"
@@ -104,14 +107,26 @@
 
     </LinearLayout>
 
+
+    <TextView
+        android:id="@+id/comisionText"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:textSize="12sp"
+        android:layout_marginTop="@dimen/margin_doble"
+        android:layout_below="@+id/containerServiciosForm"
+        android:text="@string/comision_service_payment"/>
+
+
     <RelativeLayout
         android:id="@+id/containerSlideButon"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/containerServiciosForm"
+        android:layout_below="@+id/comisionText"
         android:layout_marginLeft="@dimen/margin_doble"
         android:layout_marginRight="@dimen/margin_doble"
-        android:layout_marginTop="@dimen/margin_doble">
+        android:layout_marginTop="@dimen/space_between_elements">
 
         <SeekBar
             android:id="@+id/myseek"

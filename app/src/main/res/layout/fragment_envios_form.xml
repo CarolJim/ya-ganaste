@@ -20,48 +20,130 @@
             android:layout_height="wrap_content"
             android:backgroundTint="@color/transparent" />
 
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-            android:id="@+id/cardNumner"
+        <LinearLayout
+            android:id="@+id/layout_cardNumber"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:visibility="gone"
+            android:layout_marginTop="@dimen/space_between_elements"
+            android:background="@drawable/rounded_border_edittext"
+            android:orientation="horizontal">
+
+            <EditText
+                android:id="@+id/cardNumber"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:backgroundTint="@color/transparent"
+                android:hint="@string/card_number_hint"
+                android:inputType="number"
+                android:maxLength="16"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_between_elements"
-            app:formato="number"
-            app:hintText="Número de Tarjeta (16 Digitos)"
-            app:isSingleLine="true"
-            app:maxLength="16"
-            android:visibility="gone"/>
+            android:background="@drawable/rounded_border_edittext"
+            android:orientation="horizontal">
 
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-            android:id="@+id/amountToSend"
+            <EditText
+                android:id="@+id/amountToSend"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:backgroundTint="@color/transparent"
+                android:hint="@string/hint_importe_envio"
+                android:inputType="numberDecimal"
+                android:maxLength="16"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_between_elements"
-            app:formato="number"
-            app:hintText="Importe a Enviar"
-            app:isSingleLine="true"
-            app:maxLength="16" />
+            android:background="@drawable/rounded_border_edittext"
+            android:orientation="horizontal">
 
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-            android:id="@+id/receiverName"
+            <EditText
+                android:id="@+id/receiverName"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:backgroundTint="@color/transparent"
+                android:hint="@string/hint_name_destinatario"
+                android:inputType="text"
+                android:maxLength="16"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_between_elements"
-            app:formato="number"
-            app:hintText="Nombre del Destinatario"
-            app:isSingleLine="true"
-            app:maxLength="16" />
+            android:background="@drawable/rounded_border_edittext"
+            android:orientation="horizontal">
 
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-            android:id="@+id/concept"
+            <EditText
+                android:id="@+id/concept"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:backgroundTint="@color/transparent"
+                android:hint="@string/hint_concepto"
+                android:inputType="text"
+                android:maxLength="40"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_between_elements"
-            app:formato="number"
-            app:hintText="Concepto"
-            app:isSingleLine="true"
-            app:maxLength="16" />
+            android:background="@drawable/rounded_border_edittext"
+            android:orientation="horizontal">
 
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            <EditText
+                android:id="@+id/numberReference"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="15dp"
+                android:layout_marginStart="15dp"
+                android:background="@null"
+                android:backgroundTint="@color/transparent"
+                android:hint="@string/hint_referencia_numerica"
+                android:inputType="number"
+                android:maxLength="40"
+                android:paddingBottom="6dp"
+                android:paddingTop="6dp"
+                android:textSize="14sp" />
+
+        </LinearLayout>
+
+        <!--com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
             android:id="@+id/numberReference"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -70,7 +152,7 @@
             app:hintText="Referencia Numérica"
             app:isSingleLine="true"
             app:maxLength="16" />
-        <!--com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_big"

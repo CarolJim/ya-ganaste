@@ -14,5 +14,5 @@ public interface IServiciosInteractor {
         void onSuccess();
     }
 
-    void validateForms(String referencia, String importe, String concepto);
+    void validateForms(String referencia, String importe, String concepto, OnValidationFinishListener listener);
 }

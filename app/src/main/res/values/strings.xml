@@ -154,6 +154,7 @@
     <string name="txt_escribe_tu_correo">Escribe tu Correo Electrónico</string>
     <string name="txt_phone">Teléfono</string>
     <string name="txt_referencia_envio">Referencia De Envío</string>
+    <string name="hint_referencia_numerica">Referencia Numérica</string>
     <string name="txt_referencia_servicio">Referencia</string>
     <string name="title_aviso">Aviso</string>
     <string name="txt_validacion_docs">La Validación de Documentos\nPodría Tomar Hasta 24 Horas.</string>
@@ -169,6 +170,8 @@
     <string name="txt_depositar_cuenta">Depositar A Mi Cuenta</string>
     <string name="txt_ver_mapa">VER MAPA</string>
     <string name="hint_importe">Importe</string>
+    <string name="hint_importe_envio">Importe a Enviar</string>
+    <string name="hint_name_destinatario">Nombre del Destinatario</string>
     <string name="txt_importe">Importe:</string>
     <string name="txt_fecha">Fecha:</string>
     <string name="txt_hora">Hora:</string>
@@ -182,6 +185,7 @@
     <string name="something_is_wrong_try_again">Algo Salio mal, Intenta de Nuevo</string>
     <string name="tag_number">Número de TAG</string>
     <string name="phone_number_hint">Teléfono (10 Digitos)</string>
+    <string name="card_number_hint">Número de Tarjeta (16 Digitos)</string>
     <string name="msgJsonObj">Mensaje</string>
     <string name="actionJsonObj">CodigoRespuesta</string>
     <string name="omitir">OMITIR</string>
@@ -189,6 +193,7 @@
     <string name="we_need_your_files">Necesitamos tus Documentos</string>
     <string name="omit_files_message">En Caso de no Tener tus Documentos a la Mano, Podrás Continuar con el Registro, Pero Deberás Agregarlos Posteriormente</string>
     <string name="omit">Omitir</string>
+
 
     <!-- Lectura Dongle -->
     <string name="device_no_response">Lector no Responde, por Favor Vuelva a Conectarlo</string>
@@ -321,7 +326,10 @@
     <string name="child_tab_recharge">Recargas</string>
     <string name="child_tab_services">Servicios</string>
     <string name="child_tab_mony_send">Envíos</string>
+    <string name="comision_service_payment">La Comisión por Realizar la Operación es de $10</string>
 
+    <string name="transfer_phone">Número de Teléfono</string>
+    <string name="transfer_cable">Cuenta CABLE</string>
     <string name="saldo_pendiente">Saldo Pendiente de Reembolso</string>
     <string name="saldo_en_cuenta">Saldo en Cuenta</string>
 

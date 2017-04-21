@@ -26,7 +26,6 @@ import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
-import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
@@ -36,8 +35,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.pagatodo.yaganaste.utils.Constants.*;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
+import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 
 /**
  * Created by Jordan on 06/04/2017.
@@ -233,20 +232,18 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         List<Fragment> fragmentList = fragmentManager.getFragments();
-
-        if (requestCode == CONTACTS_CONTRACT) {
-            if (fragmentList != null) {
+        if (fragmentList != null) {
+            if (requestCode == CONTACTS_CONTRACT) {
                 for (Fragment fragment : fragmentList) {
-                    if(fragment instanceof RecargasFormFragment) {
+                    if (fragment instanceof RecargasFormFragment) {
                         fragment.onActivityResult(requestCode, resultCode, data);
                         break;
+
                     }
                 }
-            }
-        }else if(requestCode == BARCODE_READER_REQUEST_CODE){
-            if (fragmentList != null) {
+            } else if (requestCode == BARCODE_READER_REQUEST_CODE) {
                 for (Fragment fragment : fragmentList) {
-                    if(fragment instanceof ServiciosFormFragment) {
+                    if (fragment instanceof ServiciosFormFragment) {
                         fragment.onActivityResult(requestCode, resultCode, data);
                         break;
                     }
