@@ -12,4 +12,5 @@ import java.util.List;
 public interface IPaymentsCarouselIteractor {
     void getCatalogosFromService();
     void getCatalogosFromDB(int tabID);
+    ObtenerCatalogosResponse getCatalogos();
 }

@@ -16,10 +16,12 @@ import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContra
 @TableName(TABLE)
 public class MontoComercio extends AbstractEntity {
 
-    @FieldName(value = ID_COMERCIO, autoIncrement = true, primaryKey = true)
+    @FieldName(value = ID_MONTO_COMERCIO, autoIncrement = true, primaryKey = true)
     private int idMonto;
-    @FieldName(ID_MONTO_COMERCIO)
+
+    @FieldName(ID_COMERCIO)
     private int idComercio;
+
     @FieldName(MONTO)
     private Double monto;
 

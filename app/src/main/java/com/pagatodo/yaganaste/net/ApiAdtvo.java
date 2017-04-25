@@ -296,6 +296,7 @@ public class ApiAdtvo extends Api {
     public static void obtenerCatalogos(ObtenerCatalogoRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.IdOperacion, "3");
+        headers.put(RequestHeaders.NombreUsuario,"null");
         NetFacade.consumeWS(OBTENER_CATALOGOS,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.getCatalogsUrl),
                 headers,request, ObtenerCatalogosResponse.class,result);

@@ -47,9 +47,11 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     PaymentsTabPresenter paymentsTabPresenter;
     PaymentsTabFragment fragment;
+    ListDialog dialog;
 
     MovementsTab current_tab;
-    ArrayList<CarouselItem> carouselItems;
+
+    boolean isFromClick = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,7 +94,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         ButterKnife.bind(this, rootView);
         layoutCarouselMain.setVisibility(View.VISIBLE);
         paymentsCarouselPresenter.getCarouselItems();
-        //setCarouselAdapter(this.paymentsCarouselPresenter.getCarouselItems());
+        //setCarouselAdapter(this.paymentsCarouselPresenter.getCarouselArray());
 
     }
 
@@ -111,8 +113,9 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
             @Override
             public void onItemClick(CarouselAdapter<?> parent, CarouselItem view, int position, long id) {
                 if (position == 0) {
-                    ListDialog dialog = new ListDialog(getContext(), carouselItems, paymentsTabPresenter, fragment);
-                    dialog.show();
+                    //ListDialog dialog = new ListDialog(getContext(), paymentsCarouselPresenter.getCarouselArray(), paymentsTabPresenter, fragment);
+                    isFromClick = true;
+                    paymentsCarouselPresenter.getCarouselItems();
                 }
             }
         });
@@ -135,7 +138,13 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
 
     @Override
     public void setCarouselData(ArrayList<CarouselItem> response) {
-        carouselItems = response;
-        setCarouselAdapter(response);
+        if (isFromClick) {
+            dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
+            dialog.show();
+            isFromClick = false;
+        } else {
+            setCarouselAdapter(response);
+        }
+
     }
 }

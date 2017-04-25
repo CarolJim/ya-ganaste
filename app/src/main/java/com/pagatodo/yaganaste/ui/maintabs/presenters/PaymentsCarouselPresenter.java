@@ -35,7 +35,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         this.current_tab = current_tab;
         this.paymentsManager = paymentsManager;
         this.mContext = context;
-        api = new CatalogsDbApi(context);
+        this.api = new CatalogsDbApi(context);
         this.paymentsTabIteractor = new PaymentsCarouselIteractor(this, api);
 
 
@@ -47,16 +47,35 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     }
 
     @Override
+    public ArrayList<CarouselItem> getCarouselArray() {
+        ArrayList<CarouselItem> carouselItems = new ArrayList<>();
+        carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
+        List<ComercioResponse> comercios = paymentsTabIteractor.getCatalogos().getData().getComercios();
+        for (int i = 0; i < comercios.size(); i++) {
+            ComercioResponse comercio = comercios.get(i);
+            if (comercio.getIdTipoComercio() == current_tab.getId()) {
+                if (comercio.getIdComercio() != 0) {
+                    if (comercio.getColorMarca().isEmpty()) {
+                        carouselItems.add(new CarouselItem(App.getContext(), comercio.getLogoURL(), "#10B2E6", CarouselItem.DRAG, comercio));
+                    } else {
+                        carouselItems.add(new CarouselItem(App.getContext(), comercio.getLogoURL(), comercio.getColorMarca().toUpperCase(), CarouselItem.DRAG, comercio));
+                    }
+                } else {
+                    carouselItems.add(new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio));
+                }
+            }
+        }
+        return carouselItems;
+    }
+
+    @Override
     public void getCarouselItems() {
-
-
         //Revisar que la tabla no esté
         if (api.isCatalogTableEmpty()) {
             paymentsTabIteractor.getCatalogosFromService();
         } else {
             paymentsTabIteractor.getCatalogosFromDB(current_tab.getId());
         }
-
     }
 
     @Override
@@ -89,16 +108,17 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     private ArrayList<CarouselItem> getCarouselItems(List<ComercioResponse> comercios) {
         ArrayList<CarouselItem> carouselItems = new ArrayList<>();
         carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
-        for (int i = 0; i < comercios.size(); i++) {
-            ComercioResponse comercio = comercios.get(i);
-            if (comercio.getIdComercio() != 0) {
-                if (comercio.getColorMarca().isEmpty()) {
-                    carouselItems.add(new CarouselItem(App.getContext(), comercio.getLogoURL(), "#10B2E6", CarouselItem.DRAG, comercio));
+        for (ComercioResponse comercio : comercios) {
+            if (comercio.getIdTipoComercio() == current_tab.getId()) {
+                if (comercio.getIdComercio() != 0) {
+                    if (comercio.getColorMarca().isEmpty()) {
+                        carouselItems.add(new CarouselItem(App.getContext(), comercio.getLogoURL(), "#10B2E6", CarouselItem.DRAG, comercio));
+                    } else {
+                        carouselItems.add(new CarouselItem(App.getContext(), comercio.getLogoURL(), comercio.getColorMarca().toUpperCase(), CarouselItem.DRAG, comercio));
+                    }
                 } else {
-                    carouselItems.add(new CarouselItem(App.getContext(), comercio.getLogoURL(), comercio.getColorMarca().toUpperCase(), CarouselItem.DRAG, comercio));
+                    carouselItems.add(new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio));
                 }
-            } else {
-                carouselItems.add(new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio));
             }
         }
         return carouselItems;

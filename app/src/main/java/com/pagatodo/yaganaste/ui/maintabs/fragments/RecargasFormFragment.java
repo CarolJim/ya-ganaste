@@ -5,9 +5,11 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.text.InputFilter;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,6 +28,12 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.RecargasPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsTabPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IRecargasPresenter;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.OutputStream;
 import java.util.List;
 
 import butterknife.BindView;
@@ -106,12 +114,12 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     }
 
 
-
     @Override
     protected void continuePayment() {
         if (!isValid) {
             showError();
             mySeekBar.setProgress(0);
+            //copyDataBaseDebug();
         } else {
             Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
             //Se debe crear un objeto que se envía a la activity que realizará el pago
@@ -182,5 +190,40 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         recargasPresenter.validateFields(recargaNumber.getText().toString().trim(), (Double) spinnerMontoRecarga.getSelectedItem());
+    }
+
+
+    public void copyDataBaseDebug() throws IOException {
+        Log.i("copiado", "inicia..");
+        // abre la BD local
+        InputStream myInput = new FileInputStream(new File(
+                getContext().getDatabasePath("yaganaste.db").toURI())); // context.getAssets().open("db/"+DB_NAME);
+
+        File folder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + "/YaGanaste");
+        if(!folder.exists()){
+            folder.mkdir();
+        }
+
+        File outFileName = new File(folder, "/yaganaste.db");
+        outFileName.createNewFile();
+        // Direccion de la
+        //String outFileName = folder.getPath() + "/yaganaste.db"; // DataBaseUtilsB.DB_PATH +
+        // DB_NAME;
+
+        // Open the empty db as the output stream
+        OutputStream myOutput = new FileOutputStream(outFileName);
+
+        // transfer bytes from the inputfile to the outputfile
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = myInput.read(buffer)) > 0) {
+            myOutput.write(buffer, 0, length);
+        }
+
+        // Close the streams
+        myOutput.flush();
+        myOutput.close();
+        myInput.close();
+        Log.i("copiado", "termina..");
     }
 }

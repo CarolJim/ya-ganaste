@@ -1,14 +1,18 @@
 package com.pagatodo.yaganaste.ui.maintabs.iteractors;
 
+import com.google.gson.Gson;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IPaymentsCarouselIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.List;
 
@@ -47,6 +51,13 @@ public class PaymentsCarouselIteractor implements IPaymentsCarouselIteractor, IR
     }
 
     @Override
+    public ObtenerCatalogosResponse getCatalogos() {
+        Gson gson = new Gson();
+        String catalogosJSONStringResponse = Utils.getJSONStringFromAssets(App.getContext(), "files/catalogos.json");
+        return gson.fromJson(catalogosJSONStringResponse, ObtenerCatalogosResponse.class);
+    }
+
+    @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
         switch (dataSourceResult.getWebService()) {
             case OBTENER_CATALOGOS:
@@ -61,4 +72,5 @@ public class PaymentsCarouselIteractor implements IPaymentsCarouselIteractor, IR
     public void onFailed(DataSourceResult error) {
         carouselPresenter.onErrorService();
     }
+
 }
