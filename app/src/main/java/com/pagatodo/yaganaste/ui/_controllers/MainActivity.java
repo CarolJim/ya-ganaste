@@ -131,7 +131,9 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             }
         });*/
 
+
     }
+
 
     @Override
     public void onClick(View v) {
@@ -139,17 +141,15 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
 
         switch (v.getId()) {
-
             case R.id.btnMainCreateAccount:
                 intent.putExtra(SELECTION,GO_TO_REGISTER);
                 startActivity(intent);
                 break;
 
             case R.id.btnMainLogin:
-                //Intent intentMain = new Intent(MainActivity.this, TabActivity.class);
                 intent.putExtra(SELECTION,GO_TO_LOGIN);
-                startActivity(intent);
-                //startActivity(TabActivity.createIntent(this));
+                //startActivity(intent);
+                startActivity(TabActivity.createIntent(this));
                 //startActivity(OtpCodeActivity.createIntent(this, "123456"));
 
                 break;

@@ -6,6 +6,8 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:padding="7dp"
+    android:longClickable="false"
+    android:clickable="false"
     app:tipo="Titulo">
 
 </com.pagatodo.yaganaste.utils.customviews.StyleTextView>

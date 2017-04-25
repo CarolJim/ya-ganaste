@@ -1,29 +1,66 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
 import com.google.gson.annotations.SerializedName;
+import com.pagatodo.yaganaste.data.local.persistence.db.AbstractEntity;
+import com.pagatodo.yaganaste.data.local.persistence.db.utils.FieldName;
+import com.pagatodo.yaganaste.data.local.persistence.db.utils.Ignore;
+import com.pagatodo.yaganaste.data.local.persistence.db.utils.TableName;
 
 import java.io.Serializable;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.COLOR_MARCA;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.COMERCIO;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.FORMATO;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.ID_COMERCIO;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.ID_TIPO_COMERCIO;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.LONGITUD_REFERENCIA;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.MENSAJE;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.SOBRECARGO;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.TABLE;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.URL_IMAGEN;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.URL_LOGO;
 
 /**
  * Created by flima on 21/03/2017.
  */
 
-public class ComercioResponse implements Serializable{
+@TableName(TABLE)
+public class ComercioResponse extends AbstractEntity implements Serializable {
 
+    @FieldName(value = ID_COMERCIO, primaryKey = true)
     private int IdComercio;
+
+    @FieldName(ID_TIPO_COMERCIO)
     private int IdTipoComercio;
+
+    @FieldName(COMERCIO)
     private String NombreComercio = "";
+
+    @FieldName(URL_LOGO)
     private String LogoURL = "";
+
+    @FieldName(URL_IMAGEN)
     private String ImagenURL = "";
+
+    @FieldName(COLOR_MARCA)
     private String ColorMarca = "";
+
+    @Ignore
     private List<Double> ListaMontos;
+
+    @FieldName(LONGITUD_REFERENCIA)
     private int LongitudReferencia;
+
+    @FieldName(FORMATO)
     private String Formato = "";
+
+    @FieldName(MENSAJE)
     private String Mensaje = "";
+
     @SerializedName("SobreCargo")
+    @FieldName(SOBRECARGO)
     private Double Sobrecargo;
 
 
@@ -120,10 +157,10 @@ public class ComercioResponse implements Serializable{
         Sobrecargo = sobrecargo;
     }
 
-    public ArrayList<String> getMontosStringList(){
+    public ArrayList<String> getMontosStringList() {
         ArrayList<String> response = new ArrayList<>();
-        for (Double m: ListaMontos) {
-            response.add("$" +  m.toString() + ".00");
+        for (Double m : ListaMontos) {
+            response.add("$" + m.toString() + ".00");
         }
 
         return response;
