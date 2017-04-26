@@ -53,6 +53,8 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
 
     boolean isFromClick = false;
 
+    private static int MAX_CAROUSEL_ITEMS = 18;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -143,7 +145,12 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
             dialog.show();
             isFromClick = false;
         } else {
-            setCarouselAdapter(response);
+            if (response.size() > MAX_CAROUSEL_ITEMS) {
+                ArrayList<CarouselItem> subList = new ArrayList<>(response.subList(0, MAX_CAROUSEL_ITEMS));
+                setCarouselAdapter(subList);
+            } else {
+                setCarouselAdapter(response);
+            }
         }
 
     }

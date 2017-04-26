@@ -35,4 +35,6 @@
 
     <dimen name="space">8dp</dimen>
     <dimen name="double_space">27dp</dimen>
+    <dimen name="radio_btn_radius">16dp</dimen>
+    <dimen name="strock_width">1dp</dimen>
 </resources>

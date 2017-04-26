@@ -11,6 +11,7 @@
         <item name="colorControlNormal">@android:color/white</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:windowBackground">@drawable/bg_gradient_bottom</item>
+        <item name="android:radioButtonStyle">@style/CustomRadioButton</item>
     </style>
 
     <style name="AppThemeFullView" parent="Theme.AppCompat.NoActionBar">
@@ -155,14 +156,21 @@
         <item name="colorControlNormal">@color/whiteColor</item>
     </style>
 
-    <style name="CustomSpinner" parent="@android:style/Widget.Spinner">
+    <style name="CustomRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">
+        <item name="android:button">@null</item>
+        <item name="android:drawableLeft">@drawable/radio_btn</item>
+        <item name="android:drawablePadding">8dp</item>
+    </style>
+
+    <style name="CustomSpinner" parent="Base.Widget.AppCompat.Spinner">
         <item name="android:background">@android:drawable/edit_text</item>
         <item name="android:padding">0dp</item>
+
     </style>
 
     <style name="SpinnerNoArrow" parent="CustomSpinner">
-        <item name="android:layout_marginLeft">@dimen/margin_medium</item>
-        <item name="android:layout_marginRight">@dimen/margin_medium</item>
+        <item name="android:layout_marginLeft">@dimen/margin_big</item>
+        <item name="android:layout_marginRight">@dimen/margin_big</item>
         <item name="android:layout_marginTop">@dimen/space_between_elements</item>
     </style>
 
