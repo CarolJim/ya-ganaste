@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.AprovPresenter;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -41,13 +42,10 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_RE
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class AsociatePhoneAccountFragment extends GenericFragment implements View.OnClickListener,IVerificationSMSView,IAprovView {
+public class AsociatePhoneAccountFragment extends PaymentFormBaseFragment implements IVerificationSMSView,IAprovView {
 
     private static final String TAG = AsociatePhoneAccountFragment.class.getSimpleName();
     private static final long CHECK_SMS_VALIDATE_DELAY = 10000;
-    private View rootview;
-    @BindView(R.id.btnAssociateNext)
-    StyleButton btnAssociateNext;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
 
@@ -107,20 +105,15 @@ public class AsociatePhoneAccountFragment extends GenericFragment implements Vie
     public void initViews() {
         ButterKnife.bind(this, rootview);
         hideLoader();
-        btnAssociateNext.setOnClickListener(this);
     }
 
+
     @Override
-    public void onClick(View view) {
-        switch (view.getId()){
-            case R.id.btnAssociateNext:
-                accountPresenter.gerNumberToSMS();
-                //executeProvisioning();
-                break;
-            default:
-                break;
-        }
+    protected void continuePayment() {
+        accountPresenter.gerNumberToSMS();
     }
+
+
 
     @Override
     public void smsVerificationSuccess() {

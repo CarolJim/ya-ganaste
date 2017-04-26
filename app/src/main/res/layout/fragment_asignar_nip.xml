@@ -19,6 +19,7 @@
         android:layout_below="@+id/toolbarLy">
 
     <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+        android:id="@+id/borderLayout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_big"
@@ -34,10 +35,20 @@
                 android:layout_marginLeft="@dimen/margin_medium"
                 android:layout_marginRight="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_doble"
-                android:layout_marginBottom="@dimen/margin_doble"
                 app:formato="number"
                 app:isSingleLine="true"
                 app:maxLength="4" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txtMessageCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/edtPin"
+            android:gravity="center"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:text="@string/longitud_nip"/>
+
+
 
     </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 

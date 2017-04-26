@@ -7,6 +7,5 @@ package com.pagatodo.yaganaste.interfaces;
 public interface IAdqAccountPresenter {
 
     public void createAdq();
-    public void login();
     public void getNeighborhoods(String zipCode);
 }

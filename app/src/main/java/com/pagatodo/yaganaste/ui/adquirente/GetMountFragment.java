@@ -134,6 +134,7 @@ public class GetMountFragment extends PaymentFormBaseFragment {
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
                     startActivity(intent);
                     setData("","");
+                    mySeekBar.setProgress(0);
                 } else showValidationError("El monto tiene que ser mayor");
             } catch (NumberFormatException e) {
                 showValidationError("Ingresa un monto válido.");

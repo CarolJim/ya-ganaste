@@ -11,11 +11,14 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.otp.presenter.OtpPResenter;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.otp.activities.OtpCodeActivity;
 import com.pagatodo.yaganaste.ui.otp.controllers.OtpView;
 import com.pagatodo.yaganaste.ui.otp.presenters.OtpPresenterImp;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+
+import static com.pagatodo.yaganaste.ui._controllers.SessionActivity.REQUESTCODE_OTP;
 
 
 /**
@@ -26,7 +29,8 @@ public class OtpGeneratorFragment extends GenericFragment implements View.OnClic
 
     private View rootView;
 
-    private CustomValidationEditText edtNip;
+
+    private CustomValidationEditText edtNipOtp;
     private Button btnContinue;
     private OtpPResenter otpPResenter;
 
@@ -57,7 +61,7 @@ public class OtpGeneratorFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void initViews() {
-        edtNip = (CustomValidationEditText) rootView.findViewById(R.id.edt_nip);
+        edtNipOtp = (CustomValidationEditText) rootView.findViewById(R.id.edt_nip);
         btnContinue = (Button) rootView.findViewById(R.id.btn_continue);
         btnContinue.setOnClickListener(this);
     }
@@ -65,26 +69,34 @@ public class OtpGeneratorFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        onContinueClicked();
+        switch (v.getId()){
+            case R.id.btn_continue:
+                onContinueClicked();
+                break;
+        }
     }
 
     private void onContinueClicked() {
         btnContinue.setEnabled(false);
-        if (edtNip.getText().isEmpty()) {
+        if (edtNipOtp.getText().isEmpty()) {
             UI.showToast(R.string.nip_empty, getActivity());
+            btnContinue.setEnabled(true);
         } else {
-            otpPResenter.generateOTP(Utils.getSHA256(edtNip.getText()));
+            otpPResenter.generateOTP(Utils.getSHA256(edtNipOtp.getText()));
         }
     }
 
     @Override
     public void showError(Errors error) {
-        UI.showToast(getString(R.string.no_offline_token), getActivity());
+        UI.showToastShort(getString(R.string.no_offline_token), getActivity());
         btnContinue.setEnabled(false);
     }
 
     @Override
     public void onOtpGenerated(String otp) {
+        btnContinue.setEnabled(true);
+        edtNipOtp.setText("");
+        getActivity().startActivityForResult(OtpCodeActivity.createIntent(getActivity(),otp),REQUESTCODE_OTP);
 
     }
 }

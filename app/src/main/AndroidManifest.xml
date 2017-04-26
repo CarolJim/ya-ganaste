@@ -106,6 +106,8 @@
 
         <activity android:name=".ui._controllers.ScannVisionActivity"/>
 
+        <activity android:name=".ui._controllers.SessionActivity"/>
+
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />

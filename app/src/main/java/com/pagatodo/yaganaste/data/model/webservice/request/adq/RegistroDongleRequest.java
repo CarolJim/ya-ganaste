@@ -8,20 +8,20 @@ import java.io.Serializable;
 
 public class RegistroDongleRequest extends AdqRequest implements Serializable{
 
-    private String Serial = "";
+    private String serial = "";
 
     public RegistroDongleRequest() {
     }
 
     public RegistroDongleRequest(String serial) {
-        Serial = serial;
+        this.serial = serial;
     }
 
     public String getSerial() {
-        return Serial;
+        return serial;
     }
 
     public void setSerial(String serial) {
-        Serial = serial;
+        this.serial = serial;
     }
 }

@@ -17,6 +17,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.adquirente.readers.IposListener;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 
 /**
  * Created by flima on 17/03/17.
@@ -81,7 +82,6 @@ public class App extends Application {
 
             @Override
             public void onActivityDestroyed(Activity activity) {
-                UI.showToastShort(activity.getClass().getName(),getApplicationContext());
 
             }
         });

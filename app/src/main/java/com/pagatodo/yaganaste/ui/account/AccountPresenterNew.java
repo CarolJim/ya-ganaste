@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionAprovSofttokenRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioFWSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActivacionAprovSofttokenRequest;
@@ -88,22 +89,16 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
         accountView.showLoader(App.getInstance().getString(R.string.msg_register));
         RegisterUser registerUser = RegisterUser.getInstance();
         prefs.saveData(CRC32_FREJA, Codec.applyCRC32(registerUser.getContrasenia()));//Freja
-        CrearUsuarioFWSRequest request = new CrearUsuarioFWSRequest(
-                registerUser.getEmail(),
-                registerUser.getNombre(),
-                registerUser.getApellidoPaterno(),
-                registerUser.getApellidoMaterno(),
-                registerUser.getEmail(),
-                registerUser.getContrasenia());
 
-        accountIteractor.createUser(request);
+        accountIteractor.createUser();
     }
 
     @Override
     public void login(String user, String password) {
+        RequestHeaders.setUsername(user);
         RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getInstance().getApplicationContext()));
         accountView.showLoader("");
-        IniciarSesionRequest requestLogin = new IniciarSesionRequest(user,password,"");//TODO Validar si se envia el telefono vacío-
+        IniciarSesionRequest requestLogin = new IniciarSesionRequest(user,Utils.cipherRSA(password),"");//TODO Validar si se envia el telefono vacío-
         // Validamos estatus de la sesion, si se encuentra abierta, la cerramos.
         accountIteractor.checkSessionState(requestLogin);
         ///accountIteractor.login(requestLogin);

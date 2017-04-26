@@ -12,6 +12,7 @@ import android.widget.Button;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -19,6 +20,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Validations;
+import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -304,7 +306,10 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showValidationError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+
+        createCustomDialog(getString(R.string.title_dialogs),error.toString())
+        .show(getActivity().getFragmentManager(),CustomErrorDialog.TAG);
+        //UI.showToastShort(error.toString(),getActivity());
     }
 
     @Override
@@ -369,13 +374,13 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @Override
     public void validationPasswordSucces() {//Mostrar imagen en edtText
         isValidPassword = true;
-        txtRegisterBasicPassMessage.setText("");
+        //txtRegisterBasicPassMessage.setText("");
     }
 
     @Override
     public void validationPasswordFailed(String message) {//Mostrar imagen en edtText
         isValidPassword = false;
-        txtRegisterBasicPassMessage.setText(message);
+        //txtRegisterBasicPassMessage.setText(message);
     }
 
     @Override
@@ -393,5 +398,21 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         userExist = true;
         editMail.setIsInvalid();
         showValidationError(getString(R.string.datos_usuario_correo_existe));
+    }
+
+    private CustomErrorDialog createCustomDialog(String title,String message) {
+        CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_error_message, title, message, true, false);
+        customErrorDialog.setDialogActions(new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+
+            }
+        });
+        return  customErrorDialog;
     }
 }

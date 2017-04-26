@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_main"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pagatodo.yaganaste.ui._controllers.MainActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:padding="@dimen/generic_padig">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            style="@style/textTitle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="¡Bienvenido Jorge!"/>
+
+        </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_centerInParent="true"
+        android:padding="@dimen/generic_padig">
+
+        <ImageView
+            android:id="@+id/imgArrowBalanceLeft"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentLeft="true"
+            android:src="@drawable/arrow_icon"/>
+
+        <ImageView
+            android:id="@+id/imgArrowBalanceRight"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_alignParentRight="true"
+            android:src="@drawable/arrow_icon"/>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnLogin"
+            style="@style/buttonSquareRoundedBlue"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_btns"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:text="@string/txt_login" />
+
+    </RelativeLayout>
+
+
+
+</RelativeLayout>

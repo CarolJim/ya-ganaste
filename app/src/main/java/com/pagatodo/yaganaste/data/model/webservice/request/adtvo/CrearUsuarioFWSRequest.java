@@ -10,7 +10,6 @@ import java.io.Serializable;
 
 public class CrearUsuarioFWSRequest extends Request implements Serializable{
 
-    private int TipoAgente;
     private String Usuario = "";
     private String Nombre = "";
     private String PrimerApellido = "";
@@ -29,14 +28,6 @@ public class CrearUsuarioFWSRequest extends Request implements Serializable{
         SegundoApellido = segundoApellido;
         Correo = correo;
         Contrasena = contrasena;
-    }
-
-    public int getTipoAgente() {
-        return TipoAgente;
-    }
-
-    public void setTipoAgente(int tipoAgente) {
-        TipoAgente = tipoAgente;
     }
 
     public String getUsuario() {

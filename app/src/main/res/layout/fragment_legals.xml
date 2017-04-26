@@ -1,0 +1,31 @@
+<RelativeLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/whiteColor"
+    tools:context="com.pagatodo.yaganaste.ui._controllers.AccountActivity">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+            <WebView
+                android:id="@+id/webViewLegalsContent"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:visibility="visible" />
+
+        </LinearLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@+id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone"/>
+
+
+    </RelativeLayout>

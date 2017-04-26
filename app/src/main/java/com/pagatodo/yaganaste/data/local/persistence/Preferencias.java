@@ -47,7 +47,7 @@ public class Preferencias {
 	}
 
 	public String loadData(String key){
-		return this.preferences.getString(key, null);
+		return this.preferences.getString(key, "20");
 	}
 
 	public void clearPreferences(){

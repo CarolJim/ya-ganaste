@@ -9,6 +9,7 @@ import android.view.Window;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 
 
 public class SplashActivity extends AppCompatActivity {
@@ -26,8 +27,9 @@ public class SplashActivity extends AppCompatActivity {
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
-
-                Intent intent = new Intent(SplashActivity.this,  MainActivity.class);
+                //Class clazz = !RequestHeaders.getTokenauth().isEmpty() ? SessionActivity.class : MainActivity.class;
+                Class clazz = MainActivity.class;
+                Intent intent = new Intent(SplashActivity.this,clazz);
                 startActivity(intent);
                 SplashActivity.this.finish();
             }

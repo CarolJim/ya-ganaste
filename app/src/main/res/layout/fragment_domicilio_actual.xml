@@ -75,46 +75,33 @@
 
             </LinearLayout>
 
-            <LinearLayout
-                android:id="@+id/layoutAddress"
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/editZipCode"
                 style="@style/FragmentElement"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                app:formato="zipcode"
+                app:hintText="@string/zipCodeHint"
+                app:isSingleLine="true"
                 android:layout_below="@+id/layNumbers"
-                android:orientation="horizontal">
+                app:maxLength="5" />
 
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editZipCode"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".5"
-                    app:formato="zipcode"
-                    app:hintText="@string/zipCodeHint"
-                    app:isSingleLine="true"
-                    app:maxLength="5" />
-
-                <android.support.v4.widget.Space
-                    android:layout_width="@dimen/generic_padig"
-                    android:layout_height="match_parent" />
-
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editState"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight=".5"
-                    app:hintText="@string/stateHint" />
-            </LinearLayout>
-
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/editState"
+                style="@style/FragmentElement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editZipCode"
+                app:hintText="@string/stateHint" />
 
             <Spinner
                 android:id="@+id/spColonia"
                 style="@style/SpinnerNoArrow"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/layoutAddress"
+                android:layout_below="@+id/editState"
                 android:layout_marginBottom="@dimen/margin_big"
                 android:backgroundTint="@color/transparent">
-
             </Spinner>
 
         </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
@@ -143,6 +130,7 @@
                 android:orientation="vertical">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/txtLegales"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_weight=".5"

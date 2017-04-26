@@ -84,6 +84,7 @@
             android:background="@drawable/seek_background"
             android:clickable="false"
             android:max="100"
+            android:layout_marginTop="@dimen/margin_doble"
             android:progressDrawable="@android:color/transparent"
             android:thumb="@drawable/thumb_size"
             android:thumbOffset="15dp"

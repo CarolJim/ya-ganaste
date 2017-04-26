@@ -15,6 +15,7 @@ import android.text.InputFilter;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.format.DateFormat;
+import android.util.Base64;
 import android.util.DisplayMetrics;
 import android.util.Log;
 import android.util.Patterns;
@@ -45,8 +46,11 @@ import java.io.Serializable;
 import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.math.RoundingMode;
+import java.security.KeyFactory;
 import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
+import java.security.PublicKey;
+import java.security.spec.RSAPublicKeySpec;
 import java.text.DateFormatSymbols;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -60,6 +64,10 @@ import java.util.Locale;
 import java.util.UUID;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
+import javax.crypto.Cipher;
+
+import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 
 
 @SuppressLint("SimpleDateFormat")
@@ -391,6 +399,7 @@ public class Utils {
         return Settings.Secure.getString(context.getContentResolver(),
                 Settings.Secure.ANDROID_ID);
     }
+
 
     public static void setDefaultPreferences() {
         /*
@@ -1246,5 +1255,31 @@ public class Utils {
         Log.i("IposListener: ","=====>>  transaction  "+value);
         prefs.saveData(Recursos.TRANSACTION_SEQUENCE, Integer.toString(value));
         return value;
+    }
+
+    public static String cipherRSA(String text){
+        String result;
+        try{
+            byte[] expBytes = Base64.decode("AQAB".getBytes("UTF-8"), Base64.DEFAULT);
+            byte[] modBytes = Base64.decode(PUBLIC_KEY_RSA.getBytes("UTF-8"), Base64.DEFAULT);
+
+            BigInteger modules = new BigInteger(1, modBytes);
+            BigInteger exponent = new BigInteger(1, expBytes);
+
+            KeyFactory factory = KeyFactory.getInstance("RSA");
+            Cipher cipher = Cipher.getInstance("RSA/ECB/PKCS1PADDING");
+
+            RSAPublicKeySpec pubSpec = new RSAPublicKeySpec(modules, exponent);
+
+            PublicKey pubKey = factory.generatePublic(pubSpec);
+            cipher.init(Cipher.ENCRYPT_MODE, pubKey);
+            byte[] encrypted = cipher.doFinal(text.getBytes());
+
+            result = Base64.encodeToString(encrypted, Base64.DEFAULT);
+        }
+        catch(Exception e){
+            result = null;
+        }
+        return result;
     }
 }

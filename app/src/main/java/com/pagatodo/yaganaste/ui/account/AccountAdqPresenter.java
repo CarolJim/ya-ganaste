@@ -52,15 +52,6 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     }
 
     @Override
-    public void login() {
-
-        LoginAdqRequest request = new LoginAdqRequest("","");
-        adqIteractor.loginAdq(request);
-
-    }
-
-
-    @Override
     public void uploadDocuments(Object documents) {
 
         iAdqView.showLoader("Subiendo Documentos...");

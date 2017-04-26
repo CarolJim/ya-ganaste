@@ -82,8 +82,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
 
         switch (action) {
             case GO_TO_LOGIN:
-                //loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);
-                loadFragment(GetMountFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case GO_TO_REGISTER:

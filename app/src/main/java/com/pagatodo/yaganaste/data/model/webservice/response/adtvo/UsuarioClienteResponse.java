@@ -20,8 +20,8 @@ public class UsuarioClienteResponse  implements Serializable {
     private String FechaUltimoAcceso = "";
     private List<CuentaResponse> Cuentas;
     private String NumeroAgente = "";
-    private String PetroNumero = "";
-    private String ClaveAgente = "";
+    private String PetroNumero = "72851001";
+    private String ClaveAgente = "7320";
     private int TipoAgente;
 
     private String nombreComercio;
