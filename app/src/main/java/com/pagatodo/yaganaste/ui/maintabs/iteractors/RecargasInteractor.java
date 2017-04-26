@@ -12,7 +12,7 @@ public class RecargasInteractor implements IRecargasInteractor {
 
     @Override
     public void validateForms(String number, Double monto, OnValidationFinishListener listener) {
-        if(number.isEmpty() || number.equals("")){
+        if(number == null || number.isEmpty()){
             listener.onNumberEmpty();
             return;
         }

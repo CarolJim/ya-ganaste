@@ -53,8 +53,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     public TabLayoutEmAd(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         setView();
-        //
-        init();
+        //init();
     }
 
     private void setView() {

@@ -746,7 +746,7 @@ public abstract class  CarouselAdapter <T extends Adapter> extends ViewGroup {
 
     public long getItemIdAtPosition(int position) {
         T adapter = getAdapter();
-        return (adapter == null || position < 0) ? INVALID_ROW_ID : adapter.getItemId(position);
+        return (adapter == null || position < 0 || position >= adapter.getCount()) ? INVALID_ROW_ID : adapter.getItemId(position);
     }
 
     @Override

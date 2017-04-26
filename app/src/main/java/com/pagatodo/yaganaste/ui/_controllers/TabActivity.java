@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.animation.Animation;
@@ -14,11 +15,13 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.TabPresenter;
@@ -44,6 +47,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
     public static final String EVENT_HIDE_MANIN_TAB = "eventhideToolbar";
     public static final String EVENT_SHOW_MAIN_TAB = "eventShowToolbar";
     private Animation animShow, animHide;
+    private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
 
     public static Intent createIntent(Context from) {
         return new Intent(from, TabActivity.class);
@@ -75,7 +79,8 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
 
     @Override
     public void loadViewPager(ViewPagerData viewPagerData) {
-        mainViewPager.setAdapter(new GenericPagerAdapter<>(this, getSupportFragmentManager(), viewPagerData.getFragmentList(), viewPagerData.getTabData()));
+        mainViewPagerAdapter = new GenericPagerAdapter<>(this, getSupportFragmentManager(), viewPagerData.getFragmentList(), viewPagerData.getTabData());
+        mainViewPager.setAdapter(mainViewPagerAdapter);
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
         mainTab.setupWithViewPager(mainViewPager);
     }
@@ -138,5 +143,25 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
                 }
             }
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        //super.onBackPressed();
+        if(mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem()) instanceof  PaymentsTabFragment){
+            PaymentsTabFragment paymentsTabFragment = (PaymentsTabFragment)mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem());
+            if(paymentsTabFragment.isOnForm){
+                paymentsTabFragment.onBackPresed(paymentsTabFragment.getCurrenTab());
+            }else{
+                goHome();
+            }
+        }else {
+            if(mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem()) instanceof HomeTabFragment){
+                super.onBackPressed();
+            }else{
+                goHome();
+            }
+        }
+
     }
 }

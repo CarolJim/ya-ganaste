@@ -2,35 +2,63 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.InputFilter;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
-import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsTabPresenter;
+import com.pagatodo.yaganaste.utils.NumberTextWatcher;
 
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 
+import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
+import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CABLE;
+import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
+import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
+
 /**
  * Created by Jordan on 12/04/2017.
  */
 
-public class EnviosFormFragment extends PaymentFormBaseFragment{
+public class EnviosFormFragment extends PaymentFormBaseFragment implements PaymentsManager, AdapterView.OnItemSelectedListener {
 
     @BindView(R.id.tipoEnvio)
     Spinner tipoEnvio;
-    @BindView(R.id.cardNumner)
-    CustomValidationEditText cardNumner;
+    @BindView(R.id.cardNumber)
+    EditText cardNumber;
+    @BindView(R.id.layout_cardNumber)
+    LinearLayout layout_cardNumber;
+    @BindView(R.id.amountToSend)
+    EditText amountToSend;
+    @BindView(R.id.receiverName)
+    EditText receiverName;
+    @BindView(R.id.concept)
+    EditText concept;
+    @BindView(R.id.numberReference)
+    EditText numberReference;
 
-    PaymentsTabPresenter paymentsTabPresenter;
+    TransferType selectedType;
+    IPaymentsTabPresenter paymentsTabPresenter;
+    private ComercioResponse comercioItem;
+    IEnviosPresenter enviosPresenter;
+    private String errorText;
 
     public static EnviosFormFragment newInstance() {
         EnviosFormFragment fragment = new EnviosFormFragment();
@@ -44,6 +72,8 @@ public class EnviosFormFragment extends PaymentFormBaseFragment{
         super.onCreate(savedInstanceState);
         try {
             paymentsTabPresenter = ((PaymentsTabFragment) getParentFragment()).getPresenter();
+            comercioItem = paymentsTabPresenter.getCarouselItem().getComercio();
+            enviosPresenter = new EnviosPresenter(this);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -65,46 +95,92 @@ public class EnviosFormFragment extends PaymentFormBaseFragment{
         List<String> tipoPago = new ArrayList<>();
 
         tipoPago.add(0, "");
-        tipoPago.add(1, "Número de Teléfono");
-        tipoPago.add(2, "Número de Tarjeta");
+        tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(getContext()));
+        tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(getContext()));
 
-        if(paymentsTabPresenter.getCarouselItem().getComercio().getIdComercio() != 8609){
-            tipoPago.add(3, "Cuenta CABLE");
+        if (comercioItem.getIdComercio() != 8609) {
+            tipoPago.add(CABLE.getId(), CABLE.getName(getContext()));
         }
-        SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), MovementsTab.TAB3, tipoPago);
+        SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), TAB3, tipoPago);
         tipoEnvio.setAdapter(dataAdapter);
-        tipoEnvio.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                switch (position) {
-                    case 1:
-                        cardNumner.setHintText("Número de Teléfono");
-                        cardNumner.setVisibility(View.VISIBLE);
-                        break;
-                    case 2:
-                        cardNumner.setHintText("Número de Tarjeta");
-                        cardNumner.setVisibility(View.VISIBLE);
-                        break;
-                    case 3:
-                        cardNumner.setHintText("Cuenta CABLE");
-                        cardNumner.setVisibility(View.VISIBLE);
-                        break;
-                    default:
-                        cardNumner.setVisibility(View.GONE);
-                        break;
-                }
-            }
+        tipoEnvio.setOnItemSelectedListener(this);
+        amountToSend.addTextChangedListener(new NumberTextWatcher(amountToSend));
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
     @Override
     public void continuePayment() {
-        super.continuePayment();
+        if (!isValid) {
+            showError();
+            mySeekBar.setProgress(0);
+        } else {
+            Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
+            //Se debe crear un objeto que se envía a la activity que realizará el pago
+        }
     }
 
+    @Override
+    public void showError() {
+        if (errorText != null && !errorText.equals("")) {
+            Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void onError(String error) {
+        isValid = false;
+        errorText = error;
+    }
+
+    @Override
+    public void onSuccess() {
+        isValid = true;
+    }
+
+    @Override
+    public void onStartTrackingTouch(SeekBar seekBar) {
+        enviosPresenter.validateForms(selectedType, cardNumber.getText().toString().trim(),
+                amountToSend.getText().toString().trim(),
+                receiverName.getText().toString().trim(),
+                concept.getText().toString().trim(),
+                numberReference.getText().toString().trim());
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+
+        layout_cardNumber.setVisibility(View.VISIBLE);
+        cardNumber.setText("");
+
+        int maxLength;
+        InputFilter[] fArray = new InputFilter[1];
+
+
+        if (position == NUMERO_TARJETA.getId()) {
+            maxLength = 16;
+            cardNumber.setHint(getString(R.string.card_number));
+            selectedType = NUMERO_TARJETA;
+        } else if (position == NUMERO_TELEFONO.getId()) {
+            maxLength = 10;
+            cardNumber.setHint(getString(R.string.transfer_phone));
+            selectedType = NUMERO_TELEFONO;
+        } else if (position == CABLE.getId()) {
+            maxLength = 12;
+            cardNumber.setHint(getString(R.string.transfer_cable));
+            selectedType = CABLE;
+        } else {
+            maxLength = 2;
+            cardNumber.setHint("");
+            layout_cardNumber.setVisibility(View.GONE);
+            selectedType = null;
+        }
+
+        fArray[0] = new InputFilter.LengthFilter(maxLength);
+        cardNumber.setFilters(fArray);
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+
+    }
 }

@@ -9,10 +9,12 @@
         android:id="@+id/editTextCustomSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginStart="15dp"
         android:layout_marginLeft="15dp"
         android:layout_weight="2"
         android:backgroundTint="@color/transparent"
         android:clickable="false"
+        android:longClickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:textSize="14sp" />

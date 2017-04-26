@@ -7,11 +7,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
-import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
@@ -30,7 +31,7 @@ import butterknife.ButterKnife;
  * Created by Jordan on 06/04/2017.
  */
 
-public abstract class PaymentsFragmentCarousel extends GenericFragment{
+public abstract class PaymentsFragmentCarousel extends GenericFragment implements PaymentsCarrouselManager {
 
     @BindView(R.id.carouselMain)
     Carousel carouselMain;
@@ -46,14 +47,17 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment{
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     PaymentsTabPresenter paymentsTabPresenter;
     PaymentsTabFragment fragment;
+    ListDialog dialog;
 
     MovementsTab current_tab;
+
+    boolean isFromClick = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.current_tab = MovementsTab.valueOf(getArguments().getString("TAB"));
-        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab);
+        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab, this, getContext());
         try {
             fragment = (PaymentsTabFragment) getParentFragment();
             paymentsTabPresenter = fragment.getPresenter();
@@ -89,7 +93,8 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment{
     public void initViews() {
         ButterKnife.bind(this, rootView);
         layoutCarouselMain.setVisibility(View.VISIBLE);
-        setCarouselAdapter(this.paymentsCarouselPresenter.getCarouselItems());
+        paymentsCarouselPresenter.getCarouselItems();
+        //setCarouselAdapter(this.paymentsCarouselPresenter.getCarouselArray());
 
     }
 
@@ -107,11 +112,39 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment{
         carouselMain.setOnItemClickListener(new CarouselAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CarouselAdapter<?> parent, CarouselItem view, int position, long id) {
-                if(position == 0){
-                    ListDialog dialog = new ListDialog(getContext(), paymentsCarouselPresenter.getCarouselItems(), paymentsTabPresenter, fragment);
-                    dialog.show();
+                if (position == 0) {
+                    //ListDialog dialog = new ListDialog(getContext(), paymentsCarouselPresenter.getCarouselArray(), paymentsTabPresenter, fragment);
+                    isFromClick = true;
+                    paymentsCarouselPresenter.getCarouselItems();
                 }
             }
         });
+    }
+
+    @Override
+    public void showError() {
+        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onSuccess() {
+
+    }
+
+    @Override
+    public void onError(String error) {
+
+    }
+
+    @Override
+    public void setCarouselData(ArrayList<CarouselItem> response) {
+        if (isFromClick) {
+            dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
+            dialog.show();
+            isFromClick = false;
+        } else {
+            setCarouselAdapter(response);
+        }
+
     }
 }
