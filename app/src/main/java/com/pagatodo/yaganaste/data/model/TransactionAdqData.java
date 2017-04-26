@@ -37,8 +37,11 @@ public  class TransactionAdqData implements Serializable{
         transactionAdqResult = null;
     }
 
-    public static void resetEMDepositAccount(){
+    public static void resetDataToRetry(){
+        transactionAdqResult.statusTransaction = 0;
+        transactionAdqResult.responseCode = 0;
         transactionAdqResult.transaccionResponse = new TransaccionEMVDepositResponse();
+        transactionAdqResult.pageResult = null;
     }
 
     public int getStatusTransaction() {

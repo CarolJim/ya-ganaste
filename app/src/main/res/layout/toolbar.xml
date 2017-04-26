@@ -24,4 +24,26 @@
         android:src="@drawable/logo_header"
         tools:ignore="ContentDescription" />
 
+    <ImageView
+        android:id="@+id/imgToRight"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="@dimen/margin_small"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/arrow_icon"
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
+
+    <ImageView
+        android:id="@+id/imgToLeft"
+        android:layout_width="24dp"
+        android:layout_height="24dp"
+        android:layout_margin="@dimen/margin_small"
+        android:layout_alignParentLeft="true"
+        android:layout_centerVertical="true"
+        android:src="@drawable/arrow_icon"
+        android:visibility="gone"
+        tools:ignore="ContentDescription" />
+
 </RelativeLayout>

@@ -19,6 +19,7 @@ public abstract class OtpPresenterAbs extends TokenPresenterAbs implements OtpPR
     public OtpPresenterAbs(Context context) {
         super(context);
         otpIteractor = new OtpIteractorImp(this);
+        otpIteractor.init(context);
     }
 
     @Override

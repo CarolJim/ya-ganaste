@@ -14,7 +14,7 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin">
 
@@ -23,8 +23,9 @@
         style="@style/textDescInputs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerInParent="true"
         android:gravity="center"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="@dimen/margin_big"
         android:text="@string/activacion_sms_mes_1" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -36,15 +37,21 @@
         android:layout_marginTop="@dimen/margin_medium"
         android:text="@string/activacion_sms_mes_2" />
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleButton
-        android:id="@+id/btnAssociateNext"
-        style="@style/buttonRoundedBlue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/btn_margin_bottom"
-        android:text="@string/next"
-        app:cornerRadius="@dimen/btn_corner_radius" />
+        <SeekBar
+            android:id="@+id/myseek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/seek_background"
+            android:clickable="false"
+            android:max="100"
+            android:progressDrawable="@android:color/transparent"
+            android:thumb="@drawable/thumb_size"
+            android:thumbOffset="15dp"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_big"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_below="@+id/conceptLayout"/>
     </RelativeLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout

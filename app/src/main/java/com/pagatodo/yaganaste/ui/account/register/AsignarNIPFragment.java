@@ -34,7 +34,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_CO
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class AsignarNIPFragment extends GenericFragment implements View.OnClickListener,ValidationForms, IAccountCardNIPView {
+public class AsignarNIPFragment extends GenericFragment implements ValidationForms, IAccountCardNIPView {
 
     private static int PIN_LENGHT = 4;
     private View rootview;
@@ -95,7 +95,7 @@ public class AsignarNIPFragment extends GenericFragment implements View.OnClickL
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        btnNextAsignarPin.setOnClickListener(this);
+        btnNextAsignarPin.setVisibility(GONE);
         keyboardView.setKeyBoard(getActivity(),R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
 
@@ -107,8 +107,8 @@ public class AsignarNIPFragment extends GenericFragment implements View.OnClickL
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 if(s.toString().length() == 4){
-                    buttonIsVisible(true);
                     keyboardView.hideCustomKeyboard();
+                    validateForm();
                 }
             }
             @Override
@@ -122,10 +122,8 @@ public class AsignarNIPFragment extends GenericFragment implements View.OnClickL
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    buttonIsVisible(false);
                     keyboardView.showCustomKeyboard(v);
                 }else{
-                    buttonIsVisible(true);
                     keyboardView.hideCustomKeyboard();}
             }
         });
@@ -133,7 +131,6 @@ public class AsignarNIPFragment extends GenericFragment implements View.OnClickL
         edtPin.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                buttonIsVisible(false);
                 keyboardView.showCustomKeyboard(v);
             }
         });
@@ -145,7 +142,6 @@ public class AsignarNIPFragment extends GenericFragment implements View.OnClickL
                 int inType = edittext.getInputType();       // Backup the input type
                 edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
                 edittext.onTouchEvent(event);               // Call native handler
-                buttonIsVisible(false);
                 keyboardView.showCustomKeyboard(v);
                 edittext.setInputType(inType);              // Restore input type
                 return true; // Consume touch event
@@ -153,17 +149,6 @@ public class AsignarNIPFragment extends GenericFragment implements View.OnClickL
         });
 
         setValidationRules();
-    }
-
-    @Override
-    public void onClick(View view) {
-        switch (view.getId()) {
-            case R.id.btnNextAsignarPin:
-                validateForm();
-                break;
-            default:
-                break;
-        }
     }
 
     /*Implementación de ValidationForms*/
@@ -229,10 +214,6 @@ public class AsignarNIPFragment extends GenericFragment implements View.OnClickL
 
     public boolean isCustomKeyboardVisible() {
         return keyboardView.getVisibility() == View.VISIBLE;
-    }
-
-    private void buttonIsVisible(boolean isVisible){
-        btnNextAsignarPin.setVisibility(isVisible ? VISIBLE : GONE);
     }
 
     public void hideKeyboard(){

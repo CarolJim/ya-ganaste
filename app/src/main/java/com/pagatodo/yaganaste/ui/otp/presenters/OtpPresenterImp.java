@@ -29,10 +29,12 @@ public class OtpPresenterImp extends OtpPresenterAbs {
 
     @Override
     public void onError(Errors error) {
+        Log.e(TAG,error.toString());
     }
 
     @Override
     public void onOtpGenerated(String otp) {
+        Log.i("OTP","Otp generated: " + otp);
         otpView.onOtpGenerated(otp);
     }
 }

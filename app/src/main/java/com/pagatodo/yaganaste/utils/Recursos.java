@@ -19,11 +19,11 @@ public class Recursos {
 		if (DEBUG) {
 			URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
 			URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
-			URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc/agMov";
+			URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc";
 		} else {
 			URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
 			URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
-			URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc/agMov";
+			URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc";
 		}
 
 	}
@@ -41,6 +41,7 @@ public class Recursos {
 
 	/*WS Adq*/
 	public static final String ADQ_CODE_OK = "00";
+	public static final String ADQ_ACCES_DENIED = "3001";
 	public static final int ADQ_TRANSACTION_APROVE = 0;
 	public static final int ADQ_TRANSACTION_ERROR = 1;
 
@@ -134,5 +135,12 @@ public class Recursos {
 	public static final String BATTERY_LEVEL = "BATTERY_LEVEL";
 	public static final String READER_IS_CHARGING = "READER_IS_CHARGING";
 	public static final String KSN_LECTOR = "KSN_LECTOR";
+
+
+	/*Url Legales*/
+	public static final String URL_LEGALES_TERMINOS = "https://www.yaganaste.com/#";
+	public static final String URL_LEGALES_PRIVACIDAD = "https://www.yaganaste.com/Content/pdf/aviso.pdf";
+
+	public static final String PUBLIC_KEY_RSA = "rk2QHAmXByr9wIf6d1cgU+f9NtKvj2xWvRv2wUcZSMVvhfTkcoWLG/CxEK+weoS3QcxxEWKFrWgwhYABXpkGhlXiqH7GyRIhv2kQtuZlGJJSIExd2asJrtjDnfStu7ZKbdIpLzqFUfo8naDhCuQTzhyApyJQ9HDcOSTFuRhJ7Mz3gXwUXqr98i+he+iYCzyrMViP+o4UPUqfNcpSafUw4NYre9KEZoHMaKcPMR4bMjax3Payt9LDAU3KgBOnWS9Ga6WffE03tpAWqE3ape61CmPw5QKPgRNKSnV70wu7f02jmstEepM35aSf3gL9SKMUv3DkwYIpifhNYPbdKCh+BQ==";
 
 }

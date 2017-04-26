@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioFWSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
@@ -22,11 +23,11 @@ import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultaAsigna
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.CrearClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioFWSInicioSesionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataEstatusUsuario;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataUsuarioFWSInicioSesion;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataUsuarioCliente;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
@@ -122,7 +123,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
         this.requestAccountOperation = request;
         if(request instanceof IniciarSesionRequest)
             this.operationAccount = LOGIN;
-        else if(request instanceof CrearUsuarioFWSRequest)
+        else if(request instanceof CrearUsuarioClienteRequest)
             this.operationAccount = CREATE_USER;
 
         if(!RequestHeaders.getTokensesion().isEmpty()) {
@@ -132,7 +133,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             logOutBefore = false;
             switch (this.operationAccount){
                 case CREATE_USER:
-                    createUserFWSWithLogin((CrearUsuarioFWSRequest)this.requestAccountOperation); // Creamos usuario.
+                    createUserClient((CrearUsuarioClienteRequest) this.requestAccountOperation); // Creamos usuario.
                     break;
 
                 case LOGIN:
@@ -174,55 +175,47 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
     }
 
     @Override
-    public void createUser(CrearUsuarioFWSRequest request ) {
+    public void createUser() {
+        RegisterUser registerUser = RegisterUser.getInstance();
+        /*Creamos Request para realizar registro*/
+        CrearUsuarioClienteRequest request = new CrearUsuarioClienteRequest(
+                registerUser.getEmail(),
+                Utils.cipherRSA(registerUser.getContrasenia()),
+                registerUser.getNombre(),
+                registerUser.getApellidoPaterno(),
+                registerUser.getApellidoMaterno(),
+                registerUser.getGenero(),
+                registerUser.getFechaNacimiento(),
+                "",/*RFC*/
+                "",/*CURP*/
+                "MX",/*Nacionalidad*/
+                registerUser.getIdEstadoNacimineto(),
+                registerUser.getEmail(),
+                "",/*Telefono*/
+                "",/*Telefono Celular*/
+                registerUser.getIdColonia(),
+                registerUser.getColonia(),
+                registerUser.getCodigoPostal(),
+                registerUser.getCalle(),
+                registerUser.getNumExterior(),
+                registerUser.getNumInterior()
+        );
+
         checkSessionState(request);
     }
 
+
     @Override
-    public void createUserFWSWithLogin(CrearUsuarioFWSRequest request) {
-        /*Establecemos las cabeceras de la peticion*/
+    public void createUserClient(CrearUsuarioClienteRequest request) {
+         /*Establecemos las cabeceras de la peticion*/
         RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getInstance().getApplicationContext()));
         RequestHeaders.setUsername(request.getCorreo()); // Seteamos el usuario en el Header
-
         try {
-            ApiAdtvo.crearUsuarioFWSInicioSesion(request,this);
+            ApiAdtvo.crearUsuarioCliente(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
         }
     }
-
-    @Override
-    public void createClient() {
-        RegisterUser register = RegisterUser.getInstance();
-        //Creamos el request
-        CrearClienteRequest request = new CrearClienteRequest();
-        request.setNombre(register.getNombre());
-        request.setPrimerApellido(register.getApellidoPaterno());
-        request.setSegundoApellido(register.getApellidoMaterno());
-        request.setFechaNacimiento(register.getFechaNacimiento());
-        request.setGenero(register.getGenero());
-        request.setRFC("");
-        request.setCURP("");
-        request.setIdPaisNacimiento(127);// TODO Validar este campo - 127 para Mexico
-        request.setNacionalidad("MX");
-        request.setIdEstadoNacimiento(register.getIdEstadoNacimineto());
-        request.setCorreo(register.getEmail());
-        request.setTelefono("");
-        request.setTelefonoCelular("");
-        request.setIdColonia(register.getIdColonia());
-        request.setColonia(register.getColonia());
-        request.setCP(register.getCodigoPostal());
-        request.setCalle(register.getCalle());
-        request.setNumeroExterior(register.getNumExterior());
-        request.setNumeroInterior(register.getNumInterior());
-
-        try {
-            ApiTrans.crearCliente(request,this);
-        } catch (OfflineException e) {
-            e.printStackTrace();
-        }
-    }
-
 
     @Override
     public void assignmentNIP(AsignarNIPRequest request) {
@@ -231,7 +224,6 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
         } catch (OfflineException e) {
             e.printStackTrace();
         }
-
     }
 
     @Override
@@ -282,7 +274,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                     logOutBefore = false;
                     switch (this.operationAccount){
                         case CREATE_USER:
-                            createUserFWSWithLogin((CrearUsuarioFWSRequest)this.requestAccountOperation); // Creamos usuario.
+                            createUserClient((CrearUsuarioClienteRequest) this.requestAccountOperation); // Creamos usuario.
                             break;
                         case LOGIN:
                             login((IniciarSesionRequest)this.requestAccountOperation);
@@ -303,15 +295,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                 processValidationPassword(dataSourceResult);
                 break;
 
-           /* case CREAR_USUARIO_FWS:
-                processUserCreated(dataSourceResult);
-                break;*/
-
-            case CREAR_USUARIO_FWS_LOGIN:
-                processUserCreatedLoged(dataSourceResult);
-                break;
-
-            case CREAR_CLIENTE:
+            case CREAR_USUARIO_CLIENTE:
                 processClientCreated(dataSourceResult);
                 break;
 
@@ -380,7 +364,6 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
 
     }
 
-
     /**
      * Método para procesar respuesta del Login.
      * @param  response {@link DataSourceResult} respuesta del servicio
@@ -393,7 +376,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             //Seteamos los datos del usuario en el SingletonUser.
             SingletonUser user = SingletonUser.getInstance();
             user.setDataUser(dataUser);
-            user.getDataUser().setEsAgente(true);/*TODO Testin de flujo Adq*/
+            user.getDataUser().setEsAgente(false);/*TODO Testin de flujo Adq*/
             if(dataUser.isEsUsuario()) { // Si Usuario
                 RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
                 if(dataUser.isConCuenta()){// Si Cuenta
@@ -464,27 +447,12 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
     }
 
     /**
-     * Método para procesar la respuesta del servicio en la creación de un nuevo usuario FWS.
-     * @param  response {@link DataSourceResult} respuesta del servicio
+     * Método para procesar la respuesta sobre la creación de un nuevo cliente.
+     * @param  response {@link DataSourceResult} respuesta del servicio.
      * */
-    /*private void processUserCreated(DataSourceResult response) {
-        GenericResponse data = (GenericResponse) response.getData();
-        if(data.getCodigoRespuesta() == CODE_OK){
-            RequestHeaders.setUsername(RegisterUser.getInstance().getEmail());
-            activationLogin();
-        }else{
-            accountManager.onError(CREAR_USUARIO_COMPLETO,data.getMensaje());
-        }
-    }*/
-
-    /**
-     * Método para procesar la respuesta del servicio en la creación de un nuevo usuario FWS obteniendo un TokenSession.
-     * @param  response {@link DataSourceResult} respuesta del servicio
-     * */
-    private void processUserCreatedLoged(DataSourceResult response) {
-        /*TODO Manejo de excepcion de Servicio.*/
-        CrearUsuarioFWSInicioSesionResponse data = (CrearUsuarioFWSInicioSesionResponse) response.getData();
-        DataUsuarioFWSInicioSesion dataUser = data.getData();
+    private void processClientCreated(DataSourceResult response) {
+        CrearUsuarioClienteResponse data = (CrearUsuarioClienteResponse) response.getData();
+        DataUsuarioCliente dataUser = data.getData();
         if(data.getCodigoRespuesta() == CODE_OK){
             RequestHeaders.setUsername(RegisterUser.getInstance().getEmail());
             RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion()); // Guardamos el Token de Sesión
@@ -493,50 +461,11 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             user.getDataUser().setRequiereActivacionSMS(dataUser.isRequiereActivacionSMS());
             user.getDataUser().setSemilla(dataUser.getSemilla());
             user.getDataUser().getUsuario().setIdUsuario(dataUser.getUsuario().getIdUsuario());
-            createClient();// Creamos Cliente
-        }else if(data.getCodigoRespuesta() == ERROR_LOGIN) {
-
-
-        }else {
-            accountManager.onError(CREAR_USUARIO_COMPLETO,data.getMensaje());
-        }
-    }
-
-    /**
-     * Método para procesar el Login realizado después de que se realizo un registro como usuario FWS.
-     * @param  response {@link DataSourceResult} respuesta del servicio
-     * */
-    /*private void processLoginAfterRegister(DataSourceResult response) {
-        IniciarSesionResponse  data = (IniciarSesionResponse) response.getData();
-        DataIniciarSesion dataUser = data.getData();
-        if(data.getCodigoRespuesta() == CODE_OK){
-            RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion()); // Guardamos el Token de Sesión
-            //Seteamos los datos del usuario en el SingletonUser.
-            SingletonUser user = SingletonUser.getInstance();
-            user.setDataUser(dataUser);
-            createClient();// Creamos Cliente
-        }else{
-         accountManager.onError(CREAR_USUARIO_COMPLETO,data.getMensaje());
-        }
-    }*/
-
-    /**
-     * Método para procesar la respuesta sobre la creación de un nuevo cliente.
-     * @param  response {@link DataSourceResult} respuesta del servicio.
-     * */
-    private void processClientCreated(DataSourceResult response) {
-        CrearClienteResponse data = (CrearClienteResponse) response.getData();
-        if(data.getCodigoRespuesta() == CODE_OK){
-            //accountManager.onSucces(response.getWebService(),"");
-            registerComplete(data.getMensaje());
+            accountManager.onSucces(CREAR_USUARIO_COMPLETO,data.getMensaje());
         }else{
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(CREAR_USUARIO_COMPLETO,data.getMensaje());//Retornamos mensaje de error.
         }
-    }
-
-    private void registerComplete(String message) {
-        accountManager.onSucces(CREAR_USUARIO_COMPLETO,message);
     }
 
     /**

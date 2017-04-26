@@ -2,10 +2,17 @@ package com.pagatodo.yaganaste.ui.account.register;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -22,9 +29,11 @@ import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -36,6 +45,8 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PERSONAL_DATA_BACK;
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
 
@@ -58,6 +69,8 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     CustomValidationEditText editState;
     @BindView(R.id.spColonia)
     Spinner spColonia;
+    @BindView(R.id.txtLegales)
+    StyleTextView txtLegales;
     @BindView(R.id.radioBtnTerms)
     RadioButton radioBtnTerms;
     @BindView(R.id.btnBackDomicilioActual)
@@ -68,7 +81,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     ProgressLayout progressLayout;
 
 
-    private ArrayAdapter<String> adapterColonia;
+    private ColoniasArrayAdapter adapterColonia;
     private List<ColoniasResponse> listaColonias;
     private List<String> coloniasNombre;
     private String estadoDomicilio= "";
@@ -132,13 +145,14 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         ButterKnife.bind(this, rootview);
         hideLoader();
         coloniasNombre = new ArrayList<String>();
-        adapterColonia = new ArrayAdapter<String>(getContext(), R.layout.spinner_layout, R.id.textView_spinner,coloniasNombre);
+        coloniasNombre.add(getString(R.string.colonia));
+        adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout,coloniasNombre);
         spColonia.setAdapter(adapterColonia);
         btnNextDomicilioActual.setOnClickListener(this);
         btnBackDomicilioActual.setOnClickListener(this);
         editState.setTextEnabled(false);
         setCurrentData();// Seteamos datos si hay registro en proceso.
-
+        setClickLegales();
     }
 
     @Override
@@ -163,6 +177,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
     private void fillAdapter(){
         coloniasNombre.clear();
+        coloniasNombre.add(getString(R.string.colonia));
         for(ColoniasResponse coloniasResponse : this.listaColonias){
             coloniasNombre.add(coloniasResponse.getColonia());
         }
@@ -200,7 +215,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             return;
         }
 
-        if(colonia.isEmpty()){
+        if(spColonia.getSelectedItemPosition() == 0 || colonia.isEmpty()){
             UI.showToastShort(getString(R.string.datos_domicilio_colonia),getActivity());
             return;
         }
@@ -239,7 +254,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         numInt = editIntNumber.getText().toString().trim();
         codigoPostal = editZipCode.getText().toString().trim();
         estado = editState.getText().toString().trim();
-        if(spColonia.getSelectedItem() != null) {
+        if(spColonia.getSelectedItem() != null && listaColonias!= null) {
             colonia = spColonia.getSelectedItem().toString();
             for(ColoniasResponse coloniaInfo : listaColonias){
                 if(coloniaInfo.getColonia().equals(colonia)){
@@ -343,5 +358,37 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                 }
         }
     };
+
+    private void setClickLegales(){
+        SpannableString ss = new SpannableString(getString(R.string.terms_and_conditions));
+        ClickableSpan span1 = new ClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+
+                LegalsDialog legalsDialog = LegalsDialog.newInstance(TERMINOS);
+                legalsDialog.show(getActivity().getFragmentManager(),LegalsDialog.TAG);
+            }
+        };
+
+        //"Al Continuar Reconozco Ser Mayor de Edad, Así Como Haber Leído y Aceptado los Términos y Condiciones y el Aviso de Privacidad"
+
+        ClickableSpan span2 = new ClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+                LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDAD);
+                legalsDialog.show(getActivity().getFragmentManager(),LegalsDialog.TAG);
+            }
+        };
+
+        ss.setSpan(span1, 78, 100, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 78, 100, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        ss.setSpan(span2, 106, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 106, ss.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+        txtLegales.setText(ss);
+        txtLegales.setMovementMethod(LinkMovementMethod.getInstance());
+    }
 }
 

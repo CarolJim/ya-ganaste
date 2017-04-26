@@ -11,6 +11,5 @@ import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequ
 
 public interface IAdqAccountIteractor {
     public void registerAdq();
-    public void loginAdq(LoginAdqRequest request);
     public void getNeighborhoodByZipCode(String zipCode);
 }

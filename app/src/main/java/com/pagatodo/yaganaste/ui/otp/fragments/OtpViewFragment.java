@@ -14,7 +14,14 @@ import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static android.app.Activity.RESULT_OK;
 import static com.pagatodo.yaganaste.ui.otp.activities.OtpCodeActivity.OTP_PARAM;
 
 
@@ -26,10 +33,16 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
 
     private View rootView;
 
-    private TextView txtTime;
+    @BindView(R.id.txt_code)
+    StyleTextView txtCode;
+    @BindView(R.id.txt_time_remaining)
+    StyleTextView txtTime;
+    @BindView(R.id.btn_back)
+    StyleButton btn_back;
+    @BindView(R.id.btn_continue)
+    StyleButton btn_continue;
 
     private String otpCode;
-
     private CountDownTimer timer;
 
 
@@ -60,10 +73,9 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
 
     @Override
     public void initViews() {
-        txtTime = (TextView) rootView.findViewById(R.id.txt_time_remaining);
-        TextView txtCode = (TextView) rootView.findViewById(R.id.txt_code);
-        rootView.findViewById(R.id.btn_back).setOnClickListener(this);
-
+        ButterKnife.bind(this, rootView);
+        btn_back.setOnClickListener(this);
+        btn_continue.setOnClickListener(this);
         txtCode.setText(otpCode);
 
         timer = new CountDownTimer(90 * 1000, 1000) {
@@ -99,7 +111,18 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
 
     @Override
     public void onClick(View v) {
-        getActivity().finish();
+
+        switch (v.getId()){
+            case R.id.btn_back:
+                getActivity().finish();
+                break;
+
+            case R.id.btn_continue:
+                getActivity().setResult(RESULT_OK);
+                getActivity().finish();
+                break;
+        }
+
     }
 
 

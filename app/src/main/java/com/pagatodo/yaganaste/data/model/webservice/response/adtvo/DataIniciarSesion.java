@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
 import java.io.Serializable;
 
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+
 /**
  * Created by flima on 21/03/2017.
  */
@@ -15,7 +17,7 @@ public class DataIniciarSesion implements Serializable{
     private boolean ConCuenta;
     private boolean AsignoNip; // TODO validar, ya que no se encuentra en la documentacion
     private int EstatusDocumentacion; // TODO validar, ya que no se encuentra en la documentacion
-    private int EstatusAgente; // TODO validar, ya que no se encuentra en la documentacion
+    private int EstatusAgente = CRM_DOCTO_APROBADO; // TODO validar, ya que no se encuentra en la documentacion
     private boolean RequiereActivacionSMS;
     private String Semilla = "";
     private UsuarioClienteResponse Usuario;

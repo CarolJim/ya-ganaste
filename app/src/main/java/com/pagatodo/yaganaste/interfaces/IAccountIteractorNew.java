@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.interfaces;
 
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionAprovSofttokenRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioFWSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActivacionAprovSofttokenRequest;
@@ -20,12 +21,12 @@ public interface IAccountIteractorNew <T>{
     public void checkSessionState(Request request);
     public void checkCard(String numberCard);
     public void validatePassword(String password);
-    public void createUser(CrearUsuarioFWSRequest request );
-    public void createUserFWSWithLogin(CrearUsuarioFWSRequest request);
-    public void createClient();
+    public void createUser();
+    public void createUserClient(CrearUsuarioClienteRequest request );
     public void getNeighborhoodByZipCode(String zipCode);
     public void assigmentAccountAvaliable(int idAccount);
     public void getSMSNumber();
     public void verifyActivationSMS();
     public void assignmentNIP(AsignarNIPRequest request);
 }
+

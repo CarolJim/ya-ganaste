@@ -21,6 +21,7 @@ import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -43,6 +44,7 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
+import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 import static com.pagatodo.yaganaste.utils.Recursos.LECTURA_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.LEYENDO;
 import static com.pagatodo.yaganaste.utils.Recursos.MSJ;
@@ -147,6 +149,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             if (isReaderConected) {
                 Log.i("IposListener: ","=====>>   starReaderEmvSwipe ");
                 App.getInstance().pos.openAudio();
+                getKSN();
                 //App.getInstance().pos.getQposId();
                 showLoader(getResources().getString(R.string.validatelector));
             }
@@ -167,30 +170,15 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                 switch (mensaje) {
                     case LECTURA_OK:
                         Log.i("IposListener: ","=====>>  LECTURA OK");
-                        /*if(isWaitingCard){
+                        if(isWaitingCard){
                             Log.i("IposListener: ","=====>>   LECTURA_OK ");
-                            requestTransaction = new TransaccionEMVDepositRequest();
-                            requestTransaction = (RequestTransactionEMVSwipe) intent.getSerializableExtra(Recursos.TRANSACTION);
-                            //doTransactions();
-                            initTransaction();
-                            //closeProgress();
-                        }*/
+                            TransaccionEMVDepositRequest requestTransaction = (TransaccionEMVDepositRequest) intent.getSerializableExtra(Recursos.TRANSACTION);
+                            initTransaction(requestTransaction);
+                        }
                         break;
                     case READ_KSN:
                         TransaccionEMVDepositRequest transactionKsn = (TransaccionEMVDepositRequest) intent.getSerializableExtra(Recursos.TRANSACTION);
-                        //ksn = transactionKsn.noSerie;
-                        Log.i("IposListener: ","=====>>  READ_KSN  "+transactionKsn.getNoSerie());
-                        if(transactionKsn.getNoSerie().length() > 10) {
-                            prefs.saveData(Recursos.KSN_LECTOR, transactionKsn.getNoSerie());
-                            Log.i("IposListener: ","=====>>  saveData");
-                        }
-
-                        //validatingDng = true;
-                        /*if(!isAgentValidated)
-                            validateAdq();// Validamos Adq para poder validar el dongle.
-                        else
-                            validateDongle(ksn);//Adq validado, validamos el dongle.*/
-                        //App.getInstance().pos.doTradeNoPinpad(30);
+                        verifyDongle(transactionKsn.getNoSerie());
                         break;
                     case READ_BATTERY_LEVEL:
                         int batteryLevel = intent.getIntExtra(Recursos.BATTERY_LEVEL, 0);
@@ -210,7 +198,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         break;
                     case REQUEST_AMOUNT:
                         Log.i("IposListener: ","=====>>    REQUEST_AMOUNT");
-                        App.getInstance().pos.setAmount(amount.replace(".",""), "", "484", QPOSService.TransactionType.PAYMENT);
+                        String amountCard = TransactionAdqData.getCurrentTransaction().getAmount().replace(".","");
+                        App.getInstance().pos.setAmount(amountCard, "", "484", QPOSService.TransactionType.PAYMENT);
                         break;
                     case REQUEST_TIME:
                         String terminalTime = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
@@ -230,7 +219,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         Log.i("IposListener: ","=====>>    REQUEST_PIN");
                         break;
                     case SW_TIMEOUT:
-                        initListenerDongle();
+                        //initListenerDongle();
                         hideLoader();
                         Toast.makeText(getActivity(), "Vuelve a conectar el Lector.", Toast.LENGTH_SHORT).show();
                         showInsertDongle();
@@ -248,8 +237,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         break;
                     case ENCENDIDO:
                         Log.i("IposListener: ","=====>>    ENCENDIDO");
-                        getKSN();
-                        hideLoader();
                         break;
                     default:
                         Log.i("IposListener: ","=====>>    default");
@@ -262,10 +249,28 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     };
 
 
+    @Override
+    public void verifyDongle(String ksn) {
+        Log.i("IposListener: ","=====>>  READ_KSN  "+ ksn);
+        if(ksn.length() > 10) {
+                Log.i("IposListener: ","=====>>  saveData");
+                checkDongleStatus(ksn);
+        }else{
+            hideLoader();
+            UI.showToastShort("Inserta un Lector de Tarjeta Válido",getActivity());
+            unregisterReceiverDongle();
+            showInsertDongle();
+        }
+    }
+
     /****/
 
     private void checkDongleStatus(String serial){
         adqPresenter.validateDongle(serial);
+    }
+
+    private void initTransaction(TransaccionEMVDepositRequest request){
+        adqPresenter.initTransaction(request);
     }
 
     private void readDongle(){
@@ -276,9 +281,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         App.getInstance().pos.getQposId();
     }
 
-
-    public InsertDongleFragment() {
-    }
 
     public static InsertDongleFragment newInstance() {
         InsertDongleFragment fragmentRegister = new InsertDongleFragment();
@@ -388,13 +390,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         imgInsertDongle.setVisibility(View.INVISIBLE);
         imgInsertCard.setVisibility(VISIBLE);
         tv_lector.setVisibility(View.INVISIBLE);
-
-
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-               adqPresenter.initTransaction();
-            }
-        }, DELAY_MESSAGE_PROGRESS*3); // 5 SEG
     }
 
     @Override
@@ -403,6 +398,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 showInsertCard();
+                initListenerDongle();
+                isWaitingCard = true;
 
             }
         }, DELAY_MESSAGE_PROGRESS);

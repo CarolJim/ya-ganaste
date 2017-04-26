@@ -29,6 +29,7 @@ public class TransaccionEMVDepositRequest extends AdqRequest implements Serializ
 
 
     public TransaccionEMVDepositRequest() {
+        emvData = new EmvData();
         implicitData = new ImplicitData();
         swipeData = new SwipeData();
         accountDepositData = new AccountDepositData();

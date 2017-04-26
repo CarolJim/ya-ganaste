@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -41,6 +42,8 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     public static String PIN_TO_CONFIRM = "PIN_TO_CONFIRM";
     private static int PIN_LENGHT = 4;
     private View rootview;
+    @BindView(R.id.borderLayout)
+    BorderTitleLayout borderTitleLayout;
     @BindView(R.id.edtPin)
     CustomValidationEditText edtPin;
     @BindView(R.id.btnNextAsignarPin)
@@ -106,6 +109,8 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         btnNextAsignarPin.setOnClickListener(this);
         keyboardView.setKeyBoard(getActivity(),R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
+
+        borderTitleLayout.setTitle(getString(R.string.confirma_pin));
 
         edtPin.addCustomTextWatcher(new TextWatcher() {
             @Override

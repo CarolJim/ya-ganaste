@@ -97,4 +97,7 @@ public class BorderTitleLayout extends RelativeLayout {
         canvas.drawLine(midleRight, top, right, top, paint);
     }
 
+    public void setTitle(String title) {
+        this.title = title;
+    }
 }

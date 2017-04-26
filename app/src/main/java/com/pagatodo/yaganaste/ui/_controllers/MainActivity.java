@@ -6,6 +6,12 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Spannable;
+import android.text.SpannableString;
+import android.text.Spanned;
+import android.text.method.LinkMovementMethod;
+import android.text.style.ClickableSpan;
+import android.text.style.ForegroundColorSpan;
 import android.util.Log;
 import android.view.View;
 import android.view.Window;
@@ -23,8 +29,10 @@ import com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenter
 import com.pagatodo.yaganaste.net.FirebaseInstanceServer;
 import com.pagatodo.yaganaste.ui._manager.PagerAdapter;
 import com.pagatodo.yaganaste.ui.account.login.ScreenSlidePagefragment;
+import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.otp.activities.OtpCodeActivity;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.ViewPagerCustomDuration;
 
 import java.util.ArrayList;
@@ -33,6 +41,9 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
+
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 
 
 public class MainActivity extends AppCompatActivity implements View.OnClickListener {
@@ -43,8 +54,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @BindView(R.id.btnMainCreateAccount)
     StyleButton btnMainCreateAccount;
-    @BindView(R.id.btnMainLogin)
-    StyleButton btnMainLogin;
+    @BindView(R.id.txtMainLogin)
+    StyleTextView txtMainLogin;
     @BindView(R.id.viewpager)
     AutoScrollViewPager pager;
     private PagerAdapter pagerAdapter;
@@ -94,12 +105,27 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     private void initViews() {
         ButterKnife.bind(this);
         btnMainCreateAccount.setOnClickListener(this);
-        btnMainLogin.setOnClickListener(this);
         listSlides = new ArrayList<Fragment>();
 
         for (int index = 0; index < imgs.length; index++) {
             listSlides.add(ScreenSlidePagefragment.newInstance(imgs[index], topText[index], bothText[index]));
         }
+
+
+        String textLogin = getString(R.string.tienes_cuenta);
+        SpannableString ss = new SpannableString(textLogin);
+        ClickableSpan span1 = new ClickableSpan() {
+            @Override
+            public void onClick(View textView) {
+                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+                intent.putExtra(SELECTION,GO_TO_LOGIN);
+                startActivity(intent);
+            }
+        };
+        ss.setSpan(span1, 22, textLogin.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)),  22, textLogin.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        txtMainLogin.setText(ss);
+        txtMainLogin.setMovementMethod(LinkMovementMethod.getInstance());
 
         /*
         pagerAdapter = new PagerAdapter(getSupportFragmentManager());
@@ -137,26 +163,13 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(MainActivity.this, AccountActivity.class);
-
-
         switch (v.getId()) {
             case R.id.btnMainCreateAccount:
-                intent.putExtra(SELECTION,GO_TO_REGISTER);
+                Intent intent = new Intent(MainActivity.this, TabActivity.class);
+                //intent.putExtra(SELECTION,GO_TO_REGISTER);
                 startActivity(intent);
                 break;
-
-            case R.id.btnMainLogin:
-                intent.putExtra(SELECTION,GO_TO_LOGIN);
-                //startActivity(intent);
-                startActivity(TabActivity.createIntent(this));
-                //startActivity(OtpCodeActivity.createIntent(this, "123456"));
-
-                break;
         }
-
-        //startActivity(intent);
-
     }
 
 

@@ -9,6 +9,7 @@
     <dimen name="margin_doble">35dp</dimen>
     <dimen name="margin_regular">30dp</dimen>
     <dimen name="margin_big">24dp</dimen>
+    <dimen name="margin_elements">18dp</dimen>
     <dimen name="space_between_elements">10dp</dimen>
     <dimen name="generic_padig">12dp</dimen>
     <dimen name="margin_medium">12dp</dimen>
@@ -35,6 +36,15 @@
 
     <dimen name="space">8dp</dimen>
     <dimen name="double_space">27dp</dimen>
+    <dimen name="title_headers">16dp</dimen>
+
+    <!-- Botones -->
+    <dimen name="height_btns">50dp</dimen>
+    <!-- Edittexts -->
+    <dimen name="height_edittext">40dp</dimen>
+
+    <dimen name="dialog_text_size">11sp</dimen>
+
     <dimen name="radio_btn_radius">16dp</dimen>
     <dimen name="strock_width">1dp</dimen>
 </resources>

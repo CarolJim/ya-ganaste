@@ -7,5 +7,6 @@ package com.pagatodo.yaganaste.interfaces.enums;
 public enum AccountOperation {
 
     CREATE_USER,
-    LOGIN
+    LOGIN,
+    LOGIN_ADQ_PAYMENT
 }

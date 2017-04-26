@@ -6,13 +6,13 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class DataUsuarioFWSInicioSesion implements Serializable{
+public class DataUsuarioCliente implements Serializable{
 
     private boolean RequiereActivacionSMS;
     private String Semilla = "";
     private UsuarioClienteResponse Usuario;
 
-    public DataUsuarioFWSInicioSesion() {
+    public DataUsuarioCliente() {
 
         Usuario = new UsuarioClienteResponse();
     }

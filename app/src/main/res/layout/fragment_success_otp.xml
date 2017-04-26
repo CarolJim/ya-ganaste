@@ -61,15 +61,26 @@
             android:layout_marginBottom="@dimen/margin_medium"
             android:layout_marginLeft="@dimen/margin_medium"
             android:layout_marginRight="@dimen/margin_medium"
+            android:gravity="center"
             android:orientation="horizontal">
 
-            <Button
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_back"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_centerInParent="true"
-                android:background="@drawable/button_shape"
+                android:background="@drawable/button_rounded_transparent"
                 android:text="@string/volver"
+                android:textAllCaps="false" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btn_continue"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:background="@drawable/button_shape"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:text="@string/nextButton"
                 android:textAllCaps="false" />
 
         </LinearLayout>

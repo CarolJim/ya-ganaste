@@ -25,6 +25,7 @@
     <string name="createClientUrl">/CrearCliente</string>
     <string name="createUserUrl">/CrearUsuarioFWS</string>
     <string name="createUserLoginUrl">/CrearUsuarioFWSInicioSesion</string>
+    <string name="createUserClientUrl">/CrearUsuarioCliente</string>
     <string name="executeTransactionUrl">/EjecutarTransaccion</string>
     <string name="deleteAvatarUrl">/EliminarAvatar</string>
     <string name="loginUrl">/IniciarSesion</string>
@@ -265,7 +266,7 @@
     <string name="msg_register">Registrando Usuario...</string>
     <!--activacion_sms-->
     <string name="activacion_sms_mes_1">Para Terminar tu Registro, Debemos Asociar tu Teléfono a tu Cuenta YA Ganaste.</string>
-    <string name="activacion_sms_mes_2">Te Pedimos Enviar un SMS de Validación.</string>
+    <string name="activacion_sms_mes_2">Sólo Envía el SMS que Aparecerá\nen la Siguiente Pantalla.</string>
     <string name="activacion_sms_loader">Estamos Verificando tu SMS.\nNos Tomara Solo Unos Segundos.</string>
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
     <!--tienes_tarjeta-->
@@ -279,7 +280,9 @@
     <string name="permission_request">Solicitud de Permisos</string>
     <string name="permission_request_desc">Debes Aceptar Todos los Permisos para el Correcto Funcionamiento de Ya Ganaste.</string>
     <string name="asignar_pin">Verifica tu NIP.</string>
+    <string name="confirma_pin">Confirma tu NIP.</string>
     <string name="confirmar_pin">El NIP no coincide</string>
+    <string name="longitud_nip">NIP de 4 dígitos</string>
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
@@ -390,5 +393,20 @@
     <string name="no_camera_permission">Esta acción no se puede ejecutar porque no tiene el permiso de cámara.</string>
     <string name="low_storage_error">No se pueden descargar las dependencias del detector de códigos de barras debido al bajo almacenamiento del dispositivo</string>
 
+
+    <string name="no_tiene_tarjeta">No te Preocupes ¡Ya te Asignamos Una!\nTu Número de Tarjeta Virtual es:</string>
+    <string name="si_tiene_tarjeta">Ingresa tu Número de Tarjeta</string>
+    <string name="tarjeta_lista">Tu Tarjeta Esta Lista</string>
+    <string name="title_aceptar">Aceptar</string>
+    <string name="title_cancelar">Cancelar</string>
+    <string name="title_reintentar">Reintentar</string>
+    <string name="title_llamar">Llamar</string>
+    <string name="title_error">Ocurrió Un Error</string>
+
+
+
+
+    <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
 </resources>
+
 

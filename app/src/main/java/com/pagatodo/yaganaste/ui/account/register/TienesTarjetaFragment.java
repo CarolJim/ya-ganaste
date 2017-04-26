@@ -33,6 +33,7 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -58,6 +59,8 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     RadioButton radioBtnNo;
     @BindView(R.id.btnNextTienesTarjeta)
     Button btnNextTienesTarjeta;
+    @BindView(R.id.txtMessageCard)
+    StyleTextView txtMessageCard;
     @BindView(R.id.layoutCard)
     RelativeLayout layoutCard;
     @BindView(R.id.editNumber)
@@ -151,7 +154,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 boolean flag = true;
-                String eachBlock[] = editNumber.getText().toString().split("-");
+                String eachBlock[] = editNumber.getText().toString().split(" ");
                 for (int i = 0; i < eachBlock.length; i++) {
                     if (eachBlock[i].length() > 4) {
                         flag = false;
@@ -171,8 +174,8 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
 
                         if (((editNumber.getText().length() + 1) % 5) == 0) {
 
-                            if (editNumber.getText().toString().split("-").length <= 3) {
-                                editNumber.setText(editNumber.getText() + "-");
+                            if (editNumber.getText().toString().split(" ").length <= 3) {
+                                editNumber.setText(editNumber.getText() + " ");
                                 editNumber.setSelection(editNumber.getText().length());
                             }
                         }
@@ -240,6 +243,8 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                 editNumber.setEnabled(true);
                 editNumber.setCursorVisible(true);
                 keyboardView.showCustomKeyboard(editNumber);
+                txtMessageCard.setText(getString(R.string.si_tiene_tarjeta));
+
                 break;
             case R.id.radioBtnNo:
                 editNumber.setText("");
@@ -247,6 +252,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                 editNumber.clearFocus();
                 editNumber.setEnabled(false);
                 keyboardView.hideCustomKeyboard();
+                txtMessageCard.setText(getString(R.string.no_tiene_tarjeta));
                 break;
             default:
                 break;
@@ -275,6 +281,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     @Override
     public void accountAssigned(String message) {
         showLoader(message);
+        txtMessageCard.setText(getString(R.string.si_tiene_tarjeta));
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();

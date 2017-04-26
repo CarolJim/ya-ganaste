@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContras
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CargaDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioFWSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.GetJsonWebTokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
@@ -17,7 +18,6 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarTransac
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.LocalizarSucursalesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerNumeroSMSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
@@ -32,7 +32,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CargaDocument
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CerrarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioFWSInicioSesionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioFWSResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EliminarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GetJsonWebTokenResponse;
@@ -64,6 +64,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_MOVIMIENTOS_MES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_FWS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_FWS_LOGIN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ELIMINAR_AVATAR;
@@ -242,7 +243,23 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
         NetFacade.consumeWS(CREAR_USUARIO_FWS_LOGIN,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.createUserLoginUrl),
-                headers,request, CrearUsuarioFWSInicioSesionResponse.class,result);
+                headers,request, CrearUsuarioClienteResponse.class,result);
+    }
+
+    /**
+     * Método que se invoca cuando se desea generar un nuevo Usuario en el FWS Externo de BPT
+     * y obtener un TokenSesion para continuar con el flujo de registro sin necesidad de lanzar
+     * otra conexión.
+     *
+     * @param request {@link CrearUsuarioFWSRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void crearUsuarioCliente(CrearUsuarioClienteRequest request, IRequestResult result)  throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
+        NetFacade.consumeWS(CREAR_USUARIO_CLIENTE,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.createUserClientUrl),
+                headers,request, CrearUsuarioClienteResponse.class,result);
     }
 
     /**

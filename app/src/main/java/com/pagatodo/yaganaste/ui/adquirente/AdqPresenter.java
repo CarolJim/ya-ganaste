@@ -1,11 +1,15 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAccountView2;
 import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqPresenter;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
@@ -14,6 +18,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_E
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
+import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 
 /**
  * Created by flima on 17/04/2017.
@@ -23,6 +28,7 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
     private String TAG = AdqPresenter.class.getName();
     private IAdqIteractor adqInteractor;
     private IAccountView2 iAdqView;
+    private Preferencias prefs = App.getInstance().getPrefs();
 
     public AdqPresenter(IAccountView2 iAdqView) {
         this.iAdqView = iAdqView;
@@ -32,13 +38,15 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
     @Override
     public void validateDongle(String serial) {
         iAdqView.showLoader("Validando Lector...");
-        adqInteractor.registerDongle(serial);
+        prefs.saveData(KSN_LECTOR, serial);
+        adqInteractor.registerDongle();
+
     }
 
     @Override
-    public void initTransaction() {
+    public void initTransaction(TransaccionEMVDepositRequest request) {
         iAdqView.showLoader("Estamos en Proceso de Cobro");
-        adqInteractor.initPayment(null);
+        adqInteractor.initPayment(request);
     }
 
     @Override

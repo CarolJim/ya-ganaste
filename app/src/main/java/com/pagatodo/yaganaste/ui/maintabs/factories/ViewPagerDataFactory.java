@@ -9,12 +9,17 @@ import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
 import com.pagatodo.yaganaste.interfaces.enums.AdqEmTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
+import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
+import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
+import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
 import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
+import com.pagatodo.yaganaste.ui.adquirente.HardSellAdqFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.InviteAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
+import com.pagatodo.yaganaste.ui.otp.fragments.OtpGeneratorFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
 
 import java.util.ArrayList;
@@ -34,7 +39,8 @@ public class ViewPagerDataFactory {
         MAIN,
         HOME_FRAGMENT,
         PERSONAL_ACCOUNT,
-        PAYMENTS
+        PAYMENTS,
+        SESSION_EXIST
     }
 
     public static ViewPagerData createList(final TABS type) {
@@ -62,6 +68,13 @@ public class ViewPagerDataFactory {
 
             case PAYMENTS:
                 return new ViewPagerData<>(null, DateUtil.getTabAdquirente());
+
+            case SESSION_EXIST:
+                fragmentList.add(OtpGeneratorFragment.newInstance());
+                fragmentList.add(BalanceFragment.newInstance());
+                fragmentList.add(GetMountFragment.newInstance());
+                return new ViewPagerData<> (fragmentList, SessionExistTab.values());
+
 
             default:
                 throw new IllegalFactoryParameterException(type.toString());

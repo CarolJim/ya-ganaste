@@ -62,16 +62,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor,IRequestResult
     }
 
     @Override
-    public void loginAdq(LoginAdqRequest request) {
-        try {
-            ApiAdq.loginAdq(request,this);
-        } catch (OfflineException e) {
-            e.printStackTrace();
-        }
-    }
-
-
-    @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
 
         switch (dataSourceResult.getWebService()) {
