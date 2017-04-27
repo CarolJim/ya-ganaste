@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -20,6 +21,7 @@ import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
+import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;
 import com.pagatodo.yaganaste.utils.ProgressIndicator;
 import com.pagatodo.yaganaste.utils.UI;
@@ -41,6 +43,9 @@ public class GetMountFragment extends PaymentFormBaseFragment {
     private String concept = "";
 
     private float MIN_AMOUNT = 1.0f;
+
+    private EditText etMonto;
+    private TextView tvMontoEntero, tvMontoDecimal;
 
     public GetMountFragment() {
         // Required empty public constructor
@@ -66,10 +71,13 @@ public class GetMountFragment extends PaymentFormBaseFragment {
     @Override
     public void initViews() {
         super.initViews();
-        edtMount.addTextChangedListener(new NumberTextWatcher(edtMount));
+        tvMontoEntero = (TextView) rootview.findViewById(R.id.tv_monto_entero);
+        tvMontoDecimal = (TextView) rootview.findViewById(R.id.tv_monto_decimal);
+        edtMount.addTextChangedListener(new NumberCalcTextWatcher(edtMount, tvMontoEntero,
+                tvMontoDecimal));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
-        edtMount.addTextChangedListener(new TextWatcher() {
+      /*  edtMount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -84,7 +92,7 @@ public class GetMountFragment extends PaymentFormBaseFragment {
             @Override
             public void afterTextChanged(Editable editable) {
             }
-        });
+        });*/
 
         // Make the custom keyboard appear
         edtMount.setOnFocusChangeListener(new View.OnFocusChangeListener() {

@@ -47,8 +47,8 @@ public class ViewPagerDataFactory {
         List<Fragment> fragmentList = new ArrayList<>();
         switch (type){
             case MAIN:
-                fragmentList.add(HomeTabFragment.newInstance());
-                fragmentList.add(PaymentsTabFragment.newInstance());
+                fragmentList.add(HomeTabFragment.newInstance());  fragmentList.add(GetMountFragment.newInstance());
+                //fragmentList.add(PaymentsTabFragment.newInstance());
                 fragmentList.add(BlankFragment.newInstance());
                 if(!SingletonUser.getInstance().getDataUser().isEsAgente())
                     fragmentList.add(InviteAdquirenteFragment.newInstance());

@@ -3,6 +3,7 @@ import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
 import android.widget.EditText;
+import android.widget.TextView;
 
 /**
  * Created by flima on 09/03/2017.
@@ -10,46 +11,61 @@ import android.widget.EditText;
 
 public class NumberCalcTextWatcher implements TextWatcher {
 
-    private final EditText edtText;
-    public NumberCalcTextWatcher(EditText editText) {
-        this.edtText = editText;
+    private  EditText etMonto;
+    private TextView tvMontoEntero, tvMontoDecimal;
+
+    public NumberCalcTextWatcher(EditText editText, TextView tvMontoEntero, TextView tvMontoDecimal) {
+        this.etMonto = editText;
+        this.tvMontoEntero = tvMontoEntero;
+        this.tvMontoDecimal = tvMontoDecimal;
     }
 
     @Override
-    public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-    }
-
-    @Override
-    public void onTextChanged(CharSequence s, int start, int before, int count) {
-        if(!s.toString().matches("^\\$(\\d{1,3}(\\,\\d{3})*|(\\d+))(\\.\\d{2})?$"))
-        {
-            String userInput= ""+s.toString().replaceAll("[^\\d]", "");
-            StringBuilder cashAmountBuilder = new StringBuilder(userInput);
-
-            while (cashAmountBuilder.length() > 3 && cashAmountBuilder.charAt(0) == '0') {
-                cashAmountBuilder.deleteCharAt(0);
+    public void afterTextChanged(Editable arg0) {
+        if (etMonto.getText() != null
+                && !etMonto.getText().toString().equals("")) {
+            String monto = String.valueOf(Utils.getDoubleValue(etMonto));
+            String montos[] = monto.split("\\.");
+            if (montos.length == 2) {
+                if (tvMontoEntero != null)
+                    tvMontoEntero.setText(montos[0]);
+                if (tvMontoDecimal != null)
+                    if(montos[1].toString().equals("0")){
+                        tvMontoDecimal.setText("00");
+                    }else {
+                        tvMontoDecimal.setText(montos[1]);
+                    }
+                    /*if (context instanceof ObtenMasActivity)
+                        ((ObtenMasActivity) context).transactionCardRequest.amount = monto.replace(",", "");*/
             }
-
-            while (cashAmountBuilder.length() < 3) {
-                cashAmountBuilder.insert(0, '0');
-            }
-            /*Format comas*/
-            if(cashAmountBuilder.length() > 5 && cashAmountBuilder.length() < 9) {
-                cashAmountBuilder.insert( cashAmountBuilder.length() - 5, ',');
-            }
-
-            cashAmountBuilder.insert(cashAmountBuilder.length()-2, '.');
-            cashAmountBuilder.insert(0, '$');
-
-            edtText.setText(cashAmountBuilder.toString());
-            // keeps the cursor always to the right
-            Selection.setSelection(edtText.getText(), cashAmountBuilder.toString().length());
         }
     }
 
     @Override
-    public void afterTextChanged(Editable s) {
-
+    public void beforeTextChanged(CharSequence s, int start, int count,
+                                  int after) {
     }
-}
+
+    @Override
+    public void onTextChanged(CharSequence s, int start, int before,
+                              int count) {
+    }
+};
+
+    /*public View.OnClickListener btnContinuarListener = new View.OnClickListener() {
+
+        @Override
+        public void onClick(View v) {
+            String montodouble = null;
+            if (!etMonto.getText().toString().equals("")) {
+                montodouble = etMonto.getText().toString();
+            }
+            if ( etMonto.getText().length() >= 1 && Utils.getDoubleValue(etMonto) != 0 ) {
+                ((App) context.getApplication()).addDir(etMonto.getText().toString().replace(",", ""));
+                if (onEventListener != null){
+                    onEventListener.onEvent(IngresaMontoF.this);
+                }
+            } else {
+                UI.showAlertDialogNoTitle(getString(R.string.ingresa_monto_deposito),getString(R.string.continuar), context, null).create().show();
+            }
+        } */
