@@ -8,7 +8,7 @@ import java.util.List;
  * Created by flima on 22/03/2017.
  */
 
-public interface IAccountAddressRegisterView extends IAccountView2 {
+public interface IAccountAddressRegisterView extends INavigationView {
 
     public void setNeighborhoodsAvaliables(List<ColoniasResponse> listaColonias);
 }

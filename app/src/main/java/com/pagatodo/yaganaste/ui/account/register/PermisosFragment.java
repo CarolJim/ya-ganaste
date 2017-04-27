@@ -10,7 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.interfaces.IAccountView2;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
@@ -29,7 +29,7 @@ import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class PermisosFragment extends GenericFragment implements View.OnClickListener, IAccountView2 {
+public class PermisosFragment extends GenericFragment implements View.OnClickListener, INavigationView {
 
 
     private View rootview;
@@ -105,11 +105,11 @@ public class PermisosFragment extends GenericFragment implements View.OnClickLis
 
                 switch (action){
                     case GO_TO_LOGIN:
-                        nextStepRegister(EVENT_GO_LOGIN,null);
+                        nextScreen(EVENT_GO_LOGIN,null);
                         break;
 
                     case GO_TO_REGISTER:
-                        nextStepRegister(EVENT_DATA_USER,null);
+                        nextScreen(EVENT_DATA_USER,null);
                         break;
                 }
                 break;
@@ -144,13 +144,13 @@ public class PermisosFragment extends GenericFragment implements View.OnClickLis
     }
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
 
         onEventListener.onEvent(event,data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
 
     }
 

@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
+import com.pagatodo.yaganaste.ui.account.register.Documentos;
 import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
@@ -137,6 +138,15 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
             if (fragmentList != null) {
                 for (Fragment fragment : fragmentList) {
                     if (fragment instanceof PaymentsTabFragment) {
+                        fragment.onActivityResult(requestCode, resultCode, data);
+                        break;
+                    }
+                }
+            }
+        }else if(requestCode == Documentos.REQUEST_TAKE_PHOTO || requestCode == Documentos.SELECT_FILE_PHOTO){
+            if (fragmentList != null) {
+                for (Fragment fragment : fragmentList) {
+                    if (fragment instanceof Documentos) {
                         fragment.onActivityResult(requestCode, resultCode, data);
                         break;
                     }

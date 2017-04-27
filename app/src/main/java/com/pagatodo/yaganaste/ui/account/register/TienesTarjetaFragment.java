@@ -18,7 +18,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.RadioButton;
@@ -285,7 +284,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
-                nextStepRegister(EVENT_GO_ASSIGN_PIN,null);// Mostramos la pantalla para obtener tarjeta.
+                nextScreen(EVENT_GO_ASSIGN_PIN,null);// Mostramos la pantalla para obtener tarjeta.
             }
         }, DELAY_MESSAGE_PROGRESS);
     }
@@ -313,12 +312,12 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     }
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 

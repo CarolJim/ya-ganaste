@@ -4,7 +4,7 @@ package com.pagatodo.yaganaste.interfaces;
  * Created by flima on 22/03/2017.
  */
 
-public interface IAdqTransactionRegisterView extends IAccountView2 {
+public interface IAdqTransactionRegisterView extends INavigationView {
 
     public void showInsertDongle();
     public void showInsertCard();

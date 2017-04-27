@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui.account.register;
 
 import android.app.Activity;
 import android.content.Context;
-import android.graphics.Color;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -16,7 +15,6 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.Spinner;
@@ -162,7 +160,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                 validateForm();
                 break;
             case R.id.btnBackDomicilioActual:
-                backStepRegister(EVENT_PERSONAL_DATA_BACK,null);
+                backScreen(EVENT_PERSONAL_DATA_BACK,null);
                 break;
             default:
                 break;
@@ -310,12 +308,12 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     }
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 
@@ -325,7 +323,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
-                nextStepRegister(EVENT_GO_GET_CARD,null); // Mostramos la pantalla para obtener tarjeta.
+                nextScreen(EVENT_GO_GET_CARD,null); // Mostramos la pantalla para obtener tarjeta.
             }
         }, DELAY_MESSAGE_PROGRESS);
     }

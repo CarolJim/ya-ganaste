@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
+import com.pagatodo.yaganaste.ui.account.register.Documentos;
 import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
 import com.pagatodo.yaganaste.ui.adquirente.HardSellAdqFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
@@ -24,6 +25,8 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 
 /**
  * @author Juan Guerra on 24/03/2017.
@@ -50,10 +53,14 @@ public class ViewPagerDataFactory {
                 fragmentList.add(HomeTabFragment.newInstance());
                 fragmentList.add(PaymentsTabFragment.newInstance());
                 fragmentList.add(BlankFragment.newInstance());
-                if(!SingletonUser.getInstance().getDataUser().isEsAgente())
-                    fragmentList.add(InviteAdquirenteFragment.newInstance());
-                else {
+                if(SingletonUser.getInstance().getDataUser().isEsAgente()
+                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
                     fragmentList.add(GetMountFragment.newInstance());
+                }else if(SingletonUser.getInstance().getDataUser().isEsAgente()
+                    && SingletonUser.getInstance().getDataUser().getEstatusAgente() != CRM_DOCTO_APROBADO){
+                    fragmentList.add(Documentos.newInstance());
+                }else {
+                    fragmentList.add(InviteAdquirenteFragment.newInstance());
                 }
 
                 return new ViewPagerData<> (fragmentList, MainTab.values());

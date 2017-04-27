@@ -3,23 +3,15 @@ package com.pagatodo.yaganaste.ui.account;
 import android.content.Context;
 import android.util.Log;
 
-import com.google.firebase.iid.FirebaseInstanceId;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionAprovSofttokenRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioFWSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActivacionAprovSofttokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
-import com.pagatodo.yaganaste.freja.Errors;
-import com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs;
 import com.pagatodo.yaganaste.interfaces.IAccountAddressRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;
@@ -27,8 +19,7 @@ import com.pagatodo.yaganaste.interfaces.IAccountIteractorNew;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAccountPresenterNew;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
-import com.pagatodo.yaganaste.interfaces.IAccountView2;
-import com.pagatodo.yaganaste.interfaces.ILoginView;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
@@ -38,7 +29,6 @@ import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.List;
 
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
@@ -49,7 +39,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
 import static com.pagatodo.yaganaste.utils.Recursos.CRC32_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
@@ -61,14 +50,14 @@ import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 public class AccountPresenterNew implements IAccountPresenterNew, IAccountManager {
     private static final String TAG = AccountPresenterNew.class.getName();
     private IAccountIteractorNew accountIteractor;
-    private IAccountView2 accountView;
+    private INavigationView accountView;
     private Preferencias prefs = App.getInstance().getPrefs();
 
     public AccountPresenterNew(Context context) {
         accountIteractor = new AccountInteractorNew(this);
     }
 
-    public void setIView( IAccountView2 accountView){
+    public void setIView( INavigationView accountView){
         this.accountView = accountView;
     }
 
@@ -81,7 +70,7 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
     @Override
     public void goToNextStepAccount(String event, Object data) {
         accountView.hideLoader();
-        accountView.nextStepRegister(event,data);
+        accountView.nextScreen(event,data);
     }
 
     @Override
@@ -226,7 +215,7 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
                 }
         }else if(accountView instanceof IAccountCardNIPView) {
             if(ws == ASIGNAR_NIP){
-                accountView.nextStepRegister(EVENT_GO_ASOCIATE_PHONE,data);
+                accountView.nextScreen(EVENT_GO_ASOCIATE_PHONE,data);
             }
         }else if(accountView instanceof IVerificationSMSView) {
             if(ws == OBTENER_NUMERO_SMS) {

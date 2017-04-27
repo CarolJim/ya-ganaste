@@ -114,7 +114,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnLoginExistUser:
-                actionBtnLogin();
+                Intent intent = new Intent(getActivity(),TabActivity.class);
+                startActivity(intent);
+                //actionBtnLogin();
                 break;
             case R.id.txtLoginExistUserRecoverPass:
                 //startActivity(new Intent(getActivity(), RecoverPasswordActivity.class));
@@ -134,12 +136,12 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     }
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event, data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event, data);
     }
 

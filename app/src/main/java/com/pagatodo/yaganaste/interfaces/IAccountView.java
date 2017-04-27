@@ -7,6 +7,6 @@ package com.pagatodo.yaganaste.interfaces;
 public interface IAccountView extends IProgressView {
 
     public void nextStepAccountFlow(String event);
-    //public void nextStepRegister(String event,T data);
-    //public void backStepRegister(String event,T data);
+    //public void nextScreen(String event,T data);
+    //public void backScreen(String event,T data);
 }
