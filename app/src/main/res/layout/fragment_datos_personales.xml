@@ -118,6 +118,7 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/editBirthDay"
             android:layout_marginBottom="@dimen/margin_big"
+            android:background="@null"
             android:backgroundTint="@color/transparent" />
 
     </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>

@@ -13,7 +13,8 @@
     <item
         android:width="@dimen/seekbar_thumb_arrow_width"
         android:height="@dimen/seekbar_thumb__arrow_height"
-        android:drawable="@drawable/arrow_icon"
         android:gravity="center|right"
-        android:right="5dp" />
+        android:right="5dp">
+        <bitmap android:src="@drawable/arrow_icon" />
+    </item>
 </layer-list>

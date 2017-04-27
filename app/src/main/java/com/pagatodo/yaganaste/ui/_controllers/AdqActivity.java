@@ -37,7 +37,7 @@ public class AdqActivity extends SupportFragmentActivity implements OnEventListe
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.login_activity);
+        setContentView(R.layout.activity_fragment_conainer);
         pref = App.getInstance().getPrefs();
         onEvent(EVENT_GO_INSERT_DONGLE,null);
         //App.getInstance().initEMVListener();

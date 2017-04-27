@@ -22,6 +22,7 @@ import android.widget.Toast;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.RecargasPresenter;
@@ -122,6 +123,11 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             //copyDataBaseDebug();
         } else {
             Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
+
+            Intent intent = new Intent(getActivity(), PaymentsProcessingActivity.class);
+            getActivity().startActivity(intent);
+            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            //getActivity().finish();
             //Se debe crear un objeto que se envía a la activity que realizará el pago
         }
     }

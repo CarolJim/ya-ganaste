@@ -22,7 +22,6 @@ import com.pagatodo.yaganaste.ui.account.register.Couchmark;
 import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
 import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
-import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
@@ -74,7 +73,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.login_activity);
+        setContentView(R.layout.activity_fragment_conainer);
         action = getIntent().getExtras().getString(SELECTION);
         pref = App.getInstance().getPrefs();
         resetRegisterData();

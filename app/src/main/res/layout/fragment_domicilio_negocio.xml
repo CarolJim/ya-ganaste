@@ -94,6 +94,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
+                app:maxLines="1"
                 app:hintText="@string/stateHint" />
         </LinearLayout>
 
@@ -101,6 +102,7 @@
         <Spinner
             android:id="@+id/spBussinesColonia"
             style="@style/SpinnerNoArrow"
+            android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layoutBussinesAddressComp"

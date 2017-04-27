@@ -45,4 +45,6 @@
 
     <dimen name="dialog_text_size">11sp</dimen>
 
+    <dimen name="radio_btn_radius">16dp</dimen>
+    <dimen name="strock_width">1dp</dimen>
 </resources>

@@ -12,10 +12,8 @@ import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
-import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.register.DatosNegocio;
 import com.pagatodo.yaganaste.ui.account.register.Documentos;
-import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioNegocio;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 
@@ -42,7 +40,7 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setContentView(R.layout.login_activity);
+        setContentView(R.layout.activity_fragment_conainer);
 
        // initFragments();
         loadFragment(DatosNegocio.newInstance(), Direction.FORDWARD, true);
