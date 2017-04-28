@@ -12,7 +12,6 @@
         android:id="@+id/customTab"
         android:layout_width="match_parent"
         android:layout_height="40dp"
-        android:layout_marginTop="30dp"
         android:clipToPadding="false">
 
         <Button
@@ -79,8 +78,8 @@
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/imgPagosUserProfile"
-                            android:layout_width="85dp"
-                            android:layout_height="86dp"
+                            android:layout_width="@dimen/radio_image_pago"
+                            android:layout_height="@dimen/radio_image_pago"
                             android:src="@mipmap/icon_user"
                             app:civ_border_color="@color/colorAccent"
                             app:civ_border_width="2dp" />
@@ -95,15 +94,28 @@
                         android:layout_gravity="right">
 
                         <de.hdodenhof.circleimageview.CircleImageView
-                            android:id="@+id/imgPagosServiceToPay"
-                            android:layout_width="85dp"
-                            android:layout_height="85dp"
+                            android:id="@+id/imgPagosServiceToPayRound"
+                            android:layout_width="@dimen/radio_image_pago"
+                            android:layout_height="@dimen/radio_image_pago"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
-                            android:src="@mipmap/circulo_add_servicio"
+                            android:layout_centerHorizontal="true"
+                            android:src="@mipmap/blacksquare"
                             app:civ_border_color="@color/black"
                             app:civ_border_width="2dp" />
+
+                        <ImageView
+                            android:id="@+id/imgPagosServiceToPay"
+                            android:layout_width="@dimen/radio_image_pago"
+                            android:layout_height="@dimen/radio_image_pago"
+                            android:layout_alignParentLeft="true"
+                            android:layout_alignParentStart="true"
+                            android:layout_alignParentTop="true"
+                            android:layout_centerHorizontal="true"
+                            android:adjustViewBounds="true"
+                            android:scaleType="centerInside"
+                            android:src="@mipmap/circulo_add_servicio" />
                     </RelativeLayout>
 
                 </FrameLayout>

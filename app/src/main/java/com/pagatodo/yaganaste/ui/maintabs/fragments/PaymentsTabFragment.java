@@ -16,6 +16,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
@@ -62,7 +63,9 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     @BindView(R.id.rlimgPagosServiceToPay)
     RelativeLayout rlimgPagosServiceToPay;
     @BindView(R.id.imgPagosServiceToPay)
-    CircleImageView imgPagosServiceToPay;
+    ImageView imgPagosServiceToPay;
+    @BindView(R.id.imgPagosServiceToPayRound)
+    CircleImageView imgPagosServiceToPayRound;
     MovementsTab currentTab = TAB1;
 
     //private Animation animIn, animOut;
@@ -172,7 +175,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         payment_view_pager.setCurrentItem(TAB.getId() - 1);
         removeLastFragment();
         onEventListener.onEvent(TabActivity.EVENT_CHANGE_MAIN_TAB_VISIBILITY, true);
-        imgPagosServiceToPay.setBorderColor(Color.BLACK);
+        imgPagosServiceToPayRound.setBorderColor(Color.BLACK);
         imgPagosServiceToPay.setImageResource(R.mipmap.circulo_add_servicio);
     }
 
@@ -222,7 +225,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     public void changeImgageToPay() {
         CarouselItem item = paymentsTabPresenter.getCarouselItem();
         Glide.with(getContext()).load(item.getImageUrl()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).dontAnimate().into(imgPagosServiceToPay);
-        imgPagosServiceToPay.setBorderColor(Color.parseColor(item.getColor()));
+        imgPagosServiceToPayRound.setBorderColor(Color.parseColor(item.getColor()));
         onEventListener.onEvent(TabActivity.EVENT_CHANGE_MAIN_TAB_VISIBILITY, false);
     }
 

@@ -1,26 +1,43 @@
 package com.pagatodo.yaganaste.data.model.webservice.request.trans;
 
 import java.io.Serializable;
+import java.util.Calendar;
 
 /**
  * Created by flima on 21/03/2017.
  */
 
-public class EjecutarTransaccionRequest implements Serializable{
+public class EjecutarTransaccionRequest implements Serializable {
 
     private int IdTipoTransaccion;
-    private String Ticket = "";
-    private String Referencia = "";
+    private String Ticket;
+    private String Referencia;
     private Double Monto;
     private int IdComercioAfectado;
-    private String NombreBeneficiario = "";
-    private String Concepto = "";
-    private String ReferenciaNumerica = "";
+    private String NombreBeneficiario;
+    private String Concepto;
+    private String ReferenciaNumerica;
 
 
     public EjecutarTransaccionRequest() {
     }
 
+    public EjecutarTransaccionRequest(int idTipoTransaccion, String referencia, Double monto, int idComercioAfectado) {
+        new EjecutarTransaccionRequest(idTipoTransaccion, referencia, monto, idComercioAfectado, "", "", "");
+    }
+
+    public EjecutarTransaccionRequest(int idTipoTransaccion, String referencia, Double monto,
+                                      int idComercioAfectado, String nombreBeneficiario, String concepto, String referenciaNumerica) {
+        this.IdTipoTransaccion = idTipoTransaccion;
+        this.Ticket = createTicket();
+        this.Referencia = referencia;
+        this.Monto = monto;
+        this.IdComercioAfectado = idComercioAfectado;
+        this.NombreBeneficiario = nombreBeneficiario;
+        this.Concepto = concepto;
+        this.ReferenciaNumerica = referenciaNumerica;
+
+    }
 
     public int getIdTipoTransaccion() {
         return IdTipoTransaccion;
@@ -34,9 +51,6 @@ public class EjecutarTransaccionRequest implements Serializable{
         return Ticket;
     }
 
-    public void setTicket(String ticket) {
-        Ticket = ticket;
-    }
 
     public String getReferencia() {
         return Referencia;
@@ -84,5 +98,13 @@ public class EjecutarTransaccionRequest implements Serializable{
 
     public void setReferenciaNumerica(String referenciaNumerica) {
         ReferenciaNumerica = referenciaNumerica;
+    }
+
+    public String createTicket() {
+        Calendar c = Calendar.getInstance();
+        final int startYear = c.get(Calendar.YEAR);
+        final int startMonth = c.get(Calendar.MONTH);
+        final int startDay = c.get(Calendar.DAY_OF_MONTH);
+        return startYear + startMonth + startDay + (int) (Math.random() * 90) + "";
     }
 }

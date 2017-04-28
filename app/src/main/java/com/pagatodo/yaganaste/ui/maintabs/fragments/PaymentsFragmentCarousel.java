@@ -53,7 +53,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
 
     boolean isFromClick = false;
 
-    private static int MAX_CAROUSEL_ITEMS = 18;
+    private static int MAX_CAROUSEL_ITEMS = 12;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -129,7 +129,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(Double monto) {
 
     }
 

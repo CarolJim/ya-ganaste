@@ -20,13 +20,10 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
-import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
-import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
+import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.RecargasPresenter;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsTabPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IRecargasPresenter;
 
 import java.io.File;
@@ -39,6 +36,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB1;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 
@@ -57,10 +55,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     RelativeLayout layoutImageContact;
 
     private SpinnerArrayAdapter dataAdapter;
-    private IPaymentsTabPresenter paymentsTabPresenter;
     private IRecargasPresenter recargasPresenter;
-    private ComercioResponse comercioItem;
-    private String errorText;
 
     boolean isIAVE;
 
@@ -75,14 +70,14 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
+            tab = TAB1;
             paymentsTabPresenter = ((PaymentsTabFragment) getParentFragment()).getPresenter();
-
             comercioItem = paymentsTabPresenter.getCarouselItem().getComercio();
             isIAVE = comercioItem.getIdComercio() == IAVE_ID;
             recargasPresenter = new RecargasPresenter(this, isIAVE);
             List<Double> montos = comercioItem.getListaMontos();
             montos.add(0, 0.0);
-            dataAdapter = new SpinnerArrayAdapter(getContext(), MovementsTab.TAB1, montos);
+            dataAdapter = new SpinnerArrayAdapter(getContext(), TAB1, montos);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -122,13 +117,10 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             mySeekBar.setProgress(0);
             //copyDataBaseDebug();
         } else {
-            Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
-
-            Intent intent = new Intent(getActivity(), PaymentsProcessingActivity.class);
-            getActivity().startActivity(intent);
-            getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-            //getActivity().finish();
             //Se debe crear un objeto que se envía a la activity que realizará el pago
+            //Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
+            payment = new Recarga(referencia, monto, comercioItem);
+            sendPayment();
         }
     }
 
@@ -188,14 +180,17 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(Double i) {
         //mySeekBar.setEnabled(true);
+        this.monto = i;
         isValid = true;
     }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        recargasPresenter.validateFields(recargaNumber.getText().toString().trim(), (Double) spinnerMontoRecarga.getSelectedItem());
+        referencia = recargaNumber.getText().toString().trim();
+        monto = (Double) spinnerMontoRecarga.getSelectedItem();
+        recargasPresenter.validateFields(referencia, monto);
     }
 
 
@@ -206,7 +201,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
                 getContext().getDatabasePath("yaganaste.db").toURI())); // context.getAssets().open("db/"+DB_NAME);
 
         File folder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + "/YaGanaste");
-        if(!folder.exists()){
+        if (!folder.exists()) {
             folder.mkdir();
         }
 

@@ -124,8 +124,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/comisionText"
-        android:layout_marginLeft="@dimen/margin_doble"
-        android:layout_marginRight="@dimen/margin_doble"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
         android:layout_marginTop="@dimen/space_between_elements">
 
         <SeekBar

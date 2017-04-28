@@ -50,7 +50,7 @@ public class ServiciosPresenter implements IServiciosPresenter, IServiciosIntera
     }
 
     @Override
-    public void onSuccess() {
-        paymentsManager.onSuccess();
+    public void onSuccess(Double i) {
+        paymentsManager.onSuccess(i);
     }
 }

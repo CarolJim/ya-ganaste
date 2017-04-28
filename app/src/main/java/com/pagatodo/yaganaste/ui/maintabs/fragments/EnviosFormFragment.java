@@ -14,13 +14,12 @@ import android.widget.Spinner;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;
 
 import java.util.ArrayList;
@@ -55,10 +54,9 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
     EditText numberReference;
 
     TransferType selectedType;
-    IPaymentsTabPresenter paymentsTabPresenter;
-    private ComercioResponse comercioItem;
     IEnviosPresenter enviosPresenter;
-    private String errorText;
+    private String nombreDestinatario;
+    private String referenciaNumber;
 
     public static EnviosFormFragment newInstance() {
         EnviosFormFragment fragment = new EnviosFormFragment();
@@ -71,6 +69,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         try {
+            tab = TAB3;
             paymentsTabPresenter = ((PaymentsTabFragment) getParentFragment()).getPresenter();
             comercioItem = paymentsTabPresenter.getCarouselItem().getComercio();
             enviosPresenter = new EnviosPresenter(this);
@@ -114,8 +113,10 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
             showError();
             mySeekBar.setProgress(0);
         } else {
-            Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
             //Se debe crear un objeto que se envía a la activity que realizará el pago
+            payment = new Envios(selectedType, referencia, monto, nombreDestinatario, concepto, referenciaNumber, comercioItem);
+            sendPayment();
         }
     }
 
@@ -133,17 +134,23 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(Double monto) {
+        this.monto = monto;
         isValid = true;
     }
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        enviosPresenter.validateForms(selectedType, cardNumber.getText().toString().trim(),
+        referencia = cardNumber.getText().toString().trim();
+        concepto = concept.getText().toString().trim();
+        nombreDestinatario = receiverName.getText().toString().trim();
+        referenciaNumber = numberReference.getText().toString().trim();
+
+        enviosPresenter.validateForms(selectedType, referencia,
                 amountToSend.getText().toString().trim(),
-                receiverName.getText().toString().trim(),
-                concept.getText().toString().trim(),
-                numberReference.getText().toString().trim());
+                nombreDestinatario,
+                concepto,
+                referenciaNumber);
     }
 
     @Override

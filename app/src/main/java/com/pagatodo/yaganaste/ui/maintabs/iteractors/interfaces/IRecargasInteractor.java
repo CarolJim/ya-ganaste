@@ -10,7 +10,7 @@ public interface IRecargasInteractor {
         void onMontoError();
         void onNumberError();
         void onNumberEmpty();
-        void onSuccess();
+        void onSuccess(Double monto);
     }
 
     void validateForms(String number, Double monto, OnValidationFinishListener listener);
