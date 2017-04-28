@@ -83,7 +83,7 @@ public class EnviosPresenter implements IEnviosPresenter, IEnviosInteractor.OnVa
     }
 
     @Override
-    public void onSuccess() {
-        paymentsManager.onSuccess();
+    public void onSuccess(Double monto) {
+        paymentsManager.onSuccess(monto);
     }
 }

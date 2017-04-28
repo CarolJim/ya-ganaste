@@ -46,7 +46,7 @@
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="@string/importe"
+                android:text="@string/monto"
                 android:textSize="@dimen/online_movements_small_b"/>
 
             <android.support.v4.widget.Space

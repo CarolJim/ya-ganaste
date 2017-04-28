@@ -18,6 +18,7 @@ public class Constants {
     //region requests codes
     public static int CONTACTS_CONTRACT = 50;
     public static int BARCODE_READER_REQUEST_CODE = 60;
+    public static int BACK_FROM_PAYMENTS = 190;
 
     //endregion
 

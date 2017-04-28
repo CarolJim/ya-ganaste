@@ -46,7 +46,7 @@ public class ServiciosInteractor implements IServiciosInteractor {
             return;
         }
 
-        listener.onSuccess();
+        listener.onSuccess(i);
 
     }
 }

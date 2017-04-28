@@ -27,6 +27,6 @@ public class RecargasInteractor implements IRecargasInteractor {
             return;
         }
 
-        listener.onSuccess();
+        listener.onSuccess(monto);
     }
 }

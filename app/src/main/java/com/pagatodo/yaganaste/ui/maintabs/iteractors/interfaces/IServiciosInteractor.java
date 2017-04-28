@@ -11,7 +11,7 @@ public interface IServiciosInteractor {
         void onImporteError();
         void onImporteEmpty();
         void onConceptEmpty();
-        void onSuccess();
+        void onSuccess(Double importe);
     }
 
     void validateForms(String referencia, String importe, String concepto, OnValidationFinishListener listener);

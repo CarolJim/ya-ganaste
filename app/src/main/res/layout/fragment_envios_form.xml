@@ -63,7 +63,7 @@
                 android:background="@null"
                 android:backgroundTint="@color/transparent"
                 android:hint="@string/hint_importe_envio"
-                android:inputType="numberDecimal"
+                android:inputType="number"
                 android:maxLength="16"
                 android:paddingBottom="6dp"
                 android:paddingTop="6dp"
@@ -170,8 +170,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/containerEnviosForm"
-        android:layout_marginLeft="@dimen/margin_doble"
-        android:layout_marginRight="@dimen/margin_doble"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
         android:layout_marginTop="@dimen/margin_big">
 
         <SeekBar

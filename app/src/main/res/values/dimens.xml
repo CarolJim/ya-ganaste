@@ -47,4 +47,6 @@
 
     <dimen name="radio_btn_radius">16dp</dimen>
     <dimen name="strock_width">1dp</dimen>
+
+    <dimen name="radio_image_pago">85dp</dimen>
 </resources>

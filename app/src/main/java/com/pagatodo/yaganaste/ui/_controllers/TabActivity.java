@@ -30,6 +30,9 @@ import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 
 import java.util.List;
 
+import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
+import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
+import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 
 
@@ -151,23 +154,27 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
                     }
                 }
             }
+        } else if (requestCode == BACK_FROM_PAYMENTS) {
+            Intent intent = getIntent();
+            finish();
+            startActivity(intent);
         }
     }
 
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        if(mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem()) instanceof  PaymentsTabFragment){
-            PaymentsTabFragment paymentsTabFragment = (PaymentsTabFragment)mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem());
-            if(paymentsTabFragment.isOnForm){
+        if (mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem()) instanceof PaymentsTabFragment) {
+            PaymentsTabFragment paymentsTabFragment = (PaymentsTabFragment) mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem());
+            if (paymentsTabFragment.isOnForm) {
                 paymentsTabFragment.onBackPresed(paymentsTabFragment.getCurrenTab());
-            }else{
+            } else {
                 goHome();
             }
-        }else {
-            if(mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem()) instanceof HomeTabFragment){
+        } else {
+            if (mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem()) instanceof HomeTabFragment) {
                 super.onBackPressed();
-            }else{
+            } else {
                 goHome();
             }
         }

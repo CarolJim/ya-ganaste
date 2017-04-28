@@ -20,7 +20,7 @@ public interface IEnviosInteractor {
         void onConceptError();
         void onReferenceEmpty();
         void onReferenceError();
-        void onSuccess();
+        void onSuccess(Double monto);
     }
 
     void validateForms(TransferType type, String number, String importe, String name, String concept, String reference, OnValidationFinishListener listener);

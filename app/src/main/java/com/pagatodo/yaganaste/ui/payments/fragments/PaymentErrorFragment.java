@@ -8,24 +8,20 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.interfaces.IProgressView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
- * Created by Jordan on 25/04/2017.
+ * Created by Jordan on 27/04/2017.
  */
 
-public class SendPaymentFragment extends GenericFragment implements IProgressView {
+public class PaymentErrorFragment extends GenericFragment {
 
     private View rootview;
 
-
-    public static SendPaymentFragment newInstance() {
-        SendPaymentFragment fragment = new SendPaymentFragment();
+    public static PaymentErrorFragment newInstance() {
+        PaymentErrorFragment fragment = new PaymentErrorFragment();
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
@@ -70,18 +66,4 @@ public class SendPaymentFragment extends GenericFragment implements IProgressVie
 
     }
 
-    @Override
-    public void showLoader(String message) {
-
-    }
-
-    @Override
-    public void hideLoader() {
-
-    }
-
-    @Override
-    public void showError(Object error) {
-
-    }
 }

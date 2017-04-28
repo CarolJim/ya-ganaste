@@ -361,7 +361,7 @@
 
     <!-- Autorizaciones Online -->
     <string name="este_movimiento">Este Movimiento Requiere Autorización: </string>
-    <string name="importe">Importe:</string>
+    <string name="monto">Importe:</string>
     <string name="ingresa_tu_contrasenia">Ingresa tu Contraseña para Autorizar este Movimiento en tu
     Banca en Línea</string>
 

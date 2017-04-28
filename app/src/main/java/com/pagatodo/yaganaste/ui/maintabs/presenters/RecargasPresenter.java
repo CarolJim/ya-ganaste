@@ -42,7 +42,7 @@ public class RecargasPresenter implements IRecargasPresenter, IRecargasInteracto
     }
 
     @Override
-    public void onSuccess() {
-        paymentsManager.onSuccess();
+    public void onSuccess(Double monto) {
+        paymentsManager.onSuccess(monto);
     }
 }

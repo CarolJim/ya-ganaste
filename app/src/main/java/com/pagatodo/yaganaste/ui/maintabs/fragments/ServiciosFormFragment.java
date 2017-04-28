@@ -14,16 +14,16 @@ import android.widget.Toast;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.ServiciosPresenter;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsTabPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IServiciosPresenter;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;
 
 import butterknife.BindView;
 
+import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB2;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 
 /**
@@ -42,15 +42,9 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
     @BindView(R.id.serviceConcept)
     EditText serviceConcept;
 
-    private String referencia;
-    private String importe;
-    private String concepto;
-    private String errorText;
+    ;
     private boolean isValid = false;
-
-    //private IPaymentsTabPresenter paymentsTabPresenter;
     private IServiciosPresenter serviciosPresenter;
-    //private ComercioResponse comercioItem;
 
     public static ServiciosFormFragment newInstance() {
         ServiciosFormFragment fragment = new ServiciosFormFragment();
@@ -62,14 +56,14 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        serviciosPresenter = new ServiciosPresenter(this);
-        /*try {
+        try {
+            tab = TAB2;
             paymentsTabPresenter = ((PaymentsTabFragment) getParentFragment()).getPresenter();
             comercioItem = paymentsTabPresenter.getCarouselItem().getComercio();
             serviciosPresenter = new ServiciosPresenter(this);
         } catch (Exception e) {
             e.printStackTrace();
-        }*/
+        }
     }
 
     @Nullable
@@ -90,14 +84,14 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
 
     @Override
     protected void continuePayment() {
-        super.continuePayment();
-
         if (!isValid) {
             showError();
             mySeekBar.setProgress(0);
         } else {
-            Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
             //Se debe crear un objeto que se envía a la activity que realizará el pago
+            payment = new Servicios(referencia, monto, concepto, comercioItem);
+            sendPayment();
         }
     }
 
@@ -115,7 +109,8 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
     }
 
     @Override
-    public void onSuccess() {
+    public void onSuccess(Double importe) {
+        this.monto = importe;
         isValid = true;
     }
 
@@ -143,8 +138,8 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        serviciosPresenter.validateFields(referenceNumber.getText().toString().trim(),
-                serviceImport.getText().toString().trim(),
-                serviceConcept.getText().toString().trim());
+        referencia = referenceNumber.getText().toString().trim();
+        concepto = serviceConcept.getText().toString().trim();
+        serviciosPresenter.validateFields(referencia, serviceImport.getText().toString().trim(), concepto);
     }
 }
