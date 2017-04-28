@@ -13,7 +13,6 @@ import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.EnviarTicketCompraRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.FirmaDeVoucherRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistroDongleRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.EnviarTicketCompraResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.FirmaDeVoucherResponse;
@@ -23,13 +22,12 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVD
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
-import com.pagatodo.yaganaste.interfaces.IAccountView2;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
 import com.pagatodo.yaganaste.interfaces.enums.AccountOperation;
 import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
-import com.pagatodo.yaganaste.utils.Constants;
 
 import java.io.Serializable;
 
@@ -45,7 +43,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.ADQ_ACCES_DENIED;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_ERROR;
-import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 
 /**
  * Created by flima on 17/04/2017.
@@ -84,7 +81,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     public void registerDongle() {
 
         //RequestHeaders.setTokenAdq("");
-        if(!RequestHeaders.getTokenAdq().isEmpty()){
+        /*if(!RequestHeaders.getTokenAdq().isEmpty()){
             String serial = prefs.loadData(KSN_LECTOR);
             RegistroDongleRequest request = new RegistroDongleRequest(serial);
             try {
@@ -95,25 +92,25 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         }else{
             accountOperation = LOGIN_ADQ_PAYMENT;
             loginAdq();
-        }
+        }*/
 
 
-        /*new Handler().postDelayed(new Runnable() {
+        new Handler().postDelayed(new Runnable() {
             public void run() {
                 accountManager.onSucces(REGISTRO_DONGLE, "Ejecución Exitosa");
             }
-        }, DELAY_MESSAGE_PROGRESS * 2);*/
+        }, DELAY_MESSAGE_PROGRESS * 2);
     }
 
     @Override
     public void initPayment(final TransaccionEMVDepositRequest request) {
-        try {
+        /*try {
             ApiAdq.transaccionEMVDeposit(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
-        }
+        }*/
 
-        /*
+
         new Handler().postDelayed(new Runnable() {
             public void run() {
 
@@ -125,13 +122,13 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                         "Ocurrió un error",
                         "Tuvimos un Problema\nProcesando la Transacción.",
                         true);*/
-                //pageResult.setNamerBtnPrimary("Continuar");
+                pageResult.setNamerBtnPrimary("Continuar");
                 //pageResult.setNamerBtnSecondary("Llamar");
-                /*pageResult.setActionBtnPrimary(new Command() {
+                pageResult.setActionBtnPrimary(new Command() {
                     @Override
                     public void action(Context context, Object... params) {
-                        IAccountView2 viewInterface = (IAccountView2) params[0];
-                        viewInterface.nextStepRegister(EVENT_GO_REMOVE_CARD, "Ejecución Éxitosa");
+                        INavigationView viewInterface = (INavigationView) params[0];
+                        viewInterface.nextScreen(EVENT_GO_REMOVE_CARD, "Ejecución Éxitosa");
                     }
                 });
 
@@ -139,8 +136,8 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 pageResult.setActionBtnSecondary(new Command() {
                     @Override
                     public void action(final Context context, Object... params) {
-                        //IAccountView2 viewInterface = (IAccountView2) params[0];
-                        //viewInterface.nextStepRegister(EVENT_GO_MAINTAB,"Ejecución Éxitosa");
+                        //INavigationView viewInterface = (INavigationView) params[0];
+                        //viewInterface.nextScreen(EVENT_GO_MAINTAB,"Ejecución Éxitosa");
                         Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "5555555555"));
                         if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
                             ValidatePermissions.checkSinglePermissionWithExplanation((Activity) context,
@@ -167,7 +164,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                         //Borramos los datos de la transacción
                         TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
                     }
-                });
+                });*/
 
                 result.setPageResult(pageResult);
                 result.setTransaccionResponse(new TransaccionEMVDepositResponse());
@@ -175,7 +172,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 accountManager.onSucces(TRANSACCIONES_EMV_DEPOSIT,"Ejecución Exitosa");
 
             }
-        }, DELAY_MESSAGE_PROGRESS*3);*/
+        }, DELAY_MESSAGE_PROGRESS*3);
     }
 
     @Override
@@ -209,8 +206,8 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 pageResult.setActionBtnPrimary(new Command() {
                     @Override
                     public void action(Context context, Object... params) {
-                        IAccountView2 viewInterface = (IAccountView2) params[0];
-                        viewInterface.nextStepRegister(EVENT_GO_MAINTAB, "Ejecución Éxitosa");
+                        INavigationView viewInterface = (INavigationView) params[0];
+                        viewInterface.nextScreen(EVENT_GO_MAINTAB, "Ejecución Éxitosa");
                         //Borramos los datos de la transacción
                         TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
 
@@ -324,8 +321,8 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 @Override
                 public void action(Context context, Object... params) {
 
-                    IAccountView2 viewInterface = (IAccountView2) params[0];
-                    viewInterface.nextStepRegister(EVENT_GO_MAINTAB,"");
+                    INavigationView viewInterface = (INavigationView) params[0];
+                    viewInterface.nextScreen(EVENT_GO_MAINTAB,"");
                     TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
                 }
             });
@@ -346,8 +343,8 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                     @Override
                     public void action(Context context, Object... params) {
 
-                        IAccountView2 viewInterface = (IAccountView2) params[0];
-                        viewInterface.nextStepRegister(EVENT_GO_MAINTAB,"");
+                        INavigationView viewInterface = (INavigationView) params[0];
+                        viewInterface.nextScreen(EVENT_GO_MAINTAB,"");
                         TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
                     }
                 });
@@ -355,8 +352,8 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             pageResult.setActionBtnSecondary(new Command() {
                 @Override
                 public void action(Context context, Object... params) {
-                    IAccountView2 viewInterface = (IAccountView2) params[0];
-                    viewInterface.nextStepRegister(EVENT_GO_MAINTAB,"");
+                    INavigationView viewInterface = (INavigationView) params[0];
+                    viewInterface.nextScreen(EVENT_GO_MAINTAB,"");
                     TransactionAdqData.getCurrentTransaction().resetDataToRetry(); // Reintentamos
                 }
             });

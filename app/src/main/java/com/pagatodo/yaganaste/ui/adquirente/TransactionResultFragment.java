@@ -12,7 +12,7 @@ import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.PageResult;
-import com.pagatodo.yaganaste.interfaces.IAccountView2;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -27,7 +27,7 @@ import static android.view.View.VISIBLE;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class TransactionResultFragment extends GenericFragment implements View.OnClickListener, IAccountView2 {
+public class TransactionResultFragment extends GenericFragment implements View.OnClickListener, INavigationView {
 
     public static String KEY_PAGE_RESULT = "KEYPAGERESULT";
     private View rootview;
@@ -125,12 +125,12 @@ public class TransactionResultFragment extends GenericFragment implements View.O
 
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 

@@ -3,11 +3,10 @@ package com.pagatodo.yaganaste.ui.account;
 import android.os.Handler;
 import android.util.Log;
 
-import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
-import com.pagatodo.yaganaste.interfaces.IAccountView2;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountPresenter;
 import com.pagatodo.yaganaste.interfaces.IAdqRegisterView;
@@ -28,9 +27,9 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccountPresenter, IAccountManager {
     private String TAG = AccountAdqPresenter.class.getName();
     private IAdqAccountIteractor adqIteractor;
-    private IAccountView2 iAdqView;
+    private INavigationView iAdqView;
 
-    public AccountAdqPresenter(IAccountView2 iAdqView) {
+    public AccountAdqPresenter(INavigationView iAdqView) {
         this.iAdqView = iAdqView;
         adqIteractor = new AccountAdqInteractor(this);
     }

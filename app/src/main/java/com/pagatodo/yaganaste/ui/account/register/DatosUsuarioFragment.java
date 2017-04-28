@@ -318,7 +318,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         RegisterUser registerUser = RegisterUser.getInstance();
         registerUser.setEmail(email);
         registerUser.setContrasenia(password);
-        nextStepRegister(EVENT_PERSONAL_DATA,null);//Mostramos la siguiente pantalla de registro.
+        nextScreen(EVENT_PERSONAL_DATA,null);//Mostramos la siguiente pantalla de registro.
     }
 
     @Override
@@ -346,12 +346,12 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     }*/
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 

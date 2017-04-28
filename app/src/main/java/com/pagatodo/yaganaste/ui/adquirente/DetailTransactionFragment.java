@@ -13,7 +13,7 @@ import android.widget.ImageView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
-import com.pagatodo.yaganaste.interfaces.IAccountView2;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
@@ -31,7 +31,7 @@ import static android.view.View.VISIBLE;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DetailTransactionFragment extends PaymentFormBaseFragment implements ValidationForms,IAccountView2{
+public class DetailTransactionFragment extends PaymentFormBaseFragment implements ValidationForms,INavigationView {
 
     @BindView(R.id.txtAmountPayment)
     StyleTextView txtAmountPayment;
@@ -137,12 +137,12 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     }
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 

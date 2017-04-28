@@ -4,7 +4,7 @@ package com.pagatodo.yaganaste.interfaces;
  * Created by flima on 27/03/2017.
  */
 
-public interface IUserDataRegisterView<T> extends IAccountView2 {
+public interface IUserDataRegisterView<T> extends INavigationView {
     public void isEmailAvaliable();
     public void isEmailRegistered();
     public void validationPasswordSucces();

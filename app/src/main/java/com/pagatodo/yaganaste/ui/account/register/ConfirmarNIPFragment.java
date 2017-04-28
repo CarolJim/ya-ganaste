@@ -218,7 +218,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     }
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         showLoader(data.toString());
         new Handler().postDelayed(new Runnable() {
             public void run() {
@@ -229,7 +229,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 

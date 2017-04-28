@@ -7,10 +7,6 @@
     android:layout_height="match_parent"
     tools:context="com.pagatodo.yaganaste.ui._controllers.BussinesActivity">
 
-    <include
-        android:id="@+id/toolbarLy"
-        layout="@layout/toolbar" />
-
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtWeNeedSmFilesTitle"
         style="@style/textTitle"

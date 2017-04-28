@@ -16,7 +16,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.GiroComercio;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEntity;
-import com.pagatodo.yaganaste.interfaces.IAccountView2;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
@@ -37,7 +37,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_FAMILIAR;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DatosNegocio extends GenericFragment implements View.OnClickListener, ValidationForms, IAccountView2 {
+public class DatosNegocio extends GenericFragment implements View.OnClickListener, ValidationForms, INavigationView {
 
     private View rootview;
     @BindView(R.id.editBussinesName)
@@ -226,7 +226,7 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
             registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_FAMILIAR, respuestaFamiliares));
 
 
-        nextStepRegister(EVENT_GO_BUSSINES_ADDRESS, null);//Mostramos la siguiente pantalla de registro.
+        nextScreen(EVENT_GO_BUSSINES_ADDRESS, null);//Mostramos la siguiente pantalla de registro.
     }
 
     @Override
@@ -255,12 +255,12 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
     }
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event, data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event, data);
     }
 

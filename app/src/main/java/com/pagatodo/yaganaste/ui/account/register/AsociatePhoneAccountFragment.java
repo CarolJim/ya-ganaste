@@ -26,7 +26,6 @@ import com.pagatodo.yaganaste.ui.account.AprovPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
-import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import java.util.Timer;
 
@@ -153,7 +152,7 @@ public class AsociatePhoneAccountFragment extends PaymentFormBaseFragment implem
     }
 
     public void finishAssociation(){
-        nextStepRegister(EVENT_GO_REGISTER_COMPLETE,null);
+        nextScreen(EVENT_GO_REGISTER_COMPLETE,null);
     }
 
     @Override
@@ -196,12 +195,12 @@ public class AsociatePhoneAccountFragment extends PaymentFormBaseFragment implem
     }
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 
@@ -298,7 +297,7 @@ public class AsociatePhoneAccountFragment extends PaymentFormBaseFragment implem
 
     private void goToLogin(){
         RegisterUser.resetRegisterUser();
-        nextStepRegister(EVENT_GO_LOGIN,null);
+        nextScreen(EVENT_GO_LOGIN,null);
     }
 }
 

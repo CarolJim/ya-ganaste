@@ -8,7 +8,7 @@ import com.pagatodo.yaganaste.data.model.MessageValidation;
  * Interfaz que proporciona los métodos básicos para gestionar el flujo del Registro en la aplicación.
  */
 
-public interface IVerificationSMSView extends IAccountView2{
+public interface IVerificationSMSView extends INavigationView {
     public void messageCreated(MessageValidation messageValidation);
     public void smsVerificationSuccess();
     public void smsVerificationFailed(String message);

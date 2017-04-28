@@ -16,7 +16,7 @@ import android.widget.RadioGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
-import com.pagatodo.yaganaste.interfaces.IAccountView2;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.States;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -36,7 +36,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DATA_
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DatosPersonalesFragment extends GenericFragment implements View.OnClickListener, ValidationForms,IAccountView2,AdapterView.OnItemSelectedListener {
+public class DatosPersonalesFragment extends GenericFragment implements View.OnClickListener, ValidationForms,INavigationView,AdapterView.OnItemSelectedListener {
 
     private View rootview;
     @BindView(R.id.radioGender)
@@ -131,7 +131,7 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
 
                 break;
             case R.id.btnBackPersonalInfo:
-                backStepRegister(EVENT_DATA_USER_BACK,null);
+                backScreen(EVENT_DATA_USER_BACK,null);
                 break;
             case  R.id.btnNextPersonalInfo:
                 validateForm();
@@ -198,7 +198,7 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         registerUser.setFechaNacimiento(fechaNacimiento);
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
-        nextStepRegister(EVENT_ADDRESS_DATA,null);//Mostramos siguiente pantalla de registro.
+        nextScreen(EVENT_ADDRESS_DATA,null);//Mostramos siguiente pantalla de registro.
     }
 
     @Override
@@ -232,12 +232,12 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     }
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 

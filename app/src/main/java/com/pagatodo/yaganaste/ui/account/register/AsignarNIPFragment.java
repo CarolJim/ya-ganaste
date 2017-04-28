@@ -177,7 +177,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
     @Override
     public void onValidationSuccess() {
-        nextStepRegister(EVENT_GO_CONFIRM_PIN,nip);
+        nextScreen(EVENT_GO_CONFIRM_PIN,nip);
     }
 
     @Override
@@ -186,12 +186,12 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     }
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 

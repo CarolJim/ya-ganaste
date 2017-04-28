@@ -4,18 +4,16 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
-import com.pagatodo.yaganaste.interfaces.IAccountView2;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqPresenter;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
-import com.pagatodo.yaganaste.net.RequestHeaders;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
@@ -27,10 +25,10 @@ import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 public  class AdqPresenter implements IAdqPresenter, IAccountManager {
     private String TAG = AdqPresenter.class.getName();
     private IAdqIteractor adqInteractor;
-    private IAccountView2 iAdqView;
+    private INavigationView iAdqView;
     private Preferencias prefs = App.getInstance().getPrefs();
 
-    public AdqPresenter(IAccountView2 iAdqView) {
+    public AdqPresenter(INavigationView iAdqView) {
         this.iAdqView = iAdqView;
         adqInteractor = new AdqInteractor(this);
     }
@@ -64,7 +62,7 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
     @Override
     public void goToNextStepAccount(String event,Object data) {
         iAdqView.hideLoader();
-        iAdqView.nextStepRegister(event,data);
+        iAdqView.nextScreen(event,data);
     }
 
     @Override
@@ -74,9 +72,9 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
             ((IAdqTransactionRegisterView) iAdqView).transactionResult(error.toString());
         }else  if (ws == FIRMA_DE_VOUCHER) {
             iAdqView.showError(error);
-            iAdqView.nextStepRegister(EVENT_GO_DETAIL_TRANSACTION, error);
+            iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION, error);
         }else if(ws == ENVIAR_TICKET_COMPRA){
-                iAdqView.nextStepRegister(EVENT_GO_TRANSACTION_RESULT,error);
+                iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT,error);
         }else{
             iAdqView.showError(error);
         }
@@ -90,10 +88,10 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
             ((IAdqTransactionRegisterView) iAdqView).transactionResult(data.toString());
         }else if(ws == FIRMA_DE_VOUCHER){
             iAdqView.hideLoader();
-            iAdqView.nextStepRegister(EVENT_GO_DETAIL_TRANSACTION,data);
+            iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION,data);
         }else if(ws == ENVIAR_TICKET_COMPRA){
             iAdqView.hideLoader();
-            iAdqView.nextStepRegister(EVENT_GO_TRANSACTION_RESULT,data);
+            iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT,data);
         }
     }
 }

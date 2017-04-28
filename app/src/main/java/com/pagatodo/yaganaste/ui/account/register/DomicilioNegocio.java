@@ -149,7 +149,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
                 break;
 
             case R.id.btnBackBussinesAddress:
-                backStepRegister(EVENT_GO_BUSSINES_DATA_BACK,null);
+                backScreen(EVENT_GO_BUSSINES_DATA_BACK,null);
                 break;
             default:
                 break;
@@ -306,17 +306,17 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     @Override
     public void agentCreated(String message) {
 
-        nextStepRegister(EVENT_GO_BUSSINES_DOCUMENTS,null);
+        nextScreen(EVENT_GO_BUSSINES_DOCUMENTS,null);
 
     }
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event, data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event, data);
     }
 

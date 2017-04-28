@@ -15,7 +15,7 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
-import com.pagatodo.yaganaste.interfaces.IAccountView2;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -33,7 +33,7 @@ import static android.view.View.GONE;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class GetSignatureFragment extends GenericFragment implements View.OnClickListener,IAccountView2{
+public class GetSignatureFragment extends GenericFragment implements View.OnClickListener,INavigationView {
 
     private View rootview;
     @BindView(R.id.txtAmount)
@@ -161,12 +161,12 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
     }
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 

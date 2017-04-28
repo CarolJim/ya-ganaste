@@ -58,8 +58,8 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 public class Documentos extends GenericFragment implements View.OnClickListener,IUploadDocumentsView {
 
     private static final String TAG = Documentos.class.getSimpleName();
-    private static final int REQUEST_TAKE_PHOTO = 10; // Intent para Capturar fotografía
-    private static final int SELECT_FILE_PHOTO = 20; // Intent para seleccionar fotografía
+    public static final int REQUEST_TAKE_PHOTO = 10; // Intent para Capturar fotografía
+    public static final int SELECT_FILE_PHOTO = 20; // Intent para seleccionar fotografía
     private static final int IFE_FRONT = 1;
     private static final int IFE_BACK = 2;
     private static final int COMPROBANTE_FRONT = 3;
@@ -357,18 +357,18 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
-                nextStepRegister(EVENT_GO_BUSSINES_COMPLETE,null);
+                nextScreen(EVENT_GO_BUSSINES_COMPLETE,null);
             }
         }, DELAY_MESSAGE_PROGRESS);
     }
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 

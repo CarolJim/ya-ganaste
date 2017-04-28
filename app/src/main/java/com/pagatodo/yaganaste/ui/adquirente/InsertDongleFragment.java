@@ -44,7 +44,6 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
-import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 import static com.pagatodo.yaganaste.utils.Recursos.LECTURA_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.LEYENDO;
 import static com.pagatodo.yaganaste.utils.Recursos.MSJ;
@@ -149,7 +148,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             if (isReaderConected) {
                 Log.i("IposListener: ","=====>>   starReaderEmvSwipe ");
                 App.getInstance().pos.openAudio();
-                getKSN();
+                checkDongleStatus("1234");
+                //getKSN();
                 //App.getInstance().pos.getQposId();
                 showLoader(getResources().getString(R.string.validatelector));
             }
@@ -398,8 +398,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 showInsertCard();
-                initListenerDongle();
+                //initListenerDongle();//Lectura de Tarjeta
                 isWaitingCard = true;
+                adqPresenter.initTransaction(null);//TODO Probar Flujo
 
             }
         }, DELAY_MESSAGE_PROGRESS);
@@ -411,7 +412,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
-                nextStepRegister(EVENT_GO_TRANSACTION_RESULT,message);
+                nextScreen(EVENT_GO_TRANSACTION_RESULT,message);
             }
         }, DELAY_MESSAGE_PROGRESS);
 
@@ -419,12 +420,12 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     }
 
     @Override
-    public void nextStepRegister(String event, Object data) {
+    public void nextScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 
     @Override
-    public void backStepRegister(String event, Object data) {
+    public void backScreen(String event, Object data) {
         onEventListener.onEvent(event,data);
     }
 
