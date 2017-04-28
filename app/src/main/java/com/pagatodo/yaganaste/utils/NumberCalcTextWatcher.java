@@ -45,20 +45,30 @@ public class NumberCalcTextWatcher implements TextWatcher {
     public void afterTextChanged(Editable arg0) {
         Log.d(TAG, "NumberCalc " + etMonto.getText().toString());
 
-        // Detectar las pulsaciones de cada tecla y mostrarlas.
-        if (etMonto.getText() != null
-                && !etMonto.getText().toString().equals("")) {
-            String monto = String.valueOf(Utils.getDoubleValue(testString));
-            String montos[] = monto.split("\\.");
-            if (montos.length == 2) {
-                if (tvMontoEntero != null)
-                    tvMontoEntero.setText(montos[0]);
-                if (tvMontoDecimal != null)
-                    if (montos[1].toString().equals("0")) {
-                        tvMontoDecimal.setText("00");
-                    } else {
-                        tvMontoDecimal.setText(montos[1]);
-                    }
+        if (CustomKeyboardView.getCodeKey() == 99) {
+            // Detectar las pulsaciones de cada tecla y mostrarlas.
+            if (etMonto.getText() != null
+                    && !etMonto.getText().toString().equals("")) {
+                //String monto = String.valueOf(Utils.getDoubleValue(etMonto));
+                String monto = etMonto.getText().toString().replace("$", "").replace(",", "").replace("%", "")
+                        .replace("&nbsp;", "");
+                String montos[] = monto.split("\\.");
+                if (montos.length == 2) {
+                    if (tvMontoEntero != null)
+                        tvMontoEntero.setText(montos[0]);
+                    if (tvMontoDecimal != null)
+                        if (montos[1].toString().equals("0")) {
+                            tvMontoDecimal.setText("00");
+                        } else {
+                            tvMontoDecimal.setText(montos[1]);
+                        }
+                }
+            }
+        } else {
+            CustomKeyboardView.setCodeKey(99);
+            etMonto.setText(Utils.getCurrencyValue(testString));
+            if (!etMonto.toString().equals("") && testString != null) {
+                Selection.setSelection(etMonto.getText(), testString.toString().length());
             }
         }
         /* if (etMonto.getText() != null
@@ -94,87 +104,90 @@ public class NumberCalcTextWatcher implements TextWatcher {
     @Override
     public void onTextChanged(CharSequence s, int start, int before,
                               int count) {
-        tmpAMount = amount;
+        if (!(CustomKeyboardView.getCodeKey() == 99)) {
+            tmpAMount = amount;
 
-        if (!s.toString().equals("")) {
-            Log.d(TAG, "NumberCalcKeycode " + CustomKeyboardView.getCodeKey());
-            int codeKey = CustomKeyboardView.getCodeKey();
+            if (!s.toString().equals("")) {
+                Log.d(TAG, "NumberCalcKeycode " + CustomKeyboardView.getCodeKey());
+                int codeKey = CustomKeyboardView.getCodeKey();
 
-            StringBuilder keyData = new StringBuilder();
-            keyData.append(s.toString().charAt(s.length() - 1));
+                StringBuilder keyData = new StringBuilder();
+                keyData.append(s.toString().charAt(s.length() - 1));
 
-            switch (codeKey) {
-                case 144:
-                    if (amount.length() > 0 && !amount.startsWith("0."))
-                        tmpAMount = amount + "0";
-                    break;
-                case 8:
-                    tmpAMount = amount.concat("1");
-                    break;
-                case 9:
-                    tmpAMount = amount.concat("2");
-                    break;
-                case 10:
-                    tmpAMount = amount.concat("3");
-                    break;
-                case 11:
-                    tmpAMount = amount.concat("4");
-                    break;
-                case 12:
-                    tmpAMount = amount.concat("5");
-                    break;
-                case 13:
-                    tmpAMount = amount.concat("6");
-                    break;
-                case 14:
-                    tmpAMount = amount.concat("7");
-                    break;
-                case 15:
-                    tmpAMount = amount.concat("8");
-                    break;
-                case 16:
-                    tmpAMount = amount.concat("9");
-                    break;
-                case 158:
-                    if (!amount.contains(".")) {
-                        if (amount.length() == 0)
-                            tmpAMount = amount.concat("0.");
-                        else
-                            tmpAMount = amount.concat(".");
-                    }
-                    break;
+                switch (codeKey) {
+                    case 30:
+                        if (amount.length() > 0 && !amount.startsWith("0."))
+                            tmpAMount = amount + "0";
+                        break;
+                    case 8:
+                        tmpAMount = amount.concat("1");
+                        break;
+                    case 9:
+                        tmpAMount = amount.concat("2");
+                        break;
+                    case 10:
+                        tmpAMount = amount.concat("3");
+                        break;
+                    case 11:
+                        tmpAMount = amount.concat("4");
+                        break;
+                    case 12:
+                        tmpAMount = amount.concat("5");
+                        break;
+                    case 13:
+                        tmpAMount = amount.concat("6");
+                        break;
+                    case 14:
+                        tmpAMount = amount.concat("7");
+                        break;
+                    case 15:
+                        tmpAMount = amount.concat("8");
+                        break;
+                    case 16:
+                        tmpAMount = amount.concat("9");
+                        break;
+                    case 29:
+                        if (!amount.contains(".")) {
+                            if (amount.length() == 0)
+                                tmpAMount = amount.concat("0.");
+                            else
+                                tmpAMount = amount.concat(".");
+                        }
+                        break;
 
-                case 67:
-                    if (tmpAMount.length() > 0 && !tmpAMount.equals("")) {
-                        tmpAMount = tmpAMount.substring(0, amount.length() - 1);
-                    }
-                    if (tmpAMount.length() > 0
-                            && tmpAMount.substring(tmpAMount.length() - 1).equals("."))
-                        tmpAMount = tmpAMount.substring(0, tmpAMount.length() - 1);
-                    break;
-                default:
-                    break;
-            }
-
-            if (validateAmount(tmpAMount) == true) {
-                amount = tmpAMount;
-                String tmp;
-                if (amount.equals(""))
-                    tmp = String.format(Locale.US, "%.2f", 0.00);
-                else
-                //tmp = String.format(Locale.US, "%.2f", Float.valueOf(amount));
-                {
-                    formatter = new DecimalFormat("#,##0.00");
-                    DecimalFormatSymbols dfs = new DecimalFormatSymbols();
-                    dfs.setDecimalSeparator('.');
-                    dfs.setGroupingSeparator(',');
-                    formatter.setDecimalFormatSymbols(dfs);
-                    tmp = formatter.format(Double.parseDouble(amount));
+                    case 67:
+                        if (tmpAMount.length() > 0 && !tmpAMount.equals("")) {
+                            tmpAMount = tmpAMount.substring(0, amount.length() - 1);
+                        }
+                        if (tmpAMount.length() > 0
+                                && tmpAMount.substring(tmpAMount.length() - 1).equals("."))
+                            tmpAMount = tmpAMount.substring(0, tmpAMount.length() - 1);
+                        break;
+                    default:
+                        break;
                 }
-                Log.d(TAG, "NumberCalc " + keyData + " tmp " + Utils.getCurrencyValue(tmp));
-                testString = Utils.getCurrencyValue(tmp);
-                // etMonto.setText(Utils.getCurrencyValue(tmp));
-                // Selection.setSelection(etMonto.getText(), Utils.getCurrencyValue(tmp).toString().length());
+
+                if (validateAmount(tmpAMount) == true) {
+                    amount = tmpAMount;
+                    String tmp;
+                    if (amount.equals(""))
+                        tmp = String.format(Locale.US, "%.2f", 0.00);
+                    else
+                    //tmp = String.format(Locale.US, "%.2f", Float.valueOf(amount));
+                    {
+                        formatter = new DecimalFormat("#,##0.00");
+                        DecimalFormatSymbols dfs = new DecimalFormatSymbols();
+                        dfs.setDecimalSeparator('.');
+                        dfs.setGroupingSeparator(',');
+                        formatter.setDecimalFormatSymbols(dfs);
+                        tmp = formatter.format(Double.parseDouble(amount));
+                    }
+                    Log.d(TAG, "NumberCalc " + keyData + " tmp " + Utils.getCurrencyValue(tmp));
+                    testString = Utils.getCurrencyValue(tmp);
+                    CustomKeyboardView.setCodeKey(99);
+                    etMonto.setText(Utils.getCurrencyValue(tmp));
+                    Selection.setSelection(etMonto.getText(), Utils.getCurrencyValue(tmp).toString().length());
+                }
             }
         }
     }
