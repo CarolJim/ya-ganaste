@@ -12,9 +12,9 @@ import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
-import com.pagatodo.yaganaste.ui.account.register.DatosNegocio;
-import com.pagatodo.yaganaste.ui.account.register.Documentos;
-import com.pagatodo.yaganaste.ui.account.register.DomicilioNegocio;
+import com.pagatodo.yaganaste.ui.adquirente.DatosNegocio;
+import com.pagatodo.yaganaste.ui.adquirente.Documentos;
+import com.pagatodo.yaganaste.ui.adquirente.DomicilioNegocio;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;

@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui.account.register;
+package com.pagatodo.yaganaste.ui.adquirente;
 
 
 import android.app.Activity;

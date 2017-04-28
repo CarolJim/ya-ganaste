@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui.account.register;
+package com.pagatodo.yaganaste.ui.adquirente;
 
 
 import android.app.Activity;
@@ -24,6 +24,7 @@ import com.pagatodo.yaganaste.interfaces.IAdqRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
+import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 
