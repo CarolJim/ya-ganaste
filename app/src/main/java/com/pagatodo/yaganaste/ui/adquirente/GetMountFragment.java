@@ -1,47 +1,38 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
-import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
-import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
-import com.pagatodo.yaganaste.utils.NumberTextWatcher;
-import com.pagatodo.yaganaste.utils.ProgressIndicator;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
-import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
-import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
 public class GetMountFragment extends PaymentFormBaseFragment {
 
-    @BindView(R.id.edtMount)
-    EditText edtMount;
+    @BindView(R.id.et_amount)
+    EditText et_amount;
     @BindView(R.id.edtConcept)
     StyleEdittext edtConcept;
     @BindView(R.id.keyboard_view)
     CustomKeyboardView keyboardView;
     private String amount = "";
     private String concept = "";
+    LinearLayout layout_amount;
 
     private float MIN_AMOUNT = 1.0f;
 
@@ -72,12 +63,13 @@ public class GetMountFragment extends PaymentFormBaseFragment {
     @Override
     public void initViews() {
         super.initViews();
+        layout_amount = (LinearLayout) rootview.findViewById(R.id.layout_amount_control);
         tvMontoEntero = (TextView) rootview.findViewById(R.id.tv_monto_entero);
         tvMontoDecimal = (TextView) rootview.findViewById(R.id.tv_monto_decimal);
-        edtMount.addTextChangedListener(new NumberCalcTextWatcher(edtMount, tvMontoEntero, tvMontoDecimal));
+        et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
-      /*  edtMount.addTextChangedListener(new TextWatcher() {
+      /*  et_amount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -95,7 +87,7 @@ public class GetMountFragment extends PaymentFormBaseFragment {
         });*/
 
         // Make the custom keyboard appear
-        edtMount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        et_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
@@ -106,14 +98,15 @@ public class GetMountFragment extends PaymentFormBaseFragment {
             }
         });
 
-        edtMount.setOnClickListener(new View.OnClickListener() {
+        layout_amount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                et_amount.requestFocus();
                 keyboardView.showCustomKeyboard(v);
             }
         });
 
-        edtMount.setOnTouchListener(new View.OnTouchListener() {
+        et_amount.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 EditText edittext = (EditText) v;
@@ -129,7 +122,7 @@ public class GetMountFragment extends PaymentFormBaseFragment {
     }
 
     private void actionCharge() {
-        String valueAmount = edtMount.getText().toString().trim();
+        String valueAmount = et_amount.getText().toString().trim();
         if (valueAmount.length() > 0 && !valueAmount.equals("$0.00")) {
             try {
                 StringBuilder cashAmountBuilder = new StringBuilder(valueAmount);
@@ -162,7 +155,7 @@ public class GetMountFragment extends PaymentFormBaseFragment {
     }
 
     private void setData(String amount,String concept){
-        edtMount.setText(amount);
+        et_amount.setText(amount);
         edtConcept.setText(concept);
     }
 
