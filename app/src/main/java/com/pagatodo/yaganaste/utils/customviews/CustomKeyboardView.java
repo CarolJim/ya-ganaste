@@ -62,6 +62,9 @@ public class CustomKeyboardView extends KeyboardView {
         public void onRelease(int primaryCode) { }
         @Override
         public void onKey(int primaryCode, int[] keyCodes) {
+            /**
+             * Guardamos el codigo de la tecla que usamos en el CustomKeyboard
+             */
             CustomKeyboardView.setCodeKey(primaryCode);
             long eventTime = System.currentTimeMillis();
             KeyEvent event = new KeyEvent(eventTime, eventTime, KeyEvent.ACTION_DOWN, primaryCode, 0, 0, 0, 0, KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE);

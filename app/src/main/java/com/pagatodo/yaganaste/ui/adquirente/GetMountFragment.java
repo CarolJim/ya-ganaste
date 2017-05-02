@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.utils.NumberTextWatcher;
 import com.pagatodo.yaganaste.utils.ProgressIndicator;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 
@@ -34,7 +35,7 @@ import butterknife.ButterKnife;
 public class GetMountFragment extends PaymentFormBaseFragment {
 
     @BindView(R.id.edtMount)
-    StyleEdittext edtMount;
+    EditText edtMount;
     @BindView(R.id.edtConcept)
     StyleEdittext edtConcept;
     @BindView(R.id.keyboard_view)
@@ -71,10 +72,9 @@ public class GetMountFragment extends PaymentFormBaseFragment {
     @Override
     public void initViews() {
         super.initViews();
-        tvMontoEntero = (TextView) rootview.findViewById(R.id.tv_monto_entero);
-        tvMontoDecimal = (TextView) rootview.findViewById(R.id.tv_monto_decimal);
-        edtMount.addTextChangedListener(new NumberCalcTextWatcher(edtMount, tvMontoEntero,
-                tvMontoDecimal));
+       // tvMontoEntero = (TextView) rootview.findViewById(R.id.tv_monto_entero);  MontoTextView
+       // tvMontoDecimal = (TextView) rootview.findViewById(R.id.tv_monto_decimal);
+        edtMount.addTextChangedListener(new NumberCalcTextWatcher(edtMount));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
       /*  edtMount.addTextChangedListener(new TextWatcher() {

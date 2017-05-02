@@ -23,5 +23,6 @@
         <Key android:codes="67" android:keyLabel="D" />
     </Row>
     <!--
+    Se cambiaron los codigos de "." y "0" ya que se tenia problemas con las detecciones
         <Key android:codes="158" android:keyLabel="." /> -->
 </Keyboard>

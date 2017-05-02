@@ -3,11 +3,11 @@ package com.pagatodo.yaganaste.utils;
 import android.text.Editable;
 import android.text.Selection;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.widget.EditText;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -16,6 +16,8 @@ import java.util.regex.Pattern;
 
 /**
  * Created by flima on 09/03/2017.
+ * Update Francisco Manzo
+ *
  */
 
 public class NumberCalcTextWatcher implements TextWatcher {
@@ -32,10 +34,10 @@ public class NumberCalcTextWatcher implements TextWatcher {
     private String oldData;
     private String newData;
 
-    String tmpAMount, testString;
+    String tmpAMount, strAmountEditText;
     private String TAG = getClass().getSimpleName();
 
-    public NumberCalcTextWatcher(EditText editText, TextView tvMontoEntero, TextView tvMontoDecimal) {
+    public NumberCalcTextWatcher(EditText editText) {
         this.etMonto = editText;
         this.tvMontoEntero = tvMontoEntero;
         this.tvMontoDecimal = tvMontoDecimal;
@@ -43,51 +45,21 @@ public class NumberCalcTextWatcher implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable arg0) {
-        Log.d(TAG, "NumberCalc " + etMonto.getText().toString());
+       // Log.d(TAG, "NumberCalc " + etMonto.getText().toString());
 
-        if (CustomKeyboardView.getCodeKey() == 99) {
-            // Detectar las pulsaciones de cada tecla y mostrarlas.
-            if (etMonto.getText() != null
-                    && !etMonto.getText().toString().equals("")) {
-                //String monto = String.valueOf(Utils.getDoubleValue(etMonto));
-                String monto = etMonto.getText().toString().replace("$", "").replace(",", "").replace("%", "")
-                        .replace("&nbsp;", "");
-                String montos[] = monto.split("\\.");
-                if (montos.length == 2) {
-                    if (tvMontoEntero != null)
-                        tvMontoEntero.setText(montos[0]);
-                    if (tvMontoDecimal != null)
-                        if (montos[1].toString().equals("0")) {
-                            tvMontoDecimal.setText("00");
-                        } else {
-                            tvMontoDecimal.setText(montos[1]);
-                        }
-                }
-            }
-        } else {
+        if ((CustomKeyboardView.getCodeKey() == 0)) {
+            etMonto.setText("$0.00");
+            Selection.setSelection(etMonto.getText(),"$0.00".length());
             CustomKeyboardView.setCodeKey(99);
-            etMonto.setText(Utils.getCurrencyValue(testString));
-            if (!etMonto.toString().equals("") && testString != null) {
-                Selection.setSelection(etMonto.getText(), testString.toString().length());
+        }
+
+        if (!(CustomKeyboardView.getCodeKey() == 99)) {
+            CustomKeyboardView.setCodeKey(99);
+            etMonto.setText(Utils.getCurrencyValue(strAmountEditText));
+            if (!etMonto.toString().equals("") && strAmountEditText != null) {
+                Selection.setSelection(etMonto.getText(), strAmountEditText.toString().length());
             }
         }
-        /* if (etMonto.getText() != null
-                && !etMonto.getText().toString().equals("")) {
-            String monto = String.valueOf(Utils.getDoubleValue(etMonto));
-            String montos[] = monto.split("\\.");
-            if (montos.length == 2) {
-                if (tvMontoEntero != null)
-                    tvMontoEntero.setText(montos[0]);
-                if (tvMontoDecimal != null)
-                    if (montos[1].toString().equals("0")) {
-                        tvMontoDecimal.setText("00");
-                    } else {
-                        tvMontoDecimal.setText(montos[1]);
-                    }
-                    *//*if (context instanceof ObtenMasActivity)
-                        ((ObtenMasActivity) context).transactionCardRequest.amount = monto.replace(",", "");*//*
-            }
-        }*/
     }
 
     @Override
@@ -108,7 +80,7 @@ public class NumberCalcTextWatcher implements TextWatcher {
             tmpAMount = amount;
 
             if (!s.toString().equals("")) {
-                Log.d(TAG, "NumberCalcKeycode " + CustomKeyboardView.getCodeKey());
+                //  Log.d(TAG, "NumberCalcKeycode " + CustomKeyboardView.getCodeKey());
                 int codeKey = CustomKeyboardView.getCodeKey();
 
                 StringBuilder keyData = new StringBuilder();
@@ -182,13 +154,13 @@ public class NumberCalcTextWatcher implements TextWatcher {
                         formatter.setDecimalFormatSymbols(dfs);
                         tmp = formatter.format(Double.parseDouble(amount));
                     }
-                    Log.d(TAG, "NumberCalc " + keyData + " tmp " + Utils.getCurrencyValue(tmp));
-                    testString = Utils.getCurrencyValue(tmp);
+                    //  Log.d(TAG, "NumberCalc " + keyData + " tmp " + Utils.getCurrencyValue(tmp));
+                    strAmountEditText = Utils.getCurrencyValue(tmp);
                     CustomKeyboardView.setCodeKey(99);
                     etMonto.setText(Utils.getCurrencyValue(tmp));
                     Selection.setSelection(etMonto.getText(), Utils.getCurrencyValue(tmp).toString().length());
                 }
-            }
+            }//
         }
     }
 
@@ -199,22 +171,4 @@ public class NumberCalcTextWatcher implements TextWatcher {
             return true;
         return false;
     }
-};
-
-    /*public View.OnClickListener btnContinuarListener = new View.OnClickListener() {
-
-        @Override
-        public void onClick(View v) {
-            String montodouble = null;
-            if (!etMonto.getText().toString().equals("")) {
-                montodouble = etMonto.getText().toString();
-            }
-            if ( etMonto.getText().length() >= 1 && Utils.getDoubleValue(etMonto) != 0 ) {
-                ((App) context.getApplication()).addDir(etMonto.getText().toString().replace(",", ""));
-                if (onEventListener != null){
-                    onEventListener.onEvent(IngresaMontoF.this);
-                }
-            } else {
-                UI.showAlertDialogNoTitle(getString(R.string.ingresa_monto_deposito),getString(R.string.continuar), context, null).create().show();
-            }
-        } */
+}
