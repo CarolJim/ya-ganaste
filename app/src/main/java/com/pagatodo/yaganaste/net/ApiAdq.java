@@ -75,7 +75,7 @@ public class ApiAdq extends Api {
      * */
     public static void registroDongle(RegistroDongleRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
-        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuenta());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
 
         NetFacade.consumeWS(REGISTRO_DONGLE,
