@@ -43,6 +43,12 @@ public class NumberCalcTextWatcher implements TextWatcher {
         this.tvMontoDecimal = tvMontoDecimal;
     }
 
+    public NumberCalcTextWatcher(EditText edtMount, TextView tvMontoEntero, TextView tvMontoDecimal) {
+        this.etMonto = edtMount;
+        this.tvMontoEntero = tvMontoEntero;
+        this.tvMontoDecimal = tvMontoDecimal;
+    }
+
     @Override
     public void afterTextChanged(Editable arg0) {
        // Log.d(TAG, "NumberCalc " + etMonto.getText().toString());
@@ -53,7 +59,26 @@ public class NumberCalcTextWatcher implements TextWatcher {
             CustomKeyboardView.setCodeKey(99);
         }
 
-        if (!(CustomKeyboardView.getCodeKey() == 99)) {
+        if (CustomKeyboardView.getCodeKey() == 99) {
+            // Detectar las pulsaciones de cada tecla y mostrarlas.
+            if (etMonto.getText() != null
+                    && !etMonto.getText().toString().equals("")) {
+                //String monto = String.valueOf(Utils.getDoubleValue(etMonto));
+                String monto = etMonto.getText().toString().replace("$", "").replace(",", "").replace("%", "")
+                        .replace("&nbsp;", "");
+                String montos[] = monto.split("\\.");
+                if (montos.length == 2) {
+                    if (tvMontoEntero != null)
+                        tvMontoEntero.setText(montos[0]);
+                    if (tvMontoDecimal != null)
+                        if (montos[1].toString().equals("0")) {
+                            tvMontoDecimal.setText("00");
+                        } else {
+                            tvMontoDecimal.setText(montos[1]);
+                        }
+                }
+            }
+        } else {
             CustomKeyboardView.setCodeKey(99);
             etMonto.setText(Utils.getCurrencyValue(strAmountEditText));
             if (!etMonto.toString().equals("") && strAmountEditText != null) {

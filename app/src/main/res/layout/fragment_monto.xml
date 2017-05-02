@@ -23,6 +23,63 @@
             android:textColor="@color/whiteColor" />
 
         <LinearLayout
+            android:layout_width="368dp"
+            android:layout_height="50dp"
+            android:layout_below="@+id/titleAmount"
+            android:layout_marginBottom="6dp"
+            android:layout_marginLeft="15dp"
+            android:layout_marginRight="15dp"
+            android:layout_marginTop="5dp"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="60dp"
+                android:gravity="center"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp">
+
+                <TextView
+                    android:id="@+id/tv_sign"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:text="$"
+                    android:textSize="34sp" />
+
+                <TextView
+                    android:id="@+id/tv_monto_decimal"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_alignTop="@+id/tv_sign"
+                    android:text="00"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="10sp" />
+
+                <TextView
+                    android:id="@+id/tv_monto_entero"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignTop="@+id/tv_sign"
+                    android:layout_toLeftOf="@+id/tv_monto_decimal"
+                    android:text="0"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="24sp" />
+
+                <EditText
+                    android:id="@+id/et_amount"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentRight="true"
+                    android:layout_toRightOf="@+id/tv_sign"
+                    android:background="@null"
+                    android:inputType="text"
+                    android:visibility="gone" />
+            </RelativeLayout>
+        </LinearLayout>
+
+        <LinearLayout
             android:id="@+id/layoutAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -125,60 +182,5 @@
 <!--
 Borrar este codigo, era usado para probar la funcionalidad de la calculadora
 Puede eliminarse ya que se apruebe la calculadora
-        <LinearLayout
-            android:layout_width="368dp"
-            android:layout_height="50dp"
-            android:layout_below="@+id/titleAmount"
-            android:layout_marginBottom="6dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="5dp"
-            android:orientation="vertical">
 
-            <RelativeLayout
-                android:layout_width="match_parent"
-                android:layout_height="60dp"
-                android:gravity="center"
-                android:paddingLeft="15dp"
-                android:paddingRight="15dp">
-
-                <TextView
-                    android:id="@+id/tv_sign"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:text="$"
-                    android:textSize="34sp" />
-
-                <TextView
-                    android:id="@+id/tv_monto_decimal"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignTop="@+id/tv_sign"
-                    android:text="00"
-                    android:textColor="@color/whiteColor"
-                    android:textSize="10sp" />
-
-                <TextView
-                    android:id="@+id/tv_monto_entero"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignTop="@+id/tv_sign"
-                    android:layout_toLeftOf="@+id/tv_monto_decimal"
-                    android:text="0"
-                    android:textColor="@color/whiteColor"
-                    android:textSize="24sp" />
-
-                <EditText
-                    android:id="@+id/et_amount"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentRight="true"
-                    android:layout_toRightOf="@+id/tv_sign"
-                    android:background="@null"
-                    android:inputType="text"
-                    android:visibility="gone" />
-            </RelativeLayout>
-    </LinearLayout>
 -->

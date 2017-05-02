@@ -72,9 +72,9 @@ public class GetMountFragment extends PaymentFormBaseFragment {
     @Override
     public void initViews() {
         super.initViews();
-       // tvMontoEntero = (TextView) rootview.findViewById(R.id.tv_monto_entero);  MontoTextView
-       // tvMontoDecimal = (TextView) rootview.findViewById(R.id.tv_monto_decimal);
-        edtMount.addTextChangedListener(new NumberCalcTextWatcher(edtMount));
+        tvMontoEntero = (TextView) rootview.findViewById(R.id.tv_monto_entero);
+        tvMontoDecimal = (TextView) rootview.findViewById(R.id.tv_monto_decimal);
+        edtMount.addTextChangedListener(new NumberCalcTextWatcher(edtMount, tvMontoEntero, tvMontoDecimal));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
       /*  edtMount.addTextChangedListener(new TextWatcher() {
