@@ -98,6 +98,10 @@ public class GetMountFragment extends PaymentFormBaseFragment {
             }
         });
 
+        /**
+         * Agregamos el Listener al layout que contiene todos los elementos, esto es para que se
+         * abra el teclado custom
+         */
         layout_amount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

@@ -17,7 +17,8 @@ import java.util.regex.Pattern;
 /**
  * Created by flima on 09/03/2017.
  * Update Francisco Manzo
- *
+ * Encarga de hacer las operaciones para la calculadora, y mostrar lo resultados en los dos
+ * TextView que mostramos en pantalla
  */
 
 public class NumberCalcTextWatcher implements TextWatcher {
@@ -53,12 +54,18 @@ public class NumberCalcTextWatcher implements TextWatcher {
     public void afterTextChanged(Editable arg0) {
        // Log.d(TAG, "NumberCalc " + etMonto.getText().toString());
 
+        /**
+         * Iniciamos la vista con un $0.00
+         */
         if ((CustomKeyboardView.getCodeKey() == 0)) {
             etMonto.setText("$0.00");
             Selection.setSelection(etMonto.getText(),"$0.00".length());
             CustomKeyboardView.setCodeKey(99);
         }
 
+        /**
+         * Con codigo 99 realizamos el proceso de mostrar el formato correcto
+         */
         if (CustomKeyboardView.getCodeKey() == 99) {
             // Detectar las pulsaciones de cada tecla y mostrarlas.
             if (etMonto.getText() != null
@@ -79,6 +86,7 @@ public class NumberCalcTextWatcher implements TextWatcher {
                 }
             }
         } else {
+            //Si es diferente a 99, mostramos el formato
             CustomKeyboardView.setCodeKey(99);
             etMonto.setText(Utils.getCurrencyValue(strAmountEditText));
             if (!etMonto.toString().equals("") && strAmountEditText != null) {

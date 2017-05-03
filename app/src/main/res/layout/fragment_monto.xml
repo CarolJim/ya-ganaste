@@ -22,82 +22,20 @@
             android:text="@string/monto_cobrar"
             android:textColor="@color/whiteColor" />
 
-        <LinearLayout
-            android:id="@+id/layout_amount_control"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginBottom="6dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="60dp"
-            android:layout_below="@+id/titleAmount"
-            android:background="@drawable/back_edittext_gray"
-            android:orientation="horizontal">
-
-                <EditText
-                    android:id="@+id/et_amount"
-                    android:layout_width="1px"
-                    android:layout_height="1px"
-                    android:inputType="text"/>
-
-                <LinearLayout android:gravity="center"
-                    android:layout_width="match_parent" android:orientation="horizontal"
-                    android:layout_height="wrap_content">
-
-                    <TextView
-                        android:id="@+id/tv_sign"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentLeft="true"
-                        android:text="$"
-                        android:textSize="16sp" />
-
-                    <TextView
-                        android:id="@+id/tv_monto_entero"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignTop="@+id/tv_sign"
-                        android:layout_toLeftOf="@+id/tv_monto_decimal"
-                        android:text="0"
-                        android:textColor="@color/whiteColor"
-                        android:textSize="46sp" />
-
-                    <LinearLayout
-                        android:layout_width="wrap_content"
-                        android:layout_height="match_parent"
-                        android:layout_marginLeft="2dp"
-                        android:layout_marginTop="2dp"
-                        android:orientation="horizontal">
-
-                        <TextView
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="."
-                            android:textColor="@color/whiteColor"
-                            android:textSize="23sp" />
-
-                        <TextView
-                            android:id="@+id/tv_monto_decimal"
-                            android:layout_width="wrap_content"
-                            android:layout_height="match_parent"
-                            android:text="00"
-                            android:textColor="@color/whiteColor"
-                            android:textSize="23sp" />
-                    </LinearLayout>
-                </LinearLayout>
-        </LinearLayout>
+        <include layout="@layout/calculator_layout" />
 
         <LinearLayout
             android:id="@+id/layoutAmount"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/titleAmount"
-            android:layout_marginBottom="6dp" android:visibility="gone"
+            android:layout_marginBottom="6dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="60dp"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="gone">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/edtMount"
