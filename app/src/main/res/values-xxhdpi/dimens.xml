@@ -16,6 +16,7 @@
     <dimen name="margin_small">8dp</dimen>
     <dimen name="generic_padig">16dp</dimen>
 
+    <dimen name="seekbar_thumb__arrow_height">20dp</dimen>
 
 
     <dimen name="btn_margin_bottom">20dp</dimen>

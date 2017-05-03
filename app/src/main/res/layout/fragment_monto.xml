@@ -4,12 +4,13 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:gravity="center_horizontal"
-    android:orientation="vertical"
     tools:context="com.pagatodo.yaganaste.ui._controllers.MainActivity">
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+    <LinearLayout
+        android:layout_width="match_parent" android:orientation="vertical"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium">
 
@@ -18,6 +19,7 @@
             style="@style/textSubTitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_gravity="center"
             android:layout_marginTop="20dp"
             android:text="@string/monto_cobrar"
             android:textColor="@color/whiteColor" />
@@ -25,40 +27,10 @@
         <include layout="@layout/calculator_layout" />
 
         <LinearLayout
-            android:id="@+id/layoutAmount"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/titleAmount"
-            android:layout_marginBottom="6dp"
-            android:layout_marginLeft="15dp"
-            android:layout_marginRight="15dp"
-            android:layout_marginTop="60dp"
-            android:gravity="center"
-            android:orientation="vertical"
-            android:visibility="gone">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                android:id="@+id/edtMount"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/back_edittext_gray"
-                android:gravity="center"
-                android:hint="$0.00"
-                android:imeOptions="actionNext"
-                android:inputType="text"
-                android:maxLength="11"
-                android:paddingBottom="10dp"
-                android:textColor="@color/whiteColor"
-                android:textSize="46sp" />
-
-        </LinearLayout>
-
-        <LinearLayout
             android:id="@+id/conceptLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layout_amount_control"
-            android:layout_marginBottom="6dp"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
             android:layout_marginTop="@dimen/margin_big"
@@ -95,7 +67,7 @@
             android:thumb="@drawable/thumb_size"
             android:thumbOffset="15dp" />
 
-    </RelativeLayout>
+    </LinearLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
         android:id="@+id/keyboard_view"
@@ -110,7 +82,7 @@
         android:keyBackground="@color/colorPrimary"
         android:visibility="gone" />
 
-    <LinearLayout
+  <!--  <LinearLayout
         android:id="@+id/relativeAd"
         android:layout_width="match_parent"
         android:layout_height="10dp"
@@ -119,10 +91,7 @@
         android:gravity="center"
         android:keyBackground="@color/colorPrimary"
         android:orientation="vertical"
-        android:visibility="visible">
-
-    </LinearLayout>
-
+        android:visibility="visible" />-->
 </RelativeLayout>
 
     <!--

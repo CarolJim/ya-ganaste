@@ -6,6 +6,7 @@ import android.text.TextWatcher;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
@@ -192,8 +193,12 @@ public class NumberCalcTextWatcher implements TextWatcher {
                     CustomKeyboardView.setCodeKey(99);
                     etMonto.setText(Utils.getCurrencyValue(tmp));
                     Selection.setSelection(etMonto.getText(), Utils.getCurrencyValue(tmp).toString().length());
+
+                    // Guardamos la cantidad en el modelo para recuperar en caso de perdida
+                    TransactionAdqData.getCurrentTransaction()
+                            .setAmount(Utils.getCurrencyValue(strAmountEditText));
                 }
-            }//
+            }
         }
     }
 

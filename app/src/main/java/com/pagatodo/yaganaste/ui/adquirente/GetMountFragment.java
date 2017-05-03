@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.adquirente;
 import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
+import android.text.Selection;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -69,6 +70,7 @@ public class GetMountFragment extends PaymentFormBaseFragment {
         et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
+
       /*  et_amount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -127,18 +129,30 @@ public class GetMountFragment extends PaymentFormBaseFragment {
 
     private void actionCharge() {
         String valueAmount = et_amount.getText().toString().trim();
+
+                int positionQuote = valueAmount.indexOf(",");
+        if(positionQuote > 0){
+        String[] valueAmountArray = valueAmount.split(",");
+            valueAmount = valueAmountArray[0] + valueAmountArray[1];
+        }
+
         if (valueAmount.length() > 0 && !valueAmount.equals("$0.00")) {
             try {
                 StringBuilder cashAmountBuilder = new StringBuilder(valueAmount);
-                valueAmount = cashAmountBuilder.deleteCharAt(0).toString();
+
+                int positionMoney = valueAmount.indexOf("$");
+                if(positionMoney == 0){
+                    valueAmount = cashAmountBuilder.deleteCharAt(0).toString();
+                }
+
                 float current_mount = Float.parseFloat(valueAmount);
                 String current_concept = edtConcept.getText().toString().trim();//Se agrega Concepto opcional
                 if (current_mount >= MIN_AMOUNT) {
-                    TransactionAdqData.getCurrentTransaction().setAmount(String.format("%s",current_mount));
+                    TransactionAdqData.getCurrentTransaction().setAmount(String.format("%s", current_mount));
                     TransactionAdqData.getCurrentTransaction().setDescription(current_concept);
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
                     startActivity(intent);
-                    setData("","");
+                    setData("", "");
                     mySeekBar.setProgress(0);
                 } else showValidationError("El monto tiene que ser mayor");
             } catch (NumberFormatException e) {
@@ -153,20 +167,23 @@ public class GetMountFragment extends PaymentFormBaseFragment {
         actionCharge();
     }
 
-    private void showValidationError(String error){
+    private void showValidationError(String error) {
         UI.showToast(error, getActivity());
         mySeekBar.setProgress(0);
     }
 
-    private void setData(String amount,String concept){
+    private void setData(String amount, String concept) {
         et_amount.setText(amount);
-        edtConcept.setText(concept);
+        Selection.setSelection(et_amount.getText(), et_amount.getText().toString().length());
+        if (!concept.equals("")) {
+            edtConcept.setText(concept);
+        }
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        setData(TransactionAdqData.getCurrentTransaction().getAmount(),TransactionAdqData.getCurrentTransaction().getDescription());
+        setData(TransactionAdqData.getCurrentTransaction().getAmount(), TransactionAdqData.getCurrentTransaction().getDescription());
     }
 }
 
