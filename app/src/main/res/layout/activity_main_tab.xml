@@ -1,28 +1,45 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_main_tab"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:focusable="true"
-    android:focusableInTouchMode="true">
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
 
-    <include layout="@layout/toolbar" />
+    <include
+        android:id="@+id/toolbarLy"
+        layout="@layout/toolbar" />
 
-    <com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager
-        android:id="@+id/main_view_pager"
+
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1" />
+        android:layout_height="match_parent"
+        android:layout_below="@+id/toolbarLy"
+        android:orientation="vertical">
 
-    <com.pagatodo.yaganaste.utils.customviews.GenericTabLayout
-        android:id="@+id/main_tab"
+        <com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager
+            android:id="@+id/main_view_pager"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1" />
+
+        <com.pagatodo.yaganaste.utils.customviews.GenericTabLayout
+            android:id="@+id/main_tab"
+            android:layout_width="match_parent"
+            android:layout_height="45dp"
+            app:tabGravity="fill"
+            app:tabMaxWidth="0dp"
+            app:tabMode="fixed" />
+    </LinearLayout>
+
+
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@+id/progressGIF"
         android:layout_width="match_parent"
-        android:layout_height="45dp"
-        app:tabGravity="fill"
-        app:tabMode="fixed"
-        app:tabMaxWidth="0dp"/>
+        android:layout_height="match_parent"
+        android:background="@color/colorPrimaryAlpha"
+        android:visibility="gone" />
 
-</LinearLayout>
+</RelativeLayout>

@@ -5,6 +5,7 @@ import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.data.model.Servicios;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui.payments.interactors.PaymentsProcessingInteractor;
@@ -15,6 +16,7 @@ import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcess
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB1;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB2;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 
 /**
  * Created by Jordan on 27/04/2017.
@@ -42,7 +44,14 @@ public class PaymentsProcessingPresenter implements IPaymentsProcessingPresenter
 
     @Override
     public void onSuccessPayment(DataSourceResult result) {
-        manager.hideLoader();
+        EjecutarTransaccionResponse data = (EjecutarTransaccionResponse)result.getData();
+        if(data.getCodigoRespuesta() == CODE_OK){
+            manager.hideLoader();
+        }else{
+            manager.hideLoader();
+            manager.onFailPaimentResponse(result);
+        }
+
     }
 
     @Override
