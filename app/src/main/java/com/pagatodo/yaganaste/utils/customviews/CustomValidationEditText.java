@@ -210,7 +210,7 @@ public class CustomValidationEditText extends LinearLayout {
 
     private void setNonValidView() {
         imageView.setVisibility(VISIBLE);
-        imageView.setBackgroundResource(R.drawable.validation_fail);
+        imageView.setBackgroundResource(R.drawable.triangle_error);
         isValid = false;
     }
 
@@ -287,5 +287,10 @@ public class CustomValidationEditText extends LinearLayout {
 
     public EditText getEditText(){
         return editText;
+    }
+
+    public boolean imageViewIsVisible() {
+
+        return imageView.getVisibility() == VISIBLE ? true:false;
     }
 }

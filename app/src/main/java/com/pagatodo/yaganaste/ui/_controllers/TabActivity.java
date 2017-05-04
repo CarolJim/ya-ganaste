@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
-import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
@@ -19,8 +18,8 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
-import com.pagatodo.yaganaste.ui.account.register.Documentos;
 import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
+import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
@@ -33,8 +32,6 @@ import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
-import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
-import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 
 
@@ -147,7 +144,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
                     }
                 }
             }
-        }else if(requestCode == Documentos.REQUEST_TAKE_PHOTO || requestCode == Documentos.SELECT_FILE_PHOTO){
+        } else if (requestCode == Documentos.REQUEST_TAKE_PHOTO || requestCode == Documentos.SELECT_FILE_PHOTO) {
             if (fragmentList != null) {
                 for (Fragment fragment : fragmentList) {
                     if (fragment instanceof Documentos) {
@@ -161,6 +158,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
             Intent intent = getIntent();
             finish();
             startActivity(intent);
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
     }
 
@@ -183,4 +181,5 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         }
 
     }
+
 }

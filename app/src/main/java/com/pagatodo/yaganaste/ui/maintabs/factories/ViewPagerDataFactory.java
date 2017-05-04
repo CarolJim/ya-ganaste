@@ -11,11 +11,9 @@ import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
 import com.pagatodo.yaganaste.interfaces.enums.AdqEmTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
-import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
-import com.pagatodo.yaganaste.ui.account.register.Documentos;
+import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
-import com.pagatodo.yaganaste.ui.adquirente.HardSellAdqFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
@@ -51,8 +49,8 @@ public class ViewPagerDataFactory {
         List<Fragment> fragmentList = new ArrayList<>();
         switch (type){
             case MAIN:
-                fragmentList.add(HomeTabFragment.newInstance());
-                fragmentList.add(PaymentsTabFragment.newInstance());
+                fragmentList.add(HomeTabFragment.newInstance());  fragmentList.add(GetMountFragment.newInstance());
+                //fragmentList.add(PaymentsTabFragment.newInstance());
                 fragmentList.add(BlankFragment.newInstance());
                 Log.e("view pager "  ,"esAgente" + SingletonUser.getInstance().getDataUser().isEsAgente());
                 Log.e("view pager "  ,"estatus Agente" + SingletonUser.getInstance().getDataUser().getEstatusAgente());

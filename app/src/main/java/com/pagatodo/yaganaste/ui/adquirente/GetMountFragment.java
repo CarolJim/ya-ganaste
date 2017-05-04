@@ -1,46 +1,44 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.text.Editable;
 import android.text.InputType;
-import android.text.TextWatcher;
+import android.text.Selection;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
-import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
-import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
-import com.pagatodo.yaganaste.utils.NumberTextWatcher;
-import com.pagatodo.yaganaste.utils.ProgressIndicator;
+import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
-import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
+
 public class GetMountFragment extends PaymentFormBaseFragment {
 
-    @BindView(R.id.edtMount)
-    StyleEdittext edtMount;
+    @BindView(R.id.et_amount)
+    EditText et_amount;
     @BindView(R.id.edtConcept)
     StyleEdittext edtConcept;
     @BindView(R.id.keyboard_view)
     CustomKeyboardView keyboardView;
     private String amount = "";
     private String concept = "";
+    LinearLayout layout_amount;
 
     private float MIN_AMOUNT = 1.0f;
+
+    private EditText etMonto;
+    private TextView tvMontoEntero, tvMontoDecimal;
 
     public GetMountFragment() {
         // Required empty public constructor
@@ -66,10 +64,21 @@ public class GetMountFragment extends PaymentFormBaseFragment {
     @Override
     public void initViews() {
         super.initViews();
-        edtMount.addTextChangedListener(new NumberTextWatcher(edtMount));
+        /**
+         * layout_amount capa que controla el abrir el teclado
+         * tvMontoEntero TextView que contiene los enteros del elemento
+         * tvMontoDecimal TextView que contiene los decimales del elemento
+         * et_amount EditText oculto que captura los elementos que procesaremos, pero que no se
+         * muestra en pantalla
+         */
+        layout_amount = (LinearLayout) rootview.findViewById(R.id.layout_amount_control);
+        tvMontoEntero = (TextView) rootview.findViewById(R.id.tv_monto_entero);
+        tvMontoDecimal = (TextView) rootview.findViewById(R.id.tv_monto_decimal);
+        et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
-        edtMount.addTextChangedListener(new TextWatcher() {
+
+      /*  et_amount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
@@ -84,10 +93,10 @@ public class GetMountFragment extends PaymentFormBaseFragment {
             @Override
             public void afterTextChanged(Editable editable) {
             }
-        });
+        });*/
 
         // Make the custom keyboard appear
-        edtMount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        et_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
@@ -98,14 +107,19 @@ public class GetMountFragment extends PaymentFormBaseFragment {
             }
         });
 
-        edtMount.setOnClickListener(new View.OnClickListener() {
+        /**
+         * Agregamos el Listener al layout que contiene todos los elementos, esto es para que se
+         * abra el teclado custom
+         */
+        layout_amount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                et_amount.requestFocus();
                 keyboardView.showCustomKeyboard(v);
             }
         });
 
-        edtMount.setOnTouchListener(new View.OnTouchListener() {
+        et_amount.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 EditText edittext = (EditText) v;
@@ -121,19 +135,33 @@ public class GetMountFragment extends PaymentFormBaseFragment {
     }
 
     private void actionCharge() {
-        String valueAmount = edtMount.getText().toString().trim();
+        String valueAmount = et_amount.getText().toString().trim();
+
+        // Limpiamos del "," que tenemos del EditText auxiliar
+        int positionQuote = valueAmount.indexOf(",");
+        if (positionQuote > 0) {
+            String[] valueAmountArray = valueAmount.split(",");
+            valueAmount = valueAmountArray[0] + valueAmountArray[1];
+        }
+
         if (valueAmount.length() > 0 && !valueAmount.equals("$0.00")) {
             try {
                 StringBuilder cashAmountBuilder = new StringBuilder(valueAmount);
-                valueAmount = cashAmountBuilder.deleteCharAt(0).toString();
+
+                // Limpiamos del caracter $ en caso de tenerlo
+                int positionMoney = valueAmount.indexOf("$");
+                if (positionMoney == 0) {
+                    valueAmount = cashAmountBuilder.deleteCharAt(0).toString();
+                }
+
                 float current_mount = Float.parseFloat(valueAmount);
                 String current_concept = edtConcept.getText().toString().trim();//Se agrega Concepto opcional
                 if (current_mount >= MIN_AMOUNT) {
-                    TransactionAdqData.getCurrentTransaction().setAmount(String.format("%s",current_mount));
+                    TransactionAdqData.getCurrentTransaction().setAmount(String.format("%s", current_mount));
                     TransactionAdqData.getCurrentTransaction().setDescription(current_concept);
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
                     startActivity(intent);
-                    setData("","");
+                    setData("", "");
                     mySeekBar.setProgress(0);
                 } else showValidationError("El monto tiene que ser mayor");
             } catch (NumberFormatException e) {
@@ -148,20 +176,23 @@ public class GetMountFragment extends PaymentFormBaseFragment {
         actionCharge();
     }
 
-    private void showValidationError(String error){
+    private void showValidationError(String error) {
         UI.showToast(error, getActivity());
         mySeekBar.setProgress(0);
     }
 
-    private void setData(String amount,String concept){
-        edtMount.setText(amount);
-        edtConcept.setText(concept);
+    private void setData(String amount, String concept) {
+        et_amount.setText(amount);
+        Selection.setSelection(et_amount.getText(), et_amount.getText().toString().length());
+        if (!concept.equals("")) {
+            edtConcept.setText(concept);
+        }
     }
 
     @Override
-    public void onResume(){
+    public void onResume() {
         super.onResume();
-        setData(TransactionAdqData.getCurrentTransaction().getAmount(),TransactionAdqData.getCurrentTransaction().getDescription());
+        setData(TransactionAdqData.getCurrentTransaction().getAmount(), TransactionAdqData.getCurrentTransaction().getDescription());
     }
 }
 

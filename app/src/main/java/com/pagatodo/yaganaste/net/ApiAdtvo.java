@@ -45,7 +45,9 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucu
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioPrincipalResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerSubgirosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RecuperarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
@@ -78,7 +80,9 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOCALIZAR_SUCUR
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_CATALOGOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_SUBGIROS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECURSO_IMAGEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
@@ -495,5 +499,35 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getJsonWebTokenUrlUrl),
                 headers,request, GetJsonWebTokenResponse.class,result);
     }
+
+
+    /**
+     * Obtiene los subgiros par registro de Negocio.
+     *
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    /*TODO revisar request de este servicio*/
+    public static void obtenerSubgiros(IRequestResult result)  throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        NetFacade.consumeWS(OBTENER_SUBGIROS,
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerSubgiros),
+                headers,null, ObtenerSubgirosResponse.class,result);
+    }
+
+    /**
+     * Obtiene los subgiros par registro de Negocio.
+     *
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    /*TODO revisar request de este servicio*/
+    public static void obtenerDomicilioPrincipal(IRequestResult result)  throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        NetFacade.consumeWS(OBTENER_DOMICILIO_PRINCIPAL,
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerDomicilioPrincipal),
+                headers,null, ObtenerDomicilioPrincipalResponse.class,result);
+    }
+
 
 }

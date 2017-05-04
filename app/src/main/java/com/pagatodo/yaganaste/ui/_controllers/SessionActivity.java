@@ -162,4 +162,5 @@ public class SessionActivity extends ToolBarActivity implements TabsView,  OnEve
 
         }
     }
+
 }

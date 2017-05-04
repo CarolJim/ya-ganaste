@@ -17,6 +17,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
+import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsTabFragmentManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.ServiciosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IServiciosPresenter;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;

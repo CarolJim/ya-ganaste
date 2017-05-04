@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageButton;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
@@ -22,7 +23,9 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Validations;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
@@ -35,9 +38,10 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PERSO
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DatosUsuarioFragment extends GenericFragment implements View.OnClickListener,ValidationForms, IUserDataRegisterView {
+public class DatosUsuarioFragment extends GenericFragment implements View.OnClickListener,ValidationForms, IUserDataRegisterView,
+        View.OnFocusChangeListener{
 
-    private static int MIN_LENGHT_VALIDATION_PASS = 2;
+    private static int MIN_LENGHT_VALIDATION_PASS = 8;
     private static String CHECK_EMAIL_STATUS = "CHECK_EMAIL_STATUS";
     private View rootview;
     @BindView(R.id.edtitEmail)
@@ -49,9 +53,9 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @BindView(R.id.editPasswordConfirmation)
     CustomValidationEditText editPasswordConfirm;
     @BindView(R.id.btnNextDatosUsuario)
-    Button btnNextDatosUsuario;
-    @BindView(R.id.txtRegisterBasicPassMessage)
-    StyleTextView txtRegisterBasicPassMessage;
+    ImageButton btnNextDatosUsuario;
+    @BindView(R.id.errorMessage)
+    ErrorMessage errorMessageView;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
 
@@ -63,6 +67,8 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     private boolean emailValidatedByWS = false; // Indica que el email ha sido validado por el ws.
     private boolean userExist = false; // Indica que el email ya se encuentra registrado.
     private AccountPresenterNew accountPresenter;
+
+    private boolean errorIsShowed = false;
 
     public DatosUsuarioFragment() {
     }
@@ -113,7 +119,12 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        errorMessageView.setVisibilityImageError(false);
         btnNextDatosUsuario.setOnClickListener(this);
+        edtitConfirmEmail.setOnFocusChangeListener(this);
+        editPassword.setOnFocusChangeListener(this);
+        editPasswordConfirm.setOnFocusChangeListener(this);
+
         setCurrentData();// Seteamos datos si hay registro en proceso.
         setValidationRules();
     }
@@ -134,18 +145,58 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @Override
     public void setValidationRules() {
 
+        editMail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(!hasFocus){
+                    if(editMail.isValidText() && !emailValidatedByWS){
+                        // Validamos el email con WS.
+                        editMail.imageViewIsGone(true);
+                        accountPresenter.validateEmail(editMail.getText());
+                    }else if(editMail.getText().isEmpty()){
+                        editMail.setIsInvalid();
+                        showValidationError(getString(R.string.datos_usuario_correo));
+                    }else {
+                        showValidationError(getString(R.string.datos_usuario_correo_formato));
+                    }
+                }else{
+                    if(!editMail.imageViewIsVisible())
+                        hideErrorMessage();
+                }
+
+            }
+        });
+
+
         edtitConfirmEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if(hasFocus){
-                    if(editMail.isValidText() && !emailValidatedByWS){
-                        // Validamos el email.
-                        editMail.imageViewIsGone(true);
-                        accountPresenter.validateEmail(editMail.getText());
+                    if(editMail.getText().isEmpty() || !editMail.isValidText()){
+                        editMail.setIsInvalid();
+                        showValidationError(getString(R.string.datos_usuario_correo));
+                        editMail.requestFocus();
                     }
+                }else{
+                    if(editMail.isValidText() && edtitConfirmEmail.isValidText())
+                        hideErrorMessage();
                 }
+                /*else{
+                    if(!errorIsShowed) {
+                        if (edtitConfirmEmail.getText().isEmpty()) {
+                            showValidationError(getString(R.string.datos_usuario_correo_confirma));
+                        } else if (!edtitConfirmEmail.isValidText()) {
+                            showValidationError(getString(R.string.datos_usuario_correo_formato));
+                        } else if (!edtitConfirmEmail.getText().equals(editMail.getText())) {
+                            showValidationError(getString(R.string.datos_usuario_correo_no_coinciden));
+                        }
+
+                        edtitConfirmEmail.setIsInvalid();
+                    }
+                }*/
             }
         });
+
 
         editMail.addCustomTextWatcher(new TextWatcher() {
             @Override
@@ -154,102 +205,98 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(edtitConfirmEmail.isValidText()){
+                if(!edtitConfirmEmail.getText().isEmpty()){
                     edtitConfirmEmail.setText("");
+                    edtitConfirmEmail.imageViewIsGone(true);
                 }
+
                 if(editMail.isValidText() && emailValidatedByWS){
                     emailValidatedByWS = false;//Si esta validado y cambia, volvemos a solicitar la validacion.
                 }
             }
             @Override
             public void afterTextChanged(Editable s) {
-
             }
         });
 
-        edtitConfirmEmail.addCustomTextWatcher(new TextWatcher() {
+
+        editPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!s.toString().isEmpty()){
-                    if(editMail.getText() != null && editMail.isValidText()){
-                        if(s.toString().equals(editMail.getText())){
-                            edtitConfirmEmail.setIsValid();
-                        }else{
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    if(editMail.isValidText()) {
+
+                        if (edtitConfirmEmail.getText().isEmpty()) {
+                            showValidationError(getString(R.string.datos_usuario_correo_confirma));
+                            edtitConfirmEmail.setIsInvalid();
+                        }else if (!edtitConfirmEmail.getText().equals(editMail.getText())) {
+                            showValidationError(getString(R.string.datos_usuario_correo_no_coinciden));
                             edtitConfirmEmail.setIsInvalid();
                         }
-                    }else{
-                        edtitConfirmEmail.setIsInvalid();
                     }
-                }else{
-                    edtitConfirmEmail.imageViewIsGone(true);
+
+                    if (!edtitConfirmEmail.isValidText())
+                        edtitConfirmEmail.requestFocus();
+
                 }
             }
+        });
+
+
+        editPasswordConfirm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void afterTextChanged(Editable s) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if(hasFocus){
+                    if(editMail.isValidText() && edtitConfirmEmail.isValidText()){
+
+                        if(editPassword.getText().isEmpty()){
+                            showValidationError(getString(R.string.datos_usuario_pass));
+                            editPassword.setIsInvalid();
+                        }
+
+                    }
+
+                    if(!editPassword.isValidText()) {
+                        editPassword.requestFocus();
+                    }else{
+                        hideErrorMessage();
+                    }
+                }else{
+
+                    if(editMail.isValidText() && edtitConfirmEmail.isValidText()
+                            && editPassword.isValidText() && !editPasswordConfirm.isValidText()){
+                        showValidationError(getString(R.string.datos_usuario_pass_no_coinciden));
+                    }
+
+                }
             }
         });
 
         editPasswordConfirm.addCustomTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(!s.toString().isEmpty()){
-                    if(editPassword.getText() != null && editPassword.isValidText()){
-                        if(s.toString().equals(editPassword.getText())){
-                            editPasswordConfirm.setIsValid();
-                        }else{
-                            editPasswordConfirm.setIsInvalid();
-                        }
-                    }else{
-                        editPasswordConfirm.setIsInvalid();
-                    }
+
+                if(editPassword.isValidText() && (editPassword.getText().equals(editPasswordConfirm.getText()))){
+                    editPasswordConfirm.setIsValid();
+                    hideErrorMessage();
                 }else{
-                    editPasswordConfirm.imageViewIsGone(true);
+                    editPasswordConfirm.setIsInvalid();
                 }
             }
+
             @Override
             public void afterTextChanged(Editable s) {
+
             }
         });
 
-        editPassword.addCustomTextWatcher(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(editPasswordConfirm.isValidText()){
-                    editPasswordConfirm.setText("");
-                }
-            }
-            @Override
-            public void afterTextChanged(Editable s) {
-            }
-        });
 
-        /*editPassword.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-                if (s.toString().length() > MIN_LENGHT_VALIDATION_PASS) {*/
-                    /*Consumimos servicio de validación de contraseña*/
-           /*         accountPresenter.validatePasswordFormat(s.toString().trim());
-                }
-            }
-        });*/
     }
 
     @Override
@@ -306,10 +353,14 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showValidationError(Object error) {
+        errorMessageView.setMessageText(error.toString());
+        errorIsShowed = true;
+        UI.hideKeyBoard(getActivity());
+    }
 
-        createCustomDialog(getString(R.string.title_dialogs),error.toString())
-        .show(getActivity().getFragmentManager(),CustomErrorDialog.TAG);
-        //UI.showToastShort(error.toString(),getActivity());
+    private void hideErrorMessage(){
+     errorMessageView.setVisibilityImageError(false);
+        errorIsShowed = false;
     }
 
     @Override
@@ -374,12 +425,14 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @Override
     public void validationPasswordSucces() {//Mostrar imagen en edtText
         isValidPassword = true;
+        hideErrorMessage();
         //txtRegisterBasicPassMessage.setText("");
     }
 
     @Override
     public void validationPasswordFailed(String message) {//Mostrar imagen en edtText
         isValidPassword = false;
+        showValidationError(message);
         //txtRegisterBasicPassMessage.setText(message);
     }
 
@@ -389,6 +442,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         emailValidatedByWS = true;
         userExist = false;
         editMail.setIsValid();
+        hideErrorMessage();
     }
 
     @Override
@@ -415,4 +469,18 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         });
         return  customErrorDialog;
     }
+
+
+    @Override
+    public void onFocusChange(View v, boolean hasFocus) {
+
+        if(hasFocus)
+            hideErrorMessage();
+    }
+
+    private void validate(int field){
+
+
+    }
+
 }

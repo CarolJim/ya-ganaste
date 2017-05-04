@@ -21,7 +21,7 @@ public class ValidateForm {
     private final static Pattern ptDiscover = Pattern.compile("^6(?:011|5[0-9]{2})[0-9]{3,}$");
     private final static Pattern ptJcb = Pattern.compile("^(?:2131|1800|35[0-9]{3})[0-9]{3,}$");
     private final static Pattern genericCreditCard = Pattern.compile("^[0-9]{16}$");
-    private final static Pattern cablePtrn = Pattern.compile("^[0-9]{12}$");
+    private final static Pattern cablePtrn = Pattern.compile("^[0-9]{18}$");
 
     private final static Pattern phonePattern = Pattern.compile("^[0-9]{7}$");
     private final static Pattern cellPhonePattern = Pattern.compile("^[0-9]{10}$");

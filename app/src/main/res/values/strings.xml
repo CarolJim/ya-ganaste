@@ -48,6 +48,8 @@
     <string name="getStatusCard">/ObtenerEstatusTarjeta</string>
     <string name="getBalanceAdqUrl">/ConsultarSaldoADQ</string>
     <string name="getSucursales">/LocalizarSucursales</string>
+    <string name="obtenerSubgiros">/ObtenerSubgiros</string>
+    <string name="obtenerDomicilioPrincipal">/ObtenerDomicilioPrincipal</string>
 
     <!--Métodos de WS Adquiriente-->
     <string name="adqLogin">/agMov/login</string>
