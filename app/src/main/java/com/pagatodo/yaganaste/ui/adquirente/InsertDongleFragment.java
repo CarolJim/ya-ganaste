@@ -398,9 +398,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 showInsertCard();
-                //initListenerDongle();//Lectura de Tarjeta
+                initListenerDongle();//Lectura de Tarjeta
                 isWaitingCard = true;
-                adqPresenter.initTransaction(null);//TODO Probar Flujo
 
             }
         }, DELAY_MESSAGE_PROGRESS);
