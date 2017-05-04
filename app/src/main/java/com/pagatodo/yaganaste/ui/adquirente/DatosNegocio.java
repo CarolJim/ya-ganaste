@@ -4,6 +4,7 @@ package com.pagatodo.yaganaste.ui.adquirente;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -59,6 +60,7 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
 
     private String nombre = "";
     private String giro = "";
+    private long id_giro = 0 ;
     private String telefono = "";
     private boolean respuestaFamiliares;
 
@@ -143,7 +145,6 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
         });
         */
     }
-
     private void initValues() {
         girosComercioComplete = Utils.getGirosArray(getActivity());
         girosComercio = new ArrayList<>();
@@ -183,6 +184,7 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
 
     @Override
     public void validateForm() {
+
         getDataForm();
 
         if (nombre.isEmpty()) {
@@ -190,7 +192,7 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
             return;
         }
 
-        if (giro.isEmpty()) {
+        if (id_giro==0) {
             showValidationError(getString(R.string.datos_negocio_giro));
             return;
         }
@@ -233,6 +235,7 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
     public void getDataForm() {
         nombre = editBussinesName.getText().toString().trim();
         giro = spinnerBussineLine.getSelectedItem().toString();
+        id_giro = spinnerBussineLine.getSelectedItemId();
         telefono = editBussinesPhone.getText().toString().trim();
         respuestaFamiliares = radioBtnPublicServantYes.isChecked();
     }

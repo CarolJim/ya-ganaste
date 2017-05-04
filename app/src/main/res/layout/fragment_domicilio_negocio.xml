@@ -84,28 +84,34 @@
                 app:isSingleLine="true"
                 app:maxLength="5" />
 
-            <android.support.v4.widget.Space
-                android:layout_width="@dimen/generic_padig"
-                android:layout_height="match_parent" />
+        </LinearLayout>
 
+        <LinearLayout
+            android:id="@+id/layoutBussinesCountry"
+            style="@style/FragmentElement"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutBussinesAddressComp"
+            android:orientation="vertical">
 
             <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                 android:id="@+id/editBussinesState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
-                app:maxLines="1"
-                app:hintText="@string/stateHint" />
+                app:hintText="@string/stateHint"
+                app:maxLines="1" />
+
         </LinearLayout>
 
 
         <Spinner
             android:id="@+id/spBussinesColonia"
             style="@style/SpinnerNoArrow"
-            android:background="@null"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/layoutBussinesAddressComp"
+            android:layout_below="@+id/layoutBussinesCountry"
+            android:background="@null"
             app:backgroundTint="@color/transparent" />
 
 
@@ -156,6 +162,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
+                android:checked="true"
                 android:gravity="center"
                 android:text="@string/yes" />
 

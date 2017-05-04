@@ -10,8 +10,10 @@ import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountAddressRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;
@@ -19,7 +21,9 @@ import com.pagatodo.yaganaste.interfaces.IAccountIteractorNew;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAccountPresenterNew;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
+import com.pagatodo.yaganaste.interfaces.IDocumentsPresenter;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
+import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
@@ -35,6 +39,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_COMPLETO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
@@ -57,6 +62,7 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
         accountIteractor = new AccountInteractorNew(this);
     }
 
+
     public void setIView( INavigationView accountView){
         this.accountView = accountView;
     }
@@ -68,10 +74,17 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
     }
 
     @Override
+    public void checkUpdateDocs() {
+        accountIteractor.checkDocs();
+    }
+
+
+    @Override
     public void goToNextStepAccount(String event, Object data) {
         accountView.hideLoader();
         accountView.nextScreen(event,data);
     }
+
 
     @Override
     public void createUser() {
@@ -144,6 +157,7 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
         accountIteractor.verifyActivationSMS();
     }
 
+
     @Override
     public void onError(WebService ws,Object error) {
         accountView.hideLoader();
@@ -202,11 +216,10 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
             }else if(ws == VALIDAR_FORMATO_CONTRASENIA) {
                 ((IUserDataRegisterView) accountView).validationPasswordSucces();
             }
-        }else if(accountView instanceof IAccountAddressRegisterView) {
+        }else if(accountView instanceof IAccountAddressRegisterView) { // obtiene el listado de colonias
             if (ws == OBTENER_COLONIAS_CP) {
                 ((IAccountAddressRegisterView) accountView).setNeighborhoodsAvaliables((List<ColoniasResponse>) data);
             }
-
         }else if(accountView instanceof IAccountCardView) {
                 if(ws == CONSULTAR_ASIGNACION_TARJETA){
                     ((IAccountCardView) accountView).cardIsValidate(data.toString());

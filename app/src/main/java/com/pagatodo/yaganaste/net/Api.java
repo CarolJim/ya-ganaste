@@ -11,7 +11,9 @@ public class Api {
 
     public static Map<String, String> getHeadersYaGanaste(){
         Map<String, String> headersYaGanaste = new HashMap<>();
+        //headersYaGanaste.put("Content-type", "application/json");
         headersYaGanaste.put(RequestHeaders.IdDispositivo, "2");
+        //headersYaGanaste.put(RequestHeaders.NombreUsuario,"mailprueba800@mail.com");
         headersYaGanaste.put(RequestHeaders.NombreUsuario, RequestHeaders.getUsername());
         headersYaGanaste.put(RequestHeaders.IdComponente, "1");
         return headersYaGanaste;

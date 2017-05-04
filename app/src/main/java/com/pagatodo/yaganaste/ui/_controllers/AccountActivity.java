@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.Window;
 
 import com.pagatodo.yaganaste.App;
@@ -10,6 +11,9 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
@@ -25,8 +29,8 @@ import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
-import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
 
+import static com.pagatodo.yaganaste.data.model.SingletonUser.user;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui._controllers.MainActivity.SELECTION;
@@ -35,6 +39,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 
 
 public class AccountActivity extends SupportFragmentActivity implements OnEventListener {
+    private String TAG = getClass().getSimpleName();
     private Preferencias pref;
 
     public final static String EVENT_GO_LOGIN = "EVENT_GO_LOGIN";
@@ -58,6 +63,8 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     public final static String EVENT_COUCHMARK = "EVENT_GO_COUCHMARK";
     public final static String EVENT_GO_REGISTER_COMPLETE = "EVENT_GO_REGISTER_COMPLETE";
     public final static String EVENT_GO_MAINTAB = "EVENT_GO_MAINTAB";
+
+
 
     private DatosUsuarioFragment datosUsuarioFragment;
     private DatosPersonalesFragment datosPersonalesFragment;
@@ -106,7 +113,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
 
     @Override
     public void onEvent(String event, Object o) {
-
+    Log.e(TAG,"onEvent - - "+ event);
         switch (event) {
 
             case EVENT_GO_LOGIN:
@@ -165,6 +172,9 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 startActivity(intent);
                 finish();
                 break;
+
+
+
         }
     }
 

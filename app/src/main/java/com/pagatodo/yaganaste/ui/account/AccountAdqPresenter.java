@@ -1,9 +1,17 @@
 package com.pagatodo.yaganaste.ui.account;
 
+import android.content.Context;
 import android.os.Handler;
 import android.util.Log;
+import android.view.View;
+import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
+import com.pagatodo.yaganaste.interfaces.IAccountAddressRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
@@ -13,11 +21,15 @@ import com.pagatodo.yaganaste.interfaces.IAdqRegisterView;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.adquirente.DocumentsPresenter;
+import com.pagatodo.yaganaste.utils.UI;
 
+import java.util.EventListener;
+import java.util.EventObject;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
 /**
@@ -28,10 +40,14 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     private String TAG = AccountAdqPresenter.class.getName();
     private IAdqAccountIteractor adqIteractor;
     private INavigationView iAdqView;
+    Context context;
 
-    public AccountAdqPresenter(INavigationView iAdqView) {
+
+
+    public AccountAdqPresenter(INavigationView iAdqView, Context ctx) {
         this.iAdqView = iAdqView;
-        adqIteractor = new AccountAdqInteractor(this);
+        context = ctx;
+        adqIteractor = new AccountAdqInteractor(this,ctx);
     }
 
     @Override
@@ -45,9 +61,20 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     }
 
     @Override
+    public void getEstatusDocs(View view) {
+        Log.e(TAG,"AccountAdqPresenter ");
+        adqIteractor.getEstatusDocs(view);
+    }
+
+    @Override
     public void createAdq() {
         iAdqView.showError("");
         adqIteractor.registerAdq();
+    }
+
+    @Override
+    public void setListaDocs(View view) {
+        adqIteractor.setListDocuments(view);
     }
 
     @Override
@@ -63,19 +90,19 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
         }, DELAY_MESSAGE_PROGRESS);
     }
 
-    @Override
-    public void getStatusDocuments() {
 
-    }
 
     @Override
     public void onError(WebService ws,Object error) {
         iAdqView.hideLoader();
         if(iAdqView instanceof IAdqRegisterView){
             if (ws == CREAR_AGENTE) {
-                ((IAccountRegisterView) iAdqView).showError(error.toString());
+                ((IAccountAddressRegisterView) iAdqView).showError(error.toString());
             }else if(ws == OBTENER_COLONIAS_CP){
-                ((IAccountRegisterView) iAdqView).showError(error.toString());
+                ((IAccountAddressRegisterView) iAdqView).showError(error.toString());
+            }else if(ws == OBTENER_DOCUMENTOS){
+                Log.e(TAG,"ws Error ");
+                ((IUploadDocumentsView) iAdqView).showError(error.toString());
             }
         }else {
 
@@ -98,5 +125,10 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
         }
 
 
+    }
+
+    @Override
+    public void showGaleryError() {
+        UI.showToastShort("La aplicacion no pudo acceder a su imagen intente con otra galeria", App.getContext());
     }
 }

@@ -260,7 +260,7 @@
     <string name="interiorNumber">N°Interior</string>
     <string name="zipCodeHint">Código Postal</string>
     <string name="stateHint">Estado</string>
-    <string name="datos_domicilio_calle">Called Requerida, Verifique su Información.</string>
+    <string name="datos_domicilio_calle">Calle Requerida, Verifique su Información.</string>
     <string name="datos_domicilio_num_ext">Número Exterior Requerido, Verifique su Información.</string>
     <string name="datos_domicilio_cp">Código Postal Requerido, Verifique su Información.</string>
     <string name="datos_domicilio_colonia">Colonia Requerida, Verifique su Información.</string>
@@ -409,6 +409,9 @@
 
 
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
+    <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01-800-500-1000\n informes@yaganaste.com</string>
+    <string name="documents_comprobantes">CFE,Telefono,Agua(No mayor a 3 meses)</string>
+    <string name="documents_vigentes">Credencial de Elector o Pasaporte</string>
 </resources>
 
 
