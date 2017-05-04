@@ -6,7 +6,7 @@
     <dimen name="thumb_off_set">8dp</dimen>
     <dimen name="fab_margin">10dp</dimen>
 
-    <dimen name="margin_doble">35dp</dimen>
+    <dimen name="margin_doble">25dp</dimen>
     <dimen name="margin_regular">30dp</dimen>
     <dimen name="margin_big">24dp</dimen>
     <dimen name="space_between_elements">10dp</dimen>
