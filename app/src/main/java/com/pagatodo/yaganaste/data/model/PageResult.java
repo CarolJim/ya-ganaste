@@ -13,6 +13,7 @@ public class PageResult  implements Serializable{
     private int idResurceIcon;
     private String title;
     private String message;
+    private String description;
     private Command actionBtnPrimary;
     private Command actionBtnSecondary;
     private String namerBtnPrimary;
@@ -92,6 +93,15 @@ public class PageResult  implements Serializable{
 
     public void setNamerBtnSecondary(String namerBtnSecondary) {
         this.namerBtnSecondary = namerBtnSecondary;
+    }
+
+
+    public String getDescription() {
+        return description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
     }
 }
 
