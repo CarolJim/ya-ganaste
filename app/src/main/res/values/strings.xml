@@ -181,7 +181,7 @@
     <string name="txt_fecha_hora">Fecha y Hora:</string>
     <string name="hint_concepto">Concepto</string>
     <string name="txt_concepto">Concepto:</string>
-    <string name="inserta_el_lector_para_ncontinuar">Inserta el Lector Para\nContinuar</string>
+    <string name="inserta_el_lector_para_ncontinuar">Inserta Tu Lector de Tarjetas\nYa Ganaste</string>
     <string name="finalizar">Finalizar</string>
     <string name="insert_slide_card">Inserta o desliza la tarjeta</string>
     <string name="no_internet_access">No Cuentas con Conexión a Internet</string>

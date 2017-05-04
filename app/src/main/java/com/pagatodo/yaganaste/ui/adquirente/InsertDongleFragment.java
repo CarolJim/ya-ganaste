@@ -148,8 +148,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             if (isReaderConected) {
                 Log.i("IposListener: ","=====>>   starReaderEmvSwipe ");
                 App.getInstance().pos.openAudio();
-                checkDongleStatus("1234");
-                //getKSN();
+//                checkDongleStatus("1234");
+                getKSN();
                 //App.getInstance().pos.getQposId();
                 showLoader(getResources().getString(R.string.validatelector));
             }
