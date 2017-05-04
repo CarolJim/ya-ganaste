@@ -95,6 +95,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         return this.paymentsTabPresenter;
     }
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -275,4 +276,5 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     public MovementsTab getCurrenTab() {
         return currentTab;
     }
+
 }

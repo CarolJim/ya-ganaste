@@ -114,7 +114,7 @@
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
                             android:adjustViewBounds="true"
-                            android:scaleType="centerInside"
+                            android:scaleType="centerCrop"
                             android:src="@mipmap/circulo_add_servicio" />
                     </RelativeLayout>
 

@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.trans;
 
+import com.google.gson.annotations.SerializedName;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 
 /**
@@ -8,6 +9,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
 
 public class EjecutarTransaccionResponse extends GenericResponse {
 
+    @SerializedName("data")
     private DataTransaccion Data;
 
     public EjecutarTransaccionResponse() {
