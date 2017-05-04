@@ -121,21 +121,28 @@
         android:layout_below="@+id/layoutContent"
         android:layout_marginLeft="@dimen/margin_big"
         android:layout_marginRight="@dimen/margin_big"
+        android:padding="2dp"
         android:gravity="bottom"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnBackBussinesInfo"
+            style="@style/buttonSmallRoundedGray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".1"
             android:text="@string/backButton"
             android:textAllCaps="false" />
 
+        <android.support.v4.widget.Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content" />
+
         <Button
             android:id="@+id/btnNextBussinesInfo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            style="@style/buttonSmallRoundedBlue"
             android:layout_weight=".9"
             android:text="@string/nextButton"
             android:textAllCaps="false" />
