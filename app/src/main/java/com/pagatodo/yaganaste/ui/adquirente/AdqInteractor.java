@@ -82,7 +82,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     @Override
     public void registerDongle() {
 
-        RequestHeaders.setTokenAdq("f9f2096cd11c10488d33f77f468b52735ae1f6a66d51ecee091c35e927d2853c");
+        RequestHeaders.setTokenAdq("383dedf37ef830ae351849c681dc9db70ce5745a714ac6d43983dcd0b2a90887");
         RequestHeaders.setIdCuenta("11040");
 //        if(!RequestHeaders.getTokenAdq().isEmpty()){
             String serial = prefs.loadData(KSN_LECTOR);

@@ -56,7 +56,7 @@ public class BorderTitleLayout extends RelativeLayout {
     @Override
     protected void onDraw(Canvas canvas) {
         //super.onDraw(canvas);
-        Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Light.ttf");
+        Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Regular.ttf");
         int textSize = (int) (18 * getContext().getResources().getDisplayMetrics().scaledDensity);
 
         Paint paint = new Paint();

@@ -2,8 +2,11 @@ package com.pagatodo.yaganaste.ui._controllers;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
+import android.widget.FrameLayout;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
@@ -13,8 +16,10 @@ import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
+import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentsProcessingManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsProcessingPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcessingPresenter;
@@ -30,6 +35,8 @@ import butterknife.ButterKnife;
 public class PaymentsProcessingActivity extends SupportFragmentActivity implements PaymentsProcessingManager {
     @BindView(R.id.progressGIF)
     ProgressLayout progressLayout;
+    @BindView(R.id.container)
+    FrameLayout container;
 
     IPaymentsProcessingPresenter presenter;
 
@@ -39,7 +46,12 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_generic_fragment_container);
         initViews();
-
+        progressLayout.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return false;
+            }
+        });
         presenter = new PaymentsProcessingPresenter(this);
 
         Object pago = getIntent().getExtras().get("pagoItem");
@@ -49,7 +61,11 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
             if (pago instanceof Recarga || pago instanceof Servicios) {
                 presenter.sendPayment(tab, pago);
             } else if (pago instanceof Envios) {
-
+                hideLoader();
+                container.setVisibility(View.VISIBLE);
+                View root = container.getRootView();
+                root.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
+                loadFragment(PaymentAuthorizeFragment.newInstance((Envios)pago), Direction.NONE, false);
             }
 
         } catch (OfflineException e) {
@@ -61,6 +77,14 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
     private void initViews() {
         ButterKnife.bind(this);
         showLoader("Procesando Pago");
+    }
+
+    public PaymentsProcessingManager getManager(){
+        return this;
+    }
+
+    public IPaymentsProcessingPresenter getPresenter(){
+        return presenter;
     }
 
     @Override
@@ -88,12 +112,14 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
 
     @Override
     public void onSuccessPaymentRespone(DataSourceResult result) {
-
+        hideLoader();
     }
 
     @Override
     public void onFailPaimentResponse(DataSourceResult error) {
-         EjecutarTransaccionResponse data =  (EjecutarTransaccionResponse)error.getData();
-
+        EjecutarTransaccionResponse data = (EjecutarTransaccionResponse) error.getData();
+        Toast.makeText(this, data.getMensaje(), Toast.LENGTH_LONG).show();
+        finish();
+        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 }
