@@ -19,7 +19,9 @@ import java.util.regex.Pattern;
  * Created by flima on 09/03/2017.
  * Update Francisco Manzo
  * Encarga de hacer las operaciones para la calculadora, y mostrar lo resultados en los dos
- * TextView que mostramos en pantalla
+ * TextView que mostramos en pantalla.
+ * Se tienen las validaciones para no tener problemas al momento de ir poco a poco escribiendo el
+ * numero, esto es porque cada vez que se actualiza el EditText entra en el ciclo de afterTextChanged
  */
 
 public class NumberCalcTextWatcher implements TextWatcher {
@@ -38,12 +40,6 @@ public class NumberCalcTextWatcher implements TextWatcher {
 
     String tmpAMount, strAmountEditText;
     private String TAG = getClass().getSimpleName();
-
-    public NumberCalcTextWatcher(EditText editText) {
-        this.etMonto = editText;
-        this.tvMontoEntero = tvMontoEntero;
-        this.tvMontoDecimal = tvMontoDecimal;
-    }
 
     public NumberCalcTextWatcher(EditText edtMount, TextView tvMontoEntero, TextView tvMontoDecimal) {
         this.etMonto = edtMount;
@@ -72,9 +68,10 @@ public class NumberCalcTextWatcher implements TextWatcher {
             if (etMonto.getText() != null
                     && !etMonto.getText().toString().equals("")) {
                 //String monto = String.valueOf(Utils.getDoubleValue(etMonto));
-                String monto = etMonto.getText().toString().replace("$", "").replace(",", "").replace("%", "")
+                String monto = etMonto.getText().toString().replace("$", "").replace("%", "")
                         .replace("&nbsp;", "");
                 String montos[] = monto.split("\\.");
+
                 if (montos.length == 2) {
                     if (tvMontoEntero != null)
                         tvMontoEntero.setText(montos[0]);
@@ -85,9 +82,12 @@ public class NumberCalcTextWatcher implements TextWatcher {
                             tvMontoDecimal.setText(montos[1]);
                         }
                 }
+                // Guardamos la cantidad en el modelo para recuperar en caso de perdida
+                TransactionAdqData.getCurrentTransaction()
+                        .setAmount(Utils.getCurrencyValue(strAmountEditText));
             }
         } else {
-            //Si es diferente a 99, mostramos el formato
+            //Si es diferente a 99, mostramos el formato y hacemos Set CodeKey
             CustomKeyboardView.setCodeKey(99);
             etMonto.setText(Utils.getCurrencyValue(strAmountEditText));
             if (!etMonto.toString().equals("") && strAmountEditText != null) {

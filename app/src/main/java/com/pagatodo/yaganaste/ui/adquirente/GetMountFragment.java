@@ -64,6 +64,13 @@ public class GetMountFragment extends PaymentFormBaseFragment {
     @Override
     public void initViews() {
         super.initViews();
+        /**
+         * layout_amount capa que controla el abrir el teclado
+         * tvMontoEntero TextView que contiene los enteros del elemento
+         * tvMontoDecimal TextView que contiene los decimales del elemento
+         * et_amount EditText oculto que captura los elementos que procesaremos, pero que no se
+         * muestra en pantalla
+         */
         layout_amount = (LinearLayout) rootview.findViewById(R.id.layout_amount_control);
         tvMontoEntero = (TextView) rootview.findViewById(R.id.tv_monto_entero);
         tvMontoDecimal = (TextView) rootview.findViewById(R.id.tv_monto_decimal);
@@ -130,9 +137,10 @@ public class GetMountFragment extends PaymentFormBaseFragment {
     private void actionCharge() {
         String valueAmount = et_amount.getText().toString().trim();
 
-                int positionQuote = valueAmount.indexOf(",");
-        if(positionQuote > 0){
-        String[] valueAmountArray = valueAmount.split(",");
+        // Limpiamos del "," que tenemos del EditText auxiliar
+        int positionQuote = valueAmount.indexOf(",");
+        if (positionQuote > 0) {
+            String[] valueAmountArray = valueAmount.split(",");
             valueAmount = valueAmountArray[0] + valueAmountArray[1];
         }
 
@@ -140,8 +148,9 @@ public class GetMountFragment extends PaymentFormBaseFragment {
             try {
                 StringBuilder cashAmountBuilder = new StringBuilder(valueAmount);
 
+                // Limpiamos del caracter $ en caso de tenerlo
                 int positionMoney = valueAmount.indexOf("$");
-                if(positionMoney == 0){
+                if (positionMoney == 0) {
                     valueAmount = cashAmountBuilder.deleteCharAt(0).toString();
                 }
 
