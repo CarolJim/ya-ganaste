@@ -66,6 +66,7 @@ public class AdqActivity extends SupportFragmentActivity implements OnEventListe
             case EVENT_GO_MAINTAB:
                 finish();
                 break;
+
         }
     }
 

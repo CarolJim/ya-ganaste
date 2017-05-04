@@ -4,6 +4,7 @@ package com.pagatodo.yaganaste.ui.account.register;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,13 +19,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_DOC_CHECK;
 
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class RegisterCompleteFragment extends GenericFragment implements View.OnClickListener{
-
+public class RegisterCompleteFragment extends GenericFragment implements View.OnClickListener {
+    public String TAG = getClass().getSimpleName();
     public static String TIPO_MENSAJE = "TIPO_MENSAJE";
     private View rootview;
     @BindView(R.id.imgCompleted)
@@ -44,9 +46,9 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     private String subTitle = "";
     private String message = "";
     private String btnName = "";
-    private String NEXT_SCREEN ="";
+    private String NEXT_SCREEN = "";
 
-    public enum COMPLETE_MESSAGES{
+    public enum COMPLETE_MESSAGES {
         EMISOR,
         ADQ_REVISION,
         ADQ_ACEPTADOS,
@@ -59,7 +61,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     public static RegisterCompleteFragment newInstance(COMPLETE_MESSAGES type) {
         RegisterCompleteFragment fragmentRegister = new RegisterCompleteFragment();
         Bundle args = new Bundle();
-        args.putSerializable(TIPO_MENSAJE,type);
+        args.putSerializable(TIPO_MENSAJE, type);
         fragmentRegister.setArguments(args);
         return fragmentRegister;
     }
@@ -76,7 +78,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getArguments() != null){
+        if (getArguments() != null) {
 
             Bundle b = getArguments();
             type = (COMPLETE_MESSAGES) b.get(TIPO_MENSAJE);
@@ -110,9 +112,9 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnNextComplete:
-                onEventListener.onEvent(NEXT_SCREEN,null);
+                onEventListener.onEvent(NEXT_SCREEN, null);
                 break;
             default:
                 break;
@@ -120,7 +122,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     }
 
     private void setContent() {
-
+        Log.e("type ", "- -- - - - - " + type);
         switch (type) {
             case EMISOR:
                 iIdIcon = R.mipmap.ic_validate_blue;
@@ -131,12 +133,13 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
                 NEXT_SCREEN = EVENT_GO_MAINTAB;
                 break;
             case ADQ_REVISION:
+                Log.e(TAG, "-  - - - -  - - - - ADQ_REVISION");
                 iIdIcon = R.mipmap.ic_validate_blue;
                 title = getString(R.string.adq_title_thanks);
                 subTitle = getString(R.string.adq_subtitle_thanks);
                 message = getString(R.string.adq_title_thanks_msg);
                 btnName = getString(R.string.nextButton);
-                NEXT_SCREEN = EVENT_GO_MAINTAB;
+                NEXT_SCREEN = EVENT_DOC_CHECK;
                 break;
             case ADQ_ACEPTADOS:
                 iIdIcon = R.mipmap.ic_validate_blue;

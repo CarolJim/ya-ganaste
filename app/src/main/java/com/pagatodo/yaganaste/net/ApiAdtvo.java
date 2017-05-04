@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.net;
 
+import android.util.Log;
+
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionAprovSofttokenRequest;
@@ -18,6 +20,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarTransac
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.LocalizarSucursalesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
@@ -337,11 +340,14 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void obtenerDocumentos(IRequestResult result)  throws OfflineException {
+
+        Log.e("APIAdtvo ","obtenerDocumnetos"+URL_SERVER_ADTVO + App.getContext().getString(R.string.getDocuments));
+
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(OBTENER_DOCUMENTOS,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.getDocuments),
-                headers,null, ObtenerDocumentosResponse.class,result);
+                headers,null, ObtenerDocumentosRequest.class,result);
     }
 
     /**

@@ -11,20 +11,25 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.view.ContextThemeWrapper;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
@@ -38,9 +43,14 @@ import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
+import java.util.Comparator;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Set;
+import java.util.TreeSet;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -49,7 +59,10 @@ import static android.app.Activity.RESULT_OK;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_COMPLETE;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DATA;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DATA_BACK;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 
 
 /**
@@ -64,8 +77,9 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     private static final int IFE_BACK = 2;
     private static final int COMPROBANTE_FRONT = 3;
     private static final int COMPROBANTE_BACK = 4;
-
     private View rootview;
+
+
 
     @BindView(R.id.itemWeNeedSmFilesIFEfront)
     UploadDocumentView itemWeNeedSmFilesIFEfront;
@@ -77,12 +91,20 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     UploadDocumentView itemWeNeedSmFilesAddressBack;
     @BindView(R.id.btnWeNeedSmFilesNext)
     StyleButton btnWeNeedSmFilesNext;
+    @BindView(R.id.btnRegresar)
+    StyleButton btnRegresar;
+    @BindView(R.id.lnr_buttons)
+    LinearLayout lnr_buttons;
+    @BindView(R.id.lnr_help)
+    LinearLayout lnr_help;
+
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
 
     private int documentProcessed = 0;
     private BitmapLoader bitmapLoader;
     private String imgs[] = new String[4];
+    private ArrayList<String> contador ;
     private AccountAdqPresenter adqPresenter;
 
 
@@ -108,7 +130,11 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adqPresenter = new AccountAdqPresenter(this);
+
+        contador = new ArrayList<>();
+        adqPresenter = new AccountAdqPresenter(this,getContext());
+
+
     }
 
     @Override
@@ -127,18 +153,42 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragments_documents, container, false);
         initViews();
+
         return rootview;
     }
 
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        SingletonUser singletonUser = SingletonUser.getInstance();
+        if(SingletonUser.getInstance().getDataUser().isEsAgente()
+                && SingletonUser.getInstance().getDataUser().getEstatusAgente() != CRM_DOCTO_APROBADO){
+            lnr_buttons.setVisibility(GONE);
+            lnr_help.setVisibility(VISIBLE);
+            showStatusDocs(rootview);
+            adqPresenter.setListaDocs(rootview);
+        }else{
+
+            lnr_buttons.setVisibility(VISIBLE);
+            lnr_help.setVisibility(GONE);
+            itemWeNeedSmFilesIFEfront.setOnClickListener(this);
+            itemWeNeedSmFilesIFEBack.setOnClickListener(this);
+            itemWeNeedSmFilesAddressFront.setOnClickListener(this);
+            itemWeNeedSmFilesAddressBack.setOnClickListener(this);
+            btnWeNeedSmFilesNext.setOnClickListener(this);
+            btnRegresar.setOnClickListener(this);
+           /* showStatusDocs(rootview);
+            adqPresenter.setListaDocs(rootview);*/
+        }/*
         itemWeNeedSmFilesIFEfront.setOnClickListener(this);
         itemWeNeedSmFilesIFEBack.setOnClickListener(this);
         itemWeNeedSmFilesAddressFront.setOnClickListener(this);
         itemWeNeedSmFilesAddressBack.setOnClickListener(this);
         btnWeNeedSmFilesNext.setOnClickListener(this);
+        btnRegresar.setOnClickListener(this);*/
+
     }
+
 
     @Override
     public void onClick(View view) {
@@ -163,6 +213,11 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 sendDocuments();
                 break;
 
+            case R.id.btnRegresar:
+
+                backToRegister();
+                break;
+
             default:
                 break;
         }
@@ -170,6 +225,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
             showLoader("");
             galleryAddPic();
@@ -185,34 +241,52 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             bitmapLoader.execute();
         } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode != RESULT_OK) {
            // enableItems(true);
-            Toast.makeText(getActivity(), "Foto no Tomada", Toast.LENGTH_SHORT).show();
-        } else  if (requestCode == SELECT_FILE_PHOTO && resultCode == RESULT_OK
-                && null != data) {
-
+        } else  if (requestCode == SELECT_FILE_PHOTO && resultCode == RESULT_OK && null != data) {
+            Cursor cursor = null;
             Uri selectedImage = data.getData();
-            String[] filePathColumn = { MediaStore.Images.Media.DATA };
-            // Get the cursor
-            Cursor cursor = getActivity().getContentResolver().query(selectedImage,
-                    filePathColumn, null, null, null);
-            // Move to first row
-            cursor.moveToFirst();
-            int columnIndex = cursor.getColumnIndex(filePathColumn[0]);
-            String path = cursor.getString(columnIndex);
-            cursor.close();
-            bitmapLoader = new BitmapLoader(getActivity(), path, new BitmapBase64Listener() {
-                @Override
-                public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
-                    //enableItems(true);
-                    saveBmpImgUser(bitmap, imgbase64);
-                    hideLoader();
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            try {
+                // Get the cursor
+                cursor = getContext().getContentResolver().query(selectedImage,
+                        filePathColumn, null, null, null);
+                // Move to first row
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
+                String path = cursor.getString(columnIndex);
+                bitmapLoader = new BitmapLoader(getActivity(), path, new BitmapBase64Listener() {
+                    @Override
+                    public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
+                        //enableItems(true);
+                        saveBmpImgUser(bitmap, imgbase64);
+                        hideLoader();
+                    }
+                });
+                bitmapLoader.execute();
+            }catch (Exception e){
+                e.printStackTrace();
+                adqPresenter.showGaleryError();
+            }finally {
+                if(cursor != null){
+                    cursor.close();
                 }
-            });
-            bitmapLoader.execute();
-
-        }else if(requestCode == SELECT_FILE_PHOTO && resultCode != RESULT_OK){
+            }
+        }else if(requestCode == SELECT_FILE_PHOTO && resultCode != RESULT_OK && data == null ){
             Log.e(TAG,"SelectPhotoFromGallery Error");
         }
 
+    }
+    private void backToRegister(){
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                hideLoader();
+                backScreen(EVENT_GO_BUSSINES_DATA_BACK,null);
+            }
+        }, DELAY_MESSAGE_PROGRESS);
+    }
+
+    private void showStatusDocs(View view){
+        adqPresenter.getEstatusDocs(view);
     }
 
     private void galleryAddPic() {
@@ -225,44 +299,66 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     }
 
     private void saveBmpImgUser(Bitmap bitmap, String imgBase64) {
+        Boolean validateDuplicado ;
+        contador.add(imgBase64);
+        validateDuplicado = checkDuplicate(contador);
 
-        switch (documentProcessed) {
-            case IFE_FRONT:
-                itemWeNeedSmFilesIFEfront.setImageBitmap(bitmap);
-                itemWeNeedSmFilesIFEfront.setVisibilityStatus(false);
-                itemWeNeedSmFilesIFEfront.invalidate();
-                imgs[documentProcessed -1] = imgBase64;
-                break;
+        if(!validateDuplicado){
+            contador.remove(imgBase64);
+            UI.showToast("Imagen duplicada , seleccione una imagen diferente ",getContext());
+        }else {
+            switch (documentProcessed) {
+                case IFE_FRONT:
+                    itemWeNeedSmFilesIFEfront.setImageBitmap(bitmap);
+                    itemWeNeedSmFilesIFEfront.setStatusImage(bitmap);
+                    itemWeNeedSmFilesIFEfront.setVisibilityStatus(false);
 
-            case IFE_BACK:
-                itemWeNeedSmFilesIFEBack.setImageBitmap(bitmap);
-                itemWeNeedSmFilesIFEBack.setVisibilityStatus(false);
-                itemWeNeedSmFilesIFEBack.invalidate();
-                imgs[documentProcessed -1] = imgBase64;
-                break;
+                    itemWeNeedSmFilesIFEfront.invalidate();
+                    imgs[documentProcessed - 1] = imgBase64;
 
-            case COMPROBANTE_FRONT:
-                itemWeNeedSmFilesAddressFront.setImageBitmap(bitmap);
-                itemWeNeedSmFilesAddressFront.setVisibilityStatus(false);
-                itemWeNeedSmFilesAddressFront.invalidate();
-                imgs[documentProcessed -1] = imgBase64;
-                break;
+                    break;
 
-            case COMPROBANTE_BACK:
-                itemWeNeedSmFilesAddressBack.setImageBitmap(bitmap);
-                itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
-                itemWeNeedSmFilesAddressBack.invalidate();
-                imgs[documentProcessed -1] = imgBase64;
-                break;
+                case IFE_BACK:
+                    itemWeNeedSmFilesIFEBack.setImageBitmap(bitmap);
+                    itemWeNeedSmFilesIFEBack.setVisibilityStatus(false);
+                    itemWeNeedSmFilesIFEBack.invalidate();
+                    imgs[documentProcessed - 1] = imgBase64;
 
+                    break;
+
+                case COMPROBANTE_FRONT:
+                    itemWeNeedSmFilesAddressFront.setImageBitmap(bitmap);
+                    itemWeNeedSmFilesAddressFront.setVisibilityStatus(false);
+                    itemWeNeedSmFilesAddressFront.invalidate();
+                    imgs[documentProcessed - 1] = imgBase64;
+
+                    break;
+
+                case COMPROBANTE_BACK:
+                    itemWeNeedSmFilesAddressBack.setImageBitmap(bitmap);
+                    itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
+                    itemWeNeedSmFilesAddressBack.invalidate();
+                    imgs[documentProcessed - 1] = imgBase64;
+                    break;
+
+            }
+
+            if (bitmap.isRecycled()) {
+                bitmap.recycle();
+            }
+
+            bitmap = null;
         }
-
-        if (bitmap.isRecycled()) {
-            bitmap.recycle();
+    }
+    public static boolean checkDuplicate(ArrayList list) {
+        HashSet set = new HashSet();
+        for (int i = 0; i < list.size(); i++) {
+            boolean val = set.add(list.get(i));
+            if (val == false) {
+                return val;
+            }
         }
-
-        bitmap = null;
-
+        return true;
     }
 
     private File createImageFile() throws IOException {

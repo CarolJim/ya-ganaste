@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.maintabs.factories;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
@@ -53,13 +54,18 @@ public class ViewPagerDataFactory {
                 fragmentList.add(HomeTabFragment.newInstance());
                 fragmentList.add(PaymentsTabFragment.newInstance());
                 fragmentList.add(BlankFragment.newInstance());
+                Log.e("view pager "  ,"esAgente" + SingletonUser.getInstance().getDataUser().isEsAgente());
+                Log.e("view pager "  ,"estatus Agente" + SingletonUser.getInstance().getDataUser().getEstatusAgente());
                 if(SingletonUser.getInstance().getDataUser().isEsAgente()
                         && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
                     fragmentList.add(GetMountFragment.newInstance());
+                    //fragmentList.add(Documentos.newInstance());
                 }else if(SingletonUser.getInstance().getDataUser().isEsAgente()
                     && SingletonUser.getInstance().getDataUser().getEstatusAgente() != CRM_DOCTO_APROBADO){
+
                     fragmentList.add(Documentos.newInstance());
                 }else {
+                   // fragmentList.add(Documentos.newInstance());
                     fragmentList.add(InviteAdquirenteFragment.newInstance());
                 }
 

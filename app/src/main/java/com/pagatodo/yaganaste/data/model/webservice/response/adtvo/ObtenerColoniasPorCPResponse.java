@@ -14,7 +14,7 @@ public class ObtenerColoniasPorCPResponse extends GenericResponse {
     private List<ColoniasResponse> Data;
 
     public ObtenerColoniasPorCPResponse() {
-        Data = new ArrayList<ColoniasResponse>();
+        Data = new ArrayList<>();
     }
 
     public List<ColoniasResponse> getData() {

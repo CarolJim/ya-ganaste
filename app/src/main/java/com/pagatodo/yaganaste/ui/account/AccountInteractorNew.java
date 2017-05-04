@@ -53,6 +53,7 @@ import com.pagatodo.yaganaste.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.data.model.SingletonUser.user;
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.CREATE_USER;
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.LOGIN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_COMPLETO;
@@ -60,7 +61,9 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LOGIN;
 
@@ -404,6 +407,8 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
         }
     }
 
+
+
     /**
      * Método para seleccionar la pantalla que se debe mostrar dependiendo de la validación de la tarjeta.
      * @param  response {@link DataSourceResult} respuesta del servicio
@@ -466,6 +471,14 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(CREAR_USUARIO_COMPLETO,data.getMensaje());//Retornamos mensaje de error.
         }
+    }
+
+    @Override
+    public void checkDocs() {
+        SingletonUser singletonUser = SingletonUser.getInstance();
+        singletonUser.getDataUser().setEsAgente(true);
+        singletonUser.getDataUser().setEstatusAgente(CRM_PENDIENTE);
+        singletonUser.getDataUser().setEstatusDocumentacion(CRM_PENDIENTE);
     }
 
     /**

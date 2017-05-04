@@ -7,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.PagerAdapter;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -38,6 +39,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 
 
 public class TabActivity extends ToolBarActivity implements TabsView, OnEventListener {
+    private String TAG = getClass().getSimpleName();
     private Preferencias pref;
 
     private ViewPager mainViewPager;
@@ -64,13 +66,12 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         load();
 
         if (!pref.containsData(COUCHMARK_EMISOR)) {
+
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             Intent intent = new Intent(this, LandingFragment.class);
             startActivity(intent);
         }
-
     }
-
     private void load() {
         this.tabPresenter = new MainMenuPresenterImp(this);
         pref = App.getInstance().getPrefs();
@@ -156,6 +157,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
                 }
             }
         } else if (requestCode == BACK_FROM_PAYMENTS) {
+
             Intent intent = getIntent();
             finish();
             startActivity(intent);
