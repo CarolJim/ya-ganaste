@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout
+        xmlns:android="http://schemas.android.com/apk/res/android"
+        xmlns:app="http://schemas.android.com/apk/res-auto"
+        xmlns:tools="http://schemas.android.com/tools"
+        android:layout_below="@+id/layoutBorder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="@dimen/margin_small">
+        <ImageView
+            android:id="@+id/imgError"
+            android:layout_width="@dimen/width_icon_error"
+            android:layout_height="@dimen/height_icon_error"
+            android:layout_centerHorizontal="true"
+            android:src="@drawable/triangle_error"/>
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            style="@style/TextErrorValidation"
+            android:id="@+id/txtError"
+            android:layout_below="@+id/imgError"
+            android:visibility="visible" />
+</RelativeLayout>

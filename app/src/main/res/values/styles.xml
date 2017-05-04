@@ -77,7 +77,19 @@
         <item name="buttonRippleColor2">@drawable/button_rounded_blue</item>
         <item name="buttonNormalColor">@drawable/button_rounded_blue</item>
     </style>
-
+    <style name="buttonSmallRoundedBlue">
+        <item name="android:background">@drawable/button_rounded_blue</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="buttonRippleColor2">@drawable/button_rounded_blue</item>
+        <item name="buttonNormalColor">@drawable/button_rounded_blue</item>
+    </style>
+    <style name="buttonSmallRoundedGray">
+        <!-- Crear shape con el estilo y color en gris para este boton  -->
+        <item name="android:background">@color/grayColor</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="buttonRippleColor2">@drawable/button_rounded_blue</item>
+        <item name="buttonNormalColor">@drawable/button_rounded_blue</item>
+    </style>
     <style name="buttonSquareRoundedBlue">
         <item name="android:background">@drawable/button_rounded_square_blue</item>
         <item name="buttonRippleColor2">@drawable/button_rounded_square_blue</item>
@@ -181,8 +193,9 @@
     </style>
 
     <style name="SpinnerNoArrow" parent="CustomSpinner">
-        <item name="android:layout_marginLeft">@dimen/margin_big</item>
-        <item name="android:layout_marginRight">@dimen/margin_big</item>
+        <item name="android:focusable">true</item>
+        <item name="android:layout_marginLeft">@dimen/margin_elements</item>
+        <item name="android:layout_marginRight">@dimen/margin_elements</item>
         <item name="android:layout_marginTop">@dimen/space_between_elements</item>
     </style>
 
@@ -264,5 +277,17 @@
         <item name="android:textColor">@color/grayColor</item>
         <item name="android:textSize">14sp</item>
         <item name="tipo">Subtitulo</item>
+    </style>
+
+    <style name="TextErrorValidation">
+        <item name="android:layout_width">match_parent</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:textColor">@color/redcolor</item>
+        <item name="android:textSize">14sp</item>
+        <item name="tipo">Descripcion</item>
+        <item name="android:gravity">center</item>
+        <item name="android:layout_marginLeft">@dimen/margin_doble</item>
+        <item name="android:layout_marginRight">@dimen/margin_doble</item>
+        <item name="android:layout_marginTop">@dimen/margin_xsmall</item>
     </style>
 </resources>

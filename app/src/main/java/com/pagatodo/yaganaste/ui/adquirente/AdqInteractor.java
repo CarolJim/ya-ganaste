@@ -13,6 +13,7 @@ import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.EnviarTicketCompraRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.FirmaDeVoucherRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.RegistroDongleRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.EnviarTicketCompraResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.FirmaDeVoucherResponse;
@@ -43,6 +44,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.ADQ_ACCES_DENIED;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_ERROR;
+import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 
 /**
  * Created by flima on 17/04/2017.
@@ -80,8 +82,9 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     @Override
     public void registerDongle() {
 
-        //RequestHeaders.setTokenAdq("");
-        /*if(!RequestHeaders.getTokenAdq().isEmpty()){
+        RequestHeaders.setTokenAdq("383dedf37ef830ae351849c681dc9db70ce5745a714ac6d43983dcd0b2a90887");
+        RequestHeaders.setIdCuenta("11040");
+//        if(!RequestHeaders.getTokenAdq().isEmpty()){
             String serial = prefs.loadData(KSN_LECTOR);
             RegistroDongleRequest request = new RegistroDongleRequest(serial);
             try {
@@ -89,17 +92,17 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             } catch (OfflineException e) {
                 e.printStackTrace();
             }
-        }else{
-            accountOperation = LOGIN_ADQ_PAYMENT;
-            loginAdq();
-        }*/
+//        }else{
+//            accountOperation = LOGIN_ADQ_PAYMENT;
+//            loginAdq();
+//        }
 
-
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                accountManager.onSucces(REGISTRO_DONGLE, "Ejecución Exitosa");
-            }
-        }, DELAY_MESSAGE_PROGRESS * 2);
+// FLUJO DUMMY
+//        new Handler().postDelayed(new Runnable() {
+//            public void run() {
+//                accountManager.onSucces(REGISTRO_DONGLE, "Ejecución Exitosa");
+//            }
+//        }, DELAY_MESSAGE_PROGRESS * 2);
     }
 
     @Override
@@ -286,17 +289,19 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         RegistroDongleResponse data = (RegistroDongleResponse) response.getData();
         if(data.getId().equals(ADQ_CODE_OK)){
             accountManager.onSucces(response.getWebService(),data.getMessage());
-        }else if(data.getId().equals(ADQ_ACCES_DENIED)) { // Acceso no autorizado
-            if(retryLogin < MAX_REINTENTOS){
-                retryLogin++;
-                accountOperation = LOGIN_ADQ_PAYMENT;
-                loginAdq();// Realizamos login nuevamente.
-            }else {
-                retryLogin = 0;
-                accountManager.onError(response.getWebService(),data.getMessage());//Retornamos mensaje de error.
-            }
-        }else{
-            accountManager.onSucces(response.getWebService(),data.getMessage());
+        }
+//        else if(data.getId().equals(ADQ_ACCES_DENIED)) { // Acceso no autorizado
+//            if(retryLogin < MAX_REINTENTOS){
+//                retryLogin++;
+//                accountOperation = LOGIN_ADQ_PAYMENT;
+//                loginAdq();// Realizamos login nuevamente.
+//            }else {
+//                retryLogin = 0;
+//                accountManager.onError(response.getWebService(),data.getMessage());//Retornamos mensaje de error.
+//            }
+//        }
+        else{
+            accountManager.onError(response.getWebService(),data.getMessage());
             //accountManager.onError(response.getWebService(),data.getMessage());//Retornamos mensaje de error.
         }
     }

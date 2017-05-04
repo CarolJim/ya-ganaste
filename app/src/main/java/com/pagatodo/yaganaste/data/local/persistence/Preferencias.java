@@ -22,9 +22,9 @@ public class Preferencias {
 		editor.commit();
 	}
 
-	public void saveData (String key, Serializable data){
+	public void saveData (int key, Serializable data){
 		SharedPreferences.Editor editor = this.preferences.edit();
-		editor.putString(key, Utils.objectToString(data));
+		editor.putString(String.valueOf(key), Utils.objectToString(data));
 		editor.commit();
 	}
 

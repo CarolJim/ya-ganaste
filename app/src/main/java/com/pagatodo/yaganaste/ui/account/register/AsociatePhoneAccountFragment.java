@@ -54,7 +54,7 @@ public class AsociatePhoneAccountFragment extends PaymentFormBaseFragment implem
     BroadcastReceiver broadcastReceiver;
 
     private AccountPresenterNew accountPresenter;
-    private AprovPresenter aprovPresenter;
+    //private AprovPresenter aprovPresenter;
     public AsociatePhoneAccountFragment() {
     }
 
@@ -79,7 +79,7 @@ public class AsociatePhoneAccountFragment extends PaymentFormBaseFragment implem
         super.onCreate(savedInstanceState);
         accountPresenter = ((AccountActivity)getActivity()).getPresenter();
         accountPresenter.setIView(this);
-        aprovPresenter = new AprovPresenter(getActivity(),this);
+        //aprovPresenter = new AprovPresenter(getActivity(),this);
     }
 
     @Override
@@ -116,7 +116,8 @@ public class AsociatePhoneAccountFragment extends PaymentFormBaseFragment implem
 
     @Override
     public void smsVerificationSuccess() {
-        executeProvisioning();
+        // executeProvisioning();//TODO Descomentar para realizar aprovisionamiento
+        finishAssociation();
     }
 
     @Override
@@ -130,7 +131,7 @@ public class AsociatePhoneAccountFragment extends PaymentFormBaseFragment implem
     }
 
     private void executeProvisioning(){
-        aprovPresenter.getActivationCode();
+    //    aprovPresenter.getActivationCode();
     }
 
     @Override
@@ -142,7 +143,8 @@ public class AsociatePhoneAccountFragment extends PaymentFormBaseFragment implem
     /*Una vez aprovisionado, se suscribe a las notificationes*/
     @Override
     public void provisingCompleted() {
-        aprovPresenter.subscribePushNotification();
+
+        //aprovPresenter.subscribePushNotification();
     }
 
     @Override

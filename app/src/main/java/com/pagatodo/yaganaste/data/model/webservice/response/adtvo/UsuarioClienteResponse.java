@@ -17,6 +17,7 @@ public class UsuarioClienteResponse  implements Serializable {
     private String SegundoApellido = "";
     private String ImagenAvatarURL = "";
     private String TokenSesion = "";
+    private String TokenSesionAdquirente = "";
     private String FechaUltimoAcceso = "";
     private List<CuentaResponse> Cuentas;
     private String NumeroAgente = "";
@@ -146,5 +147,13 @@ public class UsuarioClienteResponse  implements Serializable {
 
     public void setNombreComercio(String nombreComercio) {
         this.nombreComercio = nombreComercio;
+    }
+
+    public void setTokenSesionAdquirente(String tokenSesionAdquirente) {
+        TokenSesionAdquirente = tokenSesionAdquirente;
+    }
+
+    public String getTokenSesionAdquirente() {
+        return TokenSesionAdquirente;
     }
 }

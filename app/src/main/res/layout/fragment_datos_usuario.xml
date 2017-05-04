@@ -20,6 +20,7 @@
     android:layout_below="@+id/toolbarLy">
 
     <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+        android:id="@+id/layoutBorder"
         style="@style/BorderTitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -70,6 +71,12 @@
 
     </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
+    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+        android:id="@+id/errorMessage"
+        android:layout_below="@id/layoutBorder"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"/>
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -79,27 +86,17 @@
         android:layout_marginRight="@dimen/margin_medium"
         android:orientation="horizontal">
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:id="@+id/txtRegisterBasicPassMessage"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_above="@+id/btnNextDatosUsuario"
-            android:layout_marginBottom="@dimen/margin_medium"
-            android:layout_marginLeft="@dimen/margin_big"
-            android:layout_marginRight="@dimen/margin_big"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:gravity="center"
-            android:visibility="gone"
-            android:text="@string/your_password_need_to_have"
-            app:tipo="Descripcion" />
-
-        <Button
+        <ImageButton
             android:id="@+id/btnNextDatosUsuario"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/height_btns"
             android:layout_centerInParent="true"
-            android:background="@drawable/button_shape"
+            android:gravity="center"
+            android:src="@drawable/shapebutton"
+            android:background="@null"
             android:text="@string/nextButton"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
             android:textAllCaps="false" />
     </RelativeLayout>
 

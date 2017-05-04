@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
-
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
@@ -20,6 +19,7 @@ import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEntity;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.interfaces.IAdqRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -37,7 +37,6 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DATA_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DOCUMENTS;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_DOMICILIO;
-
 
 /**
  * A simple {@link GenericFragment} subclass.
@@ -108,7 +107,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        adqPresenter = new AccountAdqPresenter(this);
+        adqPresenter = new AccountAdqPresenter(this,getContext());
     }
 
     @Override
@@ -180,7 +179,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
             return;
         }
 
-        if(colonia.isEmpty()){
+        if(!colonia.isEmpty()){
             UI.showToastShort(getString(R.string.datos_domicilio_colonia),getActivity());
             return;
         }
@@ -209,7 +208,6 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
             setCPDataCurrent();
         }
     }
-
 
     private void setCurrentData(){
         RegisterAgent registerAgente = RegisterAgent.getInstance();
@@ -286,6 +284,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         numInt = editBussinesIntNumber.getText().toString().trim();
         codigoPostal = editBussinesZipCode.getText().toString().trim();
         estado = editBussinesZipCode.getText().toString().trim();
+
         if(spBussinesColonia.getSelectedItem() != null) {
             colonia = spBussinesColonia.getSelectedItem().toString();
             for(ColoniasResponse coloniaInfo : listaColonias){
@@ -303,6 +302,8 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         this.estadoDomicilio = listaColonias.get(0).getEstado();
         fillAdapter();
     }
+
+
 
     @Override
     public void agentCreated(String message) {

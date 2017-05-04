@@ -65,6 +65,9 @@ public class Recursos {
 	public static final int CRM_PENDIENTE = 1;
 	public static final int CRM_DOCTO_APROBADO = 2;
 	public static final int CRM_DOCTO_RECHAZADO = 3;
+	public static final String STATUS_DOCTO_APROBADO = "DOCTO. APROBADO";
+	public static final String STATUS_DOCTO_PENDIENTE = "DOCTO. PENDIENTE";
+	public static final String STATUS_DOCTO_RECHAZADO = "DOCTO. RECHAZADO";
 	/*Tipo de Comercios*/
 	public static final int TELEFONICA = 1;
 	public static final int COMPANIA_DE_SERVICIOS = 2;

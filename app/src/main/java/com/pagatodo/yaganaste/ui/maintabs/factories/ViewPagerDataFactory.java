@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.maintabs.factories;
 
 import android.support.v4.app.Fragment;
+import android.util.Log;
 
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
@@ -46,30 +47,36 @@ public class ViewPagerDataFactory {
 
     public static ViewPagerData createList(final TABS type) {
         List<Fragment> fragmentList = new ArrayList<>();
-        switch (type){
+        switch (type) {
             case MAIN:
                 fragmentList.add(HomeTabFragment.newInstance());
+                fragmentList.add(GetMountFragment.newInstance());
                 fragmentList.add(PaymentsTabFragment.newInstance());
-                fragmentList.add(BlankFragment.newInstance());
-                if(SingletonUser.getInstance().getDataUser().isEsAgente()
+                //fragmentList.add(BlankFragment.newInstance());
+                Log.e("view pager ", "esAgente" + SingletonUser.getInstance().getDataUser().isEsAgente());
+                Log.e("view pager ", "estatus Agente" + SingletonUser.getInstance().getDataUser().getEstatusAgente());
+                if (SingletonUser.getInstance().getDataUser().isEsAgente()
                         && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
                     fragmentList.add(GetMountFragment.newInstance());
-                }else if(SingletonUser.getInstance().getDataUser().isEsAgente()
-                    && SingletonUser.getInstance().getDataUser().getEstatusAgente() != CRM_DOCTO_APROBADO){
+                    //fragmentList.add(Documentos.newInstance());
+                } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() != CRM_DOCTO_APROBADO) {
+
                     fragmentList.add(Documentos.newInstance());
-                }else {
+                } else {
+                    // fragmentList.add(Documentos.newInstance());
                     fragmentList.add(InviteAdquirenteFragment.newInstance());
                 }
 
-                return new ViewPagerData<> (fragmentList, MainTab.values());
+                return new ViewPagerData<>(fragmentList, MainTab.values());
 
             case HOME_FRAGMENT:
                 fragmentList.add(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.MOVEMENTS));
                 fragmentList.add(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.PAYMENTS));
-                return new ViewPagerData<> (fragmentList, AdqEmTab.values());
+                return new ViewPagerData<>(fragmentList, AdqEmTab.values());
 
             case PERSONAL_ACCOUNT:
-                return new ViewPagerData<> (null,  DateUtil.getLastMovementstMonths().toArray(new MonthsMovementsTab[0]));
+                return new ViewPagerData<>(null, DateUtil.getLastMovementstMonths().toArray(new MonthsMovementsTab[0]));
 
             case PAYMENTS:
                 return new ViewPagerData<>(null, DateUtil.getTabAdquirente());
@@ -78,7 +85,7 @@ public class ViewPagerDataFactory {
                 fragmentList.add(OtpGeneratorFragment.newInstance());
                 fragmentList.add(BalanceFragment.newInstance());
                 fragmentList.add(GetMountFragment.newInstance());
-                return new ViewPagerData<> (fragmentList, SessionExistTab.values());
+                return new ViewPagerData<>(fragmentList, SessionExistTab.values());
 
 
             default:

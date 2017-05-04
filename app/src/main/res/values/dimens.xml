@@ -6,7 +6,7 @@
     <dimen name="thumb_off_set">8dp</dimen>
     <dimen name="fab_margin">10dp</dimen>
 
-    <dimen name="margin_doble">35dp</dimen>
+    <dimen name="margin_doble">25dp</dimen>
     <dimen name="margin_regular">30dp</dimen>
     <dimen name="margin_big">24dp</dimen>
     <dimen name="margin_elements">18dp</dimen>
@@ -14,11 +14,13 @@
     <dimen name="generic_padig">12dp</dimen>
     <dimen name="margin_medium">12dp</dimen>
     <dimen name="margin_small">6dp</dimen>
+    <dimen name="margin_xsmall">3dp</dimen>
 
     <dimen name="btn_margin_bottom">12dp</dimen>
     <dimen name="btn_corner_radius">24dp</dimen>
     <dimen name="edit_corner_radius">2dp</dimen>
 
+    <dimen name="seekbar_thumb__arrow_height">20dp</dimen>
 
     <dimen name="ad_em_tab_mount_text_size">10sp</dimen>
 
@@ -49,4 +51,8 @@
     <dimen name="strock_width">1dp</dimen>
 
     <dimen name="radio_image_pago">85dp</dimen>
+
+    <dimen name="width_icon_error">24dp</dimen>
+    <dimen name="height_icon_error">24dp</dimen>
 </resources>
+

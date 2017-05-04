@@ -28,5 +28,7 @@ public interface IAccountIteractorNew <T>{
     public void getSMSNumber();
     public void verifyActivationSMS();
     public void assignmentNIP(AsignarNIPRequest request);
+    void checkDocs();
+
 }
 

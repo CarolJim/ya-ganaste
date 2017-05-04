@@ -26,8 +26,10 @@ import butterknife.ButterKnife;
  */
 
 public class LandingFragment extends Activity implements Animation.AnimationListener {
+
     private View rootview;
     private String imagePath;
+
     @BindView(R.id.tutorialPage1)
     RelativeLayout tutorialPage1;
     @BindView(R.id.tutorialPage2)
@@ -52,12 +54,10 @@ public class LandingFragment extends Activity implements Animation.AnimationList
         setContentView(R.layout.fragment_landing);
         ButterKnife.bind(this, this);
         //tutorialScreen.setOnClickListener(this);
-
         animFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         animFadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         animFadeOut.setAnimationListener(this);
         animFadeIn.setAnimationListener(this);
-
         tutorialPage1.setVisibility(View.VISIBLE);
         //tutorialPage1.startAnimation(animFadeIn);
     }
