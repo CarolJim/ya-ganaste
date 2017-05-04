@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputFilter;
@@ -32,6 +33,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CABLE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
+import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 
 /**
  * Created by Jordan on 12/04/2017.
@@ -190,4 +192,5 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
     public void onNothingSelected(AdapterView<?> parent) {
 
     }
+
 }

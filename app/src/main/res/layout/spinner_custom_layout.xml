@@ -5,7 +5,7 @@
     android:background="@drawable/rounded_border_edittext"
     android:orientation="horizontal">
 
-    <EditText
+    <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
         android:id="@+id/editTextCustomSpinner"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"

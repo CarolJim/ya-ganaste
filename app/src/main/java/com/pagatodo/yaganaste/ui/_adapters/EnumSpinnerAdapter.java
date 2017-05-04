@@ -9,10 +9,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 /**
  * Created by Jordan on 23/03/2017.
@@ -41,7 +41,7 @@ public class EnumSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
             row = inflater.inflate(mLayoutResourceId, parent, false);
 
             holder = new Holder();
-            holder.txtTitle = (TextView) row.findViewById(R.id.textView_spinner);
+            holder.txtTitle = (StyleTextView) row.findViewById(R.id.textView_spinner);
 
             row.setTag(holder);
         } else {
@@ -58,19 +58,19 @@ public class EnumSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
         return super.getItemId(position);
     }
 
-    public String getItemIdString(int position){
+    public String getItemIdString(int position) {
         return mItems[position].getId();
     }
 
-    public int getPositionItemByName(String name){
-        for(int position = 0 ; position< mItems.length;position++){
-            if(mItems[position].getName().equals(name))
-               return position;
+    public int getPositionItemByName(String name) {
+        for (int position = 0; position < mItems.length; position++) {
+            if (mItems[position].getName().equals(name))
+                return position;
         }
         return 0;
     }
 
     static class Holder {
-        TextView txtTitle;
+        StyleTextView txtTitle;
     }
 }

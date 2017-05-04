@@ -165,7 +165,8 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnMainCreateAccount:
-                Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+                //Intent intent = new Intent(MainActivity.this, AccountActivity.class);
+                Intent intent = new Intent(MainActivity.this, TabActivity.class);
                 intent.putExtra(SELECTION,GO_TO_REGISTER);
                 startActivity(intent);
                 break;

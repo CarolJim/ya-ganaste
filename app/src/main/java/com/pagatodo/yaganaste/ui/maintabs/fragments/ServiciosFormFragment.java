@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.utils.NumberTextWatcher;
 import butterknife.BindView;
 
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB2;
+import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 
 /**
@@ -143,4 +144,5 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
         concepto = serviceConcept.getText().toString().trim();
         serviciosPresenter.validateFields(referencia, serviceImport.getText().toString().trim(), concepto);
     }
+
 }

@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -20,6 +21,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
+import com.pagatodo.yaganaste.ui.payments.fragments.PaymentSuccessFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentsProcessingManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsProcessingPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcessingPresenter;
@@ -27,6 +29,8 @@ import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.pagatodo.yaganaste.interfaces.enums.Direction.*;
 
 /**
  * Created by Jordan on 25/04/2017.
@@ -65,7 +69,7 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
                 container.setVisibility(View.VISIBLE);
                 View root = container.getRootView();
                 root.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
-                loadFragment(PaymentAuthorizeFragment.newInstance((Envios)pago), Direction.NONE, false);
+                loadFragment(PaymentAuthorizeFragment.newInstance((Envios) pago), NONE, false);
             }
 
         } catch (OfflineException e) {
@@ -79,11 +83,11 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
         showLoader("Procesando Pago");
     }
 
-    public PaymentsProcessingManager getManager(){
+    public PaymentsProcessingManager getManager() {
         return this;
     }
 
-    public IPaymentsProcessingPresenter getPresenter(){
+    public IPaymentsProcessingPresenter getPresenter() {
         return presenter;
     }
 
@@ -106,19 +110,35 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
 
     @Override
     public void onBackPressed() {
-        super.onBackPressed();
+        Intent intent = new Intent();
+        setResult(2, intent);
+        finish();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     @Override
     public void onSuccessPaymentRespone(DataSourceResult result) {
         hideLoader();
+        container.setVisibility(View.VISIBLE);
+        View root = container.getRootView();
+        root.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
+        loadFragment(PaymentSuccessFragment.newInstance(), NONE, false);
     }
 
     @Override
     public void onFailPaimentResponse(DataSourceResult error) {
-        EjecutarTransaccionResponse data = (EjecutarTransaccionResponse) error.getData();
-        Toast.makeText(this, data.getMensaje(), Toast.LENGTH_LONG).show();
+        try {
+            EjecutarTransaccionResponse data = (EjecutarTransaccionResponse) error.getData();
+            if (data.getMensaje() != null)
+                Toast.makeText(this, data.getMensaje(), Toast.LENGTH_LONG).show();
+
+        } catch (ClassCastException ex) {
+            ex.printStackTrace();
+        }
+
+        Intent intent = new Intent();
+        intent.putExtra("MESSAGE", "Fail");
+        setResult(2, intent);
         finish();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }

@@ -16,7 +16,7 @@
 
     <dimen name="btn_margin_bottom">12dp</dimen>
     <dimen name="btn_corner_radius">24dp</dimen>
-    <dimen name="edit_corner_radius">4dp</dimen>
+    <dimen name="edit_corner_radius">2dp</dimen>
 
     <dimen name="seekbar_radius">20dp</dimen>
     <dimen name="seekbar_thumb_width">90dp</dimen>

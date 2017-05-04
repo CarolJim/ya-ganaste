@@ -253,6 +253,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         List<Fragment> fragmentList = fragmentManager.getFragments();
+
         if (fragmentList != null) {
             if (requestCode == CONTACTS_CONTRACT) {
                 for (Fragment fragment : fragmentList) {
@@ -271,6 +272,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
                 }
             }
         }
+
     }
 
     public MovementsTab getCurrenTab() {
