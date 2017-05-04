@@ -45,6 +45,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucu
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioPrincipalResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerSubgirosResponse;
@@ -54,6 +55,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormat
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.utils.customviews.yaganasteviews.TabLayoutEmAd;
 
 import java.util.Map;
 
@@ -80,6 +82,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOCALIZAR_SUCUR
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_CATALOGOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_SUBGIROS;
@@ -528,6 +531,27 @@ public class ApiAdtvo extends Api {
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerDomicilioPrincipal),
                 headers,null, ObtenerDomicilioPrincipalResponse.class,result);
     }
+
+
+    /**
+     * Metodo para obtener el domicilio del usuario
+     */
+
+    /**
+     * Método que se invoca cuando se desea actualizar la información obtenida del Usuario/Cliente.
+     *
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    /*public static void obtenerDomicilioPrincipal(IRequestResult result)  throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        // TODO: 04/05/2017
+        headers.put(RequestHeaders.TokenSesion, "DFB92E71E6BED2E09722233C7C7FC93135C5941DD3A402DF1383D9967793ECD9A5894FFC9A39F88AB53B082EA71B1158");
+
+        NetFacade.consumeWS(OBTENER_DOMICILIO,
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerDomicilio),
+                headers,null, ObtenerDomicilioResponse.class,result);
+    }*/
 
 
 }

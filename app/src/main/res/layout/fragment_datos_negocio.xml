@@ -34,10 +34,19 @@
 
         <Spinner
             android:id="@+id/spinnerBussineLine"
-            style="@style/SpinnerNoArrow"
+            style="@style/Spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editBussinesName"
+            android:background="@null"
+            app:backgroundTint="@color/transparent" />
+
+        <Spinner
+            android:id="@+id/spinnerSubBussineLine"
+            style="@style/Spinner"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinnerBussineLine"
             android:background="@null"
             app:backgroundTint="@color/transparent" />
 
@@ -47,12 +56,12 @@
             style="@style/FragmentElement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/spinnerBussineLine"
+            android:layout_below="@+id/spinnerSubBussineLine"
             app:formato="phone"
             app:hintText="@string/txt_phone"
             app:imageIsGone="true"
             app:isSingleLine="true"
-            app:maxLength="10" />
+            app:maxLength="8" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/textPublicServant"
@@ -85,7 +94,6 @@
 
             <RadioButton
                 android:id="@+id/radioBtnPublicServantNo"
-                style="@style/CustomRadioButton"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
