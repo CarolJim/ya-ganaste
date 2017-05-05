@@ -3,6 +3,8 @@ package com.pagatodo.yaganaste.data;
 import com.pagatodo.yaganaste.interfaces.enums.DataSource;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 
+import java.io.Serializable;
+
 /**
  * Created by flima on 20/02/2017.
 
@@ -13,7 +15,7 @@ import com.pagatodo.yaganaste.interfaces.enums.WebService;
  *
  */
 
-public class DataSourceResult {
+public class DataSourceResult implements Serializable {
 
     protected DataSource typeDataSource;
     protected Object data;

@@ -9,7 +9,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
 
 public class EjecutarTransaccionResponse extends GenericResponse {
 
-    @SerializedName("data")
+    @SerializedName("Data")
     private DataTransaccion Data;
 
     public EjecutarTransaccionResponse() {

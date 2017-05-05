@@ -94,8 +94,13 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        layoutCarouselMain.setVisibility(View.VISIBLE);
         paymentsCarouselPresenter.getCarouselItems();
+        txtLoadingServices.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paymentsCarouselPresenter.getCarouselItems();
+            }
+        });
         //setCarouselAdapter(this.paymentsCarouselPresenter.getCarouselArray());
 
     }
@@ -126,6 +131,8 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     @Override
     public void showError() {
         Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+        layoutCarouselMain.setVisibility(View.GONE);
+        txtLoadingServices.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -140,6 +147,8 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
 
     @Override
     public void setCarouselData(ArrayList<CarouselItem> response) {
+        layoutCarouselMain.setVisibility(View.VISIBLE);
+        txtLoadingServices.setVisibility(View.GONE);
         if (isFromClick) {
             dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
             dialog.show();

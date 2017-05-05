@@ -21,13 +21,14 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 
 public class SplashActivity extends AppCompatActivity implements IRequestResult {
     private Preferencias pref;
+    private CatalogsDbApi api;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash_activity_layout);
-
+        api = new CatalogsDbApi(this);
         pref = App.getInstance().getPrefs();
         final IRequestResult iRequestResult = this;
         final Handler handler = new Handler();
@@ -35,7 +36,11 @@ public class SplashActivity extends AppCompatActivity implements IRequestResult 
             @Override
             public void run() {
                 try {
-                    ApiAdtvo.obtenerCatalogos(new ObtenerCatalogoRequest(), iRequestResult);
+                    if (api.isCatalogTableEmpty()) {
+                        ApiAdtvo.obtenerCatalogos(new ObtenerCatalogoRequest(), iRequestResult);
+                    }else {
+                        callMainActivity();
+                    }
                 } catch (OfflineException e) {
                     e.printStackTrace();
                     callMainActivity();
@@ -51,7 +56,6 @@ public class SplashActivity extends AppCompatActivity implements IRequestResult 
                 ObtenerCatalogosResponse response = (ObtenerCatalogosResponse) result.getData();
                 if (response.getCodigoRespuesta() == CODE_OK) {
                     try {
-                        CatalogsDbApi api = new CatalogsDbApi(this);
                         api.insertComercios(response.getData().getComercios());
                     } catch (Exception e) {
                         e.printStackTrace();

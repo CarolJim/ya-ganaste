@@ -16,6 +16,9 @@ import com.pagatodo.yaganaste.ui.payments.interactors.interfaces.IPaymentsProces
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentsProcessingManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcessingPresenter;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB1;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB2;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
@@ -43,12 +46,24 @@ public class PaymentsProcessingPresenter implements IPaymentsProcessingPresenter
         }else if (tab == TAB3){
             interactor.sendEnvio((Envios)obj);
         }*/
+
+
         Handler handler = new Handler();
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
+                Calendar c = Calendar.getInstance();
+                SimpleDateFormat df = new SimpleDateFormat("dd-MMM-yyyy");
+                SimpleDateFormat dfH = new SimpleDateFormat("HH:mm:ss");
+                String formattedDate = df.format(c.getTime());
+
+                DataTransaccion dataTransaccion = new DataTransaccion();
+                dataTransaccion.setFecha(formattedDate);
+                dataTransaccion.setHora(dfH.format(c.getTime()));
+                dataTransaccion.setNumeroAutorizacion("123456DK");
                 EjecutarTransaccionResponse data = new EjecutarTransaccionResponse();
                 data.setCodigoRespuesta(CODE_OK);
+                data.setData(dataTransaccion);
                 DataSourceResult sourceResult = new DataSourceResult(null, null, data);
                 onSuccessPayment(sourceResult);
             }

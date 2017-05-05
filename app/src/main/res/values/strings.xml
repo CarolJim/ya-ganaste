@@ -335,6 +335,8 @@
     <string name="child_tab_services">Servicios</string>
     <string name="child_tab_mony_send">Envíos</string>
     <string name="comision_service_payment">La Comisión por Realizar la Operación es de $10</string>
+    <string name="title_recarga_success">¡Recarga Exitosa!</string>
+
 
     <string name="transfer_phone">Número de Teléfono</string>
     <string name="transfer_cable">Cuenta CABLE</string>
