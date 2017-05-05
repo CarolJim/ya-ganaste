@@ -5,6 +5,8 @@ import android.app.DatePickerDialog;
 import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +26,7 @@ import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
 import java.util.Calendar;
 
@@ -59,6 +62,8 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     Button btnBackDatosPersonales;
     @BindView(R.id.btnNextPersonalInfo)
     Button btnNextDatosPersonales;
+    @BindView(R.id.errorMessage)
+    ErrorMessage errorMessageView;
     StatesSpinnerAdapter adapterBirthPlace;
 
     private String genero = "";
@@ -115,6 +120,7 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     public void initViews() {
         ButterKnife.bind(this, rootview);
         editBirthDay.setFullOnClickListener(onClickListenerDatePicker);
+        errorMessageView.setVisibilityImageError(false);
         adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout, States.values());
         spinnerBirthPlace.setAdapter(adapterBirthPlace);
         spinnerBirthPlace.setOnItemSelectedListener(this);
@@ -122,6 +128,7 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         btnBackDatosPersonales.setOnClickListener(this);
         radioBtnMale.setChecked(true);
         setCurrentData();// Seteamos datos si hay registro en proceso.
+        setValidationRules();
     }
 
     @Override
@@ -144,6 +151,54 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     /*Implementacion de ValidationForms*/
     @Override
     public void setValidationRules() {
+
+        editNames.addCustomTextWatcher(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+                if(!editNames.isValidText()){
+                    hideErrorMessage();
+                }
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        editFirstLastName.addCustomTextWatcher(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!editFirstLastName.isValidText()){
+                    hideErrorMessage();
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+        editBirthDay.addCustomTextWatcher(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(!editBirthDay.isValidText()){
+                    hideErrorMessage();
+                }
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+            }
+        });
+
+
     }
 
     @Override
@@ -151,14 +206,17 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         getDataForm();
         if(nombre.isEmpty()){
             showValidationError(getString(R.string.datos_personal_nombre));
+            editNames.setIsInvalid();
             return;
         }
         if(apPaterno.isEmpty()){
             showValidationError(getString(R.string.datos_personal_paterno));
+            editFirstLastName.setIsInvalid();
             return;
         }
         if(fechaNacimiento.isEmpty()){
             showValidationError(getString(R.string.datos_personal_fecha));
+            editBirthDay.setIsInvalid();
             return;
         }
         if(lugarNacimiento.isEmpty()){
@@ -170,7 +228,13 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
 
     @Override
     public void showValidationError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+        errorMessageView.setMessageText(error.toString());
+        UI.hideKeyBoard(getActivity());
+        //UI.showToastShort(error.toString(),getActivity());
+    }
+
+    private void hideErrorMessage(){
+        errorMessageView.setVisibilityImageError(false);
     }
 
     @Override
