@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -195,6 +196,11 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         this.listaColonias = listaColonias;
         this.estadoDomicilio = listaColonias.get(0).getEstado();
         fillAdapter();
+    }
+
+    @Override
+    public void setCurrentAddress(ObtenerDomicilioResponse domicilio) {
+        //No-Op
     }
 
     @Override
