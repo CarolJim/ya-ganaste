@@ -23,7 +23,7 @@ public class ValidateForm {
     private final static Pattern genericCreditCard = Pattern.compile("^[0-9]{16}$");
     private final static Pattern cablePtrn = Pattern.compile("^[0-9]{18}$");
 
-    private final static Pattern phonePattern = Pattern.compile("^[0-9]{7}$");
+    private final static Pattern phonePattern = Pattern.compile("^[0-9]{8}|[0-9]{10}$");
     private final static Pattern cellPhonePattern = Pattern.compile("^[0-9]{10}$");
 
     /**

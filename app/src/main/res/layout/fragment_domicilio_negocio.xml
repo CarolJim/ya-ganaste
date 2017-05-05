@@ -27,6 +27,7 @@
             style="@style/FragmentElementTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
             app:formato="text"
             app:hintText="@string/streetHint"
             app:isSingleLine="true"
@@ -180,18 +181,24 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
         android:orientation="horizontal">
 
         <Button
             android:id="@+id/btnBackBussinesAddress"
+            style="@style/buttonSmallRoundedGray"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".2"
             android:text="@string/backButton"
             android:textAllCaps="false" />
+        <android.support.v4.widget.Space
+            android:layout_width="10dp"
+            android:layout_height="wrap_content" />
 
         <Button
             android:id="@+id/btnNextBussinesAddress"
+            style="@style/buttonSmallRoundedBlue"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_weight=".8"

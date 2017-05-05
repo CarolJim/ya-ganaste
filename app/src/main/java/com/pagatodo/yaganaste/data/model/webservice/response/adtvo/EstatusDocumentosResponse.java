@@ -11,12 +11,11 @@ public class EstatusDocumentosResponse implements Serializable{
     private int TipoDocumento;
     private String Estatus = "";
     private String Comentario = "";
-
+    private int IdEstatus;
+    private String Motivo ="";
 
     public EstatusDocumentosResponse() {
-
     }
-
     public int getTipoDocumento() {
         return TipoDocumento;
     }
@@ -39,5 +38,21 @@ public class EstatusDocumentosResponse implements Serializable{
 
     public void setComentario(String comentario) {
         Comentario = comentario;
+    }
+
+    public int getIdEstatus() {
+        return IdEstatus;
+    }
+
+    public void setIdEstatus(int idEstatus) {
+        IdEstatus = idEstatus;
+    }
+
+    public String getMotivo() {
+        return Motivo;
+    }
+
+    public void setMotivo(String motivo) {
+        Motivo = motivo;
     }
 }

@@ -35,6 +35,10 @@ import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesIFEfront;
 import static com.pagatodo.yaganaste.interfaces.enums.DataSource.WS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
+import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
+import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
+import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
@@ -74,7 +78,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             for (EstatusDocumentosResponse estatusDocs : this.mListaDocumentos) {
                 int tipoDoc = estatusDocs.getTipoDocumento();
 
-                switch (estatusDocs.getEstatus()) {
+                switch (estatusDocs.getIdEstatus()) {
                     case STATUS_DOCTO_APROBADO:
                         mDrawable = ContextCompat.getDrawable(context, R.mipmap.ic_validate_blue);
                         bitmapEstatus = ((BitmapDrawable) mDrawable).getBitmap();
@@ -92,16 +96,16 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
                         bitmapEstatus = ((BitmapDrawable) mDrawable).getBitmap();
                         break;
                 }
-                if (tipoDoc == 5) {
+                if (tipoDoc == DOC_ID_FRONT) {
                     UploadDocumentView IFEfront = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesIFEfront);
                     IFEfront.setStatusImage(bitmapEstatus);
-                } else if (tipoDoc == 6) {
+                } else if (tipoDoc == DOC_ID_BACK) {
                     UploadDocumentView IFEback = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesIFEBack);
                     IFEback.setStatusImage(bitmapEstatus);
-                } else if (tipoDoc == 7) {
+                } else if (tipoDoc == DOC_DOM_FRONT) {
                     UploadDocumentView Addressfront = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesAddressFront);
                     Addressfront.setStatusImage(bitmapEstatus);
-                } else if (tipoDoc == 8) {
+                } else if (tipoDoc == DOC_DOM_BACK) {
                     UploadDocumentView Addressback = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesAddressBack);
                     Addressback.setStatusImage(bitmapEstatus);
                 }

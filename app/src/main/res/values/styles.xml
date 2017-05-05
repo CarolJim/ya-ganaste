@@ -85,7 +85,7 @@
     </style>
     <style name="buttonSmallRoundedGray">
         <!-- Crear shape con el estilo y color en gris para este boton  -->
-        <item name="android:background">@color/grayColor</item>
+        <!--<item name="android:drawable">@drawable/ic_boton regresar</item>-->
         <item name="android:textColor">@android:color/white</item>
         <item name="buttonRippleColor2">@drawable/button_rounded_blue</item>
         <item name="buttonNormalColor">@drawable/button_rounded_blue</item>

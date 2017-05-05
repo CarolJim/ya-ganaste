@@ -18,6 +18,7 @@
             android:paddingTop="6dp"
             android:paddingBottom="6dp"
             android:layout_weight="20"
+            android:textColorHint="@color/whiteColor_disable"
             android:background="@null"
             android:backgroundTint="@color/transparent"
             android:textSize="14sp" />

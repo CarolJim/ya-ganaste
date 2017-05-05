@@ -79,8 +79,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     private static final int COMPROBANTE_BACK = 4;
     private View rootview;
 
-
-
     @BindView(R.id.itemWeNeedSmFilesIFEfront)
     UploadDocumentView itemWeNeedSmFilesIFEfront;
     @BindView(R.id.itemWeNeedSmFilesIFEBack)
@@ -130,11 +128,8 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         contador = new ArrayList<>();
         adqPresenter = new AccountAdqPresenter(this,getContext());
-
-
     }
 
     @Override
@@ -151,6 +146,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
         rootview = inflater.inflate(R.layout.fragments_documents, container, false);
         initViews();
 
@@ -177,16 +173,8 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             itemWeNeedSmFilesAddressBack.setOnClickListener(this);
             btnWeNeedSmFilesNext.setOnClickListener(this);
             btnRegresar.setOnClickListener(this);
-           /* showStatusDocs(rootview);
-            adqPresenter.setListaDocs(rootview);*/
-        }/*
-        itemWeNeedSmFilesIFEfront.setOnClickListener(this);
-        itemWeNeedSmFilesIFEBack.setOnClickListener(this);
-        itemWeNeedSmFilesAddressFront.setOnClickListener(this);
-        itemWeNeedSmFilesAddressBack.setOnClickListener(this);
-        btnWeNeedSmFilesNext.setOnClickListener(this);
-        btnRegresar.setOnClickListener(this);*/
 
+        }
     }
 
 
@@ -312,7 +300,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                     itemWeNeedSmFilesIFEfront.setImageBitmap(bitmap);
                     itemWeNeedSmFilesIFEfront.setStatusImage(bitmap);
                     itemWeNeedSmFilesIFEfront.setVisibilityStatus(false);
-
                     itemWeNeedSmFilesIFEfront.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
 

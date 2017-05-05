@@ -26,6 +26,7 @@
             style="@style/FragmentElementTop"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="42dp"
             app:formato="text"
             app:hintText="@string/bussinesName"
             app:imageIsGone="true"
@@ -121,6 +122,7 @@
         android:layout_below="@+id/layoutContent"
         android:layout_marginLeft="@dimen/margin_big"
         android:layout_marginRight="@dimen/margin_big"
+        android:layout_marginBottom="@dimen/margin_medium"
         android:padding="2dp"
         android:gravity="bottom"
         android:orientation="horizontal">

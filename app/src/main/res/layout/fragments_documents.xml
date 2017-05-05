@@ -7,10 +7,14 @@
     android:layout_height="match_parent"
     tools:context="com.pagatodo.yaganaste.ui._controllers.BussinesActivity">
 
+    <include
+        android:id="@+id/toolbarLy"
+        layout="@layout/toolbar" />
+
     <ScrollView
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbarLy">
+        android:layout_marginTop="?android:attr/actionBarSize">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -183,68 +187,70 @@
 
 
 
-            <LinearLayout
-                android:id="@+id/lnr_buttons"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="32dp"
-                android:gravity="center"
-                android:visibility="gone"
-                android:orientation="horizontal">
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                    android:id="@+id/btnRegresar"
-                    style="@style/buttonSmallRoundedGray"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:text="@string/back" />
-
-                <android.support.v4.widget.Space
-                    android:layout_width="16dp"
-                    android:layout_height="0dp" />
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                    android:id="@+id/btnWeNeedSmFilesNext"
-                    style="@style/buttonSmallRoundedBlue"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-
-                    android:layout_alignParentTop="true"
-                    android:layout_toEndOf="@+id/btnBack"
-                    android:layout_toRightOf="@+id/btnBack"
-                    android:layout_weight="1"
-                    android:text="@string/next" />
-            </LinearLayout>
-
-            <LinearLayout
-                android:id="@+id/lnr_help"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginTop="32dp"
-                android:gravity="center"
-                android:visibility="gone"
-                android:orientation="horizontal">
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="@dimen/space_between_forms"
-                    android:gravity="center"
-                    android:text="@string/documents_help"
-                    android:textSize="14dp" />
-
-            </LinearLayout>
 
 
         </LinearLayout>
 
     </ScrollView>
 
+    <LinearLayout
+        android:id="@+id/lnr_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:visibility="gone"
+        android:orientation="horizontal">
 
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnRegresar"
+            style="@style/buttonSmallRoundedGray"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight=".2"
+            android:text="@string/volver" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="10dp"
+            android:layout_height="0dp" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnWeNeedSmFilesNext"
+            style="@style/buttonSmallRoundedBlue"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_toEndOf="@+id/btnBack"
+            android:layout_toRightOf="@+id/btnBack"
+            android:layout_weight=".8"
+            android:text="@string/next" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/lnr_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:visibility="gone"
+        android:orientation="horizontal">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="@dimen/space_between_forms"
+            android:gravity="center"
+            android:text="@string/documents_help"
+            android:textSize="14dp" />
+
+    </LinearLayout>
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressLayout"
         android:layout_width="match_parent"
