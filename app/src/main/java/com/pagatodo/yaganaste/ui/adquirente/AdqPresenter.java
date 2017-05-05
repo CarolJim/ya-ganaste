@@ -90,6 +90,11 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
     }
 
     @Override
+    public void hideLoader() {
+        iAdqView.hideLoader();
+    }
+
+    @Override
     public void onSucces(WebService ws,Object data) {
         switch (ws){
             case REGISTRO_DONGLE:

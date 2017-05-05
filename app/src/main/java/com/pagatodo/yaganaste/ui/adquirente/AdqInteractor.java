@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
+import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.EnviarTicketCompraRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.FirmaDeVoucherRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
@@ -26,6 +27,7 @@ import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
 import com.pagatodo.yaganaste.interfaces.enums.AccountOperation;
+import com.pagatodo.yaganaste.interfaces.enums.DataSource;
 import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -82,15 +84,15 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     @Override
     public void registerDongle() {
 
-        RequestHeaders.setTokenAdq("383dedf37ef830ae351849c681dc9db70ce5745a714ac6d43983dcd0b2a90887");
-        RequestHeaders.setIdCuenta("11040");
+        RequestHeaders.setTokenAdq("b673bd7a528c0ac45366c7df8af53c70cacf2dc3610d788bec4c1bda9040ebf0");
+        RequestHeaders.setIdCuenta("12045");
 //        if(!RequestHeaders.getTokenAdq().isEmpty()){
             String serial = prefs.loadData(KSN_LECTOR);
             RegistroDongleRequest request = new RegistroDongleRequest(serial);
             try {
                 ApiAdq.registroDongle(request,this);
             } catch (OfflineException e) {
-                e.printStackTrace();
+                accountManager.hideLoader();
             }
 //        }else{
 //            accountOperation = LOGIN_ADQ_PAYMENT;
@@ -108,6 +110,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     @Override
     public void initPayment(final TransaccionEMVDepositRequest request) {
         try {
+            RequestHeaders.setIdCuenta("12045");
             ApiAdq.transaccionEMVDeposit(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
