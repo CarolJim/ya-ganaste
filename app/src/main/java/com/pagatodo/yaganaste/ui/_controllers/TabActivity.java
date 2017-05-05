@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.TabPresenter;
@@ -133,32 +134,67 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        List<Fragment> fragmentList = fragmentManager.getFragments();
-        if (requestCode == Constants.CONTACTS_CONTRACT || requestCode == Constants.BARCODE_READER_REQUEST_CODE) {
-            if (fragmentList != null) {
-                for (Fragment fragment : fragmentList) {
-                    if (fragment instanceof PaymentsTabFragment) {
-                        fragment.onActivityResult(requestCode, resultCode, data);
-                        break;
+        if (requestCode == Constants.CONTACTS_CONTRACT
+                || requestCode == Constants.BARCODE_READER_REQUEST_CODE
+                || requestCode == BACK_FROM_PAYMENTS) {
+
+            Fragment childFragment = getFragment(0);
+            if (childFragment != null && requestCode != BACK_FROM_PAYMENTS) {
+                childFragment.onActivityResult(requestCode, resultCode, data);
+            } else if (childFragment != null && requestCode == BACK_FROM_PAYMENTS) {
+                if (data.getStringExtra("MESSAGE") != null && data.getStringExtra("MESSAGE").equals("Fail")) {
+                    if (childFragment != null) {
+                        List<Fragment> fragmentList2 = childFragment.getChildFragmentManager().getFragments();
+                        PaymentFormBaseFragment paymentFormBaseFragment = getVisibleFragment(fragmentList2);
+                        if (paymentFormBaseFragment != null) {
+                            paymentFormBaseFragment.setSeekBarProgress(0);
+
+                        }
                     }
+                } else {
+                    Intent intent = getIntent();
+                    finish();
+                    startActivity(intent);
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
             }
         } else if (requestCode == Documentos.REQUEST_TAKE_PHOTO || requestCode == Documentos.SELECT_FILE_PHOTO) {
-            if (fragmentList != null) {
-                for (Fragment fragment : fragmentList) {
+            if (getFragment(1) != null) {
+                getFragment(1).onActivityResult(requestCode, resultCode, data);
+            }
+        }
+    }
+
+    protected PaymentFormBaseFragment getVisibleFragment(List<Fragment> fragmentList) {
+        for (Fragment fragment2 : fragmentList) {
+            if (fragment2 instanceof PaymentFormBaseFragment) {
+                if (fragment2.isVisible()) {
+                    return ((PaymentFormBaseFragment) fragment2);
+                }
+            }
+        }
+        return null;
+    }
+
+    protected Fragment getFragment(int fragmentType) {
+        List<Fragment> fragmentList = fragmentManager.getFragments();
+        Fragment response = null;
+        if (fragmentList != null) {
+            for (Fragment fragment : fragmentList) {
+                if (fragmentType == 0) {
+                    if (fragment instanceof PaymentsTabFragment) {
+                        response = fragment;
+                        break;
+                    }
+                } else if (fragmentType == 1) {
                     if (fragment instanceof Documentos) {
-                        fragment.onActivityResult(requestCode, resultCode, data);
+                        response = fragment;
                         break;
                     }
                 }
             }
-        } else if (requestCode == BACK_FROM_PAYMENTS) {
-
-            Intent intent = getIntent();
-            finish();
-            startActivity(intent);
-            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
         }
+        return response;
     }
 
     @Override
