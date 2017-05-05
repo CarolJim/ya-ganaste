@@ -25,4 +25,6 @@ public class DataTransaccion implements Serializable {
     public void setSaldo(Double saldo) {
         Saldo = saldo;
     }
+
+
 }

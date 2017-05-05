@@ -16,8 +16,7 @@ public class RegisterAgent {
     private String nombre = "";
     private String telefono = "";
     private String razonSocial = "";
-    private int Giro;
-    private int subGiro;
+    private GiroComercio giro;
     private String latitud = "";
     private String longitud = "";
     private List<CuestionarioEntity> cuestionario;
@@ -75,22 +74,6 @@ public class RegisterAgent {
 
     public void setRazonSocial(String razonSocial) {
         this.razonSocial = razonSocial;
-    }
-
-    public int getGiro() {
-        return Giro;
-    }
-
-    public void setGiro(int giro) {
-        Giro = giro;
-    }
-
-    public int getSubGiro() {
-        return subGiro;
-    }
-
-    public void setSubGiro(int subGiro) {
-        this.subGiro = subGiro;
     }
 
     public String getLatitud() {
@@ -179,6 +162,14 @@ public class RegisterAgent {
 
     public static void setRegisterUser(RegisterAgent registerUser) {
         RegisterAgent.registerUser = registerUser;
+    }
+
+    public GiroComercio getGiro() {
+        return giro;
+    }
+
+    public void setGiro(GiroComercio giro) {
+        this.giro = giro;
     }
 
     public static void resetRegisterAgent(){

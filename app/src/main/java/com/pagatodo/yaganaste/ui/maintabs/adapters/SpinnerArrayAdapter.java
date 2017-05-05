@@ -11,6 +11,7 @@ import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.List;
@@ -94,7 +95,7 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
             row = inflater.inflate(R.layout.spinner_custom_layout, parent, false);
 
             holder = new SpinnerArrayAdapter.ViewHolder();
-            holder.editText = (EditText) row.findViewById(R.id.editTextCustomSpinner);
+            holder.editText = (StyleEdittext) row.findViewById(R.id.editTextCustomSpinner);
             holder.downArrow = (ImageView) row.findViewById(R.id.imageViewCustomSpinner);
             row.setTag(holder);
         } else {
@@ -130,7 +131,7 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
     }
 
     static class ViewHolder {
-        EditText editText;
+        StyleEdittext editText;
         ImageView downArrow;
     }
 

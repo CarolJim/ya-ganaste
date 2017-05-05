@@ -21,4 +21,5 @@ public interface IAdqAccountIteractor {
     public void getNeighborhoodByZipCode(String zipCode);
     public void getEstatusDocs(View view);
     public void setListDocuments(View view);
+    public void getClientAddress();
 }

@@ -72,7 +72,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layoutBussinesAddressNumbers"
-            android:orientation="horizontal">
+            android:orientation="vertical">
 
             <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                 android:id="@+id/editBussinesZipCode"
@@ -81,45 +81,44 @@
                 android:layout_weight=".5"
                 app:formato="zipcode"
                 app:hintText="@string/zipCodeHint"
+                android:inputType="number"
                 app:isSingleLine="true"
                 app:maxLength="5" />
 
-        </LinearLayout>
+            <android.support.v4.widget.Space
+                android:layout_width="@dimen/generic_padig"
+                style="@style/FragmentElement"
+                android:layout_height="match_parent" />
 
-        <LinearLayout
-            android:id="@+id/layoutBussinesCountry"
-            style="@style/FragmentElement"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layoutBussinesAddressComp"
-            android:orientation="vertical">
 
             <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                 android:id="@+id/editBussinesState"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight=".5"
-                app:hintText="@string/stateHint"
-                app:maxLines="1" />
+                app:maxLines="1"
+                app:hintText="@string/stateHint" />
+
+            <Spinner
+                android:id="@+id/spBussinesColonia"
+                android:layout_marginTop="@dimen/space_between_elements"
+                android:background="@null"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editBussinesState"
+                app:backgroundTint="@color/transparent" />
 
         </LinearLayout>
 
 
-        <Spinner
-            android:id="@+id/spBussinesColonia"
-            style="@style/SpinnerNoArrow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/layoutBussinesCountry"
-            android:background="@null"
-            app:backgroundTint="@color/transparent" />
+
 
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/textIsBussinesAddress"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/spBussinesColonia"
+            android:layout_below="@+id/layoutBussinesAddressComp"
             android:layout_marginLeft="@dimen/margin_regular"
             android:layout_marginRight="@dimen/margin_regular"
             android:layout_marginTop="@dimen/space_between_elements"

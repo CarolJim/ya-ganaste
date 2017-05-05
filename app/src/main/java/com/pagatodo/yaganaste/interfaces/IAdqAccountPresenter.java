@@ -12,4 +12,5 @@ public interface IAdqAccountPresenter {
     public void getNeighborhoods(String zipCode);
     public void getEstatusDocs(View view);
     public void setListaDocs(View view);
+    public void getClientAddress();
 }

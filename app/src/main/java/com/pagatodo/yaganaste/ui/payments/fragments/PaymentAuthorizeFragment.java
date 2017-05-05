@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentsProcessingManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcessingPresenter;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -41,12 +42,12 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @BindView(R.id.editPasswordEnvio)
     EditText pass;
     @BindView(R.id.editDestinatario)
-    TextView referencia;
+    StyleTextView referencia;
 
     @BindView(R.id.txt_nombre)
-    TextView nombre;
+    StyleTextView nombre;
     @BindView(R.id.txt_importe)
-    MontoTextView importe;
+    StyleTextView importe;
     @BindView(R.id.imgLogoPago)
     ImageView imgLogoPago;
 

@@ -61,6 +61,7 @@ public class PaymentsProcessingInteractor implements IPaymentsProcessingInteract
 
     @Override
     public void onFailed(DataSourceResult error) {
+        if(error != null)
         presenter.onFailPayment(error);
     }
 

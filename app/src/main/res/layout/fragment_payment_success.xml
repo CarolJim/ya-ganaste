@@ -1,36 +1,226 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    tools:context=".ui._controllers.PaymentsProcessingActivity">
 
     <include
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
 
-
-    <TextView
-        android:id="@+id/txt_title"
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Titulo" />
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:weightSum="90">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Importe:" />
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txt_paymentTitle"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:text="¡Recarga Exitosa!"
+            android:textColor="@color/colorAccent"
+            android:textSize="20sp"
+            app:tipo="Subtitulo" />
 
-    <TextView
-        android:id="@+id/txt_titleReferencia"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="referencia" />
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/textView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="5"
+            android:gravity="center"
+            android:text="Importe:"
+            android:textSize="16sp" />
 
-    <TextView
-        android:id="@+id/txt_referencia"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="$10.00" />
+
+        <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+            android:id="@+id/txt_importe"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:gravity="center"
+            android:text="70"
+            android:textAlignment="center"
+            android:textSize="22sp"
+            app:dotBottom="false"
+            app:symbolSmaller="true" />
+
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:gravity="center_horizontal|bottom"
+            android:text="Teléfono:"
+            app:tipo="Descripcion"
+            android:textSize="16sp" />
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="8"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/editDestinatario"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:gravity="center"
+                android:text="57 11 22 34" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="5dp"
+                android:layout_height="match_parent" />
+
+            <ImageView
+                android:id="@+id/imgLogoPago"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/logo_banco_azteca" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                android:text="Autorización:" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="5dp"
+                android:layout_height="match_parent" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="start"
+                android:text="123 45" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                android:text="Fecha:" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="5dp"
+                android:layout_height="match_parent" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="start"
+                android:text="21 / Mar / 17" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="4"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="end"
+                android:text="Hora:" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="5dp"
+                android:layout_height="match_parent" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:gravity="start"
+                android:text="12:12:12 hrs" />
+        </LinearLayout>
+
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:gravity="center_horizontal|bottom"
+            android:text="¿A Qué Correo Electrónico \nEnvíamos Tu Recibo?"
+            android:textColor="@color/colorAccent" />
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="10"
+            android:gravity="center">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/margin_doble"
+                android:layout_marginRight="@dimen/margin_doble"
+                android:background="@drawable/rounded_border_edittext"
+                android:orientation="horizontal">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
+                    android:id="@+id/editPasswordEnvio"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@null"
+                    android:backgroundTint="@color/transparent"
+                    android:hint="Correo Electrónico"
+                    android:inputType="text|textPassword"
+                    android:maxLength="40"
+                    android:paddingBottom="6dp"
+                    android:paddingTop="6dp"
+                    android:textSize="14sp" />
+
+            </LinearLayout>
+
+        </RelativeLayout>
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="17"
+            android:gravity="center">
+
+            <Button
+                android:id="@+id/btn_continueEnvio"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:text="Continuar" />
+        </RelativeLayout>
+
+    </LinearLayout>
 
 
 </LinearLayout>

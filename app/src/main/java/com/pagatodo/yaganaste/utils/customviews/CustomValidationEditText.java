@@ -9,9 +9,11 @@ import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -75,6 +77,10 @@ public class CustomValidationEditText extends LinearLayout {
                 maxLines = typedArray.getInt(R.styleable.CustomValidationEditText_maxLength, 0);
                 isSingleLine = typedArray.getBoolean(R.styleable.CustomValidationEditText_isSingleLine, false);
                 isTextEnabled = typedArray.getBoolean(R.styleable.CustomValidationEditText_isTextEnabled, true);
+
+                int inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
+                editText.setInputType(inputType);
+
             } catch (Exception e) {
                 Log.e(context.getPackageName(), "Error loading attributes:" + e.getMessage());
             } finally {
@@ -123,10 +129,12 @@ public class CustomValidationEditText extends LinearLayout {
                     break;
                 case "2"://phone
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_CLASS_PHONE);
+                    editText.setKeyListener(DigitsKeyListener.getInstance(getContext().getString(R.string.input_int_unsigned)));
                     setValidationListener(txt);
                     break;
                 case "3"://zipcode
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+                    editText.setKeyListener(DigitsKeyListener.getInstance(getContext().getString(R.string.input_int_unsigned)));
                     setValidationListener(txt);
                     break;
                 case "4"://text
@@ -135,9 +143,11 @@ public class CustomValidationEditText extends LinearLayout {
                     break;
                 case "5"://number
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER);
+
                     break;
                 case "6"://cellPhone
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_CLASS_PHONE);
+                    editText.setKeyListener(DigitsKeyListener.getInstance(getContext().getString(R.string.input_int_unsigned)));
                     setValidationListener(txt);
                     break;
             }

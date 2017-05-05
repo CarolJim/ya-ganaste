@@ -93,6 +93,11 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
 
             case GO_TO_REGISTER:
                 loadFragment(DatosUsuarioFragment.newInstance(), Direction.FORDWARD, false);
+                // TODO: 28/04/2017
+                resetRegisterData();
+                Intent intent = new Intent(AccountActivity.this, TabActivity.class);
+                startActivity(intent);
+                finish();
                 break;
 
         }
