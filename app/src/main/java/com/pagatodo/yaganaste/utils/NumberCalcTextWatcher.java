@@ -82,9 +82,6 @@ public class NumberCalcTextWatcher implements TextWatcher {
                             tvMontoDecimal.setText(montos[1]);
                         }
                 }
-                // Guardamos la cantidad en el modelo para recuperar en caso de perdida
-                TransactionAdqData.getCurrentTransaction()
-                        .setAmount(Utils.getCurrencyValue(strAmountEditText));
             }
         } else {
             //Si es diferente a 99, mostramos el formato y hacemos Set CodeKey
