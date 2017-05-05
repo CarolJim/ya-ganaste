@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.Selection;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -182,16 +183,19 @@ public class GetMountFragment extends PaymentFormBaseFragment {
     }
 
     private void setData(String amount, String concept) {
+        Log.d("GetMount", "setData After Amount " + amount);
         et_amount.setText(amount);
         Selection.setSelection(et_amount.getText(), et_amount.getText().toString().length());
         if (!concept.equals("")) {
             edtConcept.setText(concept);
         }
+        Log.d("GetMount", "setData Before Amount " + amount);
     }
 
     @Override
     public void onResume() {
         super.onResume();
+        Log.d("GetMount", "Resume Amount " + TransactionAdqData.getCurrentTransaction().getAmount());
         setData(TransactionAdqData.getCurrentTransaction().getAmount(), TransactionAdqData.getCurrentTransaction().getDescription());
     }
 }
