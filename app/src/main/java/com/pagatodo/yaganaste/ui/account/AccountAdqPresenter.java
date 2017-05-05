@@ -120,6 +120,11 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     }
 
     @Override
+    public void hideLoader() {
+        iAdqView.hideLoader();
+    }
+
+    @Override
     public void onSucces(WebService ws,Object data) {
 
         if(iAdqView instanceof IAdqRegisterView){

@@ -7,5 +7,6 @@ package com.pagatodo.yaganaste.data.model.webservice.response.adq;
 public class RegistroDongleResponse extends DataResultAdq {
 
     public RegistroDongleResponse() {
+        super();
     }
 }

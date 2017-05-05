@@ -198,6 +198,11 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
     }
 
     @Override
+    public void hideLoader() {
+        accountView.hideLoader();
+    }
+
+    @Override
     public void onSucces(WebService ws,Object data) {
         if(accountView instanceof IAccountRegisterView){
             if (ws == CREAR_USUARIO_COMPLETO) {
