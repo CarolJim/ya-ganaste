@@ -1,13 +1,13 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.SparseArray;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
+import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
@@ -32,19 +33,24 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADDRESS;
+import static com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter.TYPE.SUBTITLE;
+import static com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter.TYPE.TITLE;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_FAMILIAR;
 
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DatosNegocio extends GenericFragment implements View.OnClickListener, ValidationForms, INavigationView {
+public class DatosNegocio extends GenericFragment implements View.OnClickListener, ValidationForms, INavigationView, AdapterView.OnItemSelectedListener {
 
     private View rootview;
     @BindView(R.id.editBussinesName)
     CustomValidationEditText editBussinesName;
     @BindView(R.id.spinnerBussineLine)
     Spinner spinnerBussineLine;
+    @BindView(R.id.spinnerSubBussineLine)
+    Spinner spinnerSubBussineLine;
+
     @BindView(R.id.editBussinesPhone)
     CustomValidationEditText editBussinesPhone;
     @BindView(R.id.radioPublicServant)
@@ -64,16 +70,13 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
     private String telefono = "";
     private boolean respuestaFamiliares;
 
-    private List<GiroComercio> girosComercioComplete;
     private List<GiroComercio> girosComercio;
-    // private List<GiroComercio> subGirosComercio;
+    private List<GiroComercio> subGiros;
+    private SparseArray<List<GiroComercio>> girosSubgiros;
+
     private BussinesLineSpinnerAdapter giroArrayAdapter;
-    // private GiroArrayAdapter subGiroArrayAdapter;
-    private int giroSelected;
+    private BussinesLineSpinnerAdapter subGiroArrayAdapter;
 
-
-    public DatosNegocio() {
-    }
 
     public static DatosNegocio newInstance() {
         DatosNegocio fragmentRegister = new DatosNegocio();
@@ -82,29 +85,6 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
         return fragmentRegister;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -119,41 +99,45 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        subGiros = new ArrayList<>();
+        subGiroArrayAdapter = new BussinesLineSpinnerAdapter(getActivity(), R.layout.spinner_layout, subGiros, SUBTITLE);
+        spinnerBussineLine.setOnItemSelectedListener(this);
         btnBackBussinesInfo.setOnClickListener(this);
         btnNextBussinesInfo.setOnClickListener(this);
-        giroArrayAdapter = new BussinesLineSpinnerAdapter(getActivity(), R.layout.spinner_layout, girosComercio);
+        giroArrayAdapter = new BussinesLineSpinnerAdapter(getActivity(), R.layout.spinner_layout, girosComercio, TITLE);
         spinnerBussineLine.setAdapter(giroArrayAdapter);
+        spinnerSubBussineLine.setAdapter(subGiroArrayAdapter);
+        radioPublicServant.check(R.id.radioBtnPublicServantNo);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
         setCurrentData();// Seteamos datos si hay registro en proceso.
-
-        /*spnAreaBussinnes.setAdapter(giroArrayAdapter);
-        spnAreaBussinnes.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                giroSelected = giroArrayAdapter.getGiroId(position);
-                */
-                /*generateSubgirosArray(giroSelected);
-                subGiroArrayAdapter = new GiroArrayAdapter(getActivity(), R.layout.spinner_layout, subGirosComercio, SUBGIRO);
-                subGiroArrayAdapter.notifyDataSetChanged();
-                spinnerRegisterCommerceSubGiro.setAdapter(subGiroArrayAdapter);*/
-
-            /*}
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
-        */
     }
     private void initValues() {
-        girosComercioComplete = Utils.getGirosArray(getActivity());
+        List<GiroComercio> girosComercioComplete = Utils.getGirosArray(getActivity());
         girosComercio = new ArrayList<>();
         ArrayList<Integer> mGirosIds = new ArrayList<>();
-        // subGirosComercio = new ArrayList<>();
         GiroComercio giroHint = new GiroComercio();
         giroHint.setnGiro("Giro Comercial");
+        giroHint.setnSubgiro("Selecciona el SubGiro");
+        giroHint.setIdGiro(-1);
+        giroHint.setIdSubgiro(-1);
         girosComercio.add(giroHint);
+        girosSubgiros = new SparseArray<>();
+
+        List<GiroComercio> subGirosToAdd = new ArrayList<>();
+        subGirosToAdd.add(giroHint);
+        girosSubgiros.append(giroHint.getIdGiro(), subGirosToAdd);
+
         for (GiroComercio giroComercio : girosComercioComplete) {
+            subGirosToAdd = girosSubgiros.get(giroComercio.getIdGiro());
+            if (subGirosToAdd == null) {
+                subGirosToAdd = new ArrayList<>();
+                girosSubgiros.append(giroComercio.getIdGiro(), subGirosToAdd);
+            }
+            subGirosToAdd.add(giroComercio);
             if (!mGirosIds.contains(giroComercio.getIdGiro())) {
                 mGirosIds.add(giroComercio.getIdGiro());
                 girosComercio.add(giroComercio);
@@ -192,13 +176,23 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
             return;
         }
 
-        if (id_giro==0) {
+        if (giroArrayAdapter.getItem(spinnerBussineLine.getSelectedItemPosition()).getIdGiro() == -1) {
+            showValidationError(getString(R.string.datos_negocio_giro));
+            return;
+        }
+
+        if (subGiroArrayAdapter.getItem(spinnerSubBussineLine.getSelectedItemPosition()).getIdGiro() == -1) {
             showValidationError(getString(R.string.datos_negocio_giro));
             return;
         }
 
         if (telefono.isEmpty()) {
             showValidationError(getString(R.string.datos_negocio_telefono));
+            return;
+        }
+
+        if (!editBussinesPhone.isValidText()) {
+            showValidationError(getString(R.string.datos_telefono_incorrecto));
             return;
         }
 
@@ -220,7 +214,7 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
         /*Guardamos datos en Singleton de registro.*/
         RegisterAgent registerAgent = RegisterAgent.getInstance();
         registerAgent.setNombre(nombre);
-        registerAgent.setGiro(giroSelected);
+        registerAgent.setGiro(subGiroArrayAdapter.getItem(spinnerSubBussineLine.getSelectedItemPosition()));
         registerAgent.setTelefono(telefono);
         if(registerAgent.getCuestionario().size() > 0)
             registerAgent.getCuestionario().get(0).setValor(respuestaFamiliares);
@@ -233,27 +227,34 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
 
     @Override
     public void getDataForm() {
-        nombre = editBussinesName.getText().toString().trim();
-        giro = spinnerBussineLine.getSelectedItem().toString();
-        id_giro = spinnerBussineLine.getSelectedItemId();
-        telefono = editBussinesPhone.getText().toString().trim();
+        nombre = editBussinesName.getText();
+
+        telefono = editBussinesPhone.getText();
         respuestaFamiliares = radioBtnPublicServantYes.isChecked();
     }
 
     private void setCurrentData() {
 
         RegisterAgent registerAgent = RegisterAgent.getInstance();
+        if (registerAgent.getNombre().isEmpty()) {
+            return;
+        }
+        spinnerBussineLine.setOnItemSelectedListener(null);
         editBussinesName.setText(registerAgent.getNombre());
         editBussinesPhone.setText(registerAgent.getTelefono());
-        spinnerBussineLine.setSelection(0); // TODO restablecer este valor
-        if(registerAgent.getCuestionario().size() > 0){
-            for(CuestionarioEntity q : registerAgent.getCuestionario()){
-                if(q.getPreguntaId() == PREGUNTA_FAMILIAR){
+        spinnerBussineLine.setSelection(giroArrayAdapter.getItemPosition(registerAgent.getGiro()));
+        onItemSelected(null, null, giroArrayAdapter.getItemPosition(registerAgent.getGiro()), 0);
+        spinnerSubBussineLine.setSelection(subGiroArrayAdapter.getItemPosition(registerAgent.getGiro()));
+
+        if (!registerAgent.getCuestionario().isEmpty()) {
+            for (CuestionarioEntity q : registerAgent.getCuestionario()) {
+                if (q.getPreguntaId() == PREGUNTA_FAMILIAR) {
                     radioBtnPublicServantYes.setChecked(q.isValor());
                     radioBtnPublicServantNo.setChecked(!q.isValor());
                 }
             }
         }
+        spinnerBussineLine.setOnItemSelectedListener(this);
 
     }
 
@@ -280,6 +281,18 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
     @Override
     public void showError(Object error) {
         UI.showToastShort(error.toString(), getActivity());
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+        subGiros.clear();
+        subGiros.addAll(girosSubgiros.get(giroArrayAdapter.getGiroId(position)));
+        subGiroArrayAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> parent) {
+        //No-Op
     }
 }
 

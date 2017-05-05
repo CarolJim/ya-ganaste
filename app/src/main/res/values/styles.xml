@@ -157,7 +157,7 @@
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="EditTextStyle">
+    <style name="EditTextStyle" parent="Base.V7.Widget.AppCompat.EditText">
         <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
         <item name="android:paddingLeft">@dimen/margin_medium</item>
@@ -189,11 +189,16 @@
     <style name="CustomSpinner" parent="Base.Widget.AppCompat.Spinner">
         <item name="android:background">@android:drawable/edit_text</item>
         <item name="android:padding">0dp</item>
-
     </style>
 
     <style name="SpinnerNoArrow" parent="CustomSpinner">
         <item name="android:focusable">true</item>
+        <item name="android:layout_marginLeft">@dimen/margin_elements</item>
+        <item name="android:layout_marginRight">@dimen/margin_elements</item>
+        <item name="android:layout_marginTop">@dimen/space_between_elements</item>
+    </style>
+
+    <style name="Spinner" parent="CustomSpinner">
         <item name="android:layout_marginLeft">@dimen/margin_elements</item>
         <item name="android:layout_marginRight">@dimen/margin_elements</item>
         <item name="android:layout_marginTop">@dimen/space_between_elements</item>

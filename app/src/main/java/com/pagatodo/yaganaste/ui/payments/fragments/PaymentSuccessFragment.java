@@ -55,7 +55,7 @@ public class PaymentSuccessFragment extends GenericFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.fragment_send_payment, container, false);
+        rootview = inflater.inflate(R.layout.fragment_payment_success, container, false);
         initViews();
         return rootview;
     }

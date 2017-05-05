@@ -78,4 +78,8 @@ public abstract class PaymentFormBaseFragment extends GenericFragment implements
         getActivity().startActivityForResult(intent, BACK_FROM_PAYMENTS);
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
+
+    public void setSeekBarProgress(int progress){
+        mySeekBar.setProgress(progress);
+    }
 }

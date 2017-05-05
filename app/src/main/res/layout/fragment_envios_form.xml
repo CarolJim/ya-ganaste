@@ -29,7 +29,7 @@
             android:orientation="horizontal"
             android:visibility="gone">
 
-            <EditText
+            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/cardNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -54,7 +54,7 @@
             android:background="@drawable/rounded_border_edittext"
             android:orientation="horizontal">
 
-            <EditText
+            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/amountToSend"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -79,7 +79,7 @@
             android:background="@drawable/rounded_border_edittext"
             android:orientation="horizontal">
 
-            <EditText
+            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/receiverName"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -105,7 +105,7 @@
             android:background="@drawable/rounded_border_edittext"
             android:orientation="horizontal">
 
-            <EditText
+            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/concept"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -130,7 +130,7 @@
             android:background="@drawable/rounded_border_edittext"
             android:orientation="horizontal">
 
-            <EditText
+            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/numberReference"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"

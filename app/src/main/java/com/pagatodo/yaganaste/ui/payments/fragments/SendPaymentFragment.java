@@ -10,9 +10,7 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IProgressView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
-import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -59,7 +57,7 @@ public class SendPaymentFragment extends GenericFragment implements IProgressVie
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.fragment_send_payment, container, false);
+        rootview = inflater.inflate(R.layout.fragment_payment_success, container, false);
         initViews();
         return rootview;
     }

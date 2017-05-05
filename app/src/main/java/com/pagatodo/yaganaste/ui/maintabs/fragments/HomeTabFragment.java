@@ -60,7 +60,7 @@ public class HomeTabFragment extends GenericFragment implements TabsView, TabLay
         pagerAdquirente = (NoSwipeViewPager) rootView.findViewById(R.id.pager_adquirente);
         homeFragmentPresenter.getPagerData(ViewPagerDataFactory.TABS.HOME_FRAGMENT);
         tabLayoutEmAd.setInviteAdquirenteCallback(this);
-        //tabLayoutEmAd.setUpWithViewPager(pagerAdquirente);
+        tabLayoutEmAd.setUpWithViewPager(pagerAdquirente);
     }
 
     @Override

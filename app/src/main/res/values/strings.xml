@@ -50,6 +50,7 @@
     <string name="getSucursales">/LocalizarSucursales</string>
     <string name="obtenerSubgiros">/ObtenerSubgiros</string>
     <string name="obtenerDomicilioPrincipal">/ObtenerDomicilioPrincipal</string>
+    <string name="obtenerDomicilio">/ObtenerDomicilioPrincipal</string>
 
     <!--Métodos de WS Adquiriente-->
     <string name="adqLogin">/agMov/login</string>
@@ -298,7 +299,9 @@
     <!--Registro Agente-->
     <string name="datos_negocio_nombre">Nombre Requerido, Verifique su Información.</string>
     <string name="datos_negocio_giro">Giro Requerido, Verifique su Información.</string>
+    <string name="datos_negocio_subgiro">SubGiro Requerido, Verifique su Información.</string>
     <string name="datos_negocio_telefono">Teléfono Requerido, Verifique su Información.</string>
+    <string name="datos_telefono_incorrecto">Ingrese un Teléfono Válido</string>
     <string name="datos_negocio_preguntas">Debes contestar Todas las Preguntas.</string>
     <!--Server problem-->
     <string name="message_generic_ws">Ocurrio un problema. Intente más tarde.</string>
@@ -412,6 +415,13 @@
     <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01-800-500-1000\n informes@yaganaste.com</string>
     <string name="documents_comprobantes">CFE,Telefono,Agua(No mayor a 3 meses)</string>
     <string name="documents_vigentes">Credencial de Elector o Pasaporte</string>
+
+
+    <!-- Restricciones para los editText -->
+    <string name="input_phone">0123456789</string>
+    <string name="input_int_unsigned">0123456789</string>
+    <string name="input_int">-0123456789</string>
+    <string name="input_decimal">-.0123456789</string>
 </resources>
 
 

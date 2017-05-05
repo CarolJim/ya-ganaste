@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     style="@style/FragmentElement"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_big">
@@ -19,7 +20,7 @@
             android:orientation="horizontal"
             android:weightSum="100">
 
-            <EditText
+            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/referenceNumber"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -61,7 +62,7 @@
             android:background="@drawable/rounded_border_edittext"
             android:orientation="horizontal">
 
-            <EditText
+            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/serviceImport"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -87,7 +88,7 @@
             android:background="@drawable/rounded_border_edittext"
             android:orientation="horizontal">
 
-            <EditText
+            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/serviceConcept"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -108,12 +109,13 @@
     </LinearLayout>
 
 
-    <TextView
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/comisionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
         android:textSize="12sp"
+        app:tipo="Descripcion"
         android:layout_marginTop="@dimen/margin_doble"
         android:layout_below="@+id/containerServiciosForm"
         android:text="@string/comision_service_payment"/>

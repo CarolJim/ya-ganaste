@@ -100,6 +100,7 @@
         <attr name="maxLines" format="integer"/>
         <attr name="isSingleLine" format="boolean"/>
         <attr name="isTextEnabled" format="boolean"/>
+        <attr name="android:inputType"/>
     </declare-styleable>
 
     <declare-styleable name="BorderTitleLayout">

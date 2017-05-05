@@ -26,12 +26,20 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<GiroComercio> {
     Context context;
     int mLayoutResourceId;
     List<GiroComercio> mList;
+    private TYPE type;
 
-    public BussinesLineSpinnerAdapter(@NonNull Context con, @LayoutRes int resource, @NonNull List<GiroComercio> objects) {
+    public enum TYPE {
+        TITLE,
+        SUBTITLE
+    }
+
+    public BussinesLineSpinnerAdapter(@NonNull Context con, @LayoutRes int resource,
+                                      @NonNull List<GiroComercio> objects, @NonNull TYPE type) {
         super(con, resource, objects);
         this.context = con;
         this.mLayoutResourceId = resource;
         this.mList = objects;
+        this.type = type;
     }
 
     @Override
@@ -65,14 +73,30 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<GiroComercio> {
             holder = (BussinesLineSpinnerAdapter.DropDownHolder) row.getTag();
         }
 
-        if (position == 0) {
-            holder.txtTitle.setText("");
-            holder.txtTitle.setHint(item.getnGiro());
+        if (type.equals(TYPE.TITLE)) {
+            if (position == 0) {
+                holder.txtTitle.setText("");
+                holder.txtTitle.setHint(item.getnGiro());
+            } else {
+                holder.txtTitle.setText(item.getnGiro());
+            }
         } else {
-            holder.txtTitle.setText(item.getnGiro());
+            holder.txtTitle.setText(type.equals(TYPE.TITLE) ? item.getnGiro() : item.getnSubgiro());
         }
 
         return row;
+    }
+
+    public int getItemPosition(@NonNull GiroComercio giroComercio) {
+        GiroComercio current;
+        for (int position = 0; position < mList.size() ; position++) {
+            current = mList.get(position);
+            if ( giroComercio.getIdGiro() == current.getIdGiro() &&
+                    (type.equals(TYPE.TITLE) || giroComercio.getIdSubgiro() == current.getIdSubgiro())) {
+                return position;
+            }
+        }
+        return -1;
     }
 
     @NonNull
@@ -101,11 +125,10 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<GiroComercio> {
             }
         });
 
-
-        if (position == 0) {
-            holder.editText.setHint(item.getnGiro());
+        if (position == 0 && item.getIdGiro() == -1) {
+            holder.editText.setHint(type.equals(TYPE.TITLE) ? item.getnGiro() : item.getnSubgiro());
         } else {
-            holder.editText.setText(item.getnGiro());
+            holder.editText.setText(type.equals(TYPE.TITLE) ? item.getnGiro() : item.getnSubgiro());
         }
 
         return row;

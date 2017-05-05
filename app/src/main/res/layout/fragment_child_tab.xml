@@ -114,7 +114,7 @@
                             android:layout_alignParentTop="true"
                             android:layout_centerHorizontal="true"
                             android:adjustViewBounds="true"
-                            android:scaleType="centerCrop"
+                            android:scaleType="centerInside"
                             android:src="@mipmap/circulo_add_servicio" />
                     </RelativeLayout>
 
@@ -154,26 +154,32 @@
 
                             <RelativeLayout
                                 android:layout_width="wrap_content"
-                                android:layout_height="wrap_content">
+                                android:layout_height="wrap_content"
+                                android:gravity="center">
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/txtPagosYourBalance"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:text="Tu Saldo: $20."
+                                    android:text="Tu Saldo: "
                                     android:textSize="12sp"
                                     app:tipo="Subtitulo" />
 
-                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                                    android:id="@+id/txtPagosYourBalanceCents"
+
+
+                                <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+                                    android:id="@+id/txtPagosYourBalanceNumber"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_toEndOf="@+id/txtPagosYourBalance"
                                     android:layout_toRightOf="@+id/txtPagosYourBalance"
-                                    android:text="00"
+                                    android:gravity="center"
+                                    android:text="70"
+                                    android:textAlignment="center"
                                     android:textSize="8sp"
-                                    app:tipo="Subtitulo" />
+                                    app:dotBottom="false"
+                                    app:symbolSmaller="true" />
                             </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>

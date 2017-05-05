@@ -32,6 +32,7 @@ public abstract class GenericFragment extends Fragment{
         this.onEventListener = null;
     }
 
+
     @NonNull
     public String getFragmentTag(){
         return getClass().getSimpleName();

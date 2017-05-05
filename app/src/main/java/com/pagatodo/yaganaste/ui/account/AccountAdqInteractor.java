@@ -136,12 +136,22 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     }
 
     @Override
+    public void getClientAddress() {
+        try{
+            ApiAdtvo.obtenerDomicilioPrincipal(this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+
+        }
+    }
+
+    @Override
     public void registerAdq() {
 
         RegisterAgent registerAgent = RegisterAgent.getInstance();
         CrearAgenteRequest request = new CrearAgenteRequest();
         request.setNombreComercio(registerAgent.getNombre());
-        request.setGiro(registerAgent.getGiro());
+        request.setGiro(registerAgent.getGiro().getIdGiro());
         request.setNumeroTelefono(registerAgent.getTelefono());
         request.setCuestionario(registerAgent.getCuestionario());
         onSuccess(new DataSourceResult(CREAR_AGENTE, WS, null));
@@ -167,6 +177,10 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             case OBTENER_DOCUMENTOS:
 
                 processStatusDocuments(dataSourceResult);
+                break;
+
+            case OBTENER_DOMICILIO:
+                processAddress(dataSourceResult);
                 break;
 
             default:
@@ -252,6 +266,10 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(),data.getMensaje());//Retornamos mensaje de error.
         }*/
+    }
+
+    private void processAddress(DataSourceResult result) {
+        accountManager.onSucces(result.getWebService(), null);
     }
 
 }
