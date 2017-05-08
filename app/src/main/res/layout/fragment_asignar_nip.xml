@@ -13,20 +13,102 @@
     <include
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbarLy">
 
-    <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
-        android:id="@+id/borderLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_big"
-        android:layout_marginRight="@dimen/margin_big"
-        android:layout_marginTop="@dimen/margin_big"
-        android:gravity="center"
-        app:title="Asigna tu PIN">
+        <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+            android:id="@+id/borderLayout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_big"
+            android:layout_marginRight="@dimen/margin_big"
+            android:layout_marginTop="@dimen/margin_big"
+            android:gravity="center"
+            app:title="Asigna tu PIN">
+
+            <EditText
+                android:id="@+id/asignar_edittext"
+                android:layout_width="1px"
+                android:layout_height="1px"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:inputType="numberPassword"
+                android:maxLength="4" />
+
+            <LinearLayout
+                android:id="@+id/asignar_control_layout"
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:layout_marginLeft="60dp"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="50dp"
+                android:background="@drawable/rounded_border_edittext"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/asignar_tv1"
+                    style="@style/formatPIN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1"
+                    android:ems="10" />
+
+                <TextView
+                    android:id="@+id/asignar_tv2"
+                    style="@style/formatPIN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/asignar_tv3"
+                    style="@style/formatPIN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="center" />
+
+                <TextView
+                    android:id="@+id/asignar_tv4"
+                    style="@style/formatPIN"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_weight="1"
+                    android:ems="10"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txtMessageCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/asignar_control_layout"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:layout_marginBottom="30dp"
+                android:gravity="center"
+                android:text="@string/longitud_nip"
+                android:visibility="visible" />
+
+       <!--     <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_weight="80">
+
+                <ImageView
+                    android:id="@+id/imageViewValidation"
+                    android:layout_width="25dp"
+                    android:layout_height="25dp"
+                    android:layout_centerInParent="true" />
+            </RelativeLayout>-->
 
             <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                 android:id="@+id/edtPin"
@@ -35,64 +117,55 @@
                 android:layout_marginLeft="@dimen/margin_medium"
                 android:layout_marginRight="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_doble"
+                android:visibility="gone"
                 app:formato="number"
                 app:isSingleLine="true"
                 app:maxLength="4" />
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:id="@+id/txtMessageCard"
+        </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+
+        <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/edtPin"
-            android:gravity="center"
-            android:layout_marginTop="@dimen/margin_medium"
-            android:text="@string/longitud_nip"/>
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:orientation="horizontal">
 
+            <android.support.v7.widget.AppCompatButton
+                android:id="@+id/btnNextAsignarPin"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/next" />
+        </RelativeLayout>
 
-
-    </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
-
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatButton
-            android:id="@+id/btnNextAsignarPin"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:backgroundTint="@color/colorAccent"
-            android:text="@string/next" />
     </RelativeLayout>
-
-</RelativeLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
         android:id="@+id/keyboard_view"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:layout_above="@+id/relativeAd"
-        android:layout_centerHorizontal="true"
         android:layout_alignParentBottom="true"
-        android:focusable="true"
+        android:layout_centerHorizontal="true"
         android:background="@android:color/transparent"
-        android:keyBackground="@color/colorPrimary"
+        android:focusable="true"
         android:focusableInTouchMode="true"
+        android:keyBackground="@color/colorPrimary"
         android:visibility="gone" />
+
     <LinearLayout
         android:id="@+id/relativeAd"
         android:layout_width="match_parent"
         android:layout_height="10dp"
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true"
-        android:keyBackground="@color/colorPrimary"
         android:gravity="center"
-        android:visibility="visible"
-        android:orientation="vertical">
+        android:keyBackground="@color/colorPrimary"
+        android:orientation="vertical"
+        android:visibility="visible">
 
     </LinearLayout>
 
@@ -101,7 +174,7 @@
         android:id="@+id/progressIndicator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 
 </RelativeLayout>

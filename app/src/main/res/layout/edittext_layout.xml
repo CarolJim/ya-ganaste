@@ -7,20 +7,20 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_border_edittext"
-        android:weightSum="100"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:weightSum="100">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
             android:id="@+id/editTextCustom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dp"
-            android:paddingTop="6dp"
-            android:paddingBottom="6dp"
             android:layout_weight="20"
             android:background="@null"
             android:backgroundTint="@color/transparent"
             android:inputType="textWebPassword"
+            android:paddingBottom="6dp"
+            android:paddingTop="6dp"
             android:textSize="14sp" />
 
         <RelativeLayout

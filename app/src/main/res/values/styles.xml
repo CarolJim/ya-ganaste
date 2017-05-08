@@ -77,12 +77,14 @@
         <item name="buttonRippleColor2">@drawable/button_rounded_blue</item>
         <item name="buttonNormalColor">@drawable/button_rounded_blue</item>
     </style>
+
     <style name="buttonSmallRoundedBlue">
         <item name="android:background">@drawable/button_rounded_blue</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="buttonRippleColor2">@drawable/button_rounded_blue</item>
         <item name="buttonNormalColor">@drawable/button_rounded_blue</item>
     </style>
+
     <style name="buttonSmallRoundedGray">
         <!-- Crear shape con el estilo y color en gris para este boton  -->
         <item name="android:background">@color/grayColor</item>
@@ -90,6 +92,7 @@
         <item name="buttonRippleColor2">@drawable/button_rounded_blue</item>
         <item name="buttonNormalColor">@drawable/button_rounded_blue</item>
     </style>
+
     <style name="buttonSquareRoundedBlue">
         <item name="android:background">@drawable/button_rounded_square_blue</item>
         <item name="buttonRippleColor2">@drawable/button_rounded_square_blue</item>
@@ -294,5 +297,12 @@
         <item name="android:layout_marginLeft">@dimen/margin_doble</item>
         <item name="android:layout_marginRight">@dimen/margin_doble</item>
         <item name="android:layout_marginTop">@dimen/margin_xsmall</item>
+    </style>
+
+    <style name="formatPIN">
+        <item name="android:textColor">@color/wallet_holo_blue_light</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:layout_gravity">center</item>
+        <item name="android:gravity">center</item>
     </style>
 </resources>

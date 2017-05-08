@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.interfaces.enums.AdqEmTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
+import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
@@ -50,9 +51,9 @@ public class ViewPagerDataFactory {
         switch (type) {
             case MAIN:
                 fragmentList.add(HomeTabFragment.newInstance());
-                fragmentList.add(GetMountFragment.newInstance());
-                fragmentList.add(PaymentsTabFragment.newInstance());
-                //fragmentList.add(BlankFragment.newInstance());
+                fragmentList.add(AsignarNIPFragment.newInstance());
+                //fragmentList.add(PaymentsTabFragment.newInstance());
+                fragmentList.add(BlankFragment.newInstance());
                 Log.e("view pager ", "esAgente" + SingletonUser.getInstance().getDataUser().isEsAgente());
                 Log.e("view pager ", "estatus Agente" + SingletonUser.getInstance().getDataUser().getEstatusAgente());
                 if (SingletonUser.getInstance().getDataUser().isEsAgente()

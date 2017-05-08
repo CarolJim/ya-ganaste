@@ -19,7 +19,7 @@
     </Row>
     <Row>
         <Key android:codes="29" android:keyLabel="." />
-        <Key android:codes="30" android:keyLabel="0" />
+        <Key android:codes="7" android:keyLabel="0" />
         <Key android:codes="67" android:keyLabel="D"  />
     </Row>
     <!--

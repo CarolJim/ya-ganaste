@@ -2,11 +2,18 @@ package com.pagatodo.yaganaste.ui.account.register;
 
 import android.app.Activity;
 import android.content.Context;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
+import android.os.Handler;
 import android.text.Editable;
 import android.text.InputType;
+import android.text.Spannable;
+import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
+import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
@@ -14,6 +21,8 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
@@ -48,6 +57,14 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     ProgressLayout progressLayout;
     private String nip = "";
     private Keyboard keyboard;
+    LinearLayout layout_control;
+    TextView tv1Num;
+    TextView tv2Num;
+    TextView tv3Num;
+    TextView tv4Num;
+    String newText = "";
+    String oldText = "";
+    EditText etGen;
 
     public AsignarNIPFragment() {
     }
@@ -96,46 +113,117 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnNextAsignarPin.setVisibility(GONE);
-        keyboardView.setKeyBoard(getActivity(),R.xml.keyboard_nip);
+
+        layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout);
+
+        keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
 
-        edtPin.addCustomTextWatcher(new TextWatcher() {
+        //final Bitmap smiley2 = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        final Bitmap smiley2 = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+        tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
+        tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
+        tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
+        tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
+
+        etGen = (EditText) rootview.findViewById(R.id.asignar_edittext);
+        //edtPin.addCustomTextWatcher(new TextWatcher() {
+        etGen.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(s.toString().length() == 4){
-                    keyboardView.hideCustomKeyboard();
-                    validateForm();
-                }
             }
-            @Override
-            public void afterTextChanged(Editable editable) {
 
+            @Override
+            public void afterTextChanged(final Editable s) {
+                newText = s.toString();
+                if (newText.length() > oldText.length()) {
+                    final int countString = etGen.getText().toString().length();
+                    switch (countString) {
+                        case 1:
+                            tv1Num.setText("" + s.charAt(s.toString().length() - 1));
+                            break;
+                        case 2:
+                            tv2Num.setText("" + s.charAt(s.toString().length() - 1));
+                            break;
+                        case 3:
+                            tv3Num.setText("" + s.charAt(s.toString().length() - 1));
+                            break;
+                        case 4:
+                            tv4Num.setText("" + s.charAt(s.toString().length() - 1));
+                            break;
+                    }
+                    oldText = s.toString();
+
+                    Handler handler = new Handler();
+                    handler.postDelayed(new Runnable() {
+                        public void run() {
+                            SpannableStringBuilder ssb = new SpannableStringBuilder(" "); // 20
+                            ssb.setSpan(new ImageSpan(smiley2), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+                            switch (countString) {
+                                case 1:
+                                    tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                                    break;
+                                case 2:
+                                    tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                                    break;
+                                case 3:
+                                    tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                                    break;
+                                case 4:
+                                    tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                                    break;
+                            }
+                        }
+                    }, 500);
+                } else {
+                    int countString = etGen.getText().toString().length();
+                    switch (countString) {
+                        case 0:
+                            tv1Num.setText("");
+                            break;
+                        case 1:
+                            tv2Num.setText("");
+                            break;
+                        case 2:
+                            tv3Num.setText("");
+                            break;
+                        case 3:
+                            tv4Num.setText("");
+                            break;
+                    }
+                    oldText = s.toString();
+                }
             }
         });
 
         // Make the custom keyboard appear
-        edtPin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        etGen.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     keyboardView.showCustomKeyboard(v);
-                }else{
-                    keyboardView.hideCustomKeyboard();}
+                } else {
+                    keyboardView.hideCustomKeyboard();
+                }
             }
         });
 
-        edtPin.setOnClickListener(new View.OnClickListener() {
+        //edtPin.setOnClickListener(new View.OnClickListener() {
+        layout_control.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                etGen.requestFocus();
                 keyboardView.showCustomKeyboard(v);
             }
         });
 
-        edtPin.getEditText().setOnTouchListener(new View.OnTouchListener() {
+        etGen.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 EditText edittext = (EditText) v;
@@ -162,7 +250,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     public void validateForm() {
         getDataForm();
 
-        if(nip.length() < PIN_LENGHT){
+        if (nip.length() < PIN_LENGHT) {
             showValidationError(getString(R.string.asignar_pin));
             return;
         }
@@ -172,27 +260,27 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
     @Override
     public void showValidationError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+        UI.showToastShort(error.toString(), getActivity());
     }
 
     @Override
     public void onValidationSuccess() {
-        nextScreen(EVENT_GO_CONFIRM_PIN,nip);
+        nextScreen(EVENT_GO_CONFIRM_PIN, nip);
     }
 
     @Override
     public void getDataForm() {
-        nip = edtPin.getText().toString().trim();
+        nip = etGen.getText().toString().trim();
     }
 
     @Override
     public void nextScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
@@ -208,7 +296,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
     @Override
     public void showError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+        UI.showToastShort(error.toString(), getActivity());
     }
 
 
@@ -216,7 +304,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
         return keyboardView.getVisibility() == View.VISIBLE;
     }
 
-    public void hideKeyboard(){
+    public void hideKeyboard() {
         keyboardView.hideCustomKeyboard();
     }
 }
