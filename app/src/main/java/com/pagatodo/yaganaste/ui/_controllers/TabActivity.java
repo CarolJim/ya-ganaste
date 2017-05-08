@@ -142,20 +142,18 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
             if (childFragment != null && requestCode != BACK_FROM_PAYMENTS) {
                 childFragment.onActivityResult(requestCode, resultCode, data);
             } else if (childFragment != null && requestCode == BACK_FROM_PAYMENTS) {
-                if (data.getStringExtra("MESSAGE") != null && data.getStringExtra("MESSAGE").equals("Fail")) {
+                if (data != null && data.getStringExtra("MESSAGE") != null && data.getStringExtra("MESSAGE").equals("Fail")) {
                     if (childFragment != null) {
-                        List<Fragment> fragmentList2 = childFragment.getChildFragmentManager().getFragments();
-                        PaymentFormBaseFragment paymentFormBaseFragment = getVisibleFragment(fragmentList2);
+                        PaymentFormBaseFragment paymentFormBaseFragment = getVisibleFragment(childFragment.getChildFragmentManager().getFragments());
                         if (paymentFormBaseFragment != null) {
                             paymentFormBaseFragment.setSeekBarProgress(0);
-
                         }
                     }
                 } else {
                     Intent intent = getIntent();
                     finish();
                     startActivity(intent);
-                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                 }
             }
         } else if (requestCode == Documentos.REQUEST_TAKE_PHOTO || requestCode == Documentos.SELECT_FILE_PHOTO) {

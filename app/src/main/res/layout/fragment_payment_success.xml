@@ -217,7 +217,8 @@
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
-                android:layout_weight="50" />
+                android:layout_weight="50"
+                android:visibility="gone" />
 
             <ImageView
                 android:id="@+id/imgPagosFavs"
@@ -228,7 +229,7 @@
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/circulo_favorito"
-                android:visibility="visible"
+                android:visibility="gone"
                 tools:ignore="ContentDescription" />
 
 
@@ -237,7 +238,8 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
                 android:gravity="center_horizontal|top"
-                android:text="Agregar a Favoritos" />
+                android:text="Agregar a Favoritos"
+                android:visibility="gone" />
         </LinearLayout>
 
         <LinearLayout
@@ -294,19 +296,34 @@
         </LinearLayout>
 
 
-        <RelativeLayout
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="17"
-            android:gravity="center">
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30" />
 
             <Button
                 android:id="@+id/btn_continueEnvio"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_btns"
                 android:layout_gravity="center"
-                android:text="Continuar" />
-        </RelativeLayout>
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_weight="40"
+                android:background="@drawable/continuar_canvas"
+                android:text="Continuar"
+                android:textAllCaps="false" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30" />
+        </LinearLayout>
 
     </LinearLayout>
 

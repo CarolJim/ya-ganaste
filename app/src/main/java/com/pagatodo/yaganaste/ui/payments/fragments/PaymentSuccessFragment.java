@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -136,5 +137,12 @@ public class PaymentSuccessFragment extends GenericFragment {
         fecha.setText(result.getData().getFecha());
         hora.setText(result.getData().getHora());
 
+        btnContinueEnvio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+                //getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
     }
 }
