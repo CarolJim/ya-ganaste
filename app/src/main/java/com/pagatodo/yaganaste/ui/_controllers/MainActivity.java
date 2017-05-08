@@ -111,7 +111,6 @@ public class MainActivity extends AppCompatActivity implements View.OnClickListe
             listSlides.add(ScreenSlidePagefragment.newInstance(imgs[index], topText[index], bothText[index]));
         }
 
-
         String textLogin = getString(R.string.tienes_cuenta);
         SpannableString ss = new SpannableString(textLogin);
         ClickableSpan span1 = new ClickableSpan() {

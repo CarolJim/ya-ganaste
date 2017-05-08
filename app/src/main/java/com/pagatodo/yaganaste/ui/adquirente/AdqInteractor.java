@@ -60,6 +60,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     private AccountOperation accountOperation;
     private Preferencias prefs = App.getInstance().getPrefs();
     private int retryLogin = 0;
+    private Context context = App.getInstance().getApplicationContext();
 
     public AdqInteractor(IAccountManager accountManager) {
         this.accountManager = accountManager;
@@ -316,62 +317,70 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     private void processTransactionResult(DataSourceResult response) {
         TransaccionEMVDepositResponse data = (TransaccionEMVDepositResponse) response.getData();
         TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
-        switch (data.getError().getId()){
-            case ADQ_CODE_OK:
-                result.setStatusTransaction(ADQ_TRANSACTION_ERROR);
-                PageResult pageResult = new PageResult(R.drawable.error_icon,
-                        App.getInstance().getString(R.string.title_cancelar),
-                        data.getError().getMessage(),
-                        true);
-
-                pageResult.setNamerBtnPrimary(App.getInstance().getString(R.string.title_cancelar));
-                pageResult.setNamerBtnSecondary(App.getInstance().getString(R.string.title_reintentar));
+                result.setStatusTransaction(ADQ_TRANSACTION_APROVE);
+                result.setResponseCode(0);
+                PageResult pageResult = new PageResult(R.drawable.ic_done, context.getString(R.string.adq_aproved), context.getString(R.string.adq_succes_aproved),false);
+                pageResult.setNamerBtnPrimary(context.getString(R.string.nextButton));
+                //pageResult.setNamerBtnSecondary("Llamar");
                 pageResult.setActionBtnPrimary(new Command() {
                     @Override
                     public void action(Context context, Object... params) {
-
                         INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(EVENT_GO_MAINTAB,"");
-                        TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
+                        viewInterface.nextScreen(EVENT_GO_REMOVE_CARD, "Ejecución Éxitosa");
                     }
                 });
-
                 result.setPageResult(pageResult);
                 accountManager.onSucces(response.getWebService(),data.getError().getMessage());
-                break;
-            default:
-                result.setStatusTransaction(ADQ_TRANSACTION_ERROR);
-                PageResult pageResultError = new PageResult(R.drawable.error_icon,
-                        "Ocurrió un error",
-                        data.getError().getMessage(),
-                        true);
-
-                pageResultError.setNamerBtnPrimary(App.getInstance().getString(R.string.title_cancelar));
-                pageResultError.setNamerBtnSecondary(App.getInstance().getString(R.string.title_reintentar));
-                pageResultError.setActionBtnPrimary(new Command() {
-                    @Override
-                    public void action(Context context, Object... params) {
-
-                        INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(EVENT_GO_MAINTAB,"");
-                        TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
-                    }
-                });
-
-                pageResultError.setActionBtnSecondary(new Command() {
-                    @Override
-                    public void action(Context context, Object... params) {
-                        INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(EVENT_GO_MAINTAB,"");
-                        TransactionAdqData.getCurrentTransaction().resetDataToRetry(); // Reintentamos
-                    }
-                });
-
-                result.setPageResult(pageResultError);
-
-                accountManager.onError(response.getWebService(),data.getError().getMessage());//Retornamos mensaje de error.
-                break;
-        }
+//        switch (data.getError().getId()){
+//            case ADQ_CODE_OK:
+//                result.setStatusTransaction(ADQ_TRANSACTION_APROVE);
+//                result.setResponseCode(0);
+//                PageResult pageResult = new PageResult(R.drawable.ic_done,"Aprobada","El Pago Fue Completado\nCorrectamente.",false);
+//                pageResult.setNamerBtnPrimary("Continuar");
+//                //pageResult.setNamerBtnSecondary("Llamar");
+//                pageResult.setActionBtnPrimary(new Command() {
+//                    @Override
+//                    public void action(Context context, Object... params) {
+//                        INavigationView viewInterface = (INavigationView) params[0];
+//                        viewInterface.nextScreen(EVENT_GO_REMOVE_CARD, "Ejecución Éxitosa");
+//                    }
+//                });
+//                result.setPageResult(pageResult);
+//                accountManager.onSucces(response.getWebService(),data.getError().getMessage());
+//                break;
+//            default:
+//                result.setStatusTransaction(ADQ_TRANSACTION_ERROR);
+//                PageResult pageResultError = new PageResult(R.drawable.ic_cancel,
+//                        "Ocurrió un error",
+//                        data.getError().getMessage(),
+//                        true);
+//
+//                pageResultError.setNamerBtnPrimary(App.getInstance().getString(R.string.title_cancelar));
+//                pageResultError.setNamerBtnSecondary(App.getInstance().getString(R.string.title_reintentar));
+//                pageResultError.setActionBtnPrimary(new Command() {
+//                    @Override
+//                    public void action(Context context, Object... params) {
+//
+//                        INavigationView viewInterface = (INavigationView) params[0];
+//                        viewInterface.nextScreen(EVENT_GO_MAINTAB,"");
+//                        TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
+//                    }
+//                });
+//
+//                pageResultError.setActionBtnSecondary(new Command() {
+//                    @Override
+//                    public void action(Context context, Object... params) {
+//                        INavigationView viewInterface = (INavigationView) params[0];
+//                        viewInterface.nextScreen(EVENT_GO_MAINTAB,"");
+//                        TransactionAdqData.getCurrentTransaction().resetDataToRetry(); // Reintentamos
+//                    }
+//                });
+//
+//                result.setPageResult(pageResultError);
+//
+//                accountManager.onError(response.getWebService(),data.getError().getMessage());//Retornamos mensaje de error.
+//                break;
+//        }
     }
 
     /**

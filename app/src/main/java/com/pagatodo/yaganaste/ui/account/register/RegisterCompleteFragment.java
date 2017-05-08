@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
@@ -38,7 +39,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     @BindView(R.id.txtMessage)
     StyleTextView txtMessage;
     @BindView(R.id.btnNextComplete)
-    StyleButton btnNextComplete;
+    Button btnNextComplete;
 
     private COMPLETE_MESSAGES type;
     private int iIdIcon = 0;

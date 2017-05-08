@@ -77,6 +77,8 @@
     <string name="ingress_your_mail">Ingresa tu Correo Electrónico</string>
     <string name="next">CONTINUAR</string>
     <string name="back">REGRESAR</string>
+    <string name="txt_cancel_lowcase">Cancelar</string>
+    <string name="txt_reintent_lowcase">Reintentar</string>
     <string name="ingress_your_data_card">Ingresa los Datos de tu Tarjeta</string>
     <string name="card_number">Número de Tarjeta</string>
     <string name="not_have_card">NO TENGO TARJETA</string>
@@ -329,6 +331,8 @@
 
     <string name="adq_subtitle_accept">Tus Documentos Han Sido\nAprobados</string>
     <string name="adq_msg_accept">A continuación, te Enseñaremos tu\nNueva Sección de Cobros</string>
+    <string name="adq_aproved">Aprobado</string>
+    <string name="adq_succes_aproved">El Pago Fue Completado\nCorrectamente\n\nYa Puedes\nRetirar la Tarjeta.</string>
 
     <string name="usuario_no_existe">Este correo no se encuentra registrado.</string>
 

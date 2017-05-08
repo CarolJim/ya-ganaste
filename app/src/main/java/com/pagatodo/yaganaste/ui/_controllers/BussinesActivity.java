@@ -76,14 +76,14 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
                 break;
 
             case EVENT_GO_MAINTAB:
-                Log.e(getClass().getSimpleName(),"event ");
+
                 resetRegisterData();
                 finish();
                 break;
 
             case EVENT_DOC_CHECK:
                 resetRegisterData();
-                Log.e(getClass().getSimpleName(),"checkDocs");
+
                 presenterAccount.checkUpdateDocs();
                 Intent i = new Intent(this,TabActivity.class);
                 startActivity(i);

@@ -42,6 +42,8 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMEN
 public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccountPresenter, IAccountManager {
     private String TAG = AccountAdqPresenter.class.getName();
     private IAdqAccountIteractor adqIteractor;
+
+
     private INavigationView iAdqView;
     Context context;
 

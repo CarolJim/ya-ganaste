@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.utils.customviews;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -19,7 +20,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.ValidateForm;
+
+import static com.pagatodo.yaganaste.utils.customviews.StyleEdittext.ANDROID_SCHEMA;
 
 /**
  * Created by Jordan on 27/03/2017.
@@ -60,6 +64,8 @@ public class CustomValidationEditText extends LinearLayout {
         View.inflate(context, R.layout.edittext_layout, this);
         //ButterKnife.bind(context, this);
         editText = (EditText) findViewById(R.id.editTextCustom);
+        Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
+        editText.setTypeface(customFont);
         imageView = (ImageView) findViewById(R.id.imageViewValidation);
         //imageView.setBackgroundResource(R.drawable.validation_fail);
 
@@ -214,13 +220,15 @@ public class CustomValidationEditText extends LinearLayout {
 
     private void setValidView() {
         imageView.setVisibility(VISIBLE);
-        imageView.setBackgroundResource(R.drawable.validation_ok_);
+        imageView.setBackgroundResource(R.drawable.done_campo_canvas);
+        imageView.setScaleType(ImageView.ScaleType.CENTER);
         isValid = true;
     }
 
     private void setNonValidView() {
         imageView.setVisibility(VISIBLE);
-        imageView.setBackgroundResource(R.drawable.triangle_error);
+        imageView.setBackgroundResource(R.drawable.warning2_1_canvas);
+        imageView.setScaleType(ImageView.ScaleType.CENTER);
         isValid = false;
     }
 
@@ -276,6 +284,8 @@ public class CustomValidationEditText extends LinearLayout {
     public void setTextEnabled(boolean isEnabled) {
         editText.setEnabled(isEnabled);
     }
+
+
 
     public void setFullOnClickListener(OnClickListener onClickListener) {
         editText.setFocusableInTouchMode(false);

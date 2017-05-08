@@ -16,9 +16,9 @@
         android:layout_height="match_parent"
         android:layout_centerHorizontal="true"
         android:layout_centerVertical="true"
-        android:src="@mipmap/blacksquare"
+        android:background="@drawable/foto_canvas"
         app:civ_border_color="@color/colorAccent"
-        app:civ_border_width="3dp" />
+        app:civ_border_width="0dp" />
 
     <ImageView
         android:id="@+id/imgItemGalleryPay"
@@ -28,7 +28,6 @@
         android:layout_centerVertical="true"
         android:layout_margin="15dp"
         android:padding="10dp"
-        app:srcCompat="@drawable/camera_blue"
         tools:ignore="ContentDescription" />
 
     </RelativeLayout>
