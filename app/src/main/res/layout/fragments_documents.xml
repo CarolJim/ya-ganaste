@@ -199,7 +199,7 @@
 
         <Button
             android:id="@+id/btnRegresar"
-            style="@style/buttonSmallRoundedGray"
+            style="@style/buttonDirecctionBack"
             android:layout_weight="1"
             android:text="@string/volver" />
 
@@ -209,7 +209,7 @@
 
         <Button
             android:id="@+id/btnWeNeedSmFilesNext"
-            style="@style/buttonSmallRoundedBlue"
+            style="@style/buttonDirecctionNext"
 
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/btnBack"

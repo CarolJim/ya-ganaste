@@ -142,7 +142,7 @@
 
         <Button
             android:id="@+id/btnBackBussinesInfo"
-            style="@style/buttonSmallRoundedGray"
+            style="@style/buttonDirecctionBack"
             android:layout_weight="1"
             android:text="@string/backButton"
             android:textAllCaps="false" />
@@ -153,7 +153,7 @@
 
         <Button
             android:id="@+id/btnNextBussinesInfo"
-            style="@style/buttonSmallRoundedBlue"
+            style="@style/buttonDirecctionNext"
             android:layout_weight="2"
             android:text="@string/nextButton"
             android:textAllCaps="false" />

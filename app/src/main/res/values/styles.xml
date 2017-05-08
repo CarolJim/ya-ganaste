@@ -77,13 +77,13 @@
         <item name="buttonRippleColor2">@drawable/button_rounded_blue</item>
         <item name="buttonNormalColor">@drawable/button_rounded_blue</item>
     </style>
-    <style name="buttonSmallRoundedBlue">
+    <style name="buttonDirecctionNext">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/height_btns</item>
         <item name="android:background">@drawable/continuar_canvas</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
-    <style name="buttonSmallRoundedGray" >
+    <style name="buttonDirecctionBack" >
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/height_btns</item>
         <item name="android:background">@drawable/boton_regresar_canvas</item>

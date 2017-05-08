@@ -70,7 +70,7 @@
     android:layout_alignParentBottom="true">
     <Button
         android:id="@+id/btnNextComplete"
-        style="@style/buttonSmallRoundedBlue"
+        style="@style/buttonDirecctionNext"
         android:layout_width="wrap_content"
         android:text="@string/next"
          />

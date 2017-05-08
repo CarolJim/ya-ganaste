@@ -1,5 +1,4 @@
 package com.pagatodo.yaganaste.ui.account;
-
 import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
@@ -8,6 +7,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -42,7 +42,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
-
 /**
  * Created by flima on 22/03/2017.
  */
@@ -114,7 +113,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             Addressfront.setVisibilityStatus(false);
             UploadDocumentView Addressback = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesAddressBack);
             Addressback.setVisibilityStatus(false);
-
         }
     }
 

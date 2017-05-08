@@ -102,7 +102,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
-
     private int documentProcessed = 0;
     private BitmapLoader bitmapLoader;
     private String imgs[] = new String[4];
@@ -144,8 +143,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     @Override
     public void onStop() {
         super.onStop();
-
-    }
+     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -193,6 +191,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         switch (view.getId()){
             case R.id.itemWeNeedSmFilesIFEfront:
                 selectImageSource(IFE_FRONT);
+
                 break;
 
             case R.id.itemWeNeedSmFilesIFEBack:
@@ -209,6 +208,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
             case R.id.btnWeNeedSmFilesNext:
                 sendDocuments();
+
                 break;
 
             case R.id.btnRegresar:

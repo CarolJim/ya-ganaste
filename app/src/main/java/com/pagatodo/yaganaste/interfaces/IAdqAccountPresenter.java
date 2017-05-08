@@ -13,4 +13,5 @@ public interface IAdqAccountPresenter {
     public void getEstatusDocs(View view);
     public void setListaDocs(View view);
     public void getClientAddress();
+
 }
