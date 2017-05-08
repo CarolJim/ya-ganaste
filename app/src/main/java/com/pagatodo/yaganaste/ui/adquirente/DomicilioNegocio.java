@@ -244,9 +244,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     @Override
     public void onValidationSuccess() {
         RegisterAgent registerAgent = RegisterAgent.getInstance();
-
         //Almacenamos la información para el registro.
-        RegisterUser registerUser = RegisterUser.getInstance();
         registerAgent.setCalle(calle);
         registerAgent.setNumExterior(numExt);
         registerAgent.setNumInterior(numInt);

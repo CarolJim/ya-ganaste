@@ -58,17 +58,21 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_above="@+id/btnNextComplete"
+        android:layout_above="@+id/lnr_buttons"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:text="@string/congratulation_text2" />
-
-    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+<LinearLayout
+    android:id="@+id/lnr_buttons"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:layout_marginBottom="@dimen/btn_margin_bottom"
+    android:layout_alignParentBottom="true">
+    <Button
         android:id="@+id/btnNextComplete"
-        style="@style/buttonRoundedBlue"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/btn_margin_bottom"
+        style="@style/buttonSmallRoundedBlue"
+        android:layout_width="wrap_content"
         android:text="@string/next"
-        app:cornerRadius="@dimen/btn_corner_radius" />
+         />
+</LinearLayout>
 </RelativeLayout>

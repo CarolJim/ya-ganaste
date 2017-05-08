@@ -35,18 +35,22 @@
 
         <Spinner
             android:id="@+id/spinnerBussineLine"
-            style="@style/Spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/space_between_elements"
             android:layout_below="@+id/editBussinesName"
             android:background="@null"
             app:backgroundTint="@color/transparent" />
 
         <Spinner
             android:id="@+id/spinnerSubBussineLine"
-            style="@style/Spinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/space_between_elements"
             android:layout_below="@+id/spinnerBussineLine"
             android:background="@null"
             app:backgroundTint="@color/transparent" />
@@ -57,6 +61,7 @@
             style="@style/FragmentElement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/space_between_elements"
             android:layout_below="@+id/spinnerSubBussineLine"
             app:formato="phone"
             app:hintText="@string/txt_phone"
@@ -138,9 +143,7 @@
         <Button
             android:id="@+id/btnBackBussinesInfo"
             style="@style/buttonSmallRoundedGray"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".1"
+            android:layout_weight="1"
             android:text="@string/backButton"
             android:textAllCaps="false" />
 
@@ -150,10 +153,8 @@
 
         <Button
             android:id="@+id/btnNextBussinesInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
             style="@style/buttonSmallRoundedBlue"
-            android:layout_weight=".9"
+            android:layout_weight="2"
             android:text="@string/nextButton"
             android:textAllCaps="false" />
     </LinearLayout>

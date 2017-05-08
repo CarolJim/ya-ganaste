@@ -53,7 +53,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     private IAccountManager accountManager;
     private Context context;
     private List<EstatusDocumentosResponse> mListaDocumentos;
-
+    Drawable mDrawable = null;
     public AccountAdqInteractor(IAccountManager accountManager, Context ctx) {
         this.accountManager = accountManager;
         context = ctx;
@@ -71,8 +71,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
     @Override
     public void setListDocuments(View view) {
-        Drawable mDrawable = null;
-        Bitmap bitmapEstatus = null;
 
         if( mListaDocumentos!=null && mListaDocumentos.size()>0) {
             for (EstatusDocumentosResponse estatusDocs : this.mListaDocumentos) {
@@ -80,34 +78,31 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
                 switch (estatusDocs.getIdEstatus()) {
                     case STATUS_DOCTO_APROBADO:
-                        mDrawable = ContextCompat.getDrawable(context, R.mipmap.ic_validate_blue);
-                        bitmapEstatus = ((BitmapDrawable) mDrawable).getBitmap();
+                        mDrawable = ContextCompat.getDrawable(context, R.drawable.done_1_canvas);
                         break;
                     case STATUS_DOCTO_PENDIENTE:
-                        mDrawable = ContextCompat.getDrawable(context, R.mipmap.ic_validate_blue);
-                        bitmapEstatus = ((BitmapDrawable) mDrawable).getBitmap();
+                        mDrawable = ContextCompat.getDrawable(context, R.drawable.clock_canvas);
                         break;
                     case STATUS_DOCTO_RECHAZADO:
-                        mDrawable = ContextCompat.getDrawable(context, R.mipmap.ic_validate_blue);
-                        bitmapEstatus = ((BitmapDrawable) mDrawable).getBitmap();
+                        mDrawable = ContextCompat.getDrawable(context, R.drawable.warning_1_canvas);
                         break;
                     default:
-                        mDrawable = ContextCompat.getDrawable(context, R.mipmap.ic_validate_blue);
-                        bitmapEstatus = ((BitmapDrawable) mDrawable).getBitmap();
+                        mDrawable = ContextCompat.getDrawable(context, R.drawable.clock_canvas);
+
                         break;
                 }
                 if (tipoDoc == DOC_ID_FRONT) {
                     UploadDocumentView IFEfront = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesIFEfront);
-                    IFEfront.setStatusImage(bitmapEstatus);
+                    IFEfront.setStatusImage(mDrawable);
                 } else if (tipoDoc == DOC_ID_BACK) {
                     UploadDocumentView IFEback = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesIFEBack);
-                    IFEback.setStatusImage(bitmapEstatus);
+                    IFEback.setStatusImage(mDrawable);
                 } else if (tipoDoc == DOC_DOM_FRONT) {
                     UploadDocumentView Addressfront = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesAddressFront);
-                    Addressfront.setStatusImage(bitmapEstatus);
+                    Addressfront.setStatusImage(mDrawable);
                 } else if (tipoDoc == DOC_DOM_BACK) {
                     UploadDocumentView Addressback = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesAddressBack);
-                    Addressback.setStatusImage(bitmapEstatus);
+                    Addressback.setStatusImage(mDrawable);
                 }
             }
         }else{
@@ -156,6 +151,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         request.setCuestionario(registerAgent.getCuestionario());
         onSuccess(new DataSourceResult(CREAR_AGENTE, WS, null));
        /*
+
         try {
             ApiAdtvo.crearAgente(request, this);
         } catch (OfflineException e) {
@@ -220,6 +216,8 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
         } else {
             accountManager.onError(response.getWebService(), "error " + data.getMensaje());
+
+
         }
 
     }

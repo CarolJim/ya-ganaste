@@ -220,13 +220,15 @@ public class CustomValidationEditText extends LinearLayout {
 
     private void setValidView() {
         imageView.setVisibility(VISIBLE);
-        imageView.setBackgroundResource(R.drawable.validation_ok_);
+        imageView.setBackgroundResource(R.drawable.done_campo_canvas);
+        imageView.setScaleType(ImageView.ScaleType.CENTER);
         isValid = true;
     }
 
     private void setNonValidView() {
         imageView.setVisibility(VISIBLE);
-        imageView.setBackgroundResource(R.drawable.triangle_error);
+        imageView.setBackgroundResource(R.drawable.warning2_1_canvas);
+        imageView.setScaleType(ImageView.ScaleType.CENTER);
         isValid = false;
     }
 

@@ -10,12 +10,15 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.BitmapDrawable;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.nfc.Tag;
 import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v7.view.ContextThemeWrapper;
 import android.util.Base64;
@@ -23,6 +26,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
@@ -88,9 +92,9 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     @BindView(R.id.itemWeNeedSmFilesAddressBack)
     UploadDocumentView itemWeNeedSmFilesAddressBack;
     @BindView(R.id.btnWeNeedSmFilesNext)
-    StyleButton btnWeNeedSmFilesNext;
+    Button btnWeNeedSmFilesNext;
     @BindView(R.id.btnRegresar)
-    StyleButton btnRegresar;
+    Button btnRegresar;
     @BindView(R.id.lnr_buttons)
     LinearLayout lnr_buttons;
     @BindView(R.id.lnr_help)
@@ -104,7 +108,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     private String imgs[] = new String[4];
     private ArrayList<String> contador ;
     private AccountAdqPresenter adqPresenter;
-
+    private Drawable mDrawable = null;
 
     public Documentos() {
     }
@@ -156,15 +160,18 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        SingletonUser singletonUser = SingletonUser.getInstance();
         if(SingletonUser.getInstance().getDataUser().isEsAgente()
                 && SingletonUser.getInstance().getDataUser().getEstatusAgente() != CRM_DOCTO_APROBADO){
             lnr_buttons.setVisibility(GONE);
             lnr_help.setVisibility(VISIBLE);
             showStatusDocs(rootview);
             adqPresenter.setListaDocs(rootview);
+            mDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.clock_canvas);
+            itemWeNeedSmFilesIFEfront.setStatusImage(mDrawable);
+            itemWeNeedSmFilesIFEBack.setStatusImage(mDrawable);
+            itemWeNeedSmFilesAddressFront.setStatusImage(mDrawable);
+            itemWeNeedSmFilesAddressBack.setStatusImage(mDrawable);
         }else{
-
             lnr_buttons.setVisibility(VISIBLE);
             lnr_help.setVisibility(GONE);
             itemWeNeedSmFilesIFEfront.setOnClickListener(this);
@@ -173,10 +180,13 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             itemWeNeedSmFilesAddressBack.setOnClickListener(this);
             btnWeNeedSmFilesNext.setOnClickListener(this);
             btnRegresar.setOnClickListener(this);
-
+            mDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.clock_canvas);
+            itemWeNeedSmFilesIFEfront.setStatusImage(mDrawable);
+            itemWeNeedSmFilesIFEBack.setStatusImage(mDrawable);
+            itemWeNeedSmFilesAddressFront.setStatusImage(mDrawable);
+            itemWeNeedSmFilesAddressBack.setStatusImage(mDrawable);
         }
     }
-
 
     @Override
     public void onClick(View view) {
@@ -298,7 +308,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             switch (documentProcessed) {
                 case IFE_FRONT:
                     itemWeNeedSmFilesIFEfront.setImageBitmap(bitmap);
-                    itemWeNeedSmFilesIFEfront.setStatusImage(bitmap);
                     itemWeNeedSmFilesIFEfront.setVisibilityStatus(false);
                     itemWeNeedSmFilesIFEfront.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
@@ -382,8 +391,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 Uri photoURI = FileProvider.getUriForFile(getActivity(),
                         "com.pagatodo.yaganaste.fileprovider",
                         photoFile);
-                Log.e(TAG, "dispatchTakePictureIntent: " + photoURI.getAuthority());
-                Log.e(TAG, "dispatchTakePictureIntent: " + photoURI);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 
                 List<ResolveInfo> resolvedIntentActivities = getActivity().getPackageManager().queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY);
