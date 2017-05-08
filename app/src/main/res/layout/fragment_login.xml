@@ -48,7 +48,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/edtxtUserPass"
-            android:hint="@string/txt_escribe_tu_pass"
+            android:hint="@string/txt_escribe_tu_correo"
             app:formato="email"
             android:inputType="textPassword" />
 

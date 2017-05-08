@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
@@ -21,7 +22,6 @@ import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEntity;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.interfaces.IAdqRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -244,9 +244,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     @Override
     public void onValidationSuccess() {
         RegisterAgent registerAgent = RegisterAgent.getInstance();
-
         //Almacenamos la información para el registro.
-        RegisterUser registerUser = RegisterUser.getInstance();
         registerAgent.setCalle(calle);
         registerAgent.setNumExterior(numExt);
         registerAgent.setNumInterior(numInt);
