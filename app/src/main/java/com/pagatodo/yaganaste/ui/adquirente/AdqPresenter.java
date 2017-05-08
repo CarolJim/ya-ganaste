@@ -68,30 +68,49 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
     @Override
     public void onError(WebService ws,Object error) {
         iAdqView.hideLoader();
-        if (ws == TRANSACCIONES_EMV_DEPOSIT) {
-            ((IAdqTransactionRegisterView) iAdqView).transactionResult(error.toString());
-        }else  if (ws == FIRMA_DE_VOUCHER) {
-            iAdqView.showError(error);
-            iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION, error);
-        }else if(ws == ENVIAR_TICKET_COMPRA){
+        switch (ws){
+            case REGISTRO_DONGLE:
+                ((IAdqTransactionRegisterView) iAdqView).dongleValidated();//TODO quitar este hardcode
+                iAdqView.showError(error);
+                break;
+            case TRANSACCIONES_EMV_DEPOSIT:
+                ((IAdqTransactionRegisterView) iAdqView).transactionResult(error.toString());
+                break;
+            case FIRMA_DE_VOUCHER:
+                iAdqView.showError(error);
+                iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION, error);
+                break;
+            case ENVIAR_TICKET_COMPRA:
                 iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT,error);
-        }else{
-            iAdqView.showError(error);
+                break;
+            default:
+                iAdqView.showError(error);
+                break;
         }
     }
 
     @Override
+    public void hideLoader() {
+        iAdqView.hideLoader();
+    }
+
+    @Override
     public void onSucces(WebService ws,Object data) {
-        if (ws == REGISTRO_DONGLE) {
-            ((IAdqTransactionRegisterView) iAdqView).dongleValidated();
-        }else if(ws == TRANSACCIONES_EMV_DEPOSIT){
-            ((IAdqTransactionRegisterView) iAdqView).transactionResult(data.toString());
-        }else if(ws == FIRMA_DE_VOUCHER){
-            iAdqView.hideLoader();
-            iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION,data);
-        }else if(ws == ENVIAR_TICKET_COMPRA){
-            iAdqView.hideLoader();
-            iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT,data);
+        switch (ws){
+            case REGISTRO_DONGLE:
+                ((IAdqTransactionRegisterView) iAdqView).dongleValidated();
+                break;
+            case TRANSACCIONES_EMV_DEPOSIT:
+                ((IAdqTransactionRegisterView) iAdqView).transactionResult(data.toString());
+                break;
+            case FIRMA_DE_VOUCHER:
+                iAdqView.hideLoader();
+                iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION,data);
+                break;
+            case ENVIAR_TICKET_COMPRA:
+                iAdqView.hideLoader();
+                iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT,data);
+                break;
         }
     }
 }

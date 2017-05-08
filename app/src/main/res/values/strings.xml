@@ -183,6 +183,7 @@
     <string name="hint_concepto">Concepto</string>
     <string name="txt_concepto">Concepto:</string>
     <string name="inserta_el_lector_para_ncontinuar">Inserta Tu Lector de Tarjetas\nYa Ganaste</string>
+    <string name="text_slide_or_insert">Inserta o Desliza la Tarjeta para Continuar.</string>
     <string name="finalizar">Finalizar</string>
     <string name="insert_slide_card">Inserta o desliza la tarjeta</string>
     <string name="no_internet_access">No Cuentas con Conexión a Internet</string>
@@ -335,6 +336,8 @@
     <string name="child_tab_services">Servicios</string>
     <string name="child_tab_mony_send">Envíos</string>
     <string name="comision_service_payment">La Comisión por Realizar la Operación es de $10</string>
+    <string name="title_recarga_success">¡Recarga Exitosa!</string>
+
 
     <string name="transfer_phone">Número de Teléfono</string>
     <string name="transfer_cable">Cuenta CABLE</string>

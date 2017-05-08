@@ -18,15 +18,18 @@ import android.widget.Button;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
@@ -66,6 +69,11 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     ImageView imgPagosServiceToPay;
     @BindView(R.id.imgPagosServiceToPayRound)
     CircleImageView imgPagosServiceToPayRound;
+    @BindView(R.id.txtPagosUserName)
+    TextView txtPagosUserName;
+    @BindView(R.id.txtPagosYourBalanceNumber)
+    MontoTextView txtBalance;
+
     MovementsTab currentTab = TAB1;
 
     //private Animation animIn, animOut;
@@ -130,6 +138,8 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         botonEnvios.setOnClickListener(this);
 
         rlimgPagosServiceToPay.setOnDragListener(this);
+        txtPagosUserName.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombreUsuario());
+        txtBalance.setText(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor());
     }
 
 

@@ -54,25 +54,64 @@
             app:symbolSmaller="true" />
 
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8"
-            android:gravity="center_horizontal|bottom"
-            android:text="Teléfono:"
-            app:tipo="Descripcion"
-            android:textSize="16sp" />
+            android:layout_weight="10"
+            android:orientation="vertical"
+            android:weightSum="2">
+
+            <LinearLayout
+                android:id="@+id/layoutComision"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:orientation="horizontal">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|top"
+                    android:text="Comisión: "
+                    android:textSize="12sp"
+                    app:tipo="Descripcion" />
+
+                <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+                    android:id="@+id/txtComision"
+                    android:layout_width="wrap_content"
+                    android:layout_height="match_parent"
+                    android:gravity="center_vertical|top"
+                    android:text="30"
+                    android:textSize="11sp"
+                    app:dotBottom="false"
+                    app:symbolSmaller="true"
+                    app:tipo="Descripcion" />
+
+            </LinearLayout>
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/titleReferencia"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|bottom"
+                android:text="Teléfono:"
+                android:textSize="16sp"
+                app:tipo="Descripcion" />
+
+        </LinearLayout>
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="8"
+            android:layout_weight="6"
             android:gravity="center"
             android:orientation="horizontal">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/editDestinatario"
+                android:id="@+id/txtReferencia"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
@@ -110,6 +149,7 @@
                 android:layout_height="match_parent" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txtAutorizacion"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="start"
@@ -134,6 +174,7 @@
                 android:layout_height="match_parent" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txtFecha"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="start"
@@ -158,53 +199,100 @@
                 android:layout_height="match_parent" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txtHora"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="start"
                 android:text="12:12:12 hrs" />
         </LinearLayout>
 
-
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        <LinearLayout
+            android:id="@+id/layoutFavoritos"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:layout_weight="10"
-            android:gravity="center_horizontal|bottom"
-            android:text="¿A Qué Correo Electrónico \nEnvíamos Tu Recibo?"
-            android:textColor="@color/colorAccent" />
+            android:layout_weight="20"
+            android:orientation="vertical"
+            android:weightSum="100">
 
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="10"
-            android:gravity="center">
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="50" />
 
-            <LinearLayout
+            <ImageView
+                android:id="@+id/imgPagosFavs"
+                android:layout_width="wrap_content"
+                android:layout_height="0dp"
+                android:layout_gravity="center_horizontal|bottom"
+                android:layout_weight="30"
+                android:adjustViewBounds="true"
+                android:scaleType="fitCenter"
+                android:src="@mipmap/circulo_favorito"
+                android:visibility="visible"
+                tools:ignore="ContentDescription" />
+
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_doble"
-                android:layout_marginRight="@dimen/margin_doble"
-                android:background="@drawable/rounded_border_edittext"
-                android:orientation="horizontal">
+                android:layout_weight="20"
+                android:gravity="center_horizontal|top"
+                android:text="Agregar a Favoritos" />
+        </LinearLayout>
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                    android:id="@+id/editPasswordEnvio"
+        <LinearLayout
+            android:id="@+id/layoutMail"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="20"
+            android:orientation="vertical"
+            android:visibility="gone"
+            android:weightSum="2">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/titleMail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center_horizontal|bottom"
+                android:text="¿A Qué Correo Electrónico \nEnvíamos Tu Recibo?"
+                android:textColor="@color/colorAccent" />
+
+            <RelativeLayout
+                android:id="@+id/layoutEditMail"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"
+                android:gravity="center">
+
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@null"
-                    android:backgroundTint="@color/transparent"
-                    android:hint="Correo Electrónico"
-                    android:inputType="text|textPassword"
-                    android:maxLength="40"
-                    android:paddingBottom="6dp"
-                    android:paddingTop="6dp"
-                    android:textSize="14sp" />
+                    android:layout_marginLeft="@dimen/margin_doble"
+                    android:layout_marginRight="@dimen/margin_doble"
+                    android:background="@drawable/rounded_border_edittext"
+                    android:orientation="horizontal">
 
-            </LinearLayout>
+                    <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
+                        android:id="@+id/editMail"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dp"
+                        android:layout_marginStart="15dp"
+                        android:background="@null"
+                        android:backgroundTint="@color/transparent"
+                        android:hint="Correo Electrónico"
+                        android:inputType="text|textPassword"
+                        android:maxLength="40"
+                        android:paddingBottom="6dp"
+                        android:paddingTop="6dp"
+                        android:textSize="14sp" />
 
-        </RelativeLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+        </LinearLayout>
+
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -6,10 +6,24 @@ import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.Envios;
+import com.pagatodo.yaganaste.data.model.Payments;
+import com.pagatodo.yaganaste.data.model.Recarga;
+import com.pagatodo.yaganaste.data.model.Servicios;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 
 /**
@@ -18,11 +32,46 @@ import butterknife.ButterKnife;
 
 public class PaymentSuccessFragment extends GenericFragment {
 
-    private View rootview;
+    @BindView(R.id.txt_paymentTitle)
+    TextView title;
+    @BindView(R.id.txt_importe)
+    MontoTextView importe;
+    @BindView(R.id.layoutComision)
+    LinearLayout layoutComision;
+    @BindView(R.id.titleReferencia)
+    TextView titleReferencia;
+    @BindView(R.id.txtReferencia)
+    TextView txtReferencia;
+    @BindView(R.id.imgLogoPago)
+    ImageView imgLogoPago;
+    @BindView(R.id.txtAutorizacion)
+    TextView autorizacion;
+    @BindView(R.id.txtFecha)
+    TextView fecha;
+    @BindView(R.id.txtHora)
+    TextView hora;
+    @BindView(R.id.layoutMail)
+    LinearLayout layoutMail;
+    @BindView(R.id.titleMail)
+    TextView titleMail;
+    @BindView(R.id.layoutEditMail)
+    RelativeLayout layoutEditMail;
+    @BindView(R.id.editMail)
+    EditText editMail;
+    @BindView(R.id.btn_continueEnvio)
+    Button btnContinueEnvio;
+    @BindView(R.id.layoutFavoritos)
+    LinearLayout layoutFavoritos;
 
-    public static PaymentSuccessFragment newInstance() {
+    private View rootview;
+    Payments pago;
+    EjecutarTransaccionResponse result;
+
+    public static PaymentSuccessFragment newInstance(Payments pago, EjecutarTransaccionResponse result) {
         PaymentSuccessFragment fragment = new PaymentSuccessFragment();
         Bundle args = new Bundle();
+        args.putSerializable("pago", pago);
+        args.putSerializable("result", result);
         fragment.setArguments(args);
         return fragment;
     }
@@ -39,7 +88,8 @@ public class PaymentSuccessFragment extends GenericFragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        pago = (Payments) getArguments().getSerializable("pago");
+        result = (EjecutarTransaccionResponse) getArguments().getSerializable("result");
     }
 
     @Override
@@ -63,6 +113,28 @@ public class PaymentSuccessFragment extends GenericFragment {
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
+        if (pago instanceof Recarga) {
+            title.setText(R.string.title_recarga_success);
+            layoutComision.setVisibility(View.GONE);
+            titleReferencia.setText(R.string.txt_phone);
+            layoutMail.setVisibility(View.GONE);
+            layoutFavoritos.setVisibility(View.VISIBLE);
+        } else if (pago instanceof Servicios) {
+
+        } else if (pago instanceof Envios) {
+
+        } else {
+
+        }
+
+        importe.setText(String.format("%.2f", pago.getMonto()));
+        txtReferencia.setText(pago.getReferencia());
+        Glide.with(getContext()).load(pago.getComercio().getLogoURL()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).dontAnimate().into(imgLogoPago);
+
+        autorizacion.setText(result.getData().getNumeroAutorizacion());
+        fecha.setText(result.getData().getFecha());
+        hora.setText(result.getData().getHora());
 
     }
 }
