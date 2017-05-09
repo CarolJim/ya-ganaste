@@ -13,6 +13,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
@@ -20,6 +22,7 @@ import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
@@ -37,7 +40,7 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class ConfirmarNIPFragment extends GenericFragment implements View.OnClickListener,ValidationForms, IAccountCardNIPView {
+public class ConfirmarNIPFragment extends GenericFragment implements View.OnClickListener, ValidationForms, IAccountCardNIPView {
 
     public static String PIN_TO_CONFIRM = "PIN_TO_CONFIRM";
     private static int PIN_LENGHT = 4;
@@ -55,6 +58,11 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     private String nip = "";
     private String nipToConfirm = "";
     private AccountPresenterNew accountPresenter;
+    LinearLayout layout_control;
+    TextView tv1Num;
+    TextView tv2Num;
+    TextView tv3Num;
+    TextView tv4Num;
 
     public ConfirmarNIPFragment() {
     }
@@ -62,7 +70,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     public static ConfirmarNIPFragment newInstance(String nip) {
         ConfirmarNIPFragment fragmentRegister = new ConfirmarNIPFragment();
         Bundle args = new Bundle();
-        args.putString(PIN_TO_CONFIRM,nip);
+        args.putString(PIN_TO_CONFIRM, nip);
         fragmentRegister.setArguments(args);
         return fragmentRegister;
     }
@@ -80,7 +88,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         nipToConfirm = getArguments().getString(PIN_TO_CONFIRM);
-        accountPresenter = ((AccountActivity)getActivity()).getPresenter();
+        accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
@@ -107,23 +115,34 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnNextAsignarPin.setOnClickListener(this);
-        keyboardView.setKeyBoard(getActivity(),R.xml.keyboard_nip);
+
+        keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
 
+        layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout);
+
+        tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
+        tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
+        tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
+        tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
         borderTitleLayout.setTitle(getString(R.string.confirma_pin));
 
+        edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
+        edtPin.addCustomTextWatcher(new AsignarNipTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num));
         edtPin.addCustomTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(s.toString().length() == 4){
+                if (s.toString().length() == 4) {
                     buttonIsVisible(true);
                     keyboardView.hideCustomKeyboard();
                 }
             }
+
             @Override
             public void afterTextChanged(Editable editable) {
 
@@ -137,16 +156,18 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
                 if (hasFocus) {
                     buttonIsVisible(false);
                     keyboardView.showCustomKeyboard(v);
-                }else{
+                } else {
                     buttonIsVisible(true);
-                    keyboardView.hideCustomKeyboard();}
+                    keyboardView.hideCustomKeyboard();
+                }
             }
         });
 
-        edtPin.setOnClickListener(new View.OnClickListener() {
+        layout_control.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 buttonIsVisible(false);
+                edtPin.requestFocus();
                 keyboardView.showCustomKeyboard(v);
             }
         });
@@ -189,12 +210,12 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     public void validateForm() {
         getDataForm();
 
-        if(nip.length() < PIN_LENGHT){
+        if (nip.length() < PIN_LENGHT) {
             showValidationError(getString(R.string.asignar_pin));
             return;
         }
 
-        if(!nip.equals(nipToConfirm)){
+        if (!nip.equals(nipToConfirm)) {
             showValidationError(getString(R.string.confirmar_pin));
             return;
         }
@@ -204,7 +225,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showValidationError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+        UI.showToastShort(error.toString(), getActivity());
     }
 
     @Override
@@ -223,14 +244,14 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
-                onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE,null);//Mostramos la siguiente pantalla SMS.
+                onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
             }
         }, DELAY_MESSAGE_PROGRESS);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
@@ -246,18 +267,18 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+        UI.showToastShort(error.toString(), getActivity());
     }
 
     public boolean isCustomKeyboardVisible() {
         return keyboardView.getVisibility() == View.VISIBLE;
     }
 
-    private void buttonIsVisible(boolean isVisible){
+    private void buttonIsVisible(boolean isVisible) {
         btnNextAsignarPin.setVisibility(isVisible ? VISIBLE : GONE);
     }
 
-    public void hideKeyboard(){
+    public void hideKeyboard() {
         keyboardView.hideCustomKeyboard();
     }
 }
