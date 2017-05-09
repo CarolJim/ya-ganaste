@@ -10,6 +10,7 @@ import android.os.Handler;
 import android.os.Looper;
 import android.support.multidex.MultiDex;
 import android.support.multidex.MultiDexApplication;
+import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
 import com.dspread.xpos.QPOSService;
@@ -32,6 +33,7 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         m_singleton = this;
         //MultiDex.install(this);
 

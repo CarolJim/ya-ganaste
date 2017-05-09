@@ -57,35 +57,29 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:gravity="center">
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleButton
-            android:id="@+id/btnNextResult"
-            android:layout_width="0dp"
-            android:layout_height="@dimen/height_btns"
-            android:layout_weight="1"
-            android:layout_margin="@dimen/margin_medium"
-            android:text="@string/next"
-            android:visibility="visible"
-            android:textAllCaps="false"
-            app:buttonNormalColor="@android:color/transparent"
-            app:buttonStrokeColor="@color/whiteColor"
-            app:intercepterOnclick="true"
-            app:cornerRadius="@dimen/btn_corner_radius_small" />
+        <!--<com.pagatodo.yaganaste.utils.customviews.StyleButton-->
+            <!--style="@style/buttonDirecctionBack"-->
+            <!--android:id="@+id/btnNextResult"-->
+            <!--android:layout_weight="1"-->
+            <!--android:layout_margin="@dimen/margin_medium"-->
+            <!--android:text="@string/next"-->
+            <!--android:visibility="visible"-->
+            <!--android:textAllCaps="false"-->
+            <!--app:protectOnclick="true"/>-->
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleButton
-            android:id="@+id/btnErrorResult"
-            android:layout_width="0dp"
-            android:layout_margin="@dimen/margin_medium"
-            android:layout_height="@dimen/height_btns"
-            android:layout_weight="1"
-            android:visibility="visible"
-            android:textAllCaps="false"
-            android:text="@string/title_reintentar"
-            app:buttonNormalColor="@color/colorAccent"
-            app:buttonStrokeColor="@color/colorAccent"
-            app:intercepterOnclick="true"
-            app:cornerRadius="@dimen/btn_corner_radius_small" />
+        <!--<com.pagatodo.yaganaste.utils.customviews.StyleButton-->
+            <!--android:id="@+id/btnErrorResult"-->
+            <!--android:layout_margin="@dimen/margin_medium"-->
+            <!--android:layout_weight="1"-->
+            <!--android:visibility="visible"-->
+            <!--android:textAllCaps="false"-->
+            <!--android:text="@string/title_reintentar"-->
+            <!--style="@style/buttonDirecctionNext"-->
+            <!--app:protectOnclick="true"-->
+            <!--/>-->
 
 
     </LinearLayout>

@@ -333,6 +333,7 @@
     <string name="adq_msg_accept">A continuación, te Enseñaremos tu\nNueva Sección de Cobros</string>
     <string name="adq_aproved">Aprobado</string>
     <string name="adq_succes_aproved">El Pago Fue Completado\nCorrectamente\n\nYa Puedes\nRetirar la Tarjeta.</string>
+    <string name="adq_error_signature">No se ha Capturado una Firma</string>
 
     <string name="usuario_no_existe">Este correo no se encuentra registrado.</string>
 

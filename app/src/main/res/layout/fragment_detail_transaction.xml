@@ -8,11 +8,9 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     tools:context=".ui._controllers.AccountActivity">
-
     <include
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -20,13 +18,11 @@
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:orientation="vertical">
-
         <RelativeLayout
             android:id="@+id/layoutImageResult"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_weight="1.5"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
             android:padding="@dimen/generic_padig">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -97,12 +93,14 @@
 
         </RelativeLayout>
 
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:id="@+id/layoutButtonsResult"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_marginLeft="@dimen/margin_medium"
             android:layout_marginRight="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/margin_doble"
             android:paddingRight="@dimen/margin_medium"
             android:paddingLeft="@dimen/margin_medium"
             android:layout_weight="1.8">
@@ -119,17 +117,17 @@
                 android:id="@+id/edtEmailSendticket"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtQuestionEmail"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:text="@string/txt_felicidades"
                 app:formato="email" />
-
+            <android.support.v4.widget.Space
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_weight="1"/>
             <SeekBar
                 android:id="@+id/myseek"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/margin_doble"
                 android:background="@drawable/seek_background"
                 android:clickable="false"
                 android:max="100"
@@ -138,10 +136,7 @@
                 android:thumbOffset="15dp" />
 
 
-        </RelativeLayout>
-
-
-
+        </LinearLayout>
     </LinearLayout>
 
 
