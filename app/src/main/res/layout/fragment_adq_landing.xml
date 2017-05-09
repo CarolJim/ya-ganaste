@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/landing_background">
+
+    <RelativeLayout
+        android:id="@+id/tutorialPage1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/landingTransparent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentTop="true"
+            android:layout_marginRight="50dp"
+            android:layout_marginTop="120dp"
+            android:orientation="vertical">
+
+            <ImageView
+                android:id="@+id/imageView"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:src="@mipmap/arrow_up" />
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
+                android:id="@+id/text1"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="El saldo que te\nreembolsaremos\nal dia siguiente "
+                android:textSize="30sp"
+                app:font_type="angelina" />
+
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <RelativeLayout
+        android:id="@+id/tutorialPage2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/landingTransparent"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:id="@+id/lnr_message1"
+            android:layout_width="match_parent"
+            android:layout_height="180dp"
+            android:layout_marginTop="130dp"
+            android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_gravity="center"
+                    android:gravity="center">
+
+                        <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
+                            android:id="@+id/text2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="En Azul, tus Cobros\nPendientes de Reembolso"
+                            android:textSize="30sp"
+                            app:font_type="angelina" />
+
+                    <ImageView
+                        android:id="@+id/imageView2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="50dp"
+                        android:scaleX="1"
+                        android:rotation="20"
+                        android:src="@mipmap/arrow_down"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignBottom="@id/text2"
+                        />
+
+
+                </RelativeLayout>
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:id="@+id/lnr_message2"
+            android:layout_width="match_parent"
+            android:layout_height="140dp"
+            android:layout_below="@id/lnr_message1"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:text="En Verde, Los Que Ya\n Te Reembolsamos"
+                    android:textSize="30sp"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="50dp"
+                    app:font_type="angelina"
+                    android:id="@+id/text3" />
+
+
+                    <ImageView
+                        android:id="@+id/imageView4"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:scaleX="1"
+                        android:rotation="320"
+                        android:src="@mipmap/arrow_down"
+                        android:layout_toRightOf="@id/text3"
+                        />
+
+            </RelativeLayout>
+        </LinearLayout>
+        <LinearLayout
+            android:id="@+id/lnr_message3"
+            android:layout_width="match_parent"
+            android:layout_height="100dp"
+            android:layout_below="@id/lnr_message2"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentLeft="true"
+                    android:layout_marginLeft="50dp"
+                    android:text="Y En Rojo, Los Que Ya\nTe Reembolsamos"
+                    android:textSize="30sp"
+                    app:font_type="angelina"
+                    android:id="@+id/text4" />
+
+
+                <ImageView
+                    android:id="@+id/image3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:scaleX="1"
+                    android:rotation="140"
+                    android:src="@mipmap/arrow_up"
+                    android:layout_toRightOf="@id/text4"
+                    />
+
+            </RelativeLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
+
+</RelativeLayout>

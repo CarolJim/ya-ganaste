@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.utils.FontCache;
  */
 
 public class CustomFontTextView extends AppCompatTextView {
+
     public CustomFontTextView(Context context, Font font) {
         super(context);
         this.isInEditMode();
@@ -26,7 +27,6 @@ public class CustomFontTextView extends AppCompatTextView {
         this.isInEditMode();
         TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CustomFontTextView,0, 0);
         Font font = getFont(typedArray.getInt(R.styleable.CustomFontTextView_font_type, 0));
-
         FontCache.initStyle(context, font, this);
         typedArray.recycle();
     }
@@ -43,6 +43,8 @@ public class CustomFontTextView extends AppCompatTextView {
                 return Font.SOURCESANSPRO_REGULAR;
             case 4:
                 return Font.SOURCESANSPRO_SEMIBOLD;
+            case 5:
+                return Font.DK_BUPKIS;
             default:
                 return Font.ANGELINA;
         }

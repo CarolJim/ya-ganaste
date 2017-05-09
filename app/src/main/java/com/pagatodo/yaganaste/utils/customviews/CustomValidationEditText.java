@@ -65,6 +65,7 @@ public class CustomValidationEditText extends LinearLayout {
         //ButterKnife.bind(context, this);
         editText = (EditText) findViewById(R.id.editTextCustom);
         Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
+        editText.setTextSize(16);
         editText.setTypeface(customFont);
         imageView = (ImageView) findViewById(R.id.imageViewValidation);
         //imageView.setBackgroundResource(R.drawable.validation_fail);

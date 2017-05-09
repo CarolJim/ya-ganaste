@@ -61,7 +61,7 @@ public class BorderTitleLayout extends RelativeLayout {
 
         Paint paint = new Paint();
         paint.setStyle(Paint.Style.STROKE);
-        paint.setColor(ContextCompat.getColor(getContext(), R.color.whiteColor));
+        paint.setColor(ContextCompat.getColor(getContext(), R.color.borderColor));
 
         paint.setTextSize(textSize);
         paint.setTypeface(typeface);
