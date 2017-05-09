@@ -147,7 +147,7 @@ public class Recursos {
 
 	/*Url Legales*/
 	public static final String URL_LEGALES_TERMINOS = "https://www.yaganaste.com/#";
-	public static final String URL_LEGALES_PRIVACIDAD = "https://www.yaganaste.com/Content/pdf/aviso.pdf";
+	public static final String URL_LEGALES_PRIVACIDAD = "http://www.movistar.com.mx/terminos-y-condiciones";
 
 	public static final String PUBLIC_KEY_RSA = "rk2QHAmXByr9wIf6d1cgU+f9NtKvj2xWvRv2wUcZSMVvhfTkcoWLG/CxEK+weoS3QcxxEWKFrWgwhYABXpkGhlXiqH7GyRIhv2kQtuZlGJJSIExd2asJrtjDnfStu7ZKbdIpLzqFUfo8naDhCuQTzhyApyJQ9HDcOSTFuRhJ7Mz3gXwUXqr98i+he+iYCzyrMViP+o4UPUqfNcpSafUw4NYre9KEZoHMaKcPMR4bMjax3Payt9LDAU3KgBOnWS9Ga6WffE03tpAWqE3ape61CmPw5QKPgRNKSnV70wu7f02jmstEepM35aSf3gL9SKMUv3DkwYIpifhNYPbdKCh+BQ==";
 

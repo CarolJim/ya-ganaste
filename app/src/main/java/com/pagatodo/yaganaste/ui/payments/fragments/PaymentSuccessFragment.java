@@ -3,10 +3,10 @@ package com.pagatodo.yaganaste.ui.payments.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,7 +60,7 @@ public class PaymentSuccessFragment extends GenericFragment {
     @BindView(R.id.editMail)
     EditText editMail;
     @BindView(R.id.btn_continueEnvio)
-    Button btnContinueEnvio;
+    StyleButton btnContinueEnvio;
     @BindView(R.id.layoutFavoritos)
     LinearLayout layoutFavoritos;
 
@@ -128,7 +129,13 @@ public class PaymentSuccessFragment extends GenericFragment {
 
         }
 
-        importe.setText(String.format("%.2f", pago.getMonto()));
+        String text = String.format("%.2f", pago.getMonto());
+        text = text.replace(",", ".");
+
+        importe.setText(text);
+
+
+
         txtReferencia.setText(pago.getReferencia());
         Glide.with(getContext()).load(pago.getComercio().getLogoURL()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).dontAnimate().into(imgLogoPago);
 
@@ -136,5 +143,12 @@ public class PaymentSuccessFragment extends GenericFragment {
         fecha.setText(result.getData().getFecha());
         hora.setText(result.getData().getHora());
 
+        btnContinueEnvio.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                getActivity().finish();
+                //getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+            }
+        });
     }
 }

@@ -5,5 +5,5 @@ package com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces;
  */
 
 public interface IServiciosPresenter {
-    void validateFields(String referencia, String importe, String concepto);
+    void validateFields(String referencia, String importe, String concepto, int longitudReferencia);
 }

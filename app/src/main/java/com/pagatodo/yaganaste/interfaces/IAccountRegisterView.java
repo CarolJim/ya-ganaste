@@ -8,5 +8,6 @@ public interface IAccountRegisterView extends IAccountAddressRegisterView {
 
     public void clientCreatedSuccess(String message);
     public void clientCreateFailed(String error);
+    public void zipCodeInvalid(String message);
 
 }

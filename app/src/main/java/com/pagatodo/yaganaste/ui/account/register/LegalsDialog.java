@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.ui.account.register;
 
 import android.app.Dialog;
 import android.app.DialogFragment;
+import android.graphics.Color;
+import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -56,18 +58,12 @@ public class LegalsDialog extends DialogFragment implements IProgressView {
         return legalsDialog;
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, final ViewGroup container, Bundle savedInstanceState) {
-
         rootview = inflater.inflate(R.layout.fragment_legals, container, false);
         initViews();
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-
-//        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-//        getDialog().getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         return rootview;
-
     }
 
     @Override
@@ -78,8 +74,19 @@ public class LegalsDialog extends DialogFragment implements IProgressView {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        Dialog dialog = getDialog();
+        if (dialog != null) {
+            dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
+            dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
+        }
+    }
+
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        showLoader(getString(R.string.cargando));
         WebSettings settings = webViewLegalsContent.getSettings();
         settings.setJavaScriptEnabled(true);
         webViewLegalsContent.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);

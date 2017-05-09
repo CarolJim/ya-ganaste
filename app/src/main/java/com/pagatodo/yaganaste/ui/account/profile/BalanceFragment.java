@@ -37,10 +37,10 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
-import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_LOGIN;
-import static com.pagatodo.yaganaste.ui._controllers.MainActivity.SELECTION;
 import static com.pagatodo.yaganaste.ui._controllers.SessionActivity.EVENT_GO_OTP;
 import static com.pagatodo.yaganaste.ui._controllers.SessionActivity.EVENT_TO_PAYMENTS;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 

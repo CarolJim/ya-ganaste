@@ -9,7 +9,6 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.multidex.MultiDex;
-import android.support.multidex.MultiDexApplication;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
@@ -17,8 +16,6 @@ import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.adquirente.readers.IposListener;
-import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.Utils;
 
 /**
  * Created by flima on 17/03/17.
@@ -30,10 +27,13 @@ public class App extends Application {
     public QPOSService pos;
     public IposListener emvListener;
 
+    static {
+        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
+
     @Override
     public void onCreate() {
         super.onCreate();
-        AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
         m_singleton = this;
         //MultiDex.install(this);
 
@@ -108,7 +108,7 @@ public class App extends Application {
         return m_singleton;
     }
 
-    public static Context getContext(){
+    public static Context getContext() {
         return m_singleton.getApplicationContext();
     }
 
@@ -118,6 +118,7 @@ public class App extends Application {
         super.attachBaseContext(base);
         MultiDex.install(base);
     }
+
     //Inicializa Lector Ipos
     public void initEMVListener() {
         emvListener = new IposListener(getApplicationContext());

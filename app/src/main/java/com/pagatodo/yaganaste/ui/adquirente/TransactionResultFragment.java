@@ -43,10 +43,13 @@ public class TransactionResultFragment extends GenericFragment implements View.O
 
     @BindView(R.id.imgResult)
     ImageView imgResult;
+
     @BindView(R.id.txtTitleResult)
     StyleTextView txtTitleResult;
+
     @BindView(R.id.txtSubtitleResult)
-    StyleTextView txtDescResult;
+    StyleTextView txtMessageResult;
+
 //    @BindView(R.id.btnNextResult)
 //    StyleButton btnPrimaryResult;
 //    @BindView(R.id.btnErrorResult)
@@ -54,9 +57,14 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     @BindView(R.id.layoutButtonsResult)
     LinearLayout llContentBtns;
 
+    @BindView(R.id.txtDescriptionResult)
+    StyleTextView txtDescriptionResult;
+
     private PageResult pageResultData;
+
     @IdRes
     private static final int idBtnPrimary    = 43322;
+
     @IdRes
     private static final int idBtnSecondary  = 43321;
 
@@ -113,7 +121,9 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     public void initViews() {
         ButterKnife.bind(this, rootview);
         txtTitleResult.setText(pageResultData.getTitle());
-        txtDescResult.setText(pageResultData.getMessage());
+        txtMessageResult.setText(pageResultData.getMessage());
+
+        txtDescriptionResult.setText(pageResultData.getDescription());
         imgResult.setImageResource(pageResultData.getIdResurceIcon());
         setAndConfigureBtns(llContentBtns);
     }
@@ -217,4 +227,3 @@ public class TransactionResultFragment extends GenericFragment implements View.O
         return button;
     }
 }
-
