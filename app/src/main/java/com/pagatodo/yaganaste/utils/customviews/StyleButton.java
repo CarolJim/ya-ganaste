@@ -16,6 +16,7 @@ public class StyleButton extends MaterialButton {
 
     public static final String ANDROID_SCHEMA = "http://schemas.android.com/apk/res/android";
 
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public StyleButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -30,10 +31,10 @@ public class StyleButton extends MaterialButton {
     protected void applyCustomFont(Context context) {
 //        super.applyCustomFont(context);
 
-        Typeface customFont = FontCache.getTypeface("fonts/Gotham/Gotham-Medium.otf", context);
+        Typeface customFont =  selectTypeface(context, 0); //FontCache.getTypeface("fonts/Gotham/Gotham-Medium.otf", context);
         setTypeface(customFont);
     }
-/*
+
     private Typeface selectTypeface(Context context, int textStyle) {
 
         switch (textStyle) {
@@ -47,5 +48,5 @@ public class StyleButton extends MaterialButton {
             default:
                 return FontCache.getTypeface("fonts/Roboto-Regular.ttf", context);
         }
-    }*/
+    }
 }

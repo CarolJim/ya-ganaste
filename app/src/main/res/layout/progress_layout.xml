@@ -1,37 +1,46 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-xmlns:android="http://schemas.android.com/apk/res/android"
-xmlns:tools="http://schemas.android.com/tools"
-android:id="@+id/process"
-android:layout_width="match_parent"
-android:layout_height="match_parent"
-android:visibility="visible">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/process"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="visible">
 
-<RelativeLayout
+<FrameLayout
+    android:layout_gravity="center"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@drawable/bg_loading_white" >
 
-    <pl.droidsonroids.gif.GifImageView
-        android:id="@+id/imgloader"
-        android:layout_width="140dp"
-        android:layout_height="140dp"
-        android:layout_centerInParent="true"
-        android:src="@mipmap/load_reloj"
-        android:visibility="visible"
-        tools:ignore="ContentDescription" />
-
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txtMessage"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+    <FrameLayout
+        android:layout_gravity="center"
         android:gravity="center"
-        android:visibility="visible"
-        android:text="Cargando..."
-        android:paddingTop="85dp"
-        android:textColor="@color/whiteColor"
-        android:layout_centerVertical="true"/>
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+        <pl.droidsonroids.gif.GifImageView
+            android:layout_gravity="center"
+            android:id="@+id/imgloader"
+            android:layout_width="160dp"
+            android:layout_height="160dp"
+            android:src="@mipmap/load_reloj"
+            android:visibility="visible"
+            android:adjustViewBounds="true"
+            android:scaleType="fitCenter"
+            tools:ignore="ContentDescription" />
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:layout_gravity="bottom|center_horizontal"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:id="@+id/txtMessage"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:visibility="visible"
+            android:text="Cargando..."
+            android:textColor="@color/whiteColor" />
+    </FrameLayout>
 
-</RelativeLayout>
+
+</FrameLayout>
 
 </LinearLayout>

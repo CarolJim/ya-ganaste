@@ -382,6 +382,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void showInsertDongle() {
         imgInsertDongle.setVisibility(VISIBLE);
         imgInsertCard.setVisibility(View.INVISIBLE);
+        tv_lector.setText(getString(R.string.inserta_el_lector_para_ncontinuar));
         tv_lector.setVisibility(VISIBLE);
     }
 
@@ -389,7 +390,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void showInsertCard() {
         imgInsertDongle.setVisibility(View.INVISIBLE);
         imgInsertCard.setVisibility(VISIBLE);
-        tv_lector.setVisibility(View.INVISIBLE);
+        tv_lector.setText(getString(R.string.text_slide_or_insert));
+        tv_lector.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -398,9 +400,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 showInsertCard();
-                //initListenerDongle();//Lectura de Tarjeta
+                initListenerDongle();//Lectura de Tarjeta
                 isWaitingCard = true;
-                adqPresenter.initTransaction(null);//TODO Probar Flujo
 
             }
         }, DELAY_MESSAGE_PROGRESS);

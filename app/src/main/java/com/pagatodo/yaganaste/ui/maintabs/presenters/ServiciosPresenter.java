@@ -20,8 +20,8 @@ public class ServiciosPresenter implements IServiciosPresenter, IServiciosIntera
     }
 
     @Override
-    public void validateFields(String referencia, String importe, String concepto) {
-        serviciosInteractor.validateForms(referencia, importe, concepto, this);
+    public void validateFields(String referencia, String importe, String concepto, int longitudReferencia) {
+        serviciosInteractor.validateForms(referencia, importe, concepto, longitudReferencia, this);
     }
 
     @Override

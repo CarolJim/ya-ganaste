@@ -50,9 +50,8 @@ public class ViewPagerDataFactory {
         switch (type) {
             case MAIN:
                 fragmentList.add(HomeTabFragment.newInstance());
-                fragmentList.add(GetMountFragment.newInstance());
                 fragmentList.add(PaymentsTabFragment.newInstance());
-                //fragmentList.add(BlankFragment.newInstance());
+                fragmentList.add(BlankFragment.newInstance());
                 Log.e("view pager ", "esAgente" + SingletonUser.getInstance().getDataUser().isEsAgente());
                 Log.e("view pager ", "estatus Agente" + SingletonUser.getInstance().getDataUser().getEstatusAgente());
                 if (SingletonUser.getInstance().getDataUser().isEsAgente()

@@ -54,7 +54,7 @@ dependencies {
     compile 'org.jbundle.util.osgi.wrapped:org.jbundle.util.osgi.wrapped.org.apache.http.client:4.1.2'
     compile 'org.thoughtcrime.ssl.pinning:AndroidPinning:1.0.0'
     testCompile 'junit:junit:4.12'
-    compile ('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
+    compile('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
         exclude module: 'support-v4'
     }
     compile 'com.jakewharton:butterknife:8.4.+'
@@ -62,7 +62,6 @@ dependencies {
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.2'
     compile 'id.zelory:compressor:1.0.4'
     compile 'com.github.bumptech.glide:glide:3.7.0'
-
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.google.firebase:firebase-core:10.0.1'
 }

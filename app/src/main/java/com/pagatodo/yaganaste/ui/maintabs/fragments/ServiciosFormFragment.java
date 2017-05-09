@@ -3,6 +3,8 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.text.InputFilter;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -82,6 +84,14 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
         super.initViews();
         layoutImageReference.setOnClickListener(this);
         serviceImport.addTextChangedListener(new NumberTextWatcher(serviceImport));
+        if(comercioItem.getLongitudReferencia() > 0){
+            InputFilter[] fArray = new InputFilter[1];
+            fArray[0] = new InputFilter.LengthFilter(comercioItem.getLongitudReferencia());
+            referenceNumber.setFilters(fArray);
+            if(comercioItem.getFormato().equals("AN")){
+                referenceNumber.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_CLASS_NUMBER);
+            }
+        }
     }
 
     @Override
@@ -142,7 +152,7 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
     public void onStartTrackingTouch(SeekBar seekBar) {
         referencia = referenceNumber.getText().toString().trim();
         concepto = serviceConcept.getText().toString().trim();
-        serviciosPresenter.validateFields(referencia, serviceImport.getText().toString().trim(), concepto);
+        serviciosPresenter.validateFields(referencia, serviceImport.getText().toString().trim(), concepto, comercioItem.getLongitudReferencia());
     }
 
 }

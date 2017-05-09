@@ -59,7 +59,6 @@ public class MainActivity extends SupportFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         setContentView(R.layout.activity_fragment_conainer);
         initViews();
         if (!ValidatePermissions.validateSIMCard(this)) {
@@ -77,6 +76,7 @@ public class MainActivity extends SupportFragmentActivity {
     public void onBackPressed() {
         finish();
     }
+
 
     /**
      * Construimos el PageResult a mostrar en caso de no tener tarjeta SIM

@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatDelegate;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -13,6 +14,7 @@ import android.widget.Toast;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.Envios;
+import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
@@ -24,6 +26,7 @@ import com.pagatodo.yaganaste.ui.payments.fragments.PaymentSuccessFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentsProcessingManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsProcessingPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcessingPresenter;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import butterknife.BindView;
@@ -42,6 +45,8 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
     FrameLayout container;
 
     IPaymentsProcessingPresenter presenter;
+    Object pago;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -57,7 +62,7 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
         });
         presenter = new PaymentsProcessingPresenter(this);
 
-        Object pago = getIntent().getExtras().get("pagoItem");
+        pago = getIntent().getExtras().get("pagoItem");
         MovementsTab tab = (MovementsTab) getIntent().getExtras().get("TAB");
 
 
@@ -120,19 +125,24 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
 
     @Override
     public void onSuccessPaymentRespone(DataSourceResult result) {
-        hideLoader();
-        container.setVisibility(View.VISIBLE);
-        View root = container.getRootView();
-        root.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
-        loadFragment(PaymentSuccessFragment.newInstance(), NONE, false);
+        EjecutarTransaccionResponse response = (EjecutarTransaccionResponse) result.getData();
+        if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+            hideLoader();
+            container.setVisibility(View.VISIBLE);
+            View root = container.getRootView();
+            root.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
+            loadFragment(PaymentSuccessFragment.newInstance((Payments) pago, response), NONE, false);
+        } else {
+            onFailPaimentResponse(result);
+        }
     }
 
     @Override
     public void onFailPaimentResponse(DataSourceResult error) {
         try {
-            EjecutarTransaccionResponse data = (EjecutarTransaccionResponse) error.getData();
-            if (data.getMensaje() != null)
-                Toast.makeText(this, data.getMensaje(), Toast.LENGTH_LONG).show();
+            EjecutarTransaccionResponse response = (EjecutarTransaccionResponse) error.getData();
+            if (response.getMensaje() != null)
+                Toast.makeText(this, response.getMensaje(), Toast.LENGTH_LONG).show();
 
         } catch (ClassCastException ex) {
             ex.printStackTrace();

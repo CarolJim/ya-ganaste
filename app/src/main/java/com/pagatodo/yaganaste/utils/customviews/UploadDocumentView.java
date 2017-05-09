@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.utils.customviews;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.media.Image;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
@@ -40,7 +41,6 @@ public class UploadDocumentView extends RelativeLayout {
     }
 
     private void init(){
-
         String infService = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater)getContext().getSystemService(infService);
         li.inflate(R.layout.item_file, this, true);
@@ -55,9 +55,9 @@ public class UploadDocumentView extends RelativeLayout {
         circleImageView.invalidate();
     }
 
-    public void setStatusImage(Bitmap bitmap){
+    public void setStatusImage(Drawable bitmap){
 
-        circleImageStatus.setImageBitmap(bitmap);
+        circleImageStatus.setImageDrawable(bitmap);
     }
 
     public void setVisibilityStatus(boolean visibilityStatus){

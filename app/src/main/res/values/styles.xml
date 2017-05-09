@@ -50,7 +50,7 @@
     <style name="textTitle">
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">24sp</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
         <item name="android:layout_marginLeft">24dp</item>
@@ -59,7 +59,7 @@
     </style>
 
     <style name="textSubTitle" parent="textTitle">
-        <item name="android:textSize">18sp</item>
+        <item name="android:textSize">20sp</item>
         <item name="android:textColor">@color/whiteColor_disable</item>
     </style>
 
@@ -77,18 +77,17 @@
         <item name="buttonRippleColor2">@drawable/button_rounded_blue</item>
         <item name="buttonNormalColor">@drawable/button_rounded_blue</item>
     </style>
-    <style name="buttonSmallRoundedBlue">
-        <item name="android:background">@drawable/button_rounded_blue</item>
+    <style name="buttonDirecctionNext">
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/height_btns</item>
+        <item name="android:background">@drawable/continuar_canvas</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="buttonRippleColor2">@drawable/button_rounded_blue</item>
-        <item name="buttonNormalColor">@drawable/button_rounded_blue</item>
     </style>
-    <style name="buttonSmallRoundedGray">
-        <!-- Crear shape con el estilo y color en gris para este boton  -->
-        <item name="android:background">@color/grayColor</item>
+    <style name="buttonDirecctionBack" >
+        <item name="android:layout_width">0dp</item>
+        <item name="android:layout_height">@dimen/height_btns</item>
+        <item name="android:background">@drawable/boton_regresar_canvas</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="buttonRippleColor2">@drawable/button_rounded_blue</item>
-        <item name="buttonNormalColor">@drawable/button_rounded_blue</item>
     </style>
     <style name="buttonSquareRoundedBlue">
         <item name="android:background">@drawable/button_rounded_square_blue</item>
@@ -154,10 +153,11 @@
         <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_marginStart">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_marginTop">@dimen/activity_horizontal_margin</item>
+        <item name="android:textColorHint">@color/colorAccent</item>
         <item name="android:gravity">center</item>
     </style>
 
-    <style name="EditTextStyle" parent="Base.V7.Widget.AppCompat.EditText">
+    <style name="EditTextStyle">
         <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
         <item name="android:paddingLeft">@dimen/margin_medium</item>
@@ -189,16 +189,11 @@
     <style name="CustomSpinner" parent="Base.Widget.AppCompat.Spinner">
         <item name="android:background">@android:drawable/edit_text</item>
         <item name="android:padding">0dp</item>
+
     </style>
 
     <style name="SpinnerNoArrow" parent="CustomSpinner">
         <item name="android:focusable">true</item>
-        <item name="android:layout_marginLeft">@dimen/margin_elements</item>
-        <item name="android:layout_marginRight">@dimen/margin_elements</item>
-        <item name="android:layout_marginTop">@dimen/space_between_elements</item>
-    </style>
-
-    <style name="Spinner" parent="CustomSpinner">
         <item name="android:layout_marginLeft">@dimen/margin_elements</item>
         <item name="android:layout_marginRight">@dimen/margin_elements</item>
         <item name="android:layout_marginTop">@dimen/space_between_elements</item>

@@ -53,13 +53,13 @@ public class LandingFragment extends Activity implements Animation.AnimationList
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.fragment_landing);
         ButterKnife.bind(this, this);
-        //tutorialScreen.setOnClickListener(this);
+
         animFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         animFadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         animFadeOut.setAnimationListener(this);
         animFadeIn.setAnimationListener(this);
         tutorialPage1.setVisibility(View.VISIBLE);
-        //tutorialPage1.startAnimation(animFadeIn);
+
     }
 
     @Override

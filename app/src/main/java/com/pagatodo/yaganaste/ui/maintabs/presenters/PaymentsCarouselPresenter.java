@@ -37,8 +37,6 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         this.mContext = context;
         this.api = new CatalogsDbApi(context);
         this.paymentsTabIteractor = new PaymentsCarouselIteractor(this, api);
-
-
     }
 
     @Override

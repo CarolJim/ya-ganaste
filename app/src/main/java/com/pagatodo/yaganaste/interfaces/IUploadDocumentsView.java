@@ -10,4 +10,5 @@ import java.util.List;
 
 public interface IUploadDocumentsView extends INavigationView {
     public void documentsUploaded(String message);
+
 }
