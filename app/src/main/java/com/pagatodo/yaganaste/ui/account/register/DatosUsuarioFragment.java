@@ -56,7 +56,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @BindView(R.id.editPasswordConfirmation)
     CustomValidationEditText editPasswordConfirm;
     @BindView(R.id.btnNextDatosUsuario)
-    ImageButton btnNextDatosUsuario;
+    StyleButton btnNextDatosUsuario;
     @BindView(R.id.errorMessage)
     ErrorMessage errorMessageView;
     @BindView(R.id.progressLayout)

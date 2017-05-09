@@ -11,9 +11,9 @@ import java.io.Serializable;
 public class PageResult  implements Serializable{
 
     private int idResurceIcon;
-    private String title;
-    private String message;
-    private String description;
+    private String title = "";
+    private String message = "";
+    private String description = "";
     private Command actionBtnPrimary;
     private Command actionBtnSecondary;
     private String namerBtnPrimary;

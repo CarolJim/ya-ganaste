@@ -57,8 +57,9 @@ public class ErrorMessage extends RelativeLayout {
     }
 
     public void setVisibilityImageError(boolean isVisible){
-        imgError.setVisibility(isVisible ? VISIBLE : GONE);
-        textMessage.setVisibility(isVisible ? VISIBLE : GONE);
+        imgError.setVisibility(isVisible ? VISIBLE : INVISIBLE);
+        textMessage.setVisibility(isVisible ? VISIBLE : INVISIBLE);
+        if(!isVisible)textMessage.setText("");
     }
 
 }

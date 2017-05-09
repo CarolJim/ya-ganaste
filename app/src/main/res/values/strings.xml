@@ -150,7 +150,7 @@
     <string name="activate_now">¡ACTÍVALA YA SIN COSTO!</string>
     <string name="txt_escribe_tu_pass">Ingresa tu Contraseña</string>
     <string name="txt_login">INGRESAR</string>
-    <string name="recover_pass">Recupera tu Contraseña</string>
+    <string name="recover_pass">¿Olvidaste tu Contraseña?</string>
     <string name="ingress_mail_to_recover_pass">Ingresa el Correo Electrónico\ncon el que Registraste tu\nCuenta Ya Ganaste</string>
     <string name="txt_mail">Correo Electrónico</string>
     <string name="send">ENVIAR</string>
@@ -254,6 +254,7 @@
     <string name="datos_personal_paterno">Primer Apellido Requerido, Verifique su Información.</string>
     <string name="datos_personal_fecha">Fecha de Nacimiento Requerida, Verifique su Información.</string>
     <string name="datos_personal_estado">Lugar de Nacimiento Requerido, Verifique su Información.</string>
+    <string name="datos_personal_nacionalidad">Nacionalidad Requerida, Verifique su Información.</string>
     <!--datos_domicilio-->
     <string name="currentAddressTitle">Domicilio Personal</string>
     <string name="streetHint">Calle</string>
@@ -422,6 +423,23 @@
     <string name="input_int_unsigned">0123456789</string>
     <string name="input_int">-0123456789</string>
     <string name="input_decimal">-.0123456789</string>
+
+    <string name="selecciona_genero">Selecciona tu Género</string>
+    <string name="cargando">Cargando</string>
+
+    <string name="recupera_contrasenia_title">Recupera tu Contraseña</string>
+    <string name="ingresa_correo_registrado">Ingresa tu Correo\nElectrónico Registrado</string>
+    <string name="ingresa_correo_registrado_requerido">El Correo Electrónico es Requerido. Verifica tu Información.</string>
+
+    <string name="carrouse_title_1">Cobra Con Tarjeta\nAl Mejor Precio</string>
+    <string name="carrouse_title_2">Recibe Pagos\nCon Tarjeta</string>
+    <string name="carrouse_title_3">Usa Tu Dinero\nComo Quieras</string>
+
+    <string name="entendido_titulo">Entendido</string>
+    <string name="no_sim_titulo">¡Atención!</string>
+    <string name="no_sim_mensaje">Este Dispositivo no\nCuenta Con Una Tarjeta SIM</string>
+    <string name="no_sim_desc">No Puedes Usar Esta Aplicación\n Sin Tarjeta SIM</string>
+
 </resources>
 
 

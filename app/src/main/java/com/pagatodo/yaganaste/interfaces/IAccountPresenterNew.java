@@ -20,6 +20,7 @@ public interface IAccountPresenterNew {
     public void assignNIP(String nip);
     public void gerNumberToSMS();
     public void doPullActivationSMS(String message);
+    public void recoveryPassword(String email);
     void checkUpdateDocs();
 
 }

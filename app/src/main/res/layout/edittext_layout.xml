@@ -28,10 +28,11 @@
             android:layout_height="match_parent"
             android:layout_weight="80">
 
-            <ImageView
+            <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/imageViewValidation"
-                android:layout_width="25dp"
-                android:layout_height="25dp"
+                android:layout_width="15dp"
+                android:layout_height="15dp"
+                android:padding="5dp"
                 android:layout_centerInParent="true" />
         </RelativeLayout>
 

@@ -5,6 +5,7 @@ import android.content.res.TypedArray;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -29,7 +30,7 @@ public class CustomValidationEditText extends LinearLayout {
     //@BindView(R.id.editTextCustom)
     EditText editText;
     //@BindView(R.id.imageViewValidation)
-    ImageView imageView;
+    AppCompatImageView imageView;
     Boolean isValid = false;
 
     String hint = "";
@@ -60,7 +61,7 @@ public class CustomValidationEditText extends LinearLayout {
         View.inflate(context, R.layout.edittext_layout, this);
         //ButterKnife.bind(context, this);
         editText = (EditText) findViewById(R.id.editTextCustom);
-        imageView = (ImageView) findViewById(R.id.imageViewValidation);
+        imageView = (AppCompatImageView) findViewById(R.id.imageViewValidation);
         //imageView.setBackgroundResource(R.drawable.validation_fail);
 
         if (attrs != null) {
@@ -214,13 +215,13 @@ public class CustomValidationEditText extends LinearLayout {
 
     private void setValidView() {
         imageView.setVisibility(VISIBLE);
-        imageView.setBackgroundResource(R.drawable.validation_ok_);
+        imageView.setBackgroundResource(R.drawable.done_campo_canvas);
         isValid = true;
     }
 
     private void setNonValidView() {
         imageView.setVisibility(VISIBLE);
-        imageView.setBackgroundResource(R.drawable.triangle_error);
+        imageView.setBackgroundResource(R.drawable.warning_canvas);
         isValid = false;
     }
 

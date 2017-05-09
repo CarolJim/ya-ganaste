@@ -293,9 +293,10 @@ public class ApiAdtvo extends Api {
      * */
     public static void iniciarSesion(IniciarSesionRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
-        if (!RequestHeaders.getTokenauth().equals(""))//Si ya se almaceno el tokenAuth, se envia en el login
-            headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
+        //headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
+        headers.put(RequestHeaders.TokenDispositivo,"dasdasd");
+        //if (!RequestHeaders.getTokenauth().equals(""))//Si ya se almaceno el tokenAuth, se envia en el login
+        //    headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
 
         NetFacade.consumeWS(INICIAR_SESION,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.loginUrl),
@@ -378,8 +379,6 @@ public class ApiAdtvo extends Api {
      * */
     public static void recuperarContrasenia(RecuperarContraseniaRequest request, IRequestResult result)   throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
-
         NetFacade.consumeWS(RECUPERAR_CONTRASENIA,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.recoverPasswordUrl),
                 headers,request, RecuperarContraseniaResponse.class,result);

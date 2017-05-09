@@ -9,14 +9,14 @@
     <dimen name="margin_doble">25dp</dimen>
     <dimen name="margin_regular">30dp</dimen>
     <dimen name="margin_big">24dp</dimen>
-    <dimen name="space_between_elements">10dp</dimen>
+    <dimen name="space_between_elements">8dp</dimen>
     <dimen name="generic_padig">12dp</dimen>
     <dimen name="margin_medium">12dp</dimen>
     <dimen name="margin_small">6dp</dimen>
 
     <dimen name="btn_margin_bottom">12dp</dimen>
     <dimen name="btn_corner_radius">24dp</dimen>
-    <dimen name="edit_corner_radius">2dp</dimen>
+    <dimen name="edit_corner_radius">1.5dp</dimen>
 
     <dimen name="seekbar_radius">20dp</dimen>
     <dimen name="seekbar_thumb_width">90dp</dimen>

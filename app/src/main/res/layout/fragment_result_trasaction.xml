@@ -19,17 +19,18 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbarLy"
         android:layout_marginTop="@dimen/activity_horizontal_margin"
-        android:padding="@dimen/generic_padig">
+        android:paddingTop="@dimen/generic_padig">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imgResult"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="15dp"
-            android:src="@mipmap/ic_validate_blue"
+            android:layout_marginTop="15dp"
+            android:backgroundTint="@color/whiteColor"
+            app:srcCompat="@drawable/warning_canvas"
             app:civ_border_color="@color/colorAccent"
             app:civ_border_width="2dp" />
     </RelativeLayout>
@@ -41,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/layoutImageResult"
         android:text="@string/txt_felicidades"
-        app:tipo="Descripcion" />
+        app:tipo="Titulo" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtSubtitleResult"
@@ -50,18 +51,33 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtTitleResult"
         android:gravity="center"
+        app:tipo="Subtitulo"
+        android:textSize="14sp"
         android:layout_marginBottom="@dimen/btn_margin_bottom"/>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtDescriptionResult"
+        style="@style/textDescInputs"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/layoutButtonsResult"
+        android:gravity="center"
+        android:layout_marginBottom="@dimen/btn_margin_bottom"/>
+
     <LinearLayout
         android:id="@+id/layoutButtonsResult"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
+        android:layout_marginBottom="@dimen/margin_medium"
+        android:layout_marginLeft="@dimen/margin_big"
+        android:layout_marginRight="@dimen/margin_big"
         android:orientation="horizontal">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextResult"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/height_btns"
             android:layout_weight="1"
             android:text="@string/next"
             android:visibility="visible"
@@ -70,7 +86,7 @@
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnErrorResult"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="@dimen/height_btns"
             android:layout_weight="1"
             android:visibility="visible"
             android:text="Reintentar"

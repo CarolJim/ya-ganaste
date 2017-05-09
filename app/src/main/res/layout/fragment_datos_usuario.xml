@@ -29,6 +29,7 @@
         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
             android:id="@+id/edtitEmail"
             style="@style/FragmentElementTop"
+            android:layout_marginTop="@dimen/double_space"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:formato="email"
@@ -73,32 +74,61 @@
 
     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
         android:id="@+id/errorMessage"
-        android:layout_below="@id/layoutBorder"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+        android:layout_height="match_parent"
+        android:visibility="visible"
+        android:layout_marginTop="@dimen/margin_small"
+        android:layout_below="@+id/layoutBorder"
+        android:layout_marginBottom="@dimen/margin_small"/>
 
-    <RelativeLayout
+    <LinearLayout
+        android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/margin_big"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:orientation="horizontal">
+        android:orientation="vertical">
 
-        <ImageButton
-            android:id="@+id/btnNextDatosUsuario"
-            android:layout_width="wrap_content"
-            android:layout_height="@dimen/height_btns"
-            android:layout_centerInParent="true"
-            android:gravity="center"
-            android:src="@drawable/shapebutton"
-            android:background="@null"
-            android:text="@string/nextButton"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
-            android:textAllCaps="false" />
-    </RelativeLayout>
+
+        <LinearLayout
+            android:id="@+id/layoutBtns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_big"
+            android:layout_marginRight="@dimen/margin_big"
+            android:orientation="horizontal">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5">
+
+            </LinearLayout>
+
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnNextDatosUsuario"
+                android:layout_width="match_parent"
+                android:layout_weight="1"
+                android:layout_height="@dimen/height_btns"
+                android:layout_centerInParent="true"
+                android:gravity="center"
+                android:text="@string/nextButton"
+                android:elevation="8dp"
+                app:overBackground="@drawable/continuar_canvas"
+                android:textAllCaps="false" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5">
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+        </LinearLayout>
 
 </RelativeLayout>
 

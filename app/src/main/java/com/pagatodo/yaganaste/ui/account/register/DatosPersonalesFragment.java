@@ -20,8 +20,10 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.Nacionalities;
 import com.pagatodo.yaganaste.interfaces.enums.States;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.register.adapters.NacionalidadSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
@@ -56,6 +58,8 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     CustomValidationEditText editSecoundLastName;
     @BindView(R.id.editBirthDay)
     CustomValidationEditText editBirthDay;
+    @BindView(R.id.spinnerNacionality)
+    AppCompatSpinner spinnerNacionality;
     @BindView(R.id.spinnerBirthPlace)
     AppCompatSpinner spinnerBirthPlace;
     @BindView(R.id.btnBackPersonalInfo)
@@ -65,6 +69,7 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     @BindView(R.id.errorMessage)
     ErrorMessage errorMessageView;
     StatesSpinnerAdapter adapterBirthPlace;
+    NacionalidadSpinnerAdapter adapterNacionalidades;
 
     private String genero = "";
     private String nombre = "";
@@ -73,6 +78,7 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     private String fechaNacimiento = "";
     private String lugarNacimiento = "";
     private String idEstadoNacimiento = "";
+    private String nacionalidad = "";
 
     public DatosPersonalesFragment() {
     }
@@ -120,9 +126,10 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     public void initViews() {
         ButterKnife.bind(this, rootview);
         editBirthDay.setFullOnClickListener(onClickListenerDatePicker);
-        errorMessageView.setVisibilityImageError(false);
         adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout, States.values());
+        adapterNacionalidades = new NacionalidadSpinnerAdapter(getContext(), R.layout.spinner_layout, Nacionalities.values());
         spinnerBirthPlace.setAdapter(adapterBirthPlace);
+        spinnerNacionality.setAdapter(adapterNacionalidades);
         spinnerBirthPlace.setOnItemSelectedListener(this);
         btnNextDatosPersonales.setOnClickListener(this);
         btnBackDatosPersonales.setOnClickListener(this);
@@ -135,7 +142,6 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.editBirthDay:
-
                 break;
             case R.id.btnBackPersonalInfo:
                 backScreen(EVENT_DATA_USER_BACK,null);
@@ -171,12 +177,13 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         editFirstLastName.addCustomTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!editFirstLastName.isValidText()){
                     hideErrorMessage();
                 }
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -186,18 +193,18 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         editBirthDay.addCustomTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(!editBirthDay.isValidText()){
                     hideErrorMessage();
                 }
             }
             @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+            @Override
             public void afterTextChanged(Editable s) {
             }
         });
-
 
     }
 
@@ -217,6 +224,11 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         if(fechaNacimiento.isEmpty()){
             showValidationError(getString(R.string.datos_personal_fecha));
             editBirthDay.setIsInvalid();
+            return;
+        }
+
+        if(nacionalidad.isEmpty()){
+            showValidationError(getString(R.string.datos_personal_nacionalidad));
             return;
         }
         if(lugarNacimiento.isEmpty()){
@@ -260,6 +272,7 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         registerUser.setApellidoMaterno(apMaterno);
         registerUser.setFechaNacimientoToShow(editBirthDay.getText());
         registerUser.setFechaNacimiento(fechaNacimiento);
+        registerUser.setNacionalidad(nacionalidad);//TODO 08/05/17 Validar con servicio
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
         nextScreen(EVENT_ADDRESS_DATA,null);//Mostramos siguiente pantalla de registro.
@@ -271,6 +284,8 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         nombre = editNames.getText().toString();
         apPaterno = editFirstLastName.getText().toString();
         apMaterno = editSecoundLastName.getText().toString();
+        if(spinnerNacionality.getSelectedItemPosition() != 0)
+            nacionalidad = spinnerNacionality.getSelectedItem().toString();
         //fechaNacimiento se establece en el event de DatePicker
         if(spinnerBirthPlace.getSelectedItemPosition() != 0)
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
@@ -293,6 +308,8 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         fechaNacimiento = registerUser.getFechaNacimiento();
         StatesSpinnerAdapter adapter = (StatesSpinnerAdapter)spinnerBirthPlace.getAdapter();
         spinnerBirthPlace.setSelection(adapter.getPositionItemByName(registerUser.getLugarNacimiento()));
+        NacionalidadSpinnerAdapter adapterNacionalidad = (NacionalidadSpinnerAdapter)spinnerNacionality.getAdapter();
+        spinnerNacionality.setSelection(adapterNacionalidad.getPositionItemByName(registerUser.getNacionalidad()));
     }
 
     @Override

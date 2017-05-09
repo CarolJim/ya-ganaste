@@ -37,7 +37,9 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     @BindView(R.id.txtTitleResult)
     StyleTextView txtTitleResult;
     @BindView(R.id.txtSubtitleResult)
-    StyleTextView txtDescResult;
+    StyleTextView txtMessageResult;
+    @BindView(R.id.txtDescriptionResult)
+    StyleTextView txtDescriptionResult;
     @BindView(R.id.btnNextResult)
     StyleButton btnPrimaryResult;
     @BindView(R.id.btnErrorResult)
@@ -102,7 +104,9 @@ public class TransactionResultFragment extends GenericFragment implements View.O
         btnPrimaryResult.setText(pageResultData.getNamerBtnPrimary());
         btnSecondaryResult.setText(pageResultData.getNamerBtnSecondary());
         txtTitleResult.setText(pageResultData.getTitle());
-        txtDescResult.setText(pageResultData.getMessage());
+        txtMessageResult.setText(pageResultData.getMessage());
+
+        txtDescriptionResult.setText(pageResultData.getDescription());
         imgResult.setImageResource(pageResultData.getIdResurceIcon());
         btnSecondaryResult.setVisibility(pageResultData.isHasSecondaryAction() ? VISIBLE : GONE);
     }

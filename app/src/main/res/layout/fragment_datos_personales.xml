@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    android:background="@color/colorPrimary"
     tools:context=".ui._controllers.AccountActivity">
 
     <include
@@ -19,15 +21,36 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/toolbarLy"
+        android:layout_above="@+id/layoutBottom"
         app:title="@string/personalInfoTitle">
+
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:paddingTop="@dimen/generic_padig">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            style="@style/FragmentElement"
+            android:id="@+id/seleccionaGenero"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_small"
+            android:gravity="center"
+            android:text="@string/selecciona_genero"/>
 
 
         <RadioGroup
+            style="@style/FragmentElement"
             android:id="@+id/radioGender"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_doble"
             android:gravity="center"
+            android:layout_marginTop="@dimen/margin_small"
+            android:layout_below="@+id/seleccionaGenero"
             android:orientation="horizontal"
             android:theme="@style/RadioButtonTheme">
 
@@ -112,46 +135,73 @@
             app:isTextEnabled="false" />
 
         <Spinner
-            android:id="@+id/spinnerBirthPlace"
+            android:id="@+id/spinnerNacionality"
             style="@style/SpinnerNoArrow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/editBirthDay"
-            android:layout_marginBottom="@dimen/margin_big"
             android:background="@null"
             android:backgroundTint="@color/transparent" />
 
+        <Spinner
+            android:id="@+id/spinnerBirthPlace"
+            style="@style/SpinnerNoArrow"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/spinnerNacionality"
+            android:layout_marginBottom="@dimen/double_space"
+            android:background="@null"
+            android:backgroundTint="@color/transparent" />
+
+    </RelativeLayout>
+
+        </ScrollView>
+
     </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
-    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-        android:id="@+id/errorMessage"
-        android:layout_below="@id/layoutContent"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"/>
+   <LinearLayout
+       android:id="@+id/layoutBottom"
+       android:layout_width="match_parent"
+       android:layout_height="wrap_content"
+       android:layout_alignParentBottom="true"
+       android:orientation="vertical">
+       <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+           android:id="@+id/errorMessage"
+           android:layout_width="match_parent"
+           android:layout_height="match_parent"
+           android:visibility="visible"
+           android:layout_marginBottom="@dimen/margin_small"/>
+       <LinearLayout
+           android:id="@+id/layoutBtns"
+           android:layout_width="match_parent"
+           android:layout_height="wrap_content"
+           android:layout_marginBottom="@dimen/margin_medium"
+           android:layout_marginLeft="@dimen/margin_big"
+           android:layout_marginRight="@dimen/margin_big"
+           android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:orientation="horizontal">
+           <com.pagatodo.yaganaste.utils.customviews.StyleButton
+               android:id="@+id/btnBackPersonalInfo"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/height_btns"
+               android:layout_weight="1.4"
+               android:layout_centerInParent="true"
+               android:text="@string/backButton"
+               android:layout_marginRight="@dimen/margin_small"
+               app:overBackground="@drawable/boton_regresar_canvas"
+               android:textAllCaps="false" />
 
-        <Button
-            android:id="@+id/btnBackPersonalInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".2"
-            android:text="@string/backButton"
-            android:textAllCaps="false" />
-
-        <Button
-            android:id="@+id/btnNextPersonalInfo"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight=".8"
-            android:text="@string/nextButton"
-            android:textAllCaps="false" />
-    </LinearLayout>
-
+           <com.pagatodo.yaganaste.utils.customviews.StyleButton
+               android:id="@+id/btnNextPersonalInfo"
+               android:layout_width="match_parent"
+               android:layout_height="@dimen/height_btns"
+               android:layout_weight="1"
+               android:layout_centerInParent="true"
+               android:gravity="center"
+               android:text="@string/nextButton"
+               android:layout_marginLeft="@dimen/margin_small"
+               app:overBackground="@drawable/continuar_canvas"
+               android:textAllCaps="false" />
+       </LinearLayout>
+   </LinearLayout>
 </RelativeLayout>

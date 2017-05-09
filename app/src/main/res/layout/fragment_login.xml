@@ -7,6 +7,8 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:layout_marginLeft="@dimen/activity_vertical_margin"
+    android:layout_marginRight="@dimen/activity_vertical_margin"
     tools:context=".ui._controllers.AccountActivity">
 
     <include
@@ -39,6 +41,8 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/layoutImagenLogin"
         android:gravity="center"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:layout_margin="@dimen/activity_vertical_margin"
         android:orientation="vertical">
 
 
@@ -68,8 +72,9 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/margin_medium"
-            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/margin_small"
             android:layout_below="@+id/edtxtLetsStartMail"
+            android:textSize="14sp"
             android:text="@string/recover_pass" />
 
 
@@ -94,3 +99,5 @@
 
 
 </RelativeLayout>
+
+

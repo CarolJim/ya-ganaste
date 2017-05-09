@@ -21,9 +21,9 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DATA_USER;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
-import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_LOGIN;
-import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_REGISTER;
-import static com.pagatodo.yaganaste.ui._controllers.MainActivity.SELECTION;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 /**
