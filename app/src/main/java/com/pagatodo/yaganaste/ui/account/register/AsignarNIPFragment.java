@@ -47,8 +47,8 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
     private static int PIN_LENGHT = 4;
     private View rootview;
-    @BindView(R.id.edtPin)
-    CustomValidationEditText edtPin;
+    @BindView(R.id.asignar_edittext)
+    CustomValidationEditText etGen;
     @BindView(R.id.btnNextAsignarPin)
     Button btnNextAsignarPin;
     @BindView(R.id.keyboard_view)
@@ -64,7 +64,6 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     TextView tv4Num;
     String newText = "";
     String oldText = "";
-    EditText etGen;
 
     public AsignarNIPFragment() {
     }
@@ -119,16 +118,16 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
 
-        //final Bitmap smiley2 = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
         final Bitmap smiley2 = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_launcher);
+       // final Bitmap smiley2 = BitmapFactory.decodeResource(getResources(), R.drawable.pin_bullet_blue);
         tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
         tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
         tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
         tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
 
-        etGen = (EditText) rootview.findViewById(R.id.asignar_edittext);
-        //edtPin.addCustomTextWatcher(new TextWatcher() {
-        etGen.addTextChangedListener(new TextWatcher() {
+        etGen = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
+       // edtPin.addCustomTextWatcher(new TextWatcher() {
+        etGen.addCustomTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
 

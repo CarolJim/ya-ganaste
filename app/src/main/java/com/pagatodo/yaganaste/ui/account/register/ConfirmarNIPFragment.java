@@ -44,7 +44,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     private View rootview;
     @BindView(R.id.borderLayout)
     BorderTitleLayout borderTitleLayout;
-    @BindView(R.id.edtPin)
+    @BindView(R.id.asignar_edittext)
     CustomValidationEditText edtPin;
     @BindView(R.id.btnNextAsignarPin)
     Button btnNextAsignarPin;

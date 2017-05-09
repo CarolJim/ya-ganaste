@@ -29,7 +29,16 @@
             android:gravity="center"
             app:title="Asigna tu PIN">
 
-            <EditText
+          <!--  <EditText
+                android:id="@+id/asignar_edittext"
+                android:layout_width="1px"
+                android:layout_height="1px"
+                android:layout_marginTop="20dp"
+                android:ems="10"
+                android:inputType="numberPassword"
+                android:maxLength="4" />-->
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                 android:id="@+id/asignar_edittext"
                 android:layout_width="1px"
                 android:layout_height="1px"
@@ -38,54 +47,7 @@
                 android:inputType="numberPassword"
                 android:maxLength="4" />
 
-            <LinearLayout
-                android:id="@+id/asignar_control_layout"
-                android:layout_width="match_parent"
-                android:layout_height="50dp"
-                android:layout_marginLeft="60dp"
-                android:layout_marginRight="60dp"
-                android:layout_marginTop="50dp"
-                android:background="@drawable/rounded_border_edittext"
-                android:orientation="horizontal">
-
-                <TextView
-                    android:id="@+id/asignar_tv1"
-                    style="@style/formatPIN"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:ems="10" />
-
-                <TextView
-                    android:id="@+id/asignar_tv2"
-                    style="@style/formatPIN"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="center" />
-
-                <TextView
-                    android:id="@+id/asignar_tv3"
-                    style="@style/formatPIN"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="center" />
-
-                <TextView
-                    android:id="@+id/asignar_tv4"
-                    style="@style/formatPIN"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_weight="1"
-                    android:ems="10"
-                    android:gravity="center"/>
-            </LinearLayout>
+            <include layout="@layout/asignar_pin_layout" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtMessageCard"
@@ -109,18 +71,6 @@
                     android:layout_height="25dp"
                     android:layout_centerInParent="true" />
             </RelativeLayout>-->
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/edtPin"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_marginRight="@dimen/margin_medium"
-                android:layout_marginTop="@dimen/margin_doble"
-                android:visibility="gone"
-                app:formato="number"
-                app:isSingleLine="true"
-                app:maxLength="4" />
 
         </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
