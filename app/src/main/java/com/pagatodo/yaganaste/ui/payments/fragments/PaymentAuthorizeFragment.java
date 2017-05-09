@@ -105,7 +105,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
         String text = String.format("%.2f", envios.getMonto());
         text = text.replace(",", ".");
-        int h = importe.getWidth();
+
         importe.setText(String.format("$%s", text));
         String ref = envios.getReferencia();
         switch (envios.getTipoEnvio()) {

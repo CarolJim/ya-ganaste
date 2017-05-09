@@ -176,7 +176,7 @@
                 android:layout_weight="40"
                 android:text="Continuar"
                 android:textAllCaps="false"
-                app:overBackground="@drawable/continuar_canvas" />
+                app:overBackground="@drawable/selector_btn_continuar" />
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"

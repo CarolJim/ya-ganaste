@@ -72,7 +72,7 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|top"
+                    android:gravity="center"
                     android:text="Comisión: "
                     android:textSize="12sp"
                     app:tipo="Descripcion" />
@@ -81,9 +81,9 @@
                     android:id="@+id/txtComision"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
-                    android:gravity="center_vertical|top"
+                    android:gravity="center"
                     android:text="30"
-                    android:textSize="11sp"
+                    android:textSize="10sp"
                     app:dotBottom="false"
                     app:symbolSmaller="true"
                     app:tipo="Descripcion" />
@@ -308,16 +308,16 @@
                 android:layout_height="match_parent"
                 android:layout_weight="30" />
 
-            <Button
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_continueEnvio"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/height_btns"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/margin_medium"
                 android:layout_weight="40"
-                android:background="@drawable/continuar_canvas"
                 android:text="Continuar"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                app:overBackground="@drawable/selector_btn_continuar" />
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"

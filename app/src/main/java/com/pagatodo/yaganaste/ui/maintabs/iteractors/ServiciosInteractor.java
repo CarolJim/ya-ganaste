@@ -10,14 +10,16 @@ public class ServiciosInteractor implements IServiciosInteractor {
     double i = 0;
 
     @Override
-    public void validateForms(String referencia, String importe, String concepto, OnValidationFinishListener listener) {
+    public void validateForms(String referencia, String importe, String concepto, int longitudReferencia, OnValidationFinishListener listener) {
 
         if (referencia == null || referencia.isEmpty()) {
             listener.onReferenciaEmpty();
             return;
         }
 
-        if (referencia.length() < 12) {
+        if (referencia.length() < longitudReferencia) {
+
+
             listener.onReferenciaError();
             return;
         }
