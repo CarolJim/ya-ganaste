@@ -99,11 +99,9 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @Override
     public void initViews() {
         super.initViews();
-        //txtAmountPayment.setText(String.format("$%s",emvDepositResponse.getAmount()));
-        //txtMaskedPan.setText(String.format("%s",emvDepositResponse.getMaskedPan()));
-        txtAmountPayment.setText(String.format("$%s","780.00"));
-        txtMaskedPan.setText(String.format("%s","***** ***** **** 2434"));
-        imgTypeCard.setImageResource(R.mipmap.master_icon);//TODO 18/04/2017 establecer icono dependiento el tipo de tarjeta.
+        txtAmountPayment.setText(String.format("$%s",emvDepositResponse.getSaldo()));
+        txtMaskedPan.setText(String.format("%s",emvDepositResponse.getMaskedPan()));
+        imgTypeCard.setImageResource(emvDepositResponse.getMarcaTarjetaBancaria().equals("Visa") ? R.drawable.mastercard_canvas : R.drawable.mastercard_canvas);
     }
 
     @Override

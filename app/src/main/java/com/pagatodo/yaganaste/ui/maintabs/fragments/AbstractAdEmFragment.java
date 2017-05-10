@@ -14,7 +14,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
@@ -62,7 +64,6 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
             case MOVEMENTS:
                 instance = PersonalAccountFragment.newInstance();
                 break;
-
             case PAYMENTS:
                 instance = PaymentsFragment.newInstance();
                 break;
@@ -131,7 +132,8 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        Log.d("TAB", "Se selecciono la tab: " + tab.getPosition());
+        Log.d("TABS ", "Se selecciono el tab: " + tab.getPosition());
+
         if (movementsList.get(tab.getPosition()) != null) {
             updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
         } else {
@@ -149,8 +151,11 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     }
 
     protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemRecycler> movements) {
-        movementsList.add(tabMonths.getSelectedTabPosition(), movements);
-        txtInfoMovements.setVisibility(movements.isEmpty() ? View.VISIBLE : View.GONE);
+        List<ItemMovements<MovimientosResponse>> movementsList = new ArrayList<>();
+        ItemMovements items = new ItemMovements("a","b",125.36,"c","d",1);
+        movementsList.add(items);
+        movementsList.add(tabMonths.getSelectedTabPosition(), (ItemMovements<MovimientosResponse>) movementsList);
+        txtInfoMovements.setVisibility(movementsList.isEmpty() ? View.VISIBLE : View.GONE);
         updateRecyclerData(adapter);
     }
 

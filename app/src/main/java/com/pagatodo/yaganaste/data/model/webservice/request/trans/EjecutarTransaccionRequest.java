@@ -20,14 +20,24 @@ public class EjecutarTransaccionRequest implements Serializable {
 
 
     public EjecutarTransaccionRequest() {
+        super();
     }
 
     public EjecutarTransaccionRequest(int idTipoTransaccion, String referencia, Double monto, int idComercioAfectado) {
-        new EjecutarTransaccionRequest(idTipoTransaccion, referencia, monto, idComercioAfectado, "", "", "");
+        super();
+        this.IdTipoTransaccion = idTipoTransaccion;
+        this.Ticket = createTicket();
+        this.Referencia = referencia;
+        this.Monto = monto;
+        this.IdComercioAfectado = idComercioAfectado;
+        this.NombreBeneficiario = "";
+        this.Concepto = "";
+        this.ReferenciaNumerica = "";
     }
 
     public EjecutarTransaccionRequest(int idTipoTransaccion, String referencia, Double monto,
                                       int idComercioAfectado, String nombreBeneficiario, String concepto, String referenciaNumerica) {
+        super();
         this.IdTipoTransaccion = idTipoTransaccion;
         this.Ticket = createTicket();
         this.Referencia = referencia;

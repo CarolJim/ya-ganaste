@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.ui.payments.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -39,6 +38,10 @@ public class PaymentSuccessFragment extends GenericFragment {
     MontoTextView importe;
     @BindView(R.id.layoutComision)
     LinearLayout layoutComision;
+    @BindView(R.id.txtComision)
+    MontoTextView txtComision;
+    @BindView(R.id.comisionReferenciaText)
+    TextView comisionReferenciaText;
     @BindView(R.id.titleReferencia)
     TextView titleReferencia;
     @BindView(R.id.txtReferencia)
@@ -122,19 +125,27 @@ public class PaymentSuccessFragment extends GenericFragment {
             layoutMail.setVisibility(View.GONE);
             layoutFavoritos.setVisibility(View.VISIBLE);
         } else if (pago instanceof Servicios) {
+            title.setText(R.string.title_servicio_success);
+            layoutComision.setVisibility(View.VISIBLE);
+            titleReferencia.setText("Referencia:");
+            Double comision = result.getData().getComision();
+            String textComision = String.format("%.2f", comision);
+            textComision = textComision.replace(",", ".");
+            txtComision.setText(textComision);
 
         } else if (pago instanceof Envios) {
-
-        } else {
-
+            title.setText(R.string.title_envio_success);
+            txtComision.setVisibility(View.GONE);
+            comisionReferenciaText.setText("A:");
+            titleReferencia.setText(((Envios) pago).getNombreDestinatario());
+            layoutMail.setVisibility(View.VISIBLE);
+            layoutFavoritos.setVisibility(View.GONE);
+            titleMail.setText("Envía Este Comprobante a " + ((Envios) pago).getNombreDestinatario() + " (Opcional)");
         }
 
         String text = String.format("%.2f", pago.getMonto());
         text = text.replace(",", ".");
-
         importe.setText(text);
-
-
 
         txtReferencia.setText(pago.getReferencia());
         Glide.with(getContext()).load(pago.getComercio().getLogoURL()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).dontAnimate().into(imgLogoPago);

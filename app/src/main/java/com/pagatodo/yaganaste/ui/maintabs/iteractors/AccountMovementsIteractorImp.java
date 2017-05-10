@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.maintabs.iteractors;
 
+import android.util.Log;
+
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -26,7 +28,9 @@ public class AccountMovementsIteractorImp implements MovementsIteractor<Consulta
     @Override
     public void getMovements(ConsultarMovimientosRequest request) {
         try {
+
             ApiAdtvo.consultarMovimientosMes(request, this);
+
         } catch (OfflineException e) {
             movementsManager.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
         }
@@ -41,6 +45,7 @@ public class AccountMovementsIteractorImp implements MovementsIteractor<Consulta
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             movementsManager.onSuccesResponse(response);
         } else {
+            //movementsManager.onSuccesResponse(response);
             movementsManager.onFailed(response.getCodigoRespuesta(), response.getAccion(), response.getMensaje());
         }
     }

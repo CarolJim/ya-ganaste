@@ -3,7 +3,8 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@drawable/rounded_border_edittext"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:background="@color/backgroundEditText"
     android:orientation="horizontal">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
@@ -13,7 +14,6 @@
         android:layout_marginLeft="15dp"
         android:layout_marginStart="15dp"
         android:layout_weight="2"
-        android:background="@null"
         android:backgroundTint="@color/transparent"
         android:clickable="true"
         android:focusable="false"
@@ -21,6 +21,7 @@
         android:longClickable="false"
         android:paddingBottom="6dp"
         android:paddingTop="6dp"
+        android:textColor="@color/whiteColor_disable"
         android:textSize="14sp" />
 
     <RelativeLayout
@@ -30,8 +31,8 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageViewCustomSpinner"
-            android:layout_width="20dp"
-            android:layout_height="20dp"
+            android:layout_width="17dp"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"

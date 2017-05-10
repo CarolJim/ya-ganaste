@@ -295,7 +295,7 @@
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
     <string name="bussinesAddresQuestion">¿Es Este el Domicilio de tu Negocio?</string>
-    <string name="bussinesName">Nombre de tu Negocio</string>
+    <string name="bussinesName">Nombre del Negocio</string>
     <string name="publicServantQuestion">¿Tú o Algún Familiar Han Desempeñado Cargos Públicos?</string>
 
     <!--felicidades-->
@@ -335,6 +335,7 @@
     <string name="adq_msg_accept">A continuación, te Enseñaremos tu\nNueva Sección de Cobros</string>
     <string name="adq_aproved">Aprobado</string>
     <string name="adq_succes_aproved">El Pago Fue Completado\nCorrectamente\n\nYa Puedes\nRetirar la Tarjeta.</string>
+    <string name="adq_error_signature">No se ha Capturado una Firma</string>
 
     <string name="usuario_no_existe">Este correo no se encuentra registrado.</string>
 
@@ -343,7 +344,8 @@
     <string name="child_tab_mony_send">Envíos</string>
     <string name="comision_service_payment">La Comisión por Realizar la Operación es de $10</string>
     <string name="title_recarga_success">¡Recarga Exitosa!</string>
-
+    <string name="title_servicio_success">¡Pago Exitoso!</string>
+    <string name="title_envio_success">¡Envío Exitoso!</string>
 
     <string name="transfer_phone">Número de Teléfono</string>
     <string name="transfer_cable">Cuenta CABLE</string>

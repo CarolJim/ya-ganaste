@@ -67,6 +67,7 @@ public class CustomValidationEditText extends LinearLayout {
         editText = (EditText) findViewById(R.id.editTextCustom);
         imageView = (AppCompatImageView) findViewById(R.id.imageViewValidation);
         Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
+        editText.setTextSize(16);
         editText.setTypeface(customFont);
         //imageView.setBackgroundResource(R.drawable.validation_fail);
 

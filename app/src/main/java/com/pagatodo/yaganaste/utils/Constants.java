@@ -20,6 +20,9 @@ public class Constants {
     public static int BARCODE_READER_REQUEST_CODE = 60;
     public static int BACK_FROM_PAYMENTS = 190;
 
+    public static String RESULT = "Resultado";
+    public static String MESSAGE = "Mensaje";
+    public static String RESULT_ERROR = "Fail";
     //endregion
 
     //region Comercios Id

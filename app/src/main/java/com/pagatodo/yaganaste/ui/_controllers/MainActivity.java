@@ -59,11 +59,11 @@ public class MainActivity extends SupportFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_conainer);
         initViews();
-        /*if (!ValidatePermissions.validateSIMCard(this)) {*/
+        if(ValidatePermissions.validateSIMCard(this)) {
             loadFragment(MainFragment.newInstance(), true);
-        /*} else {
+        }else {
             loadFragment(TransactionResultFragment.newInstance(getPageResultNiSIM()));
-        }*/
+        }
     }
 
     private void initViews() {

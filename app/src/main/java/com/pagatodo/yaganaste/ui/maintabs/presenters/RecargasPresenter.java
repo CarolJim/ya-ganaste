@@ -9,21 +9,21 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IRecargasPresent
  * Created by Jordan on 18/04/2017.
  */
 
-public class RecargasPresenter implements IRecargasPresenter, IRecargasInteractor.OnValidationFinishListener{
+public class RecargasPresenter implements IRecargasPresenter, IRecargasInteractor.OnValidationFinishListener {
 
     IRecargasInteractor recargasInteractor;
     PaymentsManager paymentsManager;
     boolean isIAVE;
 
-    public RecargasPresenter(PaymentsManager paymentsManager, boolean isIAVE){
+    public RecargasPresenter(PaymentsManager paymentsManager, boolean isIAVE) {
         recargasInteractor = new RecargasInteractor();
         this.paymentsManager = paymentsManager;
         this.isIAVE = isIAVE;
     }
 
     @Override
-    public void validateFields(String referencia, Double importe) {
-        recargasInteractor.validateForms(referencia, importe, this);
+    public void validateFields(String referencia, Double importe, int longitudReferencia, boolean isIAVE) {
+        recargasInteractor.validateForms(referencia, importe, longitudReferencia, isIAVE, this);
     }
 
     @Override
@@ -38,7 +38,7 @@ public class RecargasPresenter implements IRecargasPresenter, IRecargasInteracto
 
     @Override
     public void onNumberError() {
-        paymentsManager.onError(isIAVE ? "Numero de IAVE incorrecto" :  "Numero de Teléfono incorrecto");
+        paymentsManager.onError(isIAVE ? "Numero de IAVE incorrecto" : "Numero de Teléfono incorrecto");
     }
 
     @Override

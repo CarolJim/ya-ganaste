@@ -25,7 +25,6 @@ public class Recursos {
 			URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
 			URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc";
 		}
-
 	}
 
 	/*Estatus Respuesta de Ws YaGanaste*/
@@ -70,9 +69,9 @@ public class Recursos {
 	public static final int DOC_DOM_FRONT = 7;
 	public static final int DOC_DOM_BACK = 30;
 
+	public static final int STATUS_DOCTO_RECHAZADO = 1;
 	public static final int STATUS_DOCTO_APROBADO = 2;
 	public static final int STATUS_DOCTO_PENDIENTE = 3;
-	public static final int STATUS_DOCTO_RECHAZADO = 1;
 	/*Tipo de Comercios*/
 	public static final int TELEFONICA = 1;
 	public static final int COMPANIA_DE_SERVICIOS = 2;
