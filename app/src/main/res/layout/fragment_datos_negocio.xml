@@ -140,7 +140,7 @@
         android:gravity="bottom"
         android:orientation="horizontal">
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/btnBackBussinesInfo"
             style="@style/buttonDirecctionBack"
             android:layout_weight="1"
@@ -151,7 +151,7 @@
             android:layout_width="10dp"
             android:layout_height="wrap_content" />
 
-        <Button
+        <android.support.v7.widget.AppCompatButton
             android:id="@+id/btnNextBussinesInfo"
             style="@style/buttonDirecctionNext"
             android:layout_weight="2"

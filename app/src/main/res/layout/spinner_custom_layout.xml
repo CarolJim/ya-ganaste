@@ -2,6 +2,7 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/backgroundEditText"
     android:orientation="horizontal">
 
@@ -27,13 +28,13 @@
         android:layout_height="match_parent"
         android:layout_weight="8">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageViewCustomSpinner"
             android:layout_width="17dp"
-            android:layout_height="10dp"
+            android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
             android:scaleType="centerInside"
-            android:background="@drawable/menu_canvas" />
+            app:srcCompat="@drawable/menu_canvas" />
     </RelativeLayout>
 </LinearLayout>

@@ -41,6 +41,7 @@ public class AccountMovementsIteractorImp implements MovementsIteractor<Consulta
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             movementsManager.onSuccesResponse(response);
         } else {
+            //movementsManager.onSuccesResponse(response);
             movementsManager.onFailed(response.getCodigoRespuesta(), response.getAccion(), response.getMensaje());
         }
     }

@@ -47,6 +47,7 @@ public class AdqPaymentesPresenter implements MovementsPresenter<AdquirentePayme
         }
         List<ItemMovements<DataMovimientoAdq>> movementsList = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
+
         for (DataMovimientoAdq movimientoAdq : response.getMovimientos()){
             calendar.setTime(DateUtil.getAdquirenteMovementDate(movimientoAdq.getFecha()));
 

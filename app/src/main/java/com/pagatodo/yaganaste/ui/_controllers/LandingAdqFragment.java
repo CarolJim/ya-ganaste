@@ -87,6 +87,9 @@ public class LandingAdqFragment extends Activity implements Animation.AnimationL
             //tutorialPage2.setVisibility(View.VISIBLE);
             switch (animationCounter) {
                 case 0:
+                    tutorialPage1.setVisibility(View.VISIBLE);
+                    break;
+                case 1:
                     tutorialPage2.setVisibility(View.VISIBLE);
                     break;
             }
@@ -113,10 +116,10 @@ public class LandingAdqFragment extends Activity implements Animation.AnimationL
                             break;
                         case 1:
                             tutorialPage2.startAnimation(animFadeOut);
-                            break;
-                        case 5:
                             finishActivity();
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                            break;
+                        case 2:
                             break;
                         default:
 

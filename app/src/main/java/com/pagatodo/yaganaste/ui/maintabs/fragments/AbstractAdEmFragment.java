@@ -132,6 +132,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         Log.d("TAB", "Se selecciono la tab: " + tab.getPosition());
+
         if (movementsList.get(tab.getPosition()) != null) {
             updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
         } else {
@@ -149,6 +150,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     }
 
     protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemRecycler> movements) {
+
         movementsList.add(tabMonths.getSelectedTabPosition(), movements);
         txtInfoMovements.setVisibility(movements.isEmpty() ? View.VISIBLE : View.GONE);
         updateRecyclerData(adapter);
