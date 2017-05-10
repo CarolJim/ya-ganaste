@@ -78,7 +78,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
     @Override
     public void onErrorService() {
-        paymentsManager.showError();
+        paymentsManager.showErrorService();
     }
 
     @Override

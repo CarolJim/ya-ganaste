@@ -13,5 +13,5 @@ public interface IRecargasInteractor {
         void onSuccess(Double monto);
     }
 
-    void validateForms(String number, Double monto, OnValidationFinishListener listener);
+    void validateForms(String number, Double monto, int longitudReferencia, boolean isIAVE, OnValidationFinishListener listener);
 }

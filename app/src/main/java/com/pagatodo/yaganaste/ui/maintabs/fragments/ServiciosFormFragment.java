@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -19,15 +18,14 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
-import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsTabFragmentManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.ServiciosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IServiciosPresenter;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;
+import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
 
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB2;
-import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 
 /**
@@ -84,13 +82,14 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
         super.initViews();
         layoutImageReference.setOnClickListener(this);
         serviceImport.addTextChangedListener(new NumberTextWatcher(serviceImport));
-        if(comercioItem.getLongitudReferencia() > 0){
+        if (comercioItem.getLongitudReferencia() > 0) {
             InputFilter[] fArray = new InputFilter[1];
             fArray[0] = new InputFilter.LengthFilter(comercioItem.getLongitudReferencia());
             referenceNumber.setFilters(fArray);
-            if(comercioItem.getFormato().equals("AN")){
-                referenceNumber.setInputType(InputType.TYPE_CLASS_TEXT|InputType.TYPE_CLASS_NUMBER);
-            }
+        }
+
+        if (comercioItem.getFormato().equals("AN")) {
+            referenceNumber.setInputType(InputType.TYPE_CLASS_TEXT);
         }
     }
 
@@ -110,7 +109,8 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
     @Override
     public void showError() {
         if (errorText != null && !errorText.equals("")) {
-            Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
+            UI.createSimpleCustomDialog("Error", errorText, getActivity().getFragmentManager(), getFragmentTag());
         }
     }
 

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -26,6 +25,7 @@ import com.pagatodo.yaganaste.ui.payments.fragments.PaymentSuccessFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentsProcessingManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsProcessingPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcessingPresenter;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
@@ -33,6 +33,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.interfaces.enums.Direction.NONE;
+import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
+import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 
 /**
  * Created by Jordan on 25/04/2017.
@@ -139,17 +141,20 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
 
     @Override
     public void onFailPaimentResponse(DataSourceResult error) {
+        String errorTxt = null;
         try {
             EjecutarTransaccionResponse response = (EjecutarTransaccionResponse) error.getData();
             if (response.getMensaje() != null)
-                Toast.makeText(this, response.getMensaje(), Toast.LENGTH_LONG).show();
+                errorTxt = response.getMensaje();
+            //Toast.makeText(this, response.getMensaje(), Toast.LENGTH_LONG).show();
 
         } catch (ClassCastException ex) {
             ex.printStackTrace();
         }
 
         Intent intent = new Intent();
-        intent.putExtra("MESSAGE", "Fail");
+        intent.putExtra(RESULT, Constants.RESULT_ERROR);
+        intent.putExtra(MESSAGE, errorTxt != null ? errorTxt : getString(R.string.error_respuesta));
         setResult(2, intent);
         finish();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

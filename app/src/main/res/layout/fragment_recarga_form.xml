@@ -27,11 +27,11 @@
                 android:layout_weight="20"
                 android:background="@null"
                 android:backgroundTint="@color/transparent"
-                android:inputType="number"
                 android:longClickable="false"
                 android:maxLength="10"
                 android:paddingBottom="6dp"
                 android:paddingTop="6dp"
+                android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
                 android:textSize="14sp" />
 
             <RelativeLayout

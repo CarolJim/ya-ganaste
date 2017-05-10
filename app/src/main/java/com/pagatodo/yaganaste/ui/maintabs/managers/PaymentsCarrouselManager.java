@@ -12,4 +12,5 @@ import java.util.List;
 
 public interface PaymentsCarrouselManager extends PaymentsManager{
     void setCarouselData(ArrayList<CarouselItem> response);
+    void showErrorService();
 }

@@ -175,7 +175,7 @@ public class ApiTrans extends Api {
      */
     public static void ejecutarTransaccion(EjecutarTransaccionRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, "{{TokenSesion}}");//RequestHeaders.getTokensesion() == "" ? "1234" : RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.TokenSesion, "DE782FC6042540F93A669151C265707254E112884FAC1C51D580124B5AB895E051765353023F160D9E1BD9AED9E0FDA9");//RequestHeaders.getTokensesion() == "" ? "1234" : RequestHeaders.getTokensesion());
         //headers.put(RequestHeaders.IdTransaccionFreja, RequestHeaders.getIdTransaccionFreja());
         //headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
         //headers.put(RequestHeaders.TokenCuenta, RequestHeaders.getTokenCuenta());

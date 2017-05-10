@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.InputFilter;
@@ -19,7 +18,6 @@ import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
-import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsTabFragmentManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;
@@ -33,7 +31,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CABLE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
-import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 
 /**
  * Created by Jordan on 12/04/2017.
@@ -166,7 +163,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
 
 
         if (position == NUMERO_TARJETA.getId()) {
-            maxLength = 16;
+            maxLength = comercioItem.getIdComercio() == 814 ? 15 : 16;
             cardNumber.setHint(getString(R.string.card_number));
             selectedType = NUMERO_TARJETA;
         } else if (position == NUMERO_TELEFONO.getId()) {

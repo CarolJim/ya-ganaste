@@ -10,6 +10,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
+import android.support.v4.app.FragmentManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -170,6 +171,7 @@ public class CustomErrorDialog extends DialogFragment {
     public void setTitleBtnCancel(String titleBtnCancel) {
         this.titleBtnCancel = titleBtnCancel;
     }
+
 }
 
 

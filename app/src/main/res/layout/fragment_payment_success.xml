@@ -70,6 +70,7 @@
                 android:orientation="horizontal">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/comisionReferenciaText"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
@@ -89,6 +90,7 @@
                     app:tipo="Descripcion" />
 
             </LinearLayout>
+
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/titleReferencia"
