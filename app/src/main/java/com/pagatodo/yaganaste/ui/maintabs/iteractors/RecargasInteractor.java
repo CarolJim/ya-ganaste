@@ -11,18 +11,25 @@ public class RecargasInteractor implements IRecargasInteractor {
 
 
     @Override
-    public void validateForms(String number, Double monto, OnValidationFinishListener listener) {
-        if(number == null || number.isEmpty()){
+    public void validateForms(String number, Double monto, int longitudReferencia, boolean isIAVE, OnValidationFinishListener listener) {
+        if (number == null || number.isEmpty()) {
             listener.onNumberEmpty();
             return;
         }
 
-        if(!ValidateForm.isValidCellPhone(number)){
-           listener.onNumberError();
+
+        if (isIAVE && longitudReferencia != 0 && number.length() < longitudReferencia) {
+            listener.onNumberError();
             return;
         }
 
-        if(monto == null || monto == 0.0){
+        if (!isIAVE && !ValidateForm.isValidCellPhone(number)) {
+            listener.onNumberError();
+            return;
+        }
+
+
+        if (monto == null || monto == 0.0) {
             listener.onMontoError();
             return;
         }

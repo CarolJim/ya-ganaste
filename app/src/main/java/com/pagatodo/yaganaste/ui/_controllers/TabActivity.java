@@ -6,7 +6,6 @@ import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.app.AppCompatDelegate;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -28,11 +27,14 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.TabPresenter;
 import com.pagatodo.yaganaste.utils.Constants;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 
 import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
+import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
+import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 
 
@@ -143,8 +145,9 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
             if (childFragment != null && requestCode != BACK_FROM_PAYMENTS) {
                 childFragment.onActivityResult(requestCode, resultCode, data);
             } else if (childFragment != null && requestCode == BACK_FROM_PAYMENTS) {
-                if (data != null && data.getStringExtra("MESSAGE") != null && data.getStringExtra("MESSAGE").equals("Fail")) {
+                if (data != null && data.getStringExtra(RESULT) != null && data.getStringExtra(RESULT).equals(Constants.RESULT_ERROR)) {
                     if (childFragment != null) {
+                        UI.createSimpleCustomDialog("Error!", data.getStringExtra(MESSAGE), getFragmentManager(), getLocalClassName());
                         PaymentFormBaseFragment paymentFormBaseFragment = getVisibleFragment(childFragment.getChildFragmentManager().getFragments());
                         if (paymentFormBaseFragment != null) {
                             paymentFormBaseFragment.setSeekBarProgress(0);
@@ -163,6 +166,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
             }
         }
     }
+
 
     protected PaymentFormBaseFragment getVisibleFragment(List<Fragment> fragmentList) {
         for (Fragment fragment2 : fragmentList) {

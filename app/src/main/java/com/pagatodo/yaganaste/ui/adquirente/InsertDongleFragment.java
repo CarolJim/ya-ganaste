@@ -35,6 +35,8 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import pl.droidsonroids.gif.GifDrawable;
+import pl.droidsonroids.gif.GifImageView;
 
 import static android.content.Context.AUDIO_SERVICE;
 import static android.view.View.GONE;
@@ -68,7 +70,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @BindView(R.id.imgInsertDongle)
     ImageView imgInsertDongle;
     @BindView(R.id.imgInsertCard)
-    ImageView imgInsertCard;
+    GifImageView imgInsertCard;
     @BindView(R.id.tv_txt_lector)
     StyleTextView tv_lector;
     @BindView(R.id.progressLayout)
@@ -390,6 +392,11 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void showInsertCard() {
         imgInsertDongle.setVisibility(View.INVISIBLE);
         imgInsertCard.setVisibility(VISIBLE);
+        try{
+            ((GifDrawable)imgInsertCard.getDrawable()).setLoopCount(0);
+        }catch (Exception e){
+
+        }
         tv_lector.setText(getString(R.string.text_slide_or_insert));
         tv_lector.setVisibility(View.VISIBLE);
     }
