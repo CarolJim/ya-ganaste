@@ -125,12 +125,9 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
 
 
         /*Seteamos los datos de la transacción*/
-        //txtAmount.setText(String.format("$%s",emvDepositResponse.getAmount()));
-        txtAmount.setText(String.format("$%s","790"));
-        //txtNumberCard.setText(emvDepositResponse.getMaskedPan());
-        txtNumberCard.setText("*** **** **** 6543");
-        //txtNameOwnerCard.setText(String.format("%s",emvDepositResponse.getName()));
-        txtNameOwnerCard.setText("Maria de la Luz Rodríguez");
+        txtAmount.setText(String.format("$%s",emvDepositResponse.getSaldo()));
+        txtNumberCard.setText(emvDepositResponse.getMaskedPan());
+        txtNameOwnerCard.setText(String.format("%s",emvDepositResponse.getName()));
 
     }
 
@@ -156,7 +153,7 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
         if(signingView.hasSignature()){
             adqPresenter.sendSignature();
         }else {
-            showError("No se ha Capturado una Firma");
+            showError(getString(R.string.adq_error_signature));
         }
     }
 
