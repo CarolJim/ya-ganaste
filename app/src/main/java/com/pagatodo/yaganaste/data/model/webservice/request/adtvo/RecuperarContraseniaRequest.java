@@ -13,6 +13,10 @@ public class RecuperarContraseniaRequest implements Serializable{
     public RecuperarContraseniaRequest() {
     }
 
+    public RecuperarContraseniaRequest(String nombreUsuario) {
+        NombreUsuario = nombreUsuario;
+    }
+
     public String getNombreUsuario() {
         return NombreUsuario;
     }

@@ -29,6 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS;
 
 
 /**
@@ -116,10 +117,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             case R.id.btnLoginExistUser:
                 Intent intent = new Intent(getActivity(),TabActivity.class);
                 startActivity(intent);
-                actionBtnLogin();
+               // actionBtnLogin();
                 break;
             case R.id.txtLoginExistUserRecoverPass:
                 //startActivity(new Intent(getActivity(), RecoverPasswordActivity.class));
+                nextScreen(EVENT_RECOVERY_PASS,username);
                 break;
             default:
                 break;
@@ -204,11 +206,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         Intent intentLogin = new Intent(getActivity(), TabActivity.class);
         startActivity(intentLogin);
         getActivity().finish();
-    }
-
-    @Override
-    public void recoveryPasswordSucced() {
-
     }
 
     private void setEnableViews(boolean isEnable){

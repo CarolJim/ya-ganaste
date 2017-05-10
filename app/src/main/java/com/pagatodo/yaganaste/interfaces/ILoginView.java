@@ -8,5 +8,4 @@ package com.pagatodo.yaganaste.interfaces;
 
 public interface ILoginView extends INavigationView {
     public void loginSucced();
-    public void recoveryPasswordSucced();
 }

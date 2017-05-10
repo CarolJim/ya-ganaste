@@ -7,8 +7,9 @@
 
     <color name="bluecolor_disable">#be10b2e6</color>
     <color name="redcolor">#D50000</color>
-    <color name="greencolor">#00c900</color>
+    <color name="greencolor">#00E000</color>
     <color name="bgColor">#293943</color>
+    <color name="bgColorEnd">#182630</color>
     <color name="whiteColor">#FFF</color>
     <color name="whiteColor_disable">#beffffff</color>
     <color name="borderColor">#979797</color>

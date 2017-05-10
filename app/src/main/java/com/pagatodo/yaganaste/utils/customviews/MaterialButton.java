@@ -105,13 +105,13 @@ public class MaterialButton extends AppCompatButton implements View.OnClickListe
         normalBackground.setShape(/*GradientDrawable.RECTANGLE*/shape);
         normalBackground.setCornerRadius(cornerRadius);
         normalBackground.setColor(colorNormal);
-        normalBackground.setStroke((int) Utils.convertDpToPixels(2), strokeColor);
+        normalBackground.setStroke((int) Utils.convertDpToPixels(1), strokeColor);
 
         GradientDrawable pressedDrawable = new GradientDrawable();
         pressedDrawable.setShape(shape);
         pressedDrawable.setCornerRadius(cornerRadius);
         pressedDrawable.setColor(colorSelected);
-        pressedDrawable.setStroke((int) Utils.convertDpToPixels(2), colorSelected);
+        pressedDrawable.setStroke((int) Utils.convertDpToPixels(1), colorSelected);
         pressedDrawable.setAlpha(128);
 
         StateListDrawable states = new StateListDrawable();
@@ -136,13 +136,13 @@ public class MaterialButton extends AppCompatButton implements View.OnClickListe
         pressedDrawable.setShape(shape);
         pressedDrawable.setCornerRadius(cornerRadius);
         pressedDrawable.setColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-        pressedDrawable.setStroke((int) Utils.convertDpToPixels(2), strokeColor);
+        pressedDrawable.setStroke((int) Utils.convertDpToPixels(1), strokeColor);
 
         GradientDrawable normalBackground = new GradientDrawable();
         normalBackground.setShape(shape);
         normalBackground.setCornerRadius(cornerRadius);
         normalBackground.setColor(colorNormal);
-        normalBackground.setStroke((int) Utils.convertDpToPixels(2), strokeColor);
+        normalBackground.setStroke((int) Utils.convertDpToPixels(1), strokeColor);
 
         RippleDrawable rippleDrawable = new RippleDrawable(ColorStateList.valueOf(colorSelected),
                 normalBackground, pressedDrawable);

@@ -58,6 +58,10 @@
         <item>Nov</item>
         <item>Dic</item>
     </string-array>
-    
+
+    <string-array name="nacionalidades">
+        <item>Mexicana</item>
+        <item>Extranjero</item>
+    </string-array>
 
 </resources>

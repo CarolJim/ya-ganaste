@@ -18,7 +18,9 @@ android {
             abiFilters "armeabi", "armeabi-v7a"
         }
     }
-
+    dexOptions {
+        javaMaxHeapSize "4g"
+    }
 
     buildTypes {
         release {

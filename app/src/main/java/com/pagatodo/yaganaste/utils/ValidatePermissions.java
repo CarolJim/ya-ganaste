@@ -13,6 +13,7 @@ import android.provider.Settings;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AlertDialog;
+import android.telephony.TelephonyManager;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -240,6 +241,33 @@ public class ValidatePermissions {
             e.printStackTrace();
         }
         return null;
+    }
+
+
+    public static boolean validateSIMCard(Context context){
+        TelephonyManager telMgr = (TelephonyManager) context.getSystemService(Context.TELEPHONY_SERVICE);
+        int simState = telMgr.getSimState();
+        switch (simState) {
+            case TelephonyManager.SIM_STATE_ABSENT:
+                return false;
+            case TelephonyManager.SIM_STATE_NETWORK_LOCKED:
+                // do something
+                break;
+            case TelephonyManager.SIM_STATE_PIN_REQUIRED:
+                // do something
+                break;
+            case TelephonyManager.SIM_STATE_PUK_REQUIRED:
+                // do something
+                break;
+            case TelephonyManager.SIM_STATE_READY:
+                // do something
+                break;
+            case TelephonyManager.SIM_STATE_UNKNOWN:
+                // do something
+                break;
+        }
+
+        return true;
     }
 
 }

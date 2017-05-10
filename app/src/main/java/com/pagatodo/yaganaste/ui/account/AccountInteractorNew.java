@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioCl
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioFWSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest;
@@ -31,6 +32,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataUsuarioCl
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RecuperarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
@@ -191,7 +193,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                 registerUser.getFechaNacimiento(),
                 "",/*RFC*/
                 "",/*CURP*/
-                "MX",/*Nacionalidad*/
+                registerUser.getNacionalidad(),/*Nacionalidad*/
                 registerUser.getIdEstadoNacimineto(),
                 registerUser.getEmail(),
                 "",/*Telefono*/
@@ -255,6 +257,16 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
         } catch (OfflineException e) {
             e.printStackTrace();
 
+        }
+    }
+
+    @Override
+    public void recoveryPassword(RecuperarContraseniaRequest request) {
+
+        try {
+            ApiAdtvo.recuperarContrasenia(request,this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
         }
     }
 
@@ -326,6 +338,10 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                 proccesDataSession(dataSourceResult);
                 break;
 
+            case RECUPERAR_CONTRASENIA:
+                proccesDataRecuperarContrasenia(dataSourceResult);
+                break;
+
             default:
                 break;
         }
@@ -384,7 +400,8 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                 RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
                 if(dataUser.isConCuenta()){// Si Cuenta
                     if (dataUser.isAsignoNip()) { // NO necesita NIP
-                        if(!dataUser.isRequiereActivacionSMS()){// No Requiere Activacion de SMS
+                        //if(!dataUser.isRequiereActivacionSMS()){// No Requiere Activacion de SMS
+                            if(true){// No Requiere Activacion de SMS
                             /*TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento*/
                             user.setDatosSaldo(new DatosSaldo(String.format("%s",dataUser.getUsuario().getCuentas().get(0).getSaldo())));
                             stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
@@ -596,6 +613,16 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
 
             SingletonUser.getInstance().setDataUser(newSessionData);
             accountManager.onSucces(response.getWebService(), "Información Actualizada.");
+        }else{
+            //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
+            accountManager.onError(response.getWebService(),data.getMensaje());//Retornamos mensaje de error.
+        }
+    }
+
+    private void proccesDataRecuperarContrasenia(DataSourceResult response) {
+        RecuperarContraseniaResponse data = (RecuperarContraseniaResponse) response.getData();
+        if(data.getCodigoRespuesta() == CODE_OK) {
+            accountManager.onSucces(response.getWebService(), data.getMensaje());
         }else{
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(),data.getMensaje());//Retornamos mensaje de error.

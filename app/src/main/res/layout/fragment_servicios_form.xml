@@ -32,7 +32,7 @@
                 android:hint="@string/txt_referencia_servicio"
                 android:inputType="number"
                 android:longClickable="false"
-                android:maxLength="30"
+                android:maxLength="12"
                 android:paddingBottom="6dp"
                 android:paddingTop="6dp"
                 android:textSize="14sp" />

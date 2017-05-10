@@ -16,7 +16,7 @@
         android:paddingRight="@dimen/margin_regular"
         android:paddingEnd="@dimen/margin_regular">
 
-        <ImageView
+        <android.support.v7.widget.AppCompatImageView
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:paddingLeft="@dimen/margin_doble"
@@ -25,7 +25,7 @@
             android:paddingEnd="@dimen/margin_doble"
             android:adjustViewBounds="true"
             android:scaleType="centerCrop"
-            android:src="@drawable/icon_done"/>
+            app:srcCompat="@drawable/ic_cancel"/>
 
 
         <android.support.v4.widget.Space

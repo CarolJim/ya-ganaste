@@ -41,7 +41,9 @@
         <attr name="outline_color" format="color" />
 
     </declare-styleable>
-
+    <declare-styleable name="StyleButton">
+        <attr name="protectOnclick" format="boolean" />
+    </declare-styleable>
 
     <declare-styleable name="MaterialLinearLayout">
         <attr name="buttonRippleColor"/>
