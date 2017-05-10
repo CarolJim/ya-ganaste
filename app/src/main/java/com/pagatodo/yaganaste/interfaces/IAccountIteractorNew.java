@@ -5,6 +5,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionApro
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioFWSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActivacionAprovSofttokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.interfaces.enums.AccountOperation;
@@ -28,6 +29,7 @@ public interface IAccountIteractorNew <T>{
     public void getSMSNumber();
     public void verifyActivationSMS();
     public void assignmentNIP(AsignarNIPRequest request);
+    public void recoveryPassword(RecuperarContraseniaRequest request);
     void checkDocs();
 
 }

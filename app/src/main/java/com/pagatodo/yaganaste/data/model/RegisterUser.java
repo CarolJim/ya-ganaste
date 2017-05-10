@@ -17,6 +17,7 @@ public class RegisterUser {
     private String apellidoMaterno = "";
     private String fechaNacimiento = "";
     private String fechaNacimientoToShow = "";
+    private String nacionalidad = "";
     private String lugarNacimiento = "";
     private String idEstadoNacimineto = "";
     //Datos Domicilio Actual
@@ -199,5 +200,13 @@ public class RegisterUser {
 
     public void setIdColonia(String idColonia) {
         this.idColonia = idColonia;
+    }
+
+    public String getNacionalidad() {
+        return nacionalidad;
+    }
+
+    public void setNacionalidad(String nacionalidad) {
+        this.nacionalidad = nacionalidad;
     }
 }

@@ -14,11 +14,14 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
@@ -33,12 +36,15 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_CO
 
 /**
  * A simple {@link GenericFragment} subclass.
+ * Encargada de mostrar en pantalla un EditTExt oculto que procesa la infromacion del PIN asignado
+ * y un arreglo de 4 TextView que mostraran al usuario el PIN que escoja, solo se muestra menos de
+ * un segundo para cambiarse por un Bullet Azul
  */
 public class AsignarNIPFragment extends GenericFragment implements ValidationForms, IAccountCardNIPView {
 
     private static int PIN_LENGHT = 4;
     private View rootview;
-    @BindView(R.id.edtPin)
+    @BindView(R.id.asignar_edittext)
     CustomValidationEditText edtPin;
     @BindView(R.id.btnNextAsignarPin)
     Button btnNextAsignarPin;
@@ -48,6 +54,11 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     ProgressLayout progressLayout;
     private String nip = "";
     private Keyboard keyboard;
+    LinearLayout layout_control;
+    TextView tv1Num;
+    TextView tv2Num;
+    TextView tv3Num;
+    TextView tv4Num;
 
     public AsignarNIPFragment() {
     }
@@ -96,46 +107,64 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnNextAsignarPin.setVisibility(GONE);
-        keyboardView.setKeyBoard(getActivity(),R.xml.keyboard_nip);
+
+        keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
 
+        layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout);
+
+        tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
+        tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
+        tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
+        tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
+
+
+        // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
+        // Se le asigna un TextWatcher personalizado para realizar las oepraciones
+        edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
+        edtPin.addCustomTextWatcher(new AsignarNipTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num));
         edtPin.addCustomTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
                 if(s.toString().length() == 4){
                     keyboardView.hideCustomKeyboard();
                     validateForm();
                 }
             }
+
             @Override
-            public void afterTextChanged(Editable editable) {
+            public void afterTextChanged(Editable s) {
 
             }
         });
 
-        // Make the custom keyboard appear
+        // Mostramos y ocultamos el Keyboard dependiendo del foco del EditTExt
         edtPin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     keyboardView.showCustomKeyboard(v);
-                }else{
-                    keyboardView.hideCustomKeyboard();}
+                } else {
+                    keyboardView.hideCustomKeyboard();
+                }
             }
         });
 
-        edtPin.setOnClickListener(new View.OnClickListener() {
+        //Si ocamos el area especial del Layout abrimos el Keyboard
+        layout_control.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                edtPin.requestFocus();
                 keyboardView.showCustomKeyboard(v);
             }
         });
 
-        edtPin.getEditText().setOnTouchListener(new View.OnTouchListener() {
+        edtPin.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 EditText edittext = (EditText) v;
@@ -162,7 +191,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     public void validateForm() {
         getDataForm();
 
-        if(nip.length() < PIN_LENGHT){
+        if (nip.length() < PIN_LENGHT) {
             showValidationError(getString(R.string.asignar_pin));
             return;
         }
@@ -172,12 +201,12 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
     @Override
     public void showValidationError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+        UI.showToastShort(error.toString(), getActivity());
     }
 
     @Override
     public void onValidationSuccess() {
-        nextScreen(EVENT_GO_CONFIRM_PIN,nip);
+        nextScreen(EVENT_GO_CONFIRM_PIN, nip);
     }
 
     @Override
@@ -187,12 +216,12 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
     @Override
     public void nextScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
@@ -208,7 +237,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
     @Override
     public void showError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+        UI.showToastShort(error.toString(), getActivity());
     }
 
 
@@ -216,7 +245,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
         return keyboardView.getVisibility() == View.VISIBLE;
     }
 
-    public void hideKeyboard(){
+    public void hideKeyboard() {
         keyboardView.hideCustomKeyboard();
     }
 }

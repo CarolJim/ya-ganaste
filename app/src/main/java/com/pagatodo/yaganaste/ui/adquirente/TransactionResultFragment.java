@@ -5,10 +5,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.v4.content.ContextCompat;
+import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.PageResult;
@@ -22,6 +27,10 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.pagatodo.yaganaste.data.model.PageResult.BTN_ACTION_ERROR;
+import static com.pagatodo.yaganaste.data.model.PageResult.BTN_ACTION_OK;
+import static com.pagatodo.yaganaste.data.model.PageResult.BTN_DIRECTION_BACK;
+import static com.pagatodo.yaganaste.data.model.PageResult.BTN_DIRECTION_NEXT;
 
 
 /**
@@ -34,16 +43,30 @@ public class TransactionResultFragment extends GenericFragment implements View.O
 
     @BindView(R.id.imgResult)
     ImageView imgResult;
+
     @BindView(R.id.txtTitleResult)
     StyleTextView txtTitleResult;
+
     @BindView(R.id.txtSubtitleResult)
-    StyleTextView txtDescResult;
-    @BindView(R.id.btnNextResult)
-    StyleButton btnPrimaryResult;
-    @BindView(R.id.btnErrorResult)
-    StyleButton btnSecondaryResult;
+    StyleTextView txtMessageResult;
+
+//    @BindView(R.id.btnNextResult)
+//    StyleButton btnPrimaryResult;
+//    @BindView(R.id.btnErrorResult)
+//    StyleButton btnSecondaryResult;
+    @BindView(R.id.layoutButtonsResult)
+    LinearLayout llContentBtns;
+
+    @BindView(R.id.txtDescriptionResult)
+    StyleTextView txtDescriptionResult;
 
     private PageResult pageResultData;
+
+    @IdRes
+    private static final int idBtnPrimary    = 43322;
+
+    @IdRes
+    private static final int idBtnSecondary  = 43321;
 
     public TransactionResultFragment() {
     }
@@ -97,24 +120,23 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        btnPrimaryResult.setOnClickListener(this);
-        btnSecondaryResult.setOnClickListener(this);
-        btnPrimaryResult.setText(pageResultData.getNamerBtnPrimary());
-        btnSecondaryResult.setText(pageResultData.getNamerBtnSecondary());
         txtTitleResult.setText(pageResultData.getTitle());
-        txtDescResult.setText(pageResultData.getMessage());
+        txtMessageResult.setText(pageResultData.getMessage());
+
+        txtDescriptionResult.setText(pageResultData.getDescription());
         imgResult.setImageResource(pageResultData.getIdResurceIcon());
-        btnSecondaryResult.setVisibility(pageResultData.isHasSecondaryAction() ? VISIBLE : GONE);
+        setAndConfigureBtns(llContentBtns);
     }
+
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
-            case R.id.btnNextResult:
+            case idBtnPrimary:
                 if(pageResultData.getActionBtnPrimary() != null)
                     pageResultData.getActionBtnPrimary().action(getActivity(),this);
                 break;
-            case R.id.btnErrorResult:
+            case idBtnSecondary:
                 if(pageResultData.getActionBtnSecondary() != null)
                     pageResultData.getActionBtnSecondary().action(getActivity(),this);
                 break;
@@ -148,5 +170,60 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     public void showError(Object error) {
 
     }
+    private void setAndConfigureBtns(LinearLayout llContentBtns){
+        if(llContentBtns != null){
+            StyleButton btnPrimary = createButton(pageResultData.getBtnPrimaryType());
+            btnPrimary.setOnClickListener(this);
+            btnPrimary.setId(idBtnPrimary);
+            btnPrimary.setText(pageResultData.getNamerBtnPrimary());
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pageResultData.isHasSecondaryAction() ? 0 : ViewGroup.LayoutParams.WRAP_CONTENT,
+                    (int) getResources().getDimension(R.dimen.height_btns));
+            if(pageResultData.isHasSecondaryAction()){
+                params.weight = 1;
+            }
+            params.setMargins(getResources().getDimensionPixelSize(R.dimen.margin_medium),getResources().getDimensionPixelSize(R.dimen.margin_medium),
+                    getResources().getDimensionPixelSize(R.dimen.margin_medium),getResources().getDimensionPixelSize(R.dimen.margin_medium));
+            btnPrimary.setLayoutParams(params);
+            llContentBtns.addView(btnPrimary);
+            if(pageResultData.isHasSecondaryAction()){
+                StyleButton btnSecondary = createButton(pageResultData.getBtnSecundaryType());
+                btnSecondary.setOnClickListener(this);
+                btnSecondary.setId(idBtnSecondary);
+                btnSecondary.setText(pageResultData.getNamerBtnSecondary());
+                LinearLayout.LayoutParams paramss = new LinearLayout.LayoutParams(0, (int) getResources().getDimension(R.dimen.height_btns));
+                paramss.weight = 1;
+                paramss.setMargins(getResources().getDimensionPixelSize(R.dimen.margin_medium),getResources().getDimensionPixelSize(R.dimen.margin_medium),
+                        getResources().getDimensionPixelSize(R.dimen.margin_medium),getResources().getDimensionPixelSize(R.dimen.margin_medium));
+                btnSecondary.setLayoutParams(paramss);
+                llContentBtns.addView(btnSecondary);
+            }
+        }
+    }
+    private StyleButton createButton(String types){
+        StyleButton button = new StyleButton(getActivity());
+        button.setTransformationMethod(null);
+        switch (types){
+            case BTN_DIRECTION_NEXT:
+                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.continuar_canvas));
+                button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
+                break;
+            case BTN_DIRECTION_BACK:
+                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.boton_regresar_canvas));
+                button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
+                break;
+//            case BTN_ACTION_OK:
+//                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded_blue));
+//                button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
+//                break;
+            case BTN_ACTION_ERROR:
+                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded_stroke));
+                button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
+                break;
+            default:
+                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded_blue));
+                button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
+                break;
+        }
+        return button;
+    }
 }
-

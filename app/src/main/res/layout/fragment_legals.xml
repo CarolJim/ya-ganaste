@@ -7,10 +7,15 @@
     android:background="@color/whiteColor"
     tools:context="com.pagatodo.yaganaste.ui._controllers.AccountActivity">
 
+    <include
+        android:id="@+id/toolbarLy"
+        layout="@layout/toolbar" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
+            android:layout_below="@id/toolbarLy"
             android:orientation="horizontal">
             <WebView
                 android:id="@+id/webViewLegalsContent"

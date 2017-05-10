@@ -8,16 +8,18 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:layout_marginTop="@dimen/margin_small">
-        <ImageView
+
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imgError"
             android:layout_width="@dimen/width_icon_error"
             android:layout_height="@dimen/height_icon_error"
             android:layout_centerHorizontal="true"
-            android:src="@drawable/triangle_error"/>
+            android:visibility="invisible"
+            app:srcCompat="@drawable/warning_canvas"/>
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             style="@style/TextErrorValidation"
             android:id="@+id/txtError"
             android:layout_below="@+id/imgError"
-            android:visibility="visible" />
+            android:visibility="invisible" />
 </RelativeLayout>

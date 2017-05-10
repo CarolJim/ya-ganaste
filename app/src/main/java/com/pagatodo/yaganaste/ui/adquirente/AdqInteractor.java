@@ -319,9 +319,9 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
                 result.setStatusTransaction(ADQ_TRANSACTION_APROVE);
                 result.setResponseCode(0);
+                result.setTransaccionResponse(dummyTransactionResponse());
                 PageResult pageResult = new PageResult(R.drawable.ic_done, context.getString(R.string.adq_aproved), context.getString(R.string.adq_succes_aproved),false);
                 pageResult.setNamerBtnPrimary(context.getString(R.string.nextButton));
-                //pageResult.setNamerBtnSecondary("Llamar");
                 pageResult.setActionBtnPrimary(new Command() {
                     @Override
                     public void action(Context context, Object... params) {
@@ -329,6 +329,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                         viewInterface.nextScreen(EVENT_GO_REMOVE_CARD, "Ejecución Éxitosa");
                     }
                 });
+                pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
                 result.setPageResult(pageResult);
                 accountManager.onSucces(response.getWebService(),data.getError().getMessage());
 //        switch (data.getError().getId()){
@@ -345,6 +346,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
 //                        viewInterface.nextScreen(EVENT_GO_REMOVE_CARD, "Ejecución Éxitosa");
 //                    }
 //                });
+//                pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
 //                result.setPageResult(pageResult);
 //                accountManager.onSucces(response.getWebService(),data.getError().getMessage());
 //                break;
@@ -375,7 +377,8 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
 //                        TransactionAdqData.getCurrentTransaction().resetDataToRetry(); // Reintentamos
 //                    }
 //                });
-//
+//                pageResultError.setBtnPrimaryType(PageResult.BTN_ACTION_ERROR);
+//                pageResultError.setBtnSecundaryType(PageResult.BTN_ACTION_OK);
 //                result.setPageResult(pageResultError);
 //
 //                accountManager.onError(response.getWebService(),data.getError().getMessage());//Retornamos mensaje de error.
@@ -407,6 +410,15 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         }else{
             accountManager.onError(response.getWebService(),data.getMessage());//Retornamos mensaje de error.
         }
+    }
+
+    private TransaccionEMVDepositResponse dummyTransactionResponse(){
+        TransaccionEMVDepositResponse response = new TransaccionEMVDepositResponse();
+        response.setId_transaction("4329");
+        response.setMarcaTarjetaBancaria("Visa");
+        response.setMaskedPan("**** **** **** *432");
+        response.setSaldo(TransactionAdqData.getCurrentTransaction().getAmount());
+        return response;
     }
 
 }

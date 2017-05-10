@@ -89,7 +89,7 @@ public class BorderTitleLayout extends RelativeLayout {
         canvas.drawText(title, getWidth() / 2, getPaddingTop() + heightText, paint);
 
 
-        paint.setStrokeWidth(2);
+        paint.setStrokeWidth(2f);
         canvas.drawLine(left, top, left, bottom, paint);
         canvas.drawLine(left, bottom, right, bottom, paint);
         canvas.drawLine(right, top, right, bottom, paint);

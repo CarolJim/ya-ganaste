@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
+import com.pagatodo.yaganaste.ui.account.login.RecoveryFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsociatePhoneAccountFragment;
 import com.pagatodo.yaganaste.ui.account.register.ConfirmarNIPFragment;
@@ -29,11 +30,10 @@ import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
-
 import static com.pagatodo.yaganaste.data.model.SingletonUser.user;
-import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_LOGIN;
-import static com.pagatodo.yaganaste.ui._controllers.MainActivity.GO_TO_REGISTER;
-import static com.pagatodo.yaganaste.ui._controllers.MainActivity.SELECTION;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 
@@ -64,6 +64,9 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     public final static String EVENT_GO_REGISTER_COMPLETE = "EVENT_GO_REGISTER_COMPLETE";
     public final static String EVENT_GO_MAINTAB = "EVENT_GO_MAINTAB";
 
+    public final static String EVENT_RECOVERY_PASS = "EVENT_RECOVERY_PASS";
+    public final static String EVENT_RECOVERY_PASS_BACK = "EVENT_RECOVERY_PASS_BACK";
+
 
 
     private DatosUsuarioFragment datosUsuarioFragment;
@@ -92,14 +95,10 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 break;
 
             case GO_TO_REGISTER:
-                loadFragment(DatosUsuarioFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(DomicilioActualFragment.newInstance(), Direction.FORDWARD, false);
                 // TODO: 28/04/2017
                 resetRegisterData();
-                Intent intent = new Intent(AccountActivity.this, TabActivity.class);
-                startActivity(intent);
-                finish();
                 break;
-
         }
 
 /*
@@ -123,6 +122,14 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
 
             case EVENT_GO_LOGIN:
                 loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+
+            case EVENT_RECOVERY_PASS:
+                loadFragment(RecoveryFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+
+            case EVENT_RECOVERY_PASS_BACK:
+                loadFragment(LoginFragment.newInstance(), Direction.BACK, false);
                 break;
 
             case EVENT_DATA_USER:
@@ -225,6 +232,10 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 onEvent(EVENT_GO_CONFIRM_PIN_BACK, null);
             }
         } else if (currentFragment instanceof AsociatePhoneAccountFragment) {
+            resetRegisterData();// Eliminamos la información de registro almacenada.
+            finish();
+        } else if (currentFragment instanceof RecoveryFragment) {
+            onEvent(EVENT_RECOVERY_PASS_BACK, null);
             resetRegisterData();// Eliminamos la información de registro almacenada.
             finish();
         } else {
