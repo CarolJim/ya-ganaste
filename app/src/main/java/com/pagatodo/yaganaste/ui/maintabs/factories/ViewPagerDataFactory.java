@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.interfaces.enums.AdqEmTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
+import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;

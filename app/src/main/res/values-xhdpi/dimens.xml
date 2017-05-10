@@ -13,8 +13,8 @@
     <dimen name="margin_doble">25dp</dimen>
     <dimen name="margin_regular">48dp</dimen>
     <dimen name="margin_big">32dp</dimen>
-    <dimen name="space_between_elements">26dp</dimen>
-    <dimen name="margin_medium">16dp</dimen>
+    <dimen name="space_between_elements">20dp</dimen>
+    <dimen name="margin_medium">14dp</dimen>
     <dimen name="margin_small">8dp</dimen>
     <dimen name="generic_padig">16dp</dimen>
 
