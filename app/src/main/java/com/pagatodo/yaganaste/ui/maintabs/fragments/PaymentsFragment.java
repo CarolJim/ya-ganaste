@@ -54,6 +54,7 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     }
 
     protected RecyclerView.Adapter createAdapter(List<ItemMovements<DataMovimientoAdq>> movementsList) {
+
         return new RecyclerMovementsAdapter<DataMovimientoAdq>(getContext(), movementsList, this);
     }
 

@@ -69,7 +69,7 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<GiroComercio> {
             holder = new BussinesLineSpinnerAdapter.DropDownHolder();
             holder.txtTitle = (StyleTextView) row.findViewById(R.id.textView_spinner);
             Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Regular.ttf");
-            int textSize = (int) (7 * getContext().getResources().getDisplayMetrics().scaledDensity);
+            int textSize = (int) (11 * getContext().getResources().getDisplayMetrics().scaledDensity);
             holder.txtTitle.setTypeface(typeface);
             holder.txtTitle.setTextSize(textSize);
             row.setTag(holder);
@@ -110,7 +110,7 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<GiroComercio> {
         BussinesLineSpinnerAdapter.ViewHolder holder;
         GiroComercio item = mList.get(position);
         Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Regular.ttf");
-        int textSize = (int) (7 * getContext().getResources().getDisplayMetrics().scaledDensity);
+        int textSize = (int) (11 * getContext().getResources().getDisplayMetrics().scaledDensity);
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();

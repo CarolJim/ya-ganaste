@@ -32,6 +32,7 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data) {
         movementsView.showLoader("");
+
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
         if (data.getYear() == -1){
             request.setAnio("");
@@ -42,6 +43,7 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
         }
         request.setDireccion("");
         request.setIdMovimiento("");
+
         movementsIteractor.getMovements(request);
     }
 
@@ -52,9 +54,7 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
         if (response.getData() == null){
             movementsView.loadMovementsResult(new ArrayList<ItemMovements<MovimientosResponse>>());
         }
-
         List<ItemMovements<MovimientosResponse>> movementsList = new ArrayList<>();
-
         String[] date;
         for (MovimientosResponse movimientosResponse : response.getData()) {
             date = movimientosResponse.getFechaMovimiento().split(" ");
@@ -63,7 +63,6 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
                     (movimientosResponse.getTipoMovimiento() != 1 ? movimientosResponse.getImporte(): -movimientosResponse.getImporte())
             , date[0], date[1], MovementColorsFactory.getColorMovement(movimientosResponse.getTipoMovimiento()), movimientosResponse));
         }
-
         movementsView.loadMovementsResult(movementsList);
         movementsView.hideLoader();
     }
@@ -72,5 +71,6 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
     public void onFailed(int errorCode, int action, String error) {
         movementsView.hideLoader();
         movementsView.showError(error);
+
     }
 }
