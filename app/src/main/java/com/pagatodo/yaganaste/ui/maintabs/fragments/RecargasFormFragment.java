@@ -9,6 +9,7 @@ import android.os.Environment;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.text.InputFilter;
+import android.text.InputType;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -17,7 +18,6 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Recarga;
@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.RecargasPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IRecargasPresenter;
+import com.pagatodo.yaganaste.utils.UI;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -95,12 +96,19 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     @Override
     public void initViews() {
         super.initViews();
+        if (comercioItem.getFormato().equals("N")) {
+            recargaNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
+        }
+
+        int longitudReferencia = comercioItem.getLongitudReferencia();
+        if (longitudReferencia > 0 && longitudReferencia != 10) {
+            InputFilter[] fArray = new InputFilter[1];
+            fArray[0] = new InputFilter.LengthFilter(longitudReferencia);
+            recargaNumber.setFilters(fArray);
+        }
+
         if (isIAVE) {
             recargaNumber.setHint(getString(R.string.tag_number));
-            int maxLength = 12;
-            InputFilter[] fArray = new InputFilter[1];
-            fArray[0] = new InputFilter.LengthFilter(maxLength);
-            recargaNumber.setFilters(fArray);
             layoutImageContact.setVisibility(View.GONE);
         } else {
             recargaNumber.setHint(getString(R.string.phone_number_hint));
@@ -167,7 +175,8 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     @Override
     public void showError() {
         if (errorText != null && !errorText.equals("")) {
-            Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
+            UI.createSimpleCustomDialog("Error", errorText, getActivity().getFragmentManager(), getFragmentTag());
         }
     }
 
@@ -190,7 +199,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     public void onStartTrackingTouch(SeekBar seekBar) {
         referencia = recargaNumber.getText().toString().trim();
         monto = (Double) spinnerMontoRecarga.getSelectedItem();
-        recargasPresenter.validateFields(referencia, monto);
+        recargasPresenter.validateFields(referencia, monto, comercioItem.getLongitudReferencia(), isIAVE);
     }
 
 

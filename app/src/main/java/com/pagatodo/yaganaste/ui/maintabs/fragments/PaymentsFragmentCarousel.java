@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ListDialog;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.Carousel;
@@ -133,6 +134,11 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
         layoutCarouselMain.setVisibility(View.GONE);
         txtLoadingServices.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void showErrorService() {
+        UI.createSimpleCustomDialog("Error", getString(R.string.error_respuesta), getActivity().getFragmentManager(), getFragmentTag());
     }
 
     @Override

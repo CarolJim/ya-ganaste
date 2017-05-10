@@ -5,5 +5,5 @@ package com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces;
  */
 
 public interface IRecargasPresenter {
-    void validateFields(String number, Double importe);
+    void validateFields(String number, Double importe, int longitudReferencia, boolean isIAVE);
 }
