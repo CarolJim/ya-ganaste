@@ -29,6 +29,7 @@
     <string name="executeTransactionUrl">/EjecutarTransaccion</string>
     <string name="deleteAvatarUrl">/EliminarAvatar</string>
     <string name="loginUrl">/IniciarSesion</string>
+    <string name="loginSimpleUrl">/IniciarSesionSimple</string>
     <string name="searchOfficesUrl">/LocalizarSucursales</string>
     <string name="getCatalogsUrl">/ObtenerCatalogos?Version=1.0</string>
     <string name="getNeighborhoodByZipUrl">/ObtenerColoniasPorCP</string>
@@ -75,8 +76,8 @@
     <string name="lets_start">Vamos a Comenzar</string>
     <string name="lets_start_basic_info">Vamos a Comenzar tu Registro en Ya Ganaste</string>
     <string name="ingress_your_mail">Ingresa tu Correo Electrónico</string>
-    <string name="next">CONTINUAR</string>
-    <string name="back">REGRESAR</string>
+    <string name="next">Continuar</string>
+    <string name="back">Regresar</string>
     <string name="txt_cancel_lowcase">Cancelar</string>
     <string name="txt_reintent_lowcase">Reintentar</string>
     <string name="ingress_your_data_card">Ingresa los Datos de tu Tarjeta</string>
@@ -272,7 +273,7 @@
     <string name="datos_domicilio_terminos">Debes aceptar los términos y condiciones.</string>
     <string name="msg_register">Registrando Usuario...</string>
     <!--activacion_sms-->
-    <string name="activacion_sms_mes_1">Para Terminar tu Registro, Debemos Asociar tu Teléfono a tu Cuenta YA Ganaste.</string>
+    <string name="activacion_sms_mes_1">Para Terminar tu Registro,\n Debemos Asociar tu Teléfono a tu\n Cuenta YA Ganaste.</string>
     <string name="activacion_sms_mes_2">Sólo Envía el SMS que Aparecerá\nen la Siguiente Pantalla.</string>
     <string name="activacion_sms_loader">Estamos Verificando tu SMS.\nNos Tomara Solo Unos Segundos.</string>
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
@@ -407,7 +408,7 @@
     <string name="low_storage_error">No se pueden descargar las dependencias del detector de códigos de barras debido al bajo almacenamiento del dispositivo</string>
 
 
-    <string name="no_tiene_tarjeta">No te Preocupes ¡Ya te Asignamos Una!\nTu Número de Tarjeta Virtual es:</string>
+    <string name="no_tiene_tarjeta">No te Preocupes ¡Ya te Asignamos Una!</string>
     <string name="si_tiene_tarjeta">Ingresa tu Número de Tarjeta</string>
     <string name="tarjeta_lista">Tu Tarjeta Esta Lista</string>
     <string name="title_aceptar">Aceptar</string>

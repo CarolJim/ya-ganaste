@@ -52,20 +52,18 @@ import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 
-
 public class MainActivity extends SupportFragmentActivity {
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_conainer);
         initViews();
-        if (!ValidatePermissions.validateSIMCard(this)) {
+        /*if (!ValidatePermissions.validateSIMCard(this)) {*/
             loadFragment(MainFragment.newInstance(), true);
-        } else {
+        /*} else {
             loadFragment(TransactionResultFragment.newInstance(getPageResultNiSIM()));
-        }
+        }*/
     }
 
     private void initViews() {

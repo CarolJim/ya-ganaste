@@ -21,15 +21,14 @@
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:padding="@dimen/generic_padig">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imgCompleted"
             android:layout_width="140dp"
             android:layout_height="140dp"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
-            android:layout_margin="15dp"
-            android:src="@mipmap/ic_validate_blue"
+            android:layout_marginTop="15dp"
             app:civ_border_color="@color/colorAccent"
             app:civ_border_width="2dp" />
     </RelativeLayout>
@@ -41,7 +40,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/layoutImagenLogin"
         android:text="@string/txt_felicidades"
-        app:tipo="Descripcion" />
+        app:tipo="Titulo" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtSubtitle"

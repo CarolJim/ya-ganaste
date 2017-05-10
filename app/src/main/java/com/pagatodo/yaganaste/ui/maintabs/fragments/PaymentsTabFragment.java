@@ -138,7 +138,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         botonEnvios.setOnClickListener(this);
 
         rlimgPagosServiceToPay.setOnDragListener(this);
-        txtPagosUserName.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombreUsuario());
+        txtPagosUserName.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombre());
         txtBalance.setText(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor());
     }
 

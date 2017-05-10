@@ -5,9 +5,9 @@
     xmlns:android="http://schemas.android.com/apk/res/android"
     android:name="boton_enviarCanvas"
     android:width="233dp"
-    android:height="95dp"
+    android:height="@dimen/height_btns"
     android:viewportWidth="233"
-    android:viewportHeight="95">
+    android:viewportHeight="100">
     <!-- Group -->
     <group
         android:name="group">
@@ -38,5 +38,5 @@
         android:pathData="M 176,29.82 L 194.5,48.32 L 177,65.82 "
         android:strokeColor="#FFFFFF"
         android:strokeWidth="4"
-        android:strokeLineCap="round" />
+        android:strokeLineCap="round"/>
 </vector>

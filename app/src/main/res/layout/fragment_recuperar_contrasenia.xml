@@ -83,7 +83,7 @@
                     android:layout_centerInParent="true"
                     android:text="@string/backButton"
                     android:layout_marginRight="@dimen/margin_small"
-                    app:overBackground="@drawable/boton_regresar_canvas"
+                    app:overBackground="@drawable/selector_btn_back"
                     android:textAllCaps="false" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleButton
@@ -95,7 +95,7 @@
                     android:gravity="center"
                     android:text="@string/nextButton"
                     android:layout_marginLeft="@dimen/margin_small"
-                    app:overBackground="@drawable/continuar_canvas"
+                    app:overBackground="@drawable/selector_btn_continuar"
                     android:textAllCaps="false" />
             </LinearLayout>
         </LinearLayout>
