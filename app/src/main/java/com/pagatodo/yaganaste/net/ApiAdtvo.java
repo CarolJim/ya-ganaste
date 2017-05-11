@@ -348,9 +348,6 @@ public class ApiAdtvo extends Api {
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
     public static void obtenerDocumentos(IRequestResult result)  throws OfflineException {
-
-        Log.e("APIAdtvo ","obtenerDocumnetos"+URL_SERVER_ADTVO + App.getContext().getString(R.string.getDocuments));
-
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(OBTENER_DOCUMENTOS,

@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
+import android.util.Log;
+
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
@@ -42,6 +44,7 @@ public class AdqPaymentesPresenter implements MovementsPresenter<AdquirentePayme
 
     @Override
     public void onSuccesResponse(ResumenMovimientosAdqResponse response) {
+       Log.e("AdqPaymentesPresenter" , " response " + response.getMovimientos() );
         if (response.getMovimientos() == null){
             movementsView.loadMovementsResult(new ArrayList<ItemMovements<DataMovimientoAdq>>());
         }

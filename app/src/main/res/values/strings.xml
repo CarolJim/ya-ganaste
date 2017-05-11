@@ -348,7 +348,7 @@
 
     <string name="transfer_phone">Número de Teléfono</string>
     <string name="transfer_cable">Cuenta CABLE</string>
-    <string name="saldo_pendiente">Saldo Pendiente de Reembolso</string>
+    <string name="saldo_pendiente">Saldo Pendiente\n de Reembolso</string>
     <string name="saldo_en_cuenta">Saldo en Cuenta</string>
 
     <string name="linea_credito">Línea de Crédito*</string>

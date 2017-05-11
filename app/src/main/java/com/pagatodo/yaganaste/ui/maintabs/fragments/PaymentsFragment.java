@@ -14,7 +14,6 @@ import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AdqPaymentesPresenter;
 import java.util.List;
 
-
 /**
  * @author Juan Guerra on 27/11/2016.
  */
