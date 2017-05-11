@@ -71,6 +71,11 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="CustomSeekBar">
+        <attr name="text" format="string"/>
+        <attr name="textSize" format="dimension"/>
+    </declare-styleable>
+
     <attr name="buttonShape" format="enum">
         <enum name="rectangle" value="0" />
         <enum name="oval" value="1" />
