@@ -6,11 +6,11 @@ package com.pagatodo.yaganaste.data.model;
 
 public class DatosSaldo {
 
-    private String saldoEmisor = "";
-    private String saldoAdq = "";
-    private String lineaCredito = "";
-    private String saldoCredito = "";
-    private String montoDeposito = "";
+    private String saldoEmisor = "0";
+    private String saldoAdq = "0";
+    private String lineaCredito = "0";
+    private String saldoCredito = "0";
+    private String montoDeposito = "0";
 
     public DatosSaldo() {
     }

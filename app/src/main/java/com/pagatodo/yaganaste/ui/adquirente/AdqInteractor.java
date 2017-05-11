@@ -115,6 +115,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             ApiAdq.transaccionEMVDeposit(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.hideLoader();
         }
 
 //FLUJO DUMMY

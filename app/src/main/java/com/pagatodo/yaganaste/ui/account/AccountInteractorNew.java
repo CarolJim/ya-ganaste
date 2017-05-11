@@ -99,7 +99,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
     @Override
     public void login(IniciarSesionRequest request) {
         try{
-            ApiAdtvo.iniciarSesion(request,this);
+            ApiAdtvo.iniciarSesionSimple(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
         }
@@ -279,7 +279,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                 processStatusEmail(dataSourceResult);
                 break;
 
-            case INICIAR_SESION:
+            case INICIAR_SESION_SIMPLE:
                     processLogin(dataSourceResult);
                 break;
 
@@ -400,8 +400,8 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
                 RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
                 if(dataUser.isConCuenta()){// Si Cuenta
                     if (dataUser.isAsignoNip()) { // NO necesita NIP
-                        //if(!dataUser.isRequiereActivacionSMS()){// No Requiere Activacion de SMS
-                            if(true){// No Requiere Activacion de SMS
+                        if(!dataUser.isRequiereActivacionSMS()){// No Requiere Activacion de SMS
+                            //if(true){// No Requiere Activacion de SMS
                             /*TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento*/
                             user.setDatosSaldo(new DatosSaldo(String.format("%s",dataUser.getUsuario().getCuentas().get(0).getSaldo())));
                             stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
@@ -610,8 +610,10 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
         ActualizarInformacionSesionResponse data = (ActualizarInformacionSesionResponse) response.getData();
         if(data.getCodigoRespuesta() == CODE_OK) {
             DataIniciarSesion newSessionData = data.getData();
-
-            SingletonUser.getInstance().setDataUser(newSessionData);
+            SingletonUser userInfo = SingletonUser.getInstance();
+            userInfo.setDataUser(newSessionData);
+            /*TODO 10/05/17 obtener saldo por medio de ws de saldos.*/
+            userInfo.setDatosSaldo(new DatosSaldo(String.format("%s",userInfo.getDataUser().getUsuario().getCuentas().get(0).getSaldo())));
             accountManager.onSucces(response.getWebService(), "Información Actualizada.");
         }else{
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.

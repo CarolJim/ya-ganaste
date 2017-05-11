@@ -3,9 +3,11 @@ package com.pagatodo.yaganaste.utils.customviews;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
+import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -20,6 +22,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.ValidateForm;
@@ -44,6 +47,7 @@ public class CustomValidationEditText extends LinearLayout {
     int maxLines = 0;
     boolean isSingleLine = false;
     boolean isTextEnabled = true;
+    private int pinnedIcon = -1;
 
     public CustomValidationEditText(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -67,6 +71,7 @@ public class CustomValidationEditText extends LinearLayout {
         editText = (EditText) findViewById(R.id.editTextCustom);
         imageView = (AppCompatImageView) findViewById(R.id.imageViewValidation);
         Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
+        editText.setTextSize(16);
         editText.setTypeface(customFont);
         //imageView.setBackgroundResource(R.drawable.validation_fail);
 
@@ -84,7 +89,10 @@ public class CustomValidationEditText extends LinearLayout {
                 maxLines = typedArray.getInt(R.styleable.CustomValidationEditText_maxLength, 0);
                 isSingleLine = typedArray.getBoolean(R.styleable.CustomValidationEditText_isSingleLine, false);
                 isTextEnabled = typedArray.getBoolean(R.styleable.CustomValidationEditText_isTextEnabled, true);
-
+                if(editText != null){
+                    editText.setHintTextColor(typedArray.getColor(R.styleable.CustomValidationEditText_hintColor, ContextCompat.getColor(App.getInstance().getApplicationContext(),R.color.whiteColor)));
+                }
+                pinnedIcon = typedArray.getInt(R.styleable.CustomValidationEditText_defaultIcon, -1);
                 int inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
                 editText.setInputType(inputType);
 
@@ -115,6 +123,7 @@ public class CustomValidationEditText extends LinearLayout {
             imageViewIsGone(imageViewIsGone);
 
             setSingleLine(isSingleLine);
+            setIconPinned(pinnedIcon);
 
         }
     }
@@ -264,11 +273,16 @@ public class CustomValidationEditText extends LinearLayout {
     }
 
     public void imageViewIsGone(boolean isGone) {
-        if (isGone) {
-            imageView.setVisibility(GONE);
-        } else {
-            imageView.setVisibility(VISIBLE);
-        }
+            if (isGone) {
+                if(pinnedIcon != -1){
+                    imageView.setVisibility(VISIBLE);
+                    setIconPinned(pinnedIcon);
+                    return;
+                }
+                imageView.setVisibility(GONE);
+            } else {
+                imageView.setVisibility(VISIBLE);
+            }
     }
 
     public void setMaxLines(int n) {
@@ -313,5 +327,17 @@ public class CustomValidationEditText extends LinearLayout {
     public boolean imageViewIsVisible() {
 
         return imageView.getVisibility() == VISIBLE ? true:false;
+    }
+    private void setIconPinned(int pinnedIcon){
+        if(imageView != null && pinnedIcon != -1){
+            switch (pinnedIcon){
+                case 0:
+                    imageView.setBackgroundResource(R.drawable.mail_canvas);
+                    break;
+                default:
+                    imageView.setBackgroundResource(R.drawable.mail_canvas);
+                    break;
+            }
+        }
     }
 }

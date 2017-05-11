@@ -12,6 +12,7 @@
             <enum name="SourceSansPro_Light" value="2" />
             <enum name="SourceSansPro_Regular" value="3" />
             <enum name="SourceSansPro_Semibold" value="4" />
+            <enum name="Bupkis" value="5" />
         </attr>
     </declare-styleable>
 
@@ -97,6 +98,10 @@
             <enum name="celphone" value="6"/>
         </attr>
         <attr name="hintText" format="string"/>
+        <attr name="hintColor" format="color"/>
+        <attr name="defaultIcon" format="enum">
+            <enum name="email" value="0"/>
+        </attr>
         <attr name="maxLength" format="integer"/>
         <attr name="imageIsGone" format="boolean"/>
         <attr name="maxLines" format="integer"/>

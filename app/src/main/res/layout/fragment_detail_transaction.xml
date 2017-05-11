@@ -118,14 +118,15 @@
                 android:text="@string/correo_enviar_ticket"
                 app:tipo="Descripcion" />
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    app:hintText="@string/txt_mail"
+                    app:hintColor="@color/whiteColor_disable"
+                    app:defaultIcon="email"
+                    app:formato="email"
                     android:layout_marginTop="@dimen/margin_medium"
                     android:id="@+id/edtEmailSendticket"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:text="@string/txt_felicidades"
-                    app:formato="email"
-                    app:isDrawablePinned="true"
-                    app:setDrawable="@drawable/mail_canvas"/>
+                    android:text="@string/txt_felicidades" />
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"

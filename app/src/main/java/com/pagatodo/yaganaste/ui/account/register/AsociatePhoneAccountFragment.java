@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.ui.account.AprovPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
+import com.pagatodo.yaganaste.utils.customviews.SeekBarBaseFragment;
 
 import java.util.Timer;
 
@@ -34,14 +35,16 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
+import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class AsociatePhoneAccountFragment extends PaymentFormBaseFragment implements IVerificationSMSView,IAprovView {
+public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements IVerificationSMSView,IAprovView {
 
     private static final String TAG = AsociatePhoneAccountFragment.class.getSimpleName();
     private static final long CHECK_SMS_VALIDATE_DELAY = 10000;
@@ -102,7 +105,7 @@ public class AsociatePhoneAccountFragment extends PaymentFormBaseFragment implem
 
     @Override
     public void initViews() {
-        ButterKnife.bind(this, rootview);
+        super.initViews();
         hideLoader();
     }
 
@@ -110,14 +113,25 @@ public class AsociatePhoneAccountFragment extends PaymentFormBaseFragment implem
     @Override
     protected void continuePayment() {
         accountPresenter.gerNumberToSMS();
+
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                mySeekBar.setProgress(0);
+            }
+        }, 300);
+
+
     }
 
-
+    @Override
+    public void dataUpdated(String message) {
+        finishAssociation();
+    }
 
     @Override
     public void smsVerificationSuccess() {
         // executeProvisioning();//TODO Descomentar para realizar aprovisionamiento
-        finishAssociation();
+        accountPresenter.updateUserInfo();
     }
 
     @Override

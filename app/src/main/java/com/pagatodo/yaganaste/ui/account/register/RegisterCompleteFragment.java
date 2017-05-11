@@ -4,6 +4,7 @@ package com.pagatodo.yaganaste.ui.account.register;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     public static String TIPO_MENSAJE = "TIPO_MENSAJE";
     private View rootview;
     @BindView(R.id.imgCompleted)
-    ImageView imgCompleted;
+    AppCompatImageView imgCompleted;
     @BindView(R.id.txtTitle)
     StyleTextView txtTitle;
     @BindView(R.id.txtSubtitle)
@@ -135,7 +136,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
                 break;
             case ADQ_REVISION:
                 Log.e(TAG, "-  - - - -  - - - - ADQ_REVISION");
-                iIdIcon = R.mipmap.ic_validate_blue;
+                iIdIcon = R.drawable.ic_done;
                 title = getString(R.string.adq_title_thanks);
                 subTitle = getString(R.string.adq_subtitle_thanks);
                 message = getString(R.string.adq_title_thanks_msg);

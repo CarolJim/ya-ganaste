@@ -50,7 +50,10 @@ public class FontCache {
                 fontAssets = "fonts/SourceSansPro_Regular.ttf";
                 break;
             case SOURCESANSPRO_SEMIBOLD:
-                fontAssets = "fonts/SourceSansPro_Semibold";
+                fontAssets = "fonts/SourceSansPro_Semibold.ttf";
+                break;
+            case DK_BUPKIS:
+                fontAssets ="fonts/DK_Bupkis.otf";
                 break;
             default:
                 fontAssets = "fonts/angelina.ttf";

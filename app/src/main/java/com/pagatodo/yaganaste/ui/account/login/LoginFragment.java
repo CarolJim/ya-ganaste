@@ -115,9 +115,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btnLoginExistUser:
-                Intent intent = new Intent(getActivity(),TabActivity.class);
-                startActivity(intent);
-               // actionBtnLogin();
+                // Intent intent = new Intent(getActivity(),TabActivity.class);
+                // startActivity(intent);
+                actionBtnLogin();
                 break;
             case R.id.txtLoginExistUserRecoverPass:
                 //startActivity(new Intent(getActivity(), RecoverPasswordActivity.class));

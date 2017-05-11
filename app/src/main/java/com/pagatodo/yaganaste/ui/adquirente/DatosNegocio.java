@@ -240,6 +240,7 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
             return;
         }
         spinnerBussineLine.setOnItemSelectedListener(null);
+
         editBussinesName.setText(registerAgent.getNombre());
         editBussinesPhone.setText(registerAgent.getTelefono());
         spinnerBussineLine.setSelection(giroArrayAdapter.getItemPosition(registerAgent.getGiro()));
