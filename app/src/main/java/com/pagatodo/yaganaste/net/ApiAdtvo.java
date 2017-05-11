@@ -77,6 +77,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_F
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ELIMINAR_AVATAR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_JSONWEBTOKEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_TRANSACCION_ONLINE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOCALIZAR_SUCURSALES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_CATALOGOS;
@@ -302,6 +303,25 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.loginUrl),
                 headers,request, IniciarSesionResponse.class,result);
     }
+
+    /**
+     * Método que se invoca para realizar el inicio de sesión de un Usuario o un Cliente BPT.
+     *
+     * @param request {@link IniciarSesionRequest} body de la petición.
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void iniciarSesionSimple(IniciarSesionRequest request, IRequestResult result)  throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
+        if (!RequestHeaders.getTokenauth().equals(""))//Si ya se almaceno el tokenAuth, se envia en el login
+            headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
+
+        NetFacade.consumeWS(INICIAR_SESION_SIMPLE,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.loginSimpleUrl),
+                headers,request, IniciarSesionResponse.class,result);
+    }
+
+
 
     /**
      * Método que se invoca para consultar los puntos que se quieren mostrar en el Mapa.

@@ -51,6 +51,7 @@ import java.security.MessageDigest;
 import java.security.NoSuchAlgorithmException;
 import java.security.PublicKey;
 import java.security.spec.RSAPublicKeySpec;
+import java.sql.Timestamp;
 import java.text.DateFormatSymbols;
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -1282,4 +1283,18 @@ public class Utils {
         }
         return result;
     }
+
+    /**
+   * Se crea un string dummy para completar el número de tarjeta.
+   * */
+    public static String getCardNumberRamdon(){
+        //method 1
+        Timestamp timestamp = new Timestamp(System.currentTimeMillis());
+        String number = String.valueOf(timestamp.getTime());
+        if(number.length() > 10)
+            number = number.substring(0,10);
+        return  number;
+    }
+
+
 }

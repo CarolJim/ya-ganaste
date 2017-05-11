@@ -12,7 +12,6 @@ public class IniciarSesionRequest extends Request implements Serializable{
 
     private String UsuarioCorreo = "";
     private String Contrasena = "";
-    private String Telefono = "";
 
     public IniciarSesionRequest() {
     }
@@ -20,7 +19,6 @@ public class IniciarSesionRequest extends Request implements Serializable{
     public IniciarSesionRequest(String usuarioCorreo, String contrasena,String telefono) {
         UsuarioCorreo = usuarioCorreo;
         Contrasena = contrasena;
-        Telefono = telefono;
     }
 
     public String getUsuarioCorreo() {
@@ -29,14 +27,6 @@ public class IniciarSesionRequest extends Request implements Serializable{
 
     public void setUsuarioCorreo(String usuarioCorreo) {
         UsuarioCorreo = usuarioCorreo;
-    }
-
-    public String getTelefono() {
-        return Telefono;
-    }
-
-    public void setTelefono(String telefono) {
-        Telefono = telefono;
     }
 
     public String getContrasena() {
