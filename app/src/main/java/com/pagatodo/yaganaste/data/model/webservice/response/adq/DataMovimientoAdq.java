@@ -36,6 +36,8 @@ public class DataMovimientoAdq implements Serializable {
     public DataMovimientoAdq() {
     }
 
+
+
     public String getCompania() {
         return compania;
     }

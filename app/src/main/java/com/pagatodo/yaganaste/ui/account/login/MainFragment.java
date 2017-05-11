@@ -161,7 +161,7 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
             pagerAdapter.addFragment(slide);
         }
         this.pager.setAdapter(pagerAdapter);
-        this.pager.startAutoScroll(5000);
+        this.pager.startAutoScroll(1000);
 
         /*this.pager.setPageTransformer(true, new ViewPager.PageTransformer() {
             @Override

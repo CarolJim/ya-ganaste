@@ -13,7 +13,6 @@
     <include
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
-
     <ScrollView
         android:id="@+id/scrollViewTarjeta"
         android:layout_width="match_parent"
@@ -36,9 +35,10 @@
 
                 <RadioGroup
                     android:id="@+id/radioHasCard"
+                    style="@style/FragmentElementTop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_doble"
+                    android:layout_marginTop="@dimen/margin_regular"
                     android:gravity="center"
                     android:orientation="horizontal"
                     android:theme="@style/RadioButtonTheme">
@@ -86,7 +86,6 @@
                    android:layout_marginBottom="@dimen/margin_small"
                    android:gravity="center"
                    android:text="@string/no_tiene_tarjeta"/>
-
 
                 <RelativeLayout
                     android:id="@+id/layoutCard"
@@ -152,11 +151,10 @@
 
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"
-                    android:layout_height="@dimen/margin_big"
+                    android:layout_height="@dimen/margin_doble"
                     android:layout_below="@+id/layoutCard" />
 
             </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
-
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -164,31 +162,43 @@
                 android:layout_alignParentBottom="true"
                 android:layout_below="@+id/layoutContent"
                 android:layout_gravity="bottom"
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_marginLeft="@dimen/margin_big"
+                android:layout_marginRight="@dimen/margin_big"
                 android:gravity="bottom|center_horizontal"
-                android:layout_marginTop="@dimen/margin_big"
                 android:orientation="horizontal">
 
-                <Button
-                    android:id="@+id/btnNextTienesTarjeta"
-                    android:layout_width="wrap_content"
+                <LinearLayout
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight=".8"
+                    android:layout_weight="1.5"/>
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                    android:id="@+id/btnNextTienesTarjeta"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_btns"
+                    android:layout_weight="1"
+                    android:gravity="center"
                     android:text="@string/next"
-                    android:textAllCaps="false" />
+                    app:overBackground="@drawable/selector_btn_continuar"
+                    android:textAllCaps="false"/>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5"/>
             </LinearLayout>
 
         </RelativeLayout>
 
     </ScrollView>
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@color/colorPrimary"
         android:layout_alignParentBottom="true"
         android:orientation="vertical">
+
         <com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView
             android:id="@+id/keyboard_view"
             android:layout_width="match_parent"
@@ -200,21 +210,8 @@
             android:keyBackground="@color/colorPrimary"
             android:focusableInTouchMode="true"
             android:visibility="gone" />
-        <LinearLayout
-            android:id="@+id/relativeAd"
-            android:layout_width="match_parent"
-            android:layout_height="10dp"
-            android:layout_alignParentBottom="true"
-            android:layout_centerHorizontal="true"
-            android:keyBackground="@color/colorPrimary"
-            android:gravity="center"
-            android:visibility="visible"
-            android:orientation="vertical">
 
-        </LinearLayout>
     </LinearLayout>
-
-
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@id/progressLayout"
         android:layout_width="match_parent"

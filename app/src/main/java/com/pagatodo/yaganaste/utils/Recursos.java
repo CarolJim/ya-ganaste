@@ -25,7 +25,6 @@ public class Recursos {
 			URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
 			URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc";
 		}
-
 	}
 
 	/*Estatus Respuesta de Ws YaGanaste*/
@@ -70,9 +69,9 @@ public class Recursos {
 	public static final int DOC_DOM_FRONT = 7;
 	public static final int DOC_DOM_BACK = 30;
 
+	public static final int STATUS_DOCTO_RECHAZADO = 1;
 	public static final int STATUS_DOCTO_APROBADO = 2;
 	public static final int STATUS_DOCTO_PENDIENTE = 3;
-	public static final int STATUS_DOCTO_RECHAZADO = 1;
 	/*Tipo de Comercios*/
 	public static final int TELEFONICA = 1;
 	public static final int COMPANIA_DE_SERVICIOS = 2;
@@ -144,11 +143,10 @@ public class Recursos {
 	public static final String READER_IS_CHARGING = "READER_IS_CHARGING";
 	public static final String KSN_LECTOR = "KSN_LECTOR";
 
-
 	/*Url Legales*/
 	public static final String URL_LEGALES_TERMINOS = "https://www.yaganaste.com/#";
 	public static final String URL_LEGALES_PRIVACIDAD = "http://www.movistar.com.mx/terminos-y-condiciones";
-
 	public static final String PUBLIC_KEY_RSA = "rk2QHAmXByr9wIf6d1cgU+f9NtKvj2xWvRv2wUcZSMVvhfTkcoWLG/CxEK+weoS3QcxxEWKFrWgwhYABXpkGhlXiqH7GyRIhv2kQtuZlGJJSIExd2asJrtjDnfStu7ZKbdIpLzqFUfo8naDhCuQTzhyApyJQ9HDcOSTFuRhJ7Mz3gXwUXqr98i+he+iYCzyrMViP+o4UPUqfNcpSafUw4NYre9KEZoHMaKcPMR4bMjax3Payt9LDAU3KgBOnWS9Ga6WffE03tpAWqE3ape61CmPw5QKPgRNKSnV70wu7f02jmstEepM35aSf3gL9SKMUv3DkwYIpifhNYPbdKCh+BQ==";
+	public static final String DEFAULT_CARD = "5389 84";
 
 }

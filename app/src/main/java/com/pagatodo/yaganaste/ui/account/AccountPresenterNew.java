@@ -35,6 +35,7 @@ import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.List;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
@@ -199,7 +200,9 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
                 } else{
                     ((IVerificationSMSView) accountView).smsVerificationFailed(error.toString());
                 }
-            }else{
+            } else if(ws == ACTUALIZAR_INFO_SESION){ // Activacion con SMS ha sido verificada.
+                ((IVerificationSMSView) accountView).dataUpdated(error.toString());
+            } else{
                 accountView.showError(error);
             }
         }else if(accountView instanceof RecoveryPasswordView) {
@@ -255,6 +258,8 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
                 ((IVerificationSMSView) accountView).messageCreated((MessageValidation) data);
             }else if(ws == VERIFICAR_ACTIVACION){ // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).smsVerificationSuccess();
+            } else if(ws == ACTUALIZAR_INFO_SESION){ // Activacion con SMS ha sido verificada.
+            ((IVerificationSMSView) accountView).dataUpdated(data.toString());
             }
         }else if(accountView instanceof RecoveryPasswordView) {
             if (ws == RECUPERAR_CONTRASENIA) {

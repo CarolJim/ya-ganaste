@@ -13,7 +13,6 @@ public class ItemMovements<T> {
     private String date;
     private String month;
     private int color;
-
     private T movement;
 
     public ItemMovements(String premio, String marca, double monto, String date, String month, int color) {

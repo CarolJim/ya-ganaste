@@ -40,6 +40,7 @@
             android:layout_height="@dimen/height_btns"
             android:gravity="center"
             android:textSize="15sp"
+            android:textAllCaps="false"
             android:text="@string/txt_registrate" />
 
 

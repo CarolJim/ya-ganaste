@@ -23,7 +23,6 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
-
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -33,14 +32,14 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
-
-import butterknife.BindView;
 import butterknife.ButterKnife;
-
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
+import static com.pagatodo.yaganaste.utils.Recursos.DEFAULT_CARD;
+import static com.pagatodo.yaganaste.utils.Utils.getCardNumberRamdon;
+import butterknife.BindView;
 
 
 /**
@@ -134,6 +133,8 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         final Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Light.ttf");
         radioHasCard.setOnCheckedChangeListener(this);
 
+        radioBtnNo.setChecked(true);//Selección por Default
+
         editNumber.setTypeface(typeface);
         ViewTreeObserver viewTreeObserver = layoutCard.getViewTreeObserver();
         viewTreeObserver.addOnGlobalLayoutListener(new ViewTreeObserver.OnGlobalLayoutListener() {
@@ -192,6 +193,10 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             @Override
             public void afterTextChanged(Editable s) {
 
+                if(editNumber.getText().length() == LEGTH_CARD_NUMBER_FORMAT){
+                    hideKeyboard();
+                }
+
             }
         });
 
@@ -238,20 +243,20 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         switch (checkedId) {
             case R.id.radioBtnYes:
                 editNumber.setFocusableInTouchMode(true);
-                editNumber.requestFocus();
                 editNumber.setEnabled(true);
                 editNumber.setCursorVisible(true);
+                editNumber.requestFocus();
                 keyboardView.showCustomKeyboard(editNumber);
                 txtMessageCard.setText(getString(R.string.si_tiene_tarjeta));
-
+                resetCardNumberDefault();
                 break;
             case R.id.radioBtnNo:
-                editNumber.setText("");
-                editNumber.setFocusableInTouchMode(false);
+                editNumber.setFocusableInTouchMode(true);
                 editNumber.clearFocus();
-                editNumber.setEnabled(false);
+                editNumber.setEnabled(true);
                 keyboardView.hideCustomKeyboard();
                 txtMessageCard.setText(getString(R.string.no_tiene_tarjeta));
+                generateCardNumberRamdon();
                 break;
             default:
                 break;
@@ -259,7 +264,6 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     }
 
     private void selectNextAction(){
-
         if(radioBtnNo.isChecked()){ // Selecciona que no tiene tarjeta
             /*TODO Asignar cuenta*/
             assingAccountAvaliable();
@@ -327,5 +331,17 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
 
     public void hideKeyboard(){
         keyboardView.hideCustomKeyboard();
+    }
+
+    private void resetCardNumberDefault(){
+        editNumber.setText(DEFAULT_CARD+"");
+        editNumber.setSelection(editNumber.getText().length());
+    }
+
+    private void generateCardNumberRamdon(){
+        editNumber.setText(String.format("%s%s",DEFAULT_CARD,getCardNumberRamdon()));
+        editNumber.setFocusableInTouchMode(false);
+        editNumber.clearFocus();
+        editNumber.setEnabled(true);
     }
 }

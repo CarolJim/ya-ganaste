@@ -12,8 +12,10 @@
     <color name="bgColorEnd">#182630</color>
     <color name="whiteColor">#FFF</color>
     <color name="whiteColor_disable">#beffffff</color>
+    <color name="borderColor">#979797</color>
     <color name="grayColor">#808080</color>
     <color name="lightGrayColor">#beb8b8</color>
+    <color name="backgroundEditText">#4D5C6B</color>
     <color name="bg_progress">#d73b3939</color>
     <color name="bg_card_confirmation">#1e2429</color>
 
@@ -29,6 +31,7 @@
     <color name="black">#000000</color>
     <color name="purpura">#d907f1</color>
     <color name="transparent">#00FFFFFF</color>
+    <color name="landingTransparent">#904D5C6B</color>
 
     <color name="edittext_back">#435D6E</color>
     <color name="line_border">#23313C</color>
