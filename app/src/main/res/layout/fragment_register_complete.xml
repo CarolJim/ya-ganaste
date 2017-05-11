@@ -21,7 +21,7 @@
         android:layout_marginTop="@dimen/activity_horizontal_margin"
         android:padding="@dimen/generic_padig">
 
-        <de.hdodenhof.circleimageview.CircleImageView
+        <ImageView
             android:id="@+id/imgCompleted"
             android:layout_width="140dp"
             android:layout_height="140dp"
@@ -29,9 +29,8 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"
-            android:src="@mipmap/ic_validate_blue"
-            app:civ_border_color="@color/colorAccent"
-            app:civ_border_width="2dp" />
+            app:srcCompat="@drawable/ic_done"
+            />
     </RelativeLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView

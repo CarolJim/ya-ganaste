@@ -209,7 +209,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             public void run() {
 
                 TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
-                PageResult pageResult = new PageResult(R.mipmap.ic_validate_blue, "¡Listo!", "El Recibo Fue\nEnviado con Éxito.", false);
+                PageResult pageResult = new PageResult(R.drawable.ic_done, "¡Listo!", "El Recibo Fue\nEnviado con Éxito.", false);
                 pageResult.setActionBtnPrimary(new Command() {
                     @Override
                     public void action(Context context, Object... params) {

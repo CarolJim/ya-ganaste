@@ -126,7 +126,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
         Log.e("type ", "- -- - - - - " + type);
         switch (type) {
             case EMISOR:
-                iIdIcon = R.mipmap.ic_validate_blue;
+                iIdIcon = R.drawable.ic_done;
                 title = getString(R.string.txt_felicidades);
                 subTitle = getString(R.string.congratulation_text1);
                 message = getString(R.string.congratulation_text2);
@@ -143,7 +143,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
                 NEXT_SCREEN = EVENT_DOC_CHECK;
                 break;
             case ADQ_ACEPTADOS:
-                iIdIcon = R.mipmap.ic_validate_blue;
+                iIdIcon = R.drawable.ic_done;
                 title = getString(R.string.txt_felicidades);
                 subTitle = getString(R.string.adq_subtitle_accept);
                 message = getString(R.string.adq_msg_accept);
@@ -151,7 +151,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
                 NEXT_SCREEN = EVENT_GO_MAINTAB;
                 break;
             case SALDO:
-                iIdIcon = R.mipmap.ic_validate_blue;
+                iIdIcon = R.drawable.ic_done;
                 title = getString(R.string.txt_felicidades);
                 subTitle = getString(R.string.txt_felicidades);
                 message = getString(R.string.txt_felicidades);
