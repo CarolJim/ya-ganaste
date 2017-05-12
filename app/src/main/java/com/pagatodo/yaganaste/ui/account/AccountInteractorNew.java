@@ -65,6 +65,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GE
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LOGIN;
@@ -494,7 +495,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
     public void checkDocs() {
         SingletonUser singletonUser = SingletonUser.getInstance();
         singletonUser.getDataUser().setEsAgente(true);
-        singletonUser.getDataUser().setEstatusAgente(CRM_PENDIENTE);
+        singletonUser.getDataUser().setEstatusAgente(CRM_DOCTO_APROBADO);
         singletonUser.getDataUser().setEstatusDocumentacion(CRM_PENDIENTE);
     }
 

@@ -7,7 +7,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
-import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -16,6 +15,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
@@ -37,7 +37,9 @@ import java.util.List;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
+import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 
 
 public class TabActivity extends ToolBarActivity implements TabsView, OnEventListener {
@@ -71,7 +73,14 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
             Intent intent = new Intent(this, LandingFragment.class);
             startActivity(intent);
         }
-
+        if (!pref.containsData(COUCHMARK_ADQ) && SingletonUser.getInstance().getDataUser().isEsAgente()) {
+            pref.saveDataBool(COUCHMARK_ADQ, true);
+       /*     if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                    && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {*/
+                Intent intent = new Intent(this, LandingAdqFragment.class);
+                startActivity(intent);
+         /*   }*/
+        }
     }
 
     private void load() {
@@ -90,11 +99,9 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         mainViewPagerAdapter = new GenericPagerAdapter<>(this, getSupportFragmentManager(), viewPagerData.getFragmentList(), viewPagerData.getTabData());
         mainViewPager.setAdapter(mainViewPagerAdapter);
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
-
         mainTab.setupWithViewPager(mainViewPager);
-        mainTab.getSelectedTabPosition();
 
-        Log.e("TabActivity" , "indicator position " + mainTab.getSelectedTabPosition());
+        Log.e("TabActivity", "indicator position " + mainTab.getSelectedTabPosition());
         mainTab.setSelectedTabIndicatorHeight(2);
     }
 
@@ -107,6 +114,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
 
     @Override
     public void onEvent(String event, Object data) {
+
         if (event.equals(EVENT_INVITE_ADQUIRENTE)) {
             onInviteAdquirente();
         } else if (event.equals(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY)) {

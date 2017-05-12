@@ -46,7 +46,7 @@ public class AccountMovementsIteractorImp implements MovementsIteractor<Consulta
 
     private void validateResponse(ConsultarMovimientosMesResponse response){
         Log.e("iteractor " , "validateResponse : "+ response.getCodigoRespuesta() );
-        if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+        if (response.getCodigoRespuesta()==Recursos.CODE_OK) {
             movementsManager.onSuccesResponse(response);
         } else {
             movementsManager.onFailed(response.getCodigoRespuesta(), response.getAccion(), response.getMensaje());

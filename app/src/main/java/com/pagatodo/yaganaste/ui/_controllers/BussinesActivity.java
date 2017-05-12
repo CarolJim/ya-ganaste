@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.Window;
 
 import com.pagatodo.yaganaste.App;
@@ -14,13 +13,12 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.adquirente.DatosNegocio;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.adquirente.DomicilioNegocio;
-import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 
-import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_ACEPTADOS;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 
 
@@ -48,7 +46,7 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_conainer);
         presenterAccount = new AccountPresenterNew(this);
-       // initFragments();
+        // initFragments();
         loadFragment(DatosNegocio.newInstance(), Direction.FORDWARD, true);
         pref = App.getInstance().getPrefs();
     }
@@ -82,11 +80,11 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
                 break;
 
             case EVENT_DOC_CHECK:
-                resetRegisterData();
-
                 presenterAccount.checkUpdateDocs();
-                Intent i = new Intent(this,TabActivity.class);
+
+                Intent i = new Intent(this, TabActivity.class);
                 startActivity(i);
+
                 finish();
                 break;
         }
