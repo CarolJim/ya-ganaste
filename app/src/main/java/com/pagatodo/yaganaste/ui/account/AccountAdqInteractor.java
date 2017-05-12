@@ -16,8 +16,10 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteReq
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
@@ -144,7 +146,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         RegisterAgent registerAgent = RegisterAgent.getInstance();
         CrearAgenteRequest request = new CrearAgenteRequest();
         request.setNombreComercio(registerAgent.getNombre());
-        request.setGiro(registerAgent.getGiro().getIdGiro());
+        request.setGiro(registerAgent.getGiro().getIdSubgiro());
         request.setNumeroTelefono(registerAgent.getTelefono());
         request.setCuestionario(registerAgent.getCuestionario());
         onSuccess(new DataSourceResult(CREAR_AGENTE, WS, null));
@@ -174,6 +176,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
                 break;
 
             case OBTENER_DOMICILIO:
+            case OBTENER_DOMICILIO_PRINCIPAL:
                 processAddress(dataSourceResult);
                 break;
 
@@ -227,10 +230,9 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      */
     private void processNeighborhoods(DataSourceResult response) {
         ObtenerColoniasPorCPResponse data = (ObtenerColoniasPorCPResponse) response.getData();
-
         if (data.getCodigoRespuesta() == CODE_OK) {
             List<ColoniasResponse> listaColonias = data.getData();
-            if (listaColonias != null && listaColonias.size() > 0) {
+            if (listaColonias != null && !listaColonias.isEmpty()) {
                 accountManager.onSucces(response.getWebService(), listaColonias);
             } else {
                 accountManager.onError(response.getWebService(), "Verifica tu Código Postal");//Retornamos mensaje de error.
@@ -238,7 +240,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         } else {
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
-
         }
     }
 
@@ -265,7 +266,22 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     }
 
     private void processAddress(DataSourceResult result) {
-        accountManager.onSucces(result.getWebService(), null);
+        ObtenerDomicilioResponse data = (ObtenerDomicilioResponse) result.getData();
+
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            DataObtenerDomicilio domicilio = data.getData();
+            if (domicilio != null) {
+                accountManager.onSucces(result.getWebService(), domicilio);
+            } else {
+                accountManager.onError(result.getWebService(), "Ocurrio un Error al Consultar el Domicilio");//Retornamos mensaje de error.
+            }
+        } else {
+            //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
+            accountManager.onError(result.getWebService(), data.getMensaje());//Retornamos mensaje de error.
+        }
+
+
+
     }
 
 }

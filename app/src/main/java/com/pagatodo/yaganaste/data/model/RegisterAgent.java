@@ -16,7 +16,7 @@ public class RegisterAgent {
     private String nombre = "";
     private String telefono = "";
     private String razonSocial = "";
-    private GiroComercio giro;
+    private SubGiro giro;
     private String latitud = "";
     private String longitud = "";
     private List<CuestionarioEntity> cuestionario;
@@ -164,15 +164,28 @@ public class RegisterAgent {
         RegisterAgent.registerUser = registerUser;
     }
 
-    public GiroComercio getGiro() {
+    public SubGiro getGiro() {
         return giro;
     }
 
-    public void setGiro(GiroComercio giro) {
+    public void setGiro(SubGiro giro) {
         this.giro = giro;
     }
 
     public static void resetRegisterAgent(){
         registerUser = null;
+    }
+
+    public static void resetBussinessAddress(){
+        if (registerUser != null) {
+            registerUser.calle = "";
+            registerUser.numExterior = "";
+            registerUser.numInterior = "";
+            registerUser.codigoPostal = "";
+            registerUser.estadoDomicilio = "";
+            registerUser.colonia = "";
+            registerUser.idColonia = "";
+        }
+
     }
 }

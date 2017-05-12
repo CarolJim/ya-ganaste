@@ -2,10 +2,10 @@ package com.pagatodo.yaganaste.utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.app.FragmentManager;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.StringRes;
+import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Toast;
@@ -158,6 +158,35 @@ public class UI {
             }
         });
         customErrorDialog.show(fragmentManager, tag);
+    }
+
+    public static void createSimpleCustomDialogNoCancel(String title, String message,
+                                                FragmentManager fragmentManager, final DialogDoubleActions actions) {
+        createSimpleCustomDialog(title, message, fragmentManager, actions, true, false);
+    }
+
+    public static void createSimpleCustomDialog(String title, String message,
+                                                FragmentManager fragmentManager, final DialogDoubleActions actions,
+                                                boolean hasConfirmBtn, boolean hasCancelBtn) {
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_error_message, title, message, hasConfirmBtn, hasCancelBtn);
+        customErrorDialog.setDialogActions(new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                customErrorDialog.dismiss();
+                if (actions != null) {
+                    actions.actionConfirm(params);
+                }
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+                customErrorDialog.dismiss();
+                if (actions != null) {
+                    actions.actionCancel(params);
+                }
+            }
+        });
+        customErrorDialog.show(fragmentManager, CustomErrorDialog.class.getSimpleName());
     }
 
 }

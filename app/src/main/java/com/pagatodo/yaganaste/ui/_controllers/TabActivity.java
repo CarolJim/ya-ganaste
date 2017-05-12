@@ -174,7 +174,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
             } else if (childFragment != null && requestCode == BACK_FROM_PAYMENTS) {
                 if (data != null && data.getStringExtra(RESULT) != null && data.getStringExtra(RESULT).equals(Constants.RESULT_ERROR)) {
                     if (childFragment != null) {
-                        UI.createSimpleCustomDialog("Error!", data.getStringExtra(MESSAGE), getFragmentManager(), getLocalClassName());
+                        UI.createSimpleCustomDialog("Error!", data.getStringExtra(MESSAGE), getSupportFragmentManager(), getLocalClassName());
                         PaymentFormBaseFragment paymentFormBaseFragment = getVisibleFragment(childFragment.getChildFragmentManager().getFragments());
                         if (paymentFormBaseFragment != null) {
                             paymentFormBaseFragment.setSeekBarProgress(0);

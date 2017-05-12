@@ -20,7 +20,6 @@ public class Api {
 
     public static Map<String, String> getHeadersAdq(){
         Map<String, String> headersAdq = new HashMap<>();
-        headersAdq = new HashMap<String, String>();
         headersAdq.put("Version", "1.0.7");
         headersAdq.put("SO", "Android");
         return headersAdq;

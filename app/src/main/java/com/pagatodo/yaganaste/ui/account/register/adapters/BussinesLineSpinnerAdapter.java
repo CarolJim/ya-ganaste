@@ -14,33 +14,28 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.GiroComercio;
+import com.pagatodo.yaganaste.data.model.SubGiro;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.List;
 
 /**
- * Created by Jordan on 30/03/2017.
+ * @author Jordan on 30/03/2017.
  */
 
-public class BussinesLineSpinnerAdapter extends ArrayAdapter<GiroComercio> {
+public class BussinesLineSpinnerAdapter extends ArrayAdapter<SubGiro> {
+
     Context context;
     int mLayoutResourceId;
-    List<GiroComercio> mList;
-    private TYPE type;
+    List<SubGiro> mList;
 
-    public enum TYPE {
-        TITLE,
-        SUBTITLE
-    }
 
     public BussinesLineSpinnerAdapter(@NonNull Context con, @LayoutRes int resource,
-                                      @NonNull List<GiroComercio> objects, @NonNull TYPE type) {
+                                      @NonNull List<SubGiro> objects) {
         super(con, resource, objects);
         this.context = con;
         this.mLayoutResourceId = resource;
         this.mList = objects;
-        this.type = type;
     }
 
     @Override
@@ -48,19 +43,19 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<GiroComercio> {
         return mList.size();
     }
 
-    public GiroComercio getItemSelected(int position) {
+    public SubGiro getItemSelected(int position) {
         return mList.get(position);
     }
 
     public int getGiroId(int position) {
-        return mList.get(position).getIdGiro();
+        return mList.get(position).getIdSubgiro();
     }
 
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
         BussinesLineSpinnerAdapter.DropDownHolder holder;
-        GiroComercio item = mList.get(position);
+        SubGiro item = mList.get(position);
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -76,26 +71,21 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<GiroComercio> {
             holder = (BussinesLineSpinnerAdapter.DropDownHolder) row.getTag();
         }
 
-        if (type.equals(TYPE.TITLE)) {
-            if (position == 0) {
-                holder.txtTitle.setText("");
-                holder.txtTitle.setHint(item.getnGiro());
-            } else {
-                holder.txtTitle.setText(item.getnGiro());
-            }
+        if (position == 0) {
+            holder.txtTitle.setText("");
+            holder.txtTitle.setHint(item.getSubgiro());
         } else {
-            holder.txtTitle.setText(type.equals(TYPE.TITLE) ? item.getnGiro() : item.getnSubgiro());
+            holder.txtTitle.setText(item.getSubgiro());
         }
 
         return row;
     }
 
-    public int getItemPosition(@NonNull GiroComercio giroComercio) {
-        GiroComercio current;
+    public int getItemPosition(@NonNull SubGiro giroComercio) {
+        SubGiro current;
         for (int position = 0; position < mList.size() ; position++) {
             current = mList.get(position);
-            if ( giroComercio.getIdGiro() == current.getIdGiro() &&
-                    (type.equals(TYPE.TITLE) || giroComercio.getIdSubgiro() == current.getIdSubgiro())) {
+            if ( giroComercio.getIdSubgiro() == current.getIdSubgiro()) {
                 return position;
             }
         }
@@ -107,7 +97,7 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<GiroComercio> {
     public View getView(int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         View row = convertView;
         BussinesLineSpinnerAdapter.ViewHolder holder;
-        GiroComercio item = mList.get(position);
+        SubGiro item = mList.get(position);
         Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Regular.ttf");
 
 
@@ -132,17 +122,13 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<GiroComercio> {
             }
         });
 
-        if (position == 0 && item.getIdGiro() == -1) {
-            holder.editText.setHint(type.equals(TYPE.TITLE) ? item.getnGiro() : item.getnSubgiro());
 
-            holder.editText.setTypeface(typeface);
-
+        if (position == 0 && item.getIdSubgiro() == -1) {
+            holder.editText.setHint(item.getSubgiro());
         } else {
-            holder.editText.setText(type.equals(TYPE.TITLE) ? item.getnGiro() : item.getnSubgiro());
-
-            holder.editText.setTypeface(typeface);
-
+            holder.editText.setText(item.getSubgiro());
         }
+        holder.editText.setTypeface(typeface);
 
         return row;
     }

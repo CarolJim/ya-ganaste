@@ -5,20 +5,13 @@ package com.pagatodo.yaganaste.utils.customviews;
  */
 
 import android.app.Dialog;
-import android.app.DialogFragment;
-import android.content.Intent;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
-import android.support.v4.app.FragmentManager;
+import android.support.v4.app.DialogFragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.widget.CompoundButton;
-import android.widget.EditText;
-import android.widget.ImageView;
-import android.widget.Switch;
 
 
 import com.pagatodo.yaganaste.R;
@@ -152,10 +145,6 @@ public class CustomErrorDialog extends DialogFragment {
         return dialog;
     }
 
-    @Override
-    public void onSaveInstanceState(Bundle outState) {
-        super.onSaveInstanceState(outState);
-    }
 
     /**
      * Método para setear el {@link DialogDoubleActions} del dialog

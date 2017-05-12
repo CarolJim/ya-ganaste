@@ -53,7 +53,8 @@
             android:layout_marginTop="@dimen/space_between_elements"
             android:layout_below="@+id/spinnerBussineLine"
             android:background="@null"
-            app:backgroundTint="@color/transparent" />
+            app:backgroundTint="@color/transparent"
+            android:visibility="gone"/>
 
 
         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText

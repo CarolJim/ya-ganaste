@@ -99,6 +99,7 @@
                 android:layout_height="wrap_content"
                 tools:text="-$499."
                 android:textSize="20sp"
+                android:gravity="top"
                 style="@style/ItemMovement" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView

@@ -10,21 +10,29 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
+import com.pagatodo.yaganaste.data.model.SubGiro;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.adquirente.DatosNegocio;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.adquirente.DomicilioNegocio;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
+import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
+
+import java.util.List;
+
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_ACEPTADOS;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 
 
-public class BussinesActivity extends SupportFragmentActivity implements OnEventListener {
+public class BussinesActivity extends LoaderActivity {
 
     private Preferencias pref;
     private AccountPresenterNew presenterAccount;
@@ -38,9 +46,21 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
     public final static String EVENT_GO_BUSSINES_ADDRESS_BACK = "EVENT_GO_BUSSINES_ADDRESS_BACK";
     public final static String EVENT_DOC_CHECK = "EVENT_DOC_CHECK";
 
+    public final static String EVENT_SET_ADDRESS = "EVENT_SET_ADDRESS";
+    public final static String EVENT_SET_BUSINESS_LIST = "EVENT_SET_BUSINESS_LIST";
+    public final static String EVENT_SET_COLONIES_LIST = "EVENT_SET_COLONIES_LIST";
+
+
+
     private DatosNegocio datosNegocioFragment;
     private DomicilioNegocio domicilioNegocioFragment;
     private Documentos documentosFragment;
+
+    private DataObtenerDomicilio domicilio;
+    private List<SubGiro> girosComercio;
+    private List<ColoniasResponse> listaColonias;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -49,24 +69,27 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
         setContentView(R.layout.activity_fragment_conainer);
         presenterAccount = new AccountPresenterNew(this);
        // initFragments();
-        loadFragment(DatosNegocio.newInstance(), Direction.FORDWARD, true);
+        loadFragment(DatosNegocio.newInstance(girosComercio), Direction.FORDWARD, true);
         pref = App.getInstance().getPrefs();
     }
 
     @Override
     public void onEvent(String event, Object o) {
+        super.onEvent(event, o);
         switch (event) {
             case EVENT_GO_BUSSINES_DATA:
-                loadFragment(DatosNegocio.newInstance(), Direction.FORDWARD, false);
+                loadFragment(DatosNegocio.newInstance(girosComercio), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_DATA_BACK:
-                loadFragment(DatosNegocio.newInstance(), Direction.BACK, false);
+                loadFragment(DatosNegocio.newInstance(girosComercio), Direction.BACK, false);
+                RegisterAgent.resetBussinessAddress();
+                listaColonias = null;
                 break;
             case EVENT_GO_BUSSINES_ADDRESS:
-                loadFragment(DomicilioNegocio.newInstance(), Direction.FORDWARD, false);
+                loadFragment(DomicilioNegocio.newInstance(domicilio, listaColonias), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_ADDRESS_BACK:
-                loadFragment(DomicilioNegocio.newInstance(), Direction.BACK, false);
+                loadFragment(DomicilioNegocio.newInstance(domicilio, listaColonias), Direction.BACK, false);
                 break;
             case EVENT_GO_BUSSINES_DOCUMENTS:
                 loadFragment(Documentos.newInstance(), Direction.FORDWARD, false);
@@ -89,6 +112,18 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
                 startActivity(i);
                 finish();
                 break;
+
+            case EVENT_SET_ADDRESS:
+                this.domicilio = (DataObtenerDomicilio) o;
+                break;
+
+            case EVENT_SET_BUSINESS_LIST:
+                this. girosComercio = (List<SubGiro>) o;
+                break;
+            case EVENT_SET_COLONIES_LIST:
+                this.listaColonias = (List<ColoniasResponse>) o;
+                break;
+
         }
     }
 
@@ -114,8 +149,8 @@ public class BussinesActivity extends SupportFragmentActivity implements OnEvent
     }
 
     private void initFragments() {
-        datosNegocioFragment = DatosNegocio.newInstance();
-        domicilioNegocioFragment = DomicilioNegocio.newInstance();
+        datosNegocioFragment = DatosNegocio.newInstance(girosComercio);
+        domicilioNegocioFragment = DomicilioNegocio.newInstance(domicilio, listaColonias);
         documentosFragment = Documentos.newInstance();
     }
 
