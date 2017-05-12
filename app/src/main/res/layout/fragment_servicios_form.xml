@@ -22,20 +22,14 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/referenceNumber"
+                style="@style/StyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
                 android:layout_weight="20"
-                android:background="@null"
-                android:backgroundTint="@color/transparent"
                 android:hint="@string/txt_referencia_servicio"
                 android:inputType="number"
                 android:longClickable="false"
-                android:maxLength="12"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:textSize="12sp" />
+                android:maxLength="12" />
 
             <RelativeLayout
                 android:id="@+id/layoutImageReference"
@@ -64,19 +58,13 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/serviceImport"
+                style="@style/StyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:background="@null"
-                android:backgroundTint="@color/transparent"
                 android:hint="@string/hint_importe"
                 android:inputType="numberDecimal"
                 android:longClickable="false"
-                android:maxLength="10"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:textSize="12sp" />
+                android:maxLength="10" />
 
         </LinearLayout>
 
@@ -90,19 +78,13 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/serviceConcept"
+                style="@style/StyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:background="@null"
-                android:backgroundTint="@color/transparent"
                 android:hint="@string/hint_concepto"
                 android:inputType="text"
                 android:longClickable="false"
-                android:maxLength="40"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:textSize="12sp" />
+                android:maxLength="40" />
 
         </LinearLayout>
 

@@ -32,19 +32,12 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/cardNumber"
+                style="@style/StyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:background="@null"
-                android:backgroundTint="@color/transparent"
                 android:hint="@string/card_number_hint"
                 android:inputType="number"
-                android:maxLength="16"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:text="1234567890123456"
-                android:textSize="14sp" />
+                android:maxLength="16" />
 
         </LinearLayout>
 
@@ -57,19 +50,12 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/amountToSend"
+                style="@style/StyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:background="@null"
-                android:backgroundTint="@color/transparent"
                 android:hint="@string/hint_importe_envio"
                 android:inputType="number"
-                android:maxLength="16"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:text="12000"
-                android:textSize="14sp" />
+                android:maxLength="16" />
 
         </LinearLayout>
 
@@ -82,19 +68,12 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/receiverName"
+                style="@style/StyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:background="@null"
-                android:backgroundTint="@color/transparent"
                 android:hint="@string/hint_name_destinatario"
                 android:inputType="text"
-                android:maxLength="16"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:text="Nombre Propio"
-                android:textSize="14sp" />
+                android:maxLength="16" />
 
         </LinearLayout>
 
@@ -108,19 +87,12 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/concept"
+                style="@style/StyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:background="@null"
-                android:backgroundTint="@color/transparent"
                 android:hint="@string/hint_concepto"
                 android:inputType="text"
-                android:maxLength="40"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:text="Concepto envio"
-                android:textSize="14sp" />
+                android:maxLength="40" />
 
         </LinearLayout>
 
@@ -133,19 +105,12 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/numberReference"
+                style="@style/StyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:background="@null"
-                android:backgroundTint="@color/transparent"
                 android:hint="@string/hint_referencia_numerica"
                 android:inputType="number"
-                android:maxLength="40"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:text="12345678901"
-                android:textSize="14sp" />
+                android:maxLength="40" />
 
         </LinearLayout>
 

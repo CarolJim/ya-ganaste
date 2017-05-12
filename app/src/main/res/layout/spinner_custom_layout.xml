@@ -8,20 +8,14 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
         android:id="@+id/editTextCustomSpinner"
+        style="@style/StyleEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
         android:layout_weight="2"
-        android:background="@null"
-        android:backgroundTint="@color/transparent"
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:longClickable="false"
-        android:paddingBottom="6dp"
-        android:paddingTop="6dp"
-        android:textColor="@color/whiteColor_disable"
         android:textSize="14sp" />
 
     <RelativeLayout

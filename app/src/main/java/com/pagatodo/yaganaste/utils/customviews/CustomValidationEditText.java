@@ -6,6 +6,7 @@ import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.Editable;
 import android.text.InputFilter;
@@ -14,17 +15,17 @@ import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.ValidateForm;
-
-import static com.pagatodo.yaganaste.utils.customviews.StyleEdittext.ANDROID_SCHEMA;
 
 /**
  * Created by Jordan on 27/03/2017.
@@ -44,6 +45,7 @@ public class CustomValidationEditText extends LinearLayout {
     int maxLines = 0;
     boolean isSingleLine = false;
     boolean isTextEnabled = true;
+    private int pinnedIcon;
 
     public CustomValidationEditText(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -85,11 +87,11 @@ public class CustomValidationEditText extends LinearLayout {
                 maxLines = typedArray.getInt(R.styleable.CustomValidationEditText_maxLength, 0);
                 isSingleLine = typedArray.getBoolean(R.styleable.CustomValidationEditText_isSingleLine, false);
                 isTextEnabled = typedArray.getBoolean(R.styleable.CustomValidationEditText_isTextEnabled, true);
-                if(editText != null){
-                    editText.setHintTextColor(typedArray.getColor(R.styleable.CustomValidationEditText_hintColor, ContextCompat.getColor(App.getInstance().getApplicationContext(),R.color.whiteColor)));
-                }
+
+                editText.setHintTextColor(typedArray.getColor(R.styleable.CustomValidationEditText_hintColor, ContextCompat.getColor(App.getInstance().getApplicationContext(), R.color.borderColor)));
+
                 pinnedIcon = typedArray.getInt(R.styleable.CustomValidationEditText_defaultIcon, -1);
-                int inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
+                inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
                 editText.setInputType(inputType);
                 inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
                 textSize = typedArray.getInt(R.styleable.CustomValidationEditText_android_textSize, EditorInfo.TYPE_NULL);
@@ -286,16 +288,16 @@ public class CustomValidationEditText extends LinearLayout {
     }
 
     public void imageViewIsGone(boolean isGone) {
-            if (isGone) {
-                if(pinnedIcon != -1){
-                    imageView.setVisibility(VISIBLE);
-                    setIconPinned(pinnedIcon);
-                    return;
-                }
-                imageView.setVisibility(GONE);
-            } else {
+        if (isGone) {
+            if (pinnedIcon != -1) {
                 imageView.setVisibility(VISIBLE);
+                setIconPinned(pinnedIcon);
+                return;
             }
+            imageView.setVisibility(GONE);
+        } else {
+            imageView.setVisibility(VISIBLE);
+        }
     }
 
     public void setMaxLines(int n) {
@@ -340,9 +342,10 @@ public class CustomValidationEditText extends LinearLayout {
 
         return imageView.getVisibility() == VISIBLE ? true : false;
     }
-    private void setIconPinned(int pinnedIcon){
-        if(imageView != null && pinnedIcon != -1){
-            switch (pinnedIcon){
+
+    private void setIconPinned(int pinnedIcon) {
+        if (imageView != null && pinnedIcon != -1) {
+            switch (pinnedIcon) {
                 case 0:
                     imageView.setBackgroundResource(R.drawable.mail_canvas);
                     break;
