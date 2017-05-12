@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    style="@style/FragmentElement"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    style="@style/FragmentElement"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/margin_big">
@@ -22,20 +22,14 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/referenceNumber"
+                style="@style/StyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
                 android:layout_weight="20"
-                android:background="@null"
-                android:backgroundTint="@color/transparent"
                 android:hint="@string/txt_referencia_servicio"
                 android:inputType="number"
                 android:longClickable="false"
-                android:maxLength="12"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:textSize="14sp" />
+                android:maxLength="12" />
 
             <RelativeLayout
                 android:id="@+id/layoutImageReference"
@@ -64,19 +58,13 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/serviceImport"
+                style="@style/StyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:background="@null"
-                android:backgroundTint="@color/transparent"
                 android:hint="@string/hint_importe"
                 android:inputType="numberDecimal"
                 android:longClickable="false"
-                android:maxLength="10"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:textSize="14sp" />
+                android:maxLength="10" />
 
         </LinearLayout>
 
@@ -90,19 +78,13 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/serviceConcept"
+                style="@style/StyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
-                android:background="@null"
-                android:backgroundTint="@color/transparent"
                 android:hint="@string/hint_concepto"
                 android:inputType="text"
                 android:longClickable="false"
-                android:maxLength="40"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
-                android:textSize="14sp" />
+                android:maxLength="40" />
 
         </LinearLayout>
 
@@ -113,12 +95,12 @@
         android:id="@+id/comisionText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
-        android:textSize="12sp"
-        app:tipo="Descripcion"
-        android:layout_marginTop="@dimen/margin_doble"
         android:layout_below="@+id/containerServiciosForm"
-        android:text="@string/comision_service_payment"/>
+        android:layout_marginTop="@dimen/margin_doble"
+        android:gravity="center"
+        android:text="@string/comision_service_payment"
+        android:textSize="12sp"
+        app:tipo="Descripcion" />
 
 
     <RelativeLayout
@@ -130,7 +112,7 @@
         android:layout_marginRight="@dimen/margin_medium"
         android:layout_marginTop="@dimen/space_between_elements">
 
-        <SeekBar
+        <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar
             android:id="@+id/myseek"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -140,7 +122,8 @@
             android:max="100"
             android:progressDrawable="@android:color/transparent"
             android:thumb="@drawable/thumb_size"
-            android:thumbOffset="15dp" />
+            android:thumbOffset="15dp"
+            app:text="Pagar" />
     </RelativeLayout>
 
 </RelativeLayout>

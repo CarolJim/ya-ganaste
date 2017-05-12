@@ -72,6 +72,11 @@
         </attr>
     </declare-styleable>
 
+    <declare-styleable name="CustomSeekBar">
+        <attr name="text" format="string"/>
+        <attr name="textSize" format="dimension"/>
+    </declare-styleable>
+
     <attr name="buttonShape" format="enum">
         <enum name="rectangle" value="0" />
         <enum name="oval" value="1" />
@@ -98,12 +103,17 @@
             <enum name="celphone" value="6"/>
         </attr>
         <attr name="hintText" format="string"/>
+        <attr name="hintColor" format="color"/>
+        <attr name="defaultIcon" format="enum">
+            <enum name="email" value="0"/>
+        </attr>
         <attr name="maxLength" format="integer"/>
         <attr name="imageIsGone" format="boolean"/>
         <attr name="maxLines" format="integer"/>
         <attr name="isSingleLine" format="boolean"/>
         <attr name="isTextEnabled" format="boolean"/>
         <attr name="android:inputType"/>
+        <attr name="android:textSize"/>
     </declare-styleable>
 
     <declare-styleable name="BorderTitleLayout">

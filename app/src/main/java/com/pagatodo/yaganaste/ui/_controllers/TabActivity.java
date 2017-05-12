@@ -7,6 +7,8 @@ import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
+import android.view.Gravity;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -75,6 +77,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         pref = App.getInstance().getPrefs();
         mainViewPager = (ViewPager) findViewById(R.id.main_view_pager);
         mainTab = (TabLayout) findViewById(R.id.main_tab);
+
         tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN);
         animHide = AnimationUtils.loadAnimation(this, R.anim.view_hide);
         animShow = AnimationUtils.loadAnimation(this, R.anim.view_show);
@@ -85,7 +88,12 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         mainViewPagerAdapter = new GenericPagerAdapter<>(this, getSupportFragmentManager(), viewPagerData.getFragmentList(), viewPagerData.getTabData());
         mainViewPager.setAdapter(mainViewPagerAdapter);
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
+
         mainTab.setupWithViewPager(mainViewPager);
+        mainTab.getSelectedTabPosition();
+
+        Log.e("TabActivity" , "indicator position " + mainTab.getSelectedTabPosition());
+        mainTab.setSelectedTabIndicatorHeight(2);
     }
 
 

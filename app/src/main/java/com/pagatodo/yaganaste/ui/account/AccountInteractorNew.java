@@ -386,12 +386,12 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
            // RequestHeaders.setOperation(String.valueOf(data.getIdOperacion()));//TODO validar razon de esta asignación
             //Seteamos los datos del usuario en el SingletonUser.
             if(userStatus.isEsUsuario()){
-                SingletonUser user = SingletonUser.getInstance();
+                /*SingletonUser user = SingletonUser.getInstance();
                 user.getDataUser().setEsUsuario(userStatus.isEsUsuario());
                 user.getDataUser().setEsCliente(userStatus.isEsCliente());
                 user.getDataUser().setEsAgente(userStatus.isEsAgente());
                 user.getDataUser().setConCuenta(userStatus.isConCuenta());
-                user.getDataUser().getUsuario().setIdUsuario(userStatus.getIdUsuario());
+                user.getDataUser().getUsuario().setIdUsuario(userStatus.getIdUsuario() != null ? userStatus.getIdUsuario() : 0);*/
                 accountManager.onSucces(response.getWebService(),true);
             }else{
                 accountManager.onSucces(response.getWebService(),false);

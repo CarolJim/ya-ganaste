@@ -18,13 +18,16 @@
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:orientation="vertical">
-        <RelativeLayout
+        <LinearLayout
+            android:orientation="vertical"
             android:id="@+id/layoutImageResult"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1.5"
-            android:padding="@dimen/generic_padig">
-
+            android:layout_weight="1.5">
+            <android.support.v4.widget.Space
+                android:layout_weight="0.5"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtThanksBuy"
                 style="@style/textTitle"
@@ -49,7 +52,6 @@
                 style="@style/textDetailTransaction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtPaymentMessage1"
                 android:layout_marginTop="@dimen/margin_small"
                 android:textSize="28sp"
                 android:text="70"
@@ -71,7 +73,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:layout_below="@+id/txtPaymentMessage2"
                 android:layout_marginTop="@dimen/margin_small"
                 android:orientation="horizontal">
 
@@ -83,15 +84,19 @@
                     android:text="*************4565"/>
 
                 <ImageView
+                    android:layout_gravity="center"
                     android:id="@+id/imgTypeCard"
                     android:layout_width="30dp"
-                    android:layout_height="30dp"
+                    android:layout_height="match_parent"
                     android:src="@mipmap/master_icon"/>
 
             </LinearLayout>
+            <android.support.v4.widget.Space
+                android:layout_weight="0.7"
+                android:layout_width="match_parent"
+                android:layout_height="0dp" />
 
-
-        </RelativeLayout>
+        </LinearLayout>
 
         <LinearLayout
             android:orientation="vertical"
@@ -112,25 +117,28 @@
                 android:layout_height="wrap_content"
                 android:text="@string/correo_enviar_ticket"
                 app:tipo="Descripcion" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/edtEmailSendticket"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:text="@string/txt_felicidades"
-                app:formato="email" />
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    app:hintText="@string/txt_mail"
+                    app:hintColor="@color/whiteColor_disable"
+                    app:defaultIcon="email"
+                    app:formato="email"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:id="@+id/edtEmailSendticket"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/txt_felicidades" />
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
-            <SeekBar
+            <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar
                 android:id="@+id/myseek"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/seek_background"
                 android:clickable="false"
                 android:max="100"
+                app:text="Enviar"
                 android:progressDrawable="@android:color/transparent"
                 android:thumb="@drawable/thumb_size"
                 android:thumbOffset="15dp" />

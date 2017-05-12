@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -59,6 +60,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     TextView tv2Num;
     TextView tv3Num;
     TextView tv4Num;
+    ImageView asignar_iv1;
 
     public AsignarNIPFragment() {
     }
@@ -117,7 +119,6 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
         tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
         tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
         tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
-
 
         // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
         // Se le asigna un TextWatcher personalizado para realizar las oepraciones

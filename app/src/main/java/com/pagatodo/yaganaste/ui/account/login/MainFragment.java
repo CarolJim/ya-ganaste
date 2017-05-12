@@ -27,6 +27,7 @@ import com.pagatodo.yaganaste.interfaces.RecoveryPasswordView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui._manager.PagerAdapter;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -190,7 +191,6 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
             }
         });
 
-
     }
 
     @Override
@@ -199,7 +199,7 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
             case R.id.btnMainCreateAccount:
                 Intent intent = new Intent(getActivity(), AccountActivity.class);
                 intent.putExtra(SELECTION,GO_TO_REGISTER);
-                startActivityForResult(intent,123);
+                startActivity(intent);
                 //getActivity().finish();
                 break;
         }

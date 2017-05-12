@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <merge xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content">
 
@@ -10,19 +11,12 @@
         android:orientation="horizontal"
         android:weightSum="100">
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
+        <EditText
             android:id="@+id/editTextCustom"
+            style="@style/StyleEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="15dp"
-            android:layout_weight="20"
-            android:textColorHint="@color/whiteColor_disable"
-            android:background="@null"
-            android:backgroundTint="@color/transparent"
-            android:inputType="textWebPassword"
-            android:paddingBottom="6dp"
-            android:paddingTop="6dp"
-            android:textSize="14sp" />
+            android:layout_weight="20" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -31,10 +25,10 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/imageViewValidation"
-                android:padding="5dp"
                 android:layout_width="17dp"
                 android:layout_height="15dp"
-                android:layout_centerInParent="true" />
+                android:layout_centerInParent="true"
+                android:padding="5dp" />
         </RelativeLayout>
 
 

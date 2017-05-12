@@ -136,13 +136,13 @@ public class DateUtil {
         Calendar calendar = Calendar.getInstance(new Locale("MX"));
         LinkedList<MonthsMovementsTab> names = new LinkedList<>();
 
-        for (int subs = 0 ; subs >= -3 ; subs--) {
+        for (int subs = 0 ; subs >= -4 ; subs--) {
             calendar.add(Calendar.MONTH, subs);
             names.addFirst(new MonthsMovementsTab(getMonthShortName(calendar), calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.YEAR)));
         }
 
-        names.addLast(new MonthsMovementsTab("Todos", -1, -1));
+      //  names.addLast(new MonthsMovementsTab("Todos", -1, -1));
         return names;
     }
 
@@ -155,7 +155,7 @@ public class DateUtil {
         Date date = new Date();
         String formatDate = dateFormat.format(date);
         // TODO: 28/03/2017 Para pruebas
-        formatDate = "02-2017";
+        formatDate = "28-05-2017";
         return new AdquirentePaymentsTab("", formatDate);
     }
 

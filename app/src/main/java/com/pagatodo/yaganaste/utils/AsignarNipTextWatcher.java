@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.Layout;
@@ -11,6 +12,8 @@ import android.text.TextWatcher;
 import android.text.style.AlignmentSpan;
 import android.text.style.ImageSpan;
 import android.util.Log;
+import android.view.View;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
@@ -35,6 +38,7 @@ public class AsignarNipTextWatcher implements TextWatcher {
     String oldText = "";
     CustomValidationEditText etGen;
     Bitmap bitmapBullet;
+    ImageView asignar_iv1;
 
     private String TAG = getClass().getSimpleName();
 
@@ -48,7 +52,8 @@ public class AsignarNipTextWatcher implements TextWatcher {
 
         Log.d("ds","WNIP "+tv1Num.getWidth());
         bitmapBullet = BitmapFactory.decodeResource(App.getContext().getResources(),
-                R.drawable.asignar_nip_bullet2);
+                R.drawable.bullet_small);
+//        bitmapBullet.setWidth(10);
     }
 
     @Override

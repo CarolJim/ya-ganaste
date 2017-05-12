@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
+import android.util.Log;
+
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
@@ -31,6 +33,7 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
 
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data) {
+        Log.e("Presenter ", "getRemoteMovementsData "+ data.getYear());
         movementsView.showLoader("");
 
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
@@ -50,7 +53,6 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
 
     @Override
     public void onSuccesResponse(ConsultarMovimientosMesResponse response) {
-
         if (response.getData() == null){
             movementsView.loadMovementsResult(new ArrayList<ItemMovements<MovimientosResponse>>());
         }

@@ -31,6 +31,7 @@ import com.pagatodo.yaganaste.interfaces.enums.DataSource;
 import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 
 import java.io.Serializable;
 
@@ -115,6 +116,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             ApiAdq.transaccionEMVDeposit(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.hideLoader();
         }
 
 //FLUJO DUMMY
@@ -209,15 +211,20 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             public void run() {
 
                 TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
-                PageResult pageResult = new PageResult(R.mipmap.ic_validate_blue, "¡Listo!", "El Recibo Fue\nEnviado con Éxito.", false);
+                PageResult pageResult = new PageResult(R.drawable.ic_done, "¡Listo!", "El Recibo Fue\nEnviado con Éxito.", false);
                 pageResult.setActionBtnPrimary(new Command() {
                     @Override
                     public void action(Context context, Object... params) {
                         INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(EVENT_GO_MAINTAB, "Ejecución Éxitosa");
+
+                        // Reiniciamos el control de CodeKey para cuando cargamos de nuevo el fragment
+                        // GetAmountFragment, tengamos un inicio de $0.00
+                        CustomKeyboardView.setCodeKey(0);
+
                         //Borramos los datos de la transacción
                         TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
 
+                        viewInterface.nextScreen(EVENT_GO_MAINTAB, "Ejecución Éxitosa");
                     }
                 });
 
