@@ -136,18 +136,12 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                     android:id="@+id/editPasswordEnvio"
+                    style="@style/StyleEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="15dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@null"
-                    android:backgroundTint="@color/transparent"
                     android:hint="Contraseña"
                     android:inputType="text|textPassword"
-                    android:maxLength="40"
-                    android:paddingBottom="6dp"
-                    android:paddingTop="6dp"
-                    android:textSize="14sp" />
+                    android:maxLength="40" />
 
             </LinearLayout>
 
@@ -176,7 +170,7 @@
                 android:layout_weight="40"
                 android:text="Continuar"
                 android:textAllCaps="false"
-                app:overBackground="@drawable/selector_btn_continuar" />
+                android:background="@drawable/selector_btn_continuar" />
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"

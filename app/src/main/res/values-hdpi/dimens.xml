@@ -23,6 +23,7 @@
     <dimen name="seekbar_thumb_height">45dp</dimen>
     <dimen name="seekbar_thumb_arrow_width">20dp</dimen>
     <dimen name="seekbar_thumb__arrow_height">20dp</dimen>
+    <dimen name="thumb_text_size">12sp</dimen>
 
     <dimen name="ad_em_tab_mount_text_size">13sp</dimen>
 

@@ -3,24 +3,19 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/backgroundEditText"
+    android:background="@drawable/rounded_border_edittext"
     android:orientation="horizontal">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
         android:id="@+id/editTextCustomSpinner"
+        style="@style/StyleEditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginLeft="15dp"
-        android:layout_marginStart="15dp"
         android:layout_weight="2"
-        android:backgroundTint="@color/transparent"
-        android:clickable="true"
+        android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:longClickable="false"
-        android:paddingBottom="6dp"
-        android:paddingTop="6dp"
-        android:textColor="@color/whiteColor_disable"
         android:textSize="14sp" />
 
     <RelativeLayout

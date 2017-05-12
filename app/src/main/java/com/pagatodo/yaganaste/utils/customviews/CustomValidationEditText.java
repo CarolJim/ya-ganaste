@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.utils.customviews;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
-import android.graphics.drawable.Drawable;
 import android.os.Build;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -16,6 +15,7 @@ import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -26,8 +26,6 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.ValidateForm;
-
-import static com.pagatodo.yaganaste.utils.customviews.StyleEdittext.ANDROID_SCHEMA;
 
 /**
  * Created by Jordan on 27/03/2017.
@@ -47,7 +45,7 @@ public class CustomValidationEditText extends LinearLayout {
     int maxLines = 0;
     boolean isSingleLine = false;
     boolean isTextEnabled = true;
-    private int pinnedIcon = -1;
+    private int pinnedIcon;
 
     public CustomValidationEditText(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -70,10 +68,10 @@ public class CustomValidationEditText extends LinearLayout {
         //ButterKnife.bind(context, this);
         editText = (EditText) findViewById(R.id.editTextCustom);
         imageView = (AppCompatImageView) findViewById(R.id.imageViewValidation);
-        Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
-        editText.setTextSize(16);
-        editText.setTypeface(customFont);
+
         //imageView.setBackgroundResource(R.drawable.validation_fail);
+        int inputType = EditorInfo.TYPE_NULL;
+        int textSize = EditorInfo.TYPE_NULL;
 
         if (attrs != null) {
             TypedArray typedArray = context.getTheme().obtainStyledAttributes(
@@ -89,17 +87,29 @@ public class CustomValidationEditText extends LinearLayout {
                 maxLines = typedArray.getInt(R.styleable.CustomValidationEditText_maxLength, 0);
                 isSingleLine = typedArray.getBoolean(R.styleable.CustomValidationEditText_isSingleLine, false);
                 isTextEnabled = typedArray.getBoolean(R.styleable.CustomValidationEditText_isTextEnabled, true);
-                if(editText != null){
-                    editText.setHintTextColor(typedArray.getColor(R.styleable.CustomValidationEditText_hintColor, ContextCompat.getColor(App.getInstance().getApplicationContext(),R.color.whiteColor)));
-                }
+
+                editText.setHintTextColor(typedArray.getColor(R.styleable.CustomValidationEditText_hintColor, ContextCompat.getColor(App.getInstance().getApplicationContext(), R.color.borderColor)));
+
                 pinnedIcon = typedArray.getInt(R.styleable.CustomValidationEditText_defaultIcon, -1);
-                int inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
+                inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
                 editText.setInputType(inputType);
+                inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
+                textSize = typedArray.getInt(R.styleable.CustomValidationEditText_android_textSize, EditorInfo.TYPE_NULL);
 
             } catch (Exception e) {
                 Log.e(context.getPackageName(), "Error loading attributes:" + e.getMessage());
             } finally {
                 typedArray.recycle();
+            }
+
+            if (inputType != EditorInfo.TYPE_NULL) {
+                editText.setInputType(inputType);
+            } else {
+                editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+            }
+
+            if (textSize != EditorInfo.TYPE_NULL) {
+                editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             }
 
             if (type != null && !type.isEmpty()) {
@@ -118,6 +128,7 @@ public class CustomValidationEditText extends LinearLayout {
                 setMaxLines(maxLines);
             }
 
+
             setEnabled(isTextEnabled);
 
             imageViewIsGone(imageViewIsGone);
@@ -126,7 +137,11 @@ public class CustomValidationEditText extends LinearLayout {
             setIconPinned(pinnedIcon);
 
         }
+
+        Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
+        editText.setTypeface(customFont);
     }
+
 
     public void setHintText(String txt) {
         editText.setHint(txt);
@@ -273,16 +288,16 @@ public class CustomValidationEditText extends LinearLayout {
     }
 
     public void imageViewIsGone(boolean isGone) {
-            if (isGone) {
-                if(pinnedIcon != -1){
-                    imageView.setVisibility(VISIBLE);
-                    setIconPinned(pinnedIcon);
-                    return;
-                }
-                imageView.setVisibility(GONE);
-            } else {
+        if (isGone) {
+            if (pinnedIcon != -1) {
                 imageView.setVisibility(VISIBLE);
+                setIconPinned(pinnedIcon);
+                return;
             }
+            imageView.setVisibility(GONE);
+        } else {
+            imageView.setVisibility(VISIBLE);
+        }
     }
 
     public void setMaxLines(int n) {
@@ -301,7 +316,6 @@ public class CustomValidationEditText extends LinearLayout {
     }
 
 
-
     public void setFullOnClickListener(OnClickListener onClickListener) {
         editText.setFocusableInTouchMode(false);
         editText.setOnClickListener(onClickListener);
@@ -316,21 +330,22 @@ public class CustomValidationEditText extends LinearLayout {
         editText.removeTextChangedListener(watcher);
     }
 
-    public void setOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener){
+    public void setOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener) {
         editText.setOnFocusChangeListener(onFocusChangeListener);
     }
 
-    public EditText getEditText(){
+    public EditText getEditText() {
         return editText;
     }
 
     public boolean imageViewIsVisible() {
 
-        return imageView.getVisibility() == VISIBLE ? true:false;
+        return imageView.getVisibility() == VISIBLE ? true : false;
     }
-    private void setIconPinned(int pinnedIcon){
-        if(imageView != null && pinnedIcon != -1){
-            switch (pinnedIcon){
+
+    private void setIconPinned(int pinnedIcon) {
+        if (imageView != null && pinnedIcon != -1) {
+            switch (pinnedIcon) {
                 case 0:
                     imageView.setBackgroundResource(R.drawable.mail_canvas);
                     break;
