@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/FragmentElement"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -20,19 +21,13 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/recargaNumber"
+                style="@style/StyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="15dp"
-                android:layout_marginStart="15dp"
                 android:layout_weight="20"
-                android:background="@null"
-                android:backgroundTint="@color/transparent"
-                android:longClickable="false"
-                android:maxLength="10"
-                android:paddingBottom="6dp"
-                android:paddingTop="6dp"
                 android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
-                android:textSize="14sp" />
+                android:longClickable="false"
+                android:maxLength="10" />
 
             <RelativeLayout
                 android:id="@+id/layoutImageContact"
@@ -50,6 +45,7 @@
             </RelativeLayout>
 
         </LinearLayout>
+
 
         <!--com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
             android:id="@+id/recargaNumber"
@@ -79,7 +75,7 @@
         android:layout_marginRight="@dimen/margin_medium"
         android:layout_marginTop="@dimen/margin_doble">
 
-        <SeekBar
+        <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar
             android:id="@+id/myseek"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -89,6 +85,7 @@
             android:max="100"
             android:progressDrawable="@android:color/transparent"
             android:thumb="@drawable/thumb_size"
-            android:thumbOffset="15dp" />
+            android:thumbOffset="15dp"
+            app:text="Recarga" />
     </RelativeLayout>
 </RelativeLayout>

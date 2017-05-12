@@ -5,10 +5,10 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
-    android:focusableInTouchMode="true"
     android:layout_marginLeft="@dimen/activity_vertical_margin"
     android:layout_marginRight="@dimen/activity_vertical_margin"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
     tools:context=".ui._controllers.AccountActivity">
 
     <include
@@ -40,9 +40,9 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layoutImagenLogin"
-        android:gravity="center"
-        android:layout_marginRight="@dimen/activity_vertical_margin"
         android:layout_margin="@dimen/activity_vertical_margin"
+        android:layout_marginRight="@dimen/activity_vertical_margin"
+        android:gravity="center"
         android:orientation="vertical">
 
 
@@ -52,9 +52,10 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/edtxtUserPass"
-            android:hint="@string/txt_escribe_tu_correo"
+            android:clickable="true"
             app:formato="email"
-            android:inputType="textPassword" />
+            app:hintText="@string/txt_escribe_tu_correo"
+            app:isTextEnabled="true" />
 
         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
             android:id="@+id/edtxtUserPass"
@@ -62,20 +63,21 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/btnLoginExistUser"
-            android:hint="@string/txt_escribe_tu_pass"
+            android:clickable="true"
             app:formato="password"
-            android:inputType="textPassword" />
+            app:hintText="@string/txt_escribe_tu_pass"
+            app:isTextEnabled="true" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txtLoginExistUserRecoverPass"
             style="@style/textDescInputs"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:padding="@dimen/margin_medium"
-            android:layout_marginTop="@dimen/margin_small"
             android:layout_below="@+id/edtxtLetsStartMail"
-            android:textSize="14sp"
-            android:text="@string/recover_pass" />
+            android:layout_marginTop="@dimen/margin_small"
+            android:padding="@dimen/margin_medium"
+            android:text="@string/recover_pass"
+            android:textSize="14sp" />
 
 
     </LinearLayout>
@@ -95,7 +97,7 @@
         android:id="@+id/progressIndicator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 
 </RelativeLayout>
