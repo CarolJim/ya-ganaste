@@ -128,11 +128,9 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         ButterKnife.bind(this, rootview);
         keyboardView.setKeyBoard(getActivity(),R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
-
         btnNextTienesTarjeta.setOnClickListener(this);
         final Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Light.ttf");
         radioHasCard.setOnCheckedChangeListener(this);
-
         radioBtnNo.setChecked(true);//Selección por Default
 
         editNumber.setTypeface(typeface);
@@ -251,12 +249,9 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                 resetCardNumberDefault();
                 break;
             case R.id.radioBtnNo:
-                editNumber.setFocusableInTouchMode(true);
-                editNumber.clearFocus();
-                editNumber.setEnabled(true);
-                keyboardView.hideCustomKeyboard();
                 txtMessageCard.setText(getString(R.string.no_tiene_tarjeta));
                 generateCardNumberRamdon();
+                keyboardView.hideCustomKeyboard();
                 break;
             default:
                 break;
@@ -311,8 +306,10 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     }
 
     @Override
-    public void showError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+    public void showError(Object error){
+        if(!error.toString().isEmpty()) {
+            UI.showToastShort(error.toString(),getActivity());
+        }
     }
 
     @Override
@@ -339,9 +336,9 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     }
 
     private void generateCardNumberRamdon(){
-        editNumber.setText(String.format("%s%s",DEFAULT_CARD,getCardNumberRamdon()));
+        String randomNumber = DEFAULT_CARD + getCardNumberRamdon();
+        editNumber.setText(randomNumber);
         editNumber.setFocusableInTouchMode(false);
-        editNumber.clearFocus();
-        editNumber.setEnabled(true);
+        editNumber.setEnabled(false);
     }
 }

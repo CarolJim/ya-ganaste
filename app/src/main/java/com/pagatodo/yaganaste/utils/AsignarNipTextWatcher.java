@@ -11,6 +11,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.AlignmentSpan;
 import android.text.style.ImageSpan;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
@@ -49,6 +50,7 @@ public class AsignarNipTextWatcher implements TextWatcher {
         this.tv3Num = tv3Num;
         this.tv4Num = tv4Num;
 
+        Log.d("ds","WNIP "+tv1Num.getWidth());
         bitmapBullet = BitmapFactory.decodeResource(App.getContext().getResources(),
                 R.drawable.bullet_small);
 //        bitmapBullet.setWidth(10);

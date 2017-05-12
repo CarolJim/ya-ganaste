@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -34,7 +35,9 @@ import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 
 import java.util.List;
 
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
+import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
@@ -68,6 +71,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         setContentView(R.layout.activity_main_tab);
         load();
 
+<<<<<<< HEAD
         if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             Intent intent = new Intent(this, LandingFragment.class);
@@ -81,6 +85,8 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
                 startActivity(intent);
          /*   }*/
         }
+=======
+>>>>>>> e43a2f2642b94963e3d487d3107a17d1648880d3
     }
 
     private void load() {
@@ -111,6 +117,27 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         super.onResume();
         //Glide.with(this).load(FlowUser.getImageProfileURL() + "?" + UtilsExtensions.getCurrentTime()).placeholder(R.mipmap.icon_user).dontAnimate().error(R.mipmap.icon_user).into(imgToolbarProfile);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+         if (!pref.containsData(COUCHMARK_EMISOR)) {
+
+             new Handler().postDelayed(new Runnable() {
+                 public void run() {
+                     pref.saveDataBool(COUCHMARK_EMISOR, true);
+                     Intent intent = new Intent(TabActivity.this, LandingFragment.class);
+                     startActivity(intent);
+                 }
+             }, 500);
+
+
+        }
+    }
+
+
+
 
     @Override
     public void onEvent(String event, Object data) {
@@ -163,7 +190,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
             } else if (childFragment != null && requestCode == BACK_FROM_PAYMENTS) {
                 if (data != null && data.getStringExtra(RESULT) != null && data.getStringExtra(RESULT).equals(Constants.RESULT_ERROR)) {
                     if (childFragment != null) {
-                        UI.createSimpleCustomDialog("Error!", data.getStringExtra(MESSAGE), getFragmentManager(), getLocalClassName());
+                        UI.createSimpleCustomDialog("Error!", data.getStringExtra(MESSAGE), getSupportFragmentManager(), getLocalClassName());
                         PaymentFormBaseFragment paymentFormBaseFragment = getVisibleFragment(childFragment.getChildFragmentManager().getFragments());
                         if (paymentFormBaseFragment != null) {
                             paymentFormBaseFragment.setSeekBarProgress(0);
@@ -229,11 +256,22 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         } else {
             if (mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem()) instanceof HomeTabFragment) {
                 super.onBackPressed();
+                SingletonSession.getInstance().setFinish(true);//Terminamos Activity si va a background
             } else {
                 goHome();
             }
         }
 
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onResume();
+        if (pref.containsData(COUCHMARK_EMISOR) && SingletonSession.getInstance().isFinish()) {
+            SingletonSession.getInstance().setFinish(false);
+            finish();
+        }
     }
 
 }

@@ -62,6 +62,7 @@ import butterknife.ButterKnife;
 import static android.app.Activity.RESULT_OK;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADDRESS_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DATA;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DATA_BACK;
@@ -275,12 +276,12 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     }
     private void backToRegister(){
 
-        new Handler().postDelayed(new Runnable() {
+        /*new Handler().postDelayed(new Runnable() {
             public void run() {
-                hideLoader();
-                backScreen(EVENT_GO_BUSSINES_DATA_BACK,null);
-            }
-        }, DELAY_MESSAGE_PROGRESS);
+                hideLoader();*/
+                backScreen(EVENT_GO_BUSSINES_ADDRESS_BACK,null);
+            /*}
+        }, DELAY_MESSAGE_PROGRESS);*/
     }
 
     private void showStatusDocs(View view){

@@ -1,52 +1,58 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ImageView;
-import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEntity;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.interfaces.IAdqRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
-import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DATA_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DOCUMENTS;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_ADDRESS;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_COLONIES_LIST;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_DOMICILIO;
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DomicilioNegocio extends GenericFragment implements ValidationForms, View.OnClickListener,IAdqRegisterView, RadioGroup.OnCheckedChangeListener {
+public class DomicilioNegocio extends GenericFragment implements ValidationForms, View.OnClickListener,IAdqRegisterView<ErrorObject>, RadioGroup.OnCheckedChangeListener {
+
+    public static final String _DOMICILIO = "1";
+    public static final String COLONIAS = "2";
 
     private View rootview;
 
@@ -82,17 +88,20 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     private String Idcolonia = "";
     private boolean respuestaDomicilio;
 
-    private boolean cpDefault;
+    private String colonyToLoad;
+
     private AccountAdqPresenter adqPresenter;
 
     private ZipWatcher textWatcherZipCode;
 
-    public DomicilioNegocio() {
-    }
+    private DataObtenerDomicilio domicilio;
 
-    public static DomicilioNegocio newInstance() {
+    public static DomicilioNegocio newInstance(DataObtenerDomicilio domicilio,
+                                               List<ColoniasResponse> listaColonias) {
         DomicilioNegocio fragmentRegister = new DomicilioNegocio();
         Bundle args = new Bundle();
+        args.putSerializable(_DOMICILIO, domicilio);
+        args.putSerializable(COLONIAS, (Serializable) listaColonias);
         fragmentRegister.setArguments(args);
         return fragmentRegister;
     }
@@ -101,8 +110,20 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         adqPresenter = new AccountAdqPresenter(this,getContext());
+        Bundle args = getArguments();
+        if (args != null) {
+            Serializable dom = args.getSerializable(_DOMICILIO);
+            Serializable cols = args.getSerializable(COLONIAS);
+
+            if (dom != null) {
+                this.domicilio = (DataObtenerDomicilio) dom;
+            }
+
+            if (cols != null) {
+                this.listaColonias = (List<ColoniasResponse>) cols;
+            }
+        }
     }
 
     @Override
@@ -183,56 +204,38 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         }
         adapterColonia.notifyDataSetChanged();
         editBussinesState.setText(this.estadoDomicilio);
-
-        //Seteamos los datos del CP
-        if(cpDefault) {
-            //editZipCode.removeCustomTextWatcher(textWatcherZipCode);
-            cpDefault = false;
-            setCPDataCurrent();
-        }
     }
 
 
     private void setCurrentData() {
         RegisterAgent registerAgente = RegisterAgent.getInstance();
-
-        if(!registerAgente.getCuestionario().isEmpty()){
-            for(CuestionarioEntity q : registerAgente.getCuestionario()){
-                if(q.getPreguntaId() == PREGUNTA_DOMICILIO){
-                    radioIsBussinesAddress.check(q.isValor() ? R.id.radioBtnIsBussinesAddressYes : R.id.radioBtnIsBussinesAddressNo);
+        if (!registerAgente.getCodigoPostal().isEmpty()){
+            List<CuestionarioEntity> cuestionario = registerAgente.getCuestionario();
+                for(CuestionarioEntity q : cuestionario){
+                    if(q.getPreguntaId() == PREGUNTA_DOMICILIO){
+                        if (q.isValor()) {
+                            radioIsBussinesAddress.check(q.isValor() ? R.id.radioBtnIsBussinesAddressYes : R.id.radioBtnIsBussinesAddressNo);
+                        }
+                    }
                 }
-            }
         }
-
         if (radioIsBussinesAddress.getCheckedRadioButtonId() == -1) {
             radioIsBussinesAddress.check(R.id.radioBtnIsBussinesAddressYes);
             onCheckedChanged(radioIsBussinesAddress, R.id.radioBtnIsBussinesAddressYes);
-
         } else {
             editBussinesStreet.setText(registerAgente.getCalle());
             editBussinesExtNumber.setText(registerAgente.getNumExterior());
             editBussinesIntNumber.setText(registerAgente.getNumInterior());
+            colonyToLoad = registerAgente.getColonia();
 
             editBussinesZipCode.setText(registerAgente.getCodigoPostal());
 
-            textWatcherZipCode.afterTextChanged(editBussinesZipCode.getText());
-        }
-
-    }
-
-    private void setCPDataCurrent(){
-        RegisterAgent registerAgent = RegisterAgent.getInstance();
-
-        this.estadoDomicilio = registerAgent.getEstadoDomicilio();
-        editBussinesState.setText(this.estadoDomicilio);
-        for (int position = 0 ; position<coloniasNombre.size(); position++){
-            if(coloniasNombre.get(position).equals(registerAgent.getColonia())){
-                spBussinesColonia.setSelection(position);
-                break;
+            if (listaColonias == null) {
+                textWatcherZipCode.afterTextChanged(editBussinesZipCode.getText());
+            } else {
+                setNeighborhoodsAvaliables(listaColonias);
             }
         }
-
-        setValidationRules();
     }
 
 
@@ -255,10 +258,11 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         editBussinesZipCode.removeCustomTextWatcher(textWatcherZipCode);
         respuestaDomicilio = radioIsBussinesAddress.getCheckedRadioButtonId() == R.id.radioBtnIsBussinesAddressYes;
         registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_DOMICILIO, respuestaDomicilio));
-        if(registerAgent.getCuestionario().size() > 0)
+        if(!registerAgent.getCuestionario().isEmpty())
             registerAgent.getCuestionario().get(1).setValor(respuestaDomicilio);
         else
             registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_DOMICILIO, respuestaDomicilio));
+
         adqPresenter.createAdq();
     }
 
@@ -286,17 +290,45 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         this.listaColonias = listaColonias;
         this.estadoDomicilio = listaColonias.get(0).getEstado();
         fillAdapter();
+
+        if (colonyToLoad != null && !colonyToLoad.isEmpty()) {
+            for (int pos = 0 ; pos < coloniasNombre.size() ; pos++) {
+                if (coloniasNombre.get(pos).equalsIgnoreCase(colonyToLoad)) {
+                    spBussinesColonia.setSelection(pos);
+                }
+            }
+            colonyToLoad = null;
+        }
+
+
     }
 
     @Override
-    public void setCurrentAddress(ObtenerDomicilioResponse domicilio) {
-        if (domicilio != null) {
+    public void setCurrentAddress(DataObtenerDomicilio domicilio) {
+        this.domicilio = domicilio;
+        onEventListener.onEvent(EVENT_SET_ADDRESS, this.domicilio);
+        fillHomeAddress();
+    }
 
+    private void fillHomeAddress() {
+        editBussinesStreet.setText(domicilio.getCalle());
+        editBussinesExtNumber.setText(domicilio.getNumeroExterior());
+        editBussinesIntNumber.setText(domicilio.getNumeroInterior());
+        colonyToLoad = domicilio.getColonia();
+        editBussinesZipCode.setText(domicilio.getCp());
+
+        if (listaColonias == null) {
+            textWatcherZipCode.afterTextChanged(editBussinesZipCode.getText());
+        } else {
+            setNeighborhoodsAvaliables(listaColonias);
         }
+
     }
 
     @Override
     public void agentCreated(String message) {
+
+        onEventListener.onEvent(EVENT_SET_COLONIES_LIST, listaColonias);
         nextScreen(EVENT_GO_BUSSINES_DOCUMENTS,null);
     }
 
@@ -312,20 +344,26 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
 
     @Override
     public void showLoader(String message) {
-
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override
-    public void showError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+    public void showError(ErrorObject error) {
+        if (error.getWebService() == OBTENER_COLONIAS_CP) {
+            onClick(btnBackBussinesAddress);
+        } else if (error.getWebService() == OBTENER_DOMICILIO || error.getWebService() == OBTENER_DOMICILIO_PRINCIPAL) {
+            cleanFields();
+            radioIsBussinesAddress.check(R.id.radioBtnIsBussinesAddressNo);
+        }
+        error.setHasConfirm(true);
+        error.setHasCancel(false);
+        onEventListener.onEvent(EVENT_SHOW_ERROR, error);
     }
-
-
 
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
@@ -350,10 +388,12 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     }
 
     private void loadHomeAddress() {
-        adqPresenter.getClientAddress();
+        if (domicilio == null) {
+            adqPresenter.getClientAddress();
+        } else {
+            fillHomeAddress();
+        }
     }
-
-
 
     private class ZipWatcher extends AbstractTextWatcher {
 
@@ -372,4 +412,3 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     }
 
 }
-

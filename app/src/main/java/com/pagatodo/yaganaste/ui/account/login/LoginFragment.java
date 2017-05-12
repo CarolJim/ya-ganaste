@@ -10,8 +10,11 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonSession;
+import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
@@ -21,6 +24,7 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
@@ -41,6 +45,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @BindView(R.id.imgLoginExistProfile)
     CircleImageView imgLoginExistProfile;
+
+    @BindView(R.id.textNameUser)
+    StyleTextView textNameUser;
     @BindView(R.id.edtxtUserName)
     CustomValidationEditText edtUserName;
     @BindView(R.id.edtxtUserPass)
@@ -109,6 +116,18 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         ButterKnife.bind(this, rootview);
         btnLogin.setOnClickListener(this);
         txtLoginExistUserRecoverPass.setOnClickListener(this);
+
+        if(!RequestHeaders.getTokenauth().isEmpty()){
+            textNameUser.setText(SingletonSession.getInstance().isActive() &&
+                    !SingletonSession.getInstance().getNameUser().isEmpty() ?
+                    SingletonSession.getInstance().getNameUser() : RequestHeaders.getUsername());
+            edtUserName.setVisibility(GONE);
+            edtUserName.setText(RequestHeaders.getUsername());
+        }else{
+            edtUserName.setText("");
+            edtUserName.setVisibility(VISIBLE);
+            textNameUser.setVisibility(GONE);
+        }
     }
 
     @Override

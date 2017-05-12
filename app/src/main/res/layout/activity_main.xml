@@ -7,7 +7,7 @@
     android:layout_height="match_parent"
     tools:context="com.pagatodo.yaganaste.ui._controllers.MainActivity">
 
-    <cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager
+    <com.github.demono.AutoScrollViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"

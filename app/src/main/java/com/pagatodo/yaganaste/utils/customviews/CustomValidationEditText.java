@@ -174,7 +174,6 @@ public class CustomValidationEditText extends LinearLayout {
                     break;
                 case "5"://number
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER);
-
                     break;
                 case "6"://cellPhone
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_CLASS_PHONE);
@@ -200,6 +199,7 @@ public class CustomValidationEditText extends LinearLayout {
                 boolean result;
                 if (txt.isEmpty()) {
                     imageViewIsGone(true);
+                    isValid = false;
                 } else {
                     switch (type) {
                         case "0"://email
@@ -245,15 +245,13 @@ public class CustomValidationEditText extends LinearLayout {
 
     private void setValidView() {
         imageView.setVisibility(VISIBLE);
-        imageView.setBackgroundResource(R.drawable.done_campo_canvas);
-        imageView.setScaleType(ImageView.ScaleType.CENTER);
+        imageView.setImageResource(R.drawable.done_campo_canvas);
         isValid = true;
     }
 
     private void setNonValidView() {
         imageView.setVisibility(VISIBLE);
-        imageView.setBackgroundResource(R.drawable.warning_canvas);
-        imageView.setScaleType(ImageView.ScaleType.CENTER);
+        imageView.setImageResource(R.drawable.warning_canvas);
         isValid = false;
     }
 
@@ -274,7 +272,7 @@ public class CustomValidationEditText extends LinearLayout {
     }
 
     public void setDrawableImage(int image) {
-        imageView.setBackgroundResource(image);
+        imageView.setImageResource(image);
     }
 
     public void setText(String text) {
@@ -312,7 +310,8 @@ public class CustomValidationEditText extends LinearLayout {
     }
 
     public void setTextEnabled(boolean isEnabled) {
-        editText.setEnabled(isEnabled);
+        editText.setFocusable(isEnabled);
+        editText.setFocusableInTouchMode(isEnabled);
     }
 
 
@@ -347,10 +346,8 @@ public class CustomValidationEditText extends LinearLayout {
         if (imageView != null && pinnedIcon != -1) {
             switch (pinnedIcon) {
                 case 0:
-                    imageView.setBackgroundResource(R.drawable.mail_canvas);
-                    break;
                 default:
-                    imageView.setBackgroundResource(R.drawable.mail_canvas);
+                    imageView.setImageResource(R.drawable.mail_canvas);
                     break;
             }
         }

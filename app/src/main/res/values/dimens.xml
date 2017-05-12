@@ -57,6 +57,7 @@
 
     <dimen name="width_icon_error">18dp</dimen>
     <dimen name="height_icon_error">18dp</dimen>
+    <dimen name="margin_big_monto_concept">18dp</dimen>
 
 </resources>
 

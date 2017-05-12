@@ -175,15 +175,12 @@ public class ApiTrans extends Api {
      */
     public static void ejecutarTransaccion(EjecutarTransaccionRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, "DE782FC6042540F93A669151C265707254E112884FAC1C51D580124B5AB895E051765353023F160D9E1BD9AED9E0FDA9");//RequestHeaders.getTokensesion() == "" ? "1234" : RequestHeaders.getTokensesion());
-        //headers.put(RequestHeaders.IdTransaccionFreja, RequestHeaders.getIdTransaccionFreja());
-        //headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
-        //headers.put(RequestHeaders.TokenCuenta, RequestHeaders.getTokenCuenta());
+        headers.put(RequestHeaders.TokenSesion,RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdTransaccionFreja, RequestHeaders.getIdTransaccionFreja());
+        headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
         if (request.getIdTipoTransaccion() == MovementsTab.TAB3.getId()) {
             headers.put(RequestHeaders.IdOperacion, "1");
         }
-        headers.put(RequestHeaders.TokenAutenticacion, "e3e67e9a0e932e378d8dac286c619405959b2e235dd136a4f905149e9c975685ac3c02b201a5bf6053f37b5656767da3d3d1b4a0b3e6fe157b7347840ba526d5");
-        headers.put(RequestHeaders.NombreUsuario, "mailprueba500@mail.com");//RequestHeaders.getUsername() == "" ? "mailprueba500@mail.com" : RequestHeaders.getUsername());
 
         NetFacade.consumeWS(EJECUTAR_TRANSACCION,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.executeTransactionUrl),

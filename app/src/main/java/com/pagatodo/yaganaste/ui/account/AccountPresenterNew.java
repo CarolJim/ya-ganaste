@@ -40,6 +40,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_COMPLETO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
@@ -173,7 +174,7 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
     public void onError(WebService ws,Object error) {
         accountView.hideLoader();
         if(accountView instanceof IAccountRegisterView){
-            if (ws == CREAR_USUARIO_COMPLETO) {
+            if (ws == CREAR_USUARIO_CLIENTE) {
                 ((IAccountRegisterView) accountView).clientCreateFailed(error.toString());
             }else if(ws == OBTENER_COLONIAS_CP){
                 ((IAccountRegisterView) accountView).zipCodeInvalid(error.toString());
@@ -223,7 +224,7 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
     @Override
     public void onSucces(WebService ws,Object data) {
         if(accountView instanceof IAccountRegisterView){
-            if (ws == CREAR_USUARIO_COMPLETO) {
+            if (ws == CREAR_USUARIO_CLIENTE) {
                 ((IAccountRegisterView) accountView).clientCreatedSuccess(data.toString());
             }else if(ws == OBTENER_COLONIAS_CP){
                 ((IAccountRegisterView) accountView).setNeighborhoodsAvaliables((List<ColoniasResponse>) data);

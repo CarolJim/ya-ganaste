@@ -160,10 +160,10 @@ public class GetMountFragment extends PaymentFormBaseFragment {
                 if (current_mount >= MIN_AMOUNT) {
                     TransactionAdqData.getCurrentTransaction().setAmount(String.format("%s", current_mount));
                     TransactionAdqData.getCurrentTransaction().setDescription(current_concept);
-                    Intent intent = new Intent(getActivity(), AdqActivity.class);
-                    startActivity(intent);
                     setData("", "");
                     mySeekBar.setProgress(0);
+                    Intent intent = new Intent(getActivity(), AdqActivity.class);
+                    startActivity(intent);
                 } else showValidationError("El monto tiene que ser mayor");
             } catch (NumberFormatException e) {
                 showValidationError("Ingresa un monto válido.");

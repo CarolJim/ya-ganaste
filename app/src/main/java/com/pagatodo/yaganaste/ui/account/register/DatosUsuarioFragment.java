@@ -189,14 +189,14 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
-                if(!edtitConfirmEmail.getText().isEmpty()){
-                    edtitConfirmEmail.setText("");
-                    edtitConfirmEmail.imageViewIsGone(true);
-                }
+                hideErrorMessage();
+                edtitConfirmEmail.setText("");
+                edtitConfirmEmail.imageViewIsGone(true);
 
                 if(editMail.isValidText() && emailValidatedByWS){
                     emailValidatedByWS = false;//Si esta validado y cambia, volvemos a solicitar la validacion.
                 }
+
             }
             @Override
             public void afterTextChanged(Editable s) {
@@ -311,7 +311,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
         if (email.replaceAll("\\s", "").isEmpty()) {
             showValidationError(getString(R.string.datos_usuario_correo));
-            editPasswordConfirm.setIsInvalid();
+            editMail.setIsInvalid();
             return;
         }
 
@@ -322,19 +322,19 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
         if(emailConfirmation.isEmpty()){
             showValidationError(getString(R.string.datos_usuario_correo_confirma));
-            editPasswordConfirm.setIsInvalid();
+            edtitConfirmEmail.setIsInvalid();
             return;
         }
 
         if(!emailConfirmation.equals(email)){
             showValidationError(getString(R.string.datos_usuario_correo_no_coinciden));
-            editPasswordConfirm.setIsInvalid();
+            edtitConfirmEmail.setIsInvalid();
             return;
         }
 
         if(password.isEmpty()){
             showValidationError(getString(R.string.datos_usuario_pass));
-            editPasswordConfirm.setIsInvalid();
+            editPassword.setIsInvalid();
             return;
         }
 
@@ -426,6 +426,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showError(Object error) {
+        if(!error.toString().isEmpty())
         UI.showToastShort(error.toString(),getActivity());
     }
 
@@ -480,7 +481,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void onFocusChange(View v, boolean hasFocus) {
-
         if(hasFocus)
             hideErrorMessage();
     }
