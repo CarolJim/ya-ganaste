@@ -62,8 +62,8 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
             date = movimientosResponse.getFechaMovimiento().split(" ");
             // TODO: 28/03/2017 Verificar si el color debe ser local o si viene del servicio
             movementsList.add(new ItemMovements<>(movimientosResponse.getDetalle(), movimientosResponse.getDescripcion(),
-                    (movimientosResponse.getTipoMovimiento() != 1 ? movimientosResponse.getImporte(): -movimientosResponse.getImporte())
-            , date[0], date[1], MovementColorsFactory.getColorMovement(movimientosResponse.getTipoMovimiento()), movimientosResponse));
+                    movimientosResponse.getImporte(), date[0], date[1],
+                    MovementColorsFactory.getColorMovement(movimientosResponse.getTipoMovimiento()), movimientosResponse));
         }
         movementsView.loadMovementsResult(movementsList);
         movementsView.hideLoader();

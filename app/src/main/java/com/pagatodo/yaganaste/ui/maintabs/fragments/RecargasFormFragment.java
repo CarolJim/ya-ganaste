@@ -176,7 +176,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     public void showError() {
         if (errorText != null && !errorText.equals("")) {
             //Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
-            UI.createSimpleCustomDialog("Error", errorText, getActivity().getFragmentManager(), getFragmentTag());
+            UI.createSimpleCustomDialog("Error", errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
     }
 

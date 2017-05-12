@@ -450,6 +450,10 @@
     <string name="no_sim_mensaje">Este Dispositivo no\nCuenta Con Una Tarjeta SIM</string>
     <string name="no_sim_desc">No Puedes Usar Esta Aplicación\n Sin Tarjeta SIM</string>
 
+    <!-- Mensajes de Espera para Registro adquirente -->
+    <string name="obteniendo_colonias">Obteniendo Colonias</string>
+    <string name="obteniendo_domicilio">Obteniendo Domicilio</string>
+    <string name="obteniendo_giros">Obteniendo Giros</string>
 </resources>
 
 

@@ -52,10 +52,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_above="@+id/edtxtUserPass"
+            app:hintText="@string/txt_escribe_tu_correo"
             android:clickable="true"
             app:formato="email"
-            app:hintText="@string/txt_escribe_tu_correo"
-            app:isTextEnabled="true" />
+            app:isTextEnabled="true"
+            android:inputType="textPassword"/>
 
         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
             android:id="@+id/edtxtUserPass"
@@ -64,9 +65,10 @@
             android:layout_height="wrap_content"
             android:layout_above="@+id/btnLoginExistUser"
             android:clickable="true"
-            app:formato="password"
             app:hintText="@string/txt_escribe_tu_pass"
-            app:isTextEnabled="true" />
+            app:formato="password"
+            app:isTextEnabled="true"
+            android:inputType="textPassword" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txtLoginExistUserRecoverPass"
