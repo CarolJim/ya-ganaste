@@ -13,7 +13,7 @@ public class Api {
         Map<String, String> headersYaGanaste = new HashMap<>();
         //headersYaGanaste.put("Content-type", "application/json");
         headersYaGanaste.put(RequestHeaders.IdDispositivo, "2");
-        headersYaGanaste.put(RequestHeaders.NombreUsuario, "mailprueba910@mail.com"/*RequestHeaders.getUsername()*/);// TODO: 04/05/2017
+        headersYaGanaste.put(RequestHeaders.NombreUsuario, RequestHeaders.getUsername());// TODO: 04/05/2017
         headersYaGanaste.put(RequestHeaders.IdComponente, "1");
         return headersYaGanaste;
     }

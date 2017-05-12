@@ -151,10 +151,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     }
 
     protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemRecycler> movements) {
-        List<ItemMovements<MovimientosResponse>> movementsList = new ArrayList<>();
+        /*List<ItemMovements<MovimientosResponse>> movementsList = new ArrayList<>();
         ItemMovements items = new ItemMovements("a","b",125.36,"c","d",1);
         movementsList.add(items);
-        movementsList.add(tabMonths.getSelectedTabPosition(), (ItemMovements<MovimientosResponse>) movementsList);
+        movementsList.add(tabMonths.getSelectedTabPosition(), (ItemMovements<MovimientosResponse>) movementsList);*/
         txtInfoMovements.setVisibility(movementsList.isEmpty() ? View.VISIBLE : View.GONE);
         updateRecyclerData(adapter);
     }

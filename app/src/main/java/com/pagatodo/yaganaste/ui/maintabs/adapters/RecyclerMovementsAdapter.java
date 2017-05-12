@@ -47,10 +47,8 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerMo
         ItemMovements itemMovements = itemMovementses.get(position);
         String[] monto = Utils.getCurrencyValue(itemMovements.getMonto()).split("\\.");
 
-        //holder.layoutMovementTypeColor.setBackgroundResource(itemMovements.getColor());
-        //holder.txtMonto.setTextColor(ContextCompat.getColor(context, itemMovements.getColor()));
-        holder.layoutMovementTypeColor.setBackgroundResource(R.color.greencolor);
-        holder.txtMonto.setTextColor(ContextCompat.getColor(context, R.color.greencolor));
+        holder.layoutMovementTypeColor.setBackgroundResource(itemMovements.getColor());
+        holder.txtMonto.setTextColor(ContextCompat.getColor(context, itemMovements.getColor()));
         holder.txtPremios.setText(itemMovements.getPremio());
         holder.txtMarca.setText(itemMovements.getMarca());
 

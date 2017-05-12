@@ -35,6 +35,13 @@ public class MaterialButton extends AppCompatButton implements View.OnClickListe
     private OnClickListener mClickListener;
     private boolean interceptor;
 
+
+    public MaterialButton(Context context) {
+        super(context);
+        //init(context);
+        super.setOnClickListener(this);
+    }
+
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     public MaterialButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);

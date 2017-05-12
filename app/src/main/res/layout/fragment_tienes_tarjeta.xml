@@ -180,7 +180,7 @@
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/next"
-                    app:overBackground="@drawable/selector_btn_continuar"
+                    android:background="@drawable/selector_btn_continuar"
                     android:textAllCaps="false"/>
 
                 <LinearLayout

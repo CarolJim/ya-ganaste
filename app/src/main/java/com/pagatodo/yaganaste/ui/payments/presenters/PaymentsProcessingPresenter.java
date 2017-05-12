@@ -4,6 +4,7 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.data.model.Servicios;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
@@ -67,6 +68,8 @@ public class PaymentsProcessingPresenter implements IPaymentsProcessingPresenter
     public void onSuccessPayment(DataSourceResult result) {
         EjecutarTransaccionResponse data = (EjecutarTransaccionResponse) result.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
+            //Actualizamos el Saldo del Emisor
+            SingletonUser.getInstance().getDatosSaldo().setSaldoEmisor(String.valueOf(data.getData().getSaldo()));
             manager.onSuccessPaymentRespone(result);
         } else {
             manager.hideLoader();

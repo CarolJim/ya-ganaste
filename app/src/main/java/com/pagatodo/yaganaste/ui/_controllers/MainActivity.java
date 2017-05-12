@@ -37,6 +37,7 @@ import com.pagatodo.yaganaste.ui.account.login.ScreenSlidePagefragment;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.adquirente.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.otp.activities.OtpCodeActivity;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -49,6 +50,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 
@@ -59,10 +63,11 @@ public class MainActivity extends SupportFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_conainer);
         initViews();
-        if(ValidatePermissions.validateSIMCard(this)) {
-            loadFragment(MainFragment.newInstance(), true);
-        }else {
+        String action = getIntent().getExtras().getString(SELECTION);
+        if(action.equals(NO_SIM_CARD)) {
             loadFragment(TransactionResultFragment.newInstance(getPageResultNiSIM()));
+        }else if(action.equals(MAIN_SCREEN)) {
+            loadFragment(MainFragment.newInstance(), true);
         }
     }
 
@@ -74,7 +79,6 @@ public class MainActivity extends SupportFragmentActivity {
     public void onBackPressed() {
         finish();
     }
-
 
     /**
      * Construimos el PageResult a mostrar en caso de no tener tarjeta SIM

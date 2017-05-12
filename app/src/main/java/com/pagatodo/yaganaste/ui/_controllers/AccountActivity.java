@@ -235,8 +235,6 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
             finish();
         } else if (currentFragment instanceof RecoveryFragment) {
             onEvent(EVENT_RECOVERY_PASS_BACK, null);
-            resetRegisterData();// Eliminamos la información de registro almacenada.
-            finish();
         } else {
             resetRegisterData();// Eliminamos la información de registro almacenada.
             super.onBackPressed();

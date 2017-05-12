@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
@@ -14,6 +15,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
@@ -32,7 +34,9 @@ import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 
 import java.util.List;
 
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
+import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
@@ -64,12 +68,6 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         setContentView(R.layout.activity_main_tab);
         load();
 
-        if (!pref.containsData(COUCHMARK_EMISOR)) {
-            pref.saveDataBool(COUCHMARK_EMISOR, true);
-            Intent intent = new Intent(this, LandingFragment.class);
-            startActivity(intent);
-        }
-
     }
 
     private void load() {
@@ -96,6 +94,27 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         super.onResume();
         //Glide.with(this).load(FlowUser.getImageProfileURL() + "?" + UtilsExtensions.getCurrentTime()).placeholder(R.mipmap.icon_user).dontAnimate().error(R.mipmap.icon_user).into(imgToolbarProfile);
     }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+
+         if (!pref.containsData(COUCHMARK_EMISOR)) {
+
+             new Handler().postDelayed(new Runnable() {
+                 public void run() {
+                     pref.saveDataBool(COUCHMARK_EMISOR, true);
+                     Intent intent = new Intent(TabActivity.this, LandingFragment.class);
+                     startActivity(intent);
+                 }
+             }, 500);
+
+
+        }
+    }
+
+
+
 
     @Override
     public void onEvent(String event, Object data) {
@@ -213,11 +232,22 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         } else {
             if (mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem()) instanceof HomeTabFragment) {
                 super.onBackPressed();
+                SingletonSession.getInstance().setFinish(true);//Terminamos Activity si va a background
             } else {
                 goHome();
             }
         }
 
+    }
+
+
+    @Override
+    protected void onPause() {
+        super.onResume();
+        if (pref.containsData(COUCHMARK_EMISOR) && SingletonSession.getInstance().isFinish()) {
+            SingletonSession.getInstance().setFinish(false);
+            finish();
+        }
     }
 
 }

@@ -58,7 +58,18 @@ import java.util.List;
 import static com.pagatodo.yaganaste.data.model.SingletonUser.user;
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.CREATE_USER;
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.LOGIN;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_COMPLETO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
@@ -93,6 +104,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             ApiAdtvo.validarEstatusUsuario(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.onError(VALIDAR_ESTATUS_USUARIO,"");
         }
     }
 
@@ -102,6 +114,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             ApiAdtvo.iniciarSesionSimple(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.onError(INICIAR_SESION_SIMPLE,App.getContext().getString(R.string.no_internet_access));
         }
     }
 
@@ -156,6 +169,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             ApiTrans.consultaAsignacionTarjeta(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.onError(CONSULTAR_ASIGNACION_TARJETA,App.getContext().getString(R.string.no_internet_access));
         }
     }
 
@@ -166,6 +180,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             ApiTrans.asignarCuentaDisponible(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.onError(ASIGNAR_CUENTA_DISPONIBLE,"");
         }
     }
 
@@ -176,6 +191,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             ApiAdtvo.validarFormatoContrasenia(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.onError(VALIDAR_FORMATO_CONTRASENIA,"");
         }
     }
 
@@ -219,6 +235,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             ApiAdtvo.crearUsuarioCliente(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.onError(CREAR_USUARIO_CLIENTE,"");
         }
     }
 
@@ -228,6 +245,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             ApiTrans.asignarNip(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.onError(ASIGNAR_NIP,"");
         }
     }
 
@@ -237,6 +255,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             ApiAdtvo.obtenerNumeroSMS(this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.onError(OBTENER_NUMERO_SMS,"");
         }
     }
 
@@ -246,6 +265,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             ApiAdtvo.verificarActivacion(this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.onError(VERIFICAR_ACTIVACION,"");
         }
     }
 
@@ -256,6 +276,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             ApiAdtvo.obtenerColoniasPorCP(request,this );
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.onError(OBTENER_COLONIAS_CP,"");
 
         }
     }
@@ -267,6 +288,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             ApiAdtvo.recuperarContrasenia(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.onError(RECUPERAR_CONTRASENIA,"");
         }
     }
 
@@ -349,7 +371,6 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
 
     @Override
     public void onFailed(DataSourceResult error) {
-        /**TODO Casos de Servicio fallido*/
         accountManager.onError(error.getWebService(),error.getData().toString());
     }
 
@@ -399,7 +420,7 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             if(dataUser.isEsUsuario()) { // Si Usuario
                 RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
                 if(dataUser.isConCuenta()){// Si Cuenta
-                    if (dataUser.isAsignoNip()) { // NO necesita NIP
+                    if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
                         if(!dataUser.isRequiereActivacionSMS()){// No Requiere Activacion de SMS
                             //if(true){// No Requiere Activacion de SMS
                             /*TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento*/
@@ -483,10 +504,9 @@ public class AccountInteractorNew implements IAccountIteractorNew,IRequestResult
             user.getDataUser().setRequiereActivacionSMS(dataUser.isRequiereActivacionSMS());
             user.getDataUser().setSemilla(dataUser.getSemilla());
             user.getDataUser().getUsuario().setIdUsuario(dataUser.getUsuario().getIdUsuario());
-            accountManager.onSucces(CREAR_USUARIO_COMPLETO,data.getMensaje());
+            accountManager.onSucces(response.getWebService(),data.getMensaje());
         }else{
-            //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
-            accountManager.onError(CREAR_USUARIO_COMPLETO,data.getMensaje());//Retornamos mensaje de error.
+            accountManager.onError(response.getWebService(),data.getMensaje());//Retornamos mensaje de error.
         }
     }
 

@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.v4.app.Fragment;
+import android.support.v4.view.ViewPager;
 import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
@@ -19,6 +20,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.github.demono.AutoScrollViewPager;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.RecoveryPasswordView;
@@ -40,7 +42,6 @@ import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import cn.trinea.android.view.autoscrollviewpager.AutoScrollViewPager;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -58,6 +59,8 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     public final static String SELECTION = "SELECTION";
     public final static String GO_TO_LOGIN = "GO_TO_LOGIN";
     public final static String GO_TO_REGISTER = "GO_TO_REGISTER";
+    public final static String NO_SIM_CARD= "NO_SIM_CARD";
+    public final static String MAIN_SCREEN= "MAIN_SCREEN";
 
     @BindView(R.id.btnMainCreateAccount)
     StyleButton btnMainCreateAccount;
@@ -70,7 +73,7 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     private Preferencias pref;
 
     private int[] imgs = {
-            R.drawable.carrousel1,
+            R.drawable.carrouse_1,
             R.drawable.carrousel2,
             R.drawable.carrousel3,
             R.drawable.carrousel4,
@@ -135,10 +138,10 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
                 "",
         };
 
-        for (int index = 0; index < imgs.length; index++) {
+        listSlides.add(ScreenSlideSimpleFragment.newInstance(imgs[0], topText[0]));
+        for (int index = 1; index < imgs.length; index++) {
             listSlides.add(ScreenSlidePagefragment.newInstance(imgs[index], topText[index]));
         }
-
 
         String textLogin = getString(R.string.tienes_cuenta);
         SpannableString ss = new SpannableString(textLogin);
@@ -148,6 +151,7 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
                 Intent intent = new Intent(getActivity(), AccountActivity.class);
                 intent.putExtra(SELECTION,GO_TO_LOGIN);
                 startActivity(intent);
+                //getActivity().finish();
             }
         };
         ss.setSpan(span1, 22, textLogin.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
@@ -161,29 +165,30 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
             pagerAdapter.addFragment(slide);
         }
         this.pager.setAdapter(pagerAdapter);
-        this.pager.startAutoScroll(1000);
 
-        /*this.pager.setPageTransformer(true, new ViewPager.PageTransformer() {
+        this.pager.setCurrentItem(this.pager.getChildCount() * PagerAdapter.LOOPS_COUNT / 2, false); // set current item in the adapter to middle
+
+        this.pager.startAutoScroll(3500);
+
+        this.pager.setPageTransformer(true, new ViewPager.PageTransformer() {
             @Override
-            public void transformPage(View page, float position) {
-                // Page is not an immediate sibling, just make transparent
-                if(position < -1 || position > 1) {
-                    page.setAlpha(0);
-                }
-                // Page is sibling to left or right
-                else if (position <= 0 || position <= 1) {
+            public void transformPage(View view, float position) {
+                view.setTranslationX(view.getWidth() * -position);
 
-                    // Calculate alpha.  Position is decimal in [-1,0] or [0,1]
-                    float alpha = (position <= 0) ? position + 1 : 1 - position;
-                    page.setAlpha(alpha);
-
-                }
-                // Page is active, make fully visible
-                else if (position == 0) {
-                    page.setAlpha(1);
+                if(position <= -1.0F || position >= 1.0F) {
+                    view.setVisibility(VISIBLE);
+                    //view.animate().alpha(0.0F).setDuration(250).start();
+                    view.setAlpha(0.0F);
+                } else if( position == 0.0F ) {
+                    view.setVisibility(VISIBLE);
+                    view.setAlpha(1.0F);
+                } else {
+                    view.setVisibility(VISIBLE);
+                    // position is between -1.0F & 0.0F OR 0.0F & 1.0F
+                    view.setAlpha(1.0F - Math.abs(position));
                 }
             }
-        });*/
+        });
 
 
     }
@@ -194,7 +199,8 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
             case R.id.btnMainCreateAccount:
                 Intent intent = new Intent(getActivity(), AccountActivity.class);
                 intent.putExtra(SELECTION,GO_TO_REGISTER);
-                startActivity(intent);
+                startActivityForResult(intent,123);
+                //getActivity().finish();
                 break;
         }
     }

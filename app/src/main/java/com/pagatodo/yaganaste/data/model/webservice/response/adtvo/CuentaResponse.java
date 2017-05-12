@@ -11,6 +11,7 @@ import java.util.List;
 public class CuentaResponse implements Serializable {
 
     private int IdCuenta;
+    private boolean AsignoNip; // TODO validar, ya que no se encuentra en la documentacion
     private String Cuenta = "";
     private String Descripcion = "";
     private String CLABE = "";
@@ -82,6 +83,14 @@ public class CuentaResponse implements Serializable {
 
     public void setSaldo(double saldo) {
         Saldo = saldo;
+    }
+
+    public boolean isAsignoNip() {
+        return AsignoNip;
+    }
+
+    public void setAsignoNip(boolean asignoNip) {
+        AsignoNip = asignoNip;
     }
 
     public List<MovimientosResponse> getListaMovimientos() {
