@@ -15,7 +15,8 @@
     <color name="borderColor">#979797</color>
     <color name="grayColor">#808080</color>
     <color name="lightGrayColor">#beb8b8</color>
-    <color name="backgroundEditText">#4D5C6B</color>
+    <color name="backgroundEditText">#445C6C</color>
+    <!--<color name="backgroundEditText">#4D5C6B</color>-->
     <color name="bg_progress">#d73b3939</color>
     <color name="bg_card_confirmation">#1e2429</color>
 

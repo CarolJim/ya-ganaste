@@ -14,7 +14,6 @@ import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -24,6 +23,8 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.ValidateForm;
+
+import static com.pagatodo.yaganaste.utils.customviews.StyleEdittext.ANDROID_SCHEMA;
 
 /**
  * Created by Jordan on 27/03/2017.
@@ -84,6 +85,12 @@ public class CustomValidationEditText extends LinearLayout {
                 maxLines = typedArray.getInt(R.styleable.CustomValidationEditText_maxLength, 0);
                 isSingleLine = typedArray.getBoolean(R.styleable.CustomValidationEditText_isSingleLine, false);
                 isTextEnabled = typedArray.getBoolean(R.styleable.CustomValidationEditText_isTextEnabled, true);
+                if(editText != null){
+                    editText.setHintTextColor(typedArray.getColor(R.styleable.CustomValidationEditText_hintColor, ContextCompat.getColor(App.getInstance().getApplicationContext(),R.color.whiteColor)));
+                }
+                pinnedIcon = typedArray.getInt(R.styleable.CustomValidationEditText_defaultIcon, -1);
+                int inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
+                editText.setInputType(inputType);
                 inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
                 textSize = typedArray.getInt(R.styleable.CustomValidationEditText_android_textSize, EditorInfo.TYPE_NULL);
 
@@ -125,6 +132,7 @@ public class CustomValidationEditText extends LinearLayout {
             imageViewIsGone(imageViewIsGone);
 
             setSingleLine(isSingleLine);
+            setIconPinned(pinnedIcon);
 
         }
 
@@ -278,11 +286,16 @@ public class CustomValidationEditText extends LinearLayout {
     }
 
     public void imageViewIsGone(boolean isGone) {
-        if (isGone) {
-            imageView.setVisibility(GONE);
-        } else {
-            imageView.setVisibility(VISIBLE);
-        }
+            if (isGone) {
+                if(pinnedIcon != -1){
+                    imageView.setVisibility(VISIBLE);
+                    setIconPinned(pinnedIcon);
+                    return;
+                }
+                imageView.setVisibility(GONE);
+            } else {
+                imageView.setVisibility(VISIBLE);
+            }
     }
 
     public void setMaxLines(int n) {
@@ -326,5 +339,17 @@ public class CustomValidationEditText extends LinearLayout {
     public boolean imageViewIsVisible() {
 
         return imageView.getVisibility() == VISIBLE ? true : false;
+    }
+    private void setIconPinned(int pinnedIcon){
+        if(imageView != null && pinnedIcon != -1){
+            switch (pinnedIcon){
+                case 0:
+                    imageView.setBackgroundResource(R.drawable.mail_canvas);
+                    break;
+                default:
+                    imageView.setBackgroundResource(R.drawable.mail_canvas);
+                    break;
+            }
+        }
     }
 }
