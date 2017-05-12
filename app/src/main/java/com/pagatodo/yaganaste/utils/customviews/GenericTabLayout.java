@@ -2,16 +2,19 @@ package com.pagatodo.yaganaste.utils.customviews;
 
 import android.content.Context;
 import android.content.res.TypedArray;
+import android.graphics.Canvas;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
@@ -34,6 +37,7 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
     private GenericPagerAdapter<T> mAdapter;
     private Map<Tab, TabHolder> tabView;
 
+
     public GenericTabLayout(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
     }
@@ -43,12 +47,14 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
         init(context, attrs);
     }
 
+
     private void init(Context context, AttributeSet attrs){
         tabView = new HashMap<>();
         TypedArray configurationParams =
                 context.getTheme().obtainStyledAttributes(attrs, R.styleable.GenericTabLayout, 0, 0);
         try {
             this.layout = configurationParams.getResourceId(R.styleable.GenericTabLayout_tabLayout, R.layout.tab_main_menu);
+
         } catch (Exception e) {
             e.printStackTrace();
         } finally {
@@ -77,6 +83,7 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
         tab.setCustomView(layout);
         tabView.put(tab, new TabHolder(tab.getCustomView()));
         tabView.get(tab).mText.setTextColor(getTabTextColors());
+
         return tab;
     }
 
@@ -85,6 +92,7 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
     public void setupWithViewPager(@Nullable ViewPager viewPager) {
         if (viewPager != null && viewPager.getAdapter() != null && viewPager.getAdapter() instanceof GenericPagerAdapter){
             mAdapter = (GenericPagerAdapter) viewPager.getAdapter();
+
         }
 
         super.setupWithViewPager(viewPager);
@@ -92,9 +100,11 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
 
     @Override
     public void addTab(@NonNull Tab tab, boolean setSelected) {
+        Log.e("genric tab ", "addtab");
         int icon;
         if (mAdapter != null) {
             icon = mAdapter.getPageIcon(getTabCount());
+
         } else if (customValues != null) {
             icon = customValues[getTabCount()].getIconRes();
         } else {
@@ -126,10 +136,12 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
 
     @Override
     public void onTabSelected(final Tab tab) {
+        Log.e("genric tab ", "ontabSelect");
         ViewGroup customParen = (ViewGroup) LayoutInflater.from(getContext()).inflate(selectedLayout, null, false);
 
         ((ViewGroup) ((ViewGroup) getChildAt(0)).getChildAt(tab.getPosition())).removeViewAt(2);
         ((ViewGroup) ((ViewGroup) getChildAt(0)).getChildAt(tab.getPosition())).addView(customParen, 2);
+
 
         tab.setCustomView(customParen);
 

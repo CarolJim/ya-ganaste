@@ -53,8 +53,9 @@ public class ViewPagerDataFactory {
                 fragmentList.add(HomeTabFragment.newInstance());
                 fragmentList.add(PaymentsTabFragment.newInstance());
                 fragmentList.add(BlankFragment.newInstance());
-                Log.e("view pager ", "esAgente" + SingletonUser.getInstance().getDataUser().isEsAgente());
-                Log.e("view pager ", "estatus Agente" + SingletonUser.getInstance().getDataUser().getEstatusAgente());
+
+                Log.e("view pager ", "isAgente " + SingletonUser.getInstance().getDataUser().isEsAgente());
+                Log.e("view pager ", "estatusAgente" + SingletonUser.getInstance().getDataUser().getEstatusAgente());
 
                 if (SingletonUser.getInstance().getDataUser().isEsAgente()
                         && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {

@@ -4,21 +4,35 @@
     android:layout_height="match_parent"
     android:layout_gravity="center"
     android:gravity="center"
-    android:orientation="vertical">
+    android:orientation="horizontal">
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_gravity="center"
+        android:gravity="center"
+        android:orientation="vertical">
 
-    <ImageView
-        android:id="@android:id/icon"
-        android:layout_width="30dp"
-        android:layout_height="30dp"
-        android:adjustViewBounds="true"
-        android:src="@mipmap/logo_mapfre" />
+        <View
+            android:id="@+id/tab_indicator"
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:background="@color/colorAccent"
+            android:visibility="gone" />
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        style="@style/MainTabText"
-        android:text="Deposito"
-        android:id="@android:id/text1"/>
+        <ImageView
+            android:id="@android:id/icon"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            android:adjustViewBounds="true"
+            android:src="@mipmap/logo_mapfre" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@android:id/text1"
+            style="@style/MainTabText"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Deposito" />
+    </LinearLayout>
 
 </LinearLayout>

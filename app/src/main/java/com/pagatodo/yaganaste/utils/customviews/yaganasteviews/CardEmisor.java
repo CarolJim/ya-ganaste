@@ -45,5 +45,6 @@ public class CardEmisor extends TabViewElement{
     @Override
     public void updateData() {
         txtSaldoEm.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()));
+
     }
 }
