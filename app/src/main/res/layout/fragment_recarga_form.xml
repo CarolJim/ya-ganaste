@@ -28,11 +28,11 @@
                 android:layout_weight="20"
                 android:background="@null"
                 android:backgroundTint="@color/transparent"
+                android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
                 android:longClickable="false"
                 android:maxLength="10"
                 android:paddingBottom="6dp"
                 android:paddingTop="6dp"
-                android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
                 android:textSize="14sp" />
 
             <RelativeLayout
@@ -51,6 +51,7 @@
             </RelativeLayout>
 
         </LinearLayout>
+
 
         <!--com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
             android:id="@+id/recargaNumber"
@@ -88,10 +89,9 @@
             android:background="@drawable/seek_background"
             android:clickable="false"
             android:max="100"
-            app:text="Pagar"
-            app:textSize="14sp"
             android:progressDrawable="@android:color/transparent"
             android:thumb="@drawable/thumb_size"
-            android:thumbOffset="15dp" />
+            android:thumbOffset="15dp"
+            app:text="Recarga" />
     </RelativeLayout>
 </RelativeLayout>

@@ -14,6 +14,7 @@ import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -23,8 +24,6 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.ValidateForm;
-
-import static com.pagatodo.yaganaste.utils.customviews.StyleEdittext.ANDROID_SCHEMA;
 
 /**
  * Created by Jordan on 27/03/2017.
@@ -66,10 +65,10 @@ public class CustomValidationEditText extends LinearLayout {
         //ButterKnife.bind(context, this);
         editText = (EditText) findViewById(R.id.editTextCustom);
         imageView = (AppCompatImageView) findViewById(R.id.imageViewValidation);
-        Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
-        editText.setTextSize(16);
-        editText.setTypeface(customFont);
+
         //imageView.setBackgroundResource(R.drawable.validation_fail);
+        int inputType = EditorInfo.TYPE_NULL;
+        int textSize = EditorInfo.TYPE_NULL;
 
         if (attrs != null) {
             TypedArray typedArray = context.getTheme().obtainStyledAttributes(
@@ -85,14 +84,23 @@ public class CustomValidationEditText extends LinearLayout {
                 maxLines = typedArray.getInt(R.styleable.CustomValidationEditText_maxLength, 0);
                 isSingleLine = typedArray.getBoolean(R.styleable.CustomValidationEditText_isSingleLine, false);
                 isTextEnabled = typedArray.getBoolean(R.styleable.CustomValidationEditText_isTextEnabled, true);
-
-                int inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
-                editText.setInputType(inputType);
+                inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
+                textSize = typedArray.getInt(R.styleable.CustomValidationEditText_android_textSize, EditorInfo.TYPE_NULL);
 
             } catch (Exception e) {
                 Log.e(context.getPackageName(), "Error loading attributes:" + e.getMessage());
             } finally {
                 typedArray.recycle();
+            }
+
+            if (inputType != EditorInfo.TYPE_NULL) {
+                editText.setInputType(inputType);
+            } else {
+                editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+            }
+
+            if (textSize != EditorInfo.TYPE_NULL) {
+                editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
             }
 
             if (type != null && !type.isEmpty()) {
@@ -111,6 +119,7 @@ public class CustomValidationEditText extends LinearLayout {
                 setMaxLines(maxLines);
             }
 
+
             setEnabled(isTextEnabled);
 
             imageViewIsGone(imageViewIsGone);
@@ -118,7 +127,11 @@ public class CustomValidationEditText extends LinearLayout {
             setSingleLine(isSingleLine);
 
         }
+
+        Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
+        editText.setTypeface(customFont);
     }
+
 
     public void setHintText(String txt) {
         editText.setHint(txt);
@@ -288,7 +301,6 @@ public class CustomValidationEditText extends LinearLayout {
     }
 
 
-
     public void setFullOnClickListener(OnClickListener onClickListener) {
         editText.setFocusableInTouchMode(false);
         editText.setOnClickListener(onClickListener);
@@ -303,16 +315,16 @@ public class CustomValidationEditText extends LinearLayout {
         editText.removeTextChangedListener(watcher);
     }
 
-    public void setOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener){
+    public void setOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener) {
         editText.setOnFocusChangeListener(onFocusChangeListener);
     }
 
-    public EditText getEditText(){
+    public EditText getEditText() {
         return editText;
     }
 
     public boolean imageViewIsVisible() {
 
-        return imageView.getVisibility() == VISIBLE ? true:false;
+        return imageView.getVisibility() == VISIBLE ? true : false;
     }
 }

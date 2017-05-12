@@ -124,13 +124,14 @@
                 android:layout_width="match_parent"
                 android:layout_height="0dp"
                 android:layout_weight="1"/>
-            <SeekBar
+            <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar
                 android:id="@+id/myseek"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:background="@drawable/seek_background"
                 android:clickable="false"
                 android:max="100"
+                app:text="Enviar"
                 android:progressDrawable="@android:color/transparent"
                 android:thumb="@drawable/thumb_size"
                 android:thumbOffset="15dp" />

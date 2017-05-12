@@ -76,7 +76,7 @@ public class StyleEdittext extends AppCompatEditText {
 
     public StyleEdittext(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        setMovementMethod(movementMethod);
+        //setMovementMethod(movementMethod);
         customFont(context, attrs);
         init();
 
@@ -84,7 +84,7 @@ public class StyleEdittext extends AppCompatEditText {
 
     public StyleEdittext(Context context, AttributeSet attrs) {
         super(context, attrs);
-        setMovementMethod(movementMethod);
+        //setMovementMethod(movementMethod);
         customFont(context, attrs);
         init();
 

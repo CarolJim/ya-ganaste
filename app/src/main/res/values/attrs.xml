@@ -109,6 +109,7 @@
         <attr name="isSingleLine" format="boolean"/>
         <attr name="isTextEnabled" format="boolean"/>
         <attr name="android:inputType"/>
+        <attr name="android:textSize"/>
     </declare-styleable>
 
     <declare-styleable name="BorderTitleLayout">

@@ -19,10 +19,9 @@ import com.pagatodo.yaganaste.utils.FontCache;
 
 public class CustomSeekBar extends android.support.v7.widget.AppCompatSeekBar {
     private int mThumbSize;
-    private Paint mTextPaint;
+    private TextPaint mTextPaint;
     private String titleText;
     private Rect bounds;
-    private Rect boundsLowerCase;
 
     public CustomSeekBar(Context context) {
         super(context);
@@ -42,7 +41,6 @@ public class CustomSeekBar extends android.support.v7.widget.AppCompatSeekBar {
         mThumbSize = (int) getResources().getDimension(R.dimen.seekbar_thumb_width);
         Typeface typeface = FontCache.getTypeface("fonts/roboto/Roboto-Regular.ttf", context);
         bounds = new Rect();
-        boundsLowerCase = new Rect();
         mTextPaint = new TextPaint();
         mTextPaint.setColor(Color.WHITE);
 
@@ -56,11 +54,8 @@ public class CustomSeekBar extends android.support.v7.widget.AppCompatSeekBar {
             titleText = "";
         }
 
-        float textSize = a.getDimension(R.styleable.CustomSeekBar_textSize, getResources().getDimension(R.dimen.thumb_text_size));
-        mTextPaint.setTextSize(textSize);
-        //mTextPaint.setTextAlign(Paint.Align.CENTER);
-        mTextPaint.getTextBounds(titleText.toLowerCase(), 0, titleText.length(), boundsLowerCase);
-        mTextPaint.getTextBounds(titleText, 0, titleText.length(), bounds);
+        //float textSize = a.getDimension(R.styleable.CustomSeekBar_textSize, getResources().getDimension(R.dimen.thumb_text_size));
+
 
     }
 
@@ -68,13 +63,17 @@ public class CustomSeekBar extends android.support.v7.widget.AppCompatSeekBar {
     protected synchronized void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
+        float textSize = getHeight() * 0.3f;// getResources().getDisplayMetrics().scaledDensity;
+        mTextPaint.setTextSize(textSize);
+        mTextPaint.getTextBounds(titleText.toLowerCase(), 0, titleText.length(), bounds);
+
         int leftPadding = getPaddingLeft() - getThumbOffset();
         int rightPadding = getPaddingRight() - getThumbOffset();
         int width = getWidth() - leftPadding - rightPadding;
         float progressRatio = (float) getProgress() / getMax();
-        float thumbOffset = mThumbSize * (.5f - progressRatio);
-        float thumbX = progressRatio * width + leftPadding + thumbOffset;
-        float thumbY = (getHeight() / 2) + (boundsLowerCase.height() * 0.5f);//(getHeight() / 2) + (((bounds.height() + boundsLowerCase.height()) / 2) / 2); //(getHeight() / 2f) + (bounds.height() * 0.4f);
+        float thumbOffset = mThumbSize * (.4f - progressRatio);
+        float thumbX = progressRatio * width + thumbOffset;//+ leftPadding
+        float thumbY = (getHeight() / 2) + (bounds.height() * 0.5f);//(getHeight() / 2) + (((bounds.height() + boundsLowerCase.height()) / 2) / 2); //(getHeight() / 2f) + (bounds.height() * 0.4f);
         canvas.drawText(titleText, thumbX, thumbY, mTextPaint);
     }
 }

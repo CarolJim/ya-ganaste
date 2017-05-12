@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/FragmentElement"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
@@ -177,7 +178,7 @@
             android:layout_marginRight="@dimen/margin_medium"
             android:layout_marginTop="@dimen/margin_big">
 
-            <SeekBar
+            <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar
                 android:id="@+id/myseek"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -187,7 +188,8 @@
                 android:max="100"
                 android:progressDrawable="@android:color/transparent"
                 android:thumb="@drawable/thumb_size"
-                android:thumbOffset="15dp" />
+                android:thumbOffset="15dp"
+                app:text="Enviar" />
         </RelativeLayout>
     </LinearLayout>
 
