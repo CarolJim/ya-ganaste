@@ -59,7 +59,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     private SwipeRefreshLayout swipeContainer;
     public static final int MOVEMENTS = 1;
     public static final int PAYMENTS = 2;
-    private RecyclerView.Adapter mAdapter;
+   // private RecyclerView.Adapter mAdapter;
 
     public static AbstractAdEmFragment newInstance(int type){
         AbstractAdEmFragment instance;
@@ -83,14 +83,6 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     public void onCreate(@Nullable Bundle savedInstanceState) {
         tabPresenter = new TabPresenterImpl(this);
         this.movementsList = new ArrayList<>();
-        ArrayList<DemoMov> values = new ArrayList<>();
-        values.add(new DemoMov(R.color.colorAccent,"20","Mar","Venta Con Tarjeta","Bancomer","$2,000",".00"));
-        values.add(new DemoMov(R.color.greencolor,"19","Mar","Venta Con Tarjeta 5736","Bancomer","$,1500",".00"));
-        values.add(new DemoMov(R.color.greencolor,"19","Mar","Venta Con Tarjeta 6374","Santander","$650",".00"));
-        values.add(new DemoMov(R.color.redcolor,"19","Mar","Venta Con Tarjeta 0593 (Cancelada)","Bancomer","$300",".00"));
-        values.add(new DemoMov(R.color.redcolor,"18","Mar","Venta Con Tarjeta 1358 (Cancelada)","Santander","$1,000",".00"));
-        values.add(new DemoMov(R.color.greencolor,"18","Mar","Venta Con Tarjeta 2579","Banamex","$1,650",".00"));
-        mAdapter = new MyAdapter(values);
         super.onCreate(savedInstanceState);
     }
 
@@ -113,12 +105,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         txtInfoMovements = (TextView) rootView.findViewById(R.id.txt_info_movements);
         txtInfoMovements.setVisibility(View.GONE);
         swipeContainer = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
-
-//        swipeContainer.setOnRefreshListener(this);
-
+        swipeContainer.setOnRefreshListener(this);
         recyclerMovements.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerMovements.setHasFixedSize(true);
-        recyclerMovements.setAdapter(mAdapter);
+        //recyclerMovements.setAdapter(mAdapter);
         this.tabMonths = (GenericTabLayout<T>)rootView.findViewById(R.id.tab_months);
         tabPresenter.getPagerData(getTab());
     }
@@ -200,7 +190,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     }
 
     protected abstract void performClickOnRecycler(ItemRecycler itemClicked);
-
+/*
     public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
         private ArrayList<DemoMov> mdataset;
 
@@ -251,5 +241,5 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
                  //mTExtView = (TextView) itemView.findViewById();
             }
         }
-    }
+    }*/
 }

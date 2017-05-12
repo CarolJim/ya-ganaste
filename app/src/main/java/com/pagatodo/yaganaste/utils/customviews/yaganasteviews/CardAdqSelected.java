@@ -49,9 +49,7 @@ public class CardAdqSelected extends TabViewElement{
     @Override
     public void updateData() {
 
-        txtNombreNegocio.setText("Veterinario Pet house");
-        txtSaldoAdq.setText("2750.00");
-        /*this.txtNombreNegocio.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombreComercio());
-        this.txtSaldoAdq.setText(SingletonUser.getInstance().getDatosSaldo().getSaldoAdq());*/
+        this.txtNombreNegocio.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombreComercio());
+        this.txtSaldoAdq.setText(SingletonUser.getInstance().getDatosSaldo().getSaldoAdq());
     }
 }

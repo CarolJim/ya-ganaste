@@ -27,7 +27,6 @@ public class GenericPagerAdapter<T extends IEnumTab> extends FragmentPagerAdapte
         this.fragments = fragments;
     }
 
-
     @Override
     public int getCount() {
         return values.length;
@@ -50,5 +49,12 @@ public class GenericPagerAdapter<T extends IEnumTab> extends FragmentPagerAdapte
 
     public T getCurrentData(int position) {
         return values[position];
+    }
+
+    @Override
+    public int getItemPosition(Object object) {
+        return super.getItemPosition(object);
+
+
     }
 }

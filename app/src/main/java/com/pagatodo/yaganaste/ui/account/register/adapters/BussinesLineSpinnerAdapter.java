@@ -69,9 +69,8 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<GiroComercio> {
             holder = new BussinesLineSpinnerAdapter.DropDownHolder();
             holder.txtTitle = (StyleTextView) row.findViewById(R.id.textView_spinner);
             Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Regular.ttf");
-            int textSize = (int) (11 * getContext().getResources().getDisplayMetrics().scaledDensity);
             holder.txtTitle.setTypeface(typeface);
-            holder.txtTitle.setTextSize(textSize);
+
             row.setTag(holder);
         } else {
             holder = (BussinesLineSpinnerAdapter.DropDownHolder) row.getTag();
@@ -110,7 +109,7 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<GiroComercio> {
         BussinesLineSpinnerAdapter.ViewHolder holder;
         GiroComercio item = mList.get(position);
         Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Regular.ttf");
-        int textSize = (int) (11 * getContext().getResources().getDisplayMetrics().scaledDensity);
+
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
@@ -118,7 +117,7 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<GiroComercio> {
 
             holder = new BussinesLineSpinnerAdapter.ViewHolder();
             holder.editText = (EditText) row.findViewById(R.id.editTextCustomSpinner);
-            holder.editText.setTextSize(textSize);
+
             holder.editText.setTypeface(typeface);
             holder.downArrow = (ImageView) row.findViewById(R.id.imageViewCustomSpinner);
             row.setTag(holder);
@@ -135,12 +134,12 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<GiroComercio> {
 
         if (position == 0 && item.getIdGiro() == -1) {
             holder.editText.setHint(type.equals(TYPE.TITLE) ? item.getnGiro() : item.getnSubgiro());
-            holder.editText.setTextSize(textSize);
+
             holder.editText.setTypeface(typeface);
 
         } else {
             holder.editText.setText(type.equals(TYPE.TITLE) ? item.getnGiro() : item.getnSubgiro());
-            holder.editText.setTextSize(textSize);
+
             holder.editText.setTypeface(typeface);
 
         }
