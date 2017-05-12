@@ -65,15 +65,15 @@ public class CustomSeekBar extends android.support.v7.widget.AppCompatSeekBar {
 
         float textSize = getHeight() * 0.3f;// getResources().getDisplayMetrics().scaledDensity;
         mTextPaint.setTextSize(textSize);
-        mTextPaint.getTextBounds(titleText.toLowerCase(), 0, titleText.length(), bounds);
+        mTextPaint.getTextBounds(titleText, 0, titleText.length(), bounds);
 
         int leftPadding = getPaddingLeft() - getThumbOffset();
         int rightPadding = getPaddingRight() - getThumbOffset();
         int width = getWidth() - leftPadding - rightPadding;
         float progressRatio = (float) getProgress() / getMax();
-        float thumbOffset = mThumbSize * (.4f - progressRatio);
+        float thumbOffset = mThumbSize * (.45f - progressRatio);
         float thumbX = progressRatio * width + thumbOffset;//+ leftPadding
-        float thumbY = (getHeight() / 2) + (bounds.height() * 0.5f);//(getHeight() / 2) + (((bounds.height() + boundsLowerCase.height()) / 2) / 2); //(getHeight() / 2f) + (bounds.height() * 0.4f);
+        float thumbY = (getHeight() + bounds.height() + ((mTextPaint.ascent() + mTextPaint.descent()) / 2)) * 0.5f;//;//(getHeight() / 2) + (((bounds.height() + boundsLowerCase.height()) / 2) / 2); //(getHeight() / 2f) + (bounds.height() * 0.4f);
         canvas.drawText(titleText, thumbX, thumbY, mTextPaint);
     }
 }

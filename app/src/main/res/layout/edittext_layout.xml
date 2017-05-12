@@ -10,7 +10,7 @@
         android:orientation="horizontal"
         android:weightSum="100">
 
-        <EditText
+        <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
             android:id="@+id/editTextCustom"
             style="@style/StyleEditText"
             android:layout_width="match_parent"
