@@ -46,25 +46,25 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerMo
     public void onBindViewHolder(final RecyclerViewHolderMovements holder, int position) {
         ItemMovements itemMovements = itemMovementses.get(position);
         String[] monto = Utils.getCurrencyValue(itemMovements.getMonto()).split("\\.");
-
-        //holder.layoutMovementTypeColor.setBackgroundResource(itemMovements.getColor());
-        //holder.txtMonto.setTextColor(ContextCompat.getColor(context, itemMovements.getColor()));
-        holder.layoutMovementTypeColor.setBackgroundResource(R.color.greencolor);
-        holder.txtMonto.setTextColor(ContextCompat.getColor(context, R.color.greencolor));
+        holder.layoutMovementTypeColor.setBackgroundResource(itemMovements.getColor());
+        holder.txtMonto.setTextColor(ContextCompat.getColor(context, itemMovements.getColor()));
         holder.txtPremios.setText(itemMovements.getPremio());
         holder.txtMarca.setText(itemMovements.getMarca());
 
-        holder.txtMonto.setText(monto[0]);
+        holder.txtMonto.setText(monto[0].concat("."));
 
         holder.txtItemMovDate.setText(itemMovements.getDate());
         holder.txtItemMovMonth.setText(itemMovements.getMonth());
 
-        if (Utils.getDoubleValue(monto[1]) > 0) {
+        /*if (Utils.getDoubleValue(monto[1]) > 0) {
             holder.txtItemMovCents.setText(monto[1]);
             holder.txtItemMovCents.setTextColor(ContextCompat.getColor(context, itemMovements.getColor()));
         } else {
             holder.txtItemMovCents.setVisibility(View.GONE);
-        }
+        }*/
+
+        holder.txtItemMovCents.setText(monto[1]);
+        holder.txtItemMovCents.setTextColor(ContextCompat.getColor(context, itemMovements.getColor()));
 
         if (itemMovementses.get(position).getColor() == android.R.color.transparent) {
             holder.txtMonto.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));

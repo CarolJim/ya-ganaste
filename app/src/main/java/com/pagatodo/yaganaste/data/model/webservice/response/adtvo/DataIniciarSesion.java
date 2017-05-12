@@ -13,10 +13,9 @@ public class DataIniciarSesion implements Serializable{
 
     private boolean EsUsuario;
     private boolean EsCliente;
-    private boolean EsAgente = true;//EsAdquirente
+    private boolean EsAgente = false;//EsAdquirente
     private boolean EsAgenteRechazado;
     private boolean ConCuenta;
-    private boolean AsignoNip; // TODO validar, ya que no se encuentra en la documentacion
     private int EstatusDocumentacion; // TODO validar, ya que no se encuentra en la documentacion
     private int EstatusAgente = CRM_DOCTO_APROBADO ;//CRM_DOCTO_APROBADO; // TODO validar, ya que no se encuentra en la documentacion
     private boolean RequiereActivacionSMS;
@@ -100,14 +99,6 @@ public class DataIniciarSesion implements Serializable{
 
     public void setUsuario(UsuarioClienteResponse usuario) {
         Usuario = usuario;
-    }
-
-    public boolean isAsignoNip() {
-        return AsignoNip;
-    }
-
-    public void setAsignoNip(boolean asignoNip) {
-        AsignoNip = asignoNip;
     }
 
     public int getEstatusDocumentacion() {

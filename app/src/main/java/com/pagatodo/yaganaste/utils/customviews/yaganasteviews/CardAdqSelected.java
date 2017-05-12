@@ -43,10 +43,12 @@ public class CardAdqSelected extends TabViewElement{
         txtNombreNegocio = (TextView)findViewById(R.id.txt_nombre_negocio);
         txtSaldoAdq = (TextView)findViewById(R.id.txt_saldo_adq);
         txtStatus = (TextView)findViewById(R.id.txt_status);
+
     }
 
     @Override
     public void updateData() {
+
         this.txtNombreNegocio.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombreComercio());
         this.txtSaldoAdq.setText(SingletonUser.getInstance().getDatosSaldo().getSaldoAdq());
     }

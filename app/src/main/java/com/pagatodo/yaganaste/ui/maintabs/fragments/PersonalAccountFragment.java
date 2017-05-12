@@ -4,7 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.util.Log;
-import android.view.View;
+
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
@@ -14,8 +14,6 @@ import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AccountMovementsPresenter;
 
 import java.util.List;
-
-
 /**
  * @author Juan Guerra on 27/11/2016.
  */
@@ -23,7 +21,7 @@ import java.util.List;
 public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovementsTab, ItemMovements<MovimientosResponse>> {
 
 
-    public static PersonalAccountFragment newInstance(){
+    public static PersonalAccountFragment newInstance() {
         PersonalAccountFragment homeTabFragment = new PersonalAccountFragment();
         Bundle args = new Bundle();
         homeTabFragment.setArguments(args);
@@ -38,7 +36,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
 
     @Override
     protected void onTabLoaded() {
-        tabMonths.getTabAt(tabMonths.getTabCount()-1).select();
+        tabMonths.getTabAt(tabMonths.getTabCount() - 1).select();
     }
 
     @Override
@@ -49,11 +47,9 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
     @Override
     public void loadMovementsResult(List<ItemMovements<MovimientosResponse>> movementsList) {
         updateRecyclerData(createAdapter(movementsList), movementsList);
-        Log.e("PersonalAccount", " loadREsult" );
     }
 
     protected RecyclerView.Adapter createAdapter(List<ItemMovements<MovimientosResponse>> movementsList) {
-        Log.e("PersonalAccount", " createAdapter" );
         return new RecyclerMovementsAdapter<MovimientosResponse>(getContext(), movementsList, this);
     }
 

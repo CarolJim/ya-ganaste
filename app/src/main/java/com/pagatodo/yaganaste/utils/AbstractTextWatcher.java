@@ -52,4 +52,8 @@ public abstract class AbstractTextWatcher implements TextWatcher {
         //Override to implement your own action
     }
 
+    public void setEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
 }

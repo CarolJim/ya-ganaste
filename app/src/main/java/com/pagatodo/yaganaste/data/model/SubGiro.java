@@ -1,10 +1,12 @@
 package com.pagatodo.yaganaste.data.model;
 
+import java.io.Serializable;
+
 /**
  * Created by flima on 28/04/2017.
  */
 
-public class SubGiro {
+public class SubGiro implements Serializable{
 
     private int IdSubgiro = 0;
     private String Subgiro = "";
