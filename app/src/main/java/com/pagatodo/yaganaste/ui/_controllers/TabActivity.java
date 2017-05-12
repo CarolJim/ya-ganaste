@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
@@ -71,7 +72,6 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         setContentView(R.layout.activity_main_tab);
         load();
 
-<<<<<<< HEAD
         if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             Intent intent = new Intent(this, LandingFragment.class);
@@ -85,9 +85,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
                 startActivity(intent);
          /*   }*/
         }
-=======
->>>>>>> e43a2f2642b94963e3d487d3107a17d1648880d3
-    }
+}
 
     private void load() {
         this.tabPresenter = new MainMenuPresenterImp(this);

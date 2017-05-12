@@ -21,15 +21,10 @@ import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.adquirente.DatosNegocio;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.adquirente.DomicilioNegocio;
-<<<<<<< HEAD
-=======
-import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
-import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
-
 import java.util.List;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
->>>>>>> e43a2f2642b94963e3d487d3107a17d1648880d3
+
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
