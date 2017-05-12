@@ -31,6 +31,7 @@ import com.pagatodo.yaganaste.interfaces.enums.DataSource;
 import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 
 import java.io.Serializable;
 
@@ -215,10 +216,15 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                     @Override
                     public void action(Context context, Object... params) {
                         INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(EVENT_GO_MAINTAB, "Ejecución Éxitosa");
+
+                        // Reiniciamos el control de CodeKey para cuando cargamos de nuevo el fragment
+                        // GetAmountFragment, tengamos un inicio de $0.00
+                        CustomKeyboardView.setCodeKey(0);
+
                         //Borramos los datos de la transacción
                         TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
 
+                        viewInterface.nextScreen(EVENT_GO_MAINTAB, "Ejecución Éxitosa");
                     }
                 });
 
