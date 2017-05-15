@@ -4,6 +4,8 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVD
 
 import java.io.Serializable;
 
+import static com.pagatodo.yaganaste.utils.Recursos.CARD_PAY;
+
 /**
  * Created by flima on 17/04/2017.
  */
@@ -85,7 +87,7 @@ public  class TransactionAdqData implements Serializable{
     }
 
     public String getDescription() {
-        return description;
+        return description.isEmpty() ? CARD_PAY: description;
     }
 
     public void setDescription(String description) {

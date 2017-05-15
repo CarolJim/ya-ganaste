@@ -47,6 +47,7 @@ public class Recursos {
 	/*Preferencias de Sesion*/
 	public static final String CODE_ACTIVATION_FREJA = "CODEACTIVATIONFREJA";
 	public static String COUCHMARK_EMISOR = "COUCHMARKEMISOR";
+	public static String COUCHMARK_ADQ = "COUCHMARKADQ";
 	public static String CRC32_FREJA = "CRC32FREJA";
 
 	/**Catálogos**/
@@ -94,7 +95,8 @@ public class Recursos {
 
 
 
-
+	//Constantes
+	public static final String CARD_PAY = "PAGO CON TARJETA";
 
 
 	/* Codigos de Acciones*/

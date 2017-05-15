@@ -21,12 +21,15 @@ import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.AccountDepositData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -42,10 +45,13 @@ import static android.content.Context.AUDIO_SERVICE;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
+import static com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente.getCurrentDatesAccountDepositData;
+import static com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente.getImplicitData;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
+import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 import static com.pagatodo.yaganaste.utils.Recursos.LECTURA_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.LEYENDO;
 import static com.pagatodo.yaganaste.utils.Recursos.MSJ;
@@ -175,7 +181,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         if(isWaitingCard){
                             Log.i("IposListener: ","=====>>   LECTURA_OK ");
                             TransaccionEMVDepositRequest requestTransaction = (TransaccionEMVDepositRequest) intent.getSerializableExtra(Recursos.TRANSACTION);
-                            initTransaction(requestTransaction);
+                            adqPresenter.initTransaction(buildEMVRequest(requestTransaction));
                         }
                         break;
                     case READ_KSN:
@@ -271,8 +277,20 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         adqPresenter.validateDongle(serial);
     }
 
-    private void initTransaction(TransaccionEMVDepositRequest request){
-        adqPresenter.initTransaction(request);
+    private TransaccionEMVDepositRequest buildEMVRequest(TransaccionEMVDepositRequest request){
+        TransactionAdqData currentTransaction = TransactionAdqData.getCurrentTransaction();
+        SingletonUser currentUser = SingletonUser.getInstance();
+
+//        request.setAccountDepositData(getCurrentDatesAccountDepositData(currentTransaction.getDescription()));
+        request.setAccountDepositData(new AccountDepositData("1018", currentTransaction.getDescription()));// TODO HARDCODE
+        request.setAmount(currentTransaction.getAmount());
+        request.setImplicitData(getImplicitData());
+        request.setNoSerie(prefs.loadData(KSN_LECTOR));
+        request.setNoTicket(String.valueOf(System.currentTimeMillis() / 1000L));
+        request.setTipoCliente(String.valueOf(currentUser.getDataUser().getUsuario().getTipoAgente()));
+        request.setTransactionDateTime(Utils.getTimeStamp());
+
+        return request;
     }
 
     private void readDongle(){

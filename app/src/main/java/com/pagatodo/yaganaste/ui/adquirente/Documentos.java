@@ -270,7 +270,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 }
             }
         }else if(requestCode == SELECT_FILE_PHOTO && resultCode != RESULT_OK && data == null ){
-            Log.e(TAG,"SelectPhotoFromGallery Error");
+
         }
 
     }
