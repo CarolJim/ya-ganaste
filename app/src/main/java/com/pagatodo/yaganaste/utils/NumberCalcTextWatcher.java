@@ -206,4 +206,11 @@ public class NumberCalcTextWatcher implements TextWatcher {
             return true;
         return false;
     }
+
+    public static void cleanData() {
+        amount = "";
+        // Reiniciamos el control de CodeKey para cuando cargamos de nuevo el fragment
+        // GetAmountFragment, tengamos un inicio de $0.00
+        CustomKeyboardView.setCodeKey(0);
+    }
 }
