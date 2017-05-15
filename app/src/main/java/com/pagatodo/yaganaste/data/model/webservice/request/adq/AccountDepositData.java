@@ -14,6 +14,10 @@ public class AccountDepositData implements Serializable{
     public AccountDepositData() {
     }
 
+    public AccountDepositData(String account, String reference){
+        this.Account = account;
+        this.Reference = reference;
+    }
     public String getAccount() {
         return Account;
     }

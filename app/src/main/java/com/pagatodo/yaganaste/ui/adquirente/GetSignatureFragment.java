@@ -4,7 +4,10 @@ package com.pagatodo.yaganaste.ui.adquirente;
 import android.app.Activity;
 import android.content.Context;
 import android.content.pm.ActivityInfo;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +60,7 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
 
     private SigningViewYaGanaste signingView;
     private TransaccionEMVDepositResponse emvDepositResponse;
+    private TransactionAdqData currentTransaction;
 
     private AdqPresenter adqPresenter;
 
@@ -87,6 +91,7 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
         super.onCreate(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
         emvDepositResponse  = TransactionAdqData.getCurrentTransaction().getTransaccionResponse();
+        currentTransaction  = TransactionAdqData.getCurrentTransaction();
         adqPresenter = new AdqPresenter(this);
     }
 
@@ -125,10 +130,16 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
 
 
         /*Seteamos los datos de la transacción*/
-        txtAmount.setText(String.format("$%s",emvDepositResponse.getSaldo()));
+        txtAmount.setText(String.format("$%s", currentTransaction.getAmount()));
         txtNumberCard.setText(emvDepositResponse.getMaskedPan());
         txtNameOwnerCard.setText(String.format("%s",emvDepositResponse.getName()));
+        if(imgTypeCard != null){
+            imgTypeCard.setImageDrawable(setDrawable());
+        }
+    }
 
+    private Drawable setDrawable() {
+        return emvDepositResponse.getMarcaTarjetaBancaria().equals("Visa") ? getDrawable(R.drawable.visa): getDrawable(R.drawable.mastercard_canvas);
     }
 
     @Override
@@ -181,6 +192,10 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
     @Override
     public void showError(Object error) {
         UI.showToast(error.toString(),getActivity());
+    }
+
+    private Drawable getDrawable(int res){
+        return ContextCompat.getDrawable(getActivity(), res);
     }
 }
 

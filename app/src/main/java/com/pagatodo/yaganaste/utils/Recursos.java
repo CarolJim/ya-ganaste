@@ -94,7 +94,8 @@ public class Recursos {
 
 
 
-
+	//Constantes
+	public static final String CARD_PAY = "PAGO CON TARJETA";
 
 
 	/* Codigos de Acciones*/
