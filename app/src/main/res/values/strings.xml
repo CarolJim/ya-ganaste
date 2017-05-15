@@ -454,6 +454,8 @@
     <string name="obteniendo_colonias">Obteniendo Colonias</string>
     <string name="obteniendo_domicilio">Obteniendo Domicilio</string>
     <string name="obteniendo_giros">Obteniendo Giros</string>
+    <string name="listo">¡Listo!</string>
+    <string name="recibo_enviado">El Recibo Fue Enviado con Éxito.</string>
 </resources>
 
 

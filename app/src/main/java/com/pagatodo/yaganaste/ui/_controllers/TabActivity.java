@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
+import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
@@ -36,14 +37,12 @@ import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 
 import java.util.List;
 
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
+
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
-import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
-import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 
 
 public class TabActivity extends ToolBarActivity implements TabsView, OnEventListener {
@@ -68,6 +67,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tab);
         load();
@@ -79,11 +79,8 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         }
         if (!pref.containsData(COUCHMARK_ADQ) && SingletonUser.getInstance().getDataUser().isEsAgente()) {
             pref.saveDataBool(COUCHMARK_ADQ, true);
-       /*     if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                    && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {*/
                 Intent intent = new Intent(this, LandingAdqFragment.class);
                 startActivity(intent);
-         /*   }*/
         }
 }
 

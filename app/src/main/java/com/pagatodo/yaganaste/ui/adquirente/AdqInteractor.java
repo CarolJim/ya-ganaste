@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.adquirente;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -34,6 +35,7 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 
 import java.io.Serializable;
+import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.LOGIN_ADQ_PAYMENT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
@@ -54,9 +56,9 @@ import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
  */
 
 public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResult {
-
+    private String TAg = getClass().getSimpleName();
     private final int MAX_REINTENTOS = 3;
-    private String TAG = AdqInteractor.class.getName();
+    private String TAG = getClass().getSimpleName();
     private IAccountManager accountManager;
     private AccountOperation accountOperation;
     private Preferencias prefs = App.getInstance().getPrefs();
@@ -211,28 +213,31 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             public void run() {
 
                 TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
-                PageResult pageResult = new PageResult(R.drawable.ic_done, "¡Listo!", "El Recibo Fue\nEnviado con Éxito.", false);
-                pageResult.setActionBtnPrimary(new Command() {
-                    @Override
-                    public void action(Context context, Object... params) {
-                        INavigationView viewInterface = (INavigationView) params[0];
 
-                        // Reiniciamos el control de CodeKey para cuando cargamos de nuevo el fragment
-                        // GetAmountFragment, tengamos un inicio de $0.00
-                        CustomKeyboardView.setCodeKey(0);
+                    PageResult pageResult = new PageResult(R.drawable.ic_done, context.getString(R.string.listo), context.getString(R.string.recibo_enviado), false);
+                    pageResult.setActionBtnPrimary(new Command() {
+                        @Override
+                        public void action(Context context, Object... params) {
+                            INavigationView viewInterface = (INavigationView) params[0];
 
-                        //Borramos los datos de la transacción
-                        TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
+                            // Reiniciamos el control de CodeKey para cuando cargamos de nuevo el fragment
+                            // GetAmountFragment, tengamos un inicio de $0.00
+                            CustomKeyboardView.setCodeKey(0);
 
-                        viewInterface.nextScreen(EVENT_GO_MAINTAB, "Ejecución Éxitosa");
-                    }
-                });
+                            //Borramos los datos de la transacción
+                            TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
 
-                pageResult.setNamerBtnPrimary("Continuar");
-                result.setPageResult(pageResult);
-                result.setTransaccionResponse(new TransaccionEMVDepositResponse());
+                            viewInterface.nextScreen(EVENT_GO_MAINTAB, "Ejecución Éxitosa");
+                        }
+                    });
 
-                accountManager.onSucces(ENVIAR_TICKET_COMPRA,"Ejecución Exitosa");
+                    pageResult.setNamerBtnPrimary("Continuar");
+
+                    result.setPageResult(pageResult);
+                    result.setTransaccionResponse(new TransaccionEMVDepositResponse());
+
+                    accountManager.onSucces(ENVIAR_TICKET_COMPRA, "Ejecución Exitosa");
+
             }
         }, DELAY_MESSAGE_PROGRESS*3);
     }
@@ -327,6 +332,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 result.setStatusTransaction(ADQ_TRANSACTION_APROVE);
                 result.setResponseCode(0);
                 result.setTransaccionResponse(dummyTransactionResponse());
+
                 PageResult pageResult = new PageResult(R.drawable.ic_done, context.getString(R.string.adq_aproved), context.getString(R.string.adq_succes_aproved),false);
                 pageResult.setNamerBtnPrimary(context.getString(R.string.nextButton));
                 pageResult.setActionBtnPrimary(new Command() {
