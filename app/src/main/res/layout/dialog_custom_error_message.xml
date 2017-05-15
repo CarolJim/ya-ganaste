@@ -80,7 +80,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/whiteColor"
                 app:intercepterOnclick="true"
-                app:cornerRadius="30dp" />
+                app:cornerRadius="@dimen/btn_corner_radius" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnConfirmDialog"
@@ -98,7 +98,7 @@
                 android:textAllCaps="true"
                 android:textColor="@color/whiteColor"
                 app:intercepterOnclick="true"
-                app:cornerRadius="30dp" />
+                app:cornerRadius="@dimen/btn_corner_radius" />
 
 
         </LinearLayout>

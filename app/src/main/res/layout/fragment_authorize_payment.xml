@@ -25,7 +25,7 @@
             android:layout_height="0dp"
             android:layout_weight="10"
             android:gravity="center"
-            android:text="Autoriza el Envío"
+            android:text="@string/authorize_payment_title"
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
             app:tipo="Subtitulo" />
@@ -36,7 +36,7 @@
             android:layout_height="0dp"
             android:layout_weight="5"
             android:gravity="center"
-            android:text="Importe:"
+            android:text="@string/txt_importe"
             android:textSize="16sp" />
 
         <!--TextView
@@ -54,7 +54,7 @@
             android:layout_height="0dp"
             android:layout_weight="10"
             android:gravity="center"
-            android:text="70"
+            android:text="00"
             android:textAlignment="center"
             android:textSize="22sp"
             app:dotBottom="false"
@@ -66,7 +66,7 @@
             android:layout_height="0dp"
             android:layout_weight="5"
             android:gravity="center"
-            android:text="A:"
+            android:text="@string/beneficiario"
             android:textSize="18sp"
             app:tipo="Descripcion" />
 
@@ -76,7 +76,7 @@
             android:layout_height="0dp"
             android:layout_weight="5"
             android:gravity="center"
-            android:text="Matias Garrido"
+            android:text="XXXXXXX XXXXXXX"
             android:textSize="18sp"
             app:tipo="Descripcion" />
 
@@ -105,7 +105,7 @@
                 android:layout_height="match_parent"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/logo_banco_azteca" />
+                android:src="@mipmap/logo_pagatodo" />
         </LinearLayout>
 
         <Space
@@ -118,7 +118,7 @@
             android:layout_height="0dp"
             android:layout_weight="10"
             android:gravity="center"
-            android:text="Ingresa tu Contraseña Para \nAutorizar Este Movimiento" />
+            android:text="@string/txt_enter_password" />
 
         <RelativeLayout
             android:layout_width="match_parent"
@@ -139,7 +139,7 @@
                     style="@style/StyleEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:hint="Contraseña"
+                    android:hint="@string/password"
                     android:inputType="text|textPassword"
                     android:maxLength="40" />
 
@@ -168,7 +168,7 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/margin_medium"
                 android:layout_weight="40"
-                android:text="Continuar"
+                android:text="@string/continuar"
                 android:textAllCaps="false"
                 android:background="@drawable/selector_btn_continuar" />
 

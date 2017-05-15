@@ -47,7 +47,6 @@ public class CustomSeekBar extends android.support.v7.widget.AppCompatSeekBar {
         mTextPaint.setTypeface(typeface);
         mTextPaint.setTextAlign(Paint.Align.CENTER);
 
-
         TypedArray a = context.obtainStyledAttributes(attrs, R.styleable.CustomSeekBar);
         titleText = a.getString(R.styleable.CustomSeekBar_text);
         if (titleText == null) {

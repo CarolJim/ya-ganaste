@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:minHeight="250dp"
-                android:text="Cargando servicios...(*)"
+                android:text="@string/no_services_msg"
                 android:textSize="20sp"
                 app:tipo="Titulo" />
 

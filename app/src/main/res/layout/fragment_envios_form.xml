@@ -154,7 +154,7 @@
                 android:progressDrawable="@android:color/transparent"
                 android:thumb="@drawable/thumb_size"
                 android:thumbOffset="15dp"
-                app:text="Enviar" />
+                app:text="@string/btn_send" />
         </RelativeLayout>
     </LinearLayout>
 
