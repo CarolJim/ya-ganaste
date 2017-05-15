@@ -86,8 +86,8 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     @Override
     public void registerDongle() {
 //TODO QUITAR HARDCODE
-        RequestHeaders.setTokenAdq("29f691743bba834617614bb1a0299d708fc6d3a7f4dd802b9e996b4836875c16");
-        RequestHeaders.setIdCuenta("12044");
+        RequestHeaders.setTokenAdq("1dce5630c4ceec225a34382f940d067f27b476b9074a3170c101686224e56893");
+        RequestHeaders.setIdCuentaAdq("12044");
 //        if(!RequestHeaders.getTokenAdq().isEmpty()){
             String serial = prefs.loadData(KSN_LECTOR);
             RegistroDongleRequest request = new RegistroDongleRequest(serial);
@@ -95,6 +95,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 ApiAdq.registroDongle(request,this);
             } catch (OfflineException e) {
                 accountManager.hideLoader();
+                accountManager.onError(REGISTRO_DONGLE, context.getString(R.string.no_internet_access));
             }
 //        }else{
 //            accountOperation = LOGIN_ADQ_PAYMENT;
@@ -112,11 +113,12 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     @Override
     public void initPayment(final TransaccionEMVDepositRequest request) {
         try {
-            RequestHeaders.setIdCuenta("12044");//TODO HARDCODE
+            RequestHeaders.setIdCuentaAdq("12044");//TODO HARDCODE
             ApiAdq.transaccionEMVDeposit(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.hideLoader();
+            accountManager.onError(TRANSACCIONES_EMV_DEPOSIT, context.getString(R.string.no_internet_access));
         }
 
 //FLUJO DUMMY
@@ -186,60 +188,64 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
 
     @Override
     public void sendSignalVoucher(FirmaDeVoucherRequest request) {
-        /*try {
+        try {
+            RequestHeaders.setIdCuentaAdq("12044");//TODO HARDCODE
             ApiAdq.firmaDeVoucher(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
-        }*/
+            accountManager.onError(FIRMA_DE_VOUCHER, context.getString(R.string.no_internet_access));
+        }
 
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                accountManager.onSucces(FIRMA_DE_VOUCHER,"Enviado");
-            }
-        }, DELAY_MESSAGE_PROGRESS);
+        //TODO FLUJO DUMMY
+//        new Handler().postDelayed(new Runnable() {
+//            public void run() {
+//                accountManager.onSucces(FIRMA_DE_VOUCHER,"Enviado");
+//            }
+//        }, DELAY_MESSAGE_PROGRESS);
     }
 
     @Override
     public void sendTicket(EnviarTicketCompraRequest request) {
-        /*try {
+        try {
             ApiAdq.enviarTicketCompra(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
-        }*/
+            accountManager.hideLoader();
+            accountManager.onError(ENVIAR_TICKET_COMPRA, context.getString(R.string.no_internet_access));
+        }
 
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-
-                TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
-                PageResult pageResult = new PageResult(R.drawable.ic_done, "¡Listo!", "El Recibo Fue\nEnviado con Éxito.", false);
-                pageResult.setActionBtnPrimary(new Command() {
-                    @Override
-                    public void action(Context context, Object... params) {
-                        INavigationView viewInterface = (INavigationView) params[0];
-
-                        // Reiniciamos el control de CodeKey para cuando cargamos de nuevo el fragment
-                        // GetAmountFragment, tengamos un inicio de $0.00
-                        CustomKeyboardView.setCodeKey(0);
-
-                        //Borramos los datos de la transacción
-                        TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
-
-                        viewInterface.nextScreen(EVENT_GO_MAINTAB, "Ejecución Éxitosa");
-                    }
-                });
-
-                pageResult.setNamerBtnPrimary("Continuar");
-                result.setPageResult(pageResult);
-                result.setTransaccionResponse(new TransaccionEMVDepositResponse());
-
-                accountManager.onSucces(ENVIAR_TICKET_COMPRA,"Ejecución Exitosa");
-            }
-        }, DELAY_MESSAGE_PROGRESS*3);
+//        new Handler().postDelayed(new Runnable() {
+//            public void run() {
+//
+//                TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
+//                PageResult pageResult = new PageResult(R.drawable.ic_done, "¡Listo!", "El Recibo Fue\nEnviado con Éxito.", false);
+//                pageResult.setActionBtnPrimary(new Command() {
+//                    @Override
+//                    public void action(Context context, Object... params) {
+//                        INavigationView viewInterface = (INavigationView) params[0];
+//
+//                        // Reiniciamos el control de CodeKey para cuando cargamos de nuevo el fragment
+//                        // GetAmountFragment, tengamos un inicio de $0.00
+//                        CustomKeyboardView.setCodeKey(0);
+//
+//                        //Borramos los datos de la transacción
+//                        TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
+//
+//                        viewInterface.nextScreen(EVENT_GO_MAINTAB, "Ejecución Éxitosa");
+//                    }
+//                });
+//
+//                pageResult.setNamerBtnPrimary("Continuar");
+//                result.setPageResult(pageResult);
+//                result.setTransaccionResponse(new TransaccionEMVDepositResponse());
+//
+//                accountManager.onSucces(ENVIAR_TICKET_COMPRA,"Ejecución Exitosa");
+//            }
+//        }, DELAY_MESSAGE_PROGRESS*3);
     }
 
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
-
         switch(dataSourceResult.getWebService()) {
 
             case LOGIN_ADQ:
@@ -420,6 +426,28 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     private void processSendTicket(DataSourceResult response) {
         EnviarTicketCompraResponse data = (EnviarTicketCompraResponse) response.getData();
         if(data.getId().equals(ADQ_CODE_OK)){
+            TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
+                PageResult pageResult = new PageResult(R.drawable.ic_done, "¡Listo!", "El Recibo Fue\nEnviado con Éxito.", false);
+                pageResult.setActionBtnPrimary(new Command() {
+                    @Override
+                    public void action(Context context, Object... params) {
+                        INavigationView viewInterface = (INavigationView) params[0];
+
+                        // Reiniciamos el control de CodeKey para cuando cargamos de nuevo el fragment
+                        // GetAmountFragment, tengamos un inicio de $0.00
+                        CustomKeyboardView.setCodeKey(0);
+
+                        //Borramos los datos de la transacción
+                        TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
+
+                        viewInterface.nextScreen(EVENT_GO_MAINTAB, "Ejecución Éxitosa");
+                    }
+                });
+
+                pageResult.setNamerBtnPrimary("Continuar");
+            pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
+                result.setPageResult(pageResult);
+                result.setTransaccionResponse(new TransaccionEMVDepositResponse());
             accountManager.onSucces(response.getWebService(),data.getMessage());
         }else{
             accountManager.onError(response.getWebService(),data.getMessage());//Retornamos mensaje de error.

@@ -7,10 +7,26 @@ import java.io.Serializable;
  */
 
 public class FirmaDeVoucherRequest extends AdqRequest  implements Serializable{
-    public String idTransaction = "";
-    public SignatureData signaruteData;
+    private String idTransaction = "";
+    private SignatureData signaruteData;
 
     public FirmaDeVoucherRequest(){
         signaruteData = new SignatureData();
+    }
+
+    public void setIdTransaction(String idTransaction) {
+        this.idTransaction = idTransaction;
+    }
+
+    public void setSignaruteData(SignatureData signaruteData) {
+        this.signaruteData = signaruteData;
+    }
+
+    public SignatureData getSignaruteData() {
+        return signaruteData;
+    }
+
+    public String getIdTransaction() {
+        return idTransaction;
     }
 }

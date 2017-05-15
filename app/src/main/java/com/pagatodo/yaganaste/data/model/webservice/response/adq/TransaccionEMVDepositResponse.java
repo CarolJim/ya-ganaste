@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.adq;
 
+import com.pagatodo.yaganaste.data.model.Cupon;
+
 import java.io.Serializable;
 
 /**
@@ -14,7 +16,7 @@ public class TransaccionEMVDepositResponse  implements Serializable {
     private String MarcaTarjetaBancaria = "";
     private String RazonSocialAgente = "";
     private String autorizacion = "";
-    private String cupon = "";
+    private Cupon cupon = new Cupon();
     private DataResultAdq error;
     private String id_transaction = "";
     private boolean isSignRequired;
@@ -78,11 +80,11 @@ public class TransaccionEMVDepositResponse  implements Serializable {
         this.autorizacion = autorizacion;
     }
 
-    public String getCupon() {
+    public Cupon getCupon() {
         return cupon;
     }
 
-    public void setCupon(String cupon) {
+    public void setCupon(Cupon cupon) {
         this.cupon = cupon;
     }
 

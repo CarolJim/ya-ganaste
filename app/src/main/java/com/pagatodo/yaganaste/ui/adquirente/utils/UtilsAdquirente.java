@@ -5,7 +5,11 @@ import android.location.Location;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AccountDepositData;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.EnviarTicketCompraRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.FirmaDeVoucherRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ImplicitData;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.Signature;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.SignatureData;
 import com.pagatodo.yaganaste.utils.MyLocation;
 import com.pagatodo.yaganaste.utils.Utils;
 
@@ -37,5 +41,19 @@ public class UtilsAdquirente {
         }
         data.setUdid(Utils.getUdid(App.getInstance()));
         return data;
+    }
+    public static FirmaDeVoucherRequest buildSignatureRequest(String idTransaction, SignatureData signatureData){
+        FirmaDeVoucherRequest request = new FirmaDeVoucherRequest();
+        request.setIdTransaction(idTransaction);
+        request.setSignaruteData(signatureData);
+        return request;
+    }
+    public static EnviarTicketCompraRequest buildTicketRequest(String idTransaction, String name, String email){
+        EnviarTicketCompraRequest request = new EnviarTicketCompraRequest();
+        request.setEmail(email);
+        request.setImplicitData(getImplicitData());
+        request.setName(name);
+        request.setIdTransaction(idTransaction);
+        return request;
     }
 }
