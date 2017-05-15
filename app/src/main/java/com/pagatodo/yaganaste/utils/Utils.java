@@ -1288,11 +1288,16 @@ public class Utils {
    * Se crea un string dummy para completar el número de tarjeta.
    * */
     public static String getCardNumberRamdon(){
-        //method 1
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String number = String.valueOf(timestamp.getTime());
-        if(number.length() > 10)
-            number = number.substring(0,10);
+        if(number.length() > 10) {
+            number = number.substring(0, 10);
+            String part1 = number.substring(0,2);
+            String part2 = number.substring(2,6);
+            String part3 = number.substring(6,10); // Armamos el formato de la tarjeta
+            number = String.format("%s %s %s",part1,part2,part3);
+        }
+
         return  number;
     }
 

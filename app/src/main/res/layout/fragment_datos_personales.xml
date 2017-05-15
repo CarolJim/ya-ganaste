@@ -135,20 +135,11 @@
             app:isTextEnabled="false" />
 
         <Spinner
-            android:id="@+id/spinnerNacionality"
-            style="@style/SpinnerNoArrow"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editBirthDay"
-            android:background="@null"
-            android:backgroundTint="@color/transparent" />
-
-        <Spinner
             android:id="@+id/spinnerBirthPlace"
             style="@style/SpinnerNoArrow"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/spinnerNacionality"
+            android:layout_below="@+id/editBirthDay"
             android:layout_marginBottom="@dimen/double_space"
             android:background="@null"
             android:backgroundTint="@color/transparent" />
@@ -188,7 +179,7 @@
                android:layout_centerInParent="true"
                android:text="@string/backButton"
                android:layout_marginRight="@dimen/margin_small"
-               app:overBackground="@drawable/selector_btn_back"
+               android:background="@drawable/selector_btn_back"
                android:textAllCaps="false" />
 
            <com.pagatodo.yaganaste.utils.customviews.StyleButton
@@ -200,7 +191,7 @@
                android:gravity="center"
                android:text="@string/nextButton"
                android:layout_marginLeft="@dimen/margin_small"
-               app:overBackground="@drawable/selector_btn_continuar"
+               android:background="@drawable/selector_btn_continuar"
                android:textAllCaps="false" />
        </LinearLayout>
    </LinearLayout>

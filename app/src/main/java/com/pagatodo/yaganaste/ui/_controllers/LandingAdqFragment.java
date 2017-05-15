@@ -132,7 +132,6 @@ public class LandingAdqFragment extends Activity implements Animation.AnimationL
     }
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         finishActivity();
     }
     private void finishActivity() {

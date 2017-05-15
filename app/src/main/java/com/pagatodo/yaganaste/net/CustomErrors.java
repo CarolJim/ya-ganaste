@@ -28,7 +28,7 @@ public class CustomErrors {
 
                 default:
                     if(error.getMessage() != null)
-                        errorMessage = error.getMessage();
+                        errorMessage = App.getInstance().getString(R.string.message_generic_ws);
             }
 
         }else{

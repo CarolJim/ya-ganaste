@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.factories;
 
+import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
@@ -12,7 +13,6 @@ import com.pagatodo.yaganaste.interfaces.enums.AdqEmTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
-import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
@@ -50,16 +50,19 @@ public class ViewPagerDataFactory {
         List<Fragment> fragmentList = new ArrayList<>();
         switch (type) {
             case MAIN:
+
                 fragmentList.add(HomeTabFragment.newInstance());
                 fragmentList.add(PaymentsTabFragment.newInstance());
                 fragmentList.add(BlankFragment.newInstance());
-                Log.e("view pager ", "esAgente" + SingletonUser.getInstance().getDataUser().isEsAgente());
-                Log.e("view pager ", "estatus Agente" + SingletonUser.getInstance().getDataUser().getEstatusAgente());
+
+                Log.e("view pager ", "isAgente " + SingletonUser.getInstance().getDataUser().isEsAgente());
+                Log.e("view pager ", "estatusAgente" + SingletonUser.getInstance().getDataUser().getEstatusAgente());
 
                 if (SingletonUser.getInstance().getDataUser().isEsAgente()
                         && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
+
                     fragmentList.add(GetMountFragment.newInstance());
-                    //fragmentList.add(Documentos.newInstance());
+
                 } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
                         && SingletonUser.getInstance().getDataUser().getEstatusAgente() != CRM_DOCTO_APROBADO) {
 

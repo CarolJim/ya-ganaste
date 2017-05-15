@@ -14,6 +14,7 @@ import android.util.Log;
 
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.adquirente.readers.IposListener;
 
@@ -60,6 +61,10 @@ public class App extends Application {
 
             @Override
             public void onActivityPaused(Activity activity) {
+
+                if(SingletonSession.getInstance().isActive()){
+                    Log.e("SessionPaused", SingletonSession.getInstance().isActive() + "");
+                }
                 /*if (SingletonSesion.isInSession()) {
                     Log.e("SessionPaused", SingletonSesion.isInSession() + "");
                     if (!SingletonSesion.isFlowUser()) {

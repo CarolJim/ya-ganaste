@@ -53,7 +53,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="60dp"
+            android:layout_marginTop="@dimen/margin_regular"
+            android:paddingTop="@dimen/margin_regular"
             android:orientation="horizontal">
 
             <Space
@@ -62,14 +63,14 @@
 
             <RelativeLayout
                 android:layout_width="wrap_content"
-                android:layout_height="match_parent">
+                android:layout_height="match_parent"
+                android:layout_marginTop="@dimen/margin_doble">
 
                 <ImageView
                     android:id="@+id/imageView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:layout_alignParentStart="true"
                     android:layout_centerVertical="true"
                     android:scaleX="-1"
                     android:src="@mipmap/arrow_down" />
@@ -91,6 +92,7 @@
                         android:layout_height="wrap_content"
                         android:text="Los Movimientos\n de Tu Cuenta"
                         android:textSize="30sp"
+                        android:layout_marginTop="@dimen/margin_medium"
                         app:font_type="angelina" />
 
                     <RelativeLayout
@@ -103,6 +105,8 @@
                             android:layout_height="wrap_content"
                             android:layout_alignParentBottom="true"
                             android:layout_centerHorizontal="true"
+                            android:scaleX="1"
+                            android:scaleY="1"
                             android:src="@mipmap/arrow_up" />
                     </RelativeLayout>
 

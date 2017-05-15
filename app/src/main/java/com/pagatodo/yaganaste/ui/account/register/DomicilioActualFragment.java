@@ -22,6 +22,7 @@ import android.widget.Spinner;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -54,7 +55,7 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DomicilioActualFragment extends GenericFragment implements View.OnClickListener, ValidationForms,IAccountRegisterView {
+public class DomicilioActualFragment extends GenericFragment implements View.OnClickListener, ValidationForms<Object>,IAccountRegisterView<Object> {
 
     public static int MIN_LENGHT_VALIDATION_CP = 4;
     private View rootview;
@@ -254,7 +255,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     }
 
     @Override
-    public void setCurrentAddress(ObtenerDomicilioResponse domicilio) {
+    public void setCurrentAddress(DataObtenerDomicilio domicilio) {
         //No-Op
     }
 
@@ -373,7 +374,9 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
     @Override
     public void showError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+
+        if(!error.toString().isEmpty())
+            UI.showToastShort(error.toString(),getActivity());
     }
 
     @Override

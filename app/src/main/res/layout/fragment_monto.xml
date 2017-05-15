@@ -10,7 +10,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
+        android:layout_above="@+id/keyboard_view"
         android:layout_centerHorizontal="true"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
@@ -22,7 +22,7 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"
-            android:layout_marginTop="20dp"
+            android:layout_marginTop="5dp"
             android:text="@string/monto_cobrar"
             android:textColor="@color/whiteColor" />
 
@@ -36,7 +36,7 @@
             android:layout_below="@+id/layout_amount_control"
             android:layout_marginLeft="15dp"
             android:layout_marginRight="15dp"
-            android:layout_marginTop="@dimen/margin_big"
+            android:layout_marginTop="@dimen/margin_big_monto_concept"
             android:gravity="center"
             android:orientation="vertical"
             android:padding="4dp">

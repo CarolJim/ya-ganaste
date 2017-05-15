@@ -16,7 +16,15 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalo
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
+import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 
 public class SplashActivity extends AppCompatActivity implements IRequestResult {
@@ -39,11 +47,11 @@ public class SplashActivity extends AppCompatActivity implements IRequestResult 
                     if (api.isCatalogTableEmpty()) {
                         ApiAdtvo.obtenerCatalogos(new ObtenerCatalogoRequest(), iRequestResult);
                     }else {
-                        callMainActivity();
+                        callNextActivity();
                     }
                 } catch (OfflineException e) {
                     e.printStackTrace();
-                    callMainActivity();
+                    callNextActivity();
                 }
             }
         }, 2000);
@@ -61,7 +69,7 @@ public class SplashActivity extends AppCompatActivity implements IRequestResult 
                         e.printStackTrace();
                     }
                 }
-                callMainActivity();
+                callNextActivity();
                 break;
             default:
                 break;
@@ -70,12 +78,29 @@ public class SplashActivity extends AppCompatActivity implements IRequestResult 
 
     @Override
     public void onFailed(DataSourceResult error) {
-        callMainActivity();
+        callNextActivity();
     }
 
-    private void callMainActivity() {
-        Class clazz = MainActivity.class;
-        Intent intent = new Intent(SplashActivity.this, clazz);
+    private void callNextActivity() {
+        Intent intent = null;
+        /*TODO Flujo para Evitar validacions de Cuenta y Dispositivo*/
+        intent = new Intent(SplashActivity.this, MainActivity.class);
+        intent.putExtra(SELECTION,MAIN_SCREEN);
+
+        /*TODO Descomentar para validar flujo correctamente*/
+        /*if(ValidatePermissions.validateSIMCard(this)) {
+            if(!RequestHeaders.getTokenauth().isEmpty()) {
+                intent = new Intent(SplashActivity.this, AccountActivity.class);
+                intent.putExtra(SELECTION,GO_TO_LOGIN);
+            }else {
+                intent = new Intent(SplashActivity.this, MainActivity.class);
+                intent.putExtra(SELECTION,MAIN_SCREEN);
+            }
+        }else{
+            intent = new Intent(SplashActivity.this, MainActivity.class);
+            intent.putExtra(SELECTION,NO_SIM_CARD);
+        }*/
+
         startActivity(intent);
         SplashActivity.this.finish();
     }

@@ -39,5 +39,6 @@
 
     <dimen name="space">14dp</dimen>
     <dimen name="double_space">45dp</dimen>
+    <dimen name="margin_big_monto_concept">26dp</dimen>
 
 </resources>
