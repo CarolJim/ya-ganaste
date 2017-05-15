@@ -17,7 +17,9 @@ import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.SignatureData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.UI;
@@ -162,7 +164,11 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
 
     private void sendSignature(){
         if(signingView.hasSignature()){
-            adqPresenter.sendSignature();
+            SignatureData data = new SignatureData();
+            data.setSignature(signingView.getSign());
+            data.setSignatureWidth(String.valueOf(signingView.getW()));
+            data.setSignatureHeight(String.valueOf(signingView.getH()));
+            adqPresenter.sendSignature(data);
         }else {
             showError(getString(R.string.adq_error_signature));
         }
@@ -191,7 +197,19 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showError(Object error) {
-        UI.showToast(error.toString(),getActivity());
+//        UI.showToast(error.toString(),getActivity());
+        DialogDoubleActions doubleActions = new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+
+            }
+        };
+        UI.createSimpleCustomDialog("Error", error.toString(), getFragmentManager(),doubleActions, true, false);
     }
 
     private Drawable getDrawable(int res){

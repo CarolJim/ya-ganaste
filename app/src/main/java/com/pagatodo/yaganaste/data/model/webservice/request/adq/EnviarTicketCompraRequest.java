@@ -8,8 +8,9 @@ import java.io.Serializable;
 
 public class EnviarTicketCompraRequest extends AdqRequest implements Serializable{
 
-    private String email;
+    private String email = "";
     private ImplicitData implicitData;
+    private String idTransaction = "";
     private String name = "";
 
     public EnviarTicketCompraRequest() {
@@ -38,5 +39,13 @@ public class EnviarTicketCompraRequest extends AdqRequest implements Serializabl
 
     public void setName(String name) {
         this.name = name;
+    }
+
+    public String getIdTransaction() {
+        return idTransaction;
+    }
+
+    public void setIdTransaction(String idTransaction) {
+        this.idTransaction = idTransaction;
     }
 }

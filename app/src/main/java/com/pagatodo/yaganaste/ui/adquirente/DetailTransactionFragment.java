@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -99,7 +100,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @Override
     public void initViews() {
         super.initViews();
-        txtAmountPayment.setText(String.format("$%s",emvDepositResponse.getSaldo()));
+        txtAmountPayment.setText(String.format("$%s",TransactionAdqData.getCurrentTransaction().getAmount()));
         txtMaskedPan.setText(String.format("%s",emvDepositResponse.getMaskedPan()));
         imgTypeCard.setImageResource(emvDepositResponse.getMarcaTarjetaBancaria().equals("Visa") ? R.drawable.mastercard_canvas : R.drawable.mastercard_canvas);
     }
@@ -126,6 +127,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
 
     @Override
     public void onValidationSuccess() {
+        mySeekBar.setProgress(0);
         adqPresenter.sendTicket(emailToSend);
     }
 
@@ -157,7 +159,19 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
 
     @Override
     public void showError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+        DialogDoubleActions doubleActions = new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+
+            }
+        };
+        UI.createSimpleCustomDialog("Error", error.toString(), getFragmentManager(),doubleActions, true, false);
+        //UI.showToastShort(error.toString(),getActivity());
     }
 
     @Override

@@ -13,7 +13,7 @@ public class DataIniciarSesion implements Serializable{
 
     private boolean EsUsuario;
     private boolean EsCliente;
-    private boolean EsAgente = false;//EsAdquirente
+    private boolean EsAgente = true;//EsAdquirente
     private boolean EsAgenteRechazado;
     private boolean ConCuenta;
     private int EstatusDocumentacion; // TODO validar, ya que no se encuentra en la documentacion

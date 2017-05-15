@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.ui.adquirente;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.TransactionAdqData;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.SignatureData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
@@ -9,6 +11,8 @@ import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqPresenter;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
@@ -16,6 +20,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
+import static com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente.buildSignatureRequest;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 
 /**
@@ -48,15 +53,18 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
     }
 
     @Override
-    public void sendSignature() {
+    public void sendSignature(SignatureData signatureData) {
         iAdqView.showLoader("Enviando Firma");
-        adqInteractor.sendSignalVoucher(null);
+        adqInteractor.sendSignalVoucher(buildSignatureRequest(TransactionAdqData.getCurrentTransaction().getTransaccionResponse().getId_transaction(), signatureData));
     }
 
     @Override
     public void sendTicket(String email) {
             iAdqView.showLoader("Enviando Ticket");
-            adqInteractor.sendTicket(null);
+            adqInteractor.sendTicket(UtilsAdquirente.buildTicketRequest(
+                    TransactionAdqData.getCurrentTransaction().getTransaccionResponse().getId_transaction(),
+                    TransactionAdqData.getCurrentTransaction().getDescription(),
+                    email));
     }
 
     @Override
@@ -70,7 +78,6 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
         iAdqView.hideLoader();
         switch (ws){
             case REGISTRO_DONGLE:
-                ((IAdqTransactionRegisterView) iAdqView).dongleValidated();//TODO quitar este hardcode
                 iAdqView.showError(error);
                 break;
             case TRANSACCIONES_EMV_DEPOSIT:
@@ -78,10 +85,11 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
                 break;
             case FIRMA_DE_VOUCHER:
                 iAdqView.showError(error);
-                iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION, error);
+//                iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION, error);
                 break;
             case ENVIAR_TICKET_COMPRA:
-                iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT,error);
+                iAdqView.showError(error);
+//                iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT,error);
                 break;
             default:
                 iAdqView.showError(error);

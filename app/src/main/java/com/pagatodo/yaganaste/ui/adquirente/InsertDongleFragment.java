@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AccountDepositData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.Recursos;
@@ -98,6 +99,17 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     private boolean isWaitingCard = false;
 
+    public InsertDongleFragment() {
+    }
+
+    public static InsertDongleFragment newInstance(){
+
+        InsertDongleFragment fragment =  new InsertDongleFragment();
+        Bundle args = new Bundle();
+        fragment.setArguments(args);
+        return fragment;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -120,6 +132,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private BroadcastReceiver headPhonesReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
+
             if (intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
                 int state = intent.getIntExtra("state", -1);
                 switch (state) {
@@ -171,7 +184,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
             int mensaje = intent.getIntExtra(MSJ, -1);
             String error = intent.getStringExtra(ERROR);
-            Log.e(TAG, "onReceive: " + mensaje);
+
             //Procesar lectura mientras no se este validando Dongle
             //if(!validatingDng){
 
@@ -302,16 +315,13 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     }
 
 
-    public static InsertDongleFragment newInstance() {
-        InsertDongleFragment fragmentRegister = new InsertDongleFragment();
-        Bundle args = new Bundle();
-        fragmentRegister.setArguments(args);
-        return fragmentRegister;
-    }
+
 
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
+        Log.e(TAG,"onAttach ");
+
         Activity activity = null;
 
         if (context instanceof Activity) {
@@ -323,18 +333,19 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void onDetach() {
         super.onDetach();
+       App.getInstance().getBaseContext();
     }
 
 
     @Override
     public void onStart() {
         super.onStart();
+
     }
 
     @Override
     public void onStop() {
         super.onStop();
-
     }
 
     @Override
@@ -354,6 +365,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
+
         App.getInstance().pos.openAudio();
         maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
@@ -362,11 +374,13 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void onPause() {
         super.onPause();
+
         App.getInstance().pos.closeAudio();
     }
 
     @Override
     public void onDestroy() {
+
         unregisterReceiverDongle();
         unregisterReceiverHeadPhone();
         super.onDestroy();
@@ -469,7 +483,18 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void showError(Object error) {
         UI.showToast(error.toString(),getActivity());
+        DialogDoubleActions doubleActions = new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
 
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+
+            }
+        };
+        UI.createSimpleCustomDialog("Error", error.toString(), getFragmentManager(),doubleActions, true, false);
     }
 
     public void initListenerDongle(){
