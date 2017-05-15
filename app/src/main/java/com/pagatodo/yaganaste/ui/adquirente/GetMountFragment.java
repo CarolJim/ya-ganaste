@@ -162,6 +162,7 @@ public class GetMountFragment extends PaymentFormBaseFragment {
                     TransactionAdqData.getCurrentTransaction().setDescription(current_concept);
                     setData("", "");
                     mySeekBar.setProgress(0);
+                    NumberCalcTextWatcher.cleanData();
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
                     startActivity(intent);
                 } else showValidationError("El monto tiene que ser mayor");
