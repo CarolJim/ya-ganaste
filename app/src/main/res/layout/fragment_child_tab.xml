@@ -22,7 +22,7 @@
             android:layout_alignParentLeft="true"
             android:layout_marginRight="-2dp"
             android:background="@drawable/tab_selected"
-            android:text="Recargas" />
+            android:text="@string/tab_recargas" />
 
         <Button
             android:id="@+id/tab_servicios"
@@ -33,7 +33,7 @@
             android:layout_toLeftOf="@+id/tab_envios"
             android:layout_toRightOf="@+id/tab_recargas"
             android:background="@drawable/right_tab"
-            android:text="Servicios" />
+            android:text="@string/tab_servicios" />
 
         <Button
             android:id="@+id/tab_envios"
@@ -43,7 +43,7 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="-2dp"
             android:background="@drawable/tab_unselected"
-            android:text="Envios" />
+            android:text="@string/tab_envios" />
 
 
     </RelativeLayout>
@@ -63,7 +63,7 @@
                 android:layout_width="250dp"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="30dp"
+                android:layout_marginTop="@dimen/margin_regular"
                 android:orientation="vertical">
 
                 <FrameLayout
@@ -82,7 +82,7 @@
                             android:layout_height="@dimen/radio_image_pago"
                             android:src="@mipmap/icon_user"
                             app:civ_border_color="@color/colorAccent"
-                            app:civ_border_width="2dp" />
+                            app:civ_border_width="@dimen/border_width" />
 
                     </RelativeLayout>
 
@@ -103,7 +103,7 @@
                             android:layout_centerHorizontal="true"
                             android:src="@mipmap/blacksquare"
                             app:civ_border_color="@color/black"
-                            app:civ_border_width="2dp" />
+                            app:civ_border_width="@dimen/border_width" />
 
                         <ImageView
                             android:id="@+id/imgPagosServiceToPay"
@@ -136,7 +136,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center_horizontal"
-                            android:layout_marginTop="10dp"
+                            android:layout_marginTop="@dimen/fab_margin"
                             android:gravity="center"
                             android:orientation="vertical">
 
@@ -162,7 +162,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
-                                    android:text="Tu Saldo: "
+                                    android:text="@string/your_balance"
                                     android:textSize="12sp"
                                     app:tipo="Subtitulo" />
 
@@ -175,7 +175,7 @@
                                     android:layout_toEndOf="@+id/txtPagosYourBalance"
                                     android:layout_toRightOf="@+id/txtPagosYourBalance"
                                     android:gravity="center"
-                                    android:text="70"
+                                    android:text="00"
                                     android:textAlignment="center"
                                     android:textSize="8sp"
                                     app:dotBottom="false"
