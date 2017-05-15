@@ -87,10 +87,6 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
 
     @Override
     public void registerDongle() {
-//TODO QUITAR HARDCODE
-        RequestHeaders.setTokenAdq("1dce5630c4ceec225a34382f940d067f27b476b9074a3170c101686224e56893");
-        RequestHeaders.setIdCuentaAdq("12044");
-//        if(!RequestHeaders.getTokenAdq().isEmpty()){
             String serial = prefs.loadData(KSN_LECTOR);
             RegistroDongleRequest request = new RegistroDongleRequest(serial);
             try {
@@ -99,11 +95,6 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 accountManager.hideLoader();
                 accountManager.onError(REGISTRO_DONGLE, context.getString(R.string.no_internet_access));
             }
-//        }else{
-//            accountOperation = LOGIN_ADQ_PAYMENT;
-//            loginAdq();
-//        }
-
 // FLUJO DUMMY
 //        new Handler().postDelayed(new Runnable() {
 //            public void run() {
@@ -115,7 +106,6 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     @Override
     public void initPayment(final TransaccionEMVDepositRequest request) {
         try {
-            RequestHeaders.setIdCuentaAdq("12044");//TODO HARDCODE
             ApiAdq.transaccionEMVDeposit(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
@@ -191,7 +181,6 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     @Override
     public void sendSignalVoucher(FirmaDeVoucherRequest request) {
         try {
-            RequestHeaders.setIdCuentaAdq("12044");//TODO HARDCODE
             ApiAdq.firmaDeVoucher(request,this);
         } catch (OfflineException e) {
             e.printStackTrace();
@@ -440,14 +429,4 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             accountManager.onError(response.getWebService(),data.getMessage());//Retornamos mensaje de error.
         }
     }
-
-    private TransaccionEMVDepositResponse dummyTransactionResponse(){
-        TransaccionEMVDepositResponse response = new TransaccionEMVDepositResponse();
-        response.setId_transaction("4329");
-        response.setMarcaTarjetaBancaria("Visa");
-        response.setMaskedPan("**** **** **** *432");
-        response.setSaldo(TransactionAdqData.getCurrentTransaction().getAmount());
-        return response;
-    }
-
 }
