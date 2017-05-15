@@ -58,6 +58,11 @@
     <dimen name="width_icon_error">18dp</dimen>
     <dimen name="height_icon_error">18dp</dimen>
     <dimen name="margin_big_monto_concept">18dp</dimen>
+    <dimen name="border_width">2dp</dimen>
 
+    <dimen name="text_size_small">8sp</dimen>
+    <dimen name="text_size_normal">12sp</dimen>
+    <dimen name="text_size_title_s">18sp</dimen>
+    <dimen name="text_size_title">20sp</dimen>
 </resources>
 

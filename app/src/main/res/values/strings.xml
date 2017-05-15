@@ -182,6 +182,8 @@
     <string name="txt_importe">Importe:</string>
     <string name="txt_fecha">Fecha:</string>
     <string name="txt_hora">Hora:</string>
+    <string name="beneficiario">A:</string>
+    <string name="txt_enter_password">Ingresa tu Contraseña Para \nAutorizar Este Movimiento</string>
     <string name="txt_fecha_hora">Fecha y Hora:</string>
     <string name="hint_concepto">Concepto</string>
     <string name="txt_concepto">Concepto:</string>
@@ -224,11 +226,12 @@
     <string name="phone_number">Teléfono del Comercio</string>
     <string name="title_activity_depositos_maps">Depositos</string>
     <string name="rfchomoclave">Homoclave</string>
-    <string name="title_activity_plug_card_reader_to_register">PlugCardReaderToRegisterActivity
-    </string>
+    <string name="title_activity_plug_card_reader_to_register">PlugCardReaderToRegisterActivity</string>
     <string name="cuenta_personal">CUENTA PERSONAL</string>
     <string name="cobros_con_tarjeta">COBROS CON TARJETA</string>
     <string name="saldo_comercial">SALDO COMERCIAL</string>
+
+    <string name="authorize_payment_title">Autoriza el Envío</string>
 
     <string name="action_picture">Seleccionar Fotografía</string>
     <string name="action_take_picture">Abrir Cámara</string>
@@ -420,8 +423,6 @@
     <string name="title_error">Ocurrió Un Error</string>
 
 
-
-
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
     <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01-800-500-1000\n informes@yaganaste.com</string>
     <string name="documents_comprobantes">CFE,Telefono,Agua(No mayor a 3 meses)</string>
@@ -454,6 +455,26 @@
     <string name="obteniendo_colonias">Obteniendo Colonias</string>
     <string name="obteniendo_domicilio">Obteniendo Domicilio</string>
     <string name="obteniendo_giros">Obteniendo Giros</string>
+
+    <string name="listo">¡Listo!</string>
+    <string name="recibo_enviado">El Recibo Fue Enviado con Éxito.</string>
+
+
+    <string name="continuar">Continuar</string>
+    <string name="tab_recargas">Recargas</string>
+    <string name="tab_servicios">Servicios</string>
+    <string name="tab_envios">Envios</string>
+    <string name="your_balance">Tu Saldo: </string>
+    <string name="btn_send">Enviar</string>
+    <string name="no_services_msg">Cargando servicios...(*)</string>
+    <string name="recharge_success_title">¡Recarga Exitosa!</string>
+    <string name="txt_comision">Comisión</string>
+    <string name="txt_phone_b">Teléfono: </string>
+    <string name="add_favorites">Agregar a Favoritos</string>
+    <string name="email_send_ticket">¿A Qué Correo Electrónico \nEnvíamos Tu Recibo?</string>
+    <string name="btn_recharge_txt">Recarga</string>
+    <string name="btn_payment_txt">Pagar</string>
+>>>>>>> 0f18104aee2e840bf6c224ec6d2ec03c6d96caab
 </resources>
 
 

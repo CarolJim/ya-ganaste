@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.data.model;
 
+import android.os.Parcel;
+import android.os.Parcelable;
 import android.support.annotation.IdRes;
 import android.support.annotation.StyleRes;
 
@@ -11,7 +13,8 @@ import java.io.Serializable;
  * Created by flima on 18/04/2017.
  */
 
-public class PageResult  implements Serializable{
+public class PageResult implements Parcelable{
+
     public static final String BTN_DIRECTION_NEXT   = "direction_next";
     public static final String BTN_DIRECTION_BACK   = "direction_back";
     public static final String BTN_ACTION_OK        = "action_ok";
@@ -40,6 +43,30 @@ public class PageResult  implements Serializable{
         this.message = message;
         this.hasSecondaryAction = hasErrorAction;
     }
+
+    protected PageResult(Parcel in) {
+        idResurceIcon = in.readInt();
+        title = in.readString();
+        message = in.readString();
+        description = in.readString();
+        namerBtnPrimary = in.readString();
+        namerBtnSecondary = in.readString();
+        hasSecondaryAction = in.readByte() != 0;
+        btnPrimaryType = in.readString();
+        btnSecundaryType = in.readString();
+    }
+
+    public static final Creator<PageResult> CREATOR = new Creator<PageResult>() {
+        @Override
+        public PageResult createFromParcel(Parcel in) {
+            return new PageResult(in);
+        }
+
+        @Override
+        public PageResult[] newArray(int size) {
+            return new PageResult[size];
+        }
+    };
 
     public String getTitle() {
         return title;
@@ -126,6 +153,24 @@ public class PageResult  implements Serializable{
 
     public void setDescription(String description) {
         this.description = description;
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeInt(idResurceIcon);
+        dest.writeString(title);
+        dest.writeString(message);
+        dest.writeString(description);
+        dest.writeString(namerBtnPrimary);
+        dest.writeString(namerBtnSecondary);
+        dest.writeByte((byte) (hasSecondaryAction ? 1 : 0));
+        dest.writeString(btnPrimaryType);
+        dest.writeString(btnSecundaryType);
     }
 }
 

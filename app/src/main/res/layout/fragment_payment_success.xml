@@ -26,7 +26,7 @@
             android:layout_height="0dp"
             android:layout_weight="10"
             android:gravity="center"
-            android:text="¡Recarga Exitosa!"
+            android:text="@string/recharge_success_title"
             android:textColor="@color/colorAccent"
             android:textSize="20sp"
             app:tipo="Subtitulo" />
@@ -37,7 +37,7 @@
             android:layout_height="0dp"
             android:layout_weight="5"
             android:gravity="center"
-            android:text="Importe:"
+            android:text="@string/txt_importe"
             android:textSize="16sp" />
 
 
@@ -47,7 +47,7 @@
             android:layout_height="0dp"
             android:layout_weight="10"
             android:gravity="center"
-            android:text="70"
+            android:text="00"
             android:textAlignment="center"
             android:textSize="22sp"
             app:dotBottom="false"
@@ -74,7 +74,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="Comisión: "
+                    android:text="@string/txt_comision"
                     android:textSize="12sp"
                     app:tipo="Descripcion" />
 
@@ -83,7 +83,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="30"
+                    android:text="00"
                     android:textSize="10sp"
                     app:dotBottom="false"
                     app:symbolSmaller="true"
@@ -98,7 +98,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_horizontal|bottom"
-                android:text="Teléfono:"
+                android:text="@string/txt_phone_b"
                 android:textSize="16sp"
                 app:tipo="Descripcion" />
 
@@ -144,7 +144,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="end"
-                android:text="Autorización:" />
+                android:text="@string/autorizacion" />
 
             <android.support.v4.widget.Space
                 android:layout_width="5dp"
@@ -169,7 +169,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="end"
-                android:text="Fecha:" />
+                android:text="@string/txt_fecha" />
 
             <android.support.v4.widget.Space
                 android:layout_width="5dp"
@@ -194,7 +194,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:gravity="end"
-                android:text="Hora:" />
+                android:text="@string/txt_hora" />
 
             <android.support.v4.widget.Space
                 android:layout_width="5dp"
@@ -240,7 +240,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
                 android:gravity="center_horizontal|top"
-                android:text="Agregar a Favoritos"
+                android:text="@string/add_favorites"
                 android:visibility="gone" />
         </LinearLayout>
 
@@ -259,7 +259,7 @@
                 android:layout_height="0dp"
                 android:layout_weight="1"
                 android:gravity="center_horizontal|bottom"
-                android:text="¿A Qué Correo Electrónico \nEnvíamos Tu Recibo?"
+                android:text="@string/email_send_ticket"
                 android:textColor="@color/colorAccent" />
 
             <RelativeLayout
@@ -285,7 +285,7 @@
                         android:layout_marginStart="15dp"
                         android:background="@null"
                         android:backgroundTint="@color/transparent"
-                        android:hint="Correo Electrónico"
+                        android:hint="@string/txt_mail"
                         android:inputType="text|textPassword"
                         android:maxLength="40"
                         android:paddingBottom="6dp"
@@ -316,9 +316,9 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/margin_medium"
                 android:layout_weight="40"
-                android:text="Continuar"
-                android:textAllCaps="false"
-                android:background="@drawable/selector_btn_continuar"/>
+                android:background="@drawable/selector_btn_continuar"
+                android:text="@string/continuar"
+                android:textAllCaps="false" />
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"

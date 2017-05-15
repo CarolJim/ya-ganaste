@@ -123,7 +123,7 @@
             android:progressDrawable="@android:color/transparent"
             android:thumb="@drawable/thumb_size"
             android:thumbOffset="15dp"
-            app:text="Pagar" />
+            app:text="@string/btn_payment_txt" />
     </RelativeLayout>
 
 </RelativeLayout>

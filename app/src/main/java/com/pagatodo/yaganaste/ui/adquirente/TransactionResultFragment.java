@@ -7,13 +7,11 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.content.ContextCompat;
-import android.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.PageResult;
@@ -22,13 +20,12 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import java.io.Serializable;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.data.model.PageResult.BTN_ACTION_ERROR;
-import static com.pagatodo.yaganaste.data.model.PageResult.BTN_ACTION_OK;
 import static com.pagatodo.yaganaste.data.model.PageResult.BTN_DIRECTION_BACK;
 import static com.pagatodo.yaganaste.data.model.PageResult.BTN_DIRECTION_NEXT;
 
@@ -49,11 +46,10 @@ public class TransactionResultFragment extends GenericFragment implements View.O
 
     @BindView(R.id.txtSubtitleResult)
     StyleTextView txtMessageResult;
-
-//    @BindView(R.id.btnNextResult)
-//    StyleButton btnPrimaryResult;
-//    @BindView(R.id.btnErrorResult)
-//    StyleButton btnSecondaryResult;
+    //@BindView(R.id.btnNextResult)
+    //StyleButton btnPrimaryResult;
+    //@BindView(R.id.btnErrorResult)
+    //StyleButton btnSecondaryResult;
     @BindView(R.id.layoutButtonsResult)
     LinearLayout llContentBtns;
 
@@ -63,20 +59,12 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     private PageResult pageResultData;
 
     @IdRes
-    private static final int idBtnPrimary    = 43322;
+    private static final int idBtnPrimary = 43322;
 
     @IdRes
-    private static final int idBtnSecondary  = 43321;
+    private static final int idBtnSecondary = 43321;
 
     public TransactionResultFragment() {
-    }
-
-    public static TransactionResultFragment newInstance(PageResult pageResult){
-        TransactionResultFragment fragmentRegister = new TransactionResultFragment();
-        Bundle args = new Bundle();
-        args.putSerializable(KEY_PAGE_RESULT,pageResult);
-        fragmentRegister.setArguments(args);
-        return fragmentRegister;
     }
 
     @Override
@@ -90,12 +78,21 @@ public class TransactionResultFragment extends GenericFragment implements View.O
 
     }
 
+    public static TransactionResultFragment newInstance(PageResult pageResult) {
+
+        TransactionResultFragment fragmentRegister = new TransactionResultFragment();
+            Bundle args = new Bundle();
+            args.putParcelable(KEY_PAGE_RESULT, pageResult);
+            fragmentRegister.setArguments(args);
+            return fragmentRegister;
+    }
+
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        pageResultData = (PageResult) getArguments().get(KEY_PAGE_RESULT);
+        pageResultData = (PageResult) getArguments().getParcelable(KEY_PAGE_RESULT);
     }
 
     @Override
@@ -131,14 +128,14 @@ public class TransactionResultFragment extends GenericFragment implements View.O
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case idBtnPrimary:
-                if(pageResultData.getActionBtnPrimary() != null)
-                    pageResultData.getActionBtnPrimary().action(getActivity(),this);
+                if (pageResultData.getActionBtnPrimary() != null)
+                    pageResultData.getActionBtnPrimary().action(getActivity(), this);
                 break;
             case idBtnSecondary:
-                if(pageResultData.getActionBtnSecondary() != null)
-                    pageResultData.getActionBtnSecondary().action(getActivity(),this);
+                if (pageResultData.getActionBtnSecondary() != null)
+                    pageResultData.getActionBtnSecondary().action(getActivity(), this);
                 break;
             default:
                 break;
@@ -148,12 +145,12 @@ public class TransactionResultFragment extends GenericFragment implements View.O
 
     @Override
     public void nextScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
@@ -170,39 +167,41 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     public void showError(Object error) {
 
     }
-    private void setAndConfigureBtns(LinearLayout llContentBtns){
-        if(llContentBtns != null){
+
+    private void setAndConfigureBtns(LinearLayout llContentBtns) {
+        if (llContentBtns != null) {
             StyleButton btnPrimary = createButton(pageResultData.getBtnPrimaryType());
             btnPrimary.setOnClickListener(this);
             btnPrimary.setId(idBtnPrimary);
             btnPrimary.setText(pageResultData.getNamerBtnPrimary());
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pageResultData.isHasSecondaryAction() ? 0 : ViewGroup.LayoutParams.WRAP_CONTENT,
                     (int) getResources().getDimension(R.dimen.height_btns));
-            if(pageResultData.isHasSecondaryAction()){
+            if (pageResultData.isHasSecondaryAction()) {
                 params.weight = 1;
             }
-            params.setMargins(getResources().getDimensionPixelSize(R.dimen.margin_medium),getResources().getDimensionPixelSize(R.dimen.margin_medium),
-                    getResources().getDimensionPixelSize(R.dimen.margin_medium),getResources().getDimensionPixelSize(R.dimen.margin_medium));
+            params.setMargins(getResources().getDimensionPixelSize(R.dimen.margin_medium), getResources().getDimensionPixelSize(R.dimen.margin_medium),
+                    getResources().getDimensionPixelSize(R.dimen.margin_medium), getResources().getDimensionPixelSize(R.dimen.margin_medium));
             btnPrimary.setLayoutParams(params);
             llContentBtns.addView(btnPrimary);
-            if(pageResultData.isHasSecondaryAction()){
+            if (pageResultData.isHasSecondaryAction()) {
                 StyleButton btnSecondary = createButton(pageResultData.getBtnSecundaryType());
                 btnSecondary.setOnClickListener(this);
                 btnSecondary.setId(idBtnSecondary);
                 btnSecondary.setText(pageResultData.getNamerBtnSecondary());
                 LinearLayout.LayoutParams paramss = new LinearLayout.LayoutParams(0, (int) getResources().getDimension(R.dimen.height_btns));
                 paramss.weight = 1;
-                paramss.setMargins(getResources().getDimensionPixelSize(R.dimen.margin_medium),getResources().getDimensionPixelSize(R.dimen.margin_medium),
-                        getResources().getDimensionPixelSize(R.dimen.margin_medium),getResources().getDimensionPixelSize(R.dimen.margin_medium));
+                paramss.setMargins(getResources().getDimensionPixelSize(R.dimen.margin_medium), getResources().getDimensionPixelSize(R.dimen.margin_medium),
+                        getResources().getDimensionPixelSize(R.dimen.margin_medium), getResources().getDimensionPixelSize(R.dimen.margin_medium));
                 btnSecondary.setLayoutParams(paramss);
                 llContentBtns.addView(btnSecondary);
             }
         }
     }
-    private StyleButton createButton(String types){
+
+    private StyleButton createButton(String types) {
         StyleButton button = new StyleButton(getActivity());
         button.setTransformationMethod(null);
-        switch (types){
+        switch (types) {
             case BTN_DIRECTION_NEXT:
                 button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.continuar_canvas));
                 button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));

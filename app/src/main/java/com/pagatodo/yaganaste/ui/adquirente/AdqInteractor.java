@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.adquirente;
 
 import android.content.Context;
 import android.os.Handler;
+import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -34,6 +35,7 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 
 import java.io.Serializable;
+import java.util.concurrent.ExecutionException;
 
 import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.LOGIN_ADQ_PAYMENT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
@@ -54,9 +56,9 @@ import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
  */
 
 public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResult {
-
+    private String TAg = getClass().getSimpleName();
     private final int MAX_REINTENTOS = 3;
-    private String TAG = AdqInteractor.class.getName();
+    private String TAG = getClass().getSimpleName();
     private IAccountManager accountManager;
     private AccountOperation accountOperation;
     private Preferencias prefs = App.getInstance().getPrefs();
@@ -336,21 +338,6 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     private void processTransactionResult(DataSourceResult response) {
         TransaccionEMVDepositResponse data = (TransaccionEMVDepositResponse) response.getData();
         TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
-//                result.setStatusTransaction(ADQ_TRANSACTION_APROVE);
-//                result.setResponseCode(0);
-//                result.setTransaccionResponse(dummyTransactionResponse());
-//                PageResult pageResult = new PageResult(R.drawable.ic_done, context.getString(R.string.adq_aproved), context.getString(R.string.adq_succes_aproved),false);
-//                pageResult.setNamerBtnPrimary(context.getString(R.string.nextButton));
-//                pageResult.setActionBtnPrimary(new Command() {
-//                    @Override
-//                    public void action(Context context, Object... params) {
-//                        INavigationView viewInterface = (INavigationView) params[0];
-//                        viewInterface.nextScreen(EVENT_GO_REMOVE_CARD, "Ejecución Éxitosa");
-//                    }
-//                });
-//                pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
-//                result.setPageResult(pageResult);
-//                accountManager.onSucces(response.getWebService(),data.getError().getMessage());
         switch (data.getError().getId()){
             case ADQ_CODE_OK:
                 result.setStatusTransaction(ADQ_TRANSACTION_APROVE);

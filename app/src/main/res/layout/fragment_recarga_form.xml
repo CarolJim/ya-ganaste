@@ -86,6 +86,6 @@
             android:progressDrawable="@android:color/transparent"
             android:thumb="@drawable/thumb_size"
             android:thumbOffset="15dp"
-            app:text="Recarga" />
+            app:text="@string/btn_recharge_txt" />
     </RelativeLayout>
 </RelativeLayout>
