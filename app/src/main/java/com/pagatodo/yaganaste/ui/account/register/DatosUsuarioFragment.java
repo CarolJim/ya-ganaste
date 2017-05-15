@@ -459,6 +459,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         emailValidatedByWS = false;
         userExist = true;
         editMail.setIsInvalid();
+        editMail.requestFocus();
         showValidationError(getString(R.string.datos_usuario_correo_existe));
     }
 
