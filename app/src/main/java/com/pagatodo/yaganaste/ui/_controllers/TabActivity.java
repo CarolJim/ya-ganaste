@@ -117,6 +117,11 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
     }
 
     @Override
+    protected void onPostResume() {
+        super.onPostResume();
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
 
@@ -188,11 +193,11 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
             } else if (childFragment != null && requestCode == BACK_FROM_PAYMENTS) {
                 if (data != null && data.getStringExtra(RESULT) != null && data.getStringExtra(RESULT).equals(Constants.RESULT_ERROR)) {
                     if (childFragment != null) {
-                        UI.createSimpleCustomDialog("Error!", data.getStringExtra(MESSAGE), getSupportFragmentManager(), getLocalClassName());
                         PaymentFormBaseFragment paymentFormBaseFragment = getVisibleFragment(childFragment.getChildFragmentManager().getFragments());
                         if (paymentFormBaseFragment != null) {
                             paymentFormBaseFragment.setSeekBarProgress(0);
                         }
+                        UI.createSimpleCustomDialog("Error!", data.getStringExtra(MESSAGE), getSupportFragmentManager(), getLocalClassName());
                     }
                 } else {
                     Intent intent = getIntent();
@@ -265,7 +270,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
 
     @Override
     protected void onPause() {
-        super.onResume();
+        super.onPause();
         if (pref.containsData(COUCHMARK_EMISOR) && SingletonSession.getInstance().isFinish()) {
             SingletonSession.getInstance().setFinish(false);
             finish();

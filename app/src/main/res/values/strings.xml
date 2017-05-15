@@ -470,6 +470,12 @@
     <string name="email_send_ticket">¿A Qué Correo Electrónico \nEnvíamos Tu Recibo?</string>
     <string name="btn_recharge_txt">Recarga</string>
     <string name="btn_payment_txt">Pagar</string>
+    
+    <string name="txt_referencia_error">Error al introducir el campo referencia.</string>
+    <string name="txt_referencia_empty">El campo referencia está vacío.</string>
+    <string name="txt_importe_empty">El campo importe está vacío.</string>
+    <string name="txt_importe_error">El importe es incorrecto.</string>
+    <string name="txt_concept_empty">El campo concepto está vacío.</string>
 </resources>
 
 
