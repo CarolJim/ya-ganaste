@@ -36,6 +36,9 @@ import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesIFEBack;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesIFEfront;
 import static com.pagatodo.yaganaste.interfaces.enums.DataSource.WS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
@@ -67,6 +70,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             ApiAdtvo.obtenerColoniasPorCP(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.onError(OBTENER_COLONIAS_CP , context.getString(R.string.no_internet_access));
         }
     }
 
@@ -120,12 +124,12 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
     @Override
     public void getEstatusDocs(View view) {
-
         try {
             ApiAdtvo.obtenerDocumentos(this);
-
         } catch (OfflineException e) {
             e.printStackTrace();
+            accountManager.onError(OBTENER_DOCUMENTOS , context.getString(R.string.no_internet_access));
+
         }
 
     }
@@ -136,7 +140,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             ApiAdtvo.obtenerDomicilioPrincipal(this);
         } catch (OfflineException e) {
             e.printStackTrace();
-
+            accountManager.onError(OBTENER_DOMICILIO,context.getString(R.string.no_internet_access));
         }
     }
 
@@ -151,7 +155,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         request.setCuestionario(registerAgent.getCuestionario());
         onSuccess(new DataSourceResult(CREAR_AGENTE, WS, null));
        /*
-
         try {
             ApiAdtvo.crearAgente(request, this);
         } catch (OfflineException e) {

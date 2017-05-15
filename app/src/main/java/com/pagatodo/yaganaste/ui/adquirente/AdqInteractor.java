@@ -29,7 +29,9 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
 import com.pagatodo.yaganaste.interfaces.enums.AccountOperation;
 import com.pagatodo.yaganaste.interfaces.enums.DataSource;
+import com.pagatodo.yaganaste.net.Api;
 import com.pagatodo.yaganaste.net.ApiAdq;
+import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
@@ -210,6 +212,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     public void sendTicket(EnviarTicketCompraRequest request) {
         try {
             ApiAdq.enviarTicketCompra(request,this);
+
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.hideLoader();
