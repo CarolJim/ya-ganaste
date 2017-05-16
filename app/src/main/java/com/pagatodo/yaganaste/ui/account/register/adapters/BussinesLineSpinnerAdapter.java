@@ -115,7 +115,7 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<SubGiro> {
             holder = (BussinesLineSpinnerAdapter.ViewHolder) row.getTag();
         }
 
-        row.setOnClickListener(new View.OnClickListener() {
+        holder.editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 parent.performClick();

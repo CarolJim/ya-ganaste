@@ -96,13 +96,14 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
 
             holder = new SpinnerArrayAdapter.ViewHolder();
             holder.editText = (StyleEdittext) row.findViewById(R.id.editTextCustomSpinner);
+
             holder.downArrow = (ImageView) row.findViewById(R.id.imageViewCustomSpinner);
             row.setTag(holder);
         } else {
             holder = (SpinnerArrayAdapter.ViewHolder) row.getTag();
         }
 
-        row.setOnClickListener(new View.OnClickListener() {
+        holder.editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 parent.performClick();

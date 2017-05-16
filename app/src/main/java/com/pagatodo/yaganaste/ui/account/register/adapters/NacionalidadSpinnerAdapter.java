@@ -77,7 +77,7 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
             holder = (NacionalidadSpinnerAdapter.ViewHolder) row.getTag();
         }
 
-        row.setOnClickListener(new View.OnClickListener() {
+        holder.editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 parent.performClick();

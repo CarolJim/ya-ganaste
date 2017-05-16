@@ -43,7 +43,7 @@ public class ColoniasArrayAdapter extends ArrayAdapter<String> {
         return mList.get(position);
     }
 
-    private View getCustomView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
+    private View getCustomView(int position, @Nullable View convertView, @NonNull final ViewGroup parent){
         View row = convertView;
         ViewHolder holder;
         String item = mList.get(position);
@@ -58,6 +58,14 @@ public class ColoniasArrayAdapter extends ArrayAdapter<String> {
         }else {
             holder = (ViewHolder) row.getTag();
         }
+
+        holder.editText.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                parent.performClick();
+            }
+        });
+
 
         if(position == 0){
             holder.editText.setHint(item);

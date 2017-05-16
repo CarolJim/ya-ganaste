@@ -16,6 +16,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.Spinner;
 
@@ -74,7 +75,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     @BindView(R.id.txtLegales)
     StyleTextView txtLegales;
     @BindView(R.id.radioBtnTerms)
-    RadioButton radioBtnTerms;
+    CheckBox radioBtnTerms;
     @BindView(R.id.btnBackDomicilioActual)
     StyleButton btnBackDomicilioActual;
     @BindView(R.id.btnNextDomicilioActual)
@@ -155,6 +156,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         spColonia.setAdapter(adapterColonia);
         btnNextDomicilioActual.setOnClickListener(this);
         btnBackDomicilioActual.setOnClickListener(this);
+        radioBtnTerms.setOnClickListener(this);
         editState.setTextEnabled(false);
         setCurrentData();// Seteamos datos si hay registro en proceso.
         setClickLegales();

@@ -14,9 +14,9 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:layout_toRightOf="@+id/progressLayout"
+        android:layout_toEndOf="@+id/progressLayout">
 
         <include
             android:id="@+id/toolbarLy"
@@ -141,11 +141,16 @@
                 android:layout_below="@+id/errorMessage"
                 android:layout_marginBottom="@dimen/margin_medium"
                 android:orientation="horizontal">
-                <RadioButton
+
+                <CheckBox
                     android:id="@+id/radioBtnTerms"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:theme="@style/RadioButtonTheme" />
+                    android:layout_width="18dp"
+                    android:layout_height="18dp"
+                    android:background="@drawable/radio_btn"
+                    android:button="@null"
+                    android:checked="true"
+                    />
+
                 <LinearLayout
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
