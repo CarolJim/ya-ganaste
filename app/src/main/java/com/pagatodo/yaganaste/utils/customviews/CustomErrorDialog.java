@@ -8,6 +8,8 @@ import android.app.Dialog;
 import android.os.Bundle;
 import android.support.annotation.LayoutRes;
 import android.support.v4.app.DialogFragment;
+import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +20,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 
@@ -145,6 +148,28 @@ public class CustomErrorDialog extends DialogFragment {
         return dialog;
     }
 
+
+    @Override
+    public void show(FragmentManager manager, String tag) {
+        try {
+            Field dismissed = getClass().getSuperclass().getDeclaredField("mDismissed");
+            Field shown = getClass().getSuperclass().getDeclaredField("mShownByMe");
+            shown.setAccessible(true);
+            dismissed.setAccessible(true);
+
+            dismissed.set(this, false);
+            shown.set(this, true);
+
+            FragmentTransaction ft = manager.beginTransaction();
+            ft.add(this, tag);
+            ft.commitAllowingStateLoss();
+
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * Método para setear el {@link DialogDoubleActions} del dialog

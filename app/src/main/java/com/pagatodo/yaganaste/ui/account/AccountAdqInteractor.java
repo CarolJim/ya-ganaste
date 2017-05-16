@@ -9,6 +9,7 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
@@ -38,6 +39,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.DataSource.WS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
@@ -69,8 +71,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         try {
             ApiAdtvo.obtenerColoniasPorCP(request, this);
         } catch (OfflineException e) {
-            e.printStackTrace();
-            accountManager.onError(OBTENER_COLONIAS_CP , context.getString(R.string.no_internet_access));
+            accountManager.onError(OBTENER_COLONIAS_CP, App.getInstance().getString(R.string.no_internet_access));
         }
     }
 
@@ -127,9 +128,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         try {
             ApiAdtvo.obtenerDocumentos(this);
         } catch (OfflineException e) {
-            e.printStackTrace();
-            accountManager.onError(OBTENER_DOCUMENTOS , context.getString(R.string.no_internet_access));
-
+            accountManager.onError(OBTENER_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
         }
 
     }
@@ -139,8 +138,8 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         try{
             ApiAdtvo.obtenerDomicilioPrincipal(this);
         } catch (OfflineException e) {
-            e.printStackTrace();
-            accountManager.onError(OBTENER_DOMICILIO,context.getString(R.string.no_internet_access));
+            accountManager.onError(OBTENER_DOMICILIO_PRINCIPAL, App.getInstance().getString(R.string.no_internet_access));
+
         }
     }
 

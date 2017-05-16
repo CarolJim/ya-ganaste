@@ -209,8 +209,6 @@ public class ApiAdtvo extends Api {
     public static void consultarMovimientosMes(ConsultarMovimientosRequest request, IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        // TODO: 08/05/2017
-        headers.put(RequestHeaders.TokenSesion, "1853B51F33140449629C1F734B5571C131F7E600E6E2D752FAD2F7B4D4525BD7DFDCFB0003F2FC40965A35F86E5E96C3");
         NetFacade.consumeWS(CONSULTAR_MOVIMIENTOS_MES,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getMovementsByMonthUrl),
                 headers,request, ConsultarMovimientosMesResponse.class,result);
@@ -531,8 +529,6 @@ public class ApiAdtvo extends Api {
     public static void obtenerSubgiros(IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        // TODO: 05/05/2017 Quitar este token
-        headers.put(RequestHeaders.TokenSesion, "1853B51F33140449629C1F734B5571C131F7E600E6E2D752FAD2F7B4D4525BD7DFDCFB0003F2FC40965A35F86E5E96C3");
         NetFacade.consumeWS(OBTENER_SUBGIROS,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerSubgiros),
                 headers,null, ObtenerSubgirosResponse.class,result);
@@ -547,8 +543,6 @@ public class ApiAdtvo extends Api {
     public static void obtenerDomicilioPrincipal(IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        // TODO: 05/05/2017 Quitar este token
-        headers.put(RequestHeaders.TokenSesion, "1853B51F33140449629C1F734B5571C131F7E600E6E2D752FAD2F7B4D4525BD7DFDCFB0003F2FC40965A35F86E5E96C3");
         NetFacade.consumeWS(OBTENER_DOMICILIO_PRINCIPAL,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerDomicilioPrincipal),
                 headers,null, ObtenerDomicilioResponse.class,result);
@@ -567,8 +561,6 @@ public class ApiAdtvo extends Api {
     /*public static void obtenerDomicilioPrincipal(IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        // TODO: 04/05/2017
-        headers.put(RequestHeaders.TokenSesion, "DFB92E71E6BED2E09722233C7C7FC93135C5941DD3A402DF1383D9967793ECD9A5894FFC9A39F88AB53B082EA71B1158");
 
         NetFacade.consumeWS(OBTENER_DOMICILIO,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerDomicilio),

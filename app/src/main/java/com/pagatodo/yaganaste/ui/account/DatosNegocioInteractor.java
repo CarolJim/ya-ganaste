@@ -1,16 +1,20 @@
 package com.pagatodo.yaganaste.ui.account;
 
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.SubGiro;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerSubgirosResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IDatosNegocioIteractor;
 import com.pagatodo.yaganaste.interfaces.INegocioManager;
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 
 import java.util.List;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_SUBGIROS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 
 /**
@@ -30,7 +34,7 @@ public class DatosNegocioInteractor implements IDatosNegocioIteractor, IRequestR
         try{
             ApiAdtvo.obtenerSubgiros(this);
         } catch (OfflineException e) {
-            e.printStackTrace();
+            iNegocioManager.onError(OBTENER_SUBGIROS, App.getInstance().getString(R.string.no_internet_access));
         }
     }
 

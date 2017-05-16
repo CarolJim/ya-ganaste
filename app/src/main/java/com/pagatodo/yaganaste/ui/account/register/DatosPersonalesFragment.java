@@ -90,30 +90,6 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_datos_personales, container, false);
