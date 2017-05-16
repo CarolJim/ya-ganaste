@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.EnviosInteractor;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IEnviosInteractor;
@@ -29,57 +31,57 @@ public class EnviosPresenter implements IEnviosPresenter, IEnviosInteractor.OnVa
 
     @Override
     public void onTypeError() {
-        paymentsManager.onError("onTypeError");
+        paymentsManager.onError(App.getContext().getString(R.string.txt_tipo_envio_error));
     }
 
     @Override
     public void onNumberEmpty() {
-        paymentsManager.onError("onNumberEmpty");
+        paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_envio_empty));
     }
 
     @Override
     public void onNumberError() {
-        paymentsManager.onError("onNumberError");
+        paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_envio_error));
     }
 
     @Override
     public void onImporteEmpty() {
-        paymentsManager.onError("onImporteEmpty");
+        paymentsManager.onError(App.getContext().getString(R.string.txt_importe_empty));
     }
 
     @Override
     public void onImporteError() {
-        paymentsManager.onError("onImporteError");
+        paymentsManager.onError(App.getContext().getString(R.string.txt_importe_error));
     }
 
     @Override
     public void onNameEmpty() {
-        paymentsManager.onError("onNameEmpty");
+        paymentsManager.onError(App.getContext().getString(R.string.txt_name_empty));
     }
 
     @Override
     public void onNameError() {
-        paymentsManager.onError("onNameError");
+        paymentsManager.onError(App.getContext().getString(R.string.txt_name_error));
     }
 
     @Override
     public void onConceptEmpty() {
-        paymentsManager.onError("onConceptEmpty");
+        paymentsManager.onError(App.getContext().getString(R.string.txt_concept_empty));
     }
 
     @Override
     public void onConceptError() {
-        paymentsManager.onError("onConceptError");
+        paymentsManager.onError(App.getContext().getString(R.string.txt_concept_error));
     }
 
     @Override
     public void onReferenceEmpty() {
-        paymentsManager.onError("onReferenceEmpty");
+        paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_number_empty));
     }
 
     @Override
     public void onReferenceError() {
-        paymentsManager.onError("onReferenceError");
+        paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_number_error));
     }
 
     @Override

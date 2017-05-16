@@ -19,6 +19,12 @@
     <dimen name="generic_padig">16dp</dimen>
 
     <dimen name="seekbar_thumb__arrow_height">20dp</dimen>
+    <dimen name="seekbar_thumb_arrow_width">10dp</dimen>
+    <dimen name="seekbar_thumb_height">45dp</dimen>
+    <dimen name="seekbbar_thumb_arrow_margin_top_bottom">12.5dp</dimen>
+    <dimen name="arrow_seekbar_heigth">40dp</dimen>
+    <dimen name="arrow_seekbar_width">20dp</dimen>
+    <dimen name="seekbar_thumb_arrow_left">65dp</dimen>
 
     <dimen name="btn_margin_bottom">20dp</dimen>
     <dimen name="btn_corner_radius">24dp</dimen>

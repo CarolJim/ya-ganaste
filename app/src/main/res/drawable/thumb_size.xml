@@ -13,12 +13,12 @@
     <item
         android:width="@dimen/seekbar_thumb_arrow_width"
         android:height="@dimen/seekbar_thumb__arrow_height"
-        android:bottom="12.5dp"
+        android:top="@dimen/seekbbar_thumb_arrow_margin_top_bottom"
+        android:bottom="@dimen/seekbbar_thumb_arrow_margin_top_bottom"
+        android:drawable="@drawable/arrow_canvas"
         android:gravity="center|right"
-        android:left="65dp"
-        android:right="5dp"
-        android:top="12.5dp"
-        android:drawable="@drawable/arrow_canvas">
+        android:left="@dimen/seekbar_thumb_arrow_left"
+        android:right="5dp">
 
         <!--bitmap android:src="@drawable/arrow_icon"/-->
     </item>
