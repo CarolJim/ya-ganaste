@@ -1,10 +1,12 @@
 package com.pagatodo.yaganaste.ui.account;
 import android.content.Context;
+import android.content.pm.ResolveInfo;
 import android.graphics.Bitmap;
 import android.graphics.drawable.BitmapDrawable;
 import android.graphics.drawable.Drawable;
 import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
+import android.util.Base64;
 import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
@@ -13,7 +15,9 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CargaDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
@@ -31,11 +35,13 @@ import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.x;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesAddressBack;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesAddressFront;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesIFEBack;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesIFEfront;
 import static com.pagatodo.yaganaste.interfaces.enums.DataSource.WS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
@@ -141,6 +147,25 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             accountManager.onError(OBTENER_DOMICILIO_PRINCIPAL, App.getInstance().getString(R.string.no_internet_access));
 
         }
+    }
+
+    @Override
+    public void sendDocuments(Object doc) {
+
+       try{
+               List<DataDocuments> listDocuments = null;
+               DataDocuments documents = new DataDocuments();
+               documents.setTipoDocumento(1);
+               documents.setImagenBase64((String) doc);
+               documents.setExtension("jpeg");
+               listDocuments.add(documents);
+           CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
+           cargaDocumentosRequest.setDocumentos(listDocuments);
+           ApiAdtvo.cargaDocumentos(cargaDocumentosRequest,this);
+       }catch (OfflineException e ){
+           accountManager.onError(CARGA_DOCUMENTOS,App.getInstance().getString(R.string.no_internet_access));
+       }
+
     }
 
     @Override

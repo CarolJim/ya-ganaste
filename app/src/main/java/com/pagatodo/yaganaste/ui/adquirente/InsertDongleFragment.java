@@ -269,7 +269,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         }
     };
 
-
     @Override
     public void verifyDongle(String ksn) {
         Log.i("IposListener: ","=====>>  READ_KSN  "+ ksn);
@@ -293,7 +292,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private TransaccionEMVDepositRequest buildEMVRequest(TransaccionEMVDepositRequest request){
         TransactionAdqData currentTransaction = TransactionAdqData.getCurrentTransaction();
         SingletonUser currentUser = SingletonUser.getInstance();
-
 //        request.setAccountDepositData(getCurrentDatesAccountDepositData(currentTransaction.getDescription()));
         request.setAccountDepositData(new AccountDepositData("1018", currentTransaction.getDescription()));// TODO HARDCODE
         request.setAmount(currentTransaction.getAmount());
@@ -313,9 +311,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void getKSN() {
         App.getInstance().pos.getQposId();
     }
-
-
-
 
     @Override
     public void onAttach(Context context) {

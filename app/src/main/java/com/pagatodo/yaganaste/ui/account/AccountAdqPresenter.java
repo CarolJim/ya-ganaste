@@ -74,7 +74,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
 
     @Override
     public void createAdq() {
-        iAdqView.showError("");
+
         adqIteractor.registerAdq();
     }
 
@@ -87,14 +87,16 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     public void uploadDocuments(Object documents) {
 
         iAdqView.showLoader("Subiendo Documentos...");
-
+        Log.e(TAG,"documents"  + documents);
+        //adqIteractor.sendDocuments(documents);
+/*
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if(iAdqView instanceof IUploadDocumentsView)
                     ((IUploadDocumentsView) iAdqView).documentsUploaded("Ejecución Éxitosa");
             }
-        }, DELAY_MESSAGE_PROGRESS);
+        }, DELAY_MESSAGE_PROGRESS);*/
     }
 
 

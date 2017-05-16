@@ -22,4 +22,5 @@ public interface IAdqAccountIteractor {
     public void getEstatusDocs(View view);
     public void setListDocuments(View view);
     public void getClientAddress();
+    public void sendDocuments(Object string);
 }
