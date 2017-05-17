@@ -31,7 +31,7 @@
     <string name="loginUrl">/IniciarSesion</string>
     <string name="loginSimpleUrl">/IniciarSesionSimple</string>
     <string name="searchOfficesUrl">/LocalizarSucursales</string>
-    <string name="getCatalogsUrl">/ObtenerCatalogos?Version=1.0</string>
+    <string name="getCatalogsUrl">/ObtenerCatalogos?version=1.0</string>
     <string name="getNeighborhoodByZipUrl">/ObtenerColoniasPorCP</string>
     <string name="getDocuments">/ObtenerDocumentos</string>
     <string name="getSMSNumberUrl">/ObtenerNumeroSMS</string>

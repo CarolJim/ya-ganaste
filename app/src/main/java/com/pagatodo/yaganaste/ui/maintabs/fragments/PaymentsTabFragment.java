@@ -49,7 +49,8 @@ import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
  * Created by Jordan on 06/04/2017.
  */
 
-public class PaymentsTabFragment extends SupportFragment implements View.OnClickListener, View.OnDragListener {
+public class PaymentsTabFragment extends SupportFragment implements View.OnClickListener,
+        View.OnDragListener {
 
     private View rootView;
 
@@ -139,7 +140,9 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
         rlimgPagosServiceToPay.setOnDragListener(this);
         txtPagosUserName.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombre());
-        txtBalance.setText(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor());
+
+        Double saldo = Double.parseDouble(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor());
+        txtBalance.setText(String.format("%.2f", saldo));
     }
 
 
