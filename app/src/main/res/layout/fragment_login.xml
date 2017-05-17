@@ -80,6 +80,7 @@
                 android:hint="@string/txt_escribe_tu_pass"
                 android:layout_above="@+id/btnLoginExistUser"
                 android:clickable="true"
+                android:text="Orion1mx"
                 app:formato="password"
                 app:hintText="@string/txt_escribe_tu_pass"
                 app:isTextEnabled="true"/>

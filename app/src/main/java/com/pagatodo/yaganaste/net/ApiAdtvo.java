@@ -362,6 +362,7 @@ public class ApiAdtvo extends Api {
      */
     public static void obtenerDocumentos(IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
+        Log.e("obtenerDocumentos ", "tokenSesion : " + RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(OBTENER_DOCUMENTOS,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.getDocuments),
@@ -375,6 +376,7 @@ public class ApiAdtvo extends Api {
      */
     public static void obtenerNumeroSMS(IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
+
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(OBTENER_NUMERO_SMS,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.getSMSNumberUrl),

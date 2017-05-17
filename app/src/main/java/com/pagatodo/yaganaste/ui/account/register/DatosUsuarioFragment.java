@@ -440,8 +440,8 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @Override
     public void validationPasswordFailed(String message) {//Mostrar imagen en edtText
         isValidPassword = false;
-        editPassword.setIsInvalid();
         showValidationError(message);
+        editPassword.setIsInvalid();
     }
 
     @Override

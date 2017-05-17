@@ -12,6 +12,8 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
+import butterknife.ButterKnife;
+
 
 /**
  * Created by mariofernandezbermudez on 02/02/17.
@@ -27,6 +29,7 @@ public class ScreenSlideSimpleFragment extends GenericFragment implements  View.
     private int idImageResourceBackground;
     private String txtTitle;
     private  View view;
+    private ImageView img0;
 
 
     public static ScreenSlideSimpleFragment newInstance(@DrawableRes int idImageResource, String title) {
@@ -55,10 +58,10 @@ public class ScreenSlideSimpleFragment extends GenericFragment implements  View.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         view = inflater.inflate(R.layout.item_slide, container, false);
-
+        ButterKnife.bind(this,view);
         ImageView imgBackground = (ImageView) view.findViewById(R.id.imgBgRollPage);
         TextView txtViewHead = (TextView) view.findViewById(R.id.txtHeadRollPage);
-
+        img0 = (ImageView) view.findViewById(R.id.indicator1);
         imgBackground.setImageResource(idImageResourceBackground);
         txtViewHead.setText(txtTitle);
 

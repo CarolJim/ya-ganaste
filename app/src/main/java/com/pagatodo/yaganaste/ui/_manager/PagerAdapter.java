@@ -52,4 +52,5 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             return 1;
         }
     }
+
 }

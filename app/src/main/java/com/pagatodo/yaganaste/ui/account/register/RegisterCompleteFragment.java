@@ -135,7 +135,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
                 NEXT_SCREEN = EVENT_GO_MAINTAB;
                 break;
             case ADQ_REVISION:
-                Log.e(TAG, "-  - - - -  - - - - ADQ_REVISION");
+                Log.e(TAG, "- ADQ_REVISION");
                 iIdIcon = R.drawable.ic_done;
                 title = getString(R.string.adq_title_thanks);
                 subTitle = getString(R.string.adq_subtitle_thanks);
