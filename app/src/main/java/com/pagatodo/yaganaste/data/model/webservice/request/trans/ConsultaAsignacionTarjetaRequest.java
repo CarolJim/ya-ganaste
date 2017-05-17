@@ -13,7 +13,7 @@ public class ConsultaAsignacionTarjetaRequest implements Serializable{
     }
 
     public ConsultaAsignacionTarjetaRequest(String numeroTarjeta) {
-        NumeroTarjeta = numeroTarjeta;
+        NumeroTarjeta = numeroTarjeta.replace(" ","");
     }
 
     public String getNumeroTarjeta() {

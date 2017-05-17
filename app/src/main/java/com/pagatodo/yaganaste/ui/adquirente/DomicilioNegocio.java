@@ -287,6 +287,9 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
 
     @Override
     public void setNeighborhoodsAvaliables(List<ColoniasResponse> listaColonias) {
+        if (this.domicilio != null && radioIsBussinesAddress.getCheckedRadioButtonId() == R.id.radioBtnIsBussinesAddressYes) {
+            this.domicilio.setColoniasDomicilio(listaColonias);
+        }
         this.listaColonias = listaColonias;
         this.estadoDomicilio = listaColonias.get(0).getEstado();
         fillAdapter();
@@ -311,23 +314,23 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     }
 
     private void fillHomeAddress() {
+        textWatcherZipCode.setEnabled(false);
+        editBussinesZipCode.setText(domicilio.getCp());
         editBussinesStreet.setText(domicilio.getCalle());
         editBussinesExtNumber.setText(domicilio.getNumeroExterior());
         editBussinesIntNumber.setText(domicilio.getNumeroInterior());
         colonyToLoad = domicilio.getColonia();
-        editBussinesZipCode.setText(domicilio.getCp());
-
-        if (listaColonias == null) {
+        textWatcherZipCode.setEnabled(true);
+        if (domicilio.getColoniasDomicilio() == null) {
             textWatcherZipCode.afterTextChanged(editBussinesZipCode.getText());
         } else {
-            setNeighborhoodsAvaliables(listaColonias);
+            setNeighborhoodsAvaliables(domicilio.getColoniasDomicilio());
         }
 
     }
 
     @Override
     public void agentCreated(String message) {
-
         onEventListener.onEvent(EVENT_SET_COLONIES_LIST, listaColonias);
         nextScreen(EVENT_GO_BUSSINES_DOCUMENTS,null);
     }

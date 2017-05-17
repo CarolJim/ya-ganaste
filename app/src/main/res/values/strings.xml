@@ -480,6 +480,16 @@
     <string name="txt_importe_empty">El campo importe está vacío.</string>
     <string name="txt_importe_error">El importe es incorrecto.</string>
     <string name="txt_concept_empty">El campo concepto está vacío.</string>
+
+    <string name="txt_tipo_envio_error">Por favor seleccióne un tipo de envío.</string>
+    <string name="txt_name_empty">El campo nombre está vacío.</string>
+    <string name="txt_name_error">Error al introducir el nombred del destinatario.</string>
+    <string name="txt_concept_error">Error al introducir el campo concepto.</string>
+    <string name="txt_referencia_number_error">Error al introducir el campo referencia numerica.</string>
+    <string name="txt_referencia_number_empty">El campo referencia numerica está vacío.</string>
+
+    <string name="txt_referencia_envio_error">Error al introducir el número de teléfono/cuenta/CABLE</string>
+    <string name="txt_referencia_envio_empty">Por favor ingrese un número de teléfono/cuenta/CABLE</string>
 </resources>
 
 

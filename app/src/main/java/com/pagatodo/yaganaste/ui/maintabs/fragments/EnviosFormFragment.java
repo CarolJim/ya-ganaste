@@ -11,7 +11,6 @@ import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
@@ -21,6 +20,7 @@ import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;
+import com.pagatodo.yaganaste.utils.UI;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -122,7 +122,9 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
     @Override
     public void showError() {
         if (errorText != null && !errorText.equals("")) {
-            Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
+            UI.createSimpleCustomDialog("Error", errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
+
         }
     }
 

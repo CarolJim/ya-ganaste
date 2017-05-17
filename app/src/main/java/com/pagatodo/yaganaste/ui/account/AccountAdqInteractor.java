@@ -9,6 +9,8 @@ import android.support.v4.content.ContextCompat;
 import android.util.Base64;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
@@ -23,6 +25,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColonia
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CargaDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
@@ -72,6 +75,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     private List<EstatusDocumentosResponse> mListaDocumentos;
     Drawable mDrawable = null;
     private Preferencias pref;
+
     public AccountAdqInteractor(IAccountManager accountManager, Context ctx) {
         this.accountManager = accountManager;
         context = ctx;
@@ -90,7 +94,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     @Override
     public void setListDocuments(View view) {
 
-        if( mListaDocumentos!=null && mListaDocumentos.size()>0) {
+        if (mListaDocumentos != null && mListaDocumentos.size() > 0) {
             for (EstatusDocumentosResponse estatusDocs : this.mListaDocumentos) {
                 int tipoDoc = estatusDocs.getTipoDocumento();
 
@@ -123,7 +127,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
                     Addressback.setStatusImage(mDrawable);
                 }
             }
-        }else{
+        } else {
             UploadDocumentView IFEfront = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesIFEfront);
             IFEfront.setVisibilityStatus(false);
             UploadDocumentView IFEBack = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesIFEBack);
@@ -147,7 +151,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
     @Override
     public void getClientAddress() {
-        try{
+        try {
             ApiAdtvo.obtenerDomicilioPrincipal(this);
         } catch (OfflineException e) {
             accountManager.onError(OBTENER_DOMICILIO_PRINCIPAL, App.getInstance().getString(R.string.no_internet_access));
@@ -157,15 +161,15 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
     @Override
     public void sendDocuments(ArrayList<DataDocuments> docs) {
-        Log.e(TAG,"sendDocuments");
-       try{
-           CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
-           cargaDocumentosRequest.setDocumentos(docs);
-           ApiAdtvo.cargaDocumentos(cargaDocumentosRequest,this);
-           accountManager.hideLoader();
-       }catch (OfflineException e ){
-           accountManager.onError(CARGA_DOCUMENTOS,App.getInstance().getString(R.string.no_internet_access));
-       }
+        Log.e(TAG, "sendDocuments");
+        try {
+            CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
+            cargaDocumentosRequest.setDocumentos(docs);
+            ApiAdtvo.cargaDocumentos(cargaDocumentosRequest, this);
+            accountManager.hideLoader();
+        } catch (OfflineException e) {
+            accountManager.onError(CARGA_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
+        }
 
     }
 
@@ -175,18 +179,21 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         RegisterAgent registerAgent = RegisterAgent.getInstance();
         CrearAgenteRequest request = new CrearAgenteRequest();
         request.setNombreComercio(registerAgent.getNombre());
-        request.setGiro(registerAgent.getGiro().getIdSubgiro());
+        // TODO: 16/05/2017  
+        request.setSubGiro(registerAgent.getGiro().getIdSubgiro());
         request.setNumeroTelefono(registerAgent.getTelefono());
         request.setCuestionario(registerAgent.getCuestionario());
+
         onSuccess(new DataSourceResult(CREAR_AGENTE, WS, null));
 
         /*
         try {
             ApiAdtvo.crearAgente(request, this);
         } catch (OfflineException e) {
-            e.printStackTrace();
-        }*/
-    }
+            accountManager.onError(OBTENER_COLONIAS_CP, App.getInstance().getString(R.string.no_internet_access));
+        }
+    */
+}
 
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
@@ -238,6 +245,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     /**
      * @param error
      **/
+
     @Override
     public void onFailed(DataSourceResult error) {
         /**TODO Casos de Servicio fallido*/
@@ -299,20 +307,12 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      * @param response {@link DataSourceResult} respuesta del servicio
      */
     private void processAgentCreated(DataSourceResult response) {
-
-        accountManager.onSucces(response.getWebService(), null);
-        /*
+        CrearAgenteResponse data = (CrearAgenteResponse) response.getData();
         if(data.getCodigoRespuesta() == CODE_OK){
-            List<ColoniasResponse> listaColonias = data.getData();
-            if(listaColonias != null && listaColonias.size() > 0){
-                accountManager.onSucces(response.getWebService(),listaColonias);
-            }else{
-                accountManager.onError(response.getWebService(),"Verifica tu Código Postal");//Retornamos mensaje de error.
-            }
+            accountManager.onSucces(response.getWebService(), null);
         }else{
-            //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(),data.getMensaje());//Retornamos mensaje de error.
-        }*/
+        }
     }
 
     private void processAddress(DataSourceResult result) {
@@ -333,5 +333,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
 
     }
+
 
 }

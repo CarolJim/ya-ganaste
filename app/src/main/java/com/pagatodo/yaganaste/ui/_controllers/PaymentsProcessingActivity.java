@@ -157,6 +157,6 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
         intent.putExtra(MESSAGE, errorTxt != null ? errorTxt : getString(R.string.error_respuesta));
         setResult(2, intent);
         finish();
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 }
