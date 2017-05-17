@@ -251,9 +251,11 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
     @Override
     public void setNeighborhoodsAvaliables(List<ColoniasResponse> listaColonias) {
+        hideLoader();
         this.listaColonias = listaColonias;
         this.estadoDomicilio = listaColonias.get(0).getEstado();
         fillAdapter();
+
     }
 
     @Override
@@ -421,7 +423,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         @Override
         public void afterTextChanged(Editable s) {
                 if ( s.toString().length() > MIN_LENGHT_VALIDATION_CP) {
-
+                    showLoader("Buscando CP");
                     accountPresenter.getNeighborhoods(s.toString().trim());//Buscamos por CP
 
                 } else {
@@ -429,6 +431,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                         listaColonias.clear();
                         estadoDomicilio = "";
                         fillAdapter();
+
                     }
                 }
 

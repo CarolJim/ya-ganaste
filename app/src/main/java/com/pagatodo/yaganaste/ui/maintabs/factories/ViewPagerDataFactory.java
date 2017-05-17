@@ -69,10 +69,12 @@ public class ViewPagerDataFactory {
                     fragmentList.add(GetMountFragment.newInstance());
 
                 } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_PENDIENTE) {
+                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() != CRM_DOCTO_APROBADO) {
 
                     fragmentList.add(Documentos.newInstance());
-                } else if(!pref.containsData(SEND_DOCUMENTS)){
+
+                } else if(pref.containsData(SEND_DOCUMENTS)){
+
                     fragmentList.add(Documentos.newInstance());
             } else {
                     // fragmentList.add(Documentos.newInstance());
