@@ -11,7 +11,6 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
-import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -24,7 +23,6 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
-import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
@@ -39,7 +37,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOV
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class LoginFragment extends GenericFragment implements View.OnClickListener, ILoginView,ValidationForms{
+public class LoginFragment extends GenericFragment implements View.OnClickListener, ILoginView, ValidationForms {
 
     private View rootview;
 
@@ -88,7 +86,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        accountPresenter = ((AccountActivity)getActivity()).getPresenter();
+        accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
     }
 
@@ -117,13 +115,13 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         btnLogin.setOnClickListener(this);
         txtLoginExistUserRecoverPass.setOnClickListener(this);
 
-        if(!RequestHeaders.getTokenauth().isEmpty()){
+        if (!RequestHeaders.getTokenauth().isEmpty()) {
             textNameUser.setText(SingletonSession.getInstance().isActive() &&
                     !SingletonSession.getInstance().getNameUser().isEmpty() ?
                     SingletonSession.getInstance().getNameUser() : RequestHeaders.getUsername());
             edtUserName.setVisibility(GONE);
             edtUserName.setText(RequestHeaders.getUsername());
-        }else{
+        } else {
             edtUserName.setText("");
             edtUserName.setVisibility(VISIBLE);
             textNameUser.setVisibility(GONE);
@@ -132,22 +130,22 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnLoginExistUser:
-                // Intent intent = new Intent(getActivity(),TabActivity.class);
-                // startActivity(intent);
+                //Intent intent = new Intent(getActivity(), TabActivity.class);
+                //startActivity(intent);
                 actionBtnLogin();
                 break;
             case R.id.txtLoginExistUserRecoverPass:
                 //startActivity(new Intent(getActivity(), RecoverPasswordActivity.class));
-                nextScreen(EVENT_RECOVERY_PASS,username);
+                nextScreen(EVENT_RECOVERY_PASS, username);
                 break;
             default:
                 break;
         }
     }
 
-    private void actionBtnLogin(){
+    private void actionBtnLogin() {
 
         if (UtilsNet.isOnline(getActivity())) {
             validateForm();
@@ -179,7 +177,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void showError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+        UI.showToastShort(error.toString(), getActivity());
         setEnableViews(true);
     }
 
@@ -192,7 +190,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void validateForm() {
         getDataForm();
-        if(password.isEmpty()){
+        if (password.isEmpty()) {
             showError("Contraseña Requerida, Verifique su Información");
             return;
         }
@@ -202,7 +200,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void showValidationError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+        UI.showToastShort(error.toString(), getActivity());
         setEnableViews(true);
     }
 
@@ -210,7 +208,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void onValidationSuccess() {
 
         setEnableViews(false);
-        accountPresenter.login(username,password); // Realizamos el  Login
+        accountPresenter.login(username, password); // Realizamos el  Login
         //loginSucced();
     }
 
@@ -227,7 +225,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         getActivity().finish();
     }
 
-    private void setEnableViews(boolean isEnable){
+    private void setEnableViews(boolean isEnable) {
         edtUserName.setEnabled(isEnable);
         edtUserPass.setEnabled(isEnable);
         btnLogin.setEnabled(isEnable);
