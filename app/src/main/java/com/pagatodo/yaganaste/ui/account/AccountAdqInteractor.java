@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
@@ -156,6 +157,19 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         request.setSubGiro(registerAgent.getGiro().getIdSubgiro());
         request.setNumeroTelefono(registerAgent.getTelefono());
         request.setCuestionario(registerAgent.getCuestionario());
+        DataObtenerDomicilio dataObtenerDomicilio = new DataObtenerDomicilio();
+        request.setTipoAgente(SingletonUser.getInstance().getDataUser().getUsuario().getTipoAgente());
+
+        dataObtenerDomicilio.setCp(registerAgent.getCodigoPostal());
+        dataObtenerDomicilio.setCalle(registerAgent.getCalle());
+        dataObtenerDomicilio.setColonia(registerAgent.getColonia());
+        dataObtenerDomicilio.setEstado(registerAgent.getEstadoDomicilio());
+        dataObtenerDomicilio.setIdColonia(registerAgent.getIdColonia());
+        dataObtenerDomicilio.setNumeroExterior(registerAgent.getNumExterior());
+        dataObtenerDomicilio.setNumeroInterior(registerAgent.getNumInterior());
+        dataObtenerDomicilio.setIdEstado(registerAgent.getIdEstado());
+
+        request.setDomicilioNegocio(dataObtenerDomicilio);
 
         try {
             ApiAdtvo.crearAgente(request, this);

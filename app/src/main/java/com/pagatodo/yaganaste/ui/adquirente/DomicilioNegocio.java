@@ -87,6 +87,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     private String colonia = "";
     private String Idcolonia = "";
     private boolean respuestaDomicilio;
+    private String idEstado = "";
 
     private String colonyToLoad;
 
@@ -253,6 +254,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         registerAgent.setNumInterior(numInt);
         registerAgent.setCodigoPostal(codigoPostal);
         registerAgent.setEstadoDomicilio(estado);
+        registerAgent.setIdEstado(idEstado);
         registerAgent.setColonia(colonia);
         registerAgent.setIdColonia(Idcolonia);
         editBussinesZipCode.removeCustomTextWatcher(textWatcherZipCode);
@@ -292,6 +294,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         }
         this.listaColonias = listaColonias;
         this.estadoDomicilio = listaColonias.get(0).getEstado();
+        this.idEstado = listaColonias.get(0).getIdEstado();
         fillAdapter();
 
         if (colonyToLoad != null && !colonyToLoad.isEmpty()) {

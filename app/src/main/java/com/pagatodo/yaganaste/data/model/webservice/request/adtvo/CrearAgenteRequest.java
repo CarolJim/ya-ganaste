@@ -1,5 +1,8 @@
 package com.pagatodo.yaganaste.data.model.webservice.request.adtvo;
 
+import com.google.gson.annotations.SerializedName;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -20,6 +23,9 @@ public class CrearAgenteRequest implements Serializable{
     private int Latitud;
     private int Longitud;
     private List<CuestionarioEntity> Cuestionario;
+
+    @SerializedName("DomicilioNegocio")
+    private DataObtenerDomicilio domicilioNegocio;
 
     public CrearAgenteRequest() {
 
@@ -104,5 +110,13 @@ public class CrearAgenteRequest implements Serializable{
 
     public void setCuestionario(List<CuestionarioEntity> cuestionario) {
         Cuestionario = cuestionario;
+    }
+
+    public DataObtenerDomicilio getDomicilioNegocio() {
+        return domicilioNegocio;
+    }
+
+    public void setDomicilioNegocio(DataObtenerDomicilio domicilioNegocio) {
+        this.domicilioNegocio = domicilioNegocio;
     }
 }
