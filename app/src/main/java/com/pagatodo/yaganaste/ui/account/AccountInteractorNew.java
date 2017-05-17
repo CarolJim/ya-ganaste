@@ -411,6 +411,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         if (data.getCodigoRespuesta() == CODE_OK) {
             //Seteamos los datos del usuario en el SingletonUser.
             SingletonUser user = SingletonUser.getInstance();
+            if (!dataUser.isEsAgente()) {
+                data.getData().getUsuario().setTipoAgente(17);
+            }
+
             user.setDataUser(dataUser);
             user.getDataUser().setEsAgente(false);/*TODO Testin de flujo Adq*/
             if (dataUser.isEsUsuario()) { // Si Usuario
@@ -428,6 +432,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                     } else {//Requiere setear el NIP
                         stepByUserStatus = EVENT_GO_ASSIGN_PIN;
                     }
+                    RequestHeaders.setIdCuenta(String.format("%s", data.getData().getUsuario().getCuentas().get(0).getIdCuenta()));
                 } else { // No tiene cuenta asignada.
                     stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
                 }

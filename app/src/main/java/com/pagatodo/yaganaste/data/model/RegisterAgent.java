@@ -28,6 +28,7 @@ public class RegisterAgent {
     private String estadoDomicilio = "";
     private String colonia = "";
     private String idColonia = "";
+    private String idEstado = "";
 
     private static RegisterAgent registerUser;
 
@@ -176,6 +177,14 @@ public class RegisterAgent {
         registerUser = null;
     }
 
+    public String getIdEstado() {
+        return idEstado;
+    }
+
+    public void setIdEstado(String idEstado) {
+        this.idEstado = idEstado;
+    }
+
     public static void resetBussinessAddress(){
         if (registerUser != null) {
             registerUser.calle = "";
@@ -185,6 +194,7 @@ public class RegisterAgent {
             registerUser.estadoDomicilio = "";
             registerUser.colonia = "";
             registerUser.idColonia = "";
+            registerUser.idEstado = "";
         }
 
     }
