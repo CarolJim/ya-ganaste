@@ -3,6 +3,8 @@ package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 import com.google.gson.annotations.SerializedName;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * @author Juan Guerra on 04/05/2017.
@@ -40,6 +42,9 @@ public class DataObtenerDomicilio implements Serializable {
     private String pais;
     @SerializedName("Referencia")
     private String referencia;
+
+    //No viene en el servicio
+    private List<ColoniasResponse> coloniasDomicilio;
 
 
     public String getCp() {
@@ -160,5 +165,18 @@ public class DataObtenerDomicilio implements Serializable {
 
     public void setReferencia(String referencia) {
         this.referencia = referencia;
+    }
+
+    public List<ColoniasResponse> getColoniasDomicilio() {
+        return coloniasDomicilio;
+    }
+
+    public void setColoniasDomicilio(List<ColoniasResponse> coloniasToAdd) {
+        this.coloniasDomicilio = new ArrayList<>();
+        for (ColoniasResponse coloniasResponse : coloniasToAdd) {
+            coloniasDomicilio.add(new ColoniasResponse(coloniasResponse.getColoniaId(), coloniasResponse.getColonia(),
+                    coloniasResponse.getIdMunicipio(), coloniasResponse.getMunicipio(), coloniasResponse.getIdEstado(),
+                    coloniasResponse.getEstado()));
+        }
     }
 }

@@ -15,6 +15,8 @@ import org.json.JSONObject;
 import java.lang.reflect.Type;
 import java.util.Map;
 
+import static com.android.volley.Request.Method.GET;
+import static com.android.volley.Request.Method.POST;
 import static com.pagatodo.yaganaste.utils.Recursos.TIMEOUT;
 
 
@@ -43,7 +45,8 @@ public class NetFacade {
 
         if(UtilsNet.isOnline(App.getContext())) {
             WsCaller wsCaller = new WsCaller();
-            wsCaller.sendJsonPost(createRequest(method_name, method, urlService, oRequest,true, headers, responseType, requestResult));
+            wsCaller.sendJsonPost(createRequest(method_name, method, urlService, oRequest,
+                    getMethodType(method) == POST, headers, responseType, requestResult));
         }else{
             UI.showToastShort(App.getContext().getString(R.string.no_internet_access),App.getContext());
             throw new OfflineException();
@@ -120,7 +123,7 @@ public class NetFacade {
         switch (method){
 
             case METHOD_GET:
-                return Request.Method.GET;
+                return GET;
             case METHOD_POST:
                 return Request.Method.POST;
         }

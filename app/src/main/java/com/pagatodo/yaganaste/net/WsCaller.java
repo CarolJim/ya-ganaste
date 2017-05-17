@@ -9,9 +9,16 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.interfaces.enums.DataSource;
 
+import org.json.JSONException;
 import org.json.JSONObject;
 
+import java.io.UnsupportedEncodingException;
+import java.net.URLEncoder;
+import java.util.Iterator;
 import java.util.Map;
+
+import static com.android.volley.Request.Method.GET;
+import static com.android.volley.Request.Method.POST;
 
 /**
  * Created on 16/02/2017.
@@ -50,8 +57,8 @@ public class WsCaller implements IServiceConsumer {
             Log.d(TAG, "Body Request: "+ request.getBody().toString());
         CustomJsonObjectRequest jsonRequest =  new CustomJsonObjectRequest(
                 request.getMethod(),
-                request.get_url_request(),
-                request.getBody(),
+                request.getMethod() == POST ? request.get_url_request() : parseGetRequest(request.get_url_request(), request.getBody()),
+                request.getMethod() == POST ? request.getBody() : null,
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
@@ -73,7 +80,37 @@ public class WsCaller implements IServiceConsumer {
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         volleySingleton.addToRequestQueue(jsonRequest);
+    }
 
+    private String parseGetRequest(String mUrl, JSONObject request) {
+        if (request == null) {
+            return mUrl;
+        }
+        StringBuilder stringBuilder = new StringBuilder(mUrl);
+        int i = 1;
+
+        Iterator<String> iterator = request.keys();
+        String key, keyToAdd, value;
+        while (iterator.hasNext()) {
+            key = iterator.next();
+
+            try {
+                keyToAdd = URLEncoder.encode(key, "UTF-8");
+                value = URLEncoder.encode(request.get(key).toString(), "UTF-8");
+                if(i == 1) {
+                    stringBuilder.append("?" + keyToAdd + "=" + value);
+                } else {
+                    stringBuilder.append("&" + keyToAdd + "=" + value);
+                }
+            } catch (UnsupportedEncodingException e) {
+                e.printStackTrace();
+            } catch (JSONException e) {
+                e.printStackTrace();
+            }
+            i++;
+        }
+
+        return stringBuilder.toString();
     }
 
 }
