@@ -14,7 +14,7 @@ public class CrearAgenteRequest implements Serializable{
     private String NombreComercio = "";
     private String NumeroTelefono = "";
     private String RazonSocial = "";
-    private int Giro;
+    //private int Giro;
     private int SubGiro;
     private String RFC = "";
     private int Latitud;
@@ -58,13 +58,13 @@ public class CrearAgenteRequest implements Serializable{
         RazonSocial = razonSocial;
     }
 
-    public int getGiro() {
+    /*public int getGiro() {
         return Giro;
     }
 
     public void setGiro(int giro) {
         Giro = giro;
-    }
+    }*/
 
     public int getSubGiro() {
         return SubGiro;

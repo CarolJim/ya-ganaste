@@ -21,6 +21,15 @@ public class ColoniasResponse implements Serializable{
 
     }
 
+    public ColoniasResponse(String coloniaId, String colonia, String idMunicipio, String municipio, String idEstado, String estado) {
+        ColoniaId = coloniaId;
+        Colonia = colonia;
+        IdMunicipio = idMunicipio;
+        Municipio = municipio;
+        IdEstado = idEstado;
+        Estado = estado;
+    }
+
     public String getColoniaId() {
         return ColoniaId;
     }

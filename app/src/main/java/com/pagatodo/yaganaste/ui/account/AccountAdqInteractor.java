@@ -7,6 +7,8 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.CompoundButton;
+import android.widget.RadioButton;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
@@ -17,6 +19,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteReq
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
@@ -149,16 +152,16 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         RegisterAgent registerAgent = RegisterAgent.getInstance();
         CrearAgenteRequest request = new CrearAgenteRequest();
         request.setNombreComercio(registerAgent.getNombre());
-        request.setGiro(registerAgent.getGiro().getIdSubgiro());
+        // TODO: 16/05/2017  
+        request.setSubGiro(registerAgent.getGiro().getIdSubgiro());
         request.setNumeroTelefono(registerAgent.getTelefono());
         request.setCuestionario(registerAgent.getCuestionario());
-        onSuccess(new DataSourceResult(CREAR_AGENTE, WS, null));
-       /*
+
         try {
             ApiAdtvo.crearAgente(request, this);
         } catch (OfflineException e) {
-            e.printStackTrace();
-        }*/
+            accountManager.onError(OBTENER_COLONIAS_CP, App.getInstance().getString(R.string.no_internet_access));
+        }
     }
 
     @Override
@@ -251,20 +254,12 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      * @param response {@link DataSourceResult} respuesta del servicio
      */
     private void processAgentCreated(DataSourceResult response) {
-
-        accountManager.onSucces(response.getWebService(), null);
-        /*
+        CrearAgenteResponse data = (CrearAgenteResponse) response.getData();
         if(data.getCodigoRespuesta() == CODE_OK){
-            List<ColoniasResponse> listaColonias = data.getData();
-            if(listaColonias != null && listaColonias.size() > 0){
-                accountManager.onSucces(response.getWebService(),listaColonias);
-            }else{
-                accountManager.onError(response.getWebService(),"Verifica tu Código Postal");//Retornamos mensaje de error.
-            }
+            accountManager.onSucces(response.getWebService(), null);
         }else{
-            //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(),data.getMensaje());//Retornamos mensaje de error.
-        }*/
+        }
     }
 
     private void processAddress(DataSourceResult result) {

@@ -22,6 +22,15 @@ android {
         javaMaxHeapSize "4g"
     }
 
+    signingConfigs {
+        debug {
+            storeFile file("KeyPagaTodoDev.jks")
+            storePassword "ptmobile"
+            keyAlias "PTmobile"
+            keyPassword "ptmobile"
+        }
+    }
+
     buildTypes {
         release {
             minifyEnabled false
@@ -67,6 +76,8 @@ dependencies {
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.google.firebase:firebase-core:10.0.1'
     compile 'com.github.demoNo:AutoScrollViewPager:v1.0.2'
+
+    compile 'com.google.android.gms:play-services-maps:10.2.0'
 }
 
 apply plugin: 'com.google.gms.google-services'
