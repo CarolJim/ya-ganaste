@@ -410,6 +410,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     TextWatcher textWatcherZipCode = new TextWatcher() {
         @Override
         public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
         }
 
         @Override
@@ -420,7 +421,9 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         @Override
         public void afterTextChanged(Editable s) {
                 if ( s.toString().length() > MIN_LENGHT_VALIDATION_CP) {
+
                     accountPresenter.getNeighborhoods(s.toString().trim());//Buscamos por CP
+
                 } else {
                     if (listaColonias != null) {
                         listaColonias.clear();
@@ -428,6 +431,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                         fillAdapter();
                     }
                 }
+
         }
     };
 

@@ -118,6 +118,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
+        keyboardView.showCustomKeyboard(rootview);
 
         layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout);
 

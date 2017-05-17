@@ -268,6 +268,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         ObtenerColoniasPorCPRequest request = new ObtenerColoniasPorCPRequest(zipCode);
         try {
             ApiAdtvo.obtenerColoniasPorCP(request, this);
+
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.onError(OBTENER_COLONIAS_CP, "");
@@ -331,7 +332,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 break;
 
             case OBTENER_COLONIAS_CP:
+                accountManager.hideLoader();
                 processNeighborhoods(dataSourceResult);
+
                 break;
 
             case ASIGNAR_CUENTA_DISPONIBLE:

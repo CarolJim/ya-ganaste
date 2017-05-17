@@ -156,7 +156,7 @@ public class CustomValidationEditText extends LinearLayout {
                     break;
                 case "1"://password
                     editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_PASSWORD);
-                    //TODO quitar contraseña
+                    //TODO q
                     editText.setText("Orion1mx");
                     setValidationListener(txt);
                     break;
