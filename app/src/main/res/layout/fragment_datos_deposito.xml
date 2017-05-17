@@ -1,0 +1,126 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/fragment_child_tab"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:weightSum="100"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+<Space
+    android:layout_width="match_parent"
+    android:layout_height="0dp"
+    android:layout_weight="8"/>
+
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtDepositTitle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="7"
+        android:gravity="center"
+        android:text="Tus Datos Para Depósito"
+        android:textColor="@color/colorAccent"
+        android:textSize="16sp"
+        app:tipo="Subtitulo" />
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="25">
+        <ImageView
+            android:id="@+id/imgYaGanasteCard"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
+            android:layout_marginLeft="60dp"
+            android:layout_marginRight="60dp"
+            android:layout_marginBottom="20dp"
+            android:layout_marginTop="20dp"
+            android:src="@drawable/card_yaganaste" />
+
+    </RelativeLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtTitularTitle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center|bottom"
+        android:text="Titular:"
+        android:textSize="14sp"
+        app:tipo="Descripcion" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtNameTitular"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center|top"
+        android:text=""
+        android:textSize="14sp"
+        app:tipo="Descripcion" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtNumberTitle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center|bottom"
+        android:text="N° Tarjeta:"
+        android:textSize="14sp"
+        app:tipo="Descripcion" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtNumberCard"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center|top"
+        android:text=""
+        android:textSize="14sp"
+        app:tipo="Descripcion" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtCableTitle"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center|bottom"
+        android:text="CABLE"
+        android:textSize="14sp"
+        app:tipo="Descripcion" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtCableNumber"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5"
+        android:gravity="center|top"
+        android:text=""
+        android:textSize="14sp"
+        app:tipo="Descripcion" />
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="30"
+        android:gravity="center">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnDepositar"
+            style="@style/buttonSquareRoundedBlue"
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/height_btns"
+            android:gravity="center"
+            android:textSize="15sp"
+            android:textAllCaps="false"
+            android:text="¿Dónde Depositar?" />
+
+    </RelativeLayout>
+
+
+</LinearLayout>

@@ -10,10 +10,6 @@
     android:orientation="vertical"
     tools:context=".ui._controllers.PaymentsProcessingActivity">
 
-    <include
-        android:id="@+id/toolbarLy"
-        layout="@layout/toolbar" />
-
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -327,6 +323,10 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <include
+        android:id="@+id/toolbarLy"
+        layout="@layout/toolbar" />
 
 
 </LinearLayout>
