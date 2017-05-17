@@ -106,7 +106,7 @@ public abstract class SupportFragmentActivity extends AppCompatActivity {
 
         if(!ValidatePermissions.isAllPermissionsActives(this,ValidatePermissions.getPermissionsCheck())){
             ValidatePermissions.checkPermissions(this, ValidatePermissions.getPermissionsCheck(), PERMISSION_GENERAL);
-            ValidatePermissions.showDialogPermission(this,getString(R.string.permission_request),getString(R.string.permission_request_desc),actionsDialog);
+            //ValidatePermissions.showDialogPermission(this,getString(R.string.permission_request),getString(R.string.permission_request_desc),actionsDialog);
         }
     }
 

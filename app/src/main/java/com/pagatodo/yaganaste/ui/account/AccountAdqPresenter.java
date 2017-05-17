@@ -74,6 +74,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
 
     @Override
     public void createAdq() {
+        iAdqView.showLoader(context.getString(R.string.procesando_solicitud));
         adqIteractor.registerAdq();
     }
 

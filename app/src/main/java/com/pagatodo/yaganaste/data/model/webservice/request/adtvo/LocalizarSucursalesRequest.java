@@ -10,7 +10,6 @@ public class LocalizarSucursalesRequest implements Serializable{
 
     private Double Latitud;
     private Double Longitud;
-    private String Consulta = "";
 
     public LocalizarSucursalesRequest() {
     }
@@ -30,12 +29,5 @@ public class LocalizarSucursalesRequest implements Serializable{
     public void setLongitud(Double longitud) {
         Longitud = longitud;
     }
-
-    public String getConsulta() {
-        return Consulta;
-    }
-
-    public void setConsulta(String consulta) {
-        Consulta = consulta;
-    }
+    
 }
