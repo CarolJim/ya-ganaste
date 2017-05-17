@@ -7,4 +7,5 @@ package com.pagatodo.yaganaste.interfaces;
 public interface INavigationView<T, E> extends IProgressView<E> {
     public void nextScreen(String event, T data);
     public void backScreen(String event, T data);
+
 }

@@ -14,12 +14,14 @@ import android.widget.Toast;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CargaDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CargaDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
@@ -30,11 +32,13 @@ import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import static android.R.attr.data;
 import static android.R.attr.x;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesAddressBack;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesAddressFront;
@@ -52,6 +56,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
+import static com.pagatodo.yaganaste.utils.Recursos.SEND_DOCUMENTS;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
@@ -61,11 +66,12 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 
 public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResult {
 
-    private String TAG = AccountAdqInteractor.class.getName();
+    private String TAG = AccountAdqInteractor.class.getSimpleName();
     private IAccountManager accountManager;
     private Context context;
     private List<EstatusDocumentosResponse> mListaDocumentos;
     Drawable mDrawable = null;
+    private Preferencias pref;
     public AccountAdqInteractor(IAccountManager accountManager, Context ctx) {
         this.accountManager = accountManager;
         context = ctx;
@@ -130,7 +136,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     }
 
     @Override
-    public void getEstatusDocs(View view) {
+    public void getEstatusDocs() {
         try {
             ApiAdtvo.obtenerDocumentos(this);
         } catch (OfflineException e) {
@@ -150,18 +156,13 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     }
 
     @Override
-    public void sendDocuments(Object doc) {
-
+    public void sendDocuments(ArrayList<DataDocuments> docs) {
+        Log.e(TAG,"sendDocuments");
        try{
-               List<DataDocuments> listDocuments = null;
-               DataDocuments documents = new DataDocuments();
-               documents.setTipoDocumento(1);
-               documents.setImagenBase64((String) doc);
-               documents.setExtension("jpeg");
-               listDocuments.add(documents);
            CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
-           cargaDocumentosRequest.setDocumentos(listDocuments);
+           cargaDocumentosRequest.setDocumentos(docs);
            ApiAdtvo.cargaDocumentos(cargaDocumentosRequest,this);
+           accountManager.hideLoader();
        }catch (OfflineException e ){
            accountManager.onError(CARGA_DOCUMENTOS,App.getInstance().getString(R.string.no_internet_access));
        }
@@ -178,7 +179,8 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         request.setNumeroTelefono(registerAgent.getTelefono());
         request.setCuestionario(registerAgent.getCuestionario());
         onSuccess(new DataSourceResult(CREAR_AGENTE, WS, null));
-       /*
+
+        /*
         try {
             ApiAdtvo.crearAgente(request, this);
         } catch (OfflineException e) {
@@ -197,12 +199,16 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             case CREAR_AGENTE:
                 processAgentCreated(dataSourceResult);
                 break;
-            case OBTENER_DOCUMENTOS:
+            case CARGA_DOCUMENTOS:
+                processSendDocuments(dataSourceResult);
+                break;
 
+            case OBTENER_DOCUMENTOS:
                 processStatusDocuments(dataSourceResult);
                 break;
 
             case OBTENER_DOMICILIO:
+
             case OBTENER_DOMICILIO_PRINCIPAL:
                 processAddress(dataSourceResult);
                 break;
@@ -211,6 +217,23 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
                 break;
         }
     }
+
+    private void processSendDocuments(DataSourceResult response) {
+
+        CargaDocumentosResponse data = (CargaDocumentosResponse) response.getData();
+        Log.e("ProcessStatusDocuments", "codigoRespuesta: " + data.getCodigoRespuesta());
+        if(data.getCodigoRespuesta() == CODE_OK) {
+            pref = App.getInstance().getPrefs();
+            if (!pref.containsData(SEND_DOCUMENTS)) {
+                pref.saveDataBool(SEND_DOCUMENTS, true);
+            }
+            accountManager.onSucces(CARGA_DOCUMENTOS, "Envio de documentos");
+        }else{
+            Log.e(TAG," mensaje error "+ data.getMensaje());
+            accountManager.onError(CARGA_DOCUMENTOS,"error" + data.getMensaje());
+        }
+    }
+
 
     /**
      * @param error
@@ -231,7 +254,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         mListaDocumentos = new ArrayList<>();
         //TODO REVISAR
         ObtenerDocumentosRequest data = (ObtenerDocumentosRequest) response.getData();
-
+        Log.e("ProcessStatusDocuments", "codigoRespuesta: " + data.getCodigoRespuesta());
         if (data.getCodigoRespuesta() == CODE_OK) {
             List<EstatusDocumentosResponse> listaDocumentos = data.getData();
             if (listaDocumentos != null && listaDocumentos.size() > 0) {

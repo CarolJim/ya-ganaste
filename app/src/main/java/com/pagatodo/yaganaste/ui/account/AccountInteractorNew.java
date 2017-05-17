@@ -508,13 +508,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
     }
 
-    @Override
-    public void checkDocs() {
-        SingletonUser singletonUser = SingletonUser.getInstance();
-        singletonUser.getDataUser().setEsAgente(true);
-        singletonUser.getDataUser().setEstatusAgente(CRM_DOCTO_APROBADO);
-        singletonUser.getDataUser().setEstatusDocumentacion(CRM_PENDIENTE);
-    }
 
     /**
      * Método para procesar la respuesta con la lista de colonias en el código postal.

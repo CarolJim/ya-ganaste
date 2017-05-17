@@ -49,6 +49,7 @@ public class Recursos {
 	public static String COUCHMARK_EMISOR = "COUCHMARKEMISOR";
 	public static String COUCHMARK_ADQ = "COUCHMARKADQ";
 	public static String CRC32_FREJA = "CRC32FREJA";
+	public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
 
 	/**Catálogos**/
 	/*PTH – Estatus Comercios*/

@@ -6,6 +6,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.Editable;
@@ -16,9 +17,11 @@ import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.github.demono.AutoScrollViewPager;
 import com.pagatodo.yaganaste.R;
@@ -69,10 +72,11 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     StyleTextView txtMainLogin;
     @BindView(R.id.viewpager)
     AutoScrollViewPager pager;
+
+
     private PagerAdapter pagerAdapter;
     private List<Fragment> listSlides;
     private Preferencias pref;
-
     private int[] imgs = {
             R.drawable.carrouse_1,
             R.drawable.carrousel2,
@@ -141,7 +145,8 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
 
         listSlides.add(ScreenSlideSimpleFragment.newInstance(imgs[0], topText[0]));
         for (int index = 1; index < imgs.length; index++) {
-            listSlides.add(ScreenSlidePagefragment.newInstance(imgs[index], topText[index]));
+
+            listSlides.add(ScreenSlidePagefragment.newInstance(imgs[index], topText[index] , index));
         }
 
         String textLogin = getString(R.string.tienes_cuenta);
@@ -162,6 +167,8 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
 
 
         pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager());
+
+
         for(Fragment slide: listSlides){
             pagerAdapter.addFragment(slide);
         }
@@ -198,6 +205,7 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         switch (v.getId()) {
             case R.id.btnMainCreateAccount:
                 //// TODO: 15/05/2017
+             //Intent intent = new Intent(getActivity(), AccountActivity.class);
                 Intent intent = new Intent(getActivity(), AccountActivity.class);
                 intent.putExtra(SELECTION,GO_TO_REGISTER);
                 startActivity(intent);

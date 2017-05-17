@@ -4,8 +4,10 @@ import android.content.Intent;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
@@ -27,6 +29,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.SEND_DOCUMENTS;
 
 /**
  * @author Juan Guerra on 24/03/2017.
@@ -48,6 +52,7 @@ public class ViewPagerDataFactory {
 
     public static ViewPagerData createList(final TABS type) {
         List<Fragment> fragmentList = new ArrayList<>();
+        Preferencias pref = App.getInstance().getPrefs();
         switch (type) {
             case MAIN:
 
@@ -64,10 +69,12 @@ public class ViewPagerDataFactory {
                     fragmentList.add(GetMountFragment.newInstance());
 
                 } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() != CRM_DOCTO_APROBADO) {
+                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_PENDIENTE) {
 
                     fragmentList.add(Documentos.newInstance());
-                } else {
+                } else if(!pref.containsData(SEND_DOCUMENTS)){
+                    fragmentList.add(Documentos.newInstance());
+            } else {
                     // fragmentList.add(Documentos.newInstance());
                     fragmentList.add(InviteAdquirenteFragment.newInstance());
                 }

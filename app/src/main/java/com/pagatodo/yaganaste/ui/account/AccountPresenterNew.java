@@ -79,12 +79,6 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
     }
 
     @Override
-    public void checkUpdateDocs() {
-        accountIteractor.checkDocs();
-    }
-
-
-    @Override
     public void goToNextStepAccount(String event, Object data) {
         accountView.hideLoader();
         accountView.nextScreen(event,data);
@@ -169,6 +163,7 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
         RecuperarContraseniaRequest request = new RecuperarContraseniaRequest(email);
         accountIteractor.recoveryPassword(request);
     }
+
 
     @Override
     public void onError(WebService ws,Object error) {

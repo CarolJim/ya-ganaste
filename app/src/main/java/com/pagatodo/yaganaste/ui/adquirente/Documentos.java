@@ -30,13 +30,18 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
+import com.pagatodo.yaganaste.interfaces.IAccountPresenterNew;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
+import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.UI;
@@ -68,6 +73,8 @@ import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_B
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DATA_BACK;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.SEND_DOCUMENTS;
 
 
 /**
@@ -107,11 +114,14 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     private BitmapLoader bitmapLoader;
     private String imgs[] = new String[4];
     private ArrayList<String> contador ;
+    private ArrayList<DataDocuments> dataDocumnets;
     private AccountAdqPresenter adqPresenter;
     private Drawable mDrawable = null;
+    private Preferencias pref;
 
     public Documentos() {
     }
+
 
     public static Documentos newInstance() {
         Documentos fragmentRegister = new Documentos();
@@ -134,6 +144,8 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         contador = new ArrayList<>();
         adqPresenter = new AccountAdqPresenter(this,getContext());
+
+
     }
 
     @Override
@@ -159,11 +171,15 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        if(SingletonUser.getInstance().getDataUser().isEsAgente()
-                && SingletonUser.getInstance().getDataUser().getEstatusAgente() != CRM_DOCTO_APROBADO){
+        dataDocumnets = new ArrayList<>();
+        pref = App.getInstance().getPrefs();
+        //si ya se hiso el proceso de envio de documentos
+
+        if(!pref.containsData(SEND_DOCUMENTS)){
+            Log.e(TAG,"A");
             lnr_buttons.setVisibility(GONE);
             lnr_help.setVisibility(VISIBLE);
-            showStatusDocs(rootview);
+            getEstatusDocs();
             adqPresenter.setListaDocs(rootview);
             mDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.clock_canvas);
             itemWeNeedSmFilesIFEfront.setStatusImage(mDrawable);
@@ -171,6 +187,8 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             itemWeNeedSmFilesAddressFront.setStatusImage(mDrawable);
             itemWeNeedSmFilesAddressBack.setStatusImage(mDrawable);
         }else{
+            Log.e(TAG,"B");
+            // si no se han enviado los documentos
             lnr_buttons.setVisibility(VISIBLE);
             lnr_help.setVisibility(GONE);
             itemWeNeedSmFilesIFEfront.setOnClickListener(this);
@@ -284,8 +302,8 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         }, DELAY_MESSAGE_PROGRESS);*/
     }
 
-    private void showStatusDocs(View view){
-        adqPresenter.getEstatusDocs(view);
+    private void getEstatusDocs( ){
+        adqPresenter.getEstatusDocs();
     }
 
     private void galleryAddPic() {
@@ -301,7 +319,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         Boolean validateDuplicado ;
         contador.add(imgBase64);
         validateDuplicado = checkDuplicate(contador);
-
+        DataDocuments dataDoc = new DataDocuments();
         if(!validateDuplicado){
             contador.remove(imgBase64);
             UI.showToast("Imagen duplicada , seleccione una imagen diferente ",getContext());
@@ -312,6 +330,9 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                     itemWeNeedSmFilesIFEfront.setVisibilityStatus(false);
                     itemWeNeedSmFilesIFEfront.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
+                    dataDoc.setTipoDocumento(5);
+                    dataDoc.setImagenBase64(imgBase64);
+                    dataDoc.setExtension("jpg");
 
                     break;
 
@@ -320,6 +341,10 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                     itemWeNeedSmFilesIFEBack.setVisibilityStatus(false);
                     itemWeNeedSmFilesIFEBack.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
+                    dataDoc.setTipoDocumento(6);
+                    dataDoc.setImagenBase64(imgBase64);
+                    dataDoc.setExtension("jpg");
+
 
                     break;
 
@@ -329,6 +354,10 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                     itemWeNeedSmFilesAddressFront.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
 
+                    dataDoc.setTipoDocumento(7);
+                    dataDoc.setImagenBase64(imgBase64);
+                    dataDoc.setExtension("jpg");
+
                     break;
 
                 case COMPROBANTE_BACK:
@@ -336,10 +365,14 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                     itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
                     itemWeNeedSmFilesAddressBack.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
+                    dataDoc.setTipoDocumento(30);
+                    dataDoc.setImagenBase64(imgBase64);
+                    dataDoc.setExtension("jpg");
+
                     break;
 
             }
-
+            dataDocumnets.add(dataDoc);
             if (bitmap.isRecycled()) {
                 bitmap.recycle();
             }
@@ -485,7 +518,8 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 showError("Debes de Subir Todos los Documentos.");
                 return;
             }
-        adqPresenter.uploadDocuments(imgs);
+        adqPresenter.sendDocumentos(dataDocumnets);
+        //adqPresenter.uploadDocuments(dataDocumnets);
     }
 }
 

@@ -95,19 +95,15 @@ public class BussinesActivity extends LoaderActivity {
             case EVENT_GO_BUSSINES_COMPLETE:
                 loadFragment(RegisterCompleteFragment.newInstance(ADQ_REVISION), Direction.FORDWARD, false);
                 break;
-
             case EVENT_GO_MAINTAB:
-
                 resetRegisterData();
                 finish();
                 break;
-
             case EVENT_DOC_CHECK:
-                presenterAccount.checkUpdateDocs();
-
-                Intent i = new Intent(this, TabActivity.class);
+                //loadFragment(Documentos.newInstance(), Direction.FORDWARD, false);
+                Intent i = new Intent(this,TabActivity.class);
+                i.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
                 startActivity(i);
-
                 finish();
                 break;
 

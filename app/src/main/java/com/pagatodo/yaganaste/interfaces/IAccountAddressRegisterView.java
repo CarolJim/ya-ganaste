@@ -13,4 +13,5 @@ public interface IAccountAddressRegisterView<E> extends INavigationView<Object, 
 
     public void setNeighborhoodsAvaliables(List<ColoniasResponse> listaColonias);
     public void setCurrentAddress(DataObtenerDomicilio domicilio);
+
 }
