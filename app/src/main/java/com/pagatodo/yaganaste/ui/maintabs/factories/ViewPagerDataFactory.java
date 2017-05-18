@@ -75,12 +75,8 @@ public class ViewPagerDataFactory {
 
                     fragmentList.add(Documentos.newInstance());
 
-                } else if(pref.containsData(SEND_DOCUMENTS)
-                && SingletonUser.getInstance().getDataUser().isEsAgente()){
-
-                    fragmentList.add(Documentos.newInstance());
                 } else {
-                    // fragmentList.add(Documentos.newInstance());
+
                     fragmentList.add(InviteAdquirenteFragment.newInstance());
                 }
 

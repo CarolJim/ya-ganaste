@@ -419,8 +419,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             }
 
             user.setDataUser(dataUser);
-            user.getDataUser().setEsAgente(false);/*TODO Testin de flujo Adq*/
+           // user.getDataUser().setEsAgente(false);/*TODO Testin de flujo Adq*/
             if (dataUser.isEsUsuario()) { // Si Usuario
+                user.getDataUser().setEsAgente(dataUser.isEsAgente());
                 RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
                 if (dataUser.isConCuenta()) {// Si Cuenta
                     if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP

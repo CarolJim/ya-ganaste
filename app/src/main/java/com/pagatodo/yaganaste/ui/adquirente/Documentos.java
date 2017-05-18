@@ -175,7 +175,9 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         pref = App.getInstance().getPrefs();
         //si ya se hiso el proceso de envio de documentos
 
-        if(pref.containsData(SEND_DOCUMENTS)){
+        if(SingletonUser.getInstance().getDataUser().isEsAgente()
+                && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_PENDIENTE
+                && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == CRM_PENDIENTE){
             Log.e(TAG,"A");
             lnr_buttons.setVisibility(GONE);
             lnr_help.setVisibility(VISIBLE);
