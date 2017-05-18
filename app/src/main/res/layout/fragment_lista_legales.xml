@@ -42,6 +42,7 @@
 
 
             <LinearLayout
+                android:id="@+id/fragment_lista_legales_aviso"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
@@ -73,6 +74,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/fragment_lista_legales_terminos"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:paddingTop="10dp">

@@ -7,10 +7,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+
+import org.w3c.dom.Text;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -22,11 +25,15 @@ import static com.pagatodo.yaganaste.ui.adquirente.TransactionResultFragment.KEY
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ListaOpcionesFragment extends GenericFragment implements View.OnClickListener{
+public class ListaOpcionesFragment extends GenericFragment implements View.OnClickListener {
 
     public static String IS_ES_AGENTE = "IS_ES_AGENTE";
     private boolean isEsAgente;
 
+    @BindView(R.id.fragment_list_opciones_name)
+    TextView tv_name;
+    @BindView(R.id.fragment_list_opciones_email)
+    TextView tv_email;
     @BindView(R.id.fragment_lista_opciones_user)
     LinearLayout ll_usuario;
     @BindView(R.id.fragment_lista_opciones_account)
@@ -62,7 +69,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         isEsAgente = getArguments().getBoolean(IS_ES_AGENTE);
 
         // Inflate the layout for this fragment
-        rootview =  inflater.inflate(R.layout.fragment_lista_opciones, container, false);
+        rootview = inflater.inflate(R.layout.fragment_lista_opciones, container, false);
         initViews();
 
         return rootview;
@@ -87,11 +94,15 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         ll_legal.setOnClickListener(this);
         ll_close.setOnClickListener(this);
 
+        // Hacemos SET de la infromacion del user
+        tv_name.setText("Mi nombre");
+        tv_email.setText("micorreo@gmail.com");
+
     }
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.fragment_lista_opciones_user:
                 Toast.makeText(getContext(), "Click User", Toast.LENGTH_SHORT).show();
                 break;
@@ -109,7 +120,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
                 onEventListener.onEvent(PREFER_USER_LEGALES, 1);
                 break;
             case R.id.fragment_lista_opciones_close:
-               // Toast.makeText(getContext(), "Click Close Session", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getContext(), "Click Close Session", Toast.LENGTH_SHORT).show();
                 onEventListener.onEvent(PREFER_USER_CLOSE, 1);
                 break;
         }
