@@ -58,32 +58,26 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui._controllers.MainActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".ui._controllers.AccountActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".ui._controllers.BussinesActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".ui._controllers.AdqActivity"
             android:configChanges="orientation|screenSize"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".ui._controllers.TabActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
         <activity
             android:name=".ui._controllers.PaymentsProcessingActivity"
             android:screenOrientation="portrait"
@@ -108,51 +102,57 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent"
             android:windowSoftInputMode="adjustPan" />
-
         <activity android:name=".ui._controllers.DetailsActivity" />
         <activity android:name=".ui._controllers.OnlineTxActivity" />
         <activity android:name=".ui.otp.activities.OtpCodeActivity" />
-
         <activity android:name=".ui._controllers.ScannVisionActivity" />
-
         <activity android:name=".ui._controllers.SessionActivity" />
 
         <meta-data
             android:name="com.google.android.gms.vision.DEPENDENCIES"
             android:value="barcode" />
-
-
         <meta-data
             android:name="com.google.android.gms.version"
             android:value="@integer/google_play_services_version" />
-
         <meta-data
             android:name="com.google.android.geo.API_KEY"
-            android:value="AIzaSyDyaKKktDzaNdnjjxMFz-4jmbiUA191DCo"/>
+            android:value="AIzaSyDyaKKktDzaNdnjjxMFz-4jmbiUA191DCo" />
 
         <uses-feature
             android:glEsVersion="0x00020000"
-            android:required="true"/>
+            android:required="true" />
 
-        <!-- <meta-data
+        <!--
+             <meta-data
              android:name="com.google.android.geo.API_KEY"
-             android:value="@string/google_maps_key" />-->
-        <!-- <meta-data
+             android:value="@string/google_maps_key" />
+        -->
+        <!--
+             <meta-data
              android:name="com.google.android.geo.API_KEY"
-             android:value="@string/google_maps_key" />-->
+             android:value="@string/google_maps_key" />
+        -->
 
         <service android:name=".notifications.MessagingService">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-
-
         <service android:name=".notifications.FirebaseInstanceServer">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
             </intent-filter>
         </service>
 
+        <activity
+            android:name=".ui._controllers.PreferUserActivity"
+            android:label="@string/title_activity_prefer_user"
+            android:parentActivityName=".ui._controllers.TabActivity"
+            android:theme="@style/AppTheme">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value="com.pagatodo.yaganaste.ui._controllers.TabActivity" />
+        </activity>
     </application>
+
 </manifest>
