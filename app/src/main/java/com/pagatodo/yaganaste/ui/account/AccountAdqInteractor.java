@@ -62,8 +62,9 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
     private String TAG = AccountAdqInteractor.class.getSimpleName();
     private IAccountManager accountManager;
+
     private Context context;
-    private List<EstatusDocumentosResponse> mListaDocumentos;
+
     Drawable mDrawable = null;
     private Preferencias pref;
 
@@ -83,10 +84,13 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     }
 
     @Override
-    public void setListDocuments(View view) {
+    public void setListDocuments(View view, List<EstatusDocumentosResponse> mListaDocumentos) {
 
+        Log.e(TAG,"documetos size" + mListaDocumentos.size());
         if (mListaDocumentos != null && mListaDocumentos.size() > 0) {
-            for (EstatusDocumentosResponse estatusDocs : this.mListaDocumentos) {
+            Log.e(TAG,"interactor " + mListaDocumentos.get(0).getEstatus());
+            for (EstatusDocumentosResponse estatusDocs : mListaDocumentos) {
+
                 int tipoDoc = estatusDocs.getTipoDocumento();
 
                 switch (estatusDocs.getIdEstatus()) {
@@ -101,7 +105,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
                         break;
                     default:
                         mDrawable = ContextCompat.getDrawable(context, R.drawable.clock_canvas);
-
                         break;
                 }
                 if (tipoDoc == DOC_ID_FRONT) {
@@ -188,15 +191,13 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
         request.setDomicilioNegocio(dataObtenerDomicilio);
 
-        onSuccess(new DataSourceResult(CREAR_AGENTE, WS, null));
+     //   onSuccess(new DataSourceResult(CREAR_AGENTE, WS, null));
 
-        /*
         try {
             ApiAdtvo.crearAgente(request, this);
         } catch (OfflineException e) {
-            accountManager.onError(OBTENER_COLONIAS_CP, App.getInstance().getString(R.string.no_internet_access));
+            accountManager.onError(CREAR_AGENTE, App.getInstance().getString(R.string.no_internet_access));
         }
-    */
     }
 
     @Override
@@ -233,12 +234,16 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
         CargaDocumentosResponse data = (CargaDocumentosResponse) response.getData();
         Log.e("ProcessStatusDocuments", "codigoRespuesta: " + data.getCodigoRespuesta());
+
         if (data.getCodigoRespuesta() == CODE_OK) {
+
             pref = App.getInstance().getPrefs();
             if (!pref.containsData(SEND_DOCUMENTS)) {
                 pref.saveDataBool(SEND_DOCUMENTS, true);
             }
+
             accountManager.onSucces(CARGA_DOCUMENTOS, "Envio de documentos");
+
         } else {
             Log.e(TAG, " mensaje error " + data.getMensaje());
             accountManager.onError(CARGA_DOCUMENTOS, "error" + data.getMensaje());
@@ -263,15 +268,17 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      * @param response {respuesta del servicio}
      */
     private void processStatusDocuments(DataSourceResult response) {
-        mListaDocumentos = new ArrayList<>();
+
         //TODO REVISAR
         ObtenerDocumentosRequest data = (ObtenerDocumentosRequest) response.getData();
         Log.e("ProcessStatusDocuments", "codigoRespuesta: " + data.getCodigoRespuesta());
         if (data.getCodigoRespuesta() == CODE_OK) {
             List<EstatusDocumentosResponse> listaDocumentos = data.getData();
             if (listaDocumentos != null && listaDocumentos.size() > 0) {
-                mListaDocumentos = listaDocumentos;
-                accountManager.onSucces(response.getWebService(), response.getData());
+
+                Log.e(TAG,"documentoEstatus " + listaDocumentos.get(0).getEstatus());
+
+                accountManager.onSucces(response.getWebService(), listaDocumentos);
 
             } else {
                 accountManager.onError(response.getWebService(), "No se pudo recuperar el estatus de los documentos");
@@ -311,11 +318,12 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      * @param response {@link DataSourceResult} respuesta del servicio
      */
     private void processAgentCreated(DataSourceResult response) {
+
         CrearAgenteResponse data = (CrearAgenteResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
-            accountManager.onSucces(response.getWebService(), null);
+            accountManager.onSucces(CREAR_AGENTE, null);
         } else {
-            accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
+            accountManager.onError(CREAR_AGENTE, data.getMensaje());//Retornamos mensaje de error.
         }
     }
 

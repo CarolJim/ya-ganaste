@@ -21,8 +21,10 @@ import java.util.List;
 public interface IAdqAccountIteractor {
     public void registerAdq();
     public void getNeighborhoodByZipCode(String zipCode);
+
+    void setListDocuments(View view, List<EstatusDocumentosResponse> mListaDocumentos);
+
     public void getEstatusDocs();
-    public void setListDocuments(View view);
     public void getClientAddress();
     public void sendDocuments(ArrayList<DataDocuments> string);
 }
