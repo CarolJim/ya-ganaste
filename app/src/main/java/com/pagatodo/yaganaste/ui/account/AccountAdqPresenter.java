@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountPresenter;
@@ -26,6 +27,7 @@ import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
@@ -72,15 +74,12 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
         adqIteractor.getClientAddress();
     }
 
+
+
     @Override
     public void createAdq() {
         iAdqView.showLoader(context.getString(R.string.procesando_solicitud));
         adqIteractor.registerAdq();
-    }
-
-    @Override
-    public void setListaDocs(View view) {
-        adqIteractor.setListDocuments(view);
     }
 
     // TODO quitar jmario
@@ -136,6 +135,12 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
                 ((IAdqRegisterView) iAdqView).setNeighborhoodsAvaliables((List<ColoniasResponse>) data);
             } else if (ws == OBTENER_DOMICILIO || ws == OBTENER_DOMICILIO_PRINCIPAL) {
                 ((IAdqRegisterView) iAdqView).setCurrentAddress((DataObtenerDomicilio) data);
+
+            }
+        }else if(iAdqView instanceof IUploadDocumentsView){
+            if(ws == OBTENER_DOCUMENTOS){
+                Log.i(TAG, "ws == ObtenerDocumentos");
+                ((IUploadDocumentsView) iAdqView).setDocumentosStatus((List<EstatusDocumentosResponse>) data);
             }
         } else {
             Log.i(TAG, "La sesión se ha cerrado.");
@@ -148,4 +153,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
         UI.showToastShort("La aplicacion no pudo acceder a su imagen intente con otra galeria", App.getContext());
     }
 
+    public void setEstatusDocs(View rootview, List<EstatusDocumentosResponse> data) {
+        adqIteractor.setListDocuments(rootview,data);
+    }
 }

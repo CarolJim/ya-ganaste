@@ -123,9 +123,9 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
 
     @Override
     public void getNeighborhoods(String zipCode) {
-        accountView.showLoader("Buscando CP");
+
         accountIteractor.getNeighborhoodByZipCode(zipCode);
-        accountView.hideLoader();
+
     }
 
     @Override
@@ -241,8 +241,6 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
                 }else{
                     ((IUserDataRegisterView) accountView).validationPasswordFailed("Su contraseña es incorrecta");
                 }
-
-
             }
         }else if(accountView instanceof IAccountAddressRegisterView) { // obtiene el listado de colonias
             if (ws == OBTENER_COLONIAS_CP) {

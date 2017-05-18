@@ -332,7 +332,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 break;
 
             case OBTENER_COLONIAS_CP:
-                accountManager.hideLoader();
+
                 processNeighborhoods(dataSourceResult);
 
                 break;
@@ -528,6 +528,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             List<ColoniasResponse> listaColonias = data.getData();
             if (listaColonias != null && listaColonias.size() > 0) {
                 accountManager.onSucces(response.getWebService(), listaColonias);
+
             } else {
                 accountManager.onError(response.getWebService(), "Verifica tu Código Postal");//Retornamos mensaje de error.
             }

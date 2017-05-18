@@ -175,17 +175,18 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         pref = App.getInstance().getPrefs();
         //si ya se hiso el proceso de envio de documentos
 
-        if(!pref.containsData(SEND_DOCUMENTS)){
+        if(pref.containsData(SEND_DOCUMENTS)){
             Log.e(TAG,"A");
             lnr_buttons.setVisibility(GONE);
             lnr_help.setVisibility(VISIBLE);
             getEstatusDocs();
-            adqPresenter.setListaDocs(rootview);
-            mDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.clock_canvas);
+
+           // adqPresenter.setListaDocs(rootview);
+           /* mDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.clock_canvas);
             itemWeNeedSmFilesIFEfront.setStatusImage(mDrawable);
             itemWeNeedSmFilesIFEBack.setStatusImage(mDrawable);
             itemWeNeedSmFilesAddressFront.setStatusImage(mDrawable);
-            itemWeNeedSmFilesAddressBack.setStatusImage(mDrawable);
+            itemWeNeedSmFilesAddressBack.setStatusImage(mDrawable);*/
         }else{
             Log.e(TAG,"B");
             // si no se han enviado los documentos
@@ -239,6 +240,8 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 break;
         }
     }
+
+
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -305,6 +308,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     private void getEstatusDocs( ){
         adqPresenter.getEstatusDocs();
     }
+
 
     private void galleryAddPic() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -484,6 +488,13 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 nextScreen(EVENT_GO_BUSSINES_COMPLETE,null);
             }
         }, DELAY_MESSAGE_PROGRESS);
+    }
+
+    @Override
+    public void setDocumentosStatus(List<EstatusDocumentosResponse> data) {
+        // TODO Mostrarestatus documentos de la vista
+        Log.e(TAG,"data size" + data.size());
+        adqPresenter.setEstatusDocs(rootview ,data);
     }
 
     @Override

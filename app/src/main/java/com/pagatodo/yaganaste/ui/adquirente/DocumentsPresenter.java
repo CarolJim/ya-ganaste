@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
+import android.view.View;
+
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.interfaces.IDocumentsPresenter;
 
@@ -15,6 +17,7 @@ public abstract class DocumentsPresenter implements IDocumentsPresenter {
 
     public DocumentsPresenter() {
     }
+
 
     @Override
     public abstract void uploadDocuments(Object documents);

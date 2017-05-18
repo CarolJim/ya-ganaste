@@ -38,6 +38,7 @@ public class CustomKeyboardView extends KeyboardView {
     public void setKeyBoard(Activity activity, int xmlLayoutResId){
         this.activity = activity;
         keyboard = new Keyboard(activity,xmlLayoutResId);
+
         this.setKeyboard(keyboard);
         this.setOnKeyboardActionListener(keyboardActionListener);
     }
@@ -66,6 +67,7 @@ public class CustomKeyboardView extends KeyboardView {
              * Guardamos el codigo de la tecla que usamos en el CustomKeyboard
              */
             CustomKeyboardView.setCodeKey(primaryCode);
+
             long eventTime = System.currentTimeMillis();
             KeyEvent event = new KeyEvent(eventTime, eventTime, KeyEvent.ACTION_DOWN, primaryCode, 0, 0, 0, 0, KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE);
             activity.dispatchKeyEvent(event);

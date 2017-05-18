@@ -139,8 +139,9 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 if (s.toString().length() == 4) {
-                    buttonIsVisible(true);
+                    buttonIsVisible(false);
                     keyboardView.hideCustomKeyboard();
+                    validateForm();
                 }
             }
 
