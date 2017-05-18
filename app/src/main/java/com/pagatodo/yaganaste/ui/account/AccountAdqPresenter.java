@@ -64,7 +64,6 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
 
     @Override
     public void getEstatusDocs() {
-        Log.e(TAG, "AccountAdqPresenter ");
         adqIteractor.getEstatusDocs();
     }
 
@@ -139,11 +138,11 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
             }
         }else if(iAdqView instanceof IUploadDocumentsView){
             if(ws == OBTENER_DOCUMENTOS){
-                Log.i(TAG, "ws == ObtenerDocumentos");
                 ((IUploadDocumentsView) iAdqView).setDocumentosStatus((List<EstatusDocumentosResponse>) data);
             }
         } else {
             Log.i(TAG, "La sesión se ha cerrado.");
+
         }
 
     }

@@ -38,7 +38,6 @@ import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesAddressBack;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesAddressFront;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesIFEBack;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesIFEfront;
-import static com.pagatodo.yaganaste.interfaces.enums.DataSource.WS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
@@ -73,6 +72,11 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         context = ctx;
     }
 
+    /***
+     * Metodo par recuperar las colonias por codigo postal
+     *
+     * @param zipCode
+     */
     @Override
     public void getNeighborhoodByZipCode(String zipCode) {
         ObtenerColoniasPorCPRequest request = new ObtenerColoniasPorCPRequest(zipCode);
@@ -83,12 +87,16 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         }
     }
 
+    /***
+     * Metodo que sea la vista de lo documentos con los estatus que le corresponde
+     *
+     * @param view
+     * @param mListaDocumentos
+     */
     @Override
     public void setListDocuments(View view, List<EstatusDocumentosResponse> mListaDocumentos) {
-
-        Log.e(TAG,"documetos size" + mListaDocumentos.size());
+        Log.d(TAG, "documentosSize" + mListaDocumentos.size());
         if (mListaDocumentos != null && mListaDocumentos.size() > 0) {
-            Log.e(TAG,"interactor " + mListaDocumentos.get(0).getEstatus());
             for (EstatusDocumentosResponse estatusDocs : mListaDocumentos) {
 
                 int tipoDoc = estatusDocs.getTipoDocumento();
@@ -153,9 +161,13 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         }
     }
 
+    /***
+     * Envio de documentos
+     * @param docs
+     */
     @Override
     public void sendDocuments(ArrayList<DataDocuments> docs) {
-        Log.e(TAG, "sendDocuments");
+
         try {
             CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
             cargaDocumentosRequest.setDocumentos(docs);
@@ -191,7 +203,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
         request.setDomicilioNegocio(dataObtenerDomicilio);
 
-     //   onSuccess(new DataSourceResult(CREAR_AGENTE, WS, null));
+        //   onSuccess(new DataSourceResult(CREAR_AGENTE, WS, null));
 
         try {
             ApiAdtvo.crearAgente(request, this);
@@ -230,10 +242,14 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         }
     }
 
+    /***
+     * Metodo para procesar la respuesta cuando se envian los documentos
+     *
+     * @param response
+     */
     private void processSendDocuments(DataSourceResult response) {
 
         CargaDocumentosResponse data = (CargaDocumentosResponse) response.getData();
-        Log.e("ProcessStatusDocuments", "codigoRespuesta: " + data.getCodigoRespuesta());
 
         if (data.getCodigoRespuesta() == CODE_OK) {
 
@@ -271,12 +287,10 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
         //TODO REVISAR
         ObtenerDocumentosRequest data = (ObtenerDocumentosRequest) response.getData();
-        Log.e("ProcessStatusDocuments", "codigoRespuesta: " + data.getCodigoRespuesta());
         if (data.getCodigoRespuesta() == CODE_OK) {
             List<EstatusDocumentosResponse> listaDocumentos = data.getData();
             if (listaDocumentos != null && listaDocumentos.size() > 0) {
 
-                Log.e(TAG,"documentoEstatus " + listaDocumentos.get(0).getEstatus());
 
                 accountManager.onSucces(response.getWebService(), listaDocumentos);
 
@@ -308,7 +322,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             }
         } else {
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
-            accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
+            accountManager.onError(OBTENER_COLONIAS_CP, data.getMensaje());//Retornamos mensaje de error.
         }
     }
 
@@ -327,6 +341,11 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         }
     }
 
+    /**
+     * Metodo para procesas la respuesta de domicilio
+     *
+     * @param result
+     */
     private void processAddress(DataSourceResult result) {
         ObtenerDomicilioResponse data = (ObtenerDomicilioResponse) result.getData();
 

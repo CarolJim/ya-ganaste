@@ -59,7 +59,6 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     private SwipeRefreshLayout swipeContainer;
     public static final int MOVEMENTS = 1;
     public static final int PAYMENTS = 2;
-   // private RecyclerView.Adapter mAdapter;
 
     public static AbstractAdEmFragment newInstance(int type){
         AbstractAdEmFragment instance;
@@ -108,7 +107,6 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         swipeContainer.setOnRefreshListener(this);
         recyclerMovements.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerMovements.setHasFixedSize(true);
-        //recyclerMovements.setAdapter(mAdapter);
         this.tabMonths = (GenericTabLayout<T>)rootView.findViewById(R.id.tab_months);
         tabPresenter.getPagerData(getTab());
     }
@@ -134,7 +132,6 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
-        Log.e("TABS ", "Se selecciono el tab: " + tab.getPosition());
         if (movementsList.get(tab.getPosition()) != null) {
             updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
         } else {
@@ -152,11 +149,8 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     }
 
     protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemRecycler> movements) {
-        /*List<ItemMovements<MovimientosResponse>> movementsList = new ArrayList<>();
-        ItemMovements items = new ItemMovements("a","b",125.36,"c","d",1);
-        movementsList.add(items);
-        movementsList.add(tabMonths.getSelectedTabPosition(), (ItemMovements<MovimientosResponse>) movementsList);*/
-        txtInfoMovements.setVisibility(movementsList.isEmpty() ? View.VISIBLE : View.GONE);
+
+        movementsList.add(tabMonths.getSelectedTabPosition(), movements);
         txtInfoMovements.setVisibility(movements.isEmpty() ? View.VISIBLE : View.GONE);
         updateRecyclerData(adapter);
     }
@@ -194,56 +188,4 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     }
 
     protected abstract void performClickOnRecycler(ItemRecycler itemClicked);
-/*
-    public class MyAdapter extends RecyclerView.Adapter<MyAdapter.ViewHolder>{
-        private ArrayList<DemoMov> mdataset;
-
-        public MyAdapter(ArrayList mdataset) {
-            this.mdataset = mdataset;
-        }
-
-        @Override
-        public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
-            View v= LayoutInflater.from(getContext()).inflate(R.layout.item_movement,parent,false);
-            ViewHolder viewHolder = new ViewHolder(v);
-            return viewHolder;
-        }
-
-        @Override
-        public void onBindViewHolder(ViewHolder holder, int position) {
-            mdataset.get(position);
-
-            holder.colorMark.setBackgroundColor(getResources().getColor(mdataset.get(position).getColor()));
-            holder.txtDay.setText(mdataset.get(position).getDia());
-            holder.txtMes.setText(mdataset.get(position).getMes());
-            holder.txtPremio.setText(mdataset.get(position).getConcepto());
-            holder.txtDescripcion.setText(mdataset.get(position).getDescripcion());
-            holder.txtMonto.setText(mdataset.get(position).getMonto());
-            holder.txtMonto.setTextColor(getResources().getColor(mdataset.get(position).getColor()));
-            holder.txtCentavos.setText(mdataset.get(position).getCentavos());
-            holder.txtCentavos.setTextColor(getResources().getColor(mdataset.get(position).getColor()));
-        }
-
-        @Override
-        public int getItemCount() {
-            return mdataset.size();
-        }
-
-        public class ViewHolder extends RecyclerView.ViewHolder{
-            public TextView txtDay, txtMes,txtPremio,txtDescripcion,txtMonto,txtCentavos;
-            public View colorMark;
-            public ViewHolder(View i) {
-                super(i);
-                colorMark = (View) i.findViewById(R.id.layout_movement_type_color);
-                txtDay = (TextView) i.findViewById(R.id.txt_item_mov_date);
-                txtMes = (TextView) i.findViewById(R.id.txt_item_mov_month);
-                txtPremio = (TextView) i.findViewById(R.id.txt_premios);
-                txtDescripcion = (TextView) i.findViewById(R.id.txt_marca);
-                txtMonto = (TextView) i.findViewById(R.id.txt_monto);
-                txtCentavos = (TextView) i.findViewById(R.id.txt_item_mov_cents);
-
-                 //mTExtView = (TextView) itemView.findViewById();
-            }
-        }
-    }*/
 }

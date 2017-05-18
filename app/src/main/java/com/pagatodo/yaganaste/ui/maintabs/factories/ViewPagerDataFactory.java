@@ -70,7 +70,7 @@ public class ViewPagerDataFactory {
 
                     fragmentList.add(GetMountFragment.newInstance());
 
-                } else if (!SingletonUser.getInstance().getDataUser().isEsAgente()
+                } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
                         && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_PENDIENTE) {
 
                     fragmentList.add(Documentos.newInstance());

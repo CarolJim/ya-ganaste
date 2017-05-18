@@ -28,7 +28,7 @@
             android:orientation="vertical">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/textView3"
+                android:id="@+id/fragment_list_opciones_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
@@ -37,7 +37,7 @@
                 android:textSize="18sp" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/textView2"
+                android:id="@+id/fragment_list_opciones_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"

@@ -30,7 +30,7 @@ import static com.android.volley.Request.Method.POST;
  */
 public class WsCaller implements IServiceConsumer {
 
-    private final String TAG = this.getClass().getName();
+    private final String TAG = this.getClass().getSimpleName();
 
     /**
      * Método para realizar la petición http segun los
@@ -43,18 +43,18 @@ public class WsCaller implements IServiceConsumer {
     public void sendJsonPost(final WsRequest request){
 
         VolleySingleton volleySingleton = VolleySingleton.getInstance(App.getInstance().getApplicationContext());
-        Log.d(TAG, "Request: " + request.get_url_request());
+        Log.d(TAG, "Request : " + request.get_url_request());
         if(request.getHeaders() != null && request.getHeaders().size() > 0) {
-            Log.d(TAG, "Headers:");
+            Log.d(TAG, "Headers : ");
             for (String name : request.getHeaders().keySet()) {
                 String key = name.toString();
                 String value = request.getHeaders().get(name).toString();
-                Log.d(TAG, key + ":" + value);
+                Log.d(TAG, key + " : " + value);
             }
         }
 
         if(request.getBody()!= null)
-            Log.d(TAG, "Body Request: "+ request.getBody().toString());
+            Log.d(TAG, "Body Request : "+ request.getBody().toString());
         CustomJsonObjectRequest jsonRequest =  new CustomJsonObjectRequest(
                 request.getMethod(),
                 request.getMethod() == POST ? request.get_url_request() : parseGetRequest(request.get_url_request(), request.getBody()),
@@ -62,14 +62,14 @@ public class WsCaller implements IServiceConsumer {
                 new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
-                        Log.d(TAG, "Response Success: " + response.toString());
+                        Log.d(TAG, "Response Success : " + response.toString());
                         request.getRequestResult().onSuccess(new DataSourceResult(request.getMethod_name(),DataSource.WS,UtilsNet.jsonToObject(response.toString(),request.getTypeResponse())));
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
-                        Log.d(TAG, "Request Failed: " + error.getMessage());
+                        Log.d(TAG, "Request Failed : " + error.getMessage());
                         request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(),DataSource.WS,CustomErrors.getError(error)));
                     }
                 },request.getHeaders());
