@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
@@ -142,7 +143,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         txtPagosUserName.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombre());
 
         Double saldo = Double.parseDouble(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor());
-        txtBalance.setText(String.format("%.2f", saldo));
+        txtBalance.setText(StringUtils.getCurrencyValue(saldo));
     }
 
 

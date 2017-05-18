@@ -23,6 +23,9 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -151,8 +154,13 @@ public class PaymentSuccessFragment extends GenericFragment {
         Glide.with(getContext()).load(pago.getComercio().getLogoURL()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).dontAnimate().into(imgLogoPago);
 
         autorizacion.setText(result.getData().getNumeroAutorizacion());
-        fecha.setText(result.getData().getFecha());
-        hora.setText(result.getData().getHora());
+        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
+        SimpleDateFormat dateFormatH = new SimpleDateFormat("HH:mm:ss");
+
+        fecha.setText(dateFormat.format(new Date()));
+        hora.setText(dateFormatH.format(new Date()));
+        //fecha.setText(result.getData().getFecha());
+        //hora.setText(result.getData().getHora());
 
         btnContinueEnvio.setOnClickListener(new View.OnClickListener() {
             @Override

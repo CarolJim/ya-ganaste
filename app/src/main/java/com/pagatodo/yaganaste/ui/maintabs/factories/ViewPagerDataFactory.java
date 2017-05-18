@@ -60,7 +60,7 @@ public class ViewPagerDataFactory {
 
                 fragmentList.add(HomeTabFragment.newInstance());
                 fragmentList.add(PaymentsTabFragment.newInstance());
-                fragmentList.add(MapDepositsFragment.newInstance());
+                fragmentList.add(DepositTabFragment.newInstance());
 
                 Log.e("view pager ", "isAgente " + SingletonUser.getInstance().getDataUser().isEsAgente());
                 Log.e("view pager ", "estatusAgente" + SingletonUser.getInstance().getDataUser().getEstatusAgente());

@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.net;
 
+import android.util.Log;
+
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionAprovSofttokenRequest;
