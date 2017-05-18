@@ -79,11 +79,11 @@
                         android:text="Mi Usuario"
                         android:textSize="18sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@android:drawable/ic_input_add" />
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/edit_canvas_blue"  />
                 </LinearLayout>
             </LinearLayout>
 
@@ -116,11 +116,11 @@
                         android:text="Mi Cuenta"
                         android:textSize="18sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@android:drawable/ic_input_add" />
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/edit_canvas_blue"  />
                 </LinearLayout>
             </LinearLayout>
 
@@ -153,11 +153,11 @@
                         android:text="Mi Tarjeta"
                         android:textSize="18sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@android:drawable/ic_input_add" />
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/edit_canvas_blue"  />
                 </LinearLayout>
             </LinearLayout>
 
@@ -190,11 +190,11 @@
                         android:text="Ayuda"
                         android:textSize="18sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@android:drawable/ic_input_add" />
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/arrow_canvas_blue"  />
                 </LinearLayout>
             </LinearLayout>
 
@@ -227,11 +227,11 @@
                         android:text="Legales"
                         android:textSize="18sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@android:drawable/ic_input_add" />
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/arrow_canvas_blue"  />
                 </LinearLayout>
             </LinearLayout>
 
@@ -263,11 +263,12 @@
                         android:text="Cerrar Sesión"
                         android:textSize="18sp" />
 
-                    <ImageView
-                        android:layout_width="wrap_content"
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="10dp"
-                        android:src="@android:drawable/ic_input_add" />
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/log_out_canvas_blue"  />
                 </LinearLayout>
             </LinearLayout>
 

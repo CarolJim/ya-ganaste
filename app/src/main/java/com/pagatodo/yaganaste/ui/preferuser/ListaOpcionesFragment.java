@@ -28,7 +28,10 @@ import static com.pagatodo.yaganaste.ui.adquirente.TransactionResultFragment.KEY
 public class ListaOpcionesFragment extends GenericFragment implements View.OnClickListener {
 
     public static String IS_ES_AGENTE = "IS_ES_AGENTE";
+    public static String USER_NAME = "USER_NAME";
+    public static String USER_EMAIL = "USER_EMAIL";
     private boolean isEsAgente;
+    private String mName, mEmail;
 
     @BindView(R.id.fragment_list_opciones_name)
     TextView tv_name;
@@ -53,11 +56,13 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         // Required empty public constructor
     }
 
-    public static ListaOpcionesFragment newInstance(boolean isEsAgente) {
+    public static ListaOpcionesFragment newInstance(boolean isEsAgente, String mName, String mEmail) {
 
         ListaOpcionesFragment fragmentRegister = new ListaOpcionesFragment();
         Bundle args = new Bundle();
         args.putBoolean(IS_ES_AGENTE, isEsAgente);
+        args.putString(USER_NAME, mName);
+        args.putString(USER_EMAIL, mEmail);
         fragmentRegister.setArguments(args);
         return fragmentRegister;
     }
@@ -67,6 +72,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
                              Bundle savedInstanceState) {
 
         isEsAgente = getArguments().getBoolean(IS_ES_AGENTE);
+        mName = getArguments().getString(USER_NAME);
+        mEmail = getArguments().getString(USER_EMAIL);
 
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_lista_opciones, container, false);
@@ -95,8 +102,10 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         ll_close.setOnClickListener(this);
 
         // Hacemos SET de la infromacion del user
-        tv_name.setText("Mi nombre");
-        tv_email.setText("micorreo@gmail.com");
+        mName = "Mi Nombre";
+        mEmail = "mimail@micorreo.com";
+        tv_name.setText(mName);
+        tv_email.setText(mEmail);
 
     }
 

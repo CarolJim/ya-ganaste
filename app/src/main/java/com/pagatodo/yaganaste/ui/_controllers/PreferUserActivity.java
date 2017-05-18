@@ -6,13 +6,15 @@ import android.view.Menu;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
+import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
-import com.pagatodo.yaganaste.ui.account.register.LegalsFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaLegalesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
+import com.pagatodo.yaganaste.utils.UI;
 
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
@@ -20,12 +22,15 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TE
 public class PreferUserActivity extends ToolBarActivity implements OnEventListener {
 
     private boolean isEsAgente;
+    private String mName, mEmail;
 
     public static String PREFER_USER_LISTA = "PREFER_USER_LISTA";
     public static String PREFER_USER_LEGALES = "PREFER_USER_LEGALES";
     public static String PREFER_USER_CLOSE = "PREFER_USER_CLOSE";
     public static String PREFER_USER_PRIVACIDAD = "PREFER_USER_PRIVACIDAD";
     public static String PREFER_USER_TERMINOS = "PREFER_USER_TERMINOS";
+
+    private AccountPresenterNew presenterAccount;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,12 +40,21 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
         isEsAgente = SingletonUser.getInstance().getDataUser().isEsAgente();
         isEsAgente = false;
 
-        loadFragment(ListaOpcionesFragment.newInstance(isEsAgente));
+        mName = SingletonUser.getInstance().getDataUser().getUsuario().getNombreUsuario();
+        mEmail = SingletonUser.getInstance().getDataUser().getUsuario().getNombre();
+
+        loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail));
+
+        presenterAccount = new AccountPresenterNew(this);
 
         // CReamos las referencias al AcoountInteractot
        // AccountInteractorNew.
     }
 
+    public AccountPresenterNew getPresenter() {
+
+        return this.presenterAccount;
+    }
     /**
      * Sobre escribimos el metodo del PAdre ToolBar para no tener el boton que nos abre esta+
      * activitydad
@@ -54,6 +68,19 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
         return false;
     }
 
+    DialogDoubleActions doubleActions = new DialogDoubleActions() {
+        @Override
+        public void actionConfirm(Object... params) {
+            //    Toast.makeText(PreferUserActivity.this, "Click Cerrar Session", Toast.LENGTH_SHORT).show();
+            getPresenter().logout();
+        }
+
+        @Override
+        public void actionCancel(Object... params) {
+
+        }
+    };
+
     @Override
     public void onEvent(String event, Object data) {
         switch (event) {
@@ -63,6 +90,8 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
 
             case "PREFER_USER_CLOSE":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                UI.createSimpleCustomDialog("", "¿Desea realmente cerrar sesión?", getSupportFragmentManager(),
+                        doubleActions, true, false);
                 break;
 
             case "PREFER_USER_PRIVACIDAD":
@@ -79,7 +108,7 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
 
             /** Eventos BACK **/
             case "PREFER_USER_LISTA":
-                loadFragment(ListaOpcionesFragment.newInstance(isEsAgente), Direction.BACK, false);
+                loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail), Direction.BACK, false);
                 break;
         }
     }
@@ -93,4 +122,14 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
             super.onBackPressed();
         }
     }
+
+    /*@Override
+    public void onSuccess(DataSourceResult dataSourceResult) {
+        Toast.makeText(PreferUserActivity.this, "Sucess Cerrar Session", Toast.LENGTH_SHORT).show();
+    }
+
+    @Override
+    public void onFailed(DataSourceResult error) {
+        Toast.makeText(PreferUserActivity.this, "Fail Cerrar Session", Toast.LENGTH_SHORT).show();
+    }*/
 }
