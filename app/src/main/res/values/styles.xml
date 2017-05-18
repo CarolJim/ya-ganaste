@@ -77,13 +77,15 @@
         <item name="buttonRippleColor2">@drawable/button_rounded_blue</item>
         <item name="buttonNormalColor">@drawable/button_rounded_blue</item>
     </style>
+
     <style name="buttonDirecctionNext" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/height_btns</item>
         <item name="android:background">@drawable/continuar_canvas</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
-    <style name="buttonDirecctionBack" parent="Widget.AppCompat.Button" >
+
+    <style name="buttonDirecctionBack" parent="Widget.AppCompat.Button">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/height_btns</item>
         <item name="android:background">@drawable/boton_regresar_canvas</item>
@@ -149,10 +151,14 @@
     </style>
 
     <style name="InputTextForms">
-        <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginEnd" tools:targetApi="jelly_bean_mr1">
+            @dimen/activity_horizontal_margin
+        </item>
         <item name="android:layout_marginLeft">@dimen/activity_horizontal_margin</item>
         <item name="android:layout_marginRight">@dimen/activity_horizontal_margin</item>
-        <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">@dimen/activity_horizontal_margin</item>
+        <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">
+            @dimen/activity_horizontal_margin
+        </item>
         <item name="android:layout_marginTop">@dimen/activity_horizontal_margin</item>
         <item name="android:gravity">center</item>
     </style>
@@ -167,7 +173,9 @@
 
     <style name="StyleEditText">
         <item name="android:layout_marginLeft">@dimen/edittext_margin_left</item>
-        <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">@dimen/edittext_margin_left</item>
+        <item name="android:layout_marginStart" tools:targetApi="jelly_bean_mr1">
+            @dimen/edittext_margin_left
+        </item>
         <item name="android:background">@null</item>
         <item name="android:backgroundTint" tools:targetApi="lollipop">@color/transparent</item>
         <item name="android:paddingTop">@dimen/edittext_padding</item>
