@@ -33,7 +33,6 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
 
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data) {
-        Log.e("Presenter ", "getRemoteMovementsData "+ data.getYear());
         movementsView.showLoader("");
 
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();

@@ -524,6 +524,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
      */
     private void processNeighborhoods(DataSourceResult response) {
         ObtenerColoniasPorCPResponse data = (ObtenerColoniasPorCPResponse) response.getData();
+
         if (data.getCodigoRespuesta() == CODE_OK) {
             List<ColoniasResponse> listaColonias = data.getData();
             if (listaColonias != null && listaColonias.size() > 0) {
@@ -537,7 +538,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
         }
     }
-
     /**
      * Método para procesar la respuesta uan vez que se realizo la asignación de una cuenta disponible.
      *

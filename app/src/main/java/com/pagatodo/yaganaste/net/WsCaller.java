@@ -30,7 +30,7 @@ import static com.android.volley.Request.Method.POST;
  */
 public class WsCaller implements IServiceConsumer {
 
-    private final String TAG = this.getClass().getName();
+    private final String TAG = this.getClass().getSimpleName();
 
     /**
      * Método para realizar la petición http segun los
@@ -45,11 +45,11 @@ public class WsCaller implements IServiceConsumer {
         VolleySingleton volleySingleton = VolleySingleton.getInstance(App.getInstance().getApplicationContext());
         Log.d(TAG, "Request : " + request.get_url_request());
         if(request.getHeaders() != null && request.getHeaders().size() > 0) {
-            Log.d(TAG, "Headers :");
+            Log.d(TAG, "Headers : ");
             for (String name : request.getHeaders().keySet()) {
                 String key = name.toString();
                 String value = request.getHeaders().get(name).toString();
-                Log.d(TAG, key + ":" + value);
+                Log.d(TAG, key + " : " + value);
             }
         }
 

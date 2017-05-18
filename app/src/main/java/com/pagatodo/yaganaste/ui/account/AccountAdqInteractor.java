@@ -95,15 +95,11 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      */
     @Override
     public void setListDocuments(View view, List<EstatusDocumentosResponse> mListaDocumentos) {
-
         Log.d(TAG, "documentosSize" + mListaDocumentos.size());
         if (mListaDocumentos != null && mListaDocumentos.size() > 0) {
             for (EstatusDocumentosResponse estatusDocs : mListaDocumentos) {
 
                 int tipoDoc = estatusDocs.getTipoDocumento();
-                Log.d(TAG, "estatusDoc " + estatusDocs.getIdEstatus());
-                Log.d(TAG, "tipoDoc " + estatusDocs.getTipoDocumento());
-                Log.d(TAG, "motivo " + estatusDocs.getMotivo());
 
                 switch (estatusDocs.getIdEstatus()) {
                     case STATUS_DOCTO_APROBADO:
@@ -171,7 +167,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      */
     @Override
     public void sendDocuments(ArrayList<DataDocuments> docs) {
-        Log.e(TAG, "sendDocuments");
+
         try {
             CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
             cargaDocumentosRequest.setDocumentos(docs);
@@ -291,7 +287,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
         //TODO REVISAR
         ObtenerDocumentosRequest data = (ObtenerDocumentosRequest) response.getData();
-        Log.e("ProcessStatusDocuments", "codigoRespuesta: " + data.getCodigoRespuesta());
         if (data.getCodigoRespuesta() == CODE_OK) {
             List<EstatusDocumentosResponse> listaDocumentos = data.getData();
             if (listaDocumentos != null && listaDocumentos.size() > 0) {
@@ -327,7 +322,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             }
         } else {
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
-            accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
+            accountManager.onError(OBTENER_COLONIAS_CP, data.getMensaje());//Retornamos mensaje de error.
         }
     }
 
