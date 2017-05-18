@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.account;
 
+import android.content.Intent;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
@@ -47,6 +48,7 @@ import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
@@ -315,6 +317,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
                 } else {
                     //TODO Evento para llevar al usuario al splash
+                    Intent intent = new Intent(App.getContext(), SplashActivity.class);
+                    App.getContext().startActivity(intent);
                 }
 
                 break;
