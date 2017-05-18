@@ -345,7 +345,7 @@
     <string name="child_tab_recharge">Recargas</string>
     <string name="child_tab_services">Servicios</string>
     <string name="child_tab_mony_send">Envíos</string>
-    <string name="comision_service_payment">La Comisión por Realizar la Operación es de $10.00</string>
+    <string name="comision_service_payment">La Comisión es de: %1$s(IVA Incluido)</string>
     <string name="title_recarga_success">¡Recarga Exitosa!</string>
     <string name="title_servicio_success">¡Pago Exitoso!</string>
     <string name="title_envio_success">¡Envío Exitoso!</string>

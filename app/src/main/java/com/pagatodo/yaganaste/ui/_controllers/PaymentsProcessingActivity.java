@@ -68,12 +68,20 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
         MovementsTab tab = (MovementsTab) getIntent().getExtras().get("TAB");
 
 
-        if (pago instanceof Recarga || pago instanceof Servicios) {
+
+        try {
+            presenter.sendPayment(tab, pago);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            onError(getString(R.string.no_internet_access));
+        }
+
+        /*if (pago instanceof Recarga || pago instanceof Servicios) {
             try {
                 presenter.sendPayment(tab, pago);
             } catch (OfflineException e) {
                 e.printStackTrace();
-                Toast.makeText(this, "Sin conexión", Toast.LENGTH_SHORT).show();
+                onError(getString(R.string.no_internet_access));
             }
         } else if (pago instanceof Envios) {
             hideLoader();
@@ -81,7 +89,7 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
             View root = container.getRootView();
             root.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
             loadFragment(PaymentAuthorizeFragment.newInstance((Envios) pago), NONE, false);
-        }
+        }*/
 
 
         //loadFragment(SendPaymentFragment.newInstance(), Direction.NONE, false);
@@ -152,11 +160,15 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
             ex.printStackTrace();
         }
 
+        onError(errorTxt);
+        //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    private void onError(String message){
         Intent intent = new Intent();
         intent.putExtra(RESULT, Constants.RESULT_ERROR);
-        intent.putExtra(MESSAGE, errorTxt != null ? errorTxt : getString(R.string.error_respuesta));
+        intent.putExtra(MESSAGE, message != null ? message : getString(R.string.error_respuesta));
         setResult(2, intent);
         finish();
-        //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 }

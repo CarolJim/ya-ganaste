@@ -111,10 +111,11 @@ public class EjecutarTransaccionRequest implements Serializable {
     }
 
     public String createTicket() {
-        Calendar c = Calendar.getInstance();
+        /*Calendar c = Calendar.getInstance();
         final int startYear = c.get(Calendar.YEAR);
         final int startMonth = c.get(Calendar.MONTH);
-        final int startDay = c.get(Calendar.DAY_OF_MONTH);
-        return startYear + startMonth + startDay + (int) (Math.random() * 90) + "";
+        final int startDay = c.get(Calendar.DAY_OF_MONTH);*/
+        return String.format("%1$tY%1$tM%1$tS%2$02d", Calendar.getInstance(), (int) (Math.random() * 90));
+        //startYear + startMonth + startDay +  + "";
     }
 }

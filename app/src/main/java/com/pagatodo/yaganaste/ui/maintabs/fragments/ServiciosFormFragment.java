@@ -11,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
+import android.widget.TextView;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -21,6 +22,7 @@ import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.ServiciosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IServiciosPresenter;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
@@ -43,8 +45,9 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
     EditText serviceImport;
     @BindView(R.id.serviceConcept)
     EditText serviceConcept;
+    @BindView(R.id.comisionText)
+    TextView comisionText;
 
-    ;
     private boolean isValid = false;
     private IServiciosPresenter serviciosPresenter;
 
@@ -91,6 +94,8 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
         if (comercioItem.getFormato().equals("AN")) {
             referenceNumber.setInputType(InputType.TYPE_CLASS_TEXT);
         }
+        comisionText.setText(String.format(getString(R.string.comision_service_payment), StringUtils.getCurrencyValue(comercioItem.getSobrecargo())));
+
     }
 
     @Override

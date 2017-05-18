@@ -73,8 +73,10 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     CircleImageView imgPagosServiceToPayRound;
     @BindView(R.id.txtPagosUserName)
     TextView txtPagosUserName;
-    @BindView(R.id.txtPagosYourBalanceNumber)
-    MontoTextView txtBalance;
+    @BindView(R.id.txtPagosYourBalance)
+    TextView txtBalance;
+    //@BindView(R.id.txtPagosYourBalanceNumber)
+    //MontoTextView txtBalance;
 
     MovementsTab currentTab = TAB1;
 
@@ -143,7 +145,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         txtPagosUserName.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombre());
 
         Double saldo = Double.parseDouble(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor());
-        txtBalance.setText(StringUtils.getCurrencyValue(saldo));
+        txtBalance.setText(getString(R.string.your_balance) + StringUtils.getCurrencyValue(saldo));
     }
 
 

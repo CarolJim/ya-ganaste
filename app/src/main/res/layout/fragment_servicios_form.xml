@@ -97,8 +97,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/containerServiciosForm"
         android:layout_marginTop="@dimen/margin_doble"
-        android:gravity="center"
-        android:text="@string/comision_service_payment"
+        android:gravity="center|bottom"
         android:textSize="12sp"
         app:tipo="Descripcion" />
 

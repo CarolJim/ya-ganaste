@@ -168,7 +168,8 @@
 
 
 
-                                <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+                                <!--com.pagatodo.yaganaste.utils.customviews.MontoTextView-->
+                                <!--com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/txtPagosYourBalanceNumber"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
@@ -179,7 +180,7 @@
                                     android:textAlignment="center"
                                     android:textSize="8sp"
                                     app:dotBottom="false"
-                                    app:symbolSmaller="true" />
+                                    app:symbolSmaller="true" /-->
                             </RelativeLayout>
                         </LinearLayout>
                     </LinearLayout>
