@@ -15,6 +15,8 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CLOSE;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_LEGALES;
 import static com.pagatodo.yaganaste.ui.adquirente.TransactionResultFragment.KEY_PAGE_RESULT;
 
 /**
@@ -103,10 +105,12 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
                 Toast.makeText(getContext(), "Click Help", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fragment_lista_opciones_legal:
-                Toast.makeText(getContext(), "Click Legales", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Click Legales", Toast.LENGTH_SHORT).show();
+                onEventListener.onEvent(PREFER_USER_LEGALES, 1);
                 break;
             case R.id.fragment_lista_opciones_close:
-                Toast.makeText(getContext(), "Click Close Session", Toast.LENGTH_SHORT).show();
+               // Toast.makeText(getContext(), "Click Close Session", Toast.LENGTH_SHORT).show();
+                onEventListener.onEvent(PREFER_USER_CLOSE, 1);
                 break;
         }
     }

@@ -8,15 +8,23 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class LegalesFragment extends Fragment {
+public class ListaLegalesFragment extends GenericFragment {
 
 
-    public LegalesFragment() {
+    public ListaLegalesFragment() {
         // Required empty public constructor
+    }
+
+
+    public static ListaLegalesFragment newInstance() {
+
+        ListaLegalesFragment fragmentListaLegales = new ListaLegalesFragment();
+        return fragmentListaLegales;
     }
 
 
@@ -24,7 +32,11 @@ public class LegalesFragment extends Fragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_legales, container, false);
+        return inflater.inflate(R.layout.fragment_lista_legales, container, false);
     }
 
+    @Override
+    public void initViews() {
+
+    }
 }

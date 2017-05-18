@@ -1,21 +1,21 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
 import android.os.Bundle;
-import android.support.design.widget.FloatingActionButton;
-import android.support.design.widget.Snackbar;
-import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
-import android.view.View;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
+import com.pagatodo.yaganaste.ui.preferuser.ListaLegalesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
 
-public class PreferUserActivity extends ToolBarActivity {
+public class PreferUserActivity extends ToolBarActivity implements OnEventListener {
 
     private boolean isEsAgente;
+
+    public static String PREFER_USER_LEGALES = "preferUserLegales";
+    public static String PREFER_USER_CLOSE = "preferUserClose";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -31,6 +31,7 @@ public class PreferUserActivity extends ToolBarActivity {
     /**
      * Sobre escribimos el metodo del PAdre ToolBar para no tener el boton que nos abre esta+
      * activitydad
+     *
      * @param menu
      * @return
      */
@@ -41,4 +42,16 @@ public class PreferUserActivity extends ToolBarActivity {
     }
 
 
+    @Override
+    public void onEvent(String event, Object data) {
+        switch (event) {
+            case "PREFER_USER_LEGALES":
+                loadFragment(ListaLegalesFragment.newInstance());
+                break;
+
+            case "PREFER_USER_CLOSE":
+
+                break;
+        }
+    }
 }
