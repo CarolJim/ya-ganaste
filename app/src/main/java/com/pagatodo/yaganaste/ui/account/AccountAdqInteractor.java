@@ -5,6 +5,8 @@ import android.graphics.drawable.Drawable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.View;
+import android.widget.Button;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -95,7 +97,13 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      */
     @Override
     public void setListDocuments(View view, List<EstatusDocumentosResponse> mListaDocumentos) {
-        Log.d(TAG, "documentosSize" + mListaDocumentos.size());
+        UploadDocumentView IFEfront = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesIFEfront);
+        UploadDocumentView IFEback = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesIFEBack);
+        UploadDocumentView Addressfront = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesAddressFront);
+        UploadDocumentView Addressback = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesAddressBack);
+        LinearLayout lnrButtons = (LinearLayout) view.findViewById(R.id.lnr_buttons);
+        Button btnNext = (Button) view.findViewById(R.id.btnWeNeedSmFilesNext);
+        btnNext.setClickable(false);
         if (mListaDocumentos != null && mListaDocumentos.size() > 0) {
             for (EstatusDocumentosResponse estatusDocs : mListaDocumentos) {
 
@@ -110,37 +118,40 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
                         break;
                     case STATUS_DOCTO_RECHAZADO:
                         mDrawable = ContextCompat.getDrawable(context, R.drawable.warning_1_canvas);
+                        if (tipoDoc == DOC_ID_FRONT) {
+                            IFEfront.setClickable(true);
+                        } else if (tipoDoc == DOC_ID_BACK) {
+                            IFEback.setClickable(true);
+                        } else if (tipoDoc == DOC_DOM_FRONT) {
+                            Addressfront.setClickable(true);
+                        } else if (tipoDoc == DOC_DOM_BACK) {
+                            Addressback.setClickable(true);
+                        }
+                        lnrButtons.setVisibility(View.VISIBLE);
+                        btnNext.setClickable(true);
+
                         break;
                     default:
-                        mDrawable = ContextCompat.getDrawable(context, R.drawable.clock_canvas);
+                        mDrawable = ContextCompat.getDrawable(context, R.drawable.upload_canvas);
                         break;
                 }
                 if (tipoDoc == DOC_ID_FRONT) {
-                    UploadDocumentView IFEfront = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesIFEfront);
                     IFEfront.setStatusImage(mDrawable);
                 } else if (tipoDoc == DOC_ID_BACK) {
-                    UploadDocumentView IFEback = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesIFEBack);
                     IFEback.setStatusImage(mDrawable);
                 } else if (tipoDoc == DOC_DOM_FRONT) {
-                    UploadDocumentView Addressfront = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesAddressFront);
                     Addressfront.setStatusImage(mDrawable);
                 } else if (tipoDoc == DOC_DOM_BACK) {
-                    UploadDocumentView Addressback = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesAddressBack);
                     Addressback.setStatusImage(mDrawable);
                 }
             }
         } else {
-            UploadDocumentView IFEfront = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesIFEfront);
             IFEfront.setVisibilityStatus(false);
-            UploadDocumentView IFEBack = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesIFEBack);
-            IFEBack.setVisibilityStatus(false);
-            UploadDocumentView Addressfront = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesAddressFront);
+            IFEback.setVisibilityStatus(false);
             Addressfront.setVisibilityStatus(false);
-            UploadDocumentView Addressback = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesAddressBack);
             Addressback.setVisibilityStatus(false);
         }
     }
-
     @Override
     public void getEstatusDocs() {
         try {
@@ -150,7 +161,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         }
 
     }
-
     @Override
     public void getClientAddress() {
         try {
@@ -160,7 +170,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
         }
     }
-
     /***
      * Envio de documentos
      * @param docs
@@ -285,13 +294,13 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      */
     private void processStatusDocuments(DataSourceResult response) {
 
-        //TODO REVISAR
         ObtenerDocumentosRequest data = (ObtenerDocumentosRequest) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
             List<EstatusDocumentosResponse> listaDocumentos = data.getData();
             if (listaDocumentos != null && listaDocumentos.size() > 0) {
-
-
+                //TODO QUITAR SET
+                listaDocumentos.get(3).setIdEstatus(3);
+                listaDocumentos.get(1).setIdEstatus(3);
                 accountManager.onSucces(response.getWebService(), listaDocumentos);
 
             } else {
