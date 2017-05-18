@@ -1,8 +1,12 @@
 package com.pagatodo.yaganaste.ui.preferuser;
 
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,8 +14,10 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
 import org.w3c.dom.Text;
 
@@ -32,6 +38,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     public static String USER_EMAIL = "USER_EMAIL";
     private boolean isEsAgente;
     private String mName, mEmail;
+    private Drawable mDrawable = null;
 
     @BindView(R.id.fragment_list_opciones_name)
     TextView tv_name;
@@ -49,6 +56,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     LinearLayout ll_legal;
     @BindView(R.id.fragment_lista_opciones_close)
     LinearLayout ll_close;
+    @BindView(R.id.itemWeNeedSmFilesIFEfront)
+    UploadDocumentView iv_drawable;
 
     View rootview;
 
@@ -102,10 +111,18 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         ll_close.setOnClickListener(this);
 
         // Hacemos SET de la infromacion del user
-        mName = "Mi Nombre";
-        mEmail = "mimail@micorreo.com";
+        // mName = "Mi Nombre";
+        // mEmail = "mimail@micorreo.com";
         tv_name.setText(mName);
         tv_email.setText(mEmail);
+
+        mDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.clock_canvas);
+        //iv_drawable.setStatusImage(mDrawable);
+//        Bitmap bitmapBullet = BitmapFactory.decodeResource(App.getContext().getResources(),
+//                R.drawable.bullet_small);
+//        iv_drawable.setImageBitmap(bitmapBullet);
+
+
 
     }
 

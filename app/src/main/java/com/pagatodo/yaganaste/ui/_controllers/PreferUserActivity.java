@@ -40,8 +40,9 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
         isEsAgente = SingletonUser.getInstance().getDataUser().isEsAgente();
         isEsAgente = false;
 
-        mName = SingletonUser.getInstance().getDataUser().getUsuario().getNombreUsuario();
-        mEmail = SingletonUser.getInstance().getDataUser().getUsuario().getNombre();
+        mName = SingletonUser.getInstance().getDataUser().getUsuario().getNombre() + " " +
+                SingletonUser.getInstance().getDataUser().getUsuario().getPrimerApellido();
+        mEmail = SingletonUser.getInstance().getDataUser().getUsuario().getNombreUsuario();
 
         loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail));
 
@@ -91,7 +92,7 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
             case "PREFER_USER_CLOSE":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 UI.createSimpleCustomDialog("", "¿Desea realmente cerrar sesión?", getSupportFragmentManager(),
-                        doubleActions, true, false);
+                        doubleActions, true, true);
                 break;
 
             case "PREFER_USER_PRIVACIDAD":
