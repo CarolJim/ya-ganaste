@@ -7,8 +7,14 @@
     android:layout_height="match_parent"
     tools:context="com.pagatodo.yaganaste.ui._controllers.BussinesActivity">
 
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
 
     <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         >
@@ -185,7 +191,7 @@
         </LinearLayout>
 
     </ScrollView>
-
+</android.support.v4.widget.SwipeRefreshLayout>
     <LinearLayout
         android:id="@+id/lnr_buttons"
         android:layout_width="match_parent"
@@ -210,7 +216,6 @@
         <Button
             android:id="@+id/btnWeNeedSmFilesNext"
             style="@style/buttonDirecctionNext"
-
             android:layout_alignParentTop="true"
             android:layout_toEndOf="@+id/btnBack"
             android:layout_toRightOf="@+id/btnBack"
@@ -222,22 +227,20 @@
         android:id="@+id/lnr_help"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_above="@+id/lnr_buttons"
         android:gravity="center"
-        android:layout_alignParentBottom="true"
         android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
-        android:layout_marginBottom="@dimen/margin_big"
-        android:visibility="gone"
+        android:visibility="visible"
         android:orientation="horizontal">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_margin="@dimen/space_between_forms"
+            android:layout_margin="@dimen/margin_small"
             android:gravity="center"
             android:text="@string/documents_help"
-            android:textSize="14dp" />
+            android:textSize="11dp" />
 
     </LinearLayout>
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout

@@ -20,6 +20,7 @@ import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.view.ContextThemeWrapper;
 import android.util.Base64;
 import android.util.Log;
@@ -67,13 +68,19 @@ import butterknife.ButterKnife;
 import static android.app.Activity.RESULT_OK;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADDRESS_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DATA;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DATA_BACK;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_GO_HOME;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
+import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
+import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
+import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.SEND_DOCUMENTS;
 
 
@@ -118,6 +125,9 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     private AccountAdqPresenter adqPresenter;
     private Drawable mDrawable = null;
     private Preferencias pref;
+    private Boolean mExisteDocs = false;
+
+    SwipeRefreshLayout swipeRefreshLayout;
 
     public Documentos() {
     }
@@ -147,6 +157,9 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
 
     }
+    private void refreshContent(){
+        getEstatusDocs();
+    }
 
     @Override
     public void onStart() {
@@ -164,56 +177,55 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
         rootview = inflater.inflate(R.layout.fragments_documents, container, false);
         initViews();
-
+        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                new Handler().postDelayed(new Runnable() {
+                    @Override
+                    public void run() {
+                       getEstatusDocs();
+                        swipeRefreshLayout.setRefreshing(false);
+                    }
+                },2000);
+            }
+        });
         return rootview;
     }
 
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        swipeRefreshLayout = (SwipeRefreshLayout) rootview.findViewById(R.id.swiperefresh);
+
         dataDocumnets = new ArrayList<>();
         pref = App.getInstance().getPrefs();
         //si ya se hiso el proceso de envio de documentos
-
-        if(pref.containsData(SEND_DOCUMENTS)){
-            Log.e(TAG,"A");
-            lnr_buttons.setVisibility(GONE);
+        if(SingletonUser.getInstance().getDataUser().isEsAgente()
+                && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_PENDIENTE
+                && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == CRM_PENDIENTE){
+            mExisteDocs = true;
             lnr_help.setVisibility(VISIBLE);
             getEstatusDocs();
-
-           // adqPresenter.setListaDocs(rootview);
-           /* mDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.clock_canvas);
+            initSetClickableStatusDocs();
+        }else{
+            // si no se han enviado los documentos
+            initSetClickableDocs();
+          /*
+            mDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.upload_canvas);
             itemWeNeedSmFilesIFEfront.setStatusImage(mDrawable);
             itemWeNeedSmFilesIFEBack.setStatusImage(mDrawable);
             itemWeNeedSmFilesAddressFront.setStatusImage(mDrawable);
             itemWeNeedSmFilesAddressBack.setStatusImage(mDrawable);*/
-        }else{
-            Log.e(TAG,"B");
-            // si no se han enviado los documentos
-            lnr_buttons.setVisibility(VISIBLE);
-            lnr_help.setVisibility(GONE);
-            itemWeNeedSmFilesIFEfront.setOnClickListener(this);
-            itemWeNeedSmFilesIFEBack.setOnClickListener(this);
-            itemWeNeedSmFilesAddressFront.setOnClickListener(this);
-            itemWeNeedSmFilesAddressBack.setOnClickListener(this);
-            btnWeNeedSmFilesNext.setOnClickListener(this);
-            btnRegresar.setOnClickListener(this);
-            mDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.clock_canvas);
-            itemWeNeedSmFilesIFEfront.setStatusImage(mDrawable);
-            itemWeNeedSmFilesIFEBack.setStatusImage(mDrawable);
-            itemWeNeedSmFilesAddressFront.setStatusImage(mDrawable);
-            itemWeNeedSmFilesAddressBack.setStatusImage(mDrawable);
         }
     }
+
 
     @Override
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.itemWeNeedSmFilesIFEfront:
                 selectImageSource(IFE_FRONT);
-
                 break;
-
             case R.id.itemWeNeedSmFilesIFEBack:
                 selectImageSource(IFE_BACK);
                 break;
@@ -228,20 +240,42 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
             case R.id.btnWeNeedSmFilesNext:
                 sendDocuments();
-
                 break;
 
             case R.id.btnRegresar:
-
-                backToRegister();
+                if(mExisteDocs==true){
+                    bacToHome();
+                }else {
+                    backToRegister();
+                }
                 break;
 
             default:
                 break;
         }
     }
-
-
+    public void initSetClickableStatusDocs(){
+        itemWeNeedSmFilesIFEfront.setOnClickListener(this);
+        itemWeNeedSmFilesIFEBack.setOnClickListener(this);
+        itemWeNeedSmFilesAddressFront.setOnClickListener(this);
+        itemWeNeedSmFilesAddressBack.setOnClickListener(this);
+        itemWeNeedSmFilesIFEfront.setClickable(false);
+        itemWeNeedSmFilesIFEBack.setClickable(false);
+        itemWeNeedSmFilesAddressFront.setClickable(false);
+        itemWeNeedSmFilesAddressBack.setClickable(false);
+        btnRegresar.setOnClickListener(this);
+        btnWeNeedSmFilesNext.setOnClickListener(this);
+    }
+    public void initSetClickableDocs(){
+        lnr_buttons.setVisibility(VISIBLE);
+        lnr_help.setVisibility(GONE);
+        itemWeNeedSmFilesIFEfront.setOnClickListener(this);
+        itemWeNeedSmFilesIFEBack.setOnClickListener(this);
+        itemWeNeedSmFilesAddressFront.setOnClickListener(this);
+        itemWeNeedSmFilesAddressBack.setOnClickListener(this);
+        btnWeNeedSmFilesNext.setOnClickListener(this);
+        btnRegresar.setOnClickListener(this);
+    }
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -304,6 +338,9 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             /*}
         }, DELAY_MESSAGE_PROGRESS);*/
     }
+    private void bacToHome(){
+        backScreen(EVENT_GO_HOME,null);
+    }
 
     private void getEstatusDocs( ){
         adqPresenter.getEstatusDocs();
@@ -334,10 +371,9 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                     itemWeNeedSmFilesIFEfront.setVisibilityStatus(false);
                     itemWeNeedSmFilesIFEfront.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
-                    dataDoc.setTipoDocumento(5);
+                    dataDoc.setTipoDocumento(DOC_ID_FRONT);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
-
                     break;
 
                 case IFE_BACK:
@@ -345,7 +381,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                     itemWeNeedSmFilesIFEBack.setVisibilityStatus(false);
                     itemWeNeedSmFilesIFEBack.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
-                    dataDoc.setTipoDocumento(6);
+                    dataDoc.setTipoDocumento(DOC_ID_BACK);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
 
@@ -357,8 +393,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                     itemWeNeedSmFilesAddressFront.setVisibilityStatus(false);
                     itemWeNeedSmFilesAddressFront.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
-
-                    dataDoc.setTipoDocumento(7);
+                    dataDoc.setTipoDocumento(DOC_DOM_FRONT);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
 
@@ -369,7 +404,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                     itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
                     itemWeNeedSmFilesAddressBack.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
-                    dataDoc.setTipoDocumento(30);
+                    dataDoc.setTipoDocumento(DOC_DOM_BACK);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
 
