@@ -23,6 +23,7 @@ import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
@@ -63,15 +64,6 @@ public abstract class ToolBarActivity extends SupportFragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.my_account_menu, menu);
 
-       /* ImageView testItem = (ImageView) menu.findItem(R.id.imgToRight_prefe);
-        testItem.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Toast.makeText(getApplicationContext(), "Click Open Activity",
-                        Toast.LENGTH_SHORT).show();
-            }
-        });*/
-
         return true;
     }
 
@@ -81,7 +73,8 @@ public abstract class ToolBarActivity extends SupportFragmentActivity {
 
         //noinspection SimplifiableIfStatement
         if (id == R.id.configUser) {
-
+            Intent intent = new Intent(this, PreferUserActivity.class);
+            startActivity(intent);
             return true;
         }
 

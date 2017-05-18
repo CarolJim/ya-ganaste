@@ -54,7 +54,7 @@
         android:layout_centerVertical="true"
         android:src="@android:drawable/ic_menu_preferences"
         android:layout_marginRight="30dp"
-        android:visibility="visible"
+        android:visibility="gone"
         tools:ignore="ContentDescription" />
 
 </RelativeLayout>
