@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentsProcessingManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcessingPresenter;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -103,10 +104,10 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         ButterKnife.bind(this, rootview);
         nombre.setText(envios.getNombreDestinatario());
 
-        String text = String.format("%.2f", envios.getMonto());
-        text = text.replace(",", ".");
+        //String text = String.format("%.2f", envios.getMonto());
+        //text = text.replace(",", ".");
 
-        importe.setText(String.format("$%s", text));
+        importe.setText(StringUtils.getCurrencyValue(envios.getMonto()));
         String ref = envios.getReferencia();
         switch (envios.getTipoEnvio()) {
             case CABLE:
