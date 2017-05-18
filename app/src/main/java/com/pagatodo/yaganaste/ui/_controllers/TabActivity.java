@@ -102,7 +102,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
         mainTab.setupWithViewPager(mainViewPager);
 
-        Log.e("TabActivity", "indicator position " + mainTab.getSelectedTabPosition());
+      //  Log.e("TabActivity", "indicator position " + mainTab.getSelectedTabPosition());
         mainTab.setSelectedTabIndicatorHeight(2);
     }
 
