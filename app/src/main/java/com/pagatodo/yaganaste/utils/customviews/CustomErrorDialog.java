@@ -108,7 +108,8 @@ public class CustomErrorDialog extends DialogFragment {
      *
      *@return {@link DialogDoubleActions} instancia del dialog
      * */
-    public static CustomErrorDialog getInstance(@LayoutRes int idLayout,String titleNotification, String messageNotification, boolean hasConfirmBtn, boolean hasCancelBtn){
+    public static CustomErrorDialog getInstance(@LayoutRes int idLayout,String titleNotification, String messageNotification,
+                                                boolean hasConfirmBtn, boolean hasCancelBtn){
 
         CustomErrorDialog actionsDialog= new CustomErrorDialog();
         Bundle args = new Bundle();

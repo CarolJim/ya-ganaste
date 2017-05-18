@@ -282,8 +282,8 @@
                         android:background="@null"
                         android:backgroundTint="@color/transparent"
                         android:hint="@string/txt_mail"
-                        android:inputType="text|textPassword"
-                        android:maxLength="40"
+                        android:inputType="textEmailAddress"
+                        android:maxLength="50"
                         android:paddingBottom="6dp"
                         android:paddingTop="6dp"
                         android:textSize="14sp" />

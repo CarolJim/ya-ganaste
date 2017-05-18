@@ -160,6 +160,18 @@ public class UI {
         customErrorDialog.show(fragmentManager, tag);
     }
 
+    public static void createCustomDialog(String title, String message, FragmentManager fragmentManager, String tag,
+                                          DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_error_message,
+                title, message, true, true);
+
+        customErrorDialog.setTitleBtnAcept(btnAceptar);
+        customErrorDialog.setTitleBtnCancel(btnCancelar);
+
+        customErrorDialog.setDialogActions(actions);
+        customErrorDialog.show(fragmentManager, tag);
+    }
+
     public static void createSimpleCustomDialogNoCancel(String title, String message,
                                                 FragmentManager fragmentManager, final DialogDoubleActions actions) {
         createSimpleCustomDialog(title, message, fragmentManager, actions, true, false);
