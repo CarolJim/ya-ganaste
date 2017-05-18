@@ -58,11 +58,11 @@
                     android:text="Aviso de Privacidad"
                     android:textSize="18sp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="17dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:src="@android:drawable/ic_input_add" />
+                    android:layout_marginRight="20dp"
+                    app:srcCompat="@drawable/menu_canvas_blue"  />
             </LinearLayout>
 
             <View
@@ -88,11 +88,11 @@
                     android:text="Términos y Condiciones"
                     android:textSize="18sp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="17dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:src="@android:drawable/ic_input_add" />
+                    android:layout_marginRight="20dp"
+                    app:srcCompat="@drawable/menu_canvas_blue"  />
             </LinearLayout>
 
         </LinearLayout>
