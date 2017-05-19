@@ -66,6 +66,7 @@ public class Recursos {
 	public static final int CRM_PENDIENTE = 1;
 	public static final int CRM_DOCTO_APROBADO = 2;
 	public static final int CRM_DOCTO_RECHAZADO = 3;
+
 	public static final int DOC_ID_FRONT = 5;
 	public static final int DOC_ID_BACK = 6;
 	public static final int DOC_DOM_FRONT = 7;

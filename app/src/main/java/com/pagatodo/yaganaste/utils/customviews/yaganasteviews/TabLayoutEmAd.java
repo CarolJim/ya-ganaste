@@ -15,6 +15,9 @@ import com.pagatodo.yaganaste.utils.DimUtils;
 import com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
+
 /**
  * @author Juan Guerra on 05/04/2017.
  */
@@ -105,7 +108,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     }
 
     private void clickAdquirente() {
-        if (SingletonUser.getInstance().getDataUser().isEsAgente()) {
+        if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
             mViewPager.setCurrentItem(1);
         } else if (inviteAdquirenteCallback != null ) {
             inviteAdquirenteCallback.onInviteAdquirente();
@@ -203,7 +206,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         cardEmisor.updateData();
         cardEmisorSelected.updateData();
         // TODO: 19/04/2017 En esta parte verificar si es adquirente normal o con credito
-        if (SingletonUser.getInstance().getDataUser().isEsAgente()) {
+        if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
             cardAdqSel = new CardAdqSelected(getContext());
         }
         if (cardAdqSel != null) {

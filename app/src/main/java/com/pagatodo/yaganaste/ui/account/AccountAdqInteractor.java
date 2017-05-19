@@ -40,6 +40,7 @@ import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesAddressBack;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesAddressFront;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesIFEBack;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesIFEfront;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
@@ -50,7 +51,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
-import static com.pagatodo.yaganaste.utils.Recursos.SEND_DOCUMENTS;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
@@ -63,20 +63,15 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
     private String TAG = AccountAdqInteractor.class.getSimpleName();
     private IAccountManager accountManager;
-
     private Context context;
-
     Drawable mDrawable = null;
-    private Preferencias pref;
 
     public AccountAdqInteractor(IAccountManager accountManager, Context ctx) {
         this.accountManager = accountManager;
         context = ctx;
     }
-
     /***
      * Metodo par recuperar las colonias por codigo postal
-     *
      * @param zipCode
      */
     @Override
@@ -88,10 +83,8 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             accountManager.onError(OBTENER_COLONIAS_CP, App.getInstance().getString(R.string.no_internet_access));
         }
     }
-
     /***
      * Metodo que sea la vista de lo documentos con los estatus que le corresponde
-     *
      * @param view
      * @param mListaDocumentos
      */
@@ -106,7 +99,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         btnNext.setClickable(false);
         if (mListaDocumentos != null && mListaDocumentos.size() > 0) {
             for (EstatusDocumentosResponse estatusDocs : mListaDocumentos) {
-
                 int tipoDoc = estatusDocs.getTipoDocumento();
 
                 switch (estatusDocs.getIdEstatus()) {
@@ -129,7 +121,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
                         }
                         lnrButtons.setVisibility(View.VISIBLE);
                         btnNext.setClickable(true);
-
                         break;
                     default:
                         mDrawable = ContextCompat.getDrawable(context, R.drawable.upload_canvas);
@@ -145,13 +136,9 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
                     Addressback.setStatusImage(mDrawable);
                 }
             }
-        } else {
-            IFEfront.setVisibilityStatus(false);
-            IFEback.setVisibilityStatus(false);
-            Addressfront.setVisibilityStatus(false);
-            Addressback.setVisibilityStatus(false);
         }
     }
+
     @Override
     public void getEstatusDocs() {
         try {
@@ -159,7 +146,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         } catch (OfflineException e) {
             accountManager.onError(OBTENER_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
         }
-
     }
     @Override
     public void getClientAddress() {
@@ -167,9 +153,9 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             ApiAdtvo.obtenerDomicilioPrincipal(this);
         } catch (OfflineException e) {
             accountManager.onError(OBTENER_DOMICILIO_PRINCIPAL, App.getInstance().getString(R.string.no_internet_access));
-
         }
     }
+
     /***
      * Envio de documentos
      * @param docs
@@ -188,6 +174,23 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
     }
 
+    /***
+     * Envio de documentos pendientes y actualizacion
+     * @param data
+     */
+    @Override
+    public void sendDocumentsPendientes(ArrayList<DataDocuments> data) {
+        try {
+            CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
+            cargaDocumentosRequest.setDocumentos(data);
+            ApiAdtvo.actualizarDocumentos(cargaDocumentosRequest, this);
+            accountManager.hideLoader();
+
+        } catch (OfflineException e) {
+
+            accountManager.onError(ACTUALIZAR_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
+        }
+    }
     @Override
     public void registerAdq() {
 
@@ -235,19 +238,28 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             case CARGA_DOCUMENTOS:
                 processSendDocuments(dataSourceResult);
                 break;
-
+            case ACTUALIZAR_DOCUMENTOS:
+                processSendDocumentsPendientes(dataSourceResult);
+                break;
             case OBTENER_DOCUMENTOS:
                 processStatusDocuments(dataSourceResult);
                 break;
-
             case OBTENER_DOMICILIO:
-
+                break;
             case OBTENER_DOMICILIO_PRINCIPAL:
                 processAddress(dataSourceResult);
                 break;
-
             default:
                 break;
+        }
+    }
+
+    private void processSendDocumentsPendientes(DataSourceResult response) {
+        CargaDocumentosResponse data = (CargaDocumentosResponse) response.getData();
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            accountManager.onSucces(ACTUALIZAR_DOCUMENTOS, data.getMensaje());
+        } else {
+            accountManager.onError(ACTUALIZAR_DOCUMENTOS, "error" + data.getMensaje());
         }
     }
 
@@ -257,25 +269,13 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      * @param response
      */
     private void processSendDocuments(DataSourceResult response) {
-
         CargaDocumentosResponse data = (CargaDocumentosResponse) response.getData();
-
         if (data.getCodigoRespuesta() == CODE_OK) {
-
-            pref = App.getInstance().getPrefs();
-            if (!pref.containsData(SEND_DOCUMENTS)) {
-                pref.saveDataBool(SEND_DOCUMENTS, true);
-            }
-
             accountManager.onSucces(CARGA_DOCUMENTOS, "Envio de documentos");
-
         } else {
-            Log.e(TAG, " mensaje error " + data.getMensaje());
             accountManager.onError(CARGA_DOCUMENTOS, "error" + data.getMensaje());
         }
     }
-
-
     /**
      * @param error
      **/
@@ -285,8 +285,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         /**TODO Casos de Servicio fallido*/
         accountManager.onError(error.getWebService(), error.getData().toString());
     }
-
-
     /**
      * Metodo para procesar la respuesta con los estatus de los documentos
      *
@@ -301,6 +299,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
                 //TODO QUITAR SET
                 listaDocumentos.get(3).setIdEstatus(3);
                 listaDocumentos.get(1).setIdEstatus(3);
+
                 accountManager.onSucces(response.getWebService(), listaDocumentos);
 
             } else {

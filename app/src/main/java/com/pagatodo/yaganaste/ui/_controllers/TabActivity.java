@@ -44,6 +44,7 @@ import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
+import static com.pagatodo.yaganaste.utils.Recursos.PTH_DOCTO_APROBADO;
 
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener {
@@ -78,10 +79,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             Intent intent = new Intent(this, LandingFragment.class);
             startActivity(intent);
         }
-        if (!pref.containsData(COUCHMARK_ADQ) && SingletonUser.getInstance().getDataUser().isEsAgente()) {
-            pref.saveDataBool(COUCHMARK_ADQ, true);
-            Intent intent = new Intent(this, LandingAdqFragment.class);
-            startActivity(intent);
+        if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+                SingletonUser.getInstance().getDataUser().getEstatusAgente()==PTH_DOCTO_APROBADO &&
+                !pref.containsData(COUCHMARK_ADQ)) {
+
+                pref.saveDataBool(COUCHMARK_ADQ,true);
+                Intent intent = new Intent(this, LandingAdqFragment.class);
+                startActivity(intent);
         }
     }
 
@@ -125,15 +129,15 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     protected void onStart() {
         super.onStart();
 
-        if (!pref.containsData(COUCHMARK_EMISOR)) {
+         if (!pref.containsData(COUCHMARK_EMISOR)) {
 
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    pref.saveDataBool(COUCHMARK_EMISOR, true);
-                    Intent intent = new Intent(TabActivity.this, LandingFragment.class);
-                    startActivity(intent);
-                }
-            }, 500);
+             new Handler().postDelayed(new Runnable() {
+                 public void run() {
+                     pref.saveDataBool(COUCHMARK_EMISOR, true);
+                     Intent intent = new Intent(TabActivity.this, LandingFragment.class);
+                     startActivity(intent);
+                 }
+             }, 500);
 
 
         }

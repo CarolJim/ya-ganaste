@@ -17,4 +17,5 @@ public interface IAdqAccountPresenter {
     public void getEstatusDocs();
     public void getClientAddress();
     public void sendDocumentos(ArrayList<DataDocuments> data);
+    public void sendDocumentosPendientes(ArrayList<DataDocuments> data);
 }

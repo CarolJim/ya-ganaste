@@ -100,7 +100,6 @@ public class BussinesActivity extends LoaderActivity {
                 finish();
                 break;
             case EVENT_DOC_CHECK:
-                //loadFragment(Documentos.newInstance(), Direction.FORDWARD, false);
                 Intent i = new Intent(this,TabActivity.class);
                 i.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
                 startActivity(i);

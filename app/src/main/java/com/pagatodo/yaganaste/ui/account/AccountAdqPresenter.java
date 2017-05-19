@@ -25,11 +25,13 @@ import com.pagatodo.yaganaste.utils.UI;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_DOC_CHECK;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
 
@@ -40,7 +42,6 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccountPresenter, IAccountManager {
     private static final String TAG = AccountAdqPresenter.class.getName();
     private IAdqAccountIteractor adqIteractor;
-
     private INavigationView iAdqView;
     Context context;
 
@@ -64,8 +65,10 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
 
     @Override
     public void getEstatusDocs() {
+        iAdqView.showLoader(context.getString(R.string.recuperando_docs_estatus));
         adqIteractor.getEstatusDocs();
     }
+
 
     @Override
     public void getClientAddress() {
@@ -74,51 +77,38 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     }
 
 
-
     @Override
     public void createAdq() {
         iAdqView.showLoader(context.getString(R.string.procesando_solicitud));
         adqIteractor.registerAdq();
     }
 
-    // TODO quitar jmario
-    @Override
-    public void uploadDocuments(Object documents) {
-
-        iAdqView.showLoader("Subiendo Documentos...");
-        Log.e(TAG, "documents" + documents);
-        //adqIteractor.sendDocuments(documents);
-/*
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if(iAdqView instanceof IUploadDocumentsView)
-                    ((IUploadDocumentsView) iAdqView).documentsUploaded("Ejecución Éxitosa");
-            }
-        }, DELAY_MESSAGE_PROGRESS);*/
-    }
-
     /*envio de documentos */
     @Override
     public void sendDocumentos(ArrayList<DataDocuments> docs) {
-        iAdqView.showLoader("Subiendo Documentos...");
-        //enviamos los documentos
+        iAdqView.showLoader("Subiendo Documentos ");
         adqIteractor.sendDocuments(docs);
+        ((IUploadDocumentsView) iAdqView).documentsUploaded("Ejecución Éxitosa");
+
+    }
+
+    @Override
+    public void sendDocumentosPendientes(ArrayList<DataDocuments> data) {
+        iAdqView.showLoader("Actualizando Documentos ");
+        adqIteractor.sendDocumentsPendientes(data);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (iAdqView instanceof IUploadDocumentsView)
-                    ((IUploadDocumentsView) iAdqView).documentsUploaded("Ejecución Éxitosa");
+                    ((IUploadDocumentsView) iAdqView).documentosActualizados("Actualizando Documentos ");
             }
         }, DELAY_MESSAGE_PROGRESS);
     }
-
     @Override
     public void onError(WebService ws, Object error) {
         iAdqView.hideLoader();
         iAdqView.showError(new ErrorObject(error.toString(), ws));
     }
-
     @Override
     public void hideLoader() {
         iAdqView.hideLoader();
@@ -134,25 +124,21 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
                 ((IAdqRegisterView) iAdqView).setNeighborhoodsAvaliables((List<ColoniasResponse>) data);
             } else if (ws == OBTENER_DOMICILIO || ws == OBTENER_DOMICILIO_PRINCIPAL) {
                 ((IAdqRegisterView) iAdqView).setCurrentAddress((DataObtenerDomicilio) data);
-
             }
-        }else if(iAdqView instanceof IUploadDocumentsView){
-            if(ws == OBTENER_DOCUMENTOS){
-                ((IUploadDocumentsView) iAdqView).setDocumentosStatus((List<EstatusDocumentosResponse>) data);
+        } else if (iAdqView instanceof IUploadDocumentsView) {
+            if (ws == OBTENER_DOCUMENTOS) {
+                ((IUploadDocumentsView) iAdqView).setDocumentosStatus( (List<EstatusDocumentosResponse>) data);
             }
         } else {
             Log.i(TAG, "La sesión se ha cerrado.");
 
         }
-
     }
-
     @Override
     public void showGaleryError() {
         UI.showToastShort("La aplicacion no pudo acceder a su imagen intente con otra galeria", App.getContext());
     }
-
     public void setEstatusDocs(View rootview, List<EstatusDocumentosResponse> data) {
-        adqIteractor.setListDocuments(rootview,data);
+        adqIteractor.setListDocuments(rootview, data);
     }
 }
