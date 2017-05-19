@@ -14,7 +14,7 @@
         tools:layout_editor_absoluteX="8dp">
 
         <com.pagatodo.yaganaste.utils.customviews.UploadDocumentView
-            android:id="@+id/itemWeNeedSmFilesIFEfront"
+            android:id="@+id/frag_lista_opciones_photo_item"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

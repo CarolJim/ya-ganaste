@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
@@ -124,6 +125,12 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Fragment fragment = getCurrentFragment();
+        fragment.onActivityResult(requestCode, resultCode, data);
+    }
     /*@Override
     public void onSuccess(DataSourceResult dataSourceResult) {
         Toast.makeText(PreferUserActivity.this, "Sucess Cerrar Session", Toast.LENGTH_SHORT).show();
