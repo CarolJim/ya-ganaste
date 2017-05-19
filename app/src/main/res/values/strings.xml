@@ -8,6 +8,7 @@
     <!--Métodos de WS YaGanaste-->
     <string name="activateMobileServiceUrl">/ActivacionServicioMovil</string>
     <string name="updateAvatarUrl">/ActualizarAvatar</string>
+    <string name="updateDocumentosUrl">/ActualizarDocumentos</string>
     <string name="updateSessionUrl">/ActualizarInformacionSesion</string>
     <string name="assignPaswordUrl">/AsignarContrasena</string>
     <string name="assignAccountAvailableUrl">/AsignarCuentaDisponible</string>
@@ -492,6 +493,7 @@
     <string name="txt_referencia_envio_error">Error al introducir el número de teléfono/cuenta/CABLE</string>
     <string name="txt_referencia_envio_empty">Por favor ingrese un número de teléfono/cuenta/CABLE</string>
     <string name="title_activity_prefer_user">PreferUserActivity</string>
+    <string name="recuperando_docs_estatus">Recuperando los estatus de sus documentos.</string>
 </resources>
 
 

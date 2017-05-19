@@ -27,4 +27,6 @@ public interface IAdqAccountIteractor {
     public void getEstatusDocs();
     public void getClientAddress();
     public void sendDocuments(ArrayList<DataDocuments> string);
+    public void sendDocumentsPendientes(ArrayList<DataDocuments> string);
+
 }

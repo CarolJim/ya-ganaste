@@ -69,6 +69,7 @@ import static android.app.Activity.RESULT_OK;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_DOC_CHECK;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADDRESS_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DATA;
@@ -82,12 +83,13 @@ import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.SEND_DOCUMENTS;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class Documentos extends GenericFragment implements View.OnClickListener,IUploadDocumentsView {
+public class Documentos extends GenericFragment implements View.OnClickListener,IUploadDocumentsView , SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = Documentos.class.getSimpleName();
     public static final int REQUEST_TAKE_PHOTO = 10; // Intent para Capturar fotografía
@@ -114,20 +116,20 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     LinearLayout lnr_buttons;
     @BindView(R.id.lnr_help)
     LinearLayout lnr_help;
+    @BindView(R.id.swiperefresh)
+    SwipeRefreshLayout swipeRefreshLayout;
 
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
     private int documentProcessed = 0;
+    private int documentPendientes = 0;
     private BitmapLoader bitmapLoader;
+
     private String imgs[] = new String[4];
     private ArrayList<String> contador ;
     private ArrayList<DataDocuments> dataDocumnets;
     private AccountAdqPresenter adqPresenter;
-    private Drawable mDrawable = null;
-    private Preferencias pref;
     private Boolean mExisteDocs = false;
-
-    SwipeRefreshLayout swipeRefreshLayout;
 
     public Documentos() {
     }
@@ -177,28 +179,14 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
         rootview = inflater.inflate(R.layout.fragments_documents, container, false);
         initViews();
-        swipeRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                new Handler().postDelayed(new Runnable() {
-                    @Override
-                    public void run() {
-                       getEstatusDocs();
-                        swipeRefreshLayout.setRefreshing(false);
-                    }
-                },2000);
-            }
-        });
         return rootview;
     }
 
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        swipeRefreshLayout = (SwipeRefreshLayout) rootview.findViewById(R.id.swiperefresh);
-
+        swipeRefreshLayout.setOnRefreshListener(this);
         dataDocumnets = new ArrayList<>();
-        pref = App.getInstance().getPrefs();
         //si ya se hiso el proceso de envio de documentos
         if(SingletonUser.getInstance().getDataUser().isEsAgente()
                 && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_PENDIENTE
@@ -210,12 +198,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         }else{
             // si no se han enviado los documentos
             initSetClickableDocs();
-          /*
-            mDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.upload_canvas);
-            itemWeNeedSmFilesIFEfront.setStatusImage(mDrawable);
-            itemWeNeedSmFilesIFEBack.setStatusImage(mDrawable);
-            itemWeNeedSmFilesAddressFront.setStatusImage(mDrawable);
-            itemWeNeedSmFilesAddressBack.setStatusImage(mDrawable);*/
         }
     }
 
@@ -239,7 +221,11 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 break;
 
             case R.id.btnWeNeedSmFilesNext:
-                sendDocuments();
+                if(mExisteDocs==true) {
+                    sendDocumentsPending();
+                }else{
+                    sendDocuments();
+                }
                 break;
 
             case R.id.btnRegresar:
@@ -330,13 +316,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
     }
     private void backToRegister(){
-
-        /*new Handler().postDelayed(new Runnable() {
-            public void run() {
-                hideLoader();*/
-                backScreen(EVENT_GO_BUSSINES_ADDRESS_BACK,null);
-            /*}
-        }, DELAY_MESSAGE_PROGRESS);*/
+        backScreen(EVENT_GO_BUSSINES_ADDRESS_BACK,null);
     }
     private void bacToHome(){
         backScreen(EVENT_GO_HOME,null);
@@ -371,6 +351,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                     itemWeNeedSmFilesIFEfront.setVisibilityStatus(false);
                     itemWeNeedSmFilesIFEfront.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
+
                     dataDoc.setTipoDocumento(DOC_ID_FRONT);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
@@ -460,7 +441,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Log.e(TAG, "dispatchTakePictureIntent: " + photoFile);
                 Uri photoURI = FileProvider.getUriForFile(getActivity(),
                         "com.pagatodo.yaganaste.fileprovider",
                         photoFile);
@@ -517,6 +497,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     @Override
     public void documentsUploaded(String message) {
         showLoader(message);
+
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
@@ -526,10 +507,25 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     }
 
     @Override
+    public void documentsUpdated(String s) {
+        Log.e(TAG, " documentsUpdated " + s);
+        showLoader(s);
+        new Handler().postDelayed(new Runnable() {
+            public void run() {
+                hideLoader();
+                nextScreen(EVENT_DOC_CHECK,null);
+            }
+        }, DELAY_MESSAGE_PROGRESS);
+
+    }
+
+    @Override
     public void setDocumentosStatus(List<EstatusDocumentosResponse> data) {
-        // TODO Mostrarestatus documentos de la vista
-        Log.e(TAG,"data size" + data.size());
         adqPresenter.setEstatusDocs(rootview ,data);
+        // Contamos los documentos pendientes
+        for (EstatusDocumentosResponse docs : data){
+            if(docs.getIdEstatus()==STATUS_DOCTO_RECHAZADO){documentPendientes++;}
+        }
     }
 
     @Override
@@ -558,6 +554,14 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         UI.showToastShort(error.toString(),getActivity());
     }
 
+
+    private void sendDocumentsPending(){
+            if(dataDocumnets.size() < documentPendientes ){
+                showError("Debes de Subir los documentos marcados con el signo de admiración");
+                return;
+            }
+        adqPresenter.sendDocumentosPendientes(dataDocumnets);
+    }
     private void sendDocuments(){
         for(String s : imgs)
             if(s == null || s.isEmpty()){
@@ -565,7 +569,17 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 return;
             }
         adqPresenter.sendDocumentos(dataDocumnets);
-        //adqPresenter.uploadDocuments(dataDocumnets);
+    }
+
+    @Override
+    public void onRefresh() {
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                getEstatusDocs();
+                swipeRefreshLayout.setRefreshing(false);
+            }
+        },DELAY_MESSAGE_PROGRESS);
     }
 }
 

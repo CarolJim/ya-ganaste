@@ -13,4 +13,6 @@ public interface IUploadDocumentsView extends INavigationView {
     public void documentsUploaded(String message);
 
     public void setDocumentosStatus(List<EstatusDocumentosResponse> data);
+
+    public void documentsUpdated(String s);
 }

@@ -11,5 +11,4 @@ import java.util.List;
 
 public interface IDocumentsPresenter <T> {
 
-    public void uploadDocuments(T documents);
 }
