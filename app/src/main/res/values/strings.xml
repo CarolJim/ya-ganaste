@@ -52,6 +52,7 @@
     <string name="obtenerSubgiros">/ObtenerSubgiros</string>
     <string name="obtenerDomicilioPrincipal">/ObtenerDomicilioPrincipal</string>
     <string name="obtenerDomicilio">/ObtenerDomicilioPrincipal</string>
+    <string name="enviarTicketTAEPDS">/EnviarTicketTAEPDS</string>
 
     <!--Métodos de WS Adquiriente-->
     <string name="adqLogin">/agMov/login</string>

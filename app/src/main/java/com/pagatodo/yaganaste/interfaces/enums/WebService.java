@@ -53,6 +53,7 @@ public enum WebService {
     FONDEAR_CUPO,
     OBTENER_ESTATUS_TARJETA,
     CONSULTAR_SALDO_ADQ,
+    ENVIAR_TICKET_TAEPDS,
     /** WS Adquiriente**/
     LOGIN_ADQ,
     REGISTRO_DONGLE,
