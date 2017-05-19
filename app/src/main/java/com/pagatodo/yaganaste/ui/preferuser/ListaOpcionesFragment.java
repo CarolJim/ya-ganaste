@@ -116,14 +116,11 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         tv_name.setText(mName);
         tv_email.setText(mEmail);
 
-        mDrawable = ContextCompat.getDrawable(getActivity(), R.drawable.clock_canvas);
-        //iv_drawable.setStatusImage(mDrawable);
-//        Bitmap bitmapBullet = BitmapFactory.decodeResource(App.getContext().getResources(),
-//                R.drawable.bullet_small);
-//        iv_drawable.setImageBitmap(bitmapBullet);
-
-
-
+        /*
+        Hacemos un Set de la Imagen que queremos como inicial en el centro.
+         */
+        mDrawable = ContextCompat.getDrawable(getActivity(), android.R.drawable.ic_menu_add);
+        iv_drawable.setCenterDrawable(mDrawable);
     }
 
     @Override

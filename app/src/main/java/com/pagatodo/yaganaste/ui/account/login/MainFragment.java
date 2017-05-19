@@ -21,6 +21,7 @@ import com.github.demono.AutoScrollViewPager;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui._manager.PagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -187,7 +188,7 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         switch (v.getId()) {
             case R.id.btnMainCreateAccount:
 
-                Intent intent = new Intent(getActivity(), AccountActivity.class);
+                Intent intent = new Intent(getActivity(), TabActivity.class);
                 intent.putExtra(SELECTION, GO_TO_REGISTER);
                 startActivity(intent);
                 //getActivity().finish();
