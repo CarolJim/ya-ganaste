@@ -1,8 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.factories;
 
-import android.content.Intent;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
@@ -17,13 +15,12 @@ import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.InviteAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositTabFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.MapDepositsFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsDataFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.otp.fragments.OtpGeneratorFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
 
@@ -32,7 +29,6 @@ import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.SEND_DOCUMENTS;
 
 /**
  * @author Juan Guerra on 24/03/2017.
@@ -60,7 +56,7 @@ public class ViewPagerDataFactory {
 
                 fragmentList.add(HomeTabFragment.newInstance());
                 fragmentList.add(PaymentsTabFragment.newInstance());
-                fragmentList.add(DepositTabFragment.newInstance());
+                fragmentList.add(DepositsFragment.newInstance());
 
                 if (SingletonUser.getInstance().getDataUser().isEsAgente()
                         && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
