@@ -43,6 +43,7 @@ import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
+import static com.pagatodo.yaganaste.utils.Recursos.PTH_DOCTO_APROBADO;
 
 
 public class TabActivity extends ToolBarActivity implements TabsView, OnEventListener {
@@ -77,8 +78,11 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
             Intent intent = new Intent(this, LandingFragment.class);
             startActivity(intent);
         }
-        if (!pref.containsData(COUCHMARK_ADQ) && SingletonUser.getInstance().getDataUser().isEsAgente()) {
-            pref.saveDataBool(COUCHMARK_ADQ, true);
+        if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+                SingletonUser.getInstance().getDataUser().getEstatusAgente()==PTH_DOCTO_APROBADO &&
+                !pref.containsData(COUCHMARK_ADQ)) {
+
+                pref.saveDataBool(COUCHMARK_ADQ,true);
                 Intent intent = new Intent(this, LandingAdqFragment.class);
                 startActivity(intent);
         }
@@ -123,7 +127,6 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         super.onStart();
 
          if (!pref.containsData(COUCHMARK_EMISOR)) {
-
              new Handler().postDelayed(new Runnable() {
                  public void run() {
                      pref.saveDataBool(COUCHMARK_EMISOR, true);

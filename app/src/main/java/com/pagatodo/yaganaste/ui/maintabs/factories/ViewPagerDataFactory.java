@@ -63,7 +63,8 @@ public class ViewPagerDataFactory {
                 fragmentList.add(DepositTabFragment.newInstance());
 
                 if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
+                        &&
+                        SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
 
                     fragmentList.add(GetMountFragment.newInstance());
 
