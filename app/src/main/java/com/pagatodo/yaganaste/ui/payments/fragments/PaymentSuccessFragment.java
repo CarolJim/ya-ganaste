@@ -19,7 +19,6 @@ import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.data.model.Servicios;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarTicketTAEPDSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarTicketTAEPDSResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
@@ -86,7 +85,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
     private View rootview;
     Payments pago;
     EjecutarTransaccionResponse result;
-    private boolean isRecarga = false;
+    private boolean isMailAviable = false;
 
     public static PaymentSuccessFragment newInstance(Payments pago, EjecutarTransaccionResponse result) {
         PaymentSuccessFragment fragment = new PaymentSuccessFragment();
@@ -141,7 +140,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
             titleReferencia.setText(R.string.txt_phone);
             layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
-            isRecarga = true;
+            isMailAviable = true;
         } else if (pago instanceof Servicios) {
             title.setText(R.string.title_servicio_success);
             layoutComision.setVisibility(View.VISIBLE);
@@ -150,7 +149,9 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
             String textComision = String.format("%.2f", comision);
             textComision = textComision.replace(",", ".");
             txtComision.setText(textComision);
-
+            layoutMail.setVisibility(View.VISIBLE);
+            layoutFavoritos.setVisibility(View.GONE);
+            isMailAviable = true;
         } else if (pago instanceof Envios) {
             title.setText(R.string.title_envio_success);
             txtComision.setVisibility(View.GONE);
@@ -166,7 +167,10 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
         importe.setText(text);
 
         txtReferencia.setText(pago.getReferencia());
-        Glide.with(getContext()).load(pago.getComercio().getLogoURL()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).dontAnimate().into(imgLogoPago);
+        Glide.with(getContext()).load(pago.getComercio().getLogoURL())
+                .placeholder(R.mipmap.logo_ya_ganaste)
+                .error(R.mipmap.icon_tab_promos)
+                .dontAnimate().into(imgLogoPago);
 
         autorizacion.setText(result.getData().getNumeroAutorizacion());
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
@@ -180,22 +184,21 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
         btnContinueEnvio.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if (isRecarga) {
+                if (isMailAviable) {
                     validateMail();
-
                 } else {
-                   onFinalize();
+                    onFinalize();
                 }
             }
         });
     }
 
-    private void onFinalize(){
+    private void onFinalize() {
         getActivity().finish();
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    private void validateMail(){
+    private void validateMail() {
         String mail = editMail.getText().toString().trim();
         if (mail != null && !mail.equals("")) {
             if (ValidateForm.isValidEmailAddress(mail)) {
@@ -203,6 +206,8 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
             } else {
                 showSimpleDialog(getString(R.string.datos_usuario_correo_formato));
             }
+        }else{
+            onFinalize();
         }
     }
 
@@ -227,8 +232,6 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
 
         EnviarTicketTAEPDSResponse data = (EnviarTicketTAEPDSResponse) result.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
-            //Actualizamos el Saldo del Emisor
-            //SingletonUser.getInstance().getDatosSaldo().setSaldoEmisor(String.valueOf(data.getData().getSaldo()));
             showDialog(data.getMensaje());
         } else {
             onFailSendTicket(result);
@@ -241,22 +244,19 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
         onFailSendTicket(error);
     }
 
-    private void onFailSendTicket(DataSourceResult error){
+    private void onFailSendTicket(DataSourceResult error) {
         String errorTxt = null;
         try {
             EjecutarTransaccionResponse response = (EjecutarTransaccionResponse) error.getData();
             if (response.getMensaje() != null)
                 errorTxt = response.getMensaje();
-            //Toast.makeText(this, response.getMensaje(), Toast.LENGTH_LONG).show();
-
         } catch (ClassCastException ex) {
             ex.printStackTrace();
         }
-
         showDialogError(errorTxt);
     }
 
-    private void showDialog(String text){
+    private void showDialog(String text) {
         UI.createSimpleCustomDialogNoCancel("Exito", text,
                 getFragmentManager(), new DialogDoubleActions() {
                     @Override
@@ -271,13 +271,13 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
                 });
     }
 
-    private void showSimpleDialog(String text){
+    private void showSimpleDialog(String text) {
         UI.createSimpleCustomDialog("Error", text,
                 getFragmentManager(), getFragmentTag());
     }
 
-    private void showDialogError(String text){
-        UI.createCustomDialog("Error Envando Ticket", text,
+    private void showDialogError(String text) {
+        UI.createCustomDialog("Error Envando Ticket", text != null ? text : "Error Envando Ticket",
                 getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {

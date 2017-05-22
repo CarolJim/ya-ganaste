@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
@@ -7,7 +8,6 @@ import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.Log;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -21,7 +21,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
-import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
+import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
 import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
@@ -29,14 +29,15 @@ import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.TabPresenter;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
+import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.List;
-
 
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
@@ -46,7 +47,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.PTH_DOCTO_APROBADO;
 
 
-public class TabActivity extends ToolBarActivity implements TabsView, OnEventListener {
+public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener {
     private Preferencias pref;
 
     private ViewPager mainViewPager;
@@ -61,6 +62,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
     public static final String EVENT_SHOW_MAIN_TAB = "eventShowToolbar";
     private Animation animShow, animHide;
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
+    private ProgressLayout progressGIF;
 
     public static Intent createIntent(Context from) {
         return new Intent(from, TabActivity.class);
@@ -68,7 +70,6 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tab);
         load();
@@ -86,13 +87,15 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
                 Intent intent = new Intent(this, LandingAdqFragment.class);
                 startActivity(intent);
         }
-}
+    }
 
     private void load() {
         this.tabPresenter = new MainMenuPresenterImp(this);
         pref = App.getInstance().getPrefs();
         mainViewPager = (ViewPager) findViewById(R.id.main_view_pager);
         mainTab = (TabLayout) findViewById(R.id.main_tab);
+        progressGIF = (ProgressLayout)findViewById(R.id.progressGIF);
+        progressGIF.setVisibility(View.GONE);
 
         tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN);
         animHide = AnimationUtils.loadAnimation(this, R.anim.view_hide);
@@ -106,7 +109,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
         mainTab.setupWithViewPager(mainViewPager);
 
-      //  Log.e("TabActivity", "indicator position " + mainTab.getSelectedTabPosition());
+        //  Log.e("TabActivity", "indicator position " + mainTab.getSelectedTabPosition());
         mainTab.setSelectedTabIndicatorHeight(2);
     }
 
@@ -127,6 +130,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         super.onStart();
 
          if (!pref.containsData(COUCHMARK_EMISOR)) {
+
              new Handler().postDelayed(new Runnable() {
                  public void run() {
                      pref.saveDataBool(COUCHMARK_EMISOR, true);
@@ -138,8 +142,6 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
 
         }
     }
-
-
 
 
     @Override
@@ -173,7 +175,7 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         }
     }
 
-    private void goHome() {
+    public void goHome() {
         TabLayout.Tab current = mainTab.getTabAt(0);
         if (current != null) {
             current.select();
@@ -249,13 +251,16 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
     @Override
     public void onBackPressed() {
         //super.onBackPressed();
-        if (mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem()) instanceof PaymentsTabFragment) {
-            PaymentsTabFragment paymentsTabFragment = (PaymentsTabFragment) mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem());
+        Fragment actualFragment = mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem());
+        if (actualFragment instanceof PaymentsTabFragment) {
+            PaymentsTabFragment paymentsTabFragment = (PaymentsTabFragment) actualFragment;
             if (paymentsTabFragment.isOnForm) {
                 paymentsTabFragment.onBackPresed(paymentsTabFragment.getCurrenTab());
             } else {
                 goHome();
             }
+        } else if (actualFragment instanceof DepositsFragment) {
+            ((DepositsFragment) actualFragment).getDepositManager().onBtnBackPress();
         } else {
             if (mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem()) instanceof HomeTabFragment) {
                 super.onBackPressed();
@@ -277,4 +282,12 @@ public class TabActivity extends ToolBarActivity implements TabsView, OnEventLis
         }
     }
 
+    public void showProgressLayout(String msg){
+        progressGIF.setTextMessage(msg);
+        progressGIF.setVisibility(View.VISIBLE);
+    }
+
+    public void hideProgresLayout(){
+        progressGIF.setVisibility(View.GONE);
+    }
 }

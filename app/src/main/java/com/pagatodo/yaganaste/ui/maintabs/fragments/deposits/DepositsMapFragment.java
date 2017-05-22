@@ -4,16 +4,14 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
-import com.google.android.gms.common.GooglePlayServicesUtil;
-import com.google.android.gms.maps.MapView;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.utils.customviews.CustomMapFragment;
 
@@ -21,14 +19,15 @@ import com.pagatodo.yaganaste.utils.customviews.CustomMapFragment;
  * Created by Jordan on 17/05/2017.
  */
 
-public class MapDepositsFragment extends SupportFragment {
+public class DepositsMapFragment extends SupportFragment {
     private View rootView;
+    private TabActivity parentActivity;
 
-    public static MapDepositsFragment newInstance(){
-        MapDepositsFragment mapDepositsFragment = new MapDepositsFragment();
+    public static DepositsMapFragment newInstance(){
+        DepositsMapFragment depositsMapFragment = new DepositsMapFragment();
         Bundle args = new Bundle();
-        mapDepositsFragment.setArguments(args);
-        return mapDepositsFragment;
+        depositsMapFragment.setArguments(args);
+        return depositsMapFragment;
     }
 
     @Override
@@ -42,7 +41,8 @@ public class MapDepositsFragment extends SupportFragment {
         View v = inflater.inflate(R.layout.fragment_depositos_mapa, container, false);
 
         int status = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getActivity());
-
+        parentActivity = (TabActivity)getActivity();
+        //parentActivity.showProgressLayout("Cargando");
         if(status == ConnectionResult.SUCCESS){
             FragmentManager fm = getChildFragmentManager();
             CustomMapFragment customMapFragment = CustomMapFragment.newInstance();
