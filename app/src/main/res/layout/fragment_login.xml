@@ -77,12 +77,12 @@
                 style="@style/InputTextForms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/txt_escribe_tu_pass"
                 android:layout_above="@+id/btnLoginExistUser"
                 android:clickable="true"
+                android:hint="@string/txt_escribe_tu_pass"
                 app:formato="password"
                 app:hintText="@string/txt_escribe_tu_pass"
-                app:isTextEnabled="true"/>
+                app:isTextEnabled="true" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtLoginExistUserRecoverPass"

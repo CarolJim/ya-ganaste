@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
 import com.pagatodo.yaganaste.utils.FontCache;
 
 import butterknife.BindView;
@@ -29,8 +30,9 @@ import butterknife.ButterKnife;
  * Created by Jordan on 17/05/2017.
  */
 
-public class DepositTabFragment extends SupportFragment implements View.OnClickListener {
+public class DepositsDataFragment extends SupportFragment implements View.OnClickListener {
     private View rootView;
+    DepositsManager depositsManager;
 
     @BindView(R.id.imgYaGanasteCard)
     ImageView imgYaGanasteCard;
@@ -43,22 +45,23 @@ public class DepositTabFragment extends SupportFragment implements View.OnClickL
     @BindView(R.id.btnDepositar)
     Button btnDepositar;
 
-    public static DepositTabFragment newInstance() {
-        DepositTabFragment depositTabFragment = new DepositTabFragment();
+    public static DepositsDataFragment newInstance() {
+        DepositsDataFragment depositsDataFragment = new DepositsDataFragment();
         Bundle args = new Bundle();
-        depositTabFragment.setArguments(args);
-        return depositTabFragment;
+        depositsDataFragment.setArguments(args);
+        return depositsDataFragment;
     }
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        depositsManager = ((DepositsFragment)getParentFragment()).getDepositManager();
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_datos_deposito, container, false);
+        return inflater.inflate(R.layout.fragment_deposito_datos, container, false);
     }
 
     @Override
@@ -93,7 +96,7 @@ public class DepositTabFragment extends SupportFragment implements View.OnClickL
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-
+        btnDepositar.setOnClickListener(this);
 
     }
 
@@ -102,6 +105,7 @@ public class DepositTabFragment extends SupportFragment implements View.OnClickL
     public void onClick(View v) {
         if (v.getId() == R.id.btnDepositar) {
             //Siguiente Fragment
+            depositsManager.onTapButton();
         }
     }
 

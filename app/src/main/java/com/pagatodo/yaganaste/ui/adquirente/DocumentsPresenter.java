@@ -18,10 +18,5 @@ public abstract class DocumentsPresenter implements IDocumentsPresenter {
     public DocumentsPresenter() {
     }
 
-
-    @Override
-    public abstract void uploadDocuments(Object documents);
-
-
     public abstract void showGaleryError();
 }

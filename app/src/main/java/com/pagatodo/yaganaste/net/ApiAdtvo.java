@@ -55,6 +55,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormat
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.ui.account.AccountAdqInteractor;
 
 import java.util.Map;
 
@@ -63,6 +64,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_POST;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTIVACION_SERVICIO_MOVIL;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVATAR;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CAMBIAR_CONTRASENIA;
@@ -185,6 +187,14 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.uploadDocumentsUrl),
                 headers, request, CargaDocumentosResponse.class, result);
     }
+    public static void actualizarDocumentos(CargaDocumentosRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        NetFacade.consumeWS(ACTUALIZAR_DOCUMENTOS,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.updateDocumentosUrl),
+                headers, request, CargaDocumentosResponse.class, result);
+    }
+
 
     /**
      * Método que se invoca cuando se desea Cerrar una Sesión activa.
@@ -547,6 +557,7 @@ public class ApiAdtvo extends Api {
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerDomicilioPrincipal),
                 headers, null, ObtenerDomicilioResponse.class, result);
     }
+
 
 
     /**
