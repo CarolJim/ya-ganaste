@@ -77,8 +77,8 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
     DialogDoubleActions doubleActions = new DialogDoubleActions() {
         @Override
         public void actionConfirm(Object... params) {
-            //    Toast.makeText(PreferUserActivity.this, "Click Cerrar Session", Toast.LENGTH_SHORT).show();
-            getPresenter().logout();
+            setResult(ToolBarActivity.RESULT_LOG_OUT);
+            finish();
         }
 
         @Override

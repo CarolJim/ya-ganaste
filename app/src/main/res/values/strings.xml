@@ -278,7 +278,7 @@
     <string name="datos_domicilio_terminos">Debes aceptar los términos y condiciones.</string>
     <string name="msg_register">Registrando Usuario...</string>
     <!--activacion_sms-->
-    <string name="activacion_sms_mes_1">Para Terminar tu Registro,\n Debemos Asociar tu Teléfono a tu\n Cuenta YA Ganaste.</string>
+    <string name="activacion_sms_mes_1">Para Terminar tu Registro,\n Debemos Asociar tu Teléfono a tu\n Cuenta Ya Ganaste.</string>
     <string name="activacion_sms_mes_2">Sólo Envía el SMS que Aparecerá\nen la Siguiente Pantalla.</string>
     <string name="activacion_sms_loader">Estamos Verificando tu SMS.\nNos Tomara Solo Unos Segundos.</string>
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
@@ -288,6 +288,7 @@
     <string name="tienes_tarjeta_validando_tarjeta">Estamos Validando Tu Tarjeta.</string>
     <string name="tienes_tarjeta_no">No te Preocupes ¡Ya te Asignamos Una!\nTu Número de Tarjeta es:</string>
     <string name="tienes_tarjeta_asignando_nip">Estamos Asignanado Tu NIP.</string>
+    <string name="validando_password">Validando Contraseña</string>
     <!--tienes_tarjeta-->
     <string name="doYouHaveCardTitle">¿Tienes Tarjeta Ya Ganaste?</string>
     <string name="permission_request">Solicitud de Permisos</string>
@@ -495,6 +496,7 @@
     <string name="txt_referencia_envio_empty">Por favor ingrese un número de teléfono/cuenta/CABLE</string>
     <string name="title_activity_prefer_user">PreferUserActivity</string>
     <string name="recuperando_docs_estatus">Recuperando los estatus de sus documentos.</string>
+    <string name="desea_cacelar">¿Deseas Salir y Cancelar la Operación Actual?</string>
 </resources>
 
 

@@ -14,10 +14,13 @@ import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.CustomMapFragment;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
@@ -27,7 +30,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 
-public class SplashActivity extends AppCompatActivity implements IRequestResult {
+public class SplashActivity extends SupportFragmentActivity implements IRequestResult {
     private Preferencias pref;
     private CatalogsDbApi api;
 
@@ -40,6 +43,8 @@ public class SplashActivity extends AppCompatActivity implements IRequestResult 
         pref = App.getInstance().getPrefs();
         final IRequestResult iRequestResult = this;
         final Handler handler = new Handler();
+        //loadFragment(new CustomMapFragment(), R.id.frame, Direction.FORDWARD, false);
+
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

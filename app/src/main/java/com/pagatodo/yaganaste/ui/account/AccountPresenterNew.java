@@ -123,13 +123,14 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
 
     @Override
     public void getNeighborhoods(String zipCode) {
-
+        accountView.showLoader(App.getInstance().getString(R.string.obteniendo_colonias));
         accountIteractor.getNeighborhoodByZipCode(zipCode);
 
     }
 
     @Override
     public void validatePasswordFormat(String password) {
+        accountView.showLoader(App.getInstance().getString(R.string.validando_password));
         accountIteractor.validatePassword(password);
     }
 
@@ -220,6 +221,7 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
 
     @Override
     public void onSucces(WebService ws,Object data) {
+        accountView.hideLoader();
         if(accountView instanceof IAccountRegisterView){
             if (ws == CREAR_USUARIO_CLIENTE) {
                 ((IAccountRegisterView) accountView).clientCreatedSuccess(data.toString());
@@ -235,8 +237,8 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
                     ((IUserDataRegisterView) accountView).isEmailRegistered();
                 }
             }else if(ws == VALIDAR_FORMATO_CONTRASENIA) {
-                boolean validatePass = (boolean) data;
-                if(!validatePass){
+                boolean validatePass = ((int)data == 0);
+                if(validatePass){
                     ((IUserDataRegisterView) accountView).validationPasswordSucces();
                 }else{
                     ((IUserDataRegisterView) accountView).validationPasswordFailed("Su contraseña es incorrecta");

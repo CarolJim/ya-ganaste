@@ -29,5 +29,5 @@ public class LocalizarSucursalesRequest implements Serializable{
     public void setLongitud(Double longitud) {
         Longitud = longitud;
     }
-    
+
 }

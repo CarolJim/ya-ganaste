@@ -72,29 +72,6 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
         return fragmentRegister;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -133,7 +110,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if(s.toString().length() == 4){
-                    keyboardView.hideCustomKeyboard();
+                    //keyboardView.hideCustomKeyboard();
                     validateForm();
                 }
             }
@@ -144,17 +121,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
             }
         });
 
-        // Mostramos y ocultamos el Keyboard dependiendo del foco del EditTExt
-        edtPin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    keyboardView.showCustomKeyboard(v);
-                } else {
-                    keyboardView.hideCustomKeyboard();
-                }
-            }
-        });
+
 
         //Si ocamos el area especial del Layout abrimos el Keyboard
         layout_control.setOnClickListener(new View.OnClickListener() {
@@ -179,6 +146,8 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
         });
 
         setValidationRules();
+        keyboardView.showCustomKeyboard(rootview);
+        edtPin.requestEditFocus();
     }
 
     /*Implementación de ValidationForms*/
@@ -243,10 +212,10 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
 
     public boolean isCustomKeyboardVisible() {
-        return keyboardView.getVisibility() == View.VISIBLE;
+        return false;
     }
 
     public void hideKeyboard() {
-        keyboardView.hideCustomKeyboard();
+        //keyboardView.hideCustomKeyboard();
     }
 }

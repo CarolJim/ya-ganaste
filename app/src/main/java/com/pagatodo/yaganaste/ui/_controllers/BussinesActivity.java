@@ -26,6 +26,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MA
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 
 
 public class BussinesActivity extends LoaderActivity {
@@ -65,8 +66,11 @@ public class BussinesActivity extends LoaderActivity {
         setContentView(R.layout.activity_fragment_conainer);
         presenterAccount = new AccountPresenterNew(this);
 
-       // initFragments();
-        loadFragment(DatosNegocio.newInstance(girosComercio), Direction.FORDWARD, true);
+        if (App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
+            loadFragment(Documentos.newInstance(), Direction.FORDWARD);
+        } else {
+            loadFragment(DatosNegocio.newInstance(girosComercio), Direction.FORDWARD, true);
+        }
 
         pref = App.getInstance().getPrefs();
     }
@@ -87,7 +91,9 @@ public class BussinesActivity extends LoaderActivity {
                 loadFragment(DomicilioNegocio.newInstance(domicilio, listaColonias), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_ADDRESS_BACK:
-                loadFragment(DomicilioNegocio.newInstance(domicilio, listaColonias), Direction.BACK, false);
+                //loadFragment(DomicilioNegocio.newInstance(domicilio, listaColonias), Direction.BACK, false);
+                resetRegisterData();
+                finish();
                 break;
             case EVENT_GO_BUSSINES_DOCUMENTS:
                 loadFragment(Documentos.newInstance(), Direction.FORDWARD, false);

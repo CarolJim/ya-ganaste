@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.AnimRes;
+import android.support.annotation.CallSuper;
 import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
@@ -37,6 +38,9 @@ import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
  */
 
 public abstract class ToolBarActivity extends SupportFragmentActivity {
+
+    public static final int CODE_LOG_OUT = 3124;
+    public static final int RESULT_LOG_OUT = 3125;
 
 
     private View toolbarLayout;
@@ -74,10 +78,20 @@ public abstract class ToolBarActivity extends SupportFragmentActivity {
         //noinspection SimplifiableIfStatement
         if (id == R.id.configUser) {
             Intent intent = new Intent(this, PreferUserActivity.class);
-            startActivity(intent);
+            startActivityForResult(intent, CODE_LOG_OUT);
             return true;
         }
 
         return super.onOptionsItemSelected(item);
+    }
+
+
+    @Override
+    @CallSuper
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == CODE_LOG_OUT && resultCode == RESULT_LOG_OUT) {
+            finish();
+        }
     }
 }

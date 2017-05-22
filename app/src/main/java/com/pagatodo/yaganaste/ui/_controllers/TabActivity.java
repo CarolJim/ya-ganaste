@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
@@ -263,13 +264,28 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             ((DepositsFragment) actualFragment).getDepositManager().onBtnBackPress();
         } else {
             if (mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem()) instanceof HomeTabFragment) {
-                super.onBackPressed();
-                SingletonSession.getInstance().setFinish(true);//Terminamos Activity si va a background
+                showDialogOut();
             } else {
                 goHome();
             }
         }
 
+    }
+
+    private void showDialogOut() {
+        UI.createSimpleCustomDialog("", getString(R.string.desea_cacelar), getSupportFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        SingletonSession.getInstance().setFinish(true);//Terminamos Activity si va a background
+                        finish();
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                }, true, true);
     }
 
 

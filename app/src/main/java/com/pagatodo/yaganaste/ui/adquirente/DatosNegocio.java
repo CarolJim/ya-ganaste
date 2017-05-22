@@ -204,7 +204,9 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
 
     @Override
     public void showValidationError(Object error) {
-        UI.showToastShort(error.toString(), getActivity());
+        ErrorObject errorObject = new ErrorObject(error.toString(), null);
+        errorObject.setHasConfirm(true);
+        onEventListener.onEvent(EVENT_SHOW_ERROR, errorObject);
     }
 
     @Override
