@@ -27,6 +27,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -110,6 +111,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     LinearLayout ll_close;
     @BindView(R.id.frag_lista_opciones_photo_item)
     UploadDocumentView iv_photo_item;
+    @BindView(R.id.fragment_lista_opciones_version)
+    TextView tv_version_code;
 
     View rootview;
 
