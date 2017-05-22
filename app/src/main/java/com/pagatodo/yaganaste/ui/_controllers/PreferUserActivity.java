@@ -15,7 +15,11 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.preferuser.ListaLegalesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesPresenter;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
+import com.pagatodo.yaganaste.ui.preferuser.presenters.ListaOpcionesPresenter;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
@@ -128,8 +132,7 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        Fragment fragment = getCurrentFragment();
-        fragment.onActivityResult(requestCode, resultCode, data);
+       CameraManager.getInstance().setOnActivityResult(requestCode, resultCode, data);
     }
     /*@Override
     public void onSuccess(DataSourceResult dataSourceResult) {
