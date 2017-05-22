@@ -183,6 +183,9 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
          */
         mDrawable = ContextCompat.getDrawable(getActivity(), android.R.drawable.ic_menu_add);
        // iv_photo_item.setCenterDrawable(mDrawable);
+
+        // Hacemos Set de la version de codigo
+        tv_version_code.setText("YaGanaste Versión: " + BuildConfig.VERSION_CODE);
     }
 
     @Override

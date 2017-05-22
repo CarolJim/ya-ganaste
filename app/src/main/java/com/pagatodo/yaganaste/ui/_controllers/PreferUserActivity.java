@@ -49,6 +49,8 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
                 SingletonUser.getInstance().getDataUser().getUsuario().getPrimerApellido();
         mEmail = SingletonUser.getInstance().getDataUser().getUsuario().getNombreUsuario();
 
+       // SingletonUser.getInstance().getDataUser().get
+
         loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail));
 
         presenterAccount = new AccountPresenterNew(this);
