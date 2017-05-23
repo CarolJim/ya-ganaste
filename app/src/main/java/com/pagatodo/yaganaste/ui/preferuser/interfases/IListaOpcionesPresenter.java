@@ -13,4 +13,6 @@ public interface IListaOpcionesPresenter {
     void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest);
 
     void sucessUpdateAvatar();
+
+    void sendErrorPresenter(String mensaje);
 }

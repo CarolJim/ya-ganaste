@@ -29,6 +29,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
+import com.bumptech.glide.util.Util;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -36,6 +37,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
@@ -46,6 +48,7 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.ListaOpcionesPresenter;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
@@ -244,8 +247,6 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
              */
             case R.id.frag_lista_opciones_photo_item:
                 //selectImageSource(USER_PHOTO);
-                // Mostramos un Progress
-                showLoader("Cargando Imagen. Por favor, espere . . .");
 
                 mPresenter.openMenuPhoto(1);
                 break;
@@ -276,6 +277,29 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         Glide.with(this).load(SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL())
                 .placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(testIV);
         hideLoader();
+    }
+
+    @Override
+    public void sendErrorView(String mensaje) {
+        hideLoader();
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
+    }
+
+    @Override
+    public void showProgress(String mMensaje) {
+        showLoader("Cargando Imagen. Por favor, espere . . .");
     }
 
     public void showLoader(String message) {

@@ -40,4 +40,9 @@ public class ListaOpcionesPresenter implements IListaOpcionesPresenter {
     public void sucessUpdateAvatar() {
         mView.sucessUpdateAvatar();
     }
+
+    @Override
+    public void sendErrorPresenter(String mensaje) {
+        mView.sendErrorView(mensaje);
+    }
 }

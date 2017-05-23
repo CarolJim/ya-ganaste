@@ -131,15 +131,8 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-       CameraManager.getInstance().setOnActivityResult(requestCode, resultCode, data);
-    }
-    /*@Override
-    public void onSuccess(DataSourceResult dataSourceResult) {
-        Toast.makeText(PreferUserActivity.this, "Sucess Cerrar Session", Toast.LENGTH_SHORT).show();
-    }
 
-    @Override
-    public void onFailed(DataSourceResult error) {
-        Toast.makeText(PreferUserActivity.this, "Fail Cerrar Session", Toast.LENGTH_SHORT).show();
-    }*/
+       CameraManager.getInstance().setOnActivityResult(requestCode, resultCode, data);
+
+    }
 }

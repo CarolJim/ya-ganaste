@@ -226,6 +226,7 @@ public class CameraManager {
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
 
+                    mView.showProgress("Cargando Imagen. Por favor, espere . . .");
                     mView.setPhotoToService(bitmap);
                     break;
             }
@@ -248,7 +249,7 @@ public class CameraManager {
      */
     public void setOnActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            //  showLoader("");
+
             galleryAddPic();
             String path = SingletonUser.getInstance().getPathPictureTemp();
             bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {

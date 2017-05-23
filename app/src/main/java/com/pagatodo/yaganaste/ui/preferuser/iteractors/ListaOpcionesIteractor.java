@@ -41,8 +41,11 @@ public class ListaOpcionesIteractor implements IListaOpcionesIteractor, IRequest
             Log.d("ListaOpcionesIteractor", "DataSource Sucess " + response.getMensaje());
 
             updateAvatarResponse(response.getData().getImagenAvatarURL());
+            // Linea para simular el error y comprobar el Duialog y el ShowProgress
+            //listaOpcionesPresenter.sendErrorPresenter(response.getMensaje());
         } else {
             Log.d("ListaOpcionesIteractor", "DataSource Sucess with Error " + response.getMensaje());
+            listaOpcionesPresenter.sendErrorPresenter(response.getMensaje());
         }
     }
 
@@ -54,5 +57,6 @@ public class ListaOpcionesIteractor implements IListaOpcionesIteractor, IRequest
     @Override
     public void onFailed(DataSourceResult error) {
         Log.d("ListaOpcionesIteractor", "DataSource Fail " + error);
+       listaOpcionesPresenter.sendErrorPresenter(error.getData().toString());
     }
 }
