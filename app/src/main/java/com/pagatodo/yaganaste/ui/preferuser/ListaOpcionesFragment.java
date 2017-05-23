@@ -27,6 +27,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -83,7 +84,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     public static String IS_ES_AGENTE = "IS_ES_AGENTE";
     public static String USER_NAME = "USER_NAME";
     public static String USER_EMAIL = "USER_EMAIL";
-    public static String USER_IMAGE = "USER_EMAIL";
+    public static String USER_IMAGE = "USER_IMAGE";
     private boolean isEsAgente;
     private String mName, mEmail, mUserImage;
 
@@ -199,6 +200,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
          */
         if(mUserImage != null && !mUserImage.isEmpty()){
             Log.d(TAG, "mUserImage Data: " + mUserImage);
+           // Glide.with(this).load(mUserImage).placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(iv_photo_item);
         }else{
             Log.d(TAG, "mUserImage Empty: " + mUserImage);
         }
