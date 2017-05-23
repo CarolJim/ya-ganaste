@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.media.Image;
+import android.os.Build;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.widget.ImageView;
@@ -43,7 +44,20 @@ public class UploadDocumentView extends RelativeLayout {
     private void init(){
         String infService = Context.LAYOUT_INFLATER_SERVICE;
         LayoutInflater li = (LayoutInflater)getContext().getSystemService(infService);
-        li.inflate(R.layout.item_file, this, true);
+
+        /**
+         * Se agrega una validacion para obtener la version de Android que usamos, para cargar un
+         * layout alternativo en < Lolipop. Se hace el cambio porque el CircleImageView extiende de
+         * ImageView y no de AppCompatImageView
+         */
+        // Check if we're running on Android 5.0 or higher
+        if (Build.VERSION.SDK_INT >= 21) {
+            li.inflate(R.layout.item_file, this, true);
+        } else {
+            // Layout alternativo para < Lolipop
+            li.inflate(R.layout.item_file_4_4, this, true);
+        }
+
         circleImageView = ButterKnife.findById(this, R.id.imgItemGalleryMark);
         circleImageStatus = ButterKnife.findById(this, R.id.imgItemGalleryStatus);
         imgCamera = ButterKnife.findById(this, R.id.imgItemGalleryPay);

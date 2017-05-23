@@ -15,9 +15,6 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.preferuser.ListaLegalesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
-import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesPresenter;
-import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
-import com.pagatodo.yaganaste.ui.preferuser.presenters.ListaOpcionesPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
@@ -27,7 +24,7 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TE
 public class PreferUserActivity extends ToolBarActivity implements OnEventListener {
 
     private boolean isEsAgente;
-    private String mName, mEmail;
+    private String mName, mEmail, mUserImage;
 
     public static String PREFER_USER_LISTA = "PREFER_USER_LISTA";
     public static String PREFER_USER_LEGALES = "PREFER_USER_LEGALES";
@@ -48,8 +45,10 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
         mName = SingletonUser.getInstance().getDataUser().getUsuario().getNombre() + " " +
                 SingletonUser.getInstance().getDataUser().getUsuario().getPrimerApellido();
         mEmail = SingletonUser.getInstance().getDataUser().getUsuario().getNombreUsuario();
+        mUserImage = SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL();
 
-        loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail));
+
+        loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage));
 
         presenterAccount = new AccountPresenterNew(this);
 
@@ -114,7 +113,7 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
 
             /** Eventos BACK **/
             case "PREFER_USER_LISTA":
-                loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail), Direction.BACK, false);
+                loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage), Direction.BACK, false);
                 break;
         }
     }
