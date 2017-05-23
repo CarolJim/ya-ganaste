@@ -248,15 +248,20 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     public void setPhotoToService(Bitmap bitmap) {
         // Procesamos el Bitmap a Base64
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
         byte[] byteArray = byteArrayOutputStream .toByteArray();
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
         // Creamos el objeto ActualizarAvatarRequest
-        ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "JPEG");
+        ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
 
         // Enviamos al presenter
         mPresenter.sendPresenterActualizarAvatar(avatarRequest);
+    }
+
+    @Override
+    public void sucessUpdateAvatar() {
+
     }
 
 

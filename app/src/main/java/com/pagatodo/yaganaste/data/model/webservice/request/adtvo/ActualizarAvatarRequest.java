@@ -10,7 +10,7 @@ public class ActualizarAvatarRequest implements Serializable {
 
     private String Imagen = "";
     private String Extension = "";
-    private String ImagenAvatarURL = "";
+    //private String ImagenAvatarURL = "";
 
 
     public ActualizarAvatarRequest() {
@@ -37,11 +37,11 @@ public class ActualizarAvatarRequest implements Serializable {
         Extension = extension;
     }
 
-    public String getImagenAvatarURL() {
-        return ImagenAvatarURL;
-    }
-
-    public void setImagenAvatarURL(String imagenAvatarURL) {
-        ImagenAvatarURL = imagenAvatarURL;
-    }
+//    public String getImagenAvatarURL() {
+//        return ImagenAvatarURL;
+//    }
+//
+//    public void setImagenAvatarURL(String imagenAvatarURL) {
+//        ImagenAvatarURL = imagenAvatarURL;
+//    }
 }

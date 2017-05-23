@@ -35,4 +35,9 @@ public class ListaOpcionesPresenter implements IListaOpcionesPresenter {
     public void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest) {
         iListaOpcionesIteractor.sendIteractorActualizarAvatar(avatarRequest);
     }
+
+    @Override
+    public void sucessUpdateAvatar() {
+        mView.sucessUpdateAvatar();
+    }
 }
