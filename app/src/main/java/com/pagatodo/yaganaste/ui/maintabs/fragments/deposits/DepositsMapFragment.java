@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments.deposits;
 
+import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.FragmentManager;
@@ -22,6 +23,7 @@ import com.pagatodo.yaganaste.utils.customviews.CustomMapFragment;
 public class DepositsMapFragment extends SupportFragment {
     private View rootView;
     private TabActivity parentActivity;
+    CustomMapFragment customMapFragment;
 
     public static DepositsMapFragment newInstance(){
         DepositsMapFragment depositsMapFragment = new DepositsMapFragment();
@@ -42,10 +44,10 @@ public class DepositsMapFragment extends SupportFragment {
 
         int status = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getActivity());
         parentActivity = (TabActivity)getActivity();
-        //parentActivity.showProgressLayout("Cargando");
         if(status == ConnectionResult.SUCCESS){
+            Location actualLocation = parentActivity.getLocation();
             FragmentManager fm = getChildFragmentManager();
-            CustomMapFragment customMapFragment = CustomMapFragment.newInstance();
+            customMapFragment = CustomMapFragment.newInstance(actualLocation);
             FragmentTransaction fragmentTransaction = fm.beginTransaction();
             fragmentTransaction.add(R.id.my_map_fragment, customMapFragment);
             fragmentTransaction.commit();
@@ -63,7 +65,8 @@ public class DepositsMapFragment extends SupportFragment {
 
     @Override
     public void initViews() {
-
+        onEventListener.onEvent(TabActivity.EVENT_HIDE_MANIN_TAB, null);
+        parentActivity.hideProgresLayout();
     }
 
 }

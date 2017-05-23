@@ -2,18 +2,19 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments.deposits;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentDepositPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
-import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
-import butterknife.BindView;
+import java.util.List;
+
 import butterknife.ButterKnife;
 
 /**
@@ -23,10 +24,6 @@ import butterknife.ButterKnife;
 public class DepositsFragment extends SupportFragment implements DepositsManager {
 
     private View rootView;
-    private FragmentDepositPagerAdapter fragmentPagerAdapter;
-
-    @BindView(R.id.deposito_view_pager)
-    NoSwipeViewPager depositsViewPager;
 
     public static DepositsFragment newInstance() {
         DepositsFragment depositsFragment = new DepositsFragment();
@@ -38,7 +35,6 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fragmentPagerAdapter = new FragmentDepositPagerAdapter(getChildFragmentManager());
     }
 
     @Nullable
@@ -56,8 +52,7 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
     @Override
     public void initViews() {
         ButterKnife.bind(this, this.rootView);
-        depositsViewPager.setAdapter(fragmentPagerAdapter);
-        depositsViewPager.setCurrentItem(0);
+        loadFragment(DepositsDataFragment.newInstance(), Direction.NONE, false);
     }
 
     public DepositsManager getDepositManager() {
@@ -66,8 +61,9 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
 
     @Override
     public void onTapButton() {
-        depositsViewPager.setCurrentItem(1);
         removeLastFragment();
+        ((TabActivity) getActivity()).showProgressLayout("Cargando");
+        loadFragment(DepositsMapFragment.newInstance(), Direction.FORDWARD, false);
     }
 
     @Override
@@ -87,12 +83,13 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
 
     @Override
     public void onBtnBackPress() {
-        int currentItem = depositsViewPager.getCurrentItem();
-        if (currentItem > 0) {
-            depositsViewPager.setCurrentItem(currentItem - 1);
+        List<Fragment> fragments = getChildFragmentManager().getFragments();
+        onEventListener.onEvent(TabActivity.EVENT_SHOW_MAIN_TAB, null);
+        if (fragments != null && fragments.get(0) instanceof DepositsMapFragment) {
             removeLastFragment();
-        }else{
-            ((TabActivity)getActivity()).goHome();
+            loadFragment(DepositsDataFragment.newInstance(), Direction.BACK, false);
+        } else if (fragments != null && fragments.get(0) instanceof DepositsDataFragment) {
+            ((TabActivity) getActivity()).goHome();
         }
     }
 }

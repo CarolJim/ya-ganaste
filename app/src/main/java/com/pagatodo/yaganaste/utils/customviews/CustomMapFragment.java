@@ -21,7 +21,7 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class CustomMapFragment extends SupportMapFragment implements OnMapReadyCallback {
 
-    private Location myLocation;
+    private static Location myLocation;
     private boolean firstLocation;
     private GoogleMap map;
 
@@ -29,8 +29,9 @@ public class CustomMapFragment extends SupportMapFragment implements OnMapReadyC
         super();
     }
 
-    public static CustomMapFragment newInstance() {
+    public static CustomMapFragment newInstance(Location location) {
         CustomMapFragment customMapFragment = new CustomMapFragment();
+        myLocation = location;
         return customMapFragment;
     }
 
@@ -76,7 +77,10 @@ public class CustomMapFragment extends SupportMapFragment implements OnMapReadyC
         map.getUiSettings().setAllGesturesEnabled(true);
 
         map.getUiSettings().setMapToolbarEnabled(false);
-
+        if (myLocation != null) {
+            LatLng latlon = new LatLng(myLocation.getLatitude(), myLocation.getLongitude());
+            map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, 8));
+        }
         //map.setOnMyLocationChangeListener(new LocationListenerForMap());
     }
 
