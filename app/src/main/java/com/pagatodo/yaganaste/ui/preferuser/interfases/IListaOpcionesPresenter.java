@@ -11,4 +11,6 @@ public interface IListaOpcionesPresenter {
     void openMenuPhoto(int i);
 
     void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest);
+
+    void sucessUpdateAvatar();
 }
