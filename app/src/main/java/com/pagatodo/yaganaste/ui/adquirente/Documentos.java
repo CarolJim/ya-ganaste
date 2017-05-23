@@ -29,12 +29,14 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
@@ -481,7 +483,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
      */
     @Override
     public void documentosActualizados(String s) {
-        Log.e(TAG, " cambiamos de fragmento");
         showLoader(s);
         new Handler().postDelayed(new Runnable() {
             @Override
@@ -539,11 +540,12 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
      */
     private void sendDocumentsPending() {
         if (dataDocumnets.size() < documentPendientes) {
-            showError("Debes de Subir los documentos marcados con el signo de admiración");
+            UI.showAlertDialog("Debes de Subir los documentos marcados con el signo de admiración","Aceptar",getContext(),null).show();
             return;
         }
         adqPresenter.sendDocumentosPendientes(dataDocumnets);
     }
+
 
     /**
      * Enviamos los documentos cuando se esta registrando el adquirente
@@ -565,7 +567,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
-                //    imgs = new String[documentPendientes-1];
                 refreshContent();
             }
         }, DELAY_MESSAGE_PROGRESS);

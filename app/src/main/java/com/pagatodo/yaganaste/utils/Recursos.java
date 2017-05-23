@@ -50,6 +50,7 @@ public class Recursos {
 	public static String COUCHMARK_ADQ = "COUCHMARKADQ";
 	public static String CRC32_FREJA = "CRC32FREJA";
 	public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
+	public static final String ADQ_PROCESS = "FLAG_PROCESS";
 
 	/**Catálogos**/
 	/*PTH – Estatus Comercios*/
@@ -75,6 +76,7 @@ public class Recursos {
 	public static final int STATUS_DOCTO_RECHAZADO = 3;
 	public static final int STATUS_DOCTO_APROBADO = 2;
 	public static final int STATUS_DOCTO_PENDIENTE = 1;
+    public static final int STATUS_DOCTO_SIN_ENVIAR = 0;
 	/*Tipo de Comercios*/
 	public static final int TELEFONICA = 1;
 	public static final int COMPANIA_DE_SERVICIOS = 2;

@@ -21,6 +21,7 @@ import com.github.demono.AutoScrollViewPager;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui._manager.PagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;

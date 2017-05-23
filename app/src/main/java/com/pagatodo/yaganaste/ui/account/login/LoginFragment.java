@@ -121,6 +121,15 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                     SingletonSession.getInstance().getNameUser() : RequestHeaders.getUsername());
             edtUserName.setVisibility(GONE);
             edtUserName.setText(RequestHeaders.getUsername());
+
+            textNameUser.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    textNameUser.setVisibility(GONE);
+                    edtUserName.setText(textNameUser.getText().toString());
+                    edtUserName.setVisibility(VISIBLE);
+                }
+            });
         } else {
             edtUserName.setText("");
             edtUserName.setVisibility(VISIBLE);

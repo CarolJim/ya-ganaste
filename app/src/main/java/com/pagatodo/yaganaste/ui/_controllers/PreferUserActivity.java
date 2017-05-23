@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
@@ -14,7 +15,11 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.preferuser.ListaLegalesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesPresenter;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
+import com.pagatodo.yaganaste.ui.preferuser.presenters.ListaOpcionesPresenter;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
@@ -72,8 +77,8 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
     DialogDoubleActions doubleActions = new DialogDoubleActions() {
         @Override
         public void actionConfirm(Object... params) {
-            //    Toast.makeText(PreferUserActivity.this, "Click Cerrar Session", Toast.LENGTH_SHORT).show();
-            getPresenter().logout();
+            setResult(ToolBarActivity.RESULT_LOG_OUT);
+            finish();
         }
 
         @Override
@@ -124,6 +129,11 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
         }
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+       CameraManager.getInstance().setOnActivityResult(requestCode, resultCode, data);
+    }
     /*@Override
     public void onSuccess(DataSourceResult dataSourceResult) {
         Toast.makeText(PreferUserActivity.this, "Sucess Cerrar Session", Toast.LENGTH_SHORT).show();

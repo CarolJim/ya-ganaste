@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
+import android.app.Application;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.view.LayoutInflater;
@@ -10,8 +11,10 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEntity;
@@ -44,6 +47,7 @@ import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_DOMICILIO;
 
 /**
@@ -176,23 +180,24 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
 
         getDataForm();
         if(calle.isEmpty()){
-            UI.showToastShort(getString(R.string.datos_domicilio_calle),getActivity());
+            showValidationError(getString(R.string.datos_domicilio_calle));
             return;
         }
+
         if(numExt.isEmpty()){
-            UI.showToastShort(getString(R.string.datos_domicilio_num_ext),getActivity());
+            showValidationError(getString(R.string.datos_domicilio_num_ext));
             return;
         }
+
         if(codigoPostal.isEmpty()){
-            UI.showToastShort(getString(R.string.datos_domicilio_cp),getActivity());
+            showValidationError(getString(R.string.datos_domicilio_cp));
             return;
         }
 
-        if(colonia.isEmpty()){
-            UI.showToastShort(getString(R.string.datos_domicilio_colonia),getActivity());
+        if(spBussinesColonia.getSelectedItemPosition() == 0 || colonia.isEmpty()){
+            showValidationError(getString(R.string.datos_domicilio_colonia));
             return;
         }
-
 
         onValidationSuccess();
 
@@ -200,6 +205,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
 
     private void fillAdapter(){
         coloniasNombre.clear();
+        coloniasNombre.add(getString(R.string.colonia));
         for(ColoniasResponse coloniasResponse : this.listaColonias){
             coloniasNombre.add(coloniasResponse.getColonia());
         }
@@ -242,7 +248,9 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
 
     @Override
     public void showValidationError(Object error) {
-        UI.showToastShort(error.toString(),getActivity());
+        ErrorObject errorObject = new ErrorObject(error.toString(), null);
+        errorObject.setHasConfirm(true);
+        onEventListener.onEvent(EVENT_SHOW_ERROR, errorObject);
     }
 
     @Override
@@ -270,12 +278,12 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
 
     @Override
     public void getDataForm() {
-
         calle = editBussinesStreet.getText();
         numExt = editBussinesExtNumber.getText();
         numInt = editBussinesIntNumber.getText();
         codigoPostal = editBussinesZipCode.getText();
         estado = editBussinesZipCode.getText();
+        Idcolonia = "-1";
         if(spBussinesColonia.getSelectedItem() != null) {
             colonia = spBussinesColonia.getSelectedItem().toString();
             for(ColoniasResponse coloniaInfo : listaColonias){
@@ -334,6 +342,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
 
     @Override
     public void agentCreated(String message) {
+        App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
         onEventListener.onEvent(EVENT_SET_COLONIES_LIST, listaColonias);
         nextScreen(EVENT_GO_BUSSINES_DOCUMENTS,null);
     }

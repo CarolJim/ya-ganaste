@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
@@ -30,6 +31,8 @@ import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
+import com.pagatodo.yaganaste.utils.UI;
+
 import static com.pagatodo.yaganaste.data.model.SingletonUser.user;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
@@ -95,7 +98,6 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 break;
 
             case GO_TO_REGISTER:
-
                 loadFragment(DatosUsuarioFragment.newInstance(), Direction.FORDWARD, false);
              
                 // TODO: 28/04/2017
@@ -206,7 +208,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
             finish();
         } else if (currentFragment instanceof DatosUsuarioFragment) {
             resetRegisterData();// Eliminamos la información de registro almacenada.
-            finish();
+            showDialogOut();
         } else if (currentFragment instanceof DatosPersonalesFragment) {
             onEvent(EVENT_DATA_USER_BACK, null);
         } else if (currentFragment instanceof DomicilioActualFragment) {
@@ -217,14 +219,14 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 ((TienesTarjetaFragment) currentFragment).hideKeyboard();
             } else {
                 resetRegisterData();// Eliminamos la información de registro almacenada.
-                finish();
+                showDialogOut();
             }
         } else if (currentFragment instanceof AsignarNIPFragment) {
             if (((AsignarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
                 ((AsignarNIPFragment) currentFragment).hideKeyboard();
             } else {
                 resetRegisterData();// Eliminamos la información de registro almacenada.
-                finish();
+                showDialogOut();
             }
         } else if (currentFragment instanceof ConfirmarNIPFragment) {
             if (((ConfirmarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
@@ -234,13 +236,28 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
             }
         } else if (currentFragment instanceof AsociatePhoneAccountFragment) {
             resetRegisterData();// Eliminamos la información de registro almacenada.
-            finish();
+            showDialogOut();
         } else if (currentFragment instanceof RecoveryFragment) {
             onEvent(EVENT_RECOVERY_PASS_BACK, null);
         } else {
             resetRegisterData();// Eliminamos la información de registro almacenada.
             super.onBackPressed();
         }
+    }
+
+    private void showDialogOut() {
+        UI.createSimpleCustomDialog("", getString(R.string.desea_cacelar), getSupportFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        finish();
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                }, true, true);
     }
 
     /*Se eliminan los datos almacenados en Memoria*/
