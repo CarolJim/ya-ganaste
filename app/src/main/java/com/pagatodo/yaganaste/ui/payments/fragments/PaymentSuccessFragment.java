@@ -28,6 +28,9 @@ import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.payments.IPaymentsSuccessView;
+import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsSuccessPresenter;
+import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsSuccessPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -86,6 +89,8 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
     Payments pago;
     EjecutarTransaccionResponse result;
     private boolean isMailAviable = false;
+    /****/
+    IPaymentsSuccessPresenter presenter;
 
     public static PaymentSuccessFragment newInstance(Payments pago, EjecutarTransaccionResponse result) {
         PaymentSuccessFragment fragment = new PaymentSuccessFragment();
@@ -110,6 +115,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
         super.onCreate(savedInstanceState);
         pago = (Payments) getArguments().getSerializable("pago");
         result = (EjecutarTransaccionResponse) getArguments().getSerializable("result");
+        presenter = new PaymentsSuccessPresenter(getContext(),result);
     }
 
     @Override
@@ -199,6 +205,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
     }
 
     private void validateMail() {
+
         String mail = editMail.getText().toString().trim();
         if (mail != null && !mail.equals("")) {
             if (ValidateForm.isValidEmailAddress(mail)) {
@@ -209,6 +216,8 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
         }else{
             onFinalize();
         }
+
+        presenter.validaEmail(mail);
     }
 
     private void sendTicket(String mail) {
@@ -237,7 +246,6 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
             onFailSendTicket(result);
         }
     }
-
     @Override
     public void onFailed(DataSourceResult error) {
         ((PaymentsProcessingActivity) getActivity()).hideLoader();
@@ -290,4 +298,6 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
                     }
                 }, "Reintentar", "Cancelar");
     }
+
+
 }

@@ -70,7 +70,6 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         llMaterialEmisorContainer = (MaterialLinearLayout)findViewById(R.id.ll_material_emisor_container);
         llContentParentAdquirente = (LinearLayout)findViewById(R.id.ll_content_parent_adquirente);
         llMaterialAdquirenteContainer = (MaterialLinearLayout)findViewById(R.id.ll_material_adquirente_container);
-
         llMaterialEmisorContainer.setOnClickListener(this);
         llMaterialAdquirenteContainer.setOnClickListener(this);
     }
@@ -132,6 +131,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     }
 
     private void animateTabs(float offset, int position) {
+
         if ( offset <= 0.0 ) {
             offset = position;
         }
@@ -166,10 +166,11 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
             llMaterialAdquirenteContainer.addView(cardAdq,
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         } else if (offset >= 1){
-            viewAdquirenteBorder.setBackgroundResource(R.drawable.adq_em_big_tab);
-            llMaterialAdquirenteContainer.removeAllViews();
-            llMaterialAdquirenteContainer.addView(cardAdqSel,
-                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+                viewAdquirenteBorder.setBackgroundResource(R.drawable.adq_em_big_tab);
+                llMaterialAdquirenteContainer.removeAllViews();
+                llMaterialAdquirenteContainer.addView(cardAdqSel,
+                        new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
         }
 
         LinearLayout.LayoutParams llContentParentEmisorParams = (LinearLayout.LayoutParams)llContentParentEmisor.getLayoutParams();
