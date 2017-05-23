@@ -3,6 +3,8 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
@@ -11,6 +13,7 @@ import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -82,7 +85,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
                 SingletonUser.getInstance().getDataUser().getEstatusAgente()==PTH_DOCTO_APROBADO &&
                 !pref.containsData(COUCHMARK_ADQ)) {
-
                 pref.saveDataBool(COUCHMARK_ADQ,true);
                 Intent intent = new Intent(this, LandingAdqFragment.class);
                 startActivity(intent);
@@ -108,9 +110,17 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         mainViewPager.setAdapter(mainViewPagerAdapter);
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
         mainTab.setupWithViewPager(mainViewPager);
-
+        mainTab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
+        LinearLayout linearLayout = (LinearLayout)mainTab.getChildAt(0);
+        linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
+        GradientDrawable drawable = new GradientDrawable();
+        drawable.setColor(getResources().getColor(R.color.grayColor));
+        drawable.setSize(1,1);
+        linearLayout.setDividerPadding(4);
+        linearLayout.setDividerDrawable(drawable);
         //  Log.e("TabActivity", "indicator position " + mainTab.getSelectedTabPosition());
-        mainTab.setSelectedTabIndicatorHeight(2);
+        mainTab.setSelectedTabIndicatorHeight(4);
+
     }
 
 

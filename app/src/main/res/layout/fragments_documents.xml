@@ -192,6 +192,28 @@
 
     </ScrollView>
 </android.support.v4.widget.SwipeRefreshLayout>
+
+    <LinearLayout
+        android:id="@+id/lnr_help"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/lnr_buttons"
+        android:gravity="center"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:visibility="visible"
+        android:orientation="horizontal">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:layout_marginBottom="4dp"
+            android:text="@string/documents_help"
+            android:textSize="11dp" />
+
+    </LinearLayout>
+
     <LinearLayout
         android:id="@+id/lnr_buttons"
         android:layout_width="match_parent"
@@ -223,30 +245,11 @@
             android:text="@string/next" />
     </LinearLayout>
 
-    <LinearLayout
-        android:id="@+id/lnr_help"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_above="@+id/lnr_buttons"
-        android:gravity="center"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:visibility="visible"
-        android:orientation="horizontal">
-
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="@dimen/margin_small"
-            android:gravity="center"
-            android:text="@string/documents_help"
-            android:textSize="11dp" />
-
-    </LinearLayout>
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:background="@color/bg_progress"
         android:visibility="gone" />
 
 </RelativeLayout>

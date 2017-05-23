@@ -64,35 +64,35 @@
         android:layout_alignParentBottom="true"
         android:layout_marginLeft="36dp"
         android:layout_marginRight="36dp"
-        android:layout_marginBottom="4dp"
+        android:layout_marginBottom="@dimen/margin_medium"
         android:weightSum="4">
 
         <ImageView
             android:id="@+id/indicator0"
             android:layout_width="0dp"
             android:layout_height="8dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.25"
             android:src="@drawable/tab_inidicator_selected" />
 
         <ImageView
             android:id="@+id/indicator2"
             android:layout_width="0dp"
             android:layout_height="8dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.25"
             android:src="@drawable/tab_indicator_default" />
 
         <ImageView
             android:id="@+id/indicator3"
             android:layout_width="0dp"
             android:layout_height="8dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.25"
             android:src="@drawable/tab_indicator_default" />
 
         <ImageView
             android:id="@+id/indicator4"
             android:layout_width="0dp"
             android:layout_height="8dp"
-            android:layout_weight="0.5"
+            android:layout_weight="0.25"
             android:src="@drawable/tab_indicator_default" />
 
     </LinearLayout>

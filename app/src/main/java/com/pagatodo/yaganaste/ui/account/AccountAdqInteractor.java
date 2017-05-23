@@ -200,10 +200,10 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         // TODO: 16/05/2017  
         request.setSubGiro(registerAgent.getGiro().getIdSubgiro());
         request.setNumeroTelefono(registerAgent.getTelefono());
-        request.setCuestionario(registerAgent.getCuestionario());
-        DataObtenerDomicilio dataObtenerDomicilio = new DataObtenerDomicilio();
         request.setTipoAgente(SingletonUser.getInstance().getDataUser().getUsuario().getTipoAgente());
+        request.setCuestionario(registerAgent.getCuestionario());
 
+        DataObtenerDomicilio dataObtenerDomicilio = new DataObtenerDomicilio();
         dataObtenerDomicilio.setCp(registerAgent.getCodigoPostal());
         dataObtenerDomicilio.setCalle(registerAgent.getCalle());
         dataObtenerDomicilio.setColonia(registerAgent.getColonia());

@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.drawable.Drawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,8 +23,12 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.ListAdapter;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -437,15 +442,17 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
     /*Agregamos selección de carrete*/
     private void selectImageSource(final int documentId) {
+
         final CharSequence[] items = {getString(R.string.action_take_picture), getString(R.string.action_select_picture),
                 getString(R.string.action_select_picture_cancel)};
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(getActivity(), R.style.MultiChoiceDialog));
-        builder.setTitle(getString(R.string.action_picture));
-        builder.setItems(items, new DialogInterface.OnClickListener() {
+        LayoutInflater inflater = getActivity().getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_camera,null);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
-            public void onClick(DialogInterface dialog, int item) {
-
-                switch (item) {
+            public void onClick(DialogInterface dialog, int which) {
+                switch (which) {
                     case 0:
                         takeDocumentPicture(documentId);
                         break;
@@ -458,7 +465,14 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 }
             }
         });
-        builder.show();
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.setTitle("Seleccionar Fotografia");
+        LayoutInflater titleInflater = getActivity().getLayoutInflater();
+        View dialogTittle  = titleInflater.inflate(R.layout.tittle_dialog,null);
+        alertDialog.setCustomTitle(dialogTittle);
+        alertDialog.setCancelable(false);
+        alertDialog.show();
+
     }
 
     /**
@@ -540,7 +554,20 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
      */
     private void sendDocumentsPending() {
         if (dataDocumnets.size() < documentPendientes) {
-            UI.showAlertDialog("Debes de Subir los documentos marcados con el signo de admiración","Aceptar",getContext(),null).show();
+            DialogDoubleActions dialogDoubleActions = new DialogDoubleActions() {
+                @Override
+                public void actionConfirm(Object... params) {
+
+                }
+                @Override
+                public void actionCancel(Object... params) {
+
+                }
+            };
+            CustomErrorDialog errorDialog = new CustomErrorDialog();
+            errorDialog.setDialogActions(dialogDoubleActions);
+
+            UI.showAlertDialog("Debes de Subir los documentos marcados con el signo de admiración","Aceptar",getContext(),dialogDoubleActions).show();
             return;
         }
         adqPresenter.sendDocumentosPendientes(dataDocumnets);
