@@ -18,6 +18,7 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.view.ContextThemeWrapper;
+import android.util.Base64;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -31,7 +32,9 @@ import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
+import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
@@ -47,6 +50,7 @@ import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
 import org.w3c.dom.Text;
 
+import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
@@ -79,8 +83,9 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     public static String IS_ES_AGENTE = "IS_ES_AGENTE";
     public static String USER_NAME = "USER_NAME";
     public static String USER_EMAIL = "USER_EMAIL";
+    public static String USER_IMAGE = "USER_EMAIL";
     private boolean isEsAgente;
-    private String mName, mEmail;
+    private String mName, mEmail, mUserImage;
 
     private static final String TAG = Documentos.class.getSimpleName();
 
@@ -120,13 +125,14 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         // Required empty public constructor
     }
 
-    public static ListaOpcionesFragment newInstance(boolean isEsAgente, String mName, String mEmail) {
+    public static ListaOpcionesFragment newInstance(boolean isEsAgente, String mName, String mEmail, String mUserImage) {
 
         ListaOpcionesFragment fragmentRegister = new ListaOpcionesFragment();
         Bundle args = new Bundle();
         args.putBoolean(IS_ES_AGENTE, isEsAgente);
         args.putString(USER_NAME, mName);
         args.putString(USER_EMAIL, mEmail);
+        args.putString(USER_IMAGE, mUserImage);
         fragmentRegister.setArguments(args);
         return fragmentRegister;
     }
@@ -138,6 +144,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         isEsAgente = getArguments().getBoolean(IS_ES_AGENTE);
         mName = getArguments().getString(USER_NAME);
         mEmail = getArguments().getString(USER_EMAIL);
+        mUserImage = getArguments().getString(USER_IMAGE);
 
         contador = new ArrayList<>();
         dataDocumnets = new ArrayList<>();
@@ -186,6 +193,15 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
         // Hacemos Set de la version de codigo
         tv_version_code.setText("YaGanaste Versión: " + BuildConfig.VERSION_CODE);
+
+        /**
+         * Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
+         */
+        if(mUserImage != null && !mUserImage.isEmpty()){
+            Log.d(TAG, "mUserImage Data: " + mUserImage);
+        }else{
+            Log.d(TAG, "mUserImage Empty: " + mUserImage);
+        }
     }
 
     @Override
@@ -228,7 +244,17 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
      */
     @Override
     public void setPhotoToService(Bitmap bitmap) {
+        // Procesamos el Bitmap a Base64
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.JPEG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
+        // Creamos el objeto ActualizarAvatarRequest
+        ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "JPEG");
+
+        // Enviamos al presenter
+        mPresenter.sendPresenterActualizarAvatar(avatarRequest);
     }
 
 
