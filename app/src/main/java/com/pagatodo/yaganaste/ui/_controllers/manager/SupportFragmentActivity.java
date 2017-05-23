@@ -91,6 +91,19 @@ public abstract class SupportFragmentActivity extends AppCompatActivity {
         fragmentTransaction.replace(idContainer, fragment, fragment.getFragmentTag()).commit();
     }
 
+    protected void loadFragment(@NonNull Fragment fragment, @IdRes int idContainer, @NonNull Direction direction,
+                                boolean addToBackStack){
+        this.containerID = idContainer;
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+        if (!direction.equals(Direction.NONE)){
+            fragmentTransaction.setCustomAnimations(direction.getEnterAnimation(), direction.getExitAnimation());
+        }
+        if (addToBackStack){
+            fragmentTransaction.addToBackStack(null);
+        }
+        fragmentTransaction.replace(idContainer, fragment, fragment.getClass().getSimpleName()).commit();
+    }
+
     protected Fragment getCurrentFragment(){
         if(containerID != -1){
             return getCurrentFragment(containerID);

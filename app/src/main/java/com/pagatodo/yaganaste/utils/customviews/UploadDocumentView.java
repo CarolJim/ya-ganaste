@@ -49,6 +49,14 @@ public class UploadDocumentView extends RelativeLayout {
         imgCamera = ButterKnife.findById(this, R.id.imgItemGalleryPay);
     }
 
+    /**
+     * Centramos la imagen que recibimos. Para mostrar a corde a lo que necesitamos
+     * @param mDrawable
+     */
+    public void setCenterDrawable(Drawable mDrawable){
+        imgCamera.setImageDrawable(mDrawable);
+    }
+
     public void setImageBitmap(Bitmap bitmap){
         imgCamera.setVisibility(GONE);
         circleImageView.setImageBitmap(bitmap);

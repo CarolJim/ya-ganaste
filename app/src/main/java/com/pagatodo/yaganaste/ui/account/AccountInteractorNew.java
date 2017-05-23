@@ -71,10 +71,12 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 /**
  * Created by flima on 22/03/2017.
@@ -422,6 +424,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 data.getData().getUsuario().setTipoAgente(17);
             }
 
+            if (dataUser.isEsAgente() && dataUser.getEstatusAgente() != CRM_DOCTO_APROBADO
+                    && dataUser.getEstatusDocumentacion() != STATUS_DOCTO_PENDIENTE) {
+                App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
+            }
+
             user.setDataUser(dataUser);
            // user.getDataUser().setEsAgente(false);/*TODO Testin de flujo Adq*/
             if (dataUser.isEsUsuario()) { // Si Usuario
@@ -493,7 +500,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private void processValidationPassword(DataSourceResult response) {
         ValidarFormatoContraseniaResponse data = (ValidarFormatoContraseniaResponse) response.getData();
         if (data.getAccion() == CODE_OK) {
-            accountManager.onSucces(response.getWebService(), data.getMensaje());
+            accountManager.onSucces(response.getWebService(), data.getCodigoRespuesta());
         } else {
             accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
         }

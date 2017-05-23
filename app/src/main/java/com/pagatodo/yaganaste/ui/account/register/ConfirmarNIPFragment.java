@@ -76,31 +76,12 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         nipToConfirm = getArguments().getString(PIN_TO_CONFIRM);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 
     @Override
@@ -140,7 +121,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
                 if (s.toString().length() == 4) {
                     buttonIsVisible(false);
-                    keyboardView.hideCustomKeyboard();
+                    //keyboardView.hideCustomKeyboard();
                     validateForm();
                 }
             }
@@ -151,19 +132,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
             }
         });
 
-        // Make the custom keyboard appear
-        edtPin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    buttonIsVisible(false);
-                    keyboardView.showCustomKeyboard(v);
-                } else {
-                    buttonIsVisible(true);
-                    keyboardView.hideCustomKeyboard();
-                }
-            }
-        });
+
 
         layout_control.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -188,6 +157,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
             }
         });
         setValidationRules();
+        edtPin.requestEditFocus();
     }
 
     @Override
@@ -273,7 +243,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     }
 
     public boolean isCustomKeyboardVisible() {
-        return keyboardView.getVisibility() == View.VISIBLE;
+        return false;
     }
 
     private void buttonIsVisible(boolean isVisible) {
@@ -281,6 +251,6 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     }
 
     public void hideKeyboard() {
-        keyboardView.hideCustomKeyboard();
+        //keyboardView.hideCustomKeyboard();
     }
 }

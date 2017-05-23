@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.InviteAdquirenteFragment;
@@ -29,6 +30,9 @@ import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.SEND_DOCUMENTS;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_SIN_ENVIAR;
 
 /**
  * @author Juan Guerra on 24/03/2017.
@@ -59,26 +63,32 @@ public class ViewPagerDataFactory {
                 fragmentList.add(DepositsFragment.newInstance());
 
                 if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                        &&
-                        SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
-
+                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
                     fragmentList.add(GetMountFragment.newInstance());
-
                 } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_PENDIENTE) {
-
+                        && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == STATUS_DOCTO_PENDIENTE) {
                     fragmentList.add(Documentos.newInstance());
-
                 } else {
-
+                    //fragmentList.add(Documentos.newInstance());
                     fragmentList.add(InviteAdquirenteFragment.newInstance());
                 }
+
+                /*else {
+                    fragmentList.add(InviteAdquirenteFragment.newInstance());
+                }*/
 
                 return new ViewPagerData<>(fragmentList, MainTab.values());
 
             case HOME_FRAGMENT:
                 fragmentList.add(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.MOVEMENTS));
-                fragmentList.add(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.PAYMENTS));
+
+                if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
+                    fragmentList.add(BlankFragment.newInstance());
+                } else {
+                    fragmentList.add(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.PAYMENTS));
+                }
+
                 return new ViewPagerData<>(fragmentList, AdqEmTab.values());
 
             case PERSONAL_ACCOUNT:

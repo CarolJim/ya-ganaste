@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.data.model.webservice.request.trans;
 
+import android.util.Log;
+
 import java.io.Serializable;
 import java.util.Calendar;
 
@@ -27,6 +29,7 @@ public class EjecutarTransaccionRequest implements Serializable {
         super();
         this.IdTipoTransaccion = idTipoTransaccion;
         this.Ticket = createTicket();
+        Log.d(getClass().getSimpleName(), "TICKET C1");
         this.Referencia = referencia;
         this.Monto = monto;
         this.IdComercioAfectado = idComercioAfectado;
@@ -40,6 +43,7 @@ public class EjecutarTransaccionRequest implements Serializable {
         super();
         this.IdTipoTransaccion = idTipoTransaccion;
         this.Ticket = createTicket();
+        Log.d(getClass().getSimpleName(), "TICKET C2");
         this.Referencia = referencia;
         this.Monto = monto;
         this.IdComercioAfectado = idComercioAfectado;
