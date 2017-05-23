@@ -23,6 +23,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -64,6 +65,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.app.Activity.RESULT_OK;
+import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.R.id.progressLayout;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CLOSE;
@@ -99,6 +101,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     private ArrayList<DataDocuments> dataDocumnets;
     private Drawable mDrawable = null;
 
+    @BindView(R.id.progressLayout)
+    ProgressLayout progressLayout;
     @BindView(R.id.fragment_list_opciones_name)
     TextView tv_name;
     @BindView(R.id.fragment_list_opciones_email)
@@ -119,6 +123,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     UploadDocumentView iv_photo_item;
     @BindView(R.id.fragment_lista_opciones_version)
     TextView tv_version_code;
+    @BindView(R.id.testIV)
+    ImageView testIV;
 
     View rootview;
 
@@ -200,7 +206,10 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
          */
         if(mUserImage != null && !mUserImage.isEmpty()){
             Log.d(TAG, "mUserImage Data: " + mUserImage);
-           // Glide.with(this).load(mUserImage).placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(iv_photo_item);
+//            Glide.with(this).load(mUserImage).placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(testIV);
+            mUserImage = "http://vignette3.wikia.nocookie.net/starcraft2/images/b/bd/TerranSplash.jpg/revision/latest?cb=20100826170958&path-prefix=es";
+            Glide.with(getActivity()).load(mUserImage).into(testIV);
+
         }else{
             Log.d(TAG, "mUserImage Empty: " + mUserImage);
         }
@@ -235,6 +244,9 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
              */
             case R.id.frag_lista_opciones_photo_item:
                 //selectImageSource(USER_PHOTO);
+                // Mostramos un Progress
+                showLoader("Cargando Imagen. Por favor, espere . . .");
+
                 mPresenter.openMenuPhoto(1);
                 break;
         }
@@ -261,7 +273,18 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void sucessUpdateAvatar() {
+        Glide.with(this).load(SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL())
+                .placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(testIV);
+        hideLoader();
+    }
 
+    public void showLoader(String message) {
+        progressLayout.setTextMessage(message);
+        progressLayout.setVisibility(VISIBLE);
+    }
+
+    public void hideLoader() {
+        progressLayout.setVisibility(GONE);
     }
 
 
