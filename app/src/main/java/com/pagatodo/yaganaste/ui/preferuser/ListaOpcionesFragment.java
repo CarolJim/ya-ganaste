@@ -199,20 +199,22 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
         // Hacemos Set de la version de codigo
         tv_version_code.setText("YaGanaste Versión: " + BuildConfig.VERSION_CODE);
-       // iv_photo_item.setImageDrawable(getResources().getDrawable(R.drawable.add_photo_canvas, null));
-       // iv_photo_item.setCenterDrawable(getResources().getDrawable(R.drawable.ztest_profile_tab, null));
-      //  iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.camera_blue, null));
+        // iv_photo_item.setImageDrawable(getResources().getDrawable(R.drawable.add_photo_canvas, null));
+        // iv_photo_item.setCenterDrawable(getResources().getDrawable(R.drawable.ztest_profile_tab, null));
+        //  iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.camera_blue, null));
+
+        //TODO Frank agregar metodo alternativo para versiones 16 de API. A este paso y el siguiente
         iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.camera_blue, null));
 
 
         /**
          * Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
          */
-       if (mUserImage != null && !mUserImage.isEmpty()) {
-           // Pedimos la imagen por internet y generamos el Bitmap
-           mPresenter.getImagenURLPresenter(mUserImage);
+        if (mUserImage != null && !mUserImage.isEmpty()) {
+            // Pedimos la imagen por internet y generamos el Bitmap
+            mPresenter.getImagenURLPresenter(mUserImage);
         } else {
-           iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.add_photo_canvas, null));
+            iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.add_photo_canvas, null));
         }
     }
 
@@ -304,6 +306,11 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     @Override
     public void sendImageBitmapView(Bitmap bitmap) {
         iv_photo_item.setImageBitmap(bitmap);
+    }
+
+    @Override
+    public void onFailView() {
+        hideLoader();
     }
 
     public void showLoader(String message) {

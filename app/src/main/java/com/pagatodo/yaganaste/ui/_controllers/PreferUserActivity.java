@@ -128,11 +128,17 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
         }
     }
 
+    /**
+     * Resultado de tomar una foto o escoger una de galeria, se envia el resultado al CameraManager
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        // Enviamos datos recibidos al CameraManager
        CameraManager.getInstance().setOnActivityResult(requestCode, resultCode, data);
-
     }
 }

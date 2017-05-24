@@ -60,4 +60,9 @@ public class ListaOpcionesPresenter implements IListaOpcionesPresenter {
     public void sendImageBitmapPresenter(Bitmap bitmap) {
         mView.sendImageBitmapView(bitmap);
     }
+
+    @Override
+    public void onFailPresenter() {
+        mView.onFailView();
+    }
 }

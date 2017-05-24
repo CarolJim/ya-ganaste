@@ -16,4 +16,6 @@ public interface IListaOpcionesView {
     void showProgress(String mMensaje);
 
     void sendImageBitmapView(Bitmap bitmap);
+
+    void onFailView();
 }

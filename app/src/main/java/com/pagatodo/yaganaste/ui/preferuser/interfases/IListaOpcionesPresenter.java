@@ -21,4 +21,6 @@ public interface IListaOpcionesPresenter {
     void getImagenURLPresenter(String mUserImage);
 
     void sendImageBitmapPresenter(Bitmap bitmap);
+
+    void onFailPresenter();
 }

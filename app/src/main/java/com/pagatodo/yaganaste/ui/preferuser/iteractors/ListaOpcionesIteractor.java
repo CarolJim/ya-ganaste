@@ -38,6 +38,7 @@ public class ListaOpcionesIteractor implements IListaOpcionesIteractor, IRequest
             ApiAdtvo.actualizarAvatar(avatarRequest, this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            listaOpcionesPresenter.onFailPresenter();
         }
     }
 
