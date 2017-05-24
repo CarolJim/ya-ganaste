@@ -34,7 +34,8 @@
             android:layout_weight="5"
             android:gravity="center"
             android:text="@string/txt_importe"
-            android:textSize="16sp" />
+            android:textSize="16sp"
+            app:tipo="Text"/>
 
 
         <com.pagatodo.yaganaste.utils.customviews.MontoTextView
@@ -96,7 +97,7 @@
                 android:gravity="center_horizontal|bottom"
                 android:text="@string/txt_phone_b"
                 android:textSize="16sp"
-                app:tipo="Descripcion" />
+                app:tipo="Text" />
 
         </LinearLayout>
 
@@ -105,7 +106,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="6"
-            android:gravity="center"
+            android:gravity="center|top"
             android:orientation="horizontal">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -114,7 +115,9 @@
                 android:layout_height="match_parent"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:text="57 11 22 34" />
+                android:text="57 11 22 34"
+                android:textSize="16sp"
+                app:tipo="Text"/>
 
             <android.support.v4.widget.Space
                 android:layout_width="5dp"

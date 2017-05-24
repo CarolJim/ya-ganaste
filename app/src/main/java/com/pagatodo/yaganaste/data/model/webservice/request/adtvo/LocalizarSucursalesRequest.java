@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.data.model.webservice.request.adtvo;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -8,7 +10,9 @@ import java.io.Serializable;
 
 public class LocalizarSucursalesRequest implements Serializable{
 
+    @SerializedName("latitud")
     private Double Latitud;
+    @SerializedName("longitud")
     private Double Longitud;
 
     public LocalizarSucursalesRequest() {

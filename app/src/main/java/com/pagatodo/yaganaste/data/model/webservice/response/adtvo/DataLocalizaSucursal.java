@@ -11,8 +11,8 @@ public class DataLocalizaSucursal implements Serializable {
     private String Direccion1 = "";
     private String Direccion2 = "";
     private String Horario = "";
-    private Float Latitud;
-    private Float Longitud;
+    private Double Latitud;
+    private Double Longitud;
     private String Nombre = "";
     private String NumTelefonico = "";
 
@@ -44,19 +44,19 @@ public class DataLocalizaSucursal implements Serializable {
         Horario = horario;
     }
 
-    public Float getLatitud() {
+    public Double getLatitud() {
         return Latitud;
     }
 
-    public void setLatitud(Float latitud) {
+    public void setLatitud(Double latitud) {
         Latitud = latitud;
     }
 
-    public Float getLongitud() {
+    public Double getLongitud() {
         return Longitud;
     }
 
-    public void setLongitud(Float longitud) {
+    public void setLongitud(Double longitud) {
         Longitud = longitud;
     }
 

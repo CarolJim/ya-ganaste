@@ -49,7 +49,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity {
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
-        toolbarLayout = findViewById(R.id.toolbar_layout);
+        toolbarLayout = findViewById(R.id.toolbarLy);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarTest);
         setSupportActionBar(toolbar);
     }
