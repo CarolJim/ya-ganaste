@@ -14,6 +14,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
@@ -26,7 +27,10 @@ import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
@@ -35,6 +39,7 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerSucursalesAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositMapManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.DepositMapPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IDepositMapPresenter;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ClickListener;
 import com.pagatodo.yaganaste.utils.customviews.CustomMapFragment;
 import com.pagatodo.yaganaste.utils.customviews.DividerItemDecoration;
@@ -51,7 +56,9 @@ import butterknife.ButterKnife;
  * Created by Jordan on 17/05/2017.
  */
 
-public class DepositsMapFragment extends SupportFragment implements DepositMapManager, OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {//GoogleMap.OnMarkerClickListener{
+public class DepositsMapFragment extends SupportFragment implements DepositMapManager,
+        OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
+
     private View rootView;
     private TabActivity parentActivity;
     protected Location actualLocation;
@@ -64,6 +71,8 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
 
     @BindView(R.id.sucurasalesList)
     RecyclerView sucurasalesList;
+    @BindView(R.id.txtInfoSucursales)
+    TextView txtInfoSucursales;
 
     public static DepositsMapFragment newInstance() {
         DepositsMapFragment depositsMapFragment = new DepositsMapFragment();
@@ -115,8 +124,34 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     @Override
     public void printSucursales(List<DataLocalizaSucursal> sucursalList) {
         sucursales = sucursalList;
+        this.sucurasalesList.setVisibility(View.VISIBLE);
+        txtInfoSucursales.setVisibility(View.GONE);
         prinSucursalesOnMap(sucursalList);
         printSucursalesOnRecycler(sucursalList);
+    }
+
+    @Override
+    public void setOnSucursalesNull() {
+        this.sucurasalesList.setVisibility(View.GONE);
+        txtInfoSucursales.setVisibility(View.VISIBLE);
+    }
+
+    @Override
+    public void onServiceError(DataSourceResult rescponse) {
+        String errorTxt = null;
+        try {
+            LocalizarSucursalesResponse response = (LocalizarSucursalesResponse) rescponse.getData();
+            if (response.getMensaje() != null)
+                errorTxt = response.getMensaje();
+            //Toast.makeText(this, response.getMensaje(), Toast.LENGTH_LONG).show();
+
+        } catch (ClassCastException ex) {
+            ex.printStackTrace();
+        }
+
+
+        ((DepositsFragment)getParentFragment()).showErrorMessage(errorTxt != null ? errorTxt : getString(R.string.error_respuesta));
+        ((DepositsFragment)getParentFragment()).onBtnBackPress();
     }
 
     private void prinSucursalesOnMap(List<DataLocalizaSucursal> sucursalList) {
@@ -157,13 +192,6 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
                 != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.ACCESS_COARSE_LOCATION)
                 != PackageManager.PERMISSION_GRANTED) {
-            // TODO: Consider calling
-            //    ActivityCompat#requestPermissions
-            // here to request the missing permissions, and then overriding
-            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
-            //                                          int[] grantResults)
-            // to handle the case where the user grants the permission. See the documentation
-            // for ActivityCompat#requestPermissions for more details.
             return;
         }
         map.setMyLocationEnabled(true);
@@ -188,6 +216,8 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         } catch (OfflineException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Sin Conexión", Toast.LENGTH_SHORT).show();
+            ((DepositsFragment)getParentFragment()).showErrorMessage(getString(R.string.no_internet_access));
+            ((DepositsFragment)getParentFragment()).onBtnBackPress();
         }
     }
 

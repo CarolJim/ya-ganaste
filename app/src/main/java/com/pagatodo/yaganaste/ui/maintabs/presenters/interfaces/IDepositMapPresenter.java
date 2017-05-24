@@ -17,5 +17,7 @@ public interface IDepositMapPresenter {
 
     void onGetSucursalesSuccess(List<DataLocalizaSucursal> sucursalList);
 
+    void onSucursalesNull();
+
     void onGetSucursalesFail(DataSourceResult rescponse);
 }

@@ -10,10 +10,14 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
+import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.List;
 
@@ -63,9 +67,13 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
 
     @Override
     public void onTapButton() {
-        removeLastFragment();
-        ((TabActivity) getActivity()).showProgressLayout("Cargando");
-        loadFragment(DepositsMapFragment.newInstance(), Direction.FORDWARD, false);
+        if(UtilsNet.isOnline(getContext())){
+            removeLastFragment();
+            ((TabActivity) getActivity()).showProgressLayout("Cargando");
+            loadFragment(DepositsMapFragment.newInstance(), Direction.FORDWARD, false);
+        }else{
+            showErrorMessage(getString(R.string.no_internet_access));
+        }
     }
 
     @Override
@@ -80,7 +88,7 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
 
     @Override
     public void showErrorMessage(String message) {
-
+        UI.createSimpleCustomDialog("", message, fragmentManager, getFragmentTag());
     }
 
     @Override

@@ -27,7 +27,7 @@ public class DepositMapInteractor implements IDepositMapInteractor, IRequestResu
 
     IDepositMapPresenter depositMapPresenter;
 
-    String v = "[{\"Direccion1\":\"Periférico Blvd. Manuel Ávila Camacho 66\",\"Direccion2\":\"Lomas de Chapultepec V Secc, Miguel Hidalgo, 11000\",\"Horario\":\"8:30-19:00\",\"Latitud\":19.430567,\"Longitud\":-99.206999,\"Nombre\":\"Lomas Plaza\",\"NumTelefonico\":\"55 5249 5000\"},{\"Direccion1\":\"Periférico Blvd. Manuel Ávila Camacho 66\",\"Direccion2\":\"Lomas de Chapultepec V Secc, Miguel Hidalgo, 11000\",\"Horario\":\"8:30-19:00\",\"Latitud\":19.435104,\"Longitud\":-99.203169,\"Nombre\":\"Place 2\",\"NumTelefonico\":\"55 5249 5000\"},{\"Direccion1\":\"Periférico Blvd. Manuel Ávila Camacho 66\",\"Direccion2\":\"Lomas de Chapultepec V Secc, Miguel Hidalgo, 11000\",\"Horario\":\"8:30-19:00\",\"Latitud\":19.43825,\"Longitud\":-99.210089,\"Nombre\":\"Place 3\",\"NumTelefonico\":\"55 5249 5000\"},{\"Direccion1\":\"Periférico Blvd. Manuel Ávila Camacho 66\",\"Direccion2\":\"Lomas de Chapultepec V Secc, Miguel Hidalgo, 11000\",\"Horario\":\"8:30-19:00\",\"Latitud\":19.425674,\"Longitud\":-99.21732,\"Nombre\":\"Place 4\",\"NumTelefonico\":\"55 5249 5000\"},{\"Direccion1\":\"Periférico Blvd. Manuel Ávila Camacho 66\",\"Direccion2\":\"Lomas de Chapultepec V Secc, Miguel Hidalgo, 11000\",\"Horario\":\"8:30-19:00\",\"Latitud\":19.434456,\"Longitud\":-99.176314,\"Nombre\":\"Place 5\",\"NumTelefonico\":\"55 5249 5000\"},{\"Direccion1\":\"Periférico Blvd. Manuel Ávila Camacho 66\",\"Direccion2\":\"Lomas de Chapultepec V Secc, Miguel Hidalgo, 11000\",\"Horario\":\"8:30-19:00\",\"Latitud\":19.467345,\"Longitud\":-99.150661,\"Nombre\":\"Place 6\",\"NumTelefonico\":\"55 5249 5000\"}]";
+    //String v = "[{\"Direccion1\":\"Periférico Blvd. Manuel Ávila Camacho 66\",\"Direccion2\":\"Lomas de Chapultepec V Secc, Miguel Hidalgo, 11000\",\"Horario\":\"8:30-19:00\",\"Latitud\":19.430567,\"Longitud\":-99.206999,\"Nombre\":\"Lomas Plaza\",\"NumTelefonico\":\"55 5249 5000\"},{\"Direccion1\":\"Periférico Blvd. Manuel Ávila Camacho 66\",\"Direccion2\":\"Lomas de Chapultepec V Secc, Miguel Hidalgo, 11000\",\"Horario\":\"8:30-19:00\",\"Latitud\":19.435104,\"Longitud\":-99.203169,\"Nombre\":\"Place 2\",\"NumTelefonico\":\"55 5249 5000\"},{\"Direccion1\":\"Periférico Blvd. Manuel Ávila Camacho 66\",\"Direccion2\":\"Lomas de Chapultepec V Secc, Miguel Hidalgo, 11000\",\"Horario\":\"8:30-19:00\",\"Latitud\":19.43825,\"Longitud\":-99.210089,\"Nombre\":\"Place 3\",\"NumTelefonico\":\"55 5249 5000\"},{\"Direccion1\":\"Periférico Blvd. Manuel Ávila Camacho 66\",\"Direccion2\":\"Lomas de Chapultepec V Secc, Miguel Hidalgo, 11000\",\"Horario\":\"8:30-19:00\",\"Latitud\":19.425674,\"Longitud\":-99.21732,\"Nombre\":\"Place 4\",\"NumTelefonico\":\"55 5249 5000\"},{\"Direccion1\":\"Periférico Blvd. Manuel Ávila Camacho 66\",\"Direccion2\":\"Lomas de Chapultepec V Secc, Miguel Hidalgo, 11000\",\"Horario\":\"8:30-19:00\",\"Latitud\":19.434456,\"Longitud\":-99.176314,\"Nombre\":\"Place 5\",\"NumTelefonico\":\"55 5249 5000\"},{\"Direccion1\":\"Periférico Blvd. Manuel Ávila Camacho 66\",\"Direccion2\":\"Lomas de Chapultepec V Secc, Miguel Hidalgo, 11000\",\"Horario\":\"8:30-19:00\",\"Latitud\":19.467345,\"Longitud\":-99.150661,\"Nombre\":\"Place 6\",\"NumTelefonico\":\"55 5249 5000\"}]";
 
     public DepositMapInteractor(IDepositMapPresenter presenter) {
         this.depositMapPresenter = presenter;
@@ -47,12 +47,11 @@ public class DepositMapInteractor implements IDepositMapInteractor, IRequestResu
 
         if (response.getCodigoRespuesta() == CODE_OK) {
             List<DataLocalizaSucursal> sucursales = response.getData();
-            if (sucursales.size() > 0) {
-                List<DataLocalizaSucursal> s = new Gson().fromJson(v, new TypeToken<List<DataLocalizaSucursal>>() {
-                }.getType());
-                depositMapPresenter.onGetSucursalesSuccess(s);//sucursales);
+            if (sucursales != null && sucursales.size() > 0) {
+                //List<DataLocalizaSucursal> s = new Gson().fromJson(v, new TypeToken<List<DataLocalizaSucursal>>() {}.getType());
+                depositMapPresenter.onGetSucursalesSuccess(sucursales);//sucursales);
             } else {
-                depositMapPresenter.onGetSucursalesFail(result);
+                depositMapPresenter.onSucursalesNull();
             }
         } else {
             depositMapPresenter.onGetSucursalesFail(result);

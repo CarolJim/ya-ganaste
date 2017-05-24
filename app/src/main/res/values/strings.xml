@@ -498,6 +498,8 @@
     <string name="title_activity_prefer_user">PreferUserActivity</string>
     <string name="recuperando_docs_estatus">Recuperando los estatus de sus documentos.</string>
     <string name="desea_cacelar">¿Deseas Salir y Cancelar la Operación Actual?</string>
+
+    <string name="no_sucursales">No exisiten sucursales en tu área.</string>
 </resources>
 
 

@@ -8,21 +8,6 @@
     android:orientation="vertical"
     android:weightSum="100">
 
-    <!--fragment xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="45"
-        android:id="@+id/map"
-        android:name="com.google.android.gms.maps.SupportMapFragment"/-->
-
-
-    <!--com.google.android.gms.maps.MapView
-        android:id="@+id/mapa"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="45" /-->
-
     <RelativeLayout
         android:id="@+id/my_map_fragment"
         android:layout_width="match_parent"
@@ -33,27 +18,18 @@
         android:id="@+id/sucurasalesList"
         android:layout_width="match_parent"
         android:layout_height="0dp"
+        android:visibility="gone"
         android:layout_weight="55" />
-</LinearLayout><!--LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:orientation="vertical">
 
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="header"/>
-    <com.google.android.gms.maps.MapView
-        android:id="@+id/fragment_embedded_map_view_mapview"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"/>
 
-    <TextView
-        android:layout_width="match_parent"
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtInfoSucursales"
+        android:layout_width="wrap_content"
         android:layout_height="0dp"
-        android:layout_weight="1"
-        android:text="footer"/>
-
-</LinearLayout-->
+        android:layout_weight="55"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:text="@string/no_sucursales"
+        android:textSize="18sp"
+        android:visibility="visible"
+        style="@style/MainTabText" />
+</LinearLayout>

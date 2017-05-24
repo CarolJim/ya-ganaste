@@ -37,8 +37,13 @@ public class DepositMapPresenter implements IDepositMapPresenter {
     }
 
     @Override
-    public void onGetSucursalesFail(DataSourceResult rescponse) {
+    public void onSucursalesNull() {
+        mapManager.setOnSucursalesNull();
+    }
 
+    @Override
+    public void onGetSucursalesFail(DataSourceResult rescponse) {
+        mapManager.onServiceError(rescponse);
     }
 
 
