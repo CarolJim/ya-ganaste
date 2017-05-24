@@ -35,7 +35,7 @@
             android:gravity="center" />
 
         <ImageView
-            android:layout_width="wrap_content" android:id="@+id/testIV"
+            android:layout_width="wrap_content" android:id="@+id/testIV" android:visibility="gone"
             android:layout_height="wrap_content" />
 
         <LinearLayout

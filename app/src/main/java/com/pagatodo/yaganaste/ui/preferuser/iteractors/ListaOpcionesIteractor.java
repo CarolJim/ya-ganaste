@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.preferuser.iteractors;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -11,7 +13,12 @@ import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.ListaOpcionesPresenter;
+import com.pagatodo.yaganaste.utils.BitmapDownload;
 import com.pagatodo.yaganaste.utils.Recursos;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 
 /**
  * Created by Francisco Manzo on 23/05/2017.
@@ -32,6 +39,17 @@ public class ListaOpcionesIteractor implements IListaOpcionesIteractor, IRequest
         } catch (OfflineException e) {
             e.printStackTrace();
         }
+    }
+
+    @Override
+    public void getImagenURLiteractor(String mUserImage) {
+        BitmapDownload bitmapDownload = new BitmapDownload(mUserImage, this);
+        bitmapDownload.execute();
+    }
+
+    @Override
+    public void sendToIteractorBitmap(Bitmap bitmap) {
+        listaOpcionesPresenter.sendImageBitmapPresenter(bitmap);
     }
 
     @Override

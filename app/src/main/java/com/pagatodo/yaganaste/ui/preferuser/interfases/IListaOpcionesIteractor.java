@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.preferuser.interfases;
 
+import android.graphics.Bitmap;
+
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 
 /**
@@ -8,4 +10,8 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvat
 
 public interface IListaOpcionesIteractor {
     void sendIteractorActualizarAvatar(ActualizarAvatarRequest avatarRequest);
+
+    void getImagenURLiteractor(String mUserImage);
+
+    void sendToIteractorBitmap(Bitmap bitmap);
 }

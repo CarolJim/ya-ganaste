@@ -58,6 +58,8 @@ import org.w3c.dom.Text;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -100,7 +102,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
     SwipeRefreshLayout swipeRefreshLayout;
     IListaOpcionesPresenter mPresenter;
-    private ArrayList<String> contador ;
+    private ArrayList<String> contador;
     private ArrayList<DataDocuments> dataDocumnets;
     private Drawable mDrawable = null;
 
@@ -160,10 +162,10 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         dataDocumnets = new ArrayList<>();
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_lista_opciones, container, false);
+
+        mPresenter = new ListaOpcionesPresenter(this);
+
         initViews();
-
-        mPresenter =  new ListaOpcionesPresenter(this);
-
         CameraManager.getInstance().initCamera(getActivity(), iv_photo_item, this);
 
         return rootview;
@@ -199,7 +201,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         Hacemos un Set de la Imagen que queremos como inicial en el centro.
          */
         mDrawable = ContextCompat.getDrawable(getActivity(), android.R.drawable.ic_menu_add);
-       // iv_photo_item.setCenterDrawable(mDrawable);
+        // iv_photo_item.setCenterDrawable(mDrawable);
 
         // Hacemos Set de la version de codigo
         tv_version_code.setText("YaGanaste Versión: " + BuildConfig.VERSION_CODE);
@@ -207,13 +209,19 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         /**
          * Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
          */
-        if(mUserImage != null && !mUserImage.isEmpty()){
+       if (mUserImage != null && !mUserImage.isEmpty()) {
             Log.d(TAG, "mUserImage Data: " + mUserImage);
 //            Glide.with(this).load(mUserImage).placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(testIV);
-            mUserImage = "http://vignette3.wikia.nocookie.net/starcraft2/images/b/bd/TerranSplash.jpg/revision/latest?cb=20100826170958&path-prefix=es";
-            Glide.with(getActivity()).load(mUserImage).into(testIV);
+            //mUserImage = "http://vignette3.wikia.nocookie.net/starcraft2/images/b/bd/TerranSplash.jpg/revision/latest?cb=20100826170958&path-prefix=es";
+            //  Glide.with(getActivity()).load(mUserImage).into(testIV);
 
-        }else{
+           // Pedimos la imagen por internet y generamos el Bitmap
+           mPresenter.getImagenURLPresenter(mUserImage);
+
+//            Bitmap myBitMap = getBitmapFromURL(mUserImage);
+//            iv_photo_item.setImageBitmap(myBitMap);
+
+        } else {
             Log.d(TAG, "mUserImage Empty: " + mUserImage);
         }
     }
@@ -255,6 +263,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
     /**
      * Metodo que entrega el BitMap para enviar al servicio
+     *
      * @param bitmap
      */
     @Override
@@ -262,7 +271,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         // Procesamos el Bitmap a Base64
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream .toByteArray();
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
         String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
         // Creamos el objeto ActualizarAvatarRequest
@@ -300,6 +309,11 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     @Override
     public void showProgress(String mMensaje) {
         showLoader("Cargando Imagen. Por favor, espere . . .");
+    }
+
+    @Override
+    public void sendImageBitmapView(Bitmap bitmap) {
+        iv_photo_item.setImageBitmap(bitmap);
     }
 
     public void showLoader(String message) {
