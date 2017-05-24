@@ -219,13 +219,14 @@ public class CameraManager {
             switch (documentProcessed) {
                 case USER_PHOTO:
                     iv_photo_item.setImageBitmap(bitmap);
-                    iv_photo_item.setVisibilityStatus(false);
+                    iv_photo_item.setVisibilityStatus(true);
                     iv_photo_item.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_ID_FRONT);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
 
+                    mView.showProgress("Cargando Imagen. Por favor, espere . . .");
                     mView.setPhotoToService(bitmap);
                     break;
             }
@@ -248,7 +249,7 @@ public class CameraManager {
      */
     public void setOnActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            //  showLoader("");
+
             galleryAddPic();
             String path = SingletonUser.getInstance().getPathPictureTemp();
             bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {

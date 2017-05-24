@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.preferuser.presenters;
 
+import android.graphics.Bitmap;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
@@ -28,7 +29,11 @@ public class ListaOpcionesPresenter implements IListaOpcionesPresenter {
     @Override
     public void openMenuPhoto(int i) {
         // Toast.makeText(App.getContext(), "CLick openMenuPhoto", Toast.LENGTH_SHORT).show();
-        CameraManager.getInstance().createPhoto(1);
+        try {
+            CameraManager.getInstance().createPhoto(1);
+        }catch (Exception e){
+            Toast.makeText(App.getContext(), "Exception " + e, Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override
@@ -39,5 +44,25 @@ public class ListaOpcionesPresenter implements IListaOpcionesPresenter {
     @Override
     public void sucessUpdateAvatar() {
         mView.sucessUpdateAvatar();
+    }
+
+    @Override
+    public void sendErrorPresenter(String mensaje) {
+        mView.sendErrorView(mensaje);
+    }
+
+    @Override
+    public void getImagenURLPresenter(String mUserImage) {
+        iListaOpcionesIteractor.getImagenURLiteractor(mUserImage);
+    }
+
+    @Override
+    public void sendImageBitmapPresenter(Bitmap bitmap) {
+        mView.sendImageBitmapView(bitmap);
+    }
+
+    @Override
+    public void onFailPresenter() {
+        mView.onFailView();
     }
 }

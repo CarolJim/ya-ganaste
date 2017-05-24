@@ -58,9 +58,9 @@ public class UploadDocumentView extends RelativeLayout {
             li.inflate(R.layout.item_file_4_4, this, true);
         }
 
-        circleImageView = ButterKnife.findById(this, R.id.imgItemGalleryMark);
-        circleImageStatus = ButterKnife.findById(this, R.id.imgItemGalleryStatus);
-        imgCamera = ButterKnife.findById(this, R.id.imgItemGalleryPay);
+        circleImageView = ButterKnife.findById(this, R.id.imgItemGalleryMark); // Icono total
+        circleImageStatus = ButterKnife.findById(this, R.id.imgItemGalleryStatus); // Icono Status
+        imgCamera = ButterKnife.findById(this, R.id.imgItemGalleryPay); // Icono central
     }
 
     /**
@@ -77,6 +77,12 @@ public class UploadDocumentView extends RelativeLayout {
         circleImageView.invalidate();
     }
 
+    public void setImageDrawable(Drawable mDrawable){
+       // imgCamera.setVisibility(GONE);
+        circleImageView.setImageDrawable(mDrawable);
+        circleImageView.invalidate();
+    }
+
     public void setStatusImage(Drawable bitmap){
 
         circleImageStatus.setImageDrawable(bitmap);
@@ -86,5 +92,6 @@ public class UploadDocumentView extends RelativeLayout {
         circleImageStatus.setVisibility(visibilityStatus ? VISIBLE : GONE);
         circleImageStatus.invalidate();
     }
+
 
 }

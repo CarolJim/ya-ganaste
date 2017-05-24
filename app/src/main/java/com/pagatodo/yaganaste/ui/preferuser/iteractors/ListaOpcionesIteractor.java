@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.preferuser.iteractors;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -11,7 +13,12 @@ import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.ListaOpcionesPresenter;
+import com.pagatodo.yaganaste.utils.BitmapDownload;
 import com.pagatodo.yaganaste.utils.Recursos;
+
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.HttpURLConnection;
 
 /**
  * Created by Francisco Manzo on 23/05/2017.
@@ -31,7 +38,20 @@ public class ListaOpcionesIteractor implements IListaOpcionesIteractor, IRequest
             ApiAdtvo.actualizarAvatar(avatarRequest, this);
         } catch (OfflineException e) {
             e.printStackTrace();
+            listaOpcionesPresenter.onFailPresenter();
         }
+    }
+
+    @Override
+    public void getImagenURLiteractor(String mUserImage) {
+        String urlEdit = procesarURLString(mUserImage);
+        BitmapDownload bitmapDownload = new BitmapDownload(urlEdit, this);
+        bitmapDownload.execute();
+    }
+
+    @Override
+    public void sendToIteractorBitmap(Bitmap bitmap) {
+        listaOpcionesPresenter.sendImageBitmapPresenter(bitmap);
     }
 
     @Override
@@ -41,18 +61,30 @@ public class ListaOpcionesIteractor implements IListaOpcionesIteractor, IRequest
             Log.d("ListaOpcionesIteractor", "DataSource Sucess " + response.getMensaje());
 
             updateAvatarResponse(response.getData().getImagenAvatarURL());
+            // Linea para simular el error y comprobar el Duialog y el ShowProgress
+            //listaOpcionesPresenter.sendErrorPresenter(response.getMensaje());
         } else {
             Log.d("ListaOpcionesIteractor", "DataSource Sucess with Error " + response.getMensaje());
+            listaOpcionesPresenter.sendErrorPresenter(response.getMensaje());
         }
     }
 
     private void updateAvatarResponse(String imagenAvatarURL) {
-        SingletonUser.getInstance().getDataUser().getUsuario().setImagenAvatarURL(imagenAvatarURL);
+        // Procesando formato para eliminar el {0}
+        String urlEdit = procesarURLString(imagenAvatarURL);
+        SingletonUser.getInstance().getDataUser().getUsuario().setImagenAvatarURL(urlEdit);
         listaOpcionesPresenter.sucessUpdateAvatar();
+    }
+
+    private String procesarURLString(String mUserImage) {
+        String[] urlSplit = mUserImage.split("_");
+        String urlEdit = urlSplit[0] + "_M.png";
+        return urlEdit;
     }
 
     @Override
     public void onFailed(DataSourceResult error) {
         Log.d("ListaOpcionesIteractor", "DataSource Fail " + error);
+       listaOpcionesPresenter.sendErrorPresenter(error.getData().toString());
     }
 }
