@@ -19,4 +19,7 @@ public abstract class DocumentsPresenter implements IDocumentsPresenter {
     }
 
     public abstract void showGaleryError();
+
+
+
 }

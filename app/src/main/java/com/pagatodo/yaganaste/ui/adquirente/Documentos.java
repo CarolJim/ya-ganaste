@@ -3,6 +3,8 @@ package com.pagatodo.yaganaste.ui.adquirente;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
+import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -16,13 +18,18 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.annotation.Nullable;
+import android.support.v4.app.FragmentManager;
 import android.support.v4.content.FileProvider;
+import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.ImageView;
@@ -31,11 +38,13 @@ import android.widget.ListAdapter;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
@@ -140,7 +149,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         contador = new ArrayList<>();
-        adqPresenter = new AccountAdqPresenter(this, getContext());
+        adqPresenter = new AccountAdqPresenter(this,getContext());
     }
 
     @Override
@@ -158,7 +167,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setRefreshing(false);
         dataDocumnets = new ArrayList<>();
-
         if (SingletonUser.getInstance().getDataUser().isEsAgente()
                 && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_PENDIENTE
                 && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == CRM_PENDIENTE) {  //si ya se hiso el proceso de envio de documentos
@@ -443,12 +451,17 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     /*Agregamos selección de carrete*/
     private void selectImageSource(final int documentId) {
 
-        final CharSequence[] items = {getString(R.string.action_take_picture), getString(R.string.action_select_picture),
-                getString(R.string.action_select_picture_cancel)};
+        final CharSequence[] items = {getString(R.string.action_take_picture), getString(R.string.action_select_picture),getString(R.string.action_select_picture_cancel)};
+
         LayoutInflater inflater = getActivity().getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_camera,null);
+        LayoutInflater titleInflater = getActivity().getLayoutInflater();
+        View dialogTittle  = titleInflater.inflate(R.layout.tittle_dialog,null);
+        dialogView.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setView(dialogView);
+        dialogBuilder.setCustomTitle(dialogTittle);
         dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
@@ -466,11 +479,9 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             }
         });
         AlertDialog alertDialog = dialogBuilder.create();
-        alertDialog.setTitle("Seleccionar Fotografia");
-        LayoutInflater titleInflater = getActivity().getLayoutInflater();
-        View dialogTittle  = titleInflater.inflate(R.layout.tittle_dialog,null);
-        alertDialog.setCustomTitle(dialogTittle);
+
         alertDialog.setCancelable(false);
+        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         alertDialog.show();
 
     }
@@ -486,6 +497,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
+                getEstatusDocs();
                 nextScreen(EVENT_GO_BUSSINES_COMPLETE, null);
             }
         }, DELAY_MESSAGE_PROGRESS);
@@ -501,6 +513,8 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
+                hideLoader();
+                getEstatusDocs();
                 nextScreen(EVENT_GO_HOME, null);
             }
         }, DELAY_MESSAGE_PROGRESS);
@@ -516,9 +530,10 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     public void setDocumentosStatus(List<EstatusDocumentosResponse> data) {
         adqPresenter.setEstatusDocs(rootview, data);
         // Contamos los documentos pendientes
+        documentPendientes = 0 ;
         for (EstatusDocumentosResponse docs : data) {
             if (docs.getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
-                documentPendientes++;
+                documentPendientes ++;
             }
         }
     }
@@ -554,20 +569,18 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
      */
     private void sendDocumentsPending() {
         if (dataDocumnets.size() < documentPendientes) {
-            DialogDoubleActions dialogDoubleActions = new DialogDoubleActions() {
-                @Override
-                public void actionConfirm(Object... params) {
+            UI.createSimpleCustomDialog("", "Debes de Subir los documentos marcados con el signo de admiración", getActivity().getSupportFragmentManager(),
+                    new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
 
-                }
-                @Override
-                public void actionCancel(Object... params) {
+                        }
 
-                }
-            };
-            CustomErrorDialog errorDialog = new CustomErrorDialog();
-            errorDialog.setDialogActions(dialogDoubleActions);
+                        @Override
+                        public void actionCancel(Object... params) {
 
-            UI.showAlertDialog("Debes de Subir los documentos marcados con el signo de admiración","Aceptar",getContext(),dialogDoubleActions).show();
+                        }
+                    }, true, false);
             return;
         }
         adqPresenter.sendDocumentosPendientes(dataDocumnets);
@@ -591,6 +604,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
         }
+        swipeRefreshLayout.destroyDrawingCache();
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
@@ -599,8 +613,20 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         }, DELAY_MESSAGE_PROGRESS);
     }
 
-    private void refreshContent() {
-        getEstatusDocs();
+    private void refreshContent()
+    {
+        swipeRefreshLayout.setRefreshing(false);
+        adqPresenter.getEstatusDocs();
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+        swipeRefreshLayout.destroyDrawingCache();
+        adqPresenter.getEstatusDocs();
     }
 
     @Override

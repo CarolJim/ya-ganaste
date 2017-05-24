@@ -29,7 +29,7 @@ public class PaymentsSuccessInteractor  implements IPaymentsSuccessInteractor , 
     Context ctx;
     EjecutarTransaccionResponse result;
     PaymentsSuccessManaget accountManager;
-
+    // TODO pendiente pasar el PaymentSuccess a al MVP
     public PaymentsSuccessInteractor(PaymentsSuccessManaget accountManager, Context context , EjecutarTransaccionResponse res) {
         this.accountManager = accountManager;
         ctx = context;
