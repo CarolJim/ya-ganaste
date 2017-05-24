@@ -219,7 +219,7 @@ public class CameraManager {
             switch (documentProcessed) {
                 case USER_PHOTO:
                     iv_photo_item.setImageBitmap(bitmap);
-                    iv_photo_item.setVisibilityStatus(false);
+                    iv_photo_item.setVisibilityStatus(true);
                     iv_photo_item.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_ID_FRONT);

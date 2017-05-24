@@ -43,7 +43,8 @@ public class ListaOpcionesIteractor implements IListaOpcionesIteractor, IRequest
 
     @Override
     public void getImagenURLiteractor(String mUserImage) {
-        BitmapDownload bitmapDownload = new BitmapDownload(mUserImage, this);
+        String urlEdit = procesarURLString(mUserImage);
+        BitmapDownload bitmapDownload = new BitmapDownload(urlEdit, this);
         bitmapDownload.execute();
     }
 
@@ -68,8 +69,16 @@ public class ListaOpcionesIteractor implements IListaOpcionesIteractor, IRequest
     }
 
     private void updateAvatarResponse(String imagenAvatarURL) {
-        SingletonUser.getInstance().getDataUser().getUsuario().setImagenAvatarURL(imagenAvatarURL);
+        // Procesando formato para eliminar el {0}
+        String urlEdit = procesarURLString(imagenAvatarURL);
+        SingletonUser.getInstance().getDataUser().getUsuario().setImagenAvatarURL(urlEdit);
         listaOpcionesPresenter.sucessUpdateAvatar();
+    }
+
+    private String procesarURLString(String mUserImage) {
+        String[] urlSplit = mUserImage.split("_");
+        String urlEdit = urlSplit[0] + "_M.png";
+        return urlEdit;
     }
 
     @Override

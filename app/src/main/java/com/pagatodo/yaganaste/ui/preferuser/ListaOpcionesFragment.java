@@ -197,32 +197,22 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         tv_name.setText(mName);
         tv_email.setText(mEmail);
 
-        /*
-        Hacemos un Set de la Imagen que queremos como inicial en el centro.
-         */
-        mDrawable = ContextCompat.getDrawable(getActivity(), android.R.drawable.ic_menu_add);
-        // iv_photo_item.setCenterDrawable(mDrawable);
-
         // Hacemos Set de la version de codigo
         tv_version_code.setText("YaGanaste Versión: " + BuildConfig.VERSION_CODE);
+       // iv_photo_item.setImageDrawable(getResources().getDrawable(R.drawable.add_photo_canvas, null));
+       // iv_photo_item.setCenterDrawable(getResources().getDrawable(R.drawable.ztest_profile_tab, null));
+      //  iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.camera_blue, null));
+        iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.camera_blue, null));
+
 
         /**
          * Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
          */
        if (mUserImage != null && !mUserImage.isEmpty()) {
-            Log.d(TAG, "mUserImage Data: " + mUserImage);
-//            Glide.with(this).load(mUserImage).placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(testIV);
-            //mUserImage = "http://vignette3.wikia.nocookie.net/starcraft2/images/b/bd/TerranSplash.jpg/revision/latest?cb=20100826170958&path-prefix=es";
-            //  Glide.with(getActivity()).load(mUserImage).into(testIV);
-
            // Pedimos la imagen por internet y generamos el Bitmap
            mPresenter.getImagenURLPresenter(mUserImage);
-
-//            Bitmap myBitMap = getBitmapFromURL(mUserImage);
-//            iv_photo_item.setImageBitmap(myBitMap);
-
         } else {
-            Log.d(TAG, "mUserImage Empty: " + mUserImage);
+           iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.add_photo_canvas, null));
         }
     }
 
