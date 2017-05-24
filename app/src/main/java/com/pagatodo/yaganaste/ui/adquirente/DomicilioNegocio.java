@@ -292,7 +292,6 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
                 }
             }
         }
-
     }
 
     @Override

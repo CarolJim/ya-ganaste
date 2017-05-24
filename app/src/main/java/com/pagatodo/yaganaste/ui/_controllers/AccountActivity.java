@@ -31,6 +31,7 @@ import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
+import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.utils.UI;
 
 import static com.pagatodo.yaganaste.data.model.SingletonUser.user;
@@ -128,6 +129,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 break;
 
             case EVENT_RECOVERY_PASS:
+                //loadFragment(Documentos.newInstance(), Direction.FORDWARD, false);
                 loadFragment(RecoveryFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 

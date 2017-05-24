@@ -52,6 +52,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
         adqIteractor = new AccountAdqInteractor(this, ctx);
     }
 
+
     @Override
     public void goToNextStepAccount(String event, Object data) {
         iAdqView.hideLoader();
@@ -67,6 +68,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     public void getEstatusDocs() {
         iAdqView.showLoader(context.getString(R.string.recuperando_docs_estatus));
         adqIteractor.getEstatusDocs();
+
     }
 
 
@@ -94,6 +96,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
 
     @Override
     public void sendDocumentosPendientes(ArrayList<DataDocuments> data) {
+
         iAdqView.showLoader("Actualizando Documentos ");
         adqIteractor.sendDocumentsPendientes(data);
         new Handler().postDelayed(new Runnable() {
@@ -141,4 +144,6 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     public void setEstatusDocs(View rootview, List<EstatusDocumentosResponse> data) {
         adqIteractor.setListDocuments(rootview, data);
     }
+
+
 }
