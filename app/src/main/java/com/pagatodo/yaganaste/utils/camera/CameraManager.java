@@ -16,6 +16,8 @@ import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
 import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
@@ -110,10 +112,11 @@ public class CameraManager {
         final CharSequence[] items = {mContext.getString(R.string.action_take_picture),
                 mContext.getString(R.string.action_select_picture),
                 mContext.getString(R.string.action_select_picture_cancel)};
-        AlertDialog.Builder builder = new AlertDialog.Builder(new ContextThemeWrapper(
-                mContext, R.style.MultiChoiceDialog));
-        builder.setTitle(mContext.getString(R.string.action_picture));
-        builder.setItems(items, new DialogInterface.OnClickListener() {
+        LayoutInflater inflater = mContext.getLayoutInflater();
+        View dialogView = inflater.inflate(R.layout.dialog_camera,null);
+        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
+        dialogBuilder.setView(dialogView);
+        dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
 
@@ -130,7 +133,13 @@ public class CameraManager {
                 }
             }
         });
-        builder.show();
+        AlertDialog alertDialog = dialogBuilder.create();
+        alertDialog.setTitle("Seleccionar Fotografia");
+        LayoutInflater titleInflater = mContext.getLayoutInflater();
+        View dialogTittle  = titleInflater.inflate(R.layout.tittle_dialog,null);
+        alertDialog.setCustomTitle(dialogTittle);
+        alertDialog.setCancelable(false);
+        alertDialog.show();
     }
 
     private void takeGallery(int document) {
@@ -210,13 +219,14 @@ public class CameraManager {
             switch (documentProcessed) {
                 case USER_PHOTO:
                     iv_photo_item.setImageBitmap(bitmap);
-                    iv_photo_item.setVisibilityStatus(false);
+                    iv_photo_item.setVisibilityStatus(true);
                     iv_photo_item.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_ID_FRONT);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
 
+                    mView.showProgress("Cargando Imagen. Por favor, espere . . .");
                     mView.setPhotoToService(bitmap);
                     break;
             }
@@ -239,7 +249,7 @@ public class CameraManager {
      */
     public void setOnActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
-            //  showLoader("");
+
             galleryAddPic();
             String path = SingletonUser.getInstance().getPathPictureTemp();
             bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {

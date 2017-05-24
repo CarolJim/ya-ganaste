@@ -4,7 +4,7 @@
 
     <item
         android:id="@+id/configUser"
-        android:icon="@mipmap/icon_configuracion"
+        android:icon="@drawable/icon_preferuser"
         android:orderInCategory="100"
         android:title="Configuracion"
         app:showAsAction="always" />

@@ -7,6 +7,20 @@
 
     <LinearLayout
         android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/fragment_lista_opciones_version"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="YaGanaste Version 1.1"
+            android:textColor="@color/bluecolor_disable" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
@@ -19,6 +33,10 @@
             android:layout_height="wrap_content"
             android:layout_gravity="center"
             android:gravity="center" />
+
+        <ImageView
+            android:layout_width="wrap_content" android:id="@+id/testIV" android:visibility="gone"
+            android:layout_height="wrap_content" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -54,16 +72,19 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/borderColor" />
+                android:background="@color/borderColor"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -83,24 +104,26 @@
                         android:layout_width="17dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        app:srcCompat="@drawable/edit_canvas_blue"  />
+                        app:srcCompat="@drawable/edit_canvas_blue" />
                 </LinearLayout>
             </LinearLayout>
 
-            <View android:id="@+id/content_prefer_view_acount"
+            <View
+                android:id="@+id/content_prefer_view_acount"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:visibility="gone"
-                android:background="@color/borderColor" />
+                android:background="@color/borderColor"
+                android:visibility="gone" />
 
             <LinearLayout
+                android:id="@+id/fragment_lista_opciones_account"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone"
-                android:layout_gravity="center" android:id="@+id/fragment_lista_opciones_account"
+                android:layout_gravity="center"
                 android:layout_weight="1"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -120,7 +143,7 @@
                         android:layout_width="17dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        app:srcCompat="@drawable/edit_canvas_blue"  />
+                        app:srcCompat="@drawable/edit_canvas_blue" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -128,16 +151,19 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/borderColor" />
+                android:background="@color/borderColor"
+                android:visibility="gone" />
 
             <LinearLayout
-                android:layout_width="match_parent"
                 android:id="@+id/fragment_lista_opciones_card"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -157,7 +183,7 @@
                         android:layout_width="17dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        app:srcCompat="@drawable/edit_canvas_blue"  />
+                        app:srcCompat="@drawable/edit_canvas_blue" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -165,16 +191,19 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/borderColor" />
+                android:background="@color/borderColor"
+                android:visibility="gone" />
 
             <LinearLayout
+                android:id="@+id/fragment_lista_opciones_help"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/fragment_lista_opciones_help"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -194,7 +223,7 @@
                         android:layout_width="17dp"
                         android:layout_height="17dp"
                         android:layout_marginRight="20dp"
-                        app:srcCompat="@drawable/arrow_canvas_blue"  />
+                        app:srcCompat="@drawable/arrow_canvas_blue" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -205,11 +234,12 @@
                 android:background="@color/borderColor" />
 
             <LinearLayout
+                android:id="@+id/fragment_lista_opciones_legal"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/fragment_lista_opciones_legal"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -231,7 +261,7 @@
                         android:layout_width="17dp"
                         android:layout_height="17dp"
                         android:layout_marginRight="20dp"
-                        app:srcCompat="@drawable/arrow_canvas_blue"  />
+                        app:srcCompat="@drawable/arrow_canvas_blue" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -241,11 +271,12 @@
                 android:background="@color/borderColor" />
 
             <LinearLayout
+                android:id="@+id/fragment_lista_opciones_close"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:id="@+id/fragment_lista_opciones_close"
-                android:layout_weight="1"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -268,11 +299,17 @@
                         android:layout_width="17dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        app:srcCompat="@drawable/log_out_canvas_blue"  />
+                        app:srcCompat="@drawable/log_out_canvas_blue" />
                 </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
     </LinearLayout>
 
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@+id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@color/bg_progress"
+        android:visibility="gone" />
 </RelativeLayout>

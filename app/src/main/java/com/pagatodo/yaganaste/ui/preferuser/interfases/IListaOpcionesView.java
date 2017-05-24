@@ -8,4 +8,14 @@ import android.graphics.Bitmap;
 
 public interface IListaOpcionesView {
     void setPhotoToService(Bitmap bitmap);
+
+    void sucessUpdateAvatar();
+
+    void sendErrorView(String mensaje);
+
+    void showProgress(String mMensaje);
+
+    void sendImageBitmapView(Bitmap bitmap);
+
+    void onFailView();
 }

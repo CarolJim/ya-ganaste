@@ -6,14 +6,19 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class ActualizarAvatarRequest implements Serializable{
+public class ActualizarAvatarRequest implements Serializable {
 
     private String Imagen = "";
     private String Extension = "";
-    private String ImagenAvatarURL = "";
+    //private String ImagenAvatarURL = "";
 
 
     public ActualizarAvatarRequest() {
+    }
+
+    public ActualizarAvatarRequest(String base64Image, String mExtension) {
+        this.Imagen = base64Image;
+        this.Extension = mExtension;
     }
 
     public String getImagen() {
@@ -32,11 +37,11 @@ public class ActualizarAvatarRequest implements Serializable{
         Extension = extension;
     }
 
-    public String getImagenAvatarURL() {
-        return ImagenAvatarURL;
-    }
-
-    public void setImagenAvatarURL(String imagenAvatarURL) {
-        ImagenAvatarURL = imagenAvatarURL;
-    }
+//    public String getImagenAvatarURL() {
+//        return ImagenAvatarURL;
+//    }
+//
+//    public void setImagenAvatarURL(String imagenAvatarURL) {
+//        ImagenAvatarURL = imagenAvatarURL;
+//    }
 }
