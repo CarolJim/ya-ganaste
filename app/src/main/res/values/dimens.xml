@@ -46,6 +46,7 @@
     <dimen name="title_headers">16dp</dimen>
     <dimen name="edittext_margin_left">15dp</dimen>
     <dimen name="edittext_padding">6dp</dimen>
+    <dimen name="separator">1dp</dimen>
 
     <!-- Botones -->
     <dimen name="height_btns">50dp</dimen>

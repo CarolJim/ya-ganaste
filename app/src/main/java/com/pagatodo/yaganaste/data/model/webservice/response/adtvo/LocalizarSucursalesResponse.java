@@ -1,6 +1,10 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
+import com.google.gson.annotations.SerializedName;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by flima on 21/03/2017.
@@ -8,18 +12,18 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
 
 public class LocalizarSucursalesResponse extends GenericResponse {
 
-    private DataLocalizaSucursal Data;
+    private List<DataLocalizaSucursal> Data;
 
     public LocalizarSucursalesResponse() {
 
-        Data = new DataLocalizaSucursal();
+        this.Data = new ArrayList<DataLocalizaSucursal>();
     }
 
-    public DataLocalizaSucursal getData() {
+    public List<DataLocalizaSucursal> getData() {
         return Data;
     }
 
-    public void setData(DataLocalizaSucursal data) {
+    public void setData(List<DataLocalizaSucursal> data) {
         Data = data;
     }
 }
