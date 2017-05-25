@@ -46,6 +46,8 @@ import static android.content.Context.AUDIO_SERVICE;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente.getCurrentDatesAccountDepositData;
 import static com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente.getImplicitData;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
@@ -466,13 +468,15 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showLoader(String message) {
-        progressLayout.setTextMessage(message);
-        progressLayout.setVisibility(VISIBLE);
+        //progressLayout.setTextMessage(message);
+        //progressLayout.setVisibility(VISIBLE);
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-        progressLayout.setVisibility(GONE);
+        //progressLayout.setVisibility(GONE);
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override

@@ -33,6 +33,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
 
 /**
@@ -186,13 +188,15 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showLoader(String message) {
-        progressLayout.setTextMessage(message);
-        progressLayout.setVisibility(View.VISIBLE);
+        //progressLayout.setTextMessage(message);
+        //progressLayout.setVisibility(View.VISIBLE);
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-        progressLayout.setVisibility(GONE);
+        //progressLayout.setVisibility(GONE);
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override

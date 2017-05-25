@@ -57,7 +57,6 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
         DepositSucursalDetail depositSucursalDetail = new DepositSucursalDetail();
         Bundle args = new Bundle();
         args.putSerializable(SUCURSAL_OBJECT, sucursal);
-        ;
         depositSucursalDetail.setArguments(args);
         return depositSucursalDetail;
     }

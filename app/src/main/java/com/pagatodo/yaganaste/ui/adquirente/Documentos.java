@@ -72,6 +72,8 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADDRESS_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_GO_HOME;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
@@ -114,8 +116,8 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
 
-    @BindView(R.id.progressLayout)
-    ProgressLayout progressLayout;
+    //@BindView(R.id.progressLayout)
+    //ProgressLayout progressLayout;
     private int documentProcessed = 0;
     private int documentPendientes = 0;
     private BitmapLoader bitmapLoader;
@@ -550,13 +552,15 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
     @Override
     public void showLoader(String message) {
-        progressLayout.setTextMessage(message);
-        progressLayout.setVisibility(VISIBLE);
+        //progressLayout.setTextMessage(message);
+        //progressLayout.setVisibility(VISIBLE);
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-        progressLayout.setVisibility(GONE);
+        //progressLayout.setVisibility(GONE);
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override

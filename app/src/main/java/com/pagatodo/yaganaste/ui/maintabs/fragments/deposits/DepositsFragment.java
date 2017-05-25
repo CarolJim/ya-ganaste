@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments.deposits;
 
-import android.location.Location;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -10,14 +9,12 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.List;
 
@@ -67,11 +64,11 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
 
     @Override
     public void onTapButton() {
-        if(UtilsNet.isOnline(getContext())){
+        if (UtilsNet.isOnline(getContext())) {
             removeLastFragment();
             ((TabActivity) getActivity()).showProgressLayout("Cargando");
             loadFragment(DepositsMapFragment.newInstance(), Direction.FORDWARD, false);
-        }else{
+        } else {
             showErrorMessage(getString(R.string.no_internet_access));
         }
     }
@@ -94,12 +91,14 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
     @Override
     public void onBtnBackPress() {
         List<Fragment> fragments = getChildFragmentManager().getFragments();
-        onEventListener.onEvent(TabActivity.EVENT_SHOW_MAIN_TAB, null);
+
         if (fragments != null && fragments.get(0) instanceof DepositsMapFragment) {
             removeLastFragment();
             loadFragment(DepositsDataFragment.newInstance(), Direction.BACK, false);
+            onEventListener.onEvent(TabActivity.EVENT_SHOW_MAIN_TAB, null);
         } else if (fragments != null && fragments.get(0) instanceof DepositsDataFragment) {
             ((TabActivity) getActivity()).goHome();
+            onEventListener.onEvent(TabActivity.EVENT_SHOW_MAIN_TAB, null);
         } else if (fragments != null && fragments.get(0) instanceof DepositSucursalDetail) {
             removeLastFragment();
             loadFragment(DepositsMapFragment.newInstance(), Direction.BACK, false);

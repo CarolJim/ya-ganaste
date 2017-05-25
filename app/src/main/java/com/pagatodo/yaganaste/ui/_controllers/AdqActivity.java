@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.adquirente.DetailTransactionFragment;
 import com.pagatodo.yaganaste.ui.adquirente.GetSignatureFragment;
@@ -22,7 +23,7 @@ import com.pagatodo.yaganaste.ui.adquirente.TransactionResultFragment;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 
 
-public class AdqActivity extends SupportFragmentActivity implements OnEventListener{
+public class AdqActivity extends LoaderActivity implements OnEventListener{
     private Preferencias pref;
 
     public static String KEY_TRANSACTION_DATA = "KEYTRANSACTIONDATA";
@@ -46,6 +47,7 @@ public class AdqActivity extends SupportFragmentActivity implements OnEventListe
 
     @Override
     public void onEvent(String event, Object data) {
+        super.onEvent(event, data);
         switch (event){
             case EVENT_GO_INSERT_DONGLE:
                 loadFragment(InsertDongleFragment.newInstance(), Direction.FORDWARD, false);

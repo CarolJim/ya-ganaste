@@ -76,8 +76,8 @@ public abstract class SupportFragment extends GenericFragment {
         fragmentTransaction.replace(idContainer, fragment, fragment.getFragmentTag()).commit();
     }
 
-    protected void removeLastFragment(){
-        if(lastFragment != null){
+    protected void removeLastFragment() {
+        if (lastFragment != null) {
             FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
             fragmentTransaction.remove(lastFragment).commit();
         }
@@ -106,5 +106,13 @@ public abstract class SupportFragment extends GenericFragment {
             mProgressDialog.dismiss();
             mProgressDialog = null;
         }
+    }
+
+    protected Fragment getLastFragment() {
+        return lastFragment;
+    }
+
+    protected void setLastFragment(GenericFragment f) {
+        lastFragment = f;
     }
 }
