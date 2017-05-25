@@ -60,20 +60,15 @@ public class ListaOpcionesIteractor implements IListaOpcionesIteractor, IRequest
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             Log.d("ListaOpcionesIteractor", "DataSource Sucess " + response.getMensaje());
 
-            updateAvatarResponse(response.getData().getImagenAvatarURL());
+             String urlEdit = procesarURLString(response.getData().getImagenAvatarURL());
+            SingletonUser.getInstance().getDataUser().getUsuario().setImagenAvatarURL(urlEdit);
+            listaOpcionesPresenter.sucessUpdateAvatar();
             // Linea para simular el error y comprobar el Duialog y el ShowProgress
             //listaOpcionesPresenter.sendErrorPresenter(response.getMensaje());
         } else {
             Log.d("ListaOpcionesIteractor", "DataSource Sucess with Error " + response.getMensaje());
             listaOpcionesPresenter.sendErrorPresenter(response.getMensaje());
         }
-    }
-
-    private void updateAvatarResponse(String imagenAvatarURL) {
-        // Procesando formato para eliminar el {0}
-        String urlEdit = procesarURLString(imagenAvatarURL);
-        SingletonUser.getInstance().getDataUser().getUsuario().setImagenAvatarURL(urlEdit);
-        listaOpcionesPresenter.sucessUpdateAvatar();
     }
 
     private String procesarURLString(String mUserImage) {

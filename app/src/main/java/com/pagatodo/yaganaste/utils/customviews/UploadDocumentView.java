@@ -10,9 +10,11 @@ import android.view.LayoutInflater;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 
+import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -21,6 +23,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class UploadDocumentView extends RelativeLayout {
+
+//    @BindView(R.id.fragment_list_opciones_name)
+//    TextView tv_name;
 
     private CircleImageView circleImageView;
     private CircleImageView circleImageStatus;
@@ -41,9 +46,9 @@ public class UploadDocumentView extends RelativeLayout {
         init();
     }
 
-    private void init(){
+    private void init() {
         String infService = Context.LAYOUT_INFLATER_SERVICE;
-        LayoutInflater li = (LayoutInflater)getContext().getSystemService(infService);
+        LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
 
         /**
          * Se agrega una validacion para obtener la version de Android que usamos, para cargar un
@@ -65,30 +70,40 @@ public class UploadDocumentView extends RelativeLayout {
 
     /**
      * Centramos la imagen que recibimos. Para mostrar a corde a lo que necesitamos
+     *
      * @param mDrawable
      */
-    public void setCenterDrawable(Drawable mDrawable){
-        imgCamera.setImageDrawable(mDrawable);
+    public void setCenterDrawable(int mDrawable) {
+        imgCamera.setImageResource(0);
+        imgCamera.setImageResource(mDrawable);
     }
 
-    public void setImageBitmap(Bitmap bitmap){
+    public void setStatusVisibility(boolean mVisibility) {
+        if (mVisibility) {
+            imgCamera.setVisibility(VISIBLE);
+        } else {
+            imgCamera.setVisibility(GONE);
+        }
+    }
+
+    public void setImageBitmap(Bitmap bitmap) {
         imgCamera.setVisibility(GONE);
         circleImageView.setImageBitmap(bitmap);
         circleImageView.invalidate();
     }
 
-    public void setImageDrawable(Drawable mDrawable){
-       // imgCamera.setVisibility(GONE);
+    public void setImageDrawable(Drawable mDrawable) {
+        // imgCamera.setVisibility(GONE);
         circleImageView.setImageDrawable(mDrawable);
         circleImageView.invalidate();
     }
 
-    public void setStatusImage(Drawable bitmap){
+    public void setStatusImage(Drawable bitmap) {
 
         circleImageStatus.setImageDrawable(bitmap);
     }
 
-    public void setVisibilityStatus(boolean visibilityStatus){
+    public void setVisibilityStatus(boolean visibilityStatus) {
         circleImageStatus.setVisibility(visibilityStatus ? VISIBLE : GONE);
         circleImageStatus.invalidate();
     }

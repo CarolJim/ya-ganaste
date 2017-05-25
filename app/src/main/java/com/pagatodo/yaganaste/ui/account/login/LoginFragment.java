@@ -146,8 +146,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 actionBtnLogin();
                 break;
             case R.id.txtLoginExistUserRecoverPass:
-               // startActivity(new Intent(getActivity(), TabActivity.class));
-               nextScreen(EVENT_RECOVERY_PASS, username);
+              //  startActivity(new Intent(getActivity(), TabActivity.class));
+                nextScreen(EVENT_RECOVERY_PASS, username);
                 break;
             default:
                 break;
