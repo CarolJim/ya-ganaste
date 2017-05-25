@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout android:id="@+id/layout_amount_control"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/layout_amount_control"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_below="@+id/titleAmount"
-    android:layout_marginLeft="15dp" android:padding="4dp"
+    android:layout_marginLeft="15dp"
     android:layout_marginRight="15dp"
     android:orientation="horizontal"
-    xmlns:android="http://schemas.android.com/apk/res/android">
+    android:padding="4dp">
 
     <EditText
         android:id="@+id/et_amount"
@@ -23,9 +24,9 @@
 
         <TextView
             android:id="@+id/tv_sign"
-            android:layout_marginTop="7dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_marginTop="7dp"
             android:text="$"
             android:textSize="16sp" />
 

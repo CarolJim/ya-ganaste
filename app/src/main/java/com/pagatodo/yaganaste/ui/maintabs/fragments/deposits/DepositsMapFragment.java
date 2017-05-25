@@ -30,7 +30,6 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
@@ -39,7 +38,6 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerSucursalesAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositMapManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.DepositMapPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IDepositMapPresenter;
-import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ClickListener;
 import com.pagatodo.yaganaste.utils.customviews.CustomMapFragment;
 import com.pagatodo.yaganaste.utils.customviews.DividerItemDecoration;
@@ -90,8 +88,11 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        View v = inflater.inflate(R.layout.fragment_depositos_mapa, container, false);
 
+        onEventListener.onEvent(TabActivity.EVENT_HIDE_MANIN_TAB, null);
+        onEventListener.onEvent(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY, true);
+
+        View v = inflater.inflate(R.layout.fragment_depositos_mapa, container, false);
         int status = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getActivity());
         parentActivity = (TabActivity) getActivity();
         if (status == ConnectionResult.SUCCESS) {
@@ -116,8 +117,6 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        onEventListener.onEvent(TabActivity.EVENT_HIDE_MANIN_TAB, null);
-        onEventListener.onEvent(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY, true);
         parentActivity.hideProgresLayout();
     }
 
@@ -149,9 +148,8 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
             ex.printStackTrace();
         }
 
-
-        ((DepositsFragment)getParentFragment()).showErrorMessage(errorTxt != null ? errorTxt : getString(R.string.error_respuesta));
-        ((DepositsFragment)getParentFragment()).onBtnBackPress();
+        ((DepositsFragment) getParentFragment()).showErrorMessage(errorTxt != null ? errorTxt : getString(R.string.error_respuesta));
+        ((DepositsFragment) getParentFragment()).onBtnBackPress();
     }
 
     private void prinSucursalesOnMap(List<DataLocalizaSucursal> sucursalList) {
@@ -216,8 +214,8 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         } catch (OfflineException e) {
             e.printStackTrace();
             Toast.makeText(getContext(), "Sin Conexión", Toast.LENGTH_SHORT).show();
-            ((DepositsFragment)getParentFragment()).showErrorMessage(getString(R.string.no_internet_access));
-            ((DepositsFragment)getParentFragment()).onBtnBackPress();
+            ((DepositsFragment) getParentFragment()).showErrorMessage(getString(R.string.no_internet_access));
+            ((DepositsFragment) getParentFragment()).onBtnBackPress();
         }
     }
 

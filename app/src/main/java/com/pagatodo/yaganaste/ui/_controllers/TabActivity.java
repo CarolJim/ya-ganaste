@@ -1,17 +1,14 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
-import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.res.Resources;
-import android.graphics.Color;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.util.TypedValue;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -86,11 +83,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             startActivity(intent);
         }
         if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                SingletonUser.getInstance().getDataUser().getEstatusAgente()==PTH_DOCTO_APROBADO &&
+                SingletonUser.getInstance().getDataUser().getEstatusAgente() == PTH_DOCTO_APROBADO &&
                 !pref.containsData(COUCHMARK_ADQ)) {
-                pref.saveDataBool(COUCHMARK_ADQ,true);
-                Intent intent = new Intent(this, LandingAdqFragment.class);
-                startActivity(intent);
+            pref.saveDataBool(COUCHMARK_ADQ, true);
+            Intent intent = new Intent(this, LandingAdqFragment.class);
+            startActivity(intent);
         }
     }
 
@@ -99,7 +96,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         pref = App.getInstance().getPrefs();
         mainViewPager = (ViewPager) findViewById(R.id.main_view_pager);
         mainTab = (TabLayout) findViewById(R.id.main_tab);
-        progressGIF = (ProgressLayout)findViewById(R.id.progressGIF);
+        progressGIF = (ProgressLayout) findViewById(R.id.progressGIF);
         progressGIF.setVisibility(View.GONE);
 
         tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN);
@@ -114,13 +111,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
         mainTab.setupWithViewPager(mainViewPager);
         mainTab.setSelectedTabIndicatorColor(getResources().getColor(R.color.colorAccent));
-        LinearLayout linearLayout = (LinearLayout)mainTab.getChildAt(0);
+        LinearLayout linearLayout = (LinearLayout) mainTab.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         GradientDrawable drawable = new GradientDrawable();
         drawable.setColor(getResources().getColor(R.color.grayColor));
         Resources r = getResources();
-       // int px =  Integer.valueOf((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, r.getDimension(R.dimen.separator), r.getDisplayMetrics()));
-        drawable.setSize(1,1);
+        // int px =  Integer.valueOf((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, r.getDimension(R.dimen.separator), r.getDisplayMetrics()));
+        drawable.setSize(1, 1);
         linearLayout.setDividerPadding(4);
         linearLayout.setDividerDrawable(drawable);
         //  Log.e("TabActivity", "indicator position " + mainTab.getSelectedTabPosition());
@@ -144,15 +141,15 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     protected void onStart() {
         super.onStart();
 
-         if (!pref.containsData(COUCHMARK_EMISOR)) {
+        if (!pref.containsData(COUCHMARK_EMISOR)) {
 
-             new Handler().postDelayed(new Runnable() {
-                 public void run() {
-                     pref.saveDataBool(COUCHMARK_EMISOR, true);
-                     Intent intent = new Intent(TabActivity.this, LandingFragment.class);
-                     startActivity(intent);
-                 }
-             }, 500);
+            new Handler().postDelayed(new Runnable() {
+                public void run() {
+                    pref.saveDataBool(COUCHMARK_EMISOR, true);
+                    Intent intent = new Intent(TabActivity.this, LandingFragment.class);
+                    startActivity(intent);
+                }
+            }, 500);
 
 
         }
@@ -169,17 +166,29 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (event.equals(EVENT_GO_HOME)) {
             goHome();
         } else if (event.equals(EVENT_CHANGE_MAIN_TAB_VISIBILITY)) {
-            mainTab.setVisibility((boolean) data ? View.VISIBLE : View.GONE);
+            if ((boolean) data) {
+                showMainTab();
+            } else {
+                hideMainTab();
+            }
         } else if (event.equals(EVENT_HIDE_MANIN_TAB)) {
-            if (mainTab.getVisibility() == View.VISIBLE) {
-                mainTab.startAnimation(animHide);
-                mainTab.setVisibility(View.GONE);
-            }
+            hideMainTab();
         } else if (event.equals(EVENT_SHOW_MAIN_TAB)) {
-            if (mainTab.getVisibility() == View.GONE) {
-                mainTab.setVisibility(View.VISIBLE);
-                mainTab.startAnimation(animShow);
-            }
+            showMainTab();
+        }
+    }
+
+    protected void hideMainTab() {
+        if (mainTab.getVisibility() == View.VISIBLE) {
+            mainTab.startAnimation(animHide);
+            mainTab.setVisibility(View.GONE);
+        }
+    }
+
+    protected void showMainTab() {
+        if (mainTab.getVisibility() == View.GONE) {
+            mainTab.setVisibility(View.VISIBLE);
+            mainTab.startAnimation(animShow);
         }
     }
 
@@ -312,12 +321,12 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         }
     }
 
-    public void showProgressLayout(String msg){
+    public void showProgressLayout(String msg) {
         progressGIF.setTextMessage(msg);
         progressGIF.setVisibility(View.VISIBLE);
     }
 
-    public void hideProgresLayout(){
+    public void hideProgresLayout() {
         progressGIF.setVisibility(View.GONE);
     }
 }

@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
+import com.google.android.gms.common.GoogleApiAvailability;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -44,7 +45,6 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
         final IRequestResult iRequestResult = this;
         final Handler handler = new Handler();
         //loadFragment(new CustomMapFragment(), R.id.frame, Direction.FORDWARD, false);
-
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {
