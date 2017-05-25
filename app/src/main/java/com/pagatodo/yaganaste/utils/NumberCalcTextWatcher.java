@@ -8,7 +8,6 @@ import android.widget.TextView;
 
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
-import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -49,14 +48,14 @@ public class NumberCalcTextWatcher implements TextWatcher {
 
     @Override
     public void afterTextChanged(Editable arg0) {
-       // Log.d(TAG, "NumberCalc " + etMonto.getText().toString());
+        // Log.d(TAG, "NumberCalc " + etMonto.getText().toString());
 
         /**
          * Iniciamos la vista con un $0.00
          */
         if ((CustomKeyboardView.getCodeKey() == 0)) {
             etMonto.setText("$0.00");
-            Selection.setSelection(etMonto.getText(),"$0.00".length());
+            Selection.setSelection(etMonto.getText(), "$0.00".length());
             CustomKeyboardView.setCodeKey(99);
         }
 
@@ -118,7 +117,7 @@ public class NumberCalcTextWatcher implements TextWatcher {
                 keyData.append(s.toString().charAt(s.length() - 1));
 
                 switch (codeKey) {
-                    case 30:
+                    case 7:
                         if (amount.length() > 0 && !amount.startsWith("0."))
                             tmpAMount = amount + "0";
                         break;

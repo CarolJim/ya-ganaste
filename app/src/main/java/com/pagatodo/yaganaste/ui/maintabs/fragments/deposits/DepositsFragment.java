@@ -13,7 +13,6 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
 import com.pagatodo.yaganaste.utils.UI;
 
@@ -86,7 +85,7 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
 
     @Override
     public void showErrorMessage(String message) {
-        UI.createSimpleCustomDialog("", message, fragmentManager, getFragmentTag());
+        UI.createSimpleCustomDialog("Error", message, fragmentManager, getFragmentTag());
     }
 
     @Override
@@ -108,6 +107,6 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
 
     public void loadDescriptionFragment(DataLocalizaSucursal sucursal) {
         removeLastFragment();
-        loadFragment(DepositSucursalDetail.newInstance(sucursal), Direction.FORDWARD, false);
+        loadFragment(DepositSucursalDetail.newInstance(sucursal), Direction.NONE, false);
     }
 }

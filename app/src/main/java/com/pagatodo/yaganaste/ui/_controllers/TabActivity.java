@@ -180,7 +180,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     protected void hideMainTab() {
         if (mainTab.getVisibility() == View.VISIBLE) {
-            mainTab.startAnimation(animHide);
+            //mainTab.startAnimation(animHide);
             mainTab.setVisibility(View.GONE);
         }
     }
@@ -188,7 +188,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     protected void showMainTab() {
         if (mainTab.getVisibility() == View.GONE) {
             mainTab.setVisibility(View.VISIBLE);
-            mainTab.startAnimation(animShow);
+            //mainTab.startAnimation(animShow);
         }
     }
 

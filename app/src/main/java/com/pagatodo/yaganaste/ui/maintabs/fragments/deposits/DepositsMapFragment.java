@@ -148,7 +148,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
             ex.printStackTrace();
         }
 
-        ((DepositsFragment) getParentFragment()).showErrorMessage(errorTxt != null ? errorTxt : getString(R.string.error_respuesta));
+        ((DepositsFragment) getParentFragment()).showErrorMessage(errorTxt != null  ? errorTxt : getString(R.string.error_respuesta));
         ((DepositsFragment) getParentFragment()).onBtnBackPress();
     }
 
