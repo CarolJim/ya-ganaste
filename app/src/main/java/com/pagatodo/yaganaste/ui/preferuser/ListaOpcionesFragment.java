@@ -1,25 +1,11 @@
 package com.pagatodo.yaganaste.ui.preferuser;
 
-import android.app.AlertDialog;
-import android.content.DialogInterface;
-import android.content.Intent;
-import android.content.pm.PackageManager;
-import android.content.pm.ResolveInfo;
-import android.database.Cursor;
 import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
 import android.graphics.drawable.Drawable;
-import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
-import android.provider.MediaStore;
 import android.support.v4.app.Fragment;
-import android.support.v4.content.ContextCompat;
-import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.support.v7.view.ContextThemeWrapper;
 import android.util.Base64;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -28,59 +14,31 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
-import com.bumptech.glide.util.Util;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.ListaOpcionesPresenter;
-import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
-import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
-import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
-
-import org.w3c.dom.Text;
 
 import java.io.ByteArrayOutputStream;
-import java.io.File;
-import java.io.IOException;
-import java.io.InputStream;
-import java.net.HttpURLConnection;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.List;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.app.Activity.RESULT_OK;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.pagatodo.yaganaste.R.id.progressLayout;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CLOSE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_LEGALES;
-import static com.pagatodo.yaganaste.ui.adquirente.Documentos.checkDuplicate;
-import static com.pagatodo.yaganaste.ui.adquirente.TransactionResultFragment.KEY_PAGE_RESULT;
-import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
-import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
-import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
-import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -125,7 +83,9 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     @BindView(R.id.fragment_lista_opciones_close)
     LinearLayout ll_close;
     @BindView(R.id.frag_lista_opciones_photo_item)
-    UploadDocumentView iv_photo_item;
+    CircleImageView iv_photo_item;
+    @BindView(R.id.frag_lista_opciones_photo_status)
+    CircleImageView iv_photo_item_status;
     @BindView(R.id.fragment_lista_opciones_version)
     TextView tv_version_code;
     @BindView(R.id.testIV)
@@ -200,21 +160,26 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         // Hacemos Set de la version de codigo
         tv_version_code.setText("YaGanaste Versión: " + BuildConfig.VERSION_CODE);
         // iv_photo_item.setImageDrawable(getResources().getDrawable(R.drawable.add_photo_canvas, null));
-        // iv_photo_item.setCenterDrawable(getResources().getDrawable(R.drawable.ztest_profile_tab, null));
-        //  iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.camera_blue, null));
+        // iv_photo_item.setStatusVisibility(false);
+        //  iv_photo_item.setCenterDrawable(R.drawable.icon_preferuser);
+        // iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.camera_blue, null));
 
         //TODO Frank agregar metodo alternativo para versiones 16 de API. A este paso y el siguiente
-        iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.camera_blue, null));
-
+        iv_photo_item_status.setBackground(getResources().getDrawable(R.drawable.camara_white_blue_canvas, null));
 
         /**
          * Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
          */
         if (mUserImage != null && !mUserImage.isEmpty()) {
-            // Pedimos la imagen por internet y generamos el Bitmap
-            mPresenter.getImagenURLPresenter(mUserImage);
+            try {
+                // Pedimos la imagen por internet y generamos el Bitmap
+                mPresenter.getImagenURLPresenter(mUserImage);
+            } catch (Exception e) {
+                // Hacemos algo si falla por no tener internet
+            }
+
         } else {
-            iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.add_photo_canvas, null));
+            // iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.add_photo_canvas, null));
         }
     }
 
@@ -260,6 +225,9 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
      */
     @Override
     public void setPhotoToService(Bitmap bitmap) {
+        // Guardamos en bruto nuestro Bitmap.
+        CameraManager.getInstance().setBitmap(bitmap);
+
         // Procesamos el Bitmap a Base64
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
         bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
@@ -275,14 +243,19 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void sucessUpdateAvatar() {
-        Glide.with(this).load(SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL())
-                .placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(testIV);
+       /* Glide.with(this).load(SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL())
+                .placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(testIV);*/
+        iv_photo_item.setImageBitmap(CameraManager.getBitmap());
+        CameraManager.cleanBitmap();
+        //iv_photo_item.setVisibilityStatus(true);
+        //iv_photo_item.invalidate();
         hideLoader();
     }
 
     @Override
     public void sendErrorView(String mensaje) {
         hideLoader();
+        CameraManager.cleanBitmap();
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
@@ -311,6 +284,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     @Override
     public void onFailView() {
         hideLoader();
+        CameraManager.cleanBitmap();
     }
 
     public void showLoader(String message) {

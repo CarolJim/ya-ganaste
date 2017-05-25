@@ -41,6 +41,8 @@ import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static android.app.Activity.RESULT_OK;
 import static com.pagatodo.yaganaste.App.getContext;
 import static com.pagatodo.yaganaste.ui.adquirente.Documentos.checkDuplicate;
@@ -80,17 +82,18 @@ public class CameraManager {
     private Drawable mDrawable = null;
     private Preferencias pref;
     private Boolean mExisteDocs = false;
-    UploadDocumentView iv_photo_item;
+    CircleImageView iv_photo_item;
 
     Activity mContext;
     IListaOpcionesView mView;
+    private static Bitmap bitmapValue;
 
     /**
-     * @param mContext Recibe el contexto (getActivity)
+     * @param mContext      Recibe el contexto (getActivity)
      * @param iv_photo_item La imagen donde se procesa el resultado
-     * @param mView El Listener que recibira nuestra imagen para envia al servicio
+     * @param mView         El Listener que recibira nuestra imagen para envia al servicio
      */
-    public void initCamera(Activity mContext, UploadDocumentView iv_photo_item,
+    public void initCamera(Activity mContext, CircleImageView iv_photo_item,
                            IListaOpcionesView mView) {
         this.mContext = mContext;
         contador = new ArrayList<>();
@@ -99,8 +102,21 @@ public class CameraManager {
         this.mView = mView;
     }
 
+    public static Bitmap getBitmap() {
+        return bitmapValue;
+    }
+
+    public static void setBitmap(Bitmap bitmap) {
+        bitmapValue = bitmap;
+    }
+
+    public static void cleanBitmap() {
+        bitmapValue = null;
+    }
+
     /**
      * Metodo principal que procesa la imagen
+     *
      * @param intIntent
      */
     public void createPhoto(int intIntent) {
@@ -113,7 +129,7 @@ public class CameraManager {
                 mContext.getString(R.string.action_select_picture),
                 mContext.getString(R.string.action_select_picture_cancel)};
         LayoutInflater inflater = mContext.getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_camera,null);
+        View dialogView = inflater.inflate(R.layout.dialog_camera, null);
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
         dialogBuilder.setView(dialogView);
         dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
@@ -136,7 +152,7 @@ public class CameraManager {
         AlertDialog alertDialog = dialogBuilder.create();
         alertDialog.setTitle("Seleccionar Fotografia");
         LayoutInflater titleInflater = mContext.getLayoutInflater();
-        View dialogTittle  = titleInflater.inflate(R.layout.tittle_dialog,null);
+        View dialogTittle = titleInflater.inflate(R.layout.tittle_dialog, null);
         alertDialog.setCustomTitle(dialogTittle);
         alertDialog.setCancelable(false);
         alertDialog.show();
@@ -218,9 +234,9 @@ public class CameraManager {
         } else {
             switch (documentProcessed) {
                 case USER_PHOTO:
-                    iv_photo_item.setImageBitmap(bitmap);
-                    iv_photo_item.setVisibilityStatus(true);
-                    iv_photo_item.invalidate();
+                    //iv_photo_item.setImageBitmap(bitmap);
+                    //iv_photo_item.setVisibilityStatus(true);
+                    //iv_photo_item.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_ID_FRONT);
                     dataDoc.setImagenBase64(imgBase64);
@@ -243,6 +259,7 @@ public class CameraManager {
      * Metodo que procesa la respuesta desde la actividad que es llamada. Se tiene que
      * hacer una llaamda a este metodo y enviar los parametros necesarios
      * PreferUserActivity -> ListaOpcionesFragment -> CameraManager
+     *
      * @param requestCode
      * @param resultCode
      * @param data
