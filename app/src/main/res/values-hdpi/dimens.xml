@@ -18,7 +18,7 @@
     <dimen name="btn_corner_radius">24dp</dimen>
     <dimen name="edit_corner_radius">1.5dp</dimen>
 
-    <dimen name="seekbar_radius">20dp</dimen>
+    <dimen name="seekbar_radius">30dp</dimen>
     <dimen name="seekbar_thumb_width">90dp</dimen>
     <dimen name="seekbar_thumb_height">30dp</dimen>
     <dimen name="seekbar_thumb_arrow_width">6dp</dimen>

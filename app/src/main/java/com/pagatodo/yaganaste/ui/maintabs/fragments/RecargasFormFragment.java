@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
+import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
@@ -112,6 +113,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             recargaNumber.setHint(getString(R.string.tag_number));
             layoutImageContact.setVisibility(View.GONE);
         } else {
+            //recargaNumber.addTextChangedListener();
             recargaNumber.setHint(getString(R.string.phone_number_hint));
             layoutImageContact.setOnClickListener(this);
         }

@@ -65,7 +65,7 @@
                     android:layout_weight="20"
                     android:padding="4dp"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/arrow_canvas_blue" />
+                    app:srcCompat="@drawable/pin_canvas_gray" />
             </LinearLayout>
 
             <View
@@ -98,7 +98,7 @@
                     android:layout_weight="20"
                     android:padding="4dp"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/arrow_canvas_blue" />
+                    app:srcCompat="@drawable/clock" />
             </LinearLayout>
 
             <View
@@ -130,7 +130,7 @@
                     android:layout_weight="20"
                     android:padding="4dp"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/arrow_canvas_blue" />
+                    app:srcCompat="@drawable/calendar" />
             </LinearLayout>
 
             <View
@@ -162,7 +162,7 @@
                     android:layout_weight="20"
                     android:padding="4dp"
                     android:scaleType="centerInside"
-                    app:srcCompat="@drawable/arrow_canvas_blue" />
+                    app:srcCompat="@drawable/call_canvas" />
             </LinearLayout>
 
             <View
@@ -187,7 +187,8 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
-        android:src="@android:drawable/ic_menu_share"
+        app:srcCompat="@drawable/drive"
+        android:scaleType="center"
         app:backgroundTint="@color/colorAccent"
         app:borderWidth="4dp"
         app:elevation="6dp"

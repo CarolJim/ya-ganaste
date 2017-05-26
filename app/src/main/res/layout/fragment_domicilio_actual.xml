@@ -5,119 +5,120 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/colorPrimary"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:background="@color/colorPrimary"
     tools:context=".ui._controllers.AccountActivity">
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/progressLayout"
-        android:layout_toEndOf="@+id/progressLayout">
+        android:layout_toEndOf="@+id/progressLayout"
+        android:layout_toRightOf="@+id/progressLayout">
 
         <include
             android:id="@+id/toolbarLy"
             layout="@layout/toolbar" />
 
         <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
-                android:id="@+id/layoutContent"
-                style="@style/BorderTitleStyle"
+            android:id="@+id/layoutContent"
+            style="@style/BorderTitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/layoutBottom"
+            android:layout_below="@+id/toolbarLy"
+            app:title="@string/currentAddressTitle">
+
+            <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/toolbarLy"
-                android:layout_above="@+id/layoutBottom"
-                app:title="@string/currentAddressTitle">
-                <ScrollView
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:paddingTop="@dimen/generic_padig">
+                android:layout_height="match_parent"
+                android:paddingTop="@dimen/generic_padig">
+
                 <RelativeLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent">
 
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editStreet"
-                    style="@style/FragmentElementTop"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:formato="text"
-                    app:hintText="@string/streetHint"
-                    app:isSingleLine="true"
-                    app:maxLength="30" />
-
-                <LinearLayout
-                    android:id="@+id/layNumbers"
-                    style="@style/FragmentElement"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/editStreet"
-                    android:orientation="horizontal">
-
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                        android:id="@+id/editExtNumber"
+                        android:id="@+id/editStreet"
+                        style="@style/FragmentElementTop"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".5"
                         app:formato="text"
-                        app:hintText="@string/outdoorNumber"
+                        app:hintText="@string/streetHint"
                         app:isSingleLine="true"
-                        app:maxLength="4" />
+                        app:maxLength="30" />
 
-                    <android.support.v4.widget.Space
-                        android:layout_width="@dimen/generic_padig"
-                        android:layout_height="match_parent" />
-
-                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                        android:id="@+id/editIntNumber"
+                    <LinearLayout
+                        android:id="@+id/layNumbers"
+                        style="@style/FragmentElement"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".5"
-                        app:formato="text"
-                        app:hintText="@string/interiorNumber"
+                        android:layout_below="@+id/editStreet"
+                        android:orientation="horizontal">
+
+                        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                            android:id="@+id/editExtNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".5"
+                            app:formato="text"
+                            app:hintText="@string/outdoorNumber"
+                            app:isSingleLine="true"
+                            app:maxLength="4" />
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="@dimen/generic_padig"
+                            android:layout_height="match_parent" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                            android:id="@+id/editIntNumber"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".5"
+                            app:formato="text"
+                            app:hintText="@string/interiorNumber"
+                            app:isSingleLine="true"
+                            app:maxLength="5" />
+
+                    </LinearLayout>
+
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/editZipCode"
+                        style="@style/FragmentElement"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/layNumbers"
+                        app:formato="zipcode"
+                        app:hintText="@string/zipCodeHint"
                         app:isSingleLine="true"
                         app:maxLength="5" />
 
-                </LinearLayout>
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/editState"
+                        style="@style/FragmentElement"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/editZipCode"
+                        app:hintText="@string/stateHint" />
 
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editZipCode"
-                    style="@style/FragmentElement"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:formato="zipcode"
-                    app:hintText="@string/zipCodeHint"
-                    app:isSingleLine="true"
-                    android:layout_below="@+id/layNumbers"
-                    app:maxLength="5" />
-
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editState"
-                    style="@style/FragmentElement"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/editZipCode"
-                    app:hintText="@string/stateHint" />
-
-                <Spinner
-                    android:id="@+id/spColonia"
-                    style="@style/SpinnerNoArrow"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/editState"
-                    android:layout_marginBottom="@dimen/space_between_elements"
-                    android:background="@null"
-                    android:backgroundTint="@color/transparent">
-                </Spinner>
+                    <Spinner
+                        android:id="@+id/spColonia"
+                        style="@style/SpinnerNoArrow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_below="@+id/editState"
+                        android:layout_marginBottom="@dimen/space_between_elements"
+                        android:background="@null"
+                        android:backgroundTint="@color/transparent"></Spinner>
 
                 </RelativeLayout>
 
-                </ScrollView>
+            </ScrollView>
 
 
-            </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+        </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
         <LinearLayout
             android:id="@+id/layoutBottom"
@@ -130,31 +131,44 @@
 
             <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                 android:id="@+id/errorMessage"
-                android:layout_below="@id/layoutContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_below="@id/layoutContent"
                 android:layout_marginBottom="@dimen/margin_small"
-                android:layout_marginTop="@dimen/margin_small"/>
+                android:layout_marginTop="@dimen/margin_small" />
+
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/errorMessage"
                 android:layout_marginBottom="@dimen/margin_medium"
+                android:weightSum="100"
                 android:orientation="horizontal">
 
-                <CheckBox
-                    android:id="@+id/radioBtnTerms"
-                    android:layout_width="18dp"
-                    android:layout_height="18dp"
-                    android:background="@drawable/radio_btn"
-                    android:button="@null"
-                    android:checked="true"
-                    />
+                <RelativeLayout
+                    android:id="@+id/radioBtnTermsLayOut"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:layout_weight="15">
+                    <CheckBox
+                        android:id="@+id/radioBtnTerms"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:background="@drawable/radio_btn"
+                        android:button="@null"
+                        android:checked="true" />
+
+                </RelativeLayout>
+
+
 
                 <LinearLayout
-                    android:layout_width="wrap_content"
+                    android:layout_width="0dp"
                     android:layout_height="wrap_content"
+                    android:layout_weight="85"
                     android:layout_gravity="center"
+                    android:layout_marginLeft="@dimen/margin_small"
                     android:gravity="center"
                     android:orientation="vertical">
 
@@ -181,27 +195,28 @@
                     android:id="@+id/btnBackDomicilioActual"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_btns"
-                    android:layout_weight="1.4"
                     android:layout_centerInParent="true"
-                    android:text="@string/backButton"
                     android:layout_marginRight="@dimen/margin_small"
+                    android:layout_weight="1.4"
                     android:background="@drawable/selector_btn_back"
+                    android:text="@string/backButton"
                     android:textAllCaps="false" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleButton
                     android:id="@+id/btnNextDomicilioActual"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_btns"
-                    android:layout_weight="1"
                     android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_btn_continuar"
                     android:gravity="center"
                     android:text="@string/nextButton"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    android:background="@drawable/selector_btn_continuar"
                     android:textAllCaps="false" />
             </LinearLayout>
 
         </LinearLayout>
+
         <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
             android:id="@+id/progressLayout"
             android:layout_width="match_parent"

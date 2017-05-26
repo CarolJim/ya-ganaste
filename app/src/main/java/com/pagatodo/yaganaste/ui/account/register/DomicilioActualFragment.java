@@ -15,16 +15,14 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.CheckBox;
-import android.widget.RadioButton;
+import android.widget.RelativeLayout;
 import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -56,7 +54,7 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DomicilioActualFragment extends GenericFragment implements View.OnClickListener, ValidationForms<Object>,IAccountRegisterView<Object> {
+public class DomicilioActualFragment extends GenericFragment implements View.OnClickListener, ValidationForms<Object>, IAccountRegisterView<Object> {
 
     public static int MIN_LENGHT_VALIDATION_CP = 4;
     private View rootview;
@@ -84,12 +82,14 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     ProgressLayout progressLayout;
     @BindView(R.id.errorMessage)
     ErrorMessage errorMessageView;
+    @BindView(R.id.radioBtnTermsLayOut)
+    RelativeLayout radioBtnTermsLayOut;
 
 
     private ColoniasArrayAdapter adapterColonia;
     private List<ColoniasResponse> listaColonias;
     private List<String> coloniasNombre;
-    private String estadoDomicilio= "";
+    private String estadoDomicilio = "";
     private String calle = "";
     private String numExt = "";
     private String numInt = "";
@@ -122,7 +122,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        accountPresenter = ((AccountActivity)getActivity()).getPresenter();
+        accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
@@ -152,11 +152,12 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         errorMessageView.setVisibilityImageError(false);
         coloniasNombre = new ArrayList<String>();
         coloniasNombre.add(getString(R.string.colonia));
-        adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout,coloniasNombre);
+        adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, coloniasNombre);
         spColonia.setAdapter(adapterColonia);
         btnNextDomicilioActual.setOnClickListener(this);
         btnBackDomicilioActual.setOnClickListener(this);
-        radioBtnTerms.setOnClickListener(this);
+        //radioBtnTerms.setOnClickListener(this);
+        radioBtnTermsLayOut.setOnClickListener(this);
         editState.setTextEnabled(false);
         setCurrentData();// Seteamos datos si hay registro en proceso.
         setClickLegales();
@@ -169,7 +170,16 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                 validateForm();
                 break;
             case R.id.btnBackDomicilioActual:
-                backScreen(EVENT_PERSONAL_DATA_BACK,null);
+                backScreen(EVENT_PERSONAL_DATA_BACK, null);
+                break;
+            case R.id.radioBtnTermsLayOut:
+                if (radioBtnTerms.isChecked()) {
+                    radioBtnTerms.setChecked(false);
+                    radioBtnTerms.setSelected(false);
+                } else {
+                    radioBtnTerms.setChecked(true);
+                    radioBtnTerms.setSelected(true);
+                }
                 break;
             default:
                 break;
@@ -184,14 +194,16 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         editStreet.addCustomTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(!editStreet.isValidText()){
+                if (!editStreet.isValidText()) {
                     hideErrorMessage();
                 }
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -201,14 +213,16 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         editExtNumber.addCustomTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(!editExtNumber.isValidText()){
+                if (!editExtNumber.isValidText()) {
                     hideErrorMessage();
                 }
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -217,14 +231,16 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         editZipCode.addCustomTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(!editZipCode.isValidText()){
+                if (!editZipCode.isValidText()) {
                     hideErrorMessage();
                 }
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -232,17 +248,17 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
     }
 
-    private void fillAdapter(){
+    private void fillAdapter() {
         coloniasNombre.clear();
         coloniasNombre.add(getString(R.string.colonia));
-        for(ColoniasResponse coloniasResponse : this.listaColonias){
+        for (ColoniasResponse coloniasResponse : this.listaColonias) {
             coloniasNombre.add(coloniasResponse.getColonia());
         }
         adapterColonia.notifyDataSetChanged();
         editState.setText(this.estadoDomicilio);
 
         //Seteamos los datos del CP
-        if(cpDefault) {
+        if (cpDefault) {
             //editZipCode.removeCustomTextWatcher(textWatcherZipCode);
             cpDefault = false;
             setCPDataCurrent();
@@ -266,27 +282,27 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     @Override
     public void validateForm() {
         getDataForm();
-        if(calle.isEmpty()){
-           showValidationError(getString(R.string.datos_domicilio_calle));
+        if (calle.isEmpty()) {
+            showValidationError(getString(R.string.datos_domicilio_calle));
             editStreet.setIsInvalid();
             return;
         }
-        if(numExt.isEmpty()){
+        if (numExt.isEmpty()) {
             showValidationError(getString(R.string.datos_domicilio_num_ext));
             editExtNumber.setIsInvalid();
             return;
         }
-        if(codigoPostal.isEmpty()){
+        if (codigoPostal.isEmpty()) {
             showValidationError(getString(R.string.datos_domicilio_cp));
             editZipCode.setIsInvalid();
             return;
         }
 
-        if(spColonia.getSelectedItemPosition() == 0 || colonia.isEmpty()){
+        if (spColonia.getSelectedItemPosition() == 0 || colonia.isEmpty()) {
             showValidationError(getString(R.string.datos_domicilio_colonia));
             return;
         }
-        if(!radioBtnTerms.isChecked()){
+        if (!radioBtnTerms.isChecked()) {
             showValidationError(getString(R.string.datos_domicilio_terminos));
             return;
         }
@@ -299,7 +315,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         UI.hideKeyBoard(getActivity());
     }
 
-    private void hideErrorMessage(){
+    private void hideErrorMessage() {
         errorMessageView.setVisibilityImageError(false);
     }
 
@@ -326,32 +342,32 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         numInt = editIntNumber.getText().toString().trim();
         codigoPostal = editZipCode.getText().toString().trim();
         estado = editState.getText().toString().trim();
-        if(spColonia.getSelectedItem() != null && listaColonias!= null) {
+        if (spColonia.getSelectedItem() != null && listaColonias != null) {
             colonia = spColonia.getSelectedItem().toString();
-            for(ColoniasResponse coloniaInfo : listaColonias){
-                if(coloniaInfo.getColonia().equals(colonia)){
+            for (ColoniasResponse coloniaInfo : listaColonias) {
+                if (coloniaInfo.getColonia().equals(colonia)) {
                     Idcolonia = coloniaInfo.getColoniaId();
                 }
             }
         }
     }
 
-    private void setCPDataCurrent(){
+    private void setCPDataCurrent() {
         RegisterUser registerUser = RegisterUser.getInstance();
         //editZipCode.setText(registerUser.getCodigoPostal());
         this.estadoDomicilio = registerUser.getEstadoDomicilio();
         editState.setText(this.estadoDomicilio);
-        for (int position = 0 ; position<coloniasNombre.size(); position++){
-            if(coloniasNombre.get(position).equals(registerUser.getColonia())){
-            spColonia.setSelection(position);
-            break;
+        for (int position = 0; position < coloniasNombre.size(); position++) {
+            if (coloniasNombre.get(position).equals(registerUser.getColonia())) {
+                spColonia.setSelection(position);
+                break;
             }
         }
 
         setValidationRules();
     }
 
-    private void setCurrentData(){
+    private void setCurrentData() {
         RegisterUser registerUser = RegisterUser.getInstance();
         editStreet.setText(registerUser.getCalle());
         editExtNumber.setText(registerUser.getNumExterior());
@@ -379,18 +395,18 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     @Override
     public void showError(Object error) {
 
-        if(!error.toString().isEmpty())
-            UI.showToastShort(error.toString(),getActivity());
+        if (!error.toString().isEmpty())
+            UI.showToastShort(error.toString(), getActivity());
     }
 
     @Override
     public void nextScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
@@ -399,7 +415,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
-                nextScreen(EVENT_GO_GET_CARD,null); // Mostramos la pantalla para obtener tarjeta.
+                nextScreen(EVENT_GO_GET_CARD, null); // Mostramos la pantalla para obtener tarjeta.
             }
         }, DELAY_MESSAGE_PROGRESS);
     }
@@ -422,18 +438,18 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
         @Override
         public void afterTextChanged(Editable s) {
-                if ( s.toString().length() > MIN_LENGHT_VALIDATION_CP) {
-                    showLoader("Buscando CP");
-                    accountPresenter.getNeighborhoods(s.toString().trim());//Buscamos por CP
+            if (s.toString().length() > MIN_LENGHT_VALIDATION_CP) {
+                showLoader("Buscando CP");
+                accountPresenter.getNeighborhoods(s.toString().trim());//Buscamos por CP
 
-                } else {
-                    if (listaColonias != null) {
-                        listaColonias.clear();
-                        estadoDomicilio = "";
-                        fillAdapter();
+            } else {
+                if (listaColonias != null) {
+                    listaColonias.clear();
+                    estadoDomicilio = "";
+                    fillAdapter();
 
-                    }
                 }
+            }
 
         }
     };
@@ -444,14 +460,14 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         editZipCode.setIsInvalid();
     }
 
-    private void setClickLegales(){
+    private void setClickLegales() {
         SpannableString ss = new SpannableString(getString(R.string.terms_and_conditions));
         ClickableSpan span1 = new ClickableSpan() {
             @Override
             public void onClick(View textView) {
 
                 LegalsDialog legalsDialog = LegalsDialog.newInstance(TERMINOS);
-                legalsDialog.show(getActivity().getFragmentManager(),LegalsDialog.TAG);
+                legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
             }
         };
 
@@ -461,7 +477,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             @Override
             public void onClick(View textView) {
                 LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDAD);
-                legalsDialog.show(getActivity().getFragmentManager(),LegalsDialog.TAG);
+                legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
             }
         };
 

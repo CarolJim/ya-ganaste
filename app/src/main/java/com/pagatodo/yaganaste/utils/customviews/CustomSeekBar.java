@@ -52,10 +52,7 @@ public class CustomSeekBar extends android.support.v7.widget.AppCompatSeekBar {
         if (titleText == null) {
             titleText = "";
         }
-
         //float textSize = a.getDimension(R.styleable.CustomSeekBar_textSize, getResources().getDimension(R.dimen.thumb_text_size));
-
-
     }
 
     @Override

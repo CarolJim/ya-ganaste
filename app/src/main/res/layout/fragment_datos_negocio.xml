@@ -37,10 +37,10 @@
             android:id="@+id/spinnerBussineLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/editBussinesName"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
             android:layout_marginTop="@dimen/space_between_elements"
-            android:layout_below="@+id/editBussinesName"
             android:background="@null"
             app:backgroundTint="@color/transparent" />
 
@@ -48,13 +48,13 @@
             android:id="@+id/spinnerSubBussineLine"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_below="@+id/spinnerBussineLine"
             android:layout_marginLeft="18dp"
             android:layout_marginRight="18dp"
             android:layout_marginTop="@dimen/space_between_elements"
-            android:layout_below="@+id/spinnerBussineLine"
             android:background="@null"
-            app:backgroundTint="@color/transparent"
-            android:visibility="gone"/>
+            android:visibility="gone"
+            app:backgroundTint="@color/transparent" />
 
 
         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
@@ -62,8 +62,8 @@
             style="@style/FragmentElement"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/space_between_elements"
             android:layout_below="@+id/spinnerSubBussineLine"
+            android:layout_marginTop="@dimen/space_between_elements"
             app:formato="phone"
             app:hintText="@string/txt_phone"
             app:imageIsGone="true"
@@ -134,12 +134,12 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/layoutContent"
+        android:layout_marginBottom="@dimen/margin_medium"
         android:layout_marginLeft="@dimen/margin_big"
         android:layout_marginRight="@dimen/margin_big"
-        android:layout_marginBottom="@dimen/margin_medium"
-        android:padding="2dp"
         android:gravity="bottom"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:padding="2dp">
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btnBackBussinesInfo"
