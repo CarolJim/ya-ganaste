@@ -79,6 +79,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         this.accountManager = accountManager;
         context = ctx;
     }
+
     /***
      * Metodo par recuperar las colonias por codigo postal
      * @param zipCode
@@ -92,6 +93,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             accountManager.onError(OBTENER_COLONIAS_CP, App.getInstance().getString(R.string.no_internet_access));
         }
     }
+
     /***
      * Metodo que sea la vista de lo documentos con los estatus que le corresponde
      * @param view
@@ -139,20 +141,19 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
                         mDrawable = ContextCompat.getDrawable(context, R.drawable.clock_canvas);
                         break;
                 }
-                if (estatusDocs.getTipoDocumento()==DOC_ID_FRONT) {
+                if (estatusDocs.getTipoDocumento() == DOC_ID_FRONT) {
                     IFEfront.setVisibilityStatus(true);
                     IFEfront.setStatusImage(mDrawable);
-                } else if (estatusDocs.getTipoDocumento()==DOC_ID_BACK) {
+                } else if (estatusDocs.getTipoDocumento() == DOC_ID_BACK) {
                     IFEback.setVisibilityStatus(true);
                     IFEback.setStatusImage(mDrawable);
-                } else if (estatusDocs.getTipoDocumento()==DOC_DOM_FRONT) {
+                } else if (estatusDocs.getTipoDocumento() == DOC_DOM_FRONT) {
                     Addressfront.setVisibilityStatus(true);
                     Addressfront.setStatusImage(mDrawable);
-                } else if (estatusDocs.getTipoDocumento()==DOC_DOM_BACK) {
+                } else if (estatusDocs.getTipoDocumento() == DOC_DOM_BACK) {
                     Addressback.setVisibilityStatus(true);
                     Addressback.setStatusImage(mDrawable);
                 }
-
             }
 
         }
@@ -166,6 +167,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             accountManager.onError(OBTENER_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
         }
     }
+
     @Override
     public void getClientAddress() {
         try {
@@ -205,12 +207,13 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             cargaDocumentosRequest.setDocumentos(data);
             ApiAdtvo.actualizarDocumentos(cargaDocumentosRequest, this);
             accountManager.hideLoader();
-            accountManager.onSucces(ACTUALIZAR_DOCUMENTOS,"Actualizar Documentos");
+            accountManager.onSucces(ACTUALIZAR_DOCUMENTOS, "Actualizar Documentos");
         } catch (OfflineException e) {
 
             accountManager.onError(ACTUALIZAR_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
         }
     }
+
     @Override
     public void registerAdq() {
 
@@ -279,6 +282,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
     /**
      * Cambios el estatis del Singleton
+     *
      * @param response
      */
     private void processEstatusUsuario(DataSourceResult response) {
@@ -299,6 +303,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             accountManager.onError(ACTUALIZAR_DOCUMENTOS, "error" + data.getMensaje());
         }
     }
+
     /***
      * Metodo para procesar la respuesta cuando se envian los documentos
      *
@@ -316,7 +321,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     }
 
     private void actualizaEstatusUsuario() {
-        String usuario =  SingletonUser.getInstance().getDataUser().getUsuario().getNombreUsuario();
+        String usuario = SingletonUser.getInstance().getDataUser().getUsuario().getNombreUsuario();
         RequestHeaders.setUsername(usuario); // Seteamos el usuario en el Header
         ValidarEstatusUsuarioRequest request = new ValidarEstatusUsuarioRequest(usuario);
         try {
@@ -337,6 +342,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         /**TODO Casos de Servicio fallido*/
         accountManager.onError(error.getWebService(), error.getData().toString());
     }
+
     /**
      * Metodo para procesar la respuesta con los estatus de los documentos
      *
