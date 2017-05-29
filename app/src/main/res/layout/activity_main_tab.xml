@@ -4,7 +4,6 @@
     android:id="@+id/activity_main_tab"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_bottom"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical">
@@ -29,7 +28,7 @@
 
         <View
             android:layout_width="match_parent"
-            android:background="@color/colorAccent"
+            android:background="@color/grayColor"
             android:layout_height="1dp" />
 
         <com.pagatodo.yaganaste.utils.customviews.GenericTabLayout
