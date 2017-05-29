@@ -16,6 +16,7 @@ import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.FrameLayout;
 
 import com.github.demono.AutoScrollViewPager;
 import com.jude.rollviewpager.RollPagerView;
@@ -58,7 +59,6 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
 //    AutoScrollViewPager pager;
     @BindView(R.id.rollPager)
     RollPagerView rollPagerView;
-
 
     private PagerAdapter pagerAdapter;
     private List<Fragment> listSlides;
