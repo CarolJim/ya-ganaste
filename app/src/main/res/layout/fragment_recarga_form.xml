@@ -27,7 +27,7 @@
                 android:layout_weight="20"
                 android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
                 android:longClickable="false"
-                android:maxLength="10" />
+                android:maxLength="12" />
 
             <RelativeLayout
                 android:id="@+id/layoutImageContact"

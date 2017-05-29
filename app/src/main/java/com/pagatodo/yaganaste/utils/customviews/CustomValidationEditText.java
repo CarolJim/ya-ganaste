@@ -8,7 +8,6 @@ import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -20,15 +19,13 @@ import android.util.TypedValue;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.utils.FontCache;
+import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.ValidateForm;
-
-import java.util.Locale;
 
 /**
  * Created by Jordan on 27/03/2017.
@@ -179,8 +176,11 @@ public class CustomValidationEditText extends LinearLayout {
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER);
                     break;
                 case "6"://cellPhone
+                    InputFilter[] fArray = new InputFilter[1];
+                    fArray[0] = new InputFilter.LengthFilter(12);
+                    editText.setFilters(fArray);
                     editText.setInputType(InputType.TYPE_CLASS_NUMBER | InputType.TYPE_CLASS_PHONE);
-                    //editText.addTextChangedListener();
+                    editText.addTextChangedListener(new PhoneTextWatcher(editText));
                     editText.setKeyListener(DigitsKeyListener.getInstance(getContext().getString(R.string.input_int_unsigned)));
                     setValidationListener(txt);
                     break;

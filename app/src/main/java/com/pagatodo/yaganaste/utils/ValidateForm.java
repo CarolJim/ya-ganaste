@@ -84,6 +84,7 @@ public class ValidateForm {
     }
 
     public static boolean isValidCellPhone(String cellPhone) {
+        cellPhone = cellPhone.replace(" ", "");
         return cellPhonePattern.matcher(cellPhone).matches();
     }
 

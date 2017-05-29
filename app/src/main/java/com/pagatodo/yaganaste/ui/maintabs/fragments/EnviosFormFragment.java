@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;
+import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 
 import java.util.ArrayList;
@@ -169,8 +170,9 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
             cardNumber.setHint(getString(R.string.card_number));
             selectedType = NUMERO_TARJETA;
         } else if (position == NUMERO_TELEFONO.getId()) {
-            maxLength = 10;
+            maxLength = 12;
             cardNumber.setHint(getString(R.string.transfer_phone));
+            cardNumber.addTextChangedListener(new PhoneTextWatcher(cardNumber));
             selectedType = NUMERO_TELEFONO;
         } else if (position == CABLE.getId()) {
             maxLength = 18;

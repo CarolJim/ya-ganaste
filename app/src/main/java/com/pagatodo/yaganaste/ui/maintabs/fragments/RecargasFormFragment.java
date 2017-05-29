@@ -8,7 +8,6 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
-import android.telephony.PhoneNumberFormattingTextWatcher;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
@@ -22,11 +21,11 @@ import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Recarga;
-import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.RecargasPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IRecargasPresenter;
+import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 
 import java.io.File;
@@ -113,7 +112,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             recargaNumber.setHint(getString(R.string.tag_number));
             layoutImageContact.setVisibility(View.GONE);
         } else {
-            //recargaNumber.addTextChangedListener();
+            recargaNumber.addTextChangedListener(new PhoneTextWatcher(recargaNumber));
             recargaNumber.setHint(getString(R.string.phone_number_hint));
             layoutImageContact.setOnClickListener(this);
         }

@@ -134,4 +134,14 @@
         <attr name="decimalLenght" format="integer"/>
     </declare-styleable>
 
+    <declare-styleable name="MaskedEditText">
+        <attr name="mask" format="string"/>
+        <attr name="notMaskedSymbol" format="string"/>
+        <attr name="replacementChar" format="string"/>
+        <attr name="deleteChar" format="string"/>
+        <attr name="format" format="string"/>
+        <attr name="maskIcon" format="reference"/>
+        <attr name="maskIconColor" format="reference"/>
+        <attr name="android:inputType"/>
+    </declare-styleable>
 </resources>
