@@ -18,6 +18,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.github.demono.AutoScrollViewPager;
+import com.jude.rollviewpager.RollPagerView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -53,8 +54,10 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     StyleButton btnMainCreateAccount;
     @BindView(R.id.txtMainLogin)
     StyleTextView txtMainLogin;
-    @BindView(R.id.viewpager)
-    AutoScrollViewPager pager;
+//    @BindView(R.id.viewpager)
+//    AutoScrollViewPager pager;
+    @BindView(R.id.rollPager)
+    RollPagerView rollPagerView;
 
 
     private PagerAdapter pagerAdapter;
@@ -149,7 +152,10 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         txtMainLogin.setMovementMethod(LinkMovementMethod.getInstance());
 
 
-        pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager());
+        // Se encarga de hacer Set en el Adapter
+        rollPagerView.setAdapter(new AdapterRollPager(rollPagerView, getActivity()));
+
+     /*   pagerAdapter = new PagerAdapter(getActivity().getSupportFragmentManager());
 
 
         for (Fragment slide : listSlides) {
@@ -179,7 +185,7 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
                     view.setAlpha(1.0F - Math.abs(position));
                 }
             }
-        });
+        });*/
 
     }
 

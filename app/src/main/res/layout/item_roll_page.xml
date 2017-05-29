@@ -29,6 +29,7 @@
             android:textColor="@color/colorAccent"
             app:tipo="Descripcion"
             android:gravity="center"
+            android:text="Hola"
             android:layout_marginTop="@dimen/margin_regular"
             android:textSize="26sp" />
     </LinearLayout>
