@@ -237,8 +237,14 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         // Creamos el objeto ActualizarAvatarRequest
         ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
 
+        // Deshabilitamos el backButton
+        //getActivity().onBackPressed();
+        onEventListener.onEvent("DISABLE_BACK", true);
+
         // Enviamos al presenter
         mPresenter.sendPresenterActualizarAvatar(avatarRequest);
+
+
     }
 
     @Override
@@ -250,11 +256,13 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         //iv_photo_item.setVisibilityStatus(true);
         //iv_photo_item.invalidate();
         hideLoader();
+        onEventListener.onEvent("DISABLE_BACK", false);
     }
 
     @Override
     public void sendErrorView(String mensaje) {
         hideLoader();
+        onEventListener.onEvent("DISABLE_BACK", false);
         CameraManager.cleanBitmap();
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 new DialogDoubleActions() {
@@ -284,6 +292,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     @Override
     public void onFailView() {
         hideLoader();
+        onEventListener.onEvent("DISABLE_BACK", false);
         CameraManager.cleanBitmap();
     }
 

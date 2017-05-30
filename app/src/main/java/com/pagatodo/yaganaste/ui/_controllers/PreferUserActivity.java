@@ -25,6 +25,7 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
 
     private boolean isEsAgente;
     private String mName, mEmail, mUserImage;
+    private boolean disableBackButton = false;
 
     public static String PREFER_USER_LISTA = "PREFER_USER_LISTA";
     public static String PREFER_USER_LEGALES = "PREFER_USER_LEGALES";
@@ -53,13 +54,14 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
         presenterAccount = new AccountPresenterNew(this);
 
         // CReamos las referencias al AcoountInteractot
-       // AccountInteractorNew.
+        // AccountInteractorNew.
     }
 
     public AccountPresenterNew getPresenter() {
 
         return this.presenterAccount;
     }
+
     /**
      * Sobre escribimos el metodo del PAdre ToolBar para no tener el boton que nos abre esta+
      * activitydad
@@ -115,21 +117,32 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
             case "PREFER_USER_LISTA":
                 loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage), Direction.BACK, false);
                 break;
+            case "DISABLE_BACK":
+                if (data.toString().equals("true")) {
+                    disableBackButton = true;
+                }else{
+                    disableBackButton = false;
+                }
+                break;
         }
     }
 
     @Override
     public void onBackPressed() {
-        Fragment currentFragment = getCurrentFragment();
-        if (currentFragment instanceof ListaLegalesFragment) {
-            onEvent(PREFER_USER_LISTA, null);
-        } else {
-            super.onBackPressed();
+        // Si el boton no esta deshabilitado realizamos las operaciones de back
+        if (!disableBackButton) {
+            Fragment currentFragment = getCurrentFragment();
+            if (currentFragment instanceof ListaLegalesFragment) {
+                onEvent(PREFER_USER_LISTA, null);
+            } else {
+                super.onBackPressed();
+            }
         }
     }
 
     /**
      * Resultado de tomar una foto o escoger una de galeria, se envia el resultado al CameraManager
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -139,6 +152,6 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
         super.onActivityResult(requestCode, resultCode, data);
 
         // Enviamos datos recibidos al CameraManager
-       CameraManager.getInstance().setOnActivityResult(requestCode, resultCode, data);
+        CameraManager.getInstance().setOnActivityResult(requestCode, resultCode, data);
     }
 }
