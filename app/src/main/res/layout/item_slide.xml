@@ -44,7 +44,7 @@
             android:adjustViewBounds="true"
             android:padding="@dimen/margin_small"
             android:scaleType="centerCrop"
-            android:src="@drawable/carrouse_1"
+            android:src="@drawable/carrousel1a"
             tools:ignore="ContentDescription" />
 
         <LinearLayout

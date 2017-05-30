@@ -22,7 +22,7 @@ public class AdapterRollPager  extends LoopPagerAdapter {
     private Context context;
 
     private int[] imgs = {
-            R.drawable.carrousel1,
+            R.drawable.carrousel1a,
             R.drawable.carrousel2,
             R.drawable.carrousel3,
             R.drawable.carrousel4

@@ -331,7 +331,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 case IFE_FRONT:
                     itemWeNeedSmFilesIFEfront.setImageBitmap(bitmap);
                     itemWeNeedSmFilesIFEfront.setVisibilityStatus(true);
-                    itemWeNeedSmFilesIFEfront.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas));
+                    itemWeNeedSmFilesIFEfront.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
                     itemWeNeedSmFilesIFEfront.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_ID_FRONT);
@@ -342,7 +342,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 case IFE_BACK:
                     itemWeNeedSmFilesIFEBack.setImageBitmap(bitmap);
                     itemWeNeedSmFilesIFEBack.setVisibilityStatus(true);
-                    itemWeNeedSmFilesIFEBack.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas));
+                    itemWeNeedSmFilesIFEBack.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
                     itemWeNeedSmFilesIFEBack.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_ID_BACK);
@@ -353,7 +353,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 case COMPROBANTE_FRONT:
                     itemWeNeedSmFilesAddressFront.setImageBitmap(bitmap);
                     itemWeNeedSmFilesAddressFront.setVisibilityStatus(true);
-                    itemWeNeedSmFilesAddressFront.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas));
+                    itemWeNeedSmFilesAddressFront.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
                     itemWeNeedSmFilesAddressFront.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_DOM_FRONT);
@@ -364,7 +364,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 case COMPROBANTE_BACK:
                     itemWeNeedSmFilesAddressBack.setImageBitmap(bitmap);
                     itemWeNeedSmFilesAddressBack.setVisibilityStatus(true);
-                    itemWeNeedSmFilesAddressBack.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas));
+                    itemWeNeedSmFilesAddressBack.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
                     itemWeNeedSmFilesAddressBack.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_DOM_BACK);
@@ -544,7 +544,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         }
 
         // Coigo SOLO para probar la carga correcta de estado al cargar imagen
-        //itemWeNeedSmFilesIFEfront.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas));
+        //itemWeNeedSmFilesIFEfront.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
     }
 
     @Override

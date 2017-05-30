@@ -60,15 +60,15 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     @BindView(R.id.rollPager)
     RollPagerView rollPagerView;
 
-    private PagerAdapter pagerAdapter;
+/*    private PagerAdapter pagerAdapter;
     private List<Fragment> listSlides;
     private Preferencias pref;
     private int[] imgs = {
-            R.drawable.carrouse_1,
+            R.drawable.carrousel1,
             R.drawable.carrousel2,
             R.drawable.carrousel3,
             R.drawable.carrousel4,
-    };
+    };*/
 
 
     public MainFragment() {
@@ -120,7 +120,7 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnMainCreateAccount.setOnClickListener(this);
-        listSlides = new ArrayList<Fragment>();
+        /*listSlides = new ArrayList<Fragment>();
 
         String[] topText = {
                 getString(R.string.carrouse_title_1),
@@ -133,7 +133,7 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         for (int index = 1; index < imgs.length; index++) {
 
             listSlides.add(ScreenSlidePagefragment.newInstance(imgs[index], topText[index], index));
-        }
+        }*/
 
         String textLogin = getString(R.string.tienes_cuenta);
         SpannableString ss = new SpannableString(textLogin);

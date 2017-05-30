@@ -156,6 +156,13 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
                 }
             }
 
+            /**
+             * Lineas para probar los estados y carga de imagenes, sin importar los estados del servidor
+             */
+            //IFEfront.setClickable(true);
+            //IFEback.setClickable(true);
+            //Addressfront.setClickable(true);
+            //Addressback.setClickable(true);
         }
     }
 
