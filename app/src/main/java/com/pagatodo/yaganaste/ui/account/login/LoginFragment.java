@@ -207,8 +207,12 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         onValidationSuccess();
     }
 
+    private void showValidationError(Object err){
+        showValidationError(0, err);
+    }
+
     @Override
-    public void showValidationError(Object error) {
+    public void showValidationError(int id, Object error) {
         UI.showToastShort(error.toString(), getActivity());
         setEnableViews(true);
     }

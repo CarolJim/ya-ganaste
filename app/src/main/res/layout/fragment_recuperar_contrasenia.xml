@@ -13,59 +13,68 @@
     <include
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbarLy">
 
-    <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
-        android:id="@+id/borderLayout"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_big"
-        android:layout_marginRight="@dimen/margin_big"
-        android:gravity="center"
-        app:title="@string/recupera_contrasenia_title">
-
-
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            style="@style/FragmentElementTop"
-            android:id="@+id/txtHeaderRecovery"
+        <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+            android:id="@+id/borderLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_big"
+            android:layout_marginRight="@dimen/margin_big"
             android:gravity="center"
-            android:layout_marginTop="@dimen/margin_big"
-            android:text="@string/ingresa_correo_registrado"/>
+            app:title="@string/recupera_contrasenia_title">
 
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-            style="@style/FragmentElementBottom"
-                android:id="@+id/edtCorreoRegistrado"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_medium"
-                android:layout_marginRight="@dimen/margin_medium"
-                android:layout_marginTop="@dimen/margin_elements"
-                android:layout_below="@+id/txtHeaderRecovery"
-                android:layout_marginBottom="@dimen/margin_regular"
-                app:formato="email"
-                app:isSingleLine="true" />
+                android:orientation="vertical">
 
-    </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
-        <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-            android:id="@+id/errorMessage"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="visible"
-            android:layout_below="@+id/borderLayout"
-            android:layout_marginBottom="@dimen/margin_small"/>
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/txtHeaderRecovery"
+                    style="@style/FragmentElementTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_big"
+                    android:gravity="center"
+                    android:text="@string/ingresa_correo_registrado" />
 
-    <LinearLayout
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/edtCorreoRegistrado"
+                    style="@style/FragmentElementBottom"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/margin_xsmall"
+                    android:layout_marginLeft="@dimen/margin_medium"
+                    android:layout_marginRight="@dimen/margin_medium"
+                    android:layout_marginTop="@dimen/margin_elements"
+                    app:formato="email"
+                    app:isSingleLine="true" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/margin_regular"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+
+        </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+
+
+        <LinearLayout
             android:id="@+id/layoutBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
+
             <LinearLayout
                 android:id="@+id/layoutBtns"
                 android:layout_width="match_parent"
@@ -79,35 +88,35 @@
                     android:id="@+id/btnBackRecuperar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_btns"
-                    android:layout_weight="1.4"
                     android:layout_centerInParent="true"
-                    android:text="@string/backButton"
                     android:layout_marginRight="@dimen/margin_small"
+                    android:layout_weight="1.4"
                     android:background="@drawable/selector_btn_back"
+                    android:text="@string/backButton"
                     android:textAllCaps="false" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleButton
                     android:id="@+id/btnNextRecuperar"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_btns"
-                    android:layout_weight="1"
                     android:layout_centerInParent="true"
+                    android:layout_marginLeft="@dimen/margin_small"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_btn_continuar"
                     android:gravity="center"
                     android:text="@string/nextButton"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    android:background="@drawable/selector_btn_continuar"
                     android:textAllCaps="false" />
             </LinearLayout>
         </LinearLayout>
 
 
-</RelativeLayout>
+    </RelativeLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressIndicator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 
 
 </RelativeLayout>

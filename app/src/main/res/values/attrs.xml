@@ -18,7 +18,7 @@
 
     <declare-styleable name="MaterialImageButton">
         <attr name="imageSrc" format="reference" />
-        <attr name="buttonRippleColor"/>
+        <attr name="buttonRippleColor" />
         <attr name="imageTint" format="color" />
         <attr name="imagePadding" format="dimension" />
         <attr name="imageStartPadding" format="dimension" />
@@ -32,8 +32,8 @@
         <attr name="buttonRippleColor2" format="color" />
         <attr name="buttonNormalColor" format="color" />
         <attr name="selectedTextColor" format="color" />
-        <attr name="cornerRadius"/>
-        <attr name="buttonStrokeColor"/>
+        <attr name="cornerRadius" />
+        <attr name="buttonStrokeColor" />
         <attr name="overBackground" format="reference" />
         <attr name="buttonShape" />
 
@@ -46,18 +46,18 @@
     </declare-styleable>
 
     <declare-styleable name="MaterialLinearLayout">
-        <attr name="buttonRippleColor"/>
-        <attr name="cornerRadius"/>
-        <attr name="buttonStrokeColor"/>
-        <attr name="selectedStrokeColor"/>
-        <attr name="normalBackGround" format="reference"/>
+        <attr name="buttonRippleColor" />
+        <attr name="cornerRadius" />
+        <attr name="buttonStrokeColor" />
+        <attr name="selectedStrokeColor" />
+        <attr name="normalBackGround" format="reference" />
     </declare-styleable>
 
     <!-- comunes -->
-    <attr name="buttonRippleColor" format="color"/>
-    <attr name="cornerRadius" format="dimension"/>
-    <attr name="buttonStrokeColor" format="color"/>
-    <attr name="selectedStrokeColor" format="color"/>
+    <attr name="buttonRippleColor" format="color" />
+    <attr name="cornerRadius" format="dimension" />
+    <attr name="buttonStrokeColor" format="color" />
+    <attr name="selectedStrokeColor" format="color" />
 
 
     <declare-styleable name="StyleTextView">
@@ -67,14 +67,15 @@
             <enum name="Descripcion" value="2" />
             <enum name="Indicacion" value="3" />
             <enum name="Text" value="4" />
-            <enum name="InputText" value="4" />
-            <enum name="InputTextDescription" value="4" />
+            <enum name="InputText" value="5" />
+            <enum name="InputTextDescription" value="6" />
+            <enum name="Italic" value="7" />
         </attr>
     </declare-styleable>
 
     <declare-styleable name="CustomSeekBar">
-        <attr name="text" format="string"/>
-        <attr name="textSize" format="dimension"/>
+        <attr name="text" format="string" />
+        <attr name="textSize" format="dimension" />
     </declare-styleable>
 
     <attr name="buttonShape" format="enum">
@@ -84,64 +85,64 @@
 
     <declare-styleable name="ValidatedEdittext">
         <attr name="tipovalidacion" format="enum">
-            <enum name="email" value="0"/>
-            <enum name="password" value="1"/>
-            <enum name="phone" value="2"/>
-            <enum name="zipcode" value="3"/>
-            <enum name="text" value="4"/>
+            <enum name="email" value="0" />
+            <enum name="password" value="1" />
+            <enum name="phone" value="2" />
+            <enum name="zipcode" value="3" />
+            <enum name="text" value="4" />
         </attr>
     </declare-styleable>
 
     <declare-styleable name="CustomValidationEditText">
         <attr name="formato" format="enum">
-            <enum name="email" value="0"/>
-            <enum name="password" value="1"/>
-            <enum name="phone" value="2"/>
-            <enum name="zipcode" value="3"/>
-            <enum name="text" value="4"/>
-            <enum name="number" value="5"/>
-            <enum name="celphone" value="6"/>
+            <enum name="email" value="0" />
+            <enum name="password" value="1" />
+            <enum name="phone" value="2" />
+            <enum name="zipcode" value="3" />
+            <enum name="text" value="4" />
+            <enum name="number" value="5" />
+            <enum name="celphone" value="6" />
         </attr>
-        <attr name="hintText" format="string"/>
-        <attr name="hintColor" format="color"/>
+        <attr name="hintText" format="string" />
+        <attr name="hintColor" format="color" />
         <attr name="defaultIcon" format="enum">
-            <enum name="email" value="0"/>
+            <enum name="email" value="0" />
         </attr>
-        <attr name="maxLength" format="integer"/>
-        <attr name="imageIsGone" format="boolean"/>
-        <attr name="maxLines" format="integer"/>
-        <attr name="isSingleLine" format="boolean"/>
-        <attr name="isTextEnabled" format="boolean"/>
-        <attr name="android:inputType"/>
-        <attr name="android:textSize"/>
+        <attr name="maxLength" format="integer" />
+        <attr name="imageIsGone" format="boolean" />
+        <attr name="maxLines" format="integer" />
+        <attr name="isSingleLine" format="boolean" />
+        <attr name="isTextEnabled" format="boolean" />
+        <attr name="android:inputType" />
+        <attr name="android:textSize" />
     </declare-styleable>
 
     <declare-styleable name="BorderTitleLayout">
-        <attr name="title" format="string"/>
+        <attr name="title" format="string" />
     </declare-styleable>
 
     <declare-styleable name="GenericTabLayout">
-        <attr name="tabLayout" format="reference"/>
+        <attr name="tabLayout" format="reference" />
     </declare-styleable>
 
     <declare-styleable name="SeekBarNoTouch">
-        <attr name="seekThumbColor" format="color"/>
+        <attr name="seekThumbColor" format="color" />
     </declare-styleable>
 
     <declare-styleable name="MontoTextView">
-        <attr name="dotBottom" format="boolean"/>
-        <attr name="symbolSmaller" format="boolean"/>
-        <attr name="decimalLenght" format="integer"/>
+        <attr name="dotBottom" format="boolean" />
+        <attr name="symbolSmaller" format="boolean" />
+        <attr name="decimalLenght" format="integer" />
     </declare-styleable>
 
     <declare-styleable name="MaskedEditText">
-        <attr name="mask" format="string"/>
-        <attr name="notMaskedSymbol" format="string"/>
-        <attr name="replacementChar" format="string"/>
-        <attr name="deleteChar" format="string"/>
-        <attr name="format" format="string"/>
-        <attr name="maskIcon" format="reference"/>
-        <attr name="maskIconColor" format="reference"/>
-        <attr name="android:inputType"/>
+        <attr name="mask" format="string" />
+        <attr name="notMaskedSymbol" format="string" />
+        <attr name="replacementChar" format="string" />
+        <attr name="deleteChar" format="string" />
+        <attr name="format" format="string" />
+        <attr name="maskIcon" format="reference" />
+        <attr name="maskIconColor" format="reference" />
+        <attr name="android:inputType" />
     </declare-styleable>
 </resources>

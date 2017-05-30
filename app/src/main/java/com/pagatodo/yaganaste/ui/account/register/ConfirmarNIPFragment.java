@@ -1,7 +1,5 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -133,7 +131,6 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         });
 
 
-
         layout_control.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -195,8 +192,12 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         onValidationSuccess();
     }
 
+    private void showValidationError(Object err) {
+        showValidationError(0, err);
+    }
+
     @Override
-    public void showValidationError(Object error) {
+    public void showValidationError(int id, Object error) {
         UI.showToastShort(error.toString(), getActivity());
     }
 

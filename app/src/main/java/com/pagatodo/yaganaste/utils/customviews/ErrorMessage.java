@@ -20,7 +20,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ErrorMessage extends RelativeLayout {
 
-    private ImageView imgError;
+    //private ImageView imgError;
     private StyleTextView textMessage;
 
     public ErrorMessage(Context context) {
@@ -43,13 +43,13 @@ public class ErrorMessage extends RelativeLayout {
         LayoutInflater li = (LayoutInflater)getContext().getSystemService(infService);
         li.inflate(R.layout.error_validation_message, this, true);
         textMessage = ButterKnife.findById(this, R.id.txtError);
-        imgError = ButterKnife.findById(this, R.id.imgError);
+        //imgError = ButterKnife.findById(this, R.id.imgError);
     }
 
-    public void setImageError(@DrawableRes int idResource){
+    /*public void setImageError(@DrawableRes int idResource){
         imgError.setVisibility(GONE);
         imgError.setImageResource(idResource);
-    }
+    }*/
 
     public void setMessageText(String errorMessage){
         textMessage.setText(errorMessage);
@@ -57,7 +57,7 @@ public class ErrorMessage extends RelativeLayout {
     }
 
     public void setVisibilityImageError(boolean isVisible){
-        imgError.setVisibility(isVisible ? VISIBLE : INVISIBLE);
+        //imgError.setVisibility(isVisible ? VISIBLE : INVISIBLE);
         textMessage.setVisibility(isVisible ? VISIBLE : INVISIBLE);
         if(!isVisible)textMessage.setText("");
     }

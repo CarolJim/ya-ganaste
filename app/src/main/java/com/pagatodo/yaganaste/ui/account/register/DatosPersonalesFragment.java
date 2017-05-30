@@ -1,8 +1,6 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
-import android.app.Activity;
 import android.app.DatePickerDialog;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
@@ -20,10 +18,8 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
-import com.pagatodo.yaganaste.interfaces.enums.Nacionalities;
 import com.pagatodo.yaganaste.interfaces.enums.States;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.account.register.adapters.NacionalidadSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
@@ -41,7 +37,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DATA_
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DatosPersonalesFragment extends GenericFragment implements View.OnClickListener, ValidationForms,INavigationView,AdapterView.OnItemSelectedListener {
+public class DatosPersonalesFragment extends GenericFragment implements View.OnClickListener, ValidationForms, INavigationView, AdapterView.OnItemSelectedListener {
 
 
     private final int MX = 1;
@@ -67,8 +63,19 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     Button btnBackDatosPersonales;
     @BindView(R.id.btnNextPersonalInfo)
     Button btnNextDatosPersonales;
-    @BindView(R.id.errorMessage)
-    ErrorMessage errorMessageView;
+    //@BindView(R.id.errorMessage)
+    //ErrorMessage errorMessageView;
+
+    @BindView(R.id.errorNameMessage)
+    ErrorMessage errorNameMessage;
+    @BindView(R.id.errorFLastNameMessage)
+    ErrorMessage errorFLastNameMessage;
+    @BindView(R.id.errorBirthDayMessage)
+    ErrorMessage errorBirthDayMessage;
+    @BindView(R.id.errorBirthPlaceMessage)
+    ErrorMessage errorBirthPlaceMessage;
+
+
     StatesSpinnerAdapter adapterBirthPlace;
 
     private String genero = "";
@@ -100,6 +107,12 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
+        errorNameMessage.setVisibilityImageError(false);
+        errorFLastNameMessage.setVisibilityImageError(false);
+        errorBirthDayMessage.setVisibilityImageError(false);
+        errorBirthPlaceMessage.setVisibilityImageError(false);
+
         editBirthDay.setFullOnClickListener(onClickListenerDatePicker);
         adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout, States.values());
         spinnerBirthPlace.setAdapter(adapterBirthPlace);
@@ -113,13 +126,13 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.editBirthDay:
                 break;
             case R.id.btnBackPersonalInfo:
-                backScreen(EVENT_DATA_USER_BACK,null);
+                backScreen(EVENT_DATA_USER_BACK, null);
                 break;
-            case  R.id.btnNextPersonalInfo:
+            case R.id.btnNextPersonalInfo:
                 validateForm();
             default:
                 break;
@@ -134,14 +147,16 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         editNames.addCustomTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(!editNames.isValidText()){
-                    hideErrorMessage();
+                if (!editNames.isValidText()) {
+                    hideErrorMessage(editNames.getId());
                 }
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -150,14 +165,16 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         editFirstLastName.addCustomTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(!editFirstLastName.isValidText()){
-                    hideErrorMessage();
+                if (!editFirstLastName.isValidText()) {
+                    hideErrorMessage(editFirstLastName.getId());
                 }
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -166,14 +183,16 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         editBirthDay.addCustomTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(!editBirthDay.isValidText()){
-                    hideErrorMessage();
+                if (!editBirthDay.isValidText()) {
+                    hideErrorMessage(editBirthDay.getId());
                 }
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -183,24 +202,24 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     @Override
     public void validateForm() {
         getDataForm();
-        if(nombre.isEmpty()){
-            showValidationError(getString(R.string.datos_personal_nombre));
+        if (nombre.isEmpty()) {
+            showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
             editNames.setIsInvalid();
             return;
         }
-        if(apPaterno.isEmpty()){
-            showValidationError(getString(R.string.datos_personal_paterno));
+        if (apPaterno.isEmpty()) {
+            showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
             editFirstLastName.setIsInvalid();
             return;
         }
-        if(fechaNacimiento.isEmpty()){
-            showValidationError(getString(R.string.datos_personal_fecha));
+        if (fechaNacimiento.isEmpty()) {
+            showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
             editBirthDay.setIsInvalid();
             return;
         }
 
-        if(lugarNacimiento.isEmpty()){
-            showValidationError(getString(R.string.datos_personal_estado));
+        if (lugarNacimiento.isEmpty()) {
+            showValidationError(spinnerBirthPlace.getId(), getString(R.string.datos_personal_estado));
             return;
         }
 
@@ -209,14 +228,43 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     }
 
     @Override
-    public void showValidationError(Object error) {
-        errorMessageView.setMessageText(error.toString());
+    public void showValidationError(int id, Object error) {
+
+        switch (id) {
+            case R.id.editNames:
+                errorNameMessage.setMessageText(error.toString());
+                break;
+            case R.id.editFirstLastName:
+                errorFLastNameMessage.setMessageText(error.toString());
+                break;
+            case R.id.editBirthDay:
+                errorBirthDayMessage.setMessageText(error.toString());
+                break;
+            case R.id.spinnerBirthPlace:
+                errorBirthPlaceMessage.setMessageText(error.toString());
+                break;
+        }
         UI.hideKeyBoard(getActivity());
         //UI.showToastShort(error.toString(),getActivity());
     }
 
-    private void hideErrorMessage(){
-        errorMessageView.setVisibilityImageError(false);
+    private void hideErrorMessage(int id) {
+        //errorMessageView.setVisibilityImageError(false);
+
+        switch (id) {
+            case R.id.editNames:
+                errorNameMessage.setVisibilityImageError(false);
+                break;
+            case R.id.editFirstLastName:
+                errorFLastNameMessage.setVisibilityImageError(false);
+                break;
+            case R.id.editBirthDay:
+                errorBirthDayMessage.setVisibilityImageError(false);
+                break;
+            case R.id.spinnerBirthPlace:
+                errorBirthPlaceMessage.setVisibilityImageError(false);
+                break;
+        }
     }
 
     @Override
@@ -234,6 +282,11 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
 
     @Override
     public void onValidationSuccess() {
+        errorNameMessage.setVisibilityImageError(false);
+        errorFLastNameMessage.setVisibilityImageError(false);
+        errorBirthDayMessage.setVisibilityImageError(false);
+        errorBirthPlaceMessage.setVisibilityImageError(false);
+
         //Almacenamos la información para el registro
         RegisterUser registerUser = RegisterUser.getInstance();
         registerUser.setGenero(genero);
@@ -245,7 +298,7 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         registerUser.setNacionalidad("MX");
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
-        nextScreen(EVENT_ADDRESS_DATA,null);//Mostramos siguiente pantalla de registro.
+        nextScreen(EVENT_ADDRESS_DATA, null);//Mostramos siguiente pantalla de registro.
     }
 
     @Override
@@ -254,18 +307,18 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         nombre = editNames.getText().toString();
         apPaterno = editFirstLastName.getText().toString();
         apMaterno = editSecoundLastName.getText().toString();
-        if(spinnerBirthPlace.getSelectedItemPosition() != 0) {
+        if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
             StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
             idEstadoNacimiento = adapter.getItemIdString(spinnerBirthPlace.getSelectedItemPosition());
         }
     }
 
-    private void setCurrentData(){
+    private void setCurrentData() {
         RegisterUser registerUser = RegisterUser.getInstance();
-        if(registerUser.getGenero().equals("H")){
+        if (registerUser.getGenero().equals("H")) {
             radioBtnMale.setChecked(true);
-        }else {
+        } else {
             radioBtnFemale.setChecked(true);
         }
 
@@ -274,18 +327,18 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         editSecoundLastName.setText(registerUser.getApellidoMaterno());
         editBirthDay.setText(registerUser.getFechaNacimientoToShow());
         fechaNacimiento = registerUser.getFechaNacimiento();
-        StatesSpinnerAdapter adapter = (StatesSpinnerAdapter)spinnerBirthPlace.getAdapter();
+        StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
         spinnerBirthPlace.setSelection(adapter.getPositionItemByName(registerUser.getLugarNacimiento()));
     }
 
     @Override
     public void nextScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
@@ -298,8 +351,8 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
 
     @Override
     public void showError(Object error) {
-        if(!error.toString().isEmpty())
-            UI.showToastShort(error.toString(),getActivity());
+        if (!error.toString().isEmpty())
+            UI.showToastShort(error.toString(), getActivity());
     }
 
     View.OnClickListener onClickListenerDatePicker = new View.OnClickListener() {

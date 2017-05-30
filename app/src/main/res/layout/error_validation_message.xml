@@ -1,25 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout
-        xmlns:android="http://schemas.android.com/apk/res/android"
-        xmlns:app="http://schemas.android.com/apk/res-auto"
-        xmlns:tools="http://schemas.android.com/tools"
-        android:layout_below="@+id/layoutBorder"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:layout_marginTop="@dimen/margin_small">
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:gravity="center"
+    android:orientation="vertical">
 
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/imgError"
-            android:layout_width="@dimen/width_icon_error"
-            android:layout_height="@dimen/height_icon_error"
-            android:layout_centerHorizontal="true"
-            android:visibility="invisible"
-            app:srcCompat="@drawable/warning_canvas"/>
-
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            style="@style/TextErrorValidation"
-            android:id="@+id/txtError"
-            android:layout_below="@+id/imgError"
-            android:visibility="invisible" />
-</RelativeLayout>
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txtError"
+        style="@style/TextErrorValidation"
+        android:text="error text"
+        android:visibility="visible" />
+</LinearLayout>

@@ -25,8 +25,6 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
@@ -34,7 +32,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DetailTransactionFragment extends PaymentFormBaseFragment implements ValidationForms,INavigationView {
+public class DetailTransactionFragment extends PaymentFormBaseFragment implements ValidationForms, INavigationView {
 
     @BindView(R.id.txtAmountPayment)
     StyleTextView txtAmountPayment;
@@ -76,7 +74,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-        emvDepositResponse  = TransactionAdqData.getCurrentTransaction().getTransaccionResponse();
+        emvDepositResponse = TransactionAdqData.getCurrentTransaction().getTransaccionResponse();
         adqPresenter = new AdqPresenter(this);
     }
 
@@ -102,8 +100,8 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @Override
     public void initViews() {
         super.initViews();
-        txtAmountPayment.setText(String.format("$%s",TransactionAdqData.getCurrentTransaction().getAmount()));
-        txtMaskedPan.setText(String.format("%s",emvDepositResponse.getMaskedPan()));
+        txtAmountPayment.setText(String.format("$%s", TransactionAdqData.getCurrentTransaction().getAmount()));
+        txtMaskedPan.setText(String.format("%s", emvDepositResponse.getMaskedPan()));
         imgTypeCard.setImageResource(emvDepositResponse.getMarcaTarjetaBancaria().equals("Visa") ? R.drawable.mastercard_canvas : R.drawable.mastercard_canvas);
     }
 
@@ -114,16 +112,20 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @Override
     public void validateForm() {
         getDataForm();
-        if(emailToSend.isEmpty() || !edtEmailSendticket.isValidText()){
+        if (emailToSend.isEmpty() || !edtEmailSendticket.isValidText()) {
             showValidationError(getString(R.string.check_your_mail));
             return;
         }
         onValidationSuccess();
     }
 
+    private void showValidationError(Object err) {
+        showValidationError(0, err);
+    }
+
     @Override
-    public void showValidationError(Object o) {
-        UI.showToast(o.toString(),getActivity());
+    public void showValidationError(int id, Object o) {
+        UI.showToast(o.toString(), getActivity());
         mySeekBar.setProgress(0);
     }
 
@@ -140,12 +142,12 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
 
     @Override
     public void nextScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
@@ -174,7 +176,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
 
             }
         };
-        UI.createSimpleCustomDialog("Error", error.toString(), getFragmentManager(),doubleActions, true, false);
+        UI.createSimpleCustomDialog("Error", error.toString(), getFragmentManager(), doubleActions, true, false);
         //UI.showToastShort(error.toString(),getActivity());
     }
 

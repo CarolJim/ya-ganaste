@@ -225,6 +225,10 @@
         <item name="android:layout_marginTop">@dimen/space_between_elements</item>
     </style>
 
+    <style name="FragmentElementWithValidation" parent="FragmentElement">
+        <item name="android:layout_marginTop">@dimen/margin_xsmall</item>
+    </style>
+
     <style name="FragmentElementTop" parent="FragmentElement">
         <item name="android:layout_marginTop">@dimen/margin_doble</item>
     </style>
@@ -302,13 +306,12 @@
     <style name="TextErrorValidation">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/redcolor</item>
-        <item name="android:textSize">14sp</item>
-        <item name="tipo">Descripcion</item>
-        <item name="android:gravity">center</item>
+        <item name="android:textColor">@color/redErrorColor</item>
+        <item name="android:textSize">12sp</item>
+        <item name="tipo">Italic</item>
+        <item name="android:gravity">center|left|top</item>
         <item name="android:layout_marginLeft">@dimen/margin_doble</item>
         <item name="android:layout_marginRight">@dimen/margin_doble</item>
-        <item name="android:layout_marginTop">@dimen/margin_xsmall</item>
     </style>
 
     <style name="formatPIN">

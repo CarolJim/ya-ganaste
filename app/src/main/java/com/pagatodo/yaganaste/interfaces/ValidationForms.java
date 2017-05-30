@@ -16,7 +16,7 @@ public interface ValidationForms<Error> {
     public void validateForm();
 
     /*Método para mostrar errores en la validación*/
-    public void showValidationError(Error error);
+    public void showValidationError(int id, Error error);
 
     /*Método para disparar la acción posterior a la validación satisfactoria del formulario*/
     public void onValidationSuccess();

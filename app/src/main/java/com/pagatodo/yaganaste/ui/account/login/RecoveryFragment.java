@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 import android.app.Activity;
 import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -13,31 +12,22 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.interfaces.ILoginView;
-import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.RecoveryPasswordView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
-import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
-import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
-import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
-import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS_BACK;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
@@ -45,7 +35,7 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class RecoveryFragment extends GenericFragment implements View.OnClickListener, RecoveryPasswordView,ValidationForms{
+public class RecoveryFragment extends GenericFragment implements View.OnClickListener, RecoveryPasswordView, ValidationForms {
 
     private View rootview;
 
@@ -88,7 +78,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        accountPresenter = ((AccountActivity)getActivity()).getPresenter();
+        accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
     }
 
@@ -114,6 +104,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        errorMessageView.setVisibilityImageError(false);
         btnBack.setOnClickListener(this);
         btnRecuperarContrasenia.setOnClickListener(this);
         setValidationRules();
@@ -121,9 +112,9 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnBackRecuperar:
-                backScreen(EVENT_RECOVERY_PASS_BACK,null);
+                backScreen(EVENT_RECOVERY_PASS_BACK, null);
                 break;
             case R.id.btnNextRecuperar:
                 validateForm();
@@ -161,7 +152,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
         UI.hideKeyBoard(getActivity());
     }
 
-    private void hideErrorMessage(){
+    private void hideErrorMessage() {
         errorMessageView.setVisibilityImageError(false);
     }
 
@@ -172,14 +163,16 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
         edtCorreoRegistrado.addCustomTextWatcher(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if(!edtCorreoRegistrado.isValidText()){
+                if (!edtCorreoRegistrado.isValidText()) {
                     hideErrorMessage();
                 }
             }
+
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
             }
+
             @Override
             public void afterTextChanged(Editable s) {
             }
@@ -189,17 +182,19 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
     @Override
     public void validateForm() {
         getDataForm();
-        if(correoRegistrado.isEmpty()){
-            showValidationError(getString(R.string.ingresa_correo_registrado_requerido));
+        if (correoRegistrado.isEmpty()) {
+            showValidationError(edtCorreoRegistrado.getId(), getString(R.string.ingresa_correo_registrado_requerido));
             edtCorreoRegistrado.setIsInvalid();
-            return;
+        } else if (!edtCorreoRegistrado.isValidText()) {
+            showValidationError(edtCorreoRegistrado.getId(), getString(R.string.datos_usuario_correo_formato));
+            edtCorreoRegistrado.setIsInvalid();
+        } else {
+            onValidationSuccess();
         }
-
-        onValidationSuccess();
     }
 
     @Override
-    public void showValidationError(Object error) {
+    public void showValidationError(int id, Object error) {
         errorMessageView.setMessageText(error.toString());
         UI.hideKeyBoard(getActivity());
         setEnableViews(true);
@@ -219,10 +214,10 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void recoveryPasswordSuccess(String message) {
-        UI.showToastShort(message,getActivity());
+        UI.showToastShort(message, getActivity());
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                backScreen(EVENT_RECOVERY_PASS_BACK,null);
+                backScreen(EVENT_RECOVERY_PASS_BACK, null);
             }
         }, DELAY_MESSAGE_PROGRESS);
         setEnableViews(true);
@@ -230,15 +225,14 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void recoveryPasswordFailed(String message) {
-        UI.showToastShort(message,getActivity());
+        UI.showToastShort(message, getActivity());
         setEnableViews(true);
     }
 
-    private void setEnableViews(boolean isEnable){
+    private void setEnableViews(boolean isEnable) {
         edtCorreoRegistrado.setEnabled(isEnable);
         btnBack.setEnabled(isEnable);
         btnRecuperarContrasenia.setEnabled(isEnable);
-
     }
 }
 
