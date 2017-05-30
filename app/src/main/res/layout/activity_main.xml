@@ -7,11 +7,18 @@
     android:layout_height="match_parent"
     tools:context="com.pagatodo.yaganaste.ui._controllers.MainActivity">
 
-    <com.github.demono.AutoScrollViewPager
+<!--    <com.github.demono.AutoScrollViewPager
         android:id="@+id/viewpager"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:background="@color/whiteColor" />
+        android:background="@color/whiteColor" />-->
+
+    <com.jude.rollviewpager.RollPagerView
+        android:id="@+id/rollPager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        app:rollviewpager_play_delay="5000" />
+
 
     <RelativeLayout
         android:layout_width="match_parent"

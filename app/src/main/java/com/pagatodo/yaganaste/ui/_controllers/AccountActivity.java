@@ -3,8 +3,11 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.util.Log;
+import android.view.View;
 import android.view.Window;
+import android.widget.FrameLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -45,6 +48,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 public class AccountActivity extends SupportFragmentActivity implements OnEventListener {
     private String TAG = getClass().getSimpleName();
     private Preferencias pref;
+    FrameLayout container;
 
     public final static String EVENT_GO_LOGIN = "EVENT_GO_LOGIN";
     public final static String EVENT_GO_GET_CARD = "EVENT_GO_GET_CARD";
@@ -92,6 +96,10 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         pref = App.getInstance().getPrefs();
         resetRegisterData();
         presenterAccount = new AccountPresenterNew(this);
+
+        container = (FrameLayout) findViewById(R.id.container);
+        View root = container.getRootView();
+       // root.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
 
         switch (action) {
             case GO_TO_LOGIN:
