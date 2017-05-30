@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
@@ -21,7 +22,7 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 
-public class PreferUserActivity extends ToolBarActivity implements OnEventListener {
+public class PreferUserActivity extends LoaderActivity implements OnEventListener {
 
     private boolean isEsAgente;
     private String mName, mEmail, mUserImage;
@@ -90,6 +91,8 @@ public class PreferUserActivity extends ToolBarActivity implements OnEventListen
 
     @Override
     public void onEvent(String event, Object data) {
+        super.onEvent(event, data);
+
         switch (event) {
             case "PREFER_USER_LEGALES":
                 loadFragment(ListaLegalesFragment.newInstance(), Direction.FORDWARD, false);

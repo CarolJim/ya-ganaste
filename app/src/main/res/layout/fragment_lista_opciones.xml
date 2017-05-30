@@ -340,11 +340,4 @@
 
         </LinearLayout>
     </LinearLayout>
-
-    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
-        android:id="@+id/progressLayout"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/bg_progress"
-        android:visibility="gone" />
 </RelativeLayout>

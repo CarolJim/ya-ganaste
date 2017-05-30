@@ -39,6 +39,8 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CLOSE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_LEGALES;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -64,8 +66,6 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     private ArrayList<DataDocuments> dataDocumnets;
     private Drawable mDrawable = null;
 
-    @BindView(R.id.progressLayout)
-    ProgressLayout progressLayout;
     @BindView(R.id.fragment_list_opciones_name)
     TextView tv_name;
     @BindView(R.id.fragment_list_opciones_email)
@@ -281,7 +281,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void showProgress(String mMensaje) {
-        showLoader("Cargando Imagen. Por favor, espere . . .");
+        onEventListener.onEvent(EVENT_SHOW_LOADER, "LOADER DESDE LoaderActivity");
     }
 
     @Override
@@ -296,19 +296,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         CameraManager.cleanBitmap();
     }
 
-    public void showLoader(String message) {
-        progressLayout.setTextMessage(message);
-        progressLayout.setVisibility(VISIBLE);
-    }
-
     public void hideLoader() {
-        progressLayout.setVisibility(GONE);
+       // progressLayout.setVisibility(GONE);
+        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
     }
-
-
-/*    @Override
-    public void showLoader(String message) {
-        progressLayout.setTextMessage(message);
-        progressLayout.setVisibility(VISIBLE);
-    }*/
 }
