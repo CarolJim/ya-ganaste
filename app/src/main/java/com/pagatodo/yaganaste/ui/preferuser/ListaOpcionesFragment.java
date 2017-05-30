@@ -281,7 +281,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void showProgress(String mMensaje) {
-        onEventListener.onEvent(EVENT_SHOW_LOADER, "LOADER DESDE LoaderActivity");
+        onEventListener.onEvent(EVENT_SHOW_LOADER,
+                getActivity().getResources().getString(R.string.listaopciones_load_image_wait));
     }
 
     @Override

@@ -500,6 +500,9 @@
     <string name="desea_cacelar">¿Deseas Salir y Cancelar la Operación Actual?</string>
 
     <string name="no_sucursales">No exisiten sucursales en tu área.</string>
+
+    <!-- PreferUSerActivity -->
+    <string name="listaopciones_load_image_wait">Cargando Imagen. Por favor, espere . . .</string>
 </resources>
 
 

@@ -5,7 +5,6 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:focusable="true"
     android:background="@drawable/bg_gradient_bottom"
     android:focusableInTouchMode="true"
@@ -15,9 +14,12 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
+        android:layout_alignParentTop="true">
+        <!--
+        Lineas que causaron conflicto en el RelativeLayout
         android:layout_toEndOf="@+id/progressLayout"
-        android:layout_toRightOf="@+id/progressLayout">
+        android:layout_toRightOf="@+id/progressLayout"
+        -->
 
         <include
             android:id="@+id/toolbarLy"
