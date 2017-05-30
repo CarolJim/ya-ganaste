@@ -5,10 +5,10 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@color/colorPrimary"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
+    android:background="@drawable/bg_gradient_bottom"
     tools:context=".ui._controllers.AccountActivity">
 
     <include

@@ -118,7 +118,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         Resources r = getResources();
         // int px =  Integer.valueOf((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, r.getDimension(R.dimen.separator), r.getDisplayMetrics()));
         drawable.setSize(1, 1);
-        linearLayout.setDividerPadding(4);
+        linearLayout.setDividerPadding(0);
         linearLayout.setDividerDrawable(drawable);
         //  Log.e("TabActivity", "indicator position " + mainTab.getSelectedTabPosition());
         mainTab.setSelectedTabIndicatorHeight(4);

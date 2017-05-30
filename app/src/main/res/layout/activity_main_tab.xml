@@ -26,6 +26,11 @@
             android:scrollIndicators=""
             android:layout_weight="1" />
 
+        <View
+            android:layout_width="match_parent"
+            android:background="@color/grayColor"
+            android:layout_height="1dp" />
+
         <com.pagatodo.yaganaste.utils.customviews.GenericTabLayout
             android:id="@+id/main_tab"
             android:layout_width="match_parent"

@@ -151,7 +151,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         contador = new ArrayList<>();
-        adqPresenter = new AccountAdqPresenter(this,getContext());
+        adqPresenter = new AccountAdqPresenter(this, getContext());
     }
 
     @Override
@@ -330,7 +330,8 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             switch (documentProcessed) {
                 case IFE_FRONT:
                     itemWeNeedSmFilesIFEfront.setImageBitmap(bitmap);
-                    itemWeNeedSmFilesIFEfront.setVisibilityStatus(false);
+                    itemWeNeedSmFilesIFEfront.setVisibilityStatus(true);
+                    itemWeNeedSmFilesIFEfront.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
                     itemWeNeedSmFilesIFEfront.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_ID_FRONT);
@@ -340,7 +341,8 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
                 case IFE_BACK:
                     itemWeNeedSmFilesIFEBack.setImageBitmap(bitmap);
-                    itemWeNeedSmFilesIFEBack.setVisibilityStatus(false);
+                    itemWeNeedSmFilesIFEBack.setVisibilityStatus(true);
+                    itemWeNeedSmFilesIFEBack.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
                     itemWeNeedSmFilesIFEBack.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_ID_BACK);
@@ -350,7 +352,8 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
                 case COMPROBANTE_FRONT:
                     itemWeNeedSmFilesAddressFront.setImageBitmap(bitmap);
-                    itemWeNeedSmFilesAddressFront.setVisibilityStatus(false);
+                    itemWeNeedSmFilesAddressFront.setVisibilityStatus(true);
+                    itemWeNeedSmFilesAddressFront.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
                     itemWeNeedSmFilesAddressFront.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_DOM_FRONT);
@@ -360,7 +363,8 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                     break;
                 case COMPROBANTE_BACK:
                     itemWeNeedSmFilesAddressBack.setImageBitmap(bitmap);
-                    itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
+                    itemWeNeedSmFilesAddressBack.setVisibilityStatus(true);
+                    itemWeNeedSmFilesAddressBack.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
                     itemWeNeedSmFilesAddressBack.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_DOM_BACK);
@@ -453,12 +457,12 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     /*Agregamos selección de carrete*/
     private void selectImageSource(final int documentId) {
 
-        final CharSequence[] items = {getString(R.string.action_take_picture), getString(R.string.action_select_picture),getString(R.string.action_select_picture_cancel)};
+        final CharSequence[] items = {getString(R.string.action_take_picture), getString(R.string.action_select_picture), getString(R.string.action_select_picture_cancel)};
 
         LayoutInflater inflater = getActivity().getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_camera,null);
+        View dialogView = inflater.inflate(R.layout.dialog_camera, null);
         LayoutInflater titleInflater = getActivity().getLayoutInflater();
-        View dialogTittle  = titleInflater.inflate(R.layout.tittle_dialog,null);
+        View dialogTittle = titleInflater.inflate(R.layout.tittle_dialog, null);
         dialogView.setLayoutParams(new LinearLayout.LayoutParams(
                 LinearLayout.LayoutParams.WRAP_CONTENT,
                 LinearLayout.LayoutParams.WRAP_CONTENT));
@@ -532,12 +536,15 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     public void setDocumentosStatus(List<EstatusDocumentosResponse> data) {
         adqPresenter.setEstatusDocs(rootview, data);
         // Contamos los documentos pendientes
-        documentPendientes = 0 ;
+        documentPendientes = 0;
         for (EstatusDocumentosResponse docs : data) {
             if (docs.getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
-                documentPendientes ++;
+                documentPendientes++;
             }
         }
+
+        // Coigo SOLO para probar la carga correcta de estado al cargar imagen
+        //itemWeNeedSmFilesIFEfront.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
     }
 
     @Override
@@ -617,8 +624,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         }, DELAY_MESSAGE_PROGRESS);
     }
 
-    private void refreshContent()
-    {
+    private void refreshContent() {
         swipeRefreshLayout.setRefreshing(false);
         adqPresenter.getEstatusDocs();
     }
@@ -628,9 +634,9 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         super.onResume();
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
+            adqPresenter.getEstatusDocs();
         }
         swipeRefreshLayout.destroyDrawingCache();
-        adqPresenter.getEstatusDocs();
     }
 
     @Override
