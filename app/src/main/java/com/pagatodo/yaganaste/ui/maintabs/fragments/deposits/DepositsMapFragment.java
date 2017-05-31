@@ -209,7 +209,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
                 depositMapPresenter.getSucursales(actualLocation);
             } catch (OfflineException e) {
                 e.printStackTrace();
-                Toast.makeText(getContext(), "Sin Conexión", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Sin Conexión", Toast.LENGTH_SHORT).show();
                 ((DepositsFragment) getParentFragment()).showErrorMessage(getString(R.string.no_internet_access));
                 ((DepositsFragment) getParentFragment()).onBtnBackPress();
             }

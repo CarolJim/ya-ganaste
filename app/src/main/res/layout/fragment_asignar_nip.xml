@@ -5,9 +5,9 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient_bottom"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:background="@drawable/bg_gradient_bottom"
     android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
 
@@ -95,15 +95,15 @@
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNextAsignarPin"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
                 android:layout_height="@dimen/height_btns"
                 android:layout_centerInParent="true"
+                android:layout_weight="1"
+                android:background="@drawable/selector_btn_continuar"
+                android:elevation="8dp"
                 android:gravity="center"
                 android:text="@string/next"
-                android:elevation="8dp"
-                android:background="@drawable/selector_btn_continuar"
                 android:textAllCaps="false"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"

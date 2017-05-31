@@ -45,8 +45,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layoutImagenLogin"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_margin="@dimen/activity_vertical_margin"
+            android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
             android:gravity="center"
             android:orientation="vertical">
@@ -58,7 +58,7 @@
                 android:layout_above="@+id/edtxtUserPass"
                 android:textColor="@color/colorAccent"
                 android:textSize="16sp"
-                app:tipo="Titulo"/>
+                app:tipo="Titulo" />
 
 
             <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
@@ -66,9 +66,9 @@
                 style="@style/InputTextForms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:hint="@string/txt_escribe_tu_correo"
                 android:layout_above="@+id/edtxtUserPass"
                 android:clickable="true"
+                android:hint="@string/txt_escribe_tu_correo"
                 app:formato="email"
                 app:hintText="@string/txt_escribe_tu_correo"
                 app:isTextEnabled="true" />
@@ -90,9 +90,9 @@
                 style="@style/textDescInputs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:padding="@dimen/margin_medium"
                 android:layout_below="@+id/edtxtLetsStartMail"
                 android:layout_marginTop="@dimen/margin_small"
+                android:padding="@dimen/margin_medium"
                 android:text="@string/recover_pass"
                 android:textSize="14sp" />
 
@@ -103,8 +103,8 @@
             android:id="@+id/layoutBtns"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_medium"
             android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/margin_medium"
             android:clickable="true"
             android:inputType="textPassword">
 
@@ -119,14 +119,14 @@
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnLoginExistUser"
                 android:layout_width="match_parent"
-                android:layout_weight="1"
                 android:layout_height="@dimen/height_btns"
                 android:layout_centerInParent="true"
+                android:layout_weight="1"
+                android:background="@drawable/selector_btn_continuar"
+                android:elevation="8dp"
                 android:gravity="center"
                 android:text="@string/nextButton"
-                android:elevation="8dp"
-                android:background="@drawable/selector_btn_continuar"
-                android:textAllCaps="false"  />
+                android:textAllCaps="false" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -140,8 +140,6 @@
 
 
     </RelativeLayout>
-
-
 
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout

@@ -5,17 +5,12 @@ import android.content.Context;
 import android.content.res.ColorStateList;
 import android.graphics.Canvas;
 import android.graphics.Color;
-import android.graphics.Paint;
-import android.graphics.Rect;
-import android.graphics.drawable.ColorDrawable;
 import android.graphics.drawable.Drawable;
 import android.graphics.drawable.GradientDrawable;
 import android.graphics.drawable.RippleDrawable;
-import android.graphics.drawable.StateListDrawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
 import android.os.Build;
-import android.support.annotation.ColorInt;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
@@ -25,7 +20,6 @@ import android.view.inputmethod.InputMethodManager;
 
 import com.pagatodo.yaganaste.R;
 
-import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -54,13 +48,12 @@ public class CustomKeyboardView extends KeyboardView {
         super(context, attrs, defStyleAttr);
     }
 
-    public void setKeyBoard(Activity activity, int xmlLayoutResId){
+    public void setKeyBoard(Activity activity, int xmlLayoutResId) {
         this.activity = activity;
-        keyboard = new Keyboard(activity,xmlLayoutResId);
+        keyboard = new Keyboard(activity, xmlLayoutResId);
 
         this.setKeyboard(keyboard);
         this.setOnKeyboardActionListener(keyboardActionListener);
-
 
 
     }
@@ -69,30 +62,40 @@ public class CustomKeyboardView extends KeyboardView {
         this.setVisibility(View.GONE);
         this.setEnabled(false);
     }
-    public void showCustomKeyboard( View v) {
+
+    public void showCustomKeyboard(View v) {
         this.setVisibility(View.VISIBLE);
         this.setEnabled(true);
-        if( v!=null ){
-            ((InputMethodManager)activity.getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
+        if (v != null) {
+            ((InputMethodManager) activity.getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
     }
 
 
-    /*@Override
+    @Override
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
 
-        List<Keyboard.Key> keys = getKeyboard().getKeys();
-        for(Keyboard.Key key: keys) {
-            if (key.codes[0] == 29 || key.codes[0] == 67) {
-                Drawable dr = new ColorDrawable(ContextCompat.getColor(getContext(), R.color.grayColor));
-                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
-                dr.setState(key.getCurrentDrawableState());
-                dr.draw(canvas);
-            }
 
+        if (Build.VERSION.SDK_INT > 23) {
+            List<Keyboard.Key> keys = getKeyboard().getKeys();
+            for (Keyboard.Key key : keys) {
+                if (key.codes[0] == 29) {
+
+                    Drawable dr = ContextCompat.getDrawable(getContext(), R.drawable.custom_key_point_selector); //new ColorDrawable(ContextCompat.getColor(getContext(), R.color.grayColor));
+                    dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                    dr.setState(key.getCurrentDrawableState());
+                    dr.draw(canvas);
+                } else if (key.codes[0] == 67) {
+                    Drawable dr = ContextCompat.getDrawable(getContext(), R.drawable.custom_key_back_selector); //new ColorDrawable(ContextCompat.getColor(getContext(), R.color.grayColor));
+                    dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                    dr.setState(key.getCurrentDrawableState());
+                    dr.draw(canvas);
+                }
+
+            }
         }
-    }*/
+    }
 
 
     private Drawable getDrawable() {
@@ -114,7 +117,6 @@ public class CustomKeyboardView extends KeyboardView {
     }
 
 
-
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private Drawable getMaterialDrawable() {
 
@@ -122,7 +124,7 @@ public class CustomKeyboardView extends KeyboardView {
         normalBackground.setShape(GradientDrawable.RECTANGLE);
         normalBackground.setColor(ContextCompat.getColor(getContext(), R.color.bg_progress));
 
-       return normalBackground;
+        return normalBackground;
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -140,9 +142,13 @@ public class CustomKeyboardView extends KeyboardView {
 
     public KeyboardView.OnKeyboardActionListener keyboardActionListener = new KeyboardView.OnKeyboardActionListener() {
         @Override
-        public void onPress(int primaryCode) { }
+        public void onPress(int primaryCode) {
+        }
+
         @Override
-        public void onRelease(int primaryCode) { }
+        public void onRelease(int primaryCode) {
+        }
+
         @Override
         public void onKey(int primaryCode, int[] keyCodes) {
             /**
@@ -156,17 +162,25 @@ public class CustomKeyboardView extends KeyboardView {
         }
 
         @Override
-        public void onText(CharSequence text) { }
-        @Override
-        public void swipeLeft() { }
-        @Override
-        public void swipeRight() { }
-        @Override
-        public void swipeDown() { }
-        @Override
-        public void swipeUp() { }
-    };
+        public void onText(CharSequence text) {
+        }
 
+        @Override
+        public void swipeLeft() {
+        }
+
+        @Override
+        public void swipeRight() {
+        }
+
+        @Override
+        public void swipeDown() {
+        }
+
+        @Override
+        public void swipeUp() {
+        }
+    };
 
 
 }

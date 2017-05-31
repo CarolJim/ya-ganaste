@@ -8,6 +8,5 @@
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtError"
         style="@style/TextErrorValidation"
-        android:text="error text"
         android:visibility="visible" />
 </LinearLayout>
