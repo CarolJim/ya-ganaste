@@ -200,6 +200,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         referencia = recargaNumber.getText().toString().trim();
+        referencia = referencia.replaceAll(" ", "");
         monto = (Double) spinnerMontoRecarga.getSelectedItem();
         recargasPresenter.validateFields(referencia, monto, comercioItem.getLongitudReferencia(), isIAVE);
     }

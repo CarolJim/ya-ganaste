@@ -144,6 +144,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
         referencia = cardNumber.getText().toString().trim();
+        referencia = referencia.replaceAll(" ", "");
         concepto = concept.getText().toString().trim();
         nombreDestinatario = receiverName.getText().toString().trim();
         referenciaNumber = numberReference.getText().toString().trim();

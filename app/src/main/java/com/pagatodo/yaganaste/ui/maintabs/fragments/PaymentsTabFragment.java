@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
@@ -144,7 +145,15 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         rlimgPagosServiceToPay.setOnDragListener(this);
         txtPagosUserName.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombre());
 
-        Double saldo = Double.parseDouble(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor());
+        SingletonUser singletonUser = SingletonUser.getInstance();
+
+        Double saldo;
+        if(singletonUser.getDataUser().isEsAgente() && singletonUser.getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO){
+            saldo = Double.parseDouble(singletonUser.getDatosSaldo().getSaldoAdq());
+        }else{
+            saldo = Double.parseDouble(singletonUser.getDatosSaldo().getSaldoEmisor());
+        }
+
         txtBalance.setText(getString(R.string.your_balance) + StringUtils.getCurrencyValue(saldo));
     }
 
