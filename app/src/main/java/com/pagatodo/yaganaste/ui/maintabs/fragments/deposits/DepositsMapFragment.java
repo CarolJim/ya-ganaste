@@ -204,19 +204,21 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         if (actualLocation != null) {
             LatLng latlon = new LatLng(actualLocation.getLatitude(), actualLocation.getLongitude());
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, 12));
+
+            try {
+                depositMapPresenter.getSucursales(actualLocation);
+            } catch (OfflineException e) {
+                e.printStackTrace();
+                Toast.makeText(getContext(), "Sin Conexión", Toast.LENGTH_SHORT).show();
+                ((DepositsFragment) getParentFragment()).showErrorMessage(getString(R.string.no_internet_access));
+                ((DepositsFragment) getParentFragment()).onBtnBackPress();
+            }
         }
 
         //map.setOnMarkerClickListener(this);
         map.setOnInfoWindowClickListener(this);
 
-        try {
-            depositMapPresenter.getSucursales(actualLocation);
-        } catch (OfflineException e) {
-            e.printStackTrace();
-            Toast.makeText(getContext(), "Sin Conexión", Toast.LENGTH_SHORT).show();
-            ((DepositsFragment) getParentFragment()).showErrorMessage(getString(R.string.no_internet_access));
-            ((DepositsFragment) getParentFragment()).onBtnBackPress();
-        }
+
     }
 
     public void addMarker(DataLocalizaSucursal sucursal) {

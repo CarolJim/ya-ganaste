@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.CheckBox;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
@@ -80,10 +81,19 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     StyleButton btnNextDomicilioActual;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
-    @BindView(R.id.errorMessage)
-    ErrorMessage errorMessageView;
+    //@BindView(R.id.errorMessage)
+    //ErrorMessage errorMessageView;
     @BindView(R.id.radioBtnTermsLayOut)
     RelativeLayout radioBtnTermsLayOut;
+
+    @BindView(R.id.errorStreetMessage)
+    ErrorMessage errorStreetMessage;
+    @BindView(R.id.errorNumeroMessage)
+    ErrorMessage errorNumeroMessage;
+    @BindView(R.id.errorZipCodeMessage)
+    ErrorMessage errorZipCodeMessage;
+    @BindView(R.id.errorColoniaMessage)
+    ErrorMessage errorColoniaMessage;
 
 
     private ColoniasArrayAdapter adapterColonia;
@@ -149,7 +159,13 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     public void initViews() {
         ButterKnife.bind(this, rootview);
         hideLoader();
-        errorMessageView.setVisibilityImageError(false);
+
+        errorStreetMessage.setVisibilityImageError(false);
+        errorNumeroMessage.setVisibilityImageError(false);
+        errorZipCodeMessage.setVisibilityImageError(false);
+        errorColoniaMessage.setVisibilityImageError(false);
+
+        //errorMessageView.setVisibilityImageError(false);
         coloniasNombre = new ArrayList<String>();
         coloniasNombre.add(getString(R.string.colonia));
         adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, coloniasNombre);
@@ -195,7 +211,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 if (!editStreet.isValidText()) {
-                    hideErrorMessage();
+                    hideErrorMessage(editStreet.getId());
                 }
             }
 
@@ -214,7 +230,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 if (!editExtNumber.isValidText()) {
-                    hideErrorMessage();
+                    hideErrorMessage(editExtNumber.getId());
                 }
             }
 
@@ -232,7 +248,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 if (!editZipCode.isValidText()) {
-                    hideErrorMessage();
+                    hideErrorMessage(editZipCode.getId());
                 }
             }
 
@@ -283,40 +299,76 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     public void validateForm() {
         getDataForm();
         if (calle.isEmpty()) {
-            showValidationError(getString(R.string.datos_domicilio_calle));
+            showValidationError(editStreet.getId(), getString(R.string.datos_domicilio_calle));
             editStreet.setIsInvalid();
             return;
         }
         if (numExt.isEmpty()) {
-            showValidationError(getString(R.string.datos_domicilio_num_ext));
+            showValidationError(editExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
             editExtNumber.setIsInvalid();
             return;
         }
         if (codigoPostal.isEmpty()) {
-            showValidationError(getString(R.string.datos_domicilio_cp));
+            showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
             editZipCode.setIsInvalid();
             return;
         }
 
         if (spColonia.getSelectedItemPosition() == 0 || colonia.isEmpty()) {
-            showValidationError(getString(R.string.datos_domicilio_colonia));
+            showValidationError(spColonia.getId(), getString(R.string.datos_domicilio_colonia));
             return;
         }
         if (!radioBtnTerms.isChecked()) {
-            showValidationError(getString(R.string.datos_domicilio_terminos));
+            showValidationError(radioBtnTerms.getId(), getString(R.string.datos_domicilio_terminos));
             return;
         }
         onValidationSuccess();
     }
 
     @Override
-    public void showValidationError(Object error) {
-        errorMessageView.setMessageText(error.toString());
+    public void showValidationError(int id, Object error) {
+
+        switch (id) {
+            case R.id.editStreet:
+                errorStreetMessage.setMessageText(error.toString());
+                break;
+            case R.id.editExtNumber:
+                errorNumeroMessage.setMessageText(error.toString());
+                break;
+            case R.id.editZipCode:
+                errorZipCodeMessage.setMessageText(error.toString());
+                break;
+            case R.id.spColonia:
+                errorColoniaMessage.setMessageText(error.toString());
+                break;
+            case R.id.radioBtnTerms:
+                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                break;
+        }
+        //errorMessageView.setMessageText(error.toString());
         UI.hideKeyBoard(getActivity());
     }
 
-    private void hideErrorMessage() {
-        errorMessageView.setVisibilityImageError(false);
+    private void hideErrorMessage(int id) {
+        switch (id) {
+            case R.id.editStreet:
+                errorStreetMessage.setVisibilityImageError(false);
+                break;
+            case R.id.editExtNumber:
+                errorNumeroMessage.setVisibilityImageError(false);
+                break;
+            case R.id.editZipCode:
+                errorZipCodeMessage.setVisibilityImageError(false);
+                break;
+            case R.id.spColonia:
+                errorColoniaMessage.setVisibilityImageError(false);
+                break;
+            case R.id.radioBtnTerms:
+
+                break;
+        }
+
+        //errorMessageView.setVisibilityImageError(false);
     }
 
     @Override
@@ -456,7 +508,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
     @Override
     public void zipCodeInvalid(String message) {
-        showValidationError(message);
+        showValidationError(editZipCode.getId(), message);
         editZipCode.setIsInvalid();
     }
 

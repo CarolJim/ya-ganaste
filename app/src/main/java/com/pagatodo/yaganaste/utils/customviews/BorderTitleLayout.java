@@ -10,7 +10,6 @@ import android.os.Build;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
-import android.view.ViewGroup;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
@@ -78,7 +77,7 @@ public class BorderTitleLayout extends RelativeLayout {
 
 
         int left = getPaddingLeft();
-        int top = (int) (getPaddingTop() + ( heightText * 0.6 ));
+        int top = (int) (getPaddingTop() + (heightText * 0.6));
         int right = getWidth() - getPaddingRight();
         int bottom = getHeight() - getPaddingBottom();
 

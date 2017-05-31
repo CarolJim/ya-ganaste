@@ -107,6 +107,6 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
 
     public void loadDescriptionFragment(DataLocalizaSucursal sucursal) {
         removeLastFragment();
-        loadFragment(DepositSucursalDetail.newInstance(sucursal), Direction.NONE, false);
+        loadFragment(DepositSucursalDetail.newInstance(sucursal), Direction.FORDWARD, false);
     }
 }
