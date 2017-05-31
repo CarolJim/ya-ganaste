@@ -37,7 +37,7 @@
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_horizontal_margin"
                 android:text="@string/no_movimientos"
-                android:textSize="18sp"
+                android:textSize="@dimen/main_no_movements_text_size"
                 android:visibility="gone"
                 style="@style/MainTabText" />
 

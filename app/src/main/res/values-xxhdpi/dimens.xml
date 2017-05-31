@@ -31,8 +31,8 @@
 
     <dimen name="ad_em_tab_text_size">14sp</dimen>
 
-    <dimen name="emisor_mount_text_size">17sp</dimen>
-    <dimen name="emisor_text_size">13sp</dimen>
+    <dimen name="tab_ad_main_mount_text_size">17sp</dimen>
+    <dimen name="tab_ad_main_text_size">13sp</dimen>
 
     <dimen name="size_thumb_adquirente">13dp</dimen>
 

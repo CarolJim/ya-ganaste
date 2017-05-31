@@ -25,6 +25,7 @@
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:textSize="@dimen/tab_ad_main_month_selected_text_size"
         style="@style/MainTabText"
         android:text="Deposito"
         android:id="@android:id/text1"/>

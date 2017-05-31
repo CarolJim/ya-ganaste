@@ -56,7 +56,7 @@
             android:gravity="center"
             android:layout_gravity="center"
             style="@style/MainTabText"
-            android:textSize="@dimen/emisor_text_size"
+            android:textSize="@dimen/tab_ad_main_text_size"
             android:text="@string/cobros_tarjeta"/>
 
     </LinearLayout>
