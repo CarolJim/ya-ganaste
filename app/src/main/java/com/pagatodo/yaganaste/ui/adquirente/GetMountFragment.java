@@ -199,5 +199,13 @@ public class GetMountFragment extends PaymentFormBaseFragment {
         Log.d("GetMount", "Resume Amount " + TransactionAdqData.getCurrentTransaction().getAmount());
         setData(TransactionAdqData.getCurrentTransaction().getAmount(), TransactionAdqData.getCurrentTransaction().getDescription());
     }
+
+    public boolean isCustomKeyboardVisible() {
+        return keyboardView.getVisibility() == View.VISIBLE;
+    }
+
+    public void hideKeyboard() {
+        keyboardView.hideCustomKeyboard();
+    }
 }
 

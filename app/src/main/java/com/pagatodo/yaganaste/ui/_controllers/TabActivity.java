@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui._controllers;
 
 import android.content.Context;
 import android.content.Intent;
-import android.content.res.Resources;
 import android.graphics.drawable.GradientDrawable;
 import android.os.Bundle;
 import android.os.Handler;
@@ -27,6 +26,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
 import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
+import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
@@ -44,6 +44,7 @@ import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
+import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
@@ -63,6 +64,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     public static final String EVENT_HIDE_MANIN_TAB = "eventhideToolbar";
     public static final String EVENT_SHOW_MAIN_TAB = "eventShowToolbar";
+
+    public static final int RESULT_ADQUIRENTE_SUCCESS = 4573;
+
+
+
     private Animation animShow, animHide;
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
     private ProgressLayout progressGIF;
@@ -82,6 +88,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             Intent intent = new Intent(this, LandingFragment.class);
             startActivity(intent);
         }
+
         if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
                 SingletonUser.getInstance().getDataUser().getEstatusAgente() == PTH_DOCTO_APROBADO &&
                 !pref.containsData(COUCHMARK_ADQ)) {
@@ -115,27 +122,17 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         GradientDrawable drawable = new GradientDrawable();
         drawable.setColor(getResources().getColor(R.color.grayColor));
-        Resources r = getResources();
-        // int px =  Integer.valueOf((int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, r.getDimension(R.dimen.separator), r.getDisplayMetrics()));
         drawable.setSize(1, 1);
         linearLayout.setDividerPadding(0);
         linearLayout.setDividerDrawable(drawable);
-        //  Log.e("TabActivity", "indicator position " + mainTab.getSelectedTabPosition());
         mainTab.setSelectedTabIndicatorHeight(4);
 
     }
 
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        //Glide.with(this).load(FlowUser.getImageProfileURL() + "?" + UtilsExtensions.getCurrentTime()).placeholder(R.mipmap.icon_user).dontAnimate().error(R.mipmap.icon_user).into(imgToolbarProfile);
-    }
 
-    @Override
-    protected void onPostResume() {
-        super.onPostResume();
-    }
+
+
 
     @Override
     protected void onStart() {
@@ -143,13 +140,14 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
         if (!pref.containsData(COUCHMARK_EMISOR)) {
 
-            new Handler().postDelayed(new Runnable() {
-                public void run() {
-                    pref.saveDataBool(COUCHMARK_EMISOR, true);
-                    Intent intent = new Intent(TabActivity.this, LandingFragment.class);
-                    startActivity(intent);
-                }
-            }, 500);
+             new Handler().postDelayed(new Runnable() {
+                 @Override
+                 public void run() {
+                     pref.saveDataBool(COUCHMARK_EMISOR, true);
+                     Intent intent = new Intent(TabActivity.this, LandingFragment.class);
+                     startActivity(intent);
+                 }
+             }, 500);
 
 
         }
@@ -209,6 +207,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
+
         if (requestCode == Constants.CONTACTS_CONTRACT
                 || requestCode == Constants.BARCODE_READER_REQUEST_CODE
                 || requestCode == BACK_FROM_PAYMENTS) {
@@ -216,36 +215,34 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             Fragment childFragment = getFragment(0);
             if (childFragment != null && requestCode != BACK_FROM_PAYMENTS) {
                 childFragment.onActivityResult(requestCode, resultCode, data);
-            } else if (childFragment != null && requestCode == BACK_FROM_PAYMENTS) {
+            } else if (childFragment != null) {
                 if (data != null && data.getStringExtra(RESULT) != null && data.getStringExtra(RESULT).equals(Constants.RESULT_ERROR)) {
-                    if (childFragment != null) {
-                        PaymentFormBaseFragment paymentFormBaseFragment = getVisibleFragment(childFragment.getChildFragmentManager().getFragments());
-                        if (paymentFormBaseFragment != null) {
-                            paymentFormBaseFragment.setSeekBarProgress(0);
-                        }
-                        UI.createSimpleCustomDialog("Error!", data.getStringExtra(MESSAGE), getSupportFragmentManager(), getLocalClassName());
+                    PaymentFormBaseFragment paymentFormBaseFragment = getVisibleFragment(childFragment.getChildFragmentManager().getFragments());
+                    if (paymentFormBaseFragment != null) {
+                        paymentFormBaseFragment.setSeekBarProgress(0);
                     }
+                    UI.createSimpleCustomDialog("Error!", data.getStringExtra(MESSAGE), getSupportFragmentManager(), getLocalClassName());
+
                 } else {
                     Intent intent = getIntent();
                     finish();
                     startActivity(intent);
-                    //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+
                 }
             }
-        } else if (requestCode == Documentos.REQUEST_TAKE_PHOTO || requestCode == Documentos.SELECT_FILE_PHOTO) {
-            if (getFragment(1) != null) {
-                getFragment(1).onActivityResult(requestCode, resultCode, data);
-            }
+        } else if (requestCode == Documentos.REQUEST_TAKE_PHOTO || requestCode == Documentos.SELECT_FILE_PHOTO
+                && getFragment(1) != null) {
+            getFragment(1).onActivityResult(requestCode, resultCode, data);
+        } else if (requestCode == REGISTER_ADQUIRENTE_CODE && resultCode == RESULT_ADQUIRENTE_SUCCESS) {
+            tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN);
         }
     }
 
 
     protected PaymentFormBaseFragment getVisibleFragment(List<Fragment> fragmentList) {
         for (Fragment fragment2 : fragmentList) {
-            if (fragment2 instanceof PaymentFormBaseFragment) {
-                if (fragment2.isVisible()) {
-                    return ((PaymentFormBaseFragment) fragment2);
-                }
+            if (fragment2 instanceof PaymentFormBaseFragment && fragment2.isVisible()) {
+                return (PaymentFormBaseFragment) fragment2;
             }
         }
         return null;
@@ -253,28 +250,19 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     protected Fragment getFragment(int fragmentType) {
         List<Fragment> fragmentList = fragmentManager.getFragments();
-        Fragment response = null;
         if (fragmentList != null) {
             for (Fragment fragment : fragmentList) {
-                if (fragmentType == 0) {
-                    if (fragment instanceof PaymentsTabFragment) {
-                        response = fragment;
-                        break;
-                    }
-                } else if (fragmentType == 1) {
-                    if (fragment instanceof Documentos) {
-                        response = fragment;
-                        break;
-                    }
+                if ( (fragmentType == 0 && fragment instanceof PaymentsTabFragment)
+                        || (fragmentType == 1 && fragment instanceof Documentos)) {
+                    return fragment;
                 }
             }
         }
-        return response;
+        return null;
     }
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         Fragment actualFragment = mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem());
         if (actualFragment instanceof PaymentsTabFragment) {
             PaymentsTabFragment paymentsTabFragment = (PaymentsTabFragment) actualFragment;
@@ -285,6 +273,14 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             }
         } else if (actualFragment instanceof DepositsFragment) {
             ((DepositsFragment) actualFragment).getDepositManager().onBtnBackPress();
+        } else if (actualFragment instanceof GetMountFragment) {
+            GetMountFragment getMountFragment = (GetMountFragment)actualFragment;
+            if (getMountFragment.isCustomKeyboardVisible()) {
+                getMountFragment.hideKeyboard();
+            } else {
+                goHome();
+            }
+
         } else {
             if (mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem()) instanceof HomeTabFragment) {
                 showDialogOut();

@@ -17,13 +17,12 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
-import com.pagatodo.yaganaste.ui.account.AprovPresenter;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.SeekBarBaseFragment;
@@ -31,14 +30,11 @@ import com.pagatodo.yaganaste.utils.customviews.SeekBarBaseFragment;
 import java.util.Timer;
 
 import butterknife.BindView;
-import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
-import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
 
 /**
@@ -69,15 +65,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         accountPresenter = ((AccountActivity)getActivity()).getPresenter();
@@ -85,15 +72,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         //aprovPresenter = new AprovPresenter(getActivity(),this);
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -119,7 +97,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
                 mySeekBar.setProgress(0);
             }
         }, 300);
-
 
     }
 
@@ -175,23 +152,20 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     public void smsVerificationFailed(String message) {
         if (counterRetry < 4) {
             counterRetry++;
-            showLoader(String.format("Verificando activación de dispositivo\nIntento %d", counterRetry));
+            showLoader(getString(R.string.activacion_sms_verificando));
             new Handler().postDelayed(new Runnable() {
                 public void run() {
                     accountPresenter.doPullActivationSMS(String.format("Verificando activación de dispositivo\nIntento %d", counterRetry));
                 }
             }, CHECK_SMS_VALIDATE_DELAY);
         } else {
-            showError(message);
-            //executeProvisioning();
-            goToLogin();
+            goLoginAlert(message);
         }
     }
 
     @Override
     public void devicesAlreadyAssign(String message) {
-        UI.showToast(message,getActivity());
-        goToLogin();
+        goLoginAlert(message);
     }
 
     @Override
@@ -241,20 +215,16 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
                     break;
                 case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                    UI.showToastShort("Falla al Enviar el Mensaje",getActivity());
-                    goToLogin();
+                    goLoginAlert(getString(R.string.fallo_envio));
                     break;
                 case SmsManager.RESULT_ERROR_NO_SERVICE:
-                    UI.showToastShort("Sin Servicio",getActivity());
-                    goToLogin();
+                    goLoginAlert(getString(R.string.sin_servicio));
                     break;
                 case SmsManager.RESULT_ERROR_NULL_PDU:
-                    UI.showToastShort("Null PDU",getActivity());
-                    goToLogin();
+                    goLoginAlert(getString(R.string.null_pdu));
                     break;
                 case SmsManager.RESULT_ERROR_RADIO_OFF:
-                    UI.showToastShort("Sin Señal Telefónica",getActivity());
-                    goToLogin();
+                    goLoginAlert(getString(R.string.sin_senial));
                     break;
             }
         }
@@ -309,6 +279,20 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    private void goLoginAlert(String message) {
+        UI.createSimpleCustomDialogNoCancel("", message, getChildFragmentManager(), new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                goToLogin();
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+                //No-Op
+            }
+        });
     }
 
     private void goToLogin(){

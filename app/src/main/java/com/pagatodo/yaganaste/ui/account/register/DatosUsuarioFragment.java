@@ -158,7 +158,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                     if(editMail.getText().isEmpty() || !editMail.isValidText()){
                         editMail.setIsInvalid();
                         showValidationError(getString(R.string.datos_usuario_correo));
-                        editMail.requestEditFocus();
                     }
                 }else{
                     if(editMail.isValidText() && edtitConfirmEmail.isValidText()) {
@@ -191,8 +190,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
             public void onTextChanged(CharSequence s, int start, int before, int count) {
 
                 hideErrorMessage();
-                edtitConfirmEmail.setText("");
-                edtitConfirmEmail.imageViewIsGone(true);
 
                 if(editMail.isValidText() && emailValidatedByWS){
                     emailValidatedByWS = false;//Si esta validado y cambia, volvemos a solicitar la validacion.
@@ -212,14 +209,9 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                         if (edtitConfirmEmail.getText().isEmpty()) {
                             showValidationError(getString(R.string.datos_usuario_correo_confirma));
                             edtitConfirmEmail.setIsInvalid();
-                        }else if (!edtitConfirmEmail.getText().equals(editMail.getText())) {
-                            showValidationError(getString(R.string.datos_usuario_correo_no_coinciden));
-                            edtitConfirmEmail.setIsInvalid();
                         }
                     }
 
-                    if (!edtitConfirmEmail.isValidText())
-                        edtitConfirmEmail.requestEditFocus();
                 } else {
                     if(editMail.isValidText() && edtitConfirmEmail.isValidText()){
                         if(editPassword.getText().isEmpty()){
@@ -238,16 +230,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
             }
         });
 
-        editPasswordConfirm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
-            @Override
-            public void onFocusChange(View v, boolean hasFocus) {
-                if (hasFocus) {
-                    if (!editPassword.isValidText()) {
-                        editPassword.requestEditFocus();
-                    }
-                }
-            }
-        });
 
         editPassword.addCustomTextWatcher(new TextWatcher() {
             @Override
@@ -257,11 +239,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if(!editPasswordConfirm.getText().isEmpty()){
-                    editPasswordConfirm.setText("");
-                    editPasswordConfirm.imageViewIsGone(true);
-                }
                 hideErrorMessage();
             }
 

@@ -32,6 +32,8 @@ public class Recursos {
 	//MAPS
 	public final static int ZoomMap = 16;
 	public static final int CODE_OK = 0;
+
+	public static final String CODE_ADQ_OK = "00";
 	public static final int ERROR_LOGIN= 91;
 	public static final int CODE_OFFLINE = -1;
 	public static final int INVALID_TOKEN = 3001;

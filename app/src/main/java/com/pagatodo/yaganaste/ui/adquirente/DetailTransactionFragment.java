@@ -1,8 +1,6 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -20,13 +18,10 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
-import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
@@ -44,16 +39,12 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     ImageView imgTypeCard;
     @BindView(R.id.edtEmailSendticket)
     CustomValidationEditText edtEmailSendticket;
-    @BindView(R.id.progressLayout)
-    ProgressLayout progressLayout;
+
 
     private TransaccionEMVDepositResponse emvDepositResponse;
     private String emailToSend = "";
 
     private AdqPresenter adqPresenter;
-
-    public DetailTransactionFragment() {
-    }
 
     public static DetailTransactionFragment newInstance() {
         DetailTransactionFragment fragmentRegister = new DetailTransactionFragment();
@@ -63,32 +54,11 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
         emvDepositResponse  = TransactionAdqData.getCurrentTransaction().getTransaccionResponse();
         adqPresenter = new AdqPresenter(this);
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
     }
 
     @Override
@@ -104,7 +74,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
         super.initViews();
         txtAmountPayment.setText(String.format("$%s",TransactionAdqData.getCurrentTransaction().getAmount()));
         txtMaskedPan.setText(String.format("%s",emvDepositResponse.getMaskedPan()));
-        imgTypeCard.setImageResource(emvDepositResponse.getMarcaTarjetaBancaria().equals("Visa") ? R.drawable.mastercard_canvas : R.drawable.mastercard_canvas);
+        imgTypeCard.setImageResource("Visa".equals(emvDepositResponse.getMarcaTarjetaBancaria()) ? R.drawable.mastercard_canvas : R.drawable.mastercard_canvas);
     }
 
     @Override
@@ -150,14 +120,11 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
 
     @Override
     public void showLoader(String message) {
-        //progressLayout.setTextMessage(message);
-        //progressLayout.setVisibility(VISIBLE);
         onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-        //progressLayout.setVisibility(GONE);
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
@@ -175,7 +142,6 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
             }
         };
         UI.createSimpleCustomDialog("Error", error.toString(), getFragmentManager(),doubleActions, true, false);
-        //UI.showToastShort(error.toString(),getActivity());
     }
 
     @Override

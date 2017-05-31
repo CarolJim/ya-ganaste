@@ -25,47 +25,15 @@ public class HardSellAdqFragment extends GenericFragment implements View.OnClick
 
     private View rootview;
 
-
     @BindView(R.id.btnHardSellNext)
     StyleButton btnHardSellNext;
 
-    public HardSellAdqFragment() {
-    }
 
     public static HardSellAdqFragment newInstance() {
         HardSellAdqFragment fragmentRegister = new HardSellAdqFragment();
         Bundle args = new Bundle();
         fragmentRegister.setArguments(args);
         return fragmentRegister;
-    }
-
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-
-    }
-
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-
     }
 
     @Override
@@ -89,10 +57,7 @@ public class HardSellAdqFragment extends GenericFragment implements View.OnClick
         switch (view.getId()){
 
             case R.id.btnHardSellNext:
-
-                Intent intentAdq = new Intent(getActivity(), BussinesActivity.class);
-                startActivity(intentAdq);
-
+                startActivity(BussinesActivity.createIntent(getActivity()));
                 break;
 
             default:

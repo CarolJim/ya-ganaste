@@ -194,6 +194,16 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                 if(editNumber.getText().length() == LEGTH_CARD_NUMBER_FORMAT){
                     hideKeyboard();
                 }
+                else if (radioHasCard.getCheckedRadioButtonId() == R.id.radioBtnYes
+                        && s.toString().length() < DEFAULT_CARD.length()) {
+                    editNumber.setText(DEFAULT_CARD);
+                    editNumber.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            editNumber.setSelection(editNumber.getText().length());
+                        }
+                    });
+                }
 
             }
         });
@@ -331,7 +341,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     }
 
     private void resetCardNumberDefault(){
-        editNumber.setText(DEFAULT_CARD+"");
+        editNumber.setText(DEFAULT_CARD);
         editNumber.setSelection(editNumber.getText().length());
     }
 

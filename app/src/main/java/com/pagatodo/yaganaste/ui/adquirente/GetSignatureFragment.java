@@ -59,8 +59,6 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
     StyleTextView firma_aqui;
     @BindView(R.id.layout_content_firma)
     FrameLayout layout_content_firma;
-    @BindView(R.id.progressLayout)
-    ProgressLayout progressLayout;
 
     private SigningViewYaGanaste signingView;
     private TransaccionEMVDepositResponse emvDepositResponse;

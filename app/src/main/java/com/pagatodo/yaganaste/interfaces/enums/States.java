@@ -71,7 +71,9 @@ public enum States implements IEnumSpinner {
 
     S31("31", "Yucatán"),
 
-    S32("32", "Zacatecas");
+    S32("32", "Zacatecas"),
+
+    S33("33", "Extranjero");
 
     private String name;
     private String id;

@@ -13,6 +13,8 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+
 /**
  * @author Juan Guerra on 05/04/2017.
  */
@@ -46,7 +48,7 @@ public class CardAdq extends TabViewElement{
 
     @Override
     public void updateData() {
-        if (SingletonUser.getInstance().getDataUser().isEsAgente()) {
+        if (SingletonUser.getInstance().getDataUser().isEsAgente()  && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
             txtInvite.setVisibility(GONE);
             saldoAdq.setVisibility(VISIBLE);
             saldoAdq.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoAdq()));

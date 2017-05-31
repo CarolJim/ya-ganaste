@@ -21,6 +21,8 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.HomeFragmentPresenter;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.yaganasteviews.TabLayoutEmAd;
 
+import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
+
 
 /**
  * @author Juan Guerra on 10/11/2016.
@@ -30,7 +32,7 @@ public class InviteAdquirenteFragment extends GenericFragment implements View.On
 
     private View rootView;
 
-    public static InviteAdquirenteFragment newInstance(){
+    public static InviteAdquirenteFragment newInstance() {
         InviteAdquirenteFragment homeTabFragment = new InviteAdquirenteFragment();
         Bundle args = new Bundle();
         homeTabFragment.setArguments(args);
@@ -74,7 +76,7 @@ public class InviteAdquirenteFragment extends GenericFragment implements View.On
                 break;
 
             case R.id.btn_si:
-                startActivity(new Intent(getActivity(), BussinesActivity.class));
+                getActivity().startActivityForResult(BussinesActivity.createIntent(getActivity()), REGISTER_ADQUIRENTE_CODE);
                 break;
 
             default:

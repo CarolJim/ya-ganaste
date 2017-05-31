@@ -2,10 +2,8 @@ package com.pagatodo.yaganaste.ui.maintabs.factories;
 
 import android.support.v4.app.Fragment;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
@@ -50,43 +48,13 @@ public class ViewPagerDataFactory {
 
     public static ViewPagerData createList(final TABS type) {
         List<Fragment> fragmentList = new ArrayList<>();
-        Preferencias pref = App.getInstance().getPrefs();
         switch (type) {
             case MAIN:
-
-                fragmentList.add(HomeTabFragment.newInstance());
-                fragmentList.add(PaymentsTabFragment.newInstance());
-                fragmentList.add(DepositsFragment.newInstance());
-
-                if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
-                    fragmentList.add(GetMountFragment.newInstance());
-                } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                        && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == STATUS_DOCTO_PENDIENTE) {
-                    fragmentList.add(Documentos.newInstance());
-                } else {
-                    //fragmentList.add(Documentos.newInstance());
-                    fragmentList.add(InviteAdquirenteFragment.newInstance());
-                }
-
-                //fragmentList.add(GetMountFragment.newInstance());
-
-                /*else {
-                    fragmentList.add(InviteAdquirenteFragment.newInstance());
-                }*/
-
+                addMainFragments(fragmentList);
                 return new ViewPagerData<>(fragmentList, MainTab.values());
 
             case HOME_FRAGMENT:
-                fragmentList.add(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.MOVEMENTS));
-
-                if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                        && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
-                    fragmentList.add(BlankFragment.newInstance());
-                } else {
-                    fragmentList.add(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.PAYMENTS));
-                }
-
+                addHomeFragments(fragmentList);
                 return new ViewPagerData<>(fragmentList, AdqEmTab.values());
 
             case PERSONAL_ACCOUNT:
@@ -104,6 +72,34 @@ public class ViewPagerDataFactory {
 
             default:
                 throw new IllegalFactoryParameterException(type.toString());
+        }
+    }
+
+    private static void addMainFragments(List<Fragment> fragmentList) {
+        fragmentList.add(HomeTabFragment.newInstance());
+        fragmentList.add(PaymentsTabFragment.newInstance());
+        fragmentList.add(DepositsFragment.newInstance());
+
+        if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
+            fragmentList.add(GetMountFragment.newInstance());
+        } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == STATUS_DOCTO_PENDIENTE) {
+            fragmentList.add(Documentos.newInstance());
+        } else {
+            fragmentList.add(InviteAdquirenteFragment.newInstance());
+        }
+    }
+
+
+    private static void addHomeFragments(List<Fragment> fragmentList) {
+        fragmentList.add(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.MOVEMENTS));
+
+        if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
+            fragmentList.add(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.PAYMENTS));
+        } else {
+            fragmentList.add(BlankFragment.newInstance());
         }
     }
 

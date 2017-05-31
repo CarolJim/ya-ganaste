@@ -78,6 +78,9 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         cardEmisor = new CardEmisor(getContext());
         cardEmisorSelected = new CardEmisorSelected(getContext());
         cardAdq = new CardAdq(getContext());
+        if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == CRM_DOCTO_APROBADO) {
+            cardAdqSel = new CardAdqSelected(getContext());
+        }
         updateData();
     }
 
@@ -206,10 +209,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     public void updateData() {
         cardEmisor.updateData();
         cardEmisorSelected.updateData();
-        // TODO: 19/04/2017 En esta parte verificar si es adquirente normal o con credito
-        if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
-            cardAdqSel = new CardAdqSelected(getContext());
-        }
+        cardAdq.updateData();
         if (cardAdqSel != null) {
             cardAdqSel.updateData();
         }

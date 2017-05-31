@@ -96,17 +96,17 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:padding="10dp"
-                    tools:text="No. De Tarjeta" />
+                    android:text="Referencia" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/txtMovementDetailCardNumber"
+                    android:id="@+id/txtMovementDetailReference"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -125,10 +125,10 @@
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:padding="10dp"
-                    android:text="Referencia de Envío" />
+                    android:text="ID Transacción" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/txtMovementDetailClaveRastreo"
+                    android:id="@+id/txtMovementDetailIdTransaccion"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -141,16 +141,17 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:padding="10dp"
-                    tools:text="Concepto" />
+                    android:text="Concepto" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/txtMovementDetailConcept"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -163,17 +164,17 @@
             <TableRow
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:padding="10dp"
-                    tools:text="Referencia De Envio" />
+                    android:text="Importe" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/txtMovementDetailConcept"
+                    android:id="@+id/txtMovementDetailImport"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -182,6 +183,57 @@
                     tools:text="1234" />
 
             </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:padding="10dp"
+                    android:text="Comisión" />
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/txtMovementDetailComision"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:textColor="@color/colorAccent"
+                    tools:text="1234" />
+
+            </TableRow>
+
+
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:visibility="visible">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="end"
+                    android:padding="10dp"
+                    android:text="IVA" />
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/txtMovementDetailIva"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:gravity="start"
+                    android:padding="10dp"
+                    android:textColor="@color/colorAccent"
+                    tools:text="1234" />
+
+            </TableRow>
+
+
+
 
         </TableLayout>
 

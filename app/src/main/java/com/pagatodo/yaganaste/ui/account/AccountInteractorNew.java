@@ -420,20 +420,12 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         if (data.getCodigoRespuesta() == CODE_OK) {
             //Seteamos los datos del usuario en el SingletonUser.
             SingletonUser user = SingletonUser.getInstance();
-            if (!dataUser.isEsAgente()) {
-                data.getData().getUsuario().setTipoAgente(17);
-            }
-
-            if (dataUser.isEsAgente() && dataUser.getEstatusAgente() != CRM_DOCTO_APROBADO
-                    && dataUser.getEstatusDocumentacion() != STATUS_DOCTO_PENDIENTE) {
-                App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
-            }
-
-            user.setDataUser(dataUser);
-           // user.getDataUser().setEsAgente(false);/*TODO Testin de flujo Adq*/
-            if (dataUser.isEsUsuario()) { // Si Usuario
+            if (dataUser.isEsUsuario()) {
+                user.setDataUser(dataUser);// Si Usuario
                 user.getDataUser().setEsAgente(dataUser.isEsAgente());
                 RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
+                RequestHeaders.setTokenAdq(dataUser.getUsuario().getTokenSesionAdquirente());
+                RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
                 if (dataUser.isConCuenta()) {// Si Cuenta
                     if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
                         if (!dataUser.isRequiereActivacionSMS()) {// No Requiere Activacion de SMS
@@ -648,6 +640,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         if (data.getCodigoRespuesta() == CODE_OK) {
             DataIniciarSesion newSessionData = data.getData();
             SingletonUser userInfo = SingletonUser.getInstance();
+            RequestHeaders.setTokenAdq(newSessionData.getUsuario().getTokenSesionAdquirente());
             userInfo.setDataUser(newSessionData);
             /*TODO 10/05/17 obtener saldo por medio de ws de saldos.*/
             userInfo.setDatosSaldo(new DatosSaldo(String.format("%s", userInfo.getDataUser().getUsuario().getCuentas().get(0).getSaldo())));

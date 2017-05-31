@@ -1,6 +1,11 @@
 package com.pagatodo.yaganaste.data.model;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
+
+import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 /**
  * @author flima
@@ -35,6 +40,13 @@ public class SingletonUser {
 
     public void setDataUser(DataIniciarSesion dataUser) {
         this.dataUser = dataUser;
+
+
+        dataUser.getUsuario().setTipoAgente(17);
+        if (dataUser.isEsAgente() && dataUser.getEstatusAgente() != CRM_DOCTO_APROBADO
+                && dataUser.getEstatusDocumentacion() != STATUS_DOCTO_PENDIENTE) {
+            App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
+        }
     }
 
     public ExtraInfoUser getDataExtraUser() {

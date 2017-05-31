@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <Keyboard xmlns:android="http://schemas.android.com/apk/res/android"
     android:keyWidth="100%p" android:horizontalGap="1px"
-    android:verticalGap="1px" android:keyHeight="40dip">
+    android:verticalGap="1px" android:keyHeight="50dp">
     <Row>
         <Key android:codes="8" android:keyLabel="1" />
         <Key android:codes="9" android:keyLabel="2" />
@@ -18,7 +18,7 @@
         <Key android:codes="16" android:keyLabel="9" />
     </Row>
     <Row>
-        <Key android:codes="29" android:keyIcon="@drawable/keyboard_blue_circle" android:keyEdgeFlags="left"/>
+        <Key android:codes="29" android:keyIcon="@drawable/keyboard_blue_circle" android:keyEdgeFlags="left" />
         <Key android:codes="7" android:keyLabel="0" />
         <Key android:codes="67" android:keyIcon="@drawable/keyboard_back"  android:keyEdgeFlags="right" />
     </Row>

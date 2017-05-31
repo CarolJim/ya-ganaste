@@ -11,6 +11,7 @@ import java.util.List;
 public class UsuarioClienteResponse  implements Serializable {
 
     private int IdUsuario;
+    private String IdUsuarioAdquirente = "";
     private String NombreUsuario = "";
     private String Nombre = "";
     private String PrimerApellido = "";
@@ -25,7 +26,7 @@ public class UsuarioClienteResponse  implements Serializable {
     private String ClaveAgente = "7320";
     private int TipoAgente;
 
-    private String nombreComercio;
+    private String NombreNegocio;
 
 
     public UsuarioClienteResponse() {
@@ -141,12 +142,12 @@ public class UsuarioClienteResponse  implements Serializable {
         TipoAgente = tipoAgente;
     }
 
-    public String getNombreComercio() {
-        return nombreComercio;
+    public String getNombreNegocio() {
+        return NombreNegocio;
     }
 
-    public void setNombreComercio(String nombreComercio) {
-        this.nombreComercio = nombreComercio;
+    public void setNombreNegocio(String NombreNegocio) {
+        this.NombreNegocio = NombreNegocio;
     }
 
     public void setTokenSesionAdquirente(String tokenSesionAdquirente) {
@@ -155,5 +156,13 @@ public class UsuarioClienteResponse  implements Serializable {
 
     public String getTokenSesionAdquirente() {
         return TokenSesionAdquirente;
+    }
+
+    public String getIdUsuarioAdquirente() {
+        return IdUsuarioAdquirente;
+    }
+
+    public void setIdUsuarioAdquirente(String idUsuarioAdquirente) {
+        IdUsuarioAdquirente = idUsuarioAdquirente;
     }
 }

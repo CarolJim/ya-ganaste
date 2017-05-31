@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -9,6 +10,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.SubGiro;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
@@ -27,6 +29,8 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MA
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 
 public class BussinesActivity extends LoaderActivity {
@@ -58,6 +62,11 @@ public class BussinesActivity extends LoaderActivity {
     private List<ColoniasResponse> listaColonias;
 
 
+
+    public static Intent createIntent(Context from) {
+        return new Intent(from, BussinesActivity.class);
+
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -106,9 +115,8 @@ public class BussinesActivity extends LoaderActivity {
                 finish();
                 break;
             case EVENT_DOC_CHECK:
-                Intent i = new Intent(this,TabActivity.class);
-                i.addFlags(Intent.FLAG_ACTIVITY_FORWARD_RESULT);
-                startActivity(i);
+                SingletonUser.getInstance().getDataUser().setEstatusDocumentacion(STATUS_DOCTO_PENDIENTE);
+                setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
                 finish();
                 break;
 

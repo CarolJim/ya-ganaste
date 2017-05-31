@@ -4,9 +4,11 @@ import android.util.Log;
 
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
+import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.AdqPayMovementsIteractorImp;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.MovementsIteractor;
@@ -23,12 +25,13 @@ import java.util.List;
  * @author Juan Guerra on 28/03/2017.
  */
 
-public class AdqPaymentesPresenter implements MovementsPresenter<AdquirentePaymentsTab>, MovementsManager<ResumenMovimientosAdqResponse> {
+public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl implements MovementsPresenter<AdquirentePaymentsTab>, MovementsManager<ResumenMovimientosAdqResponse, String> {
 
     private MovementsIteractor<ResumenMovimientosMesRequest>  movementsIteractor;
-    private MovementsView<ItemMovements<DataMovimientoAdq>> movementsView;
+    private MovementsView<ItemMovements<DataMovimientoAdq>, T> movementsView;
 
-    public AdqPaymentesPresenter(MovementsView<ItemMovements<DataMovimientoAdq>> movementsView) {
+    public AdqPaymentesPresenter(MovementsView<ItemMovements<DataMovimientoAdq>, T> movementsView) {
+        super(movementsView);
         this.movementsView = movementsView;
         this.movementsIteractor = new AdqPayMovementsIteractorImp(this);
     }
@@ -39,6 +42,11 @@ public class AdqPaymentesPresenter implements MovementsPresenter<AdquirentePayme
         ResumenMovimientosMesRequest resumenMovimientosMesRequest = new ResumenMovimientosMesRequest();
         resumenMovimientosMesRequest.setFecha(data.getDate());
         movementsIteractor.getMovements(resumenMovimientosMesRequest);
+    }
+
+    @Override
+    public void updateBalance() {
+        movementsIteractor.getBalance();
     }
 
 
@@ -61,6 +69,12 @@ public class AdqPaymentesPresenter implements MovementsPresenter<AdquirentePayme
         }
         movementsView.loadMovementsResult(movementsList);
         movementsView.hideLoader();
+    }
+
+    @Override
+    public void onSuccesBalance(String response) {
+        SingletonUser.getInstance().getDatosSaldo().setSaldoAdq(response);
+        movementsView.updateBalance();
     }
 
     @Override

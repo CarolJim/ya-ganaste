@@ -219,16 +219,15 @@ public class ApiAdq extends Api {
     /**
      * Resumen de movimientos por día.
      *
-     * @param request {@link ConsultaSaldoCupoRequest} body de la petición.
      * @param result {@link IRequestResult} listener del resultado de la petición.
      * */
-    public static void consultaSaldoCupo(ConsultaSaldoCupoRequest request, IRequestResult result)  throws OfflineException {
+    public static void consultaSaldoCupo(IRequestResult result)  throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWS(CONSULTA_SALDO_CUPO,
                 METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetBalance),
-                headers,request, ConsultaSaldoCupoResponse.class,result);
+                headers, null, ConsultaSaldoCupoResponse.class,result);
     }
 
 }

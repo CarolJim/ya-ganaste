@@ -198,6 +198,7 @@ public class UI {
                 }
             }
         });
+        customErrorDialog.setCancelable(false);
         customErrorDialog.show(fragmentManager, CustomErrorDialog.class.getSimpleName());
     }
 

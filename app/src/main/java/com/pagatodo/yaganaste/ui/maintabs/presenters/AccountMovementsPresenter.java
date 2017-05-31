@@ -1,12 +1,13 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
-import android.util.Log;
-
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
+import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.AccountMovementsIteractorImp;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.MovementsIteractor;
@@ -21,15 +22,18 @@ import java.util.List;
  * @author Juan Guerra on 28/03/2017.
  */
 
-public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovementsTab>, MovementsManager<ConsultarMovimientosMesResponse> {
+public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterImpl implements MovementsPresenter<MonthsMovementsTab>,
+        MovementsManager<ConsultarMovimientosMesResponse, ConsultarSaldoResponse> {
 
     private MovementsIteractor<ConsultarMovimientosRequest>  movementsIteractor;
-    private MovementsView<ItemMovements<MovimientosResponse>> movementsView;
+    private MovementsView<ItemMovements<MovimientosResponse>, T> movementsView;
 
-    public AccountMovementsPresenter(MovementsView<ItemMovements<MovimientosResponse>> movementsView) {
+    public AccountMovementsPresenter(MovementsView<ItemMovements<MovimientosResponse>, T> movementsView) {
+        super(movementsView);
         this.movementsView = movementsView;
         this.movementsIteractor = new AccountMovementsIteractorImp(this);
     }
+
 
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data) {
@@ -49,6 +53,11 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
         movementsIteractor.getMovements(request);
     }
 
+    @Override
+    public void updateBalance() {
+        movementsIteractor.getBalance();
+    }
+
 
     @Override
     public void onSuccesResponse(ConsultarMovimientosMesResponse response) {
@@ -61,11 +70,17 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
             date = movimientosResponse.getFechaMovimiento().split(" ");
             // TODO: 28/03/2017 Verificar si el color debe ser local o si viene del servicio
             movementsList.add(new ItemMovements<>(movimientosResponse.getDetalle(), movimientosResponse.getDescripcion(),
-                    movimientosResponse.getImporte(), date[0], date[1],
+                    movimientosResponse.getTotal(), date[0], date[1],
                     MovementColorsFactory.getColorMovement(movimientosResponse.getTipoMovimiento()), movimientosResponse));
         }
         movementsView.loadMovementsResult(movementsList);
         movementsView.hideLoader();
+    }
+
+    @Override
+    public void onSuccesBalance(ConsultarSaldoResponse response) {
+        SingletonUser.getInstance().getDatosSaldo().setSaldoEmisor(response.getData().getSaldo());
+        movementsView.updateBalance();
     }
 
     @Override
@@ -74,4 +89,7 @@ public class AccountMovementsPresenter implements MovementsPresenter<MonthsMovem
         movementsView.showError(error);
 
     }
+
+
+
 }

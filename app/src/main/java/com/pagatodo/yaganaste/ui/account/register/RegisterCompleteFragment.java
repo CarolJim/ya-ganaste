@@ -57,8 +57,6 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
         SALDO
     }
 
-    public RegisterCompleteFragment() {
-    }
 
     public static RegisterCompleteFragment newInstance(COMPLETE_MESSAGES type) {
         RegisterCompleteFragment fragmentRegister = new RegisterCompleteFragment();
@@ -69,15 +67,6 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
@@ -85,16 +74,6 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
             Bundle b = getArguments();
             type = (COMPLETE_MESSAGES) b.get(TIPO_MENSAJE);
         }
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 
     @Override

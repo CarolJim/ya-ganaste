@@ -10,4 +10,5 @@ import com.pagatodo.yaganaste.net.IRequestResult;
 public interface MovementsIteractor<T> extends IRequestResult<DataSourceResult> {
 
     void getMovements(T request);
+    void getBalance();
 }

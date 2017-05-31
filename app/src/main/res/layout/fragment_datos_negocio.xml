@@ -65,11 +65,10 @@
             android:layout_height="wrap_content"
             android:layout_below="@+id/spinnerSubBussineLine"
             android:layout_marginTop="@dimen/space_between_elements"
-            app:formato="phone"
+            app:formato="celphone"
             app:hintText="@string/txt_phone"
             app:imageIsGone="true"
-            app:isSingleLine="true"
-            app:maxLength="8" />
+            app:isSingleLine="true" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/textPublicServant"

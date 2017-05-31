@@ -16,16 +16,19 @@ public class Constants {
 
 
     //region requests codes
-    public static int CONTACTS_CONTRACT = 50;
-    public static int BARCODE_READER_REQUEST_CODE = 60;
-    public static int BACK_FROM_PAYMENTS = 190;
+    public static final int CONTACTS_CONTRACT = 50;
+    public static final int BARCODE_READER_REQUEST_CODE = 60;
+    public static final int BACK_FROM_PAYMENTS = 190;
+    public static final int REGISTER_ADQUIRENTE_CODE = 840;
 
-    public static String RESULT = "Resultado";
-    public static String MESSAGE = "Mensaje";
-    public static String RESULT_ERROR = "Fail";
+
+    public static final String RESULT = "Resultado";
+    public static final String MESSAGE = "Mensaje";
+    public static final String RESULT_ERROR = "Fail";
     //endregion
 
     //region Comercios Id
     public static final int IAVE_ID = 7;
     //endregion
+
 }

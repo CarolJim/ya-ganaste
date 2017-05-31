@@ -260,6 +260,9 @@ public class CustomValidationEditText extends LinearLayout {
     }
 
     public String getText() {
+        if ("6".equals(type)) {
+            return editText.getText().toString().trim().replace(" ", "");
+        }
         return editText.getText().toString().trim();
     }
 

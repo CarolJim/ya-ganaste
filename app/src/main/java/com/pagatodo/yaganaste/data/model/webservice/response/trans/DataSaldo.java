@@ -8,16 +8,16 @@ import java.io.Serializable;
 
 public class DataSaldo implements Serializable {
 
-    private Double Saldo;
+    private String Saldo;
 
     public DataSaldo() {
     }
 
-    public Double getSaldo() {
+    public String getSaldo() {
         return Saldo;
     }
 
-    public void setSaldo(Double saldo) {
+    public void setSaldo(String saldo) {
         Saldo = saldo;
     }
 }

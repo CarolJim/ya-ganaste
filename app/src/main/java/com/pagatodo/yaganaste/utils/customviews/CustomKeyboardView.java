@@ -2,12 +2,31 @@ package com.pagatodo.yaganaste.utils.customviews;
 
 import android.app.Activity;
 import android.content.Context;
+import android.content.res.ColorStateList;
+import android.graphics.Canvas;
+import android.graphics.Color;
+import android.graphics.Paint;
+import android.graphics.Rect;
+import android.graphics.drawable.ColorDrawable;
+import android.graphics.drawable.Drawable;
+import android.graphics.drawable.GradientDrawable;
+import android.graphics.drawable.RippleDrawable;
+import android.graphics.drawable.StateListDrawable;
 import android.inputmethodservice.Keyboard;
 import android.inputmethodservice.KeyboardView;
+import android.os.Build;
+import android.support.annotation.ColorInt;
+import android.support.annotation.RequiresApi;
+import android.support.v4.content.ContextCompat;
 import android.util.AttributeSet;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+
+import com.pagatodo.yaganaste.R;
+
+import java.lang.reflect.Field;
+import java.util.List;
 
 /**
  * Created by flima on 06/04/2017.
@@ -41,6 +60,9 @@ public class CustomKeyboardView extends KeyboardView {
 
         this.setKeyboard(keyboard);
         this.setOnKeyboardActionListener(keyboardActionListener);
+
+
+
     }
 
     public void hideCustomKeyboard() {
@@ -53,6 +75,66 @@ public class CustomKeyboardView extends KeyboardView {
         if( v!=null ){
             ((InputMethodManager)activity.getSystemService(Activity.INPUT_METHOD_SERVICE)).hideSoftInputFromWindow(v.getWindowToken(), 0);
         }
+    }
+
+
+    /*@Override
+    public void onDraw(Canvas canvas) {
+        super.onDraw(canvas);
+
+        List<Keyboard.Key> keys = getKeyboard().getKeys();
+        for(Keyboard.Key key: keys) {
+            if (key.codes[0] == 29 || key.codes[0] == 67) {
+                Drawable dr = new ColorDrawable(ContextCompat.getColor(getContext(), R.color.grayColor));
+                dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                dr.setState(key.getCurrentDrawableState());
+                dr.draw(canvas);
+            }
+
+        }
+    }*/
+
+
+    private Drawable getDrawable() {
+        GradientDrawable normalBackground = new GradientDrawable();
+        normalBackground.setShape(GradientDrawable.RECTANGLE);
+        normalBackground.setColor(ContextCompat.getColor(getContext(), R.color.bg_progress));
+        normalBackground.setAlpha(128);
+        return normalBackground;
+    }
+
+
+    private Drawable getPressedDrawable() {
+        GradientDrawable pressedDrawable = new GradientDrawable();
+        pressedDrawable.setShape(GradientDrawable.RECTANGLE);
+        pressedDrawable.setColor(Color.WHITE);
+        pressedDrawable.setAlpha(128);
+
+        return pressedDrawable;
+    }
+
+
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private Drawable getMaterialDrawable() {
+
+        GradientDrawable normalBackground = new GradientDrawable();
+        normalBackground.setShape(GradientDrawable.RECTANGLE);
+        normalBackground.setColor(ContextCompat.getColor(getContext(), R.color.bg_progress));
+
+       return normalBackground;
+    }
+
+    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
+    private Drawable getPressedMaterialDrawable() {
+
+
+        GradientDrawable pressedDrawable = new GradientDrawable();
+        pressedDrawable.setShape(GradientDrawable.RECTANGLE);
+        pressedDrawable.setColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+
+        return new RippleDrawable(ColorStateList.valueOf(Color.WHITE),
+                pressedDrawable, null);
     }
 
 
@@ -72,6 +154,7 @@ public class CustomKeyboardView extends KeyboardView {
             KeyEvent event = new KeyEvent(eventTime, eventTime, KeyEvent.ACTION_DOWN, primaryCode, 0, 0, 0, 0, KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE);
             activity.dispatchKeyEvent(event);
         }
+
         @Override
         public void onText(CharSequence text) { }
         @Override

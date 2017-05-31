@@ -5,8 +5,11 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
+import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.MovementsIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.managers.MovementsManager;
 import com.pagatodo.yaganaste.utils.Recursos;
@@ -16,9 +19,9 @@ import com.pagatodo.yaganaste.utils.Recursos;
  */
 public class AccountMovementsIteractorImp implements MovementsIteractor<ConsultarMovimientosRequest> {
 
-    private MovementsManager<ConsultarMovimientosMesResponse> movementsManager;
+    private MovementsManager<ConsultarMovimientosMesResponse, ConsultarSaldoResponse> movementsManager;
 
-    public AccountMovementsIteractorImp(MovementsManager<ConsultarMovimientosMesResponse> movementsManager) {
+    public AccountMovementsIteractorImp(MovementsManager<ConsultarMovimientosMesResponse, ConsultarSaldoResponse> movementsManager) {
         this.movementsManager = movementsManager;
     }
 
@@ -34,8 +37,27 @@ public class AccountMovementsIteractorImp implements MovementsIteractor<Consulta
     }
 
     @Override
+    public void getBalance() {
+        try {
+            ApiTrans.consultarSaldo(this);
+        } catch (OfflineException e) {
+            //No-op
+        }
+    }
+
+    @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
-        validateResponse((ConsultarMovimientosMesResponse) dataSourceResult.getData());
+        switch (dataSourceResult.getWebService()) {
+
+            case CONSULTAR_MOVIMIENTOS_MES:
+                validateResponse((ConsultarMovimientosMesResponse) dataSourceResult.getData());
+                break;
+
+            case CONSULTAR_SALDO:
+                validateBalanceResponse((ConsultarSaldoResponse) dataSourceResult.getData());
+                break;
+        }
+
     }
 
     private void validateResponse(ConsultarMovimientosMesResponse response) {
@@ -46,9 +68,16 @@ public class AccountMovementsIteractorImp implements MovementsIteractor<Consulta
         }
     }
 
+    private void validateBalanceResponse(ConsultarSaldoResponse response) {
+        if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+            movementsManager.onSuccesBalance(response);
+        }
+    }
+
     @Override
     public void onFailed(DataSourceResult error) {
-        // TODO: 28/03/2017 Verificar los codigos de error y accion para este caso
-        movementsManager.onFailed(0, Recursos.NO_ACTION, error.getData().toString());
+        if (error.getWebService() == WebService.CONSULTAR_MOVIMIENTOS_MES) {
+            movementsManager.onFailed(0, Recursos.NO_ACTION, error.getData().toString());
+        }
     }
 }

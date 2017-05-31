@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.utils;
 
+import android.support.annotation.Nullable;
 import android.text.SpannableStringBuilder;
 import android.widget.TextView;
 
@@ -14,11 +15,22 @@ import java.util.Locale;
 
 public class StringUtils {
 
+    private static final int SHORT_MONTH_NAME_L = 3;
+
     public static String capitalize(String s) {
         if (s.length() == 0) {
             return s;
         }
         return s.substring(0, 1).toUpperCase() + s.substring(1).toLowerCase();
+    }
+
+    public static String getMonthShortName(@Nullable String monthLongName) {
+        if (monthLongName == null) {
+            return "";
+        } else if (monthLongName.length() <= SHORT_MONTH_NAME_L) {
+            return monthLongName;
+        }
+        return monthLongName.substring(0, SHORT_MONTH_NAME_L);
     }
 
     public static String getCurrencyValue(double value) {

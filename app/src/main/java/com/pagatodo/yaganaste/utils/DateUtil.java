@@ -24,33 +24,10 @@ import java.util.Locale;
  */
 public class DateUtil {
 
-    public static String simpleDateFormat = "dd/MM/yyyy";
+    public static String simpleDateFormat = "dd/MMM/yyyy";
     public static String simpleDateFormatFirstYear = "yyyy-MM-dd";
     public static String screenShotDateFormat = "yyyy-MM-dd_hh:mm:ss";
 
-    /*public static DatePickerDialog getMaterialDatePicker(DatePickerDialog.OnDateSetListener callback) {
-        Calendar now = Calendar.getInstance();
-        DatePickerDialog dpd = DatePickerDialog.newInstance(
-                callback,
-                now.get(Calendar.YEAR),
-                now.get(Calendar.MONTH),
-                now.get(Calendar.DAY_OF_MONTH)
-        );
-
-        return dpd;
-    }
-
-    public static TimePickerDialog getMaterialTimePicker(TimePickerDialog.OnTimeSetListener callback) {
-        Calendar now = Calendar.getInstance();
-        TimePickerDialog tpd = TimePickerDialog.newInstance(
-                callback,
-                now.get(Calendar.HOUR_OF_DAY),
-                now.get(Calendar.MINUTE),
-                true
-        );
-
-        return tpd;
-    }*/
 
     public static String formatDate(int dayOfMonth, int monthOfYear, int year) {
 
@@ -122,14 +99,12 @@ public class DateUtil {
         return result;
     }
 
+
     public static String getDateStringFirstYear(Calendar date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormatFirstYear, Locale.US);
         String result = dateFormat.format(date.getTime());
         return result;
     }
-
-
-
 
     public static List<MonthsMovementsTab> getLastMovementstMonths() {
 
@@ -142,26 +117,22 @@ public class DateUtil {
                     calendar.get(Calendar.YEAR)));
         }
 
-      //  names.addLast(new MonthsMovementsTab("Todos", -1, -1));
         return names;
     }
 
     public static String getMonthShortName(Calendar calendar){
-        return StringUtils.capitalize(calendar.getDisplayName(Calendar.MONTH, Calendar.SHORT, new Locale("es","MX")));
+        return StringUtils.capitalize(StringUtils.getMonthShortName(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, new Locale("es","MX"))));
     }
 
     public static AdquirentePaymentsTab getTabAdquirente() {
         DateFormat dateFormat = new SimpleDateFormat("MM-yyyy", Locale.US);
         Date date = new Date();
         String formatDate = dateFormat.format(date);
-        // TODO: 28/03/2017 Para pruebas
-        formatDate = "28-05-2017";
         return new AdquirentePaymentsTab("", formatDate);
     }
 
-
     public static Date getAdquirenteMovementDate(String movDate) {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy hh:mm:ss", Locale.US);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy hh:mm", Locale.US);
         Date date = null;
         try {
             date = dateFormat.parse(movDate);

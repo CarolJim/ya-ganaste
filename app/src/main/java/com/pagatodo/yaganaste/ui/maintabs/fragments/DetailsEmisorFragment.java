@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.MovementColorsFactory;
+import com.pagatodo.yaganaste.utils.Utils;
 
 /**
  * @author Juan Guerra on 12/04/2017.
@@ -32,20 +33,28 @@ public class DetailsEmisorFragment extends GenericFragment {
     private View layoutMovementTypeColor;
     private TextView txtItemMovDate;
     private TextView txtItemMovMonth;
-    private LinearLayout layoutMovementDate;
     private TextView txtPremios;
     private TextView txtMarca;
     private TextView txtMonto;
     private TextView txtItemMovCents;
     private ImageView imgMovementDetail;
-    private TextView txtMovementDetailCardNumber;
-    private TextView txtMovementDetailClaveRastreo;
+    private TextView txtMovementDetailIdTransaccion;
     private TextView txtMovementDetailConcept;
     private TextView txtMovementDetailDate;
     private TextView txtMovementDetailHour;
     private TextView txtMovementDetailAuthNumber;
+    private TextView txtMovementDetailReference;
+    private TextView txtMovementDetailImport;
+    private TextView txtMovementDetailComision;
+    private TextView txtMovementDetailIva;
+
 
     private MovimientosResponse movimientosResponse;
+
+
+
+
+
 
     public static DetailsEmisorFragment newInstance(@NonNull MovimientosResponse movimientosResponse){
         DetailsEmisorFragment detailsEmisorFragment = new DetailsEmisorFragment();
@@ -83,18 +92,23 @@ public class DetailsEmisorFragment extends GenericFragment {
         layoutMovementTypeColor = rootView.findViewById(R.id.layout_movement_type_color);
         txtItemMovDate = (TextView)rootView.findViewById(R.id.txt_item_mov_date);
         txtItemMovMonth = (TextView)rootView.findViewById(R.id.txt_item_mov_month);
-        layoutMovementDate = (LinearLayout) rootView.findViewById(R.id.layout_movement_date);
+        //layoutMovementDate = (LinearLayout) rootView.findViewById(R.id.layout_movement_date);
         txtPremios = (TextView)rootView.findViewById(R.id.txt_premios);
         txtMarca = (TextView)rootView.findViewById(R.id.txt_marca);
         txtMonto = (TextView)rootView.findViewById(R.id.txt_monto);
         txtItemMovCents = (TextView)rootView.findViewById(R.id.txt_item_mov_cents);
         imgMovementDetail = (ImageView) rootView.findViewById(R.id.imgMovementDetail);
-        txtMovementDetailCardNumber = (TextView)rootView.findViewById(R.id.txtMovementDetailCardNumber);
-        txtMovementDetailClaveRastreo = (TextView)rootView.findViewById(R.id.txtMovementDetailClaveRastreo);
+
+
+        txtMovementDetailIdTransaccion = (TextView)rootView.findViewById(R.id.txtMovementDetailIdTransaccion);
         txtMovementDetailConcept = (TextView)rootView.findViewById(R.id.txtMovementDetailConcept);
         txtMovementDetailDate = (TextView)rootView.findViewById(R.id.txtMovementDetailDate);
         txtMovementDetailHour = (TextView)rootView.findViewById(R.id.txtMovementDetailHour);
         txtMovementDetailAuthNumber = (TextView)rootView.findViewById(R.id.txtMovementDetailAuthNumber);
+        txtMovementDetailReference = (TextView) rootView.findViewById(R.id.txtMovementDetailReference);
+        txtMovementDetailImport = (TextView) rootView.findViewById(R.id.txtMovementDetailImport);
+        txtMovementDetailComision = (TextView) rootView.findViewById(R.id.txtMovementDetailComision);
+        txtMovementDetailIva = (TextView) rootView.findViewById(R.id.txtMovementDetailIva);
     }
 
     @Override
@@ -102,7 +116,8 @@ public class DetailsEmisorFragment extends GenericFragment {
 
         Glide.with(this).load(movimientosResponse.getURLImagen()).placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(imgMovementDetail);
 
-        String[] monto = String.valueOf(movimientosResponse.getImporte()).split("\\.");
+        String[] monto = Utils.getCurrencyValue(movimientosResponse.getTotal()).split("\\.");
+
         String[] date = movimientosResponse.getFechaMovimiento().split(" ");
         @ColorInt int movementColor = ContextCompat.getColor(getActivity(),
                 MovementColorsFactory.getColorMovement(movimientosResponse.getTipoMovimiento()));
@@ -112,11 +127,8 @@ public class DetailsEmisorFragment extends GenericFragment {
         txtMarca.setText(movimientosResponse.getDescripcion());
         txtItemMovDate.setText(date[0]);
         txtItemMovMonth.setText(date[1]);
-        if (movimientosResponse.getTipoMovimiento() != 1) {
-            txtMonto.setText(String.format("$%s", monto[0]));
-        } else {
-            txtMonto.setText(String.format("-$%s", monto[0]));
-        }
+        txtMonto.setText(monto[0].concat("."));
+
         if (monto.length > 1) {
             txtItemMovCents.setText(monto[1]);
         } else {
@@ -129,7 +141,24 @@ public class DetailsEmisorFragment extends GenericFragment {
         txtMovementDetailDate.setText(movimientosResponse.getFechaMovimiento());
         txtMovementDetailHour.setText(movimientosResponse.getHoraMovimiento());
         txtMovementDetailAuthNumber.setText(movimientosResponse.getNumAutorizacion());
-        txtMovementDetailClaveRastreo.setText(movimientosResponse.getIdMovimiento());
+
+        txtMovementDetailIdTransaccion.setText(movimientosResponse.getIdMovimiento());
+        txtMovementDetailConcept.setText(movimientosResponse.getConcepto());
+
+        txtMovementDetailReference.setText(movimientosResponse.getReferencia());
+        txtMovementDetailImport.setText(Utils.getCurrencyValue(movimientosResponse.getImporte()));
+
+        if (movimientosResponse.getComision() > 0.0) {
+            ((View)txtMovementDetailComision.getParent()).setVisibility(View.GONE);
+        } else {
+            txtMovementDetailComision.setText(Utils.getCurrencyValue(movimientosResponse.getComision()));
+        }
+
+        if (movimientosResponse.getIVA() > 0.0) {
+            ((View)txtMovementDetailIva.getParent()).setVisibility(View.GONE);
+        } else {
+            txtMovementDetailIva.setText(Utils.getCurrencyValue(movimientosResponse.getIVA()));
+        }
     }
 
 

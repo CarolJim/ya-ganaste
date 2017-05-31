@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
@@ -49,6 +48,9 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
         updateRecyclerData(createAdapter(movementsList), movementsList);
     }
 
+
+
+    @Override
     protected RecyclerView.Adapter createAdapter(List<ItemMovements<MovimientosResponse>> movementsList) {
         return new RecyclerMovementsAdapter<MovimientosResponse>(getContext(), movementsList, this);
     }

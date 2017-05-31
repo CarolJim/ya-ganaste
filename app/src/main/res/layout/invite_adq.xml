@@ -30,7 +30,7 @@
                 android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="wrap_content"
-                android:src="@drawable/icon_tab_dongle_white"
+                android:src="@mipmap/icon_tab_dongle_blue"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 tools:ignore="ContentDescription"

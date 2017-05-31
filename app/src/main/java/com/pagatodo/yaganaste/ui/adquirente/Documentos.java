@@ -503,7 +503,9 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
-                getEstatusDocs();
+                if (mExisteDocs) {
+                    getEstatusDocs();
+                }
                 nextScreen(EVENT_GO_BUSSINES_COMPLETE, null);
             }
         }, DELAY_MESSAGE_PROGRESS);
@@ -559,14 +561,11 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
     @Override
     public void showLoader(String message) {
-        //progressLayout.setTextMessage(message);
-        //progressLayout.setVisibility(VISIBLE);
         onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-        //progressLayout.setVisibility(GONE);
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
@@ -634,9 +633,11 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         super.onResume();
         if (swipeRefreshLayout.isRefreshing()) {
             swipeRefreshLayout.setRefreshing(false);
-            adqPresenter.getEstatusDocs();
         }
         swipeRefreshLayout.destroyDrawingCache();
+        if (mExisteDocs) {
+            adqPresenter.getEstatusDocs();
+        }
     }
 
     @Override

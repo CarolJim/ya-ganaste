@@ -11,8 +11,6 @@
     </item>
 
     <item
-        android:width="@dimen/seekbar_thumb_arrow_width"
-        android:height="@dimen/seekbar_thumb__arrow_height"
         android:top="@dimen/seekbbar_thumb_arrow_margin_top_bottom"
         android:bottom="@dimen/seekbbar_thumb_arrow_margin_top_bottom"
         android:drawable="@drawable/arrow_canvas"

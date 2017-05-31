@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
@@ -7,22 +8,16 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-import com.google.android.gms.vision.text.Text;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
-import com.pagatodo.yaganaste.data.model.DemoMov;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
-import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
@@ -33,7 +28,6 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.TabPresenterImpl;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericTabLayout;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -43,14 +37,13 @@ import java.util.List;
  */
 
 public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> extends GenericFragment
-        implements TabsView<T>, MovementsView<ItemRecycler>, SwipeRefreshLayout.OnRefreshListener,
+        implements MovementsView<ItemRecycler, T>, SwipeRefreshLayout.OnRefreshListener,
         TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener {
 
     private List<List<ItemRecycler>> movementsList;
 
     private View rootView;
     protected GenericTabLayout<T> tabMonths;
-    private TabPresenter tabPresenter;
 
     protected MovementsPresenter<T> movementsPresenter;
 
@@ -59,6 +52,11 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     private SwipeRefreshLayout swipeContainer;
     public static final int MOVEMENTS = 1;
     public static final int PAYMENTS = 2;
+
+
+    public interface UpdateBalanceCallback {
+        void onUpdateBalance();
+    }
 
     public static AbstractAdEmFragment newInstance(int type){
         AbstractAdEmFragment instance;
@@ -80,7 +78,6 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
-        tabPresenter = new TabPresenterImpl(this);
         this.movementsList = new ArrayList<>();
         super.onCreate(savedInstanceState);
     }
@@ -108,7 +105,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         recyclerMovements.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerMovements.setHasFixedSize(true);
         this.tabMonths = (GenericTabLayout<T>)rootView.findViewById(R.id.tab_months);
-        tabPresenter.getPagerData(getTab());
+        movementsPresenter.getPagerData(getTab());
     }
 
     @Override
@@ -122,7 +119,13 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     }
 
     @Override
+    public void updateBalance() {
+        ((UpdateBalanceCallback)getParentFragment()).onUpdateBalance();
+    }
+
+    @Override
     public void onRefresh() {
+        movementsPresenter.updateBalance();
         getDataForTab(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()));
     }
 
@@ -132,6 +135,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
+        movementsPresenter.updateBalance();
         if (movementsList.get(tab.getPosition()) != null) {
             updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
         } else {
@@ -150,7 +154,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemRecycler> movements) {
 
-        movementsList.add(tabMonths.getSelectedTabPosition(), movements);
+        movementsList.set(tabMonths.getSelectedTabPosition(), movements);
         txtInfoMovements.setVisibility(movements.isEmpty() ? View.VISIBLE : View.GONE);
         updateRecyclerData(adapter);
     }
@@ -188,4 +192,5 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     }
 
     protected abstract void performClickOnRecycler(ItemRecycler itemClicked);
+
 }

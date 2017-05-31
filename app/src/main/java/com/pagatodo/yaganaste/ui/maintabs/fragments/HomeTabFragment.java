@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.HomeFragmentPresenter;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.yaganasteviews.TabLayoutEmAd;
@@ -23,7 +24,8 @@ import com.pagatodo.yaganaste.utils.customviews.yaganasteviews.TabLayoutEmAd;
  * @author Juan Guerra on 10/11/2016.
  */
 
-public class HomeTabFragment extends GenericFragment implements TabsView, TabLayoutEmAd.InviteAdquirenteCallback {
+public class HomeTabFragment extends GenericFragment implements TabsView, TabLayoutEmAd.InviteAdquirenteCallback,
+        AbstractAdEmFragment.UpdateBalanceCallback{
 
     private NoSwipeViewPager pagerAdquirente;
     private View rootView;
@@ -66,7 +68,8 @@ public class HomeTabFragment extends GenericFragment implements TabsView, TabLay
     @Override
     public void loadViewPager(ViewPagerData viewPagerData) {
         pagerAdquirente.setAdapter(new GenericPagerAdapter<>(getActivity(), getChildFragmentManager(), viewPagerData.getFragmentList(), viewPagerData.getTabData()));
-        pagerAdquirente.setIsSwipeable(SingletonUser.getInstance().getDataUser().isEsAgente());
+        pagerAdquirente.setIsSwipeable(SingletonUser.getInstance().getDataUser().isEsAgente() &&
+                SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO);
     }
 
     @Override
@@ -76,4 +79,8 @@ public class HomeTabFragment extends GenericFragment implements TabsView, TabLay
         }
     }
 
+    @Override
+    public void onUpdateBalance() {
+        tabLayoutEmAd.updateData();
+    }
 }

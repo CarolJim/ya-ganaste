@@ -70,7 +70,7 @@
     <string name="adqConsultTransaction">/agMov/getStatusTransactionEMVSwipe</string>
     <string name="adqSendTicket">/agMov/sendTicket</string>
     <string name="adqResumeDay">/agMov/getResumenYG?fecha=</string>
-    <string name="adqResumeMonth">/agMov/getResumenMonthYG?fecha=</string>
+    <string name="adqResumeMonth">/agMov/getResumenMonthYG</string>
     <string name="adqGetBalance">/agMov/getSaldo</string>
 
     <!--Textos de la Aplicación-->
@@ -307,7 +307,7 @@
 
     <!--felicidades-->
     <string name="congratulation_text1">Tu Cuenta Ya Ganaste Está Lista</string>
-    <string name="congratulation_text2">A Continuación te Eneseñaremos Todo lo\nQue Puedes Hacer Con Ella...</string>
+    <string name="congratulation_text2">A Continuación te Eneseñaremos Todo lo\nQue Puedes Hacer Con Ella</string>
     <!--Registro Agente-->
     <string name="datos_negocio_nombre">Nombre Requerido, Verifique su Información.</string>
     <string name="datos_negocio_giro">Giro Requerido, Verifique su Información.</string>
@@ -463,6 +463,13 @@
 
     <string name="listo">¡Listo!</string>
     <string name="recibo_enviado">El Recibo Fue Enviado con Éxito.</string>
+
+
+    <!-- Mensajes de error para registro SMS -->
+    <string name="fallo_envio">Falla al Enviar el Mensaje</string>
+    <string name="sin_servicio">Sin Servicio</string>
+    <string name="null_pdu">Null PDU</string>
+    <string name="sin_senial">Sin Señal Telefónica</string>
 
 
     <string name="continuar">Continuar</string>

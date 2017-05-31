@@ -26,6 +26,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_DOCUMENTOS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
@@ -90,8 +91,6 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     public void sendDocumentos(ArrayList<DataDocuments> docs) {
         iAdqView.showLoader("Subiendo Documentos ");
         adqIteractor.sendDocuments(docs);
-        ((IUploadDocumentsView) iAdqView).documentsUploaded("Ejecución Éxitosa");
-
     }
 
     @Override
@@ -107,6 +106,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
             }
         }, DELAY_MESSAGE_PROGRESS);
     }
+
     @Override
     public void onError(WebService ws, Object error) {
         iAdqView.hideLoader();
@@ -131,6 +131,8 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
         } else if (iAdqView instanceof IUploadDocumentsView) {
             if (ws == OBTENER_DOCUMENTOS) {
                 ((IUploadDocumentsView) iAdqView).setDocumentosStatus( (List<EstatusDocumentosResponse>) data);
+            } else if (ws == CARGA_DOCUMENTOS) {
+                ((IUploadDocumentsView) iAdqView).documentsUploaded("Ejecución Éxitosa");
             }
         } else {
             Log.i(TAG, "La sesión se ha cerrado.");
@@ -141,6 +143,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     public void showGaleryError() {
         UI.showToastShort("La aplicacion no pudo acceder a su imagen intente con otra galeria", App.getContext());
     }
+
     public void setEstatusDocs(View rootview, List<EstatusDocumentosResponse> data) {
         adqIteractor.setListDocuments(rootview, data);
     }

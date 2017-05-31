@@ -46,7 +46,6 @@ import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesAddressBack;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesAddressFront;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesIFEBack;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesIFEfront;
-import static com.pagatodo.yaganaste.R.id.txtMovementDetailClaveRastreo;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
@@ -195,7 +194,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
             cargaDocumentosRequest.setDocumentos(docs);
             ApiAdtvo.cargaDocumentos(cargaDocumentosRequest, this);
-            accountManager.hideLoader();
         } catch (OfflineException e) {
             accountManager.onError(CARGA_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
         }
@@ -213,8 +211,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
             cargaDocumentosRequest.setDocumentos(data);
             ApiAdtvo.actualizarDocumentos(cargaDocumentosRequest, this);
-            accountManager.hideLoader();
-            accountManager.onSucces(ACTUALIZAR_DOCUMENTOS, "Actualizar Documentos");
         } catch (OfflineException e) {
 
             accountManager.onError(ACTUALIZAR_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
@@ -302,7 +298,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     }
 
     private void processSendDocumentsPendientes(DataSourceResult response) {
-
         CargaDocumentosResponse data = (CargaDocumentosResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
             accountManager.onSucces(ACTUALIZAR_DOCUMENTOS, data.getMensaje());

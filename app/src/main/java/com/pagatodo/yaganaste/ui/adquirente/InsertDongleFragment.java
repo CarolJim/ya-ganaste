@@ -82,8 +82,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     GifImageView imgInsertCard;
     @BindView(R.id.tv_txt_lector)
     StyleTextView tv_lector;
-    @BindView(R.id.progressLayout)
-    ProgressLayout progressLayout;
 
     private AudioManager audioManager;
     private Handler handlerSwipe;
@@ -314,36 +312,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         App.getInstance().pos.getQposId();
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Log.e(TAG,"onAttach ");
-
-        Activity activity = null;
-
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-
-    }
-
-    @Override
-    public void onDetach() {
-        super.onDetach();
-       App.getInstance().getBaseContext();
-    }
-
-
-    @Override
-    public void onStart() {
-        super.onStart();
-
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -445,7 +413,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void transactionResult(final String message) {
-       showLoader(message);
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();

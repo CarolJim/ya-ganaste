@@ -1,11 +1,14 @@
 package com.pagatodo.yaganaste.ui.maintabs.managers;
 
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
+
 /**
  * @author Juan Guerra on 28/03/2017.
  */
 
-public interface MovementsManager<T> {
+public interface MovementsManager<T, G> {
 
     void onSuccesResponse(T response);
+    void onSuccesBalance(G response);
     void onFailed(int errorCode, int action, String error);
 }
