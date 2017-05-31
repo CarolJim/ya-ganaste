@@ -37,6 +37,7 @@
             style="@style/FragmentElement"
             android:id="@+id/seleccionaGenero"
             android:layout_width="match_parent"
+            android:textSize="@dimen/text_screen_size_normal"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_small"
             android:gravity="center"
@@ -178,6 +179,7 @@
                android:layout_weight="1.4"
                android:layout_centerInParent="true"
                android:text="@string/backButton"
+               android:textSize="@dimen/text_button_register_size_normal"
                android:layout_marginRight="@dimen/margin_small"
                android:background="@drawable/selector_btn_back"
                android:textAllCaps="false" />
@@ -187,6 +189,7 @@
                android:layout_width="match_parent"
                android:layout_height="@dimen/height_btns"
                android:layout_weight="1"
+               android:textSize="@dimen/text_button_register_size_normal"
                android:layout_centerInParent="true"
                android:gravity="center"
                android:text="@string/nextButton"

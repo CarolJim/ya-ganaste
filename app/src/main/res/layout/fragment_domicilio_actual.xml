@@ -178,6 +178,7 @@
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtLegales"
                         android:layout_width="wrap_content"
+                        android:textSize="@dimen/text_screen_size_normal"
                         android:layout_height="wrap_content"
                         android:layout_weight=".5"
                         android:gravity="center"
@@ -199,6 +200,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_btns"
                     android:layout_centerInParent="true"
+                    android:textSize="@dimen/text_button_register_size_normal"
                     android:layout_marginRight="@dimen/margin_small"
                     android:layout_weight="1.4"
                     android:background="@drawable/selector_btn_back"
@@ -210,6 +212,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_btns"
                     android:layout_centerInParent="true"
+                    android:textSize="@dimen/text_button_register_size_normal"
                     android:layout_marginLeft="@dimen/margin_small"
                     android:layout_weight="1"
                     android:background="@drawable/selector_btn_continuar"

@@ -5,136 +5,138 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient_bottom"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:background="@drawable/bg_gradient_bottom"
     tools:context=".ui._controllers.AccountActivity">
 
     <include
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
-<RelativeLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_below="@+id/toolbarLy">
 
-    <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
-        android:id="@+id/layoutBorder"
-        style="@style/BorderTitleStyle"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="@string/userDataTitle">
-
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-            android:id="@+id/edtitEmail"
-            style="@style/FragmentElementTop"
-            android:layout_marginTop="@dimen/double_space"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:formato="email"
-            app:hintText="@string/txt_mail"
-            app:isSingleLine="true"
-            app:maxLength="50" />
-
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-            android:id="@+id/edtitConfirmEmail"
-            style="@style/FragmentElement"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/edtitEmail"
-            app:formato="email"
-            app:hintText="@string/confirmEmail"
-            app:isSingleLine="true"
-            app:maxLength="50" />
-
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-            android:id="@+id/editPassword"
-            style="@style/FragmentElement"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/edtitConfirmEmail"
-            app:formato="password"
-            app:hintText="@string/password"
-            app:isSingleLine="true"
-            app:maxLength="16" />
-
-        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-            android:id="@+id/editPasswordConfirmation"
-            style="@style/FragmentElementBottom"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_below="@+id/editPassword"
-            app:formato="password"
-            app:hintText="@string/passwordConfirm"
-            app:isSingleLine="true"
-            app:maxLength="16" />
-
-    </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
-
-    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-        android:id="@+id/errorMessage"
+    <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="visible"
-        android:layout_marginTop="@dimen/margin_small"
-        android:layout_below="@+id/layoutBorder"
-        android:layout_marginBottom="@dimen/margin_small"/>
+        android:layout_below="@+id/toolbarLy">
 
-    <LinearLayout
-        android:id="@+id/layoutBottom"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:orientation="vertical">
+        <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+            android:id="@+id/layoutBorder"
+            style="@style/BorderTitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            app:title="@string/userDataTitle">
 
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/edtitEmail"
+                style="@style/FragmentElementTop"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="@dimen/double_space"
+                app:formato="email"
+                app:hintText="@string/txt_mail"
+                app:isSingleLine="true"
+                app:maxLength="50" />
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/edtitConfirmEmail"
+                style="@style/FragmentElement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edtitEmail"
+                app:formato="email"
+                app:hintText="@string/confirmEmail"
+                app:isSingleLine="true"
+                app:maxLength="50" />
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/editPassword"
+                style="@style/FragmentElement"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/edtitConfirmEmail"
+                app:formato="password"
+                app:hintText="@string/password"
+                app:isSingleLine="true"
+                app:maxLength="16" />
+
+            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                android:id="@+id/editPasswordConfirmation"
+                style="@style/FragmentElementBottom"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/editPassword"
+                app:formato="password"
+                app:hintText="@string/passwordConfirm"
+                app:isSingleLine="true"
+                app:maxLength="16" />
+
+        </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+
+        <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+            android:id="@+id/errorMessage"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_below="@+id/layoutBorder"
+            android:layout_marginBottom="@dimen/margin_small"
+            android:layout_marginTop="@dimen/margin_small"
+            android:visibility="visible" />
 
         <LinearLayout
-            android:id="@+id/layoutBtns"
+            android:id="@+id/layoutBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/margin_medium"
-            android:layout_marginLeft="@dimen/margin_big"
-            android:layout_marginRight="@dimen/margin_big"
-            android:orientation="horizontal">
+            android:orientation="vertical">
+
 
             <LinearLayout
+                android:id="@+id/layoutBtns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5">
+                android:layout_alignParentBottom="true"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_marginLeft="@dimen/margin_big"
+                android:layout_marginRight="@dimen/margin_big"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5">
+
+                </LinearLayout>
+
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                    android:id="@+id/btnNextDatosUsuario"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_btns"
+                    android:layout_centerInParent="true"
+                    android:layout_weight="1"
+                    android:background="@drawable/selector_btn_continuar"
+                    android:elevation="8dp"
+                    android:gravity="center"
+                    android:text="@string/nextButton"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/text_button_register_size_normal" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5">
+
+                </LinearLayout>
+
 
             </LinearLayout>
-
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnNextDatosUsuario"
-                android:layout_width="match_parent"
-                android:layout_weight="1"
-                android:layout_height="@dimen/height_btns"
-                android:layout_centerInParent="true"
-                android:gravity="center"
-                android:text="@string/nextButton"
-                android:elevation="8dp"
-                android:background="@drawable/selector_btn_continuar"
-                android:textAllCaps="false" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5">
-
-            </LinearLayout>
-
-
-        </LinearLayout>
         </LinearLayout>
 
-</RelativeLayout>
+    </RelativeLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@id/progressLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"/>
+        android:visibility="gone" />
 </RelativeLayout>

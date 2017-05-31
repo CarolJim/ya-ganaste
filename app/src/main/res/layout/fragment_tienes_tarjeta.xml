@@ -20,6 +20,7 @@
         android:layout_height="match_parent"
         android:fillViewport="true"
         android:layout_alignParentBottom="true"
+        android:layout_below="@id/toolbarLy"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true">
 
@@ -84,6 +85,7 @@
                    android:layout_width="match_parent"
                    android:layout_height="wrap_content"
                    android:layout_below="@+id/radioHasCard"
+                   android:textSize="@dimen/text_screen_size_normal"
                    android:layout_marginTop="@dimen/margin_medium"
                    android:layout_marginBottom="@dimen/margin_small"
                    android:gravity="center"
@@ -181,6 +183,7 @@
                     android:layout_height="@dimen/height_btns"
                     android:layout_weight="1"
                     android:gravity="center"
+                    android:textSize="@dimen/text_button_register_size_normal"
                     android:text="@string/next"
                     android:background="@drawable/selector_btn_continuar"
                     android:textAllCaps="false"/>
