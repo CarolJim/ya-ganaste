@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:text="Chedrahui"
-                android:textSize="14sp"
+                android:textSize="@dimen/frag_depositos_recycler_tittle_text_Size"
                 app:tipo="Descripcion" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -36,7 +36,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="Presidente Masaryk 123"
-                android:textSize="13sp"
+                android:textSize="@dimen/frag_depositos_recycler_subtittle_text_Size"
                 app:tipo="Indicacion" />
         </LinearLayout>
 

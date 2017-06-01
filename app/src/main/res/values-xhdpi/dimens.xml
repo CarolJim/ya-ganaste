@@ -50,6 +50,16 @@
 
     <dimen name="frag_servicios_commission_text_size">12sp</dimen>
 
+    <dimen name="frag_depositos_titulo_text_size">16sp</dimen>
+    <dimen name="frag_depositos_datos_text_size">14sp</dimen>
+
+    <dimen name="frag_depositos_sin_sucursal_text_Size">18sp</dimen>
+    <dimen name="frag_depositos_recycler_tittle_text_Size">14sp</dimen>
+    <dimen name="frag_depositos_recycler_subtittle_text_Size">13sp</dimen>
+
+    <dimen name="frag_depositos_sucursal_detail_tittle_text_Size">15dp</dimen>
+    <dimen name="frag_depositos_sucursal_detail_subtittle_text_Size">14dp</dimen>
+
     <dimen name="size_thumb_adquirente">13dp</dimen>
 
     <dimen name="online_movements_small">14sp</dimen>

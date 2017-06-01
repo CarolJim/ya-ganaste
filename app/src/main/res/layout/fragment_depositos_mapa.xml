@@ -30,7 +30,7 @@
         android:layout_weight="55"
         android:layout_margin="@dimen/activity_horizontal_margin"
         android:text="@string/no_sucursales"
-        android:textSize="18sp"
+        android:textSize="@dimen/frag_depositos_sin_sucursal_text_Size"
         android:visibility="visible"
         style="@style/MainTabText" />
 </LinearLayout>

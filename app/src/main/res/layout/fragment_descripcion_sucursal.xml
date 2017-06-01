@@ -39,7 +39,7 @@
                 android:layout_marginTop="26dp"
                 android:text="Chedraui"
                 android:textColor="@color/whiteColor"
-                android:textSize="15dp"
+                android:textSize="@dimen/frag_depositos_sucursal_detail_tittle_text_Size"
                 app:tipo="Descripcion" />
 
             <LinearLayout
@@ -54,6 +54,7 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtSucursalAddress"
                     android:layout_width="0dp"
+                    android:textSize="@dimen/frag_depositos_sucursal_detail_subtittle_text_Size"
                     android:layout_height="match_parent"
                     android:layout_weight="80"
                     android:gravity="center|left"
@@ -89,6 +90,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="80"
+                    android:textSize="@dimen/frag_depositos_sucursal_detail_subtittle_text_Size"
                     android:gravity="center|left"
                     android:text="Pdte Mazaryk"
                     app:tipo="Indicacion" />
@@ -120,6 +122,7 @@
                     android:id="@+id/txtSucursalHour"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:textSize="@dimen/frag_depositos_sucursal_detail_subtittle_text_Size"
                     android:layout_weight="80"
                     android:gravity="center|left"
                     android:text="Pdte Mazaryk"
@@ -152,6 +155,7 @@
                     android:id="@+id/txtSucursalPhone"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
+                    android:textSize="@dimen/frag_depositos_sucursal_detail_subtittle_text_Size"
                     android:layout_weight="80"
                     android:gravity="center|left"
                     android:text="Pdte Mazaryk"
