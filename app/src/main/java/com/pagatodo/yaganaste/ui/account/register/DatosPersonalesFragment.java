@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.account.register;
 
 import android.app.DatePickerDialog;
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -74,8 +75,8 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     ErrorMessage errorBirthDayMessage;
     @BindView(R.id.errorBirthPlaceMessage)
     ErrorMessage errorBirthPlaceMessage;
-
-
+    @BindView(R.id.errorGenderMessage)
+    ErrorMessage errorGenderMsessage;
     StatesSpinnerAdapter adapterBirthPlace;
 
     private String genero = "";
@@ -108,6 +109,10 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
+        radioGroupGender.clearCheck();
+        errorGenderMsessage.alingCenter();
+
+        errorGenderMsessage.setVisibilityImageError(false);
         errorNameMessage.setVisibilityImageError(false);
         errorFLastNameMessage.setVisibilityImageError(false);
         errorBirthDayMessage.setVisibilityImageError(false);
@@ -119,7 +124,7 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         spinnerBirthPlace.setOnItemSelectedListener(this);
         btnNextDatosPersonales.setOnClickListener(this);
         btnBackDatosPersonales.setOnClickListener(this);
-        radioBtnMale.setChecked(true);
+        //radioBtnMale.setChecked(true);
         setCurrentData();// Seteamos datos si hay registro en proceso.
         setValidationRules();
     }
@@ -197,11 +202,24 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
             public void afterTextChanged(Editable s) {
             }
         });
+
+        radioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                hideErrorMessage(radioGroupGender.getId());
+            }
+        });
     }
 
     @Override
     public void validateForm() {
         getDataForm();
+
+        if(genero == null || genero.equals("")){
+            showValidationError(radioGroupGender.getId(), getString(R.string.datos_personal_genero));
+            return;
+        }
+
         if (nombre.isEmpty()) {
             showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
             editNames.setIsInvalid();
@@ -223,7 +241,6 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
             return;
         }
 
-
         onValidationSuccess();
     }
 
@@ -242,6 +259,9 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
                 break;
             case R.id.spinnerBirthPlace:
                 errorBirthPlaceMessage.setMessageText(error.toString());
+                break;
+            case R.id.radioGender:
+                errorGenderMsessage.setMessageText(error.toString());
                 break;
         }
         UI.hideKeyBoard(getActivity());
@@ -263,6 +283,9 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
                 break;
             case R.id.spinnerBirthPlace:
                 errorBirthPlaceMessage.setVisibilityImageError(false);
+                break;
+            case R.id.radioGender:
+                errorGenderMsessage.setVisibilityImageError(false);
                 break;
         }
     }
@@ -303,7 +326,7 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
 
     @Override
     public void getDataForm() {
-        genero = radioBtnMale.isChecked() ? "H" : "M";
+        genero = radioBtnMale.isChecked() ? "H" : radioBtnFemale.isChecked() ? "M" : "";
         nombre = editNames.getText().toString();
         apPaterno = editFirstLastName.getText().toString();
         apMaterno = editSecoundLastName.getText().toString();
@@ -318,8 +341,10 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         RegisterUser registerUser = RegisterUser.getInstance();
         if (registerUser.getGenero().equals("H")) {
             radioBtnMale.setChecked(true);
-        } else {
+        } else if (registerUser.getGenero().equals("M")) {
             radioBtnFemale.setChecked(true);
+        } else {
+            radioGroupGender.clearCheck();
         }
 
         editNames.setText(registerUser.getNombre());

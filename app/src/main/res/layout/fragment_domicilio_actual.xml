@@ -30,18 +30,17 @@
             style="@style/BorderTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_above="@+id/layoutBottom"
             android:layout_below="@+id/toolbarLy"
             app:title="@string/currentAddressTitle">
 
             <ScrollView
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
+                android:layout_height="wrap_content"
                 android:paddingTop="@dimen/generic_padig">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
+                    android:layout_height="wrap_content"
                     android:orientation="vertical">
 
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText

@@ -197,7 +197,7 @@
     <style name="RadioButtonTheme" parent="@style/AppTheme">
         <item name="colorControlActivated">@color/colorAccent</item>
         <item name="colorControlNormal">@color/whiteColor</item>
-        <item name="android:padding">@dimen/margin_medium</item>
+        <item name="android:padding">@dimen/margin_xsmall</item>
     </style>
 
     <style name="CustomRadioButton" parent="Widget.AppCompat.CompoundButton.RadioButton">

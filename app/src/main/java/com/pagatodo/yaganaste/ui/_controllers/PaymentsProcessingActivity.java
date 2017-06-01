@@ -12,15 +12,11 @@ import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
-import com.pagatodo.yaganaste.data.model.Recarga;
-import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
-import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentSuccessFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentsProcessingManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsProcessingPresenter;
@@ -48,7 +44,7 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
 
     IPaymentsProcessingPresenter presenter;
     Object pago;
-
+    private boolean isAvailableToBack = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -67,15 +63,12 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
         pago = getIntent().getExtras().get("pagoItem");
         MovementsTab tab = (MovementsTab) getIntent().getExtras().get("TAB");
 
-
-
         try {
             presenter.sendPayment(tab, pago);
         } catch (OfflineException e) {
             e.printStackTrace();
             onError(getString(R.string.no_internet_access));
         }
-
         /*if (pago instanceof Recarga || pago instanceof Servicios) {
             try {
                 presenter.sendPayment(tab, pago);
@@ -90,8 +83,6 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
             root.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
             loadFragment(PaymentAuthorizeFragment.newInstance((Envios) pago), NONE, false);
         }*/
-
-
         //loadFragment(SendPaymentFragment.newInstance(), Direction.NONE, false);
     }
 
@@ -127,14 +118,17 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
 
     @Override
     public void onBackPressed() {
-        Intent intent = new Intent();
-        setResult(2, intent);
-        finish();
-        overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        if (isAvailableToBack) {
+            Intent intent = new Intent();
+            setResult(2, intent);
+            finish();
+            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        }
     }
 
     @Override
     public void onSuccessPaymentRespone(DataSourceResult result) {
+        isAvailableToBack = true;
         EjecutarTransaccionResponse response = (EjecutarTransaccionResponse) result.getData();
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             hideLoader();
@@ -164,7 +158,7 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
         //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    private void onError(String message){
+    private void onError(String message) {
         Intent intent = new Intent();
         intent.putExtra(RESULT, Constants.RESULT_ERROR);
         intent.putExtra(MESSAGE, message != null ? message : getString(R.string.error_respuesta));

@@ -1,18 +1,14 @@
 package com.pagatodo.yaganaste.utils.customviews;
 
 import android.content.Context;
-import android.graphics.Bitmap;
-import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
 import android.util.AttributeSet;
+import android.view.Gravity;
 import android.view.LayoutInflater;
-import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
 
 import butterknife.ButterKnife;
-import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by flima on 03/04/2017.
@@ -38,9 +34,9 @@ public class ErrorMessage extends RelativeLayout {
         init();
     }
 
-    private void init(){
+    private void init() {
         String infService = Context.LAYOUT_INFLATER_SERVICE;
-        LayoutInflater li = (LayoutInflater)getContext().getSystemService(infService);
+        LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
         li.inflate(R.layout.error_validation_message, this, true);
         textMessage = ButterKnife.findById(this, R.id.txtError);
         //imgError = ButterKnife.findById(this, R.id.imgError);
@@ -51,15 +47,18 @@ public class ErrorMessage extends RelativeLayout {
         imgError.setImageResource(idResource);
     }*/
 
-    public void setMessageText(String errorMessage){
+    public void setMessageText(String errorMessage) {
         textMessage.setText(errorMessage);
         setVisibilityImageError(true);
     }
 
-    public void setVisibilityImageError(boolean isVisible){
+    public void setVisibilityImageError(boolean isVisible) {
         //imgError.setVisibility(isVisible ? VISIBLE : INVISIBLE);
         textMessage.setVisibility(isVisible ? VISIBLE : INVISIBLE);
-        if(!isVisible)textMessage.setText("");
+        if (!isVisible) textMessage.setText("");
     }
 
+    public void alingCenter() {
+        textMessage.setGravity(Gravity.CENTER);
+    }
 }

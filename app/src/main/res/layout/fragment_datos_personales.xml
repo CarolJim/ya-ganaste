@@ -5,10 +5,10 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient_bottom"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:background="@drawable/bg_gradient_bottom"
     tools:context=".ui._controllers.AccountActivity">
 
     <include
@@ -20,39 +20,49 @@
         style="@style/BorderTitleStyle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/layoutBottom"
         android:layout_below="@+id/toolbarLy"
         app:title="@string/personalInfoTitle">
 
         <ScrollView
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:paddingTop="@dimen/generic_padig">
 
             <RelativeLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="wrap_content">
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/seleccionaGenero"
-                    style="@style/FragmentElement"
+                <LinearLayout
+                    android:id="@+id/generTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:gravity="center"
-                    android:text="@string/selecciona_genero" />
+                    android:layout_marginTop="@dimen/margin_big"
+                    android:orientation="vertical">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/seleccionaGenero"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/selecciona_genero" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorGenderMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="visible" />
+
+                </LinearLayout>
 
 
                 <RadioGroup
                     android:id="@+id/radioGender"
-                    style="@style/FragmentElement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/seleccionaGenero"
-                    android:layout_marginTop="@dimen/margin_small"
-                    android:gravity="center"
+                    android:layout_below="@+id/generTitle"
                     android:orientation="horizontal"
                     android:theme="@style/RadioButtonTheme">
+
 
                     <android.support.v4.widget.Space
                         android:layout_width="0dp"
@@ -84,12 +94,16 @@
                         android:layout_width="0dp"
                         android:layout_height="0dp"
                         android:layout_weight="1" />
+
+
                 </RadioGroup>
+
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_below="@+id/radioGender"
+                    android:layout_marginTop="@dimen/margin_medium"
                     android:orientation="vertical">
 
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
@@ -97,6 +111,7 @@
                         style="@style/FragmentElement"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_xsmall"
                         app:formato="text"
                         app:hintText="@string/nameHint"
                         app:imageIsGone="true"
@@ -175,7 +190,7 @@
                         android:id="@+id/errorBirthPlaceMessage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="@dimen/double_space"
+                        android:layout_marginBottom="@dimen/margin_doble"
                         android:visibility="visible" />
                 </LinearLayout>
 

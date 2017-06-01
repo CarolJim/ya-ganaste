@@ -265,6 +265,7 @@
     <string name="datos_personal_fecha">Fecha de Nacimiento Requerida, Verifique su Información.</string>
     <string name="datos_personal_estado">Lugar de Nacimiento Requerido, Verifique su Información.</string>
     <string name="datos_personal_nacionalidad">Nacionalidad Requerida, Verifique su Información.</string>
+    <string name="datos_personal_genero">Genero Requerido, Verifique su Información.</string>
     <!--datos_domicilio-->
     <string name="currentAddressTitle">Domicilio Personal</string>
     <string name="streetHint">Calle</string>
