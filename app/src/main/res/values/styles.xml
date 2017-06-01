@@ -50,7 +50,7 @@
     <style name="textTitle">
         <item name="android:layout_centerHorizontal">true</item>
         <item name="android:textColor">@color/colorAccent</item>
-        <item name="android:textSize">24sp</item>
+        <item name="android:textSize">@dimen/frag_adquirente_final_titulo_text_Size</item>
         <item name="android:gravity">center</item>
         <item name="android:textAlignment">center</item>
         <item name="android:layout_marginLeft">24dp</item>
@@ -59,7 +59,7 @@
     </style>
 
     <style name="textSubTitle" parent="textTitle">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/frag_getmount_subtitulo_text_Size</item>
         <item name="android:textColor">@color/whiteColor_disable</item>
     </style>
 
