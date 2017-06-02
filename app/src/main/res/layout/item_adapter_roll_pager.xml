@@ -31,7 +31,7 @@
             android:gravity="center"
             android:text="Hola"
             android:layout_marginTop="@dimen/margin_regular"
-            android:textSize="@dimen/text_tittle_size_big_carrousel" />
+            android:textSize="@dimen/frag_adapter_roll_tittle_text_size" />
     </LinearLayout>
 
     <View

@@ -49,7 +49,7 @@
             android:gravity="center"
             android:text="@string/txt_registrate"
             android:textAllCaps="false"
-            android:textSize="@dimen/text_button_register_size_normal" />
+            android:textSize="@dimen/generic_button_normal_text_size" />
 
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
