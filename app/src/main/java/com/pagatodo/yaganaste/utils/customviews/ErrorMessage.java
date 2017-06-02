@@ -2,10 +2,12 @@ package com.pagatodo.yaganaste.utils.customviews;
 
 import android.content.Context;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 
 import butterknife.ButterKnife;
@@ -39,6 +41,7 @@ public class ErrorMessage extends RelativeLayout {
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
         li.inflate(R.layout.error_validation_message, this, true);
         textMessage = ButterKnife.findById(this, R.id.txtError);
+        textMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, App.getContext().getResources().getDimension(R.dimen.error_custom_validation_editext_size));
         //imgError = ButterKnife.findById(this, R.id.imgError);
     }
 
