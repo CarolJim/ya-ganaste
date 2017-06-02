@@ -4,8 +4,8 @@
     android:id="@+id/fragment_child_tab"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
     android:background="@color/transparent"
+    android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     android:weightSum="100">
@@ -24,7 +24,7 @@
         android:gravity="center"
         android:text="Tus Datos Para Depósito"
         android:textColor="@color/colorAccent"
-        android:textSize="16sp"
+        android:textSize="@dimen/frag_depositos_titulo_text_size"
         app:tipo="Subtitulo" />
 
 
@@ -54,7 +54,7 @@
         android:layout_weight="5"
         android:gravity="center|bottom"
         android:text="Titular:"
-        android:textSize="14sp"
+        android:textSize="@dimen/frag_depositos_datos_text_size"
         app:tipo="Descripcion" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -64,7 +64,7 @@
         android:layout_weight="5"
         android:gravity="center|top"
         android:text=""
-        android:textSize="14sp"
+        android:textSize="@dimen/frag_depositos_datos_text_size"
         app:tipo="Descripcion" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -74,7 +74,7 @@
         android:layout_weight="5"
         android:gravity="center|bottom"
         android:text="N° Tarjeta:"
-        android:textSize="14sp"
+        android:textSize="@dimen/frag_depositos_datos_text_size"
         app:tipo="Descripcion" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -84,7 +84,7 @@
         android:layout_weight="5"
         android:gravity="center|top"
         android:text=""
-        android:textSize="14sp"
+        android:textSize="@dimen/frag_depositos_datos_text_size"
         app:tipo="Descripcion" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -94,7 +94,7 @@
         android:layout_weight="5"
         android:gravity="center|bottom"
         android:text="CABLE"
-        android:textSize="14sp"
+        android:textSize="@dimen/frag_depositos_datos_text_size"
         app:tipo="Descripcion" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -104,7 +104,7 @@
         android:layout_weight="5"
         android:gravity="center|top"
         android:text=""
-        android:textSize="14sp"
+        android:textSize="@dimen/frag_depositos_datos_text_size"
         app:tipo="Descripcion" />
 
     <RelativeLayout
@@ -121,7 +121,7 @@
             android:gravity="center"
             android:text="¿Dónde Depositar?"
             android:textAllCaps="false"
-            android:textSize="15sp" />
+            android:textSize="@dimen/text_button_size_normal_carrousel" />
 
     </RelativeLayout>
 

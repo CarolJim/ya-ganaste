@@ -196,7 +196,6 @@
 
 
             </RelativeLayout>
-
         </ScrollView>
 
     </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>

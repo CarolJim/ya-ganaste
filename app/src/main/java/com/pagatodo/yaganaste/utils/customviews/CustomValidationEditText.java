@@ -105,7 +105,7 @@ public class CustomValidationEditText extends LinearLayout {
             if (inputType != EditorInfo.TYPE_NULL) {
                 editText.setInputType(inputType);
             } else {
-                editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, 12);
+                editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, App.getContext().getResources().getDimension(R.dimen.text_custom_validation_editext_size));
             }
 
             if (textSize != EditorInfo.TYPE_NULL) {

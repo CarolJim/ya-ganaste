@@ -81,15 +81,16 @@
 
                 </RadioGroup>
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/txtMessageCard"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@+id/radioHasCard"
-                    android:layout_marginBottom="@dimen/margin_small"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    android:gravity="center"
-                    android:text="@string/no_tiene_tarjeta" />
+               <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                  android:id="@+id/txtMessageCard"
+                   android:layout_width="match_parent"
+                   android:layout_height="wrap_content"
+                   android:layout_below="@+id/radioHasCard"
+                   android:textSize="@dimen/text_screen_size_normal"
+                   android:layout_marginTop="@dimen/margin_medium"
+                   android:layout_marginBottom="@dimen/margin_small"
+                   android:gravity="center"
+                   android:text="@string/no_tiene_tarjeta"/>
 
                 <RelativeLayout
                     android:id="@+id/layoutCard"
@@ -184,6 +185,7 @@
                     android:layout_weight="1"
                     android:background="@drawable/selector_btn_continuar"
                     android:gravity="center"
+                    android:textSize="@dimen/generic_button_normal_text_size"
                     android:text="@string/next"
                     android:textAllCaps="false" />
 

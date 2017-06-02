@@ -29,16 +29,9 @@
     <dimen name="arrow_seekbar_width">10dp</dimen>
     <dimen name="seekbar_thumb_arrow_left">75dp</dimen>
 
-
     <dimen name="ad_em_tab_mount_text_size">13sp</dimen>
 
     <dimen name="ad_em_tab_text_size">11sp</dimen>
-
-    <dimen name="emisor_mount_text_size">14sp</dimen>
-    <dimen name="emisor_text_size">10sp</dimen>
-
-    <dimen name="size_thumb_adquirente">12dp</dimen>
-
 
     <dimen name="online_movements_small">12sp</dimen>
     <dimen name="online_movements_small_b">14sp</dimen>
@@ -48,5 +41,78 @@
     <dimen name="space">10dp</dimen>
     <dimen name="double_space">33dp</dimen>
     <dimen name="margin_big_monto_concept">18dp</dimen>
+
+
+
+    <!-- Medidas Fragmento Inicio -->
+    <dimen name="frag_inicio_data_text_size">13sp
+    </dimen> <!-- Tamaño de Letra de Tabs, nombre de cliente, texto normal -->
+    <dimen name="frag_inicio_tdc_num_text_size">17sp</dimen>   <!-- Tamaño de Letra de TDC -->
+    <dimen name="frag_inicio_tab_no_movements_text_size">13sp</dimen>
+
+    <!-- Medidas del TabLayout de los meses-->
+    <dimen name="frag_inicio_tab_month_normal_text_size">13sp</dimen>
+    <dimen name="frag_inicio_tab_month_selected_text_size">14sp</dimen>
+
+    <!-- Medidas Fragmento Pagos -->
+    <dimen name="frag_pagos_tab_text_size">14sp</dimen>
+    <dimen name="frag_pagos_name_text_size">18sp</dimen>
+    <dimen name="frag_pagos_mount_text_size">12sp</dimen>
+    <dimen name="frag_servicios_commission_text_size">12sp</dimen>
+
+    <!-- Medidas Fragmento Depositos -->
+    <dimen name="frag_depositos_titulo_text_size">16sp</dimen>
+    <dimen name="frag_depositos_datos_text_size">14sp
+    </dimen> <!-- datos se refiere a letra standar de las demas secciones -->
+
+    <!-- Medidas de las opciones adicionales de DOnde Depositar -->
+    <dimen name="frag_depositos_sin_sucursal_text_Size">18sp
+    </dimen> <!-- Texto mostrado cuando no hay resultados -->
+    <dimen name="frag_depositos_recycler_tittle_text_Size">14sp</dimen>
+    <dimen name="frag_depositos_recycler_subtittle_text_Size">13sp</dimen>
+
+    <!-- Medidas de detalle -->
+    <dimen name="frag_depositos_sucursal_detail_tittle_text_Size">15dp</dimen>
+    <dimen name="frag_depositos_sucursal_detail_subtittle_text_Size">14dp</dimen>
+
+    <!-- Medidas de proceso Adquirente -->
+    <dimen name="frag_adquirente_documentos_datos_text_Size">12dp</dimen>
+    <dimen name="frag_adquirente_final_titulo_text_Size">24sp</dimen>
+
+    <!-- Medidas de proceso con cobro de tarjeta-->
+    <dimen name="frag_getmount_subtitulo_text_Size">20sp</dimen>
+    <dimen name="frag_getmount_calculator_simbolo_text_Size">16sp</dimen>
+    <dimen name="frag_getmount_calculator_enteros_text_Size">46sp</dimen>
+    <dimen name="frag_getmount_calculator_decimales_text_Size">23sp</dimen>
+
+    <!-- Medidas Signature, procesar firma -->
+    <dimen name="frag_signature_pago_por_text_Size">11sp</dimen>
+    <dimen name="frag_signature_monto_text_Size">9sp</dimen>
+    <dimen name="frag_signature_tdc_num_text_Size">14sp</dimen>
+    <dimen name="frag_signature_firma_text_Size">30sp</dimen>
+    <dimen name="frag_signature_nombre_text_Size">14sp</dimen>
+    <dimen name="frag_signature_boton_text_Size">14sp</dimen>
+
+    <!-- Medidas generales-->
+    <dimen name="frag_adapter_roll_tittle_text_size">26sp</dimen>
+    <dimen name="generic_button_normal_text_size">14sp</dimen>
+    <dimen name="frag_adapter_roll_data_text_size">14sp</dimen>
+
+    <dimen name="text_button_size_normal_carrousel">15sp</dimen>
+
+    <dimen name="text_screen_size_normal">14sp</dimen>
+
+
+    <dimen name="text_error_validation_message">14sp</dimen>
+
+    <dimen name="text_custom_validation_editext_size">12px</dimen>
+    <dimen name="text_custom_validation_spinner_size">12sp</dimen>
+
+    <!-- Medidas de TDC home_main_tab_fragment -->
+    <dimen name="text_custom_validation_spinner_size123">12sp</dimen>
+
+    <dimen name="size_thumb_adquirente">13dp</dimen>
+
+
 
 </resources>

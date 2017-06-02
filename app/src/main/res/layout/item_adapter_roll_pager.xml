@@ -31,7 +31,7 @@
             android:gravity="center"
             android:text="Hola"
             android:layout_marginTop="@dimen/margin_regular"
-            android:textSize="26sp" />
+            android:textSize="@dimen/frag_adapter_roll_tittle_text_size" />
     </LinearLayout>
 
     <View

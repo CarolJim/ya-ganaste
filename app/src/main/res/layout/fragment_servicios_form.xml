@@ -98,7 +98,7 @@
         android:layout_below="@+id/containerServiciosForm"
         android:layout_marginTop="@dimen/margin_doble"
         android:gravity="center|bottom"
-        android:textSize="12sp"
+        android:textSize="@dimen/frag_servicios_commission_text_size"
         app:tipo="Descripcion" />
 
 

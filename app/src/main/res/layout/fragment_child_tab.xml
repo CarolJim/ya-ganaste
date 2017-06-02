@@ -149,7 +149,7 @@
                                 android:maxWidth="100dp"
                                 android:text="Marcela"
                                 android:textColor="@color/colorAccent"
-                                android:textSize="18sp"
+                                android:textSize="@dimen/frag_pagos_name_text_size"
                                 app:tipo="Subtitulo" />
 
                             <RelativeLayout
@@ -163,7 +163,7 @@
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
                                     android:text="@string/your_balance"
-                                    android:textSize="12sp"
+                                    android:textSize="@dimen/frag_pagos_mount_text_size"
                                     app:tipo="Subtitulo" />
 
 

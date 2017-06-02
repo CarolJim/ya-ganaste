@@ -47,7 +47,7 @@
                         android:layout_marginBottom="10dp"
                         android:layout_gravity="center"
                         android:text="@string/documents_vigentes"
-                        android:textSize="12dp" />
+                        android:textSize="@dimen/frag_adquirente_documentos_datos_text_Size" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -130,7 +130,7 @@
                     android:layout_marginBottom="10dp"
                     android:layout_gravity="center"
                     android:text="@string/documents_comprobantes"
-                    android:textSize="12dp" />
+                    android:textSize="@dimen/frag_adquirente_documentos_datos_text_Size" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

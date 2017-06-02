@@ -35,7 +35,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="@string/pago_por"
-                    android:textSize="11sp"
+                    android:textSize="@dimen/frag_signature_pago_por_text_Size"
                     android:layout_alignParentLeft="true"/>
 
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
@@ -44,7 +44,7 @@
                     android:layout_height="wrap_content"
                     app:dotBottom="false"
                     app:decimalLenght="1"
-                    android:textSize="9sp"
+                    android:textSize="@dimen/frag_signature_monto_text_Size"
                     android:text="780.23"
                     android:layout_marginLeft="@dimen/margin_small"
                     app:symbolSmaller="false"/>
@@ -60,6 +60,7 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtNumberCard"
                     android:layout_width="wrap_content"
+                    android:textSize="@dimen/frag_signature_tdc_num_text_Size"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_small"
                     android:text="*************4565"/>
@@ -89,7 +90,7 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/signature_here"
                     android:gravity="center"
-                    android:textSize="30sp"
+                    android:textSize="@dimen/frag_signature_firma_text_Size"
                     android:text="@string/tu_firma"
                     android:textStyle="bold"
                     android:textColor="@color/colorAccent"
@@ -120,6 +121,7 @@
                         android:id="@+id/txtNameOwnerCard"
                         android:text="NOMBRE"
                         android:textAlignment="center"
+                        android:textSize="@dimen/frag_signature_nombre_text_Size"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
                 </LinearLayout>
@@ -134,6 +136,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:textColor="@color/whiteColor"
+                        android:textSize="@dimen/frag_signature_boton_text_Size"
                         android:background="@drawable/button_rounded_transparent"
                         android:id="@+id/btnClear"/>
                     <View
@@ -147,6 +150,7 @@
                         android:layout_weight="1"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:textSize="@dimen/frag_signature_boton_text_Size"
                         android:textColor="@color/whiteColor"
                         android:background="@drawable/button_rounded_transparent"/>
                 </LinearLayout>
