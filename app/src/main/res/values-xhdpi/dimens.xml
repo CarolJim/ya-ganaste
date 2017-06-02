@@ -35,8 +35,6 @@
 
     <dimen name="ad_em_tab_text_size">14sp</dimen>
 
-    <!-- Medidas de Carrousel RollPage -->
-
     <!-- Medidas Fragmento Inicio -->
     <dimen name="frag_inicio_data_text_size">13sp
     </dimen> <!-- Tamaño de Letra de Tabs, nombre de cliente, texto normal -->
@@ -58,12 +56,13 @@
     <dimen name="frag_depositos_datos_text_size">14sp
     </dimen> <!-- datos se refiere a letra standar de las demas secciones -->
 
-        <!-- Medidas de las opciones adicionales de DOnde Depositar -->
-    <dimen name="frag_depositos_sin_sucursal_text_Size">18sp</dimen> <!-- Texto mostrado cuando no hay resultados -->
+    <!-- Medidas de las opciones adicionales de DOnde Depositar -->
+    <dimen name="frag_depositos_sin_sucursal_text_Size">18sp
+    </dimen> <!-- Texto mostrado cuando no hay resultados -->
     <dimen name="frag_depositos_recycler_tittle_text_Size">14sp</dimen>
     <dimen name="frag_depositos_recycler_subtittle_text_Size">13sp</dimen>
 
-        <!-- Medidas de detalle -->
+    <!-- Medidas de detalle -->
     <dimen name="frag_depositos_sucursal_detail_tittle_text_Size">15dp</dimen>
     <dimen name="frag_depositos_sucursal_detail_subtittle_text_Size">14dp</dimen>
 
