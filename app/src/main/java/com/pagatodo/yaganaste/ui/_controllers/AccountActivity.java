@@ -107,7 +107,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 break;
 
             case GO_TO_REGISTER:
-                loadFragment(DatosPersonalesFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(DatosUsuarioFragment.newInstance(), Direction.FORDWARD, false);
              
                 // TODO: 28/04/2017
                 resetRegisterData();

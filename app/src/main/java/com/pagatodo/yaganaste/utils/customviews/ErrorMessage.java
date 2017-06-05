@@ -41,7 +41,7 @@ public class ErrorMessage extends RelativeLayout {
         LayoutInflater li = (LayoutInflater) getContext().getSystemService(infService);
         li.inflate(R.layout.error_validation_message, this, true);
         textMessage = ButterKnife.findById(this, R.id.txtError);
-        textMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, App.getContext().getResources().getDimension(R.dimen.error_custom_validation_editext_size));
+        //textMessage.setTextSize(TypedValue.COMPLEX_UNIT_SP, App.getContext().getResources().getDimension(R.dimen.error_custom_validation_editext_size));
         //imgError = ButterKnife.findById(this, R.id.imgError);
     }
 

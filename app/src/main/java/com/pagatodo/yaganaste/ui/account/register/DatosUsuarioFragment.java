@@ -214,10 +214,10 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                 if (hasFocus) {
                     if (editMail.isValidText()) {
                         if (edtitConfirmEmail.getText().isEmpty()) {
-                            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_correo_confirma));
+                            showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_confirma));
                             edtitConfirmEmail.setIsInvalid();
                         } else if (!edtitConfirmEmail.getText().equals(editMail.getText())) {
-                            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_correo_no_coinciden));
+                            showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_no_coinciden));
                             edtitConfirmEmail.setIsInvalid();
                         }
                     }
