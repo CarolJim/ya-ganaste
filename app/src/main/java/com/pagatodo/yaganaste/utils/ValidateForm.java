@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.utils;
 
+import android.util.Patterns;
 import android.widget.EditText;
 
 import java.util.ArrayList;
@@ -50,8 +51,8 @@ public class ValidateForm {
    * */
     private final static Pattern passwprdPattern = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})");
 
-    private final static Pattern emailPattern = Pattern.compile(
-            "^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
+    private final static Pattern emailPattern = Patterns.EMAIL_ADDRESS; //Pattern.compile(
+    //"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
 
 
     public static boolean isEditTextsFill(EditText... edts) {

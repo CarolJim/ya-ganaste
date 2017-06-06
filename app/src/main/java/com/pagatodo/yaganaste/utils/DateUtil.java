@@ -4,15 +4,12 @@ package com.pagatodo.yaganaste.utils;
  * Created by flima on 23/02/2017.
  */
 
-import android.util.Log;
-
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -94,7 +91,7 @@ public class DateUtil {
 
 
     public static String getBirthDateString(Calendar date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormat, Locale.US);
+        SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormat, new Locale("es"));
         String result = dateFormat.format(date.getTime());
         return result;
     }
@@ -111,7 +108,7 @@ public class DateUtil {
         Calendar calendar = Calendar.getInstance(new Locale("MX"));
         LinkedList<MonthsMovementsTab> names = new LinkedList<>();
 
-        for (int subs = 0 ; subs >= -4 ; subs--) {
+        for (int subs = 0; subs >= -4; subs--) {
             calendar.add(Calendar.MONTH, subs);
             names.addFirst(new MonthsMovementsTab(getMonthShortName(calendar), calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.YEAR)));
@@ -120,8 +117,8 @@ public class DateUtil {
         return names;
     }
 
-    public static String getMonthShortName(Calendar calendar){
-        return StringUtils.capitalize(StringUtils.getMonthShortName(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, new Locale("es","MX"))));
+    public static String getMonthShortName(Calendar calendar) {
+        return StringUtils.capitalize(StringUtils.getMonthShortName(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, new Locale("es", "MX"))));
     }
 
     public static AdquirentePaymentsTab getTabAdquirente() {

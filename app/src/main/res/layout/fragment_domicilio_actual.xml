@@ -5,8 +5,8 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true"
     android:background="@drawable/bg_gradient_bottom"
+    android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
@@ -133,9 +133,9 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorColoniaMessage"
-                        android:layout_marginBottom="@dimen/space_between_elements"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/space_between_elements" />
                 </LinearLayout>
 
             </ScrollView>
@@ -152,53 +152,67 @@
             android:layout_marginRight="@dimen/margin_big"
             android:orientation="vertical">
 
-
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="@dimen/margin_medium"
-                android:orientation="horizontal"
-                android:weightSum="100">
-
-                <RelativeLayout
-                    android:id="@+id/radioBtnTermsLayOut"
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="15"
-                    android:gravity="center">
-
-                    <CheckBox
-                        android:id="@+id/radioBtnTerms"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:background="@drawable/radio_btn"
-                        android:button="@null"
-                        android:checked="true" />
-
-                </RelativeLayout>
-
+                android:orientation="vertical">
 
                 <LinearLayout
-                    android:layout_width="0dp"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    android:layout_weight="85"
-                    android:gravity="center"
-                    android:orientation="vertical">
+                    android:orientation="horizontal"
+                    android:weightSum="100">
 
-                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        android:id="@+id/txtLegales"
-                        android:layout_width="wrap_content"
-                        android:textSize="@dimen/text_screen_size_normal"
+                    <RelativeLayout
+                        android:id="@+id/radioBtnTermsLayOut"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="15"
+                        android:gravity="center">
+
+                        <CheckBox
+                            android:id="@+id/radioBtnTerms"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:background="@drawable/radio_btn"
+                            android:button="@null"
+                            android:checked="true" />
+
+                    </RelativeLayout>
+
+
+                    <LinearLayout
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".5"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="@dimen/margin_small"
+                        android:layout_weight="85"
                         android:gravity="center"
-                        android:text="@string/terms_and_conditions"
-                        app:tipo="Descripcion" />
+                        android:orientation="vertical">
 
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/txtLegales"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".5"
+                            android:gravity="center"
+                            android:text="@string/terms_and_conditions"
+                            android:textSize="@dimen/text_screen_size_normal"
+                            app:tipo="Descripcion" />
+
+                    </LinearLayout>
                 </LinearLayout>
+
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorCheckMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="@dimen/space_between_elements" />
+
             </LinearLayout>
+
 
             <LinearLayout
                 android:id="@+id/layoutBtns"
@@ -212,25 +226,25 @@
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_btns"
                     android:layout_centerInParent="true"
-                    android:textSize="@dimen/generic_button_normal_text_size"
                     android:layout_marginRight="@dimen/margin_small"
                     android:layout_weight="1.4"
                     android:background="@drawable/selector_btn_back"
                     android:text="@string/backButton"
-                    android:textAllCaps="false" />
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/generic_button_normal_text_size" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleButton
                     android:id="@+id/btnNextDomicilioActual"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_btns"
                     android:layout_centerInParent="true"
-                    android:textSize="@dimen/generic_button_normal_text_size"
                     android:layout_marginLeft="@dimen/margin_small"
                     android:layout_weight="1"
                     android:background="@drawable/selector_btn_continuar"
                     android:gravity="center"
                     android:text="@string/nextButton"
-                    android:textAllCaps="false" />
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/generic_button_normal_text_size" />
             </LinearLayout>
 
         </LinearLayout>

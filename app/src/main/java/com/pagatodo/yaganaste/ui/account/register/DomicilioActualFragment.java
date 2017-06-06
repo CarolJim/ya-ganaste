@@ -13,9 +13,11 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.Toast;
@@ -25,6 +27,7 @@ import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
+import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -55,7 +58,8 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DomicilioActualFragment extends GenericFragment implements View.OnClickListener, ValidationForms<Object>, IAccountRegisterView<Object> {
+public class DomicilioActualFragment extends GenericFragment implements View.OnClickListener,
+        ValidationForms<Object>, IAccountRegisterView<Object>, IOnSpinnerClick {
 
     public static int MIN_LENGHT_VALIDATION_CP = 4;
     private View rootview;
@@ -94,7 +98,8 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     ErrorMessage errorZipCodeMessage;
     @BindView(R.id.errorColoniaMessage)
     ErrorMessage errorColoniaMessage;
-
+    @BindView(R.id.errorCheckMessage)
+    ErrorMessage errorCheckMessage;
 
     private ColoniasArrayAdapter adapterColonia;
     private List<ColoniasResponse> listaColonias;
@@ -164,11 +169,13 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         errorNumeroMessage.setVisibilityImageError(false);
         errorZipCodeMessage.setVisibilityImageError(false);
         errorColoniaMessage.setVisibilityImageError(false);
+        errorCheckMessage.setVisibilityImageError(false);
+        errorCheckMessage.alingCenter();
 
         //errorMessageView.setVisibilityImageError(false);
         coloniasNombre = new ArrayList<String>();
         coloniasNombre.add(getString(R.string.colonia));
-        adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, coloniasNombre);
+        adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, coloniasNombre, this);
         spColonia.setAdapter(adapterColonia);
         btnNextDomicilioActual.setOnClickListener(this);
         btnBackDomicilioActual.setOnClickListener(this);
@@ -262,6 +269,12 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             }
         });
 
+        radioBtnTerms.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
+                hideErrorMessage(radioBtnTerms.getId());
+            }
+        });
     }
 
     private void fillAdapter() {
@@ -342,7 +355,8 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                 errorColoniaMessage.setMessageText(error.toString());
                 break;
             case R.id.radioBtnTerms:
-                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                //Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+                errorCheckMessage.setMessageText(error.toString());
                 break;
         }
         //errorMessageView.setMessageText(error.toString());
@@ -364,7 +378,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                 errorColoniaMessage.setVisibilityImageError(false);
                 break;
             case R.id.radioBtnTerms:
-
+                errorCheckMessage.setVisibilityImageError(false);
                 break;
         }
 
@@ -493,16 +507,13 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             if (s.toString().length() > MIN_LENGHT_VALIDATION_CP) {
                 showLoader("Buscando CP");
                 accountPresenter.getNeighborhoods(s.toString().trim());//Buscamos por CP
-
             } else {
                 if (listaColonias != null) {
                     listaColonias.clear();
                     estadoDomicilio = "";
                     fillAdapter();
-
                 }
             }
-
         }
     };
 
@@ -542,6 +553,11 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
         txtLegales.setText(ss);
         txtLegales.setMovementMethod(LinkMovementMethod.getInstance());
+    }
+
+    @Override
+    public void onSpinnerClick() {
+        hideErrorMessage(spColonia.getId());
     }
 }
 

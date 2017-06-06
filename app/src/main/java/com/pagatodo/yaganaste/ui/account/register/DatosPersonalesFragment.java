@@ -18,6 +18,7 @@ import android.widget.RadioGroup;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
+import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.States;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -28,6 +29,7 @@ import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
 import java.util.Calendar;
+import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -38,7 +40,9 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DATA_
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DatosPersonalesFragment extends GenericFragment implements View.OnClickListener, ValidationForms, INavigationView, AdapterView.OnItemSelectedListener {
+public class DatosPersonalesFragment extends GenericFragment implements
+        View.OnClickListener, ValidationForms, INavigationView,
+        AdapterView.OnItemSelectedListener, IOnSpinnerClick {
 
 
     private final int MX = 1;
@@ -119,7 +123,7 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
         errorBirthPlaceMessage.setVisibilityImageError(false);
 
         editBirthDay.setFullOnClickListener(onClickListenerDatePicker);
-        adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout, States.values());
+        adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout, States.values(), this);
         spinnerBirthPlace.setAdapter(adapterBirthPlace);
         spinnerBirthPlace.setOnItemSelectedListener(this);
         btnNextDatosPersonales.setOnClickListener(this);
@@ -209,13 +213,14 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
                 hideErrorMessage(radioGroupGender.getId());
             }
         });
+
     }
 
     @Override
     public void validateForm() {
         getDataForm();
 
-        if(genero == null || genero.equals("")){
+        if (genero == null || genero.equals("")) {
             showValidationError(radioGroupGender.getId(), getString(R.string.datos_personal_genero));
             return;
         }
@@ -387,7 +392,7 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int date) {
-                    Calendar newDate = Calendar.getInstance();
+                    Calendar newDate = Calendar.getInstance(new Locale("es"));
                     newDate.set(year, month, date);
                     editBirthDay.setText(DateUtil.getBirthDateString(newDate));
                     fechaNacimiento = DateUtil.getDateStringFirstYear(newDate);
@@ -396,4 +401,9 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
             datePickerDialog.show();
         }
     };
+
+    @Override
+    public void onSpinnerClick() {
+        hideErrorMessage(spinnerBirthPlace.getId());
+    }
 }

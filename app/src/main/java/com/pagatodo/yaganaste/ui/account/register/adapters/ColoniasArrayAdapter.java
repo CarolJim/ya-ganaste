@@ -11,10 +11,10 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.interfaces.enums.GiroAdapterType;
+import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 
 import java.util.List;
 
@@ -26,12 +26,14 @@ public class ColoniasArrayAdapter extends ArrayAdapter<String> {
     Context mContext;
     int mLayoutResourceId;
     List<String> mList;
+    IOnSpinnerClick spinnerClick;
 
-    public ColoniasArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<String> objects) {
+    public ColoniasArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<String> objects, IOnSpinnerClick iOnSpinnerClick) {
         super(context, resource, objects);
         this.mContext = context;
         this.mList = objects;
         this.mLayoutResourceId = resource;
+        this.spinnerClick = iOnSpinnerClick;
     }
 
     @Override
@@ -39,11 +41,11 @@ public class ColoniasArrayAdapter extends ArrayAdapter<String> {
         return mList.size();
     }
 
-    public String getItemSelected(int position){
+    public String getItemSelected(int position) {
         return mList.get(position);
     }
 
-    private View getCustomView(int position, @Nullable View convertView, @NonNull final ViewGroup parent){
+    private View getCustomView(int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         View row = convertView;
         ViewHolder holder;
         String item = mList.get(position);
@@ -53,23 +55,31 @@ public class ColoniasArrayAdapter extends ArrayAdapter<String> {
 
             holder = new ViewHolder();
             holder.editText = (EditText) row.findViewById(R.id.editTextCustomSpinner);
-            holder.downArrow = (ImageView)row.findViewById(R.id.imageViewCustomSpinner);
+            holder.downArrow = (ImageView) row.findViewById(R.id.imageViewCustomSpinner);
+            holder.laySpinnerCustom = (LinearLayout) row.findViewById(R.id.laySpinnerCustom);
             row.setTag(holder);
-        }else {
+        } else {
             holder = (ViewHolder) row.getTag();
         }
 
-        holder.editText.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener onClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                spinnerClick.onSpinnerClick();
                 parent.performClick();
             }
-        });
+        };
+
+        holder.laySpinnerCustom.setOnClickListener(onClick);
+
+        holder.editText.setOnClickListener(onClick);
+
+        holder.downArrow.setOnClickListener(onClick);
 
 
-        if(position == 0){
+        if (position == 0) {
             holder.editText.setHint(item);
-        }else {
+        } else {
             holder.editText.setText(item);
         }
 
@@ -85,11 +95,12 @@ public class ColoniasArrayAdapter extends ArrayAdapter<String> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-       return getCustomView(position, convertView, parent);
+        return getCustomView(position, convertView, parent);
     }
 
-    static class ViewHolder{
+    static class ViewHolder {
         EditText editText;
         ImageView downArrow;
+        LinearLayout laySpinnerCustom;
     }
 }

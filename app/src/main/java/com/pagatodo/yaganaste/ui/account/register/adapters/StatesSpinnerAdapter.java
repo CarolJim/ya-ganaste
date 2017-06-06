@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
+import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 /**
@@ -24,17 +26,21 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
     Context mContext;
     int mLayoutResourceId;
     IEnumSpinner[] mItems;
+    private IOnSpinnerClick spinnerClick;
 
-    public StatesSpinnerAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull IEnumSpinner[] objects) {
+    public StatesSpinnerAdapter(@NonNull Context context,
+                                @LayoutRes int resource, @NonNull IEnumSpinner[] objects,
+                                IOnSpinnerClick iOnSpinnerClick) {
         super(context, resource, objects);
         this.mLayoutResourceId = resource;
         this.mContext = context;
         this.mItems = objects;
+        spinnerClick = iOnSpinnerClick;
     }
 
 
     @Override
-    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public View getDropDownView(int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         View row = convertView;
         StatesSpinnerAdapter.DropDownHolder holder;
 
@@ -49,11 +55,13 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
         } else {
             holder = (StatesSpinnerAdapter.DropDownHolder) row.getTag();
         }
+
+
         IEnumSpinner item = mItems[position];
-        if(position == 0){
+        if (position == 0) {
             holder.txtTitle.setText("");
             holder.txtTitle.setHint(item.getName());
-        }else {
+        } else {
             holder.txtTitle.setText(item.getName());
         }
 
@@ -71,23 +79,31 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
 
             holder = new StatesSpinnerAdapter.ViewHolder();
             holder.editText = (EditText) row.findViewById(R.id.editTextCustomSpinner);
-            holder.downArrow = (ImageView)row.findViewById(R.id.imageViewCustomSpinner);
+            holder.downArrow = (ImageView) row.findViewById(R.id.imageViewCustomSpinner);
+            holder.laySpinnerCustom = (LinearLayout)row.findViewById(R.id.laySpinnerCustom);
             row.setTag(holder);
-        }else {
+        } else {
             holder = (StatesSpinnerAdapter.ViewHolder) row.getTag();
         }
 
-        holder.editText.setOnClickListener(new View.OnClickListener() {
+        View.OnClickListener onClick = new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                spinnerClick.onSpinnerClick();
                 parent.performClick();
             }
-        });
+        };
+
+        holder.laySpinnerCustom.setOnClickListener(onClick);
+
+        holder.editText.setOnClickListener(onClick);
+
+        holder.downArrow.setOnClickListener(onClick);
 
         IEnumSpinner item = mItems[position];
-        if(position == 0){
+        if (position == 0) {
             holder.editText.setHint(item.getName());
-        }else {
+        } else {
             holder.editText.setText(item.getName());
         }
 
@@ -104,7 +120,7 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
         return mItems.length;
     }
 
-    public String getItemIdString(int position){
+    public String getItemIdString(int position) {
         return mItems[position].getId();
     }
 
@@ -112,18 +128,19 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
         StyleTextView txtTitle;
     }
 
-    public String getItemName(int position){
+    public String getItemName(int position) {
         return mItems[position].getName();
     }
 
-    static class ViewHolder{
+    static class ViewHolder {
         EditText editText;
         ImageView downArrow;
+        LinearLayout laySpinnerCustom;
     }
 
-    public int getPositionItemByName(String name){
-        for(int position = 0 ; position< mItems.length;position++){
-            if(mItems[position].getName().equals(name))
+    public int getPositionItemByName(String name) {
+        for (int position = 0; position < mItems.length; position++) {
+            if (mItems[position].getName().equals(name))
                 return position;
         }
         return 0;

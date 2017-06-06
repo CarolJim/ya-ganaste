@@ -23,6 +23,7 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -32,20 +33,22 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import butterknife.BindView;
 import butterknife.ButterKnife;
+
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.DEFAULT_CARD;
 import static com.pagatodo.yaganaste.utils.Utils.getCardNumberRamdon;
-import butterknife.BindView;
 
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class TienesTarjetaFragment extends GenericFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener,IAccountCardView {
+public class TienesTarjetaFragment extends GenericFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, IAccountCardView {
 
     private static int LEGTH_CARD_NUMBER_FORMAT = 19;
     private View rootview;
@@ -69,7 +72,6 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     ProgressLayout progressLayout;
     private AccountPresenterNew accountPresenter;
 
-    int keyDel;
     String a;
 
     public TienesTarjetaFragment() {
@@ -97,7 +99,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        accountPresenter = ((AccountActivity)getActivity()).getPresenter();
+        accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
@@ -126,12 +128,13 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        keyboardView.setKeyBoard(getActivity(),R.xml.keyboard_nip);
+        keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
         btnNextTienesTarjeta.setOnClickListener(this);
         final Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Light.ttf");
         radioHasCard.setOnCheckedChangeListener(this);
         radioBtnNo.setChecked(true);//Selección por Default
+
 
         editNumber.setTypeface(typeface);
         ViewTreeObserver viewTreeObserver = layoutCard.getViewTreeObserver();
@@ -152,59 +155,43 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 boolean flag = true;
-                String eachBlock[] = editNumber.getText().toString().split(" ");
-                for (int i = 0; i < eachBlock.length; i++) {
-                    if (eachBlock[i].length() > 4) {
-                        flag = false;
-                    }
-                }
-                if (flag) {
-                    editNumber.setOnKeyListener(new View.OnKeyListener() {
-                        @Override
-                        public boolean onKey(View v, int keyCode, KeyEvent event) {
-                            if (keyCode == KeyEvent.KEYCODE_DEL)
-                                keyDel = 1;
-                            return false;
-                        }
-                    });
 
-                    if (keyDel == 0) {
+                editNumber.removeTextChangedListener(this);
+                editNumber.setCursorVisible(false);
 
-                        if (((editNumber.getText().length() + 1) % 5) == 0) {
-
-                            if (editNumber.getText().toString().split(" ").length <= 3) {
-                                editNumber.setText(editNumber.getText() + " ");
-                                editNumber.setSelection(editNumber.getText().length());
+                editNumber.setOnKeyListener(new View.OnKeyListener() {
+                    @Override
+                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+                        StringBuilder cardNumber = new StringBuilder(editNumber.getText().toString());
+                        int lastSharpIndex = cardNumber.indexOf("#");
+                        if (keyCode == KeyEvent.KEYCODE_DEL) {
+                            if (lastSharpIndex != -1) {
+                                if (lastSharpIndex == 10 || lastSharpIndex == 15) {
+                                    cardNumber.setCharAt(lastSharpIndex - 2, '#');
+                                } else {
+                                    cardNumber.setCharAt(lastSharpIndex - 1, '#');
+                                }
+                            } else {
+                                if (lastSharpIndex == 7)
+                                    cardNumber.setCharAt(cardNumber.length() - 1, '#');
+                            }
+                        } else {
+                            char lastChar = (char) event.getUnicodeChar();
+                            if (lastSharpIndex != -1 && keyCode != 29 && keyCode != 4) {
+                                cardNumber.setCharAt(lastSharpIndex, lastChar);
                             }
                         }
-                        a = editNumber.getText().toString();
-                    } else {
-                        a = editNumber.getText().toString();
-                        keyDel = 0;
+                        editNumber.setText(cardNumber);
+                        if (cardNumber.indexOf("#") == -1) {
+                            hideKeyboard();
+                        }
+                        return false;
                     }
-
-                } else {
-                    editNumber.setText(a);
-                }
+                });
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
-                if(editNumber.getText().length() == LEGTH_CARD_NUMBER_FORMAT){
-                    hideKeyboard();
-                }
-                else if (radioHasCard.getCheckedRadioButtonId() == R.id.radioBtnYes
-                        && s.toString().length() < DEFAULT_CARD.length()) {
-                    editNumber.setText(DEFAULT_CARD);
-                    editNumber.post(new Runnable() {
-                        @Override
-                        public void run() {
-                            editNumber.setSelection(editNumber.getText().length());
-                        }
-                    });
-                }
-
             }
         });
 
@@ -213,8 +200,9 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     keyboardView.showCustomKeyboard(v);
-                }else{
-                    keyboardView.hideCustomKeyboard();}
+                } else {
+                    keyboardView.hideCustomKeyboard();
+                }
             }
         });
 
@@ -252,7 +240,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             case R.id.radioBtnYes:
                 editNumber.setFocusableInTouchMode(true);
                 editNumber.setEnabled(true);
-                editNumber.setCursorVisible(true);
+                editNumber.setCursorVisible(false);
                 editNumber.requestFocus();
                 keyboardView.showCustomKeyboard(editNumber);
                 txtMessageCard.setText(getString(R.string.si_tiene_tarjeta));
@@ -268,21 +256,21 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         }
     }
 
-    private void selectNextAction(){
-        if(radioBtnNo.isChecked()){ // Selecciona que no tiene tarjeta
+    private void selectNextAction() {
+        if (radioBtnNo.isChecked()) { // Selecciona que no tiene tarjeta
             /*TODO Asignar cuenta*/
             assingAccountAvaliable();
-        }else{
-            String numberCard = editNumber.getText() != null  ? editNumber.getText().toString().trim() : "";
-            if(radioBtnYes.isChecked() && numberCard.length() == LEGTH_CARD_NUMBER_FORMAT){ // Validamos que ingrese la tarjeta
+        } else {
+            String numberCard = editNumber.getText() != null ? editNumber.getText().toString().trim() : "";
+            if (radioBtnYes.isChecked() && numberCard.length() == LEGTH_CARD_NUMBER_FORMAT) { // Validamos que ingrese la tarjeta
                 accountPresenter.checkCardAssigment(numberCard);
-            }else{
-                UI.showToastShort(getString(R.string.tienes_tarjeta_numero),getActivity());
+            } else {
+                UI.showToastShort(getString(R.string.tienes_tarjeta_numero), getActivity());
             }
         }
     }
 
-    private void assingAccountAvaliable(){
+    private void assingAccountAvaliable() {
         accountPresenter.assignAccount();
     }
 
@@ -293,7 +281,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
-                nextScreen(EVENT_GO_ASSIGN_PIN,null);// Mostramos la pantalla para obtener tarjeta.
+                nextScreen(EVENT_GO_ASSIGN_PIN, null);// Mostramos la pantalla para obtener tarjeta.
             }
         }, DELAY_MESSAGE_PROGRESS);
     }
@@ -316,36 +304,35 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     }
 
     @Override
-    public void showError(Object error){
-        if(!error.toString().isEmpty()) {
-            UI.showToastShort(error.toString(),getActivity());
+    public void showError(Object error) {
+        if (!error.toString().isEmpty()) {
+            UI.showToastShort(error.toString(), getActivity());
         }
     }
 
     @Override
     public void nextScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     public boolean isCustomKeyboardVisible() {
         return keyboardView.getVisibility() == View.VISIBLE;
     }
 
-    public void hideKeyboard(){
+    public void hideKeyboard() {
         keyboardView.hideCustomKeyboard();
     }
 
-    private void resetCardNumberDefault(){
-        editNumber.setText(DEFAULT_CARD);
-        editNumber.setSelection(editNumber.getText().length());
+    private void resetCardNumberDefault() {
+        editNumber.setText(DEFAULT_CARD + "## #### ####");
     }
 
-    private void generateCardNumberRamdon(){
+    private void generateCardNumberRamdon() {
         String randomNumber = DEFAULT_CARD + getCardNumberRamdon();
         editNumber.setText(randomNumber);
         editNumber.setFocusableInTouchMode(false);

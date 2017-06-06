@@ -18,6 +18,8 @@ import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.adquirente.readers.IposListener;
 
+import java.util.Locale;
+
 /**
  * Created by flima on 17/03/17.
  */
@@ -35,6 +37,15 @@ public class App extends Application {
     @Override
     public void onCreate() {
         super.onCreate();
+
+        String languageToLoad  = "es"; // your language
+        Locale locale = new Locale(languageToLoad);
+        Locale.setDefault(locale);
+        Configuration config = new Configuration();
+        config.locale = locale;
+        getBaseContext().getResources().updateConfiguration(config,
+                getBaseContext().getResources().getDisplayMetrics());
+
         m_singleton = this;
         //MultiDex.install(this);
 

@@ -40,7 +40,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_RE
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements IVerificationSMSView,IAprovView {
+public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements IVerificationSMSView, IAprovView {
 
     private static final String TAG = AsociatePhoneAccountFragment.class.getSimpleName();
     private static final long CHECK_SMS_VALIDATE_DELAY = 10000;
@@ -53,6 +53,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     BroadcastReceiver broadcastReceiver;
 
     private AccountPresenterNew accountPresenter;
+
     //private AprovPresenter aprovPresenter;
     public AsociatePhoneAccountFragment() {
     }
@@ -67,7 +68,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        accountPresenter = ((AccountActivity)getActivity()).getPresenter();
+        accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
         //aprovPresenter = new AprovPresenter(getActivity(),this);
     }
@@ -121,8 +122,8 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         showError(message);
     }
 
-    private void executeProvisioning(){
-    //    aprovPresenter.getActivationCode();
+    private void executeProvisioning() {
+        //    aprovPresenter.getActivationCode();
     }
 
     @Override
@@ -144,8 +145,8 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         finishAssociation();
     }
 
-    public void finishAssociation(){
-        nextScreen(EVENT_GO_REGISTER_COMPLETE,null);
+    public void finishAssociation() {
+        nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
     }
 
     @Override
@@ -181,31 +182,33 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
     @Override
     public void showError(Object error) {
-        if(!error.toString().isEmpty())UI.showToastShort(error.toString(),getActivity());
+        if (!error.toString().isEmpty()) UI.showToastShort(error.toString(), getActivity());
     }
 
     @Override
     public void nextScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void messageCreated(MessageValidation messageValidation) {
-        sendSMS(messageValidation.getPhone(),messageValidation.getMessage());
+        sendSMS(messageValidation.getPhone(), messageValidation.getMessage());
     }
 
-    /**BroadcastReceiver para realizar el envío del SMS**/
+    /**
+     * BroadcastReceiver para realizar el envío del SMS
+     **/
     BroadcastReceiver broadcastReceiverSend = new BroadcastReceiver() {
         @Override
         public void onReceive(Context arg0, Intent arg1) {
             switch (getResultCode()) {
                 case Activity.RESULT_OK:
-                    UI.showToastShort("Mensaje Enviado",getActivity());
+                    UI.showToastShort("Mensaje Enviado", getActivity());
 
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
@@ -248,10 +251,10 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
             public void onReceive(Context context, Intent intent) {
                 switch (getResultCode()) {
                     case Activity.RESULT_OK:
-                        UI.showToastShort("SMS Entregado",getActivity());
+                        UI.showToastShort("SMS Entregado", getActivity());
                         break;
                     case Activity.RESULT_CANCELED:
-                        UI.showToastShort("SMS No Entregado",getActivity());
+                        UI.showToastShort("SMS No Entregado", getActivity());
                         break;
                 }
             }
@@ -282,22 +285,26 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     }
 
     private void goLoginAlert(String message) {
-        UI.createSimpleCustomDialogNoCancel("", message, getChildFragmentManager(), new DialogDoubleActions() {
+
+        UI.createCustomDialog("", message, getChildFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
-                goToLogin();
+                continuePayment();
             }
 
             @Override
             public void actionCancel(Object... params) {
                 //No-Op
+                goToLogin();
             }
-        });
+        }, "Reintentar", "Cancelar");
+
+        //UI.createSimpleCustomDialogNoCancel("", message, getChildFragmentManager(),);
     }
 
-    private void goToLogin(){
+    private void goToLogin() {
         RegisterUser.resetRegisterUser();
-        nextScreen(EVENT_GO_LOGIN,null);
+        nextScreen(EVENT_GO_LOGIN, null);
     }
 }
 

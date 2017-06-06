@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEn
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.interfaces.IAdqRegisterView;
+import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
@@ -48,7 +49,9 @@ import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_DOMICILIO;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DomicilioNegocio extends GenericFragment implements ValidationForms, View.OnClickListener, IAdqRegisterView<ErrorObject>, RadioGroup.OnCheckedChangeListener {
+public class DomicilioNegocio extends GenericFragment implements ValidationForms,
+        View.OnClickListener, IAdqRegisterView<ErrorObject>, RadioGroup.OnCheckedChangeListener,
+        IOnSpinnerClick {
 
     public static final String _DOMICILIO = "1";
     public static final String COLONIAS = "2";
@@ -140,7 +143,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         textWatcherZipCode = new ZipWatcher();
         hideLoader();
         coloniasNombre = new ArrayList<>();
-        adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, coloniasNombre);
+        adapterColonia = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, coloniasNombre, this);
         spBussinesColonia.setAdapter(adapterColonia);
         btnNextBussinesAddress.setOnClickListener(this);
         btnBackBussinesAddress.setOnClickListener(this);
@@ -406,6 +409,11 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         } else {
             fillHomeAddress();
         }
+    }
+
+    @Override
+    public void onSpinnerClick() {
+
     }
 
     private class ZipWatcher extends AbstractTextWatcher {
