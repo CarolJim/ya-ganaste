@@ -2,6 +2,7 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_gravity="center"
     android:gravity="center"
     android:orientation="horizontal">
@@ -9,6 +10,7 @@
     <LinearLayout
         android:id="@+id/lnr_tab"
         android:layout_width="match_parent"
+        android:layout_marginTop="2dp"
         android:layout_height="match_parent"
         android:layout_gravity="center"
         android:gravity="center"
@@ -25,6 +27,8 @@
             android:id="@android:id/icon"
             android:layout_width="30dp"
             android:layout_height="30dp"
+            android:paddingTop="5dp"
+            android:paddingBottom="5dp"
             android:adjustViewBounds="true"
             android:src="@mipmap/logo_mapfre" />
 
@@ -33,6 +37,7 @@
             style="@style/MainTabText"
             android:textSize="@dimen/frag_inicio_tab_month_normal_text_size"
             android:layout_width="wrap_content"
+            app:tipo="Descripcion"
             android:layout_height="wrap_content"
             android:text="Deposito" />
     </LinearLayout>
