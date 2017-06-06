@@ -242,7 +242,7 @@
     <string name="action_select_picture_cancel">Cancelar</string>
     <!--datos_usuario-->
     <string name="datos_usuario_correo_existe">Este Correo Ya ha Sido Registrado.</string>
-    <string name="userDataTitle">Datos del Usuario</string>
+    <string name="userDataTitle">Datos de Usuario</string>
     <string name="confirmEmail">Confirma Correo Electrónico</string>
     <string name="password">Contraseña</string>
     <string name="passwordConfirm">Confirma Contraseña</string>
@@ -286,7 +286,7 @@
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
     <!--tienes_tarjeta-->
     <string name="tienes_tarjeta_numero">Verifica el Número de Tu Tarjeta.</string>
-    <string name="tienes_tarjeta_asignando">Estamos asignandote una cuenta.</string>
+    <string name="tienes_tarjeta_asignando">Estamos Asignandote una Cuenta.</string>
     <string name="tienes_tarjeta_validando_tarjeta">Estamos Validando Tu Tarjeta.</string>
     <string name="tienes_tarjeta_no">No te Preocupes ¡Ya te Asignamos Una!\nTu Número de Tarjeta es:</string>
     <string name="tienes_tarjeta_asignando_nip">Estamos Asignanado Tu NIP.</string>
@@ -298,7 +298,7 @@
     <string name="asignar_pin">Verifica tu NIP.</string>
     <string name="confirma_pin">Confirma tu NIP.</string>
     <string name="confirmar_pin">El NIP no coincide</string>
-    <string name="longitud_nip">NIP de 4 dígitos</string>
+    <string name="longitud_nip">NIP de 4 DIGITOS</string>
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
@@ -447,9 +447,9 @@
     <string name="ingresa_correo_registrado">Ingresa tu Correo\nElectrónico Registrado</string>
     <string name="ingresa_correo_registrado_requerido">El Correo Electrónico es Requerido. Verifica tu Información.</string>
 
-    <string name="carrouse_title_1">Cobra Con Tarjeta\nAl Mejor Precio</string>
+    <string name="carrouse_title_1">Cobra Con Tarjeta\nal Mejor Precio</string>
     <string name="carrouse_title_2">Recibe Pagos\nCon Tarjeta</string>
-    <string name="carrouse_title_3">Usa Tu Dinero\nComo Quieras</string>
+    <string name="carrouse_title_3">Usa tu Dinero\nComo Quieras</string>
 
     <string name="entendido_titulo">Entendido</string>
     <string name="no_sim_titulo">¡Atención!</string>

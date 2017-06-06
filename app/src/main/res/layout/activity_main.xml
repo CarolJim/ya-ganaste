@@ -7,11 +7,11 @@
     android:layout_height="match_parent"
     tools:context="com.pagatodo.yaganaste.ui._controllers.MainActivity">
 
-<!--    <com.github.demono.AutoScrollViewPager
-        android:id="@+id/viewpager"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/whiteColor" />-->
+    <!--    <com.github.demono.AutoScrollViewPager
+            android:id="@+id/viewpager"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="@color/whiteColor" />-->
 
     <com.jude.rollviewpager.RollPagerView
         android:id="@+id/rollPager"
@@ -19,12 +19,22 @@
         android:layout_height="match_parent"
         app:rollviewpager_play_delay="5000" />
 
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true">
+
+        <include
+            android:id="@+id/toolbarLy"
+            layout="@layout/toolbar" />
+    </LinearLayout>
 
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="?android:attr/actionBarSize"
         android:layout_marginTop="@dimen/margin_medium"
-        android:padding="@dimen/generic_padig">
+        android:padding="@dimen/generic_padig"
+        android:visibility="gone">
 
         <ImageView
             android:id="@+id/imgToolbar"

@@ -17,6 +17,7 @@ import android.widget.RadioGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.States;
@@ -139,6 +140,7 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
                 break;
             case R.id.btnNextPersonalInfo:
                 validateForm();
+                break;
             default:
                 break;
         }
@@ -377,7 +379,20 @@ public class DatosPersonalesFragment extends GenericFragment implements View.OnC
     @Override
     public void showError(Object error) {
         if (!error.toString().isEmpty())
-            UI.showToastShort(error.toString(), getActivity());
+          //  UI.showToastShort(error.toString(), getActivity());
+            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+                    new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+
+                        }
+
+                        @Override
+                        public void actionCancel(Object... params) {
+
+                        }
+                    },
+                    true, false);
     }
 
     View.OnClickListener onClickListenerDatePicker = new View.OnClickListener() {

@@ -23,7 +23,10 @@ import android.widget.EditText;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
+
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -32,20 +35,23 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
 import butterknife.ButterKnife;
+
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.DEFAULT_CARD;
 import static com.pagatodo.yaganaste.utils.Utils.getCardNumberRamdon;
+
 import butterknife.BindView;
 
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class TienesTarjetaFragment extends GenericFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener,IAccountCardView {
+public class TienesTarjetaFragment extends GenericFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, IAccountCardView {
 
     private static int LEGTH_CARD_NUMBER_FORMAT = 19;
     private View rootview;
@@ -67,6 +73,10 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     CustomKeyboardView keyboardView;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
+    @BindView(R.id.fragment_tienes_tarjeta_date_tdc)
+    StyleTextView dateTDC;
+    @BindView(R.id.fragment_tienes_tarjeta_user_name)
+    StyleTextView userName;
     private AccountPresenterNew accountPresenter;
 
     int keyDel;
@@ -97,7 +107,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
-        accountPresenter = ((AccountActivity)getActivity()).getPresenter();
+        accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
@@ -126,12 +136,19 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        keyboardView.setKeyBoard(getActivity(),R.xml.keyboard_nip);
+        keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
         btnNextTienesTarjeta.setOnClickListener(this);
         final Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Light.ttf");
         radioHasCard.setOnCheckedChangeListener(this);
         radioBtnNo.setChecked(true);//Selección por Default
+
+        // Hacemos Set de la fecha de caducidad de la TDC y nombre del usuario
+        RegisterUser registerUser = RegisterUser.getInstance();
+        String mUserName = registerUser.getNombre() + " " + registerUser.getApellidoPaterno()
+                + " " + registerUser.getApellidoMaterno();
+        dateTDC.setText("02/22");
+        userName.setText(mUserName);
 
         editNumber.setTypeface(typeface);
         ViewTreeObserver viewTreeObserver = layoutCard.getViewTreeObserver();
@@ -191,10 +208,9 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             @Override
             public void afterTextChanged(Editable s) {
 
-                if(editNumber.getText().length() == LEGTH_CARD_NUMBER_FORMAT){
+                if (editNumber.getText().length() == LEGTH_CARD_NUMBER_FORMAT) {
                     hideKeyboard();
-                }
-                else if (radioHasCard.getCheckedRadioButtonId() == R.id.radioBtnYes
+                } else if (radioHasCard.getCheckedRadioButtonId() == R.id.radioBtnYes
                         && s.toString().length() < DEFAULT_CARD.length()) {
                     editNumber.setText(DEFAULT_CARD);
                     editNumber.post(new Runnable() {
@@ -213,8 +229,9 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
                     keyboardView.showCustomKeyboard(v);
-                }else{
-                    keyboardView.hideCustomKeyboard();}
+                } else {
+                    keyboardView.hideCustomKeyboard();
+                }
             }
         });
 
@@ -268,21 +285,34 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         }
     }
 
-    private void selectNextAction(){
-        if(radioBtnNo.isChecked()){ // Selecciona que no tiene tarjeta
+    private void selectNextAction() {
+        if (radioBtnNo.isChecked()) { // Selecciona que no tiene tarjeta
             /*TODO Asignar cuenta*/
             assingAccountAvaliable();
-        }else{
-            String numberCard = editNumber.getText() != null  ? editNumber.getText().toString().trim() : "";
-            if(radioBtnYes.isChecked() && numberCard.length() == LEGTH_CARD_NUMBER_FORMAT){ // Validamos que ingrese la tarjeta
+        } else {
+            String numberCard = editNumber.getText() != null ? editNumber.getText().toString().trim() : "";
+            if (radioBtnYes.isChecked() && numberCard.length() == LEGTH_CARD_NUMBER_FORMAT) { // Validamos que ingrese la tarjeta
                 accountPresenter.checkCardAssigment(numberCard);
-            }else{
-                UI.showToastShort(getString(R.string.tienes_tarjeta_numero),getActivity());
+            } else {
+                // UI.showToastShort(getString(R.string.tienes_tarjeta_numero),getActivity());
+                UI.createSimpleCustomDialog("", getString(R.string.tienes_tarjeta_numero), getFragmentManager(),
+                        new DialogDoubleActions() {
+                            @Override
+                            public void actionConfirm(Object... params) {
+
+                            }
+
+                            @Override
+                            public void actionCancel(Object... params) {
+
+                            }
+                        },
+                        true, false);
             }
         }
     }
 
-    private void assingAccountAvaliable(){
+    private void assingAccountAvaliable() {
         accountPresenter.assignAccount();
     }
 
@@ -293,7 +323,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
-                nextScreen(EVENT_GO_ASSIGN_PIN,null);// Mostramos la pantalla para obtener tarjeta.
+                nextScreen(EVENT_GO_ASSIGN_PIN, null);// Mostramos la pantalla para obtener tarjeta.
             }
         }, DELAY_MESSAGE_PROGRESS);
     }
@@ -316,36 +346,49 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     }
 
     @Override
-    public void showError(Object error){
-        if(!error.toString().isEmpty()) {
-            UI.showToastShort(error.toString(),getActivity());
+    public void showError(Object error) {
+        if (!error.toString().isEmpty()) {
+            // UI.showToastShort(error.toString(),getActivity());
+            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+                    new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+
+                        }
+
+                        @Override
+                        public void actionCancel(Object... params) {
+
+                        }
+                    },
+                    true, false);
         }
     }
 
     @Override
     public void nextScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     public boolean isCustomKeyboardVisible() {
         return keyboardView.getVisibility() == View.VISIBLE;
     }
 
-    public void hideKeyboard(){
+    public void hideKeyboard() {
         keyboardView.hideCustomKeyboard();
     }
 
-    private void resetCardNumberDefault(){
+    private void resetCardNumberDefault() {
         editNumber.setText(DEFAULT_CARD);
         editNumber.setSelection(editNumber.getText().length());
     }
 
-    private void generateCardNumberRamdon(){
+    private void generateCardNumberRamdon() {
         String randomNumber = DEFAULT_CARD + getCardNumberRamdon();
         editNumber.setText(randomNumber);
         editNumber.setFocusableInTouchMode(false);
