@@ -25,6 +25,8 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -43,6 +45,8 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.DEFAULT_CARD;
 import static com.pagatodo.yaganaste.utils.Utils.getCardNumberRamdon;
+
+import butterknife.BindView;
 
 
 /**
@@ -70,6 +74,10 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     CustomKeyboardView keyboardView;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
+    @BindView(R.id.fragment_tienes_tarjeta_date_tdc)
+    StyleTextView dateTDC;
+    @BindView(R.id.fragment_tienes_tarjeta_user_name)
+    StyleTextView userName;
     private AccountPresenterNew accountPresenter;
 
     String a;
@@ -135,6 +143,13 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         radioHasCard.setOnCheckedChangeListener(this);
         radioBtnNo.setChecked(true);//Selección por Default
 
+
+        // Hacemos Set de la fecha de caducidad de la TDC y nombre del usuario
+        RegisterUser registerUser = RegisterUser.getInstance();
+        String mUserName = registerUser.getNombre() + " " + registerUser.getApellidoPaterno()
+                + " " + registerUser.getApellidoMaterno();
+        dateTDC.setText("02/22");
+        userName.setText(mUserName);
 
         editNumber.setTypeface(typeface);
         ViewTreeObserver viewTreeObserver = layoutCard.getViewTreeObserver();
@@ -265,7 +280,20 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             if (radioBtnYes.isChecked() && numberCard.length() == LEGTH_CARD_NUMBER_FORMAT) { // Validamos que ingrese la tarjeta
                 accountPresenter.checkCardAssigment(numberCard);
             } else {
-                UI.showToastShort(getString(R.string.tienes_tarjeta_numero), getActivity());
+                // UI.showToastShort(getString(R.string.tienes_tarjeta_numero),getActivity());
+                UI.createSimpleCustomDialog("", getString(R.string.tienes_tarjeta_numero), getFragmentManager(),
+                        new DialogDoubleActions() {
+                            @Override
+                            public void actionConfirm(Object... params) {
+
+                            }
+
+                            @Override
+                            public void actionCancel(Object... params) {
+
+                            }
+                        },
+                        true, false);
             }
         }
     }
@@ -306,7 +334,20 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     @Override
     public void showError(Object error) {
         if (!error.toString().isEmpty()) {
-            UI.showToastShort(error.toString(), getActivity());
+            // UI.showToastShort(error.toString(),getActivity());
+            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+                    new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+
+                        }
+
+                        @Override
+                        public void actionCancel(Object... params) {
+
+                        }
+                    },
+                    true, false);
         }
     }
 

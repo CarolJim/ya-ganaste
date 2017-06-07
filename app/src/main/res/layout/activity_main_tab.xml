@@ -34,7 +34,7 @@
         <com.pagatodo.yaganaste.utils.customviews.GenericTabLayout
             android:id="@+id/main_tab"
             android:layout_width="match_parent"
-            android:layout_height="45dp"
+            android:layout_height="50dp"
             app:tabIndicatorColor="@color/colorAccent"
             app:tabMaxWidth="0dp"
             app:tabMode="fixed" />

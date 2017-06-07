@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -87,8 +88,10 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     ProgressLayout progressLayout;
     //@BindView(R.id.errorMessage)
     //ErrorMessage errorMessageView;
-    @BindView(R.id.radioBtnTermsLayOut)
-    RelativeLayout radioBtnTermsLayOut;
+    //    @BindView(R.id.radioBtnTerms)
+//    CheckBox radioBtnTerms;
+//    @BindView(R.id.radioBtnTermsLayOut)
+//    RelativeLayout radioBtnTermsLayOut;
 
     @BindView(R.id.errorStreetMessage)
     ErrorMessage errorStreetMessage;
@@ -180,7 +183,9 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         btnNextDomicilioActual.setOnClickListener(this);
         btnBackDomicilioActual.setOnClickListener(this);
         //radioBtnTerms.setOnClickListener(this);
-        radioBtnTermsLayOut.setOnClickListener(this);
+
+        // radioBtnTermsLayOut.setOnClickListener(this);
+
         editState.setTextEnabled(false);
         setCurrentData();// Seteamos datos si hay registro en proceso.
         setClickLegales();
@@ -195,7 +200,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             case R.id.btnBackDomicilioActual:
                 backScreen(EVENT_PERSONAL_DATA_BACK, null);
                 break;
-            case R.id.radioBtnTermsLayOut:
+           /* case R.id.radioBtnTermsLayOut:
                 if (radioBtnTerms.isChecked()) {
                     radioBtnTerms.setChecked(false);
                     radioBtnTerms.setSelected(false);
@@ -203,7 +208,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                     radioBtnTerms.setChecked(true);
                     radioBtnTerms.setSelected(true);
                 }
-                break;
+                break;*/
             default:
                 break;
         }
@@ -331,10 +336,10 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             showValidationError(spColonia.getId(), getString(R.string.datos_domicilio_colonia));
             return;
         }
-        if (!radioBtnTerms.isChecked()) {
-            showValidationError(radioBtnTerms.getId(), getString(R.string.datos_domicilio_terminos));
-            return;
-        }
+//        if (!radioBtnTerms.isChecked()) {
+//            showValidationError(radioBtnTerms.getId(), getString(R.string.datos_domicilio_terminos));
+//            return;
+//        }
         onValidationSuccess();
     }
 
@@ -358,6 +363,9 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                 //Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
                 errorCheckMessage.setMessageText(error.toString());
                 break;
+//            case R.id.radioBtnTerms:
+//                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
+//                break;
         }
         //errorMessageView.setMessageText(error.toString());
         UI.hideKeyBoard(getActivity());
@@ -438,8 +446,8 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         editStreet.setText(registerUser.getCalle());
         editExtNumber.setText(registerUser.getNumExterior());
         editIntNumber.setText(registerUser.getNumInterior());
-        radioBtnTerms.setSelected(false);
-        radioBtnTerms.setChecked(false);
+//        radioBtnTerms.setSelected(false);
+//        radioBtnTerms.setChecked(false);
         if (!registerUser.getCodigoPostal().isEmpty())
             cpDefault = true;
 
@@ -462,7 +470,20 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     public void showError(Object error) {
 
         if (!error.toString().isEmpty())
-            UI.showToastShort(error.toString(), getActivity());
+           // UI.showToastShort(error.toString(), getActivity());
+            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+                    new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+
+                        }
+
+                        @Override
+                        public void actionCancel(Object... params) {
+
+                        }
+                    },
+                    true, false);
     }
 
     @Override
