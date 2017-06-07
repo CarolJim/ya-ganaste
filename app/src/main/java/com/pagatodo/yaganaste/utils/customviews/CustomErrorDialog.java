@@ -13,7 +13,9 @@ import android.support.v4.app.FragmentTransaction;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.widget.LinearLayout;
 
 
 import com.pagatodo.yaganaste.R;
@@ -24,7 +26,7 @@ import java.lang.reflect.Field;
 import java.util.List;
 
 
-public class CustomErrorDialog extends DialogFragment {
+public class CustomErrorDialog extends DialogFragment implements ViewTreeObserver.OnGlobalLayoutListener{
 
     public static final String TAG = "ActionsDialog";
     public static final String KEY_LAYOUT_NOTIFICATION = "KEY_LAYOUT_NOTIFICATION";
@@ -42,6 +44,8 @@ public class CustomErrorDialog extends DialogFragment {
 
     private boolean showConfirmButton = true;
     private boolean showCancelButton = true;
+
+    private LinearLayout buttonsContainer;
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
@@ -94,6 +98,11 @@ public class CustomErrorDialog extends DialogFragment {
                     dismiss();
                 }
             });
+        }
+
+        buttonsContainer = (LinearLayout)rootView.findViewById(R.id.buttons_container);
+        if (buttonsContainer != null) {
+            buttonsContainer.getViewTreeObserver().addOnGlobalLayoutListener(this);
         }
 
         return rootView;
@@ -187,6 +196,10 @@ public class CustomErrorDialog extends DialogFragment {
         this.titleBtnCancel = titleBtnCancel;
     }
 
+    @Override
+    public void onGlobalLayout() {
+        buttonsContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
+    }
 }
 
 

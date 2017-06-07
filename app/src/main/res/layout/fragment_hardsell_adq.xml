@@ -32,7 +32,7 @@
         android:id="@+id/imgHardsell"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:src="@drawable/card_yaganaste"
+        android:src="@mipmap/main_card_zoom_blue"
         android:adjustViewBounds="true"
         android:scaleType="centerCrop"
         android:padding="10dp"

@@ -5,6 +5,10 @@ import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.FragmentTransaction;
+import android.util.Log;
+import android.view.ViewGroup;
+
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 
 import java.util.List;
@@ -18,10 +22,12 @@ public class GenericPagerAdapter<T extends IEnumTab> extends FragmentPagerAdapte
     private T[] values;
     private Context context;
     private List<Fragment> fragments;
+    private FragmentManager fragmentManager;
 
     public GenericPagerAdapter(@NonNull Context context, @NonNull FragmentManager fm,
                                @NonNull List<Fragment> fragments, @NonNull T[] values) {
         super(fm);
+        this.fragmentManager = fm;
         this.values = values;
         this.context = context;
         this.fragments = fragments;
@@ -54,7 +60,13 @@ public class GenericPagerAdapter<T extends IEnumTab> extends FragmentPagerAdapte
     @Override
     public int getItemPosition(Object object) {
         return super.getItemPosition(object);
-
-
     }
+
+    @Override
+    public void destroyItem(ViewGroup container, int position, Object object) {
+        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
+
+        fragmentTransaction.remove((Fragment)object).commitNowAllowingStateLoss();
+    }
+
 }

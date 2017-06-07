@@ -54,7 +54,6 @@ public class TabFragment extends GenericFragment implements TabsView {
 
     @Override
     public void initViews() {
-        tabAdquirente = (TabLayout) rootView.findViewById(R.id.tab_adquirente);
         pagerAdquirente = (ViewPager) rootView.findViewById(R.id.pager_adquirente);
         homeFragmentPresenter.getPagerData(ViewPagerDataFactory.TABS.HOME_FRAGMENT);
     }

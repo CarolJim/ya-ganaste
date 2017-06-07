@@ -33,6 +33,10 @@
         android:name="android.hardware.camera.flash"
         android:required="false" />
 
+    <uses-feature
+        android:glEsVersion="0x00020000"
+        android:required="true" />
+
     <application
         android:name=".App"
         android:allowBackup="true"
@@ -117,10 +121,6 @@
         <meta-data
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDyaKKktDzaNdnjjxMFz-4jmbiUA191DCo" />
-
-        <uses-feature
-            android:glEsVersion="0x00020000"
-            android:required="true" />
 
         <!--
              <meta-data

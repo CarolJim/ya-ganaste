@@ -18,6 +18,7 @@
         android:orientation="vertical"
         android:gravity="center"
         android:layout_gravity="center_horizontal">
+
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             app:tipo="Titulo"
             android:id="@+id/txtTitleNotification"
@@ -46,12 +47,12 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/buttons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center"
-        android:layout_marginLeft="10dp"
-        android:layout_marginRight="10dp"
-        android:layout_marginBottom="10dp"
+        android:layout_marginTop="15dp"
+        android:paddingBottom="10dp"
         android:orientation="horizontal"
         android:layout_gravity="center_horizontal">
 
@@ -60,18 +61,20 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_marginLeft="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/margin_medium"
-            android:layout_gravity="center_horizontal">
+            android:layout_gravity="center_horizontal"
+            android:weightSum="2.3">
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"/>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnCancelDialog"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_weight="1"
                 android:layout_height="@dimen/dimen_margin_pinpad"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="15dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:gravity="center"
@@ -81,16 +84,19 @@
                 android:textColor="@color/whiteColor"
                 app:intercepterOnclick="true"
                 app:cornerRadius="@dimen/btn_corner_radius" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"/>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnConfirmDialog"
                 style="?android:attr/borderlessButtonStyle"
-                android:layout_width="match_parent"
+                android:layout_width="0dp"
                 android:layout_weight="1"
                 android:gravity="center"
                 android:layout_height="@dimen/dimen_margin_pinpad"
-                android:layout_marginBottom="20dp"
-                android:layout_marginTop="15dp"
                 android:paddingLeft="15dp"
                 android:paddingRight="15dp"
                 android:background="@drawable/button_rounded_blue"
@@ -100,6 +106,10 @@
                 app:intercepterOnclick="true"
                 app:cornerRadius="@dimen/btn_corner_radius" />
 
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="0.1"/>
 
         </LinearLayout>
 

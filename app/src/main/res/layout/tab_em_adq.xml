@@ -13,8 +13,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="horizontal"
-            android:weightSum="4"
-            android:background="@color/bgColor">
+            android:weightSum="4">
 
             <LinearLayout
                 android:id="@+id/ll_emisor_border_container"

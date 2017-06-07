@@ -77,7 +77,7 @@ public class CustomKeyboardView extends KeyboardView {
         super.onDraw(canvas);
 
 
-        if (Build.VERSION.SDK_INT > 23) {
+        if (Build.VERSION.SDK_INT >= 23) {
             List<Keyboard.Key> keys = getKeyboard().getKeys();
             for (Keyboard.Key key : keys) {
                 if (key.codes[0] == 29) {

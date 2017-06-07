@@ -116,6 +116,7 @@ public class BussinesActivity extends LoaderActivity {
                 break;
             case EVENT_DOC_CHECK:
                 SingletonUser.getInstance().getDataUser().setEstatusDocumentacion(STATUS_DOCTO_PENDIENTE);
+                SingletonUser.getInstance().getDataUser().setEsAgente(true);
                 setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
                 finish();
                 break;

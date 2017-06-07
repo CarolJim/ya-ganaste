@@ -91,12 +91,6 @@
         android:layout_weight="15"
         android:orientation="vertical">
 
-        <com.pagatodo.yaganaste.utils.customviews.GenericTabLayout
-            android:id="@+id/tab_adquirente"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:visibility="gone"/>
-
         <com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager
             android:id="@+id/pager_adquirente"
             android:layout_width="match_parent"

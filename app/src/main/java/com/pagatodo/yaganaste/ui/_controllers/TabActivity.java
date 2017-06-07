@@ -178,7 +178,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     protected void hideMainTab() {
         if (mainTab.getVisibility() == View.VISIBLE) {
-            //mainTab.startAnimation(animHide);
             mainTab.setVisibility(View.GONE);
         }
     }
@@ -186,7 +185,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     protected void showMainTab() {
         if (mainTab.getVisibility() == View.GONE) {
             mainTab.setVisibility(View.VISIBLE);
-            //mainTab.startAnimation(animShow);
         }
     }
 
@@ -234,6 +232,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 && getFragment(1) != null) {
             getFragment(1).onActivityResult(requestCode, resultCode, data);
         } else if (requestCode == REGISTER_ADQUIRENTE_CODE && resultCode == RESULT_ADQUIRENTE_SUCCESS) {
+            showMainTab();
             tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN);
         }
     }
