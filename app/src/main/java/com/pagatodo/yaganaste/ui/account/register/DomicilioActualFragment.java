@@ -13,14 +13,9 @@ import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.CheckBox;
-import android.widget.CompoundButton;
-import android.widget.RelativeLayout;
 import android.widget.Spinner;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
@@ -78,8 +73,8 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     Spinner spColonia;
     @BindView(R.id.txtLegales)
     StyleTextView txtLegales;
-    @BindView(R.id.radioBtnTerms)
-    CheckBox radioBtnTerms;
+    //@BindView(R.id.radioBtnTerms)
+    //CheckBox radioBtnTerms;
     @BindView(R.id.btnBackDomicilioActual)
     StyleButton btnBackDomicilioActual;
     @BindView(R.id.btnNextDomicilioActual)
@@ -88,10 +83,10 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     ProgressLayout progressLayout;
     //@BindView(R.id.errorMessage)
     //ErrorMessage errorMessageView;
-    //    @BindView(R.id.radioBtnTerms)
-//    CheckBox radioBtnTerms;
-//    @BindView(R.id.radioBtnTermsLayOut)
-//    RelativeLayout radioBtnTermsLayOut;
+    //BindView(R.id.radioBtnTerms)
+    //CheckBox radioBtnTerms;
+    //@BindView(R.id.radioBtnTermsLayOut)
+    //RelativeLayout radioBtnTermsLayOut;
 
     @BindView(R.id.errorStreetMessage)
     ErrorMessage errorStreetMessage;
@@ -101,8 +96,8 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     ErrorMessage errorZipCodeMessage;
     @BindView(R.id.errorColoniaMessage)
     ErrorMessage errorColoniaMessage;
-    @BindView(R.id.errorCheckMessage)
-    ErrorMessage errorCheckMessage;
+    //@BindView(R.id.errorCheckMessage)
+    //ErrorMessage errorCheckMessage;
 
     private ColoniasArrayAdapter adapterColonia;
     private List<ColoniasResponse> listaColonias;
@@ -172,8 +167,8 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         errorNumeroMessage.setVisibilityImageError(false);
         errorZipCodeMessage.setVisibilityImageError(false);
         errorColoniaMessage.setVisibilityImageError(false);
-        errorCheckMessage.setVisibilityImageError(false);
-        errorCheckMessage.alingCenter();
+        //errorCheckMessage.setVisibilityImageError(false);
+        //errorCheckMessage.alingCenter();
 
         //errorMessageView.setVisibilityImageError(false);
         coloniasNombre = new ArrayList<String>();
@@ -274,12 +269,12 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             }
         });
 
-        radioBtnTerms.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+        /*radioBtnTerms.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
                 hideErrorMessage(radioBtnTerms.getId());
             }
-        });
+        });*/
     }
 
     private void fillAdapter() {
@@ -359,13 +354,10 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             case R.id.spColonia:
                 errorColoniaMessage.setMessageText(error.toString());
                 break;
-            case R.id.radioBtnTerms:
+            /*case R.id.radioBtnTerms:
                 //Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
                 errorCheckMessage.setMessageText(error.toString());
-                break;
-//            case R.id.radioBtnTerms:
-//                Toast.makeText(getContext(), error.toString(), Toast.LENGTH_LONG).show();
-//                break;
+                break;*/
         }
         //errorMessageView.setMessageText(error.toString());
         UI.hideKeyBoard(getActivity());
@@ -385,9 +377,9 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             case R.id.spColonia:
                 errorColoniaMessage.setVisibilityImageError(false);
                 break;
-            case R.id.radioBtnTerms:
+            /*ase R.id.radioBtnTerms:
                 errorCheckMessage.setVisibilityImageError(false);
-                break;
+                break;*/
         }
 
         //errorMessageView.setVisibilityImageError(false);
@@ -470,7 +462,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     public void showError(Object error) {
 
         if (!error.toString().isEmpty())
-           // UI.showToastShort(error.toString(), getActivity());
+            // UI.showToastShort(error.toString(), getActivity());
             UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
                     new DialogDoubleActions() {
                         @Override
