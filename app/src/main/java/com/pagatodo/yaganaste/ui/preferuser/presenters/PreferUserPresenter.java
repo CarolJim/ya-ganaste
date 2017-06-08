@@ -14,10 +14,10 @@ import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 
 public class PreferUserPresenter implements IPreferUserPresenter{
 
-    IPreferUserView mView;
+    PreferUserActivity mView;
     IPreferUserIteractor iPreferUserIteractor;
 
-    public PreferUserPresenter(IPreferUserView mView) {
+    public PreferUserPresenter(PreferUserActivity mView) {
         this.mView = mView;
 
         iPreferUserIteractor = new PreferUserIteractor(this);
@@ -30,6 +30,6 @@ public class PreferUserPresenter implements IPreferUserPresenter{
 
     @Override
     public void testToastSucess() {
-        mView.testToastSucess();
+
     }
 }

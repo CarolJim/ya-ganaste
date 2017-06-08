@@ -27,7 +27,7 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 
-public class PreferUserActivity extends LoaderActivity implements OnEventListener, IPreferUserView {
+public class PreferUserActivity extends LoaderActivity implements OnEventListener {
 
     private boolean isEsAgente;
     private String mName, mEmail, mUserImage;
@@ -41,7 +41,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_DESASOCIAR = "PREFER_USER_DESASOCIAR";
 
     private AccountPresenterNew presenterAccount;
-    private IPreferUserPresenter mPreferPresenter;
+    private PreferUserPresenter mPreferPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,7 +67,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
       //  mPreferPresenter.testToast();
     }
 
-    public IPreferUserPresenter getPresenter() {
+    public IPreferUserPresenter getUserPresenter() {
         return this.mPreferPresenter;
     }
 
@@ -143,7 +143,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         }
     }
 
-    public IPreferUserPresenter getmPreferPresenter() {
+    public PreferUserPresenter getPreferPresenter() {
         return mPreferPresenter;
     }
 
@@ -175,10 +175,5 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
         // Enviamos datos recibidos al CameraManager
         CameraManager.getInstance().setOnActivityResult(requestCode, resultCode, data);
-    }
-
-    @Override
-    public void testToastSucess() {
-        Toast.makeText(this, "TEST PResenter-Iteractor", Toast.LENGTH_SHORT).show();
     }
 }

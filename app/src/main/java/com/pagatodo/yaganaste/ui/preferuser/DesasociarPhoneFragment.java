@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserView;
+import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import butterknife.BindView;
@@ -30,6 +31,8 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
     @BindView(R.id.fragment_desasociar_btn)
     StyleButton btn_desasociar;
     View rootview;
+    IPreferUserPresenter mPreferPresenter;
+    Context mContext;
     
     public DesasociarPhoneFragment() {
         // Required empty public constructor
@@ -37,6 +40,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
 
     @Override
     public void onAttach(Context context) {
+        mPreferPresenter = ((PreferUserActivity) getActivity()).getPreferPresenter();
         super.onAttach(context);
     }
 
@@ -65,6 +69,8 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
     @Override
     public void onClick(View v) {
         Toast.makeText(getContext(), "Click Desasociar", Toast.LENGTH_SHORT).show();
+
+        mPreferPresenter.testToast();
     }
 
     @Override
