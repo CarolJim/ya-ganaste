@@ -2,7 +2,7 @@ package com.pagatodo.yaganaste.utils;
 
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
+import android.graphics.Paint;
 import android.os.Handler;
 import android.text.Editable;
 import android.text.Layout;
@@ -11,8 +11,7 @@ import android.text.SpannableStringBuilder;
 import android.text.TextWatcher;
 import android.text.style.AlignmentSpan;
 import android.text.style.ImageSpan;
-import android.util.Log;
-import android.view.View;
+import android.util.DisplayMetrics;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -50,10 +49,55 @@ public class AsignarNipTextWatcher implements TextWatcher {
         this.tv3Num = tv3Num;
         this.tv4Num = tv4Num;
 
-        Log.d("ds","WNIP "+tv1Num.getWidth());
+        /*Log.d("ds","WNIP "+tv1Num.getWidth());
+        float textSize = tv1Num.getTextSize();
+        int textSizeInt = (int) textSize;
+         Log.d("ds","textSizeInt "+ textSizeInt);*/
+
         bitmapBullet = BitmapFactory.decodeResource(App.getContext().getResources(),
-                R.drawable.bullet_small);
-//        bitmapBullet.setWidth(10);
+                R.drawable.base_bullet_blue);
+        int medidaTextSize = 0;
+
+        /**
+         * Obtenemos la resolucion de la pantalla y enviamos la medida necesaria
+         */
+        DisplayMetrics metrics = App.getContext().getResources().getDisplayMetrics();
+        switch(metrics.densityDpi){
+            case DisplayMetrics.DENSITY_LOW:
+                break;
+            case DisplayMetrics.DENSITY_MEDIUM:
+                medidaTextSize = obtenerMedidas(tv1Num, 2);
+                break;
+            case DisplayMetrics.DENSITY_HIGH:
+                medidaTextSize = obtenerMedidas(tv1Num, 3);
+                break;
+            case DisplayMetrics.DENSITY_XHIGH:
+                    medidaTextSize = obtenerMedidas(tv1Num, 4);
+                break;
+            case DisplayMetrics.DENSITY_XXHIGH:
+                medidaTextSize = obtenerMedidas(tv1Num, 5);
+                break;
+            case DisplayMetrics.DENSITY_XXXHIGH:
+                medidaTextSize = obtenerMedidas(tv1Num, 5);
+                break;
+            default:
+                medidaTextSize = obtenerMedidas(tv1Num, 5);
+                break;
+        }
+
+        bitmapBullet = Bitmap.createScaledBitmap(bitmapBullet, medidaTextSize, medidaTextSize, true);
+    }
+
+    /**
+     * Se encarga de obtener las medidas de la letra, y multiplicar por el tamaño asignado por pantalla
+     * @param mTextView
+     * @param mInt
+     * @return
+     */
+    public int obtenerMedidas(TextView mTextView, int mInt) {
+        Paint paint = new Paint();
+        paint.setTextSize(mTextView.getTextSize());
+        return ((int) (-paint.ascent() + paint.descent() * mInt));
     }
 
     @Override

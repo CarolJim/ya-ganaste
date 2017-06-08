@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -198,7 +199,20 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showValidationError(int id, Object error) {
-        UI.showToastShort(error.toString(), getActivity());
+        //UI.showToastShort(error.toString(), getActivity());
+        UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
     }
 
     @Override
