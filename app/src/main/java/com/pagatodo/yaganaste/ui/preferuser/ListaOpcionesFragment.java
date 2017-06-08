@@ -38,6 +38,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CLOSE;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_DESASOCIAR;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_LEGALES;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -82,6 +83,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     LinearLayout ll_legal;
     @BindView(R.id.fragment_lista_opciones_close)
     LinearLayout ll_close;
+    @BindView(R.id.fragment_lista_opciones_desasociar)
+    LinearLayout ll_desasociar;
     @BindView(R.id.frag_lista_opciones_photo_item)
     CircleImageView iv_photo_item;
     @BindView(R.id.frag_lista_opciones_photo_status)
@@ -150,6 +153,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         ll_legal.setOnClickListener(this);
         ll_close.setOnClickListener(this);
         iv_photo_item.setOnClickListener(this);
+        ll_desasociar.setOnClickListener(this);
 
         // Hacemos SET de la infromacion del user
         // mName = "Mi Nombre";
@@ -201,6 +205,10 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
             case R.id.fragment_lista_opciones_legal:
                 //Toast.makeText(getContext(), "Click Legales", Toast.LENGTH_SHORT).show();
                 onEventListener.onEvent(PREFER_USER_LEGALES, 1);
+                break;
+            case R.id.fragment_lista_opciones_desasociar:
+                //Toast.makeText(getContext(), "Click Desasociar", Toast.LENGTH_SHORT).show();
+                onEventListener.onEvent(PREFER_USER_DESASOCIAR, 1);
                 break;
             case R.id.fragment_lista_opciones_close:
                 // Toast.makeText(getContext(), "Click Close Session", Toast.LENGTH_SHORT).show();

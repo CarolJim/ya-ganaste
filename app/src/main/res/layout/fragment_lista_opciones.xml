@@ -262,7 +262,6 @@
                 </LinearLayout>
             </LinearLayout>
 
-
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -290,6 +289,43 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
                         android:text="Legales"
+                        android:textSize="18sp" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
+                        android:layout_height="17dp"
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/arrow_canvas_blue" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/borderColor" />
+
+            <LinearLayout
+                android:id="@+id/fragment_lista_opciones_desasociar"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="2"
+                        android:text="Desasociar Dispositivo"
                         android:textSize="18sp" />
 
                     <android.support.v7.widget.AppCompatImageView

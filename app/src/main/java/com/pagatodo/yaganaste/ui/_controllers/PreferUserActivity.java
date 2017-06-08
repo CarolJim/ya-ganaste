@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -14,15 +15,19 @@ import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
+import com.pagatodo.yaganaste.ui.preferuser.DesasociarPhoneFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaLegalesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserPresenter;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserView;
+import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 
-public class PreferUserActivity extends LoaderActivity implements OnEventListener {
+public class PreferUserActivity extends LoaderActivity implements OnEventListener, IPreferUserView {
 
     private boolean isEsAgente;
     private String mName, mEmail, mUserImage;
@@ -33,8 +38,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_CLOSE = "PREFER_USER_CLOSE";
     public static String PREFER_USER_PRIVACIDAD = "PREFER_USER_PRIVACIDAD";
     public static String PREFER_USER_TERMINOS = "PREFER_USER_TERMINOS";
+    public static String PREFER_USER_DESASOCIAR = "PREFER_USER_DESASOCIAR";
 
     private AccountPresenterNew presenterAccount;
+    private IPreferUserPresenter mPreferPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -53,14 +60,15 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage));
 
         presenterAccount = new AccountPresenterNew(this);
-
+        mPreferPresenter = new PreferUserPresenter(this);
         // CReamos las referencias al AcoountInteractot
         // AccountInteractorNew.
+
+      //  mPreferPresenter.testToast();
     }
 
-    public AccountPresenterNew getPresenter() {
-
-        return this.presenterAccount;
+    public IPreferUserPresenter getPresenter() {
+        return this.mPreferPresenter;
     }
 
     /**
@@ -98,6 +106,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 loadFragment(ListaLegalesFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
+            case "PREFER_USER_DESASOCIAR":
+                loadFragment(DesasociarPhoneFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+
             case "PREFER_USER_CLOSE":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 UI.createSimpleCustomDialog("", "¿Desea realmente cerrar sesión?", getSupportFragmentManager(),
@@ -120,6 +132,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_USER_LISTA":
                 loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage), Direction.BACK, false);
                 break;
+
             case "DISABLE_BACK":
                 if (data.toString().equals("true")) {
                     disableBackButton = true;
@@ -130,12 +143,18 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         }
     }
 
+    public IPreferUserPresenter getmPreferPresenter() {
+        return mPreferPresenter;
+    }
+
     @Override
     public void onBackPressed() {
         // Si el boton no esta deshabilitado realizamos las operaciones de back
         if (!disableBackButton) {
             Fragment currentFragment = getCurrentFragment();
             if (currentFragment instanceof ListaLegalesFragment) {
+                onEvent(PREFER_USER_LISTA, null);
+            }else if (currentFragment instanceof DesasociarPhoneFragment) {
                 onEvent(PREFER_USER_LISTA, null);
             } else {
                 super.onBackPressed();
@@ -156,5 +175,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
         // Enviamos datos recibidos al CameraManager
         CameraManager.getInstance().setOnActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void testToastSucess() {
+        Toast.makeText(this, "TEST PResenter-Iteractor", Toast.LENGTH_SHORT).show();
     }
 }
