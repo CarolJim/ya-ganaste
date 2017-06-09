@@ -54,6 +54,7 @@
     <string name="obtenerDomicilioPrincipal">/ObtenerDomicilioPrincipal</string>
     <string name="obtenerDomicilio">/ObtenerDomicilioPrincipal</string>
     <string name="enviarTicketTAEPDS">/EnviarTicketTAEPDS</string>
+    <string name="desasociarDispositivo">/DesasociarDispositivo</string>
     <string name="sel_fotografia">Seleccionar Fotografía</string>
 
     <!--Métodos de WS Adquiriente-->

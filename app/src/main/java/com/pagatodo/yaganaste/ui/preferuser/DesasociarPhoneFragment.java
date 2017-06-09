@@ -7,15 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserPresenter;
-import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserView;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferDesasociarView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
@@ -26,27 +24,28 @@ import butterknife.ButterKnife;
  * A simple {@link Fragment} subclass.
  */
 public class DesasociarPhoneFragment extends GenericFragment implements View.OnClickListener,
-        IPreferUserView{
+        IPreferDesasociarView {
 
     @BindView(R.id.fragment_desasociar_btn)
     StyleButton btn_desasociar;
     View rootview;
-    IPreferUserPresenter mPreferPresenter;
+    PreferUserPresenter mPreferPresenter;
     Context mContext;
     
     public DesasociarPhoneFragment() {
         // Required empty public constructor
     }
 
-    @Override
-    public void onAttach(Context context) {
-        mPreferPresenter = ((PreferUserActivity) getActivity()).getPreferPresenter();
-        super.onAttach(context);
-    }
-
     public static DesasociarPhoneFragment newInstance() {
         DesasociarPhoneFragment fragmentDesasociarPhone = new DesasociarPhoneFragment();
         return fragmentDesasociarPhone;
+    }
+
+    @Override
+    public void onAttach(Context context) {
+        mPreferPresenter = ((PreferUserActivity) getActivity()).getPreferPresenter();
+        mPreferPresenter.setIView(this);
+        super.onAttach(context);
     }
 
     @Override
@@ -68,13 +67,13 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
 
     @Override
     public void onClick(View v) {
-        Toast.makeText(getContext(), "Click Desasociar", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "Click Desasociar", Toast.LENGTH_SHORT).show();
 
-        mPreferPresenter.testToast();
+        mPreferPresenter.testToastToPresenter();
     }
 
     @Override
-    public void testToastSucess() {
-        Toast.makeText(getContext(), "TEST Fragment", Toast.LENGTH_SHORT).show();
+    public void successToasToView() {
+        Toast.makeText(getContext(), "Click Desasociar Completo", Toast.LENGTH_SHORT).show();
     }
 }

@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -19,7 +18,6 @@ import com.pagatodo.yaganaste.ui.preferuser.DesasociarPhoneFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaLegalesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserPresenter;
-import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;

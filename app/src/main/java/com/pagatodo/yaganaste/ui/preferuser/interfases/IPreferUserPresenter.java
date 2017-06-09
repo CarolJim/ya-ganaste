@@ -5,7 +5,7 @@ package com.pagatodo.yaganaste.ui.preferuser.interfases;
  */
 
 public interface IPreferUserPresenter {
-    void testToast();
+    void testToastToPresenter();
 
-    void testToastSucess();
+    void successToPresenter();
 }
