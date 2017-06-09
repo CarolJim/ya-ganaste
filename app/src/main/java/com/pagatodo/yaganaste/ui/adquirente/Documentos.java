@@ -139,15 +139,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         contador = new ArrayList<>();
@@ -176,6 +167,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             lnr_help.setVisibility(VISIBLE);
             getEstatusDocs();
             initSetClickableStatusDocs();
+            btnWeNeedSmFilesNext.setVisibility(View.INVISIBLE);
         } else {     // si no se han enviado los documentos
 
             initSetClickableDocs();
@@ -201,7 +193,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 break;
 
             case R.id.btnWeNeedSmFilesNext:
-                if (mExisteDocs == true) {
+                if (mExisteDocs) {
                     sendDocumentsPending();
                 } else {
                     sendDocuments();
@@ -209,7 +201,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 break;
 
             case R.id.btnRegresar:
-                if (mExisteDocs == true) {
+                if (mExisteDocs) {
                     bacToHome();
                 } else {
                     backToRegister();
@@ -377,6 +369,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 bitmap.recycle();
             }
             bitmap = null;
+            btnWeNeedSmFilesNext.setVisibility(VISIBLE);
         }
     }
 
@@ -640,15 +633,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         }
     }
 
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
 
 }
 

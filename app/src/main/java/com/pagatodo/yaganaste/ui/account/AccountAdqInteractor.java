@@ -108,6 +108,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         IFEback.setImageBitmap(null);
         Addressfront.setImageBitmap(null);
         Addressback.setImageBitmap(null);
+        view.findViewById(R.id.btnWeNeedSmFilesNext).setVisibility(View.INVISIBLE);
         LinearLayout lnrButtons = (LinearLayout) view.findViewById(R.id.lnr_buttons);
         Button btnNext = (Button) view.findViewById(R.id.btnWeNeedSmFilesNext);
         btnNext.setClickable(false);
