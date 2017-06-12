@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovim
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioFWSRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarTicketTAEPDSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.GetJsonWebTokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
@@ -56,6 +57,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActi
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.ui.account.AccountAdqInteractor;
+import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 
 import java.util.Map;
 
@@ -75,6 +77,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_FWS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_FWS_LOGIN;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.DESASOCIAR_DISPOSITIVO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ELIMINAR_AVATAR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_TAEPDS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_JSONWEBTOKEN;
@@ -590,6 +593,14 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(ENVIAR_TICKET_TAEPDS,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.enviarTicketTAEPDS),
+                headers, request, true, EnviarTicketTAEPDSResponse.class, result);
+    }
+
+    public static void desasociarDispositivo(DesasociarDispositivoRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        NetFacade.consumeWS(DESASOCIAR_DISPOSITIVO,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.desasociarDispositivo),
                 headers, request, true, EnviarTicketTAEPDSResponse.class, result);
     }
 }

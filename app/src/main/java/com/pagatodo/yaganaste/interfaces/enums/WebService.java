@@ -72,7 +72,9 @@ public enum WebService {
     CONSULTA_MOVIMIENTOS_MES_ADQ,
     CONSULTA_SALDO_CUPO,
     /**Servicio para crer usuario**/
-    CREAR_USUARIO_COMPLETO
+    CREAR_USUARIO_COMPLETO,
+    /**Servicio para crer usuario**/
+    DESASOCIAR_DISPOSITIVO
 
 }
 
