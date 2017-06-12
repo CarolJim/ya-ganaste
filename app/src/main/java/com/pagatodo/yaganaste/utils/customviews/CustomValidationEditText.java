@@ -88,7 +88,7 @@ public class CustomValidationEditText extends LinearLayout {
                 isSingleLine = typedArray.getBoolean(R.styleable.CustomValidationEditText_isSingleLine, false);
                 isTextEnabled = typedArray.getBoolean(R.styleable.CustomValidationEditText_isTextEnabled, true);
 
-                editText.setHintTextColor(typedArray.getColor(R.styleable.CustomValidationEditText_hintColor, ContextCompat.getColor(App.getInstance().getApplicationContext(), R.color.borderColor)));
+                editText.setHintTextColor(typedArray.getColor(R.styleable.CustomValidationEditText_hintColor, ContextCompat.getColor(App.getInstance().getApplicationContext(), R.color.inputTextColorHint)));
 
                 pinnedIcon = typedArray.getInt(R.styleable.CustomValidationEditText_defaultIcon, -1);
                 inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);

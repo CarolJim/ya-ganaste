@@ -3,7 +3,7 @@
     <item
         android:bottom="10dp">
         <shape android:shape="rectangle">
-            <stroke android:width="2dp"
+            <stroke android:width="@dimen/tab_payments_stroke"
                 android:color="@color/colorAccent"/>
             <corners android:topRightRadius="6dp"
                 android:topLeftRadius="6dp"/>
@@ -11,15 +11,15 @@
     </item>
 
     <item
-        android:top="2dp"
-        android:right="2dp"
-        android:left="2dp">
+        android:top="@dimen/tab_payments_stroke"
+        android:right="@dimen/tab_payments_stroke"
+        android:left="@dimen/tab_payments_stroke">
         <shape android:shape="rectangle">
             <solid android:color="@color/colorPrimary"/>
-            <padding android:bottom="3dp"
-                android:left="3dp"/>
-            <corners android:topLeftRadius="5.5dp"
-                android:topRightRadius="5.5dp"/>
+            <padding android:bottom="2dp"
+                android:left="2dp"/>
+            <corners android:topLeftRadius="@dimen/tab_payments_radius"
+                android:topRightRadius="@dimen/tab_payments_radius"/>
         </shape>
     </item>
 </layer-list>

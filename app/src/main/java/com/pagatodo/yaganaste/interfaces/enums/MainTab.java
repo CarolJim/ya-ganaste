@@ -13,7 +13,7 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
 
 public enum MainTab implements IEnumTab {
 
-    TAB1(R.string.main_tab_inicio, R.drawable.icon_tab_ya),
+    TAB1(R.string.main_tab_inicio, R.mipmap.icon_tab_ya_white),
     TAB2(R.string.main_tab_pagos, R.drawable.icon_tab_pagos_white),
     TAB3(R.string.main_tab_depositos, R.drawable.icon_tab_deposito_white),
     TAB4(R.string.main_tab_adquiriente, R.drawable.icon_tab_dongle_white);
@@ -37,7 +37,7 @@ public enum MainTab implements IEnumTab {
 
     @Override
     @DrawableRes
-    public int getIconRes(){
+    public int getIconRes() {
         return this.icon;
     }
 

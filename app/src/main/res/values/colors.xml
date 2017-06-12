@@ -13,7 +13,10 @@
     <color name="bgColorEnd">#182630</color>
     <color name="whiteColor">#FFF</color>
     <color name="whiteColor_disable">#beffffff</color>
-    <color name="borderColor">#979797</color>
+    <color name="borderColor">#FFF</color>
+    <color name="inputTextColor">#FFF</color>
+    <color name="inputTextColorHint">#A2AEB6</color>
+    <color name="borderLayoutColor">#979797</color>
     <color name="grayColor">#808080</color>
     <color name="lightGrayColor">#beb8b8</color>
     <color name="backgroundEditText">#445C6C</color>

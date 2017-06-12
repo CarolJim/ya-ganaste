@@ -102,8 +102,8 @@
 
     <dimen name="text_error_validation_message">12sp</dimen>
 
-    <dimen name="text_custom_validation_editext_size">12px</dimen>
-    <dimen name="text_custom_validation_spinner_size">12sp</dimen>
+    <dimen name="text_custom_validation_editext_size">15px</dimen>
+    <dimen name="text_custom_validation_spinner_size">15sp</dimen>
 
     <!-- Medidas de TDC home_main_tab_fragment -->
     <dimen name="text_custom_validation_spinner_size123">12sp</dimen>

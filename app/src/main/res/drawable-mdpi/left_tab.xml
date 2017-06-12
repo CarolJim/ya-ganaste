@@ -1,10 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <item android:bottom="2dp">
+    <item android:bottom="@dimen/tab_payments_stroke">
         <shape android:shape="rectangle">
             <stroke
-                android:width="2dp"
+                android:width="@dimen/tab_payments_stroke"
                 android:color="@color/grayColor" />
             <corners
                 android:bottomRightRadius="6dp"
@@ -16,7 +16,7 @@
     <item android:top="10dp">
         <shape android:shape="rectangle">
             <stroke
-                android:width="2dp"
+                android:width="@dimen/tab_payments_stroke"
                 android:color="@color/colorAccent" />
             <corners android:bottomRightRadius="6dp" />
         </shape>
@@ -24,11 +24,11 @@
 
 
     <item
-        android:bottom="2dp"
+        android:bottom="@dimen/tab_payments_stroke"
         android:right="6dp">
         <shape android:shape="rectangle">
             <stroke
-                android:width="2dp"
+                android:width="@dimen/tab_payments_stroke"
                 android:color="@color/grayColor" />
             <corners
                 android:bottomRightRadius="6dp"
@@ -37,19 +37,19 @@
     </item>
 
     <item
-        android:bottom="2dp"
-        android:left="2dp"
-        android:right="2dp"
-        android:top="2dp">
+        android:bottom="@dimen/tab_payments_stroke"
+        android:left="@dimen/tab_payments_stroke"
+        android:right="@dimen/tab_payments_stroke"
+        android:top="@dimen/tab_payments_stroke">
         <shape android:shape="rectangle">
             <solid android:color="@color/colorPrimaryDark" />
             <padding
-                android:bottom="3dp"
-                android:left="3dp" />
+                android:bottom="2dp"
+                android:left="2dp" />
             <corners
-                android:bottomRightRadius="5.5dp"
-                android:topLeftRadius="5.5dp"
-                android:topRightRadius="5.5dp" />
+                android:bottomRightRadius="@dimen/tab_payments_radius"
+                android:topLeftRadius="@dimen/tab_payments_radius"
+                android:topRightRadius="@dimen/tab_payments_radius" />
         </shape>
     </item>
 </layer-list>
