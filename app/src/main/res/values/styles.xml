@@ -253,6 +253,12 @@
 
     <style name="ItemMovement">
         <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">14sp</item>
+        <item name="tipo">Subtitulo</item>
+    </style>
+
+    <style name="ItemMovementSubtitle">
+        <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">12sp</item>
         <item name="tipo">Descripcion</item>
     </style>
