@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.preferuser.iteractors;
 
+import android.graphics.Bitmap;
 import android.util.Log;
 import android.widget.Toast;
 
@@ -16,6 +17,7 @@ import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
+import com.pagatodo.yaganaste.utils.BitmapDownload;
 import com.pagatodo.yaganaste.utils.Recursos;
 
 /**
@@ -54,6 +56,24 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         }
 
 
+    }
+
+    @Override
+    public void getImagenURLiteractor(String mUserImage) {
+        String urlEdit = procesarURLString(mUserImage);
+        BitmapDownload bitmapDownload = new BitmapDownload(urlEdit, this);
+        bitmapDownload.execute();
+    }
+
+    @Override
+    public void sendToIteractorBitmap(Bitmap bitmap) {
+        preferUserPresenter.sendImageBitmapPresenter(bitmap);
+    }
+
+    private String procesarURLString(String mUserImage) {
+        String[] urlSplit = mUserImage.split("_");
+        String urlEdit = urlSplit[0] + "_M.png";
+        return urlEdit;
     }
 
     /**

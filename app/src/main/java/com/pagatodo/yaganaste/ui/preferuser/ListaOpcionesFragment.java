@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.preferuser;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,11 +20,13 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.ListaOpcionesPresenter;
+import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -55,6 +58,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     public static String USER_IMAGE = "USER_IMAGE";
     private boolean isEsAgente;
     private String mName, mEmail, mUserImage;
+    PreferUserPresenter mPreferPresenter;
 
     private static final String TAG = Documentos.class.getSimpleName();
 
@@ -113,6 +117,13 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     }
 
     @Override
+    public void onAttach(Context context) {
+        mPreferPresenter = ((PreferUserActivity) getActivity()).getPreferPresenter();
+        mPreferPresenter.setIView(this);
+        super.onAttach(context);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -163,12 +174,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
         // Hacemos Set de la version de codigo
         tv_version_code.setText("YaGanaste Versión: " + BuildConfig.VERSION_CODE);
-        // iv_photo_item.setImageDrawable(getResources().getDrawable(R.drawable.add_photo_canvas, null));
-        // iv_photo_item.setStatusVisibility(false);
-        //  iv_photo_item.setCenterDrawable(R.drawable.icon_preferuser);
-        // iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.camera_blue, null));
 
-        //TODO Frank agregar metodo alternativo para versiones 16 de API. A este paso y el siguiente
         iv_photo_item_status.setBackground(getResources().getDrawable(R.drawable.camara_white_blue_canvas, null));
 
         /**
@@ -177,7 +183,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         if (mUserImage != null && !mUserImage.isEmpty()) {
             try {
                 // Pedimos la imagen por internet y generamos el Bitmap
-                mPresenter.getImagenURLPresenter(mUserImage);
+               // mPresenter.getImagenURLPresenter(mUserImage);
+                mPreferPresenter.getImagenURLPresenter(mUserImage);
             } catch (Exception e) {
                 // Hacemos algo si falla por no tener internet
             }

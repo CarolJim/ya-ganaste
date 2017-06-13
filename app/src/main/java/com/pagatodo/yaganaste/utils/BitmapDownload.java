@@ -6,6 +6,7 @@ import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 import android.util.Base64;
 
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.ListaOpcionesIteractor;
 
 import java.io.ByteArrayOutputStream;
@@ -30,7 +31,7 @@ public class BitmapDownload extends AsyncTask<String, Object, Bitmap> {
     private Bitmap bitmap;
 
     private String mUserImage;
-    private ListaOpcionesIteractor mIteractor;
+    private IPreferUserIteractor mIteractor;
 
     public BitmapDownload(Bitmap bitmap, BitmapBase64Listener listener) {
         this.listener = listener;
@@ -43,7 +44,7 @@ public class BitmapDownload extends AsyncTask<String, Object, Bitmap> {
         this.listener = listener;
     }
 
-    public BitmapDownload(String mUserImage, ListaOpcionesIteractor mIteractor) {
+    public BitmapDownload(String mUserImage, IPreferUserIteractor mIteractor) {
         this.mUserImage = mUserImage;
         this.mIteractor = mIteractor;
     }

@@ -45,8 +45,8 @@ public class ListaOpcionesIteractor implements IListaOpcionesIteractor, IRequest
     @Override
     public void getImagenURLiteractor(String mUserImage) {
         String urlEdit = procesarURLString(mUserImage);
-        BitmapDownload bitmapDownload = new BitmapDownload(urlEdit, this);
-        bitmapDownload.execute();
+      /*  BitmapDownload bitmapDownload = new BitmapDownload(urlEdit, this);
+        bitmapDownload.execute();*/
     }
 
     @Override

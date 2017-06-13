@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.preferuser.interfases;
 
+import android.graphics.Bitmap;
+
 import com.pagatodo.yaganaste.data.DataSourceResult;
 
 /**
@@ -14,4 +16,8 @@ public interface IPreferUserPresenter {
     void sendErrorPresenter(String mensaje);
 
     void sendErrorServerPresenter(String error);
+
+    void getImagenURLPresenter(String mUserImage);
+
+    void sendImageBitmapPresenter(Bitmap bitmap);
 }
