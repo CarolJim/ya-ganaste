@@ -39,6 +39,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovi
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioFWSResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDispositivoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EliminarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarTicketTAEPDSResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GetJsonWebTokenResponse;
@@ -596,11 +597,20 @@ public class ApiAdtvo extends Api {
                 headers, request, true, EnviarTicketTAEPDSResponse.class, result);
     }
 
+    /**
+     * Envia al NetFacade lo necesario para consuir el servicio, arma los Headers restantes para consumir el servicio
+     * @param request
+     * @param result
+     * @throws OfflineException
+     */
     public static void desasociarDispositivo(DesasociarDispositivoRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put("Content-Type", "application/json");
+
         NetFacade.consumeWS(DESASOCIAR_DISPOSITIVO,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.desasociarDispositivo),
-                headers, request, true, EnviarTicketTAEPDSResponse.class, result);
+                headers, request, true, DesasociarDispositivoResponse.class, result);
     }
 }

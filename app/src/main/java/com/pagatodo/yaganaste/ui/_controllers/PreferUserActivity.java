@@ -78,10 +78,12 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
      */
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-
         return false;
     }
 
+    /**
+     * Acciones para dialogo de confirmacion en cerrar session
+     */
     DialogDoubleActions doubleActions = new DialogDoubleActions() {
         @Override
         public void actionConfirm(Object... params) {
@@ -99,6 +101,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public void onEvent(String event, Object data) {
         super.onEvent(event, data);
 
+        /**
+         * Eventos desde Fragmentos
+         */
         switch (event) {
             case "PREFER_USER_LEGALES":
                 loadFragment(ListaLegalesFragment.newInstance(), Direction.FORDWARD, false);
@@ -112,6 +117,11 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 UI.createSimpleCustomDialog("", "¿Desea realmente cerrar sesión?", getSupportFragmentManager(),
                         doubleActions, true, true);
+                break;
+
+            case "DESASOCIAR_CLOSE_SESSION":
+                setResult(ToolBarActivity.RESULT_LOG_OUT);
+                finish();
                 break;
 
             case "PREFER_USER_PRIVACIDAD":
