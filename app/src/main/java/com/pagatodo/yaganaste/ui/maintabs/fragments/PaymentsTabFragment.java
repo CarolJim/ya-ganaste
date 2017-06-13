@@ -31,7 +31,6 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
-import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
@@ -76,6 +75,9 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     TextView txtPagosUserName;
     @BindView(R.id.txtPagosYourBalance)
     TextView txtBalance;
+    @BindView(R.id.imgPagosUserProfile)
+    ImageView imgPagosUserProfile;
+
     //@BindView(R.id.txtPagosYourBalanceNumber)
     //MontoTextView txtBalance;
 
@@ -102,6 +104,12 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         animOut = AnimationUtils.loadAnimation(getContext(), R.anim.slide_to_right);
         animIn.setDuration(1000);
         animOut.setDuration(1000);*/
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Glide.with(getContext()).load(SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL()).placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user).dontAnimate().into(imgPagosUserProfile);
     }
 
     public PaymentsTabPresenter getPresenter() {
@@ -148,9 +156,9 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         SingletonUser singletonUser = SingletonUser.getInstance();
 
         Double saldo;
-        if(singletonUser.getDataUser().isEsAgente() && singletonUser.getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO){
+        if (singletonUser.getDataUser().isEsAgente() && singletonUser.getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
             saldo = Double.parseDouble(singletonUser.getDatosSaldo().getSaldoAdq());
-        }else{
+        } else {
             saldo = Double.parseDouble(singletonUser.getDatosSaldo().getSaldoEmisor());
         }
 

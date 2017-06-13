@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.utils.camera;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -14,7 +13,6 @@ import android.net.Uri;
 import android.os.Environment;
 import android.provider.MediaStore;
 import android.support.v4.content.FileProvider;
-import android.support.v7.view.ContextThemeWrapper;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -23,15 +21,12 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
-import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
-import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
 import java.io.File;
 import java.io.IOException;
@@ -54,9 +49,13 @@ import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
  */
 
 public class CameraManager {
-    private static final CameraManager ourInstance = new CameraManager();
+    private static CameraManager ourInstance;
 
     public static CameraManager getInstance() {
+        if(ourInstance == null){
+            ourInstance = new CameraManager();
+
+        }
         return ourInstance;
     }
 
@@ -283,16 +282,15 @@ public class CameraManager {
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode == RESULT_OK && null != data) {
             Cursor cursor = null;
             Uri selectedImage = data.getData();
-            String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            //String[] filePathColumn = {MediaStore.Images.Media.DATA};
             try {
                 // Get the cursor
-                cursor = getContext().getContentResolver().query(selectedImage,
-                        filePathColumn, null, null, null);
+                //cursor = getContext().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
                 // Move to first row
-                cursor.moveToFirst();
-                int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
-                String path = cursor.getString(columnIndex);
-                bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {
+                //cursor.moveToFirst();
+                //int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
+                //String path = cursor.getString(columnIndex);
+                bitmapLoader = new BitmapLoader(mContext, selectedImage.getPath(), new BitmapBase64Listener() {
                     @Override
                     public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
                         //enableItems(true);
@@ -303,7 +301,9 @@ public class CameraManager {
                 bitmapLoader.execute();
             } catch (Exception e) {
                 e.printStackTrace();
-                adqPresenter.showGaleryError();
+                /*if (adqPresenter != null)
+                    adqPresenter.showGaleryError();*/
+
             } finally {
                 if (cursor != null) {
                     cursor.close();
