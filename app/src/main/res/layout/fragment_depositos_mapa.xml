@@ -15,22 +15,34 @@
         android:layout_height="0dp"
         android:layout_weight="45" />
 
-    <android.support.v7.widget.RecyclerView
-        android:id="@+id/sucurasalesList"
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swipeMap"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:visibility="gone"
-        android:layout_weight="55" />
+        android:layout_weight="55">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/sucurasalesList"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:visibility="gone" />
 
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txtInfoSucursales"
-        android:layout_width="wrap_content"
-        android:layout_height="0dp"
-        android:layout_weight="55"
-        android:layout_margin="@dimen/activity_horizontal_margin"
-        android:text="@string/no_sucursales"
-        android:textSize="@dimen/frag_depositos_sin_sucursal_text_Size"
-        android:visibility="visible"
-        style="@style/MainTabText" />
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txtInfoSucursales"
+                style="@style/MainTabText"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_margin="@dimen/activity_horizontal_margin"
+                android:text="@string/no_sucursales"
+                android:textSize="@dimen/frag_depositos_sin_sucursal_text_Size"
+                android:visibility="visible" />
+
+        </RelativeLayout>
+    </android.support.v4.widget.SwipeRefreshLayout>
+
 </LinearLayout>

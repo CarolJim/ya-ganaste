@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
+import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -15,7 +16,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -71,6 +71,8 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     RecyclerView sucurasalesList;
     @BindView(R.id.txtInfoSucursales)
     TextView txtInfoSucursales;
+    @BindView(R.id.swipeMap)
+    SwipeRefreshLayout swipeMap;
 
     public static DepositsMapFragment newInstance() {
         DepositsMapFragment depositsMapFragment = new DepositsMapFragment();
@@ -88,7 +90,6 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
         onEventListener.onEvent(TabActivity.EVENT_HIDE_MANIN_TAB, null);
         onEventListener.onEvent(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY, true);
 
@@ -117,7 +118,12 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        parentActivity.hideProgresLayout();
+        swipeMap.setOnRefreshListener(this);
+
+        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
+        sucurasalesList.setLayoutManager(mLayoutManager);
+        sucurasalesList.setItemAnimator(new DefaultItemAnimator());
+        sucurasalesList.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
     }
 
     @Override
@@ -127,12 +133,16 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         txtInfoSucursales.setVisibility(View.GONE);
         prinSucursalesOnMap(sucursalList);
         printSucursalesOnRecycler(sucursalList);
+        swipeMap.setRefreshing(false);
+        parentActivity.hideProgresLayout();
     }
 
     @Override
     public void setOnSucursalesNull() {
         this.sucurasalesList.setVisibility(View.GONE);
         txtInfoSucursales.setVisibility(View.VISIBLE);
+        swipeMap.setRefreshing(false);
+        parentActivity.hideProgresLayout();
     }
 
     @Override
@@ -147,8 +157,9 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         } catch (ClassCastException ex) {
             ex.printStackTrace();
         }
-
-        ((DepositsFragment) getParentFragment()).showErrorMessage(errorTxt != null  ? errorTxt : getString(R.string.error_respuesta));
+        swipeMap.setRefreshing(false);
+        parentActivity.hideProgresLayout();
+        ((DepositsFragment) getParentFragment()).showErrorMessage(errorTxt != null ? errorTxt : getString(R.string.error_respuesta));
         ((DepositsFragment) getParentFragment()).onBtnBackPress();
     }
 
@@ -160,27 +171,25 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     }
 
     private void printSucursalesOnRecycler(final List<DataLocalizaSucursal> sucursalList) {
-        adapter = new RecyclerSucursalesAdapter(sucursalList, actualLocation);
+        if (sucursalList.size() > 0) {
+            adapter = new RecyclerSucursalesAdapter(sucursalList, actualLocation);
+            sucurasalesList.setAdapter(adapter);
+            sucurasalesList.addOnItemTouchListener(new RecyclerTouchListener(getContext(), sucurasalesList, new ClickListener() {
+                @Override
+                public void onClick(View view, int position) {
+                    //DataLocalizaSucursal mySucursal = sucursalList.get(position);
+                    //Toast.makeText(getContext(), mySucursal.getNombre(), Toast.LENGTH_SHORT).show();
+                    onClickSucursal(sucursalList.get(position));
+                }
 
-        RecyclerView.LayoutManager mLayoutManager = new LinearLayoutManager(getContext());
-        sucurasalesList.setLayoutManager(mLayoutManager);
-        sucurasalesList.setItemAnimator(new DefaultItemAnimator());
-        sucurasalesList.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
-        sucurasalesList.setAdapter(adapter);
+                @Override
+                public void onLongClick(View view, int position) {
 
-        sucurasalesList.addOnItemTouchListener(new RecyclerTouchListener(getContext(), sucurasalesList, new ClickListener() {
-            @Override
-            public void onClick(View view, int position) {
-                DataLocalizaSucursal mySucursal = sucursalList.get(position);
-                //Toast.makeText(getContext(), mySucursal.getNombre(), Toast.LENGTH_SHORT).show();
-                onClickSucursal(mySucursal);
-            }
-
-            @Override
-            public void onLongClick(View view, int position) {
-
-            }
-        }));
+                }
+            }));
+        } else {
+            setOnSucursalesNull();
+        }
     }
 
     @Override
@@ -205,20 +214,24 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
             LatLng latlon = new LatLng(actualLocation.getLatitude(), actualLocation.getLongitude());
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, 12));
 
-            try {
-                depositMapPresenter.getSucursales(actualLocation);
-            } catch (OfflineException e) {
-                e.printStackTrace();
-                //Toast.makeText(getContext(), "Sin Conexión", Toast.LENGTH_SHORT).show();
-                ((DepositsFragment) getParentFragment()).showErrorMessage(getString(R.string.no_internet_access));
-                ((DepositsFragment) getParentFragment()).onBtnBackPress();
-            }
+            getSucursales();
         }
 
         //map.setOnMarkerClickListener(this);
         map.setOnInfoWindowClickListener(this);
 
 
+    }
+
+    private void getSucursales() {
+        try {
+            depositMapPresenter.getSucursales(actualLocation);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            //Toast.makeText(getContext(), "Sin Conexión", Toast.LENGTH_SHORT).show();
+            ((DepositsFragment) getParentFragment()).showErrorMessage(getString(R.string.no_internet_access));
+            ((DepositsFragment) getParentFragment()).onBtnBackPress();
+        }
     }
 
     public void addMarker(DataLocalizaSucursal sucursal) {
@@ -243,5 +256,11 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
                 break;
             }
         }
+    }
+
+    @Override
+    public void onRefresh() {
+        ((TabActivity) getActivity()).showProgressLayout("Cargando");
+        getSucursales();
     }
 }
