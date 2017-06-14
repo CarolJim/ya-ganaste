@@ -115,7 +115,8 @@ public class PreferUserPresenter implements IPreferUserPresenter {
         try {
             cameraManager.createPhoto(1);
         }catch (Exception e){
-            Toast.makeText(App.getContext(), "Exception " + e, Toast.LENGTH_SHORT).show();
+            //Toast.makeText(App.getContext(), "Exception " + e, Toast.LENGTH_SHORT).show();
+            iListaOpcionesView.showExceptionToView(e.toString());
         }
     }
 
@@ -137,5 +138,15 @@ public class PreferUserPresenter implements IPreferUserPresenter {
     @Override
     public void sendErrorAvatarPresenter(String mensaje) {
         iListaOpcionesView.sendErrorView(mensaje);
+    }
+
+    @Override
+    public void showExceptionToPresenter(String mMesage) {
+        iListaOpcionesView.showExceptionToView(mMesage);
+    }
+
+    @Override
+    public void sendErrorServerAvatarToPresenter(String mMesage) {
+        iListaOpcionesView.sendErrorView(mMesage);
     }
 }

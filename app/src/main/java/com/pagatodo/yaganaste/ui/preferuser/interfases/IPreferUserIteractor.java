@@ -18,4 +18,6 @@ public interface IPreferUserIteractor {
     void sendToIteractorBitmap(Bitmap bitmap);
 
     void sendIteractorActualizarAvatar(ActualizarAvatarRequest avatarRequest);
+
+    void showExceptionToIteractor(String s);
 }

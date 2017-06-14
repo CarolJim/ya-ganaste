@@ -22,6 +22,8 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.BitmapDownload;
 import com.pagatodo.yaganaste.utils.Recursos;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVATAR;
+
 /**
  * Created by Francisco Manzo on 08/06/2017.
  * Iteractor para gestionar los eventos de PreferUSerPresenter
@@ -39,6 +41,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
     /**
      * Se encarga de recibir el request de cualquier tipo en el Presenter, y reacciona con el
      * instanceof correspondiente
+     *
      * @param request
      */
     @Override
@@ -77,9 +80,14 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         try {
             ApiAdtvo.actualizarAvatar(avatarRequest, this);
         } catch (OfflineException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
             preferUserPresenter.onFailPresenter();
         }
+    }
+
+    @Override
+    public void showExceptionToIteractor(String mMesage) {
+        preferUserPresenter.showExceptionToPresenter(mMesage);
     }
 
     private String procesarURLString(String mUserImage) {
@@ -95,24 +103,28 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         try {
             ApiAdtvo.cerrarSesion(this);
         } catch (OfflineException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            preferUserPresenter.showExceptionToPresenter(e.toString());
         }
     }
 
     /**
      * Inicia la pericion al ApiAdtvo para consumir el servicio
+     *
      * @param request
      */
     public void desasociaDispositivo(DesasociarDispositivoRequest request) {
         try {
             ApiAdtvo.desasociarDispositivo(request, this);
         } catch (OfflineException e) {
-            e.printStackTrace();
+            // e.printStackTrace();
+            preferUserPresenter.showExceptionToPresenter(e.toString());
         }
     }
 
     /**
      * Manejo de casos de Success del servidor
+     *
      * @param dataSourceResult
      */
     @Override
@@ -159,11 +171,16 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
 
     /**
      * Manejo de errores de conexion con el servidor
+     *
      * @param error
      */
     @Override
     public void onFailed(DataSourceResult error) {
-       // Log.d("PreferUserIteractor", "Error: " + error);
-        preferUserPresenter.sendErrorServerPresenter(error.getData().toString());
+        // Log.d("PreferUserIteractor", "Error: " + error);
+        if (error.getWebService().equals(ACTUALIZAR_AVATAR)) {
+            preferUserPresenter.sendErrorServerAvatarToPresenter(error.getData().toString());
+        } else {
+            preferUserPresenter.sendErrorServerPresenter(error.getData().toString());
+        }
     }
 }

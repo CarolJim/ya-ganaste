@@ -32,4 +32,8 @@ public interface IPreferUserPresenter {
     void sucessUpdateAvatar();
 
     void sendErrorAvatarPresenter(String mensaje);
+
+    void showExceptionToPresenter(String mMesage);
+
+    void sendErrorServerAvatarToPresenter(String s);
 }

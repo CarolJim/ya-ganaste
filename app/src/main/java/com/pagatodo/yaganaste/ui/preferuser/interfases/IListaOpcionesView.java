@@ -20,4 +20,6 @@ public interface IListaOpcionesView extends IPreferUserGeneric{
     void sendImageBitmapView(Bitmap bitmap);
 
     void onFailView();
+
+    void showExceptionToView(String mMesage);
 }

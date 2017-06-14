@@ -175,7 +175,8 @@ public class CameraManager {
                 photoFile = createImageFile();
             } catch (IOException ex) {
                 // Error occurred while creating the File
-                ex.printStackTrace();
+                //ex.printStackTrace();
+                mView.showExceptionToView(ex.toString());
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
@@ -284,27 +285,22 @@ public class CameraManager {
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
             try {
-                // Get the cursor
+                // Proceso para obtener la imagen por medio de un contentResolver
                 cursor = getContext().getContentResolver().query(selectedImage,
                         filePathColumn, null, null, null);
-                // Move to first row
                 cursor.moveToFirst();
                 int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
                 String path = cursor.getString(columnIndex);
                 bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {
                     @Override
                     public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
-                        //enableItems(true);
                         saveBmpImgUser(bitmap, imgbase64);
-                        //   hideLoader();
                     }
                 });
                 bitmapLoader.execute();
             } catch (Exception e) {
-                e.printStackTrace();
-                /*if (adqPresenter != null)
-                    adqPresenter.showGaleryError();*/
-
+                //e.printStackTrace();
+                mView.showExceptionToView(e.toString());
             } finally {
                 if (cursor != null) {
                     cursor.close();

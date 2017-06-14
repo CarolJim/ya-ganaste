@@ -179,6 +179,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
                 mPreferPresenter.getImagenURLPresenter(mUserImage);
             } catch (Exception e) {
                 // Hacemos algo si falla por no tener internet
+                showDialogError(e.toString());
             }
 
         } else {
@@ -271,19 +272,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         hideLoader();
         onEventListener.onEvent("DISABLE_BACK", false);
         CameraManager.cleanBitmap();
-        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-
-                    }
-
-                    @Override
-                    public void actionCancel(Object... params) {
-
-                    }
-                },
-                true, false);
+       showDialogError(mensaje);
     }
 
     @Override
@@ -304,9 +293,30 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         CameraManager.cleanBitmap();
     }
 
+    @Override
+    public void showExceptionToView(String mMesage) {
+        showDialogError(mMesage);
+    }
+
     public void hideLoader() {
        // progressLayout.setVisibility(GONE);
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+    }
+
+    private void showDialogError(String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
     }
 
     public CameraManager getCameraManager() {
