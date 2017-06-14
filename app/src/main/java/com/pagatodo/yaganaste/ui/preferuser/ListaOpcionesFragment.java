@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.preferuser;
 
+import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
@@ -19,11 +20,11 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
-import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
-import com.pagatodo.yaganaste.ui.preferuser.presenters.ListaOpcionesPresenter;
+import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -55,6 +56,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     public static String USER_IMAGE = "USER_IMAGE";
     private boolean isEsAgente;
     private String mName, mEmail, mUserImage;
+    PreferUserPresenter mPreferPresenter;
 
     private static final String TAG = Documentos.class.getSimpleName();
 
@@ -62,10 +64,6 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 //    ProgressLayout progressLayout;
 
     SwipeRefreshLayout swipeRefreshLayout;
-    IListaOpcionesPresenter mPresenter;
-    private ArrayList<String> contador;
-    private ArrayList<DataDocuments> dataDocumnets;
-    private Drawable mDrawable = null;
 
     @BindView(R.id.fragment_list_opciones_name)
     TextView tv_name;
@@ -95,6 +93,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     ImageView testIV;
 
     View rootview;
+    CameraManager cameraManager;
 
     public ListaOpcionesFragment() {
         // Required empty public constructor
@@ -113,6 +112,13 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     }
 
     @Override
+    public void onAttach(Context context) {
+        mPreferPresenter = ((PreferUserActivity) getActivity()).getPreferPresenter();
+        mPreferPresenter.setIView(this);
+        super.onAttach(context);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
@@ -121,15 +127,13 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         mEmail = getArguments().getString(USER_EMAIL);
         mUserImage = getArguments().getString(USER_IMAGE);
 
-        contador = new ArrayList<>();
-        dataDocumnets = new ArrayList<>();
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_lista_opciones, container, false);
 
-        mPresenter = new ListaOpcionesPresenter(this);
-
         initViews();
-        CameraManager.getInstance().initCamera(getActivity(), iv_photo_item, this);
+
+        cameraManager = new CameraManager();
+        cameraManager.initCamera(getActivity(), iv_photo_item, this);
 
         return rootview;
     }
@@ -163,12 +167,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
         // Hacemos Set de la version de codigo
         tv_version_code.setText("YaGanaste Versión: " + BuildConfig.VERSION_CODE);
-        // iv_photo_item.setImageDrawable(getResources().getDrawable(R.drawable.add_photo_canvas, null));
-        // iv_photo_item.setStatusVisibility(false);
-        //  iv_photo_item.setCenterDrawable(R.drawable.icon_preferuser);
-        // iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.camera_blue, null));
 
-        //TODO Frank agregar metodo alternativo para versiones 16 de API. A este paso y el siguiente
         iv_photo_item_status.setBackground(getResources().getDrawable(R.drawable.camara_white_blue_canvas, null));
 
         /**
@@ -177,9 +176,10 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         if (mUserImage != null && !mUserImage.isEmpty()) {
             try {
                 // Pedimos la imagen por internet y generamos el Bitmap
-                mPresenter.getImagenURLPresenter(mUserImage);
+                mPreferPresenter.getImagenURLPresenter(mUserImage);
             } catch (Exception e) {
                 // Hacemos algo si falla por no tener internet
+                showDialogError(e.toString());
             }
 
         } else {
@@ -221,7 +221,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
             case R.id.frag_lista_opciones_photo_item:
                 //selectImageSource(USER_PHOTO);
 
-                mPresenter.openMenuPhoto(1);
+                mPreferPresenter.openMenuPhoto(1, cameraManager);
                 break;
         }
     }
@@ -234,7 +234,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     @Override
     public void setPhotoToService(Bitmap bitmap) {
         // Guardamos en bruto nuestro Bitmap.
-        CameraManager.getInstance().setBitmap(bitmap);
+        cameraManager.setBitmap(bitmap);
 
         // Procesamos el Bitmap a Base64
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -250,7 +250,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         onEventListener.onEvent("DISABLE_BACK", true);
 
         // Enviamos al presenter
-        mPresenter.sendPresenterActualizarAvatar(avatarRequest);
+        mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);
 
 
     }
@@ -272,19 +272,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         hideLoader();
         onEventListener.onEvent("DISABLE_BACK", false);
         CameraManager.cleanBitmap();
-        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-
-                    }
-
-                    @Override
-                    public void actionCancel(Object... params) {
-
-                    }
-                },
-                true, false);
+       showDialogError(mensaje);
     }
 
     @Override
@@ -305,8 +293,33 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         CameraManager.cleanBitmap();
     }
 
+    @Override
+    public void showExceptionToView(String mMesage) {
+        showDialogError(mMesage);
+    }
+
     public void hideLoader() {
        // progressLayout.setVisibility(GONE);
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+    }
+
+    private void showDialogError(String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
+    }
+
+    public CameraManager getCameraManager() {
+        return cameraManager;
     }
 }

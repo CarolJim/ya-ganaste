@@ -146,6 +146,11 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         onEventListener.onEvent("DISABLE_BACK", false);
     }
 
+    @Override
+    public void getImagenURLiteractor(String mUserImage) {
+
+    }
+
     /**
      * Adminsitrador de mensaje que no tienen acciones, solo informativos, usados comunmente en errores
      * @param mensaje

@@ -1,18 +1,19 @@
 package com.pagatodo.yaganaste.ui.preferuser.presenters;
 
+import android.graphics.Bitmap;
+import android.widget.Toast;
+
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
-import com.pagatodo.yaganaste.net.Api;
-import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferDesasociarView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserPresenter;
-import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserTest;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
-
-import java.util.Map;
+import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 /**
  * Created by Francisco Manzo on 08/06/2017.
@@ -25,6 +26,7 @@ public class PreferUserPresenter implements IPreferUserPresenter {
     PreferUserActivity mView;
     IPreferUserIteractor iPreferUserIteractor;
     IPreferDesasociarView iPreferDesasociarView;
+    IListaOpcionesView iListaOpcionesView;
 
     public PreferUserPresenter(PreferUserActivity mView) {
         this.mView = mView;
@@ -32,8 +34,22 @@ public class PreferUserPresenter implements IPreferUserPresenter {
         iPreferUserIteractor = new PreferUserIteractor(this);
     }
 
-    public void setIView(IPreferUserTest iPreferUserTest) {
-        this.iPreferDesasociarView = (IPreferDesasociarView) iPreferUserTest;
+    /**
+     * Se encarga de hacer SET del View que interactura con el Presenter. Esto funciona porque recibimos
+     * una Interfase IPreferUserGeneric, y a su vez si es instancia de alguna de sus herederas haemos
+     * SET de la View correspondiente. Este proceso es un Cast del tipo Downcasting
+     * @param iPreferUserGeneric
+     */
+    public void setIView(IPreferUserGeneric iPreferUserGeneric) {
+        // Set de  instancia de IListaOpcionesView
+        if (iPreferUserGeneric instanceof IListaOpcionesView) {
+            iListaOpcionesView = (IListaOpcionesView) iPreferUserGeneric;
+        }
+
+        // Set de instancia de IPreferDesasociarView
+        if (iPreferUserGeneric instanceof IPreferDesasociarView) {
+            this.iPreferDesasociarView = (IPreferDesasociarView) iPreferUserGeneric;
+        }
     }
 
     /**
@@ -50,6 +66,7 @@ public class PreferUserPresenter implements IPreferUserPresenter {
     /**
      * Exito en la conexion al servidor y procedimiento de Desasociar. Cerrarmos el Loader y enviamos
      * el control a la vista
+     *
      * @param mensaje
      */
     @Override
@@ -62,6 +79,7 @@ public class PreferUserPresenter implements IPreferUserPresenter {
      * Exito en la conexion al servidor pero error en codigo de respuesta de procedimiento de
      * Desasociar. Cerrarmos el Loader y enviamos
      * el control a la vista
+     *
      * @param mensaje
      */
     @Override
@@ -73,11 +91,62 @@ public class PreferUserPresenter implements IPreferUserPresenter {
     /**
      * Error en la conexion al servidor y procedimiento de Desasociar. Cerrarmos el Loader y enviamos
      * el control a la vista
+     *
      * @param error
      */
     @Override
     public void sendErrorServerPresenter(String error) {
         mView.hideLoader();
         iPreferDesasociarView.sendErrorServerView(error);
+    }
+
+    @Override
+    public void getImagenURLPresenter(String mUserImage) {
+        iPreferUserIteractor.getImagenURLiteractor(mUserImage);
+    }
+
+    @Override
+    public void sendImageBitmapPresenter(Bitmap bitmap) {
+        iListaOpcionesView.sendImageBitmapView(bitmap);
+    }
+
+    @Override
+    public void openMenuPhoto(int i, CameraManager cameraManager) {
+        try {
+            cameraManager.createPhoto(1);
+        }catch (Exception e){
+            //Toast.makeText(App.getContext(), "Exception " + e, Toast.LENGTH_SHORT).show();
+            iListaOpcionesView.showExceptionToView(e.toString());
+        }
+    }
+
+    @Override
+    public void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest) {
+        iPreferUserIteractor.sendIteractorActualizarAvatar(avatarRequest);
+    }
+
+    @Override
+    public void onFailPresenter() {
+        iListaOpcionesView.onFailView();
+    }
+
+    @Override
+    public void sucessUpdateAvatar() {
+        iListaOpcionesView.sucessUpdateAvatar();
+    }
+
+    @Override
+    public void sendErrorAvatarPresenter(String mensaje) {
+        iListaOpcionesView.sendErrorView(mensaje);
+    }
+
+    @Override
+    public void showExceptionToPresenter(String mMesage) {
+        iListaOpcionesView.showExceptionToView(mMesage);
+    }
+
+    @Override
+    public void sendErrorServerAvatarToPresenter(String mMesage) {
+        iListaOpcionesView.sendErrorView(mMesage);
     }
 }
