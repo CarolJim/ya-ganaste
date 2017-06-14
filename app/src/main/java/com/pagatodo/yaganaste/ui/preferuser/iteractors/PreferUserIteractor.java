@@ -6,7 +6,9 @@ import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CerrarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
@@ -70,6 +72,16 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         preferUserPresenter.sendImageBitmapPresenter(bitmap);
     }
 
+    @Override
+    public void sendIteractorActualizarAvatar(ActualizarAvatarRequest avatarRequest) {
+        try {
+            ApiAdtvo.actualizarAvatar(avatarRequest, this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            preferUserPresenter.onFailPresenter();
+        }
+    }
+
     private String procesarURLString(String mUserImage) {
         String[] urlSplit = mUserImage.split("_");
         String urlEdit = urlSplit[0] + "_M.png";
@@ -122,6 +134,25 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             } else {
                 //Log.d("PreferUserIteractor", "DataSource Sucess with Error " + response.getMensaje());
                 preferUserPresenter.sendErrorPresenter(response.getMensaje());
+            }
+        }
+
+        /**
+         * Instancia de peticion exitosa de ActualizarAvatarResponse
+         */
+        if (dataSourceResult.getData() instanceof ActualizarAvatarResponse) {
+            ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
+            if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+                Log.d("ListaOpcionesIteractor", "DataSource Sucess " + response.getMensaje());
+
+                String urlEdit = procesarURLString(response.getData().getImagenAvatarURL());
+                SingletonUser.getInstance().getDataUser().getUsuario().setImagenAvatarURL(urlEdit);
+                preferUserPresenter.sucessUpdateAvatar();
+                // Linea para simular el error y comprobar el Duialog y el ShowProgress
+                //listaOpcionesPresenter.sendErrorPresenter(response.getMensaje());
+            } else {
+                Log.d("ListaOpcionesIteractor", "DataSource Sucess with Error " + response.getMensaje());
+                preferUserPresenter.sendErrorAvatarPresenter(response.getMensaje());
             }
         }
     }

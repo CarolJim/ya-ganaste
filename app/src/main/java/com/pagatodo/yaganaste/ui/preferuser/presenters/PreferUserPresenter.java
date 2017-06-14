@@ -1,7 +1,10 @@
 package com.pagatodo.yaganaste.ui.preferuser.presenters;
 
 import android.graphics.Bitmap;
+import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
@@ -10,6 +13,7 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
+import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 /**
  * Created by Francisco Manzo on 08/06/2017.
@@ -104,5 +108,34 @@ public class PreferUserPresenter implements IPreferUserPresenter {
     @Override
     public void sendImageBitmapPresenter(Bitmap bitmap) {
         iListaOpcionesView.sendImageBitmapView(bitmap);
+    }
+
+    @Override
+    public void openMenuPhoto(int i, CameraManager cameraManager) {
+        try {
+            cameraManager.createPhoto(1);
+        }catch (Exception e){
+            Toast.makeText(App.getContext(), "Exception " + e, Toast.LENGTH_SHORT).show();
+        }
+    }
+
+    @Override
+    public void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest) {
+        iPreferUserIteractor.sendIteractorActualizarAvatar(avatarRequest);
+    }
+
+    @Override
+    public void onFailPresenter() {
+        iListaOpcionesView.onFailView();
+    }
+
+    @Override
+    public void sucessUpdateAvatar() {
+        iListaOpcionesView.sucessUpdateAvatar();
+    }
+
+    @Override
+    public void sendErrorAvatarPresenter(String mensaje) {
+        iListaOpcionesView.sendErrorView(mensaje);
     }
 }

@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.preferuser.interfases;
 import android.graphics.Bitmap;
 
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
 
 /**
@@ -15,4 +16,6 @@ public interface IPreferUserIteractor {
     void getImagenURLiteractor(String mUserImage);
 
     void sendToIteractorBitmap(Bitmap bitmap);
+
+    void sendIteractorActualizarAvatar(ActualizarAvatarRequest avatarRequest);
 }

@@ -4,18 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
-import android.util.Base64;
 
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserIteractor;
-import com.pagatodo.yaganaste.ui.preferuser.iteractors.ListaOpcionesIteractor;
 
-import java.io.ByteArrayOutputStream;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStream;
 import java.net.HttpURLConnection;
-
-import id.zelory.compressor.Compressor;
 
 /**
  * Created by Gorro on 20/11/16.

@@ -49,7 +49,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
  */
 
 public class CameraManager {
-    private static CameraManager ourInstance;
+  /*  private static CameraManager ourInstance;
 
     public static CameraManager getInstance() {
         if(ourInstance == null){
@@ -57,9 +57,9 @@ public class CameraManager {
 
         }
         return ourInstance;
-    }
+    }*/
 
-    private CameraManager() {
+    public CameraManager() {
     }
 
     private static final String TAG = Documentos.class.getSimpleName();
@@ -282,15 +282,16 @@ public class CameraManager {
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode == RESULT_OK && null != data) {
             Cursor cursor = null;
             Uri selectedImage = data.getData();
-            //String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
             try {
                 // Get the cursor
-                //cursor = getContext().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                cursor = getContext().getContentResolver().query(selectedImage,
+                        filePathColumn, null, null, null);
                 // Move to first row
-                //cursor.moveToFirst();
-                //int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
-                //String path = cursor.getString(columnIndex);
-                bitmapLoader = new BitmapLoader(mContext, selectedImage.getPath(), new BitmapBase64Listener() {
+                cursor.moveToFirst();
+                int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
+                String path = cursor.getString(columnIndex);
+                bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {
                     @Override
                     public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
                         //enableItems(true);

@@ -181,7 +181,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+        ListaOpcionesFragment mFragment = (ListaOpcionesFragment) getSupportFragmentManager().findFragmentById(R.id.container);
+
+        CameraManager cameraManager = mFragment.getCameraManager();
         // Enviamos datos recibidos al CameraManager
-        CameraManager.getInstance().setOnActivityResult(requestCode, resultCode, data);
+        cameraManager.setOnActivityResult(requestCode, resultCode, data);
     }
 }

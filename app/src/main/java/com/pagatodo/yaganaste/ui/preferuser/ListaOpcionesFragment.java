@@ -23,9 +23,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
-import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
-import com.pagatodo.yaganaste.ui.preferuser.presenters.ListaOpcionesPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
@@ -66,10 +64,6 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 //    ProgressLayout progressLayout;
 
     SwipeRefreshLayout swipeRefreshLayout;
-    IListaOpcionesPresenter mPresenter;
-    private ArrayList<String> contador;
-    private ArrayList<DataDocuments> dataDocumnets;
-    private Drawable mDrawable = null;
 
     @BindView(R.id.fragment_list_opciones_name)
     TextView tv_name;
@@ -99,6 +93,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     ImageView testIV;
 
     View rootview;
+    CameraManager cameraManager;
 
     public ListaOpcionesFragment() {
         // Required empty public constructor
@@ -132,15 +127,13 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         mEmail = getArguments().getString(USER_EMAIL);
         mUserImage = getArguments().getString(USER_IMAGE);
 
-        contador = new ArrayList<>();
-        dataDocumnets = new ArrayList<>();
         // Inflate the layout for this fragment
         rootview = inflater.inflate(R.layout.fragment_lista_opciones, container, false);
 
-        mPresenter = new ListaOpcionesPresenter(this);
-
         initViews();
-        CameraManager.getInstance().initCamera(getActivity(), iv_photo_item, this);
+
+        cameraManager = new CameraManager();
+        cameraManager.initCamera(getActivity(), iv_photo_item, this);
 
         return rootview;
     }
@@ -183,7 +176,6 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         if (mUserImage != null && !mUserImage.isEmpty()) {
             try {
                 // Pedimos la imagen por internet y generamos el Bitmap
-               // mPresenter.getImagenURLPresenter(mUserImage);
                 mPreferPresenter.getImagenURLPresenter(mUserImage);
             } catch (Exception e) {
                 // Hacemos algo si falla por no tener internet
@@ -228,7 +220,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
             case R.id.frag_lista_opciones_photo_item:
                 //selectImageSource(USER_PHOTO);
 
-                mPresenter.openMenuPhoto(1);
+                mPreferPresenter.openMenuPhoto(1, cameraManager);
                 break;
         }
     }
@@ -241,7 +233,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     @Override
     public void setPhotoToService(Bitmap bitmap) {
         // Guardamos en bruto nuestro Bitmap.
-        CameraManager.getInstance().setBitmap(bitmap);
+        cameraManager.setBitmap(bitmap);
 
         // Procesamos el Bitmap a Base64
         ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
@@ -257,7 +249,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         onEventListener.onEvent("DISABLE_BACK", true);
 
         // Enviamos al presenter
-        mPresenter.sendPresenterActualizarAvatar(avatarRequest);
+        mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);
 
 
     }
@@ -315,5 +307,9 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     public void hideLoader() {
        // progressLayout.setVisibility(GONE);
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+    }
+
+    public CameraManager getCameraManager() {
+        return cameraManager;
     }
 }
