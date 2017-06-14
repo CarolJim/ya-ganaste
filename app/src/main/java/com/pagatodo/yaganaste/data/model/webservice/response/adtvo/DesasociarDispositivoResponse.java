@@ -7,6 +7,8 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
  */
 
 public class DesasociarDispositivoResponse extends GenericResponse {
+
     public DesasociarDispositivoResponse() {
     }
+
 }

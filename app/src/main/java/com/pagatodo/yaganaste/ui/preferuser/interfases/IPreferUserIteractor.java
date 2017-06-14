@@ -8,5 +8,5 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDisp
  */
 
 public interface IPreferUserIteractor {
-    void testToastToIteracto(Request request);
+    void desasociarToIteracto(Request request);
 }
