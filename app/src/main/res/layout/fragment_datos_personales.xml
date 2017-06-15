@@ -227,7 +227,8 @@
                 android:layout_weight="1.4"
                 android:background="@drawable/selector_btn_back"
                 android:text="@string/backButton"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textSize="@dimen/generic_button_normal_text_size"/>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNextPersonalInfo"
@@ -239,7 +240,8 @@
                 android:background="@drawable/selector_btn_continuar"
                 android:gravity="center"
                 android:text="@string/nextButton"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textSize="@dimen/generic_button_normal_text_size"/>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

@@ -103,7 +103,8 @@
                 android:gravity="center"
                 android:text="@string/next"
                 android:textAllCaps="false"
-                android:visibility="gone" />
+                android:visibility="gone"
+                android:textSize="@dimen/generic_button_normal_text_size"/>
 
             <LinearLayout
                 android:layout_width="match_parent"

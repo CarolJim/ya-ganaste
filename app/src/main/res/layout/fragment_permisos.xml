@@ -38,7 +38,8 @@
             android:layout_marginTop="@dimen/margin_doble"
             android:layout_marginBottom="@dimen/margin_doble"
             android:background="@android:color/transparent"
-            android:text="Activar Servicios" />
+            android:text="Activar Servicios"
+            android:textSize="@dimen/generic_button_normal_text_size"/>
 
 
     </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
@@ -57,7 +58,8 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:backgroundTint="@color/colorAccent"
-            android:text="@string/next" />
+            android:text="@string/next"
+            android:textSize="@dimen/generic_button_normal_text_size"/>
     </RelativeLayout>
 
 </RelativeLayout>

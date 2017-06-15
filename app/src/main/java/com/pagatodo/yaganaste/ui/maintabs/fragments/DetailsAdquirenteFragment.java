@@ -24,7 +24,7 @@ import java.util.Calendar;
  * @author Juan Guerra on 12/04/2017.
  */
 
-public class DetailsAdquirenteFragment extends GenericFragment {
+public class DetailsAdquirenteFragment extends GenericFragment implements View.OnClickListener {
 
     private View rootView;
 
@@ -41,7 +41,7 @@ public class DetailsAdquirenteFragment extends GenericFragment {
     private TextView cardInfo;
     private TextView issuingBank;
     private TextView dateTime;
-    private Button btGotToMenu;
+    private Button btnCancel;
 
     private DataMovimientoAdq dataMovimientoAdq;
 
@@ -91,7 +91,7 @@ public class DetailsAdquirenteFragment extends GenericFragment {
         cardInfo = (TextView)rootView.findViewById(R.id.cardInfo);
         issuingBank = (TextView)rootView.findViewById(R.id.issuingBank);
         dateTime = (TextView)rootView.findViewById(R.id.date_time);
-        btGotToMenu = (Button) rootView.findViewById(R.id.bt_gotToMenu);
+        btnCancel = (Button) rootView.findViewById(R.id.btn_cancel);
     }
 
     @Override
@@ -112,7 +112,16 @@ public class DetailsAdquirenteFragment extends GenericFragment {
         cardInfo.setText(dataMovimientoAdq.getTipoTarjetaBancaria() + "," + dataMovimientoAdq.getReferencia());
         issuingBank.setText(dataMovimientoAdq.getBancoEmisor() + "," + dataMovimientoAdq.getMarcaTarjetaBancaria());
         dateTime.setText(dataMovimientoAdq.getFecha());
+
+        if (dataMovimientoAdq.isEsPendiente()) {
+            btnCancel.setVisibility(View.VISIBLE);
+            btnCancel.setOnClickListener(this);
+        }
     }
 
 
+    @Override
+    public void onClick(View v) {
+        // TODO: 14/06/2017 Proceso para cancelar venta
+    }
 }

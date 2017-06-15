@@ -6,6 +6,7 @@ import android.os.Handler;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Window;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.android.gms.common.GoogleApiAvailability;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -24,6 +25,8 @@ import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.CustomMapFragment;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
+import io.fabric.sdk.android.Fabric;
+
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
@@ -38,6 +41,7 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        Fabric.with(this, new Crashlytics());
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash_activity_layout);
         api = new CatalogsDbApi(this);

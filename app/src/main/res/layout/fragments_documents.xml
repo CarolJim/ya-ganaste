@@ -230,7 +230,8 @@
             android:id="@+id/btnRegresar"
             style="@style/buttonDirecctionBack"
             android:layout_weight="1"
-            android:text="@string/volver" />
+            android:text="@string/volver"
+            android:textSize="@dimen/generic_button_normal_text_size"/>
 
         <android.support.v4.widget.Space
             android:layout_width="10dp"
@@ -243,7 +244,8 @@
             android:layout_toEndOf="@+id/btnBack"
             android:layout_toRightOf="@+id/btnBack"
             android:layout_weight="2"
-            android:text="@string/next" />
+            android:text="@string/next"
+            android:textSize="@dimen/generic_button_normal_text_size"/>
     </LinearLayout>
 
     <!--com.pagatodo.yaganaste.utils.customviews.ProgressLayout

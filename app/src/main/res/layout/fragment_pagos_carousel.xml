@@ -26,9 +26,10 @@
                 <com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
                     android:id="@+id/carouselMain"
                     android:layout_marginTop="@dimen/margin_medium"
+                    android:layout_marginBottom="@dimen/margin_medium"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp" />
-                <!--android:layout_margin="10dp"-->
+                    android:layout_height="200dp"
+                    android:layout_margin="10dp" />
 
             </LinearLayout>
 

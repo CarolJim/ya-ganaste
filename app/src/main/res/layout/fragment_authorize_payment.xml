@@ -170,7 +170,8 @@
                 android:layout_weight="40"
                 android:text="@string/continuar"
                 android:textAllCaps="false"
-                android:background="@drawable/selector_btn_continuar" />
+                android:background="@drawable/selector_btn_continuar"
+                android:textSize="@dimen/generic_button_normal_text_size"/>
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"

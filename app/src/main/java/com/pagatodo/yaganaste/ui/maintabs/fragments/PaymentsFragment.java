@@ -36,7 +36,7 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
 
     @Override
     protected void onTabLoaded() {
-        tabMonths.setVisibility(View.GONE);
+        //tabMonths.setVisibility(View.GONE);
         onTabSelected(tabMonths.getTabAt(0));
 
     }

@@ -173,7 +173,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
             android:layout_weight=".1"
-            android:text="Volver" />
+            android:text="Volver"
+            android:textSize="@dimen/generic_button_normal_text_size"/>
 
         <android.support.v7.widget.AppCompatButton
             android:id="@+id/btnNextDatosPersonales"
@@ -181,7 +182,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_big"
             android:layout_weight=".9"
-            android:text="@string/next" />
+            android:text="@string/next"
+            android:textSize="@dimen/generic_button_normal_text_size"/>
     </LinearLayout>
 
 </LinearLayout>

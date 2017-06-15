@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.maintabs.factories;
 
 import android.support.v4.app.Fragment;
 
+import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -61,7 +62,8 @@ public class ViewPagerDataFactory {
                 return new ViewPagerData<>(null, DateUtil.getLastMovementstMonths().toArray(new MonthsMovementsTab[0]));
 
             case PAYMENTS:
-                return new ViewPagerData<>(null, DateUtil.getTabAdquirente());
+                //return new ViewPagerData<>(null, DateUtil.getTabAdquirente());
+                return new ViewPagerData<>(null, DateUtil.getTabsAdquirente().toArray(new AdquirentePaymentsTab[0]));
 
             case SESSION_EXIST:
                 fragmentList.add(OtpGeneratorFragment.newInstance());
@@ -74,6 +76,7 @@ public class ViewPagerDataFactory {
                 throw new IllegalFactoryParameterException(type.toString());
         }
     }
+
 
     private static void addMainFragments(List<Fragment> fragmentList) {
         fragmentList.add(HomeTabFragment.newInstance());

@@ -47,6 +47,14 @@ public class SingletonUser {
                 && dataUser.getEstatusDocumentacion() != STATUS_DOCTO_PENDIENTE) {
             App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
         }
+
+        if (dataUser.getUsuario() != null && dataUser.getUsuario().getImagenAvatarURL() != null) {
+            String mUserImage = dataUser.getUsuario().getImagenAvatarURL();
+            String[] urlSplit = mUserImage.split("_");
+            if (urlSplit.length > 1) {
+                dataUser.getUsuario().setImagenAvatarURL(urlSplit[0] + "_M.png");
+            }
+        }
     }
 
     public ExtraInfoUser getDataExtraUser() {

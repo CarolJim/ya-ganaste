@@ -122,10 +122,31 @@ public class DateUtil {
     }
 
     public static AdquirentePaymentsTab getTabAdquirente() {
+
+
         DateFormat dateFormat = new SimpleDateFormat("MM-yyyy", Locale.US);
         Date date = new Date();
         String formatDate = dateFormat.format(date);
+
+
         return new AdquirentePaymentsTab("", formatDate);
+    }
+
+
+
+    public static List<AdquirentePaymentsTab> getTabsAdquirente() {
+
+        Calendar calendar = Calendar.getInstance(new Locale("MX"));
+        DateFormat dateFormat = new SimpleDateFormat("MM-yyyy", Locale.US);
+        LinkedList<AdquirentePaymentsTab> tabs = new LinkedList<>();
+
+        for (int subs = 0; subs >= -4; subs--) {
+            calendar.add(Calendar.MONTH, subs);
+            tabs.addFirst(new AdquirentePaymentsTab(getMonthShortName(calendar), dateFormat.format(calendar.getTime())));
+        }
+
+        return tabs;
+
     }
 
     public static Date getAdquirenteMovementDate(String movDate) {

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.os.Handler;
 import android.provider.MediaStore;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.view.LayoutInflater;
@@ -23,6 +24,7 @@ import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
@@ -297,13 +299,13 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         DataDocuments dataDoc = new DataDocuments();
         if (!validateDuplicado) {
             contador.remove(imgBase64);
-            UI.showToast("Imagen duplicada , seleccione una imagen diferente ", getContext());
+            UI.createSimpleCustomDialogNoCancel("", getString(R.string.imagen_duplicada), getActivity().getSupportFragmentManager(), null);
         } else {
             switch (documentProcessed) {
                 case IFE_FRONT:
                     itemWeNeedSmFilesIFEfront.setImageBitmap(bitmap);
                     itemWeNeedSmFilesIFEfront.setVisibilityStatus(true);
-                    itemWeNeedSmFilesIFEfront.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
+                    itemWeNeedSmFilesIFEfront.setStatusImage(ContextCompat.getDrawable(getContext(), R.drawable.upload_canvas_blue));
                     itemWeNeedSmFilesIFEfront.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_ID_FRONT);
@@ -314,7 +316,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 case IFE_BACK:
                     itemWeNeedSmFilesIFEBack.setImageBitmap(bitmap);
                     itemWeNeedSmFilesIFEBack.setVisibilityStatus(true);
-                    itemWeNeedSmFilesIFEBack.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
+                    itemWeNeedSmFilesIFEBack.setStatusImage(ContextCompat.getDrawable(getContext(), R.drawable.upload_canvas_blue));
                     itemWeNeedSmFilesIFEBack.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_ID_BACK);
@@ -325,7 +327,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 case COMPROBANTE_FRONT:
                     itemWeNeedSmFilesAddressFront.setImageBitmap(bitmap);
                     itemWeNeedSmFilesAddressFront.setVisibilityStatus(true);
-                    itemWeNeedSmFilesAddressFront.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
+                    itemWeNeedSmFilesAddressFront.setStatusImage(ContextCompat.getDrawable(getContext(), R.drawable.upload_canvas_blue));
                     itemWeNeedSmFilesAddressFront.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_DOM_FRONT);
@@ -336,7 +338,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 case COMPROBANTE_BACK:
                     itemWeNeedSmFilesAddressBack.setImageBitmap(bitmap);
                     itemWeNeedSmFilesAddressBack.setVisibilityStatus(true);
-                    itemWeNeedSmFilesAddressBack.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
+                    itemWeNeedSmFilesAddressBack.setStatusImage(ContextCompat.getDrawable(getContext(), R.drawable.upload_canvas_blue));
                     itemWeNeedSmFilesAddressBack.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
                     dataDoc.setTipoDocumento(DOC_DOM_BACK);
@@ -544,7 +546,8 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
     @Override
     public void showError(Object error) {
-        UI.showToastShort(error.toString(), getActivity());
+        String message = error instanceof ErrorObject ? ((ErrorObject) error).getErrorMessage() : error.toString();
+        UI.createSimpleCustomDialog("", message, getActivity().getSupportFragmentManager(), null, true, false);
     }
 
     /**

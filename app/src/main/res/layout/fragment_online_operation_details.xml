@@ -114,7 +114,8 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="@string/nextButton"
-                app:overBackground="@drawable/button_shape"/>
+                app:overBackground="@drawable/button_shape"
+                android:textSize="@dimen/generic_button_normal_text_size"/>
 
         </LinearLayout>
 

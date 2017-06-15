@@ -170,11 +170,11 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
         int widthSize;
         int heightSize;
 
-        mSpinnerPadding.left = getPaddingLeft() > mSelectionLeftPadding ? getPaddingLeft()
+        mSpinnerPadding.left = getPaddingLeft() < mSelectionLeftPadding ? getPaddingLeft()
                 : mSelectionLeftPadding;
         mSpinnerPadding.top = getPaddingTop() > mSelectionTopPadding ? getPaddingTop()
                 : mSelectionTopPadding;
-        mSpinnerPadding.right = getPaddingRight() > mSelectionRightPadding ? getPaddingRight()
+        mSpinnerPadding.right = getPaddingRight() < mSelectionRightPadding ? getPaddingRight()
                 : mSelectionRightPadding;
         mSpinnerPadding.bottom = getPaddingBottom() > mSelectionBottomPadding ? getPaddingBottom()
                 : mSelectionBottomPadding;

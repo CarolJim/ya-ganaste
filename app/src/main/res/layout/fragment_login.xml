@@ -126,7 +126,8 @@
                 android:elevation="8dp"
                 android:gravity="center"
                 android:text="@string/nextButton"
-                android:textAllCaps="false" />
+                android:textAllCaps="false"
+                android:textSize="@dimen/generic_button_normal_text_size"/>
 
             <LinearLayout
                 android:layout_width="match_parent"
