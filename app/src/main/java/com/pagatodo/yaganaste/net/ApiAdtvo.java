@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionServ
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AsignarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CargaDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
@@ -33,6 +34,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAva
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AsignarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CargaDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CerrarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
@@ -612,5 +614,16 @@ public class ApiAdtvo extends Api {
         NetFacade.consumeWS(DESASOCIAR_DISPOSITIVO,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.desasociarDispositivo),
                 headers, request, true, DesasociarDispositivoResponse.class, result);
+    }
+
+    public static void cambiarEmail(CambiarEmailRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(DESASOCIAR_DISPOSITIVO,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.changePasswordUrl),
+                headers, request, true, CambiarEmailResponse.class, result);
     }
 }

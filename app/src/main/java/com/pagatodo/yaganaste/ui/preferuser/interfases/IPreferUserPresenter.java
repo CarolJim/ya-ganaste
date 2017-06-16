@@ -36,4 +36,18 @@ public interface IPreferUserPresenter {
     void showExceptionToPresenter(String mMesage);
 
     void sendErrorServerAvatarToPresenter(String s);
+
+    void sendChangePassToPresenter();
+
+    void changeEmailToPresenter(String s, String s1);
+
+    void successGenericToPresenter(DataSourceResult dataSourceResult);
+
+    void errorGenericToPresenter(DataSourceResult dataSourceResult);
+
+    void changePassToPresenter(String s, String s1);
+
+    void sendErrorServerPassToPresenter(String s);
+
+    void showExceptionPassToPresenter(String s);
 }

@@ -1,0 +1,133 @@
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pagatodo.yaganaste.ui.preferuser.MyEmailFragment">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginBottom="8dp"
+        android:layout_marginTop="8dp"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/textView2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/myUserText" />
+
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/borderColor" />
+
+            <LinearLayout
+                android:id="@+id/fragment_lista_opciones_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="2"
+                        android:text="Contraseña"
+                        android:textSize="18sp" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/edit_canvas_blue" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/borderColor" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/edtitEmail"
+                    style="@style/FragmentElementTop"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/double_space"
+                    app:formato="email"
+                    app:hintText="@string/txt_mail"
+                    app:isSingleLine="true"
+                    app:maxLength="50" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorMailMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible" />
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/edtitConfirmEmail"
+                    style="@style/FragmentElementWithValidation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:formato="email"
+                    app:hintText="@string/confirmEmail"
+                    app:isSingleLine="true"
+                    app:maxLength="50" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorConfirmaMailMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible" />
+                </LinearLayout>
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/fragment_myemail_btn"
+                style="@style/buttonSquareRoundedBlue"
+                android:layout_width="180dp"
+                android:layout_height="@dimen/height_btns"
+                android:gravity="center"
+                android:text="Confirmar"
+                android:textAllCaps="false"
+                android:textSize="@dimen/generic_button_normal_text_size" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+
+</FrameLayout>

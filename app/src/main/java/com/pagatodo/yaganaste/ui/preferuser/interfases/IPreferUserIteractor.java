@@ -4,7 +4,8 @@ import android.graphics.Bitmap;
 
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
 
 /**
  * Created by Francisco Manzo on 08/06/2017.
@@ -20,4 +21,10 @@ public interface IPreferUserIteractor {
     void sendIteractorActualizarAvatar(ActualizarAvatarRequest avatarRequest);
 
     void showExceptionToIteractor(String s);
+
+    void sendChangePassToIteractor(CambiarContraseniaRequest cambioPassRequest);
+
+    void changeEmailToIteractor(CambiarEmailRequest cambiarEmailRequest);
+
+    void changePassToIteractor(CambiarContraseniaRequest cambiarContraseniaRequest);
 }

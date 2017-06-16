@@ -41,6 +41,7 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CLOSE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_DESASOCIAR;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_LEGALES;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
@@ -191,7 +192,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_lista_opciones_user:
-                Toast.makeText(getContext(), "Click User", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Click User", Toast.LENGTH_SHORT).show();
+                onEventListener.onEvent(PREFER_USER_MY_USER, 1);
                 break;
             case R.id.fragment_lista_opciones_account:
                 Toast.makeText(getContext(), "Click Cuenta", Toast.LENGTH_SHORT).show();

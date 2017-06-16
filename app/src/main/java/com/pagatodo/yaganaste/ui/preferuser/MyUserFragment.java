@@ -6,61 +6,68 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_EMAIL;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_PASS;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MyUserFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyUserFragment extends Fragment {
-    // TODO: Rename parameter arguments, choose names that match
-    // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
-    private static final String ARG_PARAM1 = "param1";
-    private static final String ARG_PARAM2 = "param2";
+public class MyUserFragment extends GenericFragment implements View.OnClickListener {
 
-    // TODO: Rename and change types of parameters
-    private String mParam1;
-    private String mParam2;
+    @BindView(R.id.fragment_myuser_email)
+    LinearLayout myEmail;
+    @BindView(R.id.fragment_myuser_pass)
+    LinearLayout myPass;
+
+    View rootview;
 
 
     public MyUserFragment() {
         // Required empty public constructor
     }
 
-    /**
-     * Use this factory method to create a new instance of
-     * this fragment using the provided parameters.
-     *
-     * @param param1 Parameter 1.
-     * @param param2 Parameter 2.
-     * @return A new instance of fragment MyUserFragment.
-     */
-    // TODO: Rename and change types and number of parameters
-    public static MyUserFragment newInstance(String param1, String param2) {
+    public static MyUserFragment newInstance() {
         MyUserFragment fragment = new MyUserFragment();
-        Bundle args = new Bundle();
-        args.putString(ARG_PARAM1, param1);
-        args.putString(ARG_PARAM2, param2);
-        fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            mParam1 = getArguments().getString(ARG_PARAM1);
-            mParam2 = getArguments().getString(ARG_PARAM2);
-        }
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_my_user, container, false);
+
+        rootview = inflater.inflate(R.layout.fragment_my_user, container, false);
+        initViews();
+
+        return rootview;
+
     }
 
+    @Override
+    public void initViews() {
+        ButterKnife.bind(this, rootview);
+        myEmail.setOnClickListener(this);
+        myPass.setOnClickListener(this);
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()){
+            case R.id.fragment_myuser_email:
+                onEventListener.onEvent(PREFER_USER_EMAIL, null);
+                break;
+            case R.id.fragment_myuser_pass:
+                onEventListener.onEvent(PREFER_USER_PASS, null);
+                break;
+        }
+    }
 }

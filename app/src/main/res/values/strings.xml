@@ -55,8 +55,10 @@
     <string name="obtenerDomicilio">/ObtenerDomicilioPrincipal</string>
     <string name="enviarTicketTAEPDS">/EnviarTicketTAEPDS</string>
     <string name="desasociarDispositivo">/DesasociarDispositivo</string>
+    <string name="desasociarDispositivoTittle">Desasociar Dispositivo</string>
     <string name="deseaDesasociarDispositivo">¿Desea desasociar el dispositivo?</string>
     <string name="sel_fotografia">Seleccionar Fotografía</string>
+    <string name="myUserText">Mi Usuario</string>
 
     <!--Métodos de WS Adquiriente-->
     <string name="adqLogin">/agMov/login</string>

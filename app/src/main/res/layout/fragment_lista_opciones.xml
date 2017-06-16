@@ -107,8 +107,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/borderColor"
-                android:visibility="gone" />
+                android:background="@color/borderColor"  />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_user"
@@ -118,8 +117,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"

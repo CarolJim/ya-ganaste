@@ -2,16 +2,18 @@ package com.pagatodo.yaganaste.ui.preferuser.iteractors;
 
 import android.graphics.Bitmap;
 import android.util.Log;
-import android.widget.Toast;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CerrarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDispositivoResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
@@ -23,6 +25,7 @@ import com.pagatodo.yaganaste.utils.BitmapDownload;
 import com.pagatodo.yaganaste.utils.Recursos;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVATAR;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CAMBIAR_CONTRASENIA;
 
 /**
  * Created by Francisco Manzo on 08/06/2017.
@@ -90,6 +93,44 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         preferUserPresenter.showExceptionToPresenter(mMesage);
     }
 
+    @Override
+    public void sendChangePassToIteractor(CambiarContraseniaRequest request) {
+        try {
+            ApiAdtvo.cambiarContrasenia(request, this);
+        } catch (OfflineException e) {
+            // e.printStackTrace();
+            preferUserPresenter.showExceptionToPresenter(e.toString());
+        }
+    }
+
+    /**
+     * Envia el Request de cambio de correo al servicio
+     * @param request
+     */
+    @Override
+    public void changeEmailToIteractor(CambiarEmailRequest request) {
+        try {
+            ApiAdtvo.cambiarEmail(request, this);
+        } catch (OfflineException e) {
+            // e.printStackTrace();
+            preferUserPresenter.showExceptionToPresenter(e.toString());
+        }
+    }
+
+    /**
+     * Envia el Request de cambio de pass al servicio
+     * @param request
+     */
+    @Override
+    public void changePassToIteractor(CambiarContraseniaRequest request) {
+        try {
+            ApiAdtvo.cambiarContrasenia(request, this);
+        } catch (OfflineException e) {
+            // e.printStackTrace();
+            preferUserPresenter.showExceptionPassToPresenter(e.toString());
+        }
+    }
+
     private String procesarURLString(String mUserImage) {
         String[] urlSplit = mUserImage.split("_");
         String urlEdit = urlSplit[0] + "_M.png";
@@ -131,6 +172,33 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
     public void onSuccess(DataSourceResult dataSourceResult) {
         if (dataSourceResult.getData() instanceof CerrarSesionRequest) {
             Log.d("PreferUserIteractor", "DataSource Sucess Server Error CerrarSesion");
+        }
+
+        /**
+         * Instancia de peticion exitosa de CambiarEmailResponse
+         */
+        if (dataSourceResult.getData() instanceof CambiarEmailResponse) {
+            CambiarEmailResponse response = (CambiarEmailResponse) dataSourceResult.getData();
+
+            if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+                Log.d("PreferUserIteractor", "DataSource Sucess " + response.getMensaje());
+                preferUserPresenter.successGenericToPresenter(dataSourceResult);
+            } else {
+                Log.d("PreferUserIteractor", "DataSource Sucess with Error " + response.getMensaje());
+                preferUserPresenter.errorGenericToPresenter(dataSourceResult);
+            }
+        }
+
+        if (dataSourceResult.getData() instanceof CambiarContraseniaResponse) {
+            CambiarContraseniaResponse response = (CambiarContraseniaResponse) dataSourceResult.getData();
+
+            if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+                //Log.d("PreferUserIteractor", "DataSource Sucess " + response.getMensaje());
+                preferUserPresenter.successGenericToPresenter(dataSourceResult);
+            } else {
+                //Log.d("PreferUserIteractor", "DataSource Sucess with Error " + response.getMensaje());
+                preferUserPresenter.errorGenericToPresenter(dataSourceResult);
+            }
         }
 
         /**
@@ -179,6 +247,8 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         // Log.d("PreferUserIteractor", "Error: " + error);
         if (error.getWebService().equals(ACTUALIZAR_AVATAR)) {
             preferUserPresenter.sendErrorServerAvatarToPresenter(error.getData().toString());
+        } else if (error.getWebService().equals(CAMBIAR_CONTRASENIA)) {
+            preferUserPresenter.sendErrorServerPassToPresenter(error.getData().toString());
         } else {
             preferUserPresenter.sendErrorServerPresenter(error.getData().toString());
         }
