@@ -19,25 +19,19 @@ public interface IPreferUserPresenter {
 
     void sendErrorServerPresenter(String error);
 
-    void getImagenURLPresenter(String mUserImage);
+    void getImagenURLToPresenter(String mUserImage);
 
-    void sendImageBitmapPresenter(Bitmap bitmap);
+    void sendImageBitmapToPresenter(Bitmap bitmap);
 
     void openMenuPhoto(int i, CameraManager cameraManager);
 
     void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest);
 
-    void onFailPresenter();
-
-    void sucessUpdateAvatar();
-
-    void sendErrorAvatarPresenter(String mensaje);
+    void showExceptionAvatarToPresenter(String s);
 
     void showExceptionToPresenter(String mMesage);
 
     void sendErrorServerAvatarToPresenter(String s);
-
-    void sendChangePassToPresenter();
 
     void changeEmailToPresenter(String s, String s1);
 

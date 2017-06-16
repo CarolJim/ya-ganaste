@@ -66,8 +66,11 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
 
     }
 
+    /**
+     * @param mUserImage
+     */
     @Override
-    public void getImagenURLiteractor(String mUserImage) {
+    public void getImagenURLToIteractor(String mUserImage) {
         String urlEdit = procesarURLString(mUserImage);
         BitmapDownload bitmapDownload = new BitmapDownload(urlEdit, this);
         bitmapDownload.execute();
@@ -75,7 +78,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
 
     @Override
     public void sendToIteractorBitmap(Bitmap bitmap) {
-        preferUserPresenter.sendImageBitmapPresenter(bitmap);
+        preferUserPresenter.sendImageBitmapToPresenter(bitmap);
     }
 
     @Override
@@ -84,27 +87,39 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             ApiAdtvo.actualizarAvatar(avatarRequest, this);
         } catch (OfflineException e) {
             // e.printStackTrace();
-            preferUserPresenter.onFailPresenter();
+            preferUserPresenter.showExceptionAvatarToPresenter(e.toString());
         }
     }
 
+    /**
+     * Manejo de la excepcion de error en el BitmapDownload, usamos el showExceptionToPresenter generico
+     * para mostrar el mensaje de error
+     *
+     * @param mMesage
+     */
     @Override
-    public void showExceptionToIteractor(String mMesage) {
+    public void showExceptionBitmapDownloadToIteractor(String mMesage) {
         preferUserPresenter.showExceptionToPresenter(mMesage);
     }
 
+    /**
+     * Enviamos la peticion al servicio del Cambio de Contraseña
+     *
+     * @param request
+     */
     @Override
     public void sendChangePassToIteractor(CambiarContraseniaRequest request) {
         try {
             ApiAdtvo.cambiarContrasenia(request, this);
         } catch (OfflineException e) {
             // e.printStackTrace();
-            preferUserPresenter.showExceptionToPresenter(e.toString());
+            preferUserPresenter.showExceptionPassToPresenter(e.toString());
         }
     }
 
     /**
      * Envia el Request de cambio de correo al servicio
+     *
      * @param request
      */
     @Override
@@ -119,6 +134,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
 
     /**
      * Envia el Request de cambio de pass al servicio
+     *
      * @param request
      */
     @Override
@@ -129,12 +145,6 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             // e.printStackTrace();
             preferUserPresenter.showExceptionPassToPresenter(e.toString());
         }
-    }
-
-    private String procesarURLString(String mUserImage) {
-        String[] urlSplit = mUserImage.split("_");
-        String urlEdit = urlSplit[0] + "_M.png";
-        return urlEdit;
     }
 
     /**
@@ -175,6 +185,25 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         }
 
         /**
+         * Instancia de peticion exitosa de ActualizarAvatarResponse
+         */
+        if (dataSourceResult.getData() instanceof ActualizarAvatarResponse) {
+            ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
+            if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+                Log.d("ListaOpcionesIteractor", "DataSource Sucess " + response.getMensaje());
+
+                String urlEdit = procesarURLString(response.getData().getImagenAvatarURL());
+                SingletonUser.getInstance().getDataUser().getUsuario().setImagenAvatarURL(urlEdit);
+                preferUserPresenter.successGenericToPresenter(dataSourceResult);
+                // Linea para simular el error y comprobar el Duialog y el ShowProgress
+                //preferUserPresenter.errorGenericToPresenter(dataSourceResult);
+            } else {
+                Log.d("ListaOpcionesIteractor", "DataSource Sucess with Error " + response.getMensaje());
+                preferUserPresenter.errorGenericToPresenter(dataSourceResult);
+            }
+        }
+
+        /**
          * Instancia de peticion exitosa de CambiarEmailResponse
          */
         if (dataSourceResult.getData() instanceof CambiarEmailResponse) {
@@ -189,6 +218,9 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             }
         }
 
+        /**
+         * Instancia de peticion exitosa de CambiarContraseniaResponse
+         */
         if (dataSourceResult.getData() instanceof CambiarContraseniaResponse) {
             CambiarContraseniaResponse response = (CambiarContraseniaResponse) dataSourceResult.getData();
 
@@ -216,25 +248,6 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
                 preferUserPresenter.sendErrorPresenter(response.getMensaje());
             }
         }
-
-        /**
-         * Instancia de peticion exitosa de ActualizarAvatarResponse
-         */
-        if (dataSourceResult.getData() instanceof ActualizarAvatarResponse) {
-            ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
-            if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                Log.d("ListaOpcionesIteractor", "DataSource Sucess " + response.getMensaje());
-
-                String urlEdit = procesarURLString(response.getData().getImagenAvatarURL());
-                SingletonUser.getInstance().getDataUser().getUsuario().setImagenAvatarURL(urlEdit);
-                preferUserPresenter.sucessUpdateAvatar();
-                // Linea para simular el error y comprobar el Duialog y el ShowProgress
-                //listaOpcionesPresenter.sendErrorPresenter(response.getMensaje());
-            } else {
-                Log.d("ListaOpcionesIteractor", "DataSource Sucess with Error " + response.getMensaje());
-                preferUserPresenter.sendErrorAvatarPresenter(response.getMensaje());
-            }
-        }
     }
 
     /**
@@ -252,5 +265,14 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         } else {
             preferUserPresenter.sendErrorServerPresenter(error.getData().toString());
         }
+    }
+
+    /**
+     * Metodos auxiliares
+     */
+    private String procesarURLString(String mUserImage) {
+        String[] urlSplit = mUserImage.split("_");
+        String urlEdit = urlSplit[0] + "_M.png";
+        return urlEdit;
     }
 }

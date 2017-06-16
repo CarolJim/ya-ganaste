@@ -7,6 +7,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvat
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
@@ -18,7 +19,6 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 /**
@@ -119,16 +119,29 @@ public class PreferUserPresenter implements IPreferUserPresenter {
         iPreferDesasociarView.sendErrorServerView(error);
     }
 
+    /**
+     * Peticion al Iteractor para el servicio que proporciona la foto del servidor
+     * @param mUserImage
+     */
     @Override
-    public void getImagenURLPresenter(String mUserImage) {
-        iPreferUserIteractor.getImagenURLiteractor(mUserImage);
+    public void getImagenURLToPresenter(String mUserImage) {
+        iPreferUserIteractor.getImagenURLToIteractor(mUserImage);
     }
 
+    /**
+     * Recibe el Bitmap procesado, listo para enviarse a la vista
+     * @param bitmap
+     */
     @Override
-    public void sendImageBitmapPresenter(Bitmap bitmap) {
-        iListaOpcionesView.sendImageBitmapView(bitmap);
+    public void sendImageBitmapToPresenter(Bitmap bitmap) {
+        iListaOpcionesView.sendImageBitmapToView(bitmap);
     }
 
+    /**
+     * Usamos la instancia del CameraManager para abrir la camara e iniciar el procedimiento
+     * @param i
+     * @param cameraManager
+     */
     @Override
     public void openMenuPhoto(int i, CameraManager cameraManager) {
         try {
@@ -144,20 +157,10 @@ public class PreferUserPresenter implements IPreferUserPresenter {
         iPreferUserIteractor.sendIteractorActualizarAvatar(avatarRequest);
     }
 
-    @Override
-    public void onFailPresenter() {
-        iListaOpcionesView.onFailView();
-    }
-
-    @Override
-    public void sucessUpdateAvatar() {
-        iListaOpcionesView.sucessUpdateAvatar();
-    }
-
-    @Override
+   /* @Override
     public void sendErrorAvatarPresenter(String mensaje) {
         iListaOpcionesView.sendErrorView(mensaje);
-    }
+    }*/
 
     @Override
     public void showExceptionToPresenter(String mMesage) {
@@ -166,16 +169,17 @@ public class PreferUserPresenter implements IPreferUserPresenter {
 
     @Override
     public void sendErrorServerAvatarToPresenter(String mMesage) {
-        iListaOpcionesView.sendErrorView(mMesage);
+        iListaOpcionesView.sendErrorAvatarToView(mMesage);
+        // iMyPassView.sendErrorPassToView(mensaje);
     }
 
-    @Override
+ /*   @Override
     public void sendChangePassToPresenter() {
 
         mView.showLoader("Procesando. Por favor, espere . . .");
         CambiarContraseniaRequest cambioPassRequest = new CambiarContraseniaRequest();
         iPreferUserIteractor.sendChangePassToIteractor(cambioPassRequest);
-    }
+    }*/
 
     /**
      * Envia el cambio de correo al servicio
@@ -216,6 +220,14 @@ public class PreferUserPresenter implements IPreferUserPresenter {
     @Override
     public void successGenericToPresenter(DataSourceResult dataSourceResult) {
         /**
+         * Instancia de peticion exitosa y operacion exitosa de ActualizarAvatarResponse
+         */
+        if (dataSourceResult.getData() instanceof ActualizarAvatarResponse) {
+            ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
+            iListaOpcionesView.sendSuccessAvatarToView(response.getMensaje());
+        }
+
+      /**
          * Instancia de peticion exitosa y operacion exitosa de CambiarEmailResponse
          */
         if (dataSourceResult.getData() instanceof CambiarEmailResponse) {
@@ -235,6 +247,14 @@ public class PreferUserPresenter implements IPreferUserPresenter {
     @Override
     public void errorGenericToPresenter(DataSourceResult dataSourceResult) {
         /**
+         * Instancia de peticion exitosa y operacion exitosa de ActualizarAvatarResponse
+         */
+        if (dataSourceResult.getData() instanceof ActualizarAvatarResponse) {
+            ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
+            iListaOpcionesView.sendErrorAvatarToView(response.getMensaje());
+        }
+
+        /**
          * Instancia de peticion exitosa y operacion erronea de CambiarEmailResponse
          */
         if (dataSourceResult.getData() instanceof CambiarEmailResponse) {
@@ -253,6 +273,12 @@ public class PreferUserPresenter implements IPreferUserPresenter {
 
     /** EXCEPTIONS VARIADOS **/
 
+
+    @Override
+    public void showExceptionAvatarToPresenter(String mMessage) {
+        iListaOpcionesView.sendErrorAvatarToView(mMessage);
+    }
+
     /**
      * Exception al enviar el Pass al servicio. Usamos el metodo generico de Pass para enviar los errores
      * sendErrorPassToView
@@ -262,4 +288,6 @@ public class PreferUserPresenter implements IPreferUserPresenter {
     public void showExceptionPassToPresenter(String mMessage) {
         iMyPassView.sendErrorPassToView(mMessage);
     }
+
+
 }

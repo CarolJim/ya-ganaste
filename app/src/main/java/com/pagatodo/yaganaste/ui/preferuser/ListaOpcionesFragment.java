@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 import android.content.Context;
 import android.graphics.Bitmap;
-import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -18,7 +17,6 @@ import android.widget.Toast;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -27,17 +25,13 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
-import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.io.ByteArrayOutputStream;
-import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CLOSE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_DESASOCIAR;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_LEGALES;
@@ -177,10 +171,10 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         if (mUserImage != null && !mUserImage.isEmpty()) {
             try {
                 // Pedimos la imagen por internet y generamos el Bitmap
-                mPreferPresenter.getImagenURLPresenter(mUserImage);
+                mPreferPresenter.getImagenURLToPresenter(mUserImage);
             } catch (Exception e) {
                 // Hacemos algo si falla por no tener internet
-                showDialogError(e.toString());
+                showDialogMesage(e.toString());
             }
 
         } else {
@@ -258,46 +252,42 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     }
 
     @Override
-    public void sucessUpdateAvatar() {
-       /* Glide.with(this).load(SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL())
-                .placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(testIV);*/
-        iv_photo_item.setImageBitmap(CameraManager.getBitmap());
-        CameraManager.cleanBitmap();
-        //iv_photo_item.setVisibilityStatus(true);
-        //iv_photo_item.invalidate();
-        hideLoader();
-        onEventListener.onEvent("DISABLE_BACK", false);
-    }
-
-    @Override
-    public void sendErrorView(String mensaje) {
-        hideLoader();
-        onEventListener.onEvent("DISABLE_BACK", false);
-        CameraManager.cleanBitmap();
-       showDialogError(mensaje);
-    }
-
-    @Override
     public void showProgress(String mMensaje) {
         onEventListener.onEvent(EVENT_SHOW_LOADER,
                 getActivity().getResources().getString(R.string.listaopciones_load_image_wait));
     }
 
+    /**
+     * Hacemos Set de la imagen que viene del servidor en la vista final
+     * @param bitmap
+     */
     @Override
-    public void sendImageBitmapView(Bitmap bitmap) {
+    public void sendImageBitmapToView(Bitmap bitmap) {
         iv_photo_item.setImageBitmap(bitmap);
     }
 
     @Override
-    public void onFailView() {
-        hideLoader();
-        onEventListener.onEvent("DISABLE_BACK", false);
-        CameraManager.cleanBitmap();
+    public void showExceptionToView(String mMesage) {
+        showDialogMesage(mMesage);
     }
 
     @Override
-    public void showExceptionToView(String mMesage) {
-        showDialogError(mMesage);
+    public void sendSuccessAvatarToView(String mMesage) {
+         /* Glide.with(this).load(SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL())
+                .placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(testIV);*/
+        showDialogMesage(mMesage);
+        iv_photo_item.setImageBitmap(CameraManager.getBitmap());
+        CameraManager.cleanBitmap();
+        hideLoader();
+        onEventListener.onEvent("DISABLE_BACK", false);
+    }
+
+    @Override
+    public void sendErrorAvatarToView(String mensaje) {
+        hideLoader();
+        onEventListener.onEvent("DISABLE_BACK", false);
+        CameraManager.cleanBitmap();
+        showDialogMesage(mensaje);
     }
 
     public void hideLoader() {
@@ -305,7 +295,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
     }
 
-    private void showDialogError(String mensaje) {
+    private void showDialogMesage(String mensaje) {
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
