@@ -1,35 +1,15 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
-import android.app.ProgressDialog;
-import android.content.Context;
 import android.content.Intent;
-import android.os.Bundle;
-import android.support.annotation.AnimRes;
 import android.support.annotation.CallSuper;
-import android.support.annotation.IdRes;
 import android.support.annotation.LayoutRes;
-import android.support.annotation.NonNull;
-import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
-import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentTransaction;
-import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
-import android.view.animation.Animation;
-import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
-import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.Constants;
-import com.pagatodo.yaganaste.utils.ValidatePermissions;
-
-import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 
 /**
@@ -51,7 +31,9 @@ public abstract class ToolBarActivity extends SupportFragmentActivity {
         super.setContentView(layoutResID);
         toolbarLayout = findViewById(R.id.toolbarLy);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarTest);
-        setSupportActionBar(toolbar);
+        if (toolbar != null) {
+            setSupportActionBar(toolbar);
+        }
     }
 
     public void changeToolbarVisibility(boolean visibility) {

@@ -32,6 +32,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
 
 /**
@@ -54,17 +56,13 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     StyleButton btnLogin;
     @BindView(R.id.txtLoginExistUserRecoverPass)
     StyleTextView txtLoginExistUserRecoverPass;
-    @BindView(R.id.progressIndicator)
-    ProgressLayout progressLayout;
+
 
     private AccountPresenterNew accountPresenter;
 
     private String username = "";
     private String password = "";
 
-    public LoginFragment() {
-
-    }
 
     public static LoginFragment newInstance() {
         LoginFragment fragmentRegister = new LoginFragment();
@@ -74,31 +72,22 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
+    public void setMenuVisibility(boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+        if (menuVisible) {
+            if (accountPresenter != null) {
+                accountPresenter.setIView(this);
+            }
+        }
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -175,13 +164,12 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void showLoader(String message) {
-        progressLayout.setTextMessage(message);
-        progressLayout.setVisibility(VISIBLE);
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-        progressLayout.setVisibility(GONE);
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override
@@ -207,9 +195,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         onValidationSuccess();
     }
 
-    private void showValidationError(Object err){
-        showValidationError(0, err);
-    }
 
     @Override
     public void showValidationError(int id, Object error) {

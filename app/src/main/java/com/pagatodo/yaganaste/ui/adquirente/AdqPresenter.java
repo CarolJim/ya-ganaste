@@ -5,6 +5,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.SignatureData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
@@ -100,6 +101,11 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
     @Override
     public void hideLoader() {
         iAdqView.hideLoader();
+    }
+
+    @Override
+    public void onSuccesBalance(ConsultarSaldoResponse response) {
+
     }
 
     @Override

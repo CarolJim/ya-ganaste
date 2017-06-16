@@ -1,11 +1,17 @@
 package com.pagatodo.yaganaste.data.model;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
+import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.StringConstants.FULL_NAME_USER;
+import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * @author flima
@@ -40,6 +46,19 @@ public class SingletonUser {
 
     public void setDataUser(DataIniciarSesion dataUser) {
         this.dataUser = dataUser;
+
+        Preferencias prefs = App.getInstance().getPrefs();
+
+        if (dataUser.isConCuenta()) {
+            prefs.saveDataBool(HAS_SESSION, true);
+            prefs.saveData(NAME_USER, dataUser.getUsuario().getNombre());
+            prefs.saveData(FULL_NAME_USER, dataUser.getUsuario().getNombre().concat(SPACE).
+                    concat(dataUser.getUsuario().getPrimerApellido().concat(SPACE).
+                            concat(dataUser.getUsuario().getSegundoApellido())));
+
+            prefs.saveData(CARD_NUMBER, dataUser.getUsuario().getCuentas().get(0).getTarjeta());
+        }
+
 
 
         dataUser.getUsuario().setTipoAgente(17);

@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountPresenter;
@@ -115,6 +116,11 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     @Override
     public void hideLoader() {
         iAdqView.hideLoader();
+    }
+
+    @Override
+    public void onSuccesBalance(ConsultarSaldoResponse response) {
+
     }
 
     @Override

@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.interfaces;
 
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 
 /**
@@ -12,5 +13,6 @@ public interface IAccountManager<T> {
     public void onSucces(WebService ws,T msgSuccess);
     public void onError(WebService ws,T error);
     void hideLoader();
+    void onSuccesBalance(ConsultarSaldoResponse response);
 
 }

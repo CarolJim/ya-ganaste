@@ -1,8 +1,6 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -46,8 +44,6 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.DEFAULT_CARD;
 import static com.pagatodo.yaganaste.utils.Utils.getCardNumberRamdon;
 
-import butterknife.BindView;
-
 
 /**
  * A simple {@link GenericFragment} subclass.
@@ -74,9 +70,9 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     CustomKeyboardView keyboardView;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
-    @BindView(R.id.fragment_tienes_tarjeta_date_tdc)
+    @BindView(R.id.txt_tarjeta_date_tdc)
     StyleTextView dateTDC;
-    @BindView(R.id.fragment_tienes_tarjeta_user_name)
+    @BindView(R.id.txt_tarjeta_user_name)
     StyleTextView userName;
     private AccountPresenterNew accountPresenter;
 

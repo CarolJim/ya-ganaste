@@ -257,6 +257,7 @@
     <string name="datos_usuario_pass_confirm">Debes Confirmar la Contraseña.</string>
     <string name="datos_usuario_pass_no_coinciden">La Contraseña No Coincide.</string>
     <string name="datos_usuario_pass_formato">Verifica tu Contraseña.</string>
+    <string name="bienvenido_usuario">¡Bienvenido %1$s!</string>
     <!--datos_personales-->
     <string name="personalInfoTitle">Datos Personales</string>
     <string name="female">Mujer</string>
@@ -362,6 +363,7 @@
     <string name="transfer_cable">Cuenta CABLE</string>
     <string name="saldo_pendiente">Saldo Pendiente\n de Reembolso</string>
     <string name="saldo_en_cuenta">Saldo en Cuenta</string>
+    <string name="saldo_personal">Saldo Personal:</string>
 
     <string name="linea_credito">Línea de Crédito*</string>
     <string name="monto_depositar">Monto a Depositar</string>

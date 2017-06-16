@@ -31,6 +31,7 @@ import com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenter
 import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.net.FirebaseInstanceServer;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._manager.PagerAdapter;
 import com.pagatodo.yaganaste.ui.account.login.MainFragment;
 import com.pagatodo.yaganaste.ui.account.login.ScreenSlidePagefragment;
@@ -56,7 +57,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 
-public class MainActivity extends SupportFragmentActivity {
+public class MainActivity extends ToolBarActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -72,7 +73,7 @@ public class MainActivity extends SupportFragmentActivity {
     }
 
     private void initViews() {
-
+        changeToolbarVisibility(false);
     }
 
     @Override

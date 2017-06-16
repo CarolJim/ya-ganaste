@@ -58,7 +58,6 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
         movementsIteractor.getBalance();
     }
 
-
     @Override
     public void onSuccesResponse(ConsultarMovimientosMesResponse response) {
         if (response.getData() == null){

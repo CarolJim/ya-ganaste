@@ -16,9 +16,12 @@ import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
-import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
+
+import com.pagatodo.yaganaste.ui.account.login.LoginContainerFragment;
 import com.pagatodo.yaganaste.ui.account.login.RecoveryFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsociatePhoneAccountFragment;
@@ -39,7 +42,7 @@ import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragmen
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 
 
-public class AccountActivity extends SupportFragmentActivity implements OnEventListener {
+public class AccountActivity extends LoaderActivity implements OnEventListener {
     private String TAG = getClass().getSimpleName();
     private Preferencias pref;
     FrameLayout container;
@@ -74,6 +77,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     private DatosPersonalesFragment datosPersonalesFragment;
     private DomicilioActualFragment domicilioActualFragment;
     private TienesTarjetaFragment tienesTarjetaFragment;
+    private LoginContainerFragment loginContainerFragment;
 
     private PermisosFragment permisosFragment;
     private AccountPresenterNew presenterAccount;
@@ -81,7 +85,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     private String action = "";
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_conainer);
@@ -89,14 +93,13 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
         pref = App.getInstance().getPrefs();
         resetRegisterData();
         presenterAccount = new AccountPresenterNew(this);
+        loginContainerFragment = LoginContainerFragment.newInstance();
 
         container = (FrameLayout) findViewById(R.id.container);
-        View root = container.getRootView();
-        // root.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
 
         switch (action) {
             case GO_TO_LOGIN:
-                loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(loginContainerFragment, Direction.FORDWARD, false);
                 break;
 
             case GO_TO_REGISTER:
@@ -122,11 +125,12 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
 
     @Override
     public void onEvent(String event, Object o) {
+        super.onEvent(event, o);
         Log.e(TAG, "onEvent - - " + event);
         switch (event) {
 
             case EVENT_GO_LOGIN:
-                loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(loginContainerFragment, Direction.FORDWARD, false);
                 break;
 
             case EVENT_RECOVERY_PASS:
@@ -135,7 +139,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
                 break;
 
             case EVENT_RECOVERY_PASS_BACK:
-                loadFragment(LoginFragment.newInstance(), Direction.BACK, false);
+                loadFragment(loginContainerFragment, Direction.BACK, false);
                 break;
 
             case EVENT_DATA_USER:
@@ -206,7 +210,7 @@ public class AccountActivity extends SupportFragmentActivity implements OnEventL
     public void onBackPressed() {
 
         Fragment currentFragment = getCurrentFragment();
-        if (currentFragment instanceof LoginFragment) {
+        if (currentFragment instanceof LoginContainerFragment) {
             finish();
         } else if (currentFragment instanceof DatosUsuarioFragment) {
             resetRegisterData();// Eliminamos la información de registro almacenada.
