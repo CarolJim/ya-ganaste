@@ -13,10 +13,6 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 public interface IPreferUserPresenter {
     void DesasociarToPresenter();
 
-    void sendSuccessPresenter(String mensaje);
-
-    void sendErrorPresenter(String mensaje);
-
     void sendErrorServerPresenter(String error);
 
     void getImagenURLToPresenter(String mUserImage);
@@ -44,4 +40,8 @@ public interface IPreferUserPresenter {
     void sendErrorServerPassToPresenter(String s);
 
     void showExceptionPassToPresenter(String s);
+
+    void sendErrorServerDesasociarToPresenter(String s);
+
+    void showExceptionDesasociarToPresenter(String s);
 }

@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDisp
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDispositivoResponse;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyEmailView;
@@ -80,31 +81,6 @@ public class PreferUserPresenter implements IPreferUserPresenter {
         mView.showLoader("Procesando. Por favor, espere . . .");
         DesasociarDispositivoRequest desasociarRequest = new DesasociarDispositivoRequest();
         iPreferUserIteractor.desasociarToIteracto(desasociarRequest);
-    }
-
-    /**
-     * Exito en la conexion al servidor y procedimiento de Desasociar. Cerrarmos el Loader y enviamos
-     * el control a la vista
-     *
-     * @param mensaje
-     */
-    @Override
-    public void sendSuccessPresenter(String mensaje) {
-        mView.hideLoader();
-        iPreferDesasociarView.sendSuccessView(mensaje);
-    }
-
-    /**
-     * Exito en la conexion al servidor pero error en codigo de respuesta de procedimiento de
-     * Desasociar. Cerrarmos el Loader y enviamos
-     * el control a la vista
-     *
-     * @param mensaje
-     */
-    @Override
-    public void sendErrorPresenter(String mensaje) {
-        mView.hideLoader();
-        iPreferDesasociarView.sendErrorView(mensaje);
     }
 
     /**
@@ -208,15 +184,10 @@ public class PreferUserPresenter implements IPreferUserPresenter {
     }
 
     /**
-     * Recibe el error del Iteractor y usamos el metodo de sendErrorPassToView para enviar el mensaje
-     * de error a nuestra vista iMyPassView, asi no creamos otro metodo adicional en la vista
-     * @param mensaje
+     * Exito en la conexion al servidor y procedimiento de Desasociar. Cerrarmos el Loader y enviamos
+     * el control a la vista
+     * @param dataSourceResult
      */
-    @Override
-    public void sendErrorServerPassToPresenter(String mensaje) {
-        iMyPassView.sendErrorPassToView(mensaje);
-    }
-
     @Override
     public void successGenericToPresenter(DataSourceResult dataSourceResult) {
         /**
@@ -241,6 +212,14 @@ public class PreferUserPresenter implements IPreferUserPresenter {
         if (dataSourceResult.getData() instanceof CambiarContraseniaResponse) {
             CambiarContraseniaResponse response = (CambiarContraseniaResponse) dataSourceResult.getData();
             iMyPassView.sendSuccessPassToView(response.getMensaje());
+        }
+
+        /**
+         * Instancia de peticion exitosa y operacion exitosa de DesasociarDispositivoResponse
+         */
+        if (dataSourceResult.getData() instanceof DesasociarDispositivoResponse) {
+            DesasociarDispositivoResponse response = (DesasociarDispositivoResponse) dataSourceResult.getData();
+            iPreferDesasociarView.sendSuccessDesasociarToView(response.getMensaje());
         }
     }
 
@@ -269,10 +248,41 @@ public class PreferUserPresenter implements IPreferUserPresenter {
             CambiarContraseniaResponse response = (CambiarContraseniaResponse) dataSourceResult.getData();
             iMyPassView.sendErrorPassToView(response.getMensaje());
         }
+
+        /**
+         * Instancia de peticion exitosa y operacion Erronea de DesasociarDispositivoResponse
+         */
+        if (dataSourceResult.getData() instanceof DesasociarDispositivoResponse) {
+            DesasociarDispositivoResponse response = (DesasociarDispositivoResponse) dataSourceResult.getData();
+            iPreferDesasociarView.sendErrorDesasociarToView(response.getMensaje());
+        }
+    }
+
+    /**
+     *  ERRORES DE SERVIDOR
+     */
+
+    /**
+     * Recibe el error del Iteractor y usamos el metodo de sendErrorPassToView para enviar el mensaje
+     * de error a nuestra vista iMyPassView, asi no creamos otro metodo adicional en la vista
+     * @param mensaje
+     */
+    @Override
+    public void sendErrorServerPassToPresenter(String mensaje) {
+        iMyPassView.sendErrorPassToView(mensaje);
+    }
+
+    /**
+     * Recibe el error del Iteractor y usamos el metodo de sendErrorDesasociarToView para enviar el mensaje
+     * de error a nuestra vista iPreferDesasociarView, asi no creamos otro metodo adicional en la vista
+     * @param mensaje
+     */
+    @Override
+    public void sendErrorServerDesasociarToPresenter(String mensaje) {
+        iPreferDesasociarView.sendErrorDesasociarToView(mensaje);
     }
 
     /** EXCEPTIONS VARIADOS **/
-
 
     @Override
     public void showExceptionAvatarToPresenter(String mMessage) {
@@ -289,5 +299,10 @@ public class PreferUserPresenter implements IPreferUserPresenter {
         iMyPassView.sendErrorPassToView(mMessage);
     }
 
+
+    @Override
+    public void showExceptionDesasociarToPresenter(String mMesage) {
+        iPreferDesasociarView.sendErrorDesasociarToView(mMesage);
+    }
 
 }

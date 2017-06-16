@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.utils.Recursos;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVATAR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CAMBIAR_CONTRASENIA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.DESASOCIAR_DISPOSITIVO;
 
 /**
  * Created by Francisco Manzo on 08/06/2017.
@@ -169,7 +170,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             ApiAdtvo.desasociarDispositivo(request, this);
         } catch (OfflineException e) {
             // e.printStackTrace();
-            preferUserPresenter.showExceptionToPresenter(e.toString());
+            preferUserPresenter.showExceptionDesasociarToPresenter(e.toString());
         }
     }
 
@@ -241,11 +242,11 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
 
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
                 //Log.d("PreferUserIteractor", "DataSource Sucess " + response.getMensaje());
-                preferUserPresenter.sendSuccessPresenter(response.getMensaje());
+                preferUserPresenter.successGenericToPresenter(dataSourceResult);
                 logout();
             } else {
                 //Log.d("PreferUserIteractor", "DataSource Sucess with Error " + response.getMensaje());
-                preferUserPresenter.sendErrorPresenter(response.getMensaje());
+                preferUserPresenter.errorGenericToPresenter(dataSourceResult);
             }
         }
     }
@@ -262,6 +263,8 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             preferUserPresenter.sendErrorServerAvatarToPresenter(error.getData().toString());
         } else if (error.getWebService().equals(CAMBIAR_CONTRASENIA)) {
             preferUserPresenter.sendErrorServerPassToPresenter(error.getData().toString());
+        }else if (error.getWebService().equals(DESASOCIAR_DISPOSITIVO)) {
+            preferUserPresenter.sendErrorServerDesasociarToPresenter(error.getData().toString());
         } else {
             preferUserPresenter.sendErrorServerPresenter(error.getData().toString());
         }
