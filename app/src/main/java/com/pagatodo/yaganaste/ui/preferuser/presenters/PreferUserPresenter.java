@@ -133,11 +133,6 @@ public class PreferUserPresenter implements IPreferUserPresenter {
         iPreferUserIteractor.sendIteractorActualizarAvatar(avatarRequest);
     }
 
-   /* @Override
-    public void sendErrorAvatarPresenter(String mensaje) {
-        iListaOpcionesView.sendErrorView(mensaje);
-    }*/
-
     @Override
     public void showExceptionToPresenter(String mMesage) {
         iListaOpcionesView.showExceptionToView(mMesage);
@@ -173,13 +168,15 @@ public class PreferUserPresenter implements IPreferUserPresenter {
     /**
      * Enviamos al Iteractor la peticion de cambiar el Pass, y armamos el Request. Ademas de mostrar
      * un Loader de carga
-     * @param s
-     * @param s1
+     * @param mPassActual
+     * @param mPassNueva
      */
     @Override
-    public void changePassToPresenter(String s, String s1) {
+    public void changePassToPresenter(String mPassActual, String mPassNueva) {
         mView.showLoader("Procesando. Por favor, espere . . .");
         CambiarContraseniaRequest cambiarContraseniaRequest = new CambiarContraseniaRequest();
+        cambiarContraseniaRequest.setContrasenaActual(mPassActual);
+        cambiarContraseniaRequest.setContrasenaNueva(mPassNueva);
         iPreferUserIteractor.changePassToIteractor(cambiarContraseniaRequest);
     }
 

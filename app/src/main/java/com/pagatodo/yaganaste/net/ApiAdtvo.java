@@ -172,9 +172,17 @@ public class ApiAdtvo extends Api {
      * @param result  {@link IRequestResult} listener del resultado de la petición.
      */
     public static void cambiarContrasenia(CambiarContraseniaRequest request, IRequestResult result) throws OfflineException {
+//        Map<String, String> headers = getHeadersYaGanaste();
+//        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+//        headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
+
         Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
+        headers.put("Content-Type", "application/json");
+
+        Log.d("PreferUserIteractor", "getTokensesion " + RequestHeaders.getTokensesion());
+        Log.d("PreferUserIteractor", "getTokensesion " + RequestHeaders.getTokenauth());
         NetFacade.consumeWS(CAMBIAR_CONTRASENIA,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.changePasswordUrl),
                 headers, request, CambiarContraseniaResponse.class, result);

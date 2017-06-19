@@ -211,10 +211,10 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             CambiarEmailResponse response = (CambiarEmailResponse) dataSourceResult.getData();
 
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                Log.d("PreferUserIteractor", "DataSource Sucess " + response.getMensaje());
+                //Log.d("PreferUserIteractor", "DataSource Sucess " + response.getMensaje());
                 preferUserPresenter.successGenericToPresenter(dataSourceResult);
             } else {
-                Log.d("PreferUserIteractor", "DataSource Sucess with Error " + response.getMensaje());
+                //Log.d("PreferUserIteractor", "DataSource Sucess with Error " + response.getMensaje());
                 preferUserPresenter.errorGenericToPresenter(dataSourceResult);
             }
         }
@@ -226,10 +226,10 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             CambiarContraseniaResponse response = (CambiarContraseniaResponse) dataSourceResult.getData();
 
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                //Log.d("PreferUserIteractor", "DataSource Sucess " + response.getMensaje());
+                Log.d("PreferUserIteractor", "CambiarContrasenia Sucess " + response.getMensaje());
                 preferUserPresenter.successGenericToPresenter(dataSourceResult);
             } else {
-                //Log.d("PreferUserIteractor", "DataSource Sucess with Error " + response.getMensaje());
+                Log.d("PreferUserIteractor", "CambiarContrasenia Sucess with Error " + response.getMensaje());
                 preferUserPresenter.errorGenericToPresenter(dataSourceResult);
             }
         }
@@ -262,6 +262,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         if (error.getWebService().equals(ACTUALIZAR_AVATAR)) {
             preferUserPresenter.sendErrorServerAvatarToPresenter(error.getData().toString());
         } else if (error.getWebService().equals(CAMBIAR_CONTRASENIA)) {
+            Log.d("PreferUserIteractor", "CambiarContrasenia ErrorServer " + error.toString());
             preferUserPresenter.sendErrorServerPassToPresenter(error.getData().toString());
         }else if (error.getWebService().equals(DESASOCIAR_DISPOSITIVO)) {
             preferUserPresenter.sendErrorServerDesasociarToPresenter(error.getData().toString());

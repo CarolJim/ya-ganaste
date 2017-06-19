@@ -82,36 +82,36 @@
                 android:orientation="vertical">
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/edtitEmail"
-                    style="@style/FragmentElementTop"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/double_space"
-                    app:formato="email"
-                    app:hintText="@string/txt_mail"
-                    app:isSingleLine="true"
-                    app:maxLength="50" />
-
-                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorMailMessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="visible" />
-
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/edtitConfirmEmail"
+                    android:id="@+id/fragment_mtpass_editPassword"
                     style="@style/FragmentElementWithValidation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:formato="email"
-                    app:hintText="@string/confirmEmail"
+                    app:formato="password"
+                    app:hintText="@string/password"
                     app:isSingleLine="true"
-                    app:maxLength="50" />
+                    app:maxLength="16" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorConfirmaMailMessage"
+                    android:id="@+id/errorPasswordMessage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
+                    android:visibility="visible" />
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/fragment_mtpass_editPasswordConfirmation"
+                    style="@style/FragmentElementWithValidation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:formato="password"
+                    app:hintText="@string/passwordConfirm"
+                    app:isSingleLine="true"
+                    app:maxLength="16" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorConfirmPasswordMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginBottom="@dimen/margin_doble"
                     android:visibility="visible" />
                 </LinearLayout>
 

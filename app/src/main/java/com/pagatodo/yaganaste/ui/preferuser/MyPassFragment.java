@@ -9,11 +9,16 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import butterknife.BindView;
@@ -24,12 +29,26 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 /**
  * Encargada de gestionar el cambio de contraseña, los elementos graficos de la vista y enviar al MVP
  */
-public class MyPassFragment extends GenericFragment implements IMyPassView, View.OnClickListener {
+public class MyPassFragment extends GenericFragment implements IMyPassView, View.OnClickListener,
+        ValidationForms {
+    //  ValidationForms, IUserDataRegisterView,
 
     @BindView(R.id.fragment_myemail_btn)
     StyleButton sendButton;
+    @BindView(R.id.fragment_mtpass_editPassword)
+    CustomValidationEditText editPassword;
+    @BindView(R.id.fragment_mtpass_editPasswordConfirmation)
+    CustomValidationEditText editPasswordConfirm;
 
     View rootview;
+    private String password = "";
+    private String passwordConfirmation = "";
+    private boolean isValidPassword = false;
+    private boolean emailValidatedByWS = false; // Indica que el email ha sido validado por el ws.
+    private boolean userExist = false; // Indica que el email ya se encuentra registrado.
+    private AccountPresenterNew accountPresenter;
+    private String passErrorMessage;
+    private boolean errorIsShowed = false;
 
     PreferUserPresenter mPreferPresenter;
 
@@ -46,6 +65,8 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
     public void onAttach(Context context) {
         mPreferPresenter = ((PreferUserActivity) getActivity()).getPreferPresenter();
         mPreferPresenter.setIView(this);
+//        accountPresenter = ((AccountActivity) getActivity()).getPresenter();
+//        accountPresenter.setIView(this);
         super.onAttach(context);
     }
 
@@ -69,6 +90,8 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
         ButterKnife.bind(this, rootview);
 
         sendButton.setOnClickListener(this);
+//        editPassword.setOnFocusChangeListener(this);
+//        editPasswordConfirm.setOnFocusChangeListener(this);
     }
 
     @Override
@@ -80,14 +103,139 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
         }
     }
 
+    @Override
+    public void setValidationRules() {
+
+        /**
+
+         editPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        @Override public void onFocusChange(View v, boolean hasFocus) {
+
+        if (hasFocus) {
+        if (editPassword.getText().isEmpty()) {
+        editPassword.setIsInvalid();
+        showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
+        }
+        } else {
+        if (editPassword.isValidText() && !isValidPassword) {
+        accountPresenter.validatePasswordFormat(editPassword.getText());
+        } else if (editPassword.getText().isEmpty()) {
+        editPassword.setIsInvalid();
+        showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
+        } else if (editPassword.isValidText() && isValidPassword) {
+        hideErrorMessage(editPassword.getId());
+        editPassword.setIsValid();
+        }
+        }
+        }
+        });
+
+
+         editPassword.addCustomTextWatcher(new AbstractTextWatcher() {
+        @Override public void onTextChanged(String s, int start, int before, int count) {
+        isValidPassword = false;
+        if (editPassword.getText().isEmpty()) {
+        showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
+        editPassword.setIsInvalid();
+        } else if (!editPassword.isValidText()) {
+        showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_formato));
+        editPassword.setIsInvalid();
+        } else if (editPassword.isValidText()) {
+        hideErrorMessage(editPassword.getId());
+        editPassword.setIsValid();
+        }
+
+        if (!editPasswordConfirm.getText().isEmpty() && !editPasswordConfirm.getText().equals(editPassword.getText())) {
+        showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
+        editPasswordConfirm.setIsInvalid();
+        } else if (editPasswordConfirm.getText().isEmpty()) {
+        hideErrorMessage(editPasswordConfirm.getId());
+        editPasswordConfirm.imageViewIsGone(true);
+        } else if (!editPasswordConfirm.getText().isEmpty() && editPasswordConfirm.getText().equals(editPassword.getText())) {
+        hideErrorMessage(editPasswordConfirm.getId());
+        editPasswordConfirm.setIsValid();
+        }
+        }
+        });
+
+         editPasswordConfirm.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+        @Override public void onFocusChange(View v, boolean hasFocus) {
+        if (hasFocus) {
+        if (editPasswordConfirm.getText().isEmpty()) {
+        hideErrorMessage(editPasswordConfirm.getId());
+        editPasswordConfirm.imageViewIsGone(true);
+        } else if (!editPasswordConfirm.getText().equals(editPassword.getText())) {
+        showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
+        editPasswordConfirm.setIsInvalid();
+        } else if (editPasswordConfirm.getText().equals(editPassword.getText())) {
+        hideErrorMessage(editPasswordConfirm.getId());
+        editPasswordConfirm.setIsValid();
+        }
+        } else {
+        if (editPasswordConfirm.getText().isEmpty()) {
+        hideErrorMessage(editPasswordConfirm.getId());
+        editPasswordConfirm.imageViewIsGone(true);
+        } else if (!editPasswordConfirm.getText().isEmpty() && editPasswordConfirm.getText().equals(editPassword.getText())) {
+        hideErrorMessage(editPasswordConfirm.getId());
+        editPasswordConfirm.setIsValid();
+        } else if (!editPasswordConfirm.getText().isEmpty() && !editPasswordConfirm.getText().equals(editPassword.getText())) {
+        showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
+        editPasswordConfirm.setIsInvalid();
+        }
+        }
+        }
+        });
+
+         editPasswordConfirm.addCustomTextWatcher(new AbstractTextWatcher() {
+        @Override public void afterTextChanged(String s) {
+
+        if (editPasswordConfirm.getText().isEmpty()) {
+        hideErrorMessage(editPasswordConfirm.getId());
+        editPasswordConfirm.imageViewIsGone(true);
+        } else if (!editPasswordConfirm.getText().equals(editPassword.getText())) {
+        showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
+        editPasswordConfirm.setIsInvalid();
+        } else {
+        hideErrorMessage(editPasswordConfirm.getId());
+        editPasswordConfirm.setIsValid();
+        }
+        }
+        });
+
+         */
+    }
+
+    @Override
+    public void validateForm() {
+
+    }
+
+    @Override
+    public void showValidationError(int id, Object o) {
+
+    }
+
     // TODO Pendiente todo el proceso de validaciones de la Pass
-    private void onValidationSuccess() {
+    public void onValidationSuccess() {
         // Deshabilitamos el backButton
         //getActivity().onBackPressed();
         onEventListener.onEvent("DISABLE_BACK", true);
 
         //   mPreferPresenter.sendChangePassToPresenter();
-        mPreferPresenter.changePassToPresenter("oldmail@g.com", "newmail@g.com");
+        mPreferPresenter.changePassToPresenter(
+                editPassword.getText().trim(),
+                editPasswordConfirm.getText().trim()
+        );
+
+//        mPreferPresenter.changePassToPresenter(
+//                Utils.cipherRSA(editPassword.getText().trim()),
+//                Utils.cipherRSA(editPasswordConfirm.getText().trim())
+//        );
+    }
+
+    @Override
+    public void getDataForm() {
+
     }
 
     public void hideLoader() {
@@ -97,6 +245,7 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
 
     /**
      * Exito en la peticion de servidor y exito en el cambio de Pass
+     *
      * @param mensaje
      */
     @Override
@@ -107,9 +256,10 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
     }
 
     /**
-     *  Exito en la peticion de servidor y Fail en el cambio de Pass.
-     *  Tambien se usa para mostrar un error de conexion al servidor, desde el Presenter para no tener
-     *  un tercer metodo
+     * Exito en la peticion de servidor y Fail en el cambio de Pass.
+     * Tambien se usa para mostrar un error de conexion al servidor, desde el Presenter para no tener
+     * un tercer metodo
+     *
      * @param mensaje
      */
     @Override
@@ -121,6 +271,7 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
 
     /**
      * Mostramos un mensaje simple con el String que necesitemos, sin acciones, solo aceptar
+     *
      * @param mensaje
      */
     private void showDialogMesage(String mensaje) {
@@ -138,4 +289,5 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
                 },
                 true, false);
     }
+
 }
