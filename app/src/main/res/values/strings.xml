@@ -180,6 +180,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="messages">Mensajes</string>
     <string name="confirm_pass">Confirma tu Contraseña</string>
+    <string name="confirm_new_pass">Confirma Nueva Contraseña</string>
     <string name="txt_ubica">Ubica Los Puntos Donde Puedes Realizar Tus Depósitos YA!</string>
     <string name="txt_depositar_cuenta">Depositar A Mi Cuenta</string>
     <string name="txt_ver_mapa">VER MAPA</string>

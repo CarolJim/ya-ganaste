@@ -82,7 +82,23 @@
                 android:orientation="vertical">
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/fragment_mtpass_editPassword"
+                    android:id="@+id/fragment_mtpass_editOldPassword"
+                    style="@style/FragmentElementWithValidation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:formato="password"
+                    app:hintText="@string/txt_current_pass"
+                    app:isSingleLine="true"
+                    app:maxLength="16" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorOldPasswordMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible" />
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/editPassword"
                     style="@style/FragmentElementWithValidation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -98,7 +114,7 @@
                     android:visibility="visible" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/fragment_mtpass_editPasswordConfirmation"
+                    android:id="@+id/editPasswordConfirmation"
                     style="@style/FragmentElementWithValidation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -113,7 +129,7 @@
                     android:layout_height="match_parent"
                     android:layout_marginBottom="@dimen/margin_doble"
                     android:visibility="visible" />
-                </LinearLayout>
+            </LinearLayout>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/fragment_myemail_btn"
