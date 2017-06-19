@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -222,15 +223,16 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
         onEventListener.onEvent("DISABLE_BACK", true);
 
         //   mPreferPresenter.sendChangePassToPresenter();
-        mPreferPresenter.changePassToPresenter(
-                editPassword.getText().trim(),
-                editPasswordConfirm.getText().trim()
-        );
-
 //        mPreferPresenter.changePassToPresenter(
-//                Utils.cipherRSA(editPassword.getText().trim()),
-//                Utils.cipherRSA(editPasswordConfirm.getText().trim())
+//                editPassword.getText().trim(),
+//                editPasswordConfirm.getText().trim()
 //        );
+        Log.d("ListaOpcionesIteractor", "mPassActual " + editPassword.getText().trim());
+        Log.d("ListaOpcionesIteractor", "mPassNueva " + editPasswordConfirm.getText().trim());
+        mPreferPresenter.changePassToPresenter(
+                Utils.cipherRSA(editPassword.getText().trim()),
+                Utils.cipherRSA(editPasswordConfirm.getText().trim())
+        );
     }
 
     @Override
