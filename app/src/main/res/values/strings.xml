@@ -55,8 +55,10 @@
     <string name="obtenerDomicilio">/ObtenerDomicilioPrincipal</string>
     <string name="enviarTicketTAEPDS">/EnviarTicketTAEPDS</string>
     <string name="desasociarDispositivo">/DesasociarDispositivo</string>
+    <string name="desasociarDispositivoTittle">Desasociar Dispositivo</string>
     <string name="deseaDesasociarDispositivo">¿Desea desasociar el dispositivo?</string>
     <string name="sel_fotografia">Seleccionar Fotografía</string>
+    <string name="myUserText">Mi Usuario</string>
 
     <!--Métodos de WS Adquiriente-->
     <string name="adqLogin">/agMov/login</string>
@@ -145,6 +147,7 @@
     <string name="if_you_want_change_you_pass">Si Deseas Cambiar tu Contraseña Primero\nIntroduce la Actual</string>
     <string name="txt_current_pass">Contraseña Actual</string>
     <string name="txt_new_pass">Nueva Contraseña</string>
+    <string name="txt_change_pass">Cambiar Contraseña</string>
     <string name="txt_leyenda_password">(Tu Contraseña Debe ser al Menos de 8 Caracteres, Incluyendo al Menos una Letra Mayúscula y un Número. No Debe Incluir Tres Caracteres Idénticos en Forma Consecutiva ni Valores Consecutivos)</string>
     <string name="title_dialogs">Ya Ganaste</string>
     <string name="accept_alerts">OK</string>
@@ -179,6 +182,7 @@
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="messages">Mensajes</string>
     <string name="confirm_pass">Confirma tu Contraseña</string>
+    <string name="confirm_new_pass">Confirma Nueva Contraseña</string>
     <string name="txt_ubica">Ubica Los Puntos Donde Puedes Realizar Tus Depósitos YA!</string>
     <string name="txt_depositar_cuenta">Depositar A Mi Cuenta</string>
     <string name="txt_ver_mapa">VER MAPA</string>

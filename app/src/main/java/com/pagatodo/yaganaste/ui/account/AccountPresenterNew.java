@@ -37,6 +37,7 @@ import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.TabPresenterImpl;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
 import com.pagatodo.yaganaste.utils.Codec;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringConstants;
@@ -225,6 +226,12 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
 
         }else if (! (accountView instanceof IBalanceView) ){
             accountView.showError(error);
+        }
+
+        if(accountView instanceof IMyPassValidation){
+            if(ws == VALIDAR_FORMATO_CONTRASENIA) {
+                ((IMyPassValidation) accountView).validationPasswordFailed(error.toString());
+            }
         }
     }
 

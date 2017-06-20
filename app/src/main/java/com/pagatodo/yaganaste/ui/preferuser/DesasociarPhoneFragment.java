@@ -24,6 +24,8 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+
 /**
  * A simple {@link Fragment} subclass.
  * Se encarga de hacer las peticiones para Desasociar el dispositivo actual
@@ -72,6 +74,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
 
     /**
      * Listener que abre el Dialog para confirmar el Desasociar dispositivo
+     *
      * @param v
      */
     @Override
@@ -99,10 +102,11 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
     /**
      * Exito al Desasociar, mostramos un dialogo para notificar y cerrar la aplicacion, en el
      * iteractor ya cerramos la session.
+     *
      * @param mensaje
      */
     @Override
-    public void sendSuccessView(String mensaje) {
+    public void sendSuccessDesasociarToView(String mensaje) {
         //showDialogCustom(mensaje);
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 closeSession, true, false);
@@ -127,17 +131,8 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
     };
 
     /**
-     * Exito en conexion al servidor 200 pero codigo erroneo de algun tipo
-     * @param mensaje
-     */
-    @Override
-    public void sendErrorView(String mensaje) {
-        showDialogCustom(mensaje);
-        onEventListener.onEvent("DISABLE_BACK", false);
-    }
-
-    /**
      * Mensaje de error de conexion al no tener 200.
+     *
      * @param mensaje
      */
     @Override
@@ -146,13 +141,26 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         onEventListener.onEvent("DISABLE_BACK", false);
     }
 
+    /**
+     * Exito en la peticion de servidor y Fail en el cambio de Pass.
+     * Tambien se usa para mostrar un error de conexion al servidor, desde el Presenter para no tener
+     * un tercer metodo
+     * @param mensaje
+     */
     @Override
-    public void getImagenURLiteractor(String mUserImage) {
-
+    public void sendErrorDesasociarToView(String mensaje) {
+        hideLoader();
+        showDialogCustom(mensaje);
+        onEventListener.onEvent("DISABLE_BACK", false);
     }
 
+    public void hideLoader() {
+        // progressLayout.setVisibility(GONE);
+        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+    }
     /**
      * Adminsitrador de mensaje que no tienen acciones, solo informativos, usados comunmente en errores
+     *
      * @param mensaje
      */
     public void showDialogCustom(String mensaje) {

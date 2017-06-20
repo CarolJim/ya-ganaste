@@ -6,11 +6,9 @@ package com.pagatodo.yaganaste.ui.preferuser.interfases;
 
 public interface IPreferDesasociarView extends IPreferUserGeneric {
 
-    void sendSuccessView(String mensaje);
-
-    void sendErrorView(String mensaje);
+    void sendSuccessDesasociarToView(String mensaje);
 
     void sendErrorServerView(String error);
 
-    void getImagenURLiteractor(String mUserImage);
+    void sendErrorDesasociarToView(String mensaje);
 }
