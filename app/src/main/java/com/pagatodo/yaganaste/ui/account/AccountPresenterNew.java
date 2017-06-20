@@ -38,6 +38,8 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.TabPresenterImpl;
 import com.pagatodo.yaganaste.utils.Codec;
+import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.List;
@@ -59,6 +61,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIV
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
 import static com.pagatodo.yaganaste.utils.Recursos.CRC32_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
+import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 
 /**
  * Created by flima on 22/03/2017.
@@ -142,7 +145,7 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
     @Override
     public void validatePasswordFormat(String password) {
         accountView.showLoader(App.getInstance().getString(R.string.validando_password));
-        accountIteractor.validatePassword(password);
+        accountIteractor.validatePassword(Utils.cipherRSA(password));
     }
 
     @Override
@@ -294,6 +297,8 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
 
     @Override
     public void onSuccesBalance(ConsultarSaldoResponse response) {
+        App.getInstance().getPrefs().saveData(StringConstants.USER_BALANCE, response.getData().getSaldo());
+        App.getInstance().getPrefs().saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
         this.accountView.hideLoader();
         ((IBalanceView)this.accountView).updateBalance(response.getData().getSaldo());
     }

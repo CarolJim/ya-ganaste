@@ -37,6 +37,8 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_ADDRESS_DATA;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DATA_USER_BACK;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
 /**
  * A simple {@link GenericFragment} subclass.
@@ -375,10 +377,12 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     @Override
     public void showLoader(String message) {
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override

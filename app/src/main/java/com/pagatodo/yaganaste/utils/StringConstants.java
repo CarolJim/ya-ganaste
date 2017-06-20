@@ -18,4 +18,6 @@ public class StringConstants {
     public static final String NAME_USER = "NAME_USER";
     public static final String FULL_NAME_USER = "FULL_NAME_USER";
     public static final String CARD_NUMBER = "CARD_NUMBER";
+    public static final String USER_BALANCE = "USER_BALANCE";
+    public static final String UPDATE_DATE = "UPDATE_DATE";
 }

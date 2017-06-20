@@ -64,6 +64,17 @@
                 app:dotBottom="false"
                 app:symbolSmaller="true" />
 
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_date_updated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/radioHasCard"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:gravity="center"
+                android:text="Actualizado el 15/Jun/2017 24:24:59"
+                android:textSize="@dimen/text_screen_size_normal" />
+
         </LinearLayout>
 
     </FrameLayout>

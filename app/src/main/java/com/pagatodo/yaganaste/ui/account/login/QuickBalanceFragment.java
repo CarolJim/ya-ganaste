@@ -17,6 +17,8 @@ import com.pagatodo.yaganaste.interfaces.IProgressView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.utils.StringConstants;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -26,6 +28,8 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
+import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
+import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 
 /**
  * @author Juan Guerra on 15/06/2017.
@@ -42,6 +46,8 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     private StyleTextView txtTarjetaUserName;
     private StyleTextView txtNameUser;
     private MontoTextView txtSaldo;
+    private StyleTextView txtDateUpdated;
+
     private SwipeRefreshLayout swipeContainer;
 
     private AccountPresenterNew accountPresenter;
@@ -92,12 +98,16 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         txtNameUser = (StyleTextView) mRootView.findViewById(R.id.txt_name_user);
         txtSaldo = (MontoTextView) mRootView.findViewById(R.id.txt_saldo);
         swipeContainer = (SwipeRefreshLayout) mRootView.findViewById(R.id.swipe_container);
+        txtDateUpdated = (StyleTextView) mRootView.findViewById(R.id.txt_date_updated);
         swipeContainer.setOnRefreshListener(this);
 
         Preferencias preferencias = App.getInstance().getPrefs();
         if (preferencias.containsData(HAS_SESSION)) {
-            editNumber.setText(preferencias.loadData(CARD_NUMBER));
+            editNumber.setText(getCreditCardFormat(preferencias.loadData(CARD_NUMBER)));
             txtNameUser.setText(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER)));
+            txtSaldo.setText(Utils.getCurrencyValue(preferencias.loadData(
+                    StringConstants.USER_BALANCE)));
+            txtDateUpdated.setText(preferencias.loadData(UPDATE_DATE));
         }
 
     }

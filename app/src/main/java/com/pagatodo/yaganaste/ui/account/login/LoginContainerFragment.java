@@ -94,9 +94,9 @@ public class LoginContainerFragment extends SupportFragment implements TabsView<
 
         Preferencias prefs = App.getInstance().getPrefs();
 
+        imgPrevious.setVisibility(View.INVISIBLE);
         if (!prefs.containsData(HAS_SESSION)) {
             imgNext.setVisibility(View.INVISIBLE);
-            imgPrevious.setVisibility(View.INVISIBLE);
         }
         vpLogin.setIsSwipeable(prefs.containsData(HAS_SESSION));
     }

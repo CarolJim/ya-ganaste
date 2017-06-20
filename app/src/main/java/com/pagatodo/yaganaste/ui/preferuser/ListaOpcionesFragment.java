@@ -167,7 +167,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         tv_email.setText(mEmail);
 
         // Hacemos Set de la version de codigo
-        tv_version_code.setText("YaGanaste Versión: ".concat(String.valueOf(BuildConfig.VERSION_CODE)));
+        tv_version_code.setText("YaGanaste Versión: ".concat(String.valueOf(BuildConfig.VERSION_NAME)));
 
         iv_photo_item_status.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.camara_white_blue_canvas));
 

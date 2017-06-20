@@ -11,14 +11,9 @@
     android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
 
-    <include
-        android:id="@+id/toolbarLy"
-        layout="@layout/toolbar" />
-
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_below="@+id/toolbarLy">
+        android:layout_height="match_parent">
 
         <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
             android:id="@+id/borderLayout"

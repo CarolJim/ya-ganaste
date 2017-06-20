@@ -40,6 +40,8 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.DEFAULT_CARD;
 import static com.pagatodo.yaganaste.utils.Utils.getCardNumberRamdon;
@@ -307,13 +309,12 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void showLoader(String message) {
-        progressLayout.setVisibility(VISIBLE);
-        progressLayout.setTextMessage(message);
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-        progressLayout.setVisibility(GONE);
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override
