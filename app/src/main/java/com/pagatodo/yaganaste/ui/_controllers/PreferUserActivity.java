@@ -76,6 +76,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         return this.mPreferPresenter;
     }
 
+    public AccountPresenterNew getPresenterAccount() {
+        return presenterAccount;
+    }
+
     /**
      * Sobre escribimos el metodo del PAdre ToolBar para no tener el boton que nos abre esta+
      * activitydad

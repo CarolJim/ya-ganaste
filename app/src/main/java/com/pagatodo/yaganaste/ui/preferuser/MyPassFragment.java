@@ -41,12 +41,14 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
 
     @BindView(R.id.fragment_myemail_btn)
     StyleButton sendButton;
-    @BindView(R.id.fragment_mtpass_editOldPassword)
-    CustomValidationEditText editOldPasswordConfirm;
+    @BindView(R.id.editOldPassword)
+    CustomValidationEditText editOldPassword;
     @BindView(R.id.editPassword)
     CustomValidationEditText editPassword;
     @BindView(R.id.editPasswordConfirmation)
     CustomValidationEditText editPasswordConfirm;
+    @BindView(R.id.errorOldPasswordMessage)
+    ErrorMessage errorOldPasswordMessage;
     @BindView(R.id.errorPasswordMessage)
     ErrorMessage errorPasswordMessage;
     @BindView(R.id.errorConfirmPasswordMessage)
@@ -55,11 +57,12 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
     private String email = "";
     private String emailConfirmation = "";
     private String password = "";
+    private String passwordOld = "";
     private String passwordConfirmation = "";
     private boolean isValidPassword = false;
     private boolean emailValidatedByWS = false; // Indica que el email ha sido validado por el ws.
     private boolean userExist = false; // Indica que el email ya se encuentra registrado.
-    private AccountPresenterNew accountPresenter;
+    AccountPresenterNew accountPresenter;
     private String passErrorMessage;
 
     private boolean errorIsShowed = false;
@@ -80,8 +83,8 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
     public void onAttach(Context context) {
         mPreferPresenter = ((PreferUserActivity) getActivity()).getPreferPresenter();
         mPreferPresenter.setIView(this);
-//        accountPresenter = ((AccountActivity) getActivity()).getPresenter();
-//        accountPresenter.setIView(this);
+        accountPresenter = ((PreferUserActivity) getActivity()).getPresenterAccount();
+        accountPresenter.setIView(this);
         super.onAttach(context);
     }
 
@@ -108,7 +111,7 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
         errorPasswordMessage.setVisibilityImageError(false);
 
         sendButton.setOnClickListener(this);
-        editOldPasswordConfirm.setOnFocusChangeListener(this);
+        editOldPassword.setOnFocusChangeListener(this);
         editPassword.setOnFocusChangeListener(this);
         editPasswordConfirm.setOnFocusChangeListener(this);
 
@@ -127,6 +130,29 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
 
     @Override
     public void setValidationRules() {
+        editOldPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (hasFocus) {
+                    if (editOldPassword.getText().isEmpty()) {
+                        editOldPassword.setIsInvalid();
+                        showValidationError(editOldPassword.getId(), getString(R.string.datos_usuario_pass));
+                    }
+                } else {
+                    if (editOldPassword.isValidText() && !isValidPassword) {
+                        accountPresenter.validatePasswordFormat(editOldPassword.getText());
+                    } else if (editOldPassword.getText().isEmpty()) {
+                        editOldPassword.setIsInvalid();
+                        showValidationError(editOldPassword.getId(), getString(R.string.datos_usuario_pass));
+                    } else if (editOldPassword.isValidText() && isValidPassword) {
+                        hideErrorMessage(editOldPassword.getId());
+                        editOldPassword.setIsValid();
+                    }
+                }
+            }
+        });
+
         editPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -273,6 +299,13 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
             isValid = false;
         }
 
+        //Validate if OldPassword Confirmation is Empty
+        if (passwordOld.isEmpty()) {
+            showValidationError(editOldPassword.getId(), getString(R.string.datos_usuario_pass));
+            editOldPassword.setIsInvalid();
+            isValid = false;
+        }
+
         if (isValid) {
             onValidationSuccess();
         }
@@ -287,6 +320,9 @@ public class MyPassFragment extends GenericFragment implements IMyPassView, View
                 break;
             case R.id.editPasswordConfirmation:
                 errorConfirmPasswordMessage.setMessageText(error.toString());
+                break;
+            case R.id.editOldPassword:
+                errorOldPasswordMessage.setMessageText(error.toString());
                 break;
         }
 

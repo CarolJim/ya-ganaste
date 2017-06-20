@@ -67,7 +67,7 @@
                         android:layout_width="17dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        app:srcCompat="@drawable/edit_canvas_blue" />
+                        app:srcCompat="@drawable/arrow_canvas_blue" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -79,10 +79,11 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginTop="20dp"
                 android:orientation="vertical">
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/fragment_mtpass_editOldPassword"
+                    android:id="@+id/editOldPassword"
                     style="@style/FragmentElementWithValidation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -136,6 +137,7 @@
                 style="@style/buttonSquareRoundedBlue"
                 android:layout_width="180dp"
                 android:layout_height="@dimen/height_btns"
+                android:layout_gravity="center"
                 android:gravity="center"
                 android:text="Confirmar"
                 android:textAllCaps="false"
