@@ -159,7 +159,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
             case "PREFER_USER_EMAIL":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                loadFragment(MyEmailFragment.newInstance(),Direction.FORDWARD, false);
+               // loadFragment(MyEmailFragment.newInstance(),Direction.FORDWARD, false);
                 break;
 
             case "PREFER_USER_PASS":
@@ -198,6 +198,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             }else if (currentFragment instanceof MyUserFragment) {
                 onEvent(PREFER_USER_LISTA, null);
             }else if (currentFragment instanceof MyEmailFragment) {
+                onEvent(PREFER_USER_MY_USER_BACK, null);
+            }else if (currentFragment instanceof MyPassFragment) {
                 onEvent(PREFER_USER_MY_USER_BACK, null);
             } else {
                 super.onBackPressed();

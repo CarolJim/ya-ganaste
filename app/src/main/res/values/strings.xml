@@ -147,6 +147,7 @@
     <string name="if_you_want_change_you_pass">Si Deseas Cambiar tu Contraseña Primero\nIntroduce la Actual</string>
     <string name="txt_current_pass">Contraseña Actual</string>
     <string name="txt_new_pass">Nueva Contraseña</string>
+    <string name="txt_change_pass">Cambiar Contraseña</string>
     <string name="txt_leyenda_password">(Tu Contraseña Debe ser al Menos de 8 Caracteres, Incluyendo al Menos una Letra Mayúscula y un Número. No Debe Incluir Tres Caracteres Idénticos en Forma Consecutiva ni Valores Consecutivos)</string>
     <string name="title_dialogs">Ya Ganaste</string>
     <string name="accept_alerts">OK</string>

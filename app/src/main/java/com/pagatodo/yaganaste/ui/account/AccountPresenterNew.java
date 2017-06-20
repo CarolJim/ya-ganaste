@@ -30,6 +30,7 @@ import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
 import com.pagatodo.yaganaste.interfaces.RecoveryPasswordView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
 import com.pagatodo.yaganaste.utils.Codec;
 import com.pagatodo.yaganaste.utils.Utils;
 
@@ -212,6 +213,12 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
         }else{
             accountView.showError(error);
         }
+
+        if(accountView instanceof IMyPassValidation){
+            if(ws == VALIDAR_FORMATO_CONTRASENIA) {
+                ((IMyPassValidation) accountView).validationPasswordFailed(error.toString());
+            }
+        }
     }
 
     @Override
@@ -272,6 +279,15 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
             }
         }else if(ws == CERRAR_SESION){
             Log.i(TAG,"La sesión se ha cerrado.");
+        }
+
+        if(accountView instanceof IMyPassValidation){
+            boolean validatePass = ((int)data == 0);
+            if(validatePass){
+                ((IMyPassValidation) accountView).validationPasswordSucces();
+            }else{
+                ((IMyPassValidation) accountView).validationPasswordFailed("Su contraseña es incorrecta");
+            }
         }
     }
 

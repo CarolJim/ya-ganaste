@@ -7,4 +7,8 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
  */
 
 public interface IMyPassValidation extends INavigationView {
+    void validationPasswordFailed(String mMesage);
+
+    void validationPasswordSucces();
+
 }
