@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContra
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDispositivoResponse;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.test.PresenterGeneric;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyEmailView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassView;
@@ -28,7 +29,7 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
  * Para gestionar todos los eventos de los fragmentos
  */
 
-public class PreferUserPresenter implements IPreferUserPresenter {
+public class PreferUserPresenter extends PresenterGeneric implements IPreferUserPresenter {
 
     PreferUserActivity mView;
     IPreferUserIteractor iPreferUserIteractor;
@@ -38,6 +39,7 @@ public class PreferUserPresenter implements IPreferUserPresenter {
     IMyPassView iMyPassView;
 
     public PreferUserPresenter(PreferUserActivity mView) {
+        super(mView);
         this.mView = mView;
 
         iPreferUserIteractor = new PreferUserIteractor(this);

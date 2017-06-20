@@ -223,6 +223,14 @@ public class ApiAdtvo extends Api {
                 headers, null, CerrarSesionResponse.class, result);
     }
 
+    public static void cerrarSesion() throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        NetFacade.consumeWS(CERRAR_SESION,
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.logoutUrl),
+                headers, null, CerrarSesionResponse.class, null);
+    }
+
     /**
      * Método que se invoca cuando se desean obtener más movimientos por mes.
      *

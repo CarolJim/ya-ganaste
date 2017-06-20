@@ -1,10 +1,13 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -47,6 +50,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
     private AccountPresenterNew presenterAccount;
     private PreferUserPresenter mPreferPresenter;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,6 +70,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
         presenterAccount = new AccountPresenterNew(this);
         mPreferPresenter = new PreferUserPresenter(this);
+
+        mContext = this;
         // CReamos las referencias al AcoountInteractot
         // AccountInteractorNew.
 
@@ -99,7 +105,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         @Override
         public void actionConfirm(Object... params) {
             setResult(ToolBarActivity.RESULT_LOG_OUT);
-            finish();
+            mPreferPresenter.closeSession(mContext);
+           // finish();
         }
 
         @Override
