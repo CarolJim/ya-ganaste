@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.util.Base64;
 import android.view.LayoutInflater;
@@ -166,9 +167,9 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         tv_email.setText(mEmail);
 
         // Hacemos Set de la version de codigo
-        tv_version_code.setText("YaGanaste Versión: " + BuildConfig.VERSION_CODE);
+        tv_version_code.setText("YaGanaste Versión: ".concat(String.valueOf(BuildConfig.VERSION_NAME)));
 
-        iv_photo_item_status.setBackground(getResources().getDrawable(R.drawable.camara_white_blue_canvas, null));
+        iv_photo_item_status.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.camara_white_blue_canvas));
 
         /**
          * Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
@@ -203,15 +204,12 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
                 Toast.makeText(getContext(), "Click Help", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fragment_lista_opciones_legal:
-                //Toast.makeText(getContext(), "Click Legales", Toast.LENGTH_SHORT).show();
                 onEventListener.onEvent(PREFER_USER_LEGALES, 1);
                 break;
             case R.id.fragment_lista_opciones_desasociar:
-                //Toast.makeText(getContext(), "Click Desasociar", Toast.LENGTH_SHORT).show();
                 onEventListener.onEvent(PREFER_USER_DESASOCIAR, 1);
                 break;
             case R.id.fragment_lista_opciones_close:
-                // Toast.makeText(getContext(), "Click Close Session", Toast.LENGTH_SHORT).show();
                 onEventListener.onEvent(PREFER_USER_CLOSE, 1);
                 break;
 
@@ -219,8 +217,6 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
              * Evento para Click de camara
              */
             case R.id.frag_lista_opciones_photo_item:
-                //selectImageSource(USER_PHOTO);
-
                 mPreferPresenter.openMenuPhoto(1, cameraManager);
                 break;
         }
@@ -257,12 +253,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void sucessUpdateAvatar() {
-       /* Glide.with(this).load(SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL())
-                .placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(testIV);*/
         iv_photo_item.setImageBitmap(CameraManager.getBitmap());
         CameraManager.cleanBitmap();
-        //iv_photo_item.setVisibilityStatus(true);
-        //iv_photo_item.invalidate();
         hideLoader();
         onEventListener.onEvent("DISABLE_BACK", false);
     }

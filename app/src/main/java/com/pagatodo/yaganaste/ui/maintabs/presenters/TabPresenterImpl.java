@@ -26,6 +26,14 @@ public class TabPresenterImpl implements TabPresenter, TabMenuManager {
         this.tabMenuIteractor = new TabMenuIteractorImpl(this);
     }
 
+    public TabPresenterImpl() {
+        this.tabMenuIteractor = new TabMenuIteractorImpl(this);
+    }
+
+    public void setTabsView(TabsView tabsView) {
+        this.tabsView = tabsView;
+    }
+
     @Override
     public final void getPagerData(@Nullable ViewPagerDataFactory.TABS tab) {
         if (tab != null) {

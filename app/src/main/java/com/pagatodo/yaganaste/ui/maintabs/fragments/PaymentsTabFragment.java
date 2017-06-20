@@ -285,7 +285,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        List<Fragment> fragmentList = fragmentManager.getFragments();
+        List<Fragment> fragmentList = getChildFragmentManager().getFragments();
 
         if (fragmentList != null) {
             if (requestCode == CONTACTS_CONTRACT) {

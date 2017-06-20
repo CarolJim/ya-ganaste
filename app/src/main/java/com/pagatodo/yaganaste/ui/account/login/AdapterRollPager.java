@@ -29,9 +29,9 @@ public class AdapterRollPager  extends LoopPagerAdapter {
     };
 
     private String[] topText = {
-            App.getContext().getResources().getString(R.string.carrouse_title_1),
-            App.getContext().getResources().getString(R.string.carrouse_title_2),
-            App.getContext().getResources().getString(R.string.carrouse_title_3),
+            "",
+            "",
+            "",
             ""
     };
 

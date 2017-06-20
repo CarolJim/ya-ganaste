@@ -92,4 +92,17 @@ public class StringUtils {
         return spannableStringBuilder;
     }
 
+
+    public static String getCreditCardFormat(String card){
+        StringBuilder result = new StringBuilder();
+        for (int i = 0; i < card.length(); i++) {
+            if (i % 4 == 0 && i != 0) {
+                result.append(" ");
+            }
+            result.append(card.charAt(i));
+        }
+
+        return result.toString();
+    }
+
 }

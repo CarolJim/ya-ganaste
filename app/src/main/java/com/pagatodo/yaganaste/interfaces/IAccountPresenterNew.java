@@ -21,6 +21,7 @@ public interface IAccountPresenterNew {
     public void gerNumberToSMS();
     public void doPullActivationSMS(String message);
     public void recoveryPassword(String email);
+    void updateBalance();
 
 
 }

@@ -61,10 +61,6 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     @BindView(R.id.rollPager)
     RollPagerView rollPagerView;
 
-    public MainFragment() {
-
-    }
-
     public static MainFragment newInstance() {
         MainFragment fragmentRegister = new MainFragment();
         Bundle args = new Bundle();
@@ -72,30 +68,6 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         return fragmentRegister;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
@@ -123,12 +95,14 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
             }
         };
         ss.setSpan(span1, 22, textLogin.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 22, textLogin.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.whiteColor)), 22, textLogin.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         txtMainLogin.setText(ss);
         txtMainLogin.setMovementMethod(LinkMovementMethod.getInstance());
 
         // Se encarga de hacer Set en el Adapter
         rollPagerView.setAdapter(new AdapterRollPager(rollPagerView, getActivity()));
+        rollPagerView.setHintView(null);
+
     }
 
     @Override

@@ -5,15 +5,11 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_bottom"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
 
-    <include
-        android:id="@+id/toolbarLy"
-        layout="@layout/toolbar" />
 
     <ScrollView
         android:id="@+id/scrollViewTarjeta"
@@ -92,110 +88,15 @@
                     android:text="@string/no_tiene_tarjeta"
                     android:textSize="@dimen/text_screen_size_normal" />
 
-                <RelativeLayout
+                <include
                     android:id="@+id/layoutCard"
-                    android:layout_width="match_parent"
+                    layout="@layout/layout_ya_card"
                     android:layout_height="wrap_content"
+                    android:layout_width="match_parent"
                     android:layout_below="@id/txtMessageCard"
                     android:layout_marginLeft="@dimen/margin_medium"
-                    android:layout_marginRight="@dimen/margin_medium">
+                    android:layout_marginRight="@dimen/margin_medium"/>
 
-                    <FrameLayout
-                        android:id="@+id/frameYaGanasteCard"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:padding="@dimen/margin_medium">
-
-                        <ImageView
-                            android:id="@+id/imgYaGanasteCard"
-                            android:layout_width="match_parent"
-                            android:layout_height="wrap_content"
-                            android:adjustViewBounds="true"
-                            android:scaleType="centerInside"
-                            android:src="@mipmap/main_card_zoom_blue" />
-
-
-                        <LinearLayout
-                            android:layout_marginTop="60dp"
-                            android:layout_width="match_parent"
-                            android:layout_height="match_parent"
-                            android:orientation="vertical"
-                            android:weightSum="100">
-
-                            <android.support.v4.widget.Space
-                                android:layout_width="match_parent"
-                                android:layout_height="0dp"
-                                android:layout_weight="60" />
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:weightSum="100">
-
-                                <android.support.v4.widget.Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="10" />
-
-                                <EditText
-                                    android:id="@+id/editNumber"
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:background="@color/transparent"
-                                    android:text="HOOOLAAAAAA"
-                                    android:cursorVisible="false"
-                                    android:enabled="false"
-                                    android:focusable="true"
-                                    android:inputType="number"
-                                    android:longClickable="false"
-                                    android:maxLength="19"
-                                    android:textColor="@color/whiteColor" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:weightSum="100">
-
-                                <android.support.v4.widget.Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="10" />
-
-                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/fragment_tienes_tarjeta_date_tdc"
-                                    android:gravity="center"
-                                    android:text="07/22" />
-                            </LinearLayout>
-
-                            <LinearLayout
-                                android:layout_width="match_parent"
-                                android:layout_height="wrap_content"
-                                android:orientation="horizontal"
-                                android:weightSum="100">
-
-                                <android.support.v4.widget.Space
-                                    android:layout_width="0dp"
-                                    android:layout_height="match_parent"
-                                    android:layout_weight="10" />
-
-                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                                    android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content"
-                                    android:id="@+id/fragment_tienes_tarjeta_user_name"
-                                    android:gravity="center"
-                                    android:text="Francisco J Manzo Nava" />
-                            </LinearLayout>
-
-                        </LinearLayout>
-
-                    </FrameLayout>
-
-                </RelativeLayout>
 
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"

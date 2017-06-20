@@ -22,7 +22,8 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true">
+        android:layout_alignParentTop="true"
+        android:visibility="gone">
 
         <include
             android:id="@+id/toolbarLy"
@@ -68,9 +69,11 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/btnMainCreateAccount"
-            android:layout_marginBottom="@dimen/margin_medium"
             android:gravity="center"
-            android:padding="@dimen/generic_padig"
+            android:paddingLeft="@dimen/generic_padig"
+            android:paddingRight="@dimen/generic_padig"
+            android:paddingTop="@dimen/generic_padig"
+            android:paddingBottom="@dimen/generic_padig"
             android:text="@string/tienes_cuenta" />
     </RelativeLayout>
 

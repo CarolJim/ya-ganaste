@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -13,10 +14,14 @@ import com.pagatodo.yaganaste.ui.maintabs.iteractors.AccountMovementsIteractorIm
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.MovementsIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.managers.MovementsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
+import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.MovementColorsFactory;
+import com.pagatodo.yaganaste.utils.StringConstants;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 
 /**
  * @author Juan Guerra on 28/03/2017.
@@ -58,7 +63,6 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
         movementsIteractor.getBalance();
     }
 
-
     @Override
     public void onSuccesResponse(ConsultarMovimientosMesResponse response) {
         if (response.getData() == null){
@@ -80,6 +84,8 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
     @Override
     public void onSuccesBalance(ConsultarSaldoResponse response) {
         SingletonUser.getInstance().getDatosSaldo().setSaldoEmisor(response.getData().getSaldo());
+        App.getInstance().getPrefs().saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
+        App.getInstance().getPrefs().saveData(StringConstants.USER_BALANCE, response.getData().getSaldo());
         movementsView.updateBalance();
     }
 

@@ -29,6 +29,8 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS_BACK;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
 
@@ -137,13 +139,12 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void showLoader(String message) {
-        progressLayout.setTextMessage(message);
-        progressLayout.setVisibility(VISIBLE);
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-        progressLayout.setVisibility(GONE);
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override

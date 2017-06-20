@@ -11,6 +11,9 @@ import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
 import com.pagatodo.yaganaste.interfaces.enums.AdqEmTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
+import com.pagatodo.yaganaste.interfaces.enums.VoidTab;
+import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
+import com.pagatodo.yaganaste.ui.account.login.QuickBalanceFragment;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
@@ -36,11 +39,12 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 public class ViewPagerDataFactory {
 
     private ViewPagerDataFactory() {
-        throw new IllegalCallException("You can not create an instance for ViewPagerDataFactory");
+        throw new IllegalCallException("You can't create an instance for ViewPagerDataFactory");
     }
 
     public enum TABS {
-        MAIN,
+        MAIN_LOGIN,
+        MAIN_TABS,
         HOME_FRAGMENT,
         PERSONAL_ACCOUNT,
         PAYMENTS,
@@ -50,7 +54,12 @@ public class ViewPagerDataFactory {
     public static ViewPagerData createList(final TABS type) {
         List<Fragment> fragmentList = new ArrayList<>();
         switch (type) {
-            case MAIN:
+            case MAIN_LOGIN:
+                fragmentList.add(LoginFragment.newInstance());
+                fragmentList.add(QuickBalanceFragment.newInstance());
+                return new ViewPagerData<>(fragmentList, VoidTab.values());
+
+            case MAIN_TABS:
                 addMainFragments(fragmentList);
                 return new ViewPagerData<>(fragmentList, MainTab.values());
 

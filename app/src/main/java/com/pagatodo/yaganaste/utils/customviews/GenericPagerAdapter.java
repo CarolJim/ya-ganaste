@@ -35,7 +35,7 @@ public class GenericPagerAdapter<T extends IEnumTab> extends FragmentPagerAdapte
 
     @Override
     public int getCount() {
-        return values.length;
+        return fragments.size();
     }
 
     @NonNull

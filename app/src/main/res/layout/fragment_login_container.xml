@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <!--com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager
+        android:id="@+id/deposito_view_pager"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" /-->
+
+    <com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager
+        android:id="@+id/vp_login"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"/>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="horizontal"
+        android:gravity="center_vertical">
+
+        <android.support.v7.widget.AppCompatImageView
+            android:id="@+id/img_arrow_previous"
+            android:layout_width="@dimen/activity_horizontal_double_margin"
+            android:layout_height="@dimen/activity_horizontal_double_margin"
+            android:rotationY="180"
+            app:srcCompat="@drawable/arrow_canvas_blue"
+            android:foreground="?attr/selectableItemBackground" />
+
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="1"/>
+
+        <ImageView
+            android:id="@+id/img_arrow_next"
+            android:layout_width="@dimen/activity_horizontal_double_margin"
+            android:layout_height="@dimen/activity_horizontal_double_margin"
+            app:srcCompat="@drawable/arrow_canvas_blue"
+            android:foreground="?attr/selectableItemBackground" />
+
+    </LinearLayout>
+
+</FrameLayout>

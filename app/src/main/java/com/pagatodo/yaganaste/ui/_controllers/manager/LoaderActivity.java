@@ -17,7 +17,7 @@ import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
  * @author Juan Guerra on 09/05/2017.
  */
 
-public class LoaderActivity extends SupportFragmentActivity implements OnEventListener, IProgressView<ErrorObject>{
+public class LoaderActivity extends ToolBarActivity implements OnEventListener, IProgressView<ErrorObject>{
 
     public static final String EVENT_SHOW_LOADER = "EVENT_SHOW_LOADER";
     public static final String EVENT_HIDE_LOADER = "EVENT_HIDE_LOADER";

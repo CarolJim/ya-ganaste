@@ -27,6 +27,8 @@ import com.pagatodo.yaganaste.utils.FontCache;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
+
 /**
  * Created by Jordan on 17/05/2017.
  */
@@ -81,18 +83,6 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             txtNumberCard.setText(cardNumber);
         }
         printCard(cardNumber);
-    }
-
-    private String getCreditCardFormat(String card){
-        StringBuilder result = new StringBuilder();
-        for (int i = 0; i < card.length(); i++) {
-            if (i % 4 == 0 && i != 0) {
-                result.append(" ");
-            }
-            result.append(card.charAt(i));
-        }
-
-        return result.toString();
     }
 
     @Override

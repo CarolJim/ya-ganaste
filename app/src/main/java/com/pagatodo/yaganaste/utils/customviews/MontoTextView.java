@@ -29,6 +29,8 @@ public class MontoTextView extends StyleTextView {
         init(context,attrs);
     }
 
+
+
     private void  init(Context context,AttributeSet attrs) {
         if (attrs != null) {
             TypedArray typedArray = context.getTheme().obtainStyledAttributes(

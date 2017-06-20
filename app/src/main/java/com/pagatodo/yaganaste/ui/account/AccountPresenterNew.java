@@ -9,12 +9,14 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountAddressRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;
@@ -22,15 +24,22 @@ import com.pagatodo.yaganaste.interfaces.IAccountIteractorNew;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAccountPresenterNew;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
+import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.interfaces.IDocumentsPresenter;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
+import com.pagatodo.yaganaste.interfaces.IProgressView;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
 import com.pagatodo.yaganaste.interfaces.RecoveryPasswordView;
+import com.pagatodo.yaganaste.interfaces.View;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.TabPresenterImpl;
 import com.pagatodo.yaganaste.utils.Codec;
+import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.List;
@@ -52,24 +61,29 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIV
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
 import static com.pagatodo.yaganaste.utils.Recursos.CRC32_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
+import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 
 /**
  * Created by flima on 22/03/2017.
  */
 
-public class AccountPresenterNew implements IAccountPresenterNew, IAccountManager {
+public class AccountPresenterNew extends TabPresenterImpl implements IAccountPresenterNew, IAccountManager {
     private static final String TAG = AccountPresenterNew.class.getName();
     private IAccountIteractorNew accountIteractor;
     private INavigationView accountView;
     private Preferencias prefs = App.getInstance().getPrefs();
 
     public AccountPresenterNew(Context context) {
+        super();
         accountIteractor = new AccountInteractorNew(this);
     }
 
 
-    public void setIView( INavigationView accountView){
-        this.accountView = accountView;
+    public void setIView( View accountView){
+        this.accountView = (INavigationView) accountView;
+        if (accountView instanceof TabsView) {
+            setTabsView((TabsView) accountView);
+        }
     }
 
     @Override
@@ -131,7 +145,7 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
     @Override
     public void validatePasswordFormat(String password) {
         accountView.showLoader(App.getInstance().getString(R.string.validando_password));
-        accountIteractor.validatePassword(password);
+        accountIteractor.validatePassword(Utils.cipherRSA(password));
     }
 
     @Override
@@ -209,9 +223,15 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
                 ((RecoveryPasswordView) accountView).recoveryPasswordFailed(error.toString());
             }
 
-        }else{
+        }else if (! (accountView instanceof IBalanceView) ){
             accountView.showError(error);
         }
+    }
+
+    @Override
+    public void updateBalance() {
+        this.accountView.showLoader("Actualizando Saldo");
+        accountIteractor.getBalance();
     }
 
     @Override
@@ -273,6 +293,14 @@ public class AccountPresenterNew implements IAccountPresenterNew, IAccountManage
         }else if(ws == CERRAR_SESION){
             Log.i(TAG,"La sesión se ha cerrado.");
         }
+    }
+
+    @Override
+    public void onSuccesBalance(ConsultarSaldoResponse response) {
+        App.getInstance().getPrefs().saveData(StringConstants.USER_BALANCE, response.getData().getSaldo());
+        App.getInstance().getPrefs().saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
+        this.accountView.hideLoader();
+        ((IBalanceView)this.accountView).updateBalance(response.getData().getSaldo());
     }
 
 }

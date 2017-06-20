@@ -106,7 +106,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         progressGIF = (ProgressLayout) findViewById(R.id.progressGIF);
         progressGIF.setVisibility(View.GONE);
 
-        tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN);
+        tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
         animHide = AnimationUtils.loadAnimation(this, R.anim.view_hide);
         animShow = AnimationUtils.loadAnimation(this, R.anim.view_show);
     }
@@ -233,7 +233,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             getFragment(1).onActivityResult(requestCode, resultCode, data);
         } else if (requestCode == REGISTER_ADQUIRENTE_CODE && resultCode == RESULT_ADQUIRENTE_SUCCESS) {
             showMainTab();
-            tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN);
+            tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
         }
     }
 
@@ -248,7 +248,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     protected Fragment getFragment(int fragmentType) {
-        List<Fragment> fragmentList = fragmentManager.getFragments();
+        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
         if (fragmentList != null) {
             for (Fragment fragment : fragmentList) {
                 if ( (fragmentType == 0 && fragment instanceof PaymentsTabFragment)

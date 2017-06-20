@@ -70,30 +70,8 @@ public class BalanceFragment extends GenericFragment implements View.OnClickList
         return fragmentRegister;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-    }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
 
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

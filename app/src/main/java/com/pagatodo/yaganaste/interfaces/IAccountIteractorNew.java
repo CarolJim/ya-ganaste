@@ -30,6 +30,7 @@ public interface IAccountIteractorNew <T>{
     public void verifyActivationSMS();
     public void assignmentNIP(AsignarNIPRequest request);
     public void recoveryPassword(RecuperarContraseniaRequest request);
+    void getBalance();
 
 }
 

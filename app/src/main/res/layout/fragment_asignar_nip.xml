@@ -5,15 +5,11 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_bottom"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
 
-    <include
-        android:id="@+id/toolbarLy"
-        layout="@layout/toolbar" />
 
     <RelativeLayout
         android:layout_width="match_parent"

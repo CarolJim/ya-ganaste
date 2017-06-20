@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
@@ -38,6 +39,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActi
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarNIPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarAsignacionTarjetaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataConsultarAsignacion;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataCuentaDisponible;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
@@ -49,6 +51,7 @@ import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
@@ -59,6 +62,8 @@ import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.LOGIN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
@@ -292,6 +297,15 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     @Override
+    public void getBalance() {
+        try {
+            ApiTrans.consultarSaldo(this);
+        } catch (OfflineException e) {
+            accountManager.onError(CONSULTAR_SALDO, null);
+        }
+    }
+
+    @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
 
         switch (dataSourceResult.getWebService()) {
@@ -367,6 +381,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 proccesDataRecuperarContrasenia(dataSourceResult);
                 break;
 
+            case CONSULTAR_SALDO:
+                validateBalanceResponse((ConsultarSaldoResponse) dataSourceResult.getData());
+                break;
+
             default:
                 break;
         }
@@ -375,6 +393,14 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void onFailed(DataSourceResult error) {
         accountManager.onError(error.getWebService(), error.getData().toString());
+    }
+
+    private void validateBalanceResponse(ConsultarSaldoResponse response) {
+        if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+            accountManager.onSuccesBalance(response);
+        } else {
+            accountManager.onError(CONSULTAR_SALDO, null);
+        }
     }
 
     /**

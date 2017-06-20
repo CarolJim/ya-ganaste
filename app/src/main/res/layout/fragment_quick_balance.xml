@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:id="@+id/swipe_container"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <FrameLayout
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_marginLeft="@dimen/activity_horizontal_margin"
+    android:layout_marginRight="@dimen/activity_horizontal_margin">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_name_user"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/bienvenido_usuario"
+                android:textColor="@color/bluecolor_disable"
+                android:layout_marginTop="@dimen/activity_horizontal_double_margin"
+                android:textSize="18sp" />
+
+        </LinearLayout>
+
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:gravity="center_vertical">
+
+            <include
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/activity_horizontal_margin"
+                android:layout_marginRight="@dimen/activity_horizontal_margin"
+                layout="@layout/layout_ya_card"/>
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txtMessageCard"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/radioHasCard"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:gravity="center"
+                android:text="@string/saldo_personal"
+                android:textSize="@dimen/text_screen_size_normal" />
+
+            <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+                android:id="@+id/txt_saldo"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="00"
+                android:textAlignment="center"
+                android:textSize="22sp"
+                app:dotBottom="false"
+                app:symbolSmaller="true" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txt_date_updated"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_below="@+id/radioHasCard"
+                android:layout_marginBottom="@dimen/margin_small"
+                android:layout_marginTop="@dimen/margin_medium"
+                android:gravity="center"
+                android:text="Actualizado el 15/Jun/2017 24:24:59"
+                android:textSize="@dimen/text_screen_size_normal" />
+
+        </LinearLayout>
+
+    </FrameLayout>
+
+
+</android.support.v4.widget.SwipeRefreshLayout>

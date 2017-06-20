@@ -16,103 +16,64 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
 /**
  * Created by Jordan on 07/04/2017.
+ * Updated by jguerras on 15/06/2017.
  */
 
 public abstract class SupportFragment extends GenericFragment {
 
-    protected FragmentManager fragmentManager;
-    private
-    @IdRes
-    int containerID;
-    GenericFragment lastFragment;
+    private SupportComponent mSupportComponent;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        fragmentManager = getChildFragmentManager();
-        containerID = -1;
+        this.mSupportComponent = new SupportComponent(getChildFragmentManager());
     }
 
     protected void loadFragment(@NonNull GenericFragment fragment) {
-        loadFragment(fragment, R.id.container, Direction.NONE, false);
+        mSupportComponent.loadFragment(fragment, R.id.container, Direction.NONE, false);
     }
 
     protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer) {
-        loadFragment(fragment, idContainer, Direction.NONE, false);
+        mSupportComponent.loadFragment(fragment, idContainer, Direction.NONE, false);
     }
 
     protected void loadFragment(@NonNull GenericFragment fragment, boolean addToBackStack) {
-        loadFragment(fragment, R.id.container, Direction.NONE, addToBackStack);
+        mSupportComponent.loadFragment(fragment, R.id.container, Direction.NONE, addToBackStack);
     }
 
     protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, boolean addToBackStack) {
-        loadFragment(fragment, idContainer, Direction.NONE, addToBackStack);
+        mSupportComponent.loadFragment(fragment, idContainer, Direction.NONE, addToBackStack);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction) {
-        loadFragment(fragment, R.id.container, Direction, false);
+    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction direction) {
+        mSupportComponent.loadFragment(fragment, R.id.container, direction, false);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction Direction) {
-        loadFragment(fragment, idContainer, Direction, false);
+    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction direction) {
+        mSupportComponent.loadFragment(fragment, idContainer, direction, false);
     }
 
     protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction,
                                 boolean addToBackStack) {
-        loadFragment(fragment, R.id.container, Direction, addToBackStack);
+        mSupportComponent.loadFragment(fragment, R.id.container, Direction, addToBackStack);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction Direction,
+    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction direction,
                                 boolean addToBackStack) {
-        this.containerID = idContainer;
-        FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if (!Direction.equals(Direction.NONE)) {
-            fragmentTransaction.setCustomAnimations(Direction.getEnterAnimation(), Direction.getExitAnimation());
-        }
-        if (addToBackStack) {
-            fragmentTransaction.addToBackStack(null);
-        }
-        lastFragment = fragment;
-        fragmentTransaction.replace(idContainer, fragment, fragment.getFragmentTag()).commit();
+
+        mSupportComponent.loadFragment(fragment, idContainer, direction, addToBackStack);
     }
 
     protected void removeLastFragment() {
-        if (lastFragment != null) {
-            FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-            fragmentTransaction.remove(lastFragment).commit();
-        }
+        mSupportComponent.removeLastFragment();
     }
 
     protected Fragment getCurrentFragment() {
-        if (containerID != -1) {
-            return getCurrentFragment(containerID);
-        }
-        return null;
+        return mSupportComponent.getCurrentFragment();
     }
 
     protected Fragment getCurrentFragment(@IdRes int idContainer) {
-        return fragmentManager.findFragmentById(idContainer);
+        return mSupportComponent.getCurrentFragment(idContainer);
     }
 
-    protected static void showProgress(Context c, String title, String msg, ProgressDialog mProgressDialog) {
-        if (mProgressDialog != null && mProgressDialog.isShowing())
-            dismissProgress(mProgressDialog);
-
-        mProgressDialog = ProgressDialog.show(c, title, msg);
-    }
-
-    protected static void dismissProgress(ProgressDialog mProgressDialog) {
-        if (mProgressDialog != null) {
-            mProgressDialog.dismiss();
-            mProgressDialog = null;
-        }
-    }
-
-    protected Fragment getLastFragment() {
-        return lastFragment;
-    }
-
-    protected void setLastFragment(GenericFragment f) {
-        lastFragment = f;
-    }
 }

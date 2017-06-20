@@ -1,8 +1,6 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
@@ -42,11 +40,11 @@ import butterknife.ButterKnife;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.DEFAULT_CARD;
 import static com.pagatodo.yaganaste.utils.Utils.getCardNumberRamdon;
-
-import butterknife.BindView;
 
 
 /**
@@ -74,9 +72,9 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     CustomKeyboardView keyboardView;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
-    @BindView(R.id.fragment_tienes_tarjeta_date_tdc)
+    @BindView(R.id.txt_tarjeta_date_tdc)
     StyleTextView dateTDC;
-    @BindView(R.id.fragment_tienes_tarjeta_user_name)
+    @BindView(R.id.txt_tarjeta_user_name)
     StyleTextView userName;
     private AccountPresenterNew accountPresenter;
 
@@ -311,13 +309,12 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void showLoader(String message) {
-        progressLayout.setVisibility(VISIBLE);
-        progressLayout.setTextMessage(message);
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-        progressLayout.setVisibility(GONE);
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override
