@@ -59,20 +59,20 @@ public class WsCaller implements IServiceConsumer {
                 request.getMethod(),
                 request.getMethod() == POST ? request.get_url_request() : parseGetRequest(request.get_url_request(), request.getBody()),
                 request.getMethod() == POST ? request.getBody() : null,
-                new Response.Listener<JSONObject>() {
+                request.getRequestResult() != null ? new Response.Listener<JSONObject>() {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "Response Success : " + response.toString());
                         request.getRequestResult().onSuccess(new DataSourceResult(request.getMethod_name(),DataSource.WS,UtilsNet.jsonToObject(response.toString(),request.getTypeResponse())));
                     }
-                },
-                new Response.ErrorListener() {
+                } : null,
+                request.getRequestResult() != null ? new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "Request Failed : " + error.getMessage());
                         request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(),DataSource.WS,CustomErrors.getError(error)));
                     }
-                },request.getHeaders());
+                } : null,request.getHeaders());
 
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
                 request.getTimeOut(),
