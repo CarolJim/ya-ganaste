@@ -7,7 +7,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.LinearLayout;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
@@ -16,9 +16,15 @@ import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
-import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
+import java.text.DateFormat;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Locale;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @author Juan Guerra on 12/04/2017.
@@ -28,29 +34,47 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
 
     private View rootView;
 
-    private TextView txtItemMovDate;
-    private TextView txtItemMovMonth;
-    LinearLayout layoutMovementDate;
-    private TextView txtConceptShort;
-    private TextView txtMarca;
-    private TextView txtMonto;
-    private TextView txtItemMovCents;
-    LinearLayout layoutMovementAmount;
-    private TextView txtSuccesFullConcept;
-    private TextView txtSuccesFullAutorization;
-    private TextView cardInfo;
-    private TextView issuingBank;
-    private TextView dateTime;
-    private Button btnCancel;
+    @BindView(R.id.txtItemMovDate)
+    TextView txtItemMovDate;
+    @BindView(R.id.txtItemMovMonth)
+    TextView txtItemMovMonth;
+    @BindView(R.id.txt_concept_short)
+    TextView txtConceptShort;
+    @BindView(R.id.txt_marca)
+    TextView txtMarca;
+    @BindView(R.id.txt_monto)
+    MontoTextView txtMonto;
+    @BindView(R.id.imageDetail)
+    ImageView imageDetail;
+
+    @BindView(R.id.txtMontoDescripcion)
+    MontoTextView txtMontoDescripcion;
+    @BindView(R.id.txtRefernciaDescripcion)
+    TextView txtRefernciaDescripcion;
+    @BindView(R.id.txtConceptoDescripcion)
+    TextView txtConceptoDescripcion;
+    @BindView(R.id.txtFechaDescripcion)
+    TextView txtFechaDescripcion;
+    @BindView(R.id.txtHoraDescripcion)
+    TextView txtHoraDescripcion;
+    @BindView(R.id.txtAutorizacionDescripcion)
+    TextView txtAutorizacionDescripcion;
+    @BindView(R.id.txtReciboDescripcion)
+    TextView txtReciboDescripcion;
+
+    @BindView(R.id.btn_cancel)
+    Button btnCancel;
+    @BindView(R.id.btn_volver)
+    Button btnVolver;
 
     private DataMovimientoAdq dataMovimientoAdq;
 
-    public static DetailsAdquirenteFragment newInstance(@NonNull DataMovimientoAdq dataMovimientoAdq){
-        DetailsAdquirenteFragment detailsEmisorFragment = new DetailsAdquirenteFragment();
+    public static DetailsAdquirenteFragment newInstance(@NonNull DataMovimientoAdq dataMovimientoAdq) {
+        DetailsAdquirenteFragment fragment = new DetailsAdquirenteFragment();
         Bundle args = new Bundle();
         args.putSerializable(DetailsActivity.DATA, dataMovimientoAdq);
-        detailsEmisorFragment.setArguments(args);
-        return detailsEmisorFragment;
+        fragment.setArguments(args);
+        return fragment;
     }
 
     @Override
@@ -58,7 +82,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         if (args != null) {
-            dataMovimientoAdq = (DataMovimientoAdq)args.getSerializable(DetailsActivity.DATA);
+            dataMovimientoAdq = (DataMovimientoAdq) args.getSerializable(DetailsActivity.DATA);
         } else {
             throw new IllegalCallException(DetailsAdquirenteFragment.class.getSimpleName() + "must be called by newInstance factory method");
         }
@@ -73,55 +97,55 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
-        loadViews();
         initViews();
     }
 
-    private void loadViews() {
-        txtItemMovDate = (TextView)rootView.findViewById(R.id.txtItemMovDate);
-        txtItemMovMonth = (TextView)rootView.findViewById(R.id.txtItemMovMonth);
-        layoutMovementDate = (LinearLayout)rootView.findViewById(R.id.layoutMovementDate);
-        txtConceptShort = (TextView)rootView.findViewById(R.id.txt_concept_short);
-        txtMarca = (TextView)rootView.findViewById(R.id.txt_marca);
-        txtMonto = (TextView)rootView.findViewById(R.id.txt_monto);
-        txtItemMovCents = (TextView)rootView.findViewById(R.id.txtItemMovCents);
-        layoutMovementAmount = (LinearLayout)rootView.findViewById(R.id.layoutMovementAmount);
-        txtSuccesFullConcept = (TextView)rootView.findViewById(R.id.txtSuccesFullConcept);
-        txtSuccesFullAutorization = (TextView)rootView.findViewById(R.id.txtSuccesFullAutorization);
-        cardInfo = (TextView)rootView.findViewById(R.id.cardInfo);
-        issuingBank = (TextView)rootView.findViewById(R.id.issuingBank);
-        dateTime = (TextView)rootView.findViewById(R.id.date_time);
-        btnCancel = (Button) rootView.findViewById(R.id.btn_cancel);
-    }
 
     @Override
     public void initViews() {
+        ButterKnife.bind(this, rootView);
+        //String[] monto = Utils.getCurrencyValue(dataMovimientoAdq.getMonto()).split("\\.");
 
-        String[] monto = Utils.getCurrencyValue(dataMovimientoAdq.getMonto()).split("\\.");
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(DateUtil.getAdquirenteMovementDate(dataMovimientoAdq.getFecha()));
+
 
         txtItemMovDate.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         txtItemMovMonth.setText(DateUtil.getMonthShortName(calendar));
         txtConceptShort.setText(dataMovimientoAdq.getOperacion());
         txtMarca.setText(dataMovimientoAdq.getCompania());
-        txtMonto.setText(monto[0]);
-        txtItemMovCents.setText(monto[1]);
-        txtSuccesFullConcept.setText(dataMovimientoAdq.getOperacion());
-        txtSuccesFullAutorization.setText(dataMovimientoAdq.getNoAutorizacion());
-        cardInfo.setText(dataMovimientoAdq.getTipoTarjetaBancaria() + "," + dataMovimientoAdq.getReferencia());
-        issuingBank.setText(dataMovimientoAdq.getBancoEmisor() + "," + dataMovimientoAdq.getMarcaTarjetaBancaria());
-        dateTime.setText(dataMovimientoAdq.getFecha());
+        txtMonto.setText(dataMovimientoAdq.getMonto());
+        txtMontoDescripcion.setText(dataMovimientoAdq.getMonto());
+        txtRefernciaDescripcion.setText(dataMovimientoAdq.getReferencia());
+        txtConceptoDescripcion.setText(dataMovimientoAdq.getOperacion());
+
+        DateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy", new Locale("es", "ES"));
+        txtFechaDescripcion.setText(dateFormat.format(calendar.getTime()));
+        DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", new Locale("es", "ES"));
+        txtHoraDescripcion.setText(hourFormat.format(calendar.getTime()) + " hrs");
+
+        txtAutorizacionDescripcion.setText(dataMovimientoAdq.getNoAutorizacion().trim().toString());
+        txtReciboDescripcion.setText(dataMovimientoAdq.getNoTicket());
 
         if (dataMovimientoAdq.isEsPendiente()) {
             btnCancel.setVisibility(View.VISIBLE);
             btnCancel.setOnClickListener(this);
         }
+
+        btnVolver.setOnClickListener(this);
     }
 
 
     @Override
     public void onClick(View v) {
         // TODO: 14/06/2017 Proceso para cancelar venta
+        switch (v.getId()) {
+            case R.id.btn_volver:
+                getActivity().onBackPressed();
+                break;
+            case R.id.btn_cancel:
+                ((DetailsActivity) getActivity()).loadCancelFragment(dataMovimientoAdq);
+                break;
+        }
     }
 }

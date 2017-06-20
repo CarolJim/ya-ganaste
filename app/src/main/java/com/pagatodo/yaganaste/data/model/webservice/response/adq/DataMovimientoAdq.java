@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.adq;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 
 /**
@@ -21,22 +23,32 @@ public class DataMovimientoAdq implements Serializable {
     private String montoAdicional;
     private String noAutorizacion;
     private String noSecUnicoPT;
+    private String noTicket;
     private String nombre;
     private String operacion;
     private String referencia;
     private String urlMapa;
-    private String Afiliacion;
-    private String BancoEmisor;
-    private String MarcaTarjetaBancaria;
-    private String NoAgente;
-    private String RazonSocialAgente;
-    private String TipoTarjetaBancaria;
+    @SerializedName("Afiliacion")
+    private String afiliacion;
+    @SerializedName("BancoEmisor")
+    private String bancoEmisor;
+    @SerializedName("MarcaTarjetaBancaria")
+    private String marcaTarjetaBancaria;
+    @SerializedName("MontoAdqComision")
+    private String montoAdqComision;
+    @SerializedName("MontoAdqComisionIva")
+    private String montoAdqComisionIva;
+    @SerializedName("NoAgente")
+    private String noAgente;
+    @SerializedName("RazonSocialAgente")
+    private String razonSocialAgente;
+    @SerializedName("TipoTarjetaBancaria")
+    private String tipoTarjetaBancaria;
+    private boolean esReversada;
 
 
     public DataMovimientoAdq() {
     }
-
-
 
     public String getCompania() {
         return compania;
@@ -142,6 +154,14 @@ public class DataMovimientoAdq implements Serializable {
         this.noSecUnicoPT = noSecUnicoPT;
     }
 
+    public String getNoTicket() {
+        return noTicket;
+    }
+
+    public void setNoTicket(String noTicket) {
+        this.noTicket = noTicket;
+    }
+
     public String getNombre() {
         return nombre;
     }
@@ -175,50 +195,74 @@ public class DataMovimientoAdq implements Serializable {
     }
 
     public String getAfiliacion() {
-        return Afiliacion;
+        return afiliacion;
     }
 
     public void setAfiliacion(String afiliacion) {
-        Afiliacion = afiliacion;
+        this.afiliacion = afiliacion;
     }
 
     public String getBancoEmisor() {
-        return BancoEmisor;
+        return bancoEmisor;
     }
 
     public void setBancoEmisor(String bancoEmisor) {
-        BancoEmisor = bancoEmisor;
+        this.bancoEmisor = bancoEmisor;
     }
 
     public String getMarcaTarjetaBancaria() {
-        return MarcaTarjetaBancaria;
+        return marcaTarjetaBancaria;
     }
 
     public void setMarcaTarjetaBancaria(String marcaTarjetaBancaria) {
-        MarcaTarjetaBancaria = marcaTarjetaBancaria;
+        this.marcaTarjetaBancaria = marcaTarjetaBancaria;
+    }
+
+    public String getMontoAdqComision() {
+        return montoAdqComision;
+    }
+
+    public void setMontoAdqComision(String montoAdqComision) {
+        this.montoAdqComision = montoAdqComision;
+    }
+
+    public String getMontoAdqComisionIva() {
+        return montoAdqComisionIva;
+    }
+
+    public void setMontoAdqComisionIva(String montoAdqComisionIva) {
+        this.montoAdqComisionIva = montoAdqComisionIva;
     }
 
     public String getNoAgente() {
-        return NoAgente;
+        return noAgente;
     }
 
     public void setNoAgente(String noAgente) {
-        NoAgente = noAgente;
+        this.noAgente = noAgente;
     }
 
     public String getRazonSocialAgente() {
-        return RazonSocialAgente;
+        return razonSocialAgente;
     }
 
     public void setRazonSocialAgente(String razonSocialAgente) {
-        RazonSocialAgente = razonSocialAgente;
+        this.razonSocialAgente = razonSocialAgente;
     }
 
     public String getTipoTarjetaBancaria() {
-        return TipoTarjetaBancaria;
+        return tipoTarjetaBancaria;
     }
 
     public void setTipoTarjetaBancaria(String tipoTarjetaBancaria) {
-        TipoTarjetaBancaria = tipoTarjetaBancaria;
+        this.tipoTarjetaBancaria = tipoTarjetaBancaria;
+    }
+
+    public boolean isEsReversada() {
+        return esReversada;
+    }
+
+    public void setEsReversada(boolean esReversada) {
+        this.esReversada = esReversada;
     }
 }

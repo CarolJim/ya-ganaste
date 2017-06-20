@@ -6,6 +6,8 @@
     <dimen name="thumb_off_set">8dp</dimen>
     <dimen name="fab_margin">10dp</dimen>
 
+    <dimen name="margin_xbig">48dp</dimen>
+    <dimen name="margin_xxbig">64dp</dimen>
     <dimen name="margin_doble">25dp</dimen>
     <dimen name="margin_regular">30dp</dimen>
     <dimen name="margin_big">24dp</dimen>
@@ -140,5 +142,8 @@
     <dimen name="tab_payments_stroke">1dp</dimen>
     <dimen name="tab_payments_radius">5.5dp</dimen>
 
+    <!-- Detalles Adquirente Descripcion movimiento -->
+    <dimen name="adq_monto_descripcion">9sp</dimen>
+    <dimen name="monto_cancel_size">28sp</dimen>
 </resources>
 

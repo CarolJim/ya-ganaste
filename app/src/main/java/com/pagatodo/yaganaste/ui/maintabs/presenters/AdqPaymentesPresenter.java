@@ -7,6 +7,7 @@ import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataResultAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
@@ -17,6 +18,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresent
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.MovementColorsFactory;
 import com.pagatodo.yaganaste.utils.StringUtils;
+
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
@@ -27,7 +29,7 @@ import java.util.List;
 
 public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl implements MovementsPresenter<AdquirentePaymentsTab>, MovementsManager<ResumenMovimientosAdqResponse, String> {
 
-    private MovementsIteractor<ResumenMovimientosMesRequest>  movementsIteractor;
+    private MovementsIteractor<ResumenMovimientosMesRequest> movementsIteractor;
     private MovementsView<ItemMovements<DataMovimientoAdq>, T> movementsView;
 
     public AdqPaymentesPresenter(MovementsView<ItemMovements<DataMovimientoAdq>, T> movementsView) {
@@ -42,6 +44,33 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
         ResumenMovimientosMesRequest resumenMovimientosMesRequest = new ResumenMovimientosMesRequest();
         resumenMovimientosMesRequest.setFecha(data.getDate());
         movementsIteractor.getMovements(resumenMovimientosMesRequest);
+        /*
+        List<DataMovimientoAdq> movimientos = new ArrayList<>();
+        DataMovimientoAdq movimientoAdq = new DataMovimientoAdq();
+        movimientoAdq.setAfiliacion("123");
+        movimientoAdq.setBancoEmisor("Banco felicidad");
+        movimientoAdq.setCompania("PAtito");
+        movimientoAdq.setDescripcionRechazo("Por que si");
+        movimientoAdq.setEsAprobada(true);
+        movimientoAdq.setEsCargo(true);
+        movimientoAdq.setEsPendiente(true);
+        movimientoAdq.setFecha("17/Jul/2017 17:00");//dd/MMM/yyyy hh:mm
+        movimientoAdq.setIdTransaction("12345678");
+        movimientoAdq.setMarcaTarjetaBancaria("cualquierdato");
+        movimientoAdq.setNoAutorizacion("123453221");
+        movimientoAdq.setMonto("2000.00");
+        movimientoAdq.setTipoTarjetaBancaria("VISA");
+        movimientos.add(movimientoAdq);
+
+        DataResultAdq result = new DataResultAdq();
+        result.setId("123");
+        result.setMessage("Ok");
+        result.setTitle("Title");
+
+        ResumenMovimientosAdqResponse response = new ResumenMovimientosAdqResponse(movimientos,
+                result, "15000.00", "14000.00", "", "");
+
+        onSuccesResponse(response);*/
     }
 
     @Override
@@ -52,14 +81,14 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void onSuccesResponse(ResumenMovimientosAdqResponse response) {
-       Log.e("AdqPaymentesPresenter" , " response " + response.getMovimientos() );
-        if (response.getMovimientos() == null){
+        Log.e("AdqPaymentesPresenter", " response " + response.getMovimientos());
+        if (response.getMovimientos() == null) {
             movementsView.loadMovementsResult(new ArrayList<ItemMovements<DataMovimientoAdq>>());
         }
         List<ItemMovements<DataMovimientoAdq>> movementsList = new ArrayList<>();
         Calendar calendar = Calendar.getInstance();
 
-        for (DataMovimientoAdq movimientoAdq : response.getMovimientos()){
+        for (DataMovimientoAdq movimientoAdq : response.getMovimientos()) {
             calendar.setTime(DateUtil.getAdquirenteMovementDate(movimientoAdq.getFecha()));
 
             movementsList.add(new ItemMovements<>(movimientoAdq.getOperacion(), movimientoAdq.getCompania(),

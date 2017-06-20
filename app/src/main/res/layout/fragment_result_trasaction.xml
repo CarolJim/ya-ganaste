@@ -72,6 +72,37 @@
         android:orientation="horizontal"
         android:gravity="center">
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:visibility="gone"
+            android:weightSum="100">
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btn_continueEnvio"
+                android:layout_width="0dp"
+                android:layout_height="@dimen/height_btns"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_weight="40"
+                android:gravity="center"
+                android:background="@drawable/selector_btn_continuar"
+                android:text="Terminar"
+                android:textAllCaps="false"
+                android:textSize="@dimen/generic_button_normal_text_size"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="30" />
+        </LinearLayout>
+
+
         <!--<com.pagatodo.yaganaste.utils.customviews.StyleButton-->
             <!--style="@style/buttonDirecctionBack"-->
             <!--android:id="@+id/btnNextResult"-->

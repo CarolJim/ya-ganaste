@@ -5,12 +5,14 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.exceptions.NullObjectExcepcion;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
+import com.pagatodo.yaganaste.ui.adqtransactioncancel.fragments.DetailTransactionAdqCancel;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
 
@@ -25,7 +27,7 @@ public class DetailsActivity extends SupportFragmentActivity {
     public static final String DATA = "data";
     public static final String TYPE = "type";
 
-    enum TYPES{
+    enum TYPES {
         EMISOR,
         ADQUIRENTE
     }
@@ -75,5 +77,9 @@ public class DetailsActivity extends SupportFragmentActivity {
         } else {
             throw new NullObjectExcepcion("Type is not recognized");
         }
+    }
+
+    public void loadCancelFragment(DataMovimientoAdq data) {
+        loadFragmentForward(DetailTransactionAdqCancel.newInstance(data), true);
     }
 }
