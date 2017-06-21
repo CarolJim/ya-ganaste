@@ -3,14 +3,14 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    tools:showIn="@layout/activity_main">
+    xmlns:app="http://schemas.android.com/apk/res-auto" >
 
     <ImageView
         android:id="@+id/imgBgRollPage"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:scaleType="centerCrop"
+        android:layout_height="wrap_content"
+        android:adjustViewBounds="true"
+        android:scaleType="fitXY"
         android:src="@drawable/carrousel3"
         tools:ignore="ContentDescription" />
 
@@ -42,15 +42,6 @@
         android:visibility="visible"
         android:background="#20000000" />
 
-    <ImageView
-        android:id="@+id/imgRollPagerYaGanaste"
-        android:layout_width="100dp"
-        android:visibility="gone"
-        android:layout_height="100dp"
-        android:layout_centerHorizontal="true"
-        android:layout_marginTop="60dp"
-        android:src="@mipmap/logo_splash"
-        tools:ignore="ContentDescription" />
 
     <TextView
         android:visibility="gone"
