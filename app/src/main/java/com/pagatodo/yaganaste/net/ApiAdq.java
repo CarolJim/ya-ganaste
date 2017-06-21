@@ -243,6 +243,6 @@ public class ApiAdq extends Api {
 
         NetFacade.consumeWS(CANCELA_TRANSACTION_EMV_DEPOSIT,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.cancelationTransactionEmv),
-                headers, request, RegistroDongleResponse.class, result);
+                headers, request, TransaccionEMVDepositResponse.class, result);
     }
 }

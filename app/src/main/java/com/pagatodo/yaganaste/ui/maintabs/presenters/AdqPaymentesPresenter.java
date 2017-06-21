@@ -7,7 +7,6 @@ import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
-import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataResultAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
@@ -16,12 +15,16 @@ import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.MovementsIteract
 import com.pagatodo.yaganaste.ui.maintabs.managers.MovementsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
 import com.pagatodo.yaganaste.utils.DateUtil;
-import com.pagatodo.yaganaste.utils.MovementColorsFactory;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
+
+import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.APROBADO;
+import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CANCELADO;
+import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CARGO;
+import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.PENDIENTE;
 
 /**
  * @author Juan Guerra on 28/03/2017.
@@ -90,11 +93,21 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
         for (DataMovimientoAdq movimientoAdq : response.getMovimientos()) {
             calendar.setTime(DateUtil.getAdquirenteMovementDate(movimientoAdq.getFecha()));
+            movimientoAdq.setEsPendiente(true);
+            int color;
+            if (movimientoAdq.isEsCargo()) {
+                color = CARGO.getColor();
+            } else if (movimientoAdq.isEsReversada()) {
+                color = CANCELADO.getColor();
+            } else if (movimientoAdq.isEsPendiente()) {
+                color = PENDIENTE.getColor();
+            } else {
+                color = APROBADO.getColor();
+            }
 
             movementsList.add(new ItemMovements<>(movimientoAdq.getOperacion(), movimientoAdq.getCompania(),
                     StringUtils.getDoubleValue(movimientoAdq.getMonto()), String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)),
-                    DateUtil.getMonthShortName(calendar), MovementColorsFactory.getColorMovement(3), movimientoAdq));
-            //// TODO: 28/03/2017 Verificar que codigo es 3
+                    DateUtil.getMonthShortName(calendar), color, movimientoAdq));
         }
         movementsView.loadMovementsResult(movementsList);
         movementsView.hideLoader();

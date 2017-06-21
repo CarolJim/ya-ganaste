@@ -7,25 +7,47 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.exceptions.NullObjectExcepcion;
-import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
+import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.adqtransactioncancel.fragments.DetailTransactionAdqCancel;
+import com.pagatodo.yaganaste.ui.adquirente.InsertDongleFragment;
+import com.pagatodo.yaganaste.ui.adquirente.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
 
 import java.io.Serializable;
 
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
+
 /**
  * @author Juan Guerra on 11/04/2017.
  */
 
-public class DetailsActivity extends SupportFragmentActivity {
+public class DetailsActivity extends LoaderActivity implements OnEventListener {
 
     public static final String DATA = "data";
     public static final String TYPE = "type";
+    public final static String EVENT_GO_TO_FINALIZE = "FINALIZAR_CANCELACION";
+
+    @Override
+    public void onEvent(String event, Object data) {
+        super.onEvent(event, data);
+        switch (event) {
+            case EVENT_GO_TRANSACTION_RESULT:
+                loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()), Direction.FORDWARD, true);
+                break;
+            case EVENT_GO_TO_FINALIZE:
+                this.finish();
+                break;
+        }
+
+    }
 
     enum TYPES {
         EMISOR,
@@ -80,6 +102,10 @@ public class DetailsActivity extends SupportFragmentActivity {
     }
 
     public void loadCancelFragment(DataMovimientoAdq data) {
-        loadFragmentForward(DetailTransactionAdqCancel.newInstance(data), true);
+        loadFragment(DetailTransactionAdqCancel.newInstance(data), Direction.FORDWARD, true);
+    }
+
+    public void loadInsertDongleFragment(DataMovimientoAdq dataMovimientoAdq) {
+        loadFragment(InsertDongleFragment.newInstance(true, dataMovimientoAdq), Direction.FORDWARD, true);
     }
 }

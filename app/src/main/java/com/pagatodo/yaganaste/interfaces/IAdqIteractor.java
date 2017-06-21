@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.interfaces;
 
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.CancelaTransaccionDepositoEmvRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.EnviarTicketCompraRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.FirmaDeVoucherRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
@@ -10,10 +11,11 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDe
  */
 
 public interface IAdqIteractor {
-    public void loginAdq();
-    public void registerDongle();
-    public void initPayment(TransaccionEMVDepositRequest request);
-    public void sendSignalVoucher(FirmaDeVoucherRequest request);
-    public void sendTicket(EnviarTicketCompraRequest request);
+    void loginAdq();
+    void registerDongle();
+    void initPayment(TransaccionEMVDepositRequest request);
+    void initCancelPayment(CancelaTransaccionDepositoEmvRequest request);
+    void sendSignalVoucher(FirmaDeVoucherRequest request);
+    void sendTicket(EnviarTicketCompraRequest request);
 }
 

@@ -2,14 +2,20 @@ package com.pagatodo.yaganaste.interfaces;
 
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.SignatureData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 
 /**
  * Created by flima on 22/03/2017.
  */
 
 public interface IAdqPresenter {
-    public void validateDongle(String serial);
-    public void initTransaction(TransaccionEMVDepositRequest request);
-    public void sendSignature(SignatureData signatureData);
-    public void sendTicket(String email);
+    void validateDongle(String serial);
+
+    void initTransaction(TransaccionEMVDepositRequest request);
+
+    void initCancelation(TransaccionEMVDepositRequest request, DataMovimientoAdq dataMovimientoAdq);
+
+    void sendSignature(SignatureData signatureData);
+
+    void sendTicket(String email);
 }

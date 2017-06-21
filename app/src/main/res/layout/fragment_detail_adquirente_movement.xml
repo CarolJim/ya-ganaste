@@ -361,7 +361,7 @@
                 android:text="@string/cancelar_operacion"
                 android:textAllCaps="false"
                 android:textSize="@dimen/generic_button_normal_text_size"
-                android:visibility="visible" />
+                android:visibility="invisible" />
 
         </LinearLayout>
 

@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -25,6 +26,11 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.APROBADO;
+import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CANCELADO;
+import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CARGO;
+import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.PENDIENTE;
 
 /**
  * @author Juan Guerra on 12/04/2017.
@@ -61,6 +67,8 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     TextView txtAutorizacionDescripcion;
     @BindView(R.id.txtReciboDescripcion)
     TextView txtReciboDescripcion;
+    @BindView(R.id.layoutMovementTypeColor)
+    View layoutMovementTypeColor;
 
     @BindView(R.id.btn_cancel)
     Button btnCancel;
@@ -105,16 +113,27 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public void initViews() {
         ButterKnife.bind(this, rootView);
         //String[] monto = Utils.getCurrencyValue(dataMovimientoAdq.getMonto()).split("\\.");
+        int color;
+        if (dataMovimientoAdq.isEsCargo()) {
+            color = CARGO.getColor();
+        } else if (dataMovimientoAdq.isEsReversada()) {
+            color = CANCELADO.getColor();
+        } else if (dataMovimientoAdq.isEsPendiente()) {
+            color = PENDIENTE.getColor();
+        } else {
+            color = APROBADO.getColor();
+        }
+        layoutMovementTypeColor.setBackgroundColor(ContextCompat.getColor(getContext(), color));
 
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(DateUtil.getAdquirenteMovementDate(dataMovimientoAdq.getFecha()));
-
 
         txtItemMovDate.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         txtItemMovMonth.setText(DateUtil.getMonthShortName(calendar));
         txtConceptShort.setText(dataMovimientoAdq.getOperacion());
         txtMarca.setText(dataMovimientoAdq.getCompania());
         txtMonto.setText(dataMovimientoAdq.getMonto());
+        txtMonto.setTextColor(ContextCompat.getColor(getContext(), color));
         txtMontoDescripcion.setText(dataMovimientoAdq.getMonto());
         txtRefernciaDescripcion.setText(dataMovimientoAdq.getReferencia());
         txtConceptoDescripcion.setText(dataMovimientoAdq.getOperacion());

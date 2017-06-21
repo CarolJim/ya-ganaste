@@ -35,56 +35,56 @@ public abstract class SupportFragmentActivity extends AppCompatActivity {
         checkPermissions();
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment){
+    protected void loadFragment(@NonNull GenericFragment fragment) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction.NONE, false);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer){
+    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer) {
         mSupportComponent.loadFragment(fragment, idContainer, Direction.NONE, false);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, boolean addToBackStack){
+    protected void loadFragment(@NonNull GenericFragment fragment, boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction.NONE, addToBackStack);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, boolean addToBackStack){
+    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, idContainer, Direction.NONE, addToBackStack);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction){
+    protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction, false);
     }
 
-    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction Direction){
+    protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction Direction) {
         mSupportComponent.loadFragment(fragment, idContainer, Direction, false);
     }
 
     protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction Direction,
-                                boolean addToBackStack){
+                                boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, R.id.container, Direction, addToBackStack);
     }
 
     protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction direction,
-                                boolean addToBackStack){
+                                boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, idContainer, direction, addToBackStack);
     }
 
     protected void loadFragment(@NonNull Fragment fragment, @IdRes int idContainer, @NonNull Direction direction,
-                                boolean addToBackStack){
+                                boolean addToBackStack) {
         mSupportComponent.loadFragment(fragment, idContainer, direction, addToBackStack);
     }
 
-    protected Fragment getCurrentFragment(){
+    protected Fragment getCurrentFragment() {
         return mSupportComponent.getCurrentFragment();
     }
 
-    protected Fragment getCurrentFragment(@IdRes int idContainer){
+    protected Fragment getCurrentFragment(@IdRes int idContainer) {
         return mSupportComponent.getCurrentFragment(idContainer);
     }
 
-    protected void checkPermissions(){
+    protected void checkPermissions() {
 
-        if(!ValidatePermissions.isAllPermissionsActives(this,ValidatePermissions.getPermissionsCheck())){
+        if (!ValidatePermissions.isAllPermissionsActives(this, ValidatePermissions.getPermissionsCheck())) {
             ValidatePermissions.checkPermissions(this, ValidatePermissions.getPermissionsCheck(), PERMISSION_GENERAL);
         }
     }
@@ -93,7 +93,7 @@ public abstract class SupportFragmentActivity extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.PERMISSION_GENERAL) {
 
-            if(!ValidatePermissions.isAllPermissionsActives(this,ValidatePermissions.getPermissionsCheck())){
+            if (!ValidatePermissions.isAllPermissionsActives(this, ValidatePermissions.getPermissionsCheck())) {
                 checkPermissions();
             }
         }

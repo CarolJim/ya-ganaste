@@ -13,7 +13,6 @@ import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
-import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.adquirente.DetailTransactionFragment;
 import com.pagatodo.yaganaste.ui.adquirente.GetSignatureFragment;
 import com.pagatodo.yaganaste.ui.adquirente.InsertDongleFragment;
@@ -23,7 +22,7 @@ import com.pagatodo.yaganaste.ui.adquirente.TransactionResultFragment;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 
 
-public class AdqActivity extends LoaderActivity implements OnEventListener{
+public class AdqActivity extends LoaderActivity implements OnEventListener {
     private Preferencias pref;
 
     public static String KEY_TRANSACTION_DATA = "KEYTRANSACTIONDATA";
@@ -40,7 +39,7 @@ public class AdqActivity extends LoaderActivity implements OnEventListener{
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_conainer);
         pref = App.getInstance().getPrefs();
-        onEvent(EVENT_GO_INSERT_DONGLE,null);
+        onEvent(EVENT_GO_INSERT_DONGLE, null);
         //App.getInstance().initEMVListener();
 
     }
@@ -48,7 +47,7 @@ public class AdqActivity extends LoaderActivity implements OnEventListener{
     @Override
     public void onEvent(String event, Object data) {
         super.onEvent(event, data);
-        switch (event){
+        switch (event) {
             case EVENT_GO_INSERT_DONGLE:
                 loadFragment(InsertDongleFragment.newInstance(), Direction.FORDWARD, false);
                 break;
@@ -64,7 +63,6 @@ public class AdqActivity extends LoaderActivity implements OnEventListener{
             case EVENT_GO_DETAIL_TRANSACTION:
                 loadFragment(DetailTransactionFragment.newInstance(), Direction.FORDWARD, false);
                 break;
-
             case EVENT_GO_MAINTAB:
                 finish();
                 break;

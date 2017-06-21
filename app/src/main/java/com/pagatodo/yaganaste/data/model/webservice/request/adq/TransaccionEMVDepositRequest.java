@@ -6,21 +6,21 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class TransaccionEMVDepositRequest extends AdqRequest implements Serializable{
+public class TransaccionEMVDepositRequest extends AdqRequest implements Serializable {
 
     private static final long serialVersionUID = 891915655067780642L;
 
-    private String amount = "";
-    private EmvData emvData;
-    private ImplicitData implicitData;
-    private boolean isEMVTransaction;
     private String noSerie = "";
     private String noTicket = "";
-    private String noTransaction = "";
+    private String amount = "";
     private SwipeData swipeData;
+    private boolean isEMVTransaction;
     private String transactionDateTime = "";
+    private EmvData emvData;
     private String TipoCliente = "";
+    private String noTransaction = "";
     private AccountDepositData accountDepositData;
+    private ImplicitData implicitData;
 
     public String cardHolderName;
     public String maskedPAN;

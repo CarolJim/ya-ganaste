@@ -112,6 +112,7 @@ public class DetailTransactionAdqCancel extends GenericFragment implements View.
                 getActivity().onBackPressed();
                 break;
             case R.id.btnCancelCobro:
+                ((DetailsActivity) getActivity()).loadInsertDongleFragment(dataMovimientoAdq);
                 break;
         }
     }

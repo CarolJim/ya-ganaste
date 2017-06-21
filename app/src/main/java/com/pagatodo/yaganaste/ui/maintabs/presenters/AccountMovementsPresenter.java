@@ -9,13 +9,13 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovi
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
+import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.AccountMovementsIteractorImp;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.MovementsIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.managers.MovementsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
 import com.pagatodo.yaganaste.utils.DateUtil;
-import com.pagatodo.yaganaste.utils.MovementColorsFactory;
 import com.pagatodo.yaganaste.utils.StringConstants;
 
 import java.util.ArrayList;
@@ -30,7 +30,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterImpl implements MovementsPresenter<MonthsMovementsTab>,
         MovementsManager<ConsultarMovimientosMesResponse, ConsultarSaldoResponse> {
 
-    private MovementsIteractor<ConsultarMovimientosRequest>  movementsIteractor;
+    private MovementsIteractor<ConsultarMovimientosRequest> movementsIteractor;
     private MovementsView<ItemMovements<MovimientosResponse>, T> movementsView;
 
     public AccountMovementsPresenter(MovementsView<ItemMovements<MovimientosResponse>, T> movementsView) {
@@ -45,12 +45,12 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
         movementsView.showLoader("");
 
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
-        if (data.getYear() == -1){
+        if (data.getYear() == -1) {
             request.setAnio("");
             request.setMes("");
         } else {
             request.setAnio(String.valueOf(data.getYear()));
-            request.setMes(String.valueOf(data.getMonth()+1));
+            request.setMes(String.valueOf(data.getMonth() + 1));
         }
         request.setDireccion("");
         request.setIdMovimiento("");
@@ -65,7 +65,7 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
 
     @Override
     public void onSuccesResponse(ConsultarMovimientosMesResponse response) {
-        if (response.getData() == null){
+        if (response.getData() == null) {
             movementsView.loadMovementsResult(new ArrayList<ItemMovements<MovimientosResponse>>());
         }
         List<ItemMovements<MovimientosResponse>> movementsList = new ArrayList<>();
@@ -75,7 +75,8 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
             // TODO: 28/03/2017 Verificar si el color debe ser local o si viene del servicio
             movementsList.add(new ItemMovements<>(movimientosResponse.getDetalle(), movimientosResponse.getDescripcion(),
                     movimientosResponse.getTotal(), date[0], date[1],
-                    MovementColorsFactory.getColorMovement(movimientosResponse.getTipoMovimiento()), movimientosResponse));
+                    MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),
+                    movimientosResponse));
         }
         movementsView.loadMovementsResult(movementsList);
         movementsView.hideLoader();
@@ -95,7 +96,6 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
         movementsView.showError(error);
 
     }
-
 
 
 }

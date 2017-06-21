@@ -158,7 +158,7 @@ public class GetMountFragment extends PaymentFormBaseFragment {
                 float current_mount = Float.parseFloat(valueAmount);
                 String current_concept = edtConcept.getText().toString().trim();//Se agrega Concepto opcional
                 if (current_mount >= MIN_AMOUNT) {
-                    TransactionAdqData.getCurrentTransaction().setAmount(String.format("%s", current_mount));
+                    TransactionAdqData.getCurrentTransaction().setAmount(valueAmount);
                     TransactionAdqData.getCurrentTransaction().setDescription(current_concept);
                     setData("", "");
                     mySeekBar.setProgress(0);

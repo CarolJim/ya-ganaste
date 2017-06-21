@@ -1,8 +1,6 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
 import android.content.Context;
-import android.os.Handler;
-import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -11,7 +9,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
-import com.pagatodo.yaganaste.data.model.webservice.request.Request;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.CancelaTransaccionDepositoEmvRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.EnviarTicketCompraRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.FirmaDeVoucherRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
@@ -25,30 +23,24 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVD
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
-import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.enums.AccountOperation;
-import com.pagatodo.yaganaste.interfaces.enums.DataSource;
-import com.pagatodo.yaganaste.net.Api;
 import com.pagatodo.yaganaste.net.ApiAdq;
-import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
-import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 
 import java.io.Serializable;
-import java.util.concurrent.ExecutionException;
 
-import static com.pagatodo.yaganaste.interfaces.enums.AccountOperation.LOGIN_ADQ_PAYMENT;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELA_TRANSACTION_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_REMOVE_CARD;
-import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
-import static com.pagatodo.yaganaste.utils.Recursos.ADQ_ACCES_DENIED;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_ERROR;
@@ -90,14 +82,14 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
 
     @Override
     public void registerDongle() {
-            String serial = prefs.loadData(KSN_LECTOR);
-            RegistroDongleRequest request = new RegistroDongleRequest(serial);
-            try {
-                ApiAdq.registroDongle(request,this);
-            } catch (OfflineException e) {
-                accountManager.hideLoader();
-                accountManager.onError(REGISTRO_DONGLE, context.getString(R.string.no_internet_access));
-            }
+        String serial = prefs.loadData(KSN_LECTOR);
+        RegistroDongleRequest request = new RegistroDongleRequest(serial);
+        try {
+            ApiAdq.registroDongle(request, this);
+        } catch (OfflineException e) {
+            accountManager.hideLoader();
+            accountManager.onError(REGISTRO_DONGLE, context.getString(R.string.no_internet_access));
+        }
 // FLUJO DUMMY
 //        new Handler().postDelayed(new Runnable() {
 //            public void run() {
@@ -107,9 +99,20 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     }
 
     @Override
+    public void initCancelPayment(CancelaTransaccionDepositoEmvRequest request) {
+        try {
+            ApiAdq.cancelaTransaccionDepositoEmv(request, this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            accountManager.hideLoader();
+            accountManager.onError(CANCELA_TRANSACTION_EMV_DEPOSIT, context.getString(R.string.no_internet_access));
+        }
+    }
+
+    @Override
     public void initPayment(final TransaccionEMVDepositRequest request) {
         try {
-            ApiAdq.transaccionEMVDeposit(request,this);
+            ApiAdq.transaccionEMVDeposit(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.hideLoader();
@@ -184,7 +187,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     @Override
     public void sendSignalVoucher(FirmaDeVoucherRequest request) {
         try {
-            ApiAdq.firmaDeVoucher(request,this);
+            ApiAdq.firmaDeVoucher(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.onError(FIRMA_DE_VOUCHER, context.getString(R.string.no_internet_access));
@@ -201,7 +204,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     @Override
     public void sendTicket(EnviarTicketCompraRequest request) {
         try {
-            ApiAdq.enviarTicketCompra(request,this);
+            ApiAdq.enviarTicketCompra(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.hideLoader();
@@ -261,6 +264,11 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 processSendTicket(dataSourceResult);
                 break;
 
+            case CANCELA_TRANSACTION_EMV_DEPOSIT:
+                //processCancelAdq(dataSourceResult);
+                processCancelAdq(dataSourceResult);
+                break;
+
             default:
                 break;
         }
@@ -274,6 +282,68 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 break;
         }
         accountManager.onError(error.getWebService(), error.getData().toString());
+    }
+
+    /**
+     * @param response
+     */
+    private void processCancelAdq(DataSourceResult response) {
+        TransaccionEMVDepositResponse data = (TransaccionEMVDepositResponse) response.getData();
+        TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
+
+        switch (data.getError().getId()) {
+            case ADQ_CODE_OK:
+                result.setStatusTransaction(ADQ_TRANSACTION_APROVE);
+                result.setResponseCode(0);
+                result.setTransaccionResponse(data);
+                PageResult pageResult = new PageResult(R.drawable.ic_done, "Cancelación Exitosa", "El Cobro Fue Cancelado\nCorrectamente.", false);
+                pageResult.setNamerBtnPrimary("Terminar");
+                //pageResult.setNamerBtnSecondary("Llamar");
+                pageResult.setActionBtnPrimary(new Command() {
+                    @Override
+                    public void action(Context context, Object... params) {
+                        INavigationView viewInterface = (INavigationView) params[0];
+                        viewInterface.nextScreen(DetailsActivity.EVENT_GO_TO_FINALIZE, "Ejecución Éxitosa");
+                    }
+                });
+                pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
+                result.setPageResult(pageResult);
+                accountManager.onSucces(response.getWebService(), data.getError().getMessage());
+                break;
+            default:
+                result.setStatusTransaction(ADQ_TRANSACTION_ERROR);
+                PageResult pageResultError = new PageResult(R.drawable.ic_cancel,
+                        "Ocurrió un Error",
+                        data.getError().getMessage(),
+                        false);
+
+                pageResultError.setNamerBtnPrimary("Aceptar");
+                //pageResultError.setNamerBtnSecondary(App.getInstance().getString(R.string.title_reintentar));
+                pageResultError.setActionBtnPrimary(new Command() {
+                    @Override
+                    public void action(Context context, Object... params) {
+
+                        INavigationView viewInterface = (INavigationView) params[0];
+                        viewInterface.nextScreen(DetailsActivity.EVENT_GO_TO_FINALIZE, "");
+                        TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
+                    }
+                });
+
+                /*pageResultError.setActionBtnSecondary(new Command() {
+                    @Override
+                    public void action(Context context, Object... params) {
+                        INavigationView viewInterface = (INavigationView) params[0];
+                        viewInterface.nextScreen(DetailsActivity.EVENT_GO_TO_FINALIZE, "");
+                        TransactionAdqData.getCurrentTransaction().resetDataToRetry(); // Reintentamos
+                    }
+                });*/
+                pageResultError.setBtnPrimaryType(PageResult.BTN_ACTION_OK);
+                //pageResultError.setBtnSecundaryType(PageResult.BTN_ACTION_OK);
+                result.setPageResult(pageResultError);
+
+                accountManager.onError(response.getWebService(), data.getError().getMessage());//Retornamos mensaje de error.
+                break;
+        }
     }
 
     /**
