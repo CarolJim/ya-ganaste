@@ -11,11 +11,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/keyboard_view"
-        android:layout_centerHorizontal="true"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/titleAmount"

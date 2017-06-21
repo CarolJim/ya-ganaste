@@ -158,7 +158,7 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
     @Override
     public void assignNIP(String nip) {
         accountView.showLoader(App.getContext().getString(R.string.tienes_tarjeta_asignando_nip));
-        AsignarNIPRequest request = new AsignarNIPRequest(nip);
+        AsignarNIPRequest request = new AsignarNIPRequest(Utils.cipherRSA(nip));
         accountIteractor.assignmentNIP(request);
     }
 
