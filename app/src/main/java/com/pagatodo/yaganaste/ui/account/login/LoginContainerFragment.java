@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -95,10 +96,10 @@ public class LoginContainerFragment extends SupportFragment implements TabsView<
         Preferencias prefs = App.getInstance().getPrefs();
 
         imgPrevious.setVisibility(View.INVISIBLE);
-        if (!prefs.containsData(HAS_SESSION)) {
+        if (!prefs.containsData(HAS_SESSION) || RequestHeaders.getTokenAdq().isEmpty()) {
             imgNext.setVisibility(View.INVISIBLE);
         }
-        vpLogin.setIsSwipeable(prefs.containsData(HAS_SESSION));
+        vpLogin.setIsSwipeable(prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenAdq().isEmpty());
     }
 
     @Override

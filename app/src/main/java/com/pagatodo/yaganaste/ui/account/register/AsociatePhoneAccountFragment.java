@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -20,10 +21,12 @@ import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.SeekBarBaseFragment;
 
@@ -48,6 +51,8 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     private static final long CHECK_SMS_VALIDATE_DELAY = 10000;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
+
+    private WebService failed;
 
     int counterRetry = 1;
 
@@ -158,7 +163,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
             showLoader(getString(R.string.activacion_sms_verificando));
             new Handler().postDelayed(new Runnable() {
                 public void run() {
-                    accountPresenter.doPullActivationSMS(String.format("Verificando activación de dispositivo\nIntento %d", counterRetry));
+                    accountPresenter.doPullActivationSMS(getString(R.string.activacion_sms_verificando));
                 }
             }, CHECK_SMS_VALIDATE_DELAY);
         } else {
@@ -290,6 +295,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         UI.createCustomDialog("", message, getChildFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
+                counterRetry = 1;
                 continuePayment();
             }
 

@@ -625,6 +625,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             String tokenValidation = user.getDataUser().getSemilla() + RequestHeaders.getUsername() + RequestHeaders.getTokendevice();
             Log.d("WSC", "TokenValidation: " + tokenValidation);
             String tokenValidationSHA = Utils.bin2hex(Utils.getHash(tokenValidation));
+            Log.d("WSC", "TokenValidation SHA: " + tokenValidationSHA);
             String message = String.format("%sT%sT%s",
                     user.getDataUser().getUsuario().getIdUsuario(),
                     user.getDataUser().getUsuario().getCuentas().get(0).getIdCuenta(), tokenValidationSHA);
