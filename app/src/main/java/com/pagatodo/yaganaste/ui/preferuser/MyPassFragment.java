@@ -182,7 +182,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
                 } else {
                     if (editPassword.isValidText() && !isValidPassword) {
                      accountPresenter.validatePasswordFormat(
-                             Utils.cipherRSA(editPassword.getText().trim()));
+                             editPassword.getText().trim());
                     } else if (editPassword.getText().isEmpty()) {
                         editPassword.setIsInvalid();
                         showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));

@@ -182,7 +182,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
         if (dataSourceResult.getData() instanceof CerrarSesionRequest) {
-            Log.d("PreferUserIteractor", "DataSource Sucess Server Error CerrarSesion");
+            //Log.d("PreferUserIteractor", "DataSource Sucess Server Error CerrarSesion");
         }
 
         /**
@@ -191,7 +191,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         if (dataSourceResult.getData() instanceof ActualizarAvatarResponse) {
             ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                Log.d("ListaOpcionesIteractor", "DataSource Sucess " + response.getMensaje());
+                //Log.d("ListaOpcionesIteractor", "DataSource Sucess " + response.getMensaje());
 
                 String urlEdit = procesarURLString(response.getData().getImagenAvatarURL());
                 SingletonUser.getInstance().getDataUser().getUsuario().setImagenAvatarURL(urlEdit);
@@ -199,7 +199,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
                 // Linea para simular el error y comprobar el Duialog y el ShowProgress
                 //preferUserPresenter.errorGenericToPresenter(dataSourceResult);
             } else {
-                Log.d("ListaOpcionesIteractor", "DataSource Sucess with Error " + response.getMensaje());
+                //Log.d("ListaOpcionesIteractor", "DataSource Sucess with Error " + response.getMensaje());
                 preferUserPresenter.errorGenericToPresenter(dataSourceResult);
             }
         }
@@ -226,10 +226,10 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             CambiarContraseniaResponse response = (CambiarContraseniaResponse) dataSourceResult.getData();
 
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                Log.d("PreferUserIteractor", "CambiarContrasenia Sucess " + response.getMensaje());
+                //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess " + response.getMensaje());
                 preferUserPresenter.successGenericToPresenter(dataSourceResult);
             } else {
-                Log.d("PreferUserIteractor", "CambiarContrasenia Sucess with Error " + response.getMensaje());
+                //Log.d("PreferUserIteractor", "CambiarContrasenia Sucess with Error " + response.getMensaje());
                 preferUserPresenter.errorGenericToPresenter(dataSourceResult);
             }
         }
@@ -241,11 +241,11 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             DesasociarDispositivoResponse response = (DesasociarDispositivoResponse) dataSourceResult.getData();
 
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                //Log.d("PreferUserIteractor", "DataSource Sucess " + response.getMensaje());
+                //              Log.d("PreferUserIteractor", "DesasociarDispositivoResponse Sucess " + response.getMensaje());
                 preferUserPresenter.successGenericToPresenter(dataSourceResult);
                 logout();
             } else {
-                //Log.d("PreferUserIteractor", "DataSource Sucess with Error " + response.getMensaje());
+//                Log.d("PreferUserIteractor", "DesasociarDispositivoResponse Sucess with Error " + response.getMensaje());
                 preferUserPresenter.errorGenericToPresenter(dataSourceResult);
             }
         }
@@ -262,9 +262,10 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         if (error.getWebService().equals(ACTUALIZAR_AVATAR)) {
             preferUserPresenter.sendErrorServerAvatarToPresenter(error.getData().toString());
         } else if (error.getWebService().equals(CAMBIAR_CONTRASENIA)) {
-            Log.d("PreferUserIteractor", "CambiarContrasenia ErrorServer " + error.toString());
+            //Log.d("PreferUserIteractor", "CambiarContrasenia ErrorServer " + error.toString());
             preferUserPresenter.sendErrorServerPassToPresenter(error.getData().toString());
-        }else if (error.getWebService().equals(DESASOCIAR_DISPOSITIVO)) {
+        } else if (error.getWebService().equals(DESASOCIAR_DISPOSITIVO)) {
+            //Log.d("PreferUserIteractor", "DesasociarDispositivoResponse ErrorServer " + error.toString());
             preferUserPresenter.sendErrorServerDesasociarToPresenter(error.getData().toString());
         } else {
             preferUserPresenter.sendErrorServerPresenter(error.getData().toString());

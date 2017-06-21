@@ -300,6 +300,12 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
         }else if(ws == CERRAR_SESION){
             Log.i(TAG,"La sesión se ha cerrado.");
         }
+
+        if(accountView instanceof IMyPassValidation){
+            if(ws == VALIDAR_FORMATO_CONTRASENIA) {
+                ((IMyPassValidation) accountView).validationPasswordSucces();
+            }
+        }
     }
 
     @Override
