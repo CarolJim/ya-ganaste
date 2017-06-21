@@ -105,16 +105,19 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         if (preferencias.containsData(HAS_SESSION)) {
             editNumber.setText(getCreditCardFormat(preferencias.loadData(CARD_NUMBER)));
             txtNameUser.setText(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER)));
-            txtSaldo.setText(Utils.getCurrencyValue(preferencias.loadData(
-                    StringConstants.USER_BALANCE)));
-            txtDateUpdated.setText(preferencias.loadData(UPDATE_DATE));
+            setData(preferencias.loadData(
+                    StringConstants.USER_BALANCE), preferencias.loadData(UPDATE_DATE));
         }
+    }
 
+    private void setData(String balance, String updateDate) {
+        txtSaldo.setText(Utils.getCurrencyValue(balance));
+        txtDateUpdated.setText(updateDate);
     }
 
     @Override
     public void updateBalance(String saldo) {
-        txtSaldo.setText(saldo);
+        setData(saldo, App.getInstance().getPrefs().loadData(UPDATE_DATE));
     }
 
     @Override

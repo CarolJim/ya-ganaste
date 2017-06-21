@@ -25,8 +25,7 @@ import static com.android.volley.Request.Method.POST;
  *
  * @author flima
  * @version 1.0
- * Clase que definir el cliente http.
- *
+ *          Clase que definir el cliente http.
  */
 public class WsCaller implements IServiceConsumer {
 
@@ -36,15 +35,15 @@ public class WsCaller implements IServiceConsumer {
      * Método para realizar la petición http segun los
      * datos de la petición pasada como parámetro.
      *
-     * @param  request {@link WsRequest}
+     * @param request {@link WsRequest}
      */
 
     @Override
-    public void sendJsonPost(final WsRequest request){
+    public void sendJsonPost(final WsRequest request) {
 
         VolleySingleton volleySingleton = VolleySingleton.getInstance(App.getInstance().getApplicationContext());
         Log.d(TAG, "Request : " + request.get_url_request());
-        if(request.getHeaders() != null && request.getHeaders().size() > 0) {
+        if (request.getHeaders() != null && request.getHeaders().size() > 0) {
             Log.d(TAG, "Headers : ");
             for (String name : request.getHeaders().keySet()) {
                 String key = name.toString();
@@ -53,9 +52,9 @@ public class WsCaller implements IServiceConsumer {
             }
         }
 
-        if(request.getBody()!= null)
-            Log.d(TAG, "Body Request : "+ request.getBody().toString());
-        CustomJsonObjectRequest jsonRequest =  new CustomJsonObjectRequest(
+        if (request.getBody() != null)
+            Log.d(TAG, "Body Request : " + request.getBody().toString());
+        CustomJsonObjectRequest jsonRequest = new CustomJsonObjectRequest(
                 request.getMethod(),
                 request.getMethod() == POST ? request.get_url_request() : parseGetRequest(request.get_url_request(), request.getBody()),
                 request.getMethod() == POST ? request.getBody() : null,
@@ -63,16 +62,20 @@ public class WsCaller implements IServiceConsumer {
                     @Override
                     public void onResponse(JSONObject response) {
                         Log.d(TAG, "Response Success : " + response.toString());
-                        request.getRequestResult().onSuccess(new DataSourceResult(request.getMethod_name(),DataSource.WS,UtilsNet.jsonToObject(response.toString(),request.getTypeResponse())));
+                        if (request.getRequestResult() != null) {
+                            request.getRequestResult().onSuccess(new DataSourceResult(request.getMethod_name(), DataSource.WS, UtilsNet.jsonToObject(response.toString(), request.getTypeResponse())));
+                        }
                     }
                 },
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "Request Failed : " + error.getMessage());
-                        request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(),DataSource.WS,CustomErrors.getError(error)));
+                        if (request.getRequestResult() != null) {
+                            request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(), DataSource.WS, CustomErrors.getError(error)));
+                        }
                     }
-                },request.getHeaders());
+                }, request.getHeaders());
 
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
                 request.getTimeOut(),
@@ -97,7 +100,7 @@ public class WsCaller implements IServiceConsumer {
             try {
                 keyToAdd = URLEncoder.encode(key, "UTF-8");
                 value = URLEncoder.encode(request.get(key).toString(), "UTF-8");
-                if(i == 1) {
+                if (i == 1) {
                     stringBuilder.append("?" + keyToAdd + "=" + value);
                 } else {
                     stringBuilder.append("&" + keyToAdd + "=" + value);

@@ -1,10 +1,13 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -17,6 +20,9 @@ import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.preferuser.DesasociarPhoneFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaLegalesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
+import com.pagatodo.yaganaste.ui.preferuser.MyEmailFragment;
+import com.pagatodo.yaganaste.ui.preferuser.MyPassFragment;
+import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
@@ -37,9 +43,14 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_PRIVACIDAD = "PREFER_USER_PRIVACIDAD";
     public static String PREFER_USER_TERMINOS = "PREFER_USER_TERMINOS";
     public static String PREFER_USER_DESASOCIAR = "PREFER_USER_DESASOCIAR";
+    public static String PREFER_USER_MY_USER = "PREFER_USER_MY_USER";
+    public static String PREFER_USER_MY_USER_BACK = "PREFER_USER_MY_USER_BACK";
+    public static String PREFER_USER_EMAIL = "PREFER_USER_EMAIL";
+    public static String PREFER_USER_PASS = "PREFER_USER_PASS";
 
     private AccountPresenterNew presenterAccount;
     private PreferUserPresenter mPreferPresenter;
+    private Context mContext;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -59,6 +70,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
         presenterAccount = new AccountPresenterNew(this);
         mPreferPresenter = new PreferUserPresenter(this);
+
+        mContext = this;
         // CReamos las referencias al AcoountInteractot
         // AccountInteractorNew.
 
@@ -67,6 +80,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
     public IPreferUserPresenter getUserPresenter() {
         return this.mPreferPresenter;
+    }
+
+    public AccountPresenterNew getPresenterAccount() {
+        return presenterAccount;
     }
 
     /**
@@ -88,7 +105,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         @Override
         public void actionConfirm(Object... params) {
             setResult(ToolBarActivity.RESULT_LOG_OUT);
-            finish();
+            mPreferPresenter.closeSession(mContext);
+           // finish();
         }
 
         @Override
@@ -136,6 +154,26 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 legalsTerminosDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
                 break;
 
+            case "PREFER_USER_MY_USER":
+                //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                loadFragment(MyUserFragment.newInstance(),Direction.FORDWARD, false);
+                break;
+
+            case "PREFER_USER_MY_USER_BACK":
+                //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                loadFragment(MyUserFragment.newInstance(),Direction.BACK, false);
+                break;
+
+            case "PREFER_USER_EMAIL":
+                //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+               // loadFragment(MyEmailFragment.newInstance(),Direction.FORDWARD, false);
+                break;
+
+            case "PREFER_USER_PASS":
+                //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                loadFragment(MyPassFragment.newInstance(),Direction.FORDWARD, false);
+                break;
+
             /** Eventos BACK **/
             case "PREFER_USER_LISTA":
                 loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage), Direction.BACK, false);
@@ -164,6 +202,12 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_LISTA, null);
             }else if (currentFragment instanceof DesasociarPhoneFragment) {
                 onEvent(PREFER_USER_LISTA, null);
+            }else if (currentFragment instanceof MyUserFragment) {
+                onEvent(PREFER_USER_LISTA, null);
+            }else if (currentFragment instanceof MyEmailFragment) {
+                onEvent(PREFER_USER_MY_USER_BACK, null);
+            }else if (currentFragment instanceof MyPassFragment) {
+                onEvent(PREFER_USER_MY_USER_BACK, null);
             } else {
                 super.onBackPressed();
             }

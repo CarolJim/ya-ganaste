@@ -3,7 +3,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_bottom"
     tools:context="com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment">
 
     <LinearLayout
@@ -26,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Mi Usuario" />
+                android:text="@string/myUserText"  />
 
         </LinearLayout>
 
@@ -45,6 +44,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/fragment_myuser_email"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:paddingTop="10dp">
@@ -58,11 +58,11 @@
                     android:text="Cambia tu Correo Electrónico"
                     android:textSize="18sp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="17dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:src="@android:drawable/ic_input_add" />
+                    android:layout_marginRight="20dp"
+                    app:srcCompat="@drawable/menu_canvas_blue"  />
             </LinearLayout>
 
             <View
@@ -75,6 +75,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
+                android:id="@+id/fragment_myuser_pass"
                 android:orientation="horizontal"
                 android:paddingTop="10dp">
 
@@ -87,11 +88,11 @@
                     android:text="Cambia tu Contraseña"
                     android:textSize="18sp" />
 
-                <ImageView
-                    android:layout_width="wrap_content"
+                <android.support.v7.widget.AppCompatImageView
+                    android:layout_width="17dp"
                     android:layout_height="wrap_content"
-                    android:layout_marginRight="10dp"
-                    android:src="@android:drawable/ic_input_add" />
+                    android:layout_marginRight="20dp"
+                    app:srcCompat="@drawable/menu_canvas_blue"  />
             </LinearLayout>
 
         </LinearLayout>

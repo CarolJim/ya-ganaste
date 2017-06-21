@@ -2,7 +2,6 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:background="@drawable/bg_gradient_bottom"
     android:layout_height="match_parent"
     tools:context="com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment">
 
@@ -107,8 +106,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/borderColor"
-                android:visibility="gone" />
+                android:background="@color/borderColor"  />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_user"
@@ -118,8 +116,7 @@
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.data.model;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
@@ -58,8 +59,6 @@ public class SingletonUser {
 
             prefs.saveData(CARD_NUMBER, dataUser.getUsuario().getCuentas().get(0).getTarjeta());
         }
-
-
 
         dataUser.getUsuario().setTipoAgente(17);
         if (dataUser.isEsAgente() && dataUser.getEstatusAgente() != CRM_DOCTO_APROBADO

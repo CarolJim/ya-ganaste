@@ -11,15 +11,13 @@ import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 public interface IListaOpcionesView extends IPreferUserGeneric{
     void setPhotoToService(Bitmap bitmap);
 
-    void sucessUpdateAvatar();
-
-    void sendErrorView(String mensaje);
-
     void showProgress(String mMensaje);
 
-    void sendImageBitmapView(Bitmap bitmap);
-
-    void onFailView();
+    void sendImageBitmapToView(Bitmap bitmap);
 
     void showExceptionToView(String mMesage);
+
+    void sendSuccessAvatarToView(String mensaje);
+
+    void sendErrorAvatarToView(String mensaje);
 }

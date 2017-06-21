@@ -119,69 +119,6 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             accountManager.onError(TRANSACCIONES_EMV_DEPOSIT, context.getString(R.string.no_internet_access));
         }
 
-//FLUJO DUMMY
-//        new Handler().postDelayed(new Runnable() {
-//            public void run() {
-//
-//                TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
-//                result.setStatusTransaction(ADQ_TRANSACTION_APROVE);
-//                result.setResponseCode(0);
-//                PageResult pageResult = new PageResult(R.mipmap.icon_validate_green,"Aprobada","El Pago Fue Completado\nCorrectamente.",false);
-//                /*PageResult pageResult = new PageResult(R.drawable.error_icon,
-//                        "Ocurrió un error",
-//                        "Tuvimos un Problema\nProcesando la Transacción.",
-//                        true);*/
-//                pageResult.setNamerBtnPrimary("Continuar");
-//                //pageResult.setNamerBtnSecondary("Llamar");
-//                pageResult.setActionBtnPrimary(new Command() {
-//                    @Override
-//                    public void action(Context context, Object... params) {
-//                        INavigationView viewInterface = (INavigationView) params[0];
-//                        viewInterface.nextScreen(EVENT_GO_REMOVE_CARD, "Ejecución Éxitosa");
-//                    }
-//                });
-//
-//                /*
-//                pageResult.setActionBtnSecondary(new Command() {
-//                    @Override
-//                    public void action(final Context context, Object... params) {
-//                        //INavigationView viewInterface = (INavigationView) params[0];
-//                        //viewInterface.nextScreen(EVENT_GO_MAINTAB,"Ejecución Éxitosa");
-//                        Intent intent = new Intent(Intent.ACTION_CALL, Uri.parse("tel:" + "5555555555"));
-//                        if (ActivityCompat.checkSelfPermission(context, Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
-//                            ValidatePermissions.checkSinglePermissionWithExplanation((Activity) context,
-//                                    Manifest.permission.CALL_PHONE,"Solicitud de Permisos","Debes permitir realizar llamadas",new DialogDoubleActions(){
-//                                        @Override
-//                                        public void actionConfirm(Object... params) {
-//                                            ValidatePermissions.openDetailsApp((Activity) context, Constants.PERMISSION_GENERAL);
-//                                        }
-//
-//                                        @Override
-//                                        public void actionCancel(Object... params) {
-//                                        }
-//                                    },123);
-//                            return;
-//                        }
-//                        ((Activity) context).startActivity(intent);
-//                    }
-//                });*/
-//
-//                /*pageResult.setActionBtnSecondary(new Command() {
-//                    @Override
-//                    public void action(Context context,Object[] data) {
-//                        ((Activity)context).finish(); // Finalizamos la AdqActivity//TODO regresar al fragment GetAmount precargado.
-//                        //Borramos los datos de la transacción
-//                        TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
-//                    }
-//                });*/
-//
-//                result.setPageResult(pageResult);
-//                result.setTransaccionResponse(new TransaccionEMVDepositResponse());
-//
-//                accountManager.onSucces(TRANSACCIONES_EMV_DEPOSIT,"Ejecución Exitosa");
-//
-//            }
-//        }, DELAY_MESSAGE_PROGRESS*3);
     }
 
     @Override

@@ -13,27 +13,35 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 public interface IPreferUserPresenter {
     void DesasociarToPresenter();
 
-    void sendSuccessPresenter(String mensaje);
-
-    void sendErrorPresenter(String mensaje);
-
     void sendErrorServerPresenter(String error);
 
-    void getImagenURLPresenter(String mUserImage);
+    void getImagenURLToPresenter(String mUserImage);
 
-    void sendImageBitmapPresenter(Bitmap bitmap);
+    void sendImageBitmapToPresenter(Bitmap bitmap);
 
     void openMenuPhoto(int i, CameraManager cameraManager);
 
     void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest);
 
-    void onFailPresenter();
-
-    void sucessUpdateAvatar();
-
-    void sendErrorAvatarPresenter(String mensaje);
+    void showExceptionAvatarToPresenter(String s);
 
     void showExceptionToPresenter(String mMesage);
 
     void sendErrorServerAvatarToPresenter(String s);
+
+    void changeEmailToPresenter(String s, String s1);
+
+    void successGenericToPresenter(DataSourceResult dataSourceResult);
+
+    void errorGenericToPresenter(DataSourceResult dataSourceResult);
+
+    void changePassToPresenter(String s, String s1);
+
+    void sendErrorServerPassToPresenter(String s);
+
+    void showExceptionPassToPresenter(String s);
+
+    void sendErrorServerDesasociarToPresenter(String s);
+
+    void showExceptionDesasociarToPresenter(String s);
 }
