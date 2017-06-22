@@ -534,6 +534,9 @@
     <string name="validando_lector">Validando Lector</string>
     <string name="enviando_firma">Enviando Firma</string>
     <string name="enviando_ticket">Enviando Ticket</string>
+
+    <string name="fecha_nacimiento_erronea">Fecha de Nacimento Erronea, Verifique su Información.</string>
+    <string name="feha_nacimiento_menor_edad">Fecha de Nacimento Erronea, Debe Ser Mayor de 18 años para Realizar el Tramite.</string>
 </resources>
 
 

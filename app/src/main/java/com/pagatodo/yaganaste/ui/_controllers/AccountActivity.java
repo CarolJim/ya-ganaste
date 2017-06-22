@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.util.Log;
-import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 
@@ -17,10 +16,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
-import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
-import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
-
 import com.pagatodo.yaganaste.ui.account.login.LoginContainerFragment;
 import com.pagatodo.yaganaste.ui.account.login.RecoveryFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
@@ -150,6 +146,14 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 break;
 
             case EVENT_PERSONAL_DATA:
+                RegisterUser registerUser = RegisterUser.getInstance();
+                registerUser.setGenero("");
+                registerUser.setNombre("");
+                registerUser.setApellidoMaterno("");
+                registerUser.setApellidoPaterno("");
+                registerUser.setFechaNacimiento("");
+                registerUser.setFechaNacimientoToShow("");
+                registerUser.setLugarNacimiento("");
                 loadFragment(DatosPersonalesFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 

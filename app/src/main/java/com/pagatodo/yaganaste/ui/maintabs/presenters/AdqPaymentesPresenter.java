@@ -94,6 +94,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
         for (DataMovimientoAdq movimientoAdq : response.getMovimientos()) {
             calendar.setTime(DateUtil.getAdquirenteMovementDate(movimientoAdq.getFecha()));
             movimientoAdq.setEsPendiente(true);
+            movimientoAdq.setEsAprobada(false);
             int color;
             if (movimientoAdq.isEsCargo()) {
                 color = CARGO.getColor();

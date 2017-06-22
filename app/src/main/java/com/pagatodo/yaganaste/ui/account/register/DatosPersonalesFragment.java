@@ -93,6 +93,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
     private String fechaNacimiento = "";
     private String lugarNacimiento = "";
     private String idEstadoNacimiento = "";
+    Calendar newDate;
+    Calendar actualDate;
 
     public DatosPersonalesFragment() {
     }
@@ -108,6 +110,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_datos_personales, container, false);
+        actualDate = Calendar.getInstance(new Locale("es"));
         initViews();
         return rootview;
     }
@@ -131,7 +134,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         spinnerBirthPlace.setOnItemSelectedListener(this);
         btnNextDatosPersonales.setOnClickListener(this);
         btnBackDatosPersonales.setOnClickListener(this);
-        //radioBtnMale.setChecked(true);
+        //radioBtnMale.setChecked(true);/
         setCurrentData();// Seteamos datos si hay registro en proceso.
         setValidationRules();
     }
@@ -245,10 +248,24 @@ public class DatosPersonalesFragment extends GenericFragment implements
             return;
         }
 
+
+        if (newDate.getTimeInMillis() > actualDate.getTimeInMillis()) {
+            showValidationError(editBirthDay.getId(), getString(R.string.fecha_nacimiento_erronea));
+            return;
+        }
+
+        Calendar mCalendar = Calendar.getInstance();
+        mCalendar.set(actualDate.get(Calendar.YEAR) - 18, actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH));
+        if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
+            showValidationError(editBirthDay.getId(), getString(R.string.feha_nacimiento_menor_edad));
+            return;
+        }
+
         if (lugarNacimiento.isEmpty()) {
             showValidationError(spinnerBirthPlace.getId(), getString(R.string.datos_personal_estado));
             return;
         }
+
 
         onValidationSuccess();
     }
@@ -388,7 +405,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @Override
     public void showError(Object error) {
         if (!error.toString().isEmpty())
-          //  UI.showToastShort(error.toString(), getActivity());
+            //  UI.showToastShort(error.toString(), getActivity());
             UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
                     new DialogDoubleActions() {
                         @Override
@@ -407,14 +424,16 @@ public class DatosPersonalesFragment extends GenericFragment implements
     View.OnClickListener onClickListenerDatePicker = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            hideErrorMessage(editBirthDay.getId());
             Calendar newCalendar = Calendar.getInstance();
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int date) {
-                    Calendar newDate = Calendar.getInstance(new Locale("es"));
+                    newDate = Calendar.getInstance(new Locale("es"));
                     newDate.set(year, month, date);
                     editBirthDay.setText(DateUtil.getBirthDateString(newDate));
                     fechaNacimiento = DateUtil.getDateStringFirstYear(newDate);
+
                 }
             }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
             datePickerDialog.show();

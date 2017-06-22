@@ -24,8 +24,6 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PERSONAL_DATA;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -333,87 +331,99 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     @Override
     public void validateForm() {
         getDataForm();
-        boolean isValid = true;
+        //boolean isValid = true;
 
         //Validate format Email
         if (!editMail.isValidText()) {
             showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo_formato));
             editMail.setIsInvalid();
-            isValid = false;
+            //isValid = false;
+            return;
         }
 
         //Validate if Email exist
         if (userExist) {
             showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo_existe));
             editPasswordConfirm.setIsInvalid();
-            isValid = false;
+            //isValid = false;
+            return;
         }
 
         //Validate Email is Empty
         if (email.replaceAll("\\s", "").isEmpty()) {
             showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
             editMail.setIsInvalid();
-            isValid = false;
+            //isValid = false;
+            return;
         }
 
         //Valdiate Email confirm equals to Email
         if (!emailConfirmation.equals(email)) {
             showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_no_coinciden));
             edtitConfirmEmail.setIsInvalid();
-            isValid = false;
+            //isValid = false;
+            return;
         }
 
         //Validate Email Confirm is empty
         if (emailConfirmation.isEmpty()) {
             showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_confirma));
             edtitConfirmEmail.setIsInvalid();
-            isValid = false;
-        }
-
-        //Validate If Is a Valid Password and check if exist a Error message from the server
-        if (!isValidPassword && passErrorMessage != null && !passErrorMessage.equals("")) {
-            showValidationError(editPassword.getId(), passErrorMessage);
-            editPassword.setIsInvalid();
-            isValid = false;
-        }
-
-        //Validate is Valid Password Format
-        if (!editPassword.isValidText()) {
-            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_formato));
-            editPassword.setIsInvalid();
-            isValid = false;
-        }
-
-        //Validate is valid Password Format from Web Service
-        if (!isValidPassword) {
-            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_formato));
-            isValid = false;
+            //isValid = false;
+            return;
         }
 
         //Validate if Password is empty
         if (password.isEmpty()) {
             showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
             editPassword.setIsInvalid();
-            isValid = false;
+            //isValid = false;
+            return;
         }
 
-        //Validate Password Confirmation equals to Password
-        if (!passwordConfirmation.equals(password)) {
-            showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
-            editPasswordConfirm.setIsInvalid();
-            isValid = false;
+        //Validate If Is a Valid Password and check if exist a Error message from the server
+        if (!isValidPassword && passErrorMessage != null && !passErrorMessage.equals("")) {
+            showValidationError(editPassword.getId(), passErrorMessage);
+            editPassword.setIsInvalid();
+            //isValid = false;
+            return;
+        }
+
+        //Validate is Valid Password Format
+        if (!editPassword.isValidText()) {
+            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_formato));
+            editPassword.setIsInvalid();
+            //isValid = false;
+            return;
+        }
+
+        //Validate is valid Password Format from Web Service
+        if (!isValidPassword) {
+            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_formato));
+            //isValid = false;
+            return;
         }
 
         //Validate if Password Confirmation is Empty
         if (passwordConfirmation.isEmpty()) {
             showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_confirm));
             editPasswordConfirm.setIsInvalid();
-            isValid = false;
+            //isValid = false;
+            return;
         }
 
-        if (isValid) {
-            onValidationSuccess();
+        //Validate Password Confirmation equals to Password
+        if (!passwordConfirmation.equals(password)) {
+            showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
+            editPasswordConfirm.setIsInvalid();
+            //isValid = false;
+            return;
         }
+
+        onValidationSuccess();
+        /*if (isValid) {
+            onValidationSuccess();
+        }*/
     }
 
     @Override
