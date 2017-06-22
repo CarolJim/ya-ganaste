@@ -106,46 +106,18 @@
             android:layout_alignParentBottom="true"
             android:orientation="vertical">
 
-
-            <LinearLayout
-                android:id="@+id/layoutBtns"
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnNextDatosUsuario"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_alignParentBottom="true"
-                android:layout_marginBottom="@dimen/margin_medium"
-                android:layout_marginLeft="@dimen/margin_big"
-                android:layout_marginRight="@dimen/margin_big"
-                android:orientation="horizontal">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.5">
-
-                </LinearLayout>
-
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                    android:id="@+id/btnNextDatosUsuario"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_btns"
-                    android:layout_centerInParent="true"
-                    android:layout_weight="1"
-                    android:background="@drawable/selector_btn_continuar"
-                    android:elevation="8dp"
-                    android:gravity="center"
-                    android:text="@string/nextButton"
-                    android:textSize="@dimen/generic_button_normal_text_size" />
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.5">
-
-                </LinearLayout>
-
-
-            </LinearLayout>
+                android:layout_height="@dimen/height_btns"
+                android:layout_weight="1"
+                android:background="@drawable/selector_btn_continuar"
+                android:elevation="8dp"
+                android:gravity="center"
+                android:layout_marginLeft="95dp"
+                android:layout_marginRight="95dp"
+                android:text="@string/nextButton"
+                android:textSize="@dimen/generic_button_normal_text_size" />
         </LinearLayout>
 
     </RelativeLayout>

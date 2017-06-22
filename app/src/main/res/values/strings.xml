@@ -250,13 +250,13 @@
     <!--datos_usuario-->
     <string name="datos_usuario_correo_existe">Este Correo Ya ha Sido Registrado.</string>
     <string name="userDataTitle">Datos de Usuario</string>
-    <string name="confirmEmail">Confirma Correo Electrónico</string>
+    <string name="confirmEmail">Confirma tu Correo</string>
     <string name="password">Contraseña</string>
     <string name="passwordConfirm">Confirma Contraseña</string>
     <string name="datos_usuario_correo">Introduce un Correo Válido (*)</string>
     <string name="datos_usuario_correo_formato">El Correo No es Válido</string>
     <string name="datos_usuario_correo_confirma">Debes confirmar el correo.</string>
-    <string name="datos_usuario_correo_no_coinciden">El correo no coincide.</string>
+    <string name="datos_usuario_correo_no_coinciden">El Correo No coincide.</string>
     <string name="datos_usuario_pass">Introduce la Contraseña.</string>
     <string name="datos_usuario_pass_confirm">Debes Confirmar la Contraseña.</string>
     <string name="datos_usuario_pass_no_coinciden">La Contraseña No Coincide.</string>
