@@ -4,6 +4,8 @@ package com.pagatodo.yaganaste.utils;
  * Created by flima on 23/02/2017.
  */
 
+import android.util.Log;
+
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 
@@ -118,15 +120,15 @@ public class DateUtil {
 
     public static List<MonthsMovementsTab> getLastMovementstMonths() {
 
-        Calendar calendar = Calendar.getInstance(new Locale("MX"));
+       // Calendar calendar = Calendar.getInstance(new Locale("MX"));
         LinkedList<MonthsMovementsTab> names = new LinkedList<>();
 
         for (int subs = 0; subs >= -4; subs--) {
+            Calendar calendar = Calendar.getInstance(new Locale("MX"));
             calendar.add(Calendar.MONTH, subs);
             names.addFirst(new MonthsMovementsTab(getMonthShortName(calendar), calendar.get(Calendar.MONTH),
                     calendar.get(Calendar.YEAR)));
         }
-
         return names;
     }
 
@@ -149,11 +151,12 @@ public class DateUtil {
 
     public static List<AdquirentePaymentsTab> getTabsAdquirente() {
 
-        Calendar calendar = Calendar.getInstance(new Locale("MX"));
-        DateFormat dateFormat = new SimpleDateFormat("MM-yyyy", Locale.US);
+
         LinkedList<AdquirentePaymentsTab> tabs = new LinkedList<>();
 
         for (int subs = 0; subs >= -4; subs--) {
+            Calendar calendar = Calendar.getInstance(new Locale("MX"));
+            DateFormat dateFormat = new SimpleDateFormat("MM-yyyy", Locale.US);
             calendar.add(Calendar.MONTH, subs);
             tabs.addFirst(new AdquirentePaymentsTab(getMonthShortName(calendar), dateFormat.format(calendar.getTime())));
         }
