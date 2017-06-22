@@ -8,7 +8,7 @@ import java.util.List;
  * Created by flima on 21/03/2017.
  */
 
-public class ResumenMovimientosAdqResponse implements Serializable{
+public class ResumenMovimientosAdqResponse implements Serializable {
 
     private List<DataMovimientoAdq> movimientos;
     private DataResultAdq result;
@@ -20,6 +20,16 @@ public class ResumenMovimientosAdqResponse implements Serializable{
     public ResumenMovimientosAdqResponse() {
         movimientos = new ArrayList<DataMovimientoAdq>();
         result = new DataResultAdq();
+    }
+
+    public ResumenMovimientosAdqResponse(List<DataMovimientoAdq> movimientos, DataResultAdq result,
+                                         String saldoActual, String saldoInicial, String totalAbonos, String totalCargos) {
+        this.movimientos = movimientos;
+        this.result = result;
+        this.saldoActual = saldoActual;
+        this.saldoInicial = saldoInicial;
+        this.totalAbonos = totalAbonos;
+        this.totalCargos = totalCargos;
     }
 
     public List<DataMovimientoAdq> getMovimientos() {

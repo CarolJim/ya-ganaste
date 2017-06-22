@@ -1,24 +1,28 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.CancelaTransaccionDepositoEmvRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.CancellationData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.SignatureData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
-import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqPresenter;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente;
-import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.DateUtil;
 
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Locale;
+
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL_TRANSACTION;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente.buildSignatureRequest;
@@ -28,7 +32,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
  * Created by flima on 17/04/2017.
  */
 
-public  class AdqPresenter implements IAdqPresenter, IAccountManager {
+public class AdqPresenter implements IAdqPresenter, IAccountManager {
     private String TAG = AdqPresenter.class.getName();
     private IAdqIteractor adqInteractor;
     private INavigationView iAdqView;
@@ -36,48 +40,83 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
 
     public AdqPresenter(INavigationView iAdqView) {
         this.iAdqView = iAdqView;
-        adqInteractor = new AdqInteractor(this);
+        this.adqInteractor = new AdqInteractor(this);
     }
 
     @Override
     public void validateDongle(String serial) {
-        iAdqView.showLoader("Validando Lector...");
+        iAdqView.showLoader(App.getContext().getString(R.string.validando_lector));
         prefs.saveData(KSN_LECTOR, serial);
         adqInteractor.registerDongle();
 
     }
 
     @Override
+    public void initCancelation(TransaccionEMVDepositRequest request, DataMovimientoAdq dataMovimientoAdq) {
+        String msg = App.getContext().getString(R.string.procesando_cancelacion);
+        iAdqView.showLoader(msg);
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(DateUtil.getAdquirenteMovementDate(dataMovimientoAdq.getFecha()));
+        java.text.DateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy", Locale.US);
+        java.text.DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
+
+
+        CancellationData cancellationData = new CancellationData();
+        cancellationData.setDatelOriginalTransaction(dateFormat.format(calendar.getTime()));
+        cancellationData.setIdOriginalTransaction(dataMovimientoAdq.getIdTransaction());
+        cancellationData.setNoauthorizationOriginalTransaction(dataMovimientoAdq.getNoAutorizacion());
+        cancellationData.setTicketOriginalTransaction(dataMovimientoAdq.getNoTicket());
+        cancellationData.setTimeOriginalTransaction(hourFormat.format(calendar.getTime()));
+
+        CancelaTransaccionDepositoEmvRequest cancelRequest = new CancelaTransaccionDepositoEmvRequest();
+        cancelRequest.setNoSerie(request.getNoSerie());
+        cancelRequest.setNoTicket(dataMovimientoAdq.getNoTicket());
+        cancelRequest.setAmount(dataMovimientoAdq.getMonto());
+        cancelRequest.setSwipeData(request.getSwipeData());
+        cancelRequest.setEMVTransaction(request.getIsEMVTransaction());
+        cancelRequest.setCancellationData(cancellationData);
+        cancelRequest.setTransactionDateTime(request.getTransactionDateTime());
+        cancelRequest.setEmvData(request.getEmvData());
+        cancelRequest.setTipoCliente(request.getTipoCliente());
+        cancelRequest.setNoTransaction(dataMovimientoAdq.getIdTransaction());
+        cancelRequest.setAccountDepositData(request.getAccountDepositData());
+        cancelRequest.setImplicitData(request.getImplicitData());
+
+        adqInteractor.initCancelPayment(cancelRequest);
+    }
+
+    @Override
     public void initTransaction(TransaccionEMVDepositRequest request) {
-        iAdqView.showLoader("Estamos en Proceso de Cobro");
+        String msg = App.getContext().getString(R.string.procesando_cobro);
+        iAdqView.showLoader(msg);
         adqInteractor.initPayment(request);
     }
 
     @Override
     public void sendSignature(SignatureData signatureData) {
-        iAdqView.showLoader("Enviando Firma");
+        iAdqView.showLoader(App.getContext().getString(R.string.enviando_firma));
         adqInteractor.sendSignalVoucher(buildSignatureRequest(TransactionAdqData.getCurrentTransaction().getTransaccionResponse().getId_transaction(), signatureData));
     }
 
     @Override
     public void sendTicket(String email) {
-            iAdqView.showLoader("Enviando Ticket");
-            adqInteractor.sendTicket(UtilsAdquirente.buildTicketRequest(
-                    TransactionAdqData.getCurrentTransaction().getTransaccionResponse().getId_transaction(),
-                    TransactionAdqData.getCurrentTransaction().getDescription(),
-                    email));
+        iAdqView.showLoader(App.getContext().getString(R.string.enviando_ticket));
+        adqInteractor.sendTicket(UtilsAdquirente.buildTicketRequest(
+                TransactionAdqData.getCurrentTransaction().getTransaccionResponse().getId_transaction(),
+                TransactionAdqData.getCurrentTransaction().getDescription(),
+                email));
     }
 
     @Override
-    public void goToNextStepAccount(String event,Object data) {
+    public void goToNextStepAccount(String event, Object data) {
         iAdqView.hideLoader();
-        iAdqView.nextScreen(event,data);
+        iAdqView.nextScreen(event, data);
     }
 
     @Override
-    public void onError(WebService ws,Object error) {
+    public void onError(WebService ws, Object error) {
         iAdqView.hideLoader();
-        switch (ws){
+        switch (ws) {
             case REGISTRO_DONGLE:
                 iAdqView.showError(error);
                 break;
@@ -91,6 +130,9 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
             case ENVIAR_TICKET_COMPRA:
                 iAdqView.showError(error);
 //                iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT,error);
+                break;
+            case CANCELA_TRANSACTION_EMV_DEPOSIT:
+                ((IAdqTransactionRegisterView) iAdqView).transactionResult(error.toString());
                 break;
             default:
                 iAdqView.showError(error);
@@ -109,8 +151,8 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
     }
 
     @Override
-    public void onSucces(WebService ws,Object data) {
-        switch (ws){
+    public void onSucces(WebService ws, Object data) {
+        switch (ws) {
             case REGISTRO_DONGLE:
                 ((IAdqTransactionRegisterView) iAdqView).dongleValidated();
                 break;
@@ -119,11 +161,14 @@ public  class AdqPresenter implements IAdqPresenter, IAccountManager {
                 break;
             case FIRMA_DE_VOUCHER:
                 iAdqView.hideLoader();
-                iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION,data);
+                iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION, data);
                 break;
             case ENVIAR_TICKET_COMPRA:
                 iAdqView.hideLoader();
-                iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT,data);
+                iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT, data);
+                break;
+            case CANCELA_TRANSACTION_EMV_DEPOSIT:
+
                 break;
         }
     }

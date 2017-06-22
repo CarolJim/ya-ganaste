@@ -9,17 +9,15 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
+import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.MovementColorsFactory;
 import com.pagatodo.yaganaste.utils.Utils;
 
 /**
@@ -52,11 +50,7 @@ public class DetailsEmisorFragment extends GenericFragment {
     private MovimientosResponse movimientosResponse;
 
 
-
-
-
-
-    public static DetailsEmisorFragment newInstance(@NonNull MovimientosResponse movimientosResponse){
+    public static DetailsEmisorFragment newInstance(@NonNull MovimientosResponse movimientosResponse) {
         DetailsEmisorFragment detailsEmisorFragment = new DetailsEmisorFragment();
         Bundle args = new Bundle();
         args.putSerializable(DetailsActivity.DATA, movimientosResponse);
@@ -69,7 +63,7 @@ public class DetailsEmisorFragment extends GenericFragment {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         if (args != null) {
-            movimientosResponse = (MovimientosResponse)args.getSerializable(DetailsActivity.DATA);
+            movimientosResponse = (MovimientosResponse) args.getSerializable(DetailsActivity.DATA);
         } else {
             throw new IllegalCallException(DetailsEmisorFragment.class.getSimpleName() + "must be called by newInstance factory method");
         }
@@ -90,21 +84,21 @@ public class DetailsEmisorFragment extends GenericFragment {
 
     private void loadViews() {
         layoutMovementTypeColor = rootView.findViewById(R.id.layout_movement_type_color);
-        txtItemMovDate = (TextView)rootView.findViewById(R.id.txt_item_mov_date);
-        txtItemMovMonth = (TextView)rootView.findViewById(R.id.txt_item_mov_month);
+        txtItemMovDate = (TextView) rootView.findViewById(R.id.txt_item_mov_date);
+        txtItemMovMonth = (TextView) rootView.findViewById(R.id.txt_item_mov_month);
         //layoutMovementDate = (LinearLayout) rootView.findViewById(R.id.layout_movement_date);
-        txtPremios = (TextView)rootView.findViewById(R.id.txt_premios);
-        txtMarca = (TextView)rootView.findViewById(R.id.txt_marca);
-        txtMonto = (TextView)rootView.findViewById(R.id.txt_monto);
-        txtItemMovCents = (TextView)rootView.findViewById(R.id.txt_item_mov_cents);
+        txtPremios = (TextView) rootView.findViewById(R.id.txt_premios);
+        txtMarca = (TextView) rootView.findViewById(R.id.txt_marca);
+        txtMonto = (TextView) rootView.findViewById(R.id.txt_monto);
+        txtItemMovCents = (TextView) rootView.findViewById(R.id.txt_item_mov_cents);
         imgMovementDetail = (ImageView) rootView.findViewById(R.id.imgMovementDetail);
 
 
-        txtMovementDetailIdTransaccion = (TextView)rootView.findViewById(R.id.txtMovementDetailIdTransaccion);
-        txtMovementDetailConcept = (TextView)rootView.findViewById(R.id.txtMovementDetailConcept);
-        txtMovementDetailDate = (TextView)rootView.findViewById(R.id.txtMovementDetailDate);
-        txtMovementDetailHour = (TextView)rootView.findViewById(R.id.txtMovementDetailHour);
-        txtMovementDetailAuthNumber = (TextView)rootView.findViewById(R.id.txtMovementDetailAuthNumber);
+        txtMovementDetailIdTransaccion = (TextView) rootView.findViewById(R.id.txtMovementDetailIdTransaccion);
+        txtMovementDetailConcept = (TextView) rootView.findViewById(R.id.txtMovementDetailConcept);
+        txtMovementDetailDate = (TextView) rootView.findViewById(R.id.txtMovementDetailDate);
+        txtMovementDetailHour = (TextView) rootView.findViewById(R.id.txtMovementDetailHour);
+        txtMovementDetailAuthNumber = (TextView) rootView.findViewById(R.id.txtMovementDetailAuthNumber);
         txtMovementDetailReference = (TextView) rootView.findViewById(R.id.txtMovementDetailReference);
         txtMovementDetailImport = (TextView) rootView.findViewById(R.id.txtMovementDetailImport);
         txtMovementDetailComision = (TextView) rootView.findViewById(R.id.txtMovementDetailComision);
@@ -119,8 +113,7 @@ public class DetailsEmisorFragment extends GenericFragment {
         String[] monto = Utils.getCurrencyValue(movimientosResponse.getTotal()).split("\\.");
 
         String[] date = movimientosResponse.getFechaMovimiento().split(" ");
-        @ColorInt int movementColor = ContextCompat.getColor(getActivity(),
-                MovementColorsFactory.getColorMovement(movimientosResponse.getTipoMovimiento()));
+        @ColorInt int movementColor = ContextCompat.getColor(getActivity(), MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor());
 
         layoutMovementTypeColor.setBackgroundColor(movementColor);
         txtPremios.setText(movimientosResponse.getDetalle());
@@ -149,13 +142,13 @@ public class DetailsEmisorFragment extends GenericFragment {
         txtMovementDetailImport.setText(Utils.getCurrencyValue(movimientosResponse.getImporte()));
 
         if (movimientosResponse.getComision() > 0.0) {
-            ((View)txtMovementDetailComision.getParent()).setVisibility(View.GONE);
+            ((View) txtMovementDetailComision.getParent()).setVisibility(View.GONE);
         } else {
             txtMovementDetailComision.setText(Utils.getCurrencyValue(movimientosResponse.getComision()));
         }
 
         if (movimientosResponse.getIVA() > 0.0) {
-            ((View)txtMovementDetailIva.getParent()).setVisibility(View.GONE);
+            ((View) txtMovementDetailIva.getParent()).setVisibility(View.GONE);
         } else {
             txtMovementDetailIva.setText(Utils.getCurrencyValue(movimientosResponse.getIVA()));
         }

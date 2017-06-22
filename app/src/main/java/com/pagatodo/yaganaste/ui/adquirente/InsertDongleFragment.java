@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui.adquirente;
 
 
 import android.annotation.SuppressLint;
-import android.app.Activity;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -25,13 +24,13 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AccountDepositData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
-import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.text.SimpleDateFormat;
@@ -43,12 +42,10 @@ import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
 import static android.content.Context.AUDIO_SERVICE;
-import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente.getCurrentDatesAccountDepositData;
 import static com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente.getImplicitData;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
@@ -72,7 +69,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.SW_TIMEOUT;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class InsertDongleFragment extends GenericFragment implements View.OnClickListener,IAdqTransactionRegisterView {
+public class InsertDongleFragment extends GenericFragment implements View.OnClickListener, IAdqTransactionRegisterView {
 
     private static final String TAG = InsertDongleFragment.class.getSimpleName();
     private View rootview;
@@ -90,6 +87,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private int currentVolumenDevice;
     private int maxVolumenDevice;
 
+
     protected boolean isReaderConected = false;
 
     private String amount = "";
@@ -98,14 +96,28 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private AdqPresenter adqPresenter;
 
     private boolean isWaitingCard = false;
+    private static String DATA_KEY = "is_cancelation_data";
+    private static String DATA_MOVEMENTS = "data_movimiento_adq";
+    private boolean isCancelation = false;
+    DataMovimientoAdq dataMovimientoAdq;
 
     public InsertDongleFragment() {
     }
 
-    public static InsertDongleFragment newInstance(){
-
-        InsertDongleFragment fragment =  new InsertDongleFragment();
+    public static InsertDongleFragment newInstance(boolean isCancelation, DataMovimientoAdq dataMovimientoAdq) {
+        InsertDongleFragment fragment = new InsertDongleFragment();
         Bundle args = new Bundle();
+        args.putBoolean(DATA_KEY, isCancelation);
+        args.putSerializable(DATA_MOVEMENTS, dataMovimientoAdq);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static InsertDongleFragment newInstance() {
+        InsertDongleFragment fragment = new InsertDongleFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(DATA_KEY, false);
+        args.putSerializable(DATA_MOVEMENTS, null);
         fragment.setArguments(args);
         return fragment;
     }
@@ -113,6 +125,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        isCancelation = getArguments().getBoolean(DATA_KEY);
+        dataMovimientoAdq = getArguments().getSerializable(DATA_MOVEMENTS) != null ? (DataMovimientoAdq) getArguments().getSerializable(DATA_MOVEMENTS) : null;
         prefs = App.getInstance().getPrefs();
         audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
         currentVolumenDevice = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
@@ -141,9 +155,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         //validatingDng = false; // Cancelar Validacion
                         unregisterReceiverDongle();
                         hideLoader();
-                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC,0,0);
+                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
                         showInsertDongle();
-                        Log.i("IposListener: ","isReaderConected  false");
+                        Log.i("IposListener: ", "isReaderConected  false");
                         break;
                     case 1:
                         isReaderConected = true;
@@ -154,7 +168,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                         //validatingDng = false; // Cancelar Validacion
                         //insertCard();
                         handlerSwipe.postDelayed(starReaderEmvSwipe, 500);
-                        Log.i("IposListener: ","isReaderConected  true");
+                        Log.i("IposListener: ", "isReaderConected  true");
                         break;
                     default:
                         break;
@@ -167,7 +181,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         @Override
         public void run() {
             if (isReaderConected) {
-                Log.i("IposListener: ","=====>>   starReaderEmvSwipe ");
+                Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
                 App.getInstance().pos.openAudio();
 //                checkDongleStatus("1234");
                 getKSN();
@@ -188,96 +202,105 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             //Procesar lectura mientras no se este validando Dongle
             //if(!validatingDng){
 
-                switch (mensaje) {
-                    case LECTURA_OK:
-                        Log.i("IposListener: ","=====>>  LECTURA OK");
-                        if(isWaitingCard){
-                            Log.i("IposListener: ","=====>>   LECTURA_OK ");
-                            TransaccionEMVDepositRequest requestTransaction = (TransaccionEMVDepositRequest) intent.getSerializableExtra(Recursos.TRANSACTION);
+            switch (mensaje) {
+                case LECTURA_OK:
+                    Log.i("IposListener: ", "=====>>  LECTURA OK");
+                    if (isWaitingCard) {
+                        Log.i("IposListener: ", "=====>>   LECTURA_OK ");
+                        TransaccionEMVDepositRequest requestTransaction = (TransaccionEMVDepositRequest) intent.getSerializableExtra(Recursos.TRANSACTION);
+                        if (isCancelation) {
+                            adqPresenter.initCancelation(buildEMVRequest(requestTransaction), dataMovimientoAdq);
+                        } else {
                             adqPresenter.initTransaction(buildEMVRequest(requestTransaction));
                         }
-                        break;
-                    case READ_KSN:
-                        TransaccionEMVDepositRequest transactionKsn = (TransaccionEMVDepositRequest) intent.getSerializableExtra(Recursos.TRANSACTION);
-                        verifyDongle(transactionKsn.getNoSerie());
-                        break;
-                    case READ_BATTERY_LEVEL:
-                        int batteryLevel = intent.getIntExtra(Recursos.BATTERY_LEVEL, 0);
-                        Log.i("IposListener: ","=====>>    batteryLevel "+batteryLevel);
-                        App.getInstance().pos.getQposId();
-                        Log.i("IposListener: ","=====>>    Obteniendo ksn ");
-                        break;
-                    case ERROR_LECTOR:
-                        Log.i("IposListener: ","=====>>    ERROR_LECTOR");
-                        hideLoader();
-                        //closeProgress();
-                        break;
-                    case LEYENDO:
-                        Log.i("IposListener: ","=====>>    LEYENDO");
-                        App.getInstance().pos.doEmvApp(QPOSService.EmvOption.START);
-                        showLoader(getResources().getString(R.string.readcard));
-                        break;
-                    case REQUEST_AMOUNT:
-                        Log.i("IposListener: ","=====>>    REQUEST_AMOUNT");
-                        String amountCard = TransactionAdqData.getCurrentTransaction().getAmount().replace(".","");
-                        App.getInstance().pos.setAmount(amountCard, "", "484", QPOSService.TransactionType.PAYMENT);
-                        break;
-                    case REQUEST_TIME:
-                        String terminalTime = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
-                        App.getInstance().pos.sendTime(terminalTime);
-                        Log.i("IposListener: ","=====>>    REQUEST_TIME");
-                        break;
-                    case REQUEST_IS_SERVER_CONNECTED:
-                        App.getInstance().pos.isServerConnected(true);
-                        Log.i("IposListener: ","=====>>    REQUEST_IS_SERVER_CONNECTED");
-                        break;
-                    case REQUEST_FINAL_CONFIRM:
-                        App.getInstance().pos.finalConfirm(true);
-                        Log.i("IposListener: ","=====>>    REQUEST_FINAL_CONFIRM");
-                        break;
-                    case REQUEST_PIN:
-                        App.getInstance().pos.bypassPin();
-                        Log.i("IposListener: ","=====>>    REQUEST_PIN");
-                        break;
-                    case SW_TIMEOUT:
-                        //initListenerDongle();
-                        hideLoader();
-                        Toast.makeText(getActivity(), "Vuelve a conectar el Lector.", Toast.LENGTH_SHORT).show();
-                        showInsertDongle();
-                        Log.i("IposListener: ","=====>>    SW_TIMEOUT");
-                        break;
-                    case SW_ERROR:
-                        Log.i("IposListener: ","=====>>    SW_ERROR");
-                        hideLoader();
-                        if(!isWaitingCard)
-                            unregisterReceiverDongle();
-                        else {
-                            Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
-                            showInsertDongle();
-                        }
-                        break;
-                    case ENCENDIDO:
-                        Log.i("IposListener: ","=====>>    ENCENDIDO");
-                        break;
-                    default:
-                        Log.i("IposListener: ","=====>>    default");
-                        hideLoader();
-                        break;
-                }
+                    }
+                    break;
+                case READ_KSN:
+                    TransaccionEMVDepositRequest transactionKsn = (TransaccionEMVDepositRequest) intent.getSerializableExtra(Recursos.TRANSACTION);
+                    verifyDongle(transactionKsn.getNoSerie());
+                    break;
+                case READ_BATTERY_LEVEL:
+                    int batteryLevel = intent.getIntExtra(Recursos.BATTERY_LEVEL, 0);
+                    Log.i("IposListener: ", "=====>>    batteryLevel " + batteryLevel);
+                    App.getInstance().pos.getQposId();
+                    Log.i("IposListener: ", "=====>>    Obteniendo ksn ");
+                    break;
+                case ERROR_LECTOR:
+                    Log.i("IposListener: ", "=====>>    ERROR_LECTOR");
+                    hideLoader();
+                    //closeProgress();
+                    break;
+                case LEYENDO:
+                    Log.i("IposListener: ", "=====>>    LEYENDO");
+                    App.getInstance().pos.doEmvApp(QPOSService.EmvOption.START);
+                    showLoader(getResources().getString(R.string.readcard));
+                    break;
+                case REQUEST_AMOUNT:
+                    Log.i("IposListener: ", "=====>>    REQUEST_AMOUNT");
 
-           // }
+                    String amountCard = TransactionAdqData.getCurrentTransaction().getAmount().replace(".", "");
+                    if (isCancelation) {
+                        amountCard = "150";
+                    }
+
+                    App.getInstance().pos.setAmount(amountCard, "", "484", QPOSService.TransactionType.PAYMENT);
+                    break;
+                case REQUEST_TIME:
+                    String terminalTime = new SimpleDateFormat("yyyyMMddHHmmss").format(Calendar.getInstance().getTime());
+                    App.getInstance().pos.sendTime(terminalTime);
+                    Log.i("IposListener: ", "=====>>    REQUEST_TIME");
+                    break;
+                case REQUEST_IS_SERVER_CONNECTED:
+                    App.getInstance().pos.isServerConnected(true);
+                    Log.i("IposListener: ", "=====>>    REQUEST_IS_SERVER_CONNECTED");
+                    break;
+                case REQUEST_FINAL_CONFIRM:
+                    App.getInstance().pos.finalConfirm(true);
+                    Log.i("IposListener: ", "=====>>    REQUEST_FINAL_CONFIRM");
+                    break;
+                case REQUEST_PIN:
+                    App.getInstance().pos.bypassPin();
+                    Log.i("IposListener: ", "=====>>    REQUEST_PIN");
+                    break;
+                case SW_TIMEOUT:
+                    //initListenerDongle();
+                    hideLoader();
+                    Toast.makeText(getActivity(), "Vuelve a conectar el Lector.", Toast.LENGTH_SHORT).show();
+                    showInsertDongle();
+                    Log.i("IposListener: ", "=====>>    SW_TIMEOUT");
+                    break;
+                case SW_ERROR:
+                    Log.i("IposListener: ", "=====>>    SW_ERROR");
+                    hideLoader();
+                    if (!isWaitingCard)
+                        unregisterReceiverDongle();
+                    else {
+                        Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
+                        showInsertDongle();
+                    }
+                    break;
+                case ENCENDIDO:
+                    Log.i("IposListener: ", "=====>>    ENCENDIDO");
+                    break;
+                default:
+                    Log.i("IposListener: ", "=====>>    default");
+                    hideLoader();
+                    break;
+            }
+
+            // }
         }
     };
 
     @Override
     public void verifyDongle(String ksn) {
-        Log.i("IposListener: ","=====>>  READ_KSN  "+ ksn);
-        if(ksn.length() > 10) {
-                Log.i("IposListener: ","=====>>  saveData");
-                checkDongleStatus(ksn);
-        }else{
+        Log.i("IposListener: ", "=====>>  READ_KSN  " + ksn);
+        if (ksn.length() > 10) {
+            Log.i("IposListener: ", "=====>>  saveData");
+            checkDongleStatus(ksn);
+        } else {
             hideLoader();
-            UI.showToastShort("Inserta un Lector de Tarjeta Válido",getActivity());
+            UI.showToastShort("Inserta un Lector de Tarjeta Válido", getActivity());
             unregisterReceiverDongle();
             showInsertDongle();
         }
@@ -285,11 +308,11 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     /****/
 
-    private void checkDongleStatus(String serial){
+    private void checkDongleStatus(String serial) {
         adqPresenter.validateDongle(serial);
     }
 
-    private TransaccionEMVDepositRequest buildEMVRequest(TransaccionEMVDepositRequest request){
+    private TransaccionEMVDepositRequest buildEMVRequest(TransaccionEMVDepositRequest request) {
         TransactionAdqData currentTransaction = TransactionAdqData.getCurrentTransaction();
         SingletonUser currentUser = SingletonUser.getInstance();
 //        request.setAccountDepositData(getCurrentDatesAccountDepositData(currentTransaction.getDescription()));
@@ -304,7 +327,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         return request;
     }
 
-    private void readDongle(){
+    private void readDongle() {
         getKSN();
     }
 
@@ -352,25 +375,25 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     }
 
 
-    public void unregisterReceiverDongle(){
-        try{
+    public void unregisterReceiverDongle() {
+        try {
             getActivity().unregisterReceiver(emvSwipeBroadcastReceiver); // Desregistramos receiver
-        }catch (IllegalArgumentException ex){
-            Log.e(TAG,"emvSwipeBroadcastReceiver no registrado. Ex- " + ex.toString());
+        } catch (IllegalArgumentException ex) {
+            Log.e(TAG, "emvSwipeBroadcastReceiver no registrado. Ex- " + ex.toString());
         }
     }
 
-    private void unregisterReceiverHeadPhone(){
-        try{
+    private void unregisterReceiverHeadPhone() {
+        try {
             getActivity().unregisterReceiver(headPhonesReceiver);
-        }catch (IllegalArgumentException ex){
-            Log.e(TAG,"emvSwipeBroadcastReceiver no registrado. Ex- " + ex.toString());
+        } catch (IllegalArgumentException ex) {
+            Log.e(TAG, "emvSwipeBroadcastReceiver no registrado. Ex- " + ex.toString());
         }
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
 
             default:
                 break;
@@ -389,9 +412,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void showInsertCard() {
         imgInsertDongle.setVisibility(View.INVISIBLE);
         imgInsertCard.setVisibility(VISIBLE);
-        try{
-            ((GifDrawable)imgInsertCard.getDrawable()).setLoopCount(0);
-        }catch (Exception e){
+        try {
+            ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
+        } catch (Exception e) {
 
         }
         tv_lector.setText(getString(R.string.text_slide_or_insert));
@@ -416,21 +439,19 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
-                nextScreen(EVENT_GO_TRANSACTION_RESULT,message);
+                nextScreen(EVENT_GO_TRANSACTION_RESULT, message);
             }
         }, DELAY_MESSAGE_PROGRESS);
-
-
     }
 
     @Override
     public void nextScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
@@ -448,7 +469,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showError(Object error) {
-        UI.showToast(error.toString(),getActivity());
+        UI.showToast(error.toString(), getActivity());
         DialogDoubleActions doubleActions = new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
@@ -460,10 +481,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
             }
         };
-        UI.createSimpleCustomDialog("Error", error.toString(), getFragmentManager(),doubleActions, true, false);
+        UI.createSimpleCustomDialog("Error", error.toString(), getFragmentManager(), doubleActions, true, false);
     }
 
-    public void initListenerDongle(){
+    public void initListenerDongle() {
         App.getInstance().pos.doTradeNoPinpad(30);
     }
 }

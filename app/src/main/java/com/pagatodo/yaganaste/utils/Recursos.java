@@ -12,7 +12,7 @@ public class Recursos {
 	public static final int DATABASE_VERSION = 1;
 	public static final String DATABASE_NAME = "";
 
-	public static final int TIMEOUT = 15000;
+	public static final int TIMEOUT = 60000;
 
 	//URL DE WS
 	static {

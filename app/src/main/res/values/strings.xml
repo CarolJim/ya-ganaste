@@ -76,7 +76,7 @@
     <string name="adqResumeDay">/agMov/getResumenYG?fecha=</string>
     <string name="adqResumeMonth">/agMov/getResumenMonthYG</string>
     <string name="adqGetBalance">/agMov/getSaldo</string>
-
+    <string name="cancelationTransactionEmv">/agMov/CancellationTransactionEmvDeposit</string>
     <!--Textos de la Aplicación-->
     <string name="txt_registrate">Registrate</string>
     <string name="txt_inicia_sesion">INICIA TU REGISTRO</string><!--TODO licencia que se tomaron los de QA lo cambio por que esta reportado-->
@@ -385,7 +385,9 @@
     <string name="tu_firma">Tu Firma</string>
     <string name="pago_por">Pago por </string>
 
-    <string name="cancelar_operacion">Cancelar Operación</string>
+    <string name="cancelar_operacion">Cancelar Cobro</string>
+    <string name="txt_monto">Monto:</string>
+    <string name="txt_recibo">Recibo:</string>
 
     <string name="autorizacion">Autorización:</string>
     <string name="tarjeta">Tarjeta:</string>
@@ -519,7 +521,19 @@
     <string name="no_sucursales">No exisiten sucursales en tu área.</string>
 
     <!-- PreferUSerActivity -->
-    <string name="listaopciones_load_image_wait">Cargando Imagen. Por favor, espere . . .</string>
+    <string name="listaopciones_load_image_wait">Cargando Imagen. Por Favor, Espere</string>
+
+
+    <string name="detalle_movimiento">Detalle de Movimiento</string>
+    <string name="cobraste">Cobraste</string>
+    <string name="con_la_tarjeta">Con la tarjeta:</string>
+    <string name="cancel_cobro_confirmation">¿Estás Seguro Que Quieres\n Cancelar Este Cobro?</string>
+
+    <string name="procesando_cobro">Estamos en Proceso de Cobro</string>
+    <string name="procesando_cancelacion">Estamos Procesando la Cancelación</string>
+    <string name="validando_lector">Validando Lector</string>
+    <string name="enviando_firma">Enviando Firma</string>
+    <string name="enviando_ticket">Enviando Ticket</string>
 </resources>
 
 

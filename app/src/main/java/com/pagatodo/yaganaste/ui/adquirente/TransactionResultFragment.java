@@ -67,16 +67,6 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     public TransactionResultFragment() {
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-
-    }
 
     public static TransactionResultFragment newInstance(PageResult pageResult) {
 

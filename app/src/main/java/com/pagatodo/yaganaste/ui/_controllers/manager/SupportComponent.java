@@ -18,7 +18,8 @@ public class SupportComponent {
 
     protected FragmentManager fragmentManager;
 
-    @IdRes private int containerID;
+    @IdRes
+    private int containerID;
     GenericFragment lastFragment;
 
     public SupportComponent(FragmentManager fragmentManager) {
@@ -59,8 +60,12 @@ public class SupportComponent {
                                 boolean addToBackStack) {
         this.containerID = idContainer;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if (!direction.equals(Direction.NONE)) {
-            fragmentTransaction.setCustomAnimations(direction.getEnterAnimation(), direction.getExitAnimation());
+        if (direction.equals(Direction.FORDWARD)) {
+            fragmentTransaction.setCustomAnimations(direction.getEnterAnimation(), direction.getExitAnimation(),
+                    Direction.BACK.getEnterAnimation(), Direction.BACK.getExitAnimation());
+        } else if (direction.equals(Direction.BACK)) {
+            fragmentTransaction.setCustomAnimations(direction.getEnterAnimation(), direction.getExitAnimation(),
+                    Direction.FORDWARD.getEnterAnimation(), Direction.FORDWARD.getExitAnimation());
         }
         if (addToBackStack) {
             fragmentTransaction.addToBackStack(null);
@@ -71,13 +76,19 @@ public class SupportComponent {
 
 
     protected void loadFragment(@NonNull Fragment fragment, @IdRes int idContainer, @NonNull Direction direction,
-                                boolean addToBackStack){
+                                boolean addToBackStack) {
         this.containerID = idContainer;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-        if (!direction.equals(Direction.NONE)){
-            fragmentTransaction.setCustomAnimations(direction.getEnterAnimation(), direction.getExitAnimation());
+
+        if (direction.equals(Direction.FORDWARD)) {
+            fragmentTransaction.setCustomAnimations(direction.getEnterAnimation(), direction.getExitAnimation(),
+                    Direction.BACK.getEnterAnimation(), Direction.BACK.getExitAnimation());
+        } else if (direction.equals(Direction.BACK)) {
+            fragmentTransaction.setCustomAnimations(direction.getEnterAnimation(), direction.getExitAnimation(),
+                    Direction.FORDWARD.getEnterAnimation(), Direction.FORDWARD.getExitAnimation());
         }
-        if (addToBackStack){
+
+        if (addToBackStack) {
             fragmentTransaction.addToBackStack(null);
         }
         fragmentTransaction.replace(idContainer, fragment, fragment.getClass().getSimpleName()).commit();
