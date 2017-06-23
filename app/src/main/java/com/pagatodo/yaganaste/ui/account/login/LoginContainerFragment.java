@@ -96,10 +96,10 @@ public class LoginContainerFragment extends SupportFragment implements TabsView<
         Preferencias prefs = App.getInstance().getPrefs();
 
         imgPrevious.setVisibility(View.INVISIBLE);
-        if (!prefs.containsData(HAS_SESSION) || RequestHeaders.getTokenAdq().isEmpty()) {
+        if (!prefs.containsData(HAS_SESSION) || RequestHeaders.getTokenauth().isEmpty()) {
             imgNext.setVisibility(View.INVISIBLE);
         }
-        vpLogin.setIsSwipeable(prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenAdq().isEmpty());
+        vpLogin.setIsSwipeable(prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty());
     }
 
     @Override
