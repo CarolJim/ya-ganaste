@@ -28,7 +28,7 @@
         android:gravity="center"
         app:title="Activar Permisos">
 
-        <android.support.v7.widget.AppCompatButton
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnPermissions"
             android:layout_centerInParent="true"
             android:layout_width="match_parent"
@@ -52,7 +52,7 @@
         android:layout_marginRight="@dimen/margin_medium"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatButton
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextPermisos"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

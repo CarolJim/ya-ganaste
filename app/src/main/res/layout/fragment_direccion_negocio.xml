@@ -167,7 +167,7 @@
         android:layout_height="wrap_content"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatButton
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnBackDatosPersonales"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
@@ -176,7 +176,7 @@
             android:text="Volver"
             android:textSize="@dimen/generic_button_normal_text_size"/>
 
-        <android.support.v7.widget.AppCompatButton
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextDatosPersonales"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"

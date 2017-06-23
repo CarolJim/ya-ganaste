@@ -10,9 +10,6 @@
     android:background="@drawable/bg_gradient_bottom"
     tools:context=".ui._controllers.AccountActivity">
 
-    <include
-        android:id="@+id/toolbarLy"
-        layout="@layout/toolbar" />
 
     <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
         android:id="@+id/layoutContent"
@@ -183,7 +180,7 @@
         android:layout_marginBottom="@dimen/margin_medium"
         android:orientation="horizontal">
 
-        <android.support.v7.widget.AppCompatButton
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnBackBussinesAddress"
             style="@style/buttonDirecctionBack"
             android:layout_weight="1"
@@ -195,7 +192,7 @@
             android:layout_width="10dp"
             android:layout_height="wrap_content" />
 
-        <android.support.v7.widget.AppCompatButton
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextBussinesAddress"
             style="@style/buttonDirecctionNext"
             android:layout_weight="2"
