@@ -285,12 +285,18 @@ public class CameraManager {
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
             try {
+                String path;
+                if (new File(selectedImage.getPath()).exists()) {
+                    path = selectedImage.getPath();
+                } else {
+                    cursor = getContext().getContentResolver().query(selectedImage,
+                            filePathColumn, null, null, null);
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
+                    path = cursor.getString(columnIndex);
+                }
                 // Proceso para obtener la imagen por medio de un contentResolver
-                cursor = getContext().getContentResolver().query(selectedImage,
-                        filePathColumn, null, null, null);
-                cursor.moveToFirst();
-                int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
-                String path = cursor.getString(columnIndex);
+
                 bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {
                     @Override
                     public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {

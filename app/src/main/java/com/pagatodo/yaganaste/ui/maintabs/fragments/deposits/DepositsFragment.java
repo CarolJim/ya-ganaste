@@ -93,9 +93,11 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
         List<Fragment> fragments = getChildFragmentManager().getFragments();
 
         if (fragments != null && fragments.get(0) instanceof DepositsMapFragment) {
-            removeLastFragment();
-            loadFragment(DepositsDataFragment.newInstance(), Direction.BACK, false);
-            onEventListener.onEvent(TabActivity.EVENT_SHOW_MAIN_TAB, null);
+            if (((DepositsMapFragment) fragments.get(0)).isBackAvailable) {
+                removeLastFragment();
+                loadFragment(DepositsDataFragment.newInstance(), Direction.BACK, false);
+                onEventListener.onEvent(TabActivity.EVENT_SHOW_MAIN_TAB, null);
+            }
         } else if (fragments != null && fragments.get(0) instanceof DepositsDataFragment) {
             ((TabActivity) getActivity()).goHome();
             onEventListener.onEvent(TabActivity.EVENT_SHOW_MAIN_TAB, null);

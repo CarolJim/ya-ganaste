@@ -236,20 +236,22 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 }
             });
             bitmapLoader.execute();
-        } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode != RESULT_OK) {
-            // enableItems(true);
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode == RESULT_OK && null != data) {
             Cursor cursor = null;
             Uri selectedImage = data.getData();
-            //String[] filePathColumn = {MediaStore.Images.Media.DATA};
+            String[] filePathColumn = {MediaStore.Images.Media.DATA};
             try {
-                // Get the cursor
-                //cursor = getContext().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
-                // Move to first row
-                //cursor.moveToFirst();
-                //int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
-                //String path = cursor.getString(columnIndex);
-                bitmapLoader = new BitmapLoader(getActivity(), selectedImage.getPath(), new BitmapBase64Listener() {
+                String path;
+                if (new File(selectedImage.getPath()).exists()) {
+                    path = selectedImage.getPath();
+                } else {
+                    cursor = getContext().getContentResolver().query(selectedImage, filePathColumn, null, null, null);
+                    // Move to first row
+                    cursor.moveToFirst();
+                    int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
+                    path = cursor.getString(columnIndex);
+                }
+                bitmapLoader = new BitmapLoader(getActivity(), path, new BitmapBase64Listener() {
                     @Override
                     public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
                         //enableItems(true);
@@ -260,14 +262,15 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 bitmapLoader.execute();
             } catch (Exception e) {
                 e.printStackTrace();
+                UI.createSimpleCustomDialog("", "Error al cargar imágen", getActivity().getSupportFragmentManager(), null, true, false);
                 adqPresenter.showGaleryError();
             } finally {
                 if (cursor != null) {
                     cursor.close();
                 }
             }
-        } else if (requestCode == SELECT_FILE_PHOTO && resultCode != RESULT_OK && data == null) {
-
+        } else {
+            UI.createSimpleCustomDialog("", "Error al cargar imágen", getActivity().getSupportFragmentManager(), null, true, false);
         }
     }
 
@@ -615,7 +618,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             adqPresenter.getEstatusDocs();
         }
     }
-
 
 }
 

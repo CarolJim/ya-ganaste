@@ -74,6 +74,8 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     @BindView(R.id.swipeMap)
     SwipeRefreshLayout swipeMap;
 
+    boolean isBackAvailable = false;
+
     public static DepositsMapFragment newInstance() {
         DepositsMapFragment depositsMapFragment = new DepositsMapFragment();
         Bundle args = new Bundle();
@@ -142,12 +144,14 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         this.sucurasalesList.setVisibility(View.GONE);
         txtInfoSucursales.setVisibility(View.VISIBLE);
         swipeMap.setRefreshing(false);
+        txtInfoSucursales.setVisibility(View.VISIBLE);
         parentActivity.hideProgresLayout();
     }
 
     @Override
     public void onServiceError(DataSourceResult rescponse) {
         String errorTxt = null;
+        isBackAvailable = true;
         try {
             LocalizarSucursalesResponse response = (LocalizarSucursalesResponse) rescponse.getData();
             if (response.getMensaje() != null)
@@ -159,11 +163,13 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         }
         swipeMap.setRefreshing(false);
         parentActivity.hideProgresLayout();
+        txtInfoSucursales.setVisibility(View.VISIBLE);
         ((DepositsFragment) getParentFragment()).showErrorMessage(errorTxt != null ? errorTxt : getString(R.string.error_respuesta));
         ((DepositsFragment) getParentFragment()).onBtnBackPress();
     }
 
     private void prinSucursalesOnMap(List<DataLocalizaSucursal> sucursalList) {
+        isBackAvailable = true;
         markers = new ArrayList<>();
         for (DataLocalizaSucursal sucursal : sucursalList) {
             addMarker(sucursal);
@@ -263,4 +269,5 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         ((TabActivity) getActivity()).showProgressLayout("Cargando");
         getSucursales();
     }
+
 }
