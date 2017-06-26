@@ -254,12 +254,12 @@
     <string name="password">Contraseña</string>
     <string name="passwordConfirm">Confirma Contraseña</string>
     <string name="datos_usuario_correo">Introduce un Correo Válido (*)</string>
-    <string name="datos_usuario_correo_formato">El Correo No es Válido</string>
-    <string name="datos_usuario_correo_confirma">Debes confirmar el correo.</string>
-    <string name="datos_usuario_correo_no_coinciden">El Correo No coincide.</string>
+    <string name="datos_usuario_correo_formato">El Correo no es Válido</string>
+    <string name="datos_usuario_correo_confirma">Debes Confirmar el Correo.</string>
+    <string name="datos_usuario_correo_no_coinciden">El Correo no Coincide.</string>
     <string name="datos_usuario_pass">Introduce la Contraseña.</string>
     <string name="datos_usuario_pass_confirm">Debes Confirmar la Contraseña.</string>
-    <string name="datos_usuario_pass_no_coinciden">La Contraseña No Coincide.</string>
+    <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide.</string>
     <string name="datos_usuario_pass_formato">Verifica tu Contraseña.</string>
     <string name="bienvenido_usuario">¡Bienvenido %1$s!</string>
     <!--datos_personales-->
