@@ -290,12 +290,16 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
      * @param response
      */
     private void processEstatusUsuario(DataSourceResult response) {
+        try {
+            ValidarEstatusUsuarioResponse data = (ValidarEstatusUsuarioResponse) response.getData();
+            DataEstatusUsuario userStatus = data.getData();
+            SingletonUser user = SingletonUser.getInstance();
+            user.getDataUser().setEsAgente(userStatus.isEsAgente());
+            user.getDataUser().setEstatusAgente(CRM_PENDIENTE);
+        } catch (Exception e) {
+            Log.d("AccountAdqInteractor", "Exception " + e);
+        }
 
-        ValidarEstatusUsuarioResponse data = (ValidarEstatusUsuarioResponse) response.getData();
-        DataEstatusUsuario userStatus = data.getData();
-        SingletonUser user = SingletonUser.getInstance();
-        user.getDataUser().setEsAgente(userStatus.isEsAgente());
-        user.getDataUser().setEstatusAgente(CRM_PENDIENTE);
     }
 
     private void processSendDocumentsPendientes(DataSourceResult response) {
