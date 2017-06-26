@@ -16,6 +16,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="com.pagatodo.yaganaste.fileprovider.READ"/>
     <!-- PERMISOS DEL GPS -->
     <uses-permission android:name="android.hadware.location.gps" />
     <!-- FIN DE LOS PERMISOS DEL GPS -->
@@ -49,7 +50,8 @@
             android:name="android.support.v4.content.FileProvider"
             android:authorities="com.pagatodo.yaganaste.fileprovider"
             android:exported="false"
-            android:grantUriPermissions="true">
+            android:grantUriPermissions="true"
+            android:readPermission="com.pagatodo.yaganaste.fileprovider.READ">
             <meta-data
                 android:name="android.support.FILE_PROVIDER_PATHS"
                 android:resource="@xml/file_paths" />
@@ -157,8 +159,7 @@
 
         <meta-data
             android:name="io.fabric.ApiKey"
-            android:value="6586b24eda23982e86678c62a9df721f3aed82b0"
-            />
+            android:value="6586b24eda23982e86678c62a9df721f3aed82b0" />
 
     </application>
 

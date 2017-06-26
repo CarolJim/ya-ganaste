@@ -2,5 +2,5 @@
 <paths>
     <external-path
         name="my_images"
-        path="Android/data/com.pagatodo.yaganaste/files/Pictures" />
+        files-path="Pictures/" />
 </paths>

@@ -405,15 +405,25 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             }
             // Continue only if the File was successfully created
             if (photoFile != null) {
-                Uri photoURI = FileProvider.getUriForFile(getActivity(),
+                Uri photoURI;
+                /*try {
+
+                } catch (Exception ex) {
+                    ex.printStackTrace();
+                    photoURI = Uri.parse(photoFile.getAbsolutePath());
+                }*/
+                photoURI = FileProvider.getUriForFile(getActivity(),
                         "com.pagatodo.yaganaste.fileprovider",
                         photoFile);
                 takePictureIntent.putExtra(MediaStore.EXTRA_OUTPUT, photoURI);
 
-                List<ResolveInfo> resolvedIntentActivities = getActivity().getPackageManager().queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY);
+                List<ResolveInfo> resolvedIntentActivities = getActivity()
+                        .getPackageManager()
+                        .queryIntentActivities(takePictureIntent, PackageManager.MATCH_DEFAULT_ONLY);
                 for (ResolveInfo resolvedIntentInfo : resolvedIntentActivities) {
                     String packageName = resolvedIntentInfo.activityInfo.packageName;
-                    getActivity().grantUriPermission(packageName, photoURI, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
+                    getActivity().grantUriPermission(packageName,
+                            photoURI, Intent.FLAG_GRANT_WRITE_URI_PERMISSION | Intent.FLAG_GRANT_READ_URI_PERMISSION);
                 }
 
 

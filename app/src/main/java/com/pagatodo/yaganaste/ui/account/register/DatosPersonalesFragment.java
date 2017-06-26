@@ -282,6 +282,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 break;
             case R.id.editBirthDay:
                 errorBirthDayMessage.setMessageText(error.toString());
+                editBirthDay.setIsInvalid();
                 break;
             case R.id.spinnerBirthPlace:
                 errorBirthPlaceMessage.setMessageText(error.toString());
@@ -306,6 +307,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 break;
             case R.id.editBirthDay:
                 errorBirthDayMessage.setVisibilityImageError(false);
+                editBirthDay.setIsValid();
                 break;
             case R.id.spinnerBirthPlace:
                 errorBirthPlaceMessage.setVisibilityImageError(false);
@@ -434,6 +436,18 @@ public class DatosPersonalesFragment extends GenericFragment implements
                     editBirthDay.setText(DateUtil.getBirthDateString(newDate));
                     fechaNacimiento = DateUtil.getDateStringFirstYear(newDate);
 
+                    Calendar mCalendar = Calendar.getInstance();
+                    mCalendar.set(actualDate.get(Calendar.YEAR) - 18, actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH));
+
+                    if (newDate.getTimeInMillis() > actualDate.getTimeInMillis()) {
+                        showValidationError(editBirthDay.getId(), getString(R.string.fecha_nacimiento_erronea));
+                        return;
+                    }
+
+                    if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
+                        showValidationError(editBirthDay.getId(), getString(R.string.feha_nacimiento_menor_edad));
+                        return;
+                    }
                 }
             }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
             datePickerDialog.show();

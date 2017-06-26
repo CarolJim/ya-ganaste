@@ -537,6 +537,9 @@
 
     <string name="fecha_nacimiento_erronea">Fecha de Nacimento Erronea, Verifique su Información.</string>
     <string name="feha_nacimiento_menor_edad">Fecha de Nacimento Erronea, Debe Ser Mayor de 18 años para Realizar el Tramite.</string>
+
+    <string name="perm_read">Ability to read files from this app</string>
+    <string name="perm_read_label">Read Files</string>
 </resources>
 
 
