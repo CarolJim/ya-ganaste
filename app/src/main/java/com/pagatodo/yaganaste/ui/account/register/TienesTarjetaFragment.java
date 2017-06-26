@@ -8,6 +8,7 @@ import android.support.annotation.IdRes;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -24,6 +25,8 @@ import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -132,11 +135,15 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
 
 
         // Hacemos Set de la fecha de caducidad de la TDC y nombre del usuario
-        RegisterUser registerUser = RegisterUser.getInstance();
-        String mUserName = registerUser.getNombre() + " " + registerUser.getApellidoPaterno()
-                + " " + registerUser.getApellidoMaterno();
+        UsuarioClienteResponse singletonUser = SingletonUser.getInstance().getDataUser().getUsuario();
+        String mUserName = singletonUser.getNombre()
+                + " " + singletonUser.getPrimerApellido()
+                + " " + singletonUser.getSegundoApellido();
         dateTDC.setText("02/22");
         userName.setText(mUserName);
+
+        Log.d("TienesTarjetaFrag", "mUserName " +  singletonUser.getNombre() + " " + singletonUser.getPrimerApellido()
+                + " " + singletonUser.getSegundoApellido());
 
         editNumber.setTypeface(typeface);
         ViewTreeObserver viewTreeObserver = layoutCard.getViewTreeObserver();
