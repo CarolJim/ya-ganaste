@@ -13,6 +13,7 @@ import com.pagatodo.yaganaste.ui.maintabs.iteractors.PaymentsCarouselIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IPaymentsCarouselIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
@@ -87,6 +88,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
         if (response.getCodigoRespuesta() == CODE_OK) {
             try {
+                App.getInstance().getPrefs().saveData(StringConstants.CATALOG_VERSION, response.getData().getVersion());
                 api.insertComercios(response.getData().getComercios());
                 paymentsManager.setCarouselData(getCarouselItems(response.getData().getComercios()));
             } catch (Exception e) {

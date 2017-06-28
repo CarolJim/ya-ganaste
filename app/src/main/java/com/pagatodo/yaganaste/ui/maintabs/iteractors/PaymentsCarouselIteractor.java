@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IPaymentsCarouselIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.List;
@@ -33,7 +34,9 @@ public class PaymentsCarouselIteractor implements IPaymentsCarouselIteractor, IR
     @Override
     public void getCatalogosFromService() {
         try {
-            ApiAdtvo.obtenerCatalogos(new ObtenerCatalogoRequest(), this);
+            ObtenerCatalogoRequest request = new ObtenerCatalogoRequest();
+            request.setVersion(App.getInstance().getPrefs().loadData(StringConstants.CATALOG_VERSION));
+            ApiAdtvo.obtenerCatalogos(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
         }

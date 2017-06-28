@@ -377,7 +377,7 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.NombreUsuario, "null");
         NetFacade.consumeWS(OBTENER_CATALOGOS,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.getCatalogsUrl),
-                headers, null, ObtenerCatalogosResponse.class, result);
+                headers, request, ObtenerCatalogosResponse.class, result);
     }
 
     /**

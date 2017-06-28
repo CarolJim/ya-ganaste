@@ -20,4 +20,6 @@ public class StringConstants {
     public static final String CARD_NUMBER = "CARD_NUMBER";
     public static final String USER_BALANCE = "USER_BALANCE";
     public static final String UPDATE_DATE = "UPDATE_DATE";
+
+    public static final String CATALOG_VERSION = "CATALOG_VERSION";
 }

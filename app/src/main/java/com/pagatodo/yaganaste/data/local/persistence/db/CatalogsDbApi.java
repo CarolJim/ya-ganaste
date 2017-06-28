@@ -31,6 +31,8 @@ public class CatalogsDbApi {
 
     public static void insertComercios(List<ComercioResponse> comercios) {
         genericDao.open();
+        genericDao.deleteAll(ComercioResponse.class);
+        genericDao.deleteAll(MontoComercio.class);
         int i;
         for (ComercioResponse comercio : comercios) {
             i = genericDao.insert(comercio);
