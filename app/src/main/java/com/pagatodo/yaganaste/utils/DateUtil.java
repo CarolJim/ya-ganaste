@@ -4,8 +4,6 @@ package com.pagatodo.yaganaste.utils;
  * Created by flima on 23/02/2017.
  */
 
-import android.util.Log;
-
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 
@@ -120,7 +118,7 @@ public class DateUtil {
 
     public static List<MonthsMovementsTab> getLastMovementstMonths() {
 
-       // Calendar calendar = Calendar.getInstance(new Locale("MX"));
+        // Calendar calendar = Calendar.getInstance(new Locale("MX"));
         LinkedList<MonthsMovementsTab> names = new LinkedList<>();
 
         for (int subs = 0; subs >= -4; subs--) {
@@ -146,7 +144,6 @@ public class DateUtil {
 
         return new AdquirentePaymentsTab("", formatDate);
     }
-
 
 
     public static List<AdquirentePaymentsTab> getTabsAdquirente() {
@@ -176,5 +173,26 @@ public class DateUtil {
         return date;
     }
 
+    public static Date getEmisorMovementDate(String movDate) {
+        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.US);
+        Date date = null;
+        try {
+            date = dateFormat.parse(movDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
+
+    public static Date getEmisorMovementTime(String movDate) {
+        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
+        Date date = null;
+        try {
+            date = dateFormat.parse(movDate);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return date;
+    }
 
 }

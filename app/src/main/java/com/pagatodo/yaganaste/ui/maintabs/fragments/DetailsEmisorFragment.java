@@ -8,7 +8,9 @@ import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -16,35 +18,75 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
+import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
+
+import java.util.Calendar;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @author Juan Guerra on 12/04/2017.
  */
 
-public class DetailsEmisorFragment extends GenericFragment {
+public class DetailsEmisorFragment extends GenericFragment implements View.OnClickListener {
 
     private View rootView;
 
-    private View layoutMovementTypeColor;
-    private TextView txtItemMovDate;
-    private TextView txtItemMovMonth;
-    private TextView txtPremios;
-    private TextView txtMarca;
-    private TextView txtMonto;
-    private TextView txtItemMovCents;
-    private ImageView imgMovementDetail;
-    private TextView txtMovementDetailIdTransaccion;
-    private TextView txtMovementDetailConcept;
-    private TextView txtMovementDetailDate;
-    private TextView txtMovementDetailHour;
-    private TextView txtMovementDetailAuthNumber;
-    private TextView txtMovementDetailReference;
-    private TextView txtMovementDetailImport;
-    private TextView txtMovementDetailComision;
-    private TextView txtMovementDetailIva;
+    @BindView(R.id.txtItemMovDate)
+    TextView txtItemMovDate;
+    @BindView(R.id.txtItemMovMonth)
+    TextView txtItemMovMonth;
+    @BindView(R.id.txt_concept_short)
+    TextView txtConceptShort;
+    @BindView(R.id.txt_marca)
+    TextView txtMarca;
+    @BindView(R.id.txt_monto)
+    MontoTextView txtMonto;
+    @BindView(R.id.imageDetail)
+    ImageView imageDetail;
+
+    @BindView(R.id.txtMontoDescripcion)
+    MontoTextView txtMontoDescripcion;
+    @BindView(R.id.txtRefernciaDescripcion)
+    TextView txtRefernciaDescripcion;
+    @BindView(R.id.txtConceptoDescripcion)
+    TextView txtConceptoDescripcion;
+    @BindView(R.id.txtFechaDescripcion)
+    TextView txtFechaDescripcion;
+    @BindView(R.id.txtHoraDescripcion)
+    TextView txtHoraDescripcion;
+    @BindView(R.id.txtAutorizacionDescripcion)
+    TextView txtAutorizacionDescripcion;
+    @BindView(R.id.txtReciboDescripcion)
+    TextView txtReciboDescripcion;
+    @BindView(R.id.layoutMovementTypeColor)
+    View layoutMovementTypeColor;
+
+    @BindView(R.id.layoutComision)
+    LinearLayout layoutComision;
+    @BindView(R.id.txtComisionDescripcion)
+    MontoTextView txtComision;
+    @BindView(R.id.layoutSendTo)
+    LinearLayout layoutSendTo;
+    @BindView(R.id.txtSendToDescripcion)
+    TextView txtSendTo;
+    @BindView(R.id.layoutConcepto)
+    LinearLayout layoutConcepto;
+    @BindView(R.id.layoutRecibo)
+    LinearLayout layoutRecibo;
+
+    @BindView(R.id.txtReferenciaTitle)
+    TextView txtReferenciaTitle;
+
+    @BindView(R.id.btn_cancel)
+    Button btnCancel;
+    @BindView(R.id.btn_volver)
+    Button btnVolver;
 
 
     private MovimientosResponse movimientosResponse;
@@ -72,87 +114,88 @@ public class DetailsEmisorFragment extends GenericFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_movement_emisor, container, false);
+        return inflater.inflate(R.layout.fragment_detail_movements, container, false);
     }
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
-        loadViews();
+        //loadViews();
         initViews();
     }
 
-    private void loadViews() {
-        layoutMovementTypeColor = rootView.findViewById(R.id.layout_movement_type_color);
-        txtItemMovDate = (TextView) rootView.findViewById(R.id.txt_item_mov_date);
-        txtItemMovMonth = (TextView) rootView.findViewById(R.id.txt_item_mov_month);
-        //layoutMovementDate = (LinearLayout) rootView.findViewById(R.id.layout_movement_date);
-        txtPremios = (TextView) rootView.findViewById(R.id.txt_premios);
-        txtMarca = (TextView) rootView.findViewById(R.id.txt_marca);
-        txtMonto = (TextView) rootView.findViewById(R.id.txt_monto);
-        txtItemMovCents = (TextView) rootView.findViewById(R.id.txt_item_mov_cents);
-        imgMovementDetail = (ImageView) rootView.findViewById(R.id.imgMovementDetail);
-
-
-        txtMovementDetailIdTransaccion = (TextView) rootView.findViewById(R.id.txtMovementDetailIdTransaccion);
-        txtMovementDetailConcept = (TextView) rootView.findViewById(R.id.txtMovementDetailConcept);
-        txtMovementDetailDate = (TextView) rootView.findViewById(R.id.txtMovementDetailDate);
-        txtMovementDetailHour = (TextView) rootView.findViewById(R.id.txtMovementDetailHour);
-        txtMovementDetailAuthNumber = (TextView) rootView.findViewById(R.id.txtMovementDetailAuthNumber);
-        txtMovementDetailReference = (TextView) rootView.findViewById(R.id.txtMovementDetailReference);
-        txtMovementDetailImport = (TextView) rootView.findViewById(R.id.txtMovementDetailImport);
-        txtMovementDetailComision = (TextView) rootView.findViewById(R.id.txtMovementDetailComision);
-        txtMovementDetailIva = (TextView) rootView.findViewById(R.id.txtMovementDetailIva);
-    }
 
     @Override
     public void initViews() {
-
-        Glide.with(this).load(movimientosResponse.getURLImagen()).placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(imgMovementDetail);
-
-        String[] monto = Utils.getCurrencyValue(movimientosResponse.getTotal()).split("\\.");
-
-        String[] date = movimientosResponse.getFechaMovimiento().split(" ");
-        @ColorInt int movementColor = ContextCompat.getColor(getActivity(), MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor());
-
+        ButterKnife.bind(this, rootView);
+        layoutRecibo.setVisibility(View.GONE);
+        @ColorInt int movementColor = ContextCompat.getColor(getActivity(),
+                MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor());
         layoutMovementTypeColor.setBackgroundColor(movementColor);
-        txtPremios.setText(movimientosResponse.getDetalle());
-        txtMarca.setText(movimientosResponse.getDescripcion());
-        txtItemMovDate.setText(date[0]);
-        txtItemMovMonth.setText(date[1]);
-        txtMonto.setText(monto[0].concat("."));
-
-        if (monto.length > 1) {
-            txtItemMovCents.setText(monto[1]);
-        } else {
-            txtItemMovCents.setText("00");
-        }
-
         txtMonto.setTextColor(movementColor);
-        txtItemMovCents.setTextColor(movementColor);
 
-        txtMovementDetailDate.setText(movimientosResponse.getFechaMovimiento());
-        txtMovementDetailHour.setText(movimientosResponse.getHoraMovimiento());
-        txtMovementDetailAuthNumber.setText(movimientosResponse.getNumAutorizacion());
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(DateUtil.getEmisorMovementDate(movimientosResponse.getFechaMovimiento()));
+        txtItemMovDate.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
+        txtItemMovMonth.setText(DateUtil.getMonthShortName(calendar));
+        txtConceptShort.setText(movimientosResponse.getDetalle());
 
-        txtMovementDetailIdTransaccion.setText(movimientosResponse.getIdMovimiento());
-        txtMovementDetailConcept.setText(movimientosResponse.getConcepto());
+        MovementsTab movementsType = MovementsTab.getMovementById(movimientosResponse.getIdTipoTransaccion());
 
-        txtMovementDetailReference.setText(movimientosResponse.getReferencia());
-        txtMovementDetailImport.setText(Utils.getCurrencyValue(movimientosResponse.getImporte()));
+        txtConceptShort.setText(movementsType.getDescription());
+        txtMarca.setText(movementsType == MovementsTab.TAB1 || movementsType == MovementsTab.TAB2 ?
+                movimientosResponse.getComercio() :
+                movimientosResponse.getDetalle() + ", " + movimientosResponse.getComercio());
 
-        if (movimientosResponse.getComision() > 0.0) {
-            ((View) txtMovementDetailComision.getParent()).setVisibility(View.GONE);
-        } else {
-            txtMovementDetailComision.setText(Utils.getCurrencyValue(movimientosResponse.getComision()));
+
+        txtMonto.setText(String.format("%.2f", movimientosResponse.getImporte()).trim().replace(",", "."));
+
+        Glide.with(this).load(movimientosResponse.getURLImagen())
+                .placeholder(R.mipmap.ic_background_pago)
+                .error(R.mipmap.ic_background_pago).into(imageDetail);
+
+        txtMontoDescripcion.setText(String.format("%.2f", movimientosResponse.getImporte()).trim().replace(",", "."));
+
+        if (movementsType == MovementsTab.TAB1) {
+            txtReferenciaTitle.setText(movimientosResponse.getIdComercio() == 7 ?
+                    getString(R.string.iave_pase) : getString(R.string.txt_phone_b));
+
+            txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+            layoutConcepto.setVisibility(View.GONE);
         }
 
-        if (movimientosResponse.getIVA() > 0.0) {
-            ((View) txtMovementDetailIva.getParent()).setVisibility(View.GONE);
-        } else {
-            txtMovementDetailIva.setText(Utils.getCurrencyValue(movimientosResponse.getIVA()));
+        if (movementsType == MovementsTab.TAB2) {
+            layoutComision.setVisibility(View.VISIBLE);
+            txtComision.setText(String.format("%.2f", movimientosResponse.getComision()).trim().replace(",", "."));
+            txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+            layoutConcepto.setVisibility(View.GONE);
         }
+
+
+        if (movementsType == MovementsTab.TAB3) {
+            layoutSendTo.setVisibility(View.VISIBLE);
+            txtSendTo.setText(movimientosResponse.getBeneficiario());
+            txtReferenciaTitle.setText(getString(R.string.cuenta));
+            String ref = movimientosResponse.getReferencia().replaceAll(" ", "");
+            ref = ref.substring(ref.length() - 4, ref.length());
+            txtRefernciaDescripcion.setText(getString(R.string.mask_card) + " " + ref);
+            txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
+        }
+
+
+        txtFechaDescripcion.setText(movimientosResponse.getFechaMovimiento());
+        txtHoraDescripcion.setText(movimientosResponse.getHoraMovimiento() + " hrs");
+        txtAutorizacionDescripcion.setText(movimientosResponse.getNumAutorizacion().trim().toString());
+        btnVolver.setOnClickListener(this);
     }
 
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btn_volver:
+                getActivity().onBackPressed();
+                break;
+        }
+    }
 }
