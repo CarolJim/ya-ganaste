@@ -540,6 +540,9 @@
 
     <string name="perm_read">Ability to read files from this app</string>
     <string name="perm_read_label">Read Files</string>
+    <string name="iave_pase">IAVE/Pase Urbano:</string>
+    <string name="cuenta">A la Cuenta:</string>
+    <string name="mask_card">**** **** **** </string>
 </resources>
 
 
