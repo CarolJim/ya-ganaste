@@ -12,28 +12,29 @@ import java.util.List;
 
 public class DataObtenerCatalogos implements Serializable {
 
-    private String Version = "";
+    @SerializedName("Version")
+    private String version = "";
     @SerializedName("ListaComercios")
-    private List<ComercioResponse> Comercios;
+    private List<ComercioResponse> comercios;
 
     public DataObtenerCatalogos() {
-        Comercios = new ArrayList<ComercioResponse>();
+        comercios = new ArrayList<ComercioResponse>();
     }
 
 
     public String getVersion() {
-        return Version;
+        return version;
     }
 
     public void setVersion(String version) {
-        Version = version;
+        this.version = version;
     }
 
     public List<ComercioResponse> getComercios() {
-        return Comercios;
+        return comercios;
     }
 
     public void setComercios(List<ComercioResponse> comercios) {
-        Comercios = comercios;
+        this.comercios = comercios;
     }
 }

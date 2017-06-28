@@ -82,6 +82,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     //MontoTextView txtBalance;
 
     MovementsTab currentTab = TAB1;
+    SingletonUser singletonUser;
 
     //private Animation animIn, animOut;
     private PaymentsTabPresenter paymentsTabPresenter;
@@ -120,6 +121,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        singletonUser = SingletonUser.getInstance();
         return inflater.inflate(R.layout.fragment_child_tab, container, false);
     }
 
@@ -153,7 +155,6 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         rlimgPagosServiceToPay.setOnDragListener(this);
         txtPagosUserName.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombre());
 
-        SingletonUser singletonUser = SingletonUser.getInstance();
 
         Double saldo;
         if (singletonUser.getDataUser().isEsAgente() && singletonUser.getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
@@ -244,7 +245,6 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         parent.getChildAt(childPosition).bringToFront();
     }
 
-
     @Override
     public boolean onDrag(View v, DragEvent event) {
 
@@ -312,4 +312,17 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         return currentTab;
     }
 
+    @Override
+    public void setMenuVisibility(boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+        if (menuVisible) {
+            Double saldo;
+            if (singletonUser.getDataUser().isEsAgente() && singletonUser.getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
+                saldo = Double.parseDouble(singletonUser.getDatosSaldo().getSaldoAdq());
+            } else {
+                saldo = Double.parseDouble(singletonUser.getDatosSaldo().getSaldoEmisor());
+            }
+            txtBalance.setText(getString(R.string.your_balance) + StringUtils.getCurrencyValue(saldo));
+        }
+    }
 }

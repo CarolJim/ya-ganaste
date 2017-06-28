@@ -30,11 +30,13 @@ public class DBContract {
         public static final String ID_TIPO_COMERCIO = "ID_Tipo_Comercio";
         public static final String COMERCIO = "Comercio";
         public static final String URL_LOGO = "URLLogo";
+        public static final String URL_LOGO_COLOR = "URLLogoColor";
         public static final String URL_IMAGEN = "URLImagen";
         public static final String COLOR_MARCA = "ColorMarca";
         public static final String LONGITUD_REFERENCIA = "LongitudReferencia";
         public static final String FORMATO = "Formato";
         public static final String MENSAJE = "Mensaje";
+        public static final String ORDEN = "Orden";
         public static final String SOBRECARGO = "Sobrecargo";
     }
 

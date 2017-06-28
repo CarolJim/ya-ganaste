@@ -17,10 +17,12 @@ import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContra
 import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.ID_TIPO_COMERCIO;
 import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.LONGITUD_REFERENCIA;
 import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.MENSAJE;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.ORDEN;
 import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.SOBRECARGO;
 import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.TABLE;
 import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.URL_IMAGEN;
 import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.URL_LOGO;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Comercios.URL_LOGO_COLOR;
 
 /**
  * Created by flima on 21/03/2017.
@@ -29,140 +31,174 @@ import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContra
 @TableName(TABLE)
 public class ComercioResponse extends AbstractEntity implements Serializable {
 
+    @SerializedName("IdComercio")
     @FieldName(value = ID_COMERCIO, primaryKey = true)
-    private int IdComercio;
+    private int idComercio;
 
+    @SerializedName("IdTipoComercio")
     @FieldName(ID_TIPO_COMERCIO)
-    private int IdTipoComercio;
+    private int idTipoComercio;
 
+    @SerializedName("NombreComercio")
     @FieldName(COMERCIO)
-    private String NombreComercio = "";
+    private String nombreComercio;
 
+    @SerializedName("LogoURL")
     @FieldName(URL_LOGO)
-    private String LogoURL = "";
+    private String logoURL;
 
+    @SerializedName("LogoURLColor")
+    @FieldName(URL_LOGO_COLOR)
+    private String logoURLColor;
+
+    @SerializedName("ImagenURL")
     @FieldName(URL_IMAGEN)
-    private String ImagenURL = "";
+    private String imagenURL;
 
+    @SerializedName("ColorMarca")
     @FieldName(COLOR_MARCA)
-    private String ColorMarca = "";
+    private String colorMarca;
 
+    @SerializedName("ListaMontos")
     @Ignore
-    private List<Double> ListaMontos;
+    private List<Double> listaMontos;
 
+    @SerializedName("LongitudReferencia")
     @FieldName(LONGITUD_REFERENCIA)
-    private int LongitudReferencia;
+    private int longitudReferencia;
 
+    @SerializedName("Formato")
     @FieldName(FORMATO)
-    private String Formato = "";
+    private String formato;
 
+    @SerializedName("Mensaje")
     @FieldName(MENSAJE)
-    private String Mensaje = "";
+    private String mensaje;
+
+    @SerializedName("Orden")
+    @FieldName(ORDEN)
+    private int orden;
 
     @SerializedName("SobreCargo")
     @FieldName(SOBRECARGO)
-    private Double Sobrecargo;
+    private Double sobrecargo;
 
 
     public ComercioResponse() {
 
-        ListaMontos = new ArrayList<Double>();
+        listaMontos = new ArrayList<Double>();
     }
 
     public int getIdComercio() {
-        return IdComercio;
+        return idComercio;
     }
 
     public void setIdComercio(int idComercio) {
-        IdComercio = idComercio;
+        this.idComercio = idComercio;
     }
 
     public int getIdTipoComercio() {
-        return IdTipoComercio;
+        return idTipoComercio;
     }
 
     public void setIdTipoComercio(int idTipoComercio) {
-        IdTipoComercio = idTipoComercio;
+        this.idTipoComercio = idTipoComercio;
     }
 
     public String getNombreComercio() {
-        return NombreComercio;
+        return nombreComercio;
     }
 
     public void setNombreComercio(String nombreComercio) {
-        NombreComercio = nombreComercio;
+        this.nombreComercio = nombreComercio;
     }
 
     public String getLogoURL() {
-        return LogoURL;
+        return logoURL;
     }
 
     public void setLogoURL(String logoURL) {
-        LogoURL = logoURL;
+        this.logoURL = logoURL;
     }
 
     public String getImagenURL() {
-        return ImagenURL;
+        return imagenURL;
     }
 
     public void setImagenURL(String imagenURL) {
-        ImagenURL = imagenURL;
+        this.imagenURL = imagenURL;
     }
 
     public String getColorMarca() {
-        return ColorMarca;
+        return colorMarca;
     }
 
     public void setColorMarca(String colorMarca) {
-        ColorMarca = colorMarca;
+        this.colorMarca = colorMarca;
     }
 
     public List<Double> getListaMontos() {
-        return ListaMontos;
+        return listaMontos;
     }
 
     public void setListaMontos(List<Double> listaMontos) {
-        ListaMontos = listaMontos;
+        this.listaMontos = listaMontos;
     }
 
     public int getLongitudReferencia() {
-        return LongitudReferencia;
+        return longitudReferencia;
     }
 
     public void setLongitudReferencia(int longitudReferencia) {
-        LongitudReferencia = longitudReferencia;
+        this.longitudReferencia = longitudReferencia;
     }
 
     public String getFormato() {
-        return Formato;
+        return formato;
     }
 
     public void setFormato(String formato) {
-        Formato = formato;
+        this.formato = formato;
     }
 
     public String getMensaje() {
-        return Mensaje;
+        return mensaje;
     }
 
     public void setMensaje(String mensaje) {
-        Mensaje = mensaje;
+        this.mensaje = mensaje;
     }
 
     public Double getSobrecargo() {
-        return Sobrecargo;
+        return sobrecargo;
     }
 
     public void setSobrecargo(Double sobrecargo) {
-        Sobrecargo = sobrecargo;
+        this.sobrecargo = sobrecargo;
     }
 
     public ArrayList<String> getMontosStringList() {
         ArrayList<String> response = new ArrayList<>();
-        for (Double m : ListaMontos) {
+        for (Double m : listaMontos) {
             response.add("$" + m.toString() + ".00");
         }
 
         return response;
+    }
+
+    public String getLogoURLColor() {
+        return logoURLColor;
+    }
+
+    public void setLogoURLColor(String logoURLColor) {
+        this.logoURLColor = logoURLColor;
+    }
+
+    public int getOrden() {
+        return orden;
+    }
+
+    public void setOrden(int orden) {
+        this.orden = orden;
     }
 }

@@ -50,8 +50,8 @@ public class CatalogsDbApi {
     public static List<ComercioResponse> getComerciosList(int comercioType) {
         genericDao.open();
         List<ComercioResponse> comerciosRespose = new ArrayList<>();
-        List<ComercioResponse> comercios = genericDao.getListByQuery(ComercioResponse.class,
-                DBContract.Comercios.ID_TIPO_COMERCIO + " = " + comercioType);
+        List<ComercioResponse> comercios = genericDao.getListByQueryOrderBy(ComercioResponse.class,
+                DBContract.Comercios.ID_TIPO_COMERCIO + " = " + comercioType, DBContract.Comercios.ORDEN);
 
         for (ComercioResponse comercioResponse : comercios) {
 

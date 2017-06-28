@@ -67,6 +67,11 @@ public abstract class AbstractDao implements DataBaseDao {
     }
 
     @Override
+    public Cursor query(String table, String selection, String orderBy, String... selectionArgs){
+        return db.query(table, null, selection, selectionArgs, null, null, orderBy);
+    }
+
+    @Override
     public int insert(String table, ContentValues contentValues) {
         return (int) db.insert(table, null, contentValues);
     }
