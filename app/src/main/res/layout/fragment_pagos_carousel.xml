@@ -8,28 +8,28 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_gravity="center_vertical"
+        android:gravity="center_vertical">
 
         <RelativeLayout
             android:id="@+id/mainLayoutCarousel"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginTop="10dp"
             android:visibility="visible">
 
             <LinearLayout
                 android:id="@+id/layoutCarouselMain"
-                android:layout_width="match_parent"
+                android:layout_width="match_parent" android:layout_gravity="center_vertical" android:gravity="center_vertical"
                 android:layout_height="match_parent"
                 android:layout_centerInParent="true"
                 android:visibility="gone">
 
                 <com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
                     android:id="@+id/carouselMain"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    android:layout_marginBottom="@dimen/margin_medium"
                     android:layout_width="match_parent"
-                    android:layout_height="200dp"
-                    android:layout_margin="10dp" />
+                    android:layout_height="200dp" />
 
             </LinearLayout>
 
