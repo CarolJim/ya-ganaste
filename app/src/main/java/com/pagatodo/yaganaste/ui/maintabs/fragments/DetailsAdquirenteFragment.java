@@ -146,7 +146,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         txtAutorizacionDescripcion.setText(dataMovimientoAdq.getNoAutorizacion().trim().toString());
         txtReciboDescripcion.setText(dataMovimientoAdq.getNoTicket());
 
-        if (dataMovimientoAdq.isEsPendiente()) {
+        if (dataMovimientoAdq.isEsAprobada() && !dataMovimientoAdq.isEsCargo() && !dataMovimientoAdq.isEsReversada()) {
             btnCancel.setVisibility(View.VISIBLE);
             btnCancel.setOnClickListener(this);
         }

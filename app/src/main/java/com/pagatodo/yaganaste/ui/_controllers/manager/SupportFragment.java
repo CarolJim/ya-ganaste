@@ -14,6 +14,8 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
+import java.util.List;
+
 /**
  * Created by Jordan on 07/04/2017.
  * Updated by jguerras on 15/06/2017.
@@ -74,6 +76,12 @@ public abstract class SupportFragment extends GenericFragment {
 
     protected Fragment getCurrentFragment(@IdRes int idContainer) {
         return mSupportComponent.getCurrentFragment(idContainer);
+    }
+
+
+    protected List<Fragment> getFragments() {
+        return mSupportComponent.getFragments();
+
     }
 
 }

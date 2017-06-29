@@ -260,7 +260,7 @@ public class CarouselItem extends FrameLayout
         this.mCIMatrix = mMatrix;
     }
 
-    public ComercioResponse getComercio(){
+    public ComercioResponse getComercio() {
         return this.comercio;
     }
 

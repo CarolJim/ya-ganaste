@@ -240,7 +240,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                     @Override
                     public void action(Context context, Object... params) {
                         INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(DetailsActivity.EVENT_GO_TO_FINALIZE, "Ejecución Éxitosa");
+                        viewInterface.nextScreen(DetailsActivity.EVENT_GO_TO_FINALIZE_SUCCESS, "Ejecución Éxitosa");
                     }
                 });
                 pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
@@ -261,7 +261,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                     public void action(Context context, Object... params) {
 
                         INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(DetailsActivity.EVENT_GO_TO_FINALIZE, "");
+                        viewInterface.nextScreen(DetailsActivity.EVENT_GO_TO_FINALIZE_ERROR, "");
                         TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
                     }
                 });

@@ -98,48 +98,6 @@ public class CustomKeyboardView extends KeyboardView {
     }
 
 
-    private Drawable getDrawable() {
-        GradientDrawable normalBackground = new GradientDrawable();
-        normalBackground.setShape(GradientDrawable.RECTANGLE);
-        normalBackground.setColor(ContextCompat.getColor(getContext(), R.color.bg_progress));
-        normalBackground.setAlpha(128);
-        return normalBackground;
-    }
-
-
-    private Drawable getPressedDrawable() {
-        GradientDrawable pressedDrawable = new GradientDrawable();
-        pressedDrawable.setShape(GradientDrawable.RECTANGLE);
-        pressedDrawable.setColor(Color.WHITE);
-        pressedDrawable.setAlpha(128);
-
-        return pressedDrawable;
-    }
-
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private Drawable getMaterialDrawable() {
-
-        GradientDrawable normalBackground = new GradientDrawable();
-        normalBackground.setShape(GradientDrawable.RECTANGLE);
-        normalBackground.setColor(ContextCompat.getColor(getContext(), R.color.bg_progress));
-
-        return normalBackground;
-    }
-
-    @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
-    private Drawable getPressedMaterialDrawable() {
-
-
-        GradientDrawable pressedDrawable = new GradientDrawable();
-        pressedDrawable.setShape(GradientDrawable.RECTANGLE);
-        pressedDrawable.setColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
-
-        return new RippleDrawable(ColorStateList.valueOf(Color.WHITE),
-                pressedDrawable, null);
-    }
-
-
     public KeyboardView.OnKeyboardActionListener keyboardActionListener = new KeyboardView.OnKeyboardActionListener() {
         @Override
         public void onPress(int primaryCode) {

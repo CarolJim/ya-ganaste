@@ -86,7 +86,7 @@
                 android:layout_height="@dimen/height_btns"
                 android:layout_marginBottom="@dimen/margin_medium"
                 android:layout_weight="40"
-                android:background="@drawable/selector_btn_continuar"
+                style="@style/buttonDirecctionNext"
                 android:gravity="center"
                 android:text="Terminar"
                 android:textAllCaps="false"

@@ -36,7 +36,7 @@ import static com.pagatodo.yaganaste.data.local.persistence.db.utils.ReflectionU
  */
 
 public class SQLiteHelper extends SQLiteOpenHelper {
-    private static final int DATABASE_VERSION = 1;
+    private static final int DATABASE_VERSION = 2;
     private static final String DATABASE_NAME = "yaganaste.db";
 
     private Context context;

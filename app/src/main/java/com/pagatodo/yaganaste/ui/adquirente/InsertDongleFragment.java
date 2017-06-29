@@ -316,7 +316,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         TransactionAdqData currentTransaction = TransactionAdqData.getCurrentTransaction();
         SingletonUser currentUser = SingletonUser.getInstance();
 //        request.setAccountDepositData(getCurrentDatesAccountDepositData(currentTransaction.getDescription()));
-        request.setAccountDepositData(new AccountDepositData("1018", currentTransaction.getDescription()));// TODO HARDCODE
+        request.setAccountDepositData(new AccountDepositData(String.valueOf(SingletonUser.
+                getInstance().getDataUser().getUsuario().getCuentas().get(0).getIdCuenta()),
+                currentTransaction.getDescription()));
         request.setAmount(currentTransaction.getAmount());
         request.setImplicitData(getImplicitData());
         request.setNoSerie(prefs.loadData(KSN_LECTOR));
@@ -443,6 +445,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             }
         }, DELAY_MESSAGE_PROGRESS);
     }
+
+
 
     @Override
     public void nextScreen(String event, Object data) {

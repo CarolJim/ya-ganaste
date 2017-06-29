@@ -14,7 +14,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.db.dao.GenericDao;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
@@ -165,11 +167,11 @@ public class GetMountFragment extends PaymentFormBaseFragment {
                     NumberCalcTextWatcher.cleanData();
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
                     startActivity(intent);
-                } else showValidationError("El monto tiene que ser mayor");
+                } else showValidationError("El Monto Tiene que ser Mayor");
             } catch (NumberFormatException e) {
-                showValidationError("Ingresa un monto válido.");
+                showValidationError("Ingresa un Monto Válido.");
             }
-        } else showValidationError("Por favor ingrese un monto.");
+        } else showValidationError("Por Favor Ingrese un Monto.");
 
     }
 

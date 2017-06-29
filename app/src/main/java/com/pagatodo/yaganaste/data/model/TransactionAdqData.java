@@ -87,7 +87,7 @@ public  class TransactionAdqData implements Serializable{
     }
 
     public String getDescription() {
-        return description.isEmpty() ? CARD_PAY: description;
+        return description;
     }
 
     public void setDescription(String description) {
