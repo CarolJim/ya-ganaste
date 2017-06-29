@@ -382,6 +382,17 @@ public class DatosPersonalesFragment extends GenericFragment implements
         fechaNacimiento = registerUser.getFechaNacimiento();
         StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
         spinnerBirthPlace.setSelection(adapter.getPositionItemByName(registerUser.getLugarNacimiento()));
+
+        //Actualizamos el newDate para no tener null, solo en evento Back
+        if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {
+            newDate = Calendar.getInstance(new Locale("es"));
+            newDate.set(
+                    Integer.parseInt(fechaNacimiento.substring(0, 4)),
+                    Integer.parseInt(fechaNacimiento.substring(6, 7)),
+                    Integer.parseInt(fechaNacimiento.substring(9)));
+           // editBirthDay.setText(DateUtil.getBirthDateString(newDate));
+        }
+        //1975 - 06 - 29
     }
 
     @Override
