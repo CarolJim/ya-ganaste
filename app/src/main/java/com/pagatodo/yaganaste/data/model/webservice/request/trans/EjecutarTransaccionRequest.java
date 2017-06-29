@@ -5,6 +5,8 @@ import android.util.Log;
 import java.io.Serializable;
 import java.util.Calendar;
 
+import static com.pagatodo.yaganaste.utils.StringUtils.createTicket;
+
 /**
  * Created by flima on 21/03/2017.
  */
@@ -114,12 +116,4 @@ public class EjecutarTransaccionRequest implements Serializable {
         ReferenciaNumerica = referenciaNumerica;
     }
 
-    public String createTicket() {
-        /*Calendar c = Calendar.getInstance();
-        final int startYear = c.get(Calendar.YEAR);
-        final int startMonth = c.get(Calendar.MONTH);
-        final int startDay = c.get(Calendar.DAY_OF_MONTH);*/
-        return String.format("%1$tY%1$tM%1$tS%2$02d", Calendar.getInstance(), (int) (Math.random() * 90));
-        //startYear + startMonth + startDay +  + "";
-    }
 }

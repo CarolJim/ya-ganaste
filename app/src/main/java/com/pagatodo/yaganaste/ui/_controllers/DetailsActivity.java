@@ -24,6 +24,7 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
 import java.io.Serializable;
 
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
+import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 
 /**
  * @author Juan Guerra on 11/04/2017.
@@ -33,7 +34,8 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
 
     public static final String DATA = "data";
     public static final String TYPE = "type";
-    public final static String EVENT_GO_TO_FINALIZE = "FINALIZAR_CANCELACION";
+    public final static String EVENT_GO_TO_FINALIZE_SUCCESS = "FINALIZAR_CANCELACION_SUCCESS";
+    public final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
 
     @Override
     public void onEvent(String event, Object data) {
@@ -42,7 +44,13 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
             case EVENT_GO_TRANSACTION_RESULT:
                 loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()), Direction.FORDWARD, true);
                 break;
-            case EVENT_GO_TO_FINALIZE:
+            case EVENT_GO_TO_FINALIZE_SUCCESS:
+                setResult(RESULT_CANCEL_OK);
+                this.finish();
+                break;
+
+            case EVENT_GO_TO_FINALIZE_ERROR:
+                setResult(-1);
                 this.finish();
                 break;
         }

@@ -1,7 +1,9 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,21 +12,28 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.HomeFragmentPresenter;
 import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.yaganasteviews.TabLayoutEmAd;
+
+import java.util.List;
+
+import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.CODE_CANCEL;
+import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 
 
 /**
  * @author Juan Guerra on 10/11/2016.
  */
 
-public class HomeTabFragment extends GenericFragment implements TabsView, TabLayoutEmAd.InviteAdquirenteCallback,
+public class HomeTabFragment extends SupportFragment implements TabsView, TabLayoutEmAd.InviteAdquirenteCallback,
         AbstractAdEmFragment.UpdateBalanceCallback{
 
     private NoSwipeViewPager pagerAdquirente;
@@ -82,5 +91,15 @@ public class HomeTabFragment extends GenericFragment implements TabsView, TabLay
     @Override
     public void onUpdateBalance() {
         tabLayoutEmAd.updateData();
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        List<Fragment> all = getFragments();
+        for (Fragment current : all) {
+            if (current instanceof PaymentsFragment) {
+                current.onActivityResult(requestCode, resultCode, data);
+            }
+        }
     }
 }

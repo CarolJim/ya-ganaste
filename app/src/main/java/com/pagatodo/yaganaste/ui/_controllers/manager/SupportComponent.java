@@ -10,6 +10,8 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
+import java.util.List;
+
 /**
  * @author Juan Guerra on 15/06/2017.
  */
@@ -110,6 +112,10 @@ public class SupportComponent {
 
     protected Fragment getCurrentFragment(@IdRes int idContainer) {
         return fragmentManager.findFragmentById(idContainer);
+    }
+
+    protected List<Fragment> getFragments() {
+        return fragmentManager.getFragments();
     }
 
 

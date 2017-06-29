@@ -78,17 +78,19 @@
         <item name="buttonNormalColor">@drawable/button_rounded_blue</item>
     </style>
 
-    <style name="buttonDirecctionNext">
+    <style name="buttonDirecctionNext" parent="AppTheme">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/height_btns</item>
         <item name="android:background">@drawable/selector_btn_continuar</item>
+        <item name="typeButton">Forward</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 
-    <style name="buttonDirecctionBack">
+    <style name="buttonDirecctionBack" parent="AppTheme">
         <item name="android:layout_width">0dp</item>
         <item name="android:layout_height">@dimen/height_btns</item>
         <item name="android:background">@drawable/selector_btn_back</item>
+        <item name="typeButton">Back</item>
         <item name="android:textColor">@android:color/white</item>
     </style>
 

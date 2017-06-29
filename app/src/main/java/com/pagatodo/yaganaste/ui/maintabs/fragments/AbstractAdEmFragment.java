@@ -193,4 +193,8 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     protected abstract void performClickOnRecycler(ItemRecycler itemClicked);
 
+    protected void notifyDataSetChanged() {
+        recyclerMovements.getAdapter().notifyDataSetChanged();
+    }
+
 }

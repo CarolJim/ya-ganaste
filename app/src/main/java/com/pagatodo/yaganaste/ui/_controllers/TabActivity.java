@@ -42,6 +42,8 @@ import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.List;
 
+import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.CODE_CANCEL;
+import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
@@ -66,6 +68,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public static final String EVENT_SHOW_MAIN_TAB = "eventShowToolbar";
 
     public static final int RESULT_ADQUIRENTE_SUCCESS = 4573;
+
+    public static final int TYPE_DETAILS = 3;
 
 
 
@@ -205,7 +209,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-
         if (requestCode == Constants.CONTACTS_CONTRACT
                 || requestCode == Constants.BARCODE_READER_REQUEST_CODE
                 || requestCode == BACK_FROM_PAYMENTS) {
@@ -234,6 +237,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (requestCode == REGISTER_ADQUIRENTE_CODE && resultCode == RESULT_ADQUIRENTE_SUCCESS) {
             showMainTab();
             tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
+        } else if (requestCode == CODE_CANCEL && resultCode == RESULT_CANCEL_OK) {
+            getFragment(TYPE_DETAILS).onActivityResult(requestCode, resultCode, data);
         }
     }
 
@@ -252,7 +257,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         if (fragmentList != null) {
             for (Fragment fragment : fragmentList) {
                 if ( (fragmentType == 0 && fragment instanceof PaymentsTabFragment)
-                        || (fragmentType == 1 && fragment instanceof Documentos)) {
+                        || (fragmentType == 1 && fragment instanceof Documentos)
+                        || (fragmentType == TYPE_DETAILS && fragment instanceof HomeTabFragment)) {
                     return fragment;
                 }
             }

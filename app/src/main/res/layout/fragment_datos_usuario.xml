@@ -106,7 +106,7 @@
                 android:layout_height="@dimen/height_btns"
                 android:layout_marginBottom="20dp"
                 android:layout_weight="1"
-                android:background="@drawable/selector_btn_continuar"
+                style="@style/buttonDirecctionNext"
                 android:elevation="8dp"
                 android:gravity="center"
                 android:layout_marginLeft="95dp"

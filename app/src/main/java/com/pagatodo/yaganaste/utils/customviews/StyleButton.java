@@ -8,7 +8,9 @@ import android.os.Handler;
 import android.support.annotation.RequiresApi;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.view.View;
+import android.view.ViewTreeObserver;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.utils.FontCache;
@@ -17,11 +19,17 @@ import com.pagatodo.yaganaste.utils.FontCache;
 /**
  * Created by jcortez on 14/10/2015.
  */
-public class StyleButton extends AppCompatButton implements View.OnClickListener{
+public class StyleButton extends AppCompatButton implements View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 
     public static final String ANDROID_SCHEMA = "http://schemas.android.com/apk/res/android";
     private OnClickListener mClickListener;
     private boolean interceptor;
+
+    private static final int TYPE_FORWARD = 1;
+    private static final int TYPE_BACK = 2;
+    private static final int TYPE_NONE = 0;
+
+    private int type;
 
 
     public StyleButton(Context context) {
@@ -30,7 +38,6 @@ public class StyleButton extends AppCompatButton implements View.OnClickListener
         setTypeface(customFont);
         super.setOnClickListener(this);
         interceptor = true;
-
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -40,7 +47,7 @@ public class StyleButton extends AppCompatButton implements View.OnClickListener
         setTypeface(customFont);
         super.setOnClickListener(this);
         init(context, attrs);
-
+        setPadding(context, attrs);
     }
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
@@ -50,7 +57,7 @@ public class StyleButton extends AppCompatButton implements View.OnClickListener
         setTypeface(customFont);
         super.setOnClickListener(this);
         init(context, attrs);
-
+        setPadding(context, attrs);
     }
 
     private void init(Context context, AttributeSet attrs) {
@@ -103,4 +110,20 @@ public class StyleButton extends AppCompatButton implements View.OnClickListener
             if (interceptor) eneableButton();
         }
     }
+
+    private void setPadding(Context context, AttributeSet attrs) {
+        TypedArray configurationParams = context.getTheme().obtainStyledAttributes(attrs, R.styleable.StyleButton, 0, 0);
+        this.type = configurationParams.getInt(R.styleable.StyleButton_typeButton, TYPE_NONE);
+        getViewTreeObserver().addOnGlobalLayoutListener(this);
+    }
+
+    @Override
+    public void onGlobalLayout() {
+        getViewTreeObserver().removeOnGlobalLayoutListener(this);
+        Log.d("Width: ", String.valueOf(getWidth()));
+        Log.d("Height: ", String.valueOf(getHeight()));
+        setPadding( type == TYPE_BACK ? (int) (getWidth() * .12) : 0, 0,
+                type == TYPE_FORWARD ? (int) (getWidth() * .12) : 0, 0);
+    }
+
 }

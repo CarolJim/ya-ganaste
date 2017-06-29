@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente;
 import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -27,6 +28,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_DETAIL
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente.buildSignatureRequest;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
+import static com.pagatodo.yaganaste.utils.StringUtils.createTicket;
 
 /**
  * Created by flima on 17/04/2017.
@@ -57,20 +59,20 @@ public class AdqPresenter implements IAdqPresenter, IAccountManager {
         iAdqView.showLoader(msg);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(DateUtil.getAdquirenteMovementDate(dataMovimientoAdq.getFecha()));
-        java.text.DateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy", Locale.US);
+        java.text.DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
         java.text.DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
 
 
         CancellationData cancellationData = new CancellationData();
-        cancellationData.setDatelOriginalTransaction(dateFormat.format(calendar.getTime()));
+        cancellationData.setDatelOriginalTransaction(dateFormat.format(calendar.getTime()).replace("/",""));
         cancellationData.setIdOriginalTransaction(dataMovimientoAdq.getIdTransaction());
         cancellationData.setNoauthorizationOriginalTransaction(dataMovimientoAdq.getNoAutorizacion());
         cancellationData.setTicketOriginalTransaction(dataMovimientoAdq.getNoTicket());
-        cancellationData.setTimeOriginalTransaction(hourFormat.format(calendar.getTime()));
+        cancellationData.setTimeOriginalTransaction(hourFormat.format(calendar.getTime()).replace(":",""));
 
         CancelaTransaccionDepositoEmvRequest cancelRequest = new CancelaTransaccionDepositoEmvRequest();
         cancelRequest.setNoSerie(request.getNoSerie());
-        cancelRequest.setNoTicket(dataMovimientoAdq.getNoTicket());
+        cancelRequest.setNoTicket(createTicket());
         cancelRequest.setAmount(dataMovimientoAdq.getMonto());
         cancelRequest.setSwipeData(request.getSwipeData());
         cancelRequest.setEMVTransaction(request.getIsEMVTransaction());
@@ -78,7 +80,7 @@ public class AdqPresenter implements IAdqPresenter, IAccountManager {
         cancelRequest.setTransactionDateTime(request.getTransactionDateTime());
         cancelRequest.setEmvData(request.getEmvData());
         cancelRequest.setTipoCliente(request.getTipoCliente());
-        cancelRequest.setNoTransaction(dataMovimientoAdq.getIdTransaction());
+        cancelRequest.setNoTransaction(Integer.toString(Utils.getTransactionSequence()));
         cancelRequest.setAccountDepositData(request.getAccountDepositData());
         cancelRequest.setImplicitData(request.getImplicitData());
 
@@ -168,7 +170,7 @@ public class AdqPresenter implements IAdqPresenter, IAccountManager {
                 iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT, data);
                 break;
             case CANCELA_TRANSACTION_EMV_DEPOSIT:
-
+                ((IAdqTransactionRegisterView) iAdqView).transactionResult(data.toString());
                 break;
         }
     }

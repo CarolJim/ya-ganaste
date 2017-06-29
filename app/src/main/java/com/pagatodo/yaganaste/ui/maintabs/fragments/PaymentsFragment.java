@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
@@ -12,13 +13,22 @@ import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerMovementsAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AdqPaymentesPresenter;
+import com.pagatodo.yaganaste.utils.UI;
+
 import java.util.List;
+
+import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CANCELADO;
 
 /**
  * @author Juan Guerra on 27/11/2016.
  */
 
 public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab,ItemMovements<DataMovimientoAdq>> {
+
+
+    public static final int CODE_CANCEL = 821;
+    public static final int RESULT_CANCEL_OK = 281;
+    private ItemMovements<DataMovimientoAdq> itemClicked;
 
 
     public static PaymentsFragment newInstance(){
@@ -38,7 +48,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     protected void onTabLoaded() {
         //tabMonths.setVisibility(View.GONE);
         tabMonths.getTabAt(tabMonths.getTabCount() - 1).select();
-        onTabSelected(tabMonths.getTabAt(0));
 
     }
 
@@ -54,13 +63,19 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
 
     @Override
     protected RecyclerView.Adapter createAdapter(List<ItemMovements<DataMovimientoAdq>> movementsList) {
-
         return new RecyclerMovementsAdapter<DataMovimientoAdq>(getContext(), movementsList, this);
     }
 
     @Override
     protected void performClickOnRecycler(ItemMovements<DataMovimientoAdq> itemClicked) {
-        startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
+        this.itemClicked = itemClicked;
+        getActivity().startActivityForResult(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()), CODE_CANCEL);
     }
 
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        itemClicked.setColor(CANCELADO.getColor());
+        itemClicked.getMovement().setEsReversada(true);
+        notifyDataSetChanged();
+    }
 }

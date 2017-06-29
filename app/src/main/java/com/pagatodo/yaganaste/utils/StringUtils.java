@@ -7,6 +7,7 @@ import android.widget.TextView;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Calendar;
 import java.util.Locale;
 
 /**
@@ -103,6 +104,10 @@ public class StringUtils {
         }
 
         return result.toString();
+    }
+
+    public static String createTicket() {
+        return String.format("%1$tY%1$tM%1$tS%2$02d", Calendar.getInstance(), (int) (Math.random() * 90));
     }
 
 }
