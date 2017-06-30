@@ -124,7 +124,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
         super.onEvent(event, o);
         Log.e(TAG, "onEvent - - " + event);
         switch (event) {
-
             case EVENT_GO_LOGIN:
                 loadFragment(loginContainerFragment, Direction.FORDWARD, false);
                 break;
@@ -158,6 +157,14 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 break;
 
             case EVENT_PERSONAL_DATA_BACK:
+                registerUser = RegisterUser.getInstance();
+                registerUser.setCalle("");
+                registerUser.setNumExterior("");
+                registerUser.setNumInterior("");
+                registerUser.setCodigoPostal("");
+                registerUser.setEstadoDomicilio("");
+                registerUser.setColonia("");
+                registerUser.setIdColonia("");
                 loadFragment(DatosPersonalesFragment.newInstance(), Direction.BACK, false);
                 break;
 

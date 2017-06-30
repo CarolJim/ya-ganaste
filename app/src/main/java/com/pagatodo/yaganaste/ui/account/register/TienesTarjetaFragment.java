@@ -184,8 +184,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                                     cardNumber.setCharAt(lastSharpIndex - 1, '#');
                                 }
                             } else {
-                                if (lastSharpIndex == 7)
-                                    cardNumber.setCharAt(cardNumber.length() - 1, '#');
+                                cardNumber.setCharAt(cardNumber.length() - 1, '#');
                             }
 
                         } else {

@@ -17,6 +17,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioCl
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarDatosPersonaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest;
@@ -36,6 +37,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RecuperarCont
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarNIPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarAsignacionTarjetaResponse;
@@ -69,6 +71,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
@@ -230,6 +233,29 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
 
     @Override
+    public void validatePersonData() {
+
+        RegisterUser registerUser = RegisterUser.getInstance();
+        ValidarDatosPersonaRequest request = new ValidarDatosPersonaRequest();
+
+        request.setNombre(registerUser.getNombre());
+        request.setPrimerApellido(registerUser.getApellidoPaterno());
+        request.setSegundoApellido(registerUser.getApellidoMaterno());
+        request.setFechaNacimiento(registerUser.getFechaNacimiento());
+        request.setGenero(registerUser.getGenero());
+        request.setIdEstadoNacimiento(Integer.valueOf(registerUser.getIdEstadoNacimineto()));
+
+        try {
+            ApiAdtvo.validarDatosPersona(request, this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            accountManager.onError(VALIDAR_DATOS_PERSONA, App.getContext().getString(R.string.no_internet_access));
+        }
+
+    }
+
+
+    @Override
     public void createUserClient(CrearUsuarioClienteRequest request) {
          /*Establecemos las cabeceras de la peticion*/
         RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getInstance().getApplicationContext()));
@@ -385,8 +411,20 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 validateBalanceResponse((ConsultarSaldoResponse) dataSourceResult.getData());
                 break;
 
+            case VALIDAR_DATOS_PERSONA:
+                validatePersonDataResponse((GenericResponse)dataSourceResult.getData());
+                break;
+
             default:
                 break;
+        }
+    }
+
+    private void validatePersonDataResponse(GenericResponse data) {
+        if (data.getCodigoRespuesta() == 0) {
+            accountManager.onSuccessDataPerson();
+        } else {
+            accountManager.onError(VALIDAR_DATOS_PERSONA, data.getMensaje());
         }
     }
 
