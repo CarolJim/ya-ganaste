@@ -63,6 +63,7 @@
     <LinearLayout
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
+        android:layout_marginTop="@dimen/margin_medium"
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
@@ -70,7 +71,7 @@
             android:id="@+id/layoutBtns"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:layout_marginLeft="@dimen/margin_big"
             android:layout_marginRight="@dimen/margin_big"
             android:orientation="horizontal">
@@ -80,8 +81,10 @@
                 style="@style/buttonDirecctionBack"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_btns"
+                android:layout_centerInParent="true"
                 android:layout_marginRight="@dimen/margin_small"
                 android:layout_weight="1.4"
+                android:paddingLeft="0dp"
                 android:text="@string/backButton"
                 android:textAllCaps="false"
                 android:textSize="@dimen/generic_button_normal_text_size" />
@@ -91,6 +94,7 @@
                 style="@style/buttonDirecctionNext"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_btns"
+                android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_weight="1"
                 android:gravity="center"
