@@ -4,15 +4,18 @@ package com.pagatodo.yaganaste.ui.account.login;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
+import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.text.style.StyleSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -85,17 +88,12 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
 
         String textLogin = getString(R.string.tienes_cuenta);
         SpannableString ss = new SpannableString(textLogin);
-        ClickableSpan span1 = new ClickableSpan() {
-            @Override
-            public void onClick(View textView) {
-                Intent intent = new Intent(getActivity(), AccountActivity.class);
-                intent.putExtra(SELECTION, GO_TO_LOGIN);
-                startActivity(intent);
-                //getActivity().finish();
-            }
-        };
-        ss.setSpan(span1, 22, textLogin.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        ss.setSpan(new ClickableSpanLogin(), 22, textLogin.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.whiteColor)), 22, textLogin.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+        ss.setSpan(new StyleSpan(Typeface.BOLD), 22, textLogin.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
         txtMainLogin.setText(ss);
         txtMainLogin.setMovementMethod(LinkMovementMethod.getInstance());
 
@@ -103,6 +101,24 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         rollPagerView.setAdapter(new AdapterRollPager(rollPagerView, getActivity()));
         rollPagerView.setHintView(null);
 
+    }
+
+
+    class ClickableSpanLogin extends ClickableSpan{
+
+        public ClickableSpanLogin() {
+            super();
+        }
+
+        public void onClick(View tv) {
+            Intent intent = new Intent(getActivity(), AccountActivity.class);
+            intent.putExtra(SELECTION, GO_TO_LOGIN);
+            startActivity(intent);
+        }
+
+        public void updateDrawState(TextPaint ds) {// override updateDrawState
+            ds.setUnderlineText(false);
+        }
     }
 
     @Override

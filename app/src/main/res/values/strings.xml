@@ -112,7 +112,7 @@
     <string name="yes_i_want_card_payments">SÍ QUIERO ACEPTAR TARJETA</string>
     <string name="i_dont_want_card_payments">NO QUIERO ACEPTAR TARJETA</string>
     <string name="are_you_have_card_reader">¿Ya Cuentas con\nNuestro Lector de Tarjetas?</string>
-    <string name="lorem_ipsum">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen.</string>
+    <string name="lorem_ipsum">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos espécimen.</string>
     <string name="i_have_it">YA LO TENGO</string>
     <string name="idont_have_it">NO TENGO LECTOR</string>
     <string name="where_buyit">¿Dónde Comprarlo?</string>
@@ -205,8 +205,8 @@
     <string name="no_internet_access">No Cuentas con Conexión a Internet</string>
     <string name="something_is_wrong_try_again">Algo Salio mal, Intenta de Nuevo</string>
     <string name="tag_number">Número de TAG</string>
-    <string name="phone_number_hint">Teléfono (10 Digitos)</string>
-    <string name="card_number_hint">Número de Tarjeta (16 Digitos)</string>
+    <string name="phone_number_hint">Teléfono (10 Dígitos)</string>
+    <string name="card_number_hint">Número de Tarjeta (16 Dígitos)</string>
     <string name="msgJsonObj">Mensaje</string>
     <string name="actionJsonObj">CodigoRespuesta</string>
     <string name="omitir">OMITIR</string>
@@ -223,7 +223,7 @@
     <string name="comm_error">No fue Posible Comunicarse con el Lector, Revise su Entrada de Audio.</string>
     <string name="registro_automatico">Inserta el Lector Para Registrarlo a su Cuenta</string>
     <string name="registro_small">Inserta el Lector Para Registrarlo</string>
-    <string name="error_de_lectura">No fue Posible Completar la Operación, iIntenta de Nuevo.</string>
+    <string name="error_de_lectura">No fue Posible Completar la Operación, Intenta de Nuevo.</string>
 
     <string name="cobrar">Cobrar</string>
     <string name="validatelector">Validando el Lector ...</string>
@@ -235,7 +235,7 @@
     <string name="metodo_transaction">TransactionEmvDepositAccount</string>
     <string name="rfc">RFC</string>
     <string name="phone_number">Teléfono del Comercio</string>
-    <string name="title_activity_depositos_maps">Depositos</string>
+    <string name="title_activity_depositos_maps">Depósitos</string>
     <string name="rfchomoclave">Homoclave</string>
     <string name="title_activity_plug_card_reader_to_register">PlugCardReaderToRegisterActivity</string>
     <string name="cuenta_personal">CUENTA PERSONAL</string>
@@ -300,7 +300,7 @@
     <string name="tienes_tarjeta_asignando">Estamos Asignandote una Cuenta.</string>
     <string name="tienes_tarjeta_validando_tarjeta">Estamos Validando Tu Tarjeta.</string>
     <string name="tienes_tarjeta_no">No te Preocupes ¡Ya te Asignamos Una!\nTu Número de Tarjeta es:</string>
-    <string name="tienes_tarjeta_asignando_nip">Estamos Asignanado Tu NIP.</string>
+    <string name="tienes_tarjeta_asignando_nip">Estamos Asignando Tu NIP.</string>
     <string name="validando_password">Validando Contraseña</string>
     <!--tienes_tarjeta-->
     <string name="doYouHaveCardTitle">¿Tienes Tarjeta Ya Ganaste?</string>
@@ -309,7 +309,7 @@
     <string name="asignar_pin">Verifica tu NIP.</string>
     <string name="confirma_pin">Confirma tu NIP.</string>
     <string name="confirmar_pin">El NIP no coincide</string>
-    <string name="longitud_nip">NIP de 4 DIGITOS</string>
+    <string name="longitud_nip">NIP de 4 Dígitos</string>
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
@@ -319,16 +319,16 @@
 
     <!--felicidades-->
     <string name="congratulation_text1">Tu Cuenta Ya Ganaste Está Lista</string>
-    <string name="congratulation_text2">A Continuación te Eneseñaremos Todo lo\nQue Puedes Hacer Con Ella</string>
+    <string name="congratulation_text2">A Continuación te Enseñaremos Todo lo\nQue Puedes Hacer Con Ella</string>
     <!--Registro Agente-->
     <string name="datos_negocio_nombre">Nombre Requerido, Verifique su Información.</string>
     <string name="datos_negocio_giro">Giro Requerido, Verifique su Información.</string>
-    <string name="datos_negocio_subgiro">SubGiro Requerido, Verifique su Información.</string>
+    <string name="datos_negocio_subgiro">Subgiro Requerido, Verifique su Información.</string>
     <string name="datos_negocio_telefono">Teléfono Requerido, Verifique su Información.</string>
     <string name="datos_telefono_incorrecto">Ingrese un Teléfono Válido</string>
-    <string name="datos_negocio_preguntas">Debes contestar Todas las Preguntas.</string>
+    <string name="datos_negocio_preguntas">Debes Contestar Todas las Preguntas.</string>
     <!--Server problem-->
-    <string name="message_generic_ws">Ocurrio un problema. Intente más tarde.</string>
+    <string name="message_generic_ws">Ocurró un problema. Intente más tarde.</string>
 
     <!-- Strings Menu Principal-->
     <string name="main_tab_inicio">Inicio</string>
@@ -352,7 +352,7 @@
     <string name="adq_title_thanks_msg">Este Proceso Puede Tardar\nHasta 48 Horas Hábiles</string>
 
     <string name="adq_subtitle_accept">Tus Documentos Han Sido\nAprobados</string>
-    <string name="adq_msg_accept">A continuación, te Enseñaremos tu\nNueva Sección de Cobros</string>
+    <string name="adq_msg_accept">A Continuación, te Enseñaremos tu\nNueva Sección de Cobros</string>
     <string name="adq_aproved">Aprobado</string>
     <string name="adq_succes_aproved">El Pago Fue Completado\nCorrectamente\n\nYa Puedes\nRetirar la Tarjeta.</string>
     <string name="adq_error_signature">No se ha Capturado una Firma</string>
@@ -397,14 +397,13 @@
     <string name="tarjeta">Tarjeta:</string>
     <string name="emisor">Emisor:</string>
 
-
     <!-- Autorizaciones Online -->
     <string name="este_movimiento">Este Movimiento Requiere Autorización: </string>
     <string name="monto">Importe:</string>
     <string name="ingresa_tu_contrasenia">Ingresa tu Contraseña para Autorizar este Movimiento en tu
     Banca en Línea</string>
 
-    <string name="autorizacion_completa">¡Aurotización Completa!</string>
+    <string name="autorizacion_completa">¡Autorización Completa!</string>
     <string name="revisa_el_resumen">Revisa el Resumen de este Movimiento en tu Banca en Línea</string>
     <string name="terminar">Terminar</string>
 
@@ -413,10 +412,10 @@
     <string name="tx_expired">La Transacción ha Expirado</string>
 
     <string name="verifying_transaction">Verificando Transacción</string>
-    <string name="aproving_transaction">Aprovando Transacción</string>
+    <string name="aproving_transaction">Aprobando Transacción</string>
     <string name="ingresa_tu_contrasenia_otp">Ingresa tu Contraseña para Generar un Código de Acceso</string>
 
-    <string name="no_offline_token">El Dispositivo no Cuenta con Token Offline, Asegurate de que
+    <string name="no_offline_token">El Dispositivo no Cuenta con Token Offline, Asegúrate de que
     tu Dispositivo esté Asociado por SMS</string>
 
     <string name="tu_codigo">Tu Código de Acceso es:</string>
@@ -443,9 +442,9 @@
     <string name="title_error">Ocurrió Un Error</string>
 
 
-    <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
+    <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
     <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01-800-500-1000\n informes@yaganaste.com</string>
-    <string name="documents_comprobantes">CFE,Telefono,Agua(No mayor a 3 meses)</string>
+    <string name="documents_comprobantes">CFE,Teléfono,Agua(No mayor a 3 meses)</string>
     <string name="documents_vigentes">Credencial de Elector o Pasaporte</string>
 
 
@@ -491,7 +490,7 @@
     <string name="continuar">Continuar</string>
     <string name="tab_recargas">Recargas</string>
     <string name="tab_servicios">Servicios</string>
-    <string name="tab_envios">Envios</string>
+    <string name="tab_envios">Envíos</string>
     <string name="your_balance">Tu Saldo: </string>
     <string name="btn_send">Enviar</string>
     <string name="no_services_msg">Cargando servicios...(*)</string>
@@ -509,12 +508,12 @@
     <string name="txt_importe_error">El importe es incorrecto.</string>
     <string name="txt_concept_empty">El campo concepto está vacío.</string>
 
-    <string name="txt_tipo_envio_error">Por favor seleccióne un tipo de envío.</string>
+    <string name="txt_tipo_envio_error">Por favor seleccione un tipo de envío.</string>
     <string name="txt_name_empty">El campo nombre está vacío.</string>
-    <string name="txt_name_error">Error al introducir el nombred del destinatario.</string>
+    <string name="txt_name_error">Error al introducir el nombre del destinatario.</string>
     <string name="txt_concept_error">Error al introducir el campo concepto.</string>
     <string name="txt_referencia_number_error">Error al introducir el campo referencia numerica.</string>
-    <string name="txt_referencia_number_empty">El campo referencia numerica está vacío.</string>
+    <string name="txt_referencia_number_empty">El campo referencia numérica está vacío.</string>
 
     <string name="txt_referencia_envio_error">Error al introducir el número de teléfono/cuenta/CABLE</string>
     <string name="txt_referencia_envio_empty">Por favor ingrese un número de teléfono/cuenta/CABLE</string>
@@ -522,7 +521,7 @@
     <string name="recuperando_docs_estatus">Recuperando los estatus de sus documentos.</string>
     <string name="desea_cacelar">¿Deseas Salir y Cancelar la Operación Actual?</string>
 
-    <string name="no_sucursales">No exisiten sucursales en tu área.</string>
+    <string name="no_sucursales">No existen sucursales en tu área.</string>
 
     <!-- PreferUSerActivity -->
     <string name="listaopciones_load_image_wait">Cargando Imagen. Por Favor, Espere</string>
@@ -539,8 +538,8 @@
     <string name="enviando_firma">Enviando Firma</string>
     <string name="enviando_ticket">Enviando Ticket</string>
 
-    <string name="fecha_nacimiento_erronea">Fecha de Nacimento Erronea, Verifique su Información.</string>
-    <string name="feha_nacimiento_menor_edad">Fecha de Nacimento Erronea, Debe Ser Mayor de 18 años para Realizar el Tramite.</string>
+    <string name="fecha_nacimiento_erronea">Fecha de Nacimiento Errónea, Verifique su Información.</string>
+    <string name="feha_nacimiento_menor_edad">Fecha de Nacimiento Errónea, Debe Ser Mayor de 18 años para Realizar el Tramite.</string>
 
     <string name="perm_read">Ability to read files from this app</string>
     <string name="perm_read_label">Read Files</string>
@@ -549,6 +548,7 @@
     <string name="mask_card">**** **** **** </string>
 
     <string name="catalogo_version_init">0</string>
+    <string name="asigna_nip">Asigna tu NIP</string>
 </resources>
 
 
