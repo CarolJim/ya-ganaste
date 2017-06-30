@@ -9,8 +9,6 @@
     android:focusableInTouchMode="true"
     tools:context=".ui._controllers.AccountActivity">
 
-
-
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -100,7 +98,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:clickable="true"
             android:inputType="textPassword">
 

@@ -73,6 +73,7 @@
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/containerRecargaForm"
         android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginBottom="@dimen/btn_navigation_bottom"
         android:layout_marginRight="@dimen/margin_medium"
         android:layout_marginTop="@dimen/margin_doble">
 
@@ -80,7 +81,6 @@
             android:id="@+id/myseek"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:background="@drawable/seek_background"
             android:clickable="false"
             android:max="100"
