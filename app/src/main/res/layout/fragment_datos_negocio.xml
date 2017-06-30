@@ -12,127 +12,129 @@
     tools:context=".ui._controllers.AccountActivity">
 
 
-    <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
-        android:id="@+id/layoutContent"
-        style="@style/BorderTitleStyle"
+    <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        app:title="@string/bussinesInfoTitle">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-        <LinearLayout
+        <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+            android:id="@+id/layoutContent"
+            style="@style/BorderTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="@dimen/margin_form_bottom"
-            android:layout_marginTop="@dimen/margin_form_top"
-            android:orientation="vertical">
+            app:title="@string/bussinesInfoTitle">
 
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/editBussinesName"
+            <LinearLayout
+                style="@style/BorderLayoutContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="42dp"
-                app:formato="text"
-                app:hintText="@string/bussinesName"
-                app:imageIsGone="true"
-                app:isSingleLine="true"
-                app:maxLength="30" />
+                android:orientation="vertical">
 
-            <Spinner
-                android:id="@+id/spinnerBussineLine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:layout_marginRight="18dp"
-                android:layout_marginTop="@dimen/space_between_elements"
-                android:background="@null"
-                app:backgroundTint="@color/transparent" />
-
-            <Spinner
-                android:id="@+id/spinnerSubBussineLine"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="18dp"
-                android:layout_marginRight="18dp"
-                android:layout_marginTop="@dimen/space_between_elements"
-                android:background="@null"
-                android:visibility="gone"
-                app:backgroundTint="@color/transparent" />
-
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/editBussinesPhone"
-                style="@style/FragmentElement"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_between_elements"
-                app:formato="celphone"
-                app:hintText="@string/txt_phone"
-                app:imageIsGone="true"
-                app:isSingleLine="true" />
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/textPublicServant"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/margin_regular"
-                android:layout_marginRight="@dimen/margin_regular"
-                android:layout_marginTop="@dimen/space_between_elements"
-                android:gravity="center"
-                android:text="@string/publicServantQuestion"
-                android:textColor="@color/whiteColor"
-                app:tipo="Descripcion" />
-
-            <RadioGroup
-                android:id="@+id/radioPublicServant"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/space_between_elements"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:theme="@style/RadioButtonTheme">
-
-                <android.support.v4.widget.Space
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <RadioButton
-                    android:id="@+id/radioBtnPublicServantNo"
-                    android:layout_width="wrap_content"
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/editBussinesName"
+                    style="@style/FragmentElement"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
-                    android:checked="true"
-                    android:gravity="center"
-                    android:text="@string/no" />
+                    app:formato="text"
+                    app:hintText="@string/bussinesName"
+                    app:imageIsGone="true"
+                    app:isSingleLine="true"
+                    app:maxLength="30" />
 
-                <android.support.v4.widget.Space
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
-                <RadioButton
-                    android:id="@+id/radioBtnPublicServantYes"
-                    android:layout_width="wrap_content"
+                <Spinner
+                    android:id="@+id/spinnerBussineLine"
+                    style="@style/SpinnerNoArrow"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="center"
+                    android:layout_marginTop="0dp"
+                    android:background="@null"
+                    app:backgroundTint="@color/transparent" />
+
+                <Spinner
+                    android:id="@+id/spinnerSubBussineLine"
+                    style="@style/SpinnerNoArrow"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="0dp"
+                    android:background="@null"
+                    android:visibility="gone"
+                    app:backgroundTint="@color/transparent" />
+
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/editBussinesPhone"
+                    style="@style/FragmentElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_between_elements"
+                    app:formato="celphone"
+                    app:hintText="@string/txt_phone"
+                    app:imageIsGone="true"
+                    app:isSingleLine="true" />
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/textPublicServant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/margin_regular"
+                    android:layout_marginRight="@dimen/margin_regular"
+                    android:layout_marginTop="@dimen/space_between_elements"
                     android:gravity="center"
-                    android:text="@string/yes" />
+                    android:text="@string/publicServantQuestion"
+                    android:textColor="@color/whiteColor"
+                    app:tipo="Descripcion" />
 
-                <android.support.v4.widget.Space
-                    android:layout_width="0dp"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-            </RadioGroup>
+                <RadioGroup
+                    android:id="@+id/radioPublicServant"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/space_between_elements"
+                    android:gravity="center"
+                    android:orientation="horizontal"
+                    android:theme="@style/RadioButtonTheme">
 
-        </LinearLayout>
-    </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+                    <android.support.v4.widget.Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <RadioButton
+                        android:id="@+id/radioBtnPublicServantNo"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="@string/no" />
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+
+                    <RadioButton
+                        android:id="@+id/radioBtnPublicServantYes"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:text="@string/yes" />
+
+                    <android.support.v4.widget.Space
+                        android:layout_width="0dp"
+                        android:layout_height="0dp"
+                        android:layout_weight="1" />
+                </RadioGroup>
+
+            </LinearLayout>
+        </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/layoutContent"
         android:layout_marginBottom="@dimen/margin_medium"
         android:layout_marginLeft="@dimen/margin_big"
         android:layout_marginRight="@dimen/margin_big"
@@ -163,4 +165,4 @@
     </LinearLayout>
 
 
-</RelativeLayout>
+</LinearLayout>
