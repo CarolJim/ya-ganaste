@@ -20,6 +20,7 @@
     <string name="logoutUrl">/CerrarSesion</string>
     <string name="consultAssignCardUrl">/ConsultarAsignacionTarjeta</string>
     <string name="getMovementsByMonthUrl">/ConsultarMovimientosMes</string>
+    <string name="validate_data_person">/ValidarDatosPersona</string>
     <string name="getBalanceUrl">/ConsultarSaldo</string>
     <string name="getAccountOwnerUrl">/ConsultarTitularCuenta</string>
     <string name="createAgentUrl">/CrearAgente</string>
@@ -287,6 +288,8 @@
     <string name="datos_domicilio_colonia">Colonia Requerida, Verifique su Información.</string>
     <string name="datos_domicilio_terminos">Debes aceptar los términos y condiciones.</string>
     <string name="msg_register">Registrando Usuario...</string>
+    <string name="msg_renapo">Validando Información</string>
+
     <!--activacion_sms-->
     <string name="activacion_sms_mes_1">Para Terminar tu Registro,\n Debemos Asociar tu Teléfono a tu\n Cuenta Ya Ganaste.</string>
     <string name="activacion_sms_mes_2">Sólo Envía el SMS que Aparecerá\nen la Siguiente Pantalla.</string>
@@ -438,7 +441,7 @@
     <string name="title_error">Ocurrió Un Error</string>
 
 
-    <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
+    <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
     <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01-800-500-1000\n informes@yaganaste.com</string>
     <string name="documents_comprobantes">CFE,Teléfono,Agua(No mayor a 3 meses)</string>
     <string name="documents_vigentes">Credencial de Elector o Pasaporte</string>

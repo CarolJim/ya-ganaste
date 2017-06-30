@@ -12,7 +12,7 @@ import java.util.List;
 
 public interface IAccountAddressRegisterView<E> extends INavigationView<Object, E> {
 
-    public void setNeighborhoodsAvaliables(List<ColoniasResponse> listaColonias);
-    public void setCurrentAddress(DataObtenerDomicilio domicilio);
+    void setNeighborhoodsAvaliables(List<ColoniasResponse> listaColonias);
+    void setCurrentAddress(DataObtenerDomicilio domicilio);
 
 }

@@ -319,7 +319,7 @@
     </style>
 
     <style name="LoginTextView">
-        <item name="android:textColor">@color/grayColor</item>
+        <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/frag_adapter_roll_data_text_size</item>
         <item name="tipo">Subtitulo</item>
     </style>

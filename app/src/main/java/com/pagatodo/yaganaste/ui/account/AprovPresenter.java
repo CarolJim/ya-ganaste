@@ -54,6 +54,11 @@ public class AprovPresenter extends ProvisioningPresenterAbs implements IAprovPr
     }
 
     @Override
+    public void onSuccessDataPerson() {
+
+    }
+
+    @Override
     public void onSucces(WebService ws,Object data) {
 
             if(ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN){ // Error en Verificacion de Aprovisionamiento

@@ -174,7 +174,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                         StringBuilder cardNumber = new StringBuilder(editNumber.getText().toString());
                         int lastSharpIndex = cardNumber.indexOf("#");
                         if (keyCode == KeyEvent.KEYCODE_DEL) {
-                            if (lastSharpIndex <= 7) {
+                            if (lastSharpIndex <= 7 && lastSharpIndex >= 0) {
                                 return false;
                             }
                             if (lastSharpIndex != -1) {
@@ -184,8 +184,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                                     cardNumber.setCharAt(lastSharpIndex - 1, '#');
                                 }
                             } else {
-                                if (lastSharpIndex == 7)
-                                    cardNumber.setCharAt(cardNumber.length() - 1, '#');
+                                cardNumber.setCharAt(cardNumber.length() - 1, '#');
                             }
 
                         } else {

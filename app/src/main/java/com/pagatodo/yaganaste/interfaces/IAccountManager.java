@@ -14,5 +14,6 @@ public interface IAccountManager<T> {
     public void onError(WebService ws,T error);
     void hideLoader();
     void onSuccesBalance(ConsultarSaldoResponse response);
+    void onSuccessDataPerson();
 
 }

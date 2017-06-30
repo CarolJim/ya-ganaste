@@ -1,8 +1,10 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
 import android.app.DatePickerDialog;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
 import android.text.Editable;
 import android.text.TextWatcher;
@@ -15,14 +17,18 @@ import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
+import com.pagatodo.yaganaste.interfaces.IRenapoView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.States;
+import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
@@ -44,7 +50,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
  * A simple {@link GenericFragment} subclass.
  */
 public class DatosPersonalesFragment extends GenericFragment implements
-        View.OnClickListener, ValidationForms, INavigationView,
+        View.OnClickListener, ValidationForms, IRenapoView,
         AdapterView.OnItemSelectedListener, IOnSpinnerClick {
 
 
@@ -96,6 +102,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
     Calendar newDate;
     Calendar actualDate;
 
+    private AccountPresenterNew accountPresenter;
+
     public DatosPersonalesFragment() {
     }
 
@@ -104,6 +112,13 @@ public class DatosPersonalesFragment extends GenericFragment implements
         Bundle args = new Bundle();
         fragmentRegister.setArguments(args);
         return fragmentRegister;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        accountPresenter = ((AccountActivity) getActivity()).getPresenter();
+        accountPresenter.setIView(this);
     }
 
     @Override
@@ -266,8 +281,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             return;
         }
 
-
-        onValidationSuccess();
+        setPersonData();
     }
 
     @Override
@@ -331,8 +345,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     }
 
-    @Override
-    public void onValidationSuccess() {
+    private void setPersonData() {
         errorNameMessage.setVisibilityImageError(false);
         errorFLastNameMessage.setVisibilityImageError(false);
         errorBirthDayMessage.setVisibilityImageError(false);
@@ -349,15 +362,25 @@ public class DatosPersonalesFragment extends GenericFragment implements
         registerUser.setNacionalidad("MX");
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
+
+        //if (BuildConfig.DEBUG) {
+            //onValidationSuccess();
+        //} else {
+            accountPresenter.validatePersonData();
+        //}
+    }
+
+    @Override
+    public void onValidationSuccess() {
         nextScreen(EVENT_ADDRESS_DATA, null);//Mostramos siguiente pantalla de registro.
     }
 
     @Override
     public void getDataForm() {
         genero = radioBtnMale.isChecked() ? "H" : radioBtnFemale.isChecked() ? "M" : "";
-        nombre = editNames.getText().toString();
-        apPaterno = editFirstLastName.getText().toString();
-        apMaterno = editSecoundLastName.getText().toString();
+        nombre = editNames.getText();
+        apPaterno = editFirstLastName.getText();
+        apMaterno = editSecoundLastName.getText();
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
             StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
@@ -469,5 +492,10 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @Override
     public void onSpinnerClick() {
         hideErrorMessage(spinnerBirthPlace.getId());
+    }
+
+    @Override
+    public void onValidateUserDataSuccess() {
+        onValidationSuccess();
     }
 }

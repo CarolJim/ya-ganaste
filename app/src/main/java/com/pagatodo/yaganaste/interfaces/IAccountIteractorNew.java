@@ -24,6 +24,7 @@ public interface IAccountIteractorNew <T>{
     public void validatePassword(String password);
     public void createUser();
     public void createUserClient(CrearUsuarioClienteRequest request );
+    public void validatePersonData();
     public void getNeighborhoodByZipCode(String zipCode);
     public void assigmentAccountAvaliable(int idAccount);
     public void getSMSNumber();

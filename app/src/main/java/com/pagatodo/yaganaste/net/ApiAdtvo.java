@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalog
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarDatosPersonaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActivacionAprovSofttokenRequest;
@@ -58,9 +59,8 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatu
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
-import com.pagatodo.yaganaste.ui.account.AccountAdqInteractor;
-import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 
 import java.util.Map;
 
@@ -96,6 +96,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_SUBGIROS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECURSO_IMAGEN;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
@@ -244,6 +245,22 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getMovementsByMonthUrl),
                 headers, request, ConsultarMovimientosMesResponse.class, result);
     }
+
+
+    /**
+     * Método que se invoca cuando se desean obtener más movimientos por mes.
+     *
+     * @param request {@link ValidarDatosPersonaRequest} body de la petición.
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void validarDatosPersona(ValidarDatosPersonaRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        NetFacade.consumeWS(VALIDAR_DATOS_PERSONA,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.validate_data_person),
+                headers, request, GenericResponse.class, result);
+    }
+
 
     /**
      * Método que se invoca para que un Cliente se vuelva Agente.
