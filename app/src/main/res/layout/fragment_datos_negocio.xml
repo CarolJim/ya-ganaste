@@ -32,7 +32,6 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editBussinesName"
-                    style="@style/FragmentElement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:formato="text"
@@ -41,14 +40,24 @@
                     app:isSingleLine="true"
                     app:maxLength="30" />
 
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorBussinesNameMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
+
                 <Spinner
                     android:id="@+id/spinnerBussineLine"
                     style="@style/SpinnerNoArrow"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="0dp"
+                    android:layout_marginTop="@dimen/margin_xsmall"
                     android:background="@null"
                     app:backgroundTint="@color/transparent" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorBussineLineMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <Spinner
                     android:id="@+id/spinnerSubBussineLine"
@@ -60,17 +69,26 @@
                     android:visibility="gone"
                     app:backgroundTint="@color/transparent" />
 
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorSubBussineLineMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editBussinesPhone"
-                    style="@style/FragmentElement"
+                    style="@style/FragmentElementWithValidation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_between_elements"
                     app:formato="celphone"
                     app:hintText="@string/txt_phone"
                     app:imageIsGone="true"
                     app:isSingleLine="true" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorBussinesPhoneMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/textPublicServant"

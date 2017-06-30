@@ -5,11 +5,10 @@
     android:id="@+id/activity_we_need_some_files"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_bottom"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    tools:context="com.pagatodo.yaganaste.ui._controllers.BussinesActivity">
+    tools:context=".ui._controllers.BussinesActivity">
 
     <android.support.v4.widget.SwipeRefreshLayout
         android:id="@+id/swiperefresh"

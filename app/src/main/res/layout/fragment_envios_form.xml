@@ -9,8 +9,9 @@
 
     <LinearLayout
         android:id="@+id/containerEnviosForm"
-        android:layout_width="match_parent"  android:layout_weight="1"
+        android:layout_width="match_parent"
         android:layout_height="match_parent"
+        android:layout_weight="1"
         android:orientation="vertical">
 
         <Spinner
@@ -18,11 +19,14 @@
             style="@style/CustomSpinner"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/margin_elements"
+            android:layout_marginRight="@dimen/margin_elements"
             android:background="@null"
             android:backgroundTint="@color/transparent" />
 
         <LinearLayout
             android:id="@+id/layout_cardNumber"
+            style="@style/FragmentElementForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_between_elements"
@@ -42,6 +46,7 @@
         </LinearLayout>
 
         <LinearLayout
+            style="@style/FragmentElementForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_between_elements"
@@ -60,6 +65,7 @@
         </LinearLayout>
 
         <LinearLayout
+            style="@style/FragmentElementForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_between_elements"
@@ -77,8 +83,8 @@
 
         </LinearLayout>
 
-
         <LinearLayout
+            style="@style/FragmentElementForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_between_elements"
@@ -97,6 +103,7 @@
         </LinearLayout>
 
         <LinearLayout
+            style="@style/FragmentElementForm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/space_between_elements"
@@ -142,8 +149,8 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true"
         android:layout_below="@+id/containerEnviosForm"
-        android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginBottom="@dimen/btn_navigation_bottom"
+        android:layout_marginLeft="@dimen/margin_medium"
         android:layout_marginRight="@dimen/margin_medium"
         android:layout_marginTop="@dimen/margin_big">
 
