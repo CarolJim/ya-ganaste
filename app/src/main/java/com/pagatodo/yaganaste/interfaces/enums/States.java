@@ -7,73 +7,75 @@ import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
  */
 
 public enum States implements IEnumSpinner {
+
     S0("0", "Lugar de Nacimiento"),
 
-    S1("1", "Aguascalientes"),
+    S1("1", "AGUASCALIENTES"),
 
-    S2("2", "Baja California"),
+    S2("2", "BAJA CALIFORNIA"),
 
-    S3("3", "Baja California Sur"),
+    S3("3", "BAJA CALIFORNIA SUR"),
 
-    S4("4", "Campeche"),
+    S4("4", "CAMPECHE"),
 
-    S5("5", "Chiapas"),
+    S5("5", "CHIHUAHUA"),
 
-    S6("6", "Chihuahua"),
+    S6("6", "COAHUILA"),
 
-    S7("7", "Coahuila"),
+    S7("7", "COLIMA"),
 
-    S8("8", "Colima"),
+    S8("8", "CHIAPAS"),
 
-    S9("9", "Ciudad de México"),
+    S9("9", "DISTRITO FEDERAL"),
 
-    S10("10", "Durango"),
+    S10("10", "DURANGO"),
 
-    S11("11", "Estado de México"),
+    S11("11", "GUERRERO"),
 
-    S12("12", "Guanajuato"),
+    S12("12", "GUANAJUATO"),
 
-    S13("13", "Guerrero"),
+    S13("13", "HIDALGO"),
 
-    S14("14", "Hidalgo"),
+    S14("14", "JALISCO"),
 
-    S15("15", "Jalisco"),
+    S15("15", "MÉXICO"),
 
-    S16("16", "Michoacán"),
+    S16("16", "MICHOACAN"),
 
-    S17("17", "Morelos"),
+    S17("17", "MORELOS"),
 
-    S18("18", "Nayarit"),
+    S18("18", "NUEVO LEÓN"),
 
-    S19("19", "Nuevo León"),
+    S19("19", "NAYARIT"),
 
-    S20("20", "Oaxaca"),
+    S20("20", "OAXACA"),
 
-    S21("21", "Puebla"),
+    S21("21", "PUEBLA"),
 
-    S22("22", "Querétaro"),
+    S22("22", "QUINTANA ROO"),
 
-    S23("23", "Quintana Roo"),
+    S23("23", "QUERETARO"),
 
-    S24("24", "San Luis Potosí"),
+    S24("24", "SINALOA"),
 
-    S25("25", "Sinaloa"),
+    S25("25", "SAN LUIS POTOSI"),
 
-    S26("26", "Sonora"),
+    S26("26", "SONORA"),
 
-    S27("27", "Tabasco"),
+    S27("27", "TABASCO"),
 
-    S28("28", "Tamaulipas"),
+    S28("28", "TLAXCALA"),
 
-    S29("29", "Tlaxcala"),
+    S29("29", "TAMAULIPAS"),
 
-    S30("30", "Veracruz"),
+    S30("30", "VERACRUZ"),
 
-    S31("31", "Yucatán"),
+    S31("31", "YUCATÁN"),
 
-    S32("32", "Zacatecas"),
+    S32("32", "ZACATECAS"),
 
     S33("33", "Extranjero");
+
 
     private String name;
     private String id;

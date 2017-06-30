@@ -28,6 +28,7 @@ import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.interfaces.IDocumentsPresenter;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IProgressView;
+import com.pagatodo.yaganaste.interfaces.IRenapoView;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
@@ -99,6 +100,12 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
         accountView.nextScreen(event,data);
     }
 
+
+    @Override
+    public void validatePersonData() {
+        accountView.showLoader(App.getInstance().getString(R.string.msg_renapo));
+        accountIteractor.validatePersonData();
+    }
 
     @Override
     public void createUser() {
@@ -182,6 +189,11 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
         accountIteractor.recoveryPassword(request);
     }
 
+
+    @Override
+    public void onSuccessDataPerson() {
+        ((IRenapoView)accountView).onValidateUserDataSuccess();
+    }
 
     @Override
     public void onError(WebService ws,Object error) {

@@ -15,6 +15,7 @@ public interface IAccountPresenterNew {
     public void checkCardAssigment(String numberCard);
     public void validatePasswordFormat(String password);
     public void createUser();
+    public void validatePersonData();
     public void getNeighborhoods(String zipCode);
     public void assignAccount();
     public void assignNIP(String nip);
