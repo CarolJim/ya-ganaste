@@ -548,6 +548,9 @@
 
     <string name="catalogo_version_init">0</string>
     <string name="asigna_nip">Asigna tu NIP</string>
+
+    <string name="vuelve_conectar_lector">Vuelve a conectar el Lector.</string>
+    <string name="inserta_lector_valido">Inserta un Lector de Tarjeta Válido.</string>
 </resources>
 
 

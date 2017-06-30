@@ -13,6 +13,7 @@ import android.view.MenuItem;
 import android.view.MotionEvent;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
 import com.pagatodo.yaganaste.utils.FontCache;
 
 
@@ -73,6 +74,7 @@ public class StyleEdittext extends AppCompatEditText {
             return false;
         }
     };
+    private EditTextImeBackListener mOnImeBack;
 
     public StyleEdittext(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
@@ -149,4 +151,18 @@ public class StyleEdittext extends AppCompatEditText {
         }
     }
 
+    @Override
+    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK &&
+                event.getAction() == KeyEvent.ACTION_UP && mOnImeBack != null) {
+
+            mOnImeBack.onImeBack();
+
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    public void setOnEditTextImeBackListener(EditTextImeBackListener listener) {
+        mOnImeBack = listener;
+    }
 }

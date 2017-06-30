@@ -72,7 +72,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public static final int TYPE_DETAILS = 3;
 
 
-
     private Animation animShow, animHide;
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
     private ProgressLayout progressGIF;
@@ -117,7 +116,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     @Override
     public void loadViewPager(ViewPagerData viewPagerData) {
-        mainViewPagerAdapter = new GenericPagerAdapter<>(this, getSupportFragmentManager(), viewPagerData.getFragmentList(), viewPagerData.getTabData());
+        mainViewPagerAdapter = new GenericPagerAdapter<>(this, getSupportFragmentManager(),
+                viewPagerData.getFragmentList(), viewPagerData.getTabData());
+
         mainViewPager.setAdapter(mainViewPagerAdapter);
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
         mainTab.setupWithViewPager(mainViewPager);
@@ -130,12 +131,27 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         linearLayout.setDividerPadding(0);
         linearLayout.setDividerDrawable(drawable);
         mainTab.setSelectedTabIndicatorHeight(4);
+        mainTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
+            @Override
+            public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 3) {
+                    hideMainTab();
+                } else {
+                    showMainTab();
+                }
+            }
 
+            @Override
+            public void onTabUnselected(TabLayout.Tab tab) {
+
+            }
+
+            @Override
+            public void onTabReselected(TabLayout.Tab tab) {
+
+            }
+        });
     }
-
-
-
-
 
 
     @Override
@@ -144,14 +160,14 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
         if (!pref.containsData(COUCHMARK_EMISOR)) {
 
-             new Handler().postDelayed(new Runnable() {
-                 @Override
-                 public void run() {
-                     pref.saveDataBool(COUCHMARK_EMISOR, true);
-                     Intent intent = new Intent(TabActivity.this, LandingFragment.class);
-                     startActivity(intent);
-                 }
-             }, 500);
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    pref.saveDataBool(COUCHMARK_EMISOR, true);
+                    Intent intent = new Intent(TabActivity.this, LandingFragment.class);
+                    startActivity(intent);
+                }
+            }, 500);
 
 
         }
@@ -256,7 +272,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
         if (fragmentList != null) {
             for (Fragment fragment : fragmentList) {
-                if ( (fragmentType == 0 && fragment instanceof PaymentsTabFragment)
+                if ((fragmentType == 0 && fragment instanceof PaymentsTabFragment)
                         || (fragmentType == 1 && fragment instanceof Documentos)
                         || (fragmentType == TYPE_DETAILS && fragment instanceof HomeTabFragment)) {
                     return fragment;
@@ -279,12 +295,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (actualFragment instanceof DepositsFragment) {
             ((DepositsFragment) actualFragment).getDepositManager().onBtnBackPress();
         } else if (actualFragment instanceof GetMountFragment) {
-            GetMountFragment getMountFragment = (GetMountFragment)actualFragment;
+            goHome();
+            /*GetMountFragment getMountFragment = (GetMountFragment)actualFragment;
             if (getMountFragment.isCustomKeyboardVisible()) {
                 getMountFragment.hideKeyboard();
             } else {
-                goHome();
-            }
+
+            }*/
 
         } else {
             if (mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem()) instanceof HomeTabFragment) {
