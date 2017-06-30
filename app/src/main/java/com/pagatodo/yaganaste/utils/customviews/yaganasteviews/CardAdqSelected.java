@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.utils.customviews.yaganasteviews;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
  * @author Juan Guerra on 05/04/2017.
  */
 
-public class CardAdqSelected extends TabViewElement{
+public class CardAdqSelected extends TabViewElement {
 
     private TextView txtNombreNegocio;
     private TextView txtSaldoAdq;
@@ -43,15 +42,15 @@ public class CardAdqSelected extends TabViewElement{
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 0);
         addView(child, params);
 
-        txtNombreNegocio = (TextView)findViewById(R.id.txt_nombre_negocio);
-        txtSaldoAdq = (TextView)findViewById(R.id.txt_saldo_adq);
-        txtStatus = (TextView)findViewById(R.id.txt_status);
+        txtNombreNegocio = (TextView) findViewById(R.id.txt_nombre_negocio);
+        txtSaldoAdq = (TextView) findViewById(R.id.txt_saldo_adq);
+        txtStatus = (TextView) findViewById(R.id.txt_status);
 
     }
 
     @Override
     public void updateData() {
-        if (SingletonUser.getInstance().getDataUser().isEsAgente()  && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
+        if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
             this.txtNombreNegocio.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombreNegocio());
             this.txtSaldoAdq.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoAdq()));
         }

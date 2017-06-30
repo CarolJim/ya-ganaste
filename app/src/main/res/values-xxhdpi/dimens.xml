@@ -28,9 +28,9 @@
     <dimen name="btn_corner_radius">24dp</dimen>
     <dimen name="edit_corner_radius">1.5dp</dimen>
 
-    <dimen name="ad_em_tab_mount_text_size">16sp</dimen>
+    <dimen name="ad_em_tab_mount_text_size">9sp</dimen>
 
-    <dimen name="ad_em_tab_text_size">14sp</dimen>
+    <dimen name="ad_em_tab_text_size">13sp</dimen>
 
     <dimen name="online_movements_small">17sp</dimen>
     <dimen name="online_movements_small_b">20sp</dimen>
@@ -43,9 +43,9 @@
 
 
     <!-- Medidas Fragmento Inicio -->
-    <dimen name="frag_inicio_data_text_size">13sp
+    <dimen name="frag_inicio_data_text_size">11sp
     </dimen> <!-- Tamaño de Letra de Tabs, nombre de cliente, texto normal -->
-    <dimen name="frag_inicio_tdc_num_text_size">17sp</dimen>   <!-- Tamaño de Letra de TDC -->
+    <dimen name="frag_inicio_tdc_num_text_size">11sp</dimen>   <!-- Tamaño de Letra de TDC -->
     <dimen name="frag_inicio_tab_no_movements_text_size">13sp</dimen>
 
     <!-- Medidas del TabLayout de los meses-->

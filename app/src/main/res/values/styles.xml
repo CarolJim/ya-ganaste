@@ -216,14 +216,17 @@
 
     <style name="SpinnerNoArrow" parent="CustomSpinner">
         <item name="android:focusable">true</item>
-        <item name="android:layout_marginLeft">@dimen/margin_elements</item>
-        <item name="android:layout_marginRight">@dimen/margin_elements</item>
         <item name="android:layout_marginTop">@dimen/space_between_elements</item>
     </style>
 
-    <style name="FragmentElement">
+    <style name="BorderLayoutContent">
         <item name="android:layout_marginLeft">@dimen/margin_elements</item>
         <item name="android:layout_marginRight">@dimen/margin_elements</item>
+        <item name="android:layout_marginTop">@dimen/margin_form_top</item>
+        <item name="android:layout_marginBottom">@dimen/margin_form_bottom</item>
+    </style>
+
+    <style name="FragmentElement">
         <item name="android:layout_marginTop">@dimen/space_between_elements</item>
     </style>
 
@@ -247,6 +250,12 @@
 
     <style name="MainTabText">
         <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">10sp</item>
+        <item name="tipo">Subtitulo</item>
+    </style>
+
+    <style name="MainTabTextUnselected">
+        <item name="android:textColor">@color/colorTextTabUnselected</item>
         <item name="android:textSize">10sp</item>
         <item name="tipo">Subtitulo</item>
     </style>
@@ -316,8 +325,8 @@
         <item name="android:textSize">@dimen/text_error_validation_message</item>
         <item name="tipo">Italic</item>
         <item name="android:gravity">left|top</item>
-        <item name="android:layout_marginLeft">@dimen/margin_doble</item>
-        <item name="android:layout_marginRight">@dimen/margin_doble</item>
+        <item name="android:layout_marginLeft">@dimen/margin_error</item>
+        <item name="android:layout_marginRight">@dimen/margin_error</item>
     </style>
 
     <style name="formatPIN">

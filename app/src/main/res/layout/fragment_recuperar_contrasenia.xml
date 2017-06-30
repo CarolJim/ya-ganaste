@@ -1,10 +1,9 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
-    android:background="@drawable/bg_gradient_bottom"
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
@@ -13,18 +12,18 @@
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
             android:id="@+id/borderLayout"
+            style="@style/BorderTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_big"
-            android:layout_marginRight="@dimen/margin_big"
-            android:gravity="center"
             app:title="@string/recupera_contrasenia_title">
 
             <LinearLayout
+                style="@style/BorderLayoutContent"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
@@ -32,22 +31,18 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtHeaderRecovery"
-                    style="@style/FragmentElementTop"
+                    style="@style/FragmentElement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_big"
                     android:gravity="center"
                     android:text="@string/ingresa_correo_registrado" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/edtCorreoRegistrado"
-                    style="@style/FragmentElementBottom"
+                    style="@style/FragmentElement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="@dimen/margin_xsmall"
-                    android:layout_marginLeft="@dimen/margin_medium"
-                    android:layout_marginRight="@dimen/margin_medium"
-                    android:layout_marginTop="@dimen/margin_elements"
+                    app:hintText="@string/txt_mail"
                     app:formato="email"
                     app:isSingleLine="true" />
 
@@ -55,60 +50,55 @@
                     android:id="@+id/errorMessage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/margin_regular"
                     android:visibility="visible" />
 
             </LinearLayout>
 
-
         </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
 
+    </RelativeLayout>
+
+
+    <LinearLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
         <LinearLayout
-            android:id="@+id/layoutBottom"
+            android:id="@+id/layoutBtns"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:orientation="vertical">
+            android:layout_marginBottom="@dimen/margin_medium"
+            android:layout_marginLeft="@dimen/margin_big"
+            android:layout_marginRight="@dimen/margin_big"
+            android:orientation="horizontal">
 
-            <LinearLayout
-                android:id="@+id/layoutBtns"
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnBackRecuperar"
+                style="@style/buttonDirecctionBack"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_medium"
-                android:layout_marginLeft="@dimen/margin_big"
-                android:layout_marginRight="@dimen/margin_big"
-                android:orientation="horizontal">
+                android:layout_height="@dimen/height_btns"
+                android:layout_marginRight="@dimen/margin_small"
+                android:layout_weight="1.4"
+                android:text="@string/backButton"
+                android:textAllCaps="false"
+                android:textSize="@dimen/generic_button_normal_text_size" />
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                    android:id="@+id/btnBackRecuperar"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_btns"
-                    android:layout_centerInParent="true"
-                    android:layout_marginRight="@dimen/margin_small"
-                    android:layout_weight="1.4"
-                    style="@style/buttonDirecctionBack"
-                    android:text="@string/backButton"
-                    android:textAllCaps="false"
-                    android:textSize="@dimen/generic_button_normal_text_size"/>
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                    android:id="@+id/btnNextRecuperar"
-                    android:layout_width="match_parent"
-                    android:layout_height="@dimen/height_btns"
-                    android:layout_centerInParent="true"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    android:layout_weight="1"
-                    style="@style/buttonDirecctionNext"
-                    android:gravity="center"
-                    android:text="@string/nextButton"
-                    android:textAllCaps="false"
-                    android:textSize="@dimen/generic_button_normal_text_size"/>
-            </LinearLayout>
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnNextRecuperar"
+                style="@style/buttonDirecctionNext"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_btns"
+                android:layout_marginLeft="@dimen/margin_small"
+                android:layout_weight="1"
+                android:gravity="center"
+                android:text="@string/nextButton"
+                android:textAllCaps="false"
+                android:textSize="@dimen/generic_button_normal_text_size" />
         </LinearLayout>
-
-
-    </RelativeLayout>
+    </LinearLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressIndicator"
@@ -117,4 +107,4 @@
         android:visibility="gone" />
 
 
-</RelativeLayout>
+</LinearLayout>

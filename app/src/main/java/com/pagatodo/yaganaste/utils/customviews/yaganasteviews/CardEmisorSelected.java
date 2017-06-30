@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.utils.customviews.yaganasteviews;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,7 +19,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
  * @author Juan Guerra on 05/04/2017.
  */
 
-public class CardEmisorSelected extends TabViewElement{
+public class CardEmisorSelected extends TabViewElement {
 
     private TextView txtSaldo;
     private TextView txtNombre;
@@ -42,8 +41,8 @@ public class CardEmisorSelected extends TabViewElement{
         View child = LayoutInflater.from(getContext()).inflate(R.layout.card_emisor_selected, null);
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 0);
         addView(child, params);
-        txtSaldo = (TextView)findViewById(R.id.txt_saldo);
-        txtNombre = (TextView)findViewById(R.id.txt_nombre);
+        txtSaldo = (TextView) findViewById(R.id.txt_saldo);
+        txtNombre = (TextView) findViewById(R.id.txt_nombre);
         updateData();
     }
 

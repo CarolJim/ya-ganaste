@@ -41,6 +41,7 @@
     <color name="edittext_back">#435D6E</color>
     <color name="line_border">#23313C</color>
     <color name="colorAccentTransparent">#8810B2E6</color>
+    <color name="colorSeekBarBackground">#0C4C67</color>
     <color name="margin_lines">#AFAFAF</color>
-
+    <color name="colorTextTabUnselected">#8E959A</color>
 </resources>

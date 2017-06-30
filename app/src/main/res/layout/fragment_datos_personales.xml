@@ -10,29 +10,28 @@
     android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
-    <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
-        android:id="@+id/layoutContent"
-        style="@style/BorderTitleStyle"
-        android:layout_width="match_parent" android:layout_weight="1"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_below="@+id/toolbarLy"
-        app:title="@string/personalInfoTitle">
-
-        <ScrollView
+        <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+            android:id="@+id/layoutContent"
+            style="@style/BorderTitleStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content" android:layout_marginTop="25dp">
+            android:layout_height="wrap_content"
+            app:title="@string/personalInfoTitle">
 
-            <RelativeLayout
+            <LinearLayout
+                style="@style/BorderLayoutContent"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content">
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:id="@+id/generTitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_big"
                     android:orientation="vertical">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -50,12 +49,10 @@
 
                 </LinearLayout>
 
-
                 <RadioGroup
                     android:id="@+id/radioGender"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/generTitle"
                     android:orientation="horizontal"
                     android:theme="@style/RadioButtonTheme">
 
@@ -94,11 +91,9 @@
 
                 </RadioGroup>
 
-
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/radioGender"
                     android:layout_marginTop="@dimen/margin_medium"
                     android:orientation="vertical">
 
@@ -186,22 +181,19 @@
                         android:id="@+id/errorBirthPlaceMessage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_marginBottom="@dimen/margin_doble"
                         android:visibility="visible" />
                 </LinearLayout>
 
+            </LinearLayout>
 
-            </RelativeLayout>
-        </ScrollView>
+        </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
-    </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+    </ScrollView>
 
     <LinearLayout
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/toolbarLy"
-        android:layout_alignParentBottom="true"
         android:layout_marginTop="@dimen/margin_medium"
         android:orientation="vertical">
 
@@ -217,29 +209,30 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnBackPersonalInfo"
+                style="@style/buttonDirecctionBack"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_btns"
                 android:layout_centerInParent="true"
                 android:layout_marginRight="@dimen/margin_small"
                 android:layout_weight="1.4"
-                style="@style/buttonDirecctionBack"
+                android:paddingLeft="0dp"
                 android:text="@string/backButton"
                 android:textAllCaps="false"
-                android:textSize="@dimen/generic_button_normal_text_size"
-                android:paddingLeft="0dp" />
+                android:textSize="@dimen/generic_button_normal_text_size" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNextPersonalInfo"
+                style="@style/buttonDirecctionNext"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_btns"
                 android:layout_centerInParent="true"
                 android:layout_marginLeft="@dimen/margin_small"
                 android:layout_weight="1"
-                style="@style/buttonDirecctionNext"
                 android:gravity="center"
                 android:text="@string/nextButton"
                 android:textAllCaps="false"
                 android:textSize="@dimen/generic_button_normal_text_size" />
         </LinearLayout>
     </LinearLayout>
+
 </LinearLayout>
