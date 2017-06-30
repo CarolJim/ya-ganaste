@@ -442,7 +442,7 @@
     <string name="title_error">Ocurrió Un Error</string>
 
 
-    <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
+    <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
     <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01-800-500-1000\n informes@yaganaste.com</string>
     <string name="documents_comprobantes">CFE,Telefono,Agua(No mayor a 3 meses)</string>
     <string name="documents_vigentes">Credencial de Elector o Pasaporte</string>
