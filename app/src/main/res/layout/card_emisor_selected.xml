@@ -4,9 +4,9 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical"
     android:gravity="center"
-    android:padding="5dp">
+    android:orientation="vertical"
+    android:padding="10dp">
 
     <FrameLayout
         android:layout_width="wrap_content"
@@ -15,17 +15,17 @@
         <ImageView
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:src="@mipmap/main_card_zoom_blue"
             android:adjustViewBounds="true"
             android:scaleType="fitCenter"
+            android:src="@mipmap/main_card_zoom_blue"
             tools:ignore="ContentDescription" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:gravity="end"
             android:orientation="horizontal"
-            android:weightSum="10"
-            android:gravity="end">
+            android:weightSum="10">
 
             <LinearLayout
                 android:layout_width="0dp"
@@ -37,7 +37,7 @@
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="4.5"/>
+                    android:layout_weight="4.5" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="match_parent"
@@ -45,41 +45,43 @@
                     android:layout_weight="3"
                     android:gravity="center_vertical"
                     android:maxLines="1"
+                    android:text="@string/saldo_en_cuenta"
                     android:textSize="@dimen/frag_inicio_data_text_size"
-                    app:tipo="Subtitulo"
-                    android:text="@string/saldo_en_cuenta"/>
+                    app:tipo="Subtitulo" />
 
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1"/>
+                    android:layout_weight="1" />
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txt_saldo"
+                    style="@style/MainTabText"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="4"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    style="@style/MainTabText"
+                    android:text="$4,200.00"
                     android:textSize="@dimen/frag_inicio_tdc_num_text_size"
-                    android:text="$4,200.00" />
+                    app:dotBottom="false"
+                    app:symbolSmaller="true" />
 
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="2.5"/>
+                    android:layout_weight="2.5" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_nombre"
+                    style="@style/MainTabText"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:textSize="@dimen/frag_inicio_data_text_size"
-                    style="@style/MainTabText"
-                    android:text="Jorge Ehrenwald" />
+                    android:text="Jorge Ehrenwald"
+                    android:textSize="@dimen/frag_inicio_data_text_size" />
 
             </LinearLayout>
 

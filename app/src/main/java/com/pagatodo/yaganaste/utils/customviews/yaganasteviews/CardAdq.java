@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.utils.customviews.yaganasteviews;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,7 +18,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
  * @author Juan Guerra on 05/04/2017.
  */
 
-public class CardAdq extends TabViewElement{
+public class CardAdq extends TabViewElement {
 
     private TextView saldoAdq;
     private TextView txtInvite;
@@ -48,7 +47,7 @@ public class CardAdq extends TabViewElement{
 
     @Override
     public void updateData() {
-        if (SingletonUser.getInstance().getDataUser().isEsAgente()  && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
+        if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
             txtInvite.setVisibility(GONE);
             saldoAdq.setVisibility(VISIBLE);
             saldoAdq.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoAdq()));
