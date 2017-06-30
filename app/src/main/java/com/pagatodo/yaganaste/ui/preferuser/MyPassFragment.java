@@ -81,17 +81,12 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     }
 
     @Override
-    public void onAttach(Context context) {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mPreferPresenter = ((PreferUserActivity) getActivity()).getPreferPresenter();
         mPreferPresenter.setIView(this);
         accountPresenter = ((PreferUserActivity) getActivity()).getPresenterAccount();
         accountPresenter.setIView(this);
-        super.onAttach(context);
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
     }
 
     @Override

@@ -209,7 +209,7 @@
                 android:id="@+id/layoutBtns"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_marginBottom="@dimen/btn_navigation_bottom"
                 android:orientation="horizontal">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleButton

@@ -104,7 +104,7 @@
                 android:id="@+id/btnNextDatosUsuario"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_btns"
-                android:layout_marginBottom="20dp"
+                android:layout_marginBottom="@dimen/btn_navigation_bottom"
                 android:layout_weight="1"
                 style="@style/buttonDirecctionNext"
                 android:elevation="8dp"

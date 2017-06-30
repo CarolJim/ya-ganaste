@@ -146,5 +146,6 @@
     <!-- Detalles Adquirente Descripcion movimiento -->
     <dimen name="adq_monto_descripcion">9sp</dimen>
     <dimen name="monto_cancel_size">28sp</dimen>
+    <dimen name="btn_navigation_bottom">20dp</dimen>
 </resources>
 

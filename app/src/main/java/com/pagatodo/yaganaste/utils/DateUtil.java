@@ -22,6 +22,7 @@ import java.util.Locale;
 public class DateUtil {
 
     public static String simpleDateFormat = "dd/MMM/yyyy";
+    public static String simpleDateFormatCustom = "dd/MM/yyyy";
     public static String completeDateFormat = "dd/MMM/yyyy hh:mm:ss";
     public static String simpleDateFormatFirstYear = "yyyy-MM-dd";
     public static String screenShotDateFormat = "yyyy-MM-dd_hh:mm:ss";
@@ -93,6 +94,12 @@ public class DateUtil {
 
     public static String getBirthDateString(Calendar date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormat, new Locale("es"));
+        String result = dateFormat.format(date.getTime());
+        return result;
+    }
+
+    public static String getBirthDateCustomString(Calendar date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormatCustom, new Locale("es"));
         String result = dateFormat.format(date.getTime());
         return result;
     }

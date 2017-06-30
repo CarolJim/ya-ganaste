@@ -78,12 +78,12 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
       //  mPreferPresenter.testToast();
     }
 
-    public IPreferUserPresenter getUserPresenter() {
-        return this.mPreferPresenter;
-    }
-
     public AccountPresenterNew getPresenterAccount() {
         return presenterAccount;
+    }
+
+    public PreferUserPresenter getPreferPresenter() {
+        return mPreferPresenter;
     }
 
     /**
@@ -187,10 +187,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 }
                 break;
         }
-    }
-
-    public PreferUserPresenter getPreferPresenter() {
-        return mPreferPresenter;
     }
 
     @Override

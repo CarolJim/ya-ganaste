@@ -1,15 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     style="@style/FragmentElement"
     android:layout_width="match_parent"
-    android:layout_height="wrap_content"
+    android:layout_height="match_parent"
     android:layout_marginTop="@dimen/margin_big"
     android:orientation="vertical">
 
     <LinearLayout
         android:id="@+id/containerEnviosForm"
-        android:layout_width="match_parent"
+        android:layout_width="match_parent"  android:layout_weight="1"
         android:layout_height="match_parent"
         android:orientation="vertical">
 
@@ -133,30 +133,31 @@
             android:textSize="11sp"
             app:tipo="Text" /-->
 
-        <RelativeLayout
-            android:id="@+id/containerSlideButon"
-            android:layout_width="fill_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_below="@+id/containerEnviosForm"
-            android:layout_marginLeft="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/margin_medium"
-            android:layout_marginTop="@dimen/margin_big">
 
-            <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar
-                android:id="@+id/myseek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_doble"
-                android:background="@drawable/seek_background"
-                android:clickable="false"
-                android:max="100"
-                android:progressDrawable="@android:color/transparent"
-                android:thumb="@drawable/thumb_size"
-                android:thumbOffset="15dp"
-                app:text="@string/btn_send" />
-        </RelativeLayout>
     </LinearLayout>
 
+    <RelativeLayout
+        android:id="@+id/containerSlideButon"
+        android:layout_width="fill_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_below="@+id/containerEnviosForm"
+        android:layout_marginLeft="@dimen/margin_medium"
+        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginTop="@dimen/margin_big">
 
-</RelativeLayout>
+        <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar
+            android:id="@+id/myseek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"
+            android:background="@drawable/seek_background"
+            android:clickable="false"
+            android:max="100"
+            android:progressDrawable="@android:color/transparent"
+            android:thumb="@drawable/thumb_size"
+            android:thumbOffset="15dp"
+            app:text="@string/btn_send" />
+    </RelativeLayout>
+
+</LinearLayout>

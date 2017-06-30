@@ -8,7 +8,6 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
         android:layout_marginTop="8dp"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp">
@@ -37,18 +36,20 @@
             <!-- Eliminar lineas y titulo si ya no es necesario -->
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp" android:visibility="gone"
-                android:background="@color/borderColor" />
+                android:layout_height="1dp"
+                android:background="@color/borderColor"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_user"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"  android:visibility="gone"
+                android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -74,63 +75,72 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="1dp"  android:visibility="gone"
-                android:background="@color/borderColor" />
+                android:layout_height="1dp"
+                android:background="@color/borderColor"
+                android:visibility="gone" />
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dp"
+                android:layout_weight="1"
                 android:orientation="vertical">
 
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editOldPassword"
-                    style="@style/FragmentElementWithValidation"
+                <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:formato="password"
-                    app:hintText="@string/txt_current_pass"
-                    app:isSingleLine="true"
-                    app:maxLength="16" />
+                    android:orientation="vertical">
 
-                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorOldPasswordMessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="visible" />
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/editOldPassword"
+                        style="@style/FragmentElementWithValidation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:formato="password"
+                        app:hintText="@string/txt_current_pass"
+                        app:isSingleLine="true"
+                        app:maxLength="16" />
 
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editPassword"
-                    style="@style/FragmentElementWithValidation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:formato="password"
-                    app:hintText="@string/password"
-                    app:isSingleLine="true"
-                    app:maxLength="16" />
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorOldPasswordMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="visible" />
 
-                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorPasswordMessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="visible" />
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/editPassword"
+                        style="@style/FragmentElementWithValidation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:formato="password"
+                        app:hintText="@string/password"
+                        app:isSingleLine="true"
+                        app:maxLength="16" />
 
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editPasswordConfirmation"
-                    style="@style/FragmentElementWithValidation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:formato="password"
-                    app:hintText="@string/passwordConfirm"
-                    app:isSingleLine="true"
-                    app:maxLength="16" />
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorPasswordMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="visible" />
 
-                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorConfirmPasswordMessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginBottom="@dimen/margin_doble"
-                    android:visibility="visible" />
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/editPasswordConfirmation"
+                        style="@style/FragmentElementWithValidation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:formato="password"
+                        app:hintText="@string/passwordConfirm"
+                        app:isSingleLine="true"
+                        app:maxLength="16" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorConfirmPasswordMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_marginBottom="@dimen/margin_doble"
+                        android:visibility="visible" />
+
+                </LinearLayout>
             </LinearLayout>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
@@ -139,6 +149,8 @@
                 android:layout_width="180dp"
                 android:layout_height="@dimen/height_btns"
                 android:layout_gravity="center"
+                android:layout_marginBottom="@dimen/btn_navigation_bottom"
+                android:layout_marginTop="@dimen/margin_medium"
                 android:gravity="center"
                 android:text="Confirmar"
                 android:textAllCaps="false"

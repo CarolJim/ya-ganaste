@@ -444,7 +444,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 public void onDateSet(DatePicker view, int year, int month, int date) {
                     newDate = Calendar.getInstance(new Locale("es"));
                     newDate.set(year, month, date);
-                    editBirthDay.setText(DateUtil.getBirthDateString(newDate));
+                   // editBirthDay.setText(DateUtil.getBirthDateString(newDate));
+                    editBirthDay.setText(DateUtil.getBirthDateCustomString(newDate));
                     fechaNacimiento = DateUtil.getDateStringFirstYear(newDate);
 
                     Calendar mCalendar = Calendar.getInstance();
