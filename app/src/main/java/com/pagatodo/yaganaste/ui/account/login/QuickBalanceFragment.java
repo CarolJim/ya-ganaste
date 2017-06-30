@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.StringConstants;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
@@ -103,7 +104,11 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
         Preferencias preferencias = App.getInstance().getPrefs();
         if (preferencias.containsData(HAS_SESSION)) {
-            editNumber.setText(getCreditCardFormat(preferencias.loadData(CARD_NUMBER)));
+
+            String cardNumber = preferencias.loadData(CARD_NUMBER);
+            String cardNumberFormat = StringUtils.ocultarCardNumber(cardNumber);
+
+            editNumber.setText(getCreditCardFormat(cardNumberFormat));
             txtNameUser.setText(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER)));
             setData(preferencias.loadData(
                     StringConstants.USER_BALANCE), preferencias.loadData(UPDATE_DATE));

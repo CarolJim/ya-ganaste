@@ -110,4 +110,9 @@ public class StringUtils {
         return String.format("%1$tY%1$tM%1$tS%2$02d", Calendar.getInstance(), (int) (Math.random() * 90));
     }
 
+    public static String ocultarCardNumber(String cardNumber) {
+        String lastFourNumbers = cardNumber.substring(cardNumber.length() - 4);
+        String comodines = "****";
+        return  comodines + comodines + comodines + lastFourNumbers;
+    }
 }
