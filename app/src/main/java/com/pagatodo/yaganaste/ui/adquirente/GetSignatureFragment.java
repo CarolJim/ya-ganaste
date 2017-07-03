@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVD
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -133,13 +134,23 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
 
         /*Seteamos los datos de la transacción*/
         txtAmount.setText(String.format("$%s", currentTransaction.getAmount()));
-        txtNumberCard.setText(emvDepositResponse.getMaskedPan());
+       // txtNumberCard.setText(emvDepositResponse.getMaskedPan());
+
+        String cardNumber = emvDepositResponse.getMaskedPan();
+        String cardNumberFormat = StringUtils.ocultarCardNumberFormat(cardNumber);
+        txtNumberCard.setText(cardNumberFormat);
+
+
         txtNameOwnerCard.setText(String.format("%s",emvDepositResponse.getName()));
         if(imgTypeCard != null){
             imgTypeCard.setImageDrawable(setDrawable());
         }
     }
 
+    /**
+     * Hacemos Set de la imagen dede el emvDepositResponse.getMarcaTarjetaBancaria()
+     * @return
+     */
     private Drawable setDrawable() {
         return emvDepositResponse.getMarcaTarjetaBancaria().equals("Visa") ? getDrawable(R.drawable.visa): getDrawable(R.drawable.mastercard_canvas);
     }

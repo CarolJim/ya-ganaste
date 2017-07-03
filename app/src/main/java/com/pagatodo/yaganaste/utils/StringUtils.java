@@ -115,4 +115,11 @@ public class StringUtils {
         String comodines = "****";
         return  comodines + comodines + comodines + lastFourNumbers;
     }
+
+    public static String ocultarCardNumberFormat(String cardNumber) {
+        String lastFourNumbers = cardNumber.substring(cardNumber.length() - 4);
+        String comodines = "****";
+        String separador = " ";
+        return  comodines + separador + comodines + separador + comodines + separador + lastFourNumbers;
+    }
 }
