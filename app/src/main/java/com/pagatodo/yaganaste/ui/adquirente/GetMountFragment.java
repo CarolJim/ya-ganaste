@@ -5,18 +5,19 @@ import android.os.Bundle;
 import android.text.InputType;
 import android.text.Selection;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.local.persistence.db.dao.GenericDao;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
@@ -26,7 +27,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 
 import butterknife.BindView;
 
-public class GetMountFragment extends PaymentFormBaseFragment {
+public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener {
 
     @BindView(R.id.et_amount)
     EditText et_amount;
@@ -79,7 +80,7 @@ public class GetMountFragment extends PaymentFormBaseFragment {
         tvMontoDecimal = (TextView) rootview.findViewById(R.id.tv_monto_decimal);
         et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
-        keyboardView.setPreviewEnabled(false);
+        keyboardView.setPreviewEnabled(true);
 
       /*  et_amount.addTextChangedListener(new TextWatcher() {
             @Override
@@ -135,6 +136,20 @@ public class GetMountFragment extends PaymentFormBaseFragment {
             }
         });
 
+        edtConcept.setOnEditTextImeBackListener(this);
+        edtConcept.setImeOptions(EditorInfo.IME_ACTION_DONE);
+        edtConcept.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == EditorInfo.IME_ACTION_DONE) {
+                    et_amount.requestFocus();
+                    return true;
+                }
+                return false;
+            }
+        });
+
+        et_amount.requestFocus();
     }
 
     private void actionCharge() {
@@ -208,6 +223,19 @@ public class GetMountFragment extends PaymentFormBaseFragment {
 
     public void hideKeyboard() {
         keyboardView.hideCustomKeyboard();
+    }
+
+    @Override
+    public void onImeBack() {
+        et_amount.requestFocus();
+    }
+
+    @Override
+    public void setMenuVisibility(boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+        if (menuVisible) {
+            et_amount.requestFocus();
+        }
     }
 }
 

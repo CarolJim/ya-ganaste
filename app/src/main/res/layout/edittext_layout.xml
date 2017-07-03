@@ -7,30 +7,27 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="@drawable/rounded_border_edittext"
-        android:orientation="horizontal"
-        android:weightSum="100">
+        android:orientation="horizontal">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
             android:id="@+id/editTextCustom"
             style="@style/StyleEditText"
-            android:layout_width="match_parent"
+            android:layout_width="0dp"
             android:layout_height="wrap_content"
-            android:layout_weight="20" />
+            android:layout_weight="1" />
 
         <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_weight="80">
+            android:layout_width="@dimen/custom_validation_edittext_imagelay_width"
+            android:layout_height="match_parent">
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/imageViewValidation"
-                android:layout_width="17dp"
-                android:layout_height="15dp"
+                android:layout_width="@dimen/custom_validation_edittext_image_width"
+                android:layout_height="@dimen/custom_validation_edittext_image_height"
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter" />
         </RelativeLayout>
-
 
     </LinearLayout>
 

@@ -6,9 +6,16 @@ package com.pagatodo.yaganaste.interfaces;
 
 public interface IAdqTransactionRegisterView extends INavigationView {
 
-    public void showInsertDongle();
-    public void showInsertCard();
-    public void dongleValidated();
-    public void verifyDongle(String ksn);
-    public void transactionResult(String message);
+    void showInsertDongle();
+
+    void showInsertCard();
+
+    void dongleValidated();
+
+    void verifyDongle(String ksn);
+
+    void transactionResult(String message);
+
+    void showSimpleDialogError(String message, DialogDoubleActions actions);
+
 }

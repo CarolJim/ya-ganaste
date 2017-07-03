@@ -14,7 +14,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.App;
@@ -265,8 +264,19 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                 case SW_TIMEOUT:
                     //initListenerDongle();
                     hideLoader();
-                    Toast.makeText(getActivity(), "Vuelve a conectar el Lector.", Toast.LENGTH_SHORT).show();
-                    showInsertDongle();
+                    showSimpleDialogError(getString(R.string.vuelve_conectar_lector),
+                            new DialogDoubleActions() {
+                                @Override
+                                public void actionConfirm(Object... params) {
+                                    showInsertDongle();
+                                }
+
+                                @Override
+                                public void actionCancel(Object... params) {
+
+                                }
+                            });
+                    //Toast.makeText(getActivity(), getString(R.string.vuelve_conectar_lector), Toast.LENGTH_SHORT).show();
                     Log.i("IposListener: ", "=====>>    SW_TIMEOUT");
                     break;
                 case SW_ERROR:
@@ -275,8 +285,18 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                     if (!isWaitingCard)
                         unregisterReceiverDongle();
                     else {
-                        Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
-                        showInsertDongle();
+                        showSimpleDialogError(error, new DialogDoubleActions() {
+                            @Override
+                            public void actionConfirm(Object... params) {
+                                showInsertDongle();
+                            }
+
+                            @Override
+                            public void actionCancel(Object... params) {
+
+                            }
+                        });
+                        //Toast.makeText(getActivity(), error, Toast.LENGTH_SHORT).show();
                     }
                     break;
                 case ENCENDIDO:
@@ -300,9 +320,21 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             checkDongleStatus(ksn);
         } else {
             hideLoader();
-            UI.showToastShort("Inserta un Lector de Tarjeta Válido", getActivity());
-            unregisterReceiverDongle();
-            showInsertDongle();
+            showSimpleDialogError(getString(R.string.inserta_lector_valido),
+                    new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+                            unregisterReceiverDongle();
+                            showInsertDongle();
+                        }
+
+                        @Override
+                        public void actionCancel(Object... params) {
+
+                        }
+                    });
+            //UI.showToastShort(getString(R.string.inserta_lector_valido), getActivity());
+
         }
     }
 
@@ -446,6 +478,11 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         }, DELAY_MESSAGE_PROGRESS);
     }
 
+    @Override
+    public void showSimpleDialogError(String message, DialogDoubleActions actions) {
+        UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error), message,
+                getFragmentManager(), actions);
+    }
 
 
     @Override
@@ -473,7 +510,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showError(Object error) {
-        UI.showToast(error.toString(), getActivity());
+        //UI.showToast(error.toString(), getActivity());
         DialogDoubleActions doubleActions = new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
@@ -485,7 +522,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
             }
         };
-        UI.createSimpleCustomDialog("Error", error.toString(), getFragmentManager(), doubleActions, true, false);
+        UI.createSimpleCustomDialog(getString(R.string.title_error), error.toString(), getFragmentManager(), doubleActions, true, false);
     }
 
     public void initListenerDongle() {
