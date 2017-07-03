@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -73,8 +74,15 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     public void initViews() {
         super.initViews();
         txtAmountPayment.setText(String.format("$%s", TransactionAdqData.getCurrentTransaction().getAmount()));
-        txtMaskedPan.setText(String.format("%s", emvDepositResponse.getMaskedPan()));
-        imgTypeCard.setImageResource(emvDepositResponse.getMarcaTarjetaBancaria().equals("Visa") ? R.drawable.mastercard_canvas : R.drawable.mastercard_canvas);
+
+        String cardNumber = emvDepositResponse.getMaskedPan();
+        String cardNumberFormat = StringUtils.ocultarCardNumberFormat(cardNumber);
+        txtMaskedPan.setText(cardNumberFormat);
+
+        //txtMaskedPan.setText(String.format("%s", emvDepositResponse.getMaskedPan()));
+        if(imgTypeCard != null){
+            imgTypeCard.setImageResource(emvDepositResponse.getMarcaTarjetaBancaria().equals("Visa") ? R.drawable.visa : R.drawable.mastercard_canvas);
+        }
     }
 
     @Override
