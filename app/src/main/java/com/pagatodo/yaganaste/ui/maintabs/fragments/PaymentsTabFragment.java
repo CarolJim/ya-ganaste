@@ -250,10 +250,14 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
         if (event.getAction() == DragEvent.ACTION_DROP) {
             Log.i(getTag(), String.valueOf(v.getId()));
-            changeImgageToPay();
-            openPaymentFragment();
+            onItemSelected();
         }
         return true;
+    }
+
+    public void onItemSelected() {
+        changeImgageToPay();
+        openPaymentFragment();
     }
 
     public void changeImgageToPay() {

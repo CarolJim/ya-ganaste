@@ -112,6 +112,13 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
 
                 break;
             case R.id.btnShare:
+                Intent intentSend = new Intent();
+                intentSend.setAction(Intent.ACTION_SEND);
+                intentSend.setType("text/plain");
+                intentSend.putExtra(Intent.EXTRA_SUBJECT, sucursal.getNombre().toString());
+                intentSend.putExtra(Intent.EXTRA_TEXT, "http://maps.google.com/maps?q="
+                        + sucursal.getLatitud() + "," + sucursal.getLongitud() + "&iwloc=A");
+                startActivity(Intent.createChooser(intentSend, "Compartir Sucursal"));
                 break;
         }
     }

@@ -124,6 +124,9 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
                     //ListDialog dialog = new ListDialog(getContext(), paymentsCarouselPresenter.getCarouselArray(), paymentsTabPresenter, fragment);
                     isFromClick = true;
                     paymentsCarouselPresenter.getCarouselItems();
+                } else {
+                    paymentsTabPresenter.setCarouselItem((CarouselItem) mainImageAdapter.getItem(position));
+                    fragment.onItemSelected();
                 }
             }
         });
