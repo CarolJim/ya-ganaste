@@ -552,6 +552,14 @@
 
     <string name="vuelve_conectar_lector">Vuelve a conectar el Lector.</string>
     <string name="inserta_lector_valido">Inserta un Lector de Tarjeta Válido.</string>
+
+    <!-- Depositos -->
+    <string name="datos_deposito">Tus Datos Para Depósito</string>
+    <string name="datos_deposito_titular">Titular</string>
+    <string name="datos_deposito_num_card">N° Tarjeta:</string>
+    <string name="datos_deposito_clabe">CLABE:</string>
+    <string name="datos_deposito_donde_depos">¿Dónde Depositar?</string>
+
 </resources>
 
 

@@ -30,6 +30,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
@@ -46,6 +47,7 @@ import com.pagatodo.yaganaste.utils.customviews.ClickListener;
 import com.pagatodo.yaganaste.utils.customviews.CustomMapFragment;
 import com.pagatodo.yaganaste.utils.customviews.DividerItemDecoration;
 import com.pagatodo.yaganaste.utils.customviews.RecyclerTouchListener;
+import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -78,7 +80,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     @BindView(R.id.swipeMap)
     SwipeRefreshLayout swipeMap;
     @BindView(R.id.frag_depositos_mapa_et)
-    EditText etBuscar;
+    StyleEdittext etBuscar;
 
     boolean isBackAvailable = false;
 
@@ -99,7 +101,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         onEventListener.onEvent(TabActivity.EVENT_HIDE_MANIN_TAB, null);
-        onEventListener.onEvent(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY, true);
+        onEventListener.onEvent(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY, false);
 
         View v = inflater.inflate(R.layout.fragment_depositos_mapa, container, false);
         int status = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getActivity());
@@ -133,6 +135,9 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         sucurasalesList.setItemAnimator(new DefaultItemAnimator());
         sucurasalesList.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
 
+        /**
+         * Agregamos el Listener que detecta cada vez que escribimos en el campo de busqueda
+         */
         etBuscar.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
