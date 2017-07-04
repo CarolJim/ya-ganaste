@@ -278,7 +278,7 @@ public abstract class  CarouselAdapter <T extends Adapter> extends ViewGroup {
     public boolean performItemClick(View view, int position, long id) {
         if (mOnItemClickListener != null) {
 
-            if(((CarouselItem) getSelectedView()).getGestureType()== CarouselItem.CLICK)
+            //if(((CarouselItem) getSelectedView()).getGestureType()== CarouselItem.CLICK)
             mOnItemClickListener.onItemClick(this, (CarouselItem) getSelectedView(), position, id);
             return true;
         }
