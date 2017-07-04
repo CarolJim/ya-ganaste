@@ -575,9 +575,15 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion()); // Guardamos el Token de Sesión
             //Seteamos los datos del usuario en el SingletonUser.
             SingletonUser user = SingletonUser.getInstance();
-            user.getDataUser().setRequiereActivacionSMS(dataUser.isRequiereActivacionSMS());
-            user.getDataUser().setSemilla(dataUser.getSemilla());
-            user.getDataUser().getUsuario().setIdUsuario(dataUser.getUsuario().getIdUsuario());
+            DataIniciarSesion dataIniciarSesion = user.getDataUser();
+            dataIniciarSesion.setRequiereActivacionSMS(dataUser.isRequiereActivacionSMS());
+            dataIniciarSesion.setSemilla(dataUser.getSemilla());
+            dataIniciarSesion.getUsuario().setIdUsuario(dataUser.getUsuario().getIdUsuario());
+
+            dataIniciarSesion.getUsuario().setNombreUsuario(dataUser.getUsuario().getNombreUsuario());
+            dataIniciarSesion.getUsuario().setPrimerApellido(dataUser.getUsuario().getPrimerApellido());
+            dataIniciarSesion.getUsuario().setSegundoApellido(dataUser.getUsuario().getSegundoApellido());
+
             accountManager.onSucces(response.getWebService(), data.getMensaje());
         } else {
             accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.

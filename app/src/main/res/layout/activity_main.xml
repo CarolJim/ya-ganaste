@@ -74,7 +74,23 @@
             android:paddingRight="@dimen/generic_padig"
             android:paddingTop="@dimen/generic_padig"
             android:paddingBottom="@dimen/generic_padig"
+            app:tipo="Descripcion"
             android:text="@string/tienes_cuenta" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            style="@style/LoginTextView"
+            android:visibility="gone"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtMainLogin"
+            android:gravity="center"
+            android:paddingLeft="@dimen/generic_padig"
+            android:paddingRight="@dimen/generic_padig"
+            android:paddingTop="@dimen/generic_padig"
+            android:paddingBottom="@dimen/generic_padig"
+            app:tipo="Descripcion"
+            android:text="@string/tienes_cuenta2" />
+
     </RelativeLayout>
 
 

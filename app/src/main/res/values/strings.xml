@@ -262,7 +262,10 @@
     <string name="datos_usuario_pass_confirm">Debes Confirmar la Contraseña.</string>
     <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide.</string>
     <string name="datos_usuario_pass_formato">Verifica tu Contraseña.</string>
-    <string name="bienvenido_usuario">¡Bienvenido %1$s!</string>
+    <string name="bienvenido_usuario"><![CDATA[¡<b>Bienvenido</b> %1$s!]]></string>
+
+
+
     <!--datos_personales-->
     <string name="personalInfoTitle">Datos Personales</string>
     <string name="female">Mujer</string>
@@ -443,6 +446,7 @@
 
 
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
+    <string name="tienes_cuenta2">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
     <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01-800-500-1000\n informes@yaganaste.com</string>
     <string name="documents_comprobantes">CFE,Teléfono,Agua(No mayor a 3 meses)</string>
     <string name="documents_vigentes">Credencial de Elector o Pasaporte</string>

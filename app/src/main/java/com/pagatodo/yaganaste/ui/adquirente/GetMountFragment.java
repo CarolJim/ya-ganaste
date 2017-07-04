@@ -80,7 +80,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         tvMontoDecimal = (TextView) rootview.findViewById(R.id.tv_monto_decimal);
         et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
-        keyboardView.setPreviewEnabled(true);
+        keyboardView.setPreviewEnabled(false);
 
       /*  et_amount.addTextChangedListener(new TextWatcher() {
             @Override

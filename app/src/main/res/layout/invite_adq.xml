@@ -33,7 +33,7 @@
                 android:adjustViewBounds="true"
                 android:padding="7dp"
                 android:scaleType="fitCenter"
-                android:src="@mipmap/icon_tab_dongle_blue"
+                android:src="@drawable/ic_card_adquirente"
                 tools:ignore="ContentDescription" />
 
             <com.pagatodo.yaganaste.utils.customviews.MontoTextView
