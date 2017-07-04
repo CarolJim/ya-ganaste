@@ -38,6 +38,9 @@ public class AsignarNipTextWatcher implements TextWatcher {
     CustomValidationEditText etGen;
     Bitmap bitmapBullet;
     ImageView asignar_iv1;
+    int posCount;
+    Handler handler;
+    Runnable myRunnable;
 
     private String TAG = getClass().getSimpleName();
 
@@ -62,7 +65,7 @@ public class AsignarNipTextWatcher implements TextWatcher {
          * Obtenemos la resolucion de la pantalla y enviamos la medida necesaria
          */
         DisplayMetrics metrics = App.getContext().getResources().getDisplayMetrics();
-        switch(metrics.densityDpi){
+        switch (metrics.densityDpi) {
             case DisplayMetrics.DENSITY_LOW:
                 break;
             case DisplayMetrics.DENSITY_MEDIUM:
@@ -72,7 +75,7 @@ public class AsignarNipTextWatcher implements TextWatcher {
                 medidaTextSize = obtenerMedidas(tv1Num, 3);
                 break;
             case DisplayMetrics.DENSITY_XHIGH:
-                    medidaTextSize = obtenerMedidas(tv1Num, 4);
+                medidaTextSize = obtenerMedidas(tv1Num, 4);
                 break;
             case DisplayMetrics.DENSITY_XXHIGH:
                 medidaTextSize = obtenerMedidas(tv1Num, 5);
@@ -86,10 +89,12 @@ public class AsignarNipTextWatcher implements TextWatcher {
         }
 
         bitmapBullet = Bitmap.createScaledBitmap(bitmapBullet, medidaTextSize, medidaTextSize, true);
+        posCount = 0;
     }
 
     /**
      * Se encarga de obtener las medidas de la letra, y multiplicar por el tamaño asignado por pantalla
+     *
      * @param mTextView
      * @param mInt
      * @return
@@ -131,8 +136,19 @@ public class AsignarNipTextWatcher implements TextWatcher {
             }
             oldText = s.toString();
 
-            Handler handler = new Handler();
-            handler.postDelayed(new Runnable() {
+            // Ocultamos el numero pasado al instante, ante una nueva pulsacion
+            if (posCount == 1) {
+                updatePosAnterior(1);
+            } else if (posCount == 2) {
+                updatePosAnterior(2);
+            } else if (posCount == 3) {
+                updatePosAnterior(3);
+            } else if (posCount == 4) {
+                updatePosAnterior(4);
+            }
+            posCount++;
+
+            myRunnable = new Runnable() {
                 public void run() {
                     SpannableStringBuilder ssb = new SpannableStringBuilder(" "); // 20
                     ssb.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
@@ -152,25 +168,57 @@ public class AsignarNipTextWatcher implements TextWatcher {
                             break;
                     }
                 }
-            }, 300);
+            };
+            handler = new Handler();//
+            handler.postDelayed(myRunnable, 300);
         } else {
             // Proceso de borrado de numeros,
+            handler.removeCallbacks(myRunnable);
             int countString = etGen.getText().toString().length();
             switch (countString) {
                 case 0:
                     tv1Num.setText("");
+                    tv2Num.setText("");
+                    tv3Num.setText("");
+                    tv4Num.setText("");
                     break;
                 case 1:
                     tv2Num.setText("");
+                    tv3Num.setText("");
+                    tv4Num.setText("");
                     break;
                 case 2:
                     tv3Num.setText("");
+                    tv4Num.setText("");
                     break;
                 case 3:
                     tv4Num.setText("");
                     break;
             }
             oldText = s.toString();
+
+            // Reiniciamos el posCount hasta no menor que 0
+            posCount = countString;
+        }
+    }
+
+    private void updatePosAnterior(int mPos) {
+        SpannableStringBuilder ssb = new SpannableStringBuilder(" "); // 20
+        ssb.setSpan(new AlignmentSpan.Standard(Layout.Alignment.ALIGN_CENTER), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        ssb.setSpan(new ImageSpan(bitmapBullet), 0, 1, Spannable.SPAN_INCLUSIVE_INCLUSIVE);
+        switch (mPos) {
+            case 1:
+                tv1Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                break;
+            case 2:
+                tv2Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                break;
+            case 3:
+                tv3Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                break;
+            case 4:
+                tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
+                break;
         }
     }
 }

@@ -122,8 +122,8 @@ public class StyleButton extends AppCompatButton implements View.OnClickListener
         getViewTreeObserver().removeOnGlobalLayoutListener(this);
         Log.d("Width: ", String.valueOf(getWidth()));
         Log.d("Height: ", String.valueOf(getHeight()));
-        setPadding( type == TYPE_BACK ? (int) (getWidth() * .12) : 0, 0,
-                type == TYPE_FORWARD ? (int) (getWidth() * .12) : 0, 0);
+        setPadding( type == TYPE_BACK ? (int) (getWidth() * .08) : 0, 0,
+                type == TYPE_FORWARD ? (int) (getWidth() * .08) : 0, 0);
     }
 
 }

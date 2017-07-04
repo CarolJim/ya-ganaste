@@ -1,8 +1,10 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -109,7 +111,20 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
             String cardNumberFormat = StringUtils.ocultarCardNumber(cardNumber);
 
             editNumber.setText(getCreditCardFormat(cardNumberFormat));
-            txtNameUser.setText(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER)));
+            //txtNameUser.setText(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER)));
+
+
+            if (Build.VERSION.SDK_INT >= 24) {
+                txtNameUser.setText(Html.fromHtml(getString(R.string.bienvenido_usuario,
+                        preferencias.loadData(NAME_USER)),
+                        Html.FROM_HTML_MODE_LEGACY, null, null));
+            } else {
+                txtNameUser.setText(Html.fromHtml(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER))));
+
+            }
+
+
+
             setData(preferencias.loadData(
                     StringConstants.USER_BALANCE), preferencias.loadData(UPDATE_DATE));
         }

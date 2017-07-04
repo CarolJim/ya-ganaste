@@ -13,7 +13,7 @@
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:orientation="vertical">
 
 
@@ -28,7 +28,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/detalle_movimiento"
-                app:tipo="Subtitulo" />
+                app:tipo="Titulo" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtPaymentMessage1"
@@ -189,7 +189,8 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="0dp"
+                android:layout_weight="1"
                 android:layout_marginTop="@dimen/margin_elements"
                 android:gravity="center"
                 android:orientation="horizontal"
@@ -221,7 +222,7 @@
                     android:layout_marginRight="@dimen/margin_regular"
                     android:layout_marginStart="@dimen/margin_small"
                     android:layout_weight="65"
-                    android:background="@drawable/boton_aceptar_copia_canvas"
+                    android:background="@drawable/button_rounded_transparent"
                     android:gravity="center"
                     android:text="@string/cancelar_operacion"
                     android:textAllCaps="false"

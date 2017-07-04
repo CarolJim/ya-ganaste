@@ -32,7 +32,7 @@
                 android:adjustViewBounds="true"
                 android:padding="7dp"
                 android:scaleType="fitCenter"
-                app:srcCompat="@drawable/credit_card"
+                app:srcCompat="@drawable/ic_card_emisor"
                 tools:ignore="ContentDescription" />
 
             <com.pagatodo.yaganaste.utils.customviews.MontoTextView
