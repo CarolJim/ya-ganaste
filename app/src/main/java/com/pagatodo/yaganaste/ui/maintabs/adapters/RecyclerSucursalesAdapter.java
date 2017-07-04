@@ -12,31 +12,36 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
 import com.pagatodo.yaganaste.utils.UtilsLocation;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Locale;
 
 /**
  * Created by Jordan on 23/05/2017.
  */
 
-public class RecyclerSucursalesAdapter extends RecyclerView.Adapter<RecyclerSucursalesAdapter.MyViewHolder>{
+public class RecyclerSucursalesAdapter extends RecyclerView.Adapter<RecyclerSucursalesAdapter.MyViewHolder> {
 
     private List<DataLocalizaSucursal> sucursalList;
     private Location myLocation;
+    public ArrayList<DataLocalizaSucursal> arraylist;
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    public class MyViewHolder extends RecyclerView.ViewHolder {
         public TextView titleSucursal;
         public TextView description;
 
         public MyViewHolder(View itemView) {
             super(itemView);
-            titleSucursal = (TextView)itemView.findViewById(R.id.sucursalTitle);
-            description = (TextView)itemView.findViewById(R.id.sucursalDescription);
+            titleSucursal = (TextView) itemView.findViewById(R.id.sucursalTitle);
+            description = (TextView) itemView.findViewById(R.id.sucursalDescription);
         }
     }
 
-    public RecyclerSucursalesAdapter(List<DataLocalizaSucursal> l, Location location){
+    public RecyclerSucursalesAdapter(List<DataLocalizaSucursal> l, Location location) {
         this.sucursalList = l;
         this.myLocation = location;
+        this.arraylist = new ArrayList<>();
+        this.arraylist.addAll(l);
     }
 
     @Override
@@ -59,5 +64,29 @@ public class RecyclerSucursalesAdapter extends RecyclerView.Adapter<RecyclerSucu
     @Override
     public int getItemCount() {
         return sucursalList.size();
+    }
+
+    /**
+     * Encargada de Filtrar la lista del RecyclerView
+     *
+     * @param charText
+     */
+    public void filter(String charText) {
+        // Pasamos cadena a LowerCase
+        charText = charText.toLowerCase(Locale.getDefault());
+        sucursalList.clear();
+        // Si no existen caracteres agregamos los elementos
+        if (charText.length() == 0) {
+            sucursalList.addAll(arraylist);
+        } else {
+            // Recorremos el arreglo, si existe un nombre que coincida, agregamos a la lista
+            for (DataLocalizaSucursal wp : arraylist) {
+                if (wp.getNombre().toLowerCase(Locale.getDefault()).contains(charText)) {
+                    sucursalList.add(wp);
+                }
+            }
+        }
+        // Notificamso que los datos cambiaron
+        notifyDataSetChanged();
     }
 }

@@ -12,10 +12,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -73,6 +77,8 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     TextView txtInfoSucursales;
     @BindView(R.id.swipeMap)
     SwipeRefreshLayout swipeMap;
+    @BindView(R.id.frag_depositos_mapa_et)
+    EditText etBuscar;
 
     boolean isBackAvailable = false;
 
@@ -126,6 +132,25 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         sucurasalesList.setLayoutManager(mLayoutManager);
         sucurasalesList.setItemAnimator(new DefaultItemAnimator());
         sucurasalesList.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+
+        etBuscar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+              //  Toast.makeText(getContext(), "Texto " + s, Toast.LENGTH_SHORT).show();
+                String myFilter = etBuscar.getText().toString();
+                adapter.filter(myFilter);
+            }
+        });
     }
 
     @Override
@@ -178,6 +203,14 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
 
     private void printSucursalesOnRecycler(final List<DataLocalizaSucursal> sucursalList) {
         if (sucursalList.size() > 0) {
+
+            sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Plaza Loreto", "12345678"));
+            sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Plaza Lorena", "12345678"));
+            sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Plaza Meave", "12345678"));
+            sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Parque Tezonte", "12345678"));
+            sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Parque Linda vista", "12345678"));
+            sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Perisur", "12345678"));
+
             adapter = new RecyclerSucursalesAdapter(sucursalList, actualLocation);
             sucurasalesList.setAdapter(adapter);
             sucurasalesList.addOnItemTouchListener(new RecyclerTouchListener(getContext(), sucurasalesList, new ClickListener() {

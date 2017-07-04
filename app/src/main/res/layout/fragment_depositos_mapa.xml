@@ -9,6 +9,12 @@
     android:orientation="vertical"
     android:weightSum="100">
 
+    <EditText
+        android:id="@+id/frag_depositos_mapa_et"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="Buscar  sucursal" />
+
     <RelativeLayout
         android:id="@+id/my_map_fragment"
         android:layout_width="match_parent"
