@@ -193,11 +193,11 @@ public class TransactionResultFragment extends GenericFragment implements View.O
         button.setTransformationMethod(null);
         switch (types) {
             case BTN_DIRECTION_NEXT:
-                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.continuar_canvas));
+                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selector_btn_continuar));
                 button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
                 break;
             case BTN_DIRECTION_BACK:
-                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.boton_regresar_canvas));
+                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selector_btn_back));
                 button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
                 break;
 //            case BTN_ACTION_OK:

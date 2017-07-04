@@ -66,8 +66,9 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_back"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/height_btns"
                 android:layout_centerInParent="true"
                 android:background="@drawable/button_rounded_transparent"
                 android:text="@string/volver"
@@ -76,10 +77,11 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_continue"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:layout_width="0dp"
+                android:layout_weight="1"
+                android:layout_height="@dimen/height_btns"
                 android:layout_centerInParent="true"
-                android:background="@drawable/button_shape"
+                android:background="@drawable/selector_btn_continuar"
                 android:layout_marginLeft="@dimen/margin_medium"
                 android:text="@string/nextButton"
                 android:textAllCaps="false"

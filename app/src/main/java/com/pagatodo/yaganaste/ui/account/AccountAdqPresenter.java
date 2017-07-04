@@ -90,14 +90,14 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     /*envio de documentos */
     @Override
     public void sendDocumentos(ArrayList<DataDocuments> docs) {
-        iAdqView.showLoader("Subiendo Documentos ");
+        iAdqView.showLoader("Subiendo Documentos");
         adqIteractor.sendDocuments(docs);
     }
 
     @Override
     public void sendDocumentosPendientes(ArrayList<DataDocuments> data) {
 
-        iAdqView.showLoader("Actualizando Documentos ");
+        iAdqView.showLoader("Actualizando Documentos");
         adqIteractor.sendDocumentsPendientes(data);
         new Handler().postDelayed(new Runnable() {
             @Override

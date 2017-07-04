@@ -30,6 +30,7 @@ import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui._manager.PagerAdapter;
+import com.pagatodo.yaganaste.utils.customviews.CustomTypefaceSpan;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -92,7 +93,18 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         ss.setSpan(new ClickableSpanLogin(), 22, textLogin.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
         ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.whiteColor)), 22, textLogin.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        ss.setSpan(new StyleSpan(Typeface.BOLD), 22, textLogin.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+
+
+
+        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Light.ttf");
+        Typeface fontBold = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Bold.ttf");
+
+        ss.setSpan (new CustomTypefaceSpan("", font), 0, 22, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+        ss.setSpan (new CustomTypefaceSpan("", fontBold), 22, textLogin.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
+
+        //ss.setSpan(new StyleSpan(Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Light.ttf").getStyle()), 0, 22, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+        //ss.setSpan(new StyleSpan(Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Bold.ttf").getStyle()), 22, textLogin.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
+
 
         txtMainLogin.setText(ss);
         txtMainLogin.setMovementMethod(LinkMovementMethod.getInstance());
