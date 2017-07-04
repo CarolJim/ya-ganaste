@@ -552,6 +552,10 @@
 
     <string name="vuelve_conectar_lector">Vuelve a conectar el Lector.</string>
     <string name="inserta_lector_valido">Inserta un Lector de Tarjeta Válido.</string>
+    <string name="verificando_email">Verificando Correo Electrónico.</string>
+    <string name="actualizando_saldo">Actualizando Saldo.</string>
+    <string name="password_incorrect">Su Contraseña es Incorrecta</string>
+    <string name="sesion_close">La sesión se ha cerrado.</string>
 </resources>
 
 

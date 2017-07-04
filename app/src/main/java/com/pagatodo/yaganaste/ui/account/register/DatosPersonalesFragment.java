@@ -1,13 +1,10 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
 import android.app.DatePickerDialog;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatSpinner;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -17,11 +14,9 @@ import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -30,6 +25,7 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
+import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
@@ -175,57 +171,55 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @Override
     public void setValidationRules() {
 
-        editNames.addCustomTextWatcher(new TextWatcher() {
+        editNames.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (!editNames.isValidText()) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
                     hideErrorMessage(editNames.getId());
+                    editNames.imageViewIsGone(true);
+                } else {
+                    if (editNames.getText().isEmpty()) {
+                        showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
+                        editNames.setIsInvalid();
+                    } else {
+                        hideErrorMessage(editNames.getId());
+                        editNames.imageViewIsGone(true);
+                    }
                 }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
             }
         });
 
-        editFirstLastName.addCustomTextWatcher(new TextWatcher() {
+        editNames.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (!editFirstLastName.isValidText()) {
+            public void afterTextChanged(String s) {
+                hideErrorMessage(editNames.getId());
+                editNames.imageViewIsGone(true);
+            }
+        });
+
+        editFirstLastName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
                     hideErrorMessage(editFirstLastName.getId());
+                    editFirstLastName.imageViewIsGone(true);
+                } else {
+                    if (editFirstLastName.getText().isEmpty()) {
+                        showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
+                        editFirstLastName.setIsInvalid();
+                    } else {
+                        hideErrorMessage(editFirstLastName.getId());
+                        editFirstLastName.imageViewIsGone(true);
+                    }
                 }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
             }
         });
 
-        editBirthDay.addCustomTextWatcher(new TextWatcher() {
+        editFirstLastName.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (!editBirthDay.isValidText()) {
-                    hideErrorMessage(editBirthDay.getId());
-                }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(String s) {
+                hideErrorMessage(editFirstLastName.getId());
+                editFirstLastName.imageViewIsGone(true);
             }
         });
 
@@ -242,46 +236,55 @@ public class DatosPersonalesFragment extends GenericFragment implements
     public void validateForm() {
         getDataForm();
 
+        boolean isValid = true;
+
         if (genero == null || genero.equals("")) {
             showValidationError(radioGroupGender.getId(), getString(R.string.datos_personal_genero));
-            return;
+            isValid = false;
         }
 
         if (nombre.isEmpty()) {
             showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
             editNames.setIsInvalid();
-            return;
+            isValid = false;
         }
         if (apPaterno.isEmpty()) {
             showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
             editFirstLastName.setIsInvalid();
-            return;
+            isValid = false;
         }
+
+        if (!fechaNacimiento.isEmpty() && newDate != null && (newDate.getTimeInMillis() > actualDate.getTimeInMillis())) {
+            showValidationError(editBirthDay.getId(), getString(R.string.fecha_nacimiento_erronea));
+            isValid = false;
+        }
+
+        if (!fechaNacimiento.isEmpty() && actualDate != null) {
+
+            Calendar mCalendar = Calendar.getInstance();
+            mCalendar.set(actualDate.get(Calendar.YEAR) - 18, actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH));
+
+            if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
+
+                showValidationError(editBirthDay.getId(), getString(R.string.feha_nacimiento_menor_edad));
+                isValid = false;
+            }
+        }
+
         if (fechaNacimiento.isEmpty()) {
             showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
             editBirthDay.setIsInvalid();
-            return;
-        }
-
-
-        if (newDate.getTimeInMillis() > actualDate.getTimeInMillis()) {
-            showValidationError(editBirthDay.getId(), getString(R.string.fecha_nacimiento_erronea));
-            return;
-        }
-
-        Calendar mCalendar = Calendar.getInstance();
-        mCalendar.set(actualDate.get(Calendar.YEAR) - 18, actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH));
-        if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
-            showValidationError(editBirthDay.getId(), getString(R.string.feha_nacimiento_menor_edad));
-            return;
+            isValid = false;
         }
 
         if (lugarNacimiento.isEmpty()) {
             showValidationError(spinnerBirthPlace.getId(), getString(R.string.datos_personal_estado));
-            return;
+            isValid = false;
         }
 
-        setPersonData();
+        if (isValid) {
+            setPersonData();
+        }
     }
 
     @Override
@@ -364,9 +367,9 @@ public class DatosPersonalesFragment extends GenericFragment implements
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
 
         //if (BuildConfig.DEBUG) {
-            //onValidationSuccess();
+        //onValidationSuccess();
         //} else {
-            accountPresenter.validatePersonData();
+        accountPresenter.validatePersonData();
         //}
     }
 
@@ -413,7 +416,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                     Integer.parseInt(fechaNacimiento.substring(0, 4)),
                     Integer.parseInt(fechaNacimiento.substring(6, 7)),
                     Integer.parseInt(fechaNacimiento.substring(9)));
-           // editBirthDay.setText(DateUtil.getBirthDateString(newDate));
+            // editBirthDay.setText(DateUtil.getBirthDateString(newDate));
         }
         //1975 - 06 - 29
     }
@@ -461,13 +464,14 @@ public class DatosPersonalesFragment extends GenericFragment implements
         @Override
         public void onClick(View v) {
             hideErrorMessage(editBirthDay.getId());
+            editBirthDay.imageViewIsGone(true);
             Calendar newCalendar = Calendar.getInstance();
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int date) {
                     newDate = Calendar.getInstance(new Locale("es"));
                     newDate.set(year, month, date);
-                   // editBirthDay.setText(DateUtil.getBirthDateString(newDate));
+                    // editBirthDay.setText(DateUtil.getBirthDateString(newDate));
                     editBirthDay.setText(DateUtil.getBirthDateCustomString(newDate));
                     fechaNacimiento = DateUtil.getDateStringFirstYear(newDate);
 
@@ -476,14 +480,17 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
                     if (newDate.getTimeInMillis() > actualDate.getTimeInMillis()) {
                         showValidationError(editBirthDay.getId(), getString(R.string.fecha_nacimiento_erronea));
+                        editBirthDay.setIsValid();
                         return;
                     }
 
                     if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
                         showValidationError(editBirthDay.getId(), getString(R.string.feha_nacimiento_menor_edad));
+                        editBirthDay.setIsValid();
                         return;
                     }
                 }
+
             }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
             datePickerDialog.show();
         }

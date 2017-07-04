@@ -133,117 +133,81 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
+                    hideErrorMessage(editMail.getId());
+                    editMail.imageViewIsGone(true);
+                } else {
                     if (editMail.getText().isEmpty()) {
                         editMail.setIsInvalid();
                         showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
-                    }
-                } else {
-                    if (editMail.isValidText() && !emailValidatedByWS) {
-                        accountPresenter.validateEmail(editMail.getText());
-                    } else if (editMail.getText().isEmpty()) {
+                    } else if (!editMail.isValidText() && !emailValidatedByWS) {
                         editMail.setIsInvalid();
-                        showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
+                        showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo_formato));
+                    } else if (editMail.isValidText() && !emailValidatedByWS) {
+                        accountPresenter.validateEmail(editMail.getText());
                     } else if (editMail.isValidText() && emailValidatedByWS) {
                         hideErrorMessage(editMail.getId());
                         editMail.setIsValid();
                     }
-
                 }
             }
         });
-
 
         editMail.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
+                hideErrorMessage(editMail.getId());
+                editMail.imageViewIsGone(true);
                 emailValidatedByWS = false;
-                if (editMail.getText().isEmpty()) {
-                    showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
-                    editMail.setIsInvalid();
-                } else if (!editMail.isValidText()) {
-                    showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo_formato));
-                    editMail.setIsInvalid();
-                } else if (editMail.isValidText()) {
-                    hideErrorMessage(editMail.getId());
-                    editMail.setIsValid();
-                }
-
-                if (!edtitConfirmEmail.getText().isEmpty() && !edtitConfirmEmail.getText().equals(editMail.getText())) {
-                    showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_no_coinciden));
-                    edtitConfirmEmail.setIsInvalid();
-                } else if (edtitConfirmEmail.getText().isEmpty()) {
-                    hideErrorMessage(edtitConfirmEmail.getId());
-                    edtitConfirmEmail.imageViewIsGone(true);
-                } else if (!edtitConfirmEmail.getText().isEmpty() && edtitConfirmEmail.getText().equals(editMail.getText())) {
-                    hideErrorMessage(edtitConfirmEmail.getId());
-                    edtitConfirmEmail.setIsValid();
-                }
             }
         });
-
 
         edtitConfirmEmail.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
+                    hideErrorMessage(edtitConfirmEmail.getId());
+                    edtitConfirmEmail.imageViewIsGone(true);
+                } else {
                     if (edtitConfirmEmail.getText().isEmpty()) {
-                        hideErrorMessage(edtitConfirmEmail.getId());
-                        edtitConfirmEmail.imageViewIsGone(true);
-                    } else if (!edtitConfirmEmail.getText().equals(editMail.getText())) {
+                        showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_confirma));
+                        edtitConfirmEmail.setIsInvalid();
+                    } else if (!edtitConfirmEmail.getText().isEmpty() && !edtitConfirmEmail.getText().equals(editMail.getText())) {
                         showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_no_coinciden));
                         edtitConfirmEmail.setIsInvalid();
                     } else if (edtitConfirmEmail.getText().equals(editMail.getText())) {
                         hideErrorMessage(edtitConfirmEmail.getId());
                         edtitConfirmEmail.setIsValid();
                     }
-                } else {
-                    if (edtitConfirmEmail.getText().isEmpty()) {
-                        hideErrorMessage(edtitConfirmEmail.getId());
-                        edtitConfirmEmail.imageViewIsGone(true);
-                    } else if (!edtitConfirmEmail.getText().isEmpty() && edtitConfirmEmail.getText().equals(editMail.getText())) {
-                        hideErrorMessage(edtitConfirmEmail.getId());
-                        edtitConfirmEmail.setIsValid();
-                    } else if (!edtitConfirmEmail.getText().isEmpty() && !edtitConfirmEmail.getText().equals(editMail.getText())) {
-                        showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_no_coinciden));
-                        edtitConfirmEmail.setIsInvalid();
-                    }
                 }
             }
         });
-
 
         edtitConfirmEmail.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-
-                if (edtitConfirmEmail.getText().isEmpty()) {
-                    hideErrorMessage(edtitConfirmEmail.getId());
-                    edtitConfirmEmail.imageViewIsGone(true);
-                } else if (!editMail.getText().equals(edtitConfirmEmail.getText())) {
-                    showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_no_coinciden));
-                    edtitConfirmEmail.setIsInvalid();
-                } else {
-                    hideErrorMessage(edtitConfirmEmail.getId());
-                    edtitConfirmEmail.setIsValid();
-                }
+                hideErrorMessage(edtitConfirmEmail.getId());
+                edtitConfirmEmail.imageViewIsGone(true);
             }
         });
+
 
         editPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
 
                 if (hasFocus) {
+                    hideErrorMessage(editPassword.getId());
+                    editPassword.imageViewIsGone(true);
+                } else {
+
                     if (editPassword.getText().isEmpty()) {
                         editPassword.setIsInvalid();
                         showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
-                    }
-                } else {
-                    if (editPassword.isValidText() && !isValidPassword) {
-                        accountPresenter.validatePasswordFormat(editPassword.getText());
-                    } else if (editPassword.getText().isEmpty()) {
+                    } else if (!editPassword.isValidText() && !isValidPassword) {
                         editPassword.setIsInvalid();
-                        showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
+                        showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_formato));
+                    } else if (editPassword.isValidText() && !isValidPassword) {
+                        accountPresenter.validatePasswordFormat(editPassword.getText());
                     } else if (editPassword.isValidText() && isValidPassword) {
                         hideErrorMessage(editPassword.getId());
                         editPassword.setIsValid();
@@ -255,29 +219,10 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
         editPassword.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
-            public void onTextChanged(String s, int start, int before, int count) {
+            public void afterTextChanged(String s) {
+                hideErrorMessage(editPassword.getId());
+                editPassword.imageViewIsGone(true);
                 isValidPassword = false;
-                if (editPassword.getText().isEmpty()) {
-                    showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
-                    editPassword.setIsInvalid();
-                } else if (!editPassword.isValidText()) {
-                    showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_formato));
-                    editPassword.setIsInvalid();
-                } else if (editPassword.isValidText()) {
-                    hideErrorMessage(editPassword.getId());
-                    editPassword.setIsValid();
-                }
-
-                if (!editPasswordConfirm.getText().isEmpty() && !editPasswordConfirm.getText().equals(editPassword.getText())) {
-                    showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
-                    editPasswordConfirm.setIsInvalid();
-                } else if (editPasswordConfirm.getText().isEmpty()) {
-                    hideErrorMessage(editPasswordConfirm.getId());
-                    editPasswordConfirm.imageViewIsGone(true);
-                } else if (!editPasswordConfirm.getText().isEmpty() && editPasswordConfirm.getText().equals(editPassword.getText())) {
-                    hideErrorMessage(editPasswordConfirm.getId());
-                    editPasswordConfirm.setIsValid();
-                }
             }
         });
 
@@ -285,26 +230,19 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
+                    hideErrorMessage(editPasswordConfirm.getId());
+                    editPasswordConfirm.imageViewIsGone(true);
+
+                } else {
                     if (editPasswordConfirm.getText().isEmpty()) {
-                        hideErrorMessage(editPasswordConfirm.getId());
-                        editPasswordConfirm.imageViewIsGone(true);
-                    } else if (!editPasswordConfirm.getText().equals(editPassword.getText())) {
+                        showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_confirm));
+                        editPasswordConfirm.setIsInvalid();
+                    } else if (!editPasswordConfirm.getText().isEmpty() && !editPasswordConfirm.getText().equals(editPassword.getText())) {
                         showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
                         editPasswordConfirm.setIsInvalid();
                     } else if (editPasswordConfirm.getText().equals(editPassword.getText())) {
                         hideErrorMessage(editPasswordConfirm.getId());
                         editPasswordConfirm.setIsValid();
-                    }
-                } else {
-                    if (editPasswordConfirm.getText().isEmpty()) {
-                        hideErrorMessage(editPasswordConfirm.getId());
-                        editPasswordConfirm.imageViewIsGone(true);
-                    } else if (!editPasswordConfirm.getText().isEmpty() && editPasswordConfirm.getText().equals(editPassword.getText())) {
-                        hideErrorMessage(editPasswordConfirm.getId());
-                        editPasswordConfirm.setIsValid();
-                    } else if (!editPasswordConfirm.getText().isEmpty() && !editPasswordConfirm.getText().equals(editPassword.getText())) {
-                        showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
-                        editPasswordConfirm.setIsInvalid();
                     }
                 }
             }
@@ -313,117 +251,111 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         editPasswordConfirm.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-
-                if (editPasswordConfirm.getText().isEmpty()) {
-                    hideErrorMessage(editPasswordConfirm.getId());
-                    editPasswordConfirm.imageViewIsGone(true);
-                } else if (!editPasswordConfirm.getText().equals(editPassword.getText())) {
-                    showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
-                    editPasswordConfirm.setIsInvalid();
-                } else {
-                    hideErrorMessage(editPasswordConfirm.getId());
-                    editPasswordConfirm.setIsValid();
-                }
+                hideErrorMessage(editPasswordConfirm.getId());
+                editPasswordConfirm.imageViewIsGone(true);
             }
         });
+
     }
 
     @Override
     public void validateForm() {
         getDataForm();
-        //boolean isValid = true;
+        boolean isValid = true;
 
         //Validate format Email
         if (!editMail.isValidText()) {
             showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo_formato));
             editMail.setIsInvalid();
-            //isValid = false;
-            return;
+            isValid = false;
+            //return;
         }
 
         //Validate if Email exist
         if (userExist) {
             showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo_existe));
             editPasswordConfirm.setIsInvalid();
-            //isValid = false;
-            return;
+            isValid = false;
+            //return;
         }
 
         //Validate Email is Empty
         if (email.replaceAll("\\s", "").isEmpty()) {
             showValidationError(editMail.getId(), getString(R.string.datos_usuario_correo));
             editMail.setIsInvalid();
-            //isValid = false;
-            return;
+            isValid = false;
+            //return;
         }
 
         //Valdiate Email confirm equals to Email
         if (!emailConfirmation.equals(email)) {
             showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_no_coinciden));
             edtitConfirmEmail.setIsInvalid();
-            //isValid = false;
-            return;
+            isValid = false;
+            //return;
         }
 
         //Validate Email Confirm is empty
         if (emailConfirmation.isEmpty()) {
             showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_confirma));
             edtitConfirmEmail.setIsInvalid();
-            //isValid = false;
-            return;
+            isValid = false;
+            //return;
         }
 
-        //Validate if Password is empty
-        if (password.isEmpty()) {
-            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
-            editPassword.setIsInvalid();
-            //isValid = false;
-            return;
-        }
 
         //Validate If Is a Valid Password and check if exist a Error message from the server
         if (!isValidPassword && passErrorMessage != null && !passErrorMessage.equals("")) {
             showValidationError(editPassword.getId(), passErrorMessage);
             editPassword.setIsInvalid();
-            //isValid = false;
-            return;
+            isValid = false;
+            //return;
         }
 
         //Validate is Valid Password Format
         if (!editPassword.isValidText()) {
             showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_formato));
             editPassword.setIsInvalid();
-            //isValid = false;
-            return;
+            isValid = false;
+            //return;
+        }
+
+        //Validate if Password is empty
+        if (password.isEmpty()) {
+            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
+            editPassword.setIsInvalid();
+            isValid = false;
+            //return;
         }
 
         //Validate is valid Password Format from Web Service
         if (!isValidPassword) {
             showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_formato));
-            //isValid = false;
-            return;
+            isValid = false;
+            //return;
+        }
+
+
+        //Validate Password Confirmation equals to Password
+        if (!passwordConfirmation.equals(password)) {
+            showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
+            editPasswordConfirm.setIsInvalid();
+            isValid = false;
+            //return;
         }
 
         //Validate if Password Confirmation is Empty
         if (passwordConfirmation.isEmpty()) {
             showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_confirm));
             editPasswordConfirm.setIsInvalid();
-            //isValid = false;
-            return;
+            isValid = false;
+            //return;
         }
 
-        //Validate Password Confirmation equals to Password
-        if (!passwordConfirmation.equals(password)) {
-            showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
-            editPasswordConfirm.setIsInvalid();
-            //isValid = false;
-            return;
-        }
-
-        onValidationSuccess();
-        /*if (isValid) {
+        //onValidationSuccess();
+        if (isValid) {
             onValidationSuccess();
-        }*/
+        }
     }
 
     @Override

@@ -9,13 +9,10 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountAddressRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
@@ -25,11 +22,8 @@ import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAccountPresenterNew;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
-import com.pagatodo.yaganaste.interfaces.IDocumentsPresenter;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
-import com.pagatodo.yaganaste.interfaces.IProgressView;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
-import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
 import com.pagatodo.yaganaste.interfaces.RecoveryPasswordView;
@@ -52,9 +46,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_COMPLETO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
@@ -74,14 +66,16 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
     private IAccountIteractorNew accountIteractor;
     private INavigationView accountView;
     private Preferencias prefs = App.getInstance().getPrefs();
+    private Context context;
 
     public AccountPresenterNew(Context context) {
         super();
+        this.context = context;
         accountIteractor = new AccountInteractorNew(this);
     }
 
 
-    public void setIView( View accountView){
+    public void setIView(View accountView) {
         this.accountView = (INavigationView) accountView;
         if (accountView instanceof TabsView) {
             setTabsView((TabsView) accountView);
@@ -90,26 +84,26 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
 
     @Override
     public void validateEmail(String usuario) {
-        accountView.showLoader("Verificando Correo Electrónico.");
+        accountView.showLoader(context.getString(R.string.verificando_email));
         accountIteractor.validateUserStatus(usuario);
     }
 
     @Override
     public void goToNextStepAccount(String event, Object data) {
         accountView.hideLoader();
-        accountView.nextScreen(event,data);
+        accountView.nextScreen(event, data);
     }
 
 
     @Override
     public void validatePersonData() {
-        accountView.showLoader(App.getInstance().getString(R.string.msg_renapo));
+        accountView.showLoader(context.getString(R.string.msg_renapo));
         accountIteractor.validatePersonData();
     }
 
     @Override
     public void createUser() {
-        accountView.showLoader(App.getInstance().getString(R.string.msg_register));
+        accountView.showLoader(context.getString(R.string.msg_register));
         RegisterUser registerUser = RegisterUser.getInstance();
         prefs.saveData(CRC32_FREJA, Codec.applyCRC32(registerUser.getContrasenia()));//Freja
 
@@ -121,7 +115,7 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
         RequestHeaders.setUsername(user);
         RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getInstance().getApplicationContext()));
         accountView.showLoader("");
-        IniciarSesionRequest requestLogin = new IniciarSesionRequest(user,Utils.cipherRSA(password),"");//TODO Validar si se envia el telefono vacío-
+        IniciarSesionRequest requestLogin = new IniciarSesionRequest(user, Utils.cipherRSA(password), "");//TODO Validar si se envia el telefono vacío-
         // Validamos estatus de la sesion, si se encuentra abierta, la cerramos.
         accountIteractor.checkSessionState(requestLogin);
         ///accountIteractor.login(requestLogin);
@@ -139,7 +133,7 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
 
     @Override
     public void checkCardAssigment(String numberCard) {
-        accountView.showLoader(App.getContext().getString(R.string.tienes_tarjeta_validando_tarjeta));
+        accountView.showLoader(context.getString(R.string.tienes_tarjeta_validando_tarjeta));
         accountIteractor.checkCard(numberCard);
     }
 
@@ -158,20 +152,20 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
 
     @Override
     public void assignAccount() {
-        accountView.showLoader(App.getContext().getString(R.string.tienes_tarjeta_asignando));
+        accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando));
         accountIteractor.assigmentAccountAvaliable(Card.getInstance().getIdAccount());
     }
 
     @Override
     public void assignNIP(String nip) {
-        accountView.showLoader(App.getContext().getString(R.string.tienes_tarjeta_asignando_nip));
+        accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nip));
         AsignarNIPRequest request = new AsignarNIPRequest(Utils.cipherRSA(nip));
         accountIteractor.assignmentNIP(request);
     }
 
     @Override
     public void gerNumberToSMS() {
-        accountView.showLoader(App.getContext().getString(R.string.activacion_sms_loader));
+        accountView.showLoader(context.getString(R.string.activacion_sms_loader));
         accountIteractor.getSMSNumber();
     }
 
@@ -192,56 +186,56 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
 
     @Override
     public void onSuccessDataPerson() {
-        ((IRenapoView)accountView).onValidateUserDataSuccess();
+        ((IRenapoView) accountView).onValidateUserDataSuccess();
     }
 
     @Override
-    public void onError(WebService ws,Object error) {
+    public void onError(WebService ws, Object error) {
         accountView.hideLoader();
-        if(accountView instanceof IAccountRegisterView){
+        if (accountView instanceof IAccountRegisterView) {
             if (ws == CREAR_USUARIO_CLIENTE) {
                 ((IAccountRegisterView) accountView).clientCreateFailed(error.toString());
-            }else if(ws == OBTENER_COLONIAS_CP){
+            } else if (ws == OBTENER_COLONIAS_CP) {
                 ((IAccountRegisterView) accountView).zipCodeInvalid(error.toString());
             }
-        } else if(accountView instanceof IUserDataRegisterView){
-            if(ws == VALIDAR_ESTATUS_USUARIO){
+        } else if (accountView instanceof IUserDataRegisterView) {
+            if (ws == VALIDAR_ESTATUS_USUARIO) {
                 accountView.showError(error.toString());
-            }else if(ws == VALIDAR_FORMATO_CONTRASENIA) {
+            } else if (ws == VALIDAR_FORMATO_CONTRASENIA) {
                 ((IUserDataRegisterView) accountView).validationPasswordFailed(error.toString());
             }
-        } else if(accountView instanceof IAccountCardView) {
+        } else if (accountView instanceof IAccountCardView) {
             accountView.showError(error);
-        }else if(accountView instanceof IAccountCardNIPView) {
-            if(ws == ASIGNAR_NIP){
+        } else if (accountView instanceof IAccountCardNIPView) {
+            if (ws == ASIGNAR_NIP) {
                 accountView.showError(error.toString());
             }
-        }else if(accountView instanceof IVerificationSMSView) {
-            if(ws == VERIFICAR_ACTIVACION){
-                if(error instanceof Object[]) {
+        } else if (accountView instanceof IVerificationSMSView) {
+            if (ws == VERIFICAR_ACTIVACION) {
+                if (error instanceof Object[]) {
                     /*Aqui recibimos una respuesta que contiene el código de respuesta del WS y el mensaje del mismo.*/
                     Object[] responseCode = (Object[]) error;
-                    if ((int)responseCode[0] == DEVICE_ALREADY_ASSIGNED)
+                    if ((int) responseCode[0] == DEVICE_ALREADY_ASSIGNED)
                         ((IVerificationSMSView) accountView).devicesAlreadyAssign(responseCode[1].toString());
-                } else{
+                } else {
                     ((IVerificationSMSView) accountView).smsVerificationFailed(error.toString());
                 }
-            } else if(ws == ACTUALIZAR_INFO_SESION){ // Activacion con SMS ha sido verificada.
+            } else if (ws == ACTUALIZAR_INFO_SESION) { // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).dataUpdated(error.toString());
-            } else{
+            } else {
                 accountView.showError(error);
             }
-        }else if(accountView instanceof RecoveryPasswordView) {
-            if(ws == RECUPERAR_CONTRASENIA){
+        } else if (accountView instanceof RecoveryPasswordView) {
+            if (ws == RECUPERAR_CONTRASENIA) {
                 ((RecoveryPasswordView) accountView).recoveryPasswordFailed(error.toString());
             }
 
-        }else if (! (accountView instanceof IBalanceView) ){
+        } else if (!(accountView instanceof IBalanceView)) {
             accountView.showError(error);
         }
 
-        if(accountView instanceof IMyPassValidation){
-            if(ws == VALIDAR_FORMATO_CONTRASENIA) {
+        if (accountView instanceof IMyPassValidation) {
+            if (ws == VALIDAR_FORMATO_CONTRASENIA) {
                 ((IMyPassValidation) accountView).validationPasswordFailed(error.toString());
             }
         }
@@ -249,7 +243,7 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
 
     @Override
     public void updateBalance() {
-        this.accountView.showLoader("Actualizando Saldo");
+        this.accountView.showLoader(context.getString(R.string.actualizando_saldo));
         accountIteractor.getBalance();
     }
 
@@ -259,62 +253,62 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
     }
 
     @Override
-    public void onSucces(WebService ws,Object data) {
+    public void onSucces(WebService ws, Object data) {
         accountView.hideLoader();
-        if(accountView instanceof IAccountRegisterView){
+        if (accountView instanceof IAccountRegisterView) {
             if (ws == CREAR_USUARIO_CLIENTE) {
                 ((IAccountRegisterView) accountView).clientCreatedSuccess(data.toString());
-            }else if(ws == OBTENER_COLONIAS_CP){
+            } else if (ws == OBTENER_COLONIAS_CP) {
                 ((IAccountRegisterView) accountView).setNeighborhoodsAvaliables((List<ColoniasResponse>) data);
             }
-        }else if(accountView instanceof IUserDataRegisterView){
-            if(ws == VALIDAR_ESTATUS_USUARIO) {
-                boolean isUser = (boolean)data;
-                if(!isUser){
+        } else if (accountView instanceof IUserDataRegisterView) {
+            if (ws == VALIDAR_ESTATUS_USUARIO) {
+                boolean isUser = (boolean) data;
+                if (!isUser) {
                     ((IUserDataRegisterView) accountView).isEmailAvaliable();
-                }else {
+                } else {
                     ((IUserDataRegisterView) accountView).isEmailRegistered();
                 }
-            }else if(ws == VALIDAR_FORMATO_CONTRASENIA) {
-                boolean validatePass = ((int)data == 0);
-                if(validatePass){
+            } else if (ws == VALIDAR_FORMATO_CONTRASENIA) {
+                boolean validatePass = ((int) data == 0);
+                if (validatePass) {
                     ((IUserDataRegisterView) accountView).validationPasswordSucces();
-                }else{
-                    ((IUserDataRegisterView) accountView).validationPasswordFailed("Su contraseña es incorrecta");
+                } else {
+                    ((IUserDataRegisterView) accountView).validationPasswordFailed(context.getString(R.string.password_incorrect));
                 }
             }
-        }else if(accountView instanceof IAccountAddressRegisterView) { // obtiene el listado de colonias
+        } else if (accountView instanceof IAccountAddressRegisterView) { // obtiene el listado de colonias
             if (ws == OBTENER_COLONIAS_CP) {
                 ((IAccountAddressRegisterView) accountView).setNeighborhoodsAvaliables((List<ColoniasResponse>) data);
             }
-        }else if(accountView instanceof IAccountCardView) {
-                if(ws == CONSULTAR_ASIGNACION_TARJETA){
-                    ((IAccountCardView) accountView).cardIsValidate(data.toString());
-                }else if(ws == ASIGNAR_CUENTA_DISPONIBLE){
-                    ((IAccountCardView) accountView).accountAssigned(data.toString());
-                }
-        }else if(accountView instanceof IAccountCardNIPView) {
-            if(ws == ASIGNAR_NIP){
-                accountView.nextScreen(EVENT_GO_ASOCIATE_PHONE,data);
+        } else if (accountView instanceof IAccountCardView) {
+            if (ws == CONSULTAR_ASIGNACION_TARJETA) {
+                ((IAccountCardView) accountView).cardIsValidate(data.toString());
+            } else if (ws == ASIGNAR_CUENTA_DISPONIBLE) {
+                ((IAccountCardView) accountView).accountAssigned(data.toString());
             }
-        }else if(accountView instanceof IVerificationSMSView) {
-            if(ws == OBTENER_NUMERO_SMS) {
+        } else if (accountView instanceof IAccountCardNIPView) {
+            if (ws == ASIGNAR_NIP) {
+                accountView.nextScreen(EVENT_GO_ASOCIATE_PHONE, data);
+            }
+        } else if (accountView instanceof IVerificationSMSView) {
+            if (ws == OBTENER_NUMERO_SMS) {
                 ((IVerificationSMSView) accountView).messageCreated((MessageValidation) data);
-            }else if(ws == VERIFICAR_ACTIVACION){ // Activacion con SMS ha sido verificada.
+            } else if (ws == VERIFICAR_ACTIVACION) { // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).smsVerificationSuccess();
-            } else if(ws == ACTUALIZAR_INFO_SESION){ // Activacion con SMS ha sido verificada.
-            ((IVerificationSMSView) accountView).dataUpdated(data.toString());
+            } else if (ws == ACTUALIZAR_INFO_SESION) { // Activacion con SMS ha sido verificada.
+                ((IVerificationSMSView) accountView).dataUpdated(data.toString());
             }
-        }else if(accountView instanceof RecoveryPasswordView) {
+        } else if (accountView instanceof RecoveryPasswordView) {
             if (ws == RECUPERAR_CONTRASENIA) {
                 ((RecoveryPasswordView) accountView).recoveryPasswordSuccess(data.toString());
             }
-        }else if(ws == CERRAR_SESION){
-            Log.i(TAG,"La sesión se ha cerrado.");
+        } else if (ws == CERRAR_SESION) {
+            Log.i(TAG, context.getString(R.string.sesion_close));
         }
 
-        if(accountView instanceof IMyPassValidation){
-            if(ws == VALIDAR_FORMATO_CONTRASENIA) {
+        if (accountView instanceof IMyPassValidation) {
+            if (ws == VALIDAR_FORMATO_CONTRASENIA) {
                 ((IMyPassValidation) accountView).validationPasswordSucces();
             }
         }
@@ -325,7 +319,7 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
         App.getInstance().getPrefs().saveData(StringConstants.USER_BALANCE, response.getData().getSaldo());
         App.getInstance().getPrefs().saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
         this.accountView.hideLoader();
-        ((IBalanceView)this.accountView).updateBalance(response.getData().getSaldo());
+        ((IBalanceView) this.accountView).updateBalance(response.getData().getSaldo());
     }
 
 }

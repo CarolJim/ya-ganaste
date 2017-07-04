@@ -1,7 +1,5 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -42,8 +40,6 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PERSONAL_DATA_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
@@ -294,31 +290,36 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     @Override
     public void validateForm() {
         getDataForm();
+
+        boolean isValid = true;
+
         if (calle.isEmpty()) {
             showValidationError(editStreet.getId(), getString(R.string.datos_domicilio_calle));
             editStreet.setIsInvalid();
-            return;
+            isValid = false;
         }
         if (numExt.isEmpty()) {
             showValidationError(editExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
             editExtNumber.setIsInvalid();
-            return;
+            isValid = false;
         }
         if (codigoPostal.isEmpty()) {
             showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
             editZipCode.setIsInvalid();
-            return;
+            isValid = false;
         }
 
         if (spColonia.getSelectedItemPosition() == 0 || colonia.isEmpty()) {
             showValidationError(spColonia.getId(), getString(R.string.datos_domicilio_colonia));
-            return;
+            isValid = false;
         }
 //        if (!radioBtnTerms.isChecked()) {
 //            showValidationError(radioBtnTerms.getId(), getString(R.string.datos_domicilio_terminos));
 //            return;
 //        }
-        onValidationSuccess();
+        if (isValid) {
+            onValidationSuccess();
+        }
     }
 
     @Override
