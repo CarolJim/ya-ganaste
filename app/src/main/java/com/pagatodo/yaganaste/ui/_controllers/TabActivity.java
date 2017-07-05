@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
 import android.view.animation.Animation;
@@ -126,7 +127,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         LinearLayout linearLayout = (LinearLayout) mainTab.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         GradientDrawable drawable = new GradientDrawable();
-        drawable.setColor(getResources().getColor(R.color.grayColor));
+        drawable.setColor(ContextCompat.getColor(this, R.color.colorGrayDivider));
         drawable.setSize(1, 1);
         linearLayout.setDividerPadding(0);
         linearLayout.setDividerDrawable(drawable);

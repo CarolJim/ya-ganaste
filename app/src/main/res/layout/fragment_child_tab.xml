@@ -60,7 +60,9 @@
 
             <LinearLayout
                 android:id="@+id/containerPay"
-                android:layout_width="250dp"
+                android:layout_width="match_parent"
+                android:layout_marginRight="@dimen/margin_elements"
+                android:layout_marginLeft="@dimen/margin_elements"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
                 android:layout_marginTop="@dimen/margin_regular"
@@ -68,8 +70,15 @@
 
                 <FrameLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:background="@mipmap/sombra_base">
+                    android:layout_height="wrap_content">
+
+                    <ImageView
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/radio_image_pago"
+                        android:scaleType="fitXY"
+                        android:layout_gravity="center_vertical"
+                        android:adjustViewBounds="true"
+                        android:src="@mipmap/sombra_base"/>
 
                     <RelativeLayout
                         android:layout_width="wrap_content"

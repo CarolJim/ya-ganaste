@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
 import android.util.Log;
 
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -108,7 +110,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
                 color = APROBADO.getColor();
             }
 
-            movementsList.add(new ItemMovements<>(movimientoAdq.getOperacion(), movimientoAdq.getCompania(),
+            movementsList.add(new ItemMovements<>(movimientoAdq.getOperacion(), movimientoAdq.isEsReversada() ? App.getInstance().getString(R.string.cancelada) : movimientoAdq.getCompania(),
                     StringUtils.getDoubleValue(movimientoAdq.getMonto()), String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)),
                     DateUtil.getMonthShortName(calendar), color, movimientoAdq));
         }

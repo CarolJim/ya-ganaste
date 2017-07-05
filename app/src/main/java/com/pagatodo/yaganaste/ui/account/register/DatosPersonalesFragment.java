@@ -141,6 +141,10 @@ public class DatosPersonalesFragment extends GenericFragment implements
         errorBirthPlaceMessage.setVisibilityImageError(false);
 
         editBirthDay.setFullOnClickListener(onClickListenerDatePicker);
+
+
+        editBirthDay.setDrawableImage(R.drawable.calendar);
+        editBirthDay.imageViewIsGone(true);
         adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout, States.values(), this);
         spinnerBirthPlace.setAdapter(adapterBirthPlace);
         spinnerBirthPlace.setOnItemSelectedListener(this);
@@ -269,6 +273,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
 
                 showValidationError(editBirthDay.getId(), getString(R.string.feha_nacimiento_menor_edad));
+                editBirthDay.setIsInvalid();
                 isValid = false;
             }
         }
@@ -478,7 +483,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         @Override
         public void onClick(View v) {
             hideErrorMessage(editBirthDay.getId());
-            editBirthDay.imageViewIsGone(true);
+            editBirthDay.setDrawableImage(R.drawable.calendar);
             Calendar newCalendar = Calendar.getInstance();
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override

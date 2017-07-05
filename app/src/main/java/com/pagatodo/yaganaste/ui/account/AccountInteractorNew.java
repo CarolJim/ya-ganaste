@@ -581,6 +581,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             dataIniciarSesion.getUsuario().setIdUsuario(dataUser.getUsuario().getIdUsuario());
 
             dataIniciarSesion.getUsuario().setNombreUsuario(dataUser.getUsuario().getNombreUsuario());
+            dataIniciarSesion.getUsuario().setNombre(dataUser.getUsuario().getNombreUsuario());
             dataIniciarSesion.getUsuario().setPrimerApellido(dataUser.getUsuario().getPrimerApellido());
             dataIniciarSesion.getUsuario().setSegundoApellido(dataUser.getUsuario().getSegundoApellido());
 

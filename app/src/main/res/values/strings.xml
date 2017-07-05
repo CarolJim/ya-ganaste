@@ -448,7 +448,7 @@
 
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
     <string name="tienes_cuenta2">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
-    <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01-800-500-1000\n informes@yaganaste.com</string>
+    <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01-800-500-1000\n contacto@yaganaste.com</string>
     <string name="documents_comprobantes">CFE,Teléfono,Agua(No mayor a 3 meses)</string>
     <string name="documents_vigentes">Credencial de Elector o Pasaporte</string>
 
@@ -527,6 +527,9 @@
     <string name="desea_cacelar">¿Deseas Salir y Cancelar la Operación Actual?</string>
 
     <string name="no_sucursales">No existen sucursales en tu área.</string>
+    <string name="buscar_sucursal">Buscar  Sucursal</string>
+
+    <string name="cancelada">Cancelada</string>
 
     <!-- PreferUSerActivity -->
     <string name="listaopciones_load_image_wait">Cargando Imagen. Por Favor, Espere</string>
