@@ -12,10 +12,14 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.DefaultItemAnimator;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.EditText;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -26,6 +30,7 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
@@ -42,6 +47,7 @@ import com.pagatodo.yaganaste.utils.customviews.ClickListener;
 import com.pagatodo.yaganaste.utils.customviews.CustomMapFragment;
 import com.pagatodo.yaganaste.utils.customviews.DividerItemDecoration;
 import com.pagatodo.yaganaste.utils.customviews.RecyclerTouchListener;
+import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -73,6 +79,8 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     TextView txtInfoSucursales;
     @BindView(R.id.swipeMap)
     SwipeRefreshLayout swipeMap;
+    @BindView(R.id.frag_depositos_mapa_et)
+    StyleEdittext etBuscar;
 
     boolean isBackAvailable = false;
 
@@ -93,7 +101,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         onEventListener.onEvent(TabActivity.EVENT_HIDE_MANIN_TAB, null);
-        onEventListener.onEvent(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY, true);
+        onEventListener.onEvent(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY, false);
 
         View v = inflater.inflate(R.layout.fragment_depositos_mapa, container, false);
         int status = GoogleApiAvailability.getInstance().isGooglePlayServicesAvailable(getActivity());
@@ -126,6 +134,28 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         sucurasalesList.setLayoutManager(mLayoutManager);
         sucurasalesList.setItemAnimator(new DefaultItemAnimator());
         sucurasalesList.addItemDecoration(new DividerItemDecoration(getContext(), LinearLayoutManager.VERTICAL));
+
+        /**
+         * Agregamos el Listener que detecta cada vez que escribimos en el campo de busqueda
+         */
+        etBuscar.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+              //  Toast.makeText(getContext(), "Texto " + s, Toast.LENGTH_SHORT).show();
+                String myFilter = etBuscar.getText().toString();
+                adapter.filter(myFilter);
+            }
+        });
     }
 
     @Override
@@ -178,6 +208,14 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
 
     private void printSucursalesOnRecycler(final List<DataLocalizaSucursal> sucursalList) {
         if (sucursalList.size() > 0) {
+
+            sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Plaza Loreto", "12345678"));
+            sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Plaza Lorena", "12345678"));
+            sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Plaza Meave", "12345678"));
+            sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Parque Tezonte", "12345678"));
+            sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Parque Linda vista", "12345678"));
+            sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Perisur", "12345678"));
+
             adapter = new RecyclerSucursalesAdapter(sucursalList, actualLocation);
             sucurasalesList.setAdapter(adapter);
             sucurasalesList.addOnItemTouchListener(new RecyclerTouchListener(getContext(), sucurasalesList, new ClickListener() {

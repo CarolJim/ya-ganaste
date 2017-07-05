@@ -16,8 +16,17 @@ public class DataLocalizaSucursal implements Serializable {
     private String Nombre = "";
     private String NumTelefonico = "";
 
-
     public DataLocalizaSucursal() {
+    }
+
+    public DataLocalizaSucursal(String direccion1, String direccion2, String horario, double v, double v1, String s, String s1) {
+        this.Direccion1 = direccion1;
+        this.Direccion2 = direccion2;
+        this.Horario = horario;
+        this.Latitud = v;
+        this.Longitud = v1;
+        this.Nombre = s;
+        this.NumTelefonico = s1;
     }
 
     public String getDireccion1() {
