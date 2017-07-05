@@ -8,8 +8,14 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
+
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 
 
 /**
@@ -17,7 +23,7 @@ import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
  * Updated by flima on 8/02/2017.
  */
 
-public abstract class ToolBarActivity extends SupportFragmentActivity {
+public abstract class ToolBarActivity extends SupportFragmentActivity{
 
     public static final int CODE_LOG_OUT = 3124;
     public static final int RESULT_LOG_OUT = 3125;
@@ -67,6 +73,10 @@ public abstract class ToolBarActivity extends SupportFragmentActivity {
         return super.onOptionsItemSelected(item);
     }
 
+    @Override
+    public void onEvent(String event, Object data) {
+        super.onEvent(event, data);
+    }
 
     @Override
     @CallSuper

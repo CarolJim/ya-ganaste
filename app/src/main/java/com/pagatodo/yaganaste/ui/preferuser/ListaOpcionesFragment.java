@@ -39,6 +39,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -296,7 +297,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
-
+                       // Toast.makeText(getContext(), "Click CERRAR SESSION", Toast.LENGTH_SHORT).show();
+                        onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
                     }
 
                     @Override
