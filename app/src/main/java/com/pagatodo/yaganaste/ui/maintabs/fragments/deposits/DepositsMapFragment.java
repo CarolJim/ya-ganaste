@@ -209,12 +209,14 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     private void printSucursalesOnRecycler(final List<DataLocalizaSucursal> sucursalList) {
         if (sucursalList.size() > 0) {
 
+            /*
+            Lineas para probar el buscador de Filtro, eliminar en versiones posteriores
             sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Plaza Loreto", "12345678"));
             sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Plaza Lorena", "12345678"));
             sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Plaza Meave", "12345678"));
             sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Parque Tezonte", "12345678"));
             sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Parque Linda vista", "12345678"));
-            sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Perisur", "12345678"));
+            sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Perisur", "12345678"));*/
 
             adapter = new RecyclerSucursalesAdapter(sucursalList, actualLocation);
             sucurasalesList.setAdapter(adapter);
