@@ -1,8 +1,6 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -11,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -19,9 +18,9 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
-import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -124,6 +123,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             edtUserName.setVisibility(VISIBLE);
             textNameUser.setVisibility(GONE);
         }
+        setValidationRules();
     }
 
     @Override
@@ -135,7 +135,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 actionBtnLogin();
                 break;
             case R.id.txtLoginExistUserRecoverPass:
-              //  startActivity(new Intent(getActivity(), TabActivity.class));
+                //  startActivity(new Intent(getActivity(), TabActivity.class));
                 nextScreen(EVENT_RECOVERY_PASS, username);
                 break;
             default:
@@ -174,25 +174,101 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void showError(Object error) {
-        UI.showToastShort(error.toString(), getActivity());
+        //UI.showToastShort(error.toString(), getActivity());
+        UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error),
+                error.toString(), getFragmentManager(), new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        edtUserName.clearFocus();
+                        edtUserPass.clearFocus();
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                });
         setEnableViews(true);
     }
 
     /*Implementación de ValidationForm*/
     @Override
     public void setValidationRules() {
+        edtUserName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    edtUserName.imageViewIsGone(true);
+                } else {
+                    if (edtUserName.getText().isEmpty() || !edtUserName.isValidText()) {
+                        edtUserName.setIsInvalid();
+                    } else if (edtUserName.isValidText()) {
+                        edtUserName.setIsValid();
+                    }
+                }
+            }
+        });
 
+        edtUserName.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                edtUserName.imageViewIsGone(true);
+            }
+        });
+
+        edtUserPass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    edtUserPass.imageViewIsGone(true);
+                } else {
+                    if (edtUserPass.getText().isEmpty() || !edtUserPass.isValidText()) {
+                        edtUserPass.setIsInvalid();
+                    } else if (edtUserPass.isValidText()) {
+                        edtUserPass.setIsValid();
+                    }
+                }
+            }
+        });
+
+        edtUserPass.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                edtUserPass.imageViewIsGone(true);
+            }
+        });
     }
 
     @Override
     public void validateForm() {
         getDataForm();
-        if (password.isEmpty()) {
-            showError("Contraseña Requerida, Verifique su Información");
-            return;
+        boolean isValid = true;
+        String errorMsg = null;
+
+        if (username.isEmpty()) {
+            errorMsg = getString(R.string.datos_usuario_correo);
+            edtUserName.setIsInvalid();
+            isValid = false;
         }
 
-        onValidationSuccess();
+        if (!edtUserName.getText().isEmpty() && !edtUserName.isValidText()) {
+            errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.datos_usuario_correo) : errorMsg;
+            edtUserName.setIsInvalid();
+            isValid = false;
+        }
+
+        if (password.isEmpty()) {
+            errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required) : errorMsg;
+            edtUserPass.setIsInvalid();
+            isValid = false;
+        }
+
+        if (isValid) {
+            onValidationSuccess();
+        } else {
+            showError(errorMsg);
+        }
+
     }
 
 
@@ -227,7 +303,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         edtUserName.setEnabled(isEnable);
         edtUserPass.setEnabled(isEnable);
         btnLogin.setEnabled(isEnable);
-
     }
 }
 

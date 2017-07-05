@@ -15,6 +15,7 @@ import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SubGiro;
+import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.List;
@@ -28,14 +29,16 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<SubGiro> {
     Context context;
     int mLayoutResourceId;
     List<SubGiro> mList;
+    IOnSpinnerClick spinnerClick;
 
 
     public BussinesLineSpinnerAdapter(@NonNull Context con, @LayoutRes int resource,
-                                      @NonNull List<SubGiro> objects) {
+                                      @NonNull List<SubGiro> objects, IOnSpinnerClick iOnSpinnerClick) {
         super(con, resource, objects);
         this.context = con;
         this.mLayoutResourceId = resource;
         this.mList = objects;
+        this.spinnerClick = iOnSpinnerClick;
     }
 
     @Override
@@ -115,13 +118,23 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<SubGiro> {
             holder = (BussinesLineSpinnerAdapter.ViewHolder) row.getTag();
         }
 
+        View.OnClickListener onClick = new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                spinnerClick.onSpinnerClick();
+                parent.performClick();
+            }
+        };
+
+        holder.editText.setOnClickListener(onClick);
+        holder.downArrow.setOnClickListener(onClick);
+
         holder.editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 parent.performClick();
             }
         });
-
 
         if (position == 0 && item.getIdSubgiro() == -1) {
             holder.editText.setHint(item.getSubgiro());

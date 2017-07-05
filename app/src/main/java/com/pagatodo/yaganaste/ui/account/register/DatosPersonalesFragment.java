@@ -14,6 +14,7 @@ import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -183,7 +184,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                         editNames.setIsInvalid();
                     } else {
                         hideErrorMessage(editNames.getId());
-                        editNames.imageViewIsGone(true);
+                        editNames.setIsValid();
                     }
                 }
             }
@@ -209,7 +210,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                         editFirstLastName.setIsInvalid();
                     } else {
                         hideErrorMessage(editFirstLastName.getId());
-                        editFirstLastName.imageViewIsGone(true);
+                        editFirstLastName.setIsValid();
                     }
                 }
             }
@@ -256,6 +257,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
         if (!fechaNacimiento.isEmpty() && newDate != null && (newDate.getTimeInMillis() > actualDate.getTimeInMillis())) {
             showValidationError(editBirthDay.getId(), getString(R.string.fecha_nacimiento_erronea));
+            editBirthDay.setIsInvalid();
             isValid = false;
         }
 
@@ -366,11 +368,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
 
-        //if (BuildConfig.DEBUG) {
-        //onValidationSuccess();
-        //} else {
-        accountPresenter.validatePersonData();
-        //}
+        if (BuildConfig.DEBUG) {
+            onValidationSuccess();
+        } else {
+            accountPresenter.validatePersonData();
+        }
     }
 
     @Override
@@ -408,6 +410,18 @@ public class DatosPersonalesFragment extends GenericFragment implements
         fechaNacimiento = registerUser.getFechaNacimiento();
         StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
         spinnerBirthPlace.setSelection(adapter.getPositionItemByName(registerUser.getLugarNacimiento()));
+
+        spinnerBirthPlace.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                onSpinnerClick();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                onSpinnerClick();
+            }
+        });
 
         //Actualizamos el newDate para no tener null, solo en evento Back
         if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {

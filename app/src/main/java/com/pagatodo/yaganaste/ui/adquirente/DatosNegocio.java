@@ -2,10 +2,12 @@ package com.pagatodo.yaganaste.ui.adquirente;
 
 
 import android.os.Bundle;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
@@ -19,12 +21,14 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEn
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IDatosNegView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
+import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.DatosNegocioPresenter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
-import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -45,7 +49,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_FAMILIAR;
  * A simple {@link GenericFragment} subclass.
  */
 public class DatosNegocio extends GenericFragment implements View.OnClickListener,
-        ValidationForms, INavigationView<Object, ErrorObject>, IDatosNegView<ErrorObject>,DialogDoubleActions {
+        ValidationForms, INavigationView<Object, ErrorObject>, IDatosNegView<ErrorObject>,
+        DialogDoubleActions, IOnSpinnerClick {
 
     private static final String GIROS = "1";
 
@@ -67,6 +72,15 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
     Button btnBackBussinesInfo;
     @BindView(R.id.btnNextBussinesInfo)
     Button btnNextBussinesInfo;
+
+    @BindView(R.id.errorBussinesNameMessage)
+    ErrorMessage errorName;
+    @BindView(R.id.errorBussineLineMessage)
+    ErrorMessage errorBussineLine;
+    @BindView(R.id.errorBussinesPhoneMessage)
+    ErrorMessage errorPhone;
+    @BindView(R.id.errorRadioPublicServantMessage)
+    ErrorMessage errorPublicServant;
 
     private String nombre = "";
     private String telefono = "";
@@ -119,7 +133,7 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
             girosComercio = new ArrayList<>();
 
             SubGiro giroHint = new SubGiro();
-            giroHint.setSubgiro("Giro Comercial");
+            giroHint.setSubgiro(getString(R.string.giro_commerce_spinner));
             giroHint.setIdSubgiro(-1);
             giroHint.setIdSubgiro(-1);
             girosComercio.add(giroHint);
@@ -128,9 +142,25 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
 
         btnBackBussinesInfo.setOnClickListener(this);
         btnNextBussinesInfo.setOnClickListener(this);
-        giroArrayAdapter = new BussinesLineSpinnerAdapter(getActivity(), R.layout.spinner_layout, girosComercio);
+        giroArrayAdapter = new BussinesLineSpinnerAdapter(getActivity(),
+                R.layout.spinner_layout, girosComercio, this);
         spinnerBussineLine.setAdapter(giroArrayAdapter);
-        radioPublicServant.check(R.id.radioBtnPublicServantNo);
+        radioPublicServant.clearCheck();
+        errorPublicServant.alingCenter();
+
+        spinnerBussineLine.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                onSpinnerClick();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                onSpinnerClick();
+            }
+        });
+
+        setValidationRules();
     }
 
     private void initValues() {
@@ -166,7 +196,70 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
 
     @Override
     public void setValidationRules() {
+        editBussinesName.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideErrorMessage(editBussinesName.getId());
+                    editBussinesName.imageViewIsGone(true);
+                } else {
+                    if (editBussinesName.getText().isEmpty()) {
+                        showValidationError(editBussinesName.getId(), getString(R.string.datos_negocio_nombre));
+                        editBussinesName.setIsInvalid();
+                    } else {
+                        hideErrorMessage(editBussinesName.getId());
+                        editBussinesName.setIsValid();
+                    }
+                }
+            }
+        });
 
+        editBussinesName.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                hideErrorMessage(editBussinesName.getId());
+                editBussinesName.imageViewIsGone(true);
+            }
+        });
+
+        editBussinesPhone.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideErrorMessage(editBussinesPhone.getId());
+                    editBussinesPhone.imageViewIsGone(true);
+                } else {
+                    if (editBussinesPhone.getText().isEmpty()) {
+                        showValidationError(editBussinesPhone.getId(), getString(R.string.datos_negocio_telefono));
+                        editBussinesPhone.setIsInvalid();
+                    } else if (!editBussinesPhone.isValidText()) {
+                        showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
+                        editBussinesPhone.setIsInvalid();
+                    } else if (editBussinesPhone.isValidText()) {
+                        hideErrorMessage(editBussinesPhone.getId());
+                        editBussinesPhone.setIsValid();
+                    }
+                }
+            }
+        });
+
+        editBussinesPhone.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                hideErrorMessage(editBussinesPhone.getId());
+                editBussinesPhone.imageViewIsGone(true);
+            }
+        });
+
+        radioPublicServant.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+                hideErrorMessage(radioPublicServant.getId());
+                radioPublicServant.requestFocus();
+                editBussinesName.clearFocus();
+                editBussinesPhone.clearFocus();
+            }
+        });
     }
 
     @Override
@@ -174,44 +267,82 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
 
         getDataForm();
 
+        boolean isValid = true;
+
         if (nombre.isEmpty()) {
-            showValidationError(getString(R.string.datos_negocio_nombre));
-            return;
+            showValidationError(editBussinesName.getId(), getString(R.string.datos_negocio_nombre));
+            editBussinesName.setIsInvalid();
+            isValid = false;
         }
 
         if (giroArrayAdapter.getItem(spinnerBussineLine.getSelectedItemPosition()).getIdSubgiro() == -1) {
-            showValidationError(getString(R.string.datos_negocio_giro));
-            return;
-        }
-
-        if (telefono.isEmpty()) {
-            showValidationError(getString(R.string.datos_negocio_telefono));
-            return;
+            showValidationError(spinnerBussineLine.getId(), getString(R.string.datos_negocio_giro));
+            isValid = false;
         }
 
         if (!editBussinesPhone.isValidText()) {
-            showValidationError(getString(R.string.datos_telefono_incorrecto));
-            return;
+            showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
+            editBussinesPhone.setIsInvalid();
+            isValid = false;
+        }
+
+        if (telefono.isEmpty()) {
+            showValidationError(editBussinesPhone.getId(), getString(R.string.datos_negocio_telefono));
+            editBussinesPhone.setIsInvalid();
+            isValid = false;
         }
 
         if (!radioBtnPublicServantYes.isChecked() && !radioBtnPublicServantNo.isChecked()) {
-            showValidationError(getString(R.string.datos_negocio_preguntas));
-            return;
+            showValidationError(radioPublicServant.getId(), getString(R.string.datos_negocio_preguntas));
+            isValid = false;
         }
 
-        onValidationSuccess();
+        if (isValid) {
+            onValidationSuccess();
+        }
     }
 
-
-    private void showValidationError(Object err){
-        showValidationError(0, err);
-    }
 
     @Override
     public void showValidationError(int id, Object error) {
-        ErrorObject errorObject = new ErrorObject(error.toString(), null);
+
+        switch (id) {
+            case R.id.editBussinesName:
+                errorName.setMessageText(error.toString());
+                break;
+            case R.id.spinnerBussineLine:
+                errorBussineLine.setMessageText(error.toString());
+                break;
+            case R.id.editBussinesPhone:
+                errorPhone.setMessageText(error.toString());
+                break;
+
+            case R.id.radioPublicServant:
+                errorPublicServant.setMessageText(error.toString());
+                break;
+        }
+
+        /*ErrorObject errorObject = new ErrorObject(error.toString(), null);
         errorObject.setHasConfirm(true);
-        onEventListener.onEvent(EVENT_SHOW_ERROR, errorObject);
+        onEventListener.onEvent(EVENT_SHOW_ERROR, errorObject);*/
+    }
+
+    private void hideErrorMessage(int id) {
+        switch (id) {
+            case R.id.editBussinesName:
+                errorName.setVisibilityImageError(false);
+                break;
+            case R.id.spinnerBussineLine:
+                errorBussineLine.setVisibilityImageError(false);
+                break;
+            case R.id.editBussinesPhone:
+                errorPhone.setVisibilityImageError(false);
+                break;
+
+            case R.id.radioPublicServant:
+                errorPublicServant.setVisibilityImageError(false);
+                break;
+        }
     }
 
     @Override
@@ -221,7 +352,7 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
         registerAgent.setNombre(nombre);
         registerAgent.setTelefono(telefono);
         registerAgent.setGiro(giroArrayAdapter.getItem(spinnerBussineLine.getSelectedItemPosition()));
-        if(registerAgent.getCuestionario().size() > 0)
+        if (registerAgent.getCuestionario().size() > 0)
             registerAgent.getCuestionario().get(0).setValor(respuestaFamiliares);
         else
             registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_FAMILIAR, respuestaFamiliares));
@@ -245,7 +376,7 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
         if (registerAgent.getNombre().isEmpty()) {
             return;
         }
-        spinnerBussineLine.setOnItemSelectedListener(null);
+        //spinnerBussineLine.setOnItemSelectedListener(null);
 
         editBussinesName.setText(registerAgent.getNombre());
         editBussinesPhone.setText(registerAgent.getTelefono());
@@ -298,6 +429,15 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
     @Override
     public void actionCancel(Object... params) {
         //No-Op
+    }
+
+    @Override
+    public void onSpinnerClick() {
+        hideErrorMessage(spinnerBussineLine.getId());
+        radioPublicServant.clearFocus();
+        editBussinesName.clearFocus();
+        editBussinesPhone.clearFocus();
+        spinnerBussineLine.requestFocus();
     }
 }
 

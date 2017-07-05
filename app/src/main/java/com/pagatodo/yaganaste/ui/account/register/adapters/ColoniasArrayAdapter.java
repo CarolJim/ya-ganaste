@@ -70,10 +70,9 @@ public class ColoniasArrayAdapter extends ArrayAdapter<String> {
             }
         };
 
+        row.setOnClickListener(onClick);
         holder.laySpinnerCustom.setOnClickListener(onClick);
-
         holder.editText.setOnClickListener(onClick);
-
         holder.downArrow.setOnClickListener(onClick);
 
 

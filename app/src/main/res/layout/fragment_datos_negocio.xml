@@ -144,6 +144,12 @@
                         android:layout_weight="1" />
                 </RadioGroup>
 
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorRadioPublicServantMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center" />
+
             </LinearLayout>
         </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 

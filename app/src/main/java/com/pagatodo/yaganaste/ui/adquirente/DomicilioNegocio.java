@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioGroup;
@@ -25,6 +26,7 @@ import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -53,6 +55,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         View.OnClickListener, IAdqRegisterView<ErrorObject>, RadioGroup.OnCheckedChangeListener,
         IOnSpinnerClick {
 
+    public static int MIN_LENGHT_VALIDATION_CP = 4;
     public static final String _DOMICILIO = "1";
     public static final String COLONIAS = "2";
 
@@ -76,6 +79,15 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     Button btnBackBussinesAddress;
     @BindView(R.id.btnNextBussinesAddress)
     Button btnNextBussinesAddress;
+
+    @BindView(R.id.errorBussinesStreetMessage)
+    ErrorMessage errorStreet;
+    @BindView(R.id.errorNumberAddressMessage)
+    ErrorMessage errorNumberAddress;
+    @BindView(R.id.errorBussinesZipCodeMessage)
+    ErrorMessage errorZipCode;
+    @BindView(R.id.errorBussinesColoniaMessage)
+    ErrorMessage errorColonia;
 
     private ArrayAdapter<String> adapterColonia;
     private List<ColoniasResponse> listaColonias;
@@ -150,6 +162,17 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         editBussinesState.setTextEnabled(false);
         setCurrentData();
         radioIsBussinesAddress.setOnCheckedChangeListener(this);
+        spBussinesColonia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                onSpinnerClick();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                onSpinnerClick();
+            }
+        });
         setValidationRules();
     }
 
@@ -171,33 +194,156 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     @Override
     public void setValidationRules() {
         editBussinesZipCode.addCustomTextWatcher(textWatcherZipCode);
+
+        editBussinesStreet.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideErrorMessage(editBussinesStreet.getId());
+                    editBussinesStreet.imageViewIsGone(true);
+                } else {
+                    if (editBussinesStreet.getText().isEmpty()) {
+                        showValidationError(editBussinesStreet.getId(), getString(R.string.datos_domicilio_calle));
+                        editBussinesStreet.setIsInvalid();
+                    } else {
+                        hideErrorMessage(editBussinesStreet.getId());
+                        editBussinesStreet.setIsValid();
+                    }
+                }
+            }
+        });
+
+        editBussinesStreet.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                hideErrorMessage(editBussinesStreet.getId());
+                editBussinesStreet.imageViewIsGone(true);
+            }
+        });
+
+
+        editBussinesExtNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideErrorMessage(editBussinesExtNumber.getId());
+                    editBussinesExtNumber.imageViewIsGone(true);
+                } else {
+                    if (editBussinesExtNumber.getText().isEmpty()) {
+                        showValidationError(editBussinesExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
+                        editBussinesExtNumber.setIsInvalid();
+                    } else {
+                        hideErrorMessage(editBussinesExtNumber.getId());
+                        editBussinesExtNumber.setIsValid();
+                    }
+                }
+            }
+        });
+
+        editBussinesExtNumber.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                hideErrorMessage(editBussinesExtNumber.getId());
+                editBussinesExtNumber.imageViewIsGone(true);
+            }
+        });
+
+        editBussinesZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideErrorMessage(editBussinesZipCode.getId());
+                    editBussinesZipCode.imageViewIsGone(true);
+                } else {
+                    if (editBussinesZipCode.getText().isEmpty()) {
+                        showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
+                        editBussinesZipCode.setIsInvalid();
+                    } else {
+                        hideErrorMessage(editBussinesZipCode.getId());
+                        editBussinesZipCode.imageViewIsGone(true);
+                    }
+                }
+            }
+        });
+
+
+        editBussinesZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideErrorMessage(editBussinesZipCode.getId());
+                    editBussinesZipCode.imageViewIsGone(true);
+                } else {
+                    if (editBussinesZipCode.getText().isEmpty()) {
+                        editBussinesZipCode.setIsInvalid();
+                        showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
+                    } else if (!editBussinesZipCode.isValidText()) {
+                        editBussinesZipCode.setIsInvalid();
+                        showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
+
+                        if (listaColonias != null) {
+                            listaColonias.clear();
+                            estadoDomicilio = "";
+                            fillAdapter();
+                        }
+                    } else if (editBussinesZipCode.isValidText() && editBussinesZipCode.getText().toString().length() > MIN_LENGHT_VALIDATION_CP) {
+                        hideErrorMessage(editBussinesZipCode.getId());
+                        editBussinesZipCode.setIsValid();
+                        showLoader(getString(R.string.search_zipcode));
+                        adqPresenter.getNeighborhoods(editBussinesZipCode.getText().toString().toString().trim());//Buscamos por CP
+                    }
+                }
+            }
+        });
+
+
+        editBussinesZipCode.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                hideErrorMessage(editBussinesZipCode.getId());
+                editBussinesZipCode.imageViewIsGone(true);
+            }
+        });
     }
 
     @Override
     public void validateForm() {
-
         getDataForm();
+
+        boolean isValid = true;
+
         if (calle.isEmpty()) {
-            showValidationError(getString(R.string.datos_domicilio_calle));
-            return;
+            showValidationError(editBussinesStreet.getId(), getString(R.string.datos_domicilio_calle));
+            editBussinesStreet.setIsInvalid();
+            isValid = false;
         }
 
         if (numExt.isEmpty()) {
-            showValidationError(getString(R.string.datos_domicilio_num_ext));
-            return;
+            showValidationError(editBussinesExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
+            editBussinesExtNumber.setIsInvalid();
+            isValid = false;
+        }
+
+        if(!editBussinesZipCode.isValidText()){
+            showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
+            editBussinesZipCode.isValidText();
+            isValid = false;
         }
 
         if (codigoPostal.isEmpty()) {
-            showValidationError(getString(R.string.datos_domicilio_cp));
-            return;
+            showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
+            editBussinesZipCode.setIsInvalid();
+            isValid = false;
         }
 
         if (spBussinesColonia.getSelectedItemPosition() == 0 || colonia.isEmpty()) {
-            showValidationError(getString(R.string.datos_domicilio_colonia));
-            return;
+            showValidationError(spBussinesColonia.getId(), getString(R.string.datos_domicilio_colonia));
+            isValid = false;
         }
 
-        onValidationSuccess();
+        if (isValid) {
+            onValidationSuccess();
+        }
 
     }
 
@@ -213,6 +359,13 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
 
 
     private void setCurrentData() {
+        errorStreet.setVisibilityImageError(false);
+        errorNumberAddress.setVisibilityImageError(false);
+        errorZipCode.setVisibilityImageError(false);
+        errorColonia.setVisibilityImageError(false);
+
+        clearAllFocus();
+
         RegisterAgent registerAgente = RegisterAgent.getInstance();
         if (!registerAgente.getCodigoPostal().isEmpty()) {
             List<CuestionarioEntity> cuestionario = registerAgente.getCuestionario();
@@ -243,16 +396,41 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         }
     }
 
-    private void showValidationError(Object err) {
-        showValidationError(0, err);
-    }
-
 
     @Override
     public void showValidationError(int id, Object error) {
-        ErrorObject errorObject = new ErrorObject(error.toString(), null);
-        errorObject.setHasConfirm(true);
-        onEventListener.onEvent(EVENT_SHOW_ERROR, errorObject);
+
+        switch (id) {
+            case R.id.editBussinesStreet:
+                errorStreet.setMessageText(error.toString());
+                break;
+            case R.id.editBussinesExtNumber:
+                errorNumberAddress.setMessageText(error.toString());
+                break;
+            case R.id.editBussinesZipCode:
+                errorZipCode.setMessageText(error.toString());
+                break;
+            case R.id.spBussinesColonia:
+                errorColonia.setMessageText(error.toString());
+                break;
+        }
+    }
+
+    private void hideErrorMessage(int id) {
+        switch (id) {
+            case R.id.editBussinesStreet:
+                errorStreet.setVisibilityImageError(false);
+                break;
+            case R.id.editBussinesExtNumber:
+                errorNumberAddress.setVisibilityImageError(false);
+                break;
+            case R.id.editBussinesZipCode:
+                errorZipCode.setVisibilityImageError(false);
+                break;
+            case R.id.spBussinesColonia:
+                errorColonia.setVisibilityImageError(false);
+                break;
+        }
     }
 
     @Override
@@ -314,8 +492,6 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
             }
             colonyToLoad = null;
         }
-
-
     }
 
     @Override
@@ -396,6 +572,13 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     }
 
     private void cleanFields() {
+        errorStreet.setVisibilityImageError(false);
+        errorNumberAddress.setVisibilityImageError(false);
+        errorZipCode.setVisibilityImageError(false);
+        errorColonia.setVisibilityImageError(false);
+
+        clearAllFocus();
+
         editBussinesStreet.setText("");
         editBussinesExtNumber.setText("");
         editBussinesIntNumber.setText("");
@@ -413,7 +596,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
 
     @Override
     public void onSpinnerClick() {
-
+        hideErrorMessage(spBussinesColonia.getId());
     }
 
     private class ZipWatcher extends AbstractTextWatcher {
@@ -432,4 +615,11 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         }
     }
 
+    private void clearAllFocus(){
+        editBussinesStreet.clearFocus();
+        editBussinesExtNumber.clearFocus();
+        editBussinesIntNumber.clearFocus();
+        editBussinesZipCode.clearFocus();
+        editBussinesState.clearFocus();
+    }
 }

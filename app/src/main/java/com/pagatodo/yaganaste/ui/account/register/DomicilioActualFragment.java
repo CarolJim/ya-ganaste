@@ -2,17 +2,16 @@ package com.pagatodo.yaganaste.ui.account.register;
 
 import android.os.Bundle;
 import android.os.Handler;
-import android.text.Editable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
-import android.text.TextWatcher;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
@@ -27,6 +26,7 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
+import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
@@ -158,6 +158,18 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         btnBackDomicilioActual.setOnClickListener(this);
         //radioBtnTerms.setOnClickListener(this);
 
+        spColonia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                onSpinnerClick();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                onSpinnerClick();
+            }
+        });
+
         // radioBtnTermsLayOut.setOnClickListener(this);
 
         editState.setTextEnabled(false);
@@ -193,58 +205,113 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     public void setValidationRules() {
         editZipCode.addCustomTextWatcher(textWatcherZipCode);
 
-        editStreet.addCustomTextWatcher(new TextWatcher() {
+        editStreet.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (!editStreet.isValidText()) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
                     hideErrorMessage(editStreet.getId());
+                    editStreet.imageViewIsGone(true);
+                } else {
+                    if (editStreet.getText().isEmpty()) {
+                        showValidationError(editStreet.getId(), getString(R.string.datos_domicilio_calle));
+                        editStreet.setIsInvalid();
+                    } else {
+                        hideErrorMessage(editStreet.getId());
+                        editStreet.setIsValid();
+                    }
                 }
             }
+        });
 
+        editStreet.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(String s) {
+                hideErrorMessage(editStreet.getId());
+                editStreet.imageViewIsGone(true);
             }
         });
 
 
-        editExtNumber.addCustomTextWatcher(new TextWatcher() {
+        editExtNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (!editExtNumber.isValidText()) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
                     hideErrorMessage(editExtNumber.getId());
+                    editExtNumber.imageViewIsGone(true);
+                } else {
+                    if (editExtNumber.getText().isEmpty()) {
+                        showValidationError(editExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
+                        editExtNumber.setIsInvalid();
+                    } else {
+                        hideErrorMessage(editExtNumber.getId());
+                        editExtNumber.setIsValid();
+                    }
                 }
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
             }
         });
 
-        editZipCode.addCustomTextWatcher(new TextWatcher() {
+        editExtNumber.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-                if (!editZipCode.isValidText()) {
+            public void afterTextChanged(String s) {
+                hideErrorMessage(editExtNumber.getId());
+                editExtNumber.imageViewIsGone(true);
+            }
+        });
+
+        editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
                     hideErrorMessage(editZipCode.getId());
+                    editZipCode.imageViewIsGone(true);
+                } else {
+                    if (editZipCode.getText().isEmpty()) {
+                        showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
+                        editZipCode.setIsInvalid();
+                    } else {
+                        hideErrorMessage(editZipCode.getId());
+                        editZipCode.imageViewIsGone(true);
+                    }
                 }
             }
+        });
 
+
+        editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideErrorMessage(editZipCode.getId());
+                    editZipCode.imageViewIsGone(true);
+                } else {
+                    if (editZipCode.getText().isEmpty()) {
+                        editZipCode.setIsInvalid();
+                        showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
+                    } else if (!editZipCode.isValidText()) {
+                        editZipCode.setIsInvalid();
+                        showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
 
+                        if (listaColonias != null) {
+                            listaColonias.clear();
+                            estadoDomicilio = "";
+                            fillAdapter();
+                        }
+                    } else if (editZipCode.isValidText() && editZipCode.getText().toString().length() > MIN_LENGHT_VALIDATION_CP) {
+                        hideErrorMessage(editZipCode.getId());
+                        editZipCode.setIsValid();
+                        showLoader(getString(R.string.search_zipcode));
+                        accountPresenter.getNeighborhoods(editZipCode.getText().toString().toString().trim());//Buscamos por CP
+                    }
+                }
             }
+        });
 
+
+        editZipCode.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
-            public void afterTextChanged(Editable s) {
+            public void afterTextChanged(String s) {
+                hideErrorMessage(editZipCode.getId());
+                editZipCode.imageViewIsGone(true);
             }
         });
 
@@ -303,13 +370,24 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             editExtNumber.setIsInvalid();
             isValid = false;
         }
-        if (codigoPostal.isEmpty()) {
+
+        if (!editZipCode.isValidText()) {
             showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
             editZipCode.setIsInvalid();
             isValid = false;
         }
 
-        if (spColonia.getSelectedItemPosition() == 0 || colonia.isEmpty()) {
+        if (codigoPostal.isEmpty())
+
+        {
+            showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
+            editZipCode.setIsInvalid();
+            isValid = false;
+        }
+
+        if (spColonia.getSelectedItemPosition() == 0 || colonia.isEmpty())
+
+        {
             showValidationError(spColonia.getId(), getString(R.string.datos_domicilio_colonia));
             isValid = false;
         }
@@ -317,9 +395,12 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 //            showValidationError(radioBtnTerms.getId(), getString(R.string.datos_domicilio_terminos));
 //            return;
 //        }
-        if (isValid) {
+        if (isValid)
+
+        {
             onValidationSuccess();
         }
+
     }
 
     @Override
@@ -487,21 +568,11 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         showError(error);
     }
 
-    TextWatcher textWatcherZipCode = new TextWatcher() {
+    AbstractTextWatcher textWatcherZipCode = new AbstractTextWatcher() {
         @Override
-        public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-        }
-
-        @Override
-        public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-        }
-
-        @Override
-        public void afterTextChanged(Editable s) {
+        public void afterTextChanged(String s) {
             if (s.toString().length() > MIN_LENGHT_VALIDATION_CP) {
-                showLoader("Buscando CP");
+                showLoader(getString(R.string.search_zipcode));
                 accountPresenter.getNeighborhoods(s.toString().trim());//Buscamos por CP
             } else {
                 if (listaColonias != null) {
