@@ -323,7 +323,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             actualizaEstatusUsuario();
             accountManager.onSucces(CARGA_DOCUMENTOS, "Envio de documentos");
         } else {
-            accountManager.onError(CARGA_DOCUMENTOS, "error" + data.getMensaje());
+            accountManager.onError(CARGA_DOCUMENTOS, data.getMensaje());
         }
     }
 

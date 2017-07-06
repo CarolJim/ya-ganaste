@@ -24,6 +24,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
@@ -40,6 +41,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
+import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -292,13 +294,15 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
     }
 
-    private void showDialogMesage(String mensaje) {
+    private void showDialogMesage(final String mensaje) {
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
                        // Toast.makeText(getContext(), "Click CERRAR SESSION", Toast.LENGTH_SHORT).show();
-                        onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
+                        if (mensaje.equals(Recursos.MESSAGE_OPEN_SESSION)) {
+                            onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
+                        }
                     }
 
                     @Override

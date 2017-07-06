@@ -34,6 +34,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
@@ -57,6 +58,7 @@ import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_B
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_GO_HOME;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
@@ -559,8 +561,21 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
     @Override
     public void showError(Object error) {
-        String message = error instanceof ErrorObject ? ((ErrorObject) error).getErrorMessage() : error.toString();
-        UI.createSimpleCustomDialog("", message, getActivity().getSupportFragmentManager(), null, true, false);
+        final String message = error instanceof ErrorObject ? ((ErrorObject) error).getErrorMessage() : error.toString();
+        UI.createSimpleCustomDialog("", message, getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                // Toast.makeText(getContext(), "Click CERRAR SESSION", Toast.LENGTH_SHORT).show();
+                if (message.equals(Recursos.MESSAGE_OPEN_SESSION2)) {
+                    onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
+                }
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+
+            }
+        }, true, false);
     }
 
     /**

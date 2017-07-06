@@ -15,12 +15,13 @@ import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.pagatodo.yaganaste.interfaces.OnEventListener;
 
 /**
  * Created by Jordan on 19/05/2017.
  */
 
-public class ToolBarPositionActivity extends ToolBarActivity implements
+public class ToolBarPositionActivity extends ToolBarActivity implements OnEventListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private static final String REQUESTING_LOCATION_UPDATES_KEY = "location_key";
@@ -157,5 +158,10 @@ public class ToolBarPositionActivity extends ToolBarActivity implements
                 mLocation = savedInstanceState.getParcelable(LOCATION_KEY);
             }
         }
+    }
+
+    @Override
+    public void onEvent(String event, Object data) {
+        super.onEvent(event, data);
     }
 }
