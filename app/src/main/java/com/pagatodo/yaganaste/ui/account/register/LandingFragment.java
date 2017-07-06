@@ -12,6 +12,7 @@ import android.view.ViewGroup;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
@@ -31,15 +32,15 @@ public class LandingFragment extends Activity implements Animation.AnimationList
     private String imagePath;
 
     @BindView(R.id.tutorialPage1)
-    RelativeLayout tutorialPage1;
+    LinearLayout tutorialPage1;
     @BindView(R.id.tutorialPage2)
-    RelativeLayout tutorialPage2;
+    LinearLayout tutorialPage2;
     @BindView(R.id.tutorialPage3)
-    RelativeLayout tutorialPage3;
+    LinearLayout tutorialPage3;
     @BindView(R.id.tutorialPage4)
-    RelativeLayout tutorialPage4;
+    LinearLayout tutorialPage4;
     @BindView(R.id.tutorialPage5)
-    RelativeLayout tutorialPage5;
+    LinearLayout tutorialPage5;
     @BindView(R.id.tutorialPage6)
     RelativeLayout tutorialPage6;
 

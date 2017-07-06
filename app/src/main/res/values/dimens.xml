@@ -157,5 +157,8 @@
     <dimen name="custom_validation_edittext_image_width">17dp</dimen>
     <dimen name="custom_validation_edittext_image_height">15dp</dimen>
 
+    <!-- Landing sizes -->
+    <dimen name="landing_text">30sp</dimen>
+
 </resources>
 

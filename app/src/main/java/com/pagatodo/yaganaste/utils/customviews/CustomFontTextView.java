@@ -25,14 +25,14 @@ public class CustomFontTextView extends AppCompatTextView {
     public CustomFontTextView(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
         this.isInEditMode();
-        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CustomFontTextView,0, 0);
+        TypedArray typedArray = context.getTheme().obtainStyledAttributes(attrs, R.styleable.CustomFontTextView, 0, 0);
         Font font = getFont(typedArray.getInt(R.styleable.CustomFontTextView_font_type, 0));
         FontCache.initStyle(context, font, this);
         typedArray.recycle();
     }
 
-    private Font getFont(int type){
-        switch (type){
+    private Font getFont(int type) {
+        switch (type) {
             case 0:
                 return Font.ANGELINA;
             case 1:

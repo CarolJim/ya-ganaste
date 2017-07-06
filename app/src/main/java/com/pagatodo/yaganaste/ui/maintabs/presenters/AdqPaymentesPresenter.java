@@ -7,6 +7,7 @@ import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataResultAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
@@ -46,34 +47,99 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
         movementsView.showLoader("");
         ResumenMovimientosMesRequest resumenMovimientosMesRequest = new ResumenMovimientosMesRequest();
         resumenMovimientosMesRequest.setFecha(data.getDate());
-        movementsIteractor.getMovements(resumenMovimientosMesRequest);
-        /*
+        //movementsIteractor.getMovements(resumenMovimientosMesRequest);
+
+
         List<DataMovimientoAdq> movimientos = new ArrayList<>();
         DataMovimientoAdq movimientoAdq = new DataMovimientoAdq();
         movimientoAdq.setAfiliacion("123");
+        movimientoAdq.setOperacion("Venta Con Tarjeta");
         movimientoAdq.setBancoEmisor("Banco felicidad");
-        movimientoAdq.setCompania("PAtito");
+        movimientoAdq.setCompania("Bancomer");
         movimientoAdq.setDescripcionRechazo("Por que si");
-        movimientoAdq.setEsAprobada(true);
-        movimientoAdq.setEsCargo(true);
+        movimientoAdq.setEsAprobada(false);
+        movimientoAdq.setEsCargo(false);
         movimientoAdq.setEsPendiente(true);
+        movimientoAdq.setEsReversada(false);
         movimientoAdq.setFecha("17/Jul/2017 17:00");//dd/MMM/yyyy hh:mm
         movimientoAdq.setIdTransaction("12345678");
         movimientoAdq.setMarcaTarjetaBancaria("cualquierdato");
         movimientoAdq.setNoAutorizacion("123453221");
         movimientoAdq.setMonto("2000.00");
         movimientoAdq.setTipoTarjetaBancaria("VISA");
+
+
+        DataMovimientoAdq movimientoAdq2 = new DataMovimientoAdq();
+        movimientoAdq2.setOperacion("Venta Con Tarjeta 5332");
+        movimientoAdq2.setCompania("Bancomer");
+        movimientoAdq2.setEsAprobada(true);
+        movimientoAdq2.setEsCargo(false);
+        movimientoAdq2.setEsPendiente(false);
+        movimientoAdq2.setEsReversada(false);
+        movimientoAdq2.setFecha("16/Jul/2017 17:00");//dd/MMM/yyyy hh:mm
+        movimientoAdq2.setMonto("1700.00");
+
+
+        DataMovimientoAdq movimientoAdq3 = new DataMovimientoAdq();
+        movimientoAdq3.setOperacion("Venta Con Tarjeta 5603");
+        movimientoAdq3.setCompania("Santander");
+        movimientoAdq3.setEsAprobada(true);
+        movimientoAdq3.setEsCargo(false);
+        movimientoAdq3.setEsPendiente(false);
+        movimientoAdq3.setEsReversada(false);
+        movimientoAdq3.setFecha("15/Jul/2017 17:00");//dd/MMM/yyyy hh:mm
+        movimientoAdq3.setMonto("120.50");
+
+        DataMovimientoAdq movimientoAdq4 = new DataMovimientoAdq();
+        movimientoAdq4.setOperacion("Venta Con Tarjeta 5345(Cancelada)");
+        movimientoAdq4.setCompania("Bancomer");
+        movimientoAdq4.setEsAprobada(false);
+        movimientoAdq4.setEsCargo(false);
+        movimientoAdq4.setEsPendiente(false);
+        movimientoAdq4.setEsReversada(true);
+        movimientoAdq4.setFecha("15/Jul/2017 17:00");//dd/MMM/yyyy hh:mm
+        movimientoAdq4.setMonto("300.00");
+
+
+        DataMovimientoAdq movimientoAdq5 = new DataMovimientoAdq();
+        movimientoAdq5.setOperacion("Venta Con Tarjeta 3495(Cancelada)");
+        movimientoAdq5.setCompania("Santander");
+        movimientoAdq5.setEsAprobada(false);
+        movimientoAdq5.setEsCargo(false);
+        movimientoAdq5.setEsPendiente(false);
+        movimientoAdq5.setEsReversada(true);
+        movimientoAdq5.setFecha("14/Jul/2017 17:00");//dd/MMM/yyyy hh:mm
+        movimientoAdq5.setMonto("1000.00");
+
+        DataMovimientoAdq movimientoAdq6 = new DataMovimientoAdq();
+        movimientoAdq6.setOperacion("Venta Con Tarjeta 7463");
+        movimientoAdq6.setCompania("Banamex");
+        movimientoAdq6.setEsAprobada(false);
+        movimientoAdq6.setEsCargo(true);
+        movimientoAdq6.setEsPendiente(false);
+        movimientoAdq6.setEsReversada(false);
+        movimientoAdq6.setFecha("13/Jul/2017 17:00");//dd/MMM/yyyy hh:mm
+        movimientoAdq6.setMonto("1570.00");
+
+
         movimientos.add(movimientoAdq);
+        movimientos.add(movimientoAdq2);
+        movimientos.add(movimientoAdq3);
+        movimientos.add(movimientoAdq4);
+        movimientos.add(movimientoAdq5);
+        movimientos.add(movimientoAdq6);
+
 
         DataResultAdq result = new DataResultAdq();
         result.setId("123");
         result.setMessage("Ok");
         result.setTitle("Title");
 
+
         ResumenMovimientosAdqResponse response = new ResumenMovimientosAdqResponse(movimientos,
                 result, "15000.00", "14000.00", "", "");
 
-        onSuccesResponse(response);*/
+        onSuccesResponse(response);
     }
 
     @Override
