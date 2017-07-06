@@ -4,6 +4,8 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.support.annotation.DrawableRes;
+import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
@@ -278,8 +280,9 @@ public class CustomValidationEditText extends LinearLayout {
         setNonValidView();
     }
 
-    public void setDrawableImage(int image) {
+    public void setDrawableImage(@DrawableRes int image) {
         imageView.setImageResource(image);
+        this.pinnedIcon = image;
     }
 
     public void setText(String text) {

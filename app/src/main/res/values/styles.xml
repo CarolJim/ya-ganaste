@@ -95,9 +95,9 @@
     </style>
 
     <style name="buttonSquareRoundedBlue">
-        <item name="android:background">@drawable/button_rounded_square_blue</item>
-        <item name="buttonRippleColor2">@drawable/button_rounded_square_blue</item>
-        <item name="buttonNormalColor">@drawable/button_rounded_square_blue</item>
+        <item name="android:background">@drawable/button_rectangle_blue_selector</item>
+        <item name="buttonRippleColor2">@drawable/button_rectangle_blue_selector</item>
+        <item name="buttonNormalColor">@drawable/button_rectangle_blue_selector</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:layout_marginEnd">60dp</item>
         <item name="android:layout_marginLeft">60dp</item>

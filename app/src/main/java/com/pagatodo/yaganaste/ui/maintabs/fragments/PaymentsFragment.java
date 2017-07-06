@@ -5,6 +5,8 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
@@ -76,6 +78,7 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         itemClicked.setColor(CANCELADO.getColor());
         itemClicked.getMovement().setEsReversada(true);
+        itemClicked.setMarca(getString(R.string.cancelada));
         notifyDataSetChanged();
     }
 }

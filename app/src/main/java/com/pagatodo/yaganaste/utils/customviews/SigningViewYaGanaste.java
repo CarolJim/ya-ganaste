@@ -44,7 +44,7 @@ public class SigningViewYaGanaste extends SigningView {
         switch (event.getAction()) {
             case MotionEvent.ACTION_UP:
                 if(getSign() != null && getSign().getCurentSignStroke().getPoints().size() > 2) { // Si ya se inicio la firma
-                    btnSendSignature.setBackgroundResource(R.drawable.button_rounded_square_blue);
+                    btnSendSignature.setBackgroundResource(R.drawable.button_rectangle_blue_selector);
                     hasSignature = true;
                 }
                 break;

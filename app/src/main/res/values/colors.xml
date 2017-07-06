@@ -10,7 +10,7 @@
     <color name="redErrorColor">#D0011B</color>
     <color name="greencolor">#00E000</color>
     <color name="bgColor">#293943</color>
-    <color name="bgColorEnd">#141C21</color>
+    <color name="bgColorEnd">#182630</color>
     <color name="whiteColor">#FFF</color>
     <color name="whiteColor_disable">#beffffff</color>
     <color name="borderColor">#FFF</color>
@@ -44,4 +44,6 @@
     <color name="colorSeekBarBackground">#0C4C67</color>
     <color name="margin_lines">#AFAFAF</color>
     <color name="colorTextTabUnselected">#8E959A</color>
+
+    <color name="colorGrayDivider">#374149</color>
 </resources>
