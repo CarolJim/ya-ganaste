@@ -66,7 +66,7 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
     public void onTapButton() {
         if (UtilsNet.isOnline(getContext())) {
             removeLastFragment();
-            ((TabActivity) getActivity()).showProgressLayout("Cargando");
+            ((TabActivity) getActivity()).showProgressLayout(getString(R.string.cargando));
             loadFragment(DepositsMapFragment.newInstance(), Direction.FORDWARD, false);
         } else {
             showErrorMessage(getString(R.string.no_internet_access));
@@ -103,7 +103,7 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
             onEventListener.onEvent(TabActivity.EVENT_SHOW_MAIN_TAB, null);
         } else if (fragments != null && fragments.get(0) instanceof DepositSucursalDetail) {
             removeLastFragment();
-            ((TabActivity) getActivity()).showProgressLayout("Cargando");
+            ((TabActivity) getActivity()).showProgressLayout(getString(R.string.cargando));
             loadFragment(DepositsMapFragment.newInstance(), Direction.BACK, false);
         }
     }

@@ -5,7 +5,6 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
-import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -21,17 +20,13 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.FULL_NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
-import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -46,10 +41,8 @@ public class LoginContainerFragment extends SupportFragment implements TabsView<
     private ImageView imgNext;
 
     public static LoginContainerFragment newInstance() {
-        
-        Bundle args = new Bundle();
-        
         LoginContainerFragment fragment = new LoginContainerFragment();
+        Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
     }
@@ -158,7 +151,7 @@ public class LoginContainerFragment extends SupportFragment implements TabsView<
         if (position == 0) {
             imgPrevious.setVisibility(View.INVISIBLE);
             imgNext.setVisibility(View.VISIBLE);
-        } else if (position == vpLogin.getAdapter().getCount()-1) {
+        } else if (position == vpLogin.getAdapter().getCount() - 1) {
             imgNext.setVisibility(View.INVISIBLE);
             imgPrevious.setVisibility(View.VISIBLE);
         } else {

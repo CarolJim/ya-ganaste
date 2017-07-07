@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
@@ -120,6 +121,11 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
 
     @Override
     public void onSuccesBalance(ConsultarSaldoResponse response) {
+
+    }
+
+    @Override
+    public void onSuccesBalanceAdq(ConsultaSaldoCupoResponse response) {
 
     }
 

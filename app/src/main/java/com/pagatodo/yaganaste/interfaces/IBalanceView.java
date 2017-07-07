@@ -6,4 +6,6 @@ package com.pagatodo.yaganaste.interfaces;
 
 public interface IBalanceView extends View {
     void updateBalance(String saldo);
+
+    void updateBalanceAdq(String saldoAdq);
 }

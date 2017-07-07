@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.data.model;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
-import com.pagatodo.yaganaste.net.RequestHeaders;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
@@ -11,6 +10,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.FULL_NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.StringConstants.ID_CUENTA;
 import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
@@ -28,14 +28,14 @@ public class SingletonUser {
     private String pathPictureTemp = "";
     private String activacionCodeFreja = "";
 
-    private SingletonUser(){
+    private SingletonUser() {
         dataUser = new DataIniciarSesion();
         dataExtraUser = new ExtraInfoUser();
         datosSaldo = new DatosSaldo();
     }
 
-    public static synchronized SingletonUser getInstance(){
-        if(user == null)
+    public static synchronized SingletonUser getInstance() {
+        if (user == null)
             user = new SingletonUser();
         return user;
     }
@@ -56,8 +56,9 @@ public class SingletonUser {
             prefs.saveData(FULL_NAME_USER, dataUser.getUsuario().getNombre().concat(SPACE).
                     concat(dataUser.getUsuario().getPrimerApellido().concat(SPACE).
                             concat(dataUser.getUsuario().getSegundoApellido())));
-
             prefs.saveData(CARD_NUMBER, dataUser.getUsuario().getCuentas().get(0).getTarjeta());
+            prefs.saveData(ID_CUENTA, String.valueOf(dataUser.getUsuario().getCuentas().get(0).getIdCuenta()));
+
         }
 
         dataUser.getUsuario().setTipoAgente(17);

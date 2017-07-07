@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormato
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultaAsignacionTarjetaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioClienteResponse;
@@ -48,6 +49,7 @@ import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountIteractorNew;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.enums.AccountOperation;
+import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.net.IRequestResult;
@@ -332,6 +334,15 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     @Override
+    public void getBalanceAdq() {
+        try {
+            ApiAdq.consultaSaldoCupo(this);
+        } catch (OfflineException e) {
+            accountManager.onError(CONSULTA_SALDO_CUPO, null);
+        }
+    }
+
+    @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
 
         switch (dataSourceResult.getWebService()) {
@@ -415,6 +426,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 validatePersonDataResponse((GenericResponse)dataSourceResult.getData());
                 break;
 
+            case CONSULTA_SALDO_CUPO:
+                validateBalanceAdqResponse((ConsultaSaldoCupoResponse)dataSourceResult.getData());
+                break;
+
             default:
                 break;
         }
@@ -439,6 +454,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         } else {
             accountManager.onError(CONSULTAR_SALDO, null);
         }
+    }
+
+    private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response){
+        accountManager.onSuccesBalanceAdq(response);
     }
 
     /**

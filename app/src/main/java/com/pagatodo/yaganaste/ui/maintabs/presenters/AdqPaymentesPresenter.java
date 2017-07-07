@@ -9,7 +9,6 @@ import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
-import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataResultAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
@@ -18,6 +17,7 @@ import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.MovementsIteract
 import com.pagatodo.yaganaste.ui.maintabs.managers.MovementsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
 import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
 import java.util.ArrayList;
@@ -49,9 +49,9 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
         movementsView.showLoader("");
         ResumenMovimientosMesRequest resumenMovimientosMesRequest = new ResumenMovimientosMesRequest();
         resumenMovimientosMesRequest.setFecha(data.getDate());
-        //movementsIteractor.getMovements(resumenMovimientosMesRequest);
+        movementsIteractor.getMovements(resumenMovimientosMesRequest);
 
-
+        /*
         List<DataMovimientoAdq> movimientos = new ArrayList<>();
         DataMovimientoAdq movimientoAdq = new DataMovimientoAdq();
         movimientoAdq.setAfiliacion("123");
@@ -141,7 +141,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
         ResumenMovimientosAdqResponse response = new ResumenMovimientosAdqResponse(movimientos,
                 result, "15000.00", "14000.00", "", "");
 
-        onSuccesResponse(response);
+        onSuccesResponse(response);*/
     }
 
     @Override
@@ -187,6 +187,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
     @Override
     public void onSuccesBalance(String response) {
         SingletonUser.getInstance().getDatosSaldo().setSaldoAdq(response);
+        App.getInstance().getPrefs().saveData(StringConstants.ADQUIRENTE_BALANCE, response);
         movementsView.updateBalance();
     }
 

@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionAprovSofttokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActivacionAprovSofttokenRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs;
@@ -50,6 +51,11 @@ public class AprovPresenter extends ProvisioningPresenterAbs implements IAprovPr
 
     @Override
     public void onSuccesBalance(ConsultarSaldoResponse response) {
+
+    }
+
+    @Override
+    public void onSuccesBalanceAdq(ConsultaSaldoCupoResponse response) {
 
     }
 

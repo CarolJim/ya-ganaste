@@ -9,6 +9,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -30,49 +31,49 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 
 /**
- * @author Juan Guerra on 15/06/2017.
+ * Created by Jordan on 06/07/2017.
  */
 
-public class QuickBalanceFragment extends GenericFragment implements IBalanceView,
+public class QuickBalanceAdquirenteFragment extends GenericFragment implements IBalanceView,
         SwipeRefreshLayout.OnRefreshListener, INavigationView<Void, Void>, View.OnClickListener {
 
-    private View mRootView;
+    View rootView;
 
-    @BindView(R.id.cardSaldo)
-    YaGanasteCard cardSaldo;
-    @BindView(R.id.txt_name_user)
-    StyleTextView txtNameUser;
-    @BindView(R.id.txt_saldo)
-    MontoTextView txtSaldo;
-    @BindView(R.id.txt_date_updated)
-    StyleTextView txtDateUpdated;
+    @BindView(R.id.txtUserName)
+    StyleTextView txtUserName;
+    @BindView(R.id.cardBalanceAdq)
+    YaGanasteCard cardBalanceAdq;
+    @BindView(R.id.txtSaldoPersonal)
+    MontoTextView txtSaldoPersonal;
+    @BindView(R.id.txtBalanceReembolsar)
+    MontoTextView txtBalanceReembolsar;
+    @BindView(R.id.txtDateLastUpdate)
+    StyleTextView txtDateLastUpdate;
     @BindView(R.id.btnGoToLogin)
-    Button goToLogin;
-    @BindView(R.id.swipe_container)
+    Button btnGoToLogin;
+    @BindView(R.id.swipeContainer)
     SwipeRefreshLayout swipeContainer;
+    @BindView(R.id.imgArrowNext)
+    ImageView imgArrowNext;
+
+    private boolean isBalance;
+    private boolean isBalanceAdq;
 
     private AccountPresenterNew accountPresenter;
     private LoginManagerContainerFragment parentFragment;
 
-    public static QuickBalanceFragment newInstance() {
-
+    public static QuickBalanceAdquirenteFragment newInstance() {
+        QuickBalanceAdquirenteFragment fragment = new QuickBalanceAdquirenteFragment();
         Bundle args = new Bundle();
-
-        QuickBalanceFragment fragment = new QuickBalanceFragment();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_quick_balance, container, false);
     }
 
     @Override
@@ -82,21 +83,15 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         parentFragment = (LoginManagerContainerFragment) getParentFragment();
     }
 
+    @Nullable
     @Override
-    public void setMenuVisibility(boolean menuVisible) {
-        super.setMenuVisibility(menuVisible);
-        if (menuVisible) {
-            if (accountPresenter != null) {
-                accountPresenter.setIView(this);
-            }
-        }
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(R.layout.fragment_quick_balance_adquirente, container, false);
     }
-
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
-        super.onViewCreated(view, savedInstanceState);
-        this.mRootView = view;
+        this.rootView = view;
         if (accountPresenter != null) {
             accountPresenter.setIView(this);
         }
@@ -105,60 +100,87 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
     @Override
     public void initViews() {
-        ButterKnife.bind(this, mRootView);
-
-        //mRootView.findViewById(R.id.txt_tarjeta_user_name).setVisibility(View.GONE);
-
-        //txtTarjetaUserName.setVisibility(View.GONE);
-
+        ButterKnife.bind(this, rootView);
         swipeContainer.setOnRefreshListener(this);
-        goToLogin.setOnClickListener(this);
+        btnGoToLogin.setOnClickListener(this);
+        imgArrowNext.setOnClickListener(this);
 
         Preferencias preferencias = App.getInstance().getPrefs();
         if (preferencias.containsData(HAS_SESSION)) {
-
             String cardNumber = preferencias.loadData(CARD_NUMBER);
-            //String cardNumberFormat = StringUtils.ocultarCardNumber(cardNumber);
 
-            cardSaldo.setCardNumber(cardNumber);
-            cardSaldo.setCardDate("02/21");
-            //editNumber.setText(getCreditCardFormat(cardNumberFormat));
-            //txtNameUser.setText(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER)));
-
+            cardBalanceAdq.setCardNumber(cardNumber);
+            cardBalanceAdq.setCardDate("02/21");
 
             if (Build.VERSION.SDK_INT >= 24) {
-                txtNameUser.setText(Html.fromHtml(getString(R.string.bienvenido_usuario,
+                txtUserName.setText(Html.fromHtml(getString(R.string.bienvenido_usuario,
                         preferencias.loadData(NAME_USER)),
                         Html.FROM_HTML_MODE_LEGACY, null, null));
             } else {
-                txtNameUser.setText(Html.fromHtml(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER))));
+                txtUserName.setText(Html.fromHtml(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER))));
             }
 
-
             setData(preferencias.loadData(StringConstants.USER_BALANCE), preferencias.loadData(UPDATE_DATE));
+            setDataAdq(preferencias.loadData(ADQUIRENTE_BALANCE));
         }
     }
 
     private void setData(String balance, String updateDate) {
-        txtSaldo.setText(Utils.getCurrencyValue(balance));
-        txtDateUpdated.setText(updateDate);
+        txtSaldoPersonal.setText(Utils.getCurrencyValue(balance));
+        txtDateLastUpdate.setText(updateDate);
     }
 
-    @Override
-    public void updateBalance(String saldo) {
-        hideLoader();
-        setData(saldo, App.getInstance().getPrefs().loadData(UPDATE_DATE));
-    }
-
-    @Override
-    public void updateBalanceAdq(String saldoAdq) {
-
+    private void setDataAdq(String balaceAdq) {
+        txtBalanceReembolsar.setText(balaceAdq);
     }
 
     @Override
     public void onRefresh() {
         swipeContainer.setRefreshing(false);
         accountPresenter.updateBalance();
+        accountPresenter.updateBalanceAdq();
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnGoToLogin:
+                parentFragment.loadLoginFragment();
+                break;
+            case R.id.imgArrowNext:
+                parentFragment.loadMontoFragment();
+                break;
+        }
+    }
+
+    @Override
+    public void updateBalance(String saldo) {
+        setData(saldo, App.getInstance().getPrefs().loadData(UPDATE_DATE));
+        isBalance = true;
+        hideLoaderBalance();
+    }
+
+    @Override
+    public void updateBalanceAdq(String saldoAdq) {
+        setDataAdq(saldoAdq);
+        isBalanceAdq = true;
+        hideLoaderBalance();
+    }
+
+    private void hideLoaderBalance() {
+        if (isBalance && isBalanceAdq) {
+            hideLoader();
+        }
+    }
+
+    @Override
+    public void nextScreen(String event, Void data) {
+
+    }
+
+    @Override
+    public void backScreen(String event, Void data) {
+
     }
 
     @Override
@@ -174,24 +196,5 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     @Override
     public void showError(Void error) {
         throw new IllegalCallException("this method is not implemented yet");
-    }
-
-    @Override
-    public void nextScreen(String event, Void data) {
-
-    }
-
-    @Override
-    public void backScreen(String event, Void data) {
-
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnGoToLogin:
-                parentFragment.loadLoginFragment();
-                break;
-        }
     }
 }

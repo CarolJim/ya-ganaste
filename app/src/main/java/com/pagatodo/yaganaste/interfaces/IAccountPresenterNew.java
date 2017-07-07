@@ -1,28 +1,42 @@
 package com.pagatodo.yaganaste.interfaces;
 
-import com.pagatodo.yaganaste.interfaces.enums.AccountOperation;
-
 /**
  * Created by flima on 22/03/2017.
  */
 
 public interface IAccountPresenterNew {
 
-    public void validateEmail(String usuario);
-    public void updateUserInfo();
-    public void login(String usuario, String password);
-    public void logout();
-    public void checkCardAssigment(String numberCard);
-    public void validatePasswordFormat(String password);
-    public void createUser();
-    public void validatePersonData();
-    public void getNeighborhoods(String zipCode);
-    public void assignAccount();
-    public void assignNIP(String nip);
-    public void gerNumberToSMS();
-    public void doPullActivationSMS(String message);
-    public void recoveryPassword(String email);
+    void validateEmail(String usuario);
+
+    void updateUserInfo();
+
+    void login(String usuario, String password);
+
+    void logout();
+
+    void checkCardAssigment(String numberCard);
+
+    void validatePasswordFormat(String password);
+
+    void createUser();
+
+    void validatePersonData();
+
+    void getNeighborhoods(String zipCode);
+
+    void assignAccount();
+
+    void assignNIP(String nip);
+
+    void gerNumberToSMS();
+
+    void doPullActivationSMS(String message);
+
+    void recoveryPassword(String email);
+
     void updateBalance();
+
+    void updateBalanceAdq();
 
 
 }
