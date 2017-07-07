@@ -571,9 +571,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             @Override
             public void actionConfirm(Object... params) {
                 // Toast.makeText(getContext(), "Click CERRAR SESSION", Toast.LENGTH_SHORT).show();
-                if (message.equals(Recursos.MESSAGE_OPEN_SESSION2)) {
-                    onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
-                }
             }
 
             @Override

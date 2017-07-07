@@ -312,6 +312,9 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         CargaDocumentosResponse data = (CargaDocumentosResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
             accountManager.onSucces(ACTUALIZAR_DOCUMENTOS, data.getMensaje());
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            // TODO FRANK Verificar el flujo para ver que responda sin errores
+            iSessionExpired.errorSessionExpired(response);
         } else {
             accountManager.onError(ACTUALIZAR_DOCUMENTOS, "error" + data.getMensaje());
         }
@@ -374,7 +377,8 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             } else {
                 accountManager.onError(response.getWebService(), "No se pudo recuperar el estatus de los documentos");
             }
-
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            iSessionExpired.errorSessionExpired(response);
         } else {
             accountManager.onError(response.getWebService(), "error " + data.getMensaje());
 
