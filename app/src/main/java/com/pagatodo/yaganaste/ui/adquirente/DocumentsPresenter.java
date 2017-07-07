@@ -26,4 +26,5 @@ public abstract class DocumentsPresenter extends GenericPresenterMain<IPreferUse
     public void setIView(IPreferUserGeneric iPreferUserGeneric) {
         super.setIView(iPreferUserGeneric);
     }
+
 }

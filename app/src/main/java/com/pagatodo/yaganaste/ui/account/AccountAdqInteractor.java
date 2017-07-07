@@ -33,6 +33,8 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
+import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -75,10 +77,12 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     private IAccountManager accountManager;
     private Context context;
     Drawable mDrawable = null;
+    INavigationView iSessionExpired;
 
-    public AccountAdqInteractor(IAccountManager accountManager, Context ctx) {
+    public AccountAdqInteractor(IAccountManager accountManager, Context ctx, INavigationView iSessionExpired) {
         this.accountManager = accountManager;
         context = ctx;
+        this.iSessionExpired = iSessionExpired;
     }
 
     /***
@@ -325,7 +329,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             actualizaEstatusUsuario();
             accountManager.onSucces(CARGA_DOCUMENTOS, "Envio de documentos");
         } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
-          //  accountManager.errorSessionExpired(response);
+            iSessionExpired.errorSessionExpired(response);
         } else {
             accountManager.onError(CARGA_DOCUMENTOS, data.getMensaje());
         }

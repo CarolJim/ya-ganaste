@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountPresenter;
 import com.pagatodo.yaganaste.interfaces.IAdqRegisterView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
+import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.adquirente.DocumentsPresenter;
@@ -43,7 +44,8 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
  * Created by flima on 22/03/2017.
  */
 
-public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccountPresenter, IAccountManager {
+public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccountPresenter,
+        IAccountManager {
     private static final String TAG = AccountAdqPresenter.class.getName();
     private IAdqAccountIteractor adqIteractor;
     private INavigationView iAdqView;
@@ -53,8 +55,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     public AccountAdqPresenter(INavigationView iAdqView, Context ctx) {
         this.iAdqView = iAdqView;
         context = ctx;
-        adqIteractor = new AccountAdqInteractor(this, ctx);
-        setIView((IPreferUserGeneric) iAdqView);
+        adqIteractor = new AccountAdqInteractor(this, ctx, iAdqView);
     }
 
     @Override
