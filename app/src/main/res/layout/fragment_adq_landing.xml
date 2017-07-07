@@ -10,35 +10,48 @@
         android:id="@+id/tutorialPage1"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingTop="56dp"
         android:background="@color/landingTransparent"
+        android:paddingTop="56dp"
         android:visibility="gone">
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
+            android:layout_marginEnd="50dp"
             android:layout_marginRight="50dp"
             android:layout_marginTop="60dp"
-            android:orientation="vertical">
-
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@mipmap/arrow_up" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
-                android:id="@+id/text1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="El saldo que te\nreembolsaremos\nal dia siguiente "
-                android:textSize="30sp"
-                app:font_type="angelina" />
+            android:orientation="vertical"
+            android:id="@+id/linearLayout">
 
         </LinearLayout>
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:text="@string/landing_adq_saldo_reembolso"
+            android:textColor="@color/whiteColor"
+            android:textSize="@dimen/landing_text"
+            app:font_type="Bupkis"
+            android:layout_alignTop="@+id/linearLayout"
+            android:layout_centerHorizontal="true" />
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:rotation="90"
+            android:padding="@dimen/margin_small"
+            android:src="@mipmap/flecha_couchmark"
+            android:layout_marginTop="34dp"
+            android:layout_alignParentTop="true"
+            android:layout_toRightOf="@+id/text1"
+            android:layout_toEndOf="@+id/text1" />
 
 
     </RelativeLayout>
@@ -47,9 +60,12 @@
         android:id="@+id/tutorialPage2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:paddingBottom="56dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/tutorialPage1"
+        android:layout_toRightOf="@+id/tutorialPage1"
         android:background="@color/landingTransparent"
         android:gravity="bottom"
+        android:paddingBottom="56dp"
         android:visibility="gone">
 
         <LinearLayout
@@ -67,21 +83,26 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:layout_marginLeft="50dp"
+                    android:layout_marginStart="50dp"
                     android:gravity="center"
-                    android:text="En Azul, tus Cobros\nPendientes de Reembolso"
-                    android:textSize="30sp"
-                    app:font_type="angelina" />
+                    android:text="@string/landing_adq_azul"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="@dimen/landing_text"
+                    app:font_type="Bupkis" />
 
                 <ImageView
                     android:id="@+id/imageView2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_toRightOf="@id/text2"
-                    android:rotation="320"
-                    android:scaleX="1"
-                    android:src="@mipmap/arrow_down" />
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="11dp"
+                    android:layout_toEndOf="@+id/text2"
+                    android:layout_toRightOf="@+id/text2"
+                    android:rotation="60"
+                    android:scaleX="-1"
+                    android:src="@mipmap/flecha_couchmark" />
 
 
             </RelativeLayout>
@@ -105,22 +126,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignParentTop="true"
                     android:layout_gravity="center"
-                    android:layout_marginLeft="50dp"
-                    android:text="En Verde, Los Que Ya\n Te Reembolsamos"
-                    android:textSize="30sp"
-                    app:font_type="angelina" />
+                    android:layout_marginLeft="51dp"
+                    android:layout_marginStart="51dp"
+                    android:gravity="center"
+                    android:text="@string/landing_adq_verdes"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="@dimen/landing_text"
+                    app:font_type="Bupkis" />
 
 
                 <ImageView
                     android:id="@+id/imageView4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_toRightOf="@id/text3"
-                    android:rotation="320"
+                    android:layout_centerVertical="true"
+                    android:layout_toEndOf="@+id/text3"
+                    android:layout_toRightOf="@+id/text3"
+                    android:rotation="160"
                     android:scaleX="1"
-                    android:src="@mipmap/arrow_down" />
+                    android:src="@mipmap/flecha_couchmark" />
 
             </RelativeLayout>
         </LinearLayout>
@@ -141,21 +168,28 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
+                    android:layout_alignParentStart="true"
                     android:layout_marginLeft="50dp"
-                    android:text="Y En Rojo, Los Que Ya\nTe Reembolsamos"
-                    android:textSize="30sp"
-                    app:font_type="angelina" />
+                    android:layout_marginStart="50dp"
+                    android:gravity="center"
+                    android:text="@string/landing_adq_rojos"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="@dimen/landing_text"
+                    app:font_type="Bupkis" />
 
 
                 <ImageView
                     android:id="@+id/image3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="24dp"
-                    android:layout_toRightOf="@id/text4"
-                    android:rotation="140"
-                    android:scaleX="1"
-                    android:src="@mipmap/arrow_up" />
+                    android:layout_alignParentTop="true"
+                    android:layout_marginTop="10dp"
+                    android:layout_toEndOf="@+id/text4"
+                    android:layout_toRightOf="@+id/text4"
+                    android:padding="@dimen/margin_small"
+                    android:rotation="80"
+                    android:scaleX="-1"
+                    android:src="@mipmap/flecha_couchmark" />
 
             </RelativeLayout>
         </LinearLayout>

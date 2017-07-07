@@ -63,6 +63,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_PIN;
 import static com.pagatodo.yaganaste.utils.Recursos.REQUEST_TIME;
 import static com.pagatodo.yaganaste.utils.Recursos.SW_ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.SW_TIMEOUT;
+import static com.pagatodo.yaganaste.utils.StringConstants.ID_CUENTA;
 
 
 /**
@@ -348,8 +349,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         TransactionAdqData currentTransaction = TransactionAdqData.getCurrentTransaction();
         SingletonUser currentUser = SingletonUser.getInstance();
 //        request.setAccountDepositData(getCurrentDatesAccountDepositData(currentTransaction.getDescription()));
-        request.setAccountDepositData(new AccountDepositData(String.valueOf(SingletonUser.
-                getInstance().getDataUser().getUsuario().getCuentas().get(0).getIdCuenta()),
+        request.setAccountDepositData(new AccountDepositData(App.getInstance().getPrefs().loadData(ID_CUENTA),
                 currentTransaction.getDescription()));
         request.setAmount(currentTransaction.getAmount());
         request.setImplicitData(getImplicitData());

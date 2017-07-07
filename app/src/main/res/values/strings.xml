@@ -163,6 +163,7 @@
     <string name="activate_now">¡ACTÍVALA YA SIN COSTO!</string>
     <string name="txt_escribe_tu_pass">Ingresa tu Contraseña</string>
     <string name="txt_login">INGRESAR</string>
+    <string name="txt_iniciar_sesion">Iniciar Sesión</string>
     <string name="recover_pass">¿Olvidaste tu Contraseña?</string>
     <string name="ingress_mail_to_recover_pass">Ingresa el Correo Electrónico\ncon el que Registraste tu\nCuenta Ya Ganaste</string>
     <string name="txt_mail">Correo Electrónico</string>
@@ -374,6 +375,7 @@
     <string name="transfer_phone">Número de Teléfono</string>
     <string name="transfer_cable">Cuenta CABLE</string>
     <string name="saldo_pendiente">Saldo Pendiente\n de Reembolso</string>
+    <string name="saldo_reembolso">Saldo a Reembolsar</string>
     <string name="saldo_en_cuenta">Saldo en Cuenta</string>
     <string name="saldo_personal">Saldo Personal:</string>
 
@@ -448,7 +450,7 @@
 
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
     <string name="tienes_cuenta2">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
-    <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01-800-500-1000\n informes@yaganaste.com</string>
+    <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01-800-500-1000\n contacto@yaganaste.com</string>
     <string name="documents_comprobantes">CFE,Teléfono,Agua(No mayor a 3 meses)</string>
     <string name="documents_vigentes">Credencial de Elector o Pasaporte</string>
 
@@ -527,6 +529,9 @@
     <string name="desea_cacelar">¿Deseas Salir y Cancelar la Operación Actual?</string>
 
     <string name="no_sucursales">No existen sucursales en tu área.</string>
+    <string name="buscar_sucursal">Buscar  Sucursal</string>
+
+    <string name="cancelada">Cancelada</string>
 
     <!-- PreferUSerActivity -->
     <string name="listaopciones_load_image_wait">Cargando Imagen. Por Favor, Espere</string>
@@ -571,6 +576,19 @@
     <string name="datos_deposito_clabe">CLABE:</string>
     <string name="datos_deposito_donde_depos">¿Dónde Depositar?</string>
 
+    <!-- Landing -->
+    <string name="landing_emisor_saldo_disponible">Tu Saldo Disponible</string>
+    <string name="landing_emisor_movimientos_cuenta">Los Movimientos\n de Tu Cuenta</string>
+    <string name="landing_emisor_cobros_tarjeta">Tus Cobros Con\nTarjeta</string>
+    <string name="landing_emisor_recarga_movimientos">Recarga Tu Celular, Paga tus\nServicios u Envía Dinero a\nQuien Quieras</string>
+    <string name="landing_emisor_opciones_deposito">Aquí te Damos Todas Las\nOpciones Para Depositar\nDinero a tu Cuenta</string>
+    <string name="landing_emisor_activa_lector">Activa tu Lector Para Hacer\nCobros con Tarjetas de Crédito\ny Débito</string>
+    <string name="landing_emisor_configura_cuenta">Y aquí, Configura\ntu Cuenta</string>
+
+    <string name="landing_adq_saldo_reembolso">El saldo que te\nreembolsaremos\nal dia siguiente</string>
+    <string name="landing_adq_azul">En Azul, tus Cobros\nPendientes de Reembolso</string>
+    <string name="landing_adq_verdes">En Verde, Los Que Ya\n Te Reembolsamos</string>
+    <string name="landing_adq_rojos">Y En Rojo, Los Cobros\nque Cancelaste</string>
 </resources>
 
 

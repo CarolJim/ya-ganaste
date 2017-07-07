@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.utils.customviews.yaganasteviews;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
@@ -12,11 +13,11 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.utils.DimUtils;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
-import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 
 /**
  * @author Juan Guerra on 05/04/2017.
@@ -141,17 +142,17 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
         LinearLayout.LayoutParams llEmisorBorederContainerParams = (LinearLayout.LayoutParams)llEmisorBorderContainer.getLayoutParams();
         llEmisorBorederContainerParams.weight = 2.5f - offset;
-        llEmisorBorederContainerParams.rightMargin = DimUtils.convertDpToPixels(-3 * offset);
+        llEmisorBorederContainerParams.rightMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
         llEmisorBorderContainer.setLayoutParams(llEmisorBorederContainerParams);
 
         if (offset <= 0.0) {
-            viewEmisorBorder.setBackgroundResource(R.drawable.adq_em_big_tab);
+            viewEmisorBorder.setBackgroundResource(R.drawable.tab_selected_em_ad);
             viewEmisorBorder.setRotationY(0);
             llMaterialEmisorContainer.removeAllViews();
             llMaterialEmisorContainer.addView(cardEmisorSelected,
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         } else if (offset >= 1.0){
-            viewEmisorBorder.setBackgroundResource(R.drawable.adq_em_small_tab);
+            viewEmisorBorder.setBackgroundResource(R.drawable.tab_unselected_em_ad);
             viewEmisorBorder.setRotationY(180);
             llMaterialEmisorContainer.removeAllViews();
             llMaterialEmisorContainer.addView(cardEmisor,
@@ -160,16 +161,18 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
         LinearLayout.LayoutParams llAdquirenteBorderContainerParams = (LinearLayout.LayoutParams)llAdquirenteBorderContainer.getLayoutParams();
         llAdquirenteBorderContainerParams.weight = 1.5f + offset;
-        llAdquirenteBorderContainerParams.leftMargin = DimUtils.convertDpToPixels(-3 * (1 - offset));
+        llAdquirenteBorderContainerParams.leftMargin = (int)(getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * (1 - offset));
         llAdquirenteBorderContainer.setLayoutParams(llAdquirenteBorderContainerParams);
 
         if (offset <= 0) {
-            viewAdquirenteBorder.setBackgroundResource(R.drawable.adq_em_small_tab);
+            viewAdquirenteBorder.setBackgroundResource(R.drawable.tab_unselected_em_ad);
+            viewAdquirenteBorder.setRotationY(0);
             llMaterialAdquirenteContainer.removeAllViews();
             llMaterialAdquirenteContainer.addView(cardAdq,
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         } else if (offset >= 1){
-                viewAdquirenteBorder.setBackgroundResource(R.drawable.adq_em_big_tab);
+                viewAdquirenteBorder.setBackgroundResource(R.drawable.tab_selected_em_ad);
+            viewAdquirenteBorder.setRotationY(180);
                 llMaterialAdquirenteContainer.removeAllViews();
                 llMaterialAdquirenteContainer.addView(cardAdqSel,
                         new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
@@ -178,22 +181,22 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
         LinearLayout.LayoutParams llContentParentEmisorParams = (LinearLayout.LayoutParams)llContentParentEmisor.getLayoutParams();
         llContentParentEmisorParams.weight = 2.5f - offset;
-        llContentParentEmisorParams.leftMargin = DimUtils.convertDpToPixels(-3 * offset);
+        llContentParentEmisorParams.leftMargin = (int)(getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
         llContentParentEmisor.setLayoutParams(llContentParentEmisorParams);
 
         LinearLayout.LayoutParams llMaterialEmisorContainerParams = (LinearLayout.LayoutParams)llMaterialEmisorContainer.getLayoutParams();
         llMaterialEmisorContainerParams.weight = 1.25f + 0.75f * (1 - offset);
-        llMaterialEmisorContainerParams.leftMargin = DimUtils.convertDpToPixels(-3 * offset);
+        llMaterialEmisorContainerParams.leftMargin = (int)(getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
         llMaterialEmisorContainer.setLayoutParams(llMaterialEmisorContainerParams);
 
         LinearLayout.LayoutParams llContentParentAdquirenteParams = (LinearLayout.LayoutParams)llContentParentAdquirente.getLayoutParams();
         llContentParentAdquirenteParams.weight = 1.5f + offset;
-        llContentParentAdquirenteParams.leftMargin = DimUtils.convertDpToPixels(-3 * offset);
+        llContentParentAdquirenteParams.leftMargin = (int)(getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
         llContentParentAdquirente.setLayoutParams(llContentParentAdquirenteParams);
 
         LinearLayout.LayoutParams llMaterialAdquirenteContainerParams = (LinearLayout.LayoutParams)llMaterialAdquirenteContainer.getLayoutParams();
         llMaterialAdquirenteContainerParams.weight = 1.25f + 0.75f * offset;
-        llMaterialAdquirenteContainerParams.leftMargin = DimUtils.convertDpToPixels(-3 * (1 - offset));
+        llMaterialAdquirenteContainerParams.leftMargin = (int)(getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * (1 - offset));
         llMaterialAdquirenteContainer.setLayoutParams(llMaterialAdquirenteContainerParams);
 
     }

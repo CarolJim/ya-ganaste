@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountAddressRegisterView;
@@ -248,6 +249,12 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
     }
 
     @Override
+    public void updateBalanceAdq() {
+        this.accountView.showLoader(context.getString(R.string.actualizando_saldo));
+        accountIteractor.getBalanceAdq();
+    }
+
+    @Override
     public void hideLoader() {
         accountView.hideLoader();
     }
@@ -318,8 +325,15 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
     public void onSuccesBalance(ConsultarSaldoResponse response) {
         App.getInstance().getPrefs().saveData(StringConstants.USER_BALANCE, response.getData().getSaldo());
         App.getInstance().getPrefs().saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
-        this.accountView.hideLoader();
+        //this.accountView.hideLoader();
         ((IBalanceView) this.accountView).updateBalance(response.getData().getSaldo());
+    }
+
+    @Override
+    public void onSuccesBalanceAdq(ConsultaSaldoCupoResponse response) {
+        App.getInstance().getPrefs().saveData(StringConstants.ADQUIRENTE_BALANCE, response.getSaldo());
+        //this.accountView.hideLoader();
+        ((IBalanceView) this.accountView).updateBalanceAdq(response.getSaldo());
     }
 
 }

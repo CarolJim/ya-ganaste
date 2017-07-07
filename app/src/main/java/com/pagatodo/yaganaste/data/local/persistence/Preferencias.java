@@ -79,10 +79,12 @@ public class Preferencias {
 
     public void saveDataInt(String key, int data) {
         SharedPreferences.Editor editor = this.preferences.edit();
-        String stringData = Integer.toString(data);
-        editor.putString(key, stringData);
+        editor.putInt(key, data);
         editor.commit();
     }
 
+    public int loadDataInt(String key) {
+        return this.preferences.getInt(key, -1);
+    }
 }
 

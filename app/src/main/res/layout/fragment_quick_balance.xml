@@ -1,52 +1,70 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.v4.widget.SwipeRefreshLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/swipe_container"
     android:layout_width="match_parent"
     android:layout_height="match_parent">
 
-    <FrameLayout
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:layout_marginLeft="@dimen/activity_horizontal_margin"
-    android:layout_marginRight="@dimen/activity_horizontal_margin">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/txt_name_user"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/bienvenido_usuario"
-                android:textColor="@color/bluecolor_disable"
-                android:layout_marginTop="@dimen/activity_horizontal_double_margin"
-                android:textSize="18sp" />
-
-        </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
 
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:gravity="center_vertical">
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-            <include
-                android:layout_width="match_parent"
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/img_arrow_previous"
+                android:layout_width="@dimen/activity_horizontal_double_margin"
+                android:layout_height="@dimen/activity_horizontal_double_margin"
+                android:foreground="?attr/selectableItemBackground"
+                android:rotationY="180"
+                android:visibility="invisible"
+                app:srcCompat="@drawable/arrow_canvas_blue" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
+
+            <ImageView
+                android:id="@+id/imgArrowNext"
+                android:layout_width="@dimen/activity_horizontal_double_margin"
+                android:layout_height="@dimen/activity_horizontal_double_margin"
+                android:foreground="?attr/selectableItemBackground"
+                app:srcCompat="@drawable/arrow_canvas_blue" />
+
+        </LinearLayout>
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txt_name_user"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:gravity="center"
+            android:text="@string/bienvenido_usuario"
+            android:textColor="@color/bluecolor_disable"
+            android:textSize="18sp" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerInParent="true"
+            android:orientation="vertical">
+
+            <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
+                android:id="@+id/cardSaldo"
+                android:layout_width="150dp"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="@dimen/activity_horizontal_margin"
-                android:layout_marginRight="@dimen/activity_horizontal_margin"
-                layout="@layout/layout_ya_card"/>
+                android:layout_gravity="center" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtMessageCard"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/radioHasCard"
                 android:layout_marginBottom="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:gravity="center"
@@ -60,7 +78,7 @@
                 android:gravity="center"
                 android:text="00"
                 android:textAlignment="center"
-                android:textSize="22sp"
+                android:textSize="16sp"
                 app:dotBottom="false"
                 app:symbolSmaller="true" />
 
@@ -68,16 +86,49 @@
                 android:id="@+id/txt_date_updated"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/radioHasCard"
                 android:layout_marginBottom="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:gravity="center"
                 android:text="Actualizado el 15/Jun/2017 24:24:59"
                 android:textSize="@dimen/text_screen_size_normal" />
-
         </LinearLayout>
 
-    </FrameLayout>
+        <LinearLayout
+            android:id="@+id/layoutBtns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"
+            android:clickable="true"
+            android:inputType="textPassword"
+            android:orientation="horizontal">
 
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5">
+
+            </LinearLayout>
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnGoToLogin"
+                style="@style/buttonSquareRoundedBlue"
+                android:layout_width="match_parent"
+                android:layout_height="@dimen/height_btns"
+                android:gravity="center"
+                android:text="@string/txt_iniciar_sesion"
+                android:textAllCaps="false"
+                android:textSize="@dimen/generic_button_normal_text_size" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5">
+
+            </LinearLayout>
+        </LinearLayout>
+
+    </RelativeLayout>
 
 </android.support.v4.widget.SwipeRefreshLayout>

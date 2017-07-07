@@ -17,7 +17,7 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
-import com.pagatodo.yaganaste.ui.account.login.LoginContainerFragment;
+import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
 import com.pagatodo.yaganaste.ui.account.login.RecoveryFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsociatePhoneAccountFragment;
@@ -73,7 +73,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     private DatosPersonalesFragment datosPersonalesFragment;
     private DomicilioActualFragment domicilioActualFragment;
     private TienesTarjetaFragment tienesTarjetaFragment;
-    private LoginContainerFragment loginContainerFragment;
+    private LoginManagerContainerFragment loginContainerFragment;
 
     private PermisosFragment permisosFragment;
     private AccountPresenterNew presenterAccount;
@@ -89,7 +89,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
         pref = App.getInstance().getPrefs();
         resetRegisterData();
         presenterAccount = new AccountPresenterNew(this);
-        loginContainerFragment = LoginContainerFragment.newInstance();
+        loginContainerFragment = LoginManagerContainerFragment.newInstance();// LoginContainerFragment.newInstance();
 
         container = (FrameLayout) findViewById(R.id.container);
 
@@ -221,8 +221,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     public void onBackPressed() {
 
         Fragment currentFragment = getCurrentFragment();
-        if (currentFragment instanceof LoginContainerFragment) {
-            finish();
+        if (currentFragment instanceof LoginManagerContainerFragment) {
+            loginContainerFragment.onBackActions();
+            //finish();
         } else if (currentFragment instanceof DatosUsuarioFragment) {
             resetRegisterData();// Eliminamos la información de registro almacenada.
             showDialogOut();

@@ -59,7 +59,7 @@
     <dimen name="radio_btn_radius">22dp</dimen>
     <dimen name="strock_width">1dp</dimen>
 
-    <dimen name="radio_image_pago">85dp</dimen>
+    <dimen name="radio_image_pago">100dp</dimen>
 
     <dimen name="width_icon_error">18dp</dimen>
     <dimen name="height_icon_error">18dp</dimen>
@@ -156,6 +156,11 @@
     <dimen name="custom_validation_edittext_imagelay_width">40dp</dimen>
     <dimen name="custom_validation_edittext_image_width">17dp</dimen>
     <dimen name="custom_validation_edittext_image_height">15dp</dimen>
+
+    <!-- Landing sizes -->
+    <dimen name="landing_text">30sp</dimen>
+
+    <dimen name="size_margin_custom_tabs">-1dp</dimen>
 
 </resources>
 

@@ -47,9 +47,9 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
             public void run() {
                 try {
                     //if (api.isCatalogTableEmpty()) {
-                        ObtenerCatalogoRequest request = new ObtenerCatalogoRequest();
-                        request.setVersion(preferencias.loadData(StringConstants.CATALOG_VERSION));
-                        ApiAdtvo.obtenerCatalogos(request, iRequestResult);
+                    ObtenerCatalogoRequest request = new ObtenerCatalogoRequest();
+                    request.setVersion(preferencias.loadData(StringConstants.CATALOG_VERSION));
+                    ApiAdtvo.obtenerCatalogos(request, iRequestResult);
                     //} else {
                     //    callNextActivity();
                     //}

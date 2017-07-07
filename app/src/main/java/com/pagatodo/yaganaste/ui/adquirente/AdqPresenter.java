@@ -8,6 +8,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adq.CancelaTransacci
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.CancellationData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.SignatureData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
@@ -149,6 +150,11 @@ public class AdqPresenter implements IAdqPresenter, IAccountManager {
 
     @Override
     public void onSuccesBalance(ConsultarSaldoResponse response) {
+
+    }
+
+    @Override
+    public void onSuccesBalanceAdq(ConsultaSaldoCupoResponse response) {
 
     }
 

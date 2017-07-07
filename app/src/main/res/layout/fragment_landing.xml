@@ -1,155 +1,141 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/colorPrimaryAlpha">
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/tutorialPage1"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginLeft="22dp"
+        android:layout_marginStart="22dp"
+        android:layout_marginTop="118dp"
+        android:orientation="vertical"
         android:visibility="gone">
 
-        <LinearLayout
+        <ImageView
+            android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginLeft="22dp"
-            android:layout_marginStart="22dp"
-            android:layout_marginTop="118dp"
-            android:orientation="vertical">
+            android:layout_gravity="center"
+            android:src="@mipmap/flecha_couchmark" />
 
-            <ImageView
-                android:id="@+id/imageView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:src="@mipmap/arrow_up" />
+        <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
+            android:id="@+id/text1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/landing_emisor_saldo_disponible"
+            android:textColor="@color/whiteColor"
+            android:textSize="@dimen/landing_text"
+            app:font_type="Bupkis" />
 
-            <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
-                android:id="@+id/text1"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="Tu Saldo Disponible"
-                android:textSize="30sp"
-                app:font_type="angelina" />
+    </LinearLayout>
 
-        </LinearLayout>
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/tutorialPage2"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_regular"
+        android:orientation="horizontal"
+        android:paddingTop="@dimen/margin_regular"
         android:visibility="gone">
 
+        <Space
+            android:layout_width="20dp"
+            android:layout_height="match_parent" />
+
+        <RelativeLayout
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_marginTop="@dimen/margin_doble">
+
+            <ImageView
+                android:id="@+id/imageView4"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentLeft="true"
+                android:layout_alignParentStart="true"
+                android:layout_centerVertical="true"
+                android:rotation="-90"
+                android:padding="@dimen/margin_small"
+                android:adjustViewBounds="true"
+                android:scaleType="fitXY"
+                android:src="@mipmap/flecha_couchmark" />
+        </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_regular"
-            android:paddingTop="@dimen/margin_regular"
-            android:orientation="horizontal">
-
-            <Space
-                android:layout_width="20dp"
-                android:layout_height="match_parent" />
-
-            <RelativeLayout
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:layout_marginTop="@dimen/margin_doble">
-
-                <ImageView
-                    android:id="@+id/imageView4"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_alignParentLeft="true"
-                    android:layout_centerVertical="true"
-                    android:scaleX="-1"
-                    android:src="@mipmap/arrow_down" />
-            </RelativeLayout>
+            android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
-                        android:id="@+id/text2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:text="Los Movimientos\n de Tu Cuenta"
-                        android:textSize="30sp"
-                        android:layout_marginTop="@dimen/margin_medium"
-                        app:font_type="angelina" />
-
-                    <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
-
-                        <ImageView
-                            android:id="@+id/imageView5"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_alignParentBottom="true"
-                            android:layout_centerHorizontal="true"
-                            android:scaleX="1"
-                            android:scaleY="1"
-                            android:src="@mipmap/arrow_up" />
-                    </RelativeLayout>
-
-
-                </LinearLayout>
+                android:orientation="horizontal">
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
-                    android:id="@+id/text3"
+                    android:id="@+id/text2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_gravity="right"
-                    android:text="Tus Cobros Con\nTarjeta"
-                    android:textSize="30sp"
-                    app:font_type="angelina" />
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="@string/landing_emisor_movimientos_cuenta"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="@dimen/landing_text"
+                    app:font_type="Bupkis" />
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <ImageView
+                        android:id="@+id/imageView5"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentBottom="true"
+                        android:layout_centerHorizontal="true"
+                        android:src="@mipmap/flecha_couchmark" />
+                </RelativeLayout>
+
+
             </LinearLayout>
 
-        </LinearLayout>
-
-
-    </RelativeLayout>
-
-    <RelativeLayout
-        android:id="@+id/tutorialPage3"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone">
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp"
-            android:orientation="vertical">
-
             <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
-                android:id="@+id/text4"
+                android:id="@+id/text3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="Recarga Tu Celular, Paga tus\nServicios u Envía Dinero a\nQuien Quieras"
-                android:textSize="30sp"
-                app:font_type="angelina" />
+                android:layout_gravity="end"
+                android:text="@string/landing_emisor_cobros_tarjeta"
+                android:textColor="@color/whiteColor"
+                android:textSize="@dimen/landing_text"
+                app:font_type="Bupkis" />
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/tutorialPage3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
+            android:id="@+id/text4"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/landing_emisor_recarga_movimientos"
+            android:textColor="@color/whiteColor"
+            android:textSize="@dimen/landing_text"
+            app:font_type="Bupkis" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -166,123 +152,117 @@
                 android:id="@+id/imageView6"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:layout_alignParentBottom="true"
-                android:layout_centerHorizontal="true"
                 android:layout_gravity="center"
-                android:scaleX="-1"
-                android:src="@mipmap/arrow_down" />
+                android:layout_weight="1"
+                android:rotation="240"
+                android:padding="@dimen/margin_small"
+                android:src="@mipmap/flecha_couchmark" />
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="2" />
-            </LinearLayout>
-
         </LinearLayout>
 
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/tutorialPage4"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical"
         android:visibility="gone">
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
+            android:id="@+id/text5"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/landing_emisor_opciones_deposito"
+            android:textColor="@color/whiteColor"
+            android:textSize="@dimen/landing_text"
+            app:font_type="Bupkis" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:weightSum="4">
 
-            <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
-                android:id="@+id/text5"
-                android:layout_width="wrap_content"
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2" />
+
+            <ImageView
+                android:id="@+id/imageVie7"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="Aquí te Damos Todas Las\nOpciones Para Depositar\nDinero a tu Cuenta"
-                android:textSize="30sp"
-                app:font_type="angelina" />
+                android:layout_weight="1"
+                android:scaleX="-1"
+                android:rotation="100"
+                android:padding="@dimen/margin_small"
+                android:src="@mipmap/flecha_couchmark" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="4">
-
-                <android.support.v4.widget.Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2" />
-
-                <ImageView
-                    android:id="@+id/imageVie7"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1"
-                    android:src="@mipmap/arrow_down" />
-
-                <android.support.v4.widget.Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="1" />
-            </LinearLayout>
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
-    <RelativeLayout
+    <LinearLayout
         android:id="@+id/tutorialPage5"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="50dp"
+        android:orientation="vertical"
         android:visibility="gone">
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
+            android:id="@+id/text6"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:text="@string/landing_emisor_activa_lector"
+            android:textColor="@color/whiteColor"
+            android:textSize="@dimen/landing_text"
+            app:font_type="Bupkis" />
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="50dp"
-            android:orientation="vertical">
+            android:orientation="horizontal"
+            android:weightSum="4">
 
-            <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
-                android:id="@+id/text6"
-                android:layout_width="wrap_content"
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="2.5" />
+
+            <ImageView
+                android:id="@+id/imageVie8"
+                android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:gravity="center"
-                android:text="Activa tu Lector Para Hacer\nCobros con Tarjetas de Crédito\ny Débito"
-                android:textSize="30sp"
-                app:font_type="angelina" />
+                android:layout_weight="1.5"
+                android:rotation="100"
+                android:scaleX="-1"
+                android:padding="@dimen/margin_small"
+                android:src="@mipmap/flecha_couchmark" />
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
-                android:weightSum="4">
-
-                <android.support.v4.widget.Space
-                    android:layout_width="0dp"
-                    android:layout_height="match_parent"
-                    android:layout_weight="2.5" />
-
-                <ImageView
-                    android:id="@+id/imageVie8"
-                    android:layout_width="0dp"
-                    android:layout_height="wrap_content"
-                    android:layout_weight="1.5"
-                    android:src="@mipmap/arrow_down" />
-
-            </LinearLayout>
         </LinearLayout>
-    </RelativeLayout>
+    </LinearLayout>
 
     <RelativeLayout
         android:id="@+id/tutorialPage6"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone">
-
 
         <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
             android:id="@+id/text7"
@@ -293,9 +273,10 @@
             android:layout_gravity="center"
             android:layout_marginTop="23dp"
             android:gravity="center"
-            android:text="Y aquí, Configura\ntu Cuenta"
-            android:textSize="30sp"
-            app:font_type="angelina" />
+            android:text="@string/landing_emisor_configura_cuenta"
+            android:textColor="@color/whiteColor"
+            android:textSize="@dimen/landing_text"
+            app:font_type="Bupkis" />
 
         <ImageView
             android:id="@+id/imageVie9"
@@ -304,10 +285,11 @@
             android:layout_alignParentEnd="true"
             android:layout_alignParentRight="true"
             android:layout_alignParentTop="true"
-            android:layout_marginTop="28dp"
+            android:layout_marginTop="25dp"
+            android:layout_toEndOf="@+id/text7"
             android:layout_toRightOf="@+id/text7"
             android:rotation="90"
-            android:src="@mipmap/arrow_up" />
+            android:src="@mipmap/flecha_couchmark" />
 
 
     </RelativeLayout>

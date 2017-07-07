@@ -209,7 +209,7 @@ public class TransactionResultFragment extends GenericFragment implements View.O
                 button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
                 break;
             default:
-                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded_square_blue));
+                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.button_rectangle_blue_selector));
                 button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
                 break;
         }
