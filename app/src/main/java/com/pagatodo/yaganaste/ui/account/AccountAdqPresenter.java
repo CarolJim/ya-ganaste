@@ -7,6 +7,7 @@ import android.view.View;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
@@ -21,6 +22,7 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.adquirente.DocumentsPresenter;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.UI;
 
 import java.util.ArrayList;
@@ -52,8 +54,13 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
         this.iAdqView = iAdqView;
         context = ctx;
         adqIteractor = new AccountAdqInteractor(this, ctx);
+        setIView((IPreferUserGeneric) iAdqView);
     }
 
+    @Override
+    public void setIView(IPreferUserGeneric iPreferUserGeneric) {
+        super.setIView(iPreferUserGeneric);
+    }
 
     @Override
     public void goToNextStepAccount(String event, Object data) {
@@ -158,6 +165,4 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     public void setEstatusDocs(View rootview, List<EstatusDocumentosResponse> data) {
         adqIteractor.setListDocuments(rootview, data);
     }
-
-
 }

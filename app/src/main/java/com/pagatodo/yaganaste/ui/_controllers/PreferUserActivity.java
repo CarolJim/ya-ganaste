@@ -31,7 +31,7 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 
-public class PreferUserActivity extends LoaderActivity implements OnEventListener {
+public class PreferUserActivity extends LoaderActivity implements OnEventListener  {
 
     private boolean isEsAgente;
     private String mName, mEmail, mUserImage;
@@ -105,7 +105,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         @Override
         public void actionConfirm(Object... params) {
             setResult(ToolBarActivity.RESULT_LOG_OUT);
-            mPreferPresenter.closeSession(mContext);
+           // mPreferPresenter.closeSession(mContext);
            // finish();
         }
 

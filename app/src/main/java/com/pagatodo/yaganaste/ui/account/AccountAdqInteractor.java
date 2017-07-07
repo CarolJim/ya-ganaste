@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocume
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
@@ -54,6 +55,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMEN
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
@@ -322,6 +324,8 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         if (data.getCodigoRespuesta() == CODE_OK) {
             actualizaEstatusUsuario();
             accountManager.onSucces(CARGA_DOCUMENTOS, "Envio de documentos");
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+          //  accountManager.errorSessionExpired(response);
         } else {
             accountManager.onError(CARGA_DOCUMENTOS, data.getMensaje());
         }

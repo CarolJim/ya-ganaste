@@ -15,6 +15,7 @@ import android.webkit.WebView;
 import android.webkit.WebViewClient;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.interfaces.IProgressView;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
@@ -44,6 +45,11 @@ public class LegalsDialog extends DialogFragment implements IProgressView {
     ProgressLayout progressLayout;
 
     private Legales typeLegal;
+
+    @Override
+    public void errorSessionExpired(DataSourceResult response) {
+
+    }
 
     public enum Legales implements Serializable {
         TERMINOS,

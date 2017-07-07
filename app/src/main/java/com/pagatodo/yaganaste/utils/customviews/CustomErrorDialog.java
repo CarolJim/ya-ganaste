@@ -21,6 +21,7 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 
 import java.lang.reflect.Field;
 import java.util.List;

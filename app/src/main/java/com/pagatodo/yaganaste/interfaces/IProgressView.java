@@ -6,7 +6,7 @@ import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
  * Created by flima on 22/03/2017.
  */
 
-public interface IProgressView<T>  {
+public interface IProgressView<T>  extends ISessionExpired{
 
     //Mostrar Loader personalizado
     public void showLoader(String message);

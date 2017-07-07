@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
@@ -71,7 +72,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class Documentos extends GenericFragment implements View.OnClickListener, IUploadDocumentsView, SwipeRefreshLayout.OnRefreshListener {
+public class Documentos extends GenericFragment implements View.OnClickListener, IUploadDocumentsView,
+        SwipeRefreshLayout.OnRefreshListener {
 
     private static final String TAG = Documentos.class.getSimpleName();
     public static final int REQUEST_TAKE_PHOTO = 10; // Intent para Capturar fotografía

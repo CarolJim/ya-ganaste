@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentSuccessFragment;
@@ -36,7 +37,7 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT;
  * Created by Jordan on 25/04/2017.
  */
 
-public class PaymentsProcessingActivity extends SupportFragmentActivity implements PaymentsProcessingManager {
+public class PaymentsProcessingActivity extends SupportFragmentActivity implements PaymentsProcessingManager, ISessionExpired {
     @BindView(R.id.progressGIF)
     ProgressLayout progressLayout;
     @BindView(R.id.container)
@@ -136,6 +137,9 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
             View root = container.getRootView();
             root.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
             loadFragment(PaymentSuccessFragment.newInstance((Payments) pago, response), NONE, false);
+//        } else if (response.getCodigoRespuesta() == Recursos.CODE_SESSION_EXPIRED) {
+//            hideLoader();
+//            errorSessionExpired(result);
         } else {
             onFailPaimentResponse(result);
         }

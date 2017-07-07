@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui.preferuser.iteractors;
 
 import android.graphics.Bitmap;
-import android.util.Log;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -15,7 +14,9 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAva
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDispositivoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -27,13 +28,14 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVATAR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CAMBIAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.DESASOCIAR_DISPOSITIVO;
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 
 /**
  * Created by Francisco Manzo on 08/06/2017.
  * Iteractor para gestionar los eventos de PreferUSerPresenter
  */
 
-public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult {
+public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult, ISessionExpired {
 
     PreferUserPresenter preferUserPresenter;
     private boolean logOutBefore;
@@ -198,6 +200,8 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
                 preferUserPresenter.successGenericToPresenter(dataSourceResult);
                 // Linea para simular el error y comprobar el Duialog y el ShowProgress
                 //preferUserPresenter.errorGenericToPresenter(dataSourceResult);
+            } else if (((GenericResponse) dataSourceResult.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+                preferUserPresenter.sessionExpiredToPresenter(dataSourceResult);
             } else {
                 //Log.d("ListaOpcionesIteractor", "DataSource Sucess with Error " + response.getMensaje());
                 preferUserPresenter.errorGenericToPresenter(dataSourceResult);
@@ -244,6 +248,14 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
                 //              Log.d("PreferUserIteractor", "DesasociarDispositivoResponse Sucess " + response.getMensaje());
                 preferUserPresenter.successGenericToPresenter(dataSourceResult);
                 logout();
+
+                /**
+                 * Manejamos el codigo CODE_SESSION_EXPIRED haciendo referencia al presenter actual, que a
+                 * su vez, por medio de herencia de GenericPResenterMain, contiene el metodo para
+                 * comunicarse con el GenericFRagment y realizar el proceso de cerrado de la app
+                 */
+            } else if (((GenericResponse) dataSourceResult.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+                preferUserPresenter.sessionExpiredToPresenter(dataSourceResult);
             } else {
 //                Log.d("PreferUserIteractor", "DesasociarDispositivoResponse Sucess with Error " + response.getMensaje());
                 preferUserPresenter.errorGenericToPresenter(dataSourceResult);
@@ -279,5 +291,10 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         String[] urlSplit = mUserImage.split("_");
         String urlEdit = urlSplit[0] + "_M.png";
         return urlEdit;
+    }
+
+    @Override
+    public void errorSessionExpired(DataSourceResult response) {
+      //  super(response);
     }
 }
