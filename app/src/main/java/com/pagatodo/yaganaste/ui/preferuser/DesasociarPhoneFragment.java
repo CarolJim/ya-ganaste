@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
@@ -170,9 +171,6 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
-                        if (mensaje.equals(Recursos.MESSAGE_OPEN_SESSION)) {
-                            onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
-                        }
                     }
 
                     @Override
@@ -182,4 +180,14 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
                 },
                 true, false);
     }
+
+//    /**
+//     * HEredamos este metodo de GenericFRagment, y por medio de la referencia super, comunicamos
+//     * el DataSourceResult para el paso final
+//     * @param response
+//     */
+//    @Override
+//    public void errorSessionExpired(DataSourceResult response) {
+//        super.errorSessionExpired(response);
+//    }
 }

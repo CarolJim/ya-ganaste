@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
@@ -258,6 +259,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
     /**
      * Hacemos Set de la imagen que viene del servidor en la vista final
+     *
      * @param bitmap
      */
     @Override
@@ -290,7 +292,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     }
 
     public void hideLoader() {
-       // progressLayout.setVisibility(GONE);
+        // progressLayout.setVisibility(GONE);
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
     }
 
@@ -299,10 +301,6 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
-                       // Toast.makeText(getContext(), "Click CERRAR SESSION", Toast.LENGTH_SHORT).show();
-                        if (mensaje.equals(Recursos.MESSAGE_OPEN_SESSION)) {
-                            onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
-                        }
                     }
 
                     @Override
@@ -315,5 +313,10 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
     public CameraManager getCameraManager() {
         return cameraManager;
+    }
+
+    @Override
+    public void errorSessionExpired(DataSourceResult dataSourceResult) {
+        super.errorSessionExpired(dataSourceResult);
     }
 }

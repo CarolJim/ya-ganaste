@@ -29,9 +29,12 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.interfaces.IProgressView;
+import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.Recursos;
@@ -71,7 +74,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class Documentos extends GenericFragment implements View.OnClickListener, IUploadDocumentsView, SwipeRefreshLayout.OnRefreshListener {
+public class Documentos extends GenericFragment implements View.OnClickListener, IUploadDocumentsView,
+        SwipeRefreshLayout.OnRefreshListener, IPreferUserGeneric {
 
     private static final String TAG = Documentos.class.getSimpleName();
     public static final int REQUEST_TAKE_PHOTO = 10; // Intent para Capturar fotografía
@@ -128,6 +132,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         super.onCreate(savedInstanceState);
         contador = new ArrayList<>();
         adqPresenter = new AccountAdqPresenter(this, getContext());
+        adqPresenter.setIView(this);
     }
 
     @Override
@@ -566,9 +571,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             @Override
             public void actionConfirm(Object... params) {
                 // Toast.makeText(getContext(), "Click CERRAR SESSION", Toast.LENGTH_SHORT).show();
-                if (message.equals(Recursos.MESSAGE_OPEN_SESSION2)) {
-                    onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
-                }
             }
 
             @Override

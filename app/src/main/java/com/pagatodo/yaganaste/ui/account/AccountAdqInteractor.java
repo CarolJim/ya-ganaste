@@ -29,9 +29,12 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocume
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
+import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -54,6 +57,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMEN
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
@@ -73,10 +77,12 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     private IAccountManager accountManager;
     private Context context;
     Drawable mDrawable = null;
+    INavigationView iSessionExpired;
 
-    public AccountAdqInteractor(IAccountManager accountManager, Context ctx) {
+    public AccountAdqInteractor(IAccountManager accountManager, Context ctx, INavigationView iSessionExpired) {
         this.accountManager = accountManager;
         context = ctx;
+        this.iSessionExpired = iSessionExpired;
     }
 
     /***
@@ -306,6 +312,9 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         CargaDocumentosResponse data = (CargaDocumentosResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
             accountManager.onSucces(ACTUALIZAR_DOCUMENTOS, data.getMensaje());
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            // TODO FRANK Verificar el flujo para ver que responda sin errores
+            iSessionExpired.errorSessionExpired(response);
         } else {
             accountManager.onError(ACTUALIZAR_DOCUMENTOS, "error" + data.getMensaje());
         }
@@ -322,6 +331,8 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         if (data.getCodigoRespuesta() == CODE_OK) {
             actualizaEstatusUsuario();
             accountManager.onSucces(CARGA_DOCUMENTOS, "Envio de documentos");
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            iSessionExpired.errorSessionExpired(response);
         } else {
             accountManager.onError(CARGA_DOCUMENTOS, data.getMensaje());
         }
@@ -366,7 +377,8 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             } else {
                 accountManager.onError(response.getWebService(), "No se pudo recuperar el estatus de los documentos");
             }
-
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            iSessionExpired.errorSessionExpired(response);
         } else {
             accountManager.onError(response.getWebService(), "error " + data.getMensaje());
 

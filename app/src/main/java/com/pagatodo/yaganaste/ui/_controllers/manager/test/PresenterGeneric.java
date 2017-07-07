@@ -4,6 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
@@ -28,7 +29,4 @@ public class PresenterGeneric implements IPresenterGeneric{
         }
     }
 
-    public void setContextTest(Activity mContext) {
-        this.mView = mContext;
-    }
 }
