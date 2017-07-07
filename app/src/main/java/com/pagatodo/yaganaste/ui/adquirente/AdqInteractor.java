@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.FirmaDeVoucherR
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.LoginAdqResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistroDongleResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
@@ -44,6 +45,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_REMOVE
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_ERROR;
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 
 /**
@@ -59,9 +61,12 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     private Preferencias prefs = App.getInstance().getPrefs();
     private int retryLogin = 0;
     private Context context = App.getInstance().getApplicationContext();
+    INavigationView iSessionExpired;
 
-    public AdqInteractor(IAccountManager accountManager) {
+    public AdqInteractor(IAccountManager accountManager, INavigationView iSessionExpired) {
         this.accountManager = accountManager;
+        this.iSessionExpired = iSessionExpired;
+
     }
 
     @Override
@@ -314,7 +319,6 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         RegistroDongleResponse data = (RegistroDongleResponse) response.getData();
         if (data.getId().equals(ADQ_CODE_OK)) {
             accountManager.onSucces(response.getWebService(), data.getMessage());
-        }
 //        else if(data.getId().equals(ADQ_ACCES_DENIED)) { // Acceso no autorizado
 //            if(retryLogin < MAX_REINTENTOS){
 //                retryLogin++;
@@ -325,7 +329,10 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
 //                accountManager.onError(response.getWebService(),data.getMessage());//Retornamos mensaje de error.
 //            }
 //        }
-        else {
+
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            iSessionExpired.errorSessionExpired(response);
+        } else {
             prefs.clearPreference(KSN_LECTOR);
             accountManager.onError(response.getWebService(), data.getMessage());
             //accountManager.onError(response.getWebService(),data.getMessage());//Retornamos mensaje de error.
@@ -337,6 +344,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
      *
      * @param response {@link DataSourceResult} respuesta del servicio
      */
+
     private void processTransactionResult(DataSourceResult response) {
         TransaccionEMVDepositResponse data = (TransaccionEMVDepositResponse) response.getData();
         TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
@@ -404,6 +412,8 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         FirmaDeVoucherResponse data = (FirmaDeVoucherResponse) response.getData();
         if (data.getId().equals(ADQ_CODE_OK)) {
             accountManager.onSucces(response.getWebService(), data.getMessage());
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            iSessionExpired.errorSessionExpired(response);
         } else {
             accountManager.onError(response.getWebService(), data.getMessage());//Retornamos mensaje de error.
         }
@@ -442,6 +452,8 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             result.setPageResult(pageResult);
             result.setTransaccionResponse(new TransaccionEMVDepositResponse());
             accountManager.onSucces(response.getWebService(), data.getMessage());
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            iSessionExpired.errorSessionExpired(response);
         } else {
             accountManager.onError(response.getWebService(), data.getMessage());//Retornamos mensaje de error.
         }

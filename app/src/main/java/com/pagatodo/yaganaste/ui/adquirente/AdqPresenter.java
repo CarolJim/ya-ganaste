@@ -16,7 +16,9 @@ import com.pagatodo.yaganaste.interfaces.IAdqPresenter;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;
 import com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.Utils;
 
@@ -34,7 +36,7 @@ import static com.pagatodo.yaganaste.utils.StringUtils.createTicket;
  * Created by flima on 17/04/2017.
  */
 
-public class AdqPresenter implements IAdqPresenter, IAccountManager {
+public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> implements IAdqPresenter, IAccountManager {
     private String TAG = AdqPresenter.class.getName();
     private IAdqIteractor adqInteractor;
     private INavigationView iAdqView;
@@ -42,7 +44,12 @@ public class AdqPresenter implements IAdqPresenter, IAccountManager {
 
     public AdqPresenter(INavigationView iAdqView) {
         this.iAdqView = iAdqView;
-        this.adqInteractor = new AdqInteractor(this);
+        this.adqInteractor = new AdqInteractor(this, iAdqView);
+    }
+
+    @Override
+    public void setIView(IPreferUserGeneric iPreferUserGeneric) {
+        super.setIView(iPreferUserGeneric);
     }
 
     @Override
