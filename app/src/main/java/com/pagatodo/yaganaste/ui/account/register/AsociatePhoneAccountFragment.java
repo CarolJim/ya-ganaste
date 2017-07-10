@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -40,6 +41,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LO
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 
 
 /**
@@ -187,8 +189,25 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     }
 
     @Override
-    public void showError(Object error) {
-        if (!error.toString().isEmpty()) UI.showToastShort(error.toString(), getActivity());
+    public void showError(final Object error) {
+        if (!error.toString().isEmpty()) {
+          //  UI.showToastShort(error.toString(), getActivity());
+            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+                    new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+                            if (error.toString().equals(Recursos.MESSAGE_OPEN_SESSION)) {
+                                onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
+                            }
+                        }
+
+                        @Override
+                        public void actionCancel(Object... params) {
+
+                        }
+                    },
+                    true, false);
+        }
     }
 
     @Override

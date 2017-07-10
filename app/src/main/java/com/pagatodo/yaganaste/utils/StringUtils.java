@@ -117,9 +117,13 @@ public class StringUtils {
     }
 
     public static String ocultarCardNumberFormat(String cardNumber) {
-        String lastFourNumbers = cardNumber.substring(cardNumber.length() - 4);
         String comodines = "****";
         String separador = " ";
-        return  comodines + separador + comodines + separador + comodines + separador + lastFourNumbers;
+        if(cardNumber.length() > 0) {
+            String lastFourNumbers = cardNumber.substring(cardNumber.length() - 4);
+            return comodines + separador + comodines + separador + comodines + separador + lastFourNumbers;
+        }else{
+            return comodines + separador + comodines + separador + comodines + separador + "1234";
+        }
     }
 }

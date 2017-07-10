@@ -24,6 +24,7 @@ import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
@@ -37,6 +38,7 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_CONFIRM_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 
 /**
  * A simple {@link GenericFragment} subclass.
@@ -112,7 +114,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if(s.toString().length() == 4){
+                if (s.toString().length() == 4) {
                     //keyboardView.hideCustomKeyboard();
                     validateForm();
                 }
@@ -123,7 +125,6 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
             }
         });
-
 
 
         //Si ocamos el area especial del Layout abrimos el Keyboard
@@ -172,7 +173,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
         onValidationSuccess();
     }
 
-    private void showValidationError(Object err){
+    private void showValidationError(Object err) {
         showValidationError(0, err);
     }
 
@@ -225,8 +226,25 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     }
 
     @Override
-    public void showError(Object error) {
-        if(!error.toString().isEmpty())UI.showToastShort(error.toString(), getActivity());
+    public void showError(final Object error) {
+        if (!error.toString().isEmpty()) {
+            //UI.showToastShort(error.toString(), getActivity()); error
+            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+                    new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+                            if (error.toString().equals(Recursos.MESSAGE_OPEN_SESSION)) {
+                                onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
+                            }
+                        }
+
+                        @Override
+                        public void actionCancel(Object... params) {
+
+                        }
+                    },
+                    true, false);
+        }
     }
 
 

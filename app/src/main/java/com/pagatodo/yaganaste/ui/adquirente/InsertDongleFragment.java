@@ -27,6 +27,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoA
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -69,7 +70,8 @@ import static com.pagatodo.yaganaste.utils.StringConstants.ID_CUENTA;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class InsertDongleFragment extends GenericFragment implements View.OnClickListener, IAdqTransactionRegisterView {
+public class InsertDongleFragment extends GenericFragment implements View.OnClickListener,
+        IAdqTransactionRegisterView, IPreferUserGeneric {
 
     private static final String TAG = InsertDongleFragment.class.getSimpleName();
     private View rootview;
@@ -138,6 +140,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         App.getInstance().initEMVListener();// Inicializamos el listener
 
         adqPresenter = new AdqPresenter(this);
+        adqPresenter.setIView(this);
 
         //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
 

@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
 public class UI {
@@ -201,5 +202,4 @@ public class UI {
         customErrorDialog.setCancelable(false);
         customErrorDialog.show(fragmentManager, CustomErrorDialog.class.getSimpleName());
     }
-
 }

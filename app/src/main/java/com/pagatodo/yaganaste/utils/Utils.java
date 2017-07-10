@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.utils;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
@@ -28,6 +29,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.GiroComercio;
+import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -68,6 +70,8 @@ import java.util.regex.Pattern;
 
 import javax.crypto.Cipher;
 
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 
 
@@ -1253,14 +1257,14 @@ public class Utils {
     public static int getTransactionSequence() {
         Preferencias prefs = App.getInstance().getPrefs();
         int value = (Integer.parseInt(prefs.loadData(Recursos.TRANSACTION_SEQUENCE)) + 1) % 1000000;
-        Log.i("IposListener: ","=====>>  transaction  "+value);
+        Log.i("IposListener: ", "=====>>  transaction  " + value);
         prefs.saveData(Recursos.TRANSACTION_SEQUENCE, Integer.toString(value));
         return value;
     }
 
-    public static String cipherRSA(String text){
+    public static String cipherRSA(String text) {
         String result;
-        try{
+        try {
             byte[] expBytes = Base64.decode("AQAB".getBytes("UTF-8"), Base64.DEFAULT);
             byte[] modBytes = Base64.decode(PUBLIC_KEY_RSA.getBytes("UTF-8"), Base64.DEFAULT);
 
@@ -1277,29 +1281,34 @@ public class Utils {
             byte[] encrypted = cipher.doFinal(text.getBytes());
 
             result = Base64.encodeToString(encrypted, Base64.DEFAULT);
-        }
-        catch(Exception e){
+        } catch (Exception e) {
             result = null;
         }
         return result;
     }
 
     /**
-   * Se crea un string dummy para completar el número de tarjeta.
-   * */
-    public static String getCardNumberRamdon(){
+     * Se crea un string dummy para completar el número de tarjeta.
+     */
+    public static String getCardNumberRamdon() {
         Timestamp timestamp = new Timestamp(System.currentTimeMillis());
         String number = String.valueOf(timestamp.getTime());
-        if(number.length() > 10) {
+        if (number.length() > 10) {
             number = number.substring(0, 10);
-            String part1 = number.substring(0,2);
-            String part2 = number.substring(2,6);
-            String part3 = number.substring(6,10); // Armamos el formato de la tarjeta
-            number = String.format("%s %s %s",part1,part2,part3);
+            String part1 = number.substring(0, 2);
+            String part2 = number.substring(2, 6);
+            String part3 = number.substring(6, 10); // Armamos el formato de la tarjeta
+            number = String.format("%s %s %s", part1, part2, part3);
         }
 
-        return  number;
+        return number;
     }
 
 
+    public static void sessionExpired() {
+        Intent intent = new Intent(App.getContext(), MainActivity.class);
+        intent.putExtra(SELECTION, MAIN_SCREEN);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        App.getContext().startActivity(intent);
+    }
 }

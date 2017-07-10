@@ -12,7 +12,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContra
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDispositivoResponse;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
-import com.pagatodo.yaganaste.ui._controllers.manager.test.PresenterGeneric;
+import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyEmailView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassView;
@@ -29,7 +29,7 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
  * Para gestionar todos los eventos de los fragmentos
  */
 
-public class PreferUserPresenter extends PresenterGeneric implements IPreferUserPresenter {
+public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric> implements IPreferUserPresenter {
 
     PreferUserActivity mView;
     IPreferUserIteractor iPreferUserIteractor;
@@ -39,7 +39,7 @@ public class PreferUserPresenter extends PresenterGeneric implements IPreferUser
     IMyPassView iMyPassView;
 
     public PreferUserPresenter(PreferUserActivity mView) {
-        super(mView);
+        // super(mView); Esta linea hace funcionar el PResenterGeneric
         this.mView = mView;
 
         iPreferUserIteractor = new PreferUserIteractor(this);
@@ -52,7 +52,10 @@ public class PreferUserPresenter extends PresenterGeneric implements IPreferUser
      *
      * @param iPreferUserGeneric
      */
+    @Override
     public void setIView(IPreferUserGeneric iPreferUserGeneric) {
+        super.setIView(iPreferUserGeneric);
+
         // Set de  instancia de IListaOpcionesView
         if (iPreferUserGeneric instanceof IListaOpcionesView) {
             iListaOpcionesView = (IListaOpcionesView) iPreferUserGeneric;
@@ -99,6 +102,7 @@ public class PreferUserPresenter extends PresenterGeneric implements IPreferUser
 
     /**
      * Peticion al Iteractor para el servicio que proporciona la foto del servidor
+     *
      * @param mUserImage
      */
     @Override
@@ -108,6 +112,7 @@ public class PreferUserPresenter extends PresenterGeneric implements IPreferUser
 
     /**
      * Recibe el Bitmap procesado, listo para enviarse a la vista
+     *
      * @param bitmap
      */
     @Override
@@ -117,6 +122,7 @@ public class PreferUserPresenter extends PresenterGeneric implements IPreferUser
 
     /**
      * Usamos la instancia del CameraManager para abrir la camara e iniciar el procedimiento
+     *
      * @param i
      * @param cameraManager
      */
@@ -170,6 +176,7 @@ public class PreferUserPresenter extends PresenterGeneric implements IPreferUser
     /**
      * Enviamos al Iteractor la peticion de cambiar el Pass, y armamos el Request. Ademas de mostrar
      * un Loader de carga
+     *
      * @param mPassActual
      * @param mPassNueva
      */
@@ -185,6 +192,7 @@ public class PreferUserPresenter extends PresenterGeneric implements IPreferUser
     /**
      * Exito en la conexion al servidor y procedimiento de Desasociar. Cerrarmos el Loader y enviamos
      * el control a la vista
+     *
      * @param dataSourceResult
      */
     @Override
@@ -197,7 +205,7 @@ public class PreferUserPresenter extends PresenterGeneric implements IPreferUser
             iListaOpcionesView.sendSuccessAvatarToView(response.getMensaje());
         }
 
-      /**
+        /**
          * Instancia de peticion exitosa y operacion exitosa de CambiarEmailResponse
          */
         if (dataSourceResult.getData() instanceof CambiarEmailResponse) {
@@ -264,6 +272,7 @@ public class PreferUserPresenter extends PresenterGeneric implements IPreferUser
     /**
      * Recibe el error del Iteractor y usamos el metodo de sendErrorPassToView para enviar el mensaje
      * de error a nuestra vista iMyPassView, asi no creamos otro metodo adicional en la vista
+     *
      * @param mensaje
      */
     @Override
@@ -274,6 +283,7 @@ public class PreferUserPresenter extends PresenterGeneric implements IPreferUser
     /**
      * Recibe el error del Iteractor y usamos el metodo de sendErrorDesasociarToView para enviar el mensaje
      * de error a nuestra vista iPreferDesasociarView, asi no creamos otro metodo adicional en la vista
+     *
      * @param mensaje
      */
     @Override
@@ -281,7 +291,9 @@ public class PreferUserPresenter extends PresenterGeneric implements IPreferUser
         iPreferDesasociarView.sendErrorDesasociarToView(mensaje);
     }
 
-    /** EXCEPTIONS VARIADOS **/
+    /**
+     * EXCEPTIONS VARIADOS
+     **/
 
     @Override
     public void showExceptionAvatarToPresenter(String mMessage) {
@@ -291,6 +303,7 @@ public class PreferUserPresenter extends PresenterGeneric implements IPreferUser
     /**
      * Exception al enviar el Pass al servicio. Usamos el metodo generico de Pass para enviar los errores
      * sendErrorPassToView
+     *
      * @param mMessage
      */
     @Override
