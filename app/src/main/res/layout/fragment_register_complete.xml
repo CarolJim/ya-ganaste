@@ -49,9 +49,8 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtMessage"
-        style="@style/textDescInputs"
+        style="@style/GenerictextDescInputs"
         android:layout_width="wrap_content"
-        android:textSize="@dimen/text_screen_size_normal"
         android:layout_height="wrap_content"
         android:layout_above="@+id/lnr_buttons"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
@@ -68,7 +67,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextComplete"
-            style="@style/buttonDirecctionNext"
+            style="@style/GenericButtonDirecctionNext"
             android:textSize="@dimen/generic_button_normal_text_size"
             android:layout_width="wrap_content"
             android:text="@string/next" />

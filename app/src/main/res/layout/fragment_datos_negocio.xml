@@ -19,7 +19,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
             android:id="@+id/layoutContent"
-            style="@style/BorderTitleStyle"
+            style="@style/GenericBorderTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/bussinesInfoTitle">
@@ -35,6 +35,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:formato="text"
+                    style="@style/GenericCustomValidationEditText"
                     app:hintText="@string/bussinesName"
                     app:imageIsGone="true"
                     app:isSingleLine="true"
@@ -42,7 +43,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorBussinesNameMessage"
-                    android:layout_width="match_parent"
+                    android:layout_width="match_parent" style="@style/generic_text_style_2"
                     android:layout_height="wrap_content" />
 
                 <Spinner
@@ -56,7 +57,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorBussineLineMessage"
-                    android:layout_width="match_parent"
+                    android:layout_width="match_parent" style="@style/generic_text_style_2"
                     android:layout_height="wrap_content" />
 
                 <Spinner
@@ -71,13 +72,13 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorSubBussineLineMessage"
-                    android:layout_width="match_parent"
+                    android:layout_width="match_parent" style="@style/generic_text_style_2"
                     android:layout_height="wrap_content"
                     android:visibility="gone" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editBussinesPhone"
-                    style="@style/FragmentElementWithValidation"
+                    style="@style/GenericCustomValidationEditTextWithValidation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:formato="celphone"
@@ -87,13 +88,13 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorBussinesPhoneMessage"
-                    android:layout_width="match_parent"
+                    android:layout_width="match_parent" style="@style/generic_text_style_2"
                     android:layout_height="wrap_content" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/textPublicServant"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content"  style="@style/generic_text_style_3"
                     android:layout_marginLeft="@dimen/margin_regular"
                     android:layout_marginRight="@dimen/margin_regular"
                     android:layout_marginTop="@dimen/space_between_elements"
@@ -119,7 +120,7 @@
                     <RadioButton
                         android:id="@+id/radioBtnPublicServantNo"
                         android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
+                        android:layout_height="wrap_content"  style="@style/generic_text_style_2"
                         android:layout_gravity="center"
                         android:checked="true"
                         android:gravity="center"
@@ -134,7 +135,7 @@
                         android:id="@+id/radioBtnPublicServantYes"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_gravity="center"
+                        android:layout_gravity="center"  style="@style/generic_text_style_2"
                         android:gravity="center"
                         android:text="@string/yes" />
 
@@ -168,7 +169,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnBackBussinesInfo"
-            style="@style/buttonDirecctionBack"
+            style="@style/GenericButtonDirecctionBack"
             android:layout_weight="1"
             android:text="@string/backButton"
             android:textAllCaps="false"
@@ -181,7 +182,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextBussinesInfo"
-            style="@style/buttonDirecctionNext"
+            style="@style/GenericButtonDirecctionNext"
             android:layout_weight="2"
             android:text="@string/nextButton"
             android:textAllCaps="false"
