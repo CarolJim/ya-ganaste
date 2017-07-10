@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVD
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -80,7 +81,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
         txtMaskedPan.setText(cardNumberFormat);
 
         //txtMaskedPan.setText(String.format("%s", emvDepositResponse.getMaskedPan()));
-        if(imgTypeCard != null){
+        if (imgTypeCard != null) {
             imgTypeCard.setImageResource(emvDepositResponse.getMarcaTarjetaBancaria().equals("Visa") ? R.drawable.visa : R.drawable.mastercard_canvas);
         }
     }
@@ -92,7 +93,10 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @Override
     public void validateForm() {
         getDataForm();
-        if (emailToSend.isEmpty() || !edtEmailSendticket.isValidText()) {
+        if (emailToSend.isEmpty()) {
+            onEventListener.onEvent(AdqActivity.EVENT_GO_LOGIN_FRAGMENT, null);
+            return;
+        } else if (!emailToSend.isEmpty() && !edtEmailSendticket.isValidText()) {
             showValidationError(getString(R.string.check_your_mail));
             return;
         }

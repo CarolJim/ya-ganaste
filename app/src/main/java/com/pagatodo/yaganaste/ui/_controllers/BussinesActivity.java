@@ -21,15 +21,12 @@ import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.adquirente.DatosNegocio;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.adquirente.DomicilioNegocio;
+
 import java.util.List;
-
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
-
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.ADQ_REVISION;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
-import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 
@@ -52,7 +49,6 @@ public class BussinesActivity extends LoaderActivity {
     public final static String EVENT_SET_COLONIES_LIST = "EVENT_SET_COLONIES_LIST";
 
 
-
     private DatosNegocio datosNegocioFragment;
     private DomicilioNegocio domicilioNegocioFragment;
     private Documentos documentosFragment;
@@ -60,7 +56,6 @@ public class BussinesActivity extends LoaderActivity {
     private DataObtenerDomicilio domicilio;
     private List<SubGiro> girosComercio;
     private List<ColoniasResponse> listaColonias;
-
 
 
     public static Intent createIntent(Context from) {
@@ -126,7 +121,7 @@ public class BussinesActivity extends LoaderActivity {
                 break;
 
             case EVENT_SET_BUSINESS_LIST:
-                this. girosComercio = (List<SubGiro>) o;
+                this.girosComercio = (List<SubGiro>) o;
                 break;
             case EVENT_SET_COLONIES_LIST:
                 this.listaColonias = (List<ColoniasResponse>) o;
@@ -137,23 +132,24 @@ public class BussinesActivity extends LoaderActivity {
 
     @Override
     public void onBackPressed() {
-        Fragment currentFragment = getCurrentFragment();
-        if (currentFragment instanceof DatosNegocio) {
-            RegisterAgent.resetRegisterAgent();
-            finish();
-        } else if (currentFragment instanceof DomicilioNegocio) {
-            onEvent(EVENT_GO_BUSSINES_DATA_BACK, null);
-        } else if (currentFragment instanceof Documentos) {
-            onEvent(EVENT_GO_BUSSINES_ADDRESS_BACK, null);
-        } else if (currentFragment instanceof Documentos) {
-            onEvent(EVENT_GO_BUSSINES_ADDRESS_BACK, null);
-        } else if (currentFragment instanceof RegisterCompleteFragment) {
+        if (!isLoaderShow) {
+            Fragment currentFragment = getCurrentFragment();
+            if (currentFragment instanceof DatosNegocio) {
+                RegisterAgent.resetRegisterAgent();
+                finish();
+            } else if (currentFragment instanceof DomicilioNegocio) {
+                onEvent(EVENT_GO_BUSSINES_DATA_BACK, null);
+            } else if (currentFragment instanceof Documentos) {
+                onEvent(EVENT_GO_BUSSINES_ADDRESS_BACK, null);
+            } else if (currentFragment instanceof Documentos) {
+                onEvent(EVENT_GO_BUSSINES_ADDRESS_BACK, null);
+            } else if (currentFragment instanceof RegisterCompleteFragment) {
 
-        } else {
-            RegisterAgent.resetRegisterAgent();
-            finish();
+            } else {
+                RegisterAgent.resetRegisterAgent();
+                finish();
+            }
         }
-
     }
 
     private void initFragments() {

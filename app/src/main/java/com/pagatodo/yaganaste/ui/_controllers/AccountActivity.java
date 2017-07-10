@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
@@ -29,6 +30,7 @@ import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
@@ -130,7 +132,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
 
             case EVENT_RECOVERY_PASS:
                 //loadFragment(Documentos.newInstance(), Direction.FORDWARD, false);
-                loadFragment(RecoveryFragment.newInstance(), Direction.FORDWARD, false);
+                //loadFragment(RecoveryFragment.newInstance(), Direction.FORDWARD, false);
+                loginContainerFragment.loadRecoveryFragment();
                 break;
 
             case EVENT_RECOVERY_PASS_BACK:
@@ -219,47 +222,48 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
 
     @Override
     public void onBackPressed() {
-
-        Fragment currentFragment = getCurrentFragment();
-        if (currentFragment instanceof LoginManagerContainerFragment) {
-            loginContainerFragment.onBackActions();
-            //finish();
-        } else if (currentFragment instanceof DatosUsuarioFragment) {
-            resetRegisterData();// Eliminamos la información de registro almacenada.
-            showDialogOut();
-        } else if (currentFragment instanceof DatosPersonalesFragment) {
-            onEvent(EVENT_DATA_USER_BACK, null);
-        } else if (currentFragment instanceof DomicilioActualFragment) {
-            onEvent(EVENT_PERSONAL_DATA_BACK, null);
-        } else if (currentFragment instanceof TienesTarjetaFragment) {
-
-            if (((TienesTarjetaFragment) currentFragment).isCustomKeyboardVisible()) {
-                ((TienesTarjetaFragment) currentFragment).hideKeyboard();
-            } else {
+        if (!isLoaderShow) {
+            Fragment currentFragment = getCurrentFragment();
+            if (currentFragment instanceof LoginManagerContainerFragment) {
+                loginContainerFragment.onBackActions();
+                //finish();
+            } else if (currentFragment instanceof DatosUsuarioFragment) {
                 resetRegisterData();// Eliminamos la información de registro almacenada.
                 showDialogOut();
-            }
-        } else if (currentFragment instanceof AsignarNIPFragment) {
-            if (((AsignarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
-                ((AsignarNIPFragment) currentFragment).hideKeyboard();
-            } else {
+            } else if (currentFragment instanceof DatosPersonalesFragment) {
+                onEvent(EVENT_DATA_USER_BACK, null);
+            } else if (currentFragment instanceof DomicilioActualFragment) {
+                onEvent(EVENT_PERSONAL_DATA_BACK, null);
+            } else if (currentFragment instanceof TienesTarjetaFragment) {
+
+                if (((TienesTarjetaFragment) currentFragment).isCustomKeyboardVisible()) {
+                    ((TienesTarjetaFragment) currentFragment).hideKeyboard();
+                } else {
+                    resetRegisterData();// Eliminamos la información de registro almacenada.
+                    showDialogOut();
+                }
+            } else if (currentFragment instanceof AsignarNIPFragment) {
+                if (((AsignarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
+                    ((AsignarNIPFragment) currentFragment).hideKeyboard();
+                } else {
+                    resetRegisterData();// Eliminamos la información de registro almacenada.
+                    showDialogOut();
+                }
+            } else if (currentFragment instanceof ConfirmarNIPFragment) {
+                if (((ConfirmarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
+                    ((ConfirmarNIPFragment) currentFragment).hideKeyboard();
+                } else {
+                    onEvent(EVENT_GO_CONFIRM_PIN_BACK, null);
+                }
+            } else if (currentFragment instanceof AsociatePhoneAccountFragment) {
                 resetRegisterData();// Eliminamos la información de registro almacenada.
                 showDialogOut();
-            }
-        } else if (currentFragment instanceof ConfirmarNIPFragment) {
-            if (((ConfirmarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
-                ((ConfirmarNIPFragment) currentFragment).hideKeyboard();
+            } else if (currentFragment instanceof RecoveryFragment) {
+                onEvent(EVENT_RECOVERY_PASS_BACK, null);
             } else {
-                onEvent(EVENT_GO_CONFIRM_PIN_BACK, null);
+                resetRegisterData();// Eliminamos la información de registro almacenada.
+                super.onBackPressed();
             }
-        } else if (currentFragment instanceof AsociatePhoneAccountFragment) {
-            resetRegisterData();// Eliminamos la información de registro almacenada.
-            showDialogOut();
-        } else if (currentFragment instanceof RecoveryFragment) {
-            onEvent(EVENT_RECOVERY_PASS_BACK, null);
-        } else {
-            resetRegisterData();// Eliminamos la información de registro almacenada.
-            super.onBackPressed();
         }
     }
 
@@ -284,5 +288,12 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
         Card.resetCardData();
     }
 
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (requestCode == Constants.PAYMENTS_ADQUIRENTE && resultCode == Activity.RESULT_OK) {
+            loginContainerFragment.onActivityResult(requestCode, resultCode, data);
+        }
+    }
 }
 

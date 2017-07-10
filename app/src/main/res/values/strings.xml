@@ -485,7 +485,7 @@
 
     <string name="listo">¡Listo!</string>
     <string name="recibo_enviado">El Recibo Fue Enviado con Éxito.</string>
-
+    <string name="recibo_enviado_line">El Recibo Fue\nEnviado con Éxito.</string>
 
     <!-- Mensajes de error para registro SMS -->
     <string name="fallo_envio">Falla al Enviar el Mensaje</string>
@@ -589,6 +589,16 @@
     <string name="landing_adq_azul">En Azul, tus Cobros\nPendientes de Reembolso</string>
     <string name="landing_adq_verdes">En Verde, Los Que Ya\n Te Reembolsamos</string>
     <string name="landing_adq_rojos">Y En Rojo, Los Cobros\nque Cancelaste</string>
+
+    <string name="aprobada">Aprobada</string>
+    <string name="pago_success">El Pago Fue Completado\nCorrectamente.</string>
+    <string name="execution_success">Ejecución Éxitosa</string>
+    <string name="cancelation_success">Cancelación Exitosa</string>
+    <string name="cancelation_success_message">El Cobro Fue Cancelado\nCorrectamente.</string>
+    <string name="mount_be_higer">El Monto Tiene que ser Mayor</string>
+    <string name="mount_valid">Ingresa un Monto Válido.</string>
+    <string name="enter_mount">Por Favor Ingrese un Monto</string>
+    <string name="mount_cero">$0.00</string>
 </resources>
 
 

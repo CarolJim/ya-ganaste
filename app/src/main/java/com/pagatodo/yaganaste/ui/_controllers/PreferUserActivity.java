@@ -1,13 +1,11 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -23,7 +21,6 @@ import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyEmailFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyPassFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
-import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
@@ -75,7 +72,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         // CReamos las referencias al AcoountInteractot
         // AccountInteractorNew.
 
-      //  mPreferPresenter.testToast();
+        //  mPreferPresenter.testToast();
     }
 
     public AccountPresenterNew getPresenterAccount() {
@@ -106,7 +103,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         public void actionConfirm(Object... params) {
             setResult(ToolBarActivity.RESULT_LOG_OUT);
             mPreferPresenter.closeSession(mContext);
-           // finish();
+            // finish();
         }
 
         @Override
@@ -156,22 +153,22 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
             case "PREFER_USER_MY_USER":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                loadFragment(MyUserFragment.newInstance(),Direction.FORDWARD, false);
+                loadFragment(MyUserFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             case "PREFER_USER_MY_USER_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                loadFragment(MyUserFragment.newInstance(),Direction.BACK, false);
+                loadFragment(MyUserFragment.newInstance(), Direction.BACK, false);
                 break;
 
             case "PREFER_USER_EMAIL":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-               // loadFragment(MyEmailFragment.newInstance(),Direction.FORDWARD, false);
+                // loadFragment(MyEmailFragment.newInstance(),Direction.FORDWARD, false);
                 break;
 
             case "PREFER_USER_PASS":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                loadFragment(MyPassFragment.newInstance(),Direction.FORDWARD, false);
+                loadFragment(MyPassFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
             /** Eventos BACK **/
@@ -182,7 +179,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "DISABLE_BACK":
                 if (data.toString().equals("true")) {
                     disableBackButton = true;
-                }else{
+                } else {
                     disableBackButton = false;
                 }
                 break;
@@ -192,17 +189,17 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     @Override
     public void onBackPressed() {
         // Si el boton no esta deshabilitado realizamos las operaciones de back
-        if (!disableBackButton) {
+        if (!disableBackButton && !isLoaderShow) {
             Fragment currentFragment = getCurrentFragment();
             if (currentFragment instanceof ListaLegalesFragment) {
                 onEvent(PREFER_USER_LISTA, null);
-            }else if (currentFragment instanceof DesasociarPhoneFragment) {
+            } else if (currentFragment instanceof DesasociarPhoneFragment) {
                 onEvent(PREFER_USER_LISTA, null);
-            }else if (currentFragment instanceof MyUserFragment) {
+            } else if (currentFragment instanceof MyUserFragment) {
                 onEvent(PREFER_USER_LISTA, null);
-            }else if (currentFragment instanceof MyEmailFragment) {
+            } else if (currentFragment instanceof MyEmailFragment) {
                 onEvent(PREFER_USER_MY_USER_BACK, null);
-            }else if (currentFragment instanceof MyPassFragment) {
+            } else if (currentFragment instanceof MyPassFragment) {
                 onEvent(PREFER_USER_MY_USER_BACK, null);
             } else {
                 super.onBackPressed();

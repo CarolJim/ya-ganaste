@@ -18,8 +18,10 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
+import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
@@ -162,7 +164,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
             valueAmount = valueAmountArray[0] + valueAmountArray[1];
         }
 
-        if (valueAmount.length() > 0 && !valueAmount.equals("$0.00")) {
+        if (valueAmount.length() > 0 && !valueAmount.equals(getString(R.string.mount_cero))) {
             try {
                 StringBuilder cashAmountBuilder = new StringBuilder(valueAmount);
 
@@ -180,13 +182,19 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                     setData("", "");
                     mySeekBar.setProgress(0);
                     NumberCalcTextWatcher.cleanData();
+
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
-                    startActivity(intent);
-                } else showValidationError("El Monto Tiene que ser Mayor");
+                    if (getActivity() instanceof AccountActivity) {
+                        getActivity().startActivityForResult(intent, Constants.PAYMENTS_ADQUIRENTE);
+                    } else {
+                        startActivity(intent);
+                    }
+
+                } else showValidationError(getString(R.string.mount_be_higer));
             } catch (NumberFormatException e) {
-                showValidationError("Ingresa un Monto Válido.");
+                showValidationError(getString(R.string.mount_valid));
             }
-        } else showValidationError("Por Favor Ingrese un Monto.");
+        } else showValidationError(getString(R.string.enter_mount));
 
     }
 

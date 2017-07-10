@@ -116,4 +116,11 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     public void loadInsertDongleFragment(DataMovimientoAdq dataMovimientoAdq) {
         loadFragment(InsertDongleFragment.newInstance(true, dataMovimientoAdq), Direction.FORDWARD, true);
     }
+
+    @Override
+    public void onBackPressed() {
+        if (!isLoaderShow) {
+            super.onBackPressed();
+        }
+    }
 }
