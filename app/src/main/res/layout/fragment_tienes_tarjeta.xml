@@ -27,7 +27,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
                 android:id="@+id/layoutContent"
-                style="@style/BorderTitleStyle"
+                style="@style/GenericBorderTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@string/doYouHaveCardTitle">
@@ -40,7 +40,7 @@
 
                     <RadioGroup
                         android:id="@+id/radioHasCard"
-                        style="@style/FragmentElementTop"
+                        style="@style/GenericFragmentElementTop"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
@@ -55,6 +55,7 @@
                         <RadioButton
                             android:id="@+id/radioBtnNo"
                             android:layout_width="wrap_content"
+                            style="@style/generic_text_style_2"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
@@ -70,6 +71,7 @@
                             android:id="@+id/radioBtnYes"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            style="@style/generic_text_style_2"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="@string/yes" />
@@ -85,11 +87,11 @@
                         android:id="@+id/txtMessageCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        style="@style/generic_text_style_3"
                         android:layout_marginBottom="@dimen/margin_small"
                         android:layout_marginTop="@dimen/margin_medium"
                         android:gravity="center"
-                        android:text="@string/no_tiene_tarjeta"
-                        android:textSize="@dimen/text_screen_size_normal" />
+                        android:text="@string/no_tiene_tarjeta" />
 
                     <include
                         android:id="@+id/layoutCard"
@@ -123,7 +125,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleButton
                     android:id="@+id/btnNextTienesTarjeta"
-                    style="@style/buttonDirecctionNext"
+                    style="@style/GenericButtonDirecctionNext"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_btns"
                     android:layout_weight="1"

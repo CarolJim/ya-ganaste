@@ -57,7 +57,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                 android:id="@+id/edtxtUserName"
-                style="@style/InputTextForms"
+                style="@style/GenericInputTextForms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/edtxtUserPass"
@@ -69,7 +69,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                 android:id="@+id/edtxtUserPass"
-                style="@style/InputTextForms"
+                style="@style/GenericInputTextForms"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_above="@+id/btnLoginExistUser"
@@ -81,14 +81,13 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtLoginExistUserRecoverPass"
-                style="@style/textDescInputs"
+                style="@style/GenerictextDescInputs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/edtxtLetsStartMail"
                 android:layout_marginTop="@dimen/margin_small"
                 android:padding="@dimen/margin_medium"
-                android:text="@string/recover_pass"
-                android:textSize="14sp" />
+                android:text="@string/recover_pass"/>
 
 
         </LinearLayout>
@@ -112,7 +111,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnLoginExistUser"
-                style="@style/buttonDirecctionNext"
+                style="@style/GenericButtonDirecctionNext"
                 android:layout_width="match_parent"
                 android:layout_height="@dimen/height_btns"
                 android:layout_weight="1"

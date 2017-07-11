@@ -73,7 +73,7 @@ public class CustomValidationEditText extends LinearLayout {
 
         //imageView.setBackgroundResource(R.drawable.validation_fail);
         int inputType = EditorInfo.TYPE_NULL;
-        int textSize = EditorInfo.TYPE_NULL;
+        float textSize = EditorInfo.TYPE_NULL;
 
         if (attrs != null) {
             TypedArray typedArray = context.getTheme().obtainStyledAttributes(
@@ -96,7 +96,7 @@ public class CustomValidationEditText extends LinearLayout {
                 inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
                 editText.setInputType(inputType);
                 inputType = typedArray.getInt(R.styleable.CustomValidationEditText_android_inputType, EditorInfo.TYPE_NULL);
-                textSize = typedArray.getInt(R.styleable.CustomValidationEditText_android_textSize, EditorInfo.TYPE_NULL);
+                textSize = typedArray.getDimension(R.styleable.CustomValidationEditText_android_textSize, EditorInfo.TYPE_NULL);
 
             } catch (Exception e) {
                 Log.e(context.getPackageName(), "Error loading attributes:" + e.getMessage());
@@ -107,11 +107,11 @@ public class CustomValidationEditText extends LinearLayout {
             if (inputType != EditorInfo.TYPE_NULL) {
                 editText.setInputType(inputType);
             } else {
-                editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, App.getContext().getResources().getDimension(R.dimen.text_custom_validation_editext_size));
+              //  editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, App.getContext().getResources().getDimension(R.dimen.text_custom_validation_editext_size));
             }
 
             if (textSize != EditorInfo.TYPE_NULL) {
-                editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, textSize);
+                editText.setTextSize(TypedValue.COMPLEX_UNIT_PX, textSize);
             }
 
             if (type != null && !type.isEmpty()) {

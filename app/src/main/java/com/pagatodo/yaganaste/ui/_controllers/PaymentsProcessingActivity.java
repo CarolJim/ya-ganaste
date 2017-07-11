@@ -46,12 +46,17 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
     IPaymentsProcessingPresenter presenter;
     Object pago;
     private boolean isAvailableToBack = false;
+    private MovementsTab tab;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_generic_fragment_container);
+
+        pago = getIntent().getExtras().get("pagoItem");
+        tab = (MovementsTab) getIntent().getExtras().get("TAB");
+
         initViews();
         progressLayout.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -60,9 +65,6 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
             }
         });
         presenter = new PaymentsProcessingPresenter(this);
-
-        pago = getIntent().getExtras().get("pagoItem");
-        MovementsTab tab = (MovementsTab) getIntent().getExtras().get("TAB");
 
         try {
             presenter.sendPayment(tab, pago);
@@ -89,7 +91,19 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
 
     private void initViews() {
         ButterKnife.bind(this);
-        showLoader("Procesando Pago");
+        String mensajeLoader = "";
+        switch (tab.toString()){
+            case "TAB1":
+                mensajeLoader = getString(R.string.procesando_servicios_loader);
+                break;
+            case "TAB2":
+                mensajeLoader = getString(R.string.procesando_recarga_loader);
+                break;
+            case "TAB3":
+                mensajeLoader = getString(R.string.procesando_envios_loader);
+                break;
+        }
+        showLoader(mensajeLoader);
     }
 
     public PaymentsProcessingManager getManager() {

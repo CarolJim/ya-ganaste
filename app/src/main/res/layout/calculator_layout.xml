@@ -22,21 +22,34 @@
         android:gravity="center"
         android:orientation="horizontal">
 
-        <TextView
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/tv_sign"
+            style="@style/generic_calculator_sign_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="7dp"
-            android:text="$"
-            android:textSize="@dimen/frag_getmount_calculator_simbolo_text_Size" />
+            android:text="$"  />
 
-        <TextView
+        <!--<TextView-->
+        <!--android:id="@+id/tv_sign"-->
+        <!--android:layout_width="wrap_content"-->
+        <!--android:layout_height="wrap_content"-->
+        <!--android:layout_marginTop="7dp"-->
+        <!--android:text="$"-->
+        <!--android:textSize="@dimen/frag_getmount_calculator_simbolo_text_Size" />-->
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/tv_monto_entero"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0"
-            android:textColor="@color/whiteColor"
-            android:textSize="@dimen/frag_getmount_calculator_enteros_text_Size" />
+            android:text="0" style="@style/generic_calculator_integer_style"/>
+
+        <!--    <TextView
+                android:id="@+id/tv_monto_entero"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="0"
+                android:textColor="@color/whiteColor"
+                android:textSize="@dimen/frag_getmount_calculator_enteros_text_Size" />-->
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -52,13 +65,19 @@
                 android:textColor="@color/whiteColor"
                 android:textSize="@dimen/frag_getmount_calculator_decimales_text_Size" />
 
-            <TextView
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/tv_monto_decimal"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:text="00" style="@style/generic_calculator_decimal_style" />
+
+         <!--   <TextView
                 android:id="@+id/tv_monto_decimal"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
                 android:text="00"
                 android:textColor="@color/whiteColor"
-                android:textSize="@dimen/frag_getmount_calculator_decimales_text_Size" />
+                android:textSize="@dimen/frag_getmount_calculator_decimales_text_Size" />-->
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

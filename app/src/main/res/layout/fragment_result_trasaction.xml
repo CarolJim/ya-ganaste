@@ -30,9 +30,9 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtTitleResult"
-        style="@style/textTitle"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        style="@style/generic_text_style_1"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content" android:gravity="center"
         android:layout_below="@+id/layoutImageResult"
         android:layout_marginTop="@dimen/margin_medium"
         android:text="@string/txt_felicidades"
@@ -40,7 +40,7 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtSubtitleResult"
-        style="@style/textDescInputs"
+        style="@style/GenerictextDescInputs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtTitleResult"
@@ -51,7 +51,7 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtDescriptionResult"
-        style="@style/textDescInputs"
+        style="@style/GenerictextDescInputs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/layoutButtonsResult"
@@ -86,7 +86,7 @@
                 android:layout_height="@dimen/height_btns"
                 android:layout_marginBottom="@dimen/margin_medium"
                 android:layout_weight="40"
-                style="@style/buttonDirecctionNext"
+                style="@style/GenericButtonDirecctionBack"
                 android:gravity="center"
                 android:text="Terminar"
                 android:textAllCaps="false"

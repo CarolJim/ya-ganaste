@@ -32,16 +32,14 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="@string/pago_por"
-                    android:textSize="@dimen/frag_signature_pago_por_text_Size" />
+                    android:text="@string/pago_por" style="@style/generic_text_style_3" />
 
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txtAmount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_small"
-                    android:text="780.23"
-                    android:textSize="@dimen/frag_signature_monto_text_Size"
+                    android:text="780.23" style="@style/generic_text_style_4"
                     app:decimalLenght="1"
                     app:dotBottom="false"
                     app:symbolSmaller="false" />
@@ -60,8 +58,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_small"
-                    android:text="*************4565"
-                    android:textSize="@dimen/frag_signature_tdc_num_text_Size" />
+                    android:text="*************4565"  style="@style/generic_text_style_3"/>
 
                 <ImageView
                     android:id="@+id/imgTypeCard"
@@ -93,7 +90,7 @@
                     android:gravity="center"
                     android:text="@string/tu_firma"
                     android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/frag_signature_firma_text_Size"
+                    android:textSize="@dimen/size_text_style_1_value"
                     android:textStyle="bold" />
             </FrameLayout>
 
@@ -123,8 +120,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="NOMBRE"
-                        android:textAlignment="center"
-                        android:textSize="@dimen/frag_signature_nombre_text_Size" />
+                        android:textAlignment="center" style="@style/generic_text_style_3" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -140,8 +136,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/button_rounded_transparent"
                         android:text="LIMPIAR"
-                        android:textColor="@color/whiteColor"
-                        android:textSize="@dimen/generic_button_normal_text_size" />
+                        android:textColor="@color/whiteColor" style="@style/generic_text_style_3" />
 
                     <View
                         android:layout_width="match_parent"
@@ -156,8 +151,7 @@
                         android:layout_weight="1"
                         android:background="@drawable/button_rounded_transparent"
                         android:text="CONTINUAR"
-                        android:textColor="@color/whiteColor"
-                        android:textSize="@dimen/generic_button_normal_text_size" />
+                        android:textColor="@color/whiteColor" style="@style/generic_text_style_3" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

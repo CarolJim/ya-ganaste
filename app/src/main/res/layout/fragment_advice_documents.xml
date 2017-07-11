@@ -23,7 +23,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txt_aviso_title"
-            style="@style/textSubTitle"
+            style="@style/GenericSubTextTittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:text="@string/title_aviso"
@@ -32,7 +32,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txt_aviso_subtitle"
-            style="@style/textSubTitle"
+            style="@style/GenericSubTextTittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_aviso_title"
@@ -42,7 +42,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txt_aviso_body"
-            style="@style/textSubTitle"
+            style="@style/GenericSubTextTittle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_below="@+id/txt_aviso_subtitle"
@@ -72,7 +72,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/txtAdviceDocumentsBack"
-            style="@style/buttonRoundedStroke"
+            style="@style/GenericbuttonRoundedStroke"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

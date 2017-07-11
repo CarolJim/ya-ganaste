@@ -228,11 +228,11 @@
     <string name="error_de_lectura">No fue Posible Completar la Operación, Intenta de Nuevo.</string>
 
     <string name="cobrar">Cobrar</string>
-    <string name="validatelector">Validando el Lector ...</string>
+    <string name="validatelector"></string>
     <string name="startpayment">Realizando Pago ...</string>
     <string name="validatelectorOk">Lector Validado</string>
     <string name="initlector">Configurando el Lector ...</string>
-    <string name="readcard">Leyendo tarjeta, Espere...</string>
+    <string name="readcard">Leyendo Tarjeta</string>
     <string name="fecha_formater">%1$s/%2$s/%3$s</string>
     <string name="metodo_transaction">TransactionEmvDepositAccount</string>
     <string name="rfc">RFC</string>
@@ -250,6 +250,7 @@
     <string name="action_take_picture">Abrir Cámara</string>
     <string name="action_select_picture">Abrir Galería</string>
     <string name="action_select_picture_cancel">Cancelar</string>
+
     <!--datos_usuario-->
     <string name="datos_usuario_correo_existe">Este Correo Ya ha Sido Registrado.</string>
     <string name="userDataTitle">Datos de Usuario</string>
@@ -265,7 +266,10 @@
     <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide.</string>
     <string name="datos_usuario_pass_formato">Verifica tu Contraseña.</string>
     <string name="bienvenido_usuario"><![CDATA[¡<b>Bienvenido</b> %1$s!]]></string>
-
+    <string name="user_change_password">Asignando Nueva Contraseña</string>
+    <string name="user_change_email">Asignando Nuevo Correo</string>
+    <string name="user_change_desasociar">En Proceso</string>
+    <string name="yaganaste_version">YaGanaste Versión:</string>
 
 
     <!--datos_personales-->
@@ -352,6 +356,11 @@
     <string name="adq_subtitle_hardsell">¡Paga Menos Comisión!</string>
     <string name="adq_more_hardsell">Conoce Más</string>
 
+    <!-- Proceso de enviar documentos -->
+    <string name="adq_must_upload_documents">Debes de Subir Todos los Documentos.</string>
+    <string name="adq_upload_documents">Enviando Solicitud</string>
+    <string name="adq_upgrade_documents">Actualizando Documentos</string>
+    <string name="adq_error_open_image">La aplicacion no pudo acceder a su imagen intente con otra galeria</string>
     <string name="adq_title_thanks">¡Gracias!</string>
     <string name="adq_subtitle_thanks">Tus Documentos Están\nSiendo Revisados</string>
     <string name="adq_title_thanks_msg">Este Proceso Puede Tardar\nHasta 48 Horas Hábiles</string>
@@ -478,10 +487,10 @@
     <string name="no_sim_desc">No Puedes Usar Esta Aplicación\n Sin Tarjeta SIM</string>
 
     <!-- Mensajes de Espera para Registro adquirente -->
-    <string name="obteniendo_colonias">Obteniendo Colonias</string>
-    <string name="obteniendo_domicilio">Obteniendo Domicilio</string>
+    <string name="obteniendo_colonias"></string>
+    <string name="obteniendo_domicilio"> </string>
     <string name="obteniendo_giros">Obteniendo Giros</string>
-    <string name="procesando_solicitud">Se Está Procesando la Solicitud</string>
+    <string name="procesando_solicitud"> </string>
 
     <string name="listo">¡Listo!</string>
     <string name="recibo_enviado">El Recibo Fue Enviado con Éxito.</string>
@@ -525,7 +534,7 @@
     <string name="txt_referencia_envio_error">Error al introducir el número de teléfono/cuenta/CABLE</string>
     <string name="txt_referencia_envio_empty">Por favor ingrese un número de teléfono/cuenta/CABLE</string>
     <string name="title_activity_prefer_user">PreferUserActivity</string>
-    <string name="recuperando_docs_estatus">Recuperando los estatus de sus documentos.</string>
+    <string name="recuperando_docs_estatus"></string>
     <string name="desea_cacelar">¿Deseas Salir y Cancelar la Operación Actual?</string>
 
     <string name="no_sucursales">No existen sucursales en tu área.</string>
@@ -534,19 +543,24 @@
     <string name="cancelada">Cancelada</string>
 
     <!-- PreferUSerActivity -->
-    <string name="listaopciones_load_image_wait">Cargando Imagen. Por Favor, Espere</string>
+    <string name="listaopciones_load_image_wait">Cargando Imagen</string>
 
+    procesando_recarga_loader procesando_pago_loader procesando_email_loader
+    <!-- Mensajes de Loader en el comneoto de hacer recargas, envios y depositos -->
+    <string name="procesando_recarga_loader">Realizando Recarga</string>
+    <string name="procesando_servicios_loader">Realizando Pago</string>
+    <string name="procesando_envios_loader">Realizando Envio</string>
+    <string name="procesando_enviando_email_loader">Enviando Correo Electrónico</string>
 
     <string name="detalle_movimiento">Detalle de Movimiento</string>
     <string name="cobraste">Cobraste</string>
     <string name="con_la_tarjeta">Con la tarjeta:</string>
     <string name="cancel_cobro_confirmation">¿Estás Seguro Que Quieres\n Cancelar Este Cobro?</string>
-
-    <string name="procesando_cobro">Estamos en Proceso de Cobro</string>
-    <string name="procesando_cancelacion">Estamos Procesando la Cancelación</string>
-    <string name="validando_lector">Validando Lector</string>
-    <string name="enviando_firma">Enviando Firma</string>
-    <string name="enviando_ticket">Enviando Ticket</string>
+    <string name="procesando_cobro">Realizando Cobro</string>
+    <string name="procesando_cancelacion">Realizando Cancelación</string>
+    <string name="validando_lector"></string>
+    <string name="enviando_firma"></string>
+    <string name="enviando_ticket">Enviando Recibo</string>
 
     <string name="fecha_nacimiento_erronea">Fecha de Nacimiento Errónea, Verifique su Información.</string>
     <string name="feha_nacimiento_menor_edad">Fecha de Nacimiento Errónea, Debe Ser Mayor de 18 años para Realizar el Tramite.</string>
@@ -563,7 +577,8 @@
     <string name="vuelve_conectar_lector">Vuelve a conectar el Lector.</string>
     <string name="inserta_lector_valido">Inserta un Lector de Tarjeta Válido.</string>
     <string name="verificando_email">Verificando Correo Electrónico.</string>
-    <string name="actualizando_saldo">Actualizando Saldo.</string>
+    <string name="actualizando_saldo"> </string>
+    <!-- <string name="actualizando_saldo">Actualizando Saldo.</string> -->
     <string name="password_incorrect">Su Contraseña es Incorrecta</string>
     <string name="sesion_close">La sesión se ha cerrado.</string>
     <string name="search_zipcode">Buscando CP</string>

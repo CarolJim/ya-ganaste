@@ -33,7 +33,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content" style="@style/generic_text_style_2"
                     android:gravity="end"
                     android:padding="10dp"
                     android:text="Fecha" />
@@ -41,7 +41,7 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtMovementDetailDate"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content" style="@style/generic_text_style_2.1"
                     android:gravity="start"
                     android:padding="10dp"
                     android:textColor="@color/colorAccent"
@@ -56,14 +56,14 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:gravity="end" style="@style/generic_text_style_2"
                     android:padding="10dp"
                     android:text="Hora" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtMovementDetailHour"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content" style="@style/generic_text_style_2.1"
                     android:gravity="start"
                     android:padding="10dp"
                     android:textColor="@color/colorAccent"
@@ -77,7 +77,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content" style="@style/generic_text_style_2"
                     android:gravity="end"
                     android:padding="10dp"
                     android:text="No. De Autorización" />
@@ -85,7 +85,7 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtMovementDetailAuthNumber"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content" style="@style/generic_text_style_2.1"
                     android:gravity="start"
                     android:padding="10dp"
                     android:textColor="@color/colorAccent"
@@ -100,7 +100,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content" style="@style/generic_text_style_2"
                     android:gravity="end"
                     android:padding="10dp"
                     android:text="Referencia" />
@@ -109,7 +109,7 @@
                     android:id="@+id/txtMovementDetailReference"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="start"
+                    android:gravity="start"  style="@style/generic_text_style_2.1"
                     android:padding="10dp"
                     android:textColor="@color/colorAccent"
                     tools:text="9302 0930 0293 2039" />
@@ -123,13 +123,13 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:gravity="end" style="@style/generic_text_style_2"
                     android:padding="10dp"
                     android:text="ID Transacción" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtMovementDetailIdTransaccion"
-                    android:layout_width="wrap_content"
+                    android:layout_width="wrap_content" style="@style/generic_text_style_2.1"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:padding="10dp"
@@ -145,7 +145,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content" style="@style/generic_text_style_2"
                     android:gravity="end"
                     android:padding="10dp"
                     android:text="Concepto" />
@@ -154,7 +154,7 @@
                     android:id="@+id/txtMovementDetailConcept"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="start"
+                    android:gravity="start" style="@style/generic_text_style_2.1"
                     android:padding="10dp"
                     android:textColor="@color/colorAccent"
                     tools:text="Test3" />
@@ -168,7 +168,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content" style="@style/generic_text_style_2"
                     android:gravity="end"
                     android:padding="10dp"
                     android:text="Importe" />
@@ -176,7 +176,7 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtMovementDetailImport"
                     android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
+                    android:layout_height="wrap_content" style="@style/generic_text_style_2.1"
                     android:gravity="start"
                     android:padding="10dp"
                     android:textColor="@color/colorAccent"
@@ -190,7 +190,7 @@
                 android:visibility="visible">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:layout_width="wrap_content"
+                    android:layout_width="wrap_content" style="@style/generic_text_style_2"
                     android:layout_height="wrap_content"
                     android:gravity="end"
                     android:padding="10dp"
@@ -200,7 +200,7 @@
                     android:id="@+id/txtMovementDetailComision"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="start"
+                    android:gravity="start" style="@style/generic_text_style_2.1"
                     android:padding="10dp"
                     android:textColor="@color/colorAccent"
                     tools:text="1234" />
@@ -217,13 +217,13 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="end"
+                    android:gravity="end" style="@style/generic_text_style_2"
                     android:padding="10dp"
                     android:text="IVA" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtMovementDetailIva"
-                    android:layout_width="wrap_content"
+                    android:layout_width="wrap_content" style="@style/generic_text_style_2.1"
                     android:layout_height="wrap_content"
                     android:gravity="start"
                     android:padding="10dp"

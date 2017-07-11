@@ -25,19 +25,17 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtMessage1"
-                style="@style/textDescInputs"
+                style="@style/generic_text_style_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_screen_size_normal"
                 android:layout_marginTop="@dimen/margin_big"
                 android:gravity="center"
                 android:text="@string/activacion_sms_mes_1" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                style="@style/textDescInputs"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/text_screen_size_normal"
+                style="@style/generic_text_style_3"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:gravity="center"
                 android:text="@string/activacion_sms_mes_2" />

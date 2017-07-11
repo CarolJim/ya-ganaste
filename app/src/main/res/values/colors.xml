@@ -46,4 +46,8 @@
     <color name="colorTextTabUnselected">#8E959A</color>
 
     <color name="colorGrayDivider">#374149</color>
+
+    <!-- Color alternativo para textos-->
+
+    <color name="textColorAlternative">#A2AEB6</color>
 </resources>

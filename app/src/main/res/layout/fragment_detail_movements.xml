@@ -39,13 +39,13 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtItemMovDate"
-                    style="@style/ItemMovement"
+                    style="@style/GenericItemMovement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtItemMovMonth"
-                    style="@style/ItemMovement"
+                    style="@style/GenericItemMovement"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
 
@@ -67,13 +67,13 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_concept_short"
-                    style="@style/ItemMovement"
+                    style="@style/GenericItemMovement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_marca"
-                    style="@style/ItemMovementSubtitle"
+                    style="@style/GenericItemMovementSubtitle"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
@@ -92,10 +92,10 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txt_monto"
+                    style="@style/generic_text_style_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:textColor="@color/greencolor"
-                    android:textSize="16sp"
                     app:dotBottom="false"
                     app:symbolSmaller="true"
                     app:tipo="Subtitulo" />
@@ -136,6 +136,7 @@
                 android:padding="@dimen/edittext_padding">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    style="@style/generic_text_style_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -143,11 +144,11 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txtMontoDescripcion"
+                    style="@style/generic_text_style_4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
-                    android:textSize="@dimen/adq_monto_descripcion"
                     app:decimalLenght="2"
                     app:dotBottom="false"
                     app:symbolSmaller="true" />
@@ -243,6 +244,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtReferenciaTitle"
+                    style="@style/generic_text_style_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -250,6 +252,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtRefernciaDescripcion"
+                    style="@style/generic_text_style_4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -276,6 +279,7 @@
                     android:padding="@dimen/edittext_padding">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        style="@style/generic_text_style_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
@@ -283,6 +287,7 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtConceptoDescripcion"
+                        style="@style/generic_text_style_4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -305,6 +310,7 @@
                 android:padding="@dimen/edittext_padding">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    style="@style/generic_text_style_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -312,6 +318,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtFechaDescripcion"
+                    style="@style/generic_text_style_4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -332,6 +339,7 @@
                 android:padding="@dimen/edittext_padding">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    style="@style/generic_text_style_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -339,6 +347,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtHoraDescripcion"
+                    style="@style/generic_text_style_4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -359,6 +368,7 @@
                 android:padding="@dimen/edittext_padding">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    style="@style/generic_text_style_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -366,6 +376,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtAutorizacionDescripcion"
+                    style="@style/generic_text_style_4"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -392,6 +403,7 @@
                     android:padding="@dimen/edittext_padding">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        style="@style/generic_text_style_3"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
@@ -399,6 +411,7 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtReciboDescripcion"
+                        style="@style/generic_text_style_4"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -426,6 +439,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_volver"
+                style="@style/generic_text_style_2"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/height_btns"
                 android:layout_marginEnd="@dimen/margin_small"
@@ -437,12 +451,12 @@
                 android:gravity="center"
                 android:text="@string/volver"
                 android:textAllCaps="false"
-                android:textSize="@dimen/generic_button_normal_text_size"
                 android:visibility="visible" />
 
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_cancel"
+                style="@style/generic_text_style_2"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/height_btns"
                 android:layout_marginEnd="@dimen/margin_regular"
@@ -454,7 +468,6 @@
                 android:gravity="center"
                 android:text="@string/cancelar_operacion"
                 android:textAllCaps="false"
-                android:textSize="@dimen/generic_button_normal_text_size"
                 android:visibility="invisible" />
 
         </LinearLayout>

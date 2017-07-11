@@ -16,7 +16,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/titleAmount"
-            style="@style/textSubTitle"
+            style="@style/generic_text_style_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_gravity="center"

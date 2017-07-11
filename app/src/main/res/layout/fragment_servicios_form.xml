@@ -24,7 +24,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/referenceNumber"
-                style="@style/StyleEditText"
+                style="@style/GenericStyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
@@ -61,7 +61,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/serviceImport"
-                style="@style/StyleEditText"
+                style="@style/GenericStyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_importe"
@@ -82,7 +82,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/serviceConcept"
-                style="@style/StyleEditText"
+                style="@style/GenericStyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_concepto"
@@ -97,8 +97,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_doble"
-            android:gravity="center|bottom"
-            android:textSize="@dimen/frag_servicios_commission_text_size"
+            android:gravity="center|bottom" style="@style/generic_text_style_3"
             app:tipo="Descripcion" />
 
     </LinearLayout>

@@ -281,7 +281,7 @@
     <style name="ButtonTabs" parent="Base.Widget.AppCompat.Button">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textAllCaps">false</item>
-        <item name="android:textSize">@dimen/frag_pagos_tab_text_size</item>
+        <item name="android:textSize">@dimen/size_text_style_3_value</item>
     </style>
 
     <style name="ButtonInviteAdq" parent="Base.TextAppearance.AppCompat.Button">
@@ -350,4 +350,193 @@
         <item name="android:textSize">@dimen/generic_button_normal_text_size</item>
     </style>
 
+
+    <!-- Estilos revisados 10-07-17 -->
+    <style name="generic_text_style_1">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/size_text_style_1_value</item>
+        <item name="tipo">Subtitulo</item>
+    </style>
+
+    <style name="generic_text_style_2">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Text</item>
+    </style>
+
+    <style name="generic_text_style_2.1">
+        <item name="android:textColor">@color/textColorAlternative</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="generic_text_style_3">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_3_value</item>
+        <item name="tipo">Text</item>
+    </style>
+
+    <style name="generic_text_style_3.1">
+        <item name="android:textColor">@color/textColorAlternative</item>
+        <item name="android:textSize">@dimen/size_text_style_3_value</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="generic_text_style_4">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_4_value</item>
+        <item name="tipo">Text</item>
+    </style>
+
+    <style name="generic_text_style_4.1">
+        <item name="android:textColor">@color/textColorAlternative</item>
+        <item name="android:textSize">@dimen/size_text_style_4_value</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <!-- Estilos de euva herencia -->
+    <style name="GenericBorderTitleStyle" parent="BorderTitleStyle">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Text</item>
+    </style>
+
+    <style name="GenericButtonDirecctionNext" parent="buttonDirecctionNext">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Text</item>
+    </style>
+
+    <style name="GenericButtonDirecctionBack" parent="buttonDirecctionBack">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Text</item>
+    </style>
+
+    <!-- Genericos para los campos de CustomValidationEditText en todos los fotmulrios-->
+    <style name="GenericCustomValidationEditText">
+        <item name="android:textColorHint">@color/textColorAlternative</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="GenericCustomValidationEditTextWithValidation" parent="FragmentElementWithValidation">
+        <item name="android:textColorHint">@color/textColorAlternative</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="GenericCustomValidationEditTextFragmentElement" parent="FragmentElement">
+        <item name="android:textColorHint">@color/textColorAlternative</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="GenericFragmentElementTop" parent="FragmentElementTop">
+        <item name="android:textColorHint">@color/textColorAlternative</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="GenericFragmentElementBottom" parent="FragmentElementBottom">
+        <item name="android:textColorHint">@color/textColorAlternative</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="GenericFragmentElement" parent="FragmentElement">
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+    </style>
+
+    <!-- Genericos para los error de CustomValidationEditText en todos los fotmulrios-->
+    <style name="GenericCustomValidationEditTextError" parent="generic_text_style_2"></style>
+
+    <style name="GenericStyleTextTittle" parent="textTitle">
+        <item name="android:textColor">@color/colorAccent</item>
+        <item name="android:textSize">@dimen/size_text_style_1_value</item>
+        <item name="tipo">Subtitulo</item>
+    </style>
+
+    <style name="GenericSubTextTittle" parent="textSubTitle">
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+    </style>
+
+    <style name="GenericbuttonRoundedBlue" parent="buttonRoundedBlue">
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+    </style>
+
+    <style name="GenericbuttonRoundedStroke" parent="buttonRoundedStroke">
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+    </style>
+
+    <style name="GenericbuttonSquareRoundedBlue" parent="buttonSquareRoundedBlue">
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+    </style>
+
+    <style name="GenericStyleEditText" parent="StyleEditText">
+        <item name="android:textColorHint">@color/textColorAlternative</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="GenerictextDescInputs" parent="textDescInputs">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_3_value</item>
+        <item name="tipo">Text</item>
+    </style>
+
+    <style name="GenericItemMovement" parent="ItemMovement">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_3_value</item>
+        <item name="tipo">Subtitulo</item>
+    </style>
+
+    <style name="GenericItemMovementSubtitle" parent="ItemMovementSubtitle">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_4_value</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="GenerictextDetailTransaction2" parent="textDetailTransaction">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Text</item>
+    </style>
+
+    <style name="GenerictextDetailTransaction3" parent="textDetailTransaction">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_3_value</item>
+        <item name="tipo">Text</item>
+    </style>
+
+    <style name="GenericInputTextForms" parent="InputTextForms">
+        <item name="android:textColorHint">@color/textColorAlternative</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="generic_calculator_sign_style">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">24sp</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="generic_calculator_integer_style">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">55sp</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="generic_calculator_decimal_style">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="tipo">Descripcion</item>
+    </style>
 </resources>

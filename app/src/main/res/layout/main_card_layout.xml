@@ -36,7 +36,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:maxLines="1"
-                    style="@style/MainTabText"
+                    style="@style/generic_text_style_4"
                     tools:text="6732 8921 3920 1290" />
             </LinearLayout>
 
@@ -50,7 +50,7 @@
                     android:id="@+id/txtMainCardNumCardValue"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/MainTabText"
+                    style="@style/generic_text_style_4"
                     tools:text="6732" />
             </LinearLayout>
 
@@ -64,7 +64,7 @@
                     android:id="@+id/txtMainCardName"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    style="@style/MainTabText"
+                    style="@style/generic_text_style_4"
                     tools:text="Sebastian" />
             </LinearLayout>
 

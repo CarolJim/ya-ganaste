@@ -15,6 +15,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -166,7 +167,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         tv_email.setText(mEmail);
 
         // Hacemos Set de la version de codigo
-        tv_version_code.setText("YaGanaste Versión: ".concat(String.valueOf(BuildConfig.VERSION_NAME)));
+        tv_version_code.setText(App.getContext().getResources().getString(R.string.yaganaste_version)
+                .concat(String.valueOf(BuildConfig.VERSION_NAME)));
 
         iv_photo_item_status.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.camara_white_blue_canvas));
 

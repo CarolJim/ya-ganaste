@@ -11,7 +11,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
             android:id="@+id/editTextCustom"
-            style="@style/StyleEditText"
+            style="@style/GenericStyleEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_weight="1" />

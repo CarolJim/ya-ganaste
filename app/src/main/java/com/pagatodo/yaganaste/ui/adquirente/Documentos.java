@@ -23,6 +23,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -609,7 +610,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     private void sendDocuments() {
         for (String s : imgs)
             if (s == null || s.isEmpty()) {
-                showError("Debes de Subir Todos los Documentos.");
+                showError(App.getContext().getResources().getString(R.string.adq_must_upload_documents));
                 return;
             }
         adqPresenter.sendDocumentos(dataDocumnets);

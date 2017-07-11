@@ -39,7 +39,7 @@
                 android:text="@string/no_movimientos"
                 android:textSize="@dimen/frag_inicio_tab_no_movements_text_size"
                 android:visibility="gone"
-                style="@style/MainTabText" />
+                style="@style/generic_text_style_3" />
 
         </LinearLayout>
 
