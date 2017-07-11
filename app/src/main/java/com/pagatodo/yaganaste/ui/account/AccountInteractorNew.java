@@ -106,7 +106,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     @Override
     public void validateUserStatus(String usuario) {
-        RequestHeaders.setUsername(usuario); // Seteamos el usuario en el Header
+        //RequestHeaders.setUsername(usuario); // Seteamos el usuario en el Header
         ValidarEstatusUsuarioRequest request = new ValidarEstatusUsuarioRequest(usuario);
         try {
             ApiAdtvo.validarEstatusUsuario(request, this);
@@ -261,7 +261,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     public void createUserClient(CrearUsuarioClienteRequest request) {
          /*Establecemos las cabeceras de la peticion*/
         RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getInstance().getApplicationContext()));
-        RequestHeaders.setUsername(request.getCorreo()); // Seteamos el usuario en el Header
         try {
             ApiAdtvo.crearUsuarioCliente(request, this);
         } catch (OfflineException e) {

@@ -7,8 +7,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.SingletonSession;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -19,6 +20,7 @@ import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
+import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -104,9 +106,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         txtLoginExistUserRecoverPass.setOnClickListener(this);
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
-            textNameUser.setText(SingletonSession.getInstance().isActive() &&
-                    !SingletonSession.getInstance().getNameUser().isEmpty() ?
-                    SingletonSession.getInstance().getNameUser() : RequestHeaders.getUsername());
+            Preferencias preferencias = App.getInstance().getPrefs();
+            textNameUser.setText(preferencias.loadData(StringConstants.FULL_NAME_USER));
+
             edtUserName.setVisibility(GONE);
             edtUserName.setText(RequestHeaders.getUsername());
 
@@ -114,7 +116,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 @Override
                 public void onClick(View v) {
                     textNameUser.setVisibility(GONE);
-                    edtUserName.setText(textNameUser.getText().toString());
+                    edtUserName.setText(RequestHeaders.getUsername());//(textNameUser.getText().toString());
                     edtUserName.setVisibility(VISIBLE);
                 }
             });

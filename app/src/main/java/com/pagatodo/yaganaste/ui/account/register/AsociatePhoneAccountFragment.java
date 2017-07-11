@@ -10,7 +10,6 @@ import android.content.IntentFilter;
 import android.os.Bundle;
 import android.os.Handler;
 import android.telephony.SmsManager;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -27,7 +26,6 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.SeekBarBaseFragment;
 
@@ -35,8 +33,6 @@ import java.util.Timer;
 
 import butterknife.BindView;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
@@ -190,8 +186,8 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
     @Override
     public void showError(final Object error) {
-        if (!error.toString().isEmpty()) {
-          //  UI.showToastShort(error.toString(), getActivity());
+        if (error != null && !error.toString().isEmpty()) {
+            //  UI.showToastShort(error.toString(), getActivity());
             UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
                     new DialogDoubleActions() {
                         @Override
@@ -311,7 +307,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
     private void goLoginAlert(String message) {
 
-        UI.createCustomDialog("", message, getChildFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+        UI.createCustomDialog("", message, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
                 counterRetry = 1;
