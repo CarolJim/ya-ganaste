@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.ui.preferuser.presenters;
 
 import android.graphics.Bitmap;
 
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
@@ -83,7 +85,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
      */
     @Override
     public void DesasociarToPresenter() {
-        mView.showLoader("Procesando. Por favor, espere . . .");
+        mView.showLoader(App.getContext().getResources().getString(R.string.user_change_desasociar));
         DesasociarDispositivoRequest desasociarRequest = new DesasociarDispositivoRequest();
         iPreferUserIteractor.desasociarToIteracto(desasociarRequest);
     }
@@ -168,7 +170,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
      */
     @Override
     public void changeEmailToPresenter(String mOld, String mNew) {
-        mView.showLoader("Procesando. Por favor, espere . . .");
+        mView.showLoader(App.getContext().getResources().getString(R.string.user_change_email));
         CambiarEmailRequest cambiarEmailRequest = new CambiarEmailRequest();
         iPreferUserIteractor.changeEmailToIteractor(cambiarEmailRequest);
     }
@@ -182,7 +184,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
      */
     @Override
     public void changePassToPresenter(String mPassActual, String mPassNueva) {
-        mView.showLoader("Procesando. Por favor, espere . . .");
+        mView.showLoader(App.getContext().getResources().getString(R.string.user_change_password));
         CambiarContraseniaRequest cambiarContraseniaRequest = new CambiarContraseniaRequest();
         cambiarContraseniaRequest.setContrasenaActual(mPassActual);
         cambiarContraseniaRequest.setContrasenaNueva(mPassNueva);

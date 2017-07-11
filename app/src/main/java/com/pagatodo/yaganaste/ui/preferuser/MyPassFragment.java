@@ -361,7 +361,6 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
         errorIsShowed = false;
     }
 
-    // TODO Pendiente todo el proceso de validaciones de la Pass
     public void onValidationSuccess() {
         // Deshabilitamos el backButton
         //getActivity().onBackPressed();

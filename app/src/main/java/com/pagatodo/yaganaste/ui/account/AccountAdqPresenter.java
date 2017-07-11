@@ -99,20 +99,20 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     /*envio de documentos */
     @Override
     public void sendDocumentos(ArrayList<DataDocuments> docs) {
-        iAdqView.showLoader("Subiendo Documentos");
+        iAdqView.showLoader(App.getContext().getResources().getString(R.string.adq_upload_documents));
         adqIteractor.sendDocuments(docs);
     }
 
     @Override
     public void sendDocumentosPendientes(ArrayList<DataDocuments> data) {
 
-        iAdqView.showLoader("Actualizando Documentos");
+        iAdqView.showLoader(App.getContext().getResources().getString(R.string.adq_upgrade_documents));
         adqIteractor.sendDocumentsPendientes(data);
         new Handler().postDelayed(new Runnable() {
             @Override
             public void run() {
                 if (iAdqView instanceof IUploadDocumentsView)
-                    ((IUploadDocumentsView) iAdqView).documentosActualizados("Actualizando Documentos ");
+                    ((IUploadDocumentsView) iAdqView).documentosActualizados(App.getContext().getResources().getString(R.string.adq_upgrade_documents));
             }
         }, DELAY_MESSAGE_PROGRESS);
     }
@@ -157,16 +157,16 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
             if (ws == OBTENER_DOCUMENTOS) {
                 ((IUploadDocumentsView) iAdqView).setDocumentosStatus( (List<EstatusDocumentosResponse>) data);
             } else if (ws == CARGA_DOCUMENTOS) {
-                ((IUploadDocumentsView) iAdqView).documentsUploaded("Ejecución Éxitosa");
+                ((IUploadDocumentsView) iAdqView).documentsUploaded(
+                        App.getContext().getResources().getString(R.string.execution_success));
             }
         } else {
             Log.i(TAG, "La sesión se ha cerrado.");
-
         }
     }
     @Override
     public void showGaleryError() {
-        UI.showToastShort("La aplicacion no pudo acceder a su imagen intente con otra galeria", App.getContext());
+        UI.showToastShort(App.getContext().getResources().getString(R.string.adq_error_open_image), App.getContext());
     }
 
     public void setEstatusDocs(View rootview, List<EstatusDocumentosResponse> data) {
