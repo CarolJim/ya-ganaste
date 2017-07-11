@@ -30,7 +30,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtThanksBuy"
-                style="@style/textTitle"
+                style="@style/GenericStyleTextTittle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
@@ -39,7 +39,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtPaymentMessage1"
-                style="@style/textDetailTransaction"
+                style="@style/GenerictextDetailTransaction2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtThanksBuy"
@@ -49,19 +49,19 @@
 
             <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                 android:id="@+id/txtAmountPayment"
-                style="@style/textDetailTransaction"
+                style="@style/GenerictextDetailTransaction2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="70"
-                android:textSize="28sp"
+                android:textSize="@dimen/size_text_style_1_value"
                 app:dotBottom="false"
                 app:symbolSmaller="true" />
 
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtPaymentMessage2"
-                style="@style/textDetailTransaction"
+                style="@style/GenerictextDetailTransaction3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_below="@+id/txtAmountPayment"
@@ -78,7 +78,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtNumberCard"
-                    style="@style/textDetailTransaction"
+                    style="@style/GenerictextDetailTransaction2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="*************4565" />
@@ -116,6 +116,7 @@
                 style="@style/textTitleDetailTransaction"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:textSize="@dimen/size_text_style_2_value"
                 android:text="@string/correo_enviar_ticket"
                 app:tipo="Descripcion" />
 
@@ -126,8 +127,7 @@
                 android:layout_marginTop="@dimen/margin_medium"
                 android:text="@string/txt_felicidades"
                 app:defaultIcon="email"
-                app:formato="email"
-                app:hintColor="@color/whiteColor_disable"
+                app:formato="email" style="@style/GenericCustomValidationEditText"
                 app:hintText="@string/txt_mail" />
 
             <android.support.v4.widget.Space
@@ -141,6 +141,7 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/seek_background"
                 android:clickable="false"
+                app:textSize="@dimen/size_text_style_2_value"
                 android:max="100"
                 android:progressDrawable="@android:color/transparent"
                 android:thumb="@drawable/thumb_size"

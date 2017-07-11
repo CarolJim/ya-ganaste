@@ -2,8 +2,8 @@
 <android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:background="@drawable/bg_gradient_bottom"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="@drawable/bg_gradient_bottom">
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -32,14 +32,13 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtSucursalTitle"
+                style="@style/generic_text_style_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="26dp"
                 android:layout_marginLeft="12dp"
                 android:layout_marginTop="26dp"
                 android:text="Chedraui"
-                android:textColor="@color/whiteColor"
-                android:textSize="@dimen/frag_depositos_sucursal_detail_tittle_text_Size"
                 app:tipo="Descripcion" />
 
             <LinearLayout
@@ -53,13 +52,12 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtSucursalAddress"
+                    style="@style/generic_text_style_3.1"
                     android:layout_width="0dp"
-                    android:textSize="@dimen/frag_depositos_sucursal_detail_subtittle_text_Size"
                     android:layout_height="match_parent"
                     android:layout_weight="80"
                     android:gravity="center|left"
-                    android:text="Pdte Mazaryk"
-                    app:tipo="Indicacion" />
+                    android:text="Pdte Mazaryk" />
 
                 <ImageView
                     android:layout_width="0dp"
@@ -87,13 +85,12 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtSucursalDate"
+                    style="@style/generic_text_style_3.1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="80"
-                    android:textSize="@dimen/frag_depositos_sucursal_detail_subtittle_text_Size"
                     android:gravity="center|left"
-                    android:text="Pdte Mazaryk"
-                    app:tipo="Indicacion" />
+                    android:text="Pdte Mazaryk" />
 
                 <ImageView
                     android:layout_width="0dp"
@@ -120,13 +117,12 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtSucursalHour"
+                    style="@style/generic_text_style_3.1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/frag_depositos_sucursal_detail_subtittle_text_Size"
                     android:layout_weight="80"
                     android:gravity="center|left"
-                    android:text="Pdte Mazaryk"
-                    app:tipo="Indicacion" />
+                    android:text="Pdte Mazaryk" />
 
                 <ImageView
                     android:layout_width="0dp"
@@ -153,13 +149,12 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtSucursalPhone"
+                    style="@style/generic_text_style_3.1"
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
-                    android:textSize="@dimen/frag_depositos_sucursal_detail_subtittle_text_Size"
                     android:layout_weight="80"
                     android:gravity="center|left"
-                    android:text="Pdte Mazaryk"
-                    app:tipo="Indicacion" />
+                    android:text="Pdte Mazaryk" />
 
                 <ImageView
                     android:layout_width="0dp"
@@ -192,11 +187,11 @@
         android:layout_height="wrap_content"
         android:layout_marginEnd="12dp"
         android:layout_marginRight="12dp"
-        app:srcCompat="@drawable/drive"
         android:scaleType="center"
         app:backgroundTint="@color/colorAccent"
         app:borderWidth="4dp"
         app:elevation="6dp"
         app:layout_anchor="@id/imgSucursal"
-        app:layout_anchorGravity="bottom|end" />
+        app:layout_anchorGravity="bottom|end"
+        app:srcCompat="@drawable/drive" />
 </android.support.design.widget.CoordinatorLayout>

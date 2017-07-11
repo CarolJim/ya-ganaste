@@ -36,7 +36,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/cardNumber"
-                style="@style/StyleEditText"
+                style="@style/GenericStyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/card_number_hint"
@@ -55,7 +55,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/amountToSend"
-                style="@style/StyleEditText"
+                style="@style/GenericStyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_importe_envio"
@@ -74,7 +74,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/receiverName"
-                style="@style/StyleEditText"
+                style="@style/GenericStyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_name_destinatario"
@@ -93,7 +93,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/concept"
-                style="@style/StyleEditText"
+                style="@style/GenericStyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_concepto"
@@ -112,7 +112,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/numberReference"
-                style="@style/StyleEditText"
+                style="@style/GenericStyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_referencia_numerica"
@@ -160,7 +160,7 @@
             android:layout_height="wrap_content"
             android:background="@drawable/seek_background"
             android:clickable="false"
-            android:max="100"
+            android:max="100" app:textSize="@dimen/size_text_style_2_value"
             android:progressDrawable="@android:color/transparent"
             android:thumb="@drawable/thumb_size"
             android:thumbOffset="15dp"

@@ -18,14 +18,12 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtDepositTitle"
+        style="@style/generic_text_style_1"
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="7"
         android:gravity="center"
-        android:text="@string/datos_deposito"
-        android:textColor="@color/colorAccent"
-        android:textSize="@dimen/frag_depositos_titulo_text_size"
-        app:tipo="Subtitulo" />
+        android:text="@string/datos_deposito" />
 
 
     <RelativeLayout
@@ -37,11 +35,11 @@
             android:id="@+id/imgYaGanasteCard"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:adjustViewBounds="true"
-            android:scaleType="centerInside"
             android:layout_marginLeft="60dp"
             android:layout_marginRight="60dp"
             android:layout_marginTop="20dp"
+            android:adjustViewBounds="true"
+            android:scaleType="centerInside"
             android:src="@mipmap/main_card_zoom_blue" />
 
     </RelativeLayout>
@@ -49,61 +47,55 @@
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtTitularTitle"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
+        android:layout_height="0dp" style="@style/generic_text_style_2"
         android:layout_weight="5"
         android:gravity="center|bottom"
         android:text="@string/datos_deposito_titular"
-        android:textSize="@dimen/frag_depositos_datos_text_size"
         app:tipo="Descripcion" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtNameTitular"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="5" style="@style/generic_text_style_3"
         android:gravity="center|top"
         android:text=""
-        android:textSize="@dimen/frag_depositos_datos_text_size"
         app:tipo="Descripcion" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtNumberTitle"
-        android:layout_width="match_parent"
+        android:layout_width="match_parent" style="@style/generic_text_style_2"
         android:layout_height="0dp"
         android:layout_weight="5"
         android:gravity="center|bottom"
         android:text="@string/datos_deposito_num_card"
-        android:textSize="@dimen/frag_depositos_datos_text_size"
         app:tipo="Descripcion" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtNumberCard"
-        android:layout_width="match_parent"
+        android:layout_width="match_parent" style="@style/generic_text_style_3"
         android:layout_height="0dp"
         android:layout_weight="5"
         android:gravity="center|top"
         android:text=""
-        android:textSize="@dimen/frag_depositos_datos_text_size"
         app:tipo="Descripcion" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtCableTitle"
-        android:layout_width="match_parent"
+        android:layout_width="match_parent" style="@style/generic_text_style_2"
         android:layout_height="0dp"
         android:layout_weight="5"
         android:gravity="center|bottom"
         android:text="@string/datos_deposito_clabe"
-        android:textSize="@dimen/frag_depositos_datos_text_size"
         app:tipo="Descripcion" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtCableNumber"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5"
+        android:layout_weight="5" style="@style/generic_text_style_3"
         android:gravity="center|top"
         android:text=""
-        android:textSize="@dimen/frag_depositos_datos_text_size"
         app:tipo="Descripcion" />
 
     <RelativeLayout
@@ -114,13 +106,12 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnDepositar"
-            style="@style/buttonSquareRoundedBlue"
+            style="@style/GenericbuttonSquareRoundedBlue"
             android:layout_width="match_parent"
             android:layout_height="@dimen/height_btns"
             android:gravity="center"
             android:text="@string/datos_deposito_donde_depos"
-            android:textAllCaps="false"
-            android:textSize="@dimen/generic_button_normal_text_size" />
+            android:textAllCaps="false" />
 
     </RelativeLayout>
 

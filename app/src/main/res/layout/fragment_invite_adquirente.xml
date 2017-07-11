@@ -35,7 +35,7 @@
                 android:id="@+id/btn_mas_tarde"
                 style="@style/ButtonInviteAdq"
                 android:layout_width="0dp"
-                android:layout_height="wrap_content"
+                android:layout_height="wrap_content" android:textSize="@dimen/size_text_style_2_value"
                 android:layout_weight="8"
                 android:text="@string/mas_tarde" />
 
@@ -46,7 +46,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.MaterialButton
                 android:id="@+id/btn_si"
-                style="@style/ButtonInviteAdqY"
+                style="@style/ButtonInviteAdqY" android:textSize="@dimen/size_text_style_2_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="8"

@@ -24,6 +24,7 @@ import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 
@@ -42,7 +43,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     private float MIN_AMOUNT = 1.0f;
 
     private EditText etMonto;
-    private TextView tvMontoEntero, tvMontoDecimal;
+    private StyleTextView tvMontoEntero, tvMontoDecimal;
 
     public GetMountFragment() {
         // Required empty public constructor
@@ -76,12 +77,11 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
          * muestra en pantalla
          */
         layout_amount = (LinearLayout) rootview.findViewById(R.id.layout_amount_control);
-        tvMontoEntero = (TextView) rootview.findViewById(R.id.tv_monto_entero);
-        tvMontoDecimal = (TextView) rootview.findViewById(R.id.tv_monto_decimal);
+        tvMontoEntero = (StyleTextView) rootview.findViewById(R.id.tv_monto_entero);
+        tvMontoDecimal = (StyleTextView) rootview.findViewById(R.id.tv_monto_decimal);
         et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
-
       /*  et_amount.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
