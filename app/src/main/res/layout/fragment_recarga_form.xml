@@ -24,7 +24,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/recargaNumber"
-                style="@style/StyleEditText"
+                style="@style/GenericStyleEditText"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_weight="20"
@@ -84,7 +84,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar
             android:id="@+id/myseek"
-            android:layout_width="match_parent"
+            android:layout_width="match_parent" style="@style/generic_text_style_2"
             android:layout_height="wrap_content"
             android:background="@drawable/seek_background"
             android:clickable="false"

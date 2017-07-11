@@ -8,7 +8,7 @@
     android:background="@color/backgroundEditText"
     android:padding="7dp"
     android:longClickable="false"
-    android:textSize="@dimen/text_custom_validation_spinner_size"
+    android:textSize="@dimen/size_text_style_3_value"
     android:text="Hola"
     android:clickable="false"
     android:textColor="@color/whiteColor_disable"

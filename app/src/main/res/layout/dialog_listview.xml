@@ -23,7 +23,7 @@
             android:backgroundTint="@color/transparent"
             android:paddingBottom="6dp"
             android:paddingTop="6dp"
-            android:textSize="14sp" />
+            android:textSize="@dimen/size_text_style_3_value" />
     </LinearLayout>
 
     <ListView

@@ -35,36 +35,33 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_nombre_negocio"
-                    style="@style/MainTabText"
+                    style="@style/generic_text_style_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:text="Abarrotes 'Mi Lupita'"
-                    android:textSize="@dimen/ad_em_tab_text_size" />
+                    android:text="Abarrotes 'Mi Lupita'" />
 
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txt_saldo_adq"
-                    style="@style/MainTabText"
+                    style="@style/generic_text_style_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:maxLines="1"
                     android:text="$2750.00"
                     android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/ad_em_tab_text_size_monto"
                     app:dotBottom="false"
                     app:symbolSmaller="true" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_status"
-                    style="@style/MainTabText"
+                    style="@style/generic_text_style_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="@string/saldo_pendiente"
-                    android:textColor="@color/colorAccent"
-                    android:textSize="@dimen/ad_em_tab_text_size" />
+                    android:textColor="@color/colorAccent" />
 
 
             </LinearLayout>

@@ -25,13 +25,11 @@
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txtHeadRollPage"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:textColor="@color/colorAccent"
+            android:layout_height="wrap_content" style="@style/generic_text_style_1"
             app:tipo="Descripcion"
             android:gravity="center"
             android:text="Hola"
-            android:layout_marginTop="@dimen/margin_regular"
-            android:textSize="26sp" />
+            android:layout_marginTop="@dimen/margin_regular"  />
     </LinearLayout>
 
     <LinearLayout

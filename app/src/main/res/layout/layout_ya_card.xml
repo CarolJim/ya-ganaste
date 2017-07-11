@@ -46,7 +46,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
-                    android:cursorVisible="false"
+                    android:cursorVisible="false" style="@style/generic_text_style_2"
                     android:enabled="false"
                     android:focusable="true"
                     android:inputType="number"
@@ -72,7 +72,7 @@
                     android:id="@+id/txt_tarjeta_date_tdc"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center"
+                    android:gravity="center"  style="@style/generic_text_style_4"
                     android:text="07/22" />
             </LinearLayout>
 
@@ -89,7 +89,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_tarjeta_user_name"
-                    android:layout_width="wrap_content"
+                    android:layout_width="wrap_content"  style="@style/generic_text_style_4"
                     android:layout_height="wrap_content"
                     android:gravity="center"
                     android:text="Francisco J Manzo Nava" />
