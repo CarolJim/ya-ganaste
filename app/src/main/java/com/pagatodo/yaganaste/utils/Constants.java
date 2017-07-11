@@ -21,6 +21,8 @@ public class Constants {
     public static final int BACK_FROM_PAYMENTS = 190;
     public static final int REGISTER_ADQUIRENTE_CODE = 840;
 
+    public static final int PAYMENTS_ADQUIRENTE = 818;
+
 
     public static final String RESULT = "Resultado";
     public static final String MESSAGE = "Mensaje";

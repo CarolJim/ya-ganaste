@@ -1,6 +1,9 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
+import android.content.Intent;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -77,8 +80,25 @@ public class LoginManagerContainerFragment extends SupportFragment {
         loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, true);
     }
 
-    public void loadMontoFragment(){
+    public void loadMontoFragment() {
         loadFragment(GetMountFragment.newInstance(), Direction.FORDWARD, true);
+    }
+
+    public void loadRecoveryFragment() {
+        loadFragment(RecoveryFragment.newInstance(), Direction.FORDWARD, true);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        Handler handler = new Handler(Looper.getMainLooper());
+        handler.postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                onBackActions();
+            }
+        }, 0);
+
     }
 
     public void onBackActions() {

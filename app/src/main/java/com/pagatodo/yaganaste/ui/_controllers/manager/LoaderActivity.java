@@ -33,6 +33,7 @@ public class LoaderActivity extends ToolBarActivity implements OnEventListener, 
     public static final String EVENT_SHOW_ERROR = "EVENT_SHOW_ERROR";
 
     private ProgressLayout progressLayout;
+    public boolean isLoaderShow = false;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -70,10 +71,12 @@ public class LoaderActivity extends ToolBarActivity implements OnEventListener, 
         super.onEvent(event, data);
         switch (event) {
             case EVENT_SHOW_LOADER:
+                isLoaderShow = true;
                 showLoader(data.toString());
                 break;
 
             case EVENT_HIDE_LOADER:
+                isLoaderShow = false;
                 hideLoader();
                 break;
 

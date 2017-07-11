@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -32,6 +33,8 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
     public final static String EVENT_GO_REMOVE_CARD = "EVENT_GO_REMOVE_CARD";
     public final static String EVENT_GO_GET_SIGNATURE = "EVENT_GO_GET_SIGNATURE";
     public final static String EVENT_GO_DETAIL_TRANSACTION = "EVENT_GO_DETAIL_TRANSACTION";
+    public final static String EVENT_GO_LOGIN_FRAGMENT = "EVENT_GO_LOGIN_FRAGMENT";
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -66,7 +69,10 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
             case EVENT_GO_MAINTAB:
                 finish();
                 break;
-
+            case EVENT_GO_LOGIN_FRAGMENT:
+                setResult(Activity.RESULT_OK);
+                finish();
+                break;
         }
     }
 
@@ -80,8 +86,13 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
     @Override
     public void onConfigurationChanged(Configuration newConfig) {
         super.onConfigurationChanged(newConfig);
-
     }
 
+    @Override
+    public void onBackPressed() {
+        if (!isLoaderShow && getCurrentFragment() instanceof InsertDongleFragment) {
+            super.onBackPressed();
+        }
+    }
 }
 

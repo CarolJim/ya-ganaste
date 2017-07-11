@@ -41,6 +41,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHE
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_REMOVE_CARD;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
@@ -238,14 +239,15 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 result.setStatusTransaction(ADQ_TRANSACTION_APROVE);
                 result.setResponseCode(0);
                 result.setTransaccionResponse(data);
-                PageResult pageResult = new PageResult(R.drawable.ic_done, "Cancelación Exitosa", "El Cobro Fue Cancelado\nCorrectamente.", false);
-                pageResult.setNamerBtnPrimary("Terminar");
+                PageResult pageResult = new PageResult(R.drawable.ic_done, context.getString(R.string.cancelation_success),
+                        context.getString(R.string.cancelation_success_message), false);
+                pageResult.setNamerBtnPrimary(context.getString(R.string.terminar));
                 //pageResult.setNamerBtnSecondary("Llamar");
                 pageResult.setActionBtnPrimary(new Command() {
                     @Override
                     public void action(Context context, Object... params) {
                         INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(DetailsActivity.EVENT_GO_TO_FINALIZE_SUCCESS, "Ejecución Éxitosa");
+                        viewInterface.nextScreen(DetailsActivity.EVENT_GO_TO_FINALIZE_SUCCESS, context.getString(R.string.cancelation_success));
                     }
                 });
                 pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
@@ -255,11 +257,11 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             default:
                 result.setStatusTransaction(ADQ_TRANSACTION_ERROR);
                 PageResult pageResultError = new PageResult(R.drawable.ic_cancel,
-                        "Ocurrió un Error",
+                        context.getString(R.string.title_error),
                         data.getError().getMessage(),
                         false);
 
-                pageResultError.setNamerBtnPrimary("Aceptar");
+                pageResultError.setNamerBtnPrimary(context.getString(R.string.title_aceptar));
                 //pageResultError.setNamerBtnSecondary(App.getInstance().getString(R.string.title_reintentar));
                 pageResultError.setActionBtnPrimary(new Command() {
                     @Override
@@ -353,14 +355,16 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 result.setStatusTransaction(ADQ_TRANSACTION_APROVE);
                 result.setResponseCode(0);
                 result.setTransaccionResponse(data);
-                PageResult pageResult = new PageResult(R.drawable.ic_done, "Aprobada", "El Pago Fue Completado\nCorrectamente.", false);
-                pageResult.setNamerBtnPrimary("Continuar");
+                PageResult pageResult = new PageResult(R.drawable.ic_done, context.getString(R.string.aprobada),
+                        context.getString(R.string.pago_success), false);
+
+                pageResult.setNamerBtnPrimary(context.getString(R.string.continuar));
                 //pageResult.setNamerBtnSecondary("Llamar");
                 pageResult.setActionBtnPrimary(new Command() {
                     @Override
                     public void action(Context context, Object... params) {
                         INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(EVENT_GO_REMOVE_CARD, "Ejecución Éxitosa");
+                        viewInterface.nextScreen(EVENT_GO_REMOVE_CARD, App.getContext().getString(R.string.execution_success));
                     }
                 });
                 pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
@@ -370,7 +374,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             default:
                 result.setStatusTransaction(ADQ_TRANSACTION_ERROR);
                 PageResult pageResultError = new PageResult(R.drawable.ic_cancel,
-                        "Ocurrió un error",
+                        context.getString(R.string.title_error),
                         data.getError().getMessage(),
                         true);
 
@@ -428,7 +432,8 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         EnviarTicketCompraResponse data = (EnviarTicketCompraResponse) response.getData();
         if (data.getId().equals(ADQ_CODE_OK)) {
             TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
-            PageResult pageResult = new PageResult(R.drawable.ic_done, "¡Listo!", "El Recibo Fue\nEnviado con Éxito.", false);
+            PageResult pageResult = new PageResult(R.drawable.ic_done, context.getString(R.string.listo),
+                    context.getString(R.string.recibo_enviado_line), false);
             pageResult.setActionBtnPrimary(new Command() {
                 @Override
                 public void action(Context context, Object... params) {
@@ -443,11 +448,11 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                      */
                     NumberCalcTextWatcher.cleanData();
 
-                    viewInterface.nextScreen(EVENT_GO_MAINTAB, "Ejecución Éxitosa");
+                    viewInterface.nextScreen(EVENT_GO_LOGIN_FRAGMENT, context.getString(R.string.execution_success));
                 }
             });
 
-            pageResult.setNamerBtnPrimary("Continuar");
+            pageResult.setNamerBtnPrimary(context.getString(R.string.continuar));
             pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
             result.setPageResult(pageResult);
             result.setTransaccionResponse(new TransaccionEMVDepositResponse());

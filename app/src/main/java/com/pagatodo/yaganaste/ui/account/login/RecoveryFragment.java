@@ -116,7 +116,8 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnBackRecuperar:
-                backScreen(EVENT_RECOVERY_PASS_BACK, null);
+                //backScreen(EVENT_RECOVERY_PASS_BACK, null);
+                ((LoginManagerContainerFragment)getParentFragment()).onBackActions();
                 break;
             case R.id.btnNextRecuperar:
                 validateForm();
