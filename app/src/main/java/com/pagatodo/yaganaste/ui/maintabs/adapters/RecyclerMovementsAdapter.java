@@ -9,10 +9,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
-import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
 import java.util.List;
 
@@ -38,20 +40,20 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerMo
 
     @Override
     public RecyclerViewHolderMovements onCreateViewHolder(ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movement, parent,false);
+        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movement, parent, false);
         return new RecyclerViewHolderMovements(layoutView);
     }
 
     @Override
     public void onBindViewHolder(final RecyclerViewHolderMovements holder, int position) {
         ItemMovements itemMovements = itemMovementses.get(position);
-        String[] monto = Utils.getCurrencyValue(itemMovements.getMonto()).split("\\.");
+        //String[] monto = Utils.getCurrencyValue(itemMovements.getMonto()).split("\\.");
         holder.layoutMovementTypeColor.setBackgroundResource(itemMovements.getColor());
         holder.txtMonto.setTextColor(ContextCompat.getColor(context, itemMovements.getColor()));
         holder.txtPremios.setText(itemMovements.getPremio());
         holder.txtMarca.setText(itemMovements.getMarca());
 
-        holder.txtMonto.setText(monto[0].concat("."));
+        holder.txtMonto.setText(StringUtils.getCurrencyValue(Double.toString(itemMovements.getMonto())));//(monto[0].concat("."));
 
         holder.txtItemMovDate.setText(itemMovements.getDate());
         holder.txtItemMovMonth.setText(itemMovements.getMonth());
@@ -63,8 +65,8 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerMo
             holder.txtItemMovCents.setVisibility(View.GONE);
         }*/
 
-        holder.txtItemMovCents.setText(monto[1]);
-        holder.txtItemMovCents.setTextColor(ContextCompat.getColor(context, itemMovements.getColor()));
+        //holder.txtItemMovCents.setText(monto[1]);
+        //holder.txtItemMovCents.setTextColor(ContextCompat.getColor(context, itemMovements.getColor()));
 
         if (itemMovementses.get(position).getColor() == android.R.color.transparent) {
             holder.txtMonto.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
@@ -93,18 +95,18 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerMo
         TextView txtItemMovMonth;
         TextView txtPremios;
         TextView txtMarca;
-        TextView txtMonto;
-        TextView txtItemMovCents;
+        MontoTextView txtMonto;
+        //TextView txtItemMovCents;
 
         private RecyclerViewHolderMovements(View itemView) {
             super(itemView);
             layoutMovementTypeColor = itemView.findViewById(R.id.layout_movement_type_color);
-            txtItemMovDate = (TextView)itemView.findViewById(R.id.txt_item_mov_date);
-            txtItemMovMonth = (TextView)itemView.findViewById(R.id.txt_item_mov_month);
-            txtPremios = (TextView)itemView.findViewById(R.id.txt_premios);
-            txtMarca = (TextView)itemView.findViewById(R.id.txt_marca);
-            txtMonto = (TextView)itemView.findViewById(R.id.txt_monto);
-            txtItemMovCents = (TextView)itemView.findViewById(R.id.txt_item_mov_cents);
+            txtItemMovDate = (TextView) itemView.findViewById(R.id.txt_item_mov_date);
+            txtItemMovMonth = (TextView) itemView.findViewById(R.id.txt_item_mov_month);
+            txtPremios = (TextView) itemView.findViewById(R.id.txt_premios);
+            txtMarca = (TextView) itemView.findViewById(R.id.txt_marca);
+            txtMonto = (MontoTextView) itemView.findViewById(R.id.txt_monto);
+            //txtItemMovCents = (TextView)itemView.findViewById(R.id.txt_item_mov_cents);
         }
     }
 

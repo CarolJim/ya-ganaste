@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <!--RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
@@ -101,7 +101,11 @@
                     app:tipo="Subtitulo" />
 
             </LinearLayout>
-        </RelativeLayout>
+        </RelativeLayout-->
+
+        <include
+            layout="@layout/item_movement" />
+
 
         <RelativeLayout
             android:layout_width="match_parent"

@@ -37,16 +37,19 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
 
     private View rootView;
 
-    @BindView(R.id.txtItemMovDate)
+    @BindView(R.id.layout_movement_type_color)
+    View layoutMovementTypeColor;
+    @BindView(R.id.txt_item_mov_date)
     TextView txtItemMovDate;
-    @BindView(R.id.txtItemMovMonth)
+    @BindView(R.id.txt_item_mov_month)
     TextView txtItemMovMonth;
-    @BindView(R.id.txt_concept_short)
+    @BindView(R.id.txt_premios)
     TextView txtConceptShort;
     @BindView(R.id.txt_marca)
     TextView txtMarca;
     @BindView(R.id.txt_monto)
     MontoTextView txtMonto;
+
     @BindView(R.id.imageDetail)
     ImageView imageDetail;
 
@@ -64,8 +67,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     TextView txtAutorizacionDescripcion;
     @BindView(R.id.txtReciboDescripcion)
     TextView txtReciboDescripcion;
-    @BindView(R.id.layoutMovementTypeColor)
-    View layoutMovementTypeColor;
+
 
     @BindView(R.id.layoutComision)
     LinearLayout layoutComision;

@@ -11,6 +11,7 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 
@@ -20,7 +21,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 
 public class CardAdq extends TabViewElement {
 
-    private TextView saldoAdq;
+    private MontoTextView saldoAdq;
     private TextView txtInvite;
 
     public CardAdq(Context context) {
@@ -41,7 +42,7 @@ public class CardAdq extends TabViewElement {
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 0);
         addView(child, params);
 
-        saldoAdq = (TextView) findViewById(R.id.txt_saldo_adq);
+        saldoAdq = (MontoTextView) findViewById(R.id.txt_saldo_adq);
         txtInvite = (TextView) findViewById(R.id.txt_invite);
     }
 

@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
@@ -21,7 +22,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 public class CardEmisorSelected extends TabViewElement {
 
-    private TextView txtSaldo;
+    private MontoTextView txtSaldo;
     private TextView txtNombre;
 
     public CardEmisorSelected(Context context) {
@@ -41,7 +42,7 @@ public class CardEmisorSelected extends TabViewElement {
         View child = LayoutInflater.from(getContext()).inflate(R.layout.card_emisor_selected, null);
         LayoutParams params = new LayoutParams(LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT, 0);
         addView(child, params);
-        txtSaldo = (TextView) findViewById(R.id.txt_saldo);
+        txtSaldo = (MontoTextView) findViewById(R.id.txt_saldo);
         txtNombre = (TextView) findViewById(R.id.txt_nombre);
         updateData();
     }
