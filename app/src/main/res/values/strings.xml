@@ -614,6 +614,7 @@
     <string name="mount_valid">Ingresa un Monto Válido.</string>
     <string name="enter_mount">Por Favor Ingrese un Monto</string>
     <string name="mount_cero">$0.00</string>
+    <string name="send_to_txt">Enviado a:</string>
 </resources>
 
 

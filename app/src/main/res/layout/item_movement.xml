@@ -98,7 +98,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="200.00"
-                    android:textColor="@color/greencolor"
                     android:textSize="12sp"
                     app:decimalLenght="2"
                     app:dotBottom="false"

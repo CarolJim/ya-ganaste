@@ -153,8 +153,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         txtMonto.setText(String.format("%.2f", movimientosResponse.getImporte()).trim().replace(",", "."));
 
         Glide.with(this).load(movimientosResponse.getURLImagen())
-                .placeholder(R.mipmap.ic_background_pago)
-                .error(R.mipmap.ic_background_pago).into(imageDetail);
+                .placeholder(R.mipmap.logo_ya_ganaste).into(imageDetail);
 
         txtMontoDescripcion.setText(String.format("%.2f", movimientosResponse.getImporte()).trim().replace(",", "."));
 
