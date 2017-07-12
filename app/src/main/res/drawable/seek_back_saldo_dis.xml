@@ -13,7 +13,7 @@
     <item android:id="@android:id/progress">
         <clip>
             <shape>
-                <solid android:color="@color/greencolor"/>
+                <solid android:color="@color/greenColorPositiveMovements"/>
                 <corners android:radius="8dp" />
                 <stroke android:color="@color/transparent"
                     android:width="7dp"/>

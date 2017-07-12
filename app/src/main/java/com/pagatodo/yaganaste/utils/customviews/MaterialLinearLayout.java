@@ -98,7 +98,7 @@ public class MaterialLinearLayout extends LinearLayout implements View.OnClickLi
         GradientDrawable pressedDrawable = new GradientDrawable();
         pressedDrawable.setShape(GradientDrawable.RECTANGLE);
         pressedDrawable.setCornerRadius(cornerRadius);
-        pressedDrawable.setColor(ContextCompat.getColor(getContext(), R.color.redcolor));
+        pressedDrawable.setColor(ContextCompat.getColor(getContext(), R.color.redColorNegativeMovements));
         pressedDrawable.setStroke((int) Utils.convertDpToPixels(2), selectedStrokeColor);
 
 

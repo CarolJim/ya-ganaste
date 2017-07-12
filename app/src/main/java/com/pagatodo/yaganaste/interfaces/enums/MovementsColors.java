@@ -8,10 +8,10 @@ import com.pagatodo.yaganaste.R;
 
 public enum MovementsColors {
 
-    CARGO(1, R.color.redcolor),
-    APROBADO(2, R.color.greencolor), //No debe ser cargo, pero estará aprobado
+    CARGO(1, R.color.redColorNegativeMovements),
+    APROBADO(2, R.color.greenColorPositiveMovements), //No debe ser cargo, pero estará aprobado
     PENDIENTE(4, R.color.colorAccent),
-    CANCELADO(3, R.color.redcolor);
+    CANCELADO(3, R.color.redColorNegativeMovements);
 
     private int color;
     private int type;

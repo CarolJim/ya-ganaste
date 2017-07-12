@@ -42,7 +42,7 @@
     </style>
 
     <style name="switchStyle" parent="Theme.AppCompat.Light">
-        <item name="colorControlActivated">@color/greencolor</item>
+        <item name="colorControlActivated">@color/greenColorPositiveMovements</item>
         <item name="colorSwitchThumbNormal">@color/colorAccent</item>
         <item name="android:colorForeground">@color/grayColor</item>
     </style>
@@ -185,7 +185,7 @@
             @dimen/edittext_margin_left
         </item>
         <item name="android:textColorHint">@color/inputTextColorHint</item>
-        <item name="android:textColor">@color/inputTextColor</item>
+        <item name="android:textColor">@color/whiteColor</item>
         <item name="android:background">@null</item>
         <item name="android:backgroundTint" tools:targetApi="lollipop">@color/transparent</item>
         <item name="android:paddingTop">@dimen/edittext_padding</item>
@@ -334,7 +334,7 @@
     <style name="TextErrorValidation">
         <item name="android:layout_width">match_parent</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:textColor">@color/redcolor</item>
+        <item name="android:textColor">@color/redColorNegativeMovements</item>
         <item name="android:textSize">@dimen/text_error_validation_message</item>
         <item name="tipo">Italic</item>
         <item name="android:gravity">left|top</item>

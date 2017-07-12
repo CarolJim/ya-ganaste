@@ -17,7 +17,7 @@
             android:id="@+id/layout_movement_type_color"
             android:layout_width="3dp"
             android:layout_height="match_parent"
-            android:background="@color/redcolor" />
+            android:background="@color/redColorNegativeMovements" />
 
 
         <LinearLayout
@@ -108,7 +108,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="top"
-                    android:textColor="@color/redcolor"
+                    android:textColor="@color/redColorNegativeMovements"
                     android:textSize="14sp"
                     tools:text="00" />
 

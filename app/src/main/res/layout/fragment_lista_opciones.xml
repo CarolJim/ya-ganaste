@@ -107,7 +107,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/borderColor"  />
+                android:background="@color/whiteColor"  />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_user"
@@ -145,7 +145,7 @@
                 android:id="@+id/content_prefer_view_acount"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/borderColor"
+                android:background="@color/whiteColor"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -184,7 +184,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/borderColor"
+                android:background="@color/whiteColor"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -224,7 +224,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/borderColor"
+                android:background="@color/whiteColor"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -263,7 +263,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/borderColor" />
+                android:background="@color/whiteColor" />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_legal"
@@ -300,7 +300,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/borderColor" />
+                android:background="@color/whiteColor" />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_desasociar"
@@ -337,7 +337,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/borderColor" />
+                android:background="@color/whiteColor" />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_close"

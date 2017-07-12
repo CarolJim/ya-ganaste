@@ -5,7 +5,7 @@
     <solid android:color="@color/whiteColor"/>
     <corners android:radius="10dp"/>
 
-    <stroke android:color="@color/bgColorEnd"
+    <stroke android:color="@color/colorBlackBagroundMoviments"
         android:width="3dp"/>
 
 
