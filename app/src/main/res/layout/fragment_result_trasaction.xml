@@ -61,10 +61,11 @@
 
     <LinearLayout
         android:id="@+id/layoutButtonsResult"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
+        android:layout_width="@dimen/width_btns"
+        android:layout_height="@dimen/height_btns"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/btn_margin_bottom"
+        android:layout_marginBottom="@dimen/btn_navigation_bottom"
+        android:layout_centerHorizontal="true"
         android:gravity="center"
         android:orientation="horizontal">
 
@@ -73,6 +74,7 @@
             android:layout_height="wrap_content"
             android:orientation="horizontal"
             android:visibility="gone"
+            android:gravity="center_horizontal"
             android:weightSum="100">
 
             <android.support.v4.widget.Space
@@ -82,10 +84,6 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_continueEnvio"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/height_btns"
-                android:layout_marginBottom="@dimen/margin_medium"
-                android:layout_weight="40"
                 style="@style/GenericButtonDirecctionBack"
                 android:gravity="center"
                 android:text="Terminar"

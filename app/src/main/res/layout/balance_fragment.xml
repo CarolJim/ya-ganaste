@@ -53,8 +53,6 @@
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnLogin"
             style="@style/buttonSquareRoundedBlue"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_btns"
             android:gravity="center"
             android:textSize="@dimen/generic_button_normal_text_size"
             android:text="@string/txt_login" />

@@ -23,7 +23,7 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_alignParentTop="true"
-                android:background="@color/greencolor" />
+                android:background="@color/greenColorPositiveMovements" />
 
             <LinearLayout
                 android:id="@+id/layoutMovementDate"
@@ -95,7 +95,7 @@
                     style="@style/generic_text_style_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:textColor="@color/greencolor"
+                    android:textColor="@color/greenColorPositiveMovements"
                     app:dotBottom="false"
                     app:symbolSmaller="true"
                     app:tipo="Subtitulo" />
@@ -437,7 +437,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:gravity="center"
+            android:gravity="center_horizontal"
             android:orientation="horizontal"
             android:weightSum="100">
 
@@ -447,15 +447,19 @@
                 android:layout_width="0dp"
                 android:layout_height="@dimen/height_btns"
                 android:layout_marginEnd="@dimen/margin_small"
-                android:layout_marginLeft="@dimen/margin_regular"
+
                 android:layout_marginRight="@dimen/margin_small"
-                android:layout_marginStart="@dimen/margin_regular"
+
                 android:layout_weight="35"
                 android:background="@drawable/boton_regresar_canvas"
                 android:gravity="center"
                 android:text="@string/volver"
                 android:textAllCaps="false"
                 android:visibility="visible" />
+
+            <View
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"/>
 
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton

@@ -32,7 +32,8 @@
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtTitle"
         style="@style/generic_text_style_1"
-        android:layout_width="match_parent" android:gravity="center"
+        android:layout_width="match_parent"
+        android:gravity="center"
         android:layout_height="wrap_content"
         android:layout_below="@+id/layoutImagenLogin"
         android:text="@string/txt_felicidades"
@@ -68,7 +69,8 @@
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextComplete"
             style="@style/GenericButtonDirecctionNext"
-            android:layout_width="wrap_content"
+            android:layout_width="@dimen/width_btns"
+            android:layout_height="@dimen/height_btns"
             android:text="@string/next" />
     </LinearLayout>
 </RelativeLayout>

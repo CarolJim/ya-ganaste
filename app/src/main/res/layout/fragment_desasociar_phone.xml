@@ -31,9 +31,6 @@
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/fragment_desasociar_btn"
             style="@style/GenericbuttonSquareRoundedBlue"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_btns"
-            android:layout_marginTop="@dimen/margin_medium"
             android:gravity="center"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:text="Desasociar"

@@ -47,8 +47,16 @@
     <dimen name="edittext_padding">6dp</dimen>
     <dimen name="separator">1dp</dimen>
 
-    <!-- Botones -->
-    <dimen name="height_btns">50dp</dimen>
+    <!-- Botones xhdpi-->
+    <dimen name="height_btns">44dp</dimen>
+    <dimen name="width_btns">162dp</dimen>
+
+<!--
+    <dimen name="height_btn_square">44dp</dimen>
+    <dimen name="width_btn_square">162dp</dimen>
+-->
+
+
     <!-- Edittexts -->
     <dimen name="height_edittext">40dp</dimen>
 

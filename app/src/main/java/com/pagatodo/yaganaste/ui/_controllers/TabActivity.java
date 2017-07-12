@@ -129,7 +129,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         LinearLayout linearLayout = (LinearLayout) mainTab.getChildAt(0);
         linearLayout.setShowDividers(LinearLayout.SHOW_DIVIDER_MIDDLE);
         GradientDrawable drawable = new GradientDrawable();
-        drawable.setColor(ContextCompat.getColor(this, R.color.colorGrayDivider));
+        drawable.setColor(ContextCompat.getColor(this, R.color.colorGrayMenuDivider));
         drawable.setSize(1, 1);
         linearLayout.setDividerPadding(0);
         linearLayout.setDividerDrawable(drawable);

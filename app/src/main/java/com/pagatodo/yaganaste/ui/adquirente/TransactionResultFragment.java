@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -159,60 +160,54 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     }
 
     private void setAndConfigureBtns(LinearLayout llContentBtns) {
+
+
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.width_btns),
+                getResources().getDimensionPixelSize(R.dimen.height_btns));
+
+
         if (llContentBtns != null) {
             StyleButton btnPrimary = createButton(pageResultData.getBtnPrimaryType());
             btnPrimary.setOnClickListener(this);
             btnPrimary.setId(idBtnPrimary);
             btnPrimary.setText(pageResultData.getNamerBtnPrimary());
-            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(pageResultData.isHasSecondaryAction() ? 0 : ViewGroup.LayoutParams.WRAP_CONTENT,
-                    (int) getResources().getDimension(R.dimen.height_btns));
-            if (pageResultData.isHasSecondaryAction()) {
-                params.weight = 1;
-            }
-            params.setMargins(getResources().getDimensionPixelSize(R.dimen.margin_medium), getResources().getDimensionPixelSize(R.dimen.margin_medium),
-                    getResources().getDimensionPixelSize(R.dimen.margin_medium), getResources().getDimensionPixelSize(R.dimen.margin_medium));
-            btnPrimary.setLayoutParams(params);
-            llContentBtns.addView(btnPrimary);
+            llContentBtns.addView(btnPrimary, params);
             if (pageResultData.isHasSecondaryAction()) {
                 StyleButton btnSecondary = createButton(pageResultData.getBtnSecundaryType());
                 btnSecondary.setOnClickListener(this);
                 btnSecondary.setId(idBtnSecondary);
                 btnSecondary.setText(pageResultData.getNamerBtnSecondary());
-                LinearLayout.LayoutParams paramss = new LinearLayout.LayoutParams(0, (int) getResources().getDimension(R.dimen.height_btns));
-                paramss.weight = 1;
-                paramss.setMargins(getResources().getDimensionPixelSize(R.dimen.margin_medium), getResources().getDimensionPixelSize(R.dimen.margin_medium),
-                        getResources().getDimensionPixelSize(R.dimen.margin_medium), getResources().getDimensionPixelSize(R.dimen.margin_medium));
-                btnSecondary.setLayoutParams(paramss);
-                llContentBtns.addView(btnSecondary);
+                llContentBtns.addView(btnSecondary, params);
             }
         }
     }
 
     private StyleButton createButton(String types) {
-        StyleButton button = new StyleButton(getActivity());
-        button.setTransformationMethod(null);
+        StyleButton button;
+
         switch (types) {
             case BTN_DIRECTION_NEXT:
-                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selector_btn_continuar));
-                button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
+                ContextThemeWrapper themeContext = new ContextThemeWrapper(getActivity(), R.style.buttonDirecctionNext);
+                button = new StyleButton(themeContext);
                 break;
             case BTN_DIRECTION_BACK:
-                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.selector_btn_back));
-                button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
+                themeContext = new ContextThemeWrapper(getActivity(), R.style.buttonDirecctionBack);
+                button = new StyleButton(themeContext);
                 break;
 //            case BTN_ACTION_OK:
 //                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded_blue));
 //                button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
 //                break;
             case BTN_ACTION_ERROR:
-                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.button_rounded_transparent));
-                button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
+                themeContext = new ContextThemeWrapper(getActivity(), R.style.buttonSquareRoundedBlue);
+                button = new StyleButton(themeContext);
                 break;
             default:
-                button.setBackgroundDrawable(ContextCompat.getDrawable(getActivity(), R.drawable.button_rectangle_blue_selector));
-                button.setTextColor(ContextCompat.getColor(getActivity(), R.color.whiteColor));
+                themeContext = new ContextThemeWrapper(getActivity(), R.style.buttonSquareRoundedBlue);
+                button = new StyleButton(themeContext);
                 break;
         }
+        button.setTransformationMethod(null);
         return button;
     }
 }
