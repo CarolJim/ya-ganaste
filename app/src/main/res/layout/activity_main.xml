@@ -59,7 +59,8 @@
             android:layout_height="@dimen/height_btns"
             android:gravity="center"
             android:text="@string/txt_registrate"
-            android:textAllCaps="false"  />
+            android:layout_centerHorizontal="true"
+            android:textAllCaps="false" />
 
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView

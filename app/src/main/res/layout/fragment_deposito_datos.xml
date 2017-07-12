@@ -47,7 +47,8 @@
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtTitularTitle"
         android:layout_width="match_parent"
-        android:layout_height="0dp" style="@style/generic_text_style_2"
+        android:layout_height="0dp"
+        style="@style/generic_text_style_2"
         android:layout_weight="5"
         android:gravity="center|bottom"
         android:text="@string/datos_deposito_titular"
@@ -57,14 +58,16 @@
         android:id="@+id/txtNameTitular"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5" style="@style/generic_text_style_3"
+        android:layout_weight="5"
+        style="@style/generic_text_style_3"
         android:gravity="center|top"
         android:text=""
         app:tipo="Descripcion" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtNumberTitle"
-        android:layout_width="match_parent" style="@style/generic_text_style_2"
+        android:layout_width="match_parent"
+        style="@style/generic_text_style_2"
         android:layout_height="0dp"
         android:layout_weight="5"
         android:gravity="center|bottom"
@@ -82,7 +85,8 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtCableTitle"
-        android:layout_width="match_parent" style="@style/generic_text_style_2"
+        android:layout_width="match_parent"
+        style="@style/generic_text_style_2"
         android:layout_height="0dp"
         android:layout_weight="5"
         android:gravity="center|bottom"
@@ -93,7 +97,8 @@
         android:id="@+id/txtCableNumber"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:layout_weight="5" style="@style/generic_text_style_3"
+        android:layout_weight="5"
+        style="@style/generic_text_style_3"
         android:gravity="center|top"
         android:text=""
         app:tipo="Descripcion" />
@@ -101,17 +106,15 @@
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="51"
-        android:gravity="center">
+        android:layout_weight="30"
+        android:gravity="bottom">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnDepositar"
             style="@style/GenericbuttonSquareRoundedBlue"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_btns"
-            android:gravity="center"
             android:text="@string/datos_deposito_donde_depos"
-            android:textAllCaps="false" />
+            android:textAllCaps="false"
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"/>
 
     </RelativeLayout>
 

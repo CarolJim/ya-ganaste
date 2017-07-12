@@ -302,14 +302,14 @@
     <!--activacion_sms-->
     <string name="activacion_sms_mes_1">Para Terminar tu Registro,\n Debemos Asociar tu Teléfono a tu\n Cuenta Ya Ganaste.</string>
     <string name="activacion_sms_mes_2">Sólo Envía el SMS que Aparecerá\nen la Siguiente Pantalla.</string>
-    <string name="activacion_sms_loader">Estamos Verificando tu SMS.\nNos Tomara Solo Unos Segundos.</string>
+    <string name="activacion_sms_loader">Verificando SMS</string>
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
     <!--tienes_tarjeta-->
     <string name="tienes_tarjeta_numero">Verifica el Número de Tu Tarjeta.</string>
-    <string name="tienes_tarjeta_asignando">Estamos Asignandote una Cuenta.</string>
-    <string name="tienes_tarjeta_validando_tarjeta">Estamos Validando Tu Tarjeta.</string>
+    <string name="tienes_tarjeta_asignando">Asignando Cuenta.</string>
+    <string name="tienes_tarjeta_validando_tarjeta">Validando Tarjeta.</string>
     <string name="tienes_tarjeta_no">No te Preocupes ¡Ya te Asignamos Una!\nTu Número de Tarjeta es:</string>
-    <string name="tienes_tarjeta_asignando_nip">Estamos Asignando Tu NIP.</string>
+    <string name="tienes_tarjeta_asignando_nip">Asignando NIP.</string>
     <string name="validando_password">Validando Contraseña</string>
     <!--tienes_tarjeta-->
     <string name="doYouHaveCardTitle">¿Tienes Tarjeta Ya Ganaste?</string>
@@ -581,7 +581,7 @@
     <!-- <string name="actualizando_saldo">Actualizando Saldo.</string> -->
     <string name="password_incorrect">Su Contraseña es Incorrecta</string>
     <string name="sesion_close">La sesión se ha cerrado.</string>
-    <string name="search_zipcode">Buscando CP</string>
+    <string name="search_zipcode"> </string>
     <string name="password_required">Contraseña Requerida, Verifique su Información</string>
 
     <!-- Depositos -->

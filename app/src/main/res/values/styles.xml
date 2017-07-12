@@ -67,6 +67,7 @@
         <item name="android:layout_centerHorizontal">true</item>
     </style>
 
+    <!-- Mo se usa -->
     <style name="buttonRoundedBlue">
         <item name="android:layout_marginEnd">60dp</item>
         <item name="android:layout_marginLeft">60dp</item>
@@ -78,33 +79,39 @@
         <item name="buttonNormalColor">@drawable/button_rounded_blue</item>
     </style>
 
-    <style name="buttonDirecctionNext" parent="AppTheme">
-        <item name="android:layout_width">0dp</item>
+    <style name="AppButton" parent="AppTheme">
+        <item name="android:layout_height">@dimen/height_btns</item>
+        <item name="android:layout_width">@dimen/width_btns</item>
+    </style>
+
+    <style name="buttonDirecctionNext" parent="AppButton">
         <item name="android:layout_height">@dimen/height_btns</item>
         <item name="android:background">@drawable/selector_btn_continuar</item>
         <item name="typeButton">Forward</item>
         <item name="android:textColor">@android:color/white</item>
+
     </style>
 
-    <style name="buttonDirecctionBack" parent="AppTheme">
-        <item name="android:layout_width">0dp</item>
+    <style name="buttonDirecctionBack" parent="AppButton">
+        <item name="android:layout_width">@dimen/width_btns</item>
         <item name="android:layout_height">@dimen/height_btns</item>
         <item name="android:background">@drawable/selector_btn_back</item>
         <item name="typeButton">Back</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
     </style>
 
-    <style name="buttonSquareRoundedBlue">
+    <style name="buttonSquareRoundedBlue" parent="AppButton">
+        <item name="android:layout_width">@dimen/width_btns</item>
+        <item name="android:layout_height">@dimen/height_btns</item>
         <item name="android:background">@drawable/button_rectangle_blue_selector</item>
-        <item name="buttonRippleColor2">@drawable/button_rectangle_blue_selector</item>
-        <item name="buttonNormalColor">@drawable/button_rectangle_blue_selector</item>
         <item name="android:textColor">@android:color/white</item>
-        <item name="android:layout_marginEnd">60dp</item>
-        <item name="android:layout_marginLeft">60dp</item>
-        <item name="android:layout_marginRight">60dp</item>
-        <item name="android:layout_marginStart">60dp</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
     </style>
 
+    <!-- Mo se usa -->
     <style name="buttonRoundedStroke">
         <item name="android:layout_marginEnd">60dp</item>
         <item name="android:layout_marginLeft">60dp</item>

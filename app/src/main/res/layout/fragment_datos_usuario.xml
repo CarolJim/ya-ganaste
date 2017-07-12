@@ -112,13 +112,7 @@
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextDatosUsuario"
             style="@style/GenericButtonDirecctionNext"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_btns"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
-            android:layout_marginLeft="95dp"
-            android:layout_marginRight="95dp"
-            android:layout_weight="1"
-            android:elevation="8dp"
             android:gravity="center"
             android:text="@string/nextButton"/>
     </LinearLayout>

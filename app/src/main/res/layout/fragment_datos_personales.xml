@@ -217,23 +217,15 @@
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnBackPersonalInfo"
                 style="@style/GenericButtonDirecctionBack"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_btns"
                 android:layout_centerInParent="true"
-                android:layout_marginRight="@dimen/margin_small"
-                android:layout_weight="1.4"
-                android:paddingLeft="0dp"
+                android:layout_weight="1"
                 android:text="@string/backButton"
                 android:textAllCaps="false"/>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNextPersonalInfo"
                 style="@style/GenericButtonDirecctionNext"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_btns"
-                android:layout_centerInParent="true"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_weight="1"
+                android:layout_marginLeft="10dp"
                 android:gravity="center"
                 android:text="@string/nextButton"
                 android:textAllCaps="false" />

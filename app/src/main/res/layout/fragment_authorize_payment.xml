@@ -7,12 +7,8 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    android:orientation="vertical"
-    tools:context=".ui._controllers.PaymentsProcessingActivity">
+    android:orientation="vertical">
 
-    <include
-        android:id="@+id/toolbarLy"
-        layout="@layout/toolbar" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -163,11 +159,8 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_continueEnvio"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/height_btns"
                 android:layout_gravity="center"
                 android:layout_marginBottom="@dimen/margin_medium"
-                android:layout_weight="40"
                 android:text="@string/continuar"
                 android:textAllCaps="false"
                 style="@style/buttonDirecctionNext"
