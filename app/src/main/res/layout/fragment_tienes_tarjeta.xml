@@ -33,7 +33,7 @@
                 app:title="@string/doYouHaveCardTitle">
 
                 <LinearLayout
-                    style="@style/BorderLayoutContent"
+                    style="@style/BorderLayoutContentCard"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
