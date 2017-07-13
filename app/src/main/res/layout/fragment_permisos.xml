@@ -23,7 +23,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/margin_big"
-        android:layout_marginRight="@dimen/margin_big" style="@style/GenericBorderTitleStyle"
+        android:layout_marginRight="@dimen/margin_big" style="@style/BorderTitleStyle"
         android:layout_marginTop="@dimen/margin_big"
         android:gravity="center"
         app:title="Activar Permisos">

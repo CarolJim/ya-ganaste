@@ -17,7 +17,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
             android:id="@+id/borderLayout"
-            style="@style/GenericBorderTitleStyle"
+            style="@style/BorderTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             app:title="@string/recupera_contrasenia_title">
@@ -31,7 +31,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtHeaderRecovery"
-                    style="@style/GenericFragmentElement"
+                    style="@style/FragmentElement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
@@ -39,7 +39,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/edtCorreoRegistrado"
-                    style="@style/GenericFragmentElement"
+                    style="@style/FragmentElement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:hintText="@string/txt_mail"

@@ -267,6 +267,10 @@
 
     <style name="FragmentElement">
         <item name="android:layout_marginTop">@dimen/space_between_elements</item>
+        <item name="android:textColorHint">@color/textColorAlternative</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Descripcion</item>
     </style>
 
     <style name="FragmentElementForm" parent="FragmentElement">
@@ -291,6 +295,9 @@
         <item name="android:layout_marginLeft">@dimen/margin_big</item>
         <item name="android:layout_marginRight">@dimen/margin_big</item>
         <item name="android:layout_marginTop">@dimen/margin_medium</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Text</item>
     </style>
 
     <style name="MainTabText">
@@ -433,14 +440,23 @@
         <item name="tipo">Descripcion</item>
     </style>
 
-    <!-- Estilos de euva herencia -->
-    <style name="GenericBorderTitleStyle" parent="BorderTitleStyle">
+    <style name="generic_calculator_sign_style">
         <item name="android:textColor">@color/whiteColor</item>
-        <item name="android:textSize">@dimen/size_text_style_2_value</item>
-        <item name="tipo">Text</item>
+        <item name="android:textSize">24sp</item>
+        <item name="tipo">Descripcion</item>
     </style>
 
+    <style name="generic_calculator_integer_style">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">55sp</item>
+        <item name="tipo">Descripcion</item>
+    </style>
 
+    <style name="generic_calculator_decimal_style">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">18sp</item>
+        <item name="tipo">Descripcion</item>
+    </style>
 
 
     <!-- Genericos para los campos de CustomValidationEditText en todos los fotmulrios-->
@@ -449,38 +465,6 @@
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Descripcion</item>
-    </style>
-
-    <style name="GenericCustomValidationEditTextWithValidation" parent="FragmentElementWithValidation">
-        <item name="android:textColorHint">@color/textColorAlternative</item>
-        <item name="android:textColor">@color/whiteColor</item>
-        <item name="android:textSize">@dimen/size_text_style_2_value</item>
-        <item name="tipo">Descripcion</item>
-    </style>
-
-    <style name="GenericCustomValidationEditTextFragmentElement" parent="FragmentElement">
-        <item name="android:textColorHint">@color/textColorAlternative</item>
-        <item name="android:textColor">@color/whiteColor</item>
-        <item name="android:textSize">@dimen/size_text_style_2_value</item>
-        <item name="tipo">Descripcion</item>
-    </style>
-
-    <style name="GenericFragmentElementTop" parent="FragmentElementTop">
-        <item name="android:textColorHint">@color/textColorAlternative</item>
-        <item name="android:textColor">@color/whiteColor</item>
-        <item name="android:textSize">@dimen/size_text_style_2_value</item>
-        <item name="tipo">Descripcion</item>
-    </style>
-
-    <style name="GenericFragmentElementBottom" parent="FragmentElementBottom">
-        <item name="android:textColorHint">@color/textColorAlternative</item>
-        <item name="android:textColor">@color/whiteColor</item>
-        <item name="android:textSize">@dimen/size_text_style_2_value</item>
-        <item name="tipo">Descripcion</item>
-    </style>
-
-    <style name="GenericFragmentElement" parent="FragmentElement">
-        <item name="android:textSize">@dimen/size_text_style_2_value</item>
     </style>
 
     <!-- Genericos para los error de CustomValidationEditText en todos los fotmulrios-->
@@ -545,24 +529,6 @@
         <item name="android:textColorHint">@color/textColorAlternative</item>
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
-        <item name="tipo">Descripcion</item>
-    </style>
-
-    <style name="generic_calculator_sign_style">
-        <item name="android:textColor">@color/whiteColor</item>
-        <item name="android:textSize">24sp</item>
-        <item name="tipo">Descripcion</item>
-    </style>
-
-    <style name="generic_calculator_integer_style">
-        <item name="android:textColor">@color/whiteColor</item>
-        <item name="android:textSize">55sp</item>
-        <item name="tipo">Descripcion</item>
-    </style>
-
-    <style name="generic_calculator_decimal_style">
-        <item name="android:textColor">@color/whiteColor</item>
-        <item name="android:textSize">18sp</item>
         <item name="tipo">Descripcion</item>
     </style>
 </resources>

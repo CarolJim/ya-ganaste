@@ -22,7 +22,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
                 android:id="@+id/layoutContent"
-                style="@style/GenericBorderTitleStyle"
+                style="@style/BorderTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@string/bussinesAddressTitle">
@@ -93,7 +93,7 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                         android:id="@+id/editBussinesZipCode"
-                        style="@style/GenericCustomValidationEditTextWithValidation"
+                        style="@style/FragmentElementWithValidation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
@@ -110,7 +110,7 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                         android:id="@+id/editBussinesState"
-                        style="@style/GenericCustomValidationEditTextWithValidation"
+                        style="@style/FragmentElementWithValidation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:hintText="@string/stateHint"

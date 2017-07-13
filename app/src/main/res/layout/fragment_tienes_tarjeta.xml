@@ -27,7 +27,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
                 android:id="@+id/layoutContent"
-                style="@style/GenericBorderTitleStyle"
+                style="@style/BorderTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 app:title="@string/doYouHaveCardTitle">
@@ -40,7 +40,7 @@
 
                     <RadioGroup
                         android:id="@+id/radioHasCard"
-                        style="@style/GenericFragmentElementTop"
+                        style="@style/FragmentElementTop"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
