@@ -67,11 +67,8 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btn_finish"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content" style="@style/generic_text_style_2"
-            android:text="@string/terminar"
-            app:overBackground="@drawable/button_shape"
-            android:textSize="@dimen/generic_button_normal_text_size"/>
+            style="@style/buttonDirecctionNext"
+            android:text="@string/terminar" />
 
     </LinearLayout>
 

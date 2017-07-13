@@ -150,6 +150,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
 
         if (dataMovimientoAdq.isEsAprobada() && !dataMovimientoAdq.isEsCargo() && !dataMovimientoAdq.isEsReversada()) {
             btnCancel.setVisibility(View.VISIBLE);
+            rootView.findViewById(R.id.view).setVisibility(View.VISIBLE);
             btnCancel.setOnClickListener(this);
         }
 

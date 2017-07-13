@@ -82,6 +82,7 @@
     <style name="AppButton" parent="AppTheme">
         <item name="android:layout_height">@dimen/height_btns</item>
         <item name="android:layout_width">@dimen/width_btns</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
     </style>
 
     <style name="buttonDirecctionNext" parent="AppButton">
@@ -89,7 +90,8 @@
         <item name="android:background">@drawable/selector_btn_continuar</item>
         <item name="typeButton">Forward</item>
         <item name="android:textColor">@android:color/white</item>
-
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Text</item>
     </style>
 
     <style name="buttonDirecctionBack" parent="AppButton">
@@ -100,12 +102,28 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Text</item>
+    </style>
+
+
+    <style name="buttonDirecctionBackSmall" parent="buttonDirecctionBack">
+        <item name="android:layout_width">@dimen/width_btns_small</item>
     </style>
 
     <style name="buttonSquareRoundedBlue" parent="AppButton">
         <item name="android:layout_width">@dimen/width_btns</item>
         <item name="android:layout_height">@dimen/height_btns</item>
         <item name="android:background">@drawable/button_rectangle_blue_selector</item>
+        <item name="android:textColor">@android:color/white</item>
+        <item name="android:layout_gravity">center_horizontal</item>
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+    </style>
+
+
+    <style name="buttonSquareRoundedTransparent" parent="AppButton">
+        <item name="android:background">@drawable/button_rounded_transparent</item>
         <item name="android:textColor">@android:color/white</item>
         <item name="android:layout_gravity">center_horizontal</item>
         <item name="android:layout_centerHorizontal">true</item>
@@ -408,17 +426,8 @@
         <item name="tipo">Text</item>
     </style>
 
-    <style name="GenericButtonDirecctionNext" parent="buttonDirecctionNext">
-        <item name="android:textColor">@color/whiteColor</item>
-        <item name="android:textSize">@dimen/size_text_style_2_value</item>
-        <item name="tipo">Text</item>
-    </style>
 
-    <style name="GenericButtonDirecctionBack" parent="buttonDirecctionBack">
-        <item name="android:textColor">@color/whiteColor</item>
-        <item name="android:textSize">@dimen/size_text_style_2_value</item>
-        <item name="tipo">Text</item>
-    </style>
+
 
     <!-- Genericos para los campos de CustomValidationEditText en todos los fotmulrios-->
     <style name="GenericCustomValidationEditText">
@@ -478,10 +487,6 @@
     </style>
 
     <style name="GenericbuttonRoundedStroke" parent="buttonRoundedStroke">
-        <item name="android:textSize">@dimen/size_text_style_2_value</item>
-    </style>
-
-    <style name="GenericbuttonSquareRoundedBlue" parent="buttonSquareRoundedBlue">
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
     </style>
 

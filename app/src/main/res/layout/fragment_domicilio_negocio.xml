@@ -191,33 +191,24 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
-            android:layout_marginLeft="@dimen/margin_big"
-            android:layout_marginRight="@dimen/margin_big"
-            android:orientation="horizontal">
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnBackBussinesAddress"
-                style="@style/GenericButtonDirecctionBack"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_btns"
-                android:layout_marginRight="@dimen/margin_small"
-                android:layout_weight="1.4"
-                android:paddingLeft="0dp"
+                style="@style/buttonDirecctionBackSmall"
                 android:text="@string/backButton"
-                android:textAllCaps="false"
-                android:textSize="@dimen/generic_button_normal_text_size" />
+                android:textAllCaps="false" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="@dimen/btns_separation"
+                android:layout_height="match_parent" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNextBussinesAddress"
-                style="@style/GenericButtonDirecctionNext"
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/height_btns"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_weight="1"
+                style="@style/buttonDirecctionNext"
                 android:gravity="center"
-                android:text="@string/nextButton"
-                android:textAllCaps="false"
-                android:textSize="@dimen/generic_button_normal_text_size" />
+                android:text="@string/nextButton" />
 
         </LinearLayout>
 

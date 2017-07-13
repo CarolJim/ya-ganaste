@@ -176,7 +176,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnBackBussinesInfo"
-            style="@style/GenericButtonDirecctionBack"
+            style="@style/buttonDirecctionBack"
             android:layout_weight="1"
             android:text="@string/backButton"
             android:textAllCaps="false"
@@ -189,7 +189,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextBussinesInfo"
-            style="@style/GenericButtonDirecctionNext"
+            style="@style/buttonDirecctionNext"
             android:text="@string/nextButton"
             android:textAllCaps="false"
             android:textSize="@dimen/generic_button_normal_text_size" />

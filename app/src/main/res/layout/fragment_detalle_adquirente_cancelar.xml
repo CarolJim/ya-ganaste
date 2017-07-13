@@ -190,34 +190,20 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleButton
                     android:id="@+id/btnVolver"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/height_btns"
-                    android:layout_marginEnd="@dimen/margin_small"
-                    android:layout_marginLeft="@dimen/margin_regular"
-                    android:layout_marginRight="@dimen/margin_small"
-                    android:layout_marginStart="@dimen/margin_regular"
-                    android:layout_weight="35"
-                    android:background="@drawable/boton_regresar_canvas"
-                    android:gravity="center"
+                    style="@style/buttonDirecctionBackSmall"
                     android:text="@string/volver"
-                    android:textAllCaps="false"
                     android:textSize="@dimen/size_text_style_2_value"
                     android:visibility="visible" />
 
+                <android.support.v4.widget.Space
+                    android:layout_width="@dimen/btns_separation"
+                    android:layout_height="match_parent" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleButton
                     android:id="@+id/btnCancelCobro"
-                    android:layout_width="0dp"
-                    android:layout_height="@dimen/height_btns"
-                    android:layout_marginEnd="@dimen/margin_regular"
-                    android:layout_marginLeft="@dimen/margin_small"
-                    android:layout_marginRight="@dimen/margin_regular"
-                    android:layout_marginStart="@dimen/margin_small"
-                    android:layout_weight="65"
-                    android:background="@drawable/button_rounded_transparent"
+                    style="@style/buttonSquareRoundedTransparent"
                     android:gravity="center"
                     android:text="@string/cancelar_operacion"
-                    android:textAllCaps="false"
                     android:textSize="@dimen/size_text_style_2_value"
                     android:visibility="visible" />
 

@@ -68,9 +68,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextComplete"
-            style="@style/GenericButtonDirecctionNext"
-            android:layout_width="@dimen/width_btns"
-            android:layout_height="@dimen/height_btns"
+            style="@style/buttonDirecctionNext"
             android:text="@string/next" />
     </LinearLayout>
 </RelativeLayout>

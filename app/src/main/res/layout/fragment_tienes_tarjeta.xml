@@ -125,7 +125,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleButton
                     android:id="@+id/btnNextTienesTarjeta"
-                    style="@style/GenericButtonDirecctionNext"
+                    style="@style/buttonDirecctionNext"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_btns"
                     android:layout_weight="1"
