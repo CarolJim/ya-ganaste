@@ -296,7 +296,7 @@
     <string name="datos_domicilio_cp">Código Postal Requerido, Verifique su Información.</string>
     <string name="datos_domicilio_colonia">Colonia Requerida, Verifique su Información.</string>
     <string name="datos_domicilio_terminos">Debes aceptar los términos y condiciones.</string>
-    <string name="msg_register">Registrando Usuario...</string>
+    <string name="msg_register">Registrando Usuario</string>
     <string name="msg_renapo">Validando Información</string>
 
     <!--activacion_sms-->
@@ -614,6 +614,7 @@
     <string name="mount_valid">Ingresa un Monto Válido.</string>
     <string name="enter_mount">Por Favor Ingrese un Monto</string>
     <string name="mount_cero">$0.00</string>
+    <string name="send_to_txt">Enviado a:</string>
 </resources>
 
 

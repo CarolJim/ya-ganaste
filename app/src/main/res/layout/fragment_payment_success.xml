@@ -299,30 +299,18 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="17"
-            android:gravity="center"
+            android:gravity="bottom|center_horizontal"
             android:orientation="horizontal"
-            android:weightSum="100">
+            android:layout_marginBottom="@dimen/btn_navigation_bottom">
 
-            <android.support.v4.widget.Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="30" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_continueEnvio"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/height_btns"
                 android:gravity="center"
-                android:layout_marginBottom="@dimen/margin_medium"
-                android:layout_weight="40"
-                style="@style/GenericButtonDirecctionNext"
-                android:text="@string/continuar"
-                android:textAllCaps="false" />
+                style="@style/buttonDirecctionNext"
+                android:text="@string/continuar" />
 
-            <android.support.v4.widget.Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="30" />
+
         </LinearLayout>
 
     </LinearLayout>

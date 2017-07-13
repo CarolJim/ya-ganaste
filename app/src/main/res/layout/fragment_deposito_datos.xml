@@ -111,7 +111,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnDepositar"
-            style="@style/GenericbuttonSquareRoundedBlue"
+            style="@style/buttonSquareRoundedBlue"
             android:text="@string/datos_deposito_donde_depos"
             android:textAllCaps="false"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"/>

@@ -216,8 +216,9 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
                 if (error instanceof Object[]) {
                     /*Aqui recibimos una respuesta que contiene el código de respuesta del WS y el mensaje del mismo.*/
                     Object[] responseCode = (Object[]) error;
-                    if ((int) responseCode[0] == DEVICE_ALREADY_ASSIGNED)
+                    if ((int) responseCode[0] == DEVICE_ALREADY_ASSIGNED) {
                         ((IVerificationSMSView) accountView).devicesAlreadyAssign(responseCode[1].toString());
+                    }
                 } else {
                     ((IVerificationSMSView) accountView).smsVerificationFailed(error.toString());
                 }

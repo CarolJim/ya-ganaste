@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.net;
 
+import com.pagatodo.yaganaste.data.model.webservice.request.Request;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -13,7 +15,9 @@ public class Api {
         Map<String, String> headersYaGanaste = new HashMap<>();
         //headersYaGanaste.put("Content-type", "application/json");
         headersYaGanaste.put(RequestHeaders.IdDispositivo, "2");
-        headersYaGanaste.put(RequestHeaders.NombreUsuario, RequestHeaders.getUsername());// TODO: 04/05/2017
+        String userName = RequestHeaders.getUsername().isEmpty() ?
+                "correo@correo.correo" : RequestHeaders.getUsername();
+        headersYaGanaste.put(RequestHeaders.NombreUsuario, userName);// TODO: 04/05/2017
         headersYaGanaste.put(RequestHeaders.IdComponente, "1");
         return headersYaGanaste;
     }

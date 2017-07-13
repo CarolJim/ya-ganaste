@@ -54,9 +54,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnMainCreateAccount"
-            style="@style/GenericbuttonSquareRoundedBlue"
-            android:layout_width="match_parent"
-            android:layout_height="@dimen/height_btns"
+            style="@style/buttonSquareRoundedBlue"
             android:gravity="center"
             android:text="@string/txt_registrate"
             android:layout_centerHorizontal="true"

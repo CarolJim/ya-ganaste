@@ -54,7 +54,6 @@
             android:id="@+id/btnLogin"
             style="@style/buttonSquareRoundedBlue"
             android:gravity="center"
-            android:textSize="@dimen/generic_button_normal_text_size"
             android:text="@string/txt_login" />
 
     </RelativeLayout>

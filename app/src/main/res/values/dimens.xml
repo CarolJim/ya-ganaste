@@ -50,6 +50,8 @@
     <!-- Botones xhdpi-->
     <dimen name="height_btns">44dp</dimen>
     <dimen name="width_btns">162dp</dimen>
+    <dimen name="width_btns_small">108dp</dimen>
+    <dimen name="btns_separation">11dp</dimen>
 
 <!--
     <dimen name="height_btn_square">44dp</dimen>
@@ -175,5 +177,9 @@
     <dimen name="size_text_style_2_value">17sp</dimen>
     <dimen name="size_text_style_3_value">14sp</dimen>
     <dimen name="size_text_style_4_value">10sp</dimen>
+
+    <dimen name="detail_movements_row_height">32.5dp</dimen>
+    <dimen name="detail_movements_image_height">52.5dp</dimen>
+    <dimen name="detail_movements_margin_top_elements">40dp</dimen>
 </resources>
 

@@ -236,7 +236,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
                             accountPresenter.doPullActivationSMS(getString(R.string.activacion_sms_verificando));
                         }
                     }, CHECK_SMS_VALIDATE_DELAY);
-
                     break;
                 case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
                     goLoginAlert(getString(R.string.fallo_envio));
@@ -306,7 +305,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     }
 
     private void goLoginAlert(String message) {
-
+        hideLoader();
         UI.createCustomDialog("", message, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {

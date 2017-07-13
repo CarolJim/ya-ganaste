@@ -10,7 +10,7 @@
         android:layout_height="wrap_content"
         android:orientation="vertical">
 
-        <RelativeLayout
+        <!--RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:background="@color/colorPrimaryDark"
@@ -101,18 +101,21 @@
                     app:tipo="Subtitulo" />
 
             </LinearLayout>
-        </RelativeLayout>
+        </RelativeLayout-->
+
+        <include layout="@layout/item_movement" />
+
 
         <RelativeLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_medium"
+            android:layout_marginTop="@dimen/detail_movements_margin_top_elements"
             android:gravity="center">
 
             <ImageView
                 android:id="@+id/imageDetail"
                 android:layout_width="wrap_content"
-                android:layout_height="80dp"
+                android:layout_height="@dimen/detail_movements_image_height"
                 android:adjustViewBounds="true"
                 android:scaleType="fitCenter"
                 android:src="@mipmap/logo_ya_ganaste" />
@@ -125,18 +128,18 @@
             android:layout_marginLeft="@dimen/margin_doble"
             android:layout_marginRight="@dimen/margin_doble"
             android:layout_marginStart="@dimen/margin_doble"
+            android:layout_marginTop="@dimen/detail_movements_margin_top_elements"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/detail_movements_row_height"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="@dimen/edittext_padding">
+                android:orientation="horizontal">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    style="@style/generic_text_style_3"
+                    style="@style/generic_text_style_2.1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -144,11 +147,12 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txtMontoDescripcion"
-                    style="@style/generic_text_style_4"
+                    style="@style/generic_text_style_2.1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
                     android:gravity="end"
+                    android:textSize="8sp"
                     app:decimalLenght="2"
                     app:dotBottom="false"
                     app:symbolSmaller="true" />
@@ -169,20 +173,21 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/detail_movements_row_height"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/edittext_padding">
+                    android:orientation="horizontal">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        style="@style/generic_text_style_2.1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:text="Enviado a:" />
+                        android:text="@string/send_to_txt" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtSendToDescripcion"
+                        style="@style/generic_text_style_2.1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -206,13 +211,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/detail_movements_row_height"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/edittext_padding">
+                    android:orientation="horizontal">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        style="@style/generic_text_style_2.1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
@@ -220,10 +225,12 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                         android:id="@+id/txtComisionDescripcion"
+                        style="@style/generic_text_style_2.1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end" />
+                        android:gravity="end"
+                        android:textSize="8sp" />
                 </LinearLayout>
 
                 <View
@@ -236,15 +243,14 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/detail_movements_row_height"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="@dimen/edittext_padding">
+                android:orientation="horizontal">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtReferenciaTitle"
-                    style="@style/generic_text_style_3"
+                    style="@style/generic_text_style_2.1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -252,7 +258,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtRefernciaDescripcion"
-                    style="@style/generic_text_style_4"
+                    style="@style/generic_text_style_2.1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -272,14 +278,13 @@
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/detail_movements_row_height"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/edittext_padding">
+                    android:orientation="horizontal">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        style="@style/generic_text_style_3"
+                        style="@style/generic_text_style_2.1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
@@ -287,7 +292,7 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtConceptoDescripcion"
-                        style="@style/generic_text_style_4"
+                        style="@style/generic_text_style_2.1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -303,14 +308,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/detail_movements_row_height"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="@dimen/edittext_padding">
+                android:orientation="horizontal">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    style="@style/generic_text_style_3"
+                    style="@style/generic_text_style_2.1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -318,7 +322,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtFechaDescripcion"
-                    style="@style/generic_text_style_4"
+                    style="@style/generic_text_style_2.1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -332,14 +336,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/detail_movements_row_height"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="@dimen/edittext_padding">
+                android:orientation="horizontal">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    style="@style/generic_text_style_3"
+                    style="@style/generic_text_style_2.1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -347,7 +350,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtHoraDescripcion"
-                    style="@style/generic_text_style_4"
+                    style="@style/generic_text_style_2.1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -361,14 +364,13 @@
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="@dimen/detail_movements_row_height"
                 android:layout_gravity="center"
                 android:gravity="center"
-                android:orientation="horizontal"
-                android:padding="@dimen/edittext_padding">
+                android:orientation="horizontal">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    style="@style/generic_text_style_3"
+                    style="@style/generic_text_style_2.1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="start"
@@ -376,7 +378,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtAutorizacionDescripcion"
-                    style="@style/generic_text_style_4"
+                    style="@style/generic_text_style_2.1"
                     android:layout_width="0dp"
                     android:layout_height="wrap_content"
                     android:layout_weight="1"
@@ -391,19 +393,18 @@
             <LinearLayout
                 android:id="@+id/layoutRecibo"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
+                    android:layout_height="@dimen/detail_movements_row_height"
                     android:layout_gravity="center"
                     android:gravity="center"
-                    android:orientation="horizontal"
-                    android:padding="@dimen/edittext_padding">
+                    android:orientation="horizontal">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        style="@style/generic_text_style_3"
+                        style="@style/generic_text_style_2.1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
@@ -411,7 +412,7 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtReciboDescripcion"
-                        style="@style/generic_text_style_4"
+                        style="@style/generic_text_style_2.1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
@@ -434,45 +435,27 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
-            android:orientation="horizontal"
-            android:weightSum="100">
+            android:orientation="horizontal">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_volver"
-                style="@style/generic_text_style_2"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/height_btns"
-                android:layout_marginEnd="@dimen/margin_small"
-
-                android:layout_marginRight="@dimen/margin_small"
-
-                android:layout_weight="35"
-                android:background="@drawable/boton_regresar_canvas"
-                android:gravity="center"
+                style="@style/buttonDirecctionBackSmall"
                 android:text="@string/volver"
-                android:textAllCaps="false"
                 android:visibility="visible" />
 
             <View
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"/>
+                android:id="@+id/view"
+                android:layout_width="@dimen/btns_separation"
+                android:layout_height="wrap_content"
+                android:visibility="gone"/>
 
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_cancel"
-                style="@style/generic_text_style_2"
-                android:layout_width="0dp"
-                android:layout_height="@dimen/height_btns"
-                android:layout_marginEnd="@dimen/margin_regular"
-                android:layout_marginLeft="@dimen/margin_small"
-                android:layout_marginRight="@dimen/margin_regular"
-                android:layout_marginStart="@dimen/margin_small"
-                android:layout_weight="65"
-                android:background="@drawable/boton_aceptar_copia_canvas"
+                style="@style/buttonDirecctionNext"
                 android:gravity="center"
                 android:text="@string/cancelar_operacion"
-                android:textAllCaps="false"
-                android:visibility="invisible" />
+                android:visibility="gone" />
 
         </LinearLayout>
 
