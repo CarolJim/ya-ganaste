@@ -65,6 +65,9 @@
 
     <style name="textDescInputs">
         <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_3_value</item>
+        <item name="tipo">Text</item>
     </style>
 
     <!-- Mo se usa -->
@@ -77,6 +80,7 @@
         <item name="android:textColor">@android:color/white</item>
         <item name="buttonRippleColor2">@drawable/button_rounded_blue</item>
         <item name="buttonNormalColor">@drawable/button_rounded_blue</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
     </style>
 
     <style name="AppButton" parent="AppTheme">
@@ -137,6 +141,7 @@
         <item name="android:layout_marginStart">60dp</item>
         <item name="android:background">@drawable/button_rounded_stroke</item>
         <item name="android:textColor">@android:color/white</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
     </style>
 
     <style name="textHelp">
@@ -480,25 +485,11 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
     </style>
 
-    <style name="GenericbuttonRoundedBlue" parent="buttonRoundedBlue">
-        <item name="android:textSize">@dimen/size_text_style_2_value</item>
-    </style>
-
-    <style name="GenericbuttonRoundedStroke" parent="buttonRoundedStroke">
-        <item name="android:textSize">@dimen/size_text_style_2_value</item>
-    </style>
-
     <style name="GenericStyleEditText" parent="StyleEditText">
         <item name="android:textColorHint">@color/textColorAlternative</item>
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Descripcion</item>
-    </style>
-
-    <style name="GenerictextDescInputs" parent="textDescInputs">
-        <item name="android:textColor">@color/whiteColor</item>
-        <item name="android:textSize">@dimen/size_text_style_3_value</item>
-        <item name="tipo">Text</item>
     </style>
 
     <style name="GenericItemMovement" parent="ItemMovement">
