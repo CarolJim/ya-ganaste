@@ -49,6 +49,7 @@ public class StyleButton extends AppCompatButton implements View.OnClickListener
         interceptor = true;
         Typeface customFont =  selectTypeface(context, 0); //FontCache.getTypeface("fonts/Gotham/Gotham-Medium.otf", context);
         setTypeface(customFont);
+        super.setOnClickListener(this);
     }
 
 
