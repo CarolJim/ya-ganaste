@@ -55,7 +55,7 @@
                     style="@style/generic_text_style_2"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="7.5"
+                    android:layout_weight="8"
                     android:gravity="top"
                     android:maxLines="1"
                     android:text="$4,200.00"
@@ -65,7 +65,7 @@
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1" />
+                    android:layout_weight="0.5" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_nombre"

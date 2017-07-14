@@ -5,12 +5,12 @@
     <dimen name="space_between_forms">10dp</dimen>
     <dimen name="dimen_margin_pinpad">35dp</dimen>
     <dimen name="thumb_off_set">8dp</dimen>
-    <dimen name="fab_margin">10dp</dimen>
+    <dimen name="fab_margin">5dp</dimen>
 
     <dimen name="margin_xbig">48dp</dimen>
     <dimen name="margin_xxbig">64dp</dimen>
     <dimen name="margin_doble">25dp</dimen>
-    <dimen name="margin_regular">30dp</dimen>
+    <dimen name="margin_regular">16dp</dimen>
     <dimen name="margin_big">24dp</dimen>
 
 
@@ -71,7 +71,7 @@
     <dimen name="strock_width">1dp</dimen>
 
     <dimen name="radio_image_pago">100dp</dimen>
-    <dimen name="radio_image_pago_payment_tab">85dp</dimen>
+    <dimen name="radio_image_pago_payment_tab">113dp</dimen>
     <dimen name="margin_elements">22dp</dimen>
     <dimen name="margin_elements_payment_tab">34dp</dimen>
 
