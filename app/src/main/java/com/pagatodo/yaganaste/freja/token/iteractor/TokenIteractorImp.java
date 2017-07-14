@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.freja.token.iteractor;
 
 import android.content.Context;
+
 import com.pagatodo.yaganaste.freja.general.FmcIteractorImp;
 import com.pagatodo.yaganaste.freja.token.manager.TokenManager;
 import com.verisec.freja.mobile.core.configuration.FmcConfiguration;

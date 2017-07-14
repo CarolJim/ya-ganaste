@@ -8,7 +8,7 @@ import android.util.AttributeSet;
  * @author Juan Guerra on 19/04/2017.
  */
 
-public abstract class TabViewElement extends LinearLayoutCompat{
+public abstract class TabViewElement extends LinearLayoutCompat {
 
     public TabViewElement(Context context) {
         super(context);

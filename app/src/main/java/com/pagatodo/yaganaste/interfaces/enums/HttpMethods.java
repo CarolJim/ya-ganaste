@@ -5,9 +5,8 @@ package com.pagatodo.yaganaste.interfaces.enums;
  *
  * @author flima
  * @version 1.0
- *
- * Clase de utilidad para definir los {@link Enum} utilizados en las peticiones a ws
- *
+ *          <p>
+ *          Clase de utilidad para definir los {@link Enum} utilizados en las peticiones a ws
  */
 public enum HttpMethods {
 

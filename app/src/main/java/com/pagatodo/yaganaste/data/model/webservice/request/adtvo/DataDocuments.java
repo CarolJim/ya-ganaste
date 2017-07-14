@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class DataDocuments implements Serializable{
+public class DataDocuments implements Serializable {
 
     private int TipoDocumento;
     private String ImagenBase64 = "";

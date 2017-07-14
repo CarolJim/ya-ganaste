@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.utils;
 
-import android.location.Location;
 import android.util.Log;
 
 import com.google.android.gms.maps.model.LatLng;

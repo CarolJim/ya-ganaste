@@ -73,6 +73,6 @@ public class OnlineTxPresenter extends TransactionPresenterAbs {
     @Override
     public void handleException(Exception e) {
         onlineTxView.hideLoader();
-        Log.e(TAG,e.toString());
+        Log.e(TAG, e.toString());
     }
 }

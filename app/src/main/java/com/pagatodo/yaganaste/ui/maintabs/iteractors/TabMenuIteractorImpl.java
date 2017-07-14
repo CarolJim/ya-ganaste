@@ -18,7 +18,7 @@ public class TabMenuIteractorImpl implements TabMenuIteractor {
     }
 
     @Override
-    public final void getpagerData(ViewPagerDataFactory.TABS tab){
+    public final void getpagerData(ViewPagerDataFactory.TABS tab) {
         ViewPagerData viewPagerData = ViewPagerDataFactory.createList(tab);
         tabMenuManager.onViewPagerDataLoaded(viewPagerData);
     }

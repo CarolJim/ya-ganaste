@@ -1,9 +1,6 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
 
-import android.app.Activity;
-import android.content.Context;
-import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,13 +18,11 @@ import butterknife.ButterKnife;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class HardSellAdqFragment extends GenericFragment implements View.OnClickListener{
-
-    private View rootview;
+public class HardSellAdqFragment extends GenericFragment implements View.OnClickListener {
 
     @BindView(R.id.btnHardSellNext)
     StyleButton btnHardSellNext;
-
+    private View rootview;
 
     public static HardSellAdqFragment newInstance() {
         HardSellAdqFragment fragmentRegister = new HardSellAdqFragment();
@@ -54,7 +49,7 @@ public class HardSellAdqFragment extends GenericFragment implements View.OnClick
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
 
             case R.id.btnHardSellNext:
                 startActivity(BussinesActivity.createIntent(getActivity()));

@@ -7,12 +7,8 @@ import android.support.v4.app.Fragment;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.interfaces.IAccountPresenterNew;
 import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
-import com.pagatodo.yaganaste.ui.account.AccountInteractorNew;
-import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
@@ -21,7 +17,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActi
  * @author jguerras on 10/11/2016.
  */
 
-public abstract class GenericFragment extends Fragment implements ISessionExpired{
+public abstract class GenericFragment extends Fragment implements ISessionExpired {
 
 
     protected OnEventListener onEventListener;
@@ -29,8 +25,8 @@ public abstract class GenericFragment extends Fragment implements ISessionExpire
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (context instanceof OnEventListener){
-            this.onEventListener = (OnEventListener)context;
+        if (context instanceof OnEventListener) {
+            this.onEventListener = (OnEventListener) context;
         }
     }
 
@@ -42,7 +38,7 @@ public abstract class GenericFragment extends Fragment implements ISessionExpire
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
-                            onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
+                        onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
                     }
 
                     @Override
@@ -61,12 +57,12 @@ public abstract class GenericFragment extends Fragment implements ISessionExpire
 
 
     @NonNull
-    public String getFragmentTag(){
+    public String getFragmentTag() {
         return getClass().getSimpleName();
     }
 
     /**
      * Método para inicializar los views del fragment
-     * */
+     */
     public abstract void initViews();
 }

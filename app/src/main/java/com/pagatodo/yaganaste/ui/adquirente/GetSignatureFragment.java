@@ -6,7 +6,6 @@ import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
-import android.support.annotation.IdRes;
 import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -25,7 +24,6 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
-import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.SigningViewYaGanaste;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -33,7 +31,6 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
@@ -41,9 +38,8 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class GetSignatureFragment extends GenericFragment implements View.OnClickListener,INavigationView {
+public class GetSignatureFragment extends GenericFragment implements View.OnClickListener, INavigationView {
 
-    private View rootview;
     @BindView(R.id.txtAmount)
     MontoTextView txtAmount;
     @BindView(R.id.txtNumberCard)
@@ -60,7 +56,7 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
     StyleTextView firma_aqui;
     @BindView(R.id.layout_content_firma)
     FrameLayout layout_content_firma;
-
+    private View rootview;
     private SigningViewYaGanaste signingView;
     private TransaccionEMVDepositResponse emvDepositResponse;
     private TransactionAdqData currentTransaction;
@@ -93,8 +89,8 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_LANDSCAPE);
-        emvDepositResponse  = TransactionAdqData.getCurrentTransaction().getTransaccionResponse();
-        currentTransaction  = TransactionAdqData.getCurrentTransaction();
+        emvDepositResponse = TransactionAdqData.getCurrentTransaction().getTransaccionResponse();
+        currentTransaction = TransactionAdqData.getCurrentTransaction();
         adqPresenter = new AdqPresenter(this);
     }
 
@@ -121,9 +117,9 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        signingView = new SigningViewYaGanaste(getActivity(), firma_aqui,btnSendSignature);
+        signingView = new SigningViewYaGanaste(getActivity(), firma_aqui, btnSendSignature);
         LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
-        layout_content_firma.addView(this.signingView,params);
+        layout_content_firma.addView(this.signingView, params);
         signingView.setDrawingCacheEnabled(true);
         signingView.buildDrawingCache();
         btnClear.setOnClickListener(this);
@@ -134,30 +130,31 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
 
         /*Seteamos los datos de la transacción*/
         txtAmount.setText(String.format("$%s", currentTransaction.getAmount()));
-       // txtNumberCard.setText(emvDepositResponse.getMaskedPan());
+        // txtNumberCard.setText(emvDepositResponse.getMaskedPan());
 
         String cardNumber = emvDepositResponse.getMaskedPan();
         String cardNumberFormat = StringUtils.ocultarCardNumberFormat(cardNumber);
         txtNumberCard.setText(cardNumberFormat);
 
 
-        txtNameOwnerCard.setText(String.format("%s",emvDepositResponse.getName()));
-        if(imgTypeCard != null){
+        txtNameOwnerCard.setText(String.format("%s", emvDepositResponse.getName()));
+        if (imgTypeCard != null) {
             imgTypeCard.setImageDrawable(setDrawable());
         }
     }
 
     /**
      * Hacemos Set de la imagen dede el emvDepositResponse.getMarcaTarjetaBancaria()
+     *
      * @return
      */
     private Drawable setDrawable() {
-        return emvDepositResponse.getMarcaTarjetaBancaria().equals("Visa") ? getDrawable(R.drawable.visa): getDrawable(R.drawable.mastercard_canvas);
+        return emvDepositResponse.getMarcaTarjetaBancaria().equals("Visa") ? getDrawable(R.drawable.visa) : getDrawable(R.drawable.mastercard_canvas);
     }
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
             case R.id.btnClear:
                 signingView.clear();
                 signingView.setHasSignature(false);
@@ -173,26 +170,26 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
         }
     }
 
-    private void sendSignature(){
-        if(signingView.hasSignature()){
+    private void sendSignature() {
+        if (signingView.hasSignature()) {
             SignatureData data = new SignatureData();
             data.setSignature(signingView.getSign());
             data.setSignatureWidth(String.valueOf(signingView.getW()));
             data.setSignatureHeight(String.valueOf(signingView.getH()));
             adqPresenter.sendSignature(data);
-        }else {
+        } else {
             showError(getString(R.string.adq_error_signature));
         }
     }
 
     @Override
     public void nextScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
@@ -222,10 +219,10 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
 
             }
         };
-        UI.createSimpleCustomDialog("Error", error.toString(), getFragmentManager(),doubleActions, true, false);
+        UI.createSimpleCustomDialog("Error", error.toString(), getFragmentManager(), doubleActions, true, false);
     }
 
-    private Drawable getDrawable(int res){
+    private Drawable getDrawable(int res) {
         return ContextCompat.getDrawable(getActivity(), res);
     }
 }

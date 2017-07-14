@@ -9,5 +9,5 @@ import java.util.List;
  */
 
 public interface IDatosNegView<E> extends IProgressView<E> {
-    public void setGiros(List<SubGiro> giros);
+    void setGiros(List<SubGiro> giros);
 }

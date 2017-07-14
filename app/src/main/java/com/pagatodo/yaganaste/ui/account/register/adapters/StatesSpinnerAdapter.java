@@ -80,7 +80,7 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
             holder = new StatesSpinnerAdapter.ViewHolder();
             holder.editText = (EditText) row.findViewById(R.id.editTextCustomSpinner);
             holder.downArrow = (ImageView) row.findViewById(R.id.imageViewCustomSpinner);
-            holder.laySpinnerCustom = (LinearLayout)row.findViewById(R.id.laySpinnerCustom);
+            holder.laySpinnerCustom = (LinearLayout) row.findViewById(R.id.laySpinnerCustom);
             row.setTag(holder);
         } else {
             holder = (StatesSpinnerAdapter.ViewHolder) row.getTag();
@@ -124,18 +124,8 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
         return mItems[position].getId();
     }
 
-    static class DropDownHolder {
-        StyleTextView txtTitle;
-    }
-
     public String getItemName(int position) {
         return mItems[position].getName();
-    }
-
-    static class ViewHolder {
-        EditText editText;
-        ImageView downArrow;
-        LinearLayout laySpinnerCustom;
     }
 
     public int getPositionItemByName(String name) {
@@ -144,6 +134,16 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
                 return position;
         }
         return 0;
+    }
+
+    static class DropDownHolder {
+        StyleTextView txtTitle;
+    }
+
+    static class ViewHolder {
+        EditText editText;
+        ImageView downArrow;
+        LinearLayout laySpinnerCustom;
     }
 
 }

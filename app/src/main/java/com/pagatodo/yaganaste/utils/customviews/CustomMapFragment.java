@@ -14,8 +14,8 @@ import com.google.android.gms.maps.SupportMapFragment;
 
 public class CustomMapFragment extends SupportMapFragment {
 
-    private boolean firstLocation;
     private static OnMapReadyCallback callback;
+    private boolean firstLocation;
 
 
     public CustomMapFragment() {

@@ -8,6 +8,7 @@ import com.pagatodo.yaganaste.interfaces.enums.WebService;
 
 public interface INegocioManager<T> {
     public void onSucces(WebService ws, T msgSuccess);
+
     public void onError(WebService ws, String error);
 
 }

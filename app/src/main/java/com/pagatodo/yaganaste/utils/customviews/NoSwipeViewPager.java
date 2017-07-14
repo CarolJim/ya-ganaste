@@ -1,11 +1,9 @@
 package com.pagatodo.yaganaste.utils.customviews;
 
 import android.content.Context;
-import android.support.annotation.IntDef;
 import android.support.v4.view.ViewPager;
 import android.util.AttributeSet;
 import android.view.MotionEvent;
-import android.view.View;
 
 /**
  * Created by Gorro on 21/07/16.
@@ -13,6 +11,7 @@ import android.view.View;
 public class NoSwipeViewPager extends ViewPager {
 
     private boolean swipeable;
+
     public NoSwipeViewPager(Context context) {
         this(context, null);
     }
@@ -36,5 +35,5 @@ public class NoSwipeViewPager extends ViewPager {
         this.swipeable = swipeable;
     }
 
-  
+
 }

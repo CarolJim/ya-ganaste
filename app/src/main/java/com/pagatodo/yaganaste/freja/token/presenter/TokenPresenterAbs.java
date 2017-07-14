@@ -54,7 +54,7 @@ public class TokenPresenterAbs implements TokenPresenter, TokenManager {
 
     @Override
     public void handleException(Exception e) {
-            Log.i(TAG,e.toString());
+        Log.i(TAG, e.toString());
     }
 
     @Override

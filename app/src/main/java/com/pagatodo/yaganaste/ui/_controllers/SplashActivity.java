@@ -16,14 +16,12 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalo
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
-import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import io.fabric.sdk.android.Fabric;
 
-import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
@@ -97,17 +95,17 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
         //intent.putExtra(SELECTION, MAIN_SCREEN);
 
         /*TODO Descomentar para validar flujo correctamente*/
-        if(ValidatePermissions.validateSIMCard(this)) {
+        if (ValidatePermissions.validateSIMCard(this)) {
             /*if(!RequestHeaders.getTokenauth().isEmpty()) {
                 intent = new Intent(SplashActivity.this, AccountActivity.class);
                 intent.putExtra(SELECTION,GO_TO_LOGIN);
             }else {*/
-                intent = new Intent(SplashActivity.this, MainActivity.class);
-                intent.putExtra(SELECTION,MAIN_SCREEN);
-            //}
-        }else{
             intent = new Intent(SplashActivity.this, MainActivity.class);
-            intent.putExtra(SELECTION,NO_SIM_CARD);
+            intent.putExtra(SELECTION, MAIN_SCREEN);
+            //}
+        } else {
+            intent = new Intent(SplashActivity.this, MainActivity.class);
+            intent.putExtra(SELECTION, NO_SIM_CARD);
         }
 
         startActivity(intent);

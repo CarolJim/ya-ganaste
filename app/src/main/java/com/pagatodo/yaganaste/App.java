@@ -26,19 +26,28 @@ import java.util.Locale;
 
 public class App extends Application {
     private static App m_singleton;
-    private Preferencias prefs;
-    public QPOSService pos;
-    public IposListener emvListener;
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
+    }
+
+    public QPOSService pos;
+    public IposListener emvListener;
+    private Preferencias prefs;
+
+    public static App getInstance() {
+        return m_singleton;
+    }
+
+    public static Context getContext() {
+        return m_singleton.getApplicationContext();
     }
 
     @Override
     public void onCreate() {
         super.onCreate();
 
-        String languageToLoad  = "es"; // your language
+        String languageToLoad = "es"; // your language
         Locale locale = new Locale(languageToLoad);
         Locale.setDefault(locale);
         Configuration config = new Configuration();
@@ -73,7 +82,7 @@ public class App extends Application {
             @Override
             public void onActivityPaused(Activity activity) {
 
-                if(SingletonSession.getInstance().isActive()){
+                if (SingletonSession.getInstance().isActive()) {
                     Log.e("SessionPaused", SingletonSession.getInstance().isActive() + "");
                 }
                 /*if (SingletonSesion.isInSession()) {
@@ -119,15 +128,6 @@ public class App extends Application {
     public void onLowMemory() {
         super.onLowMemory();
     }
-
-    public static App getInstance() {
-        return m_singleton;
-    }
-
-    public static Context getContext() {
-        return m_singleton.getApplicationContext();
-    }
-
 
     @Override
     protected void attachBaseContext(Context base) {

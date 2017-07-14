@@ -28,7 +28,7 @@ public class TabFragment extends GenericFragment implements TabsView {
     private View rootView;
     private HomeFragmentPresenter homeFragmentPresenter;
 
-    public static TabFragment newInstance(){
+    public static TabFragment newInstance() {
         TabFragment homeTabFragment = new TabFragment();
         Bundle args = new Bundle();
         homeTabFragment.setArguments(args);

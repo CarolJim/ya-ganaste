@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class DataActivacion implements Serializable{
+public class DataActivacion implements Serializable {
 
     private String NumeroTelefono = "";
     private String TokenAutenticacion = "";

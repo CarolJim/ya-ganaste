@@ -24,7 +24,7 @@ public enum MainTab implements IEnumTab {
     @DrawableRes
     private int icon;
 
-    private MainTab(@StringRes int name, @DrawableRes int icon) {
+    MainTab(@StringRes int name, @DrawableRes int icon) {
         this.name = name;
         this.icon = icon;
     }

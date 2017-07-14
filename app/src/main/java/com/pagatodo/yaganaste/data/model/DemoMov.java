@@ -13,6 +13,20 @@ public class DemoMov {
     private String monto;
     private String centavos;
 
+    public DemoMov() {
+
+    }
+
+    public DemoMov(int color, String dia, String mes, String concepto, String descripcion, String monto, String centavos) {
+        this.color = color;
+        this.dia = dia;
+        this.mes = mes;
+        this.concepto = concepto;
+        this.descripcion = descripcion;
+        this.monto = monto;
+        this.centavos = centavos;
+    }
+
     public int getColor() {
         return color;
     }
@@ -66,20 +80,6 @@ public class DemoMov {
     }
 
     public void setCentavos(String centavos) {
-        this.centavos = centavos;
-    }
-
-    public DemoMov() {
-
-    }
-
-    public DemoMov(int color, String dia, String mes, String concepto, String descripcion, String monto, String centavos) {
-        this.color = color;
-        this.dia = dia;
-        this.mes = mes;
-        this.concepto = concepto;
-        this.descripcion = descripcion;
-        this.monto = monto;
         this.centavos = centavos;
     }
 }

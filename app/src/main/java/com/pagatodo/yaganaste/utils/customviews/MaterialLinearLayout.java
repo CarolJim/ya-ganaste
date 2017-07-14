@@ -25,11 +25,11 @@ import com.pagatodo.yaganaste.utils.Utils;
  * @version 1.1
  */
 
-public class MaterialLinearLayout extends LinearLayout implements View.OnClickListener{
-
-    private OnClickListener mClickListener;
+public class MaterialLinearLayout extends LinearLayout implements View.OnClickListener {
 
     View view;
+    private OnClickListener mClickListener;
+
     public MaterialLinearLayout(Context context, AttributeSet attrs) {
         super(context, attrs);
         init();
@@ -61,7 +61,7 @@ public class MaterialLinearLayout extends LinearLayout implements View.OnClickLi
             } else {
                 changeRippleColor(selectedColor, cornerRadius, buttonStrokeColor);
             }
-        } catch (Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         } finally {
             configurationParams.recycle();
@@ -74,14 +74,14 @@ public class MaterialLinearLayout extends LinearLayout implements View.OnClickLi
         GradientDrawable normalBackground = new GradientDrawable();
         normalBackground.setShape(GradientDrawable.RECTANGLE);
         normalBackground.setCornerRadius(cornerRadius);
-        normalBackground.setStroke((int)Utils.convertDpToPixels(2), strokeColor);
+        normalBackground.setStroke((int) Utils.convertDpToPixels(2), strokeColor);
         normalBackground.setAlpha(128);
 
         GradientDrawable pressedDrawable = new GradientDrawable();
         pressedDrawable.setShape(GradientDrawable.RECTANGLE);
         pressedDrawable.setCornerRadius(cornerRadius);
         pressedDrawable.setColor(colorSelected);
-        pressedDrawable.setStroke((int)Utils.convertDpToPixels(2), strokeColor);
+        pressedDrawable.setStroke((int) Utils.convertDpToPixels(2), strokeColor);
         pressedDrawable.setAlpha(128);
 
         StateListDrawable states = new StateListDrawable();
@@ -93,7 +93,7 @@ public class MaterialLinearLayout extends LinearLayout implements View.OnClickLi
 
     @RequiresApi(api = Build.VERSION_CODES.LOLLIPOP)
     private void changeRippleColorMaterial(@ColorInt int colorSelected,
-                                           int cornerRadius, @ColorInt int strokeColor, @ColorInt int selectedStrokeColor, Drawable normalDrawable) throws Exception{
+                                           int cornerRadius, @ColorInt int strokeColor, @ColorInt int selectedStrokeColor, Drawable normalDrawable) throws Exception {
 
         GradientDrawable pressedDrawable = new GradientDrawable();
         pressedDrawable.setShape(GradientDrawable.RECTANGLE);
@@ -105,15 +105,15 @@ public class MaterialLinearLayout extends LinearLayout implements View.OnClickLi
         GradientDrawable normalBackground = new GradientDrawable();
         normalBackground.setShape(GradientDrawable.RECTANGLE);
         normalBackground.setCornerRadius(cornerRadius);
-        normalBackground.setStroke((int)Utils.convertDpToPixels(2), strokeColor);
+        normalBackground.setStroke((int) Utils.convertDpToPixels(2), strokeColor);
 
         RippleDrawable rippleDrawable = new RippleDrawable(ColorStateList.valueOf(colorSelected),
-                normalDrawable != null ? normalDrawable : normalBackground,pressedDrawable);
+                normalDrawable != null ? normalDrawable : normalBackground, pressedDrawable);
 
         setBackground(rippleDrawable);
     }
 
-    private void init(){
+    private void init() {
         super.setOnClickListener(this);
     }
 
@@ -124,7 +124,7 @@ public class MaterialLinearLayout extends LinearLayout implements View.OnClickLi
 
     @Override
     public void onClick(View v) {
-        if (mClickListener != null){
+        if (mClickListener != null) {
             mClickListener.onClick(this);
         }
     }

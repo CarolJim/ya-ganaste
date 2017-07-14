@@ -53,7 +53,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     private final int MX = 1;
     private final int EXTRANJERO = 2;
-    private View rootview;
     @BindView(R.id.radioGender)
     RadioGroup radioGroupGender;
     @BindView(R.id.radioBtnFemale)
@@ -74,11 +73,10 @@ public class DatosPersonalesFragment extends GenericFragment implements
     Button btnBackDatosPersonales;
     @BindView(R.id.btnNextPersonalInfo)
     Button btnNextDatosPersonales;
-    //@BindView(R.id.errorMessage)
-    //ErrorMessage errorMessageView;
-
     @BindView(R.id.errorNameMessage)
     ErrorMessage errorNameMessage;
+    //@BindView(R.id.errorMessage)
+    //ErrorMessage errorMessageView;
     @BindView(R.id.errorFLastNameMessage)
     ErrorMessage errorFLastNameMessage;
     @BindView(R.id.errorBirthDayMessage)
@@ -88,17 +86,51 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @BindView(R.id.errorGenderMessage)
     ErrorMessage errorGenderMsessage;
     StatesSpinnerAdapter adapterBirthPlace;
-
+    Calendar newDate;
+    Calendar actualDate;
+    private View rootview;
     private String genero = "";
     private String nombre = "";
     private String apPaterno = "";
     private String apMaterno = "";
     private String fechaNacimiento = "";
+    View.OnClickListener onClickListenerDatePicker = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            hideErrorMessage(editBirthDay.getId());
+            editBirthDay.setDrawableImage(R.drawable.calendar);
+            Calendar newCalendar = Calendar.getInstance();
+            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+                @Override
+                public void onDateSet(DatePicker view, int year, int month, int date) {
+                    newDate = Calendar.getInstance(new Locale("es"));
+                    newDate.set(year, month, date);
+                    // editBirthDay.setText(DateUtil.getBirthDateString(newDate));
+                    editBirthDay.setText(DateUtil.getBirthDateCustomString(newDate));
+                    fechaNacimiento = DateUtil.getDateStringFirstYear(newDate);
+
+                    Calendar mCalendar = Calendar.getInstance();
+                    mCalendar.set(actualDate.get(Calendar.YEAR) - 18, actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH));
+
+                    if (newDate.getTimeInMillis() > actualDate.getTimeInMillis()) {
+                        showValidationError(editBirthDay.getId(), getString(R.string.fecha_nacimiento_erronea));
+                        editBirthDay.setIsValid();
+                        return;
+                    }
+
+                    if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
+                        showValidationError(editBirthDay.getId(), getString(R.string.feha_nacimiento_menor_edad));
+                        editBirthDay.setIsValid();
+                        return;
+                    }
+                }
+
+            }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+            datePickerDialog.show();
+        }
+    };
     private String lugarNacimiento = "";
     private String idEstadoNacimiento = "";
-    Calendar newDate;
-    Calendar actualDate;
-
     private AccountPresenterNew accountPresenter;
 
     public DatosPersonalesFragment() {
@@ -170,7 +202,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 break;
         }
     }
-
 
     /*Implementacion de ValidationForms*/
     @Override
@@ -478,42 +509,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
                     },
                     true, false);
     }
-
-    View.OnClickListener onClickListenerDatePicker = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            hideErrorMessage(editBirthDay.getId());
-            editBirthDay.setDrawableImage(R.drawable.calendar);
-            Calendar newCalendar = Calendar.getInstance();
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
-                @Override
-                public void onDateSet(DatePicker view, int year, int month, int date) {
-                    newDate = Calendar.getInstance(new Locale("es"));
-                    newDate.set(year, month, date);
-                    // editBirthDay.setText(DateUtil.getBirthDateString(newDate));
-                    editBirthDay.setText(DateUtil.getBirthDateCustomString(newDate));
-                    fechaNacimiento = DateUtil.getDateStringFirstYear(newDate);
-
-                    Calendar mCalendar = Calendar.getInstance();
-                    mCalendar.set(actualDate.get(Calendar.YEAR) - 18, actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH));
-
-                    if (newDate.getTimeInMillis() > actualDate.getTimeInMillis()) {
-                        showValidationError(editBirthDay.getId(), getString(R.string.fecha_nacimiento_erronea));
-                        editBirthDay.setIsValid();
-                        return;
-                    }
-
-                    if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
-                        showValidationError(editBirthDay.getId(), getString(R.string.feha_nacimiento_menor_edad));
-                        editBirthDay.setIsValid();
-                        return;
-                    }
-                }
-
-            }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
-            datePickerDialog.show();
-        }
-    };
 
     @Override
     public void onSpinnerClick() {

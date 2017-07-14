@@ -4,14 +4,13 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVD
 
 import java.io.Serializable;
 
-import static com.pagatodo.yaganaste.utils.Recursos.CARD_PAY;
-
 /**
  * Created by flima on 17/04/2017.
  */
 
-public  class TransactionAdqData implements Serializable{
+public class TransactionAdqData implements Serializable {
 
+    private static TransactionAdqData transactionAdqResult;
     private int statusTransaction;
     private int responseCode;
     private PageResult pageResult;
@@ -19,15 +18,13 @@ public  class TransactionAdqData implements Serializable{
     private String amount = "";
     private String description = "";
 
-    private static TransactionAdqData transactionAdqResult;
-
     private TransactionAdqData() {
         transaccionResponse = new TransaccionEMVDepositResponse();
     }
 
-    public synchronized static TransactionAdqData getCurrentTransaction(){
+    public synchronized static TransactionAdqData getCurrentTransaction() {
 
-        if(transactionAdqResult == null){
+        if (transactionAdqResult == null) {
             transactionAdqResult = new TransactionAdqData();
         }
 
@@ -35,11 +32,11 @@ public  class TransactionAdqData implements Serializable{
 
     }
 
-    public static void resetCurrentTransaction(){
+    public static void resetCurrentTransaction() {
         transactionAdqResult = null;
     }
 
-    public static void resetDataToRetry(){
+    public static void resetDataToRetry() {
         transactionAdqResult.statusTransaction = 0;
         transactionAdqResult.responseCode = 0;
         transactionAdqResult.transaccionResponse = new TransaccionEMVDepositResponse();

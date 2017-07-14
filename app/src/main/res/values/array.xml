@@ -23,11 +23,11 @@
         <item>google.com</item>
         <item>pagatodo.com</item>
     </string-array>
-    
+
     <string-array name="descuentos_array">
         <item>Descuento 10%</item>
         <item>Descuento 15%</item>
-        <item>Descuento 20%</item>        
+        <item>Descuento 20%</item>
         <item>Promoción</item>
         <item>Cortesía</item>
         <item>Precio Especial</item>
@@ -43,7 +43,7 @@
         <item>Precio Especial</item>
         <item>Promoción</item>
     </string-array>
-    
+
     <string-array name="meses_array">
         <item>Ene</item>
         <item>Feb</item>

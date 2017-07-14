@@ -5,8 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatTextView;
-import android.text.TextPaint;
-import android.text.style.TypefaceSpan;
 import android.util.AttributeSet;
 
 import com.pagatodo.yaganaste.R;

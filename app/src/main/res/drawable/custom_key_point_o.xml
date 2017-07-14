@@ -8,8 +8,8 @@
     </item>
 
     <item
-        android:gravity="center"
-        android:drawable="@drawable/dot_keyboard_canvas">
+        android:drawable="@drawable/dot_keyboard_canvas"
+        android:gravity="center">
 
     </item>
 </layer-list>

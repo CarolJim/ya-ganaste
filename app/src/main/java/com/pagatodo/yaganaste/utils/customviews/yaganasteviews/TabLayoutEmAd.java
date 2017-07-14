@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.utils.customviews.yaganasteviews;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
@@ -12,8 +11,6 @@ import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.utils.DimUtils;
-import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
@@ -23,7 +20,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
  * @author Juan Guerra on 05/04/2017.
  */
 
-public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickListener, ViewPager.OnPageChangeListener{
+public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickListener, ViewPager.OnPageChangeListener {
 
     private LinearLayout llEmisorBorderContainer;
     private View viewEmisorBorder;
@@ -41,10 +38,6 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     private CardEmisorSelected cardEmisorSelected;
 
     private InviteAdquirenteCallback inviteAdquirenteCallback;
-
-    public interface InviteAdquirenteCallback {
-        void onInviteAdquirente();
-    }
 
     public TabLayoutEmAd(Context context) {
         this(context, null);
@@ -67,10 +60,10 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         viewEmisorBorder = findViewById(R.id.view_emisor_border);
         llAdquirenteBorderContainer = (LinearLayout) findViewById(R.id.ll_adquirente_border_container);
         viewAdquirenteBorder = findViewById(R.id.view_adquirente_border);
-        llContentParentEmisor = (LinearLayout)findViewById(R.id.ll_content_parent_emisor);
-        llMaterialEmisorContainer = (MaterialLinearLayout)findViewById(R.id.ll_material_emisor_container);
-        llContentParentAdquirente = (LinearLayout)findViewById(R.id.ll_content_parent_adquirente);
-        llMaterialAdquirenteContainer = (MaterialLinearLayout)findViewById(R.id.ll_material_adquirente_container);
+        llContentParentEmisor = (LinearLayout) findViewById(R.id.ll_content_parent_emisor);
+        llMaterialEmisorContainer = (MaterialLinearLayout) findViewById(R.id.ll_material_emisor_container);
+        llContentParentAdquirente = (LinearLayout) findViewById(R.id.ll_content_parent_adquirente);
+        llMaterialAdquirenteContainer = (MaterialLinearLayout) findViewById(R.id.ll_material_adquirente_container);
         llMaterialEmisorContainer.setOnClickListener(this);
         llMaterialAdquirenteContainer.setOnClickListener(this);
     }
@@ -113,7 +106,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     private void clickAdquirente() {
         if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
             mViewPager.setCurrentItem(1);
-        } else if (inviteAdquirenteCallback != null ) {
+        } else if (inviteAdquirenteCallback != null) {
             inviteAdquirenteCallback.onInviteAdquirente();
         }
 
@@ -136,11 +129,11 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
     private void animateTabs(float offset, int position) {
 
-        if ( offset <= 0.0 ) {
+        if (offset <= 0.0) {
             offset = position;
         }
 
-        LinearLayout.LayoutParams llEmisorBorederContainerParams = (LinearLayout.LayoutParams)llEmisorBorderContainer.getLayoutParams();
+        LinearLayout.LayoutParams llEmisorBorederContainerParams = (LinearLayout.LayoutParams) llEmisorBorderContainer.getLayoutParams();
         llEmisorBorederContainerParams.weight = 2.5f - offset;
         llEmisorBorederContainerParams.rightMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
         llEmisorBorderContainer.setLayoutParams(llEmisorBorederContainerParams);
@@ -151,7 +144,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
             llMaterialEmisorContainer.removeAllViews();
             llMaterialEmisorContainer.addView(cardEmisorSelected,
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        } else if (offset >= 1.0){
+        } else if (offset >= 1.0) {
             viewEmisorBorder.setBackgroundResource(R.drawable.tab_unselected_em_ad);
             viewEmisorBorder.setRotationY(180);
             llMaterialEmisorContainer.removeAllViews();
@@ -159,9 +152,9 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
         }
 
-        LinearLayout.LayoutParams llAdquirenteBorderContainerParams = (LinearLayout.LayoutParams)llAdquirenteBorderContainer.getLayoutParams();
+        LinearLayout.LayoutParams llAdquirenteBorderContainerParams = (LinearLayout.LayoutParams) llAdquirenteBorderContainer.getLayoutParams();
         llAdquirenteBorderContainerParams.weight = 1.5f + offset;
-        llAdquirenteBorderContainerParams.leftMargin = (int)(getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * (1 - offset));
+        llAdquirenteBorderContainerParams.leftMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * (1 - offset));
         llAdquirenteBorderContainer.setLayoutParams(llAdquirenteBorderContainerParams);
 
         if (offset <= 0) {
@@ -170,33 +163,33 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
             llMaterialAdquirenteContainer.removeAllViews();
             llMaterialAdquirenteContainer.addView(cardAdq,
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
-        } else if (offset >= 1){
-                viewAdquirenteBorder.setBackgroundResource(R.drawable.tab_selected_em_ad);
+        } else if (offset >= 1) {
+            viewAdquirenteBorder.setBackgroundResource(R.drawable.tab_selected_em_ad);
             viewAdquirenteBorder.setRotationY(180);
-                llMaterialAdquirenteContainer.removeAllViews();
-                llMaterialAdquirenteContainer.addView(cardAdqSel,
-                        new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+            llMaterialAdquirenteContainer.removeAllViews();
+            llMaterialAdquirenteContainer.addView(cardAdqSel,
+                    new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
 
         }
 
-        LinearLayout.LayoutParams llContentParentEmisorParams = (LinearLayout.LayoutParams)llContentParentEmisor.getLayoutParams();
+        LinearLayout.LayoutParams llContentParentEmisorParams = (LinearLayout.LayoutParams) llContentParentEmisor.getLayoutParams();
         llContentParentEmisorParams.weight = 2.5f - offset;
-        llContentParentEmisorParams.leftMargin = (int)(getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
+        llContentParentEmisorParams.leftMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
         llContentParentEmisor.setLayoutParams(llContentParentEmisorParams);
 
-        LinearLayout.LayoutParams llMaterialEmisorContainerParams = (LinearLayout.LayoutParams)llMaterialEmisorContainer.getLayoutParams();
+        LinearLayout.LayoutParams llMaterialEmisorContainerParams = (LinearLayout.LayoutParams) llMaterialEmisorContainer.getLayoutParams();
         llMaterialEmisorContainerParams.weight = 1.25f + 0.75f * (1 - offset);
-        llMaterialEmisorContainerParams.leftMargin = (int)(getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
+        llMaterialEmisorContainerParams.leftMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
         llMaterialEmisorContainer.setLayoutParams(llMaterialEmisorContainerParams);
 
-        LinearLayout.LayoutParams llContentParentAdquirenteParams = (LinearLayout.LayoutParams)llContentParentAdquirente.getLayoutParams();
+        LinearLayout.LayoutParams llContentParentAdquirenteParams = (LinearLayout.LayoutParams) llContentParentAdquirente.getLayoutParams();
         llContentParentAdquirenteParams.weight = 1.5f + offset;
-        llContentParentAdquirenteParams.leftMargin = (int)(getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
+        llContentParentAdquirenteParams.leftMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * offset);
         llContentParentAdquirente.setLayoutParams(llContentParentAdquirenteParams);
 
-        LinearLayout.LayoutParams llMaterialAdquirenteContainerParams = (LinearLayout.LayoutParams)llMaterialAdquirenteContainer.getLayoutParams();
+        LinearLayout.LayoutParams llMaterialAdquirenteContainerParams = (LinearLayout.LayoutParams) llMaterialAdquirenteContainer.getLayoutParams();
         llMaterialAdquirenteContainerParams.weight = 1.25f + 0.75f * offset;
-        llMaterialAdquirenteContainerParams.leftMargin = (int)(getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * (1 - offset));
+        llMaterialAdquirenteContainerParams.leftMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * (1 - offset));
         llMaterialAdquirenteContainer.setLayoutParams(llMaterialAdquirenteContainerParams);
 
     }
@@ -204,9 +197,6 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     public void setInviteAdquirenteCallback(InviteAdquirenteCallback inviteAdquirenteCallback) {
         this.inviteAdquirenteCallback = inviteAdquirenteCallback;
     }
-
-
-
 
     /*Delegated Method*/
     public void updateData() {
@@ -216,5 +206,10 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         if (cardAdqSel != null) {
             cardAdqSel.updateData();
         }
+    }
+
+
+    public interface InviteAdquirenteCallback {
+        void onInviteAdquirente();
     }
 }

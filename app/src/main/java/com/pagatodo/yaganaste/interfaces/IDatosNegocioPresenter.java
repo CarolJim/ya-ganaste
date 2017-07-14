@@ -5,5 +5,5 @@ package com.pagatodo.yaganaste.interfaces;
  */
 
 public interface IDatosNegocioPresenter {
-    public void getGiros();
+    void getGiros();
 }

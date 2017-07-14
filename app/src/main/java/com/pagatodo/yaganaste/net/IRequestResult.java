@@ -7,12 +7,12 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
  *
  * @author flima
  * @version 1.0
- *
- * Clase para obtener el resultado de una petición de obtención de datos.
- *
+ *          <p>
+ *          Clase para obtener el resultado de una petición de obtención de datos.
  */
 public interface IRequestResult<Data extends DataSourceResult> {
 
-    public void onSuccess(Data data);
-    public void onFailed(Data error);
+    void onSuccess(Data data);
+
+    void onFailed(Data error);
 }

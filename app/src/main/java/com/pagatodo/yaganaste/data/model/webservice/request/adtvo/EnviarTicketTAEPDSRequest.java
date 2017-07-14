@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by Jordan on 18/05/2017.
  */
 
-public class EnviarTicketTAEPDSRequest  implements Serializable{
+public class EnviarTicketTAEPDSRequest implements Serializable {
     @SerializedName("Email")
     private String email;
     @SerializedName("IdTransaction")

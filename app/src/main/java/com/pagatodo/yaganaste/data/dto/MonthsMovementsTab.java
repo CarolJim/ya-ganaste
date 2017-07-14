@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.data.dto;
 
 import android.content.Context;
-import android.support.annotation.DrawableRes;
 
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 

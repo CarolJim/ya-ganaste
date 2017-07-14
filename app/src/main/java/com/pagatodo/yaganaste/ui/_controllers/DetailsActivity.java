@@ -37,6 +37,23 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     public final static String EVENT_GO_TO_FINALIZE_SUCCESS = "FINALIZAR_CANCELACION_SUCCESS";
     public final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
 
+    public static Intent createIntent(@NonNull Context from, MovimientosResponse data) {
+        return createIntent(from, TYPES.EMISOR, data);
+    }
+
+    public static Intent createIntent(@NonNull Context from, DataMovimientoAdq data) {
+        return createIntent(from, TYPES.ADQUIRENTE, data);
+    }
+
+    public static Intent createIntent(@NonNull Context from, TYPES type, Serializable data) {
+        Intent intent = new Intent(from, DetailsActivity.class);
+        Bundle extras = new Bundle();
+        extras.putSerializable(DATA, data);
+        extras.putString(TYPE, type.toString());
+        intent.putExtras(extras);
+        return intent;
+    }
+
     @Override
     public void onEvent(String event, Object data) {
         super.onEvent(event, data);
@@ -57,29 +74,6 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
 
     }
 
-    enum TYPES {
-        EMISOR,
-        ADQUIRENTE
-    }
-
-    public static Intent createIntent(@NonNull Context from, MovimientosResponse data) {
-        return createIntent(from, TYPES.EMISOR, data);
-    }
-
-    public static Intent createIntent(@NonNull Context from, DataMovimientoAdq data) {
-        return createIntent(from, TYPES.ADQUIRENTE, data);
-    }
-
-    public static Intent createIntent(@NonNull Context from, TYPES type, Serializable data) {
-        Intent intent = new Intent(from, DetailsActivity.class);
-        Bundle extras = new Bundle();
-        extras.putSerializable(DATA, data);
-        extras.putString(TYPE, type.toString());
-        intent.putExtras(extras);
-        return intent;
-    }
-
-
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -95,7 +89,6 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                     "ResumenMovimientosAdqResponse");
         }
     }
-
 
     protected void loadFragment(TYPES type, Serializable data) {
         if (type != null) {
@@ -122,5 +115,10 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         if (!isLoaderShow) {
             super.onBackPressed();
         }
+    }
+
+    enum TYPES {
+        EMISOR,
+        ADQUIRENTE
     }
 }

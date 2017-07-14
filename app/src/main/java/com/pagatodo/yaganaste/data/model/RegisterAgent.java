@@ -11,6 +11,7 @@ import java.util.List;
 
 public class RegisterAgent {
 
+    private static RegisterAgent registerUser;
     //Dato de usuario
     private int tipoAgente;
     private String nombre = "";
@@ -30,18 +31,42 @@ public class RegisterAgent {
     private String idColonia = "";
     private String idEstado = "";
 
-    private static RegisterAgent registerUser;
-
-    private RegisterAgent(){
+    private RegisterAgent() {
         cuestionario = new ArrayList<CuestionarioEntity>();
     }
 
-    public static synchronized RegisterAgent getInstance(){
+    public static synchronized RegisterAgent getInstance() {
 
-        if(registerUser == null)
+        if (registerUser == null)
             registerUser = new RegisterAgent();
 
         return registerUser;
+
+    }
+
+    public static RegisterAgent getRegisterUser() {
+        return registerUser;
+    }
+
+    public static void setRegisterUser(RegisterAgent registerUser) {
+        RegisterAgent.registerUser = registerUser;
+    }
+
+    public static void resetRegisterAgent() {
+        registerUser = null;
+    }
+
+    public static void resetBussinessAddress() {
+        if (registerUser != null) {
+            registerUser.calle = "";
+            registerUser.numExterior = "";
+            registerUser.numInterior = "";
+            registerUser.codigoPostal = "";
+            registerUser.estadoDomicilio = "";
+            registerUser.colonia = "";
+            registerUser.idColonia = "";
+            registerUser.idEstado = "";
+        }
 
     }
 
@@ -157,14 +182,6 @@ public class RegisterAgent {
         this.idColonia = idColonia;
     }
 
-    public static RegisterAgent getRegisterUser() {
-        return registerUser;
-    }
-
-    public static void setRegisterUser(RegisterAgent registerUser) {
-        RegisterAgent.registerUser = registerUser;
-    }
-
     public SubGiro getGiro() {
         return giro;
     }
@@ -173,29 +190,11 @@ public class RegisterAgent {
         this.giro = giro;
     }
 
-    public static void resetRegisterAgent(){
-        registerUser = null;
-    }
-
     public String getIdEstado() {
         return idEstado;
     }
 
     public void setIdEstado(String idEstado) {
         this.idEstado = idEstado;
-    }
-
-    public static void resetBussinessAddress(){
-        if (registerUser != null) {
-            registerUser.calle = "";
-            registerUser.numExterior = "";
-            registerUser.numInterior = "";
-            registerUser.codigoPostal = "";
-            registerUser.estadoDomicilio = "";
-            registerUser.colonia = "";
-            registerUser.idColonia = "";
-            registerUser.idEstado = "";
-        }
-
     }
 }

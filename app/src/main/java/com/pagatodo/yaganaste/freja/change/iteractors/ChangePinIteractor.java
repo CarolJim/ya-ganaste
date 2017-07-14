@@ -9,7 +9,10 @@ import android.content.Context;
 public interface ChangePinIteractor {
 
     void init(Context context);
+
     void init(Context context, long connectionTimeout, long readTimeout);
+
     void getChangePinPolicy();
+
     void changePin(byte[] oldPin, byte[] newPin);
 }

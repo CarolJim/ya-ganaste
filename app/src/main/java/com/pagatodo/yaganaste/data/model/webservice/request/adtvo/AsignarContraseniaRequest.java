@@ -6,12 +6,11 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class AsignarContraseniaRequest implements Serializable{
+public class AsignarContraseniaRequest implements Serializable {
 
     private String NombreUsuario = "";
     private String SemillaTemporal = "";
     private String ContrasenaNueva = "";
-
 
 
     public AsignarContraseniaRequest() {

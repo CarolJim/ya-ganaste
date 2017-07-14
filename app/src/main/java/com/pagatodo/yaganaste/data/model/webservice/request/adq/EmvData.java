@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class EmvData implements Serializable{
+public class EmvData implements Serializable {
 
     private static final long serialVersionUID = 3130552833240813302L;
     private String tlv = "";

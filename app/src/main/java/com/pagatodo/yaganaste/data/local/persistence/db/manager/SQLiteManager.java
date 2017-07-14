@@ -9,42 +9,42 @@ import java.util.concurrent.atomic.AtomicInteger;
  */
 
 public class SQLiteManager {
+    public static SQLiteManager instance;
+    private static SQLiteHelper mSQLiteHelper;
     private AtomicInteger mOpenCounter = new AtomicInteger();
     private SQLiteDatabase mDataBase;
-    private static SQLiteHelper mSQLiteHelper;
-    public static SQLiteManager instance;
 
-    public static synchronized void intitializeInstance(SQLiteHelper helper){
-        if(instance == null){
+    public static synchronized void intitializeInstance(SQLiteHelper helper) {
+        if (instance == null) {
             instance = new SQLiteManager();
             mSQLiteHelper = helper;
 
-            try{
+            try {
                 mSQLiteHelper.createTables();
-            }catch (Exception e){
+            } catch (Exception e) {
                 e.printStackTrace();
             }
         }
     }
 
-    public static synchronized SQLiteManager getInstance(){
-        if(instance == null){
+    public static synchronized SQLiteManager getInstance() {
+        if (instance == null) {
             throw new IllegalStateException(SQLiteManager.class.getSimpleName() +
-            "no inicializada, llamar primero intitializeInstance()");
+                    "no inicializada, llamar primero intitializeInstance()");
         }
 
         return instance;
     }
 
-    public synchronized SQLiteDatabase openDataBase(){
+    public synchronized SQLiteDatabase openDataBase() {
         if (mOpenCounter.incrementAndGet() == 1) {
             mDataBase = mSQLiteHelper.getWritableDatabase();
         }
         return mDataBase;
     }
 
-    public synchronized void closeDataBase(){
-        if(mOpenCounter.decrementAndGet() == 0){
+    public synchronized void closeDataBase() {
+        if (mOpenCounter.decrementAndGet() == 0) {
             mDataBase.close();
         }
     }

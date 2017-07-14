@@ -1,17 +1,10 @@
 package com.pagatodo.yaganaste.net;
 
-import android.app.NotificationManager;
-import android.app.PendingIntent;
-import android.content.Context;
 import android.content.Intent;
-import android.media.RingtoneManager;
-import android.net.Uri;
-import android.support.v4.app.NotificationCompat;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
-import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.utils.NotificationBuilder;
 
@@ -22,6 +15,12 @@ import com.pagatodo.yaganaste.utils.NotificationBuilder;
 public class MessagingService extends FirebaseMessagingService {
 
     private static final String TAG = "MyFirebaseMsgService";
+
+    public MessagingService() {
+        super();
+        Log.d(TAG, "MServ");
+    }
+
     /**
      * Called when message is received.
      *
@@ -39,15 +38,10 @@ public class MessagingService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             RemoteMessage.Notification notification = remoteMessage.getNotification();
-            NotificationBuilder.createTransactionNotification(this,MainActivity.class,notification);
+            NotificationBuilder.createTransactionNotification(this, MainActivity.class, notification);
         }
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
-    }
-
-    public MessagingService() {
-        super();
-        Log.d(TAG, "MServ");
     }
 
     @Override

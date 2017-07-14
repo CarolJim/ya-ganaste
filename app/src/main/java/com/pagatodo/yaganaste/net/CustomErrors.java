@@ -9,17 +9,16 @@ import com.pagatodo.yaganaste.R;
  *
  * @author flima
  * @version 1.0
- *
- *
- * Clase para definir los errores que serán manejados por la aplicación.
- *
+ *          <p>
+ *          <p>
+ *          Clase para definir los errores que serán manejados por la aplicación.
  */
 public class CustomErrors {
 
-    public static String getError(VolleyError error){
-        String errorMessage ="";
+    public static String getError(VolleyError error) {
+        String errorMessage = "";
 
-        if(error != null && error.networkResponse != null) {
+        if (error != null && error.networkResponse != null) {
             switch (error.networkResponse.statusCode) {
 
                 case 404:
@@ -27,11 +26,11 @@ public class CustomErrors {
                     break;
 
                 default:
-                    if(error.getMessage() != null)
+                    if (error.getMessage() != null)
                         errorMessage = App.getInstance().getString(R.string.message_generic_ws);
             }
 
-        }else{
+        } else {
             errorMessage = App.getInstance().getString(R.string.message_generic_ws);
         }
 

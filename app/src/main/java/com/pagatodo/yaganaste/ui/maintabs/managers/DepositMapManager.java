@@ -11,7 +11,7 @@ import java.util.List;
  * Created by Jordan on 23/05/2017.
  */
 
-public interface DepositMapManager extends SwipeRefreshLayout.OnRefreshListener{
+public interface DepositMapManager extends SwipeRefreshLayout.OnRefreshListener {
     void printSucursales(List<DataLocalizaSucursal> sucursalList);
 
     void setOnSucursalesNull();

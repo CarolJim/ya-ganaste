@@ -5,25 +5,25 @@ package com.pagatodo.yaganaste.data.model;
  */
 
 public class Card {
-    private boolean hasClient;
-    private String alias ="";
-    private String userName="";
-    private int IdAccount = 0;
     private static Card cardData;
+    private boolean hasClient;
+    private String alias = "";
+    private String userName = "";
+    private int IdAccount = 0;
 
-    private Card(){
+    private Card() {
 
     }
 
-    public static Card getInstance(){
-        if(cardData == null){
+    public static Card getInstance() {
+        if (cardData == null) {
             cardData = new Card();
         }
 
         return cardData;
     }
 
-    public static void resetCardData(){
+    public static void resetCardData() {
         cardData = null;
     }
 

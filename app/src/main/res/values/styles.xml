@@ -472,6 +472,17 @@
         <item name="tipo">Descripcion</item>
     </style>
 
+    <style name="GenericFragmentElementBottom" parent="FragmentElementBottom">
+        <item name="android:textColorHint">@color/textColorAlternative</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Descripcion</item>
+    </style>
+
+    <style name="GenericFragmentElement" parent="FragmentElement">
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+    </style>
+
     <!-- Genericos para los error de CustomValidationEditText en todos los fotmulrios-->
     <style name="GenericCustomValidationEditTextError" parent="generic_text_style_2"></style>
 

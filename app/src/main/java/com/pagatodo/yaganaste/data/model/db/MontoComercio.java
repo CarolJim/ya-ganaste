@@ -25,7 +25,8 @@ public class MontoComercio extends AbstractEntity {
     @FieldName(MONTO)
     private Double monto;
 
-    public MontoComercio(){}
+    public MontoComercio() {
+    }
 
     public int getIdMonto() {
         return idMonto;

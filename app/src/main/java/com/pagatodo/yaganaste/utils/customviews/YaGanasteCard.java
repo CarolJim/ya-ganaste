@@ -19,11 +19,11 @@ import com.pagatodo.yaganaste.utils.FontCache;
 
 public class YaGanasteCard extends AppCompatImageView {
 
+    private static int MAX_LENGTH_STRING = 25;
     private String cardName;
     private String cardNumber;
     private String cardDate;
     private boolean isMasked;
-    private static int MAX_LENGTH_STRING = 25;
 
     public YaGanasteCard(Context context) {
         super(context);

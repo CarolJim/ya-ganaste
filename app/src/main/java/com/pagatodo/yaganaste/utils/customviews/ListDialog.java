@@ -24,14 +24,29 @@ import java.util.ArrayList;
 
 public class ListDialog extends Dialog implements View.OnClickListener, AdapterView.OnItemClickListener {
 
-    private ListView list;
-    private EditText filterText = null;
     ArrayAdapter<String> adapter = null;
     ArrayList<String> mList = new ArrayList<>();
     ArrayList<CarouselItem> listCarousel;
     Context context;
     PaymentsTabFragment parentFragment;
     PaymentsTabPresenter presenter;
+    private ListView list;
+    private EditText filterText = null;
+    private TextWatcher filterTextWatcher = new TextWatcher() {
+
+        public void afterTextChanged(Editable s) {
+        }
+
+        public void beforeTextChanged(CharSequence s, int start, int count,
+                                      int after) {
+        }
+
+        public void onTextChanged(CharSequence s, int start, int before,
+                                  int count) {
+            adapter.getFilter().filter(s);
+        }
+    };
+
 
     public ListDialog(Context c, ArrayList<CarouselItem> list, PaymentsTabPresenter paymentsTabPresenter, PaymentsTabFragment fragment) {
         super(c);
@@ -44,7 +59,6 @@ public class ListDialog extends Dialog implements View.OnClickListener, AdapterV
             mList.add(item.getComercio().getNombreComercio().trim());
         }
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -64,21 +78,6 @@ public class ListDialog extends Dialog implements View.OnClickListener, AdapterV
     public void onClick(View v) {
 
     }
-
-    private TextWatcher filterTextWatcher = new TextWatcher() {
-
-        public void afterTextChanged(Editable s) {
-        }
-
-        public void beforeTextChanged(CharSequence s, int start, int count,
-                                      int after) {
-        }
-
-        public void onTextChanged(CharSequence s, int start, int before,
-                                  int count) {
-            adapter.getFilter().filter(s);
-        }
-    };
 
     @Override
     protected void onStop() {

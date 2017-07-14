@@ -86,7 +86,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_concepto"
-                android:inputType="text"
+                android:inputType="textCapSentences"
                 android:longClickable="false"
                 android:maxLength="40" />
 
@@ -94,10 +94,11 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/comisionText"
+            style="@style/generic_text_style_3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_doble"
-            android:gravity="center|bottom" style="@style/generic_text_style_3"
+            android:gravity="center|bottom"
             app:tipo="Descripcion" />
 
     </LinearLayout>

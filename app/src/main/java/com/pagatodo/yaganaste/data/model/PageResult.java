@@ -2,24 +2,30 @@ package com.pagatodo.yaganaste.data.model;
 
 import android.os.Parcel;
 import android.os.Parcelable;
-import android.support.annotation.IdRes;
-import android.support.annotation.StyleRes;
 
 import com.pagatodo.yaganaste.interfaces.Command;
-
-import java.io.Serializable;
 
 /**
  * Created by flima on 18/04/2017.
  */
 
-public class PageResult implements Parcelable{
+public class PageResult implements Parcelable {
 
-    public static final String BTN_DIRECTION_NEXT   = "direction_next";
-    public static final String BTN_DIRECTION_BACK   = "direction_back";
-    public static final String BTN_ACTION_OK        = "action_ok";
-    public static final String BTN_ACTION_ERROR     = "action_error";
+    public static final String BTN_DIRECTION_NEXT = "direction_next";
+    public static final String BTN_DIRECTION_BACK = "direction_back";
+    public static final String BTN_ACTION_OK = "action_ok";
+    public static final String BTN_ACTION_ERROR = "action_error";
+    public static final Creator<PageResult> CREATOR = new Creator<PageResult>() {
+        @Override
+        public PageResult createFromParcel(Parcel in) {
+            return new PageResult(in);
+        }
 
+        @Override
+        public PageResult[] newArray(int size) {
+            return new PageResult[size];
+        }
+    };
     private int idResurceIcon;
     private String title = "";
     private String message = "";
@@ -29,15 +35,14 @@ public class PageResult implements Parcelable{
     private String namerBtnPrimary = "";
     private String namerBtnSecondary = "";
     private boolean hasSecondaryAction = false;
-    private String btnPrimaryType   = "";
+    private String btnPrimaryType = "";
     private String btnSecundaryType = "";
-
 
     public PageResult() {
 
     }
 
-    public PageResult(int idResurceIcon, String title, String message,boolean hasErrorAction) {
+    public PageResult(int idResurceIcon, String title, String message, boolean hasErrorAction) {
         this.idResurceIcon = idResurceIcon;
         this.title = title;
         this.message = message;
@@ -55,18 +60,6 @@ public class PageResult implements Parcelable{
         btnPrimaryType = in.readString();
         btnSecundaryType = in.readString();
     }
-
-    public static final Creator<PageResult> CREATOR = new Creator<PageResult>() {
-        @Override
-        public PageResult createFromParcel(Parcel in) {
-            return new PageResult(in);
-        }
-
-        @Override
-        public PageResult[] newArray(int size) {
-            return new PageResult[size];
-        }
-    };
 
     public String getTitle() {
         return title;
@@ -91,9 +84,6 @@ public class PageResult implements Parcelable{
     public void setActionBtnPrimary(Command actionBtnPrimary) {
         this.actionBtnPrimary = actionBtnPrimary;
     }
-    public void setBtnPrimaryType(String style){
-        this.btnPrimaryType = style;
-    }
 
     public Command getActionBtnSecondary() {
         return actionBtnSecondary;
@@ -102,16 +92,21 @@ public class PageResult implements Parcelable{
     public void setActionBtnSecondary(Command actionBtnSecondary) {
         this.actionBtnSecondary = actionBtnSecondary;
     }
-    public void setBtnSecundaryType(String style){
-        this.btnSecundaryType = style;
-    }
 
     public String getBtnPrimaryType() {
         return btnPrimaryType;
     }
 
+    public void setBtnPrimaryType(String style) {
+        this.btnPrimaryType = style;
+    }
+
     public String getBtnSecundaryType() {
         return btnSecundaryType;
+    }
+
+    public void setBtnSecundaryType(String style) {
+        this.btnSecundaryType = style;
     }
 
     public boolean isHasSecondaryAction() {

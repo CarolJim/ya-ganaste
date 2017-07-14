@@ -27,7 +27,7 @@
             style="@style/generic_calculator_sign_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="$"  />
+            android:text="$" />
 
         <!--<TextView-->
         <!--android:id="@+id/tv_sign"-->
@@ -39,9 +39,10 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/tv_monto_entero"
+            style="@style/generic_calculator_integer_style"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="0" style="@style/generic_calculator_integer_style"/>
+            android:text="0" />
 
         <!--    <TextView
                 android:id="@+id/tv_monto_entero"
@@ -67,17 +68,18 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/tv_monto_decimal"
+                style="@style/generic_calculator_decimal_style"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
-                android:text="00" style="@style/generic_calculator_decimal_style" />
+                android:text="00" />
 
-         <!--   <TextView
-                android:id="@+id/tv_monto_decimal"
-                android:layout_width="wrap_content"
-                android:layout_height="match_parent"
-                android:text="00"
-                android:textColor="@color/whiteColor"
-                android:textSize="@dimen/frag_getmount_calculator_decimales_text_Size" />-->
+            <!--   <TextView
+                   android:id="@+id/tv_monto_decimal"
+                   android:layout_width="wrap_content"
+                   android:layout_height="match_parent"
+                   android:text="00"
+                   android:textColor="@color/whiteColor"
+                   android:textSize="@dimen/frag_getmount_calculator_decimales_text_Size" />-->
         </LinearLayout>
     </LinearLayout>
 </LinearLayout>

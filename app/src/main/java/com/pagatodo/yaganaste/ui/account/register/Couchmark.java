@@ -16,7 +16,7 @@ import com.pagatodo.yaganaste.utils.UI;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class Couchmark extends GenericFragment implements View.OnClickListener{
+public class Couchmark extends GenericFragment implements View.OnClickListener {
 
     private View rootview;
 
@@ -42,7 +42,7 @@ public class Couchmark extends GenericFragment implements View.OnClickListener{
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        UI.showToastShort("CouchMark",getActivity());
+        UI.showToastShort("CouchMark", getActivity());
     }
 
     @Override
@@ -71,7 +71,7 @@ public class Couchmark extends GenericFragment implements View.OnClickListener{
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
 
             default:
                 break;

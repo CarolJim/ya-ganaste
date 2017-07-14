@@ -1,8 +1,6 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
@@ -10,11 +8,9 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
-import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
@@ -28,9 +24,8 @@ import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_DOC_
  * A simple {@link GenericFragment} subclass.
  */
 public class RegisterCompleteFragment extends GenericFragment implements View.OnClickListener {
-    public String TAG = getClass().getSimpleName();
     public static String TIPO_MENSAJE = "TIPO_MENSAJE";
-    private View rootview;
+    public String TAG = getClass().getSimpleName();
     @BindView(R.id.imgCompleted)
     AppCompatImageView imgCompleted;
     @BindView(R.id.txtTitle)
@@ -41,7 +36,7 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     StyleTextView txtMessage;
     @BindView(R.id.btnNextComplete)
     Button btnNextComplete;
-
+    private View rootview;
     private COMPLETE_MESSAGES type;
     private int iIdIcon = 0;
     private String title = "";
@@ -49,14 +44,6 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     private String message = "";
     private String btnName = "";
     private String NEXT_SCREEN = "";
-
-    public enum COMPLETE_MESSAGES {
-        EMISOR,
-        ADQ_REVISION,
-        ADQ_ACEPTADOS,
-        SALDO
-    }
-
 
     public static RegisterCompleteFragment newInstance(COMPLETE_MESSAGES type) {
         RegisterCompleteFragment fragmentRegister = new RegisterCompleteFragment();
@@ -146,6 +133,13 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
         txtSubtitle.setText(subTitle);
         txtMessage.setText(message);
         btnNextComplete.setText(btnName);
+    }
+
+    public enum COMPLETE_MESSAGES {
+        EMISOR,
+        ADQ_REVISION,
+        ADQ_ACEPTADOS,
+        SALDO
     }
 }
 

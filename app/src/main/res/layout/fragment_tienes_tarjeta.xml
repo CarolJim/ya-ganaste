@@ -54,8 +54,8 @@
 
                         <RadioButton
                             android:id="@+id/radioBtnNo"
-                            android:layout_width="wrap_content"
                             style="@style/generic_text_style_2"
+                            android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
@@ -69,9 +69,9 @@
 
                         <RadioButton
                             android:id="@+id/radioBtnYes"
+                            style="@style/generic_text_style_2"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            style="@style/generic_text_style_2"
                             android:layout_gravity="center"
                             android:gravity="center"
                             android:text="@string/yes" />
@@ -85,9 +85,9 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtMessageCard"
+                        style="@style/generic_text_style_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/generic_text_style_3"
                         android:layout_marginBottom="@dimen/margin_small"
                         android:layout_marginTop="@dimen/margin_medium"
                         android:gravity="center"

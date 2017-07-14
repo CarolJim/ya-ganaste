@@ -6,10 +6,6 @@ package com.pagatodo.yaganaste.data.local.persistence.db.exceptions;
 
 public class AbstractEntityException extends RuntimeException {
 
-    public AbstractEntityException(String message, Throwable cause) {
-        super(message, cause);
-    }
-
     public AbstractEntityException(String message) {
         super(message);
     }

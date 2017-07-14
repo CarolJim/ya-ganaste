@@ -39,7 +39,7 @@ public class SeekBarNoTouch extends AppCompatSeekBar {
                     context.getTheme().obtainStyledAttributes(attrs, R.styleable.SeekBarNoTouch, 0, 0);
             int thumbColor = configurationParams.getColor(R.styleable.SeekBarNoTouch_seekThumbColor,
                     ContextCompat.getColor(context, R.color.colorPrimary));
-            ((GradientDrawable)drawable).setColor(thumbColor);
+            ((GradientDrawable) drawable).setColor(thumbColor);
             setThumb(drawable);
             requestLayout();
             configurationParams.recycle();

@@ -24,17 +24,17 @@ public class OtpPresenterImp extends OtpPresenterAbs {
 
     @Override
     public void handleException(Exception e) {
-        Log.e(TAG,e.toString());
+        Log.e(TAG, e.toString());
     }
 
     @Override
     public void onError(Errors error) {
-        Log.e(TAG,error.toString());
+        Log.e(TAG, error.toString());
     }
 
     @Override
     public void onOtpGenerated(String otp) {
-        Log.i("OTP","Otp generated: " + otp);
+        Log.i("OTP", "Otp generated: " + otp);
         otpView.onOtpGenerated(otp);
     }
 }

@@ -61,9 +61,9 @@
                 android:layout_alignParentLeft="true"
                 android:layout_alignParentStart="true"
                 android:layout_centerVertical="true"
-                android:rotation="-90"
-                android:padding="@dimen/margin_small"
                 android:adjustViewBounds="true"
+                android:padding="@dimen/margin_small"
+                android:rotation="-90"
                 android:scaleType="fitXY"
                 android:src="@mipmap/flecha_couchmark" />
         </RelativeLayout>
@@ -154,8 +154,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_weight="1"
-                android:rotation="240"
                 android:padding="@dimen/margin_small"
+                android:rotation="240"
                 android:src="@mipmap/flecha_couchmark" />
 
             <android.support.v4.widget.Space
@@ -202,9 +202,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
-                android:scaleX="-1"
-                android:rotation="100"
                 android:padding="@dimen/margin_small"
+                android:rotation="100"
+                android:scaleX="-1"
                 android:src="@mipmap/flecha_couchmark" />
 
             <android.support.v4.widget.Space
@@ -250,9 +250,9 @@
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="1.5"
+                android:padding="@dimen/margin_small"
                 android:rotation="100"
                 android:scaleX="-1"
-                android:padding="@dimen/margin_small"
                 android:src="@mipmap/flecha_couchmark" />
 
         </LinearLayout>

@@ -18,7 +18,7 @@ public class TxApprovedFragment extends GenericFragment implements View.OnClickL
 
     private View rootView;
 
-    public static TxApprovedFragment newInstance(){
+    public static TxApprovedFragment newInstance() {
         TxApprovedFragment homeTabFragment = new TxApprovedFragment();
         Bundle args = new Bundle();
         homeTabFragment.setArguments(args);

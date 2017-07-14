@@ -22,20 +22,9 @@ import java.util.Locale;
 
 public class RecyclerSucursalesAdapter extends RecyclerView.Adapter<RecyclerSucursalesAdapter.MyViewHolder> {
 
+    public ArrayList<DataLocalizaSucursal> arraylist;
     private List<DataLocalizaSucursal> sucursalList;
     private Location myLocation;
-    public ArrayList<DataLocalizaSucursal> arraylist;
-
-    public class MyViewHolder extends RecyclerView.ViewHolder {
-        public TextView titleSucursal;
-        public TextView description;
-
-        public MyViewHolder(View itemView) {
-            super(itemView);
-            titleSucursal = (TextView) itemView.findViewById(R.id.sucursalTitle);
-            description = (TextView) itemView.findViewById(R.id.sucursalDescription);
-        }
-    }
 
     public RecyclerSucursalesAdapter(List<DataLocalizaSucursal> l, Location location) {
         this.sucursalList = l;
@@ -88,5 +77,16 @@ public class RecyclerSucursalesAdapter extends RecyclerView.Adapter<RecyclerSucu
         }
         // Notificamso que los datos cambiaron
         notifyDataSetChanged();
+    }
+
+    public class MyViewHolder extends RecyclerView.ViewHolder {
+        public TextView titleSucursal;
+        public TextView description;
+
+        public MyViewHolder(View itemView) {
+            super(itemView);
+            titleSucursal = (TextView) itemView.findViewById(R.id.sucursalTitle);
+            description = (TextView) itemView.findViewById(R.id.sucursalDescription);
+        }
     }
 }

@@ -6,6 +6,7 @@ package com.pagatodo.yaganaste.data.model;
 
 public class RegisterUser {
 
+    private static RegisterUser registerUser;
     //Dato de usuario
     private String email = "";
     private String contrasenia = "";
@@ -30,23 +31,20 @@ public class RegisterUser {
     private String idColonia = "";
     private boolean aceptaTerminos;
 
-
-    private static RegisterUser registerUser;
-
-    private RegisterUser(){
+    private RegisterUser() {
 
     }
 
-    public static synchronized RegisterUser getInstance(){
+    public static synchronized RegisterUser getInstance() {
 
-        if(registerUser == null)
+        if (registerUser == null)
             registerUser = new RegisterUser();
 
         return registerUser;
 
     }
 
-    public static void resetRegisterUser(){
+    public static void resetRegisterUser() {
         registerUser = null;
     }
 

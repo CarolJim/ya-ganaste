@@ -27,26 +27,6 @@ import java.util.Map;
 
 public class ReflectionUtils {
 
-    public enum DB {
-        CREAR_TABLA("CREATE TABLE IF NOT EXISTS "),
-        BORRAR_TABLA("DROP TABLE IF EXISTS"),
-        COMA(","),
-        ESPACIO(" "),
-        ABRIR_PARENTESIS("("),
-        CERRAR_PARENTESIS(")"),
-        TABLE("TABLE");
-        private final String name;
-
-        DB(String s) {
-            name = s;
-        }
-
-        @Override
-        public String toString() {
-            return name;
-        }
-    }
-
     public static <T extends AbstractEntity> ContentValues getContentValues(T entity) {
         ContentValues contentValues = new ContentValues();
         List<Field> fields = getCleanFields(entity.getClass());
@@ -244,5 +224,25 @@ public class ReflectionUtils {
     private static boolean isPrimaryKey(Field field) {
         FieldName fieldName = field.getAnnotation(FieldName.class);
         return fieldName != null && fieldName.primaryKey();
+    }
+
+    public enum DB {
+        CREAR_TABLA("CREATE TABLE IF NOT EXISTS "),
+        BORRAR_TABLA("DROP TABLE IF EXISTS"),
+        COMA(","),
+        ESPACIO(" "),
+        ABRIR_PARENTESIS("("),
+        CERRAR_PARENTESIS(")"),
+        TABLE("TABLE");
+        private final String name;
+
+        DB(String s) {
+            name = s;
+        }
+
+        @Override
+        public String toString() {
+            return name;
+        }
     }
 }

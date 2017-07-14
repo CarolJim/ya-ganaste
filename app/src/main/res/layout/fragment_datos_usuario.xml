@@ -106,15 +106,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_medium"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextDatosUsuario"
             style="@style/buttonDirecctionNext"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:gravity="center"
-            android:text="@string/nextButton"/>
+            android:text="@string/nextButton" />
     </LinearLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout

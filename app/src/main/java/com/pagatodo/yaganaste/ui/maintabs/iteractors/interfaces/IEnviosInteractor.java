@@ -8,20 +8,31 @@ import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 
 public interface IEnviosInteractor {
 
-    interface OnValidationFinishListener{
+    void validateForms(TransferType type, String number, String importe, String name, String concept, String reference, OnValidationFinishListener listener);
+
+    interface OnValidationFinishListener {
         void onTypeError();
+
         void onNumberEmpty();
+
         void onNumberError();
+
         void onImporteEmpty();
+
         void onImporteError();
+
         void onNameEmpty();
+
         void onNameError();
+
         void onConceptEmpty();
+
         void onConceptError();
+
         void onReferenceEmpty();
+
         void onReferenceError();
+
         void onSuccess(Double monto);
     }
-
-    void validateForms(TransferType type, String number, String importe, String name, String concept, String reference, OnValidationFinishListener listener);
 }

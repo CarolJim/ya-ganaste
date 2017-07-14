@@ -162,6 +162,6 @@
         <attr name="name" format="string" />
         <attr name="numberCard" format="string" />
         <attr name="expirationDate" format="string" />
-        <attr name="isMasked" format="boolean"/>
+        <attr name="isMasked" format="boolean" />
     </declare-styleable>
 </resources>

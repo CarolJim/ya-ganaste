@@ -19,10 +19,9 @@ import java.util.List;
 public class SupportComponent {
 
     protected FragmentManager fragmentManager;
-
+    GenericFragment lastFragment;
     @IdRes
     private int containerID;
-    GenericFragment lastFragment;
 
     public SupportComponent(FragmentManager fragmentManager) {
         this.fragmentManager = fragmentManager;

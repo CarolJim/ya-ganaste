@@ -6,11 +6,15 @@
         </shape>
     </item>
     <item android:bottom="2dp">
-        <shape  android:shape="rectangle">
-            <gradient android:centerColor="#655e5e" android:startColor="#3e3e3e"
+        <shape android:shape="rectangle">
+            <gradient
+                android:angle="-90"
+                android:centerColor="#655e5e"
                 android:endColor="#807c7c"
-                android:angle="-90" />
-            <corners android:topLeftRadius="4dp" android:topRightRadius="4dp"/>
+                android:startColor="#3e3e3e" />
+            <corners
+                android:topLeftRadius="4dp"
+                android:topRightRadius="4dp" />
         </shape>
     </item>
 </layer-list>

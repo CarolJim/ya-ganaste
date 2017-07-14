@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class CambiarContraseniaRequest implements Serializable{
+public class CambiarContraseniaRequest implements Serializable {
 
     private String ContrasenaActual = "";
     private String ContrasenaNueva = "";

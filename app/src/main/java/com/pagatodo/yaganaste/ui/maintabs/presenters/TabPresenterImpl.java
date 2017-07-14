@@ -3,13 +3,10 @@ package com.pagatodo.yaganaste.ui.maintabs.presenters;
 import android.support.annotation.Nullable;
 
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.interfaces.OnEventListener;
-import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
-import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.TabMenuIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.TabMenuIteractorImpl;
+import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.TabMenuIteractor;
 import com.pagatodo.yaganaste.ui.maintabs.managers.TabMenuManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.TabPresenter;
 

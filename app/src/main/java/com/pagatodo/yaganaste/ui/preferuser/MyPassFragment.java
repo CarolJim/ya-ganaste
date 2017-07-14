@@ -1,18 +1,14 @@
 package com.pagatodo.yaganaste.ui.preferuser;
 
 
-import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
-import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -25,7 +21,6 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
-import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import butterknife.BindView;
@@ -56,7 +51,9 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     ErrorMessage errorPasswordMessage;
     @BindView(R.id.errorConfirmPasswordMessage)
     ErrorMessage errorConfirmPasswordMessage;
-
+    AccountPresenterNew accountPresenter;
+    PreferUserPresenter mPreferPresenter;
+    View rootview;
     private String email = "";
     private String emailConfirmation = "";
     private String password = "";
@@ -65,13 +62,8 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     private boolean isValidPassword = false;
     private boolean emailValidatedByWS = false; // Indica que el email ha sido validado por el ws.
     private boolean userExist = false; // Indica que el email ya se encuentra registrado.
-    AccountPresenterNew accountPresenter;
     private String passErrorMessage;
-
     private boolean errorIsShowed = false;
-    PreferUserPresenter mPreferPresenter;
-
-    View rootview;
 
     public MyPassFragment() {
         // Required empty public constructor
@@ -178,8 +170,8 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
                     }
                 } else {
                     if (editPassword.isValidText() && !isValidPassword) {
-                     accountPresenter.validatePasswordFormat(
-                             editPassword.getText().trim());
+                        accountPresenter.validatePasswordFormat(
+                                editPassword.getText().trim());
                     } else if (editPassword.getText().isEmpty()) {
                         editPassword.setIsInvalid();
                         showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));

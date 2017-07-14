@@ -6,6 +6,8 @@ package com.pagatodo.yaganaste.ui.maintabs.managers;
 
 public interface PaymentsManager {
     void showError();
+
     void onError(String error);
+
     void onSuccess(Double importe);
 }

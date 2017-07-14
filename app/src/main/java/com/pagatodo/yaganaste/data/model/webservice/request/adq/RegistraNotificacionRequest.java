@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class RegistraNotificacionRequest implements Serializable{
+public class RegistraNotificacionRequest implements Serializable {
 
     private String os = "";
     private String token = "";

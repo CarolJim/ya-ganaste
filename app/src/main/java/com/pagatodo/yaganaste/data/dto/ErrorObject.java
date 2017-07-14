@@ -33,10 +33,6 @@ public class ErrorObject {
         this.hasCancel = hasCancel;
     }
 
-    public void setErrorActions(DialogDoubleActions errorActions) {
-        this.errorActions = errorActions;
-    }
-
     public boolean hasConfirm() {
         return hasConfirm;
     }
@@ -47,6 +43,10 @@ public class ErrorObject {
 
     public DialogDoubleActions getErrorActions() {
         return errorActions;
+    }
+
+    public void setErrorActions(DialogDoubleActions errorActions) {
+        this.errorActions = errorActions;
     }
 
     public String getErrorMessage() {

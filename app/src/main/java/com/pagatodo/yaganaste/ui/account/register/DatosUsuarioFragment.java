@@ -36,7 +36,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
     private static int MIN_LENGHT_VALIDATION_PASS = 8;
     private static String CHECK_EMAIL_STATUS = "CHECK_EMAIL_STATUS";
-    private View rootview;
     @BindView(R.id.edtitEmail)
     CustomValidationEditText editMail;
     @BindView(R.id.edtitConfirmEmail)
@@ -55,12 +54,10 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     ErrorMessage errorPasswordMessage;
     @BindView(R.id.errorConfirmPasswordMessage)
     ErrorMessage errorConfirmPasswordMessage;
-
-
     //ErrorMessage errorMessageView;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
-
+    private View rootview;
     private String email = "";
     private String emailConfirmation = "";
     private String password = "";

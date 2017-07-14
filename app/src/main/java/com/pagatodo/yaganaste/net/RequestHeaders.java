@@ -23,7 +23,7 @@ public class RequestHeaders {
 
     /*Adq Headers*/
     public static String IdCuentaAdq = "ID";
-    public static String TokenAdq= "Token";
+    public static String TokenAdq = "Token";
 
     private static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;

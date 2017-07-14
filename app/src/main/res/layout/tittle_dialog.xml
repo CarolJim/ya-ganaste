@@ -9,9 +9,9 @@
         android:id="@+id/lnr_tittle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/margin_medium"
         android:layout_marginLeft="@dimen/margin_big"
         android:layout_marginTop="@dimen/margin_medium"
-        android:layout_marginBottom="@dimen/margin_medium"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -19,17 +19,19 @@
             android:id="@+id/icon"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            app:srcCompat="@drawable/camera_blue"/>
+            app:srcCompat="@drawable/camera_blue" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/txt_tittle"
+            style="@style/generic_text_style_2"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_medium"
             android:gravity="center"
             android:text="@string/sel_fotografia"
-            android:textColor="@color/colorAccent" style="@style/generic_text_style_2" />
+            android:textColor="@color/colorAccent" />
     </LinearLayout>
+
     <View
         android:layout_width="match_parent"
         android:layout_height="2dp"

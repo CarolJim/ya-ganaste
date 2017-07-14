@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class DataUsuarioCliente implements Serializable{
+public class DataUsuarioCliente implements Serializable {
 
     private boolean RequiereActivacionSMS;
     private String Semilla = "";

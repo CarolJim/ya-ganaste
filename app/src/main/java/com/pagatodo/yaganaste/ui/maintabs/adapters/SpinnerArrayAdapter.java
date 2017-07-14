@@ -6,7 +6,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
@@ -21,11 +20,11 @@ import java.util.List;
  */
 
 public class SpinnerArrayAdapter extends ArrayAdapter {
+    private static String CANTIDAD_HINT = "Importe";
+    private static String TIPO_ENVIO_HINT = "Tipo de Envío";
     Context mContext;
     List<?> mItems;
     MovementsTab mTab;
-    private static String CANTIDAD_HINT = "Importe";
-    private static String TIPO_ENVIO_HINT = "Tipo de Envío";
 
     public SpinnerArrayAdapter(Context context, MovementsTab tab, List<?> items) {
         super(context, -1, items);
@@ -60,13 +59,13 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
             holder = (SpinnerArrayAdapter.DropDownHolder) row.getTag();
         }
 
-        if(mTab == MovementsTab.TAB1){
+        if (mTab == MovementsTab.TAB1) {
             hint = CANTIDAD_HINT;
             textLbl = "$" + item.toString() + "0";
-        }else if(mTab == MovementsTab.TAB3){
+        } else if (mTab == MovementsTab.TAB3) {
             hint = TIPO_ENVIO_HINT;
             textLbl = item.toString();
-        }else{
+        } else {
             hint = "";
             textLbl = item.toString();
         }
@@ -111,13 +110,13 @@ public class SpinnerArrayAdapter extends ArrayAdapter {
         });
 
 
-        if(mTab == MovementsTab.TAB1){
+        if (mTab == MovementsTab.TAB1) {
             hint = CANTIDAD_HINT;
             textLbl = "$" + item.toString() + "0";
-        }else if(mTab == MovementsTab.TAB3){
+        } else if (mTab == MovementsTab.TAB3) {
             hint = TIPO_ENVIO_HINT;
             textLbl = item.toString();
-        }else{
+        } else {
             hint = "";
             textLbl = item.toString();
         }

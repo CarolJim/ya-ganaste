@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.data.model.webservice.request.trans;
 import android.util.Log;
 
 import java.io.Serializable;
-import java.util.Calendar;
 
 import static com.pagatodo.yaganaste.utils.StringUtils.createTicket;
 

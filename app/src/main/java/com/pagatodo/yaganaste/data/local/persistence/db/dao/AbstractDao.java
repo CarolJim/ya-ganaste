@@ -7,8 +7,6 @@ import android.database.sqlite.SQLiteDatabase;
 
 import com.pagatodo.yaganaste.data.local.persistence.db.manager.SQLiteHelper;
 
-import java.io.IOException;
-
 /**
  * @author jguerras on 10/01/2017.
  */
@@ -67,7 +65,7 @@ public abstract class AbstractDao implements DataBaseDao {
     }
 
     @Override
-    public Cursor query(String table, String selection, String orderBy, String... selectionArgs){
+    public Cursor query(String table, String selection, String orderBy, String... selectionArgs) {
         return db.query(table, null, selection, selectionArgs, null, null, orderBy);
     }
 
@@ -102,8 +100,6 @@ public abstract class AbstractDao implements DataBaseDao {
     public void updateDB(Context context) {
         //SQLiteHelper.copyDataBase(context);
     }
-
-
 
 
     /************************** End delegated methods **************************/

@@ -15,7 +15,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class CardDetailFragment extends GenericFragment implements View.OnClickListener{
+public class CardDetailFragment extends GenericFragment implements View.OnClickListener {
 
     private View rootview;
 
@@ -74,7 +74,7 @@ public class CardDetailFragment extends GenericFragment implements View.OnClickL
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
 
             default:
                 break;

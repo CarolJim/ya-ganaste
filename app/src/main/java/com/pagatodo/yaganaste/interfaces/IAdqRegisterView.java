@@ -5,5 +5,5 @@ package com.pagatodo.yaganaste.interfaces;
  */
 
 public interface IAdqRegisterView<E> extends IAccountAddressRegisterView<E> {
-    public void agentCreated(String message);
+    void agentCreated(String message);
 }

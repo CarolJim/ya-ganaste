@@ -55,11 +55,9 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     Spinner spinnerMontoRecarga;
     @BindView(R.id.layoutImageContact)
     RelativeLayout layoutImageContact;
-
+    boolean isIAVE;
     private SpinnerArrayAdapter dataAdapter;
     private IRecargasPresenter recargasPresenter;
-
-    boolean isIAVE;
 
     public static RecargasFormFragment newInstance() {
         RecargasFormFragment fragment = new RecargasFormFragment();

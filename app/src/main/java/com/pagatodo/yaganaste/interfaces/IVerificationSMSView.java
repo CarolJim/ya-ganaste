@@ -4,18 +4,25 @@ import com.pagatodo.yaganaste.data.model.MessageValidation;
 
 /**
  * Created by flima on 09/02/17.
- *
+ * <p>
  * Interfaz que proporciona los métodos básicos para gestionar el flujo del Registro en la aplicación.
  */
 
 public interface IVerificationSMSView extends INavigationView {
-    public void messageCreated(MessageValidation messageValidation);
-    public void smsVerificationSuccess();
-    public void smsVerificationFailed(String message);
-    public void devicesAlreadyAssign(String message);
-    public void provisingCompleted();
-    public void verifyActivationProvisingFailed(String message);
-    public void activationProvisingFailed(String message);
-    public void dataUpdated(String message);
+    void messageCreated(MessageValidation messageValidation);
+
+    void smsVerificationSuccess();
+
+    void smsVerificationFailed(String message);
+
+    void devicesAlreadyAssign(String message);
+
+    void provisingCompleted();
+
+    void verifyActivationProvisingFailed(String message);
+
+    void activationProvisingFailed(String message);
+
+    void dataUpdated(String message);
 
 }

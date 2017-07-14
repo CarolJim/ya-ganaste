@@ -1,16 +1,15 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:orientation="vertical">
 
     <com.pagatodo.yaganaste.utils.customviews.GenericTabLayout
         android:id="@+id/tab_months"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        app:tabIndicatorHeight="0dp"
-        />
+        app:tabIndicatorHeight="0dp" />
 
 
     <android.support.v4.widget.SwipeRefreshLayout
@@ -22,8 +21,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:orientation="vertical"
-            android:layout_marginBottom="20dp">
+            android:layout_marginBottom="20dp"
+            android:orientation="vertical">
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/recycler_movements"
@@ -33,19 +32,17 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txt_info_movements"
+                style="@style/generic_text_style_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="@dimen/activity_horizontal_margin"
                 android:text="@string/no_movimientos"
                 android:textSize="@dimen/frag_inicio_tab_no_movements_text_size"
-                android:visibility="gone"
-                style="@style/generic_text_style_3" />
+                android:visibility="gone" />
 
         </LinearLayout>
 
     </android.support.v4.widget.SwipeRefreshLayout>
-
-
 
 
 </LinearLayout>

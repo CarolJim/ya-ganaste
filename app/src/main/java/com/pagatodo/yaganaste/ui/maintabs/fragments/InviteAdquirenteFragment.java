@@ -1,25 +1,16 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
-import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.HomeFragmentPresenter;
-import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
-import com.pagatodo.yaganaste.utils.customviews.yaganasteviews.TabLayoutEmAd;
 
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 
@@ -28,7 +19,7 @@ import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
  * @author Juan Guerra on 10/11/2016.
  */
 
-public class InviteAdquirenteFragment extends GenericFragment implements View.OnClickListener{
+public class InviteAdquirenteFragment extends GenericFragment implements View.OnClickListener {
 
     private View rootView;
 

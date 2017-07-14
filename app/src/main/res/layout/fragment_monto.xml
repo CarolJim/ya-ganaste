@@ -10,9 +10,9 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:orientation="vertical"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_centerHorizontal="true"
+        android:orientation="vertical">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/titleAmount"
@@ -47,7 +47,7 @@
                 android:focusable="true"
                 android:gravity="center"
                 android:hint="Concepto (Opcional)"
-                android:inputType="text|textNoSuggestions"
+                android:inputType="text|textNoSuggestions|textCapSentences"
                 android:padding="8dp"
                 android:textColor="@color/whiteColor"
                 android:textStyle="normal" />

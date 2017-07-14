@@ -42,8 +42,6 @@ import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 public class QuickBalanceFragment extends GenericFragment implements IBalanceView,
         SwipeRefreshLayout.OnRefreshListener, INavigationView<Void, Void>, View.OnClickListener {
 
-    private View mRootView;
-
     @BindView(R.id.cardSaldo)
     YaGanasteCard cardSaldo;
     @BindView(R.id.txt_name_user)
@@ -56,7 +54,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     Button goToLogin;
     @BindView(R.id.swipe_container)
     SwipeRefreshLayout swipeContainer;
-
+    private View mRootView;
     private AccountPresenterNew accountPresenter;
     private LoginManagerContainerFragment parentFragment;
 

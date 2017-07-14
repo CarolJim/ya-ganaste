@@ -6,7 +6,10 @@ package com.pagatodo.yaganaste.freja.provisioning.presenter;
 
 public interface ProvisioningPresenter {
     void getActivationCode();
+
     void getPinPolicy();
+
     void registerPin(String pin);
+
     void setTokenNotificationId(String tokenNotificationId, String pin);
 }

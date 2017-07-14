@@ -17,7 +17,7 @@ public class EnviosPresenter implements IEnviosPresenter, IEnviosInteractor.OnVa
     IEnviosInteractor enviosInteractor;
     PaymentsManager paymentsManager;
 
-    public EnviosPresenter(PaymentsManager paymentsManager){
+    public EnviosPresenter(PaymentsManager paymentsManager) {
         this.paymentsManager = paymentsManager;
         enviosInteractor = new EnviosInteractor();
     }

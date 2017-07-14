@@ -3,9 +3,9 @@ package com.pagatodo.yaganaste.freja.otp.presenter;
 import android.content.Context;
 
 import com.pagatodo.yaganaste.freja.Errors;
+import com.pagatodo.yaganaste.freja.otp.iteractor.OtpIteractor;
 import com.pagatodo.yaganaste.freja.otp.iteractor.OtpIteractorImp;
 import com.pagatodo.yaganaste.freja.otp.manager.OtpManager;
-import com.pagatodo.yaganaste.freja.otp.iteractor.OtpIteractor;
 import com.pagatodo.yaganaste.freja.token.presenter.TokenPresenterAbs;
 
 /**

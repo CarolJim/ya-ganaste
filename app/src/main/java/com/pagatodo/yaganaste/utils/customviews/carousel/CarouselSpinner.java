@@ -17,21 +17,18 @@ import java.util.Collections;
 
 public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
 
+    final Rect mSpinnerPadding = new Rect();
+    final RecycleBin mRecycler = new RecycleBin();
     SpinnerAdapter mAdapter;
-
     int mHeightMeasureSpec;
     int mWidthMeasureSpec;
     boolean mBlockLayoutRequests;
-
     int mSelectionLeftPadding = 0;
     int mSelectionTopPadding = 0;
     int mSelectionRightPadding = 0;
     int mSelectionBottomPadding = 0;
-    final Rect mSpinnerPadding = new Rect();
-
-    final RecycleBin mRecycler = new RecycleBin();
     private DataSetObserver mDataSetObserver;
-		
+
     public CarouselSpinner(Context context) {
         super(context);
         initCarouselSpinner();
@@ -45,31 +42,31 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
         super(context, attrs, defStyle);
         initCarouselSpinner();
     }
-    
+
     /**
      * Common code for different constructor flavors
      */
     private void initCarouselSpinner() {
         setFocusable(true);
         setWillNotDraw(false);
-    }    
-           
-    
-	public SpinnerAdapter getAdapter() {
+    }
+
+
+    public SpinnerAdapter getAdapter() {
         return mAdapter;
     }
 
-	public void setAdapter(SpinnerAdapter adapter) {
+    public void setAdapter(SpinnerAdapter adapter) {
         if (null != mAdapter) {
             mAdapter.unregisterDataSetObserver(mDataSetObserver);
             resetList();
         }
-        
+
         mAdapter = adapter;
-        
+
         mOldSelectedPosition = INVALID_POSITION;
         mOldSelectedRowId = INVALID_ROW_ID;
-        
+
         if (mAdapter != null) {
             mOldItemCount = mItemCount;
             mItemCount = mAdapter.getCount();
@@ -82,22 +79,22 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
 
             setSelectedPositionInt(position);
             setNextSelectedPositionInt(position);
-            
+
             if (mItemCount == 0) {
                 // Nothing selected
                 checkSelectionChanged();
             }
-            
+
         } else {
-            checkFocus();            
+            checkFocus();
             resetList();
             // Nothing selected
             checkSelectionChanged();
         }
 
         requestLayout();
-		
-	}
+
+    }
 
     public View getSelectedView() {
         if (mItemCount > 0 && mSelectedPosition >= 0) {
@@ -106,7 +103,7 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
             return null;
         }
     }
-	
+
     /**
      * Jump directly to a specific item in the adapter data.
      */
@@ -116,30 +113,29 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
                 position <= mFirstPosition + getChildCount() - 1;
         setSelectionInt(position, shouldAnimate);
     }
-    
+
 
     /**
      * Makes the item at the supplied position selected.
-     * 
+     *
      * @param position Position to select
-     * @param animate Should the transition be animated
-     * 
+     * @param animate  Should the transition be animated
      */
     void setSelectionInt(int position, boolean animate) {
         if (position != mOldSelectedPosition) {
             mBlockLayoutRequests = true;
-            int delta  = position - mSelectedPosition;
+            int delta = position - mSelectedPosition;
             setNextSelectedPositionInt(position);
             layout(delta, animate);
             mBlockLayoutRequests = false;
         }
     }
-    
-    abstract void layout(int delta, boolean animate);    
 
-	public void setSelection(int position) {
+    abstract void layout(int delta, boolean animate);
+
+    public void setSelection(int position) {
         setSelectionInt(position, false);
-	}
+    }
 
     /**
      * Clear out all children from the list
@@ -147,23 +143,23 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
     void resetList() {
         mDataChanged = false;
         mNeedSync = false;
-        
+
         removeAllViewsInLayout();
         mOldSelectedPosition = INVALID_POSITION;
         mOldSelectedRowId = INVALID_ROW_ID;
-        
+
         setSelectedPositionInt(INVALID_POSITION);
         setNextSelectedPositionInt(INVALID_POSITION);
         invalidate();
     }
-	
-    /** 
+
+    /**
      * @see View#measure(int, int)
-     * 
+     * <p>
      * Figure out the dimensions of this Spinner. The width comes from
      * the widthMeasureSpec as Spinnners can't have their width set to
      * UNSPECIFIED. The height is based on the height of the selected item
-     * plus padding. 
+     * plus padding.
      */
     protected void onMeasure(int widthMeasureSpec, int heightMeasureSpec) {
         int widthMode = MeasureSpec.getMode(widthMeasureSpec);
@@ -182,11 +178,11 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
         if (mDataChanged) {
             handleDataChanged();
         }
-        
+
         int preferredHeight = 0;
         int preferredWidth = 0;
         boolean needsMeasuring = true;
-        
+
         int selectedPosition = getSelectedItemPosition();
         if (selectedPosition >= 0 && mAdapter != null && selectedPosition < mAdapter.getCount()) {
             // Try looking in the recycler. (Maybe we were measured once already)
@@ -208,14 +204,14 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
                     mBlockLayoutRequests = false;
                 }
                 measureChild(view, widthMeasureSpec, heightMeasureSpec);
-                
+
                 preferredHeight = getChildHeight(view) + mSpinnerPadding.top + mSpinnerPadding.bottom;
                 preferredWidth = getChildWidth(view) + mSpinnerPadding.left + mSpinnerPadding.right;
-                
+
                 needsMeasuring = false;
             }
         }
-        
+
         if (needsMeasuring) {
             // No views -- just use padding
             preferredHeight = mSpinnerPadding.top + mSpinnerPadding.bottom;
@@ -234,24 +230,24 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
         mHeightMeasureSpec = heightMeasureSpec;
         mWidthMeasureSpec = widthMeasureSpec;
     }
-    
+
     int getChildHeight(View child) {
         return child.getMeasuredHeight();
     }
-    
+
     int getChildWidth(View child) {
         return child.getMeasuredWidth();
     }
-    
+
     protected LayoutParams generateDefaultLayoutParams() {
         /*
          * Carousel expects Carousel.LayoutParams.
          */
         return new Carousel.LayoutParams(LayoutParams.WRAP_CONTENT,
                 LayoutParams.WRAP_CONTENT);
-    	
+
     }
-    
+
     void recycleAllViews() {
         final int childCount = getChildCount();
         final RecycleBin recycleBin = mRecycler;
@@ -262,13 +258,13 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
             View v = getChildAt(i);
             int index = position + i;
             recycleBin.put(index, v);
-        }  
-    }    
-    
+        }
+    }
+
     /**
      * Override to prevent spamming ourselves with layout requests
      * as we place views
-     * 
+     *
      * @see View#requestLayout()
      */
     @Override
@@ -277,66 +273,105 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
             super.requestLayout();
         }
     }
-    
+
 
     @Override
     public int getCount() {
         return mItemCount;
-    }    
-	
+    }
+
     /**
      * Maps a point to a position in the list.
-     * 
+     *
      * @param x X in local coordinate
      * @param y Y in local coordinate
      * @return The position of the item which contains the specified point, or
-     *         {@link #INVALID_POSITION} if the point does not intersect an item.
+     * {@link #INVALID_POSITION} if the point does not intersect an item.
      */
     public int pointToPosition(int x, int y) {
         if (mAdapter == null)
             return 0;
 
-    	ArrayList<CarouselItem> fitting = new ArrayList<CarouselItem>();
-    	
-    	for(int i = 0; i < getAdapter().getCount(); i++){
+        ArrayList<CarouselItem> fitting = new ArrayList<CarouselItem>();
 
-    		CarouselItem item = (CarouselItem)getChildAt(i);
+        for (int i = 0; i < getAdapter().getCount(); i++) {
 
-    		Matrix mm = item.getCIMatrix();
-    		float[] pts = new float[3];
-    		
-    		pts[0] = item.getLeft();
-    		pts[1] = item.getTop();
-    		pts[2] = 0;
-    		
-    		mm.mapPoints(pts);
-    		
-    		int mappedLeft = (int)pts[0];
-    		int mappedTop =  (int)pts[1];
-    		    		
-    		pts[0] = item.getRight();
-    		pts[1] = item.getBottom();
-    		pts[2] = 0;
-    		
-    		mm.mapPoints(pts);
+            CarouselItem item = (CarouselItem) getChildAt(i);
 
-    		int mappedRight = (int)pts[0];
-    		int mappedBottom = (int)pts[1];
-    		
-    		if(mappedLeft < x && mappedRight > x & mappedTop < y && mappedBottom > y)
-    			fitting.add(item);
-    		
-    	}
-    	
-    	Collections.sort(fitting);
-    	
-    	if(fitting.size() != 0)
-    		return fitting.get(fitting.size()-1).getIndex();
-    	else
-    		return mSelectedPosition;
+            Matrix mm = item.getCIMatrix();
+            float[] pts = new float[3];
+
+            pts[0] = item.getLeft();
+            pts[1] = item.getTop();
+            pts[2] = 0;
+
+            mm.mapPoints(pts);
+
+            int mappedLeft = (int) pts[0];
+            int mappedTop = (int) pts[1];
+
+            pts[0] = item.getRight();
+            pts[1] = item.getBottom();
+            pts[2] = 0;
+
+            mm.mapPoints(pts);
+
+            int mappedRight = (int) pts[0];
+            int mappedBottom = (int) pts[1];
+
+            if (mappedLeft < x && mappedRight > x & mappedTop < y && mappedBottom > y)
+                fitting.add(item);
+
+        }
+
+        Collections.sort(fitting);
+
+        if (fitting.size() != 0)
+            return fitting.get(fitting.size() - 1).getIndex();
+        else
+            return mSelectedPosition;
     }
-    
+
+    @Override
+    public Parcelable onSaveInstanceState() {
+        Parcelable superState = super.onSaveInstanceState();
+        SavedState ss = new SavedState(superState);
+        ss.selectedId = getSelectedItemId();
+        if (ss.selectedId >= 0) {
+            ss.position = getSelectedItemPosition();
+        } else {
+            ss.position = INVALID_POSITION;
+        }
+        return ss;
+    }
+
+    @Override
+    public void onRestoreInstanceState(Parcelable state) {
+        SavedState ss = (SavedState) state;
+
+        super.onRestoreInstanceState(ss.getSuperState());
+
+        if (ss.selectedId >= 0) {
+            mDataChanged = true;
+            mNeedSync = true;
+            mSyncRowId = ss.selectedId;
+            mSyncPosition = ss.position;
+            mSyncMode = SYNC_SELECTED_POSITION;
+            requestLayout();
+        }
+    }
+
     static class SavedState extends BaseSavedState {
+        public static final Creator<SavedState> CREATOR
+                = new Creator<SavedState>() {
+            public SavedState createFromParcel(Parcel in) {
+                return new SavedState(in);
+            }
+
+            public SavedState[] newArray(int size) {
+                return new SavedState[size];
+            }
+        };
         long selectedId;
         int position;
 
@@ -346,7 +381,7 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
         SavedState(Parcelable superState) {
             super(superState);
         }
-        
+
         /**
          * Constructor called from {@link #CREATOR}
          */
@@ -370,55 +405,15 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
                     + " selectedId=" + selectedId
                     + " position=" + position + "}";
         }
-
-        public static final Creator<SavedState> CREATOR
-                = new Creator<SavedState>() {
-            public SavedState createFromParcel(Parcel in) {
-                return new SavedState(in);
-            }
-
-            public SavedState[] newArray(int size) {
-                return new SavedState[size];
-            }
-        };
     }
 
-    @Override
-    public Parcelable onSaveInstanceState() {
-        Parcelable superState = super.onSaveInstanceState();
-        SavedState ss = new SavedState(superState);
-        ss.selectedId = getSelectedItemId();
-        if (ss.selectedId >= 0) {
-            ss.position = getSelectedItemPosition();
-        } else {
-            ss.position = INVALID_POSITION;
-        }
-        return ss;
-    }    
-
-    @Override
-    public void onRestoreInstanceState(Parcelable state) {
-        SavedState ss = (SavedState) state;
-  
-        super.onRestoreInstanceState(ss.getSuperState());
-
-        if (ss.selectedId >= 0) {
-            mDataChanged = true;
-            mNeedSync = true;
-            mSyncRowId = ss.selectedId;
-            mSyncPosition = ss.position;
-            mSyncMode = SYNC_SELECTED_POSITION;
-            requestLayout();
-        }
-    }
-    
     class RecycleBin {
         private final SparseArray<View> mScrapHeap = new SparseArray<View>();
 
         public void put(int position, View v) {
             mScrapHeap.put(position, v);
         }
-        
+
         View get(int position) {
             // System.out.print("Looking for " + position);
             View result = mScrapHeap.get(position);
@@ -442,5 +437,5 @@ public abstract class CarouselSpinner extends CarouselAdapter<SpinnerAdapter> {
             }
             scrapHeap.clear();
         }
-    }	
+    }
 }

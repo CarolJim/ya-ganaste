@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.interfaces;
 
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDocumentosResponse;
 
 import java.util.List;
 
@@ -10,9 +9,9 @@ import java.util.List;
  */
 
 public interface IUploadDocumentsView extends INavigationView {
-    public void documentsUploaded(String message);
+    void documentsUploaded(String message);
 
-    public void setDocumentosStatus(List<EstatusDocumentosResponse> data);
+    void setDocumentosStatus(List<EstatusDocumentosResponse> data);
 
-    public void documentosActualizados(String s);
+    void documentosActualizados(String s);
 }

@@ -61,7 +61,7 @@ public class MyUserFragment extends GenericFragment implements View.OnClickListe
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.fragment_myuser_email:
                 onEventListener.onEvent(PREFER_USER_EMAIL, null);
                 break;

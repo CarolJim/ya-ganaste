@@ -25,20 +25,19 @@ import org.thoughtcrime.ssl.pinning.PinningSSLSocketFactory;
  *
  * @author flima
  * @version 1.0
- * Clase Singleton para obtener una instancia de Volley
- *
+ *          Clase Singleton para obtener una instancia de Volley
  */
 public class VolleySingleton {
 
     private static VolleySingleton mInstance;
+    private static Context mCtx;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
-    private static Context mCtx;
 
     /**
      * Método para obtener una instancia de Volley
      *
-     * @param  context {@link Context}
+     * @param context {@link Context}
      */
     private VolleySingleton(Context context) {
         mCtx = context;
@@ -70,19 +69,18 @@ public class VolleySingleton {
 
     /**
      * Método para obtener una instancia de {@link RequestQueue}
-     *
      */
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
 
-            String[] pins = new String[] {""};
+            String[] pins = new String[]{""};
             HttpParams httpParameters = new BasicHttpParams();
 
             SchemeRegistry schemeRegistry = new SchemeRegistry();
             schemeRegistry.register(new Scheme("http", PlainSocketFactory.getSocketFactory(), 80));
 
             try {
-                schemeRegistry.register(new Scheme("https", new PinningSSLSocketFactory(mCtx.getApplicationContext(),pins, 0), 443));
+                schemeRegistry.register(new Scheme("https", new PinningSSLSocketFactory(mCtx.getApplicationContext(), pins, 0), 443));
             } catch (Exception e) {
                 e.printStackTrace();
             }
@@ -93,7 +91,7 @@ public class VolleySingleton {
 
             // getApplicationContext() is key, it keeps you from leaking the
             // Activity or BroadcastReceiver if someone passes one in.
-            mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext(),new HttpClientStack(httpClient));
+            mRequestQueue = Volley.newRequestQueue(mCtx.getApplicationContext(), new HttpClientStack(httpClient));
         }
         return mRequestQueue;
     }

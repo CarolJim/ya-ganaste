@@ -12,20 +12,20 @@
         android:layout_height="30dp"
         android:adjustViewBounds="true"
         android:src="@mipmap/logo_mapfre"
-        android:visibility="visible"/>
+        android:visibility="visible" />
 
     <LinearLayout
         android:id="@+id/indicator"
         android:layout_width="8dp"
         android:layout_height="8dp"
-        android:orientation="horizontal"
-        android:background="@drawable/blue_circle"/>
+        android:background="@drawable/blue_circle"
+        android:orientation="horizontal" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@android:id/text1"
+        style="@style/generic_text_style_3"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        style="@style/generic_text_style_3"
-        android:text="Deposito"
-        android:id="@android:id/text1"/>
+        android:text="Deposito" />
 
 </LinearLayout>

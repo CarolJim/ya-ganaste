@@ -5,9 +5,12 @@ package com.pagatodo.yaganaste.interfaces;
  */
 
 public interface IUserDataRegisterView<T> extends INavigationView {
-    public void isEmailAvaliable();
-    public void isEmailRegistered();
-    public void validationPasswordSucces();
-    public void validationPasswordFailed(String message);
+    void isEmailAvaliable();
+
+    void isEmailRegistered();
+
+    void validationPasswordSucces();
+
+    void validationPasswordFailed(String message);
 }
 

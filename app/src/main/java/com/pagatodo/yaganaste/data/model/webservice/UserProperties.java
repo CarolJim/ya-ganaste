@@ -10,7 +10,7 @@ public class UserProperties implements Serializable {
     public String idUsuario;
     public String tokenUsuario;
 
-    public UserProperties(){
+    public UserProperties() {
         idUsuario = "";
         tokenUsuario = "";
     }

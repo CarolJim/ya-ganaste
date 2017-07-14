@@ -38,13 +38,9 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     StyleEdittext edtConcept;
     @BindView(R.id.keyboard_view)
     CustomKeyboardView keyboardView;
-    private String amount = "";
-    private String concept = "";
     LinearLayout layout_amount;
-
     private float MIN_AMOUNT = 1.0f;
 
-    private EditText etMonto;
     private StyleTextView tvMontoEntero, tvMontoDecimal;
 
     public GetMountFragment() {
@@ -84,22 +80,6 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
-      /*  et_amount.addTextChangedListener(new TextWatcher() {
-            @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-            }
-
-            @Override
-            public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().length() == 4) {
-                    keyboardView.hideCustomKeyboard();
-                }
-            }
-
-            @Override
-            public void afterTextChanged(Editable editable) {
-            }
-        });*/
 
         // Make the custom keyboard appear
         et_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {

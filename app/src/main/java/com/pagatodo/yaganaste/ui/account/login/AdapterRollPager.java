@@ -10,14 +10,13 @@ import android.widget.TextView;
 
 import com.jude.rollviewpager.RollPagerView;
 import com.jude.rollviewpager.adapter.LoopPagerAdapter;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 
 /**
  * Created by Francisco Manzo on 26/05/2017.
  */
 
-public class AdapterRollPager  extends LoopPagerAdapter {
+public class AdapterRollPager extends LoopPagerAdapter {
 
     private Context context;
 

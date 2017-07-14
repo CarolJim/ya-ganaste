@@ -1,28 +1,18 @@
 package com.pagatodo.yaganaste.utils.customviews;
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
-import android.os.Build;
 import android.os.Handler;
-import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.view.ContextThemeWrapper;
 import android.support.v7.widget.AppCompatButton;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.view.View;
-import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
-import android.widget.Button;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.utils.FontCache;
-
-import static com.pagatodo.yaganaste.R.id.Forward;
 
 
 /**
@@ -31,32 +21,27 @@ import static com.pagatodo.yaganaste.R.id.Forward;
 public class StyleButton extends AppCompatButton implements View.OnClickListener, ViewTreeObserver.OnGlobalLayoutListener {
 
     public static final String ANDROID_SCHEMA = "http://schemas.android.com/apk/res/android";
-    private OnClickListener mClickListener;
-    private boolean interceptor;
-
     private static final int TYPE_FORWARD = 1;
     private static final int TYPE_BACK = 2;
     private static final int TYPE_NONE = 0;
-
+    private OnClickListener mClickListener;
+    private boolean interceptor;
     private int type;
-
-
 
 
     public StyleButton(Context context) {
         super(context);
         init(context, null);
         interceptor = true;
-        Typeface customFont =  selectTypeface(context, 0); //FontCache.getTypeface("fonts/Gotham/Gotham-Medium.otf", context);
+        Typeface customFont = selectTypeface(context, 0); //FontCache.getTypeface("fonts/Gotham/Gotham-Medium.otf", context);
         setTypeface(customFont);
+        super.setOnClickListener(this);
     }
-
-
 
 
     public StyleButton(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
-        Typeface customFont =  selectTypeface(context, 0); //FontCache.getTypeface("fonts/Gotham/Gotham-Medium.otf", context);
+        Typeface customFont = selectTypeface(context, 0); //FontCache.getTypeface("fonts/Gotham/Gotham-Medium.otf", context);
         setTypeface(customFont);
         super.setOnClickListener(this);
         init(context, attrs);
@@ -65,7 +50,7 @@ public class StyleButton extends AppCompatButton implements View.OnClickListener
 
     public StyleButton(Context context, AttributeSet attrs) {
         super(context, attrs);
-        Typeface customFont =  selectTypeface(context, 0); //FontCache.getTypeface("fonts/Gotham/Gotham-Medium.otf", context);
+        Typeface customFont = selectTypeface(context, 0); //FontCache.getTypeface("fonts/Gotham/Gotham-Medium.otf", context);
         setTypeface(customFont);
         super.setOnClickListener(this);
         init(context, attrs);
@@ -106,6 +91,7 @@ public class StyleButton extends AppCompatButton implements View.OnClickListener
                 return FontCache.getTypeface("fonts/Roboto-Regular.ttf", context);
         }
     }
+
     public void eneableButton() {
         setClickable(false);
         Handler handler = new Handler();
@@ -116,6 +102,7 @@ public class StyleButton extends AppCompatButton implements View.OnClickListener
             }
         }, 1500);
     }
+
     @Override
     public void setOnClickListener(OnClickListener l) {
         this.mClickListener = l;
@@ -140,7 +127,7 @@ public class StyleButton extends AppCompatButton implements View.OnClickListener
         getViewTreeObserver().removeOnGlobalLayoutListener(this);
         Log.d("Width: ", String.valueOf(getWidth()));
         Log.d("Height: ", String.valueOf(getHeight()));
-        setPadding( type == TYPE_BACK ? (int) (getWidth() * .08) : 0, 0,
+        setPadding(type == TYPE_BACK ? (int) (getWidth() * .08) : 0, 0,
                 type == TYPE_FORWARD ? (int) (getWidth() * .08) : 0, 0);
     }
 

@@ -20,7 +20,6 @@ import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
@@ -57,24 +56,17 @@ import static com.pagatodo.yaganaste.utils.Recursos.PTH_DOCTO_APROBADO;
 
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener {
-    private Preferencias pref;
-
-    private ViewPager mainViewPager;
-    private TabLayout mainTab;
-    private TabPresenter tabPresenter;
-
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_GO_HOME = "2";
     public static final String EVENT_CHANGE_MAIN_TAB_VISIBILITY = "3";
-
     public static final String EVENT_HIDE_MANIN_TAB = "eventhideToolbar";
     public static final String EVENT_SHOW_MAIN_TAB = "eventShowToolbar";
-
     public static final int RESULT_ADQUIRENTE_SUCCESS = 4573;
-
     public static final int TYPE_DETAILS = 3;
-
-
+    private Preferencias pref;
+    private ViewPager mainViewPager;
+    private TabLayout mainTab;
+    private TabPresenter tabPresenter;
     private Animation animShow, animHide;
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
     private ProgressLayout progressGIF;

@@ -14,8 +14,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginBottom="30dp" android:layout_weight="1"
+            android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
+            android:layout_weight="1"
             android:orientation="vertical">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -31,8 +32,8 @@
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/fragment_desasociar_btn"
             style="@style/buttonSquareRoundedBlue"
-            android:gravity="center"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
+            android:gravity="center"
             android:text="Desasociar" />
     </LinearLayout>
 

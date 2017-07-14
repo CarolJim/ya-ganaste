@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class AsignarNIPRequest implements Serializable{
+public class AsignarNIPRequest implements Serializable {
 
     private String NIPActual = "";
     private String NIPNuevo = "";

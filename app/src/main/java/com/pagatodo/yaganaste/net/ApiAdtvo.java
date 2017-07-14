@@ -202,6 +202,7 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.uploadDocumentsUrl),
                 headers, request, CargaDocumentosResponse.class, result);
     }
+
     public static void actualizarDocumentos(CargaDocumentosRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
@@ -598,7 +599,6 @@ public class ApiAdtvo extends Api {
     }
 
 
-
     /**
      * Metodo para obtener el domicilio del usuario
      */
@@ -619,12 +619,11 @@ public class ApiAdtvo extends Api {
 
 
     /**
-     *
      * @param request
      * @param result
      * @throws OfflineException
      */
-    public static void enviarTicketTAEPDS(EnviarTicketTAEPDSRequest request, IRequestResult result) throws OfflineException{
+    public static void enviarTicketTAEPDS(EnviarTicketTAEPDSRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(ENVIAR_TICKET_TAEPDS,
@@ -634,6 +633,7 @@ public class ApiAdtvo extends Api {
 
     /**
      * Envia al NetFacade lo necesario para consuir el servicio, arma los Headers restantes para consumir el servicio
+     *
      * @param request
      * @param result
      * @throws OfflineException

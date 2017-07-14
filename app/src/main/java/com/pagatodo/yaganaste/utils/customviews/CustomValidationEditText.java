@@ -5,7 +5,6 @@ import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Build;
 import android.support.annotation.DrawableRes;
-import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
 import android.support.v4.content.ContextCompat;
@@ -107,7 +106,7 @@ public class CustomValidationEditText extends LinearLayout {
             if (inputType != EditorInfo.TYPE_NULL) {
                 editText.setInputType(inputType);
             } else {
-              //  editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, App.getContext().getResources().getDimension(R.dimen.text_custom_validation_editext_size));
+                //  editText.setTextSize(TypedValue.COMPLEX_UNIT_SP, App.getContext().getResources().getDimension(R.dimen.text_custom_validation_editext_size));
             }
 
             if (textSize != EditorInfo.TYPE_NULL) {
@@ -171,7 +170,7 @@ public class CustomValidationEditText extends LinearLayout {
                     setValidationListener(txt);
                     break;
                 case "4"://text
-                    editText.setInputType(InputType.TYPE_CLASS_TEXT);
+                    editText.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_CAP_SENTENCES);
                     setValidationListener(txt);
                     break;
                 case "5"://number
@@ -268,6 +267,10 @@ public class CustomValidationEditText extends LinearLayout {
         return editText.getText().toString().trim();
     }
 
+    public void setText(String text) {
+        editText.setText(text);
+    }
+
     public Boolean isValidText() {
         return isValid;
     }
@@ -283,10 +286,6 @@ public class CustomValidationEditText extends LinearLayout {
     public void setDrawableImage(@DrawableRes int image) {
         imageView.setImageResource(image);
         this.pinnedIcon = image;
-    }
-
-    public void setText(String text) {
-        editText.setText(text);
     }
 
     public void setMaxLength(Integer i) {

@@ -24,9 +24,6 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MA
 
 
 public class AdqActivity extends LoaderActivity implements OnEventListener {
-    private Preferencias pref;
-
-    public static String KEY_TRANSACTION_DATA = "KEYTRANSACTIONDATA";
     //Nuevo diseño-flujo
     public final static String EVENT_GO_INSERT_DONGLE = "EVENT_GO_INSERT_DONGLE";
     public final static String EVENT_GO_TRANSACTION_RESULT = "EVENT_GO_TRANSACTION_RESULT";
@@ -34,7 +31,8 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
     public final static String EVENT_GO_GET_SIGNATURE = "EVENT_GO_GET_SIGNATURE";
     public final static String EVENT_GO_DETAIL_TRANSACTION = "EVENT_GO_DETAIL_TRANSACTION";
     public final static String EVENT_GO_LOGIN_FRAGMENT = "EVENT_GO_LOGIN_FRAGMENT";
-
+    public static String KEY_TRANSACTION_DATA = "KEYTRANSACTIONDATA";
+    private Preferencias pref;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {

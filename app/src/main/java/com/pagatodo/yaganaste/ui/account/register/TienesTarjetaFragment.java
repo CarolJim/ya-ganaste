@@ -24,7 +24,6 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -40,8 +39,6 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -56,7 +53,6 @@ import static com.pagatodo.yaganaste.utils.Utils.getCardNumberRamdon;
 public class TienesTarjetaFragment extends GenericFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, IAccountCardView {
 
     private static int LEGTH_CARD_NUMBER_FORMAT = 19;
-    private View rootview;
     @BindView(R.id.radioHasCard)
     RadioGroup radioHasCard;
     @BindView(R.id.radioBtnYes)
@@ -79,9 +75,9 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     StyleTextView dateTDC;
     @BindView(R.id.txt_tarjeta_user_name)
     StyleTextView userName;
-    private AccountPresenterNew accountPresenter;
-
     String a;
+    private View rootview;
+    private AccountPresenterNew accountPresenter;
 
     public TienesTarjetaFragment() {
     }
@@ -142,7 +138,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         dateTDC.setText("02/22");
         userName.setText(mUserName);
 
-        Log.d("TienesTarjetaFrag", "mUserName " +  singletonUser.getNombre() + " " + singletonUser.getPrimerApellido()
+        Log.d("TienesTarjetaFrag", "mUserName " + singletonUser.getNombre() + " " + singletonUser.getPrimerApellido()
                 + " " + singletonUser.getSegundoApellido());
 
         editNumber.setTypeface(typeface);

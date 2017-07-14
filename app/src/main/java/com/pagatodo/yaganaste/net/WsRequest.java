@@ -17,7 +17,7 @@ public class WsRequest {
 
     private int method;
 
-    private Map<String,String> headers;
+    private Map<String, String> headers;
 
     private String _url_request;
 

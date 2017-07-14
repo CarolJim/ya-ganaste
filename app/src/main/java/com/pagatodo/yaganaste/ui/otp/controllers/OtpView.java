@@ -8,5 +8,6 @@ import com.pagatodo.yaganaste.freja.Errors;
 
 public interface OtpView {
     void onOtpGenerated(String otp);
+
     void showError(Errors error);
 }

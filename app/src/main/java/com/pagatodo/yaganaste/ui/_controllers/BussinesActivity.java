@@ -32,9 +32,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 public class BussinesActivity extends LoaderActivity {
 
-    private Preferencias pref;
-    private AccountPresenterNew presenterAccount;
-
     //Nuevo diseño-flujo
     public final static String EVENT_GO_BUSSINES_DATA = "EVENT_GO_BUSSINES_DATA";
     public final static String EVENT_GO_BUSSINES_ADDRESS = "EVENT_GO_BUSSINES_ADDRESS";
@@ -43,12 +40,11 @@ public class BussinesActivity extends LoaderActivity {
     public final static String EVENT_GO_BUSSINES_DATA_BACK = "EVENT_GO_BUSSINES_DATA_BACK";
     public final static String EVENT_GO_BUSSINES_ADDRESS_BACK = "EVENT_GO_BUSSINES_ADDRESS_BACK";
     public final static String EVENT_DOC_CHECK = "EVENT_DOC_CHECK";
-
     public final static String EVENT_SET_ADDRESS = "EVENT_SET_ADDRESS";
     public final static String EVENT_SET_BUSINESS_LIST = "EVENT_SET_BUSINESS_LIST";
     public final static String EVENT_SET_COLONIES_LIST = "EVENT_SET_COLONIES_LIST";
-
-
+    private Preferencias pref;
+    private AccountPresenterNew presenterAccount;
     private DatosNegocio datosNegocioFragment;
     private DomicilioNegocio domicilioNegocioFragment;
     private Documentos documentosFragment;

@@ -2,12 +2,12 @@ package com.pagatodo.yaganaste.freja.change.presenters;
 
 import android.content.Context;
 
-import java.util.concurrent.Executors;
-
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.change.iteractors.ChangePinIteractor;
 import com.pagatodo.yaganaste.freja.change.iteractors.ChangePinIteractorImp;
 import com.pagatodo.yaganaste.freja.change.managers.ChangePinManager;
+
+import java.util.concurrent.Executors;
 
 /**
  * @author Juan Guerra on 31/03/2017.
@@ -34,7 +34,7 @@ public abstract class ChangePinPresenterAbs implements ChangePinPresenter, Chang
     @Override
     public void setChangePinPolicy(int min, int max) {
         int size = newPin.length;
-        if (min <= size && size<= max) {
+        if (min <= size && size <= max) {
             changePinIteractor.changePin(oldPin, newPin);
         } else {
             onError(Errors.BAD_CHANGE_POLICY);

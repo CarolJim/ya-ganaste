@@ -59,12 +59,12 @@ public class AdqPayMovementsIteractorImp implements MovementsIteractor<ResumenMo
         }
     }
 
-    private void validateResponse(ResumenMovimientosAdqResponse response){
+    private void validateResponse(ResumenMovimientosAdqResponse response) {
         DataResultAdq dataResultAdq = response.getResult();
-        if (dataResultAdq != null){
+        if (dataResultAdq != null) {
             if (dataResultAdq.getId().equals(String.valueOf(Recursos.INVALID_TOKEN))) {
                 movementsManager.onFailed(Recursos.INVALID_TOKEN, Recursos.GO_LOGIN, dataResultAdq.getMessage());
-            } else if (dataResultAdq.getId().equals(Recursos.CODE_ADQ_OK)){
+            } else if (dataResultAdq.getId().equals(Recursos.CODE_ADQ_OK)) {
                 movementsManager.onSuccesResponse(response);
             } else {
                 movementsManager.onFailed(StringUtils.getIntValue(dataResultAdq.getId()), Recursos.NO_ACTION, dataResultAdq.getMessage());

@@ -24,17 +24,19 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/sucursalTitle"
+                style="@style/generic_text_style_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:text="Chedrahui" style="@style/generic_text_style_2"
+                android:text="Chedrahui"
                 app:tipo="Descripcion" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/sucursalDescription"
+                style="@style/generic_text_style_3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
-                android:text="Presidente Masaryk 123" style="@style/generic_text_style_3"
+                android:text="Presidente Masaryk 123"
                 app:tipo="Indicacion" />
         </LinearLayout>
 

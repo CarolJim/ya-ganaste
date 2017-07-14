@@ -7,19 +7,13 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
-import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferDesasociarView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
@@ -27,7 +21,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
-import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -41,6 +34,36 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
     View rootview;
     PreferUserPresenter mPreferPresenter;
     Context mContext;
+    /**
+     * Acciones para controlar el Dialog de OnClick, al aceptar inciamos el proceso
+     */
+    DialogDoubleActions doubleActions = new DialogDoubleActions() {
+        @Override
+        public void actionConfirm(Object... params) {
+            onEventListener.onEvent("DISABLE_BACK", true);
+            mPreferPresenter.DesasociarToPresenter();
+        }
+
+        @Override
+        public void actionCancel(Object... params) {
+
+        }
+    };
+    /**
+     * Acciones para controlar el Dialog de exito en desasociar, al aceptar enviamos el controlar a
+     * PreferActivity que contiene el mecanimo para cerrar la app y dejarla en Main
+     */
+    DialogDoubleActions closeSession = new DialogDoubleActions() {
+        @Override
+        public void actionConfirm(Object... params) {
+            onEventListener.onEvent("DESASOCIAR_CLOSE_SESSION", null);
+        }
+
+        @Override
+        public void actionCancel(Object... params) {
+
+        }
+    };
 
     public DesasociarPhoneFragment() {
         // Required empty public constructor
@@ -87,22 +110,6 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
     }
 
     /**
-     * Acciones para controlar el Dialog de OnClick, al aceptar inciamos el proceso
-     */
-    DialogDoubleActions doubleActions = new DialogDoubleActions() {
-        @Override
-        public void actionConfirm(Object... params) {
-            onEventListener.onEvent("DISABLE_BACK", true);
-            mPreferPresenter.DesasociarToPresenter();
-        }
-
-        @Override
-        public void actionCancel(Object... params) {
-
-        }
-    };
-
-    /**
      * Exito al Desasociar, mostramos un dialogo para notificar y cerrar la aplicacion, en el
      * iteractor ya cerramos la session.
      *
@@ -116,22 +123,6 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         //
 
     }
-
-    /**
-     * Acciones para controlar el Dialog de exito en desasociar, al aceptar enviamos el controlar a
-     * PreferActivity que contiene el mecanimo para cerrar la app y dejarla en Main
-     */
-    DialogDoubleActions closeSession = new DialogDoubleActions() {
-        @Override
-        public void actionConfirm(Object... params) {
-            onEventListener.onEvent("DESASOCIAR_CLOSE_SESSION", null);
-        }
-
-        @Override
-        public void actionCancel(Object... params) {
-
-        }
-    };
 
     /**
      * Mensaje de error de conexion al no tener 200.
@@ -148,6 +139,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
      * Exito en la peticion de servidor y Fail en el cambio de Pass.
      * Tambien se usa para mostrar un error de conexion al servidor, desde el Presenter para no tener
      * un tercer metodo
+     *
      * @param mensaje
      */
     @Override
@@ -161,6 +153,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         // progressLayout.setVisibility(GONE);
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
     }
+
     /**
      * Adminsitrador de mensaje que no tienen acciones, solo informativos, usados comunmente en errores
      *

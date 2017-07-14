@@ -5,8 +5,8 @@ import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 /**
  * Created by Francisco Manzo on 09/06/2017.
  * Interfase generica que nos permitira controlar las tareas del PreferUserActivity, a su vez hereda
- *  de ISessionExpired, para el manejo de la session terminada
+ * de ISessionExpired, para el manejo de la session terminada
  */
 
-public interface IPreferUserGeneric extends ISessionExpired{
+public interface IPreferUserGeneric extends ISessionExpired {
 }

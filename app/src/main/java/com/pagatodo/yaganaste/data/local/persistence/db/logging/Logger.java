@@ -5,10 +5,8 @@ package com.pagatodo.yaganaste.data.local.persistence.db.logging;
  */
 
 public class Logger {
-
-    public static void throwException(RuntimeException e){
+    public static void throwException(RuntimeException e) {
         throw e;
     }
-
 
 }

@@ -10,7 +10,6 @@ import com.pagatodo.yaganaste.data.local.persistence.db.AbstractEntity;
 import com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract;
 import com.pagatodo.yaganaste.data.local.persistence.db.exceptions.NoMappedClassException;
 import com.pagatodo.yaganaste.data.local.persistence.db.logging.Logger;
-import com.pagatodo.yaganaste.data.local.persistence.db.utils.DataBaseUtils;
 import com.pagatodo.yaganaste.data.local.persistence.db.utils.FieldName;
 import com.pagatodo.yaganaste.data.local.persistence.db.utils.MappedFrom;
 import com.pagatodo.yaganaste.data.local.persistence.db.utils.ReflectionUtils;
@@ -45,7 +44,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
     public SQLiteHelper(Context context) {
         super(context, DATABASE_NAME, null, DATABASE_VERSION);
         this.context = context;
-        Log.d("SQLiteHelper","Creando Helper");
+        Log.d("SQLiteHelper", "Creando Helper");
     }
 
     public void createTables() {

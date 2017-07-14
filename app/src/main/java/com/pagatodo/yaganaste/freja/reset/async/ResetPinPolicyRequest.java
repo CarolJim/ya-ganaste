@@ -31,7 +31,7 @@ public class ResetPinPolicyRequest extends AsyncTask<Void, Void, Object> {
 
     @Override
     protected void onPostExecute(Object response) {
-        if (response instanceof Exception){
+        if (response instanceof Exception) {
             this.pinPolicyCallback.handleException((Exception) response);
         } else if (response instanceof FmcPinPolicy) {
             FmcPinPolicy pinPolicy = (FmcPinPolicy) response;

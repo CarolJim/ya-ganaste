@@ -26,7 +26,6 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
@@ -42,8 +41,6 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
-import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -51,23 +48,18 @@ import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 public class ListaOpcionesFragment extends GenericFragment implements View.OnClickListener,
         IListaOpcionesView {
 
+    private static final String TAG = Documentos.class.getSimpleName();
     public static String IS_ES_AGENTE = "IS_ES_AGENTE";
     public static String USER_NAME = "USER_NAME";
     public static String USER_EMAIL = "USER_EMAIL";
     public static String USER_IMAGE = "USER_IMAGE";
-    private boolean isEsAgente;
-    private String mName, mEmail, mUserImage;
     PreferUserPresenter mPreferPresenter;
-
-    private static final String TAG = Documentos.class.getSimpleName();
+    SwipeRefreshLayout swipeRefreshLayout;
+    @BindView(R.id.fragment_list_opciones_name)
+    TextView tv_name;
 
 //    @BindView(R.id.progressLayout)
 //    ProgressLayout progressLayout;
-
-    SwipeRefreshLayout swipeRefreshLayout;
-
-    @BindView(R.id.fragment_list_opciones_name)
-    TextView tv_name;
     @BindView(R.id.fragment_list_opciones_email)
     TextView tv_email;
     @BindView(R.id.fragment_lista_opciones_user)
@@ -92,9 +84,10 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     TextView tv_version_code;
     @BindView(R.id.testIV)
     ImageView testIV;
-
     View rootview;
     CameraManager cameraManager;
+    private boolean isEsAgente;
+    private String mName, mEmail, mUserImage;
 
     public ListaOpcionesFragment() {
         // Required empty public constructor

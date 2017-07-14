@@ -38,8 +38,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.PENDIENTE;
 
 public class DetailsAdquirenteFragment extends GenericFragment implements View.OnClickListener {
 
-    private View rootView;
-
     @BindView(R.id.layout_movement_type_color)
     View layoutMovementTypeColor;
     @BindView(R.id.txt_item_mov_date)
@@ -52,10 +50,8 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     TextView txtMarca;
     @BindView(R.id.txt_monto)
     MontoTextView txtMonto;
-
     @BindView(R.id.imageDetail)
     ImageView imageDetail;
-
     @BindView(R.id.txtMontoDescripcion)
     MontoTextView txtMontoDescripcion;
     @BindView(R.id.txtRefernciaDescripcion)
@@ -70,13 +66,11 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     TextView txtAutorizacionDescripcion;
     @BindView(R.id.txtReciboDescripcion)
     TextView txtReciboDescripcion;
-
-
     @BindView(R.id.btn_cancel)
     Button btnCancel;
     @BindView(R.id.btn_volver)
     Button btnVolver;
-
+    private View rootView;
     private DataMovimientoAdq dataMovimientoAdq;
 
     public static DetailsAdquirenteFragment newInstance(@NonNull DataMovimientoAdq dataMovimientoAdq) {

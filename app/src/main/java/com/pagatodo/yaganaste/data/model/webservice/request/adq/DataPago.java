@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class DataPago implements Serializable{
+public class DataPago implements Serializable {
 
     private String compania = "";
     private String monto = "";

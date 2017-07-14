@@ -31,7 +31,7 @@ public class GiroArrayAdapter extends ArrayAdapter<GiroComercio> {
         super(context, resource, objects);
         this.mContext = context;
         this.mList = objects;
-        this.tipo =tipoAdapter;
+        this.tipo = tipoAdapter;
         this.mLayoutResourceId = resource;
     }
 
@@ -40,15 +40,15 @@ public class GiroArrayAdapter extends ArrayAdapter<GiroComercio> {
         return mList.size();
     }
 
-    public GiroComercio getItemSelected(int position){
+    public GiroComercio getItemSelected(int position) {
         return mList.get(position);
     }
 
-    public int getGiroId(int position){
+    public int getGiroId(int position) {
         return mList.get(position).getIdGiro();
     }
 
-    private View getCustoView(int position, @Nullable View convertView, @NonNull ViewGroup parent){
+    private View getCustoView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
         GiroArrayAdapter.Holder holder;
         GiroComercio item = mList.get(position);
@@ -65,7 +65,7 @@ public class GiroArrayAdapter extends ArrayAdapter<GiroComercio> {
             holder = (GiroArrayAdapter.Holder) row.getTag();
         }
 
-        switch (tipo){
+        switch (tipo) {
             case GIRO:
                 holder.txtTitle.setText(item.getnGiro().trim());
                 break;
@@ -90,7 +90,7 @@ public class GiroArrayAdapter extends ArrayAdapter<GiroComercio> {
     @NonNull
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
-       return getCustoView(position, convertView, parent);
+        return getCustoView(position, convertView, parent);
     }
 
     static class Holder {

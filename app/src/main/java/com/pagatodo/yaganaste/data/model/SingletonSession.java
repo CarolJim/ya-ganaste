@@ -13,11 +13,11 @@ public class SingletonSession {
     private boolean finish = false;
     private String nameUser = "";
 
-    private SingletonSession(){
+    private SingletonSession() {
     }
 
-    public static synchronized SingletonSession getInstance(){
-        if(session == null)
+    public static synchronized SingletonSession getInstance() {
+        if (session == null)
             session = new SingletonSession();
         return session;
     }

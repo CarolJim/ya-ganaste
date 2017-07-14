@@ -124,6 +124,21 @@ public class StyleEdittext extends AppCompatEditText {
         this.setCustomSelectionActionModeCallback(new ActionModeCallBack());
     }
 
+    @Override
+    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
+        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK &&
+                event.getAction() == KeyEvent.ACTION_UP && mOnImeBack != null) {
+
+            mOnImeBack.onImeBack();
+
+        }
+        return super.dispatchKeyEvent(event);
+    }
+
+    public void setOnEditTextImeBackListener(EditTextImeBackListener listener) {
+        mOnImeBack = listener;
+    }
+
     private class ActionModeCallBack implements ActionMode.Callback {
         @Override
         protected Object clone() throws CloneNotSupportedException {
@@ -149,20 +164,5 @@ public class StyleEdittext extends AppCompatEditText {
         public boolean onPrepareActionMode(ActionMode mode, Menu menu) {
             return false;
         }
-    }
-
-    @Override
-    public boolean onKeyPreIme(int keyCode, KeyEvent event) {
-        if (event.getKeyCode() == KeyEvent.KEYCODE_BACK &&
-                event.getAction() == KeyEvent.ACTION_UP && mOnImeBack != null) {
-
-            mOnImeBack.onImeBack();
-
-        }
-        return super.dispatchKeyEvent(event);
-    }
-
-    public void setOnEditTextImeBackListener(EditTextImeBackListener listener) {
-        mOnImeBack = listener;
     }
 }

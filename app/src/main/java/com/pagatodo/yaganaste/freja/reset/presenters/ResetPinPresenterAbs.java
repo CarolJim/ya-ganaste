@@ -34,7 +34,7 @@ public abstract class ResetPinPresenterAbs implements ResetPinPresenter, ResetPi
     @Override
     public void setResetPinPolicy(int min, int max) {
         int size = newPin.length;
-        if (min <= size && size<= max) {
+        if (min <= size && size <= max) {
             resetPinIteractor.resetPin(rpcCode, newPin);
         } else {
             onError(Errors.BAD_CHANGE_POLICY);

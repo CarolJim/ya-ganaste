@@ -8,14 +8,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.interfaces.OnEventListener;
-import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
-
-import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
-import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 
 
 /**
@@ -23,14 +17,12 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
  * Updated by flima on 8/02/2017.
  */
 
-public abstract class ToolBarActivity extends SupportFragmentActivity{
+public abstract class ToolBarActivity extends SupportFragmentActivity {
 
     public static final int CODE_LOG_OUT = 3124;
     public static final int RESULT_LOG_OUT = 3125;
-
-
-    private View toolbarLayout;
     public static final String EVENT_CHANGE_TOOLBAR_VISIBILITY = "eventChangeToolbarVisibility";
+    private View toolbarLayout;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {

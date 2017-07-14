@@ -1,7 +1,5 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
-import android.app.Activity;
-import android.content.Context;
 import android.inputmethodservice.Keyboard;
 import android.os.Bundle;
 import android.text.Editable;
@@ -34,7 +32,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_CONFIRM_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -49,7 +46,6 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActi
 public class AsignarNIPFragment extends GenericFragment implements ValidationForms, IAccountCardNIPView {
 
     private static int PIN_LENGHT = 4;
-    private View rootview;
     @BindView(R.id.asignar_edittext)
     CustomValidationEditText edtPin;
     @BindView(R.id.btnNextAsignarPin)
@@ -58,14 +54,15 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     CustomKeyboardView keyboardView;
     @BindView(R.id.progressIndicator)
     ProgressLayout progressLayout;
-    private String nip = "";
-    private Keyboard keyboard;
     LinearLayout layout_control;
     TextView tv1Num;
     TextView tv2Num;
     TextView tv3Num;
     TextView tv4Num;
     ImageView asignar_iv1;
+    private View rootview;
+    private String nip = "";
+    private Keyboard keyboard;
 
     public AsignarNIPFragment() {
     }

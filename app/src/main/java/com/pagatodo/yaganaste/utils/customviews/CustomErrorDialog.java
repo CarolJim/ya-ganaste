@@ -17,17 +17,13 @@ import android.view.ViewTreeObserver;
 import android.view.Window;
 import android.widget.LinearLayout;
 
-
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 
 import java.lang.reflect.Field;
-import java.util.List;
 
 
-public class CustomErrorDialog extends DialogFragment implements ViewTreeObserver.OnGlobalLayoutListener{
+public class CustomErrorDialog extends DialogFragment implements ViewTreeObserver.OnGlobalLayoutListener {
 
     public static final String TAG = "ActionsDialog";
     public static final String KEY_LAYOUT_NOTIFICATION = "KEY_LAYOUT_NOTIFICATION";
@@ -48,6 +44,30 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
 
     private LinearLayout buttonsContainer;
 
+    /**
+     * Método para obtener una instancia del dialog personalizado
+     *
+     * @param idLayout            int id del layout del dialog
+     * @param messageNotification String mensaje que contiene el dialog
+     * @param hasConfirmBtn       boolean de confirmación del dialog
+     * @param hasCancelBtn        boolean de cancelación del dialog
+     * @return {@link DialogDoubleActions} instancia del dialog
+     */
+    public static CustomErrorDialog getInstance(@LayoutRes int idLayout, String titleNotification, String messageNotification,
+                                                boolean hasConfirmBtn, boolean hasCancelBtn) {
+
+        CustomErrorDialog actionsDialog = new CustomErrorDialog();
+        Bundle args = new Bundle();
+        args.putInt(CustomErrorDialog.KEY_LAYOUT_NOTIFICATION, idLayout);
+        args.putString(CustomErrorDialog.KEY_CONFIRM_TITLE, titleNotification);
+        args.putString(CustomErrorDialog.KEY_MESSAGE_NOTIFICATION, messageNotification);
+        args.putBoolean(CustomErrorDialog.KEY_SHOW_BTN_CONFIRM, hasConfirmBtn);
+        args.putBoolean(CustomErrorDialog.KEY_SHOW_BTN_CANCEL, hasCancelBtn);
+        actionsDialog.setArguments(args);
+
+        return actionsDialog;
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(idLayoutDialog, container, false);
@@ -60,28 +80,28 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
         final StyleButton btnCancelNotification = (StyleButton) rootView.findViewById(R.id.btnCancelDialog);
 
         /*Seteamos visibilidad de botones*/
-        if(btnConfirmNotification!= null ){
+        if (btnConfirmNotification != null) {
             btnConfirmNotification.setVisibility(showConfirmButton ? View.VISIBLE : View.GONE);
             btnConfirmNotification.setText(!titleBtnAcept.isEmpty() ? titleBtnAcept : getString(R.string.title_aceptar));
         }
-        if(btnCancelNotification!= null ){
+        if (btnCancelNotification != null) {
             btnCancelNotification.setVisibility(showCancelButton ? View.VISIBLE : View.GONE);
             btnCancelNotification.setText(!titleBtnCancel.isEmpty() ? titleBtnCancel : getString(R.string.title_cancelar));
         }
 
         /**Creamos el {@link StyleTextView} para el mensaje si existe mensaje dinámico.*/
-        if(!titleMessage.isEmpty()){
+        if (!titleMessage.isEmpty()) {
             StyleTextView txtTitleNotification = (StyleTextView) rootView.findViewById(R.id.txtTitleNotification);
             txtTitleNotification.setText(titleMessage);
         }
 
         /**Creamos el {@link StyleTextView} para el mensaje si existe mensaje dinámico.*/
-        if(!messageNotification.isEmpty()){
+        if (!messageNotification.isEmpty()) {
             StyleTextView txtMessageNotification = (StyleTextView) rootView.findViewById(R.id.txtMessageNotification);
             txtMessageNotification.setText(messageNotification);
         }
 
-        if(showConfirmButton && dialogActions!= null){
+        if (showConfirmButton && dialogActions != null) {
             btnConfirmNotification.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -91,7 +111,7 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
             });
         }
 
-        if(showConfirmButton && dialogActions!= null) {
+        if (showConfirmButton && dialogActions != null) {
             btnCancelNotification.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View view) {
@@ -101,7 +121,7 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
             });
         }
 
-        buttonsContainer = (LinearLayout)rootView.findViewById(R.id.buttons_container);
+        buttonsContainer = (LinearLayout) rootView.findViewById(R.id.buttons_container);
         if (buttonsContainer != null) {
             buttonsContainer.getViewTreeObserver().addOnGlobalLayoutListener(this);
         }
@@ -109,41 +129,15 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
         return rootView;
     }
 
-    /**
-     * Método para obtener una instancia del dialog personalizado
-     *@param  idLayout int id del layout del dialog
-     *@param  messageNotification String mensaje que contiene el dialog
-     *@param  hasConfirmBtn boolean de confirmación del dialog
-     *@param  hasCancelBtn boolean de cancelación del dialog
-     *
-     *@return {@link DialogDoubleActions} instancia del dialog
-     * */
-    public static CustomErrorDialog getInstance(@LayoutRes int idLayout,String titleNotification, String messageNotification,
-                                                boolean hasConfirmBtn, boolean hasCancelBtn){
-
-        CustomErrorDialog actionsDialog= new CustomErrorDialog();
-        Bundle args = new Bundle();
-        args.putInt(CustomErrorDialog.KEY_LAYOUT_NOTIFICATION, idLayout);
-        args.putString(CustomErrorDialog.KEY_CONFIRM_TITLE, titleNotification);
-        args.putString(CustomErrorDialog.KEY_MESSAGE_NOTIFICATION, messageNotification);
-        args.putBoolean(CustomErrorDialog.KEY_SHOW_BTN_CONFIRM, hasConfirmBtn);
-        args.putBoolean(CustomErrorDialog.KEY_SHOW_BTN_CANCEL, hasCancelBtn);
-        actionsDialog.setArguments(args);
-
-        return actionsDialog;
-    }
-
-
-
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             Bundle arg = getArguments();
             idLayoutDialog = arg.getInt(CustomErrorDialog.KEY_LAYOUT_NOTIFICATION);
-            messageNotification = arg.getString(CustomErrorDialog.KEY_MESSAGE_NOTIFICATION,"");
-            showConfirmButton = arg.getBoolean(CustomErrorDialog.KEY_SHOW_BTN_CONFIRM,true);
-            showCancelButton = arg.getBoolean(CustomErrorDialog.KEY_SHOW_BTN_CANCEL,true);
+            messageNotification = arg.getString(CustomErrorDialog.KEY_MESSAGE_NOTIFICATION, "");
+            showConfirmButton = arg.getBoolean(CustomErrorDialog.KEY_SHOW_BTN_CONFIRM, true);
+            showCancelButton = arg.getBoolean(CustomErrorDialog.KEY_SHOW_BTN_CANCEL, true);
         }
 
     }
@@ -184,7 +178,7 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
 
     /**
      * Método para setear el {@link DialogDoubleActions} del dialog
-     * */
+     */
     public void setDialogActions(DialogDoubleActions dialogActions) {
         this.dialogActions = dialogActions;
     }

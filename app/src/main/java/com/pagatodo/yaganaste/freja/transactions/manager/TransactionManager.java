@@ -7,9 +7,11 @@ import com.verisec.freja.mobile.core.wsHandler.beans.transaction.response.fromV1
  * @author Juan Guerra on 11/04/2017.
  */
 
-public interface TransactionManager extends ErrorFmcManager{
+public interface TransactionManager extends ErrorFmcManager {
 
     void setTransactions(FmcTransactionListResponse txs);
+
     void onTransactionAproved();
+
     void onTransactionCanceled();
 }

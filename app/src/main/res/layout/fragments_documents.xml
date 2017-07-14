@@ -45,11 +45,12 @@
                         android:paddingTop="@dimen/activity_horizontal_margin">
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            style="@style/generic_text_style_3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginBottom="10dp"
-                            android:text="@string/documents_vigentes" style="@style/generic_text_style_3" />
+                            android:text="@string/documents_vigentes" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -71,11 +72,12 @@
 
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                    style="@style/generic_text_style_3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="@dimen/space_between_forms"
                                     android:gravity="center"
-                                    android:text="Frente"  style="@style/generic_text_style_3"/>
+                                    android:text="Frente" />
 
 
                             </LinearLayout>
@@ -95,11 +97,12 @@
                                     android:layout_height="wrap_content" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                    style="@style/generic_text_style_3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="@dimen/space_between_forms"
                                     android:gravity="center"
-                                    android:text="Reverso" style="@style/generic_text_style_3" />
+                                    android:text="Reverso" />
 
                             </LinearLayout>
                         </LinearLayout>
@@ -125,12 +128,12 @@
                         android:paddingTop="@dimen/activity_horizontal_margin">
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            style="@style/generic_text_style_3"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:layout_marginBottom="10dp"
-                            android:text="@string/documents_comprobantes"
-                            style="@style/generic_text_style_3"/>
+                            android:text="@string/documents_comprobantes" />
 
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -151,11 +154,12 @@
                                     android:layout_height="wrap_content" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                    style="@style/generic_text_style_3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="@dimen/space_between_forms"
                                     android:gravity="center"
-                                    android:text="Frente" style="@style/generic_text_style_3" />
+                                    android:text="Frente" />
 
                             </LinearLayout>
 
@@ -174,11 +178,12 @@
                                     android:layout_height="wrap_content" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                    style="@style/generic_text_style_3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_margin="@dimen/space_between_forms"
                                     android:gravity="center"
-                                    android:text="Reverso" style="@style/generic_text_style_3" />
+                                    android:text="Reverso" />
 
                             </LinearLayout>
 
@@ -200,12 +205,12 @@
                     android:visibility="visible">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        style="@style/generic_text_style_4"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="4dp"
                         android:gravity="center"
-                        android:text="@string/documents_help"
-                        style="@style/generic_text_style_4"/>
+                        android:text="@string/documents_help" />
 
                 </LinearLayout>
             </LinearLayout>
@@ -226,8 +231,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
             <Button
                 android:id="@+id/btnRegresar"

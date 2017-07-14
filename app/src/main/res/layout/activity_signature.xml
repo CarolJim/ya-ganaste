@@ -29,17 +29,19 @@
                 android:orientation="horizontal">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    style="@style/generic_text_style_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentLeft="true"
-                    android:text="@string/pago_por" style="@style/generic_text_style_3" />
+                    android:text="@string/pago_por" />
 
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txtAmount"
+                    style="@style/generic_text_style_4"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/margin_small"
-                    android:text="780.23" style="@style/generic_text_style_4"
+                    android:text="780.23"
                     app:decimalLenght="1"
                     app:dotBottom="false"
                     app:symbolSmaller="false" />
@@ -55,10 +57,11 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtNumberCard"
+                    style="@style/generic_text_style_3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="@dimen/margin_small"
-                    android:text="*************4565"  style="@style/generic_text_style_3"/>
+                    android:text="*************4565" />
 
                 <ImageView
                     android:id="@+id/imgTypeCard"
@@ -117,10 +120,11 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtNameOwnerCard"
+                        style="@style/generic_text_style_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:text="NOMBRE"
-                        android:textAlignment="center" style="@style/generic_text_style_3" />
+                        android:textAlignment="center" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -131,12 +135,13 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleButton
                         android:id="@+id/btnClear"
+                        style="@style/generic_text_style_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/button_rounded_transparent"
                         android:text="LIMPIAR"
-                        android:textColor="@color/whiteColor" style="@style/generic_text_style_3" />
+                        android:textColor="@color/whiteColor" />
 
                     <View
                         android:layout_width="match_parent"
@@ -146,12 +151,13 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleButton
                         android:id="@+id/btnSendSignature"
+                        style="@style/generic_text_style_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:background="@drawable/button_rounded_transparent"
                         android:text="CONTINUAR"
-                        android:textColor="@color/whiteColor" style="@style/generic_text_style_3" />
+                        android:textColor="@color/whiteColor" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

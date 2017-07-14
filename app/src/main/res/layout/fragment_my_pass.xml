@@ -104,8 +104,8 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorOldPasswordMessage"
-                        android:layout_width="match_parent"
                         style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:visibility="visible" />
 
@@ -121,8 +121,8 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorPasswordMessage"
-                        android:layout_width="match_parent"
                         style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:visibility="visible" />
 
@@ -138,9 +138,9 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorConfirmPasswordMessage"
+                        style="@style/generic_text_style_2"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        style="@style/generic_text_style_2"
                         android:layout_marginBottom="@dimen/margin_doble"
                         android:visibility="visible" />
 

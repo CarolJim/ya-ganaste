@@ -30,15 +30,12 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.interfaces.IProgressView;
-import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
@@ -62,7 +59,6 @@ import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_B
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_GO_HOME;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
@@ -78,15 +74,13 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 public class Documentos extends GenericFragment implements View.OnClickListener, IUploadDocumentsView,
         SwipeRefreshLayout.OnRefreshListener, IPreferUserGeneric {
 
-    private static final String TAG = Documentos.class.getSimpleName();
     public static final int REQUEST_TAKE_PHOTO = 10; // Intent para Capturar fotografía
     public static final int SELECT_FILE_PHOTO = 20; // Intent para seleccionar fotografía
+    private static final String TAG = Documentos.class.getSimpleName();
     private static final int IFE_FRONT = 1;
     private static final int IFE_BACK = 2;
     private static final int COMPROBANTE_FRONT = 3;
     private static final int COMPROBANTE_BACK = 4;
-    private View rootview;
-
     @BindView(R.id.itemWeNeedSmFilesIFEfront)
     UploadDocumentView itemWeNeedSmFilesIFEfront;
     @BindView(R.id.itemWeNeedSmFilesIFEBack)
@@ -105,7 +99,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     LinearLayout lnr_help;
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
-
+    private View rootview;
     //@BindView(R.id.progressLayout)
     //ProgressLayout progressLayout;
     private int documentProcessed = 0;
@@ -126,6 +120,24 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         Bundle args = new Bundle();
         fragmentRegister.setArguments(args);
         return fragmentRegister;
+    }
+
+    /**
+     * Validamos que no se repitan las fotos obtenidas de la galeria
+     *
+     * @param list
+     * @return
+     */
+
+    public static boolean checkDuplicate(ArrayList list) {
+        HashSet set = new HashSet();
+        for (int i = 0; i < list.size(); i++) {
+            boolean val = set.add(list.get(i));
+            if (val == false) {
+                return val;
+            }
+        }
+        return true;
     }
 
     @Override
@@ -364,24 +376,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             bitmap = null;
             btnWeNeedSmFilesNext.setVisibility(VISIBLE);
         }
-    }
-
-    /**
-     * Validamos que no se repitan las fotos obtenidas de la galeria
-     *
-     * @param list
-     * @return
-     */
-
-    public static boolean checkDuplicate(ArrayList list) {
-        HashSet set = new HashSet();
-        for (int i = 0; i < list.size(); i++) {
-            boolean val = set.add(list.get(i));
-            if (val == false) {
-                return val;
-            }
-        }
-        return true;
     }
 
     private File createImageFile() throws IOException {

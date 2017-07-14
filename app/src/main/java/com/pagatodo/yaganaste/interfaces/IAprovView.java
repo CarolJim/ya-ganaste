@@ -6,8 +6,10 @@ package com.pagatodo.yaganaste.interfaces;
 
 public interface IAprovView<T> {
 
-    public void showErrorAprov(T error);
-    public void provisingCompleted();
-    public void subscribeNotificationSuccess();
+    void showErrorAprov(T error);
+
+    void provisingCompleted();
+
+    void subscribeNotificationSuccess();
 
 }

@@ -42,15 +42,6 @@ public class ViewPagerDataFactory {
         throw new IllegalCallException("You can't create an instance for ViewPagerDataFactory");
     }
 
-    public enum TABS {
-        MAIN_LOGIN,
-        MAIN_TABS,
-        HOME_FRAGMENT,
-        PERSONAL_ACCOUNT,
-        PAYMENTS,
-        SESSION_EXIST
-    }
-
     public static ViewPagerData createList(final TABS type) {
         List<Fragment> fragmentList = new ArrayList<>();
         switch (type) {
@@ -86,7 +77,6 @@ public class ViewPagerDataFactory {
         }
     }
 
-
     private static void addMainFragments(List<Fragment> fragmentList) {
         fragmentList.add(HomeTabFragment.newInstance());
         fragmentList.add(PaymentsTabFragment.newInstance());
@@ -103,7 +93,6 @@ public class ViewPagerDataFactory {
         }
     }
 
-
     private static void addHomeFragments(List<Fragment> fragmentList) {
         fragmentList.add(AbstractAdEmFragment.newInstance(AbstractAdEmFragment.MOVEMENTS));
 
@@ -113,6 +102,16 @@ public class ViewPagerDataFactory {
         } else {
             fragmentList.add(BlankFragment.newInstance());
         }
+    }
+
+
+    public enum TABS {
+        MAIN_LOGIN,
+        MAIN_TABS,
+        HOME_FRAGMENT,
+        PERSONAL_ACCOUNT,
+        PAYMENTS,
+        SESSION_EXIST
     }
 
 }

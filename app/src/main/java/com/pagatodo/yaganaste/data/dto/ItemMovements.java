@@ -1,7 +1,5 @@
 package com.pagatodo.yaganaste.data.dto;
 
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
-
 /**
  * @author Juan Guerra on 28/03/17.
  */

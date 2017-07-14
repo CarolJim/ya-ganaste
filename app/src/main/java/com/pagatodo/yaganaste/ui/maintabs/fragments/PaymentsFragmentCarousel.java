@@ -34,27 +34,21 @@ import butterknife.ButterKnife;
 
 public abstract class PaymentsFragmentCarousel extends GenericFragment implements PaymentsCarrouselManager {
 
+    private static int MAX_CAROUSEL_ITEMS = 12;
     @BindView(R.id.carouselMain)
     Carousel carouselMain;
     @BindView(R.id.layoutCarouselMain)
     LinearLayout layoutCarouselMain;
-
     @BindView(R.id.txtLoadingServices)
     StyleTextView txtLoadingServices;
-
     View rootView;
-
     Carousel.ImageAdapter mainImageAdapter = null;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     PaymentsTabPresenter paymentsTabPresenter;
     PaymentsTabFragment fragment;
     ListDialog dialog;
-
     MovementsTab current_tab;
-
     boolean isFromClick = false;
-
-    private static int MAX_CAROUSEL_ITEMS = 12;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

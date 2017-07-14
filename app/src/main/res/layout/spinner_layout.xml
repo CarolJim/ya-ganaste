@@ -1,17 +1,16 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.pagatodo.yaganaste.utils.customviews.StyleTextView
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<com.pagatodo.yaganaste.utils.customviews.StyleTextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/textView_spinner"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/backgroundEditText"
-    android:padding="7dp"
-    android:longClickable="false"
-    android:textSize="@dimen/size_text_style_3_value"
-    android:text="Hola"
     android:clickable="false"
+    android:longClickable="false"
+    android:padding="7dp"
+    android:text="Hola"
     android:textColor="@color/whiteColor_disable"
+    android:textSize="@dimen/size_text_style_3_value"
     app:tipo="Titulo">
 
 </com.pagatodo.yaganaste.utils.customviews.StyleTextView>

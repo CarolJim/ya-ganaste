@@ -44,7 +44,7 @@ public class TxDetailsFragment extends GenericFragment implements View.OnClickLi
     private OnlineTxPresenter onlineTxPresenter;
 
 
-    public static TxDetailsFragment newInstance(Serializable data){
+    public static TxDetailsFragment newInstance(Serializable data) {
         TxDetailsFragment homeTabFragment = new TxDetailsFragment();
         Bundle args = new Bundle();
         args.putSerializable(OnlineTxActivity.DATA, data);
@@ -75,8 +75,8 @@ public class TxDetailsFragment extends GenericFragment implements View.OnClickLi
     public void initViews() {
         txtTypeTx = (TextView) rootView.findViewById(R.id.txt_type_tx);
         txtMount = (TextView) rootView.findViewById(R.id.txt_mount);
-        txtDetails = (TextView)rootView.findViewById(R.id.txt_details);
-        txtReference = (TextView)rootView.findViewById(R.id.txt_reference);
+        txtDetails = (TextView) rootView.findViewById(R.id.txt_details);
+        txtReference = (TextView) rootView.findViewById(R.id.txt_reference);
         edtNip = (EditText) rootView.findViewById(R.id.edt_nip);
         btnContinue = (Button) rootView.findViewById(R.id.btn_continue);
         progressLayout = (ProgressLayout) rootView.findViewById(R.id.progress_indicator);
@@ -94,7 +94,7 @@ public class TxDetailsFragment extends GenericFragment implements View.OnClickLi
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id. btn_continue:
+            case R.id.btn_continue:
                 onContinueClicked();
                 break;
 

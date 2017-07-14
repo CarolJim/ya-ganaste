@@ -23,13 +23,13 @@
             android:id="@+id/main_view_pager"
             android:layout_width="match_parent"
             android:layout_height="0dp"
-            android:scrollIndicators=""
-            android:layout_weight="1" />
+            android:layout_weight="1"
+            android:scrollIndicators="" />
 
         <View
             android:layout_width="match_parent"
-            android:background="@color/colorGrayMenuDivider"
-            android:layout_height="1dp" />
+            android:layout_height="1dp"
+            android:background="@color/colorGrayMenuDivider" />
 
         <com.pagatodo.yaganaste.utils.customviews.GenericTabLayout
             android:id="@+id/main_tab"

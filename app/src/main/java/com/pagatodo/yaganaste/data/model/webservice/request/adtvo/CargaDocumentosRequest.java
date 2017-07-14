@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.data.model.webservice.request.adtvo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -11,17 +10,7 @@ import java.util.List;
  * Created by flima on 21/03/2017.
  */
 
-public class CargaDocumentosRequest implements Parcelable{
-
-    private List<DataDocuments> Documentos;
-
-    public CargaDocumentosRequest() {
-
-        Documentos = new ArrayList<DataDocuments>();
-    }
-
-    protected CargaDocumentosRequest(Parcel in) {
-    }
+public class CargaDocumentosRequest implements Parcelable {
 
     public static final Creator<CargaDocumentosRequest> CREATOR = new Creator<CargaDocumentosRequest>() {
         @Override
@@ -34,6 +23,15 @@ public class CargaDocumentosRequest implements Parcelable{
             return new CargaDocumentosRequest[size];
         }
     };
+    private List<DataDocuments> Documentos;
+
+    public CargaDocumentosRequest() {
+
+        Documentos = new ArrayList<DataDocuments>();
+    }
+
+    protected CargaDocumentosRequest(Parcel in) {
+    }
 
     public List<DataDocuments> getDocumentos() {
         return Documentos;

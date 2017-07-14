@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class ImplicitData implements Serializable{
+public class ImplicitData implements Serializable {
 
     private String lat = "";
     private String lon = "";
