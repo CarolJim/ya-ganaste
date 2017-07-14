@@ -112,8 +112,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnBackRecuperar:
-                //backScreen(EVENT_RECOVERY_PASS_BACK, null);
-                ((LoginManagerContainerFragment) getParentFragment()).onBackActions();
+                backScreen(null, null);
                 break;
             case R.id.btnNextRecuperar:
                 validateForm();
@@ -126,12 +125,13 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void nextScreen(String event, Object data) {
-        onEventListener.onEvent(event, data);
+        //onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event, data);
+        //onEventListener.onEvent(event, data);
+        ((LoginManagerContainerFragment) getParentFragment()).onBackActions();
     }
 
     @Override
@@ -215,7 +215,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
         UI.showToastShort(message, getActivity());
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                backScreen(EVENT_RECOVERY_PASS_BACK, null);
+                backScreen(null, null);
             }
         }, DELAY_MESSAGE_PROGRESS);
         setEnableViews(true);

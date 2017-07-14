@@ -107,10 +107,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             Preferencias preferencias = App.getInstance().getPrefs();
             textNameUser.setText(preferencias.loadData(StringConstants.FULL_NAME_USER));
 
+            edtUserName.setText(RequestHeaders.getUsername());
             edtUserName.setVisibility(GONE);
-            edtUserName.setText(RequestHeaders.getUsername());
-            username = RequestHeaders.getUsername();
-            edtUserName.setText(RequestHeaders.getUsername());
+
             textNameUser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -284,14 +283,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
         setEnableViews(false);
         accountPresenter.login(username, password); // Realizamos el  Login
-        //loginSucced();
     }
 
     @Override
     public void getDataForm() {
-        if (username.isEmpty()) {
-            username = edtUserName.getText().trim();
-        }
+        username = edtUserName.getText().trim();
         password = edtUserPass.getText().trim();
     }
 
@@ -312,6 +308,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void onResume() {
         super.onResume();
         accountPresenter.setIView(this);
+        if (!RequestHeaders.getTokenauth().isEmpty()) {
+            edtUserName.setText(RequestHeaders.getUsername());
+        }
     }
 }
 

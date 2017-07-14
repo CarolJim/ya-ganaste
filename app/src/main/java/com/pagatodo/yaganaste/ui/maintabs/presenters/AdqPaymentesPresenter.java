@@ -28,6 +28,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.APROBADO;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CANCELADO;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CARGO;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.PENDIENTE;
+import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
 
 /**
  * @author Juan Guerra on 28/03/2017.
@@ -188,6 +189,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
     public void onSuccesBalance(String response) {
         SingletonUser.getInstance().getDatosSaldo().setSaldoAdq(response);
         App.getInstance().getPrefs().saveData(StringConstants.ADQUIRENTE_BALANCE, response);
+        App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
         movementsView.updateBalance();
     }
 

@@ -20,6 +20,8 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
+import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -36,6 +38,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
+import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
 
 /**
  * Created by Jordan on 06/07/2017.
@@ -56,6 +59,8 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     MontoTextView txtBalanceReembolsar;
     @BindView(R.id.txtDateLastUpdate)
     StyleTextView txtDateLastUpdate;
+    @BindView(R.id.txtDateAdqLastUpdate)
+    StyleTextView txtDateAdqLastUpdate;
     @BindView(R.id.btnGoToLogin)
     Button btnGoToLogin;
     @BindView(R.id.swipeContainer)
@@ -67,7 +72,8 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     private boolean isBalanceAdq;
 
     private AccountPresenterNew accountPresenter;
-    private LoginManagerContainerFragment parentFragment;
+    private ILoginContainerManager loginContainerManager;
+    private IQuickBalanceManager quickBalanceManager;
 
     public static QuickBalanceAdquirenteFragment newInstance() {
         QuickBalanceAdquirenteFragment fragment = new QuickBalanceAdquirenteFragment();
@@ -80,7 +86,8 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
-        parentFragment = (LoginManagerContainerFragment) getParentFragment();
+        loginContainerManager = ((QuickBalanceContainerFragment) getParentFragment()).getLoginContainerManager();
+        quickBalanceManager = ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager();
     }
 
     @Nullable
@@ -121,16 +128,17 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
             }
 
             setData(preferencias.loadData(StringConstants.USER_BALANCE), preferencias.loadData(UPDATE_DATE));
-            setDataAdq(preferencias.loadData(ADQUIRENTE_BALANCE));
+            setDataAdq(preferencias.loadData(ADQUIRENTE_BALANCE), preferencias.loadData(UPDATE_DATE_BALANCE_ADQ));
         }
     }
 
     private void setData(String balance, String updateDate) {
         txtSaldoPersonal.setText(Utils.getCurrencyValue(balance));
-        txtDateLastUpdate.setText(updateDate);
+        txtDateLastUpdate.setText(String.format(getString(R.string.last_date_update), updateDate));
     }
 
-    private void setDataAdq(String balaceAdq) {
+    private void setDataAdq(String balaceAdq, String dateLastUpdateAdq) {
+        txtDateAdqLastUpdate.setText(String.format(getString(R.string.last_date_update), dateLastUpdateAdq));
         txtBalanceReembolsar.setText(Utils.getCurrencyValue(balaceAdq));
     }
 
@@ -145,10 +153,10 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnGoToLogin:
-                parentFragment.loadLoginFragment();
+                loginContainerManager.loadLoginFragment();
                 break;
             case R.id.imgArrowNext:
-                parentFragment.loadMontoFragment();
+                nextScreen(null, null);
                 break;
         }
     }
@@ -162,7 +170,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
 
     @Override
     public void updateBalanceAdq(String saldoAdq) {
-        setDataAdq(saldoAdq);
+        setDataAdq(saldoAdq, App.getInstance().getPrefs().loadData(UPDATE_DATE_BALANCE_ADQ));
         isBalanceAdq = true;
         hideLoaderBalance();
     }
@@ -175,7 +183,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
 
     @Override
     public void nextScreen(String event, Void data) {
-
+        quickBalanceManager.nextPage();
     }
 
     @Override

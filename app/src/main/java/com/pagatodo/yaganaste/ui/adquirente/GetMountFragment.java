@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -20,6 +21,7 @@ import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
+import com.pagatodo.yaganaste.ui.account.login.QuickBalanceContainerFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
@@ -38,6 +40,9 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     StyleEdittext edtConcept;
     @BindView(R.id.keyboard_view)
     CustomKeyboardView keyboardView;
+    @BindView(R.id.img_arrow_previous)
+    ImageView imgArrowPrev;
+
     LinearLayout layout_amount;
     private float MIN_AMOUNT = 1.0f;
 
@@ -77,9 +82,20 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         layout_amount = (LinearLayout) rootview.findViewById(R.id.layout_amount_control);
         tvMontoEntero = (StyleTextView) rootview.findViewById(R.id.tv_monto_entero);
         tvMontoDecimal = (StyleTextView) rootview.findViewById(R.id.tv_monto_decimal);
+        imgArrowPrev = (ImageView) rootview.findViewById(R.id.img_arrow_previous);
         et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
+
+        if (getActivity() instanceof AccountActivity) {
+            imgArrowPrev.setVisibility(View.VISIBLE);
+            imgArrowPrev.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager().onBackPress();
+                }
+            });
+        }
 
         // Make the custom keyboard appear
         et_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {

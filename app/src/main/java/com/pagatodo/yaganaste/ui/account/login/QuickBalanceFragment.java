@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -56,7 +57,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     SwipeRefreshLayout swipeContainer;
     private View mRootView;
     private AccountPresenterNew accountPresenter;
-    private LoginManagerContainerFragment parentFragment;
+    private ILoginContainerManager loginContainerManager;
 
     public static QuickBalanceFragment newInstance() {
 
@@ -77,7 +78,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
-        parentFragment = (LoginManagerContainerFragment) getParentFragment();
+        loginContainerManager = ((QuickBalanceContainerFragment) getParentFragment()).getLoginContainerManager();
     }
 
     @Override
@@ -105,10 +106,6 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     public void initViews() {
         ButterKnife.bind(this, mRootView);
 
-        //mRootView.findViewById(R.id.txt_tarjeta_user_name).setVisibility(View.GONE);
-
-        //txtTarjetaUserName.setVisibility(View.GONE);
-
         swipeContainer.setOnRefreshListener(this);
         goToLogin.setOnClickListener(this);
 
@@ -116,12 +113,9 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         if (preferencias.containsData(HAS_SESSION)) {
 
             String cardNumber = preferencias.loadData(CARD_NUMBER);
-            //String cardNumberFormat = StringUtils.ocultarCardNumber(cardNumber);
 
             cardSaldo.setCardNumber(cardNumber);
             cardSaldo.setCardDate("02/21");
-            //editNumber.setText(getCreditCardFormat(cardNumberFormat));
-            //txtNameUser.setText(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER)));
 
 
             if (Build.VERSION.SDK_INT >= 24) {
@@ -188,7 +182,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnGoToLogin:
-                parentFragment.loadLoginFragment();
+                loginContainerManager.loadLoginFragment();
                 break;
         }
     }

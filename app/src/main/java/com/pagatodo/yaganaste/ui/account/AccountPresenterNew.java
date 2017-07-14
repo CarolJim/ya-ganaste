@@ -324,16 +324,11 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
 
     @Override
     public void onSuccesBalance(ConsultarSaldoResponse response) {
-        App.getInstance().getPrefs().saveData(StringConstants.USER_BALANCE, response.getData().getSaldo());
-        App.getInstance().getPrefs().saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
-        //this.accountView.hideLoader();
         ((IBalanceView) this.accountView).updateBalance(response.getData().getSaldo());
     }
 
     @Override
     public void onSuccesBalanceAdq(ConsultaSaldoCupoResponse response) {
-        App.getInstance().getPrefs().saveData(StringConstants.ADQUIRENTE_BALANCE, response.getSaldo());
-        //this.accountView.hideLoader();
         ((IBalanceView) this.accountView).updateBalanceAdq(response.getSaldo());
     }
 

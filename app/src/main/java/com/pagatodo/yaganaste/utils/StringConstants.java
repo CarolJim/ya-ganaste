@@ -15,6 +15,7 @@ public class StringConstants {
     public static final String CARD_NUMBER = "CARD_NUMBER";
     public static final String USER_BALANCE = "USER_BALANCE";
     public static final String UPDATE_DATE = "UPDATE_DATE";
+    public static final String UPDATE_DATE_BALANCE_ADQ = "UPDATE_DATE_BALANCE_ADQ";
     public static final String ID_CUENTA = "ID_CUENTA";
     public static final String ADQUIRENTE_BALANCE = "ADQUIRENTE_BALANCE";
     public static final String CATALOG_VERSION = "CATALOG_VERSION";

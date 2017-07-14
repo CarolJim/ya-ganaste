@@ -16,7 +16,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
+import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +27,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
  * Created by Jordan on 06/07/2017.
  */
 
-public class LoginManagerContainerFragment extends SupportFragment {
+public class LoginManagerContainerFragment extends SupportFragment implements ILoginContainerManager {
 
     @BindView(R.id.container)
     FrameLayout container;
@@ -64,28 +64,25 @@ public class LoginManagerContainerFragment extends SupportFragment {
 
         Preferencias prefs = App.getInstance().getPrefs();
         if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
-            if (RequestHeaders.getTokenAdq().isEmpty()) {
-                loadFragment(QuickBalanceFragment.newInstance(), Direction.NONE, false);
-            } else {
-                //Nuevo
-                //loadFragment(QuickBalanceFragment.newInstance(), Direction.NONE, false);
-                loadFragment(QuickBalanceAdquirenteFragment.newInstance(), Direction.NONE, false);
-            }
+            loadFragment(QuickBalanceContainerFragment.newInstance(), Direction.FORDWARD, true);
         } else {
-            loadFragment(LoginFragment.newInstance(), Direction.NONE, false);
+            loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);
         }
     }
 
+    @Override
     public void loadLoginFragment() {
         loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, true);
     }
 
-    public void loadMontoFragment() {
-        loadFragment(GetMountFragment.newInstance(), Direction.FORDWARD, true);
-    }
-
+    @Override
     public void loadRecoveryFragment() {
         loadFragment(RecoveryFragment.newInstance(), Direction.FORDWARD, true);
+    }
+
+    @Override
+    public void popBackStack() {
+        getChildFragmentManager().popBackStack();
     }
 
     @Override
@@ -102,10 +99,19 @@ public class LoginManagerContainerFragment extends SupportFragment {
     }
 
     public void onBackActions() {
-        if (getChildFragmentManager().getBackStackEntryCount() > 0) {
-            getChildFragmentManager().popBackStack();
+
+        if (getChildFragmentManager().findFragmentById(R.id.container) instanceof QuickBalanceContainerFragment) {
+            ((QuickBalanceContainerFragment) getChildFragmentManager().findFragmentById(R.id.container)).onBackPress();
         } else {
-            getActivity().finish();
+            if (getChildFragmentManager().getBackStackEntryCount() > 0) {
+                popBackStack();
+            } else {
+                getActivity().finish();
+            }
         }
+    }
+
+    public ILoginContainerManager getLoginContainerManager() {
+        return this;
     }
 }

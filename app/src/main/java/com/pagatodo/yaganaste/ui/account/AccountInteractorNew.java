@@ -6,6 +6,7 @@ import android.util.Log;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.DatosSaldo;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
@@ -13,7 +14,6 @@ import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
@@ -58,7 +58,9 @@ import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
+import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
@@ -85,12 +87,10 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
-import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
-import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
-import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
-import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
+import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
+import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
 
 /**
  * Created by flima on 22/03/2017.
@@ -103,9 +103,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private AccountOperation operationAccount;
     private Request requestAccountOperation;
     private boolean logOutBefore;
+    private Preferencias prefs = App.getInstance().getPrefs();
 
     public AccountInteractorNew(IAccountManager accountManager) {
         this.accountManager = accountManager;
+        prefs = App.getInstance().getPrefs();
     }
 
     @Override
@@ -442,11 +444,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 break;
 
             case VALIDAR_DATOS_PERSONA:
-                validatePersonDataResponse((GenericResponse)dataSourceResult.getData());
+                validatePersonDataResponse((GenericResponse) dataSourceResult.getData());
                 break;
 
             case CONSULTA_SALDO_CUPO:
-                validateBalanceAdqResponse((ConsultaSaldoCupoResponse)dataSourceResult.getData());
+                validateBalanceAdqResponse((ConsultaSaldoCupoResponse) dataSourceResult.getData());
                 break;
 
             case LOGIN_ADQ:
@@ -472,13 +474,18 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void validateBalanceResponse(ConsultarSaldoResponse response) {
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+
+            prefs.saveData(StringConstants.USER_BALANCE, response.getData().getSaldo());
+            prefs.saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
             accountManager.onSuccesBalance(response);
         } else {
             accountManager.onError(CONSULTAR_SALDO, null);
         }
     }
 
-    private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response){
+    private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response) {
+        App.getInstance().getPrefs().saveData(StringConstants.ADQUIRENTE_BALANCE, response.getSaldo());
+        prefs.saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
         accountManager.onSuccesBalanceAdq(response);
     }
 
@@ -556,7 +563,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 if (dataUser.isConCuenta()) {// Si Cuenta
                     RequestHeaders.setIdCuenta(String.format("%s", data.getData().getUsuario().getCuentas().get(0).getIdCuenta()));
                     if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
-                        if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){
+                        if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
                             loginAdq();
                             return;
                         } else {
@@ -690,6 +697,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
         }
     }
+
     /**
      * Método para procesar la respuesta uan vez que se realizo la asignación de una cuenta disponible.
      *
