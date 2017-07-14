@@ -96,6 +96,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         return rootview;
     }
 
+
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
@@ -148,7 +149,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         if (UtilsNet.isOnline(getActivity())) {
             validateForm();
         } else {
-            UI.showToastShort(getString(R.string.no_internet_access), getActivity());
+            UI.createSimpleCustomDialog("Error", getString(R.string.no_internet_access), getFragmentManager(), getFragmentTag());
         }
     }
 
