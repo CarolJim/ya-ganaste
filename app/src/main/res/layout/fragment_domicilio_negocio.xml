@@ -15,180 +15,190 @@
         android:layout_height="0dp"
         android:layout_weight="1">
 
-        <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
-            android:id="@+id/layoutContent"
-            style="@style/GenericBorderTitleStyle"
+        <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            app:title="@string/bussinesAddressTitle">
+            android:layout_height="match_parent"
+            android:orientation="vertical">
 
-            <LinearLayout
-                style="@style/BorderLayoutContent"
+            <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+                android:id="@+id/layoutContent"
+                style="@style/GenericBorderTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="vertical">
-
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editBussinesStreet"
-                    style="@style/GenericCustomValidationEditText"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:formato="text"
-                    app:hintText="@string/streetHint"
-                    app:isSingleLine="true"
-                    app:maxLength="30" />
-
-                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorBussinesStreetMessage"
-                    style="@style/generic_text_style_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
+                app:title="@string/bussinesAddressTitle">
 
                 <LinearLayout
-                    android:id="@+id/layoutBussinesAddressNumbers"
-                    style="@style/FragmentElementWithValidation"
+                    style="@style/BorderLayoutContent"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:orientation="horizontal">
+                    android:orientation="vertical">
 
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                        android:id="@+id/editBussinesExtNumber"
+                        android:id="@+id/editBussinesStreet"
                         style="@style/GenericCustomValidationEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".5"
                         app:formato="text"
-                        app:hintText="@string/outdoorNumber"
+                        app:hintText="@string/streetHint"
                         app:isSingleLine="true"
-                        app:maxLength="4" />
+                        app:maxLength="30" />
 
-                    <android.support.v4.widget.Space
-                        android:layout_width="@dimen/generic_padig"
-                        android:layout_height="match_parent" />
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorBussinesStreetMessage"
+                        style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
-                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                        android:id="@+id/editBussinesIntNumber"
-                        style="@style/GenericCustomValidationEditText"
+                    <LinearLayout
+                        android:id="@+id/layoutBussinesAddressNumbers"
+                        style="@style/FragmentElementWithValidation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight=".5"
-                        app:formato="text"
-                        app:hintText="@string/interiorNumber"
+                        android:orientation="horizontal">
+
+                        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                            android:id="@+id/editBussinesExtNumber"
+                            style="@style/GenericCustomValidationEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".5"
+                            app:formato="text"
+                            app:hintText="@string/outdoorNumber"
+                            app:isSingleLine="true"
+                            app:maxLength="4" />
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="@dimen/generic_padig"
+                            android:layout_height="match_parent" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                            android:id="@+id/editBussinesIntNumber"
+                            style="@style/GenericCustomValidationEditText"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_weight=".5"
+                            app:formato="text"
+                            app:hintText="@string/interiorNumber"
+                            app:isSingleLine="true"
+                            app:maxLength="5" />
+
+                    </LinearLayout>
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorNumberAddressMessage"
+                        style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/editBussinesZipCode"
+                        style="@style/GenericCustomValidationEditTextWithValidation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        app:formato="zipcode"
+                        app:hintText="@string/zipCodeHint"
                         app:isSingleLine="true"
                         app:maxLength="5" />
 
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorBussinesZipCodeMessage"
+                        style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/editBussinesState"
+                        style="@style/GenericCustomValidationEditTextWithValidation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintText="@string/stateHint"
+                        app:maxLines="1" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorBussinesStateMessage"
+                        style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <Spinner
+                        android:id="@+id/spBussinesColonia"
+                        style="@style/SpinnerNoArrow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_xsmall"
+                        android:background="@null"
+                        android:backgroundTint="@color/transparent" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorBussinesColoniaMessage"
+                        style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/textIsBussinesAddress"
+                        style="@style/generic_text_style_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_regular"
+                        android:layout_marginRight="@dimen/margin_regular"
+                        android:layout_marginTop="@dimen/space_between_elements"
+                        android:gravity="center"
+                        android:text="@string/bussinesAddresQuestion"
+                        android:textColor="@color/whiteColor"
+                        app:tipo="Descripcion" />
+
+                    <RadioGroup
+                        android:id="@+id/radioIsBussinesAddress"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_between_elements"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:theme="@style/RadioButtonTheme">
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <RadioButton
+                            android:id="@+id/radioBtnIsBussinesAddressNo"
+                            style="@style/generic_text_style_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/no" />
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <RadioButton
+                            android:id="@+id/radioBtnIsBussinesAddressYes"
+                            style="@style/generic_text_style_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/yes" />
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+                    </RadioGroup>
                 </LinearLayout>
+            </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
-                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorNumberAddressMessage"
-                    style="@style/generic_text_style_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editBussinesZipCode"
-                    style="@style/GenericCustomValidationEditTextWithValidation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number"
-                    app:formato="zipcode"
-                    app:hintText="@string/zipCodeHint"
-                    app:isSingleLine="true"
-                    app:maxLength="5" />
-
-                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorBussinesZipCodeMessage"
-                    style="@style/generic_text_style_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editBussinesState"
-                    style="@style/GenericCustomValidationEditTextWithValidation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    app:hintText="@string/stateHint"
-                    app:maxLines="1" />
-
-                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorBussinesStateMessage"
-                    style="@style/generic_text_style_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <Spinner
-                    android:id="@+id/spBussinesColonia"
-                    style="@style/SpinnerNoArrow"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_xsmall"
-                    android:background="@null"
-                    android:backgroundTint="@color/transparent" />
-
-                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorBussinesColoniaMessage"
-                    style="@style/generic_text_style_2"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content" />
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/textIsBussinesAddress"
-                    style="@style/generic_text_style_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_regular"
-                    android:layout_marginRight="@dimen/margin_regular"
-                    android:layout_marginTop="@dimen/space_between_elements"
-                    android:gravity="center"
-                    android:text="@string/bussinesAddresQuestion"
-                    android:textColor="@color/whiteColor"
-                    app:tipo="Descripcion" />
-
-                <RadioGroup
-                    android:id="@+id/radioIsBussinesAddress"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_between_elements"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:theme="@style/RadioButtonTheme">
-
-                    <android.support.v4.widget.Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <RadioButton
-                        android:id="@+id/radioBtnIsBussinesAddressNo"
-                        style="@style/generic_text_style_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="@string/no" />
-
-                    <android.support.v4.widget.Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <RadioButton
-                        android:id="@+id/radioBtnIsBussinesAddressYes"
-                        style="@style/generic_text_style_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="@string/yes" />
-
-                    <android.support.v4.widget.Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-                </RadioGroup>
-            </LinearLayout>
-        </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="25dp" />
+        </LinearLayout>
     </ScrollView>
 
     <LinearLayout

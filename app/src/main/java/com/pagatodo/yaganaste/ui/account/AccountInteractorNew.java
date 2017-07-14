@@ -76,6 +76,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGIN_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
@@ -469,7 +470,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     @Override
     public void onFailed(DataSourceResult error) {
-        accountManager.onError(error.getWebService(), error.getData().toString());
+        if (error != null && error.getWebService() == LOGIN_ADQ) {
+            checkAfterLogin();
+        } else {
+            accountManager.onError(error.getWebService(), error.getData().toString());
+        }
     }
 
     private void validateBalanceResponse(ConsultarSaldoResponse response) {
