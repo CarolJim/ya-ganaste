@@ -141,7 +141,7 @@
     <dimen name="text_screen_size_normal">14sp</dimen>
 
 
-    <dimen name="text_error_validation_message">12sp</dimen>
+    <dimen name="text_error_validation_message">@dimen/size_text_style_4_value</dimen>
 
     <dimen name="text_custom_validation_editext_size">15px</dimen>
     <dimen name="text_custom_validation_spinner_size">15sp</dimen>

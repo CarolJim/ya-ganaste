@@ -245,10 +245,24 @@
     </style>
 
     <style name="BorderLayoutContent">
-        <item name="android:layout_marginLeft">@dimen/margin_elements</item>
-        <item name="android:layout_marginRight">@dimen/margin_elements</item>
-        <item name="android:layout_marginTop">@dimen/margin_form_top</item>
-        <item name="android:layout_marginBottom">@dimen/margin_form_bottom</item>
+        <item name="android:layout_marginTop">45dp</item>
+        <item name="android:layout_marginLeft">23dp</item>
+        <item name="android:layout_marginRight">23dp</item>
+        <item name="android:layout_marginBottom">25dp</item>
+    </style>
+
+    <style name="BorderLayoutContentCard">
+        <item name="android:layout_marginTop">5dp</item>
+        <item name="android:layout_marginLeft">23dp</item>
+        <item name="android:layout_marginRight">23dp</item>
+        <item name="android:layout_marginBottom">25dp</item>
+    </style>
+
+    <style name="BorderLayoutContentNegocio">
+        <item name="android:layout_marginTop">45dp</item>
+        <item name="android:layout_marginLeft">23dp</item>
+        <item name="android:layout_marginRight">23dp</item>
+        <item name="android:layout_marginBottom">10dp</item>
     </style>
 
     <style name="FragmentElement">
