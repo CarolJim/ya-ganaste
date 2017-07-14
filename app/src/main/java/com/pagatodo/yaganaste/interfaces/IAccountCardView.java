@@ -6,6 +6,7 @@ package com.pagatodo.yaganaste.interfaces;
 
 public interface IAccountCardView extends INavigationView {
 
-    public void accountAssigned(String message);
-    public void cardIsValidate(String message);
+    void accountAssigned(String message);
+
+    void cardIsValidate(String message);
 }

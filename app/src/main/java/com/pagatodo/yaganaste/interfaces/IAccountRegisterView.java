@@ -6,8 +6,10 @@ package com.pagatodo.yaganaste.interfaces;
 
 public interface IAccountRegisterView<E> extends IAccountAddressRegisterView<E> {
 
-    public void clientCreatedSuccess(String message);
-    public void clientCreateFailed(String error);
-    public void zipCodeInvalid(String message);
+    void clientCreatedSuccess(String message);
+
+    void clientCreateFailed(String error);
+
+    void zipCodeInvalid(String message);
 
 }

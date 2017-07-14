@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class EnviarTicketCompraRequest extends AdqRequest implements Serializable{
+public class EnviarTicketCompraRequest extends AdqRequest implements Serializable {
 
     private String email = "";
     private ImplicitData implicitData;

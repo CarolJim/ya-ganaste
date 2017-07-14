@@ -49,15 +49,42 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     private static final long CHECK_SMS_VALIDATE_DELAY = 10000;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
-
-    private WebService failed;
-
     int counterRetry = 1;
-
     Timer timer = new Timer();
     BroadcastReceiver broadcastReceiver;
-
+    private WebService failed;
     private AccountPresenterNew accountPresenter;
+    /**
+     * BroadcastReceiver para realizar el envío del SMS
+     **/
+    BroadcastReceiver broadcastReceiverSend = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context arg0, Intent arg1) {
+            switch (getResultCode()) {
+                case Activity.RESULT_OK:
+                    UI.showToastShort("Mensaje Enviado", getActivity());
+
+                    new Handler().postDelayed(new Runnable() {
+                        public void run() {
+                            accountPresenter.doPullActivationSMS(getString(R.string.activacion_sms_verificando));
+                        }
+                    }, CHECK_SMS_VALIDATE_DELAY);
+                    break;
+                case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
+                    goLoginAlert(getString(R.string.fallo_envio));
+                    break;
+                case SmsManager.RESULT_ERROR_NO_SERVICE:
+                    goLoginAlert(getString(R.string.sin_servicio));
+                    break;
+                case SmsManager.RESULT_ERROR_NULL_PDU:
+                    goLoginAlert(getString(R.string.null_pdu));
+                    break;
+                case SmsManager.RESULT_ERROR_RADIO_OFF:
+                    goLoginAlert(getString(R.string.sin_senial));
+                    break;
+            }
+        }
+    };
 
     //private AprovPresenter aprovPresenter;
     public AsociatePhoneAccountFragment() {
@@ -78,7 +105,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         //aprovPresenter = new AprovPresenter(getActivity(),this);
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
@@ -92,7 +118,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         super.initViews();
         hideLoader();
     }
-
 
     @Override
     protected void continuePayment() {
@@ -220,38 +245,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     public void messageCreated(MessageValidation messageValidation) {
         sendSMS(messageValidation.getPhone(), messageValidation.getMessage());
     }
-
-    /**
-     * BroadcastReceiver para realizar el envío del SMS
-     **/
-    BroadcastReceiver broadcastReceiverSend = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context arg0, Intent arg1) {
-            switch (getResultCode()) {
-                case Activity.RESULT_OK:
-                    UI.showToastShort("Mensaje Enviado", getActivity());
-
-                    new Handler().postDelayed(new Runnable() {
-                        public void run() {
-                            accountPresenter.doPullActivationSMS(getString(R.string.activacion_sms_verificando));
-                        }
-                    }, CHECK_SMS_VALIDATE_DELAY);
-                    break;
-                case SmsManager.RESULT_ERROR_GENERIC_FAILURE:
-                    goLoginAlert(getString(R.string.fallo_envio));
-                    break;
-                case SmsManager.RESULT_ERROR_NO_SERVICE:
-                    goLoginAlert(getString(R.string.sin_servicio));
-                    break;
-                case SmsManager.RESULT_ERROR_NULL_PDU:
-                    goLoginAlert(getString(R.string.null_pdu));
-                    break;
-                case SmsManager.RESULT_ERROR_RADIO_OFF:
-                    goLoginAlert(getString(R.string.sin_senial));
-                    break;
-            }
-        }
-    };
 
     private void sendSMS(String phoneNumber, String message) {
         String SENT = "SMS_SENT";

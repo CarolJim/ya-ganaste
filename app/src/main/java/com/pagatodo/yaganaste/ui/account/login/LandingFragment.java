@@ -15,7 +15,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class LandingFragment extends GenericFragment implements View.OnClickListener{
+public class LandingFragment extends GenericFragment implements View.OnClickListener {
 
     private View rootview;
 
@@ -30,7 +30,7 @@ public class LandingFragment extends GenericFragment implements View.OnClickList
     }
 
     @Override
-    public void onAttach(Context context){
+    public void onAttach(Context context) {
         super.onAttach(context);
         Activity activity = null;
 
@@ -74,7 +74,7 @@ public class LandingFragment extends GenericFragment implements View.OnClickList
 
     @Override
     public void onClick(View view) {
-        switch (view.getId()){
+        switch (view.getId()) {
 
             default:
                 break;

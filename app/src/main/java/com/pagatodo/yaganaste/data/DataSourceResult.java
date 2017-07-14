@@ -7,12 +7,11 @@ import java.io.Serializable;
 
 /**
  * Created by flima on 20/02/2017.
-
+ *
  * @author flima
  * @version 1.0
- *
- * Clase para representar el resultado de una petición a cualquier data source.
- *
+ *          <p>
+ *          Clase para representar el resultado de una petición a cualquier data source.
  */
 
 public class DataSourceResult implements Serializable {
@@ -22,7 +21,7 @@ public class DataSourceResult implements Serializable {
     private WebService webService;
 
 
-    public DataSourceResult(WebService method, DataSource typeDataSource, Object data){
+    public DataSourceResult(WebService method, DataSource typeDataSource, Object data) {
         this.typeDataSource = typeDataSource;
         this.data = data;
         this.webService = method;

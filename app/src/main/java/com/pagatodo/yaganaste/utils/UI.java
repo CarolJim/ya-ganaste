@@ -12,7 +12,6 @@ import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
 public class UI {
@@ -174,7 +173,7 @@ public class UI {
     }
 
     public static void createSimpleCustomDialogNoCancel(String title, String message,
-                                                FragmentManager fragmentManager, final DialogDoubleActions actions) {
+                                                        FragmentManager fragmentManager, final DialogDoubleActions actions) {
         createSimpleCustomDialog(title, message, fragmentManager, actions, true, false);
     }
 

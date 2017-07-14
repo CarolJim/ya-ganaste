@@ -16,7 +16,7 @@ public enum Direction {
     private int enterAnimation;
     private int exitAnimation;
 
-    private Direction(@AnimRes int enterAnimation, @AnimRes int exitAnimation) {
+    Direction(@AnimRes int enterAnimation, @AnimRes int exitAnimation) {
         this.enterAnimation = enterAnimation;
         this.exitAnimation = exitAnimation;
     }

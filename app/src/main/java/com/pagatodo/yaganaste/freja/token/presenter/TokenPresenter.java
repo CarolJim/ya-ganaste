@@ -8,9 +8,12 @@ import android.support.annotation.Nullable;
 
 public interface TokenPresenter {
     boolean hasOnlineToken();
+
     boolean hasOfflineToken();
+
     @Nullable
     String getOnlineToken();
+
     @Nullable
     String getOfflineToken();
 }

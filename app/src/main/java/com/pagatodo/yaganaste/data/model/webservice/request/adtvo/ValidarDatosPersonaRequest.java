@@ -8,7 +8,7 @@ import java.io.Serializable;
  * @author jguerras  on 29/06/2017.
  */
 
-public class ValidarDatosPersonaRequest implements Serializable{
+public class ValidarDatosPersonaRequest implements Serializable {
 
 
     @SerializedName("Nombre")
@@ -33,6 +33,7 @@ public class ValidarDatosPersonaRequest implements Serializable{
     public String getNombre() {
         return nombre;
     }
+
     public void setNombre(String nombre) {
         this.nombre = nombre;
     }
@@ -40,6 +41,7 @@ public class ValidarDatosPersonaRequest implements Serializable{
     public String getPrimerApellido() {
         return primerApellido;
     }
+
     public void setPrimerApellido(String primerApellido) {
         this.primerApellido = primerApellido;
     }
@@ -47,6 +49,7 @@ public class ValidarDatosPersonaRequest implements Serializable{
     public String getSegundoApellido() {
         return segundoApellido;
     }
+
     public void setSegundoApellido(String segundoApellido) {
         this.segundoApellido = segundoApellido;
     }
@@ -54,6 +57,7 @@ public class ValidarDatosPersonaRequest implements Serializable{
     public String getGenero() {
         return genero;
     }
+
     public void setGenero(String genero) {
         this.genero = genero;
     }
@@ -61,6 +65,7 @@ public class ValidarDatosPersonaRequest implements Serializable{
     public String getFechaNacimiento() {
         return fechaNacimiento;
     }
+
     public void setFechaNacimiento(String fechaNacimiento) {
         this.fechaNacimiento = fechaNacimiento;
     }
@@ -68,6 +73,7 @@ public class ValidarDatosPersonaRequest implements Serializable{
     public int getIdEstadoNacimiento() {
         return idEstadoNacimiento;
     }
+
     public void setIdEstadoNacimiento(int idEstadoNacimiento) {
         this.idEstadoNacimiento = idEstadoNacimiento;
     }

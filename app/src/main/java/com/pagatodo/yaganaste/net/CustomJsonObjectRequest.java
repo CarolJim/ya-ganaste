@@ -15,6 +15,7 @@ import java.util.Map;
 public class CustomJsonObjectRequest extends JsonObjectRequest {
 
     private Map<String, String> headers;
+
     /**
      * Creates a new request.
      *
@@ -34,7 +35,7 @@ public class CustomJsonObjectRequest extends JsonObjectRequest {
 
     @Override
     public Map<String, String> getHeaders() throws AuthFailureError {
-        if(headers !=  null){
+        if (headers != null) {
             return headers;
         }
         return super.getHeaders();

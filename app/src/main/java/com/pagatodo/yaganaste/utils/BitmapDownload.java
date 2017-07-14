@@ -55,7 +55,7 @@ public class BitmapDownload extends AsyncTask<String, Object, Bitmap> {
             Bitmap myBitmap = BitmapFactory.decodeStream(input);
             return myBitmap;
         } catch (IOException e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
             mIteractor.showExceptionBitmapDownloadToIteractor(e.toString());
             return null;
         }

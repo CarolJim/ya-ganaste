@@ -34,9 +34,7 @@ import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
  */
 
 public class DepositsDataFragment extends SupportFragment implements View.OnClickListener {
-    private View rootView;
     DepositsManager depositsManager;
-
     @BindView(R.id.imgYaGanasteCard)
     ImageView imgYaGanasteCard;
     @BindView(R.id.txtNameTitular)
@@ -47,6 +45,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     TextView txtCableNumber;
     @BindView(R.id.btnDepositar)
     Button btnDepositar;
+    private View rootView;
 
     public static DepositsDataFragment newInstance() {
         DepositsDataFragment depositsDataFragment = new DepositsDataFragment();
@@ -58,7 +57,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        depositsManager = ((DepositsFragment)getParentFragment()).getDepositManager();
+        depositsManager = ((DepositsFragment) getParentFragment()).getDepositManager();
     }
 
     @Nullable

@@ -13,21 +13,16 @@ import java.util.regex.Pattern;
 
 public class ValidateForm {
 
-    List<String> listOfPattern = new ArrayList<String>();
-
     private final static Pattern ptVisa = Pattern.compile("^4[0-9]{6,}$");
     private final static Pattern ptMasterCard = Pattern.compile("^5[1-5][0-9]{5,}$");
     private final static Pattern ptAmeExp = Pattern.compile("^3[47][0-9]{5,}$");
-
     private final static Pattern ptDinClb = Pattern.compile("^3(?:0[0-5]|[68][0-9])[0-9]{4,}$");
     private final static Pattern ptDiscover = Pattern.compile("^6(?:011|5[0-9]{2})[0-9]{3,}$");
     private final static Pattern ptJcb = Pattern.compile("^(?:2131|1800|35[0-9]{3})[0-9]{3,}$");
     private final static Pattern genericCreditCard = Pattern.compile("^[0-9]{16}$");
     private final static Pattern cablePtrn = Pattern.compile("^[0-9]{18}$");
-
     private final static Pattern phonePattern = Pattern.compile("^[0-9]{8}|[0-9]{10}$");
     private final static Pattern cellPhonePattern = Pattern.compile("^[0-9]{10}$");
-
     /**
      * ^           # Assert position at the beginning of the string.
      * [0-9]{5}    # Match a digit, exactly five times.
@@ -39,7 +34,6 @@ public class ValidateForm {
      * $           # Assert position at the end of the string.
      **/
     private final static Pattern zipCodePattern = Pattern.compile("^[0-9]{5}$");
-
     /*
    *   (			# Start of group
        (?=.*\d)		#   must contains one digit from 0-9
@@ -50,10 +44,9 @@ public class ValidateForm {
            )			# End of group
    * */
     private final static Pattern passwprdPattern = Pattern.compile("((?=.*\\d)(?=.*[a-z])(?=.*[A-Z]).{6,20})");
-
     private final static Pattern emailPattern = Patterns.EMAIL_ADDRESS; //Pattern.compile(
+    List<String> listOfPattern = new ArrayList<String>();
     //"^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
-
 
     public static boolean isEditTextsFill(EditText... edts) {
 

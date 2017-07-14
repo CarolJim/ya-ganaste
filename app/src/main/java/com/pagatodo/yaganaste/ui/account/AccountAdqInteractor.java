@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CargaDocumentosRequest;
@@ -34,7 +33,6 @@ import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
-import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -42,8 +40,6 @@ import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import rx.Single;
 
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesAddressBack;
 import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesAddressFront;
@@ -73,11 +69,11 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 
 public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResult {
 
+    Drawable mDrawable = null;
+    INavigationView iSessionExpired;
     private String TAG = AccountAdqInteractor.class.getSimpleName();
     private IAccountManager accountManager;
     private Context context;
-    Drawable mDrawable = null;
-    INavigationView iSessionExpired;
 
     public AccountAdqInteractor(IAccountManager accountManager, Context ctx, INavigationView iSessionExpired) {
         this.accountManager = accountManager;

@@ -9,7 +9,10 @@ import java.io.Serializable;
 public class TransaccionEMVDepositRequest extends AdqRequest implements Serializable {
 
     private static final long serialVersionUID = 891915655067780642L;
-
+    public String cardHolderName;
+    public String maskedPAN;
+    public String noAuthorization;
+    public String aditionalAmount;
     private String noSerie = "";
     private String noTicket = "";
     private String amount = "";
@@ -21,11 +24,6 @@ public class TransaccionEMVDepositRequest extends AdqRequest implements Serializ
     private String noTransaction = "";
     private AccountDepositData accountDepositData;
     private ImplicitData implicitData;
-
-    public String cardHolderName;
-    public String maskedPAN;
-    public String noAuthorization;
-    public String aditionalAmount;
 
 
     public TransaccionEMVDepositRequest() {

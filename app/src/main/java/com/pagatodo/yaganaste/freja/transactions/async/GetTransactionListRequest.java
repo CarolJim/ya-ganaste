@@ -23,10 +23,6 @@ public class GetTransactionListRequest extends AsyncTask<Void, Void, Object> {
         this.getTransactionsCallback = getTransactionsCallback;
     }
 
-    public interface GetTransactionsCallback extends ExceptionCallback {
-        void onGetTransactions(FmcTransactionListResponse listResponse);
-    }
-
     @Override
     protected Object doInBackground(Void... params) {
         try {
@@ -45,5 +41,9 @@ public class GetTransactionListRequest extends AsyncTask<Void, Void, Object> {
         } else {
             getTransactionsCallback.handleException((Exception) response);
         }
+    }
+
+    public interface GetTransactionsCallback extends ExceptionCallback {
+        void onGetTransactions(FmcTransactionListResponse listResponse);
     }
 }

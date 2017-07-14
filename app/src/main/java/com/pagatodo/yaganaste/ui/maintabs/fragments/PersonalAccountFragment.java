@@ -13,6 +13,7 @@ import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.AccountMovementsPresenter;
 
 import java.util.List;
+
 /**
  * @author Juan Guerra on 27/11/2016.
  */
@@ -47,7 +48,6 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
     public void loadMovementsResult(List<ItemMovements<MovimientosResponse>> movementsList) {
         updateRecyclerData(createAdapter(movementsList), movementsList);
     }
-
 
 
     @Override

@@ -53,13 +53,10 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
         DialogDoubleActions, IOnSpinnerClick {
 
     private static final String GIROS = "1";
-
-    private View rootview;
     @BindView(R.id.editBussinesName)
     CustomValidationEditText editBussinesName;
     @BindView(R.id.spinnerBussineLine)
     Spinner spinnerBussineLine;
-
     @BindView(R.id.editBussinesPhone)
     CustomValidationEditText editBussinesPhone;
     @BindView(R.id.radioPublicServant)
@@ -72,7 +69,6 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
     Button btnBackBussinesInfo;
     @BindView(R.id.btnNextBussinesInfo)
     Button btnNextBussinesInfo;
-
     @BindView(R.id.errorBussinesNameMessage)
     ErrorMessage errorName;
     @BindView(R.id.errorBussineLineMessage)
@@ -81,7 +77,7 @@ public class DatosNegocio extends GenericFragment implements View.OnClickListene
     ErrorMessage errorPhone;
     @BindView(R.id.errorRadioPublicServantMessage)
     ErrorMessage errorPublicServant;
-
+    private View rootview;
     private String nombre = "";
     private String telefono = "";
     private boolean respuestaFamiliares;

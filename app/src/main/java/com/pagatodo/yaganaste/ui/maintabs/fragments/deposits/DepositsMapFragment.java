@@ -17,9 +17,7 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -30,7 +28,6 @@ import com.google.android.gms.maps.model.BitmapDescriptorFactory;
 import com.google.android.gms.maps.model.LatLng;
 import com.google.android.gms.maps.model.Marker;
 import com.google.android.gms.maps.model.MarkerOptions;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
@@ -63,16 +60,9 @@ import butterknife.ButterKnife;
 public class DepositsMapFragment extends SupportFragment implements DepositMapManager,
         OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener {
 
-    private View rootView;
-    private TabActivity parentActivity;
     protected Location actualLocation;
     CustomMapFragment customMapFragment;
     IDepositMapPresenter depositMapPresenter;
-    private GoogleMap map;
-    private RecyclerSucursalesAdapter adapter;
-    private List<DataLocalizaSucursal> sucursales;
-    private List<Marker> markers;
-
     @BindView(R.id.sucurasalesList)
     RecyclerView sucurasalesList;
     @BindView(R.id.txtInfoSucursales)
@@ -81,8 +71,13 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     SwipeRefreshLayout swipeMap;
     @BindView(R.id.frag_depositos_mapa_et)
     StyleEdittext etBuscar;
-
     boolean isBackAvailable = false;
+    private View rootView;
+    private TabActivity parentActivity;
+    private GoogleMap map;
+    private RecyclerSucursalesAdapter adapter;
+    private List<DataLocalizaSucursal> sucursales;
+    private List<Marker> markers;
 
     public static DepositsMapFragment newInstance() {
         DepositsMapFragment depositsMapFragment = new DepositsMapFragment();
@@ -151,7 +146,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
 
             @Override
             public void afterTextChanged(Editable s) {
-              //  Toast.makeText(getContext(), "Texto " + s, Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getContext(), "Texto " + s, Toast.LENGTH_SHORT).show();
                 String myFilter = etBuscar.getText().toString();
                 adapter.filter(myFilter);
             }

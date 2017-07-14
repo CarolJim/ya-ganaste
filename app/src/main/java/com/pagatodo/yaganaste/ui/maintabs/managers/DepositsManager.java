@@ -7,8 +7,12 @@ package com.pagatodo.yaganaste.ui.maintabs.managers;
 public interface DepositsManager {
 
     void onTapButton();
+
     void onError();
+
     void onSuccess();
+
     void showErrorMessage(String message);
+
     void onBtnBackPress();
 }

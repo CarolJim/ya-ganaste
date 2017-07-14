@@ -42,7 +42,9 @@ public enum WebService {
     OBTENER_SUBGIROS,
     OBTENER_DOMICILIO_PRINCIPAL,
     OBTENER_DOMICILIO,
-    /** WS Transaccional**/
+    /**
+     * WS Transaccional
+     **/
     ASIGNAR_CUENTA_DISPONIBLE,
     ASIGNAR_NIP,
     ASOCIAR_TARJETA_CUENTA,
@@ -57,7 +59,9 @@ public enum WebService {
     OBTENER_ESTATUS_TARJETA,
     CONSULTAR_SALDO_ADQ,
     ENVIAR_TICKET_TAEPDS,
-    /** WS Adquiriente**/
+    /**
+     * WS Adquiriente
+     **/
     LOGIN_ADQ,
     REGISTRO_DONGLE,
     REGISTRA_NIP,
@@ -73,9 +77,13 @@ public enum WebService {
     CONSULTA_MOVIMIENTOS_MES_ADQ,
     CONSULTA_SALDO_CUPO,
     CANCELA_TRANSACTION_EMV_DEPOSIT,
-    /**Servicio para crer usuario**/
+    /**
+     * Servicio para crer usuario
+     **/
     CREAR_USUARIO_COMPLETO,
-    /**Servicio para crer usuario**/
+    /**
+     * Servicio para crer usuario
+     **/
     DESASOCIAR_DISPOSITIVO
 
 }

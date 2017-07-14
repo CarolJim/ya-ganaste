@@ -13,51 +13,26 @@ public class Recursos {
     public static final String DATABASE_NAME = "";
 
     public static final int TIMEOUT = 60000;
-
-    //URL DE WS
-    static {
-        if (DEBUG) {
-            URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
-            URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
-            URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc";
-            //URL_SERVER_ADQ = "http://10.10.45.18:7777/Middleware.svc";
-
-
-        } else {
-            URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
-            URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
-            URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc";
-        }
-    }
-
-	/*Estatus Respuesta de Ws YaGanaste*/
-
     //MAPS
     public final static int ZoomMap = 16;
+
+	/*Estatus Respuesta de Ws YaGanaste*/
     public static final int CODE_OK = 0;
     public static final int CODE_SESSION_EXPIRED = 16;
-
     public static final String CODE_ADQ_OK = "00";
     public static final int ERROR_LOGIN = 91;
     public static final int CODE_OFFLINE = -1;
     public static final int INVALID_TOKEN = 3001;
     public static final int INCORRECT_FORMAT = -2;
     public static final int DEVICE_ALREADY_ASSIGNED = 224;
-
     /*WS Adq*/
     public static final String ADQ_CODE_OK = "00";
     public static final String ADQ_ACCES_DENIED = "3001";
     public static final int ADQ_TRANSACTION_APROVE = 0;
     public static final int ADQ_TRANSACTION_ERROR = 1;
-
     /*Preferencias de Sesion*/
     public static final String CODE_ACTIVATION_FREJA = "CODEACTIVATIONFREJA";
-    public static String COUCHMARK_EMISOR = "COUCHMARKEMISOR";
-    public static String COUCHMARK_ADQ = "COUCHMARKADQ";
-    public static String CRC32_FREJA = "CRC32FREJA";
-    public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
     public static final String ADQ_PROCESS = "FLAG_PROCESS";
-
     /**
      * Catálogos
      **/
@@ -75,13 +50,10 @@ public class Recursos {
     public static final int CRM_PENDIENTE = 1;
     public static final int CRM_DOCTO_APROBADO = 2;
     public static final int CRM_DOCTO_RECHAZADO = 3;
-
     public static final int DOC_ID_FRONT = 5;
     public static final int DOC_ID_BACK = 6;
     public static final int DOC_DOM_FRONT = 7;
     public static final int DOC_DOM_BACK = 30;
-
-
     public static final int STATUS_DOCTO_ACTUALIZADO = 5;
     public static final int STATUS_DOCTO_RECHAZADO = 3;
     public static final int STATUS_DOCTO_APROBADO = 2;
@@ -106,21 +78,17 @@ public class Recursos {
     public static final int PREGUNTA_FAMILIAR = 4;
     public static final int PREGUNTA_DOMICILIO = 5;
     public static final int PREGUNTA_BENEFICIARIOS = 6;
-
-
     //Constantes
     public static final String CARD_PAY = "PAGO CON TARJETA";
-
-
-	/* Codigos de Acciones*/
-
     public static final int NO_ACTION = -2;
     public static final int GO_LOGIN = -3;
-
     /*Adq / Dongle*/
     public static final int ENCENDIENDO = 100;
     public static final int ENCENDIDO = 110;
     public static final int APAGANDO = 120;
+
+
+	/* Codigos de Acciones*/
     public static final int APAGADO = 130;
     public static final int DESCONECTADO = 140;
     public static final int LEYENDO = 150;
@@ -142,11 +110,9 @@ public class Recursos {
     public static final int REQUEST_FINAL_CONFIRM = 310;
     public static final int REQUEST_PIN = 320;
     public static final int REQUEST_SELECT_APP = 330;
-
     public static final String TRANSACTION_SEQUENCE = "TRANSACTION_SEQUENCE";
     public static final String IPOS_READER_STATES = "EMVSWIPE_STATES";
     public static final int READER_TRANSACTION = 0x31;
-
     public static final String MSJ = "MSJ";
     public static final String ESTADO = "ESTADO";
     public static final String VALOR = "VALOR";
@@ -157,17 +123,35 @@ public class Recursos {
     public static final String BATTERY_LEVEL = "BATTERY_LEVEL";
     public static final String READER_IS_CHARGING = "READER_IS_CHARGING";
     public static final String KSN_LECTOR = "KSN_LECTOR";
-
     /*Url Legales*/
     public static final String URL_LEGALES_TERMINOS = "https://www.yaganaste.com/#";
     public static final String URL_LEGALES_PRIVACIDAD = "http://www.movistar.com.mx/terminos-y-condiciones";
     public static final String PUBLIC_KEY_RSA = "rk2QHAmXByr9wIf6d1cgU+f9NtKvj2xWvRv2wUcZSMVvhfTkcoWLG/CxEK+weoS3QcxxEWKFrWgwhYABXpkGhlXiqH7GyRIhv2kQtuZlGJJSIExd2asJrtjDnfStu7ZKbdIpLzqFUfo8naDhCuQTzhyApyJQ9HDcOSTFuRhJ7Mz3gXwUXqr98i+he+iYCzyrMViP+o4UPUqfNcpSafUw4NYre9KEZoHMaKcPMR4bMjax3Payt9LDAU3KgBOnWS9Ga6WffE03tpAWqE3ape61CmPw5QKPgRNKSnV70wu7f02jmstEepM35aSf3gL9SKMUv3DkwYIpifhNYPbdKCh+BQ==";
     public static final String DEFAULT_CARD = "5389 84";
-
     /*
     Var para controlar los mensajes de session del servicio, se tiene una variacion porque tenemos un error de ortografia
      */
     public static final String MESSAGE_OPEN_SESSION = "Por Favor Inicia Sesión";
     public static final String MESSAGE_OPEN_SESSION2 = "Por favor inicia sesión";
+    public static String COUCHMARK_EMISOR = "COUCHMARKEMISOR";
+    public static String COUCHMARK_ADQ = "COUCHMARKADQ";
+    public static String CRC32_FREJA = "CRC32FREJA";
+    public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
+
+    //URL DE WS
+    static {
+        if (DEBUG) {
+            URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
+            URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
+            URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc";
+            //URL_SERVER_ADQ = "http://10.10.45.18:7777/Middleware.svc";
+
+
+        } else {
+            URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
+            URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
+            URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc";
+        }
+    }
 
 }

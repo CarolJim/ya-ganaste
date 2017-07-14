@@ -25,4 +25,5 @@ public class CustomCharacterSpan extends MetricAffectingSpan {
     @Override
     public void updateMeasureState(TextPaint paint) {
         paint.baselineShift += (int) (paint.ascent() * ratio);
-    }}
+    }
+}

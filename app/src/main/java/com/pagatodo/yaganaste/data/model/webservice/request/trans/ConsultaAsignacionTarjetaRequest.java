@@ -6,14 +6,14 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class ConsultaAsignacionTarjetaRequest implements Serializable{
+public class ConsultaAsignacionTarjetaRequest implements Serializable {
     private String NumeroTarjeta = "";
 
     public ConsultaAsignacionTarjetaRequest() {
     }
 
     public ConsultaAsignacionTarjetaRequest(String numeroTarjeta) {
-        NumeroTarjeta = numeroTarjeta.replace(" ","");
+        NumeroTarjeta = numeroTarjeta.replace(" ", "");
     }
 
     public String getNumeroTarjeta() {

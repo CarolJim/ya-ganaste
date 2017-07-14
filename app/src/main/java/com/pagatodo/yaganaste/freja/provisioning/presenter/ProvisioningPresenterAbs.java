@@ -2,11 +2,11 @@ package com.pagatodo.yaganaste.freja.provisioning.presenter;
 
 import android.content.Context;
 
-import java.util.concurrent.Executors;
-
 import com.pagatodo.yaganaste.freja.provisioning.iteractor.ProvisioningIteractor;
 import com.pagatodo.yaganaste.freja.provisioning.iteractor.ProvisioningIteractorImp;
 import com.pagatodo.yaganaste.freja.provisioning.manager.ProvisioningManager;
+
+import java.util.concurrent.Executors;
 
 /**
  * @author Juan Guerra on 31/03/2017.

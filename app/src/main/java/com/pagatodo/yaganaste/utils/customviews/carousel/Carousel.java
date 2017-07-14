@@ -32,60 +32,125 @@ import java.util.Comparator;
  */
 public class Carousel extends CarouselSpinner implements GestureDetector.OnGestureListener {
 
-    private long mLastEventTime = 0;
-    // Static private members
-
     /**
      * Tag for a class logging
      */
     private static final String TAG = Carousel.class.getSimpleName();
-
+    // Static private members
     /**
      * If logging should be inside class
      */
     private static final boolean localLOGV = false;
-
     /**
      * Default min quantity of images
      */
     private static final int MIN_QUANTITY = 3;
-
     /**
      * Default max quantity of images
      */
     private static final int MAX_QUANTITY = 12;
-
     /**
      * Max theta
      */
     private static final float MAX_THETA = 25.0f;
-
     /**
      * Duration in milliseconds from the start of a scroll during which we're
      * unsure whether the user is scrolling or flinging.
      */
     //private static final int SCROLL_TO_FLING_UNCERTAINTY_TIMEOUT = 250;
     private static final int SCROLL_TO_FLING_UNCERTAINTY_TIMEOUT = 150;
+    private static ArrayList<CarouselItem> OriginalmImages;
 
     // Private members
-
+    public boolean isDraggin = false;
+    public boolean isScrolling = false;
+    int lastMeasureHeigth = 0;
+    int lastMeasureWidth = 0;
+    private long mLastEventTime = 0;
     /**
      * The info for adapter context menu
      */
     private AdapterContextMenuInfo mContextMenuInfo;
-
     /**
      * How long the transition animation should run when a child view changes
      * position, measured in milliseconds.
      */
     //private int mAnimationDuration = 200;
     private int mAnimationDuration = 1000;
-
     /**
      * Camera to make 3D rotation
      */
     private Camera mCamera = new Camera();
-
+    /**
+     * The position of the item that received the user's down touch.
+     */
+    private int mDownTouchPosition;
+    /**
+     * The view of the item that received the user's down touch.
+     */
+    private View mDownTouchView;
+    /**
+     * Executes the delta rotations from a fling or scroll movement.
+     */
+    private FlingRotateRunnable mFlingRunnable = new FlingRotateRunnable();
+    /**
+     * Helper for detecting touch gestures.
+     */
+    private GestureDetector mGestureDetector;
+    /**
+     * Gravity for the widget
+     */
+    private int mGravity;
+    /**
+     * If true, this onScroll is the first for this user's drag (remember, a
+     * drag sends many onScrolls).
+     */
+    private boolean mIsFirstScroll;
+    /**
+     * Set max qantity of images
+     */
+    private int mMaxQuantity = MAX_QUANTITY;
+    /**
+     * Set min quantity of images
+     */
+    private int mMinQuantity = MIN_QUANTITY;
+    /**
+     * If true, we have received the "invoke" (center or enter buttons) key
+     * down. This is checked before we action on the "invoke" key up, and is
+     * subsequently cleared.
+     */
+    private boolean mReceivedInvokeKeyDown;
+    /**
+     * The currently selected item's child.
+     */
+    private View mSelectedChild;
+    /**
+     * Whether to continuously callback on the item selected listener during a
+     * fling.
+     */
+    private boolean mShouldCallbackDuringFling = true;
+    /**
+     * Whether to callback when an item that is not selected is clicked.
+     */
+    private boolean mShouldCallbackOnUnselectedItemClick = true;
+    /**
+     * When fling runnable runs, it resets this to false. Any method along the
+     * path until the end of its run() can set this to true to abort any
+     * remaining fling. For example, if we've reached either the leftmost or
+     * rightmost item, we will set this to true.
+     */
+    private boolean mShouldStopFling;
+    /**
+     * If true, do not callback to item selected listener.
+     */
+    private boolean mSuppressSelectionChanged;
+    /**
+     * The axe angle
+     */
+    private float mTheta = (float) (90.0f * (Math.PI / 180.0));
+    private boolean hasScrolled = false;
+    private boolean isStoped = true;
+    // Constructors
     /**
      * Sets mSuppressSelectionChanged = false. This is used to set it to false
      * in the future. It will also trigger a selection changed.
@@ -96,102 +161,23 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
             selectionChanged();
         }
     };
-
     /**
-     * The position of the item that received the user's down touch.
+     * Tracks a motion scroll. In reality, this is used to do just about any
+     * movement to items (touch scroll, arrow-key scroll, set an item as selected).
+     *
+     * @param deltaAngle Change in X from the previous event.
      */
-    private int mDownTouchPosition;
 
-    /**
-     * The view of the item that received the user's down touch.
-     */
-    private View mDownTouchView;
-
-    /**
-     * Executes the delta rotations from a fling or scroll movement.
-     */
-    private FlingRotateRunnable mFlingRunnable = new FlingRotateRunnable();
-
-    /**
-     * Helper for detecting touch gestures.
-     */
-    private GestureDetector mGestureDetector;
-
-    /**
-     * Gravity for the widget
-     */
-    private int mGravity;
-
-    /**
-     * If true, this onScroll is the first for this user's drag (remember, a
-     * drag sends many onScrolls).
-     */
-    private boolean mIsFirstScroll;
-
-    /**
-     * Set max qantity of images
-     */
-    private int mMaxQuantity = MAX_QUANTITY;
-
-    /**
-     * Set min quantity of images
-     */
-    private int mMinQuantity = MIN_QUANTITY;
-
-    /**
-     * If true, we have received the "invoke" (center or enter buttons) key
-     * down. This is checked before we action on the "invoke" key up, and is
-     * subsequently cleared.
-     */
-    private boolean mReceivedInvokeKeyDown;
-
-    /**
-     * The currently selected item's child.
-     */
-    private View mSelectedChild;
-
-
-    /**
-     * Whether to continuously callback on the item selected listener during a
-     * fling.
-     */
-    private boolean mShouldCallbackDuringFling = true;
-
-    /**
-     * Whether to callback when an item that is not selected is clicked.
-     */
-    private boolean mShouldCallbackOnUnselectedItemClick = true;
-
-    /**
-     * When fling runnable runs, it resets this to false. Any method along the
-     * path until the end of its run() can set this to true to abort any
-     * remaining fling. For example, if we've reached either the leftmost or
-     * rightmost item, we will set this to true.
-     */
-    private boolean mShouldStopFling;
-
-    /**
-     * If true, do not callback to item selected listener.
-     */
-    private boolean mSuppressSelectionChanged;
-
-    /**
-     * The axe angle
-     */
-    private float mTheta = (float) (90.0f * (Math.PI / 180.0));
-    private static ArrayList<CarouselItem> OriginalmImages;
-    private boolean hasScrolled = false;
-    int lastMeasureHeigth = 0;
-    int lastMeasureWidth = 0;
-    public boolean isDraggin = false;
-    public boolean isScrolling = false;
-    // Constructors
-
-    private boolean isStoped = true;
+    private int lastIndexVisible = 4;
+    private int firstIndexVisible = 0;
 
     public Carousel(Context context) {
         this(context, null);
     }
+
+    // View overrides
+
+    // These are for use with horizontal scrollbar
 
     public Carousel(Context context, AttributeSet attrs) {
         this(context, attrs, 0);
@@ -218,9 +204,12 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
     }
 
-    // View overrides
-
-    // These are for use with horizontal scrollbar
+    /**
+     * @return The center of the given view.
+     */
+    private static int getCenterOfView(View view) {
+        return view.getLeft() + view.getWidth() / 2;
+    }
 
     /**
      * Compute the horizontal extent of the horizontal scrollbar's thumb
@@ -298,6 +287,8 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         return false;
     }
 
+    // ViewGroup overrides
+
     /**
      * Handles left, right, and clicking
      *
@@ -365,7 +356,7 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
     @Override
     protected void onFocusChanged(boolean gainFocus, int direction, Rect previouslyFocusedRect) {
         super.onFocusChanged(gainFocus, direction, previouslyFocusedRect);
-        
+
         /*
          * The gallery shows focus by focusing the selected item. So, give
          * focus to our selected item instead. We steal keys from our
@@ -376,8 +367,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         }
 
     }
-
-    // ViewGroup overrides
 
     @Override
     protected boolean checkLayoutParams(LayoutParams p) {
@@ -424,6 +413,7 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         return dispatchLongPress(originalView, longPressPosition, longPressId);
     }
 
+    // CarouselAdapter overrides
 
     @Override
     public boolean dispatchKeyEvent(KeyEvent event) {
@@ -507,8 +497,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         return true;
     }
 
-    // CarouselAdapter overrides
-
     /**
      * Setting up images
      */
@@ -575,6 +563,9 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
     }
 
+
+    // Rotation class for the Carousel
+
     /**
      * Setting up images after layout changed
      */
@@ -592,6 +583,8 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         mInLayout = false;
     }
 
+    // Image adapter class for the Carousel
+
     /*TODO Metodo se ejecuta al finalizar la seleccion*/
     @Override
     void selectionChanged() {
@@ -601,6 +594,8 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         }
     }
 
+    // OnGestureListener implementation
+
     @Override
     void setSelectedPositionInt(int position) {
         super.setSelectedPositionInt(position);
@@ -608,168 +603,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         // Updates any metadata we keep about the selected item.
         updateSelectedItemMetadata();
     }
-
-
-    // Rotation class for the Carousel
-
-    private class FlingRotateRunnable implements Runnable {
-
-        /**
-         * Tracks the decay of a fling rotation
-         */
-        private Rotator mRotator;
-
-        /**
-         * Angle value reported by mRotator on the previous fling
-         */
-        private float mLastFlingAngle;
-
-        /**
-         * Constructor
-         */
-        public FlingRotateRunnable() {
-            mRotator = new Rotator(getContext());
-        }
-
-        private void startCommon() {
-            // Remove any pending flings
-            removeCallbacks(this);
-        }
-
-        public void startUsingVelocity(float initialVelocity) {
-            if (initialVelocity == 0) return;
-
-            startCommon();
-
-            mLastFlingAngle = 0.0f;
-
-            mRotator.fling(initialVelocity);
-
-            post(this);
-        }
-
-
-        public void startUsingDistance(float deltaAngle) {
-            if (deltaAngle == 0) return;
-
-            startCommon();
-
-            mLastFlingAngle = 0;
-            synchronized (this) {
-               // mRotator.startRotate(0.0f, -deltaAngle, mAnimationDuration);
-                //mRotator.startRotate(0.0f, -deltaAngle, 100);
-                mRotator.startRotate(0.0f, -deltaAngle,50);
-                //mRotator.forceFinished(true);
-            }
-            post(this);
-        }
-
-        public void stop(boolean scrollIntoSlots) {
-            removeCallbacks(this);
-            endFling(scrollIntoSlots);
-        }
-
-        private void endFling(boolean scrollIntoSlots) {
-            /*
-             * Force the scroller's status to finished (without setting its
-             * position to the end)
-             */
-            synchronized (this) {
-                mRotator.forceFinished(true);
-            }
-
-            if (scrollIntoSlots) scrollIntoSlots();
-        }
-
-        public void run() {
-            if (Carousel.this.getChildCount() == 0) {
-                endFling(true);
-                return;
-            }
-
-            mShouldStopFling = false;
-
-            final Rotator rotator;
-            final float angle;
-            boolean more;
-            synchronized (this) {
-                rotator = mRotator;
-                more = rotator.computeAngleOffset();
-                angle = rotator.getCurrAngle();
-            }
-
-
-            // Flip sign to convert finger direction to list items direction
-            // (e.g. finger moving down means list is moving towards the top)
-            float delta = mLastFlingAngle - angle;
-
-            //////// Shoud be reworked
-            trackMotionScroll(delta);
-
-            if (more && !mShouldStopFling) {
-                mLastFlingAngle = angle;
-                post(this);
-            } else {
-                mLastFlingAngle = 0.0f;
-                endFling(true);
-            }
-
-        }
-
-    }
-
-    // Image adapter class for the Carousel
-
-    public static class ImageAdapter extends BaseAdapter {
-
-        private Context mContext;
-        private ArrayList<CarouselItem> mImages;
-
-
-        public ImageAdapter(Context c, ArrayList<CarouselItem> _mImages) {
-
-            OriginalmImages = _mImages;
-            mImages = _mImages;
-
-            mContext = c;
-            for (int i = 0; i < _mImages.size(); i++) {
-
-                mImages.get(i).setIndex(i);
-            }
-
-
-        }
-
-
-        public int getCount() {
-            if (mImages == null)
-                return 0;
-            else
-                return mImages.size();
-        }
-
-        public Object getItem(int position) {
-            if (position >= mImages.size()) {
-                return new CarouselItem(mContext);
-            } else{
-                return mImages.get(position);
-            }
-        }
-
-        public long getItemId(int position) {
-            return mImages.get(position).getId();
-        }
-
-        public View getView(int position, View convertView, ViewGroup parent) {
-            if (position >= mImages.size())
-                return new CarouselItem(mContext);
-            else
-                return mImages.get(position);
-        }
-
-    }
-
-    // OnGestureListener implementation
 
     public boolean onDown(MotionEvent e) {
         // Kill any existing fling/scroll
@@ -810,7 +643,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         return true;
     }
 
-
     public void onLongPress(MotionEvent e) {
 
         if (mDownTouchPosition < 0) {
@@ -822,7 +654,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         dispatchLongPress(mDownTouchView, mDownTouchPosition, id);
 
     }
-
 
     public void onStopDraggin() {
         isDraggin = false;
@@ -854,21 +685,21 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         if (isDraggin)
             return false;
 
-        float offsetTop = lastMeasureHeigth/2.0f ;
-        float offsetBottom = lastMeasureHeigth/1.5f;
-        float offsetLeft = (getWidth() / 2) - lastMeasureWidth/1.8f;
-        float offsetRight = (getWidth() / 2) + lastMeasureWidth/1.8f;
-        boolean heightSelectedArea =  ((e2.getY() > 0 && e2.getY() < offsetTop));
+        float offsetTop = lastMeasureHeigth / 2.0f;
+        float offsetBottom = lastMeasureHeigth / 1.5f;
+        float offsetLeft = (getWidth() / 2) - lastMeasureWidth / 1.8f;
+        float offsetRight = (getWidth() / 2) + lastMeasureWidth / 1.8f;
+        boolean heightSelectedArea = ((e2.getY() > 0 && e2.getY() < offsetTop));
         //boolean heightSelectedArea =  ((e2.getY() > 0 && e2.getY() < offsetTop) || (e2.getY() > offsetBottom && e2.getY() < lastMeasureHeigth ));
-        boolean widthSelectedArea =  ((e2.getX() > offsetLeft && e2.getX() < offsetRight ));
+        boolean widthSelectedArea = ((e2.getX() > offsetLeft && e2.getX() < offsetRight));
         //boolean isHorizontalMovement = (y - e2.getY()) < lastMeasureHeigth/8.0f;
         boolean isVerticalMovement = y > e2.getY();
-        float tanAngle = (e2.getY()-y)/ (e2.getX()- x);
+        float tanAngle = (e2.getY() - y) / (e2.getX() - x);
         double angleMovement = Math.toDegrees(Math.atan(tanAngle));
-        angleMovement = angleMovement < 0 ? -1*angleMovement : angleMovement;
+        angleMovement = angleMovement < 0 ? -1 * angleMovement : angleMovement;
 
-        if ( isStoped && mOnDragListener != null  && (y > 0 && y < (lastMeasureHeigth + (lastMeasureHeigth/4)) && x > offsetLeft &&
-                        x < offsetRight && !isDraggin) &&  (e2.getAction() == MotionEvent.ACTION_MOVE ) && isVerticalMovement && angleMovement>30 &&
+        if (isStoped && mOnDragListener != null && (y > 0 && y < (lastMeasureHeigth + (lastMeasureHeigth / 4)) && x > offsetLeft &&
+                x < offsetRight && !isDraggin) && (e2.getAction() == MotionEvent.ACTION_MOVE) && isVerticalMovement && angleMovement > 30 &&
                 heightSelectedArea && widthSelectedArea && !isScrolling) {
         /*if (mOnDragListener != null && (distanceX < 35 && distanceX > -35) &&
                 (y > 0 && y < ((lastMeasureHeigth)) && x > ((getWidth() / 2) - lastMeasureWidth / 2) &&
@@ -899,7 +730,7 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
             return false;
         }
 
-        if (y > (lastMeasureHeigth/4) && y < (getHeight()- (getHeight()/3))) {
+        if (y > (lastMeasureHeigth / 4) && y < (getHeight() - (getHeight() / 3))) {
 
             isScrolling = true;
             getParent().requestDisallowInterceptTouchEvent(true);
@@ -935,9 +766,8 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
         isStoped = false;
 
-      return false;
+        return false;
     }
-
 
     public boolean onSingleTapUp(MotionEvent e) {
         if (mDownTouchPosition >= 0) {
@@ -958,11 +788,9 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         return false;
     }
 
-
     ///// Unused gestures
     public void onShowPress(MotionEvent e) {
     }
-
 
     private void Calculate3DPosition(CarouselItem child, int diameter, float angleOffset) {
 
@@ -979,7 +807,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
 
     }
-
 
     /**
      * Figure out vertical placement based on mGravity
@@ -1055,14 +882,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         return (getWidth() - Carousel.this.getPaddingLeft() - Carousel.this.getPaddingRight()) / 2 +
                 Carousel.this.getPaddingLeft();
     }
-
-    /**
-     * @return The center of the given view.
-     */
-    private static int getCenterOfView(View view) {
-        return view.getLeft() + view.getWidth() / 2;
-    }
-
 
     float getLimitedMotionScrollAmount(boolean motionToLeft, float deltaX) {
         int extremeItemPosition = motionToLeft ? Carousel.this.getCount() - 1 : 0;
@@ -1323,13 +1142,13 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
      * Helper for makeAndAddView to set the position of a view and fill out its
      * layout paramters.
      *
-     * @param child    The view to position
-     * @param angleOffset   Offset from the selected position
-     * @param lastMeasureHeigth        X-coordintate indicating where this view should be placed. This
-     *                 will either be the left or right edge of the view, depending on
-     *                 the fromLeft paramter
-     * @param lastMeasureWidth Are we posiitoning views based on the left edge? (i.e.,
-     *                 building from left to right)?
+     * @param child             The view to position
+     * @param angleOffset       Offset from the selected position
+     * @param lastMeasureHeigth X-coordintate indicating where this view should be placed. This
+     *                          will either be the left or right edge of the view, depending on
+     *                          the fromLeft paramter
+     * @param lastMeasureWidth  Are we posiitoning views based on the left edge? (i.e.,
+     *                          building from left to right)?
      */
     private void setUpChild(CarouselItem child, int index, float angleOffset,
                             int lastMeasureHeigth,
@@ -1383,16 +1202,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         Calculate3DPosition(child, d, angleOffset);
 
     }
-
-    /**
-     * Tracks a motion scroll. In reality, this is used to do just about any
-     * movement to items (touch scroll, arrow-key scroll, set an item as selected).
-     *
-     * @param deltaAngle Change in X from the previous event.
-     */
-
-    private int lastIndexVisible = 4;
-    private int firstIndexVisible = 0;
 
     synchronized void trackMotionScroll(float deltaAngle) {
 
@@ -1588,6 +1397,161 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
             // Make sure it is not focusable anymore, since otherwise arrow keys
             // can make this one be focused
             oldSelectedChild.setFocusable(false);
+        }
+
+    }
+
+    public static class ImageAdapter extends BaseAdapter {
+
+        private Context mContext;
+        private ArrayList<CarouselItem> mImages;
+
+
+        public ImageAdapter(Context c, ArrayList<CarouselItem> _mImages) {
+
+            OriginalmImages = _mImages;
+            mImages = _mImages;
+
+            mContext = c;
+            for (int i = 0; i < _mImages.size(); i++) {
+
+                mImages.get(i).setIndex(i);
+            }
+
+
+        }
+
+
+        public int getCount() {
+            if (mImages == null)
+                return 0;
+            else
+                return mImages.size();
+        }
+
+        public Object getItem(int position) {
+            if (position >= mImages.size()) {
+                return new CarouselItem(mContext);
+            } else {
+                return mImages.get(position);
+            }
+        }
+
+        public long getItemId(int position) {
+            return mImages.get(position).getId();
+        }
+
+        public View getView(int position, View convertView, ViewGroup parent) {
+            if (position >= mImages.size())
+                return new CarouselItem(mContext);
+            else
+                return mImages.get(position);
+        }
+
+    }
+
+    private class FlingRotateRunnable implements Runnable {
+
+        /**
+         * Tracks the decay of a fling rotation
+         */
+        private Rotator mRotator;
+
+        /**
+         * Angle value reported by mRotator on the previous fling
+         */
+        private float mLastFlingAngle;
+
+        /**
+         * Constructor
+         */
+        public FlingRotateRunnable() {
+            mRotator = new Rotator(getContext());
+        }
+
+        private void startCommon() {
+            // Remove any pending flings
+            removeCallbacks(this);
+        }
+
+        public void startUsingVelocity(float initialVelocity) {
+            if (initialVelocity == 0) return;
+
+            startCommon();
+
+            mLastFlingAngle = 0.0f;
+
+            mRotator.fling(initialVelocity);
+
+            post(this);
+        }
+
+
+        public void startUsingDistance(float deltaAngle) {
+            if (deltaAngle == 0) return;
+
+            startCommon();
+
+            mLastFlingAngle = 0;
+            synchronized (this) {
+                // mRotator.startRotate(0.0f, -deltaAngle, mAnimationDuration);
+                //mRotator.startRotate(0.0f, -deltaAngle, 100);
+                mRotator.startRotate(0.0f, -deltaAngle, 50);
+                //mRotator.forceFinished(true);
+            }
+            post(this);
+        }
+
+        public void stop(boolean scrollIntoSlots) {
+            removeCallbacks(this);
+            endFling(scrollIntoSlots);
+        }
+
+        private void endFling(boolean scrollIntoSlots) {
+            /*
+             * Force the scroller's status to finished (without setting its
+             * position to the end)
+             */
+            synchronized (this) {
+                mRotator.forceFinished(true);
+            }
+
+            if (scrollIntoSlots) scrollIntoSlots();
+        }
+
+        public void run() {
+            if (Carousel.this.getChildCount() == 0) {
+                endFling(true);
+                return;
+            }
+
+            mShouldStopFling = false;
+
+            final Rotator rotator;
+            final float angle;
+            boolean more;
+            synchronized (this) {
+                rotator = mRotator;
+                more = rotator.computeAngleOffset();
+                angle = rotator.getCurrAngle();
+            }
+
+
+            // Flip sign to convert finger direction to list items direction
+            // (e.g. finger moving down means list is moving towards the top)
+            float delta = mLastFlingAngle - angle;
+
+            //////// Shoud be reworked
+            trackMotionScroll(delta);
+
+            if (more && !mShouldStopFling) {
+                mLastFlingAngle = angle;
+                post(this);
+            } else {
+                mLastFlingAngle = 0.0f;
+                endFling(true);
+            }
+
         }
 
     }

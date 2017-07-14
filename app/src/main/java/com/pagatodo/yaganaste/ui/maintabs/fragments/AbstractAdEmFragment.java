@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
@@ -20,11 +19,8 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
-import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.TabPresenter;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.TabPresenterImpl;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericTabLayout;
 
@@ -40,27 +36,20 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         implements MovementsView<ItemRecycler, T>, SwipeRefreshLayout.OnRefreshListener,
         TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener {
 
-    private List<List<ItemRecycler>> movementsList;
-
-    private View rootView;
+    public static final int MOVEMENTS = 1;
+    public static final int PAYMENTS = 2;
     protected GenericTabLayout<T> tabMonths;
 
     protected MovementsPresenter<T> movementsPresenter;
-
+    private List<List<ItemRecycler>> movementsList;
+    private View rootView;
     private RecyclerView recyclerMovements;
     private TextView txtInfoMovements;
     private SwipeRefreshLayout swipeContainer;
-    public static final int MOVEMENTS = 1;
-    public static final int PAYMENTS = 2;
 
-
-    public interface UpdateBalanceCallback {
-        void onUpdateBalance();
-    }
-
-    public static AbstractAdEmFragment newInstance(int type){
+    public static AbstractAdEmFragment newInstance(int type) {
         AbstractAdEmFragment instance;
-        switch (type){
+        switch (type) {
             case MOVEMENTS:
                 instance = PersonalAccountFragment.newInstance();
                 break;
@@ -104,7 +93,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         swipeContainer.setOnRefreshListener(this);
         recyclerMovements.setLayoutManager(new LinearLayoutManager(getActivity()));
         recyclerMovements.setHasFixedSize(true);
-        this.tabMonths = (GenericTabLayout<T>)rootView.findViewById(R.id.tab_months);
+        this.tabMonths = (GenericTabLayout<T>) rootView.findViewById(R.id.tab_months);
         movementsPresenter.getPagerData(getTab());
     }
 
@@ -112,7 +101,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     public void loadViewPager(ViewPagerData<T> viewPagerData) {
         tabMonths.setUpWithoutViewPager(viewPagerData.getTabData());
         tabMonths.addOnTabSelectedListener(this);
-        for (int n = 0 ; n < tabMonths.getTabCount() ; n++){
+        for (int n = 0; n < tabMonths.getTabCount(); n++) {
             movementsList.add(null);
         }
         onTabLoaded();
@@ -120,7 +109,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void updateBalance() {
-        ((UpdateBalanceCallback)getParentFragment()).onUpdateBalance();
+        ((UpdateBalanceCallback) getParentFragment()).onUpdateBalance();
     }
 
     @Override
@@ -163,12 +152,12 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void onTabUnselected(TabLayout.Tab tab) {
-    //No-op
+        //No-op
     }
 
     @Override
     public void onTabReselected(TabLayout.Tab tab) {
-    //No-op
+        //No-op
     }
 
     @Override
@@ -195,6 +184,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     protected void notifyDataSetChanged() {
         recyclerMovements.getAdapter().notifyDataSetChanged();
+    }
+
+    public interface UpdateBalanceCallback {
+        void onUpdateBalance();
     }
 
 }

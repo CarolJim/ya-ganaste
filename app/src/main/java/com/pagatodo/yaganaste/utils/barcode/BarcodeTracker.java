@@ -13,10 +13,6 @@ public class BarcodeTracker extends Tracker<Barcode> {
 
     private BarcodeGraphicTrackerCallback mListener;
 
-    public interface BarcodeGraphicTrackerCallback {
-        void onDetectedQrCode(Barcode barcode);
-    }
-
     BarcodeTracker(Context listener) {
         mListener = (BarcodeGraphicTrackerCallback) listener;
     }
@@ -26,5 +22,9 @@ public class BarcodeTracker extends Tracker<Barcode> {
         if (item.displayValue != null) {
             mListener.onDetectedQrCode(item);
         }
+    }
+
+    public interface BarcodeGraphicTrackerCallback {
+        void onDetectedQrCode(Barcode barcode);
     }
 }

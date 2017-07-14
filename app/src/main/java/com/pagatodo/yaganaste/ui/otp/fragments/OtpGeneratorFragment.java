@@ -35,7 +35,7 @@ public class OtpGeneratorFragment extends GenericFragment implements View.OnClic
     private OtpPResenter otpPResenter;
 
 
-    public static OtpGeneratorFragment newInstance(){
+    public static OtpGeneratorFragment newInstance() {
         OtpGeneratorFragment homeTabFragment = new OtpGeneratorFragment();
         Bundle args = new Bundle();
         homeTabFragment.setArguments(args);
@@ -69,7 +69,7 @@ public class OtpGeneratorFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_continue:
                 onContinueClicked();
                 break;
@@ -96,7 +96,7 @@ public class OtpGeneratorFragment extends GenericFragment implements View.OnClic
     public void onOtpGenerated(String otp) {
         btnContinue.setEnabled(true);
         edtNipOtp.setText("");
-        getActivity().startActivityForResult(OtpCodeActivity.createIntent(getActivity(),otp),REQUESTCODE_OTP);
+        getActivity().startActivityForResult(OtpCodeActivity.createIntent(getActivity(), otp), REQUESTCODE_OTP);
 
     }
 }

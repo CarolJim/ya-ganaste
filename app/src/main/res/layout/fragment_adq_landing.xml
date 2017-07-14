@@ -15,6 +15,7 @@
         android:visibility="gone">
 
         <LinearLayout
+            android:id="@+id/linearLayout"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_alignParentEnd="true"
@@ -23,8 +24,7 @@
             android:layout_marginEnd="50dp"
             android:layout_marginRight="50dp"
             android:layout_marginTop="60dp"
-            android:orientation="vertical"
-            android:id="@+id/linearLayout">
+            android:orientation="vertical">
 
         </LinearLayout>
 
@@ -32,26 +32,26 @@
             android:id="@+id/text1"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
+            android:layout_alignTop="@+id/linearLayout"
+            android:layout_centerHorizontal="true"
             android:gravity="center"
             android:text="@string/landing_adq_saldo_reembolso"
             android:textColor="@color/whiteColor"
             android:textSize="@dimen/landing_text"
-            app:font_type="Bupkis"
-            android:layout_alignTop="@+id/linearLayout"
-            android:layout_centerHorizontal="true" />
+            app:font_type="Bupkis" />
 
         <ImageView
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:rotation="90"
-            android:padding="@dimen/margin_small"
-            android:src="@mipmap/flecha_couchmark"
-            android:layout_marginTop="34dp"
             android:layout_alignParentTop="true"
+            android:layout_gravity="center"
+            android:layout_marginTop="34dp"
+            android:layout_toEndOf="@+id/text1"
             android:layout_toRightOf="@+id/text1"
-            android:layout_toEndOf="@+id/text1" />
+            android:padding="@dimen/margin_small"
+            android:rotation="90"
+            android:src="@mipmap/flecha_couchmark" />
 
 
     </RelativeLayout>

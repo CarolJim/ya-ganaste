@@ -132,9 +132,9 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleButton
                         android:id="@+id/btnClear"
-                        android:text="Limpiar"
                         style="@style/AppButton"
                         android:background="@drawable/button_rounded_transparent"
+                        android:text="Limpiar"
                         android:textColor="@color/whiteColor" />
 
                     <View

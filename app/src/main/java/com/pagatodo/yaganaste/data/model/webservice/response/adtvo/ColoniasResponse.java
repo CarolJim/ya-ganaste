@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class ColoniasResponse implements Serializable{
+public class ColoniasResponse implements Serializable {
 
     private String ColoniaId;
     private String Colonia = "";
@@ -14,7 +14,6 @@ public class ColoniasResponse implements Serializable{
     private String Municipio = "";
     private String IdEstado = "";
     private String Estado = "";
-
 
 
     public ColoniasResponse() {

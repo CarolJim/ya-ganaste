@@ -6,16 +6,17 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class EstatusDocumentosResponse implements Serializable{
+public class EstatusDocumentosResponse implements Serializable {
 
     private int TipoDocumento;
     private String Estatus = "";
     private String Comentario = "";
     private int IdEstatus;
-    private String Motivo ="";
+    private String Motivo = "";
 
     public EstatusDocumentosResponse() {
     }
+
     public int getTipoDocumento() {
         return TipoDocumento;
     }

@@ -4,7 +4,6 @@ import android.Manifest;
 import android.content.pm.PackageManager;
 import android.location.Location;
 import android.os.Bundle;
-import android.os.PersistableBundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
@@ -28,8 +27,6 @@ public class ToolBarPositionActivity extends ToolBarActivity implements OnEventL
     private static final String LOCATION_KEY = "lastLocation";
     private GoogleApiClient mGoogleApiClient;
     private Location mLocation;
-    private double mLongitude;
-    private double mLatitude;
 
     private boolean mRequestingLocationUpdates = true;
 
@@ -66,8 +63,6 @@ public class ToolBarPositionActivity extends ToolBarActivity implements OnEventL
 
         if (mLastLocation != null) {
             mLocation = mLastLocation;
-            mLatitude = mLastLocation.getLatitude();
-            mLongitude = mLastLocation.getLongitude();
         }
 
         if (mRequestingLocationUpdates) {
@@ -103,10 +98,10 @@ public class ToolBarPositionActivity extends ToolBarActivity implements OnEventL
     }
 
     protected void startLocationUpdates() {
-         if(ActivityCompat.checkSelfPermission(this,
+        if (ActivityCompat.checkSelfPermission(this,
                 Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED
                 && ActivityCompat.checkSelfPermission(this,
-                    Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+                Manifest.permission.ACCESS_COARSE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
             // TODO: Consider calling
             //    ActivityCompat#requestPermissions
             // here to request the missing permissions, and then overriding
@@ -117,7 +112,7 @@ public class ToolBarPositionActivity extends ToolBarActivity implements OnEventL
             return;
         }
 
-        if(mLocation == null) {
+        if (mLocation == null) {
             LocationRequest mLocationRequest = new LocationRequest();
             mLocationRequest.setInterval(10000);
             LocationServices.FusedLocationApi.requestLocationUpdates(
@@ -128,14 +123,12 @@ public class ToolBarPositionActivity extends ToolBarActivity implements OnEventL
     @Override
     public void onLocationChanged(Location location) {
         mLocation = location;
-        mLatitude = location.getLatitude();
-        mLongitude = location.getLongitude();
     }
 
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         outState.putBoolean(REQUESTING_LOCATION_UPDATES_KEY, mRequestingLocationUpdates);
-        outState.putParcelable(LOCATION_KEY, mLocation);;
+        outState.putParcelable(LOCATION_KEY, mLocation);
         super.onSaveInstanceState(outState);
     }
 

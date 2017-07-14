@@ -427,8 +427,6 @@
     </style>
 
 
-
-
     <!-- Genericos para los campos de CustomValidationEditText en todos los fotmulrios-->
     <style name="GenericCustomValidationEditText">
         <item name="android:textColorHint">@color/textColorAlternative</item>

@@ -35,8 +35,6 @@ import butterknife.ButterKnife;
 
 public class DetailsEmisorFragment extends GenericFragment implements View.OnClickListener {
 
-    private View rootView;
-
     @BindView(R.id.layout_movement_type_color)
     View layoutMovementTypeColor;
     @BindView(R.id.txt_item_mov_date)
@@ -49,10 +47,8 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     TextView txtMarca;
     @BindView(R.id.txt_monto)
     MontoTextView txtMonto;
-
     @BindView(R.id.imageDetail)
     ImageView imageDetail;
-
     @BindView(R.id.txtMontoDescripcion)
     MontoTextView txtMontoDescripcion;
     @BindView(R.id.txtRefernciaDescripcion)
@@ -67,8 +63,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     TextView txtAutorizacionDescripcion;
     @BindView(R.id.txtReciboDescripcion)
     TextView txtReciboDescripcion;
-
-
     @BindView(R.id.layoutComision)
     LinearLayout layoutComision;
     @BindView(R.id.txtComisionDescripcion)
@@ -81,16 +75,13 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     LinearLayout layoutConcepto;
     @BindView(R.id.layoutRecibo)
     LinearLayout layoutRecibo;
-
     @BindView(R.id.txtReferenciaTitle)
     TextView txtReferenciaTitle;
-
     @BindView(R.id.btn_cancel)
     Button btnCancel;
     @BindView(R.id.btn_volver)
     Button btnVolver;
-
-
+    private View rootView;
     private MovimientosResponse movimientosResponse;
 
 

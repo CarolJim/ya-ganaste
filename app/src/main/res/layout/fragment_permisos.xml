@@ -14,54 +14,57 @@
     <include
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/toolbarLy">
 
-    <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="@dimen/margin_big"
-        android:layout_marginRight="@dimen/margin_big" style="@style/GenericBorderTitleStyle"
-        android:layout_marginTop="@dimen/margin_big"
-        android:gravity="center"
-        app:title="Activar Permisos">
-
-        <com.pagatodo.yaganaste.utils.customviews.StyleButton
-            android:id="@+id/btnPermissions"
-            android:layout_centerInParent="true"
+        <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+            style="@style/GenericBorderTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/margin_medium" style="@style/generic_text_style_2"
-            android:layout_marginTop="@dimen/margin_doble"
-            android:layout_marginBottom="@dimen/margin_doble"
-            android:background="@android:color/transparent"
-            android:text="Activar Servicios" />
+            android:layout_marginLeft="@dimen/margin_big"
+            android:layout_marginRight="@dimen/margin_big"
+            android:layout_marginTop="@dimen/margin_big"
+            android:gravity="center"
+            app:title="Activar Permisos">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnPermissions"
+                style="@style/generic_text_style_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:layout_marginBottom="@dimen/margin_doble"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_medium"
+                android:layout_marginTop="@dimen/margin_doble"
+                android:background="@android:color/transparent"
+                android:text="Activar Servicios" />
 
 
-    </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+        </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
-    <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
-        android:orientation="horizontal">
-
-        <com.pagatodo.yaganaste.utils.customviews.StyleButton
-            android:id="@+id/btnNextPermisos"
-            android:layout_width="wrap_content"
+        <RelativeLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_centerInParent="true"
-            android:backgroundTint="@color/colorAccent"
-            android:text="@string/next"
-            android:textSize="@dimen/generic_button_normal_text_size"/>
-    </RelativeLayout>
+            android:layout_alignParentBottom="true"
+            android:layout_marginLeft="@dimen/margin_medium"
+            android:layout_marginRight="@dimen/margin_medium"
+            android:orientation="horizontal">
 
-</RelativeLayout>
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnNextPermisos"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_centerInParent="true"
+                android:backgroundTint="@color/colorAccent"
+                android:text="@string/next"
+                android:textSize="@dimen/generic_button_normal_text_size" />
+        </RelativeLayout>
+
+    </RelativeLayout>
 
 
 </RelativeLayout>

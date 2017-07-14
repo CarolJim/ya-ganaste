@@ -6,9 +6,7 @@ package com.pagatodo.yaganaste.net;
  *
  * @author flima
  * @version 1.0
- * Invoker de servicios web .
- *
- *
+ *          Invoker de servicios web .
  */
 public interface IServiceConsumer {
 

@@ -1,7 +1,5 @@
 package com.pagatodo.yaganaste.freja.transactions.iteractor;
 
-import android.content.Context;
-
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.general.FmcIteractorImp;
 import com.pagatodo.yaganaste.freja.transactions.async.AproveTransactionRequest;
@@ -33,7 +31,7 @@ public class TransactionsIteractorImp extends FmcIteractorImp implements Transac
     @Override
     public void getTransactions() {
         GetTransactionListRequest asyncTask = new GetTransactionListRequest(fmcManager, this);
-        if (mExecutor == null){
+        if (mExecutor == null) {
             asyncTask.execute();
         } else {
             asyncTask.executeOnExecutor(mExecutor);
@@ -48,7 +46,7 @@ public class TransactionsIteractorImp extends FmcIteractorImp implements Transac
     @Override
     public void aproveTransaction(String idFreja, byte[] nip) {
         AproveTransactionRequest asyncTask = new AproveTransactionRequest(fmcManager, this, idFreja, nip);
-        if (mExecutor == null){
+        if (mExecutor == null) {
             asyncTask.execute();
         } else {
             asyncTask.executeOnExecutor(mExecutor);

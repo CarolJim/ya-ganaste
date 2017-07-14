@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentTransaction;
-import android.util.Log;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
@@ -44,7 +43,7 @@ public class GenericPagerAdapter<T extends IEnumTab> extends FragmentPagerAdapte
         return values[position].getName(context);
     }
 
-    public int getPageIcon(int position){
+    public int getPageIcon(int position) {
         return values[position].getIconRes();
     }
 
@@ -66,7 +65,7 @@ public class GenericPagerAdapter<T extends IEnumTab> extends FragmentPagerAdapte
     public void destroyItem(ViewGroup container, int position, Object object) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
-        fragmentTransaction.remove((Fragment)object).commitNowAllowingStateLoss();
+        fragmentTransaction.remove((Fragment) object).commitNowAllowingStateLoss();
     }
 
 }

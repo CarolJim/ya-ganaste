@@ -9,7 +9,6 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
@@ -22,7 +21,6 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentsProcessingManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcessingPresenter;
 import com.pagatodo.yaganaste.utils.StringUtils;
-import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
@@ -34,26 +32,23 @@ import butterknife.ButterKnife;
 
 public class PaymentAuthorizeFragment extends GenericFragment implements View.OnClickListener {
 
-    private View rootview;
     PaymentsProcessingManager manager;
     IPaymentsProcessingPresenter presenter;
-
     @BindView(R.id.btn_continueEnvio)
     Button btnContinue;
     @BindView(R.id.editPasswordEnvio)
     EditText pass;
     @BindView(R.id.editDestinatario)
     StyleTextView referencia;
-
     @BindView(R.id.txt_nombre)
     StyleTextView nombre;
     @BindView(R.id.txt_importe)
     StyleTextView importe;
     @BindView(R.id.imgLogoPago)
     ImageView imgLogoPago;
-
     String password;
     Envios envios;
+    private View rootview;
 
     public static PaymentAuthorizeFragment newInstance(Envios envios) {
         PaymentAuthorizeFragment fragment = new PaymentAuthorizeFragment();

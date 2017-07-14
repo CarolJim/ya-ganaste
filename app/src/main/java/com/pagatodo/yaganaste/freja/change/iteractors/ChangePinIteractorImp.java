@@ -1,13 +1,13 @@
 package com.pagatodo.yaganaste.freja.change.iteractors;
 
-import java.util.concurrent.Executor;
-
 import com.pagatodo.yaganaste.freja.Errors;
-import com.pagatodo.yaganaste.freja.general.callbacks.PinPolicyCallback;
 import com.pagatodo.yaganaste.freja.change.async.ChangePinPolicyRequest;
 import com.pagatodo.yaganaste.freja.change.async.ChangePinRequest;
 import com.pagatodo.yaganaste.freja.change.managers.ChangePinManager;
 import com.pagatodo.yaganaste.freja.general.FmcIteractorImp;
+import com.pagatodo.yaganaste.freja.general.callbacks.PinPolicyCallback;
+
+import java.util.concurrent.Executor;
 
 /**
  * @author Juan Guerra on 03/04/2017.
@@ -31,7 +31,7 @@ public class ChangePinIteractorImp extends FmcIteractorImp implements ChangePinI
     @Override
     public void getChangePinPolicy() {
         ChangePinPolicyRequest changePinPolicyRequest = new ChangePinPolicyRequest(fmcManager, this);
-        if (mExecutor == null){
+        if (mExecutor == null) {
             changePinPolicyRequest.execute();
         } else {
             changePinPolicyRequest.executeOnExecutor(mExecutor);
@@ -41,7 +41,7 @@ public class ChangePinIteractorImp extends FmcIteractorImp implements ChangePinI
     @Override
     public void changePin(byte[] oldPin, byte[] newPin) {
         ChangePinRequest changePinRequest = new ChangePinRequest(fmcManager, this, oldPin, newPin);
-        if (mExecutor == null){
+        if (mExecutor == null) {
             changePinRequest.execute();
         } else {
             changePinRequest.executeOnExecutor(mExecutor);

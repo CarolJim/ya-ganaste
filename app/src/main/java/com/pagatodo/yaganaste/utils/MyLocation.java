@@ -12,21 +12,17 @@ public class MyLocation {
 
     //	private  Context mContext;
 
-    // flag for GPS status
-    static boolean isGPSEnabled = false;
-
-    // flag for network status
-    static boolean isNetworkEnabled = false;
-
-    // flag for GPS status
-    static boolean canGetLocation = false;
-
-    static Location location; // location
-
     // Declaring a Location Manager
     protected static LocationManager locationManager;
+    // flag for GPS status
+    static boolean isGPSEnabled = false;
+    // flag for network status
+    static boolean isNetworkEnabled = false;
+    // flag for GPS status
+    static boolean canGetLocation = false;
+    static Location location; // location
 
-    public static Location getLocation(Context context)  {
+    public static Location getLocation(Context context) {
 
         try {
             locationManager = (LocationManager) context
@@ -59,7 +55,8 @@ public class MyLocation {
                 }
             }
 
-        } catch (Exception e) {}
+        } catch (Exception e) {
+        }
 
         return location;
     }

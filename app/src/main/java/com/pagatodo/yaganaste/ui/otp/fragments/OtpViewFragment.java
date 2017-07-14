@@ -10,11 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -31,8 +29,6 @@ import static com.pagatodo.yaganaste.ui.otp.activities.OtpCodeActivity.OTP_PARAM
 
 public class OtpViewFragment extends GenericFragment implements View.OnClickListener {
 
-    private View rootView;
-
     @BindView(R.id.txt_code)
     StyleTextView txtCode;
     @BindView(R.id.txt_time_remaining)
@@ -41,12 +37,12 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
     StyleButton btn_back;
     @BindView(R.id.btn_continue)
     StyleButton btn_continue;
-
+    private View rootView;
     private String otpCode;
     private CountDownTimer timer;
 
 
-    public static OtpViewFragment newInstance(String otpCode){
+    public static OtpViewFragment newInstance(String otpCode) {
         OtpViewFragment otpViewFragment = new OtpViewFragment();
         Bundle args = new Bundle();
         args.putString(OTP_PARAM, otpCode);
@@ -85,10 +81,10 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
 
                 if (Build.VERSION.SDK_INT >= 24) {
                     txtTime.setText(Html.fromHtml(getString(R.string.caduca_en,
-                            DateUtils.formatElapsedTime(millisUntilFinished/1000)),
+                            DateUtils.formatElapsedTime(millisUntilFinished / 1000)),
                             Html.FROM_HTML_MODE_LEGACY, null, null));
                 } else {
-                    txtTime.setText(Html.fromHtml(getString(R.string.caduca_en, DateUtils.formatElapsedTime(millisUntilFinished/1000))));
+                    txtTime.setText(Html.fromHtml(getString(R.string.caduca_en, DateUtils.formatElapsedTime(millisUntilFinished / 1000))));
 
                 }
             }
@@ -112,7 +108,7 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
     @Override
     public void onClick(View v) {
 
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.btn_back:
                 getActivity().finish();
                 break;

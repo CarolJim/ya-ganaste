@@ -37,9 +37,9 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editStreet"
+                    style="@style/GenericCustomValidationEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/GenericCustomValidationEditText"
                     app:formato="text"
                     app:hintText="@string/streetHint"
                     app:isSingleLine="true"
@@ -47,8 +47,8 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorStreetMessage"
-                    android:layout_width="match_parent"
                     style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <LinearLayout
@@ -60,9 +60,9 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                         android:id="@+id/editExtNumber"
+                        style="@style/GenericCustomValidationEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/GenericCustomValidationEditText"
                         android:layout_weight=".5"
                         app:formato="text"
                         app:hintText="@string/outdoorNumber"
@@ -75,9 +75,9 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                         android:id="@+id/editIntNumber"
+                        style="@style/GenericCustomValidationEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/GenericCustomValidationEditText"
                         android:layout_weight=".5"
                         app:formato="text"
                         app:hintText="@string/interiorNumber"
@@ -116,8 +116,8 @@
                     app:hintText="@string/stateHint" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:layout_width="match_parent"
                     style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
                 <Spinner
@@ -158,9 +158,9 @@
 
             <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                 android:id="@+id/errorCheckMessage"
+                style="@style/generic_text_style_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/generic_text_style_2"
                 android:layout_marginBottom="@dimen/space_between_elements"
                 android:visibility="gone" />
 
@@ -216,8 +216,8 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnBackDomicilioActual"
@@ -232,7 +232,7 @@
                 android:id="@+id/btnNextDomicilioActual"
                 style="@style/buttonDirecctionNext"
                 android:gravity="center"
-                android:text="@string/nextButton"/>
+                android:text="@string/nextButton" />
         </LinearLayout>
 
     </LinearLayout>

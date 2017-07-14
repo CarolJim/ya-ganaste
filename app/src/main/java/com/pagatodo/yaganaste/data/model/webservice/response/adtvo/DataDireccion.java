@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class DataDireccion implements Serializable{
+public class DataDireccion implements Serializable {
 
     private String CP = "";
     private String Calle = "";

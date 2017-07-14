@@ -1,18 +1,15 @@
 package com.pagatodo.yaganaste.freja.provisioning.iteractor;
 
-import com.pagatodo.yaganaste.freja.provisioning.asynk.SetTokenRequest;
-import com.verisec.freja.mobile.core.exceptions.FmcCodeException;
-import com.verisec.freja.mobile.core.exceptions.FmcInternalException;
-
-import java.util.Arrays;
-import java.util.concurrent.Executor;
 import com.pagatodo.yaganaste.freja.Errors;
-import com.pagatodo.yaganaste.freja.general.callbacks.PinPolicyCallback;
 import com.pagatodo.yaganaste.freja.general.FmcIteractorImp;
+import com.pagatodo.yaganaste.freja.general.callbacks.PinPolicyCallback;
+import com.pagatodo.yaganaste.freja.provisioning.asynk.ActivationCodeRequest;
 import com.pagatodo.yaganaste.freja.provisioning.asynk.PinPolicyRequest;
+import com.pagatodo.yaganaste.freja.provisioning.asynk.SetTokenRequest;
 import com.pagatodo.yaganaste.freja.provisioning.asynk.VerifyPinRequest;
 import com.pagatodo.yaganaste.freja.provisioning.manager.ProvisioningManager;
-import com.pagatodo.yaganaste.freja.provisioning.asynk.ActivationCodeRequest;
+
+import java.util.concurrent.Executor;
 
 /**
  * @author Juan Guerra on 30/03/2017.
@@ -32,7 +29,7 @@ public class ProvisioningIteractorImp extends FmcIteractorImp implements Provisi
     @Override
     public void getActivationCode(String clientCode) {
         ActivationCodeRequest asyncTask = new ActivationCodeRequest(fmcManager, clientCode, this);
-        if (mExecutor == null){
+        if (mExecutor == null) {
             asyncTask.execute();
         } else {
             asyncTask.executeOnExecutor(mExecutor);
@@ -47,7 +44,7 @@ public class ProvisioningIteractorImp extends FmcIteractorImp implements Provisi
     @Override
     public void getPinPolicy() {
         PinPolicyRequest pinPolicyRequest = new PinPolicyRequest(fmcManager, this);
-        if (mExecutor == null){
+        if (mExecutor == null) {
             pinPolicyRequest.execute();
         } else {
             pinPolicyRequest.executeOnExecutor(mExecutor);
@@ -62,7 +59,7 @@ public class ProvisioningIteractorImp extends FmcIteractorImp implements Provisi
     @Override
     public void verifyProvisioning(byte[] pin) {
         VerifyPinRequest verifyPinRequest = new VerifyPinRequest(fmcManager, this);
-        if (mExecutor == null){
+        if (mExecutor == null) {
             verifyPinRequest.execute(pin);
         } else {
             verifyPinRequest.executeOnExecutor(mExecutor, pin);
@@ -77,7 +74,7 @@ public class ProvisioningIteractorImp extends FmcIteractorImp implements Provisi
     @Override
     public void setTokenNotificationId(String tokenNotificationId, byte[] nip) {
         SetTokenRequest setTokenRequest = new SetTokenRequest(fmcManager, this, tokenNotificationId);
-        if (mExecutor == null){
+        if (mExecutor == null) {
             setTokenRequest.execute(nip);
         } else {
             setTokenRequest.executeOnExecutor(mExecutor, nip);

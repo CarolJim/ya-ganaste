@@ -1,33 +1,16 @@
 package com.pagatodo.yaganaste.ui.account.profile;
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.Handler;
-import android.text.Editable;
-import android.text.InputType;
-import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
-import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
-import com.pagatodo.yaganaste.utils.Recursos;
-import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout;
-import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
-import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
@@ -36,12 +19,10 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
 import static com.pagatodo.yaganaste.ui._controllers.SessionActivity.EVENT_GO_OTP;
 import static com.pagatodo.yaganaste.ui._controllers.SessionActivity.EVENT_TO_PAYMENTS;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
-import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 
 /**
@@ -51,7 +32,6 @@ public class BalanceFragment extends GenericFragment implements View.OnClickList
 
     public static String PIN_TO_CONFIRM = "PIN_TO_CONFIRM";
     private static int PIN_LENGHT = 4;
-    private View rootview;
     @BindView(R.id.imgArrowBalanceLeft)
     ImageView imgArrowBalanceLeft;
     @BindView(R.id.imgArrowBalanceRight)
@@ -59,6 +39,7 @@ public class BalanceFragment extends GenericFragment implements View.OnClickList
     @BindView(R.id.btnLogin)
     StyleButton btnLogin;
     ProgressLayout progressLayout;
+    private View rootview;
 
     public BalanceFragment() {
     }
@@ -69,8 +50,6 @@ public class BalanceFragment extends GenericFragment implements View.OnClickList
         fragmentRegister.setArguments(args);
         return fragmentRegister;
     }
-
-
 
 
     @Override
@@ -96,15 +75,15 @@ public class BalanceFragment extends GenericFragment implements View.OnClickList
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.imgArrowBalanceLeft:
-                onEventListener.onEvent(EVENT_GO_OTP,null);
+                onEventListener.onEvent(EVENT_GO_OTP, null);
                 break;
             case R.id.imgArrowBalanceRight:
-                onEventListener.onEvent(EVENT_TO_PAYMENTS,null);
+                onEventListener.onEvent(EVENT_TO_PAYMENTS, null);
                 break;
 
             case R.id.btnLogin:
-                Intent intent = new Intent(getActivity(),AccountActivity.class);
-                intent.putExtra(SELECTION,GO_TO_LOGIN);
+                Intent intent = new Intent(getActivity(), AccountActivity.class);
+                intent.putExtra(SELECTION, GO_TO_LOGIN);
                 startActivity(intent);
                 break;
             default:

@@ -34,7 +34,7 @@ public class PaymentsProcessingPresenter extends GenericPresenterMain implements
     public PaymentsProcessingPresenter(PaymentsProcessingManager manager) {
         this.manager = manager;
         interactor = new PaymentsProcessingInteractor(this);
-       setIView(manager);
+        setIView(manager);
     }
 
     @Override
@@ -91,7 +91,7 @@ public class PaymentsProcessingPresenter extends GenericPresenterMain implements
         } else if (((GenericResponse) result.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
             manager.hideLoader();
             sessionExpiredToPresenter(result);
-           // manager.onSuccessPaymentRespone(result);
+            // manager.onSuccessPaymentRespone(result);
         } else {
             manager.hideLoader();
             manager.onFailPaimentResponse(result);

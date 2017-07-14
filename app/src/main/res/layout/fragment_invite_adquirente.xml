@@ -1,5 +1,4 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/whiteColor"
@@ -17,16 +16,16 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:background="@color/colorAccent"
-        android:layout_height="wrap_content">
+        android:layout_height="wrap_content"
+        android:background="@color/colorAccent">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"
+            android:layout_marginTop="@dimen/btn_navigation_bottom"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_marginTop="@dimen/btn_navigation_bottom"
-            android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:paddingBottom="8dp"
             android:paddingTop="8dp"
             android:weightSum="21">
@@ -36,9 +35,9 @@
                 style="@style/ButtonInviteAdq"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
-                android:textSize="@dimen/size_text_style_2_value"
                 android:layout_weight="8"
-                android:text="@string/mas_tarde" />
+                android:text="@string/mas_tarde"
+                android:textSize="@dimen/size_text_style_2_value" />
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"
@@ -48,11 +47,11 @@
             <com.pagatodo.yaganaste.utils.customviews.MaterialButton
                 android:id="@+id/btn_si"
                 style="@style/ButtonInviteAdqY"
-                android:textSize="@dimen/size_text_style_2_value"
                 android:layout_width="0dp"
                 android:layout_height="wrap_content"
                 android:layout_weight="8"
-                android:text="@string/yes" />
+                android:text="@string/yes"
+                android:textSize="@dimen/size_text_style_2_value" />
 
         </LinearLayout>
     </LinearLayout>

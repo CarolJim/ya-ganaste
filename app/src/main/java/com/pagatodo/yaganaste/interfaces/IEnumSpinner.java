@@ -6,7 +6,7 @@ package com.pagatodo.yaganaste.interfaces;
 
 public interface IEnumSpinner {
 
-    public String getName();
+    String getName();
 
-    public String getId();
+    String getId();
 }

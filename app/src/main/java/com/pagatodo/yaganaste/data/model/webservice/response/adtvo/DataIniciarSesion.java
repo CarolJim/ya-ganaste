@@ -3,13 +3,12 @@ package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 import java.io.Serializable;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
-import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_RECHAZADO;
 
 /**
  * Created by flima on 21/03/2017.
  */
 
-public class DataIniciarSesion implements Serializable{
+public class DataIniciarSesion implements Serializable {
 
     private boolean EsUsuario;
     private boolean EsCliente;
@@ -17,7 +16,7 @@ public class DataIniciarSesion implements Serializable{
     private boolean EsAgenteRechazado;
     private boolean ConCuenta;
     private int EstatusDocumentacion; // TODO validar, ya que no se encuentra en la documentacion
-    private int EstatusAgente = CRM_DOCTO_APROBADO ;//CRM_DOCTO_APROBADO; // TODO validar, ya que no se encuentra en la documentacion
+    private int EstatusAgente = CRM_DOCTO_APROBADO;//CRM_DOCTO_APROBADO; // TODO validar, ya que no se encuentra en la documentacion
     private boolean RequiereActivacionSMS;
     private String Semilla = "";
     private UsuarioClienteResponse Usuario;
@@ -27,14 +26,13 @@ public class DataIniciarSesion implements Serializable{
         Usuario = new UsuarioClienteResponse();
     }
 
-    public DataIniciarSesion(boolean esUsuario,boolean esCliente, boolean esAgente, boolean conCuenta,UsuarioClienteResponse dataUser) {
+    public DataIniciarSesion(boolean esUsuario, boolean esCliente, boolean esAgente, boolean conCuenta, UsuarioClienteResponse dataUser) {
         EsUsuario = esUsuario;
         EsCliente = esCliente;
         EsAgente = esAgente;
         ConCuenta = conCuenta;
         Usuario = dataUser;
     }
-
 
 
     public boolean isEsUsuario() {

@@ -10,23 +10,18 @@ import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.Toast;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
-import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
-import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
-import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
-import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 
@@ -37,8 +32,8 @@ import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 public abstract class SupportFragmentActivity extends AppCompatActivity implements OnEventListener {
 
-    private SupportComponent mSupportComponent;
     public static final String EVENT_SESSION_EXPIRED = "EVENT_SESSION_EXPIRED";
+    private SupportComponent mSupportComponent;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {

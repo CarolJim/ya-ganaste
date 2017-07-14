@@ -19,7 +19,7 @@ import butterknife.ButterKnife;
  * Created by jmhernandez on 09/05/2017.
  */
 
-public class LandingAdqFragment extends Activity implements Animation.AnimationListener{
+public class LandingAdqFragment extends Activity implements Animation.AnimationListener {
 
 
     @BindView(R.id.tutorialPage1)
@@ -77,7 +77,7 @@ public class LandingAdqFragment extends Activity implements Animation.AnimationL
                     break;
                 case 1:
                     tutorialPage2.setVisibility(View.GONE);
-                  break;
+                    break;
                 default:
                     break;
             }
@@ -130,10 +130,12 @@ public class LandingAdqFragment extends Activity implements Animation.AnimationL
         }
         return true;
     }
+
     @Override
     public void onBackPressed() {
         finishActivity();
     }
+
     private void finishActivity() {
         this.finish();
         overridePendingTransition(R.anim.fade_in, R.anim.fade_out);

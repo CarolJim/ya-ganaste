@@ -50,10 +50,10 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
             holder = (NacionalidadSpinnerAdapter.DropDownHolder) row.getTag();
         }
         IEnumSpinner item = mItems[position];
-        if(position == 0){
+        if (position == 0) {
             holder.txtTitle.setText("");
             holder.txtTitle.setHint(item.getName());
-        }else {
+        } else {
             holder.txtTitle.setText(item.getName());
         }
 
@@ -71,9 +71,9 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
 
             holder = new NacionalidadSpinnerAdapter.ViewHolder();
             holder.editText = (EditText) row.findViewById(R.id.editTextCustomSpinner);
-            holder.downArrow = (ImageView)row.findViewById(R.id.imageViewCustomSpinner);
+            holder.downArrow = (ImageView) row.findViewById(R.id.imageViewCustomSpinner);
             row.setTag(holder);
-        }else {
+        } else {
             holder = (NacionalidadSpinnerAdapter.ViewHolder) row.getTag();
         }
 
@@ -85,9 +85,9 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
         });
 
         IEnumSpinner item = mItems[position];
-        if(position == 0){
+        if (position == 0) {
             holder.editText.setHint(item.getName());
-        }else {
+        } else {
             holder.editText.setText(item.getName());
         }
 
@@ -104,29 +104,29 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
         return mItems.length;
     }
 
-    public String getItemIdString(int position){
+    public String getItemIdString(int position) {
         return mItems[position].getId();
+    }
+
+    public String getItemName(int position) {
+        return mItems[position].getName();
+    }
+
+    public int getPositionItemByName(String name) {
+        for (int position = 0; position < mItems.length; position++) {
+            if (mItems[position].getName().equals(name))
+                return position;
+        }
+        return 0;
     }
 
     static class DropDownHolder {
         StyleTextView txtTitle;
     }
 
-    public String getItemName(int position){
-        return mItems[position].getName();
-    }
-
-    static class ViewHolder{
+    static class ViewHolder {
         EditText editText;
         ImageView downArrow;
-    }
-
-    public int getPositionItemByName(String name){
-        for(int position = 0 ; position< mItems.length;position++){
-            if(mItems[position].getName().equals(name))
-                return position;
-        }
-        return 0;
     }
 
 }

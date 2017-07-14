@@ -24,22 +24,17 @@ import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 
 public abstract class PaymentFormBaseFragment extends GenericFragment implements SeekBar.OnSeekBarChangeListener {
     protected View rootview;
+    @BindView(R.id.myseek)
+    protected SeekBar mySeekBar;
     boolean isValid = false;
-
     Payments payment;
     IPaymentsTabPresenter paymentsTabPresenter;
     ComercioResponse comercioItem;
-
     String errorText;
-
     String referencia;
     Double monto;
     String concepto;
     MovementsTab tab;
-
-
-    @BindView(R.id.myseek)
-    protected SeekBar mySeekBar;
 
     @Override
     public void onProgressChanged(SeekBar seekBar, int progress, boolean fromUser) {
@@ -77,7 +72,7 @@ public abstract class PaymentFormBaseFragment extends GenericFragment implements
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    public void setSeekBarProgress(int progress){
+    public void setSeekBarProgress(int progress) {
         mySeekBar.setProgress(progress);
     }
 }

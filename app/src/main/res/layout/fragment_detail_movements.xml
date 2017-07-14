@@ -447,7 +447,7 @@
                 android:id="@+id/view"
                 android:layout_width="@dimen/btns_separation"
                 android:layout_height="wrap_content"
-                android:visibility="gone"/>
+                android:visibility="gone" />
 
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton

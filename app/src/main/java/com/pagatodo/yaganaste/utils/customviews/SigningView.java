@@ -10,11 +10,9 @@ import android.support.v4.content.ContextCompat;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.Signature;
-import com.pagatodo.yaganaste.utils.UI;
 
 
 /**
@@ -24,18 +22,14 @@ import com.pagatodo.yaganaste.utils.UI;
 public class SigningView extends View {
 
     private static final float TOUCH_TOLERANCE = 4;
-
+    private final Paint mPaint;
+    public int width, height;
+    Path path = new Path();
+    float mX, mY;
     private Bitmap mBitmap;
     private Canvas mCanvas;
     private TextView tvFirmaAqui;
-
-    private final Paint mPaint;
-    Path path = new Path();
     private Signature signature;
-
-
-    float mX, mY;
-    public int width, height;
 
     public SigningView(Context context) {
         super(context);
@@ -59,7 +53,7 @@ public class SigningView extends View {
 //        mPaint.setARGB(0xff, 0x33, 0x33, 0x33);
 
         this.tvFirmaAqui = tvFirmaAqui;
-        signature =  new Signature();
+        signature = new Signature();
     }
 
     public void clear() {
@@ -67,7 +61,7 @@ public class SigningView extends View {
             this.mCanvas.drawColor(Color.TRANSPARENT);
             mBitmap.eraseColor(Color.TRANSPARENT);
             invalidate();
-            signature =  new Signature();
+            signature = new Signature();
             tvFirmaAqui.setVisibility(View.VISIBLE);
         }
     }
@@ -101,7 +95,8 @@ public class SigningView extends View {
         }
     }
 
-    @Override public boolean onTouchEvent(MotionEvent event) {
+    @Override
+    public boolean onTouchEvent(MotionEvent event) {
         float x = event.getX();
         float y = event.getY();
 
@@ -129,7 +124,7 @@ public class SigningView extends View {
         mY = y;
 
         signature.newStroke();
-        signature.setPoint(x,y);
+        signature.setPoint(x, y);
         signature.setDimension(String.valueOf(width), String.valueOf(height));
     }
 
@@ -137,11 +132,11 @@ public class SigningView extends View {
         float dx = Math.abs(x - mX);
         float dy = Math.abs(y - mY);
         if (dx >= TOUCH_TOLERANCE || dy >= TOUCH_TOLERANCE) {
-            path.quadTo(mX, mY, (x + mX)/2, (y + mY)/2);
+            path.quadTo(mX, mY, (x + mX) / 2, (y + mY) / 2);
             mCanvas.drawPath(path, mPaint);
             mX = x;
             mY = y;
-            signature.setPoint(x,y);
+            signature.setPoint(x, y);
         }
     }
 
@@ -149,11 +144,11 @@ public class SigningView extends View {
         return signature;
     }
 
-    public int getW(){
+    public int getW() {
         return width;
     }
 
-    public int getH(){
+    public int getH() {
         return height;
     }
 }

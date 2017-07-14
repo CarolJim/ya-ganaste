@@ -36,9 +36,9 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/seleccionaGenero"
+                        style="@style/generic_text_style_3"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        style="@style/generic_text_style_3"
                         android:gravity="center"
                         android:text="@string/selecciona_genero" />
 
@@ -65,8 +65,8 @@
 
                     <RadioButton
                         android:id="@+id/radioBtnFemale"
-                        android:layout_width="wrap_content"
                         style="@style/generic_text_style_2"
+                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
@@ -79,9 +79,9 @@
 
                     <RadioButton
                         android:id="@+id/radioBtnMale"
+                        style="@style/generic_text_style_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        style="@style/generic_text_style_2"
                         android:layout_gravity="center"
                         android:gravity="center"
                         android:text="@string/male" />
@@ -114,8 +114,8 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorNameMessage"
-                        android:layout_width="match_parent"
                         style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:visibility="visible" />
 
@@ -133,8 +133,8 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorFLastNameMessage"
-                        android:layout_width="match_parent"
                         style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:visibility="visible" />
 
@@ -151,8 +151,8 @@
                         app:maxLength="30" />
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                        android:layout_width="match_parent"
                         style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:visibility="visible" />
 
@@ -169,8 +169,8 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorBirthDayMessage"
-                        android:layout_width="match_parent"
                         style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:visibility="visible" />
 
@@ -210,13 +210,13 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
-            android:orientation="horizontal"
-            android:gravity="center_horizontal">
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnBackPersonalInfo"
                 style="@style/buttonDirecctionBackSmall"
-                android:text="@string/backButton"/>
+                android:text="@string/backButton" />
 
             <android.support.v4.widget.Space
                 android:layout_width="@dimen/btns_separation"

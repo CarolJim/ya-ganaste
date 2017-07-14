@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
 public class IniciarTransaccionOnlineResponse extends GenericResponse {
 
     private String IdTransaccionFreja = "";
+
     public IniciarTransaccionOnlineResponse() {
     }
 }

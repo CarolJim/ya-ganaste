@@ -6,15 +6,15 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class SwipeData implements Serializable{
+public class SwipeData implements Serializable {
 
     private static final long serialVersionUID = -7628328369292811451L;
+    public String cvv;
     private String encCardData = "";
     private String ksn = "";
     private String track1Length = "";
     private String track2Length = "";
     private String track3Length = "";
-    public String cvv;
 
     public SwipeData() {
     }

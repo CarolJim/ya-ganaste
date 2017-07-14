@@ -5,14 +5,19 @@ package com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces;
  */
 
 public interface IServiciosInteractor {
-    interface OnValidationFinishListener{
+    void validateForms(String referencia, String importe, String concepto, int longitudReferencia, OnValidationFinishListener listener);
+
+    interface OnValidationFinishListener {
         void onReferenciaError();
+
         void onReferenciaEmpty();
+
         void onImporteError();
+
         void onImporteEmpty();
+
         void onConceptEmpty();
+
         void onSuccess(Double importe);
     }
-
-    void validateForms(String referencia, String importe, String concepto, int longitudReferencia, OnValidationFinishListener listener);
 }

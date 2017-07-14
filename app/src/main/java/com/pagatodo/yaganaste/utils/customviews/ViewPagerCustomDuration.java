@@ -16,7 +16,17 @@ public class ViewPagerCustomDuration extends ViewPager {
 
     PagerAdapter mPagerAdapter;
     private boolean swipeable = true;
+    private ScrollerCustomDuration mScroller = null;
 
+    public ViewPagerCustomDuration(Context context) {
+        super(context);
+        postInitViewPager();
+    }
+
+    public ViewPagerCustomDuration(Context context, AttributeSet attrs) {
+        super(context, attrs);
+        postInitViewPager();
+    }
 
     @Override
     protected void onAttachedToWindow() {
@@ -34,19 +44,6 @@ public class ViewPagerCustomDuration extends ViewPager {
     public void storeAdapter(PagerAdapter pagerAdapter) {
         mPagerAdapter = pagerAdapter;
     }
-
-
-    public ViewPagerCustomDuration(Context context) {
-        super(context);
-        postInitViewPager();
-    }
-
-    public ViewPagerCustomDuration(Context context, AttributeSet attrs) {
-        super(context, attrs);
-        postInitViewPager();
-    }
-
-    private ScrollerCustomDuration mScroller = null;
 
     /**
      * Override the Scroller instance with our own class so we can change the
@@ -83,7 +80,6 @@ public class ViewPagerCustomDuration extends ViewPager {
     public boolean onInterceptTouchEvent(MotionEvent arg0) {
         return (this.swipeable) ? super.onInterceptTouchEvent(arg0) : false;
     }
-
 
 
 }

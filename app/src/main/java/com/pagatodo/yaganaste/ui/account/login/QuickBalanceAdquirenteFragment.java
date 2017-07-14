@@ -131,7 +131,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     }
 
     private void setDataAdq(String balaceAdq) {
-        txtBalanceReembolsar.setText(balaceAdq);
+        txtBalanceReembolsar.setText(Utils.getCurrencyValue(balaceAdq));
     }
 
     @Override

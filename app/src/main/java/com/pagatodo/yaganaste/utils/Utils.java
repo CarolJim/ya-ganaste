@@ -31,9 +31,6 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.GiroComercio;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 
-import org.json.JSONException;
-import org.json.JSONObject;
-
 import java.io.ByteArrayInputStream;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -78,8 +75,69 @@ import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 @SuppressLint("SimpleDateFormat")
 public class Utils {
 
-    private static int numberIntents;
     private static final String PATERN_MONTO = "\\d*\\.\\d*";
+    private final static Pattern rfc2822 = Pattern
+            .compile("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
+    private final static Pattern amopuntRfc2822 = Pattern
+            .compile("^(\\d{1,4})?(\\.\\d{1,2})?$");
+    private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
+    // private final static Pattern RFC2822_PATTERN =
+    // Pattern.compile("^\\$?(\\d{0,1})?(\\.(\\d{0,2})?)?$");
+    private final static Pattern RFC2822_PATTERN = Pattern
+            .compile("^[0]\\$?(\\d{0,5})?(\\.(\\d{0,2})?)?$");
+    private static final char[] HEX = new char[]{'0', '1', '2', '3', '4',
+            '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
+    public static InputFilter AlphaNumericFilter = new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            if (source.equals("")) {
+                return source;
+            }
+            if (source.toString().matches("^([a-zA-ZÀ-ú0-9ÜüÑñ @#&.,_-]+)$")) {
+                return source;
+            }
+            return "";
+        }
+    };
+    public static InputFilter NumericFilter = new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            if (source.equals("")) {
+                return source;
+            }
+            if (source.toString().matches("^[0-9]+$")) {
+                return source;
+            }
+            return "";
+        }
+    };
+    public static InputFilter DecimalNumericFilter = new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            if (source.equals("")) {
+                return source;
+            }
+            if (source.toString().matches("^[0-9]*\\.?[0-9]+$")) {
+                return source;
+            }
+            return "";
+        }
+    };
+    public static InputFilter LetrasNumbersSpaceFilter = new InputFilter() {
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end,
+                                   Spanned dest, int dstart, int dend) {
+            if (source.equals("")) {
+                return source;
+            }
+            if (source.toString().matches("[a-zA-ZñÑáéíñóúüÁÉÍÑÓÚÜ0-9 ]+")) {
+                return source;
+            }
+            return "";
+        }
+    };
+    private static int numberIntents;
+    private static String uniqueID = null;
 
     public static void CopyStream(InputStream is, OutputStream os) {
         final int buffer_size = 1024;
@@ -143,9 +201,6 @@ public class Utils {
 
         return f.format(number);
     }
-
-    private final static Pattern rfc2822 = Pattern
-            .compile("^[a-z0-9!#$%&'*+/=?^_`{|}~-]+(?:\\.[a-z0-9!#$%&'*+/=?^_`{|}~-]+)*@(?:[a-z0-9](?:[a-z0-9-]*[a-z0-9])?\\.)+[a-z0-9](?:[a-z0-9-]*[a-z0-9])?$");
 
     public static boolean isValidEmailAddress(String email) {
         return Patterns.EMAIL_ADDRESS.matcher(email).matches();
@@ -238,9 +293,6 @@ public class Utils {
         else
             return false;
     }
-
-    private final static Pattern amopuntRfc2822 = Pattern
-            .compile("^(\\d{1,4})?(\\.\\d{1,2})?$");
 
     public static boolean isValidAmount(String amount) {
         if (amount == null)
@@ -405,7 +457,6 @@ public class Utils {
                 Settings.Secure.ANDROID_ID);
     }
 
-
     public static void setDefaultPreferences() {
         /*
         Preferencias prefs = App.getInstance().getPrefs();
@@ -464,10 +515,6 @@ public class Utils {
         }*/
     }
 
-
-    private static String uniqueID = null;
-    private static final String PREF_UNIQUE_ID = "PREF_UNIQUE_ID";
-
     public synchronized static String id(Context context) {
         if (uniqueID == null) {
             SharedPreferences sharedPrefs = context.getSharedPreferences(
@@ -483,18 +530,12 @@ public class Utils {
         return uniqueID;
     }
 
-    // private final static Pattern RFC2822_PATTERN =
-    // Pattern.compile("^\\$?(\\d{0,1})?(\\.(\\d{0,2})?)?$");
-    private final static Pattern RFC2822_PATTERN = Pattern
-            .compile("^[0]\\$?(\\d{0,5})?(\\.(\\d{0,2})?)?$");
-
     public static boolean validateAmount(String toCheck) {
         if (RFC2822_PATTERN.matcher(toCheck).matches())
             return true;
         else
             return false;
     }
-
 
     @SuppressLint("DefaultLocale")
     public static String Bytes2HexString(byte[] b) {
@@ -584,9 +625,6 @@ public class Utils {
         return new String(buf);
     }
 
-    private static final char[] HEX = new char[]{'0', '1', '2', '3', '4',
-            '5', '6', '7', '8', '9', 'A', 'B', 'C', 'D', 'E', 'F'};
-
     public static final String byteArrayToHexString(byte[] src) {
         return byteArrayToHexString(src, 0, src.length);
     }
@@ -629,7 +667,6 @@ public class Utils {
         String formatteHour = df.format(dt.getTime());
         return formatteHour;
     }
-
 
     public static String segmentofinal(String segmentofinal, String operacion) {
         String cadena = "";
@@ -755,7 +792,6 @@ public class Utils {
         return res;
     }
 
-
     public static String formatFecha(Activity context, String fecha) {
         String[] meses = context.getResources().getStringArray(
                 R.array.meses_array);
@@ -862,45 +898,6 @@ public class Utils {
         return matcher.matches();
     }
 
-    public static InputFilter AlphaNumericFilter = new InputFilter() {
-        @Override
-        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            if (source.equals("")) {
-                return source;
-            }
-            if (source.toString().matches("^([a-zA-ZÀ-ú0-9ÜüÑñ @#&.,_-]+)$")) {
-                return source;
-            }
-            return "";
-        }
-    };
-
-    public static InputFilter NumericFilter = new InputFilter() {
-        @Override
-        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            if (source.equals("")) {
-                return source;
-            }
-            if (source.toString().matches("^[0-9]+$")) {
-                return source;
-            }
-            return "";
-        }
-    };
-
-    public static InputFilter DecimalNumericFilter = new InputFilter() {
-        @Override
-        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            if (source.equals("")) {
-                return source;
-            }
-            if (source.toString().matches("^[0-9]*\\.?[0-9]+$")) {
-                return source;
-            }
-            return "";
-        }
-    };
-
     public static boolean isCadenaDeEspacios(String cadena) {
         String cadenaValidacion = cadena.trim();
         if (cadenaValidacion.length() == 0)
@@ -908,20 +905,6 @@ public class Utils {
         else
             return false;
     }
-
-    public static InputFilter LetrasNumbersSpaceFilter = new InputFilter() {
-        @Override
-        public CharSequence filter(CharSequence source, int start, int end,
-                                   Spanned dest, int dstart, int dend) {
-            if (source.equals("")) {
-                return source;
-            }
-            if (source.toString().matches("[a-zA-ZñÑáéíñóúüÁÉÍÑÓÚÜ0-9 ]+")) {
-                return source;
-            }
-            return "";
-        }
-    };
 
     public static boolean fileExists(String resourceURL, Activity context) {
         String cleanedResourceURL = resourceURL.replace("\\", "/");
@@ -979,13 +962,6 @@ public class Utils {
         int px = Math.round(dp * (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
         return px;
     }
-
-    public int convertPixelsToDp(int px) {
-        DisplayMetrics displayMetrics = App.getInstance().getResources().getDisplayMetrics();
-        int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
-        return dp;
-    }
-
 
     public static String getFechaActual() {
         Calendar cal = Calendar.getInstance();
@@ -1097,7 +1073,6 @@ public class Utils {
         return value;
     }
 
-
     public static String getCurriencyValueNoDecimals(double value) {
         NumberFormat defaultFormat = NumberFormat.getCurrencyInstance(Locale.getDefault());
         return defaultFormat.format(Math.round(getRoundValue(value)));
@@ -1139,7 +1114,6 @@ public class Utils {
 
         return value;
     }
-
 
     public static String formatDatePickerDialog(int dayOfMonth, int monthOfYear, int year) {
 
@@ -1304,11 +1278,16 @@ public class Utils {
         return number;
     }
 
-
     public static void sessionExpired() {
         Intent intent = new Intent(App.getContext(), MainActivity.class);
         intent.putExtra(SELECTION, MAIN_SCREEN);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
         App.getContext().startActivity(intent);
+    }
+
+    public int convertPixelsToDp(int px) {
+        DisplayMetrics displayMetrics = App.getInstance().getResources().getDisplayMetrics();
+        int dp = Math.round(px / (displayMetrics.xdpi / DisplayMetrics.DENSITY_DEFAULT));
+        return dp;
     }
 }

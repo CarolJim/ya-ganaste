@@ -56,7 +56,6 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         ValidationForms<Object>, IAccountRegisterView<Object>, IOnSpinnerClick {
 
     public static int MIN_LENGHT_VALIDATION_CP = 4;
-    private View rootview;
     @BindView(R.id.editStreet)
     CustomValidationEditText editStreet;
     @BindView(R.id.editExtNumber)
@@ -79,24 +78,23 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     StyleButton btnNextDomicilioActual;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
+    @BindView(R.id.errorStreetMessage)
+    ErrorMessage errorStreetMessage;
     //@BindView(R.id.errorMessage)
     //ErrorMessage errorMessageView;
     //BindView(R.id.radioBtnTerms)
     //CheckBox radioBtnTerms;
     //@BindView(R.id.radioBtnTermsLayOut)
     //RelativeLayout radioBtnTermsLayOut;
-
-    @BindView(R.id.errorStreetMessage)
-    ErrorMessage errorStreetMessage;
     @BindView(R.id.errorNumeroMessage)
     ErrorMessage errorNumeroMessage;
     @BindView(R.id.errorZipCodeMessage)
     ErrorMessage errorZipCodeMessage;
     @BindView(R.id.errorColoniaMessage)
     ErrorMessage errorColoniaMessage;
+    private View rootview;
     //@BindView(R.id.errorCheckMessage)
     //ErrorMessage errorCheckMessage;
-
     private ColoniasArrayAdapter adapterColonia;
     private List<ColoniasResponse> listaColonias;
     private List<String> coloniasNombre;
@@ -110,6 +108,21 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     private String Idcolonia = "";
     private boolean cpDefault;
     private AccountPresenterNew accountPresenter;
+    AbstractTextWatcher textWatcherZipCode = new AbstractTextWatcher() {
+        @Override
+        public void afterTextChanged(String s) {
+            if (s.toString().length() > MIN_LENGHT_VALIDATION_CP) {
+                showLoader(getString(R.string.search_zipcode));
+                accountPresenter.getNeighborhoods(s.toString().trim());//Buscamos por CP
+            } else {
+                if (listaColonias != null) {
+                    listaColonias.clear();
+                    estadoDomicilio = "";
+                    fillAdapter();
+                }
+            }
+        }
+    };
 
     public DomicilioActualFragment() {
     }
@@ -567,22 +580,6 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     public void clientCreateFailed(String error) {
         showError(error);
     }
-
-    AbstractTextWatcher textWatcherZipCode = new AbstractTextWatcher() {
-        @Override
-        public void afterTextChanged(String s) {
-            if (s.toString().length() > MIN_LENGHT_VALIDATION_CP) {
-                showLoader(getString(R.string.search_zipcode));
-                accountPresenter.getNeighborhoods(s.toString().trim());//Buscamos por CP
-            } else {
-                if (listaColonias != null) {
-                    listaColonias.clear();
-                    estadoDomicilio = "";
-                    fillAdapter();
-                }
-            }
-        }
-    };
 
     @Override
     public void zipCodeInvalid(String message) {

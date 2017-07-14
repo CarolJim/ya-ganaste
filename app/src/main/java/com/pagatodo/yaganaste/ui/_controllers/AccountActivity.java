@@ -41,10 +41,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 
 
 public class AccountActivity extends LoaderActivity implements OnEventListener {
-    private String TAG = getClass().getSimpleName();
-    private Preferencias pref;
-    FrameLayout container;
-
     public final static String EVENT_GO_LOGIN = "EVENT_GO_LOGIN";
     public final static String EVENT_GO_GET_CARD = "EVENT_GO_GET_CARD";
     public final static String EVENT_GO_BASIC_INFO = "EVENT_GO_BASIC_INFO";
@@ -66,18 +62,12 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     public final static String EVENT_COUCHMARK = "EVENT_GO_COUCHMARK";
     public final static String EVENT_GO_REGISTER_COMPLETE = "EVENT_GO_REGISTER_COMPLETE";
     public final static String EVENT_GO_MAINTAB = "EVENT_GO_MAINTAB";
-
     public final static String EVENT_RECOVERY_PASS = "EVENT_RECOVERY_PASS";
     public final static String EVENT_RECOVERY_PASS_BACK = "EVENT_RECOVERY_PASS_BACK";
-
-
-    private DatosUsuarioFragment datosUsuarioFragment;
-    private DatosPersonalesFragment datosPersonalesFragment;
-    private DomicilioActualFragment domicilioActualFragment;
-    private TienesTarjetaFragment tienesTarjetaFragment;
+    FrameLayout container;
+    private String TAG = getClass().getSimpleName();
+    private Preferencias pref;
     private LoginManagerContainerFragment loginContainerFragment;
-
-    private PermisosFragment permisosFragment;
     private AccountPresenterNew presenterAccount;
 
     private String action = "";
@@ -211,13 +201,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
 
 
         }
-    }
-
-    private void initFragments() {
-        datosUsuarioFragment = DatosUsuarioFragment.newInstance();
-        datosPersonalesFragment = DatosPersonalesFragment.newInstance();
-        domicilioActualFragment = DomicilioActualFragment.newInstance();
-        tienesTarjetaFragment = TienesTarjetaFragment.newInstance();
     }
 
     @Override

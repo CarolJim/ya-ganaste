@@ -27,8 +27,6 @@
     <color name="transparent">#00FFFFFF</color>
 
 
-
-
     <!-- Color alternativo para textos-->
     <color name="textColorAlternative">#A2AEB6</color>
 
@@ -41,7 +39,6 @@
     <color name="colorBlackBagroundMoviments">#182630</color>
     <color name="whiteColor">#FFF</color>
     <color name="whiteColor_disable">#beffffff</color>
-
 
 
     <!-- Colores a liminar -->

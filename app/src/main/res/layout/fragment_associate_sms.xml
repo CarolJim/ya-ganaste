@@ -4,16 +4,18 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:focusable="true" android:orientation="vertical"
+    android:focusable="true"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
 
 
     <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content" android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="@dimen/activity_horizontal_margin"
         android:layout_marginRight="@dimen/activity_horizontal_margin"
+        android:layout_weight="1"
         android:paddingTop="@dimen/margin_regular">
 
         <LinearLayout
@@ -33,9 +35,9 @@
                 android:text="@string/activacion_sms_mes_1" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                style="@style/generic_text_style_3"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                style="@style/generic_text_style_3"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:gravity="center"
                 android:text="@string/activacion_sms_mes_2" />

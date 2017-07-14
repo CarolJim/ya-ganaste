@@ -1,8 +1,6 @@
 package com.pagatodo.yaganaste.data.model.webservice.request.adq;
 
 
-
-
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -17,18 +15,20 @@ public class SignatureStroke implements Serializable {
     public transient String signatureWidth = "";
     public transient String signatureHeight = "";
 
-    public SignatureStroke (){
+    public SignatureStroke() {
         points = new ArrayList<Point>();
     }
 
-    public void setPoint(Float x, Float y){
+    public void setPoint(Float x, Float y) {
         points.add(new Point(x, y));
         return;
     }
-    public void setWithAndHeight(String with, String height){
+
+    public void setWithAndHeight(String with, String height) {
         signatureWidth = with;
         signatureHeight = height;
     }
+
     public List<Point> getPoints() {
         return points;
     }

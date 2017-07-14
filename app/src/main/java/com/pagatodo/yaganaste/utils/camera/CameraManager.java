@@ -59,17 +59,17 @@ public class CameraManager {
         return ourInstance;
     }*/
 
-    public CameraManager() {
-    }
-
-    private static final String TAG = Documentos.class.getSimpleName();
     public static final int REQUEST_TAKE_PHOTO = 10; // Intent para Capturar fotografía
     public static final int SELECT_FILE_PHOTO = 20; // Intent para seleccionar fotografía
+    private static final String TAG = Documentos.class.getSimpleName();
     private static final int USER_PHOTO = 1;
     private static final int IFE_BACK = 2;
     private static final int COMPROBANTE_FRONT = 3;
     private static final int COMPROBANTE_BACK = 4;
-
+    private static Bitmap bitmapValue;
+    CircleImageView iv_photo_item;
+    Activity mContext;
+    IListaOpcionesView mView;
     //    @BindView(R.id.progressLayout)
 //    ProgressLayout progressLayout;
     private int documentProcessed = 0;
@@ -81,11 +81,20 @@ public class CameraManager {
     private Drawable mDrawable = null;
     private Preferencias pref;
     private Boolean mExisteDocs = false;
-    CircleImageView iv_photo_item;
+    public CameraManager() {
+    }
 
-    Activity mContext;
-    IListaOpcionesView mView;
-    private static Bitmap bitmapValue;
+    public static Bitmap getBitmap() {
+        return bitmapValue;
+    }
+
+    public static void setBitmap(Bitmap bitmap) {
+        bitmapValue = bitmap;
+    }
+
+    public static void cleanBitmap() {
+        bitmapValue = null;
+    }
 
     /**
      * @param mContext      Recibe el contexto (getActivity)
@@ -99,18 +108,6 @@ public class CameraManager {
         dataDocumnets = new ArrayList<>();
         this.iv_photo_item = iv_photo_item;
         this.mView = mView;
-    }
-
-    public static Bitmap getBitmap() {
-        return bitmapValue;
-    }
-
-    public static void setBitmap(Bitmap bitmap) {
-        bitmapValue = bitmap;
-    }
-
-    public static void cleanBitmap() {
-        bitmapValue = null;
     }
 
     /**

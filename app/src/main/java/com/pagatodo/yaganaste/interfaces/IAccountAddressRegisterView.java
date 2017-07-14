@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.interfaces;
 
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 
 import java.util.List;
 
@@ -13,6 +12,7 @@ import java.util.List;
 public interface IAccountAddressRegisterView<E> extends INavigationView<Object, E> {
 
     void setNeighborhoodsAvaliables(List<ColoniasResponse> listaColonias);
+
     void setCurrentAddress(DataObtenerDomicilio domicilio);
 
 }

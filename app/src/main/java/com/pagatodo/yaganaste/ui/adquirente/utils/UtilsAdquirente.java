@@ -8,7 +8,6 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adq.AccountDepositDa
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.EnviarTicketCompraRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.FirmaDeVoucherRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ImplicitData;
-import com.pagatodo.yaganaste.data.model.webservice.request.adq.Signature;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.SignatureData;
 import com.pagatodo.yaganaste.utils.MyLocation;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -18,16 +17,17 @@ import com.pagatodo.yaganaste.utils.Utils;
  */
 
 public class UtilsAdquirente {
-    public static AccountDepositData getCurrentDatesAccountDepositData(String reference){
+    public static AccountDepositData getCurrentDatesAccountDepositData(String reference) {
         SingletonUser currentUser = SingletonUser.getInstance();
         AccountDepositData data = new AccountDepositData();
-        if(currentUser.getDataUser().getUsuario().getCuentas().size() > 0){
+        if (currentUser.getDataUser().getUsuario().getCuentas().size() > 0) {
             data.setAccount(String.valueOf(currentUser.getDataUser().getUsuario().getCuentas().get(0).getIdCuenta()));
         }
         data.setReference(reference);
         return data;
     }
-    public static ImplicitData getImplicitData(){
+
+    public static ImplicitData getImplicitData() {
         Location location = MyLocation.getLocation(App.getInstance());
         ImplicitData data = new ImplicitData();
         if (location != null) {
@@ -42,13 +42,15 @@ public class UtilsAdquirente {
         data.setUdid(Utils.getUdid(App.getInstance()));
         return data;
     }
-    public static FirmaDeVoucherRequest buildSignatureRequest(String idTransaction, SignatureData signatureData){
+
+    public static FirmaDeVoucherRequest buildSignatureRequest(String idTransaction, SignatureData signatureData) {
         FirmaDeVoucherRequest request = new FirmaDeVoucherRequest();
         request.setIdTransaction(idTransaction);
         request.setSignaruteData(signatureData);
         return request;
     }
-    public static EnviarTicketCompraRequest buildTicketRequest(String idTransaction, String name, String email){
+
+    public static EnviarTicketCompraRequest buildTicketRequest(String idTransaction, String name, String email) {
         EnviarTicketCompraRequest request = new EnviarTicketCompraRequest();
         request.setEmail(email);
         request.setImplicitData(getImplicitData());

@@ -42,11 +42,8 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
  */
 public class LoginFragment extends GenericFragment implements View.OnClickListener, ILoginView, ValidationForms {
 
-    private View rootview;
-
     @BindView(R.id.imgLoginExistProfile)
     CircleImageView imgLoginExistProfile;
-
     @BindView(R.id.textNameUser)
     StyleTextView textNameUser;
     @BindView(R.id.edtxtUserName)
@@ -57,8 +54,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     StyleButton btnLogin;
     @BindView(R.id.txtLoginExistUserRecoverPass)
     StyleTextView txtLoginExistUserRecoverPass;
-
-
+    private View rootview;
     private AccountPresenterNew accountPresenter;
 
     private String username = "";
@@ -93,9 +89,10 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
-        rootview = inflater.inflate(R.layout.fragment_login, container, false);
-        initViews();
+        if (rootview == null) {
+            rootview = inflater.inflate(R.layout.fragment_login, container, false);
+            initViews();
+        }
         return rootview;
     }
 
@@ -111,7 +108,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
             edtUserName.setVisibility(GONE);
             edtUserName.setText(RequestHeaders.getUsername());
-
+            username = RequestHeaders.getUsername();
+            edtUserName.setText(RequestHeaders.getUsername());
             textNameUser.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
@@ -290,7 +288,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void getDataForm() {
-        username = edtUserName.getText().trim();
+        if (username.isEmpty()) {
+            username = edtUserName.getText().trim();
+        }
         password = edtUserPass.getText().trim();
     }
 
@@ -305,6 +305,12 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         edtUserName.setEnabled(isEnable);
         edtUserPass.setEnabled(isEnable);
         btnLogin.setEnabled(isEnable);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        accountPresenter.setIView(this);
     }
 }
 

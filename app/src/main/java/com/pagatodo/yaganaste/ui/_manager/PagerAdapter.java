@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui._manager;
 
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
-import android.support.v4.app.FragmentPagerAdapter;
 import android.support.v4.app.FragmentStatePagerAdapter;
 
 import java.util.ArrayList;
@@ -30,8 +29,7 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     @Override
     public Fragment getItem(int position) {
 
-        if (fragments != null && fragments.size() > 0)
-        {
+        if (fragments != null && fragments.size() > 0) {
             position = position % fragments.size(); // use modulo for infinite cycling
             return fragments.get(position);
         }
@@ -41,14 +39,10 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
     }
 
     @Override
-    public int getCount()
-    {
-        if (fragments != null && fragments.size() > 0)
-        {
-            return fragments.size()*LOOPS_COUNT; // simulate infinite by big number of products
-        }
-        else
-        {
+    public int getCount() {
+        if (fragments != null && fragments.size() > 0) {
+            return fragments.size() * LOOPS_COUNT; // simulate infinite by big number of products
+        } else {
             return 1;
         }
     }

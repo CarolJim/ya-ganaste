@@ -1,9 +1,11 @@
 package com.pagatodo.yaganaste.freja.change.async;
 
 import android.os.AsyncTask;
-import com.verisec.freja.mobile.core.FmcManager;
-import java.util.Arrays;
+
 import com.pagatodo.yaganaste.freja.provisioning.manager.ExceptionCallback;
+import com.verisec.freja.mobile.core.FmcManager;
+
+import java.util.Arrays;
 
 /**
  * @author Juan Guerra on 03/04/2017.
@@ -24,10 +26,6 @@ public class ChangePinRequest extends AsyncTask<Void, Void, Exception> {
         this.newPin = newPin;
     }
 
-    public interface ChangePinCallback extends ExceptionCallback {
-        void onChangeNipSuccessful();
-    }
-
     @Override
     protected Exception doInBackground(Void... params) {
         try {
@@ -40,16 +38,20 @@ public class ChangePinRequest extends AsyncTask<Void, Void, Exception> {
     }
 
     private void cleanPins() {
-        Arrays.fill(oldPin, (byte)0xFF);
-        Arrays.fill(newPin, (byte)0xFF);
+        Arrays.fill(oldPin, (byte) 0xFF);
+        Arrays.fill(newPin, (byte) 0xFF);
     }
 
     @Override
     protected void onPostExecute(Exception response) {
-        if (response == null){
+        if (response == null) {
             this.changePinCallback.onChangeNipSuccessful();
         } else {
             this.changePinCallback.handleException(response);
         }
+    }
+
+    public interface ChangePinCallback extends ExceptionCallback {
+        void onChangeNipSuccessful();
     }
 }

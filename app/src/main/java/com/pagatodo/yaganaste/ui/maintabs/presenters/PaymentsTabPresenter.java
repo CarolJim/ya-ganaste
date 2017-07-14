@@ -10,7 +10,7 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 public class PaymentsTabPresenter implements IPaymentsTabPresenter {
     private CarouselItem carouselItem;
 
-    public PaymentsTabPresenter(){
+    public PaymentsTabPresenter() {
 
     }
 

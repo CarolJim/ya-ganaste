@@ -1,7 +1,5 @@
 package com.pagatodo.yaganaste.net;
 
-import com.pagatodo.yaganaste.data.model.webservice.request.Request;
-
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,7 +9,7 @@ import java.util.Map;
 
 public class Api {
 
-    public static Map<String, String> getHeadersYaGanaste(){
+    public static Map<String, String> getHeadersYaGanaste() {
         Map<String, String> headersYaGanaste = new HashMap<>();
         //headersYaGanaste.put("Content-type", "application/json");
         headersYaGanaste.put(RequestHeaders.IdDispositivo, "2");
@@ -22,7 +20,7 @@ public class Api {
         return headersYaGanaste;
     }
 
-    public static Map<String, String> getHeadersAdq(){
+    public static Map<String, String> getHeadersAdq() {
         Map<String, String> headersAdq = new HashMap<>();
         headersAdq.put("Version", "1.0.7");
         headersAdq.put("SO", "Android");

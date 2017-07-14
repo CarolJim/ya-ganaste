@@ -92,7 +92,7 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
     private void initViews() {
         ButterKnife.bind(this);
         String mensajeLoader = "";
-        switch (tab.toString()){
+        switch (tab.toString()) {
             case "TAB1":
                 mensajeLoader = getString(R.string.procesando_servicios_loader);
                 break;

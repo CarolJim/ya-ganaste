@@ -22,8 +22,9 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/textView2"
+                style="@style/generic_text_style_2"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content" style="@style/generic_text_style_2"
+                android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="Legales" />
 
@@ -50,19 +51,19 @@
                 android:paddingTop="10dp">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    style="@style/generic_text_style_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
-                    android:text="Aviso de Privacidad"
-                    style="@style/generic_text_style_2" />
+                    android:text="Aviso de Privacidad" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="17dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    app:srcCompat="@drawable/menu_canvas_blue"  />
+                    app:srcCompat="@drawable/menu_canvas_blue" />
             </LinearLayout>
 
             <View
@@ -72,27 +73,27 @@
 
 
             <LinearLayout
+                android:id="@+id/fragment_lista_legales_terminos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:id="@+id/fragment_lista_legales_terminos"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:paddingTop="10dp">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    style="@style/generic_text_style_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
-                    android:text="Términos y Condiciones"
-                    style="@style/generic_text_style_2" />
+                    android:text="Términos y Condiciones" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="17dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    app:srcCompat="@drawable/menu_canvas_blue"  />
+                    app:srcCompat="@drawable/menu_canvas_blue" />
             </LinearLayout>
 
         </LinearLayout>

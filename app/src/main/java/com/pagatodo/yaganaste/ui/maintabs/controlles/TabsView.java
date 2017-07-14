@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui.maintabs.controlles;
 
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
-import com.pagatodo.yaganaste.interfaces.IProgressView;
 import com.pagatodo.yaganaste.interfaces.View;
 
 /**

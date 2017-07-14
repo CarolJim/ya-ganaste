@@ -6,7 +6,9 @@ package com.pagatodo.yaganaste.interfaces;
 
 public interface IAprovPresenter {
 
-    public void verifyActivationAprov(String codeActivation);
-    public void activationAprov(String codeActivation);
-    public void subscribePushNotification();
+    void verifyActivationAprov(String codeActivation);
+
+    void activationAprov(String codeActivation);
+
+    void subscribePushNotification();
 }

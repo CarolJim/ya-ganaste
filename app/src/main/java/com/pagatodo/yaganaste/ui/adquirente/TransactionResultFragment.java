@@ -1,12 +1,9 @@
 package com.pagatodo.yaganaste.ui.adquirente;
 
 
-import android.app.Activity;
-import android.content.Context;
 import android.content.pm.ActivityInfo;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.v4.content.ContextCompat;
 import android.support.v7.view.ContextThemeWrapper;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -21,8 +18,6 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
-import java.io.Serializable;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -36,15 +31,15 @@ import static com.pagatodo.yaganaste.data.model.PageResult.BTN_DIRECTION_NEXT;
  */
 public class TransactionResultFragment extends GenericFragment implements View.OnClickListener, INavigationView {
 
+    @IdRes
+    private static final int idBtnPrimary = 43322;
+    @IdRes
+    private static final int idBtnSecondary = 43321;
     public static String KEY_PAGE_RESULT = "KEYPAGERESULT";
-    private View rootview;
-
     @BindView(R.id.imgResult)
     ImageView imgResult;
-
     @BindView(R.id.txtTitleResult)
     StyleTextView txtTitleResult;
-
     @BindView(R.id.txtSubtitleResult)
     StyleTextView txtMessageResult;
     //@BindView(R.id.btnNextResult)
@@ -53,17 +48,10 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     //StyleButton btnSecondaryResult;
     @BindView(R.id.layoutButtonsResult)
     LinearLayout llContentBtns;
-
     @BindView(R.id.txtDescriptionResult)
     StyleTextView txtDescriptionResult;
-
+    private View rootview;
     private PageResult pageResultData;
-
-    @IdRes
-    private static final int idBtnPrimary = 43322;
-
-    @IdRes
-    private static final int idBtnSecondary = 43321;
 
     public TransactionResultFragment() {
     }
@@ -72,10 +60,10 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     public static TransactionResultFragment newInstance(PageResult pageResult) {
 
         TransactionResultFragment fragmentRegister = new TransactionResultFragment();
-            Bundle args = new Bundle();
-            args.putParcelable(KEY_PAGE_RESULT, pageResult);
-            fragmentRegister.setArguments(args);
-            return fragmentRegister;
+        Bundle args = new Bundle();
+        args.putParcelable(KEY_PAGE_RESULT, pageResult);
+        fragmentRegister.setArguments(args);
+        return fragmentRegister;
     }
 
 
@@ -108,7 +96,7 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        txtTitleResult.setText(!pageResultData.getTitle().isEmpty() ? pageResultData.getTitle(): "");
+        txtTitleResult.setText(!pageResultData.getTitle().isEmpty() ? pageResultData.getTitle() : "");
         txtMessageResult.setText(!pageResultData.getMessage().isEmpty() ? pageResultData.getMessage() : "");
 
         txtDescriptionResult.setText(!pageResultData.getDescription().isEmpty() ? pageResultData.getDescription() : "");

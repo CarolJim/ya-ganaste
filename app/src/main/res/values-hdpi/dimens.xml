@@ -44,7 +44,6 @@
     <dimen name="margin_big_monto_concept">18dp</dimen>
 
 
-
     <!-- Medidas Fragmento Inicio -->
     <dimen name="frag_inicio_data_text_size">11sp
     </dimen> <!-- Tamaño de Letra de Tabs, nombre de cliente, texto normal -->

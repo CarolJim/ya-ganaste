@@ -3,11 +3,9 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -73,7 +71,7 @@ public class MyEmailFragment extends GenericFragment implements IMyEmailView, Vi
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.fragment_myemail_btn:
                 onValidationSuccess();
                 break;
@@ -85,7 +83,7 @@ public class MyEmailFragment extends GenericFragment implements IMyEmailView, Vi
         //getActivity().onBackPressed();
         onEventListener.onEvent("DISABLE_BACK", true);
 
-     //   mPreferPresenter.sendChangePassToPresenter();
+        //   mPreferPresenter.sendChangePassToPresenter();
         mPreferPresenter.changeEmailToPresenter("oldmail@g.com", "newmail@g.com");
     }
 

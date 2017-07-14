@@ -40,12 +40,13 @@
                     android:layout_weight="4.5" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    style="@style/generic_text_style_4"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:text="@string/saldo_en_cuenta" style="@style/generic_text_style_4"
+                    android:text="@string/saldo_en_cuenta"
                     app:tipo="Subtitulo" />
 
                 <android.support.v4.widget.Space
@@ -72,12 +73,13 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_nombre"
+                    style="@style/generic_text_style_4"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
                     android:layout_weight="3"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:text="Jorge Ehrenwald"  style="@style/generic_text_style_4"/>
+                    android:text="Jorge Ehrenwald" />
 
             </LinearLayout>
 

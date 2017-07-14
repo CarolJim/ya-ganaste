@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class TransaccionEMVDepositResponse  implements Serializable {
+public class TransaccionEMVDepositResponse implements Serializable {
 
     private String ARQC = "";
     private String Afiliacion = "";

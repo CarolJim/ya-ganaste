@@ -25,25 +25,29 @@ import java.util.regex.Pattern;
 
 public class NumberCalcTextWatcher implements TextWatcher {
 
+    private final static Pattern rfc2822 = Pattern.compile("^\\$?(\\d{1,5})?(\\.(\\d{1,2})?)?$");
+    protected static String amount = "";
+    String tmpAMount, strAmountEditText;
     private EditText etMonto;
     private TextView tvMontoEntero, tvMontoDecimal;
-
     private DecimalFormat formatter;
-    protected static String amount = "";
-
     private DecimalFormat fmt;
     private DecimalFormatSymbols fmts;
-
     private String oldData;
     private String newData;
-
-    String tmpAMount, strAmountEditText;
     private String TAG = getClass().getSimpleName();
 
     public NumberCalcTextWatcher(EditText edtMount, TextView tvMontoEntero, TextView tvMontoDecimal) {
         this.etMonto = edtMount;
         this.tvMontoEntero = tvMontoEntero;
         this.tvMontoDecimal = tvMontoDecimal;
+    }
+
+    public static void cleanData() {
+        amount = "";
+        // Reiniciamos el control de CodeKey para cuando cargamos de nuevo el fragment
+        // GetAmountFragment, tengamos un inicio de $0.00
+        CustomKeyboardView.setCodeKey(0);
     }
 
     @Override
@@ -198,18 +202,9 @@ public class NumberCalcTextWatcher implements TextWatcher {
         }
     }
 
-    private final static Pattern rfc2822 = Pattern.compile("^\\$?(\\d{1,5})?(\\.(\\d{1,2})?)?$");
-
     protected boolean validateAmount(String toCheck) {
         if (rfc2822.matcher(toCheck).matches())
             return true;
         return false;
-    }
-
-    public static void cleanData() {
-        amount = "";
-        // Reiniciamos el control de CodeKey para cuando cargamos de nuevo el fragment
-        // GetAmountFragment, tengamos un inicio de $0.00
-        CustomKeyboardView.setCodeKey(0);
     }
 }

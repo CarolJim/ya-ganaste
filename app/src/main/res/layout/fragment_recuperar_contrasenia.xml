@@ -42,13 +42,14 @@
                     style="@style/GenericFragmentElement"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:hintText="@string/txt_mail"
                     app:formato="email"
+                    app:hintText="@string/txt_mail"
                     app:isSingleLine="true" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorMessage"
-                    android:layout_width="match_parent" style="@style/generic_text_style_2"
+                    style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="visible" />
 
@@ -63,8 +64,8 @@
     <LinearLayout
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
-        android:layout_marginTop="@dimen/margin_medium"
         android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
         android:orientation="vertical">
 
         <LinearLayout

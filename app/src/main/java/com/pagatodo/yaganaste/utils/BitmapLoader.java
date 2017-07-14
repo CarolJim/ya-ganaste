@@ -4,9 +4,6 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.os.AsyncTask;
 import android.util.Base64;
-import android.util.Log;
-
-import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -48,8 +45,8 @@ public class BitmapLoader extends AsyncTask {
                 imgBase64 = bitmapToBase64(btm);
                 return btm;
             }
-        }catch (Exception e){
-           // Log.d("BitmapLoader", "Exception " + e);
+        } catch (Exception e) {
+            // Log.d("BitmapLoader", "Exception " + e);
             return null;
         }
     }

@@ -1,48 +1,47 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:orientation="vertical"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minWidth="270dp"
-    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical"
     tools:ignore="MissingPrefix">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginRight="10dp"
+        android:layout_gravity="center_horizontal"
         android:layout_marginLeft="10dp"
+        android:layout_marginRight="10dp"
         android:layout_marginTop="20dp"
-        android:orientation="vertical"
         android:gravity="center"
-        android:layout_gravity="center_horizontal">
+        android:orientation="vertical">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            app:tipo="Titulo"
             android:id="@+id/txtTitleNotification"
-            android:textSize="@dimen/size_text_style_3_value"
-            android:textColor="@color/colorAccent"
-            android:layout_margin="@dimen/margin_medium"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_margin="@dimen/margin_medium"
             android:gravity="center"
+            android:text="@string/app_name"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/size_text_style_3_value"
             android:visibility="visible"
-            android:text="@string/app_name" />
+            app:tipo="Titulo" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            app:tipo="Descripcion"
-            android:textColor="@color/whiteColor"
-            android:textSize="@dimen/size_text_style_3_value"
             android:id="@+id/txtMessageNotification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:gravity="center"
             android:layout_marginTop="15dp"
+            android:gravity="center"
             android:padding="5dp"
+            android:text="Mensaje d error"
+            android:textColor="@color/whiteColor"
+            android:textSize="@dimen/size_text_style_3_value"
             android:visibility="visible"
-            android:text="Mensaje d error" />
+            app:tipo="Descripcion" />
 
     </LinearLayout>
 
@@ -50,64 +49,64 @@
         android:id="@+id/buttons_container"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center"
+        android:layout_gravity="center_horizontal"
         android:layout_marginTop="15dp"
-        android:paddingBottom="10dp"
+        android:gravity="center"
         android:orientation="horizontal"
-        android:layout_gravity="center_horizontal">
+        android:paddingBottom="10dp">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_gravity="center_horizontal"
             android:gravity="center"
             android:orientation="horizontal"
-            android:layout_gravity="center_horizontal"
             android:weightSum="2.3">
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.1"/>
+                android:layout_weight="0.1" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnCancelDialog"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
-                android:layout_weight="1"
                 android:layout_height="@dimen/dimen_margin_pinpad"
-                android:gravity="center"
+                android:layout_weight="1"
                 android:background="@drawable/button_rounded_blue"
+                android:gravity="center"
                 android:text="@string/title_aceptar"
                 android:textAllCaps="true"
                 android:textColor="@color/whiteColor"
-                app:intercepterOnclick="true"
+                android:textSize="@dimen/size_text_style_2_value"
                 app:cornerRadius="@dimen/btn_corner_radius"
-                android:textSize="@dimen/size_text_style_2_value"/>
+                app:intercepterOnclick="true" />
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.1"/>
+                android:layout_weight="0.1" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnConfirmDialog"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
-                android:layout_weight="1"
-                android:gravity="center"
                 android:layout_height="@dimen/dimen_margin_pinpad"
+                android:layout_weight="1"
                 android:background="@drawable/button_rounded_blue"
+                android:gravity="center"
                 android:text="@string/title_aceptar"
                 android:textAllCaps="true"
                 android:textColor="@color/whiteColor"
-                app:intercepterOnclick="true"
+                android:textSize="@dimen/size_text_style_2_value"
                 app:cornerRadius="@dimen/btn_corner_radius"
-                android:textSize="@dimen/size_text_style_2_value"/>
+                app:intercepterOnclick="true" />
 
             <android.support.v4.widget.Space
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
-                android:layout_weight="0.1"/>
+                android:layout_weight="0.1" />
 
         </LinearLayout>
 

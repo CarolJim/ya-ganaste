@@ -1,8 +1,8 @@
 package com.pagatodo.yaganaste.data.model.webservice.request.adtvo;
+
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 
-import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
 

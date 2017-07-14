@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.utils.customviews;
 
 import android.content.Context;
 import android.content.res.TypedArray;
-import android.graphics.Canvas;
 import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -14,10 +13,11 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.TextView;
+
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
+
 import java.util.HashMap;
 import java.util.Map;
 
@@ -48,7 +48,7 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
     }
 
 
-    private void init(Context context, AttributeSet attrs){
+    private void init(Context context, AttributeSet attrs) {
         tabView = new HashMap<>();
         TypedArray configurationParams =
                 context.getTheme().obtainStyledAttributes(attrs, R.styleable.GenericTabLayout, 0, 0);
@@ -71,7 +71,7 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
         getTabAt(0).select();
     }
 
-    public void setCustomSelectedView(@LayoutRes int layout){
+    public void setCustomSelectedView(@LayoutRes int layout) {
         this.selectedLayout = layout;
         addOnTabSelectedListener(this);
     }
@@ -90,7 +90,7 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
 
     @Override
     public void setupWithViewPager(@Nullable ViewPager viewPager) {
-        if (viewPager != null && viewPager.getAdapter() != null && viewPager.getAdapter() instanceof GenericPagerAdapter){
+        if (viewPager != null && viewPager.getAdapter() != null && viewPager.getAdapter() instanceof GenericPagerAdapter) {
             mAdapter = (GenericPagerAdapter) viewPager.getAdapter();
 
         }
@@ -114,12 +114,12 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
 
         ImageView img = tabView.get(tab).mImage;
 
-        if (icon == IEnumTab.NO_ICON){
+        if (icon == IEnumTab.NO_ICON) {
             img.setVisibility(GONE);
         } else {
             tab.setIcon(icon);
         }
-        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams)img.getLayoutParams();
+        ViewGroup.MarginLayoutParams layoutParams = (ViewGroup.MarginLayoutParams) img.getLayoutParams();
         layoutParams.topMargin = 0;
         layoutParams.bottomMargin = 0;
 
@@ -127,7 +127,7 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
     }
 
     public T getCurrentData(int position) {
-        if( mAdapter != null) {
+        if (mAdapter != null) {
             return mAdapter.getCurrentData(position);
         }
         return customValues[position];
@@ -171,9 +171,9 @@ public class GenericTabLayout<T extends IEnumTab> extends TabLayout implements T
         private TextView mText;
         private ImageView mImage;
 
-        private TabHolder(View view){
-            this.mText = (TextView)view.findViewById(android.R.id.text1);
-            this.mImage = (ImageView)view.findViewById(android.R.id.icon);
+        private TabHolder(View view) {
+            this.mText = (TextView) view.findViewById(android.R.id.text1);
+            this.mImage = (ImageView) view.findViewById(android.R.id.icon);
         }
     }
 }

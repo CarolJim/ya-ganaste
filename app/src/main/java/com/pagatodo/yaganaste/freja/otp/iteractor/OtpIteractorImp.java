@@ -1,8 +1,10 @@
 package com.pagatodo.yaganaste.freja.otp.iteractor;
-import com.verisec.freja.mobile.core.exceptions.FmcInternalException;
-import java.util.Arrays;
+
 import com.pagatodo.yaganaste.freja.general.FmcIteractorImp;
 import com.pagatodo.yaganaste.freja.otp.manager.OtpManager;
+import com.verisec.freja.mobile.core.exceptions.FmcInternalException;
+
+import java.util.Arrays;
 
 /**
  * @author Juan Guerra on 03/04/2017.
@@ -17,7 +19,7 @@ public class OtpIteractorImp extends FmcIteractorImp implements OtpIteractor {
     }
 
     @Override
-    public void generateOtp(byte[] pin)  {
+    public void generateOtp(byte[] pin) {
         try {
             String otp = fmcManager.generateOTPValue(pin);
             otpManager.onOtpGenerated(otp);

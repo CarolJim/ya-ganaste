@@ -8,7 +8,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerSubgir
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IDatosNegocioIteractor;
 import com.pagatodo.yaganaste.interfaces.INegocioManager;
-import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 
@@ -31,7 +30,7 @@ public class DatosNegocioInteractor implements IDatosNegocioIteractor, IRequestR
 
     @Override
     public void getGiros() {
-        try{
+        try {
             ApiAdtvo.obtenerSubgiros(this);
         } catch (OfflineException e) {
             iNegocioManager.onError(OBTENER_SUBGIROS, App.getInstance().getString(R.string.no_internet_access));

@@ -6,12 +6,15 @@ package com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces;
 
 public interface IRecargasInteractor {
 
-    interface OnValidationFinishListener{
+    void validateForms(String number, Double monto, int longitudReferencia, boolean isIAVE, OnValidationFinishListener listener);
+
+    interface OnValidationFinishListener {
         void onMontoError();
+
         void onNumberError();
+
         void onNumberEmpty();
+
         void onSuccess(Double monto);
     }
-
-    void validateForms(String number, Double monto, int longitudReferencia, boolean isIAVE, OnValidationFinishListener listener);
 }

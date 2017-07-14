@@ -151,11 +151,12 @@
 
                             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                 android:id="@+id/txtPagosUserName"
+                                style="@style/generic_text_style_2"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
                                 android:maxLines="2"
-                                android:maxWidth="100dp" style="@style/generic_text_style_2"
+                                android:maxWidth="100dp"
                                 android:text="Marcela"
                                 android:textColor="@color/colorAccent" />
 
@@ -166,8 +167,9 @@
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/txtPagosYourBalance"
+                                    style="@style/generic_text_style_2"
                                     android:layout_width="wrap_content"
-                                    android:layout_height="wrap_content" style="@style/generic_text_style_2"
+                                    android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"
                                     android:text="@string/your_balance"
                                     app:tipo="Subtitulo" />

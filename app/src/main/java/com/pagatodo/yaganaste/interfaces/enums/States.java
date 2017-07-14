@@ -8,17 +8,17 @@ import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 
 public enum States implements IEnumSpinner {
 
-    S0("0",   "Lugar de Nacimiento"),
+    S0("0", "Lugar de Nacimiento"),
 
-    S1(  "1", "Aguascalientes"),
-    S2(  "2", "Baja California"),
-    S3(  "3", "Baja California Sur"),
-    S4(  "4", "Campeche"),
-    S5(  "5", "Chihuahua"),
-    S6(  "6", "Coahuila"),
-    S7(  "7", "Colima"),
-    S8(  "8", "Chiapas"),
-    S9(  "9", "Distrito Federal"),
+    S1("1", "Aguascalientes"),
+    S2("2", "Baja California"),
+    S3("3", "Baja California Sur"),
+    S4("4", "Campeche"),
+    S5("5", "Chihuahua"),
+    S6("6", "Coahuila"),
+    S7("7", "Colima"),
+    S8("8", "Chiapas"),
+    S9("9", "Distrito Federal"),
     S10("10", "Durango"),
     S11("11", "Guerrero"),
     S12("12", "Guanajuato"),
@@ -48,7 +48,7 @@ public enum States implements IEnumSpinner {
     private String name;
     private String id;
 
-    private States(String i, String name) {
+    States(String i, String name) {
         this.name = name;
         this.id = i;
     }

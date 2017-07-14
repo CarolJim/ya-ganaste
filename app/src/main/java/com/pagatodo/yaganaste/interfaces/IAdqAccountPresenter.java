@@ -1,7 +1,5 @@
 package com.pagatodo.yaganaste.interfaces;
 
-import android.view.View;
-
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 
 import java.util.ArrayList;
@@ -12,10 +10,15 @@ import java.util.ArrayList;
 
 public interface IAdqAccountPresenter {
 
-    public void createAdq();
-    public void getNeighborhoods(String zipCode);
-    public void getEstatusDocs();
-    public void getClientAddress();
-    public void sendDocumentos(ArrayList<DataDocuments> data);
-    public void sendDocumentosPendientes(ArrayList<DataDocuments> data);
+    void createAdq();
+
+    void getNeighborhoods(String zipCode);
+
+    void getEstatusDocs();
+
+    void getClientAddress();
+
+    void sendDocumentos(ArrayList<DataDocuments> data);
+
+    void sendDocumentosPendientes(ArrayList<DataDocuments> data);
 }

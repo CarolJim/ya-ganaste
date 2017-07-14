@@ -9,8 +9,8 @@
         android:id="@+id/container"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone"
-        android:background="@drawable/bg_gradient_bottom" />
+        android:background="@drawable/bg_gradient_bottom"
+        android:visibility="gone" />
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressGIF"

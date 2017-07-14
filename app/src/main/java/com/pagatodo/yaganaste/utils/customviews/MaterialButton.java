@@ -29,9 +29,9 @@ import com.pagatodo.yaganaste.utils.Utils;
 
 public class MaterialButton extends AppCompatButton implements View.OnClickListener {
 
+    private final int version = Build.VERSION.SDK_INT;
     private View view;
     private boolean isOval;
-    private final int version = Build.VERSION.SDK_INT;
     private OnClickListener mClickListener;
     private boolean interceptor;
 

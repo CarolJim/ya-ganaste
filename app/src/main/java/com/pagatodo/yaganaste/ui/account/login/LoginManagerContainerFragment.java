@@ -29,9 +29,9 @@ import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 
 public class LoginManagerContainerFragment extends SupportFragment {
 
-    private View rootView;
     @BindView(R.id.container)
     FrameLayout container;
+    private View rootView;
 
     public static LoginManagerContainerFragment newInstance() {
         LoginManagerContainerFragment fragment = new LoginManagerContainerFragment();

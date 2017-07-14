@@ -52,8 +52,7 @@ import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 public class PaymentsTabFragment extends SupportFragment implements View.OnClickListener,
         View.OnDragListener {
 
-    private View rootView;
-
+    public boolean isOnForm = false;
     @BindView(R.id.container)
     FrameLayout container;
     @BindView(R.id.payment_view_pager)
@@ -82,11 +81,10 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     MovementsTab currentTab = TAB1;
     SingletonUser singletonUser;
-
+    private View rootView;
     //private Animation animIn, animOut;
     private PaymentsTabPresenter paymentsTabPresenter;
     private FragmentPagerAdapter viewPAgerAdapter;
-    public boolean isOnForm = false;
 
     public static PaymentsTabFragment newInstance() {
         PaymentsTabFragment paymentsTabFragment = new PaymentsTabFragment();

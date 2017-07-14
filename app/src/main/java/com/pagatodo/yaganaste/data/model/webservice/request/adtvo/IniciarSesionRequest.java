@@ -8,7 +8,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class IniciarSesionRequest extends Request implements Serializable{
+public class IniciarSesionRequest extends Request implements Serializable {
 
     private String UsuarioCorreo = "";
     private String Contrasena = "";
@@ -16,7 +16,7 @@ public class IniciarSesionRequest extends Request implements Serializable{
     public IniciarSesionRequest() {
     }
 
-    public IniciarSesionRequest(String usuarioCorreo, String contrasena,String telefono) {
+    public IniciarSesionRequest(String usuarioCorreo, String contrasena, String telefono) {
         UsuarioCorreo = usuarioCorreo;
         Contrasena = contrasena;
     }

@@ -26,20 +26,19 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 
-public class SessionActivity extends ToolBarActivity implements TabsView,  OnEventListener,View.OnClickListener {
+public class SessionActivity extends ToolBarActivity implements TabsView, OnEventListener, View.OnClickListener {
 
     public final static int REQUESTCODE_OTP = 415;
     public final static String EVENT_GO_OTP = "EVENTGOOTP";
     public final static String EVENT_TO_PAYMENTS = "EVENTTOPAYMENTS";
-
-    private Preferencias pref;
     @BindView(R.id.session_view_pager)
     public ViewPager mainViewPager;
-    private TabPresenter tabPresenter;
     @BindView(R.id.imgToRight)
     public ImageView arrowRight;
     @BindView(R.id.imgToLeft)
     public ImageView arrowLeft;
+    private Preferencias pref;
+    private TabPresenter tabPresenter;
 
     public static Intent createIntent(Context from) {
         return new Intent(from, SessionActivity.class);
@@ -76,7 +75,7 @@ public class SessionActivity extends ToolBarActivity implements TabsView,  OnEve
             @Override
             public void onPageSelected(int position) {
 
-                switch (position){
+                switch (position) {
                     case 0:
                         arrowRight.setVisibility(VISIBLE);
                         arrowLeft.setVisibility(GONE);
@@ -113,7 +112,7 @@ public class SessionActivity extends ToolBarActivity implements TabsView,  OnEve
     @Override
     public void onEvent(String event, Object data) {
 
-        switch (event){
+        switch (event) {
             case EVENT_GO_OTP:
                 mainViewPager.setCurrentItem(0);
                 break;
@@ -129,8 +128,8 @@ public class SessionActivity extends ToolBarActivity implements TabsView,  OnEve
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        if(requestCode == REQUESTCODE_OTP){
-            if(resultCode == RESULT_OK){
+        if (requestCode == REQUESTCODE_OTP) {
+            if (resultCode == RESULT_OK) {
                 mainViewPager.setCurrentItem(1);
             }
 
@@ -139,7 +138,7 @@ public class SessionActivity extends ToolBarActivity implements TabsView,  OnEve
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
             case R.id.imgToRight:
                 mainViewPager.setCurrentItem(1);
                 break;

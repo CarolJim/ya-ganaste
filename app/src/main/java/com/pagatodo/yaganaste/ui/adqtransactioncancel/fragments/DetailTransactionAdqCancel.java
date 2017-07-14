@@ -32,9 +32,6 @@ import butterknife.ButterKnife;
 
 public class DetailTransactionAdqCancel extends GenericFragment implements View.OnClickListener {
 
-    private DataMovimientoAdq dataMovimientoAdq;
-    private View rootView;
-
     @BindView(R.id.txtMontoCobroCancel)
     MontoTextView txtMontoCobroCancel;
     @BindView(R.id.txtReferenciaCobroCancel)
@@ -51,6 +48,8 @@ public class DetailTransactionAdqCancel extends GenericFragment implements View.
     Button btnVolver;
     @BindView(R.id.btnCancelCobro)
     Button btnCancel;
+    private DataMovimientoAdq dataMovimientoAdq;
+    private View rootView;
 
     public static DetailTransactionAdqCancel newInstance(DataMovimientoAdq dataMovimientoAdq) {
         DetailTransactionAdqCancel fragment = new DetailTransactionAdqCancel();

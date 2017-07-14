@@ -55,12 +55,9 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         View.OnClickListener, IAdqRegisterView<ErrorObject>, RadioGroup.OnCheckedChangeListener,
         IOnSpinnerClick {
 
-    public static int MIN_LENGHT_VALIDATION_CP = 4;
     public static final String _DOMICILIO = "1";
     public static final String COLONIAS = "2";
-
-    private View rootview;
-
+    public static int MIN_LENGHT_VALIDATION_CP = 4;
     @BindView(R.id.editBussinesStreet)
     CustomValidationEditText editBussinesStreet;
     @BindView(R.id.editBussinesExtNumber)
@@ -79,7 +76,6 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     Button btnBackBussinesAddress;
     @BindView(R.id.btnNextBussinesAddress)
     Button btnNextBussinesAddress;
-
     @BindView(R.id.errorBussinesStreetMessage)
     ErrorMessage errorStreet;
     @BindView(R.id.errorNumberAddressMessage)
@@ -88,7 +84,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
     ErrorMessage errorZipCode;
     @BindView(R.id.errorBussinesColoniaMessage)
     ErrorMessage errorColonia;
-
+    private View rootview;
     private ArrayAdapter<String> adapterColonia;
     private List<ColoniasResponse> listaColonias;
     private List<String> coloniasNombre;
@@ -324,7 +320,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
             isValid = false;
         }
 
-        if(!editBussinesZipCode.isValidText()){
+        if (!editBussinesZipCode.isValidText()) {
             showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
             editBussinesZipCode.isValidText();
             isValid = false;
@@ -599,6 +595,14 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         hideErrorMessage(spBussinesColonia.getId());
     }
 
+    private void clearAllFocus() {
+        editBussinesStreet.clearFocus();
+        editBussinesExtNumber.clearFocus();
+        editBussinesIntNumber.clearFocus();
+        editBussinesZipCode.clearFocus();
+        editBussinesState.clearFocus();
+    }
+
     private class ZipWatcher extends AbstractTextWatcher {
 
         @Override
@@ -613,13 +617,5 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
                 }
             }
         }
-    }
-
-    private void clearAllFocus(){
-        editBussinesStreet.clearFocus();
-        editBussinesExtNumber.clearFocus();
-        editBussinesIntNumber.clearFocus();
-        editBussinesZipCode.clearFocus();
-        editBussinesState.clearFocus();
     }
 }

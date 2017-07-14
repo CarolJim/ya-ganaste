@@ -64,15 +64,15 @@ public class ListaLegalesFragment extends GenericFragment implements View.OnClic
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_lista_legales_aviso:
-             //   Toast.makeText(getContext(), "Click User", Toast.LENGTH_SHORT).show();
+                //   Toast.makeText(getContext(), "Click User", Toast.LENGTH_SHORT).show();
                 onEventListener.onEvent(PREFER_USER_PRIVACIDAD, 1);
                 break;
             case R.id.fragment_lista_legales_terminos:
-              //  Toast.makeText(getContext(), "Click Cuenta", Toast.LENGTH_SHORT).show();
+                //  Toast.makeText(getContext(), "Click Cuenta", Toast.LENGTH_SHORT).show();
                 onEventListener.onEvent(PREFER_USER_TERMINOS, 1);
                 break;
         }
     }
 
-    
+
 }

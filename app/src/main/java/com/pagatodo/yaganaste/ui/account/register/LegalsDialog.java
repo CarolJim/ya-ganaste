@@ -37,24 +37,12 @@ public class LegalsDialog extends DialogFragment implements IProgressView {
 
     public static String TAG = "LegalsDialog";
     public static String TYPE_LEGALS = "TYPE_LEGALS";
-    private View rootview;
     @BindView(R.id.webViewLegalsContent)
     WebView webViewLegalsContent;
-
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
-
+    private View rootview;
     private Legales typeLegal;
-
-    @Override
-    public void errorSessionExpired(DataSourceResult response) {
-
-    }
-
-    public enum Legales implements Serializable {
-        TERMINOS,
-        PRIVACIDAD
-    }
 
     public static LegalsDialog newInstance(Legales typeLegal) {
         LegalsDialog legalsDialog = new LegalsDialog();
@@ -62,6 +50,11 @@ public class LegalsDialog extends DialogFragment implements IProgressView {
         args.putSerializable(TYPE_LEGALS, typeLegal);
         legalsDialog.setArguments(args);
         return legalsDialog;
+    }
+
+    @Override
+    public void errorSessionExpired(DataSourceResult response) {
+
     }
 
     @Override
@@ -105,7 +98,6 @@ public class LegalsDialog extends DialogFragment implements IProgressView {
             }
         });
     }
-
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
@@ -158,6 +150,11 @@ public class LegalsDialog extends DialogFragment implements IProgressView {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+    }
+
+    public enum Legales implements Serializable {
+        TERMINOS,
+        PRIVACIDAD
     }
 
 }

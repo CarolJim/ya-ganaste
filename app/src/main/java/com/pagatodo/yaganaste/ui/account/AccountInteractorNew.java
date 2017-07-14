@@ -12,7 +12,6 @@ import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
@@ -82,12 +81,8 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASSIGN_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
-import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
-import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
-import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
-import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 /**
  * Created by flima on 22/03/2017.
@@ -424,11 +419,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 break;
 
             case VALIDAR_DATOS_PERSONA:
-                validatePersonDataResponse((GenericResponse)dataSourceResult.getData());
+                validatePersonDataResponse((GenericResponse) dataSourceResult.getData());
                 break;
 
             case CONSULTA_SALDO_CUPO:
-                validateBalanceAdqResponse((ConsultaSaldoCupoResponse)dataSourceResult.getData());
+                validateBalanceAdqResponse((ConsultaSaldoCupoResponse) dataSourceResult.getData());
                 break;
 
             default:
@@ -457,7 +452,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
     }
 
-    private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response){
+    private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response) {
         accountManager.onSuccesBalanceAdq(response);
     }
 
@@ -633,6 +628,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
         }
     }
+
     /**
      * Método para procesar la respuesta uan vez que se realizo la asignación de una cuenta disponible.
      *

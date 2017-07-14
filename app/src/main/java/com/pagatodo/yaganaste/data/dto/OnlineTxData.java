@@ -6,7 +6,7 @@ import java.io.Serializable;
  * @author Juan Guerra on 17/04/2017.
  */
 
-public class OnlineTxData implements Serializable{
+public class OnlineTxData implements Serializable {
 
     private String idFreja;
     private String typeTx;

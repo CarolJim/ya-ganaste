@@ -8,5 +8,6 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 public interface IPaymentsTabPresenter {
     CarouselItem getCarouselItem();
+
     void setCarouselItem(CarouselItem carouselItem);
 }

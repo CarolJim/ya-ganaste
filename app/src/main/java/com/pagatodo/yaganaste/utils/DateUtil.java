@@ -104,13 +104,13 @@ public class DateUtil {
 
         char[] chars = result.toCharArray();
 
-        for (int x = 0 ; x < chars.length ; x++) {
+        for (int x = 0; x < chars.length; x++) {
             if (Character.isLetter(chars[x])) {
                 chars[x] = Character.toUpperCase(chars[x]);
-                return new String(chars).replace(".","");
+                return new String(chars).replace(".", "");
             }
         }
-        return result.replace(".","");
+        return result.replace(".", "");
     }
 
 

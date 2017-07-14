@@ -2,9 +2,9 @@ package com.pagatodo.yaganaste.freja.change.async;
 
 import android.os.AsyncTask;
 
+import com.pagatodo.yaganaste.freja.general.callbacks.PinPolicyCallback;
 import com.verisec.freja.mobile.core.FmcManager;
 import com.verisec.freja.mobile.core.wsHandler.beans.general.response.FmcPinPolicy;
-import com.pagatodo.yaganaste.freja.general.callbacks.PinPolicyCallback;
 
 /**
  * @author Juan Guerra on 30/03/2017.
@@ -31,7 +31,7 @@ public class ChangePinPolicyRequest extends AsyncTask<Void, Void, Object> {
 
     @Override
     protected void onPostExecute(Object response) {
-        if (response instanceof Exception){
+        if (response instanceof Exception) {
             this.pinPolicyCallback.handleException((Exception) response);
         } else if (response instanceof FmcPinPolicy) {
             FmcPinPolicy pinPolicy = (FmcPinPolicy) response;

@@ -53,10 +53,10 @@
     <dimen name="width_btns_small">108dp</dimen>
     <dimen name="btns_separation">11dp</dimen>
 
-<!--
-    <dimen name="height_btn_square">44dp</dimen>
-    <dimen name="width_btn_square">162dp</dimen>
--->
+    <!--
+        <dimen name="height_btn_square">44dp</dimen>
+        <dimen name="width_btn_square">162dp</dimen>
+    -->
 
 
     <!-- Edittexts -->
@@ -162,7 +162,7 @@
     <dimen name="margin_form_bottom">25dp</dimen>
     <dimen name="btn_navigation_bottom">20dp</dimen>
     <dimen name="margin_error">10dp</dimen>
-    
+
     <dimen name="custom_validation_edittext_imagelay_width">40dp</dimen>
     <dimen name="custom_validation_edittext_image_width">17dp</dimen>
     <dimen name="custom_validation_edittext_image_height">15dp</dimen>

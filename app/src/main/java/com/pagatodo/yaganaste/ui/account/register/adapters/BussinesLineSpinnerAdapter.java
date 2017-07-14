@@ -86,9 +86,9 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<SubGiro> {
 
     public int getItemPosition(@NonNull SubGiro giroComercio) {
         SubGiro current;
-        for (int position = 0; position < mList.size() ; position++) {
+        for (int position = 0; position < mList.size(); position++) {
             current = mList.get(position);
-            if ( giroComercio.getIdSubgiro() == current.getIdSubgiro()) {
+            if (giroComercio.getIdSubgiro() == current.getIdSubgiro()) {
                 return position;
             }
         }

@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
 public class ConsultarSaldoADQResponse extends GenericResponse {
 
     private DataSaldoADQ Data;
+
     public ConsultarSaldoADQResponse() {
         Data = new DataSaldoADQ();
     }

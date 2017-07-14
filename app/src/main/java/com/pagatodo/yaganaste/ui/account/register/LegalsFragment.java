@@ -11,11 +11,10 @@ import android.view.ViewGroup;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
+
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IProgressView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.Constants;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.io.Serializable;
@@ -34,26 +33,15 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_TERMINOS;
  */
 public class LegalsFragment extends GenericFragment implements IProgressView {
 
-    private String TAG= "LegalsFragment";
-    public static String TYPE_LEGALS= "TYPE_LEGALS";
-
-    private View rootview;
+    public static String TYPE_LEGALS = "TYPE_LEGALS";
     @BindView(R.id.webViewLegalsContent)
     WebView webViewLegales;
-
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
-
+    private String TAG = "LegalsFragment";
+    private View rootview;
     private Legales typeLegal;
-
-
-    public enum Legales implements Serializable {
-        TERMINOS,
-        PRIVACIDAD
-    }
-
     private WebView webViewLegalsContent;
-
 
     public LegalsFragment() {
         // Required empty public constructor
@@ -62,7 +50,7 @@ public class LegalsFragment extends GenericFragment implements IProgressView {
     public static LegalsFragment newInstance(Legales typeLegal) {
         LegalsFragment fragmentRegister = new LegalsFragment();
         Bundle args = new Bundle();
-        args.putSerializable(TYPE_LEGALS,typeLegal);
+        args.putSerializable(TYPE_LEGALS, typeLegal);
         fragmentRegister.setArguments(args);
         return fragmentRegister;
     }
@@ -81,7 +69,7 @@ public class LegalsFragment extends GenericFragment implements IProgressView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        this.typeLegal =(Legales) getArguments().getSerializable(TYPE_LEGALS);
+        this.typeLegal = (Legales) getArguments().getSerializable(TYPE_LEGALS);
 
     }
 
@@ -105,7 +93,7 @@ public class LegalsFragment extends GenericFragment implements IProgressView {
         return rootview;
     }
 
-    private void init(){
+    private void init() {
     }
 
     @Override
@@ -115,7 +103,7 @@ public class LegalsFragment extends GenericFragment implements IProgressView {
         settings.setJavaScriptEnabled(true);
         webViewLegalsContent.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         webViewLegalsContent.loadUrl(getUrlLegals());
-        webViewLegalsContent.setWebViewClient(new WebViewClient(){
+        webViewLegalsContent.setWebViewClient(new WebViewClient() {
             @Override
             public void onPageFinished(WebView view, String url) {
                 super.onPageFinished(view, url);
@@ -123,7 +111,6 @@ public class LegalsFragment extends GenericFragment implements IProgressView {
             }
         });
     }
-
 
     @Override
     public void showLoader(String message) {
@@ -141,9 +128,9 @@ public class LegalsFragment extends GenericFragment implements IProgressView {
 
     }
 
-    private String getUrlLegals(){
+    private String getUrlLegals() {
 
-        switch (typeLegal){
+        switch (typeLegal) {
 
             case TERMINOS:
 
@@ -159,5 +146,10 @@ public class LegalsFragment extends GenericFragment implements IProgressView {
 
         }
 
+    }
+
+    public enum Legales implements Serializable {
+        TERMINOS,
+        PRIVACIDAD
     }
 }

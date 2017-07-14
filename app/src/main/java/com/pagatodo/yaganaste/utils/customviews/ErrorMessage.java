@@ -2,12 +2,10 @@ package com.pagatodo.yaganaste.utils.customviews;
 
 import android.content.Context;
 import android.util.AttributeSet;
-import android.util.TypedValue;
 import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.widget.RelativeLayout;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 
 import butterknife.ButterKnife;

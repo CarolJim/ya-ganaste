@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class ObtenerEstatusTarjetaRequest implements Serializable{
+public class ObtenerEstatusTarjetaRequest implements Serializable {
 
     private String Ticket = "";
     private Double Monto;

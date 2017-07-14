@@ -19,6 +19,10 @@ public abstract class AbstractTextWatcher implements TextWatcher {
         return isEnabled;
     }
 
+    public void setEnabled(boolean isEnabled) {
+        this.isEnabled = isEnabled;
+    }
+
     @Override
     public final void beforeTextChanged(CharSequence s, int start, int count, int after) {
         if (isEnabled) {
@@ -50,10 +54,6 @@ public abstract class AbstractTextWatcher implements TextWatcher {
 
     public void afterTextChanged(String s) {
         //Override to implement your own action
-    }
-
-    public void setEnabled(boolean isEnabled) {
-        this.isEnabled = isEnabled;
     }
 
 }

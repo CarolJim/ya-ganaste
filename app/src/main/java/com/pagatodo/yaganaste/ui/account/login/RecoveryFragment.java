@@ -26,8 +26,6 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.view.View.GONE;
-import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -39,8 +37,6 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
  */
 public class RecoveryFragment extends GenericFragment implements View.OnClickListener, RecoveryPasswordView, ValidationForms {
 
-    private View rootview;
-
     @BindView(R.id.edtCorreoRegistrado)
     CustomValidationEditText edtCorreoRegistrado;
     @BindView(R.id.btnNextRecuperar)
@@ -51,7 +47,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
     ErrorMessage errorMessageView;
     @BindView(R.id.progressIndicator)
     ProgressLayout progressLayout;
-
+    private View rootview;
     private AccountPresenterNew accountPresenter;
 
     private String correoRegistrado = "";
@@ -117,7 +113,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
         switch (view.getId()) {
             case R.id.btnBackRecuperar:
                 //backScreen(EVENT_RECOVERY_PASS_BACK, null);
-                ((LoginManagerContainerFragment)getParentFragment()).onBackActions();
+                ((LoginManagerContainerFragment) getParentFragment()).onBackActions();
                 break;
             case R.id.btnNextRecuperar:
                 validateForm();

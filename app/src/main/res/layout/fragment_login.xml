@@ -87,7 +87,7 @@
                 android:layout_below="@+id/edtxtLetsStartMail"
                 android:layout_marginTop="@dimen/margin_small"
                 android:padding="@dimen/margin_medium"
-                android:text="@string/recover_pass"/>
+                android:text="@string/recover_pass" />
 
 
         </LinearLayout>

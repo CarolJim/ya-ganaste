@@ -10,7 +10,7 @@ public class Point implements Serializable {
     public Float x;
     public Float y;
 
-    public Point(Float x, Float y){
+    public Point(Float x, Float y) {
         this.x = x;
         this.y = y;
     }

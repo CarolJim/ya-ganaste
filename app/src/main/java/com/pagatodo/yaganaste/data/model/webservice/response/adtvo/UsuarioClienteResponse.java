@@ -8,7 +8,7 @@ import java.util.List;
  * Created by flima on 21/03/2017.
  */
 
-public class UsuarioClienteResponse  implements Serializable {
+public class UsuarioClienteResponse implements Serializable {
 
     private int IdUsuario;
     private String IdUsuarioAdquirente = "";
@@ -150,12 +150,12 @@ public class UsuarioClienteResponse  implements Serializable {
         this.NombreNegocio = NombreNegocio;
     }
 
-    public void setTokenSesionAdquirente(String tokenSesionAdquirente) {
-        TokenSesionAdquirente = tokenSesionAdquirente;
-    }
-
     public String getTokenSesionAdquirente() {
         return TokenSesionAdquirente;
+    }
+
+    public void setTokenSesionAdquirente(String tokenSesionAdquirente) {
+        TokenSesionAdquirente = tokenSesionAdquirente;
     }
 
     public String getIdUsuarioAdquirente() {

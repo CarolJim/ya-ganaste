@@ -18,7 +18,7 @@ public enum MovementsTab implements IEnumTab {
     private int id;
     private String description;
 
-    private MovementsTab(int name, int id, String description) {
+    MovementsTab(int name, int id, String description) {
         this.name = name;
         this.id = id;
         this.description = description;

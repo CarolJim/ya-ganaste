@@ -31,9 +31,9 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/edtitEmail"
+                    style="@style/GenericCustomValidationEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    style="@style/GenericCustomValidationEditText"
                     app:formato="email"
                     app:hintText="@string/txt_mail"
                     app:isSingleLine="true"
@@ -41,8 +41,8 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorMailMessage"
-                    android:layout_width="match_parent"
                     style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="visible" />
 
@@ -58,15 +58,15 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorConfirmaMailMessage"
-                    android:layout_width="match_parent"
                     style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="visible" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editPassword"
-                    android:layout_width="match_parent"
                     style="@style/GenericCustomValidationEditTextWithValidation"
+                    android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:formato="password"
                     app:hintText="@string/password"
@@ -75,8 +75,8 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorPasswordMessage"
-                    android:layout_width="match_parent"
                     style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="visible" />
 
@@ -92,9 +92,9 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorConfirmPasswordMessage"
+                    style="@style/generic_text_style_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    style="@style/generic_text_style_2"
                     android:visibility="visible" />
 
             </LinearLayout>
@@ -107,15 +107,15 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/margin_medium"
-        android:orientation="vertical"
-        android:gravity="center_horizontal">
+        android:gravity="center_horizontal"
+        android:orientation="vertical">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextDatosUsuario"
             style="@style/buttonDirecctionNext"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:gravity="center"
-            android:text="@string/nextButton"/>
+            android:text="@string/nextButton" />
     </LinearLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout

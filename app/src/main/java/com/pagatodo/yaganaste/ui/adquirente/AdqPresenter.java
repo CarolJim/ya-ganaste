@@ -72,11 +72,11 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
 
 
         CancellationData cancellationData = new CancellationData();
-        cancellationData.setDatelOriginalTransaction(dateFormat.format(calendar.getTime()).replace("/",""));
+        cancellationData.setDatelOriginalTransaction(dateFormat.format(calendar.getTime()).replace("/", ""));
         cancellationData.setIdOriginalTransaction(dataMovimientoAdq.getIdTransaction());
         cancellationData.setNoauthorizationOriginalTransaction(dataMovimientoAdq.getNoAutorizacion());
         cancellationData.setTicketOriginalTransaction(dataMovimientoAdq.getNoTicket());
-        cancellationData.setTimeOriginalTransaction(hourFormat.format(calendar.getTime()).replace(":",""));
+        cancellationData.setTimeOriginalTransaction(hourFormat.format(calendar.getTime()).replace(":", ""));
 
         CancelaTransaccionDepositoEmvRequest cancelRequest = new CancelaTransaccionDepositoEmvRequest();
         cancelRequest.setNoSerie(request.getNoSerie());

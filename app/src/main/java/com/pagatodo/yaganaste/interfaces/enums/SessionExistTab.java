@@ -23,7 +23,7 @@ public enum SessionExistTab implements IEnumTab {
     @DrawableRes
     private int icon;
 
-    private SessionExistTab(@StringRes int name, @DrawableRes int icon) {
+    SessionExistTab(@StringRes int name, @DrawableRes int icon) {
         this.name = name;
         this.icon = icon;
     }
@@ -36,7 +36,7 @@ public enum SessionExistTab implements IEnumTab {
 
     @Override
     @DrawableRes
-    public int getIconRes(){
+    public int getIconRes() {
         return this.icon;
     }
 

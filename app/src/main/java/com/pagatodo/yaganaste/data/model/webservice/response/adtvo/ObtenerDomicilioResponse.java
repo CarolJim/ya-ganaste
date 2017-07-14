@@ -2,9 +2,6 @@ package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 
-import java.util.ArrayList;
-import java.util.List;
-
 /**
  * Created by flima on 21/03/2017.
  */

@@ -32,12 +32,12 @@ import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 public class PermisosFragment extends GenericFragment implements View.OnClickListener, INavigationView {
 
 
-    private View rootview;
     @BindView(R.id.btnPermissions)
     Button btnPermissions;
     @BindView(R.id.btnNextPermisos)
     Button btnNextPermisos;
-    private String action= "";
+    private View rootview;
+    private String action = "";
 
     public PermisosFragment() {
     }
@@ -45,7 +45,7 @@ public class PermisosFragment extends GenericFragment implements View.OnClickLis
     public static PermisosFragment newInstance(String action) {
         PermisosFragment fragmentRegister = new PermisosFragment();
         Bundle args = new Bundle();
-        args.putString(SELECTION,action);
+        args.putString(SELECTION, action);
         fragmentRegister.setArguments(args);
         return fragmentRegister;
     }
@@ -103,13 +103,13 @@ public class PermisosFragment extends GenericFragment implements View.OnClickLis
 
             case R.id.btnNextPermisos:
 
-                switch (action){
+                switch (action) {
                     case GO_TO_LOGIN:
-                        nextScreen(EVENT_GO_LOGIN,null);
+                        nextScreen(EVENT_GO_LOGIN, null);
                         break;
 
                     case GO_TO_REGISTER:
-                        nextScreen(EVENT_DATA_USER,null);
+                        nextScreen(EVENT_DATA_USER, null);
                         break;
                 }
                 break;
@@ -118,13 +118,13 @@ public class PermisosFragment extends GenericFragment implements View.OnClickLis
         }
     }
 
-    public void setBtnPermissionsEnable(boolean isEnable){
+    public void setBtnPermissionsEnable(boolean isEnable) {
         btnPermissions.setEnabled(isEnable);
     }
 
-    public void checkPermissions(){
+    public void checkPermissions() {
 
-        if(!ValidatePermissions.isAllPermissionsActives(getActivity(),ValidatePermissions.getPermissionsCheck())){
+        if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
             btnNextPermisos.setVisibility(GONE);
             btnPermissions.setText("Activar Servicios");
             btnPermissions.setBackgroundColor(getResources().getColor(R.color.transparent));
@@ -135,7 +135,7 @@ public class PermisosFragment extends GenericFragment implements View.OnClickLis
                     Manifest.permission.ACCESS_FINE_LOCATION,
                     Manifest.permission.READ_EXTERNAL_STORAGE}, PERMISSION_GENERAL);
             //ValidatePermissions.showDialogPermission(getActivity(),getString(R.string.permission_request),getString(R.string.permission_request_desc),actionsDialog);
-        }else{
+        } else {
             btnNextPermisos.setVisibility(VISIBLE);
             btnPermissions.setText("Servicios Activados");
             btnPermissions.setEnabled(false);
@@ -146,7 +146,7 @@ public class PermisosFragment extends GenericFragment implements View.OnClickLis
     @Override
     public void nextScreen(String event, Object data) {
 
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override

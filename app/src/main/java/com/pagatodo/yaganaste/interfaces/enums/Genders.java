@@ -14,7 +14,7 @@ public enum Genders implements IEnumSpinner {
     private String name;
     private String id;
 
-    private Genders(String i, String name) {
+    Genders(String i, String name) {
         this.name = name;
         this.id = i;
     }

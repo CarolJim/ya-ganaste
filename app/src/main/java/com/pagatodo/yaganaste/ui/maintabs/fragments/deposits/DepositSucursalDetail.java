@@ -29,8 +29,7 @@ import butterknife.ButterKnife;
 
 public class DepositSucursalDetail extends SupportFragment implements View.OnClickListener {
 
-    private View rootView;
-
+    private static String SUCURSAL_OBJECT = "SucursalObject";
     @BindView(R.id.imgSucursal)
     ImageView imgSucursal;
     @BindView(R.id.txtSucursalTitle)
@@ -47,8 +46,7 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
     ImageView btnShare;
     @BindView(R.id.btnRoute)
     FloatingActionButton btnRoute;
-
-    private static String SUCURSAL_OBJECT = "SucursalObject";
+    private View rootView;
     private DataLocalizaSucursal sucursal;
     private Location myLocation;
 

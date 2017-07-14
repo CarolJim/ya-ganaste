@@ -7,7 +7,8 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActiv
  * Created by flima on 22/03/2017.
  */
 
-public interface IAprovIteractor<T>{
-    public void verifyActivationAprov(VerificarActivacionAprovSofttokenRequest request);
-    public void activationAprov(ActivacionAprovSofttokenRequest request);
+public interface IAprovIteractor<T> {
+    void verifyActivationAprov(VerificarActivacionAprovSofttokenRequest request);
+
+    void activationAprov(ActivacionAprovSofttokenRequest request);
 }

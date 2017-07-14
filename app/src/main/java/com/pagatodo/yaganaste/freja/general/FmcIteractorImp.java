@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.freja.general;
 
 import android.content.Context;
 
-import com.google.android.gms.nearby.messages.PublishCallback;
 import com.verisec.freja.mobile.core.FmcLogManager;
 import com.verisec.freja.mobile.core.FmcManager;
 import com.verisec.freja.mobile.core.configuration.FmcConfiguration;

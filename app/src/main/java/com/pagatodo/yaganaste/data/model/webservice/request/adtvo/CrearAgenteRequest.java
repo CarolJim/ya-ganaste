@@ -11,7 +11,7 @@ import java.util.List;
  * Created by flima on 21/03/2017.
  */
 
-public class CrearAgenteRequest implements Serializable{
+public class CrearAgenteRequest implements Serializable {
 
     private int TipoAgente;
     private String NombreComercio = "";

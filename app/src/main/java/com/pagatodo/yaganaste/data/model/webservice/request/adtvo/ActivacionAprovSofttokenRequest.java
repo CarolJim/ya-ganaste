@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by flima on 21/03/2017.
  */
 
-public class ActivacionAprovSofttokenRequest implements Serializable{
+public class ActivacionAprovSofttokenRequest implements Serializable {
 
     private String codigoActivacion = "";
 

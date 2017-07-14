@@ -45,7 +45,6 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
     public static String PIN_TO_CONFIRM = "PIN_TO_CONFIRM";
     private static int PIN_LENGHT = 4;
-    private View rootview;
     @BindView(R.id.borderLayout)
     BorderTitleLayout borderTitleLayout;
     @BindView(R.id.asignar_edittext)
@@ -56,14 +55,15 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     CustomKeyboardView keyboardView;
     @BindView(R.id.progressIndicator)
     ProgressLayout progressLayout;
-    private String nip = "";
-    private String nipToConfirm = "";
-    private AccountPresenterNew accountPresenter;
     LinearLayout layout_control;
     TextView tv1Num;
     TextView tv2Num;
     TextView tv3Num;
     TextView tv4Num;
+    private View rootview;
+    private String nip = "";
+    private String nipToConfirm = "";
+    private AccountPresenterNew accountPresenter;
 
     public ConfirmarNIPFragment() {
     }

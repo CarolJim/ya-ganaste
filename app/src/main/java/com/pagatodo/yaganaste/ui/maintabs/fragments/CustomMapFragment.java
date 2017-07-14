@@ -20,10 +20,9 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class CustomMapFragment extends com.google.android.gms.maps.SupportMapFragment implements OnMapReadyCallback {
 
+    public static String TAG = "CustomMapFragment";
     private ProgressDialog dialog;
     private GoogleMap map;
-    public static String TAG = "CustomMapFragment";
-
     private Location myLocation;
     private boolean firstLocation;
 
@@ -80,6 +79,14 @@ public class CustomMapFragment extends com.google.android.gms.maps.SupportMapFra
         map.setOnMyLocationChangeListener(new LocationListenerForMap());
     }
 
+    public float getZoomLevel(int radius) {
+        return (float) (16 - Math.log(1) / Math.log(2));
+    }
+
+    public Location getMyLocation() {
+        return myLocation;
+    }
+
     private class LocationListenerForMap implements GoogleMap.OnMyLocationChangeListener {
         @Override
         public void onMyLocationChange(Location location) {
@@ -100,15 +107,6 @@ public class CustomMapFragment extends com.google.android.gms.maps.SupportMapFra
             }
 
         }
-    }
-
-    public float getZoomLevel(int radius) {
-        return (float) (16 - Math.log(1) / Math.log(2));
-    }
-
-
-    public Location getMyLocation() {
-        return myLocation;
     }
 
 

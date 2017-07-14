@@ -1,13 +1,14 @@
 package com.pagatodo.yaganaste.data.dto;
 
 import android.content.Context;
+
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 
 /**
  * @author Juan Guerra on 28/03/2017.
  */
 
-public class AdquirentePaymentsTab  implements IEnumTab {
+public class AdquirentePaymentsTab implements IEnumTab {
 
     private String name;
     private String date;
@@ -27,7 +28,7 @@ public class AdquirentePaymentsTab  implements IEnumTab {
         return NO_ICON;
     }
 
-    public String getDate(){
+    public String getDate() {
         return this.date;
     }
 }

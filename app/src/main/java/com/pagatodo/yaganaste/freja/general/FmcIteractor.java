@@ -9,6 +9,8 @@ import android.content.Context;
 public interface FmcIteractor {
 
     void init(Context context);
+
     void init(Context context, long connectionTimeout, long readTimeout);
+
     void throwInitException(Exception e);
 }

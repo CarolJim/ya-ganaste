@@ -58,16 +58,6 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerMo
         holder.txtItemMovDate.setText(itemMovements.getDate());
         holder.txtItemMovMonth.setText(itemMovements.getMonth());
 
-        /*if (Utils.getDoubleValue(monto[1]) > 0) {
-            holder.txtItemMovCents.setText(monto[1]);
-            holder.txtItemMovCents.setTextColor(ContextCompat.getColor(context, itemMovements.getColor()));
-        } else {
-            holder.txtItemMovCents.setVisibility(View.GONE);
-        }*/
-
-        //holder.txtItemMovCents.setText(monto[1]);
-        //holder.txtItemMovCents.setTextColor(ContextCompat.getColor(context, itemMovements.getColor()));
-
         if (itemMovementses.get(position).getColor() == android.R.color.transparent) {
             holder.txtMonto.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
         }

@@ -58,11 +58,11 @@ public class StringUtils {
         return formatter.format(value);
     }
 
-    public static String getCurrencyNoFraction(String value){
+    public static String getCurrencyNoFraction(String value) {
         return getCurrencyNoFraction(getDoubleValue(value));
     }
 
-    public static String getCurrencyNoFraction(double value){
+    public static String getCurrencyNoFraction(double value) {
         return getCurrencyValueInFormat(value, 0, 1);
     }
 
@@ -83,18 +83,18 @@ public class StringUtils {
         return getDoubleValue(textView.getText().toString());
     }
 
-    public static int getIntValue(String value){
+    public static int getIntValue(String value) {
         return getDoubleValue(value).intValue();
     }
 
-    public static SpannableStringBuilder getSpannable (String formatted) {
+    public static SpannableStringBuilder getSpannable(String formatted) {
         SpannableStringBuilder spannableStringBuilder = new SpannableStringBuilder();
         spannableStringBuilder.append(formatted);
         return spannableStringBuilder;
     }
 
 
-    public static String getCreditCardFormat(String card){
+    public static String getCreditCardFormat(String card) {
         StringBuilder result = new StringBuilder();
         for (int i = 0; i < card.length(); i++) {
             if (i % 4 == 0 && i != 0) {
@@ -113,16 +113,16 @@ public class StringUtils {
     public static String ocultarCardNumber(String cardNumber) {
         String lastFourNumbers = cardNumber.substring(cardNumber.length() - 4);
         String comodines = "****";
-        return  comodines + comodines + comodines + lastFourNumbers;
+        return comodines + comodines + comodines + lastFourNumbers;
     }
 
     public static String ocultarCardNumberFormat(String cardNumber) {
         String comodines = "****";
         String separador = " ";
-        if(cardNumber.length() > 0) {
+        if (cardNumber.length() > 0) {
             String lastFourNumbers = cardNumber.substring(cardNumber.length() - 4);
             return comodines + separador + comodines + separador + comodines + separador + lastFourNumbers;
-        }else{
+        } else {
             return comodines + separador + comodines + separador + comodines + separador + "1234";
         }
     }

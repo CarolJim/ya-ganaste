@@ -18,17 +18,17 @@ public enum AdqEmTab implements IEnumTab {
     @StringRes
     private int name;
 
-    private AdqEmTab(@StringRes int name) {
+    AdqEmTab(@StringRes int name) {
         this.name = name;
     }
-    
+
     @Override
     public String getName(Context context) {
         return context.getString(name);
     }
 
     @Override
-    public int getIconRes(){
+    public int getIconRes() {
         return NO_ICON;
     }
 

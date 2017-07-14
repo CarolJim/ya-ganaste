@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.trans;
 
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 
 /**

@@ -31,7 +31,7 @@ public class ResetPinIteractorImp extends FmcIteractorImp implements ResetPinIte
     @Override
     public void getResetPinPolicy() {
         ResetPinPolicyRequest resetPinPolicyRequest = new ResetPinPolicyRequest(fmcManager, this);
-        if (mExecutor == null){
+        if (mExecutor == null) {
             resetPinPolicyRequest.execute();
         } else {
             resetPinPolicyRequest.executeOnExecutor(mExecutor);
@@ -41,7 +41,7 @@ public class ResetPinIteractorImp extends FmcIteractorImp implements ResetPinIte
     @Override
     public void resetPin(byte[] rpcCode, byte[] newPin) {
         ResetPinRequest resetPinRequest = new ResetPinRequest(fmcManager, this, rpcCode, newPin);
-        if (mExecutor == null){
+        if (mExecutor == null) {
             resetPinRequest.execute();
         } else {
             resetPinRequest.executeOnExecutor(mExecutor);

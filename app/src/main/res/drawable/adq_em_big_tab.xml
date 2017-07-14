@@ -1,36 +1,37 @@
 <?xml version="1.0" encoding="utf-8"?>
-<layer-list xmlns:android="http://schemas.android.com/apk/res/android" >
+<layer-list xmlns:android="http://schemas.android.com/apk/res/android">
 
     <item android:bottom="5dp">
         <shape android:shape="rectangle">
 
             <corners
+                android:radius="0dp"
                 android:topLeftRadius="9dp"
-                android:topRightRadius="9dp"
-                android:radius="0dp"/>
+                android:topRightRadius="9dp" />
 
-            <stroke android:width="2dp"
-                android:color="@color/colorAccent"/>
+            <stroke
+                android:width="2dp"
+                android:color="@color/colorAccent" />
 
-            <padding android:top="2dp"
+            <padding
                 android:left="2dp"
-                android:right="2dp"/>
+                android:right="2dp"
+                android:top="2dp" />
         </shape>
     </item>
 
 
     <item android:bottom="3dp">
         <shape android:shape="rectangle">
-            <solid android:color="@color/bgColor"/>
+            <solid android:color="@color/bgColor" />
 
             <corners
+                android:radius="0dp"
                 android:topLeftRadius="9dp"
-                android:topRightRadius="9dp"
-                android:radius="0dp"/>
+                android:topRightRadius="9dp" />
         </shape>
 
     </item>
-
 
 
 </layer-list>

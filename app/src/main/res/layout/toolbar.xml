@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    android:id="@+id/toolbar_layout"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/toolbar_layout"
     android:layout_width="match_parent"
     android:layout_height="?android:attr/actionBarSize">
 
@@ -27,9 +27,9 @@
         android:id="@+id/imgToRight"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_margin="@dimen/margin_small"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
+        android:layout_margin="@dimen/margin_small"
         android:src="@drawable/arrow_icon"
         android:visibility="gone"
         tools:ignore="ContentDescription" />
@@ -38,9 +38,9 @@
         android:id="@+id/imgToLeft"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_margin="@dimen/margin_small"
         android:layout_alignParentLeft="true"
         android:layout_centerVertical="true"
+        android:layout_margin="@dimen/margin_small"
         android:src="@drawable/arrow_icon"
         android:visibility="gone"
         tools:ignore="ContentDescription" />
@@ -51,8 +51,8 @@
         android:layout_height="24dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
-        android:src="@android:drawable/ic_menu_preferences"
         android:layout_marginRight="30dp"
+        android:src="@android:drawable/ic_menu_preferences"
         android:visibility="gone"
         tools:ignore="ContentDescription" />
 

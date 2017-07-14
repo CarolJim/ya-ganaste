@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui.payments.interactors;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Recarga;

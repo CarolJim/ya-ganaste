@@ -54,15 +54,15 @@ import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
  */
 
 public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResult {
-    private String TAg = getClass().getSimpleName();
     private final int MAX_REINTENTOS = 3;
+    INavigationView iSessionExpired;
+    private String TAg = getClass().getSimpleName();
     private String TAG = getClass().getSimpleName();
     private IAccountManager accountManager;
     private AccountOperation accountOperation;
     private Preferencias prefs = App.getInstance().getPrefs();
     private int retryLogin = 0;
     private Context context = App.getInstance().getApplicationContext();
-    INavigationView iSessionExpired;
 
     public AdqInteractor(IAccountManager accountManager, INavigationView iSessionExpired) {
         this.accountManager = accountManager;

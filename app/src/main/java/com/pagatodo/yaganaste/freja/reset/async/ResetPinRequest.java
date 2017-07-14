@@ -26,10 +26,6 @@ public class ResetPinRequest extends AsyncTask<Void, Void, Exception> {
         this.newPin = newPin;
     }
 
-    public interface ResetPinCallback extends ExceptionCallback {
-        void onResetNipSuccessful();
-    }
-
     @Override
     protected Exception doInBackground(Void... params) {
         try {
@@ -42,16 +38,20 @@ public class ResetPinRequest extends AsyncTask<Void, Void, Exception> {
     }
 
     private void cleanPins() {
-        Arrays.fill(rpcCode, (byte)0xFF);
-        Arrays.fill(newPin, (byte)0xFF);
+        Arrays.fill(rpcCode, (byte) 0xFF);
+        Arrays.fill(newPin, (byte) 0xFF);
     }
 
     @Override
     protected void onPostExecute(Exception response) {
-        if (response == null){
+        if (response == null) {
             this.resetPinCallback.onResetNipSuccessful();
         } else {
             this.resetPinCallback.handleException(response);
         }
+    }
+
+    public interface ResetPinCallback extends ExceptionCallback {
+        void onResetNipSuccessful();
     }
 }

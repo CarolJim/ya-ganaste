@@ -24,8 +24,8 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SI
  */
 public class RemoveCardFragment extends GenericFragment implements INavigationView {
 
-    private View rootview;
     private final static int TIMER_ANIMATION_REMOVE = 3000; // 2 segundos
+    private View rootview;
 
     public RemoveCardFragment() {
     }
@@ -81,7 +81,7 @@ public class RemoveCardFragment extends GenericFragment implements INavigationVi
 
         new Handler().postDelayed(new Runnable() {
             public void run() {
-                nextScreen(EVENT_GO_GET_SIGNATURE,null);
+                nextScreen(EVENT_GO_GET_SIGNATURE, null);
             }
         }, TIMER_ANIMATION_REMOVE);
 
@@ -89,12 +89,12 @@ public class RemoveCardFragment extends GenericFragment implements INavigationVi
 
     @Override
     public void nextScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        onEventListener.onEvent(event,data);
+        onEventListener.onEvent(event, data);
     }
 
     @Override
@@ -109,7 +109,7 @@ public class RemoveCardFragment extends GenericFragment implements INavigationVi
 
     @Override
     public void showError(Object error) {
-        UI.showToast(error.toString(),getActivity());
+        UI.showToast(error.toString(), getActivity());
     }
 }
 

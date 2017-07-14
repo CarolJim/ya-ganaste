@@ -74,112 +74,28 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         IAdqTransactionRegisterView, IPreferUserGeneric {
 
     private static final String TAG = InsertDongleFragment.class.getSimpleName();
-    private View rootview;
+    private static String DATA_KEY = "is_cancelation_data";
+    private static String DATA_MOVEMENTS = "data_movimiento_adq";
+    public Preferencias prefs;
+    protected boolean isReaderConected = false;
     @BindView(R.id.imgInsertDongle)
     ImageView imgInsertDongle;
     @BindView(R.id.imgInsertCard)
     GifImageView imgInsertCard;
     @BindView(R.id.tv_txt_lector)
     StyleTextView tv_lector;
-
+    DataMovimientoAdq dataMovimientoAdq;
+    private View rootview;
     private AudioManager audioManager;
     private Handler handlerSwipe;
     private IntentFilter broadcastEMVSwipe;
-    public Preferencias prefs;
     private int currentVolumenDevice;
     private int maxVolumenDevice;
-
-
-    protected boolean isReaderConected = false;
-
     private String amount = "";
     private String detailAmount = "";
-
     private AdqPresenter adqPresenter;
-
     private boolean isWaitingCard = false;
-    private static String DATA_KEY = "is_cancelation_data";
-    private static String DATA_MOVEMENTS = "data_movimiento_adq";
     private boolean isCancelation = false;
-    DataMovimientoAdq dataMovimientoAdq;
-
-    public InsertDongleFragment() {
-    }
-
-    public static InsertDongleFragment newInstance(boolean isCancelation, DataMovimientoAdq dataMovimientoAdq) {
-        InsertDongleFragment fragment = new InsertDongleFragment();
-        Bundle args = new Bundle();
-        args.putBoolean(DATA_KEY, isCancelation);
-        args.putSerializable(DATA_MOVEMENTS, dataMovimientoAdq);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    public static InsertDongleFragment newInstance() {
-        InsertDongleFragment fragment = new InsertDongleFragment();
-        Bundle args = new Bundle();
-        args.putBoolean(DATA_KEY, false);
-        args.putSerializable(DATA_MOVEMENTS, null);
-        fragment.setArguments(args);
-        return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        isCancelation = getArguments().getBoolean(DATA_KEY);
-        dataMovimientoAdq = getArguments().getSerializable(DATA_MOVEMENTS) != null ? (DataMovimientoAdq) getArguments().getSerializable(DATA_MOVEMENTS) : null;
-        prefs = App.getInstance().getPrefs();
-        audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
-        currentVolumenDevice = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
-        broadcastEMVSwipe = new IntentFilter(Recursos.IPOS_READER_STATES);
-        IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
-        getActivity().registerReceiver(headPhonesReceiver, filter);
-        handlerSwipe = new Handler();
-
-        App.getInstance().initEMVListener();// Inicializamos el listener
-
-        adqPresenter = new AdqPresenter(this);
-        adqPresenter.setIView(this);
-
-        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
-    }
-
-    private BroadcastReceiver headPhonesReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-
-            if (intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
-                int state = intent.getIntExtra("state", -1);
-                switch (state) {
-                    case 0:
-                        isReaderConected = false;
-                        //validatingDng = false; // Cancelar Validacion
-                        unregisterReceiverDongle();
-                        hideLoader();
-                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
-                        showInsertDongle();
-                        Log.i("IposListener: ", "isReaderConected  false");
-                        break;
-                    case 1:
-                        isReaderConected = true;
-                        //checkDongleStatus("1234");
-                        getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
-                        maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
-                        //validatingDng = false; // Cancelar Validacion
-                        //insertCard();
-                        handlerSwipe.postDelayed(starReaderEmvSwipe, 500);
-                        Log.i("IposListener: ", "isReaderConected  true");
-                        break;
-                    default:
-                        break;
-                }
-            }
-        }
-    };
-
     private Runnable starReaderEmvSwipe = new Runnable() {
         @Override
         public void run() {
@@ -193,7 +109,6 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             }
         }
     };
-
     private BroadcastReceiver emvSwipeBroadcastReceiver = new BroadcastReceiver() {
         @SuppressLint("SimpleDateFormat")
         @Override
@@ -315,6 +230,82 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             // }
         }
     };
+    private BroadcastReceiver headPhonesReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+
+            if (intent.getAction().equals(Intent.ACTION_HEADSET_PLUG)) {
+                int state = intent.getIntExtra("state", -1);
+                switch (state) {
+                    case 0:
+                        isReaderConected = false;
+                        //validatingDng = false; // Cancelar Validacion
+                        unregisterReceiverDongle();
+                        hideLoader();
+                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+                        showInsertDongle();
+                        Log.i("IposListener: ", "isReaderConected  false");
+                        break;
+                    case 1:
+                        isReaderConected = true;
+                        //checkDongleStatus("1234");
+                        getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
+                        maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
+                        //validatingDng = false; // Cancelar Validacion
+                        //insertCard();
+                        handlerSwipe.postDelayed(starReaderEmvSwipe, 500);
+                        Log.i("IposListener: ", "isReaderConected  true");
+                        break;
+                    default:
+                        break;
+                }
+            }
+        }
+    };
+
+    public InsertDongleFragment() {
+    }
+
+    public static InsertDongleFragment newInstance(boolean isCancelation, DataMovimientoAdq dataMovimientoAdq) {
+        InsertDongleFragment fragment = new InsertDongleFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(DATA_KEY, isCancelation);
+        args.putSerializable(DATA_MOVEMENTS, dataMovimientoAdq);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    public static InsertDongleFragment newInstance() {
+        InsertDongleFragment fragment = new InsertDongleFragment();
+        Bundle args = new Bundle();
+        args.putBoolean(DATA_KEY, false);
+        args.putSerializable(DATA_MOVEMENTS, null);
+        fragment.setArguments(args);
+        return fragment;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        isCancelation = getArguments().getBoolean(DATA_KEY);
+        dataMovimientoAdq = getArguments().getSerializable(DATA_MOVEMENTS) != null ? (DataMovimientoAdq) getArguments().getSerializable(DATA_MOVEMENTS) : null;
+        prefs = App.getInstance().getPrefs();
+        audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
+        currentVolumenDevice = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
+        broadcastEMVSwipe = new IntentFilter(Recursos.IPOS_READER_STATES);
+        IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
+        getActivity().registerReceiver(headPhonesReceiver, filter);
+        handlerSwipe = new Handler();
+
+        App.getInstance().initEMVListener();// Inicializamos el listener
+
+        adqPresenter = new AdqPresenter(this);
+        adqPresenter.setIView(this);
+
+        //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+
+    }
 
     @Override
     public void verifyDongle(String ksn) {

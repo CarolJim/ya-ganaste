@@ -30,10 +30,6 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TE
 
 public class PreferUserActivity extends LoaderActivity implements OnEventListener {
 
-    private boolean isEsAgente;
-    private String mName, mEmail, mUserImage;
-    private boolean disableBackButton = false;
-
     public static String PREFER_USER_LISTA = "PREFER_USER_LISTA";
     public static String PREFER_USER_LEGALES = "PREFER_USER_LEGALES";
     public static String PREFER_USER_CLOSE = "PREFER_USER_CLOSE";
@@ -44,7 +40,25 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_MY_USER_BACK = "PREFER_USER_MY_USER_BACK";
     public static String PREFER_USER_EMAIL = "PREFER_USER_EMAIL";
     public static String PREFER_USER_PASS = "PREFER_USER_PASS";
+    /**
+     * Acciones para dialogo de confirmacion en cerrar session
+     */
+    DialogDoubleActions doubleActions = new DialogDoubleActions() {
+        @Override
+        public void actionConfirm(Object... params) {
+            setResult(ToolBarActivity.RESULT_LOG_OUT);
+            //mPreferPresenter.closeSession(mContext);
+            finish();
+        }
 
+        @Override
+        public void actionCancel(Object... params) {
+
+        }
+    };
+    private boolean isEsAgente;
+    private String mName, mEmail, mUserImage;
+    private boolean disableBackButton = false;
     private AccountPresenterNew presenterAccount;
     private PreferUserPresenter mPreferPresenter;
     private Context mContext;
@@ -94,23 +108,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public boolean onCreateOptionsMenu(Menu menu) {
         return false;
     }
-
-    /**
-     * Acciones para dialogo de confirmacion en cerrar session
-     */
-    DialogDoubleActions doubleActions = new DialogDoubleActions() {
-        @Override
-        public void actionConfirm(Object... params) {
-            setResult(ToolBarActivity.RESULT_LOG_OUT);
-            //mPreferPresenter.closeSession(mContext);
-            finish();
-        }
-
-        @Override
-        public void actionCancel(Object... params) {
-
-        }
-    };
 
     @Override
     public void onEvent(String event, Object data) {
