@@ -183,12 +183,6 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:visibility="visible" />
-                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                        android:id="@+id/errorBirthDayMessage"
-                        style="@style/generic_text_style_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="visible" />
 
                         <Spinner
                             android:id="@+id/spinnerBirthPlace"
@@ -231,7 +225,7 @@
             android:layout_height="wrap_content"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:gravity="center_horizontal"
-            android:orientation="center_horizontal">
+            android:orientation="horizontal">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnBackPersonalInfo"
