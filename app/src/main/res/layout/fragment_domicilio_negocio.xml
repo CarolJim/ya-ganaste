@@ -65,7 +65,7 @@
                             app:formato="text"
                             app:hintText="@string/outdoorNumber"
                             app:isSingleLine="true"
-                            app:maxLength="4" />
+                            app:maxLength="12" />
 
                         <android.support.v4.widget.Space
                             android:layout_width="@dimen/generic_padig"
@@ -80,7 +80,7 @@
                             app:formato="text"
                             app:hintText="@string/interiorNumber"
                             app:isSingleLine="true"
-                            app:maxLength="5" />
+                            app:maxLength="12" />
 
                     </LinearLayout>
 
