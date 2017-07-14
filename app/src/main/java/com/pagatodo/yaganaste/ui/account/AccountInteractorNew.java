@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
@@ -24,6 +25,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaD
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultaAsignacionTarjetaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.LoginAdqResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioClienteResponse;
@@ -35,6 +37,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesion
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.RecuperarContraseniaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
@@ -125,6 +128,21 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             e.printStackTrace();
             accountManager.onError(INICIAR_SESION_SIMPLE, App.getContext().getString(R.string.no_internet_access));
         }
+    }
+
+
+    @Override
+    public void loginAdq() {
+        SingletonUser singletonUser = SingletonUser.getInstance();
+        LoginAdqRequest request = new LoginAdqRequest(
+                singletonUser.getDataUser().getUsuario().getPetroNumero(),
+                singletonUser.getDataUser().getUsuario().getClaveAgente());
+        try {
+            ApiAdq.loginAdq(request, this);
+        } catch (OfflineException e) {
+            accountManager.onError(INICIAR_SESION_SIMPLE, App.getContext().getString(R.string.no_internet_access));
+        }
+
     }
 
     @Override
@@ -431,6 +449,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 validateBalanceAdqResponse((ConsultaSaldoCupoResponse)dataSourceResult.getData());
                 break;
 
+            case LOGIN_ADQ:
+                processLoginAdq(dataSourceResult);
+                break;
             default:
                 break;
         }
@@ -497,6 +518,28 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
      *
      * @param response {@link DataSourceResult} respuesta del servicio
      */
+    private void processLoginAdq(DataSourceResult response) {
+        LoginAdqResponse data = (LoginAdqResponse) response.getData();
+
+        if (data.getToken() != null && !data.getToken().isEmpty()) { // Token devuelto
+            RequestHeaders.setTokenAdq(data.getToken());
+            RequestHeaders.setIdCuentaAdq(data.getId_user());
+
+            UsuarioClienteResponse dataUser = SingletonUser.getInstance().getDataUser().getUsuario();
+            dataUser.setTokenSesionAdquirente(data.getToken());
+            dataUser.setIdUsuarioAdquirente(data.getId_user());
+            dataUser.setNumeroAgente(data.getAgente());
+            checkAfterLogin();
+        } else {
+            String error = App.getInstance().getString(R.string.error_respuesta);
+            if (data.getError() != null) {
+                error = data.getError().getMessage();
+            }
+            accountManager.onError(response.getWebService(), error);
+        }
+    }
+
+
     private void processLogin(DataSourceResult response) {
         IniciarSesionResponse data = (IniciarSesionResponse) response.getData();
         DataIniciarSesion dataUser = data.getData();
@@ -511,23 +554,21 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 RequestHeaders.setTokenAdq(dataUser.getUsuario().getTokenSesionAdquirente());
                 RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());
                 if (dataUser.isConCuenta()) {// Si Cuenta
+                    RequestHeaders.setIdCuenta(String.format("%s", data.getData().getUsuario().getCuentas().get(0).getIdCuenta()));
                     if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
-                        if (!dataUser.isRequiereActivacionSMS()) {// No Requiere Activacion de SMS
-                            //if(true){// No Requiere Activacion de SMS
-                            /*TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento*/
-                            user.setDatosSaldo(new DatosSaldo(String.format("%s", dataUser.getUsuario().getCuentas().get(0).getSaldo())));
-                            stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
-                        } else { // Requiere Activacion SMS
-                            stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
+                        if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){
+                            loginAdq();
+                            return;
+                        } else {
+                            checkAfterLogin();
+                            return;
                         }
                     } else {//Requiere setear el NIP
                         stepByUserStatus = EVENT_GO_ASSIGN_PIN;
                     }
-                    RequestHeaders.setIdCuenta(String.format("%s", data.getData().getUsuario().getCuentas().get(0).getIdCuenta()));
                 } else { // No tiene cuenta asignada.
                     stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
                 }
-
                 accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
             } else { // No es usuario
                 accountManager.onError(response.getWebService(), App.getContext().getString(R.string.usuario_no_existe));
@@ -535,6 +576,22 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         } else {
             accountManager.onError(response.getWebService(), data.getMensaje());
         }
+    }
+
+
+    private void checkAfterLogin() {
+        String stepByUserStatus;
+        SingletonUser user = SingletonUser.getInstance();
+        DataIniciarSesion dataUser = user.getDataUser();
+        if (!dataUser.isRequiereActivacionSMS()) {// No Requiere Activacion de SMS
+            //if(true){// No Requiere Activacion de SMS
+                            /*TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento*/
+            user.setDatosSaldo(new DatosSaldo(String.format("%s", dataUser.getUsuario().getCuentas().get(0).getSaldo())));
+            stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
+        } else { // Requiere Activacion SMS
+            stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
+        }
+        accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
     }
 
 
@@ -732,7 +789,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         if (data.getCodigoRespuesta() == CODE_OK) {
             DataIniciarSesion newSessionData = data.getData();
             SingletonUser userInfo = SingletonUser.getInstance();
-            RequestHeaders.setTokenAdq(newSessionData.getUsuario().getTokenSesionAdquirente());
+            newSessionData.getUsuario().setTokenSesionAdquirente(RequestHeaders.getTokenAdq());
             userInfo.setDataUser(newSessionData);
             /*TODO 10/05/17 obtener saldo por medio de ws de saldos.*/
             userInfo.setDatosSaldo(new DatosSaldo(String.format("%s", userInfo.getDataUser().getUsuario().getCuentas().get(0).getSaldo())));

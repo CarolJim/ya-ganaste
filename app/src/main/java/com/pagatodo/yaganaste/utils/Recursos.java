@@ -19,8 +19,8 @@ public class Recursos {
         if (DEBUG) {
             URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
             URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
-            URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc";
-            //URL_SERVER_ADQ = "http://10.10.45.18:7777/Middleware.svc";
+            //URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc";
+            URL_SERVER_ADQ = "http://10.10.45.13:8041/Middleware.svc";
 
 
         } else {
