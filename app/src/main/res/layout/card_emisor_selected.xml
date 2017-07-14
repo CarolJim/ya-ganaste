@@ -37,29 +37,26 @@
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="4.5" />
+                    android:layout_weight="3" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    style="@style/generic_text_style_4"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="2.5"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:text="@string/saldo_en_cuenta" style="@style/generic_text_style_4"
+                    android:text="@string/saldo_en_cuenta"
                     app:tipo="Subtitulo" />
 
-                <android.support.v4.widget.Space
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
 
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txt_saldo"
-                    style="@style/generic_text_style_3"
+                    style="@style/generic_text_style_2"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="5"
-                    android:gravity="center_vertical"
+                    android:layout_weight="7.5"
+                    android:gravity="top"
                     android:maxLines="1"
                     android:text="$4,200.00"
                     app:dotBottom="false"
@@ -68,16 +65,17 @@
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="1.5" />
+                    android:layout_weight="1" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_nombre"
+                    style="@style/generic_text_style_4"
                     android:layout_width="match_parent"
                     android:layout_height="0dp"
-                    android:layout_weight="3"
+                    android:layout_weight="2.5"
                     android:gravity="center_vertical"
                     android:maxLines="1"
-                    android:text="Jorge Ehrenwald"  style="@style/generic_text_style_4"/>
+                    android:text="Jorge Ehrenwald" />
 
             </LinearLayout>
 

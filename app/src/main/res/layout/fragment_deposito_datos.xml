@@ -44,6 +44,11 @@
 
     </RelativeLayout>
 
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5" />
+
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtTitularTitle"
         android:layout_width="match_parent"
@@ -64,6 +69,12 @@
         android:text=""
         app:tipo="Descripcion" />
 
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5" />
+
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtNumberTitle"
         android:layout_width="match_parent"
@@ -82,6 +93,12 @@
         android:gravity="center|top"
         android:text=""
         app:tipo="Descripcion" />
+
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtCableTitle"
@@ -103,10 +120,16 @@
         android:text=""
         app:tipo="Descripcion" />
 
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="5" />
+
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_weight="30"
+        android:layout_weight="10"
         android:gravity="bottom">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
