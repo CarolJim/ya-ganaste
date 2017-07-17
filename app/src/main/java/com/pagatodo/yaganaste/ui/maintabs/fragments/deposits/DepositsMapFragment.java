@@ -176,7 +176,6 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
             getSucursales();
         } else {
             showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
-            showLastFragment();
         }
     }
 
@@ -187,12 +186,12 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
             getSucursales();
         } else {
             showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
-            showLastFragment();
         }
     }
 
     private void showLastFragment() {
         // ((TabActivity) getActivity()).goHome();
+        parentActivity.onBackPressed();
     }
 
     @Override
@@ -302,7 +301,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
             parentActivity.hideProgresLayout();
             if (!onlineGPS) {
                 //  Toast.makeText(getActivity(), "GPS apagado", Toast.LENGTH_SHORT).show();
-                showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
+             //   showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
             }
         }
 
@@ -328,6 +327,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
+
                         Intent gpsOptionsIntent = new Intent(
                                 android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         startActivity(gpsOptionsIntent);
