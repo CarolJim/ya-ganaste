@@ -31,6 +31,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsSuccessPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsSuccessPresenter;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -140,8 +141,21 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
 
         if (pago instanceof Recarga) {
             title.setText(R.string.title_recarga_success);
-            layoutComision.setVisibility(View.GONE);
-            titleReferencia.setText(R.string.txt_phone);
+            Double comision = result.getData().getComision();
+            if (comision > 0) {
+                layoutComision.setVisibility(View.VISIBLE);
+                //String textComision = String.format("%.2f", comision);
+                txtComision.setText(Utils.getCurrencyValue(comision));
+            } else {
+                layoutComision.setVisibility(View.INVISIBLE);
+            }
+
+            if (pago.getComercio().getIdComercio() == 7) {
+                titleReferencia.setText(R.string.tag_number);
+            } else {
+                titleReferencia.setText(R.string.txt_phone);
+
+            }
             layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             isMailAviable = true;
@@ -158,7 +172,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
             isMailAviable = true;
         } else if (pago instanceof Envios) {
             title.setText(R.string.title_envio_success);
-            txtComision.setVisibility(View.GONE);
+            txtComision.setVisibility(View.INVISIBLE);
             comisionReferenciaText.setText("A:");
             titleReferencia.setText(((Envios) pago).getNombreDestinatario());
             layoutMail.setVisibility(View.VISIBLE);

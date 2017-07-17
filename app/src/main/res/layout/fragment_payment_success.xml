@@ -76,15 +76,19 @@
                     android:textSize="16sp"
                     app:tipo="Descripcion" />
 
+                <android.support.v4.widget.Space
+                    android:layout_width="5dp"
+                    android:layout_height="match_parent" />
+
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txtComision"
                     style="@style/generic_text_style_3"
                     android:layout_width="wrap_content"
                     android:layout_height="match_parent"
                     android:gravity="center"
-                    android:text="00"
+                    android:text="0.0"
                     android:textSize="10sp"
-                    app:dotBottom="false"
+                    app:dotBottom="true"
                     app:symbolSmaller="true"
                     app:tipo="Descripcion" />
 

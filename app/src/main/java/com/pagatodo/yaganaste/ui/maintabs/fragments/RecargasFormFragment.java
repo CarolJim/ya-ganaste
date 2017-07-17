@@ -26,7 +26,9 @@ import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.RecargasPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IRecargasPresenter;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.io.File;
 import java.io.FileInputStream;
@@ -55,6 +57,9 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     Spinner spinnerMontoRecarga;
     @BindView(R.id.layoutImageContact)
     RelativeLayout layoutImageContact;
+    @BindView(R.id.comisionText)
+    StyleTextView comisionText;
+
     boolean isIAVE;
     private SpinnerArrayAdapter dataAdapter;
     private IRecargasPresenter recargasPresenter;
@@ -113,6 +118,12 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             recargaNumber.addTextChangedListener(new PhoneTextWatcher(recargaNumber));
             recargaNumber.setHint(getString(R.string.phone_number_hint));
             layoutImageContact.setOnClickListener(this);
+        }
+
+        if (comercioItem.getSobrecargo() > 0) {
+            comisionText.setText(String.format(getString(R.string.comision_service_payment), StringUtils.getCurrencyValue(comercioItem.getSobrecargo())));
+        } else {
+            comisionText.setVisibility(View.GONE);
         }
         spinnerMontoRecarga.setAdapter(dataAdapter);
     }
