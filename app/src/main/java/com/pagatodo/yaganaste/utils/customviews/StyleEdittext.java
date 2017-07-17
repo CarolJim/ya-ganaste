@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Typeface;
 import android.support.v7.widget.AppCompatEditText;
 import android.text.Spannable;
+import android.text.TextWatcher;
 import android.text.method.MovementMethod;
 import android.util.AttributeSet;
 import android.view.ActionMode;
@@ -26,6 +27,8 @@ import com.pagatodo.yaganaste.utils.FontCache;
  */
 
 public class StyleEdittext extends AppCompatEditText {
+
+    private TextWatcher textWatcher;
 
     public static final String ANDROID_SCHEMA = "http://schemas.android.com/apk/res/android";
     private MovementMethod movementMethod = new MovementMethod() {
@@ -165,4 +168,17 @@ public class StyleEdittext extends AppCompatEditText {
             return false;
         }
     }
+
+    @Override
+    public void addTextChangedListener(TextWatcher watcher) {
+        textWatcher = watcher;
+        super.addTextChangedListener(watcher);
+    }
+
+    public void removeTextChangedListener(){
+        if(textWatcher != null){
+            removeTextChangedListener(textWatcher);
+        }
+    }
+
 }

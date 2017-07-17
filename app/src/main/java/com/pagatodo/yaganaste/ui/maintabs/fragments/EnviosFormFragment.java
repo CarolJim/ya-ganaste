@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -43,7 +44,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
     @BindView(R.id.tipoEnvio)
     Spinner tipoEnvio;
     @BindView(R.id.cardNumber)
-    EditText cardNumber;
+    StyleEdittext cardNumber;
     @BindView(R.id.layout_cardNumber)
     LinearLayout layout_cardNumber;
     @BindView(R.id.amountToSend)
@@ -106,7 +107,6 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
         tipoEnvio.setAdapter(dataAdapter);
         tipoEnvio.setOnItemSelectedListener(this);
         amountToSend.addTextChangedListener(new NumberTextWatcher(amountToSend));
-        cardNumber.addTextChangedListener(new NumberCardTextWatcher(cardNumber));
     }
 
     @Override
@@ -163,14 +163,15 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
 
         layout_cardNumber.setVisibility(View.VISIBLE);
         cardNumber.setText("");
+        cardNumber.removeTextChangedListener();
 
         int maxLength;
         InputFilter[] fArray = new InputFilter[1];
 
-
         if (position == NUMERO_TARJETA.getId()) {
             maxLength = comercioItem.getIdComercio() == 814 ? 15 : 19;
             cardNumber.setHint(getString(R.string.card_number));
+            cardNumber.addTextChangedListener(new NumberCardTextWatcher(cardNumber));
             selectedType = NUMERO_TARJETA;
         } else if (position == NUMERO_TELEFONO.getId()) {
             maxLength = 12;
