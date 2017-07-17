@@ -10,11 +10,13 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Space;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -150,22 +152,28 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     private void setAndConfigureBtns(LinearLayout llContentBtns) {
 
 
-        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.width_btns),
+        LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(getResources().getDimensionPixelSize(R.dimen.width_btns)
+                - (pageResultData.isHasSecondaryAction() ? Utils.convertDpToPixels(5) : 0),
                 getResources().getDimensionPixelSize(R.dimen.height_btns));
 
+        LinearLayout.LayoutParams spaceParams = new LinearLayout.LayoutParams(0,
+                ViewGroup.LayoutParams.MATCH_PARENT, 1);
 
         if (llContentBtns != null) {
             StyleButton btnPrimary = createButton(pageResultData.getBtnPrimaryType());
             btnPrimary.setOnClickListener(this);
             btnPrimary.setId(idBtnPrimary);
             btnPrimary.setText(pageResultData.getNamerBtnPrimary());
+            llContentBtns.addView(new Space(getContext()), spaceParams);
             llContentBtns.addView(btnPrimary, params);
+            llContentBtns.addView(new Space(getContext()), spaceParams);
             if (pageResultData.isHasSecondaryAction()) {
                 StyleButton btnSecondary = createButton(pageResultData.getBtnSecundaryType());
                 btnSecondary.setOnClickListener(this);
                 btnSecondary.setId(idBtnSecondary);
                 btnSecondary.setText(pageResultData.getNamerBtnSecondary());
                 llContentBtns.addView(btnSecondary, params);
+                llContentBtns.addView(new Space(getContext()), spaceParams);
             }
         }
     }

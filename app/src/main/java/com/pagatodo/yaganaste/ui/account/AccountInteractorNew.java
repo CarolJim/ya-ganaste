@@ -569,12 +569,13 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                     RequestHeaders.setIdCuenta(String.format("%s", data.getData().getUsuario().getCuentas().get(0).getIdCuenta()));
                     if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
                         if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
+                        /*if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){
                             loginAdq();
                             return;
-                        } else {
+                        } else {*/
                             checkAfterLogin();
                             return;
-                        }
+                        //}
                     } else {//Requiere setear el NIP
                         stepByUserStatus = EVENT_GO_ASSIGN_PIN;
                     }
