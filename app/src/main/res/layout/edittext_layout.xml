@@ -22,7 +22,7 @@
 
             <android.support.v7.widget.AppCompatImageView
                 android:id="@+id/imageViewValidation"
-                android:layout_width="@dimen/custom_validation_edittext_image_width"
+                android:layout_width="15dp"
                 android:layout_height="@dimen/custom_validation_edittext_image_height"
                 android:layout_centerInParent="true"
                 android:adjustViewBounds="true"

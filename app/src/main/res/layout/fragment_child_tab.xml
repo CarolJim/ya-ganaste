@@ -63,8 +63,8 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginLeft="@dimen/margin_elements"
-                android:layout_marginRight="@dimen/margin_elements"
+                android:layout_marginLeft="@dimen/margin_elements_payment_tab"
+                android:layout_marginRight="@dimen/margin_elements_payment_tab"
                 android:layout_marginTop="@dimen/margin_regular"
                 android:orientation="vertical">
 
@@ -74,7 +74,7 @@
 
                     <ImageView
                         android:layout_width="match_parent"
-                        android:layout_height="@dimen/radio_image_pago"
+                        android:layout_height="@dimen/radio_image_pago_payment_tab"
                         android:layout_gravity="center_vertical"
                         android:adjustViewBounds="true"
                         android:scaleType="fitXY"
@@ -87,8 +87,8 @@
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/imgPagosUserProfile"
-                            android:layout_width="@dimen/radio_image_pago"
-                            android:layout_height="@dimen/radio_image_pago"
+                            android:layout_width="@dimen/radio_image_pago_payment_tab"
+                            android:layout_height="@dimen/radio_image_pago_payment_tab"
                             android:src="@mipmap/icon_user"
                             app:civ_border_color="@color/colorAccent"
                             app:civ_border_width="@dimen/border_width" />
@@ -104,8 +104,8 @@
 
                         <de.hdodenhof.circleimageview.CircleImageView
                             android:id="@+id/imgPagosServiceToPayRound"
-                            android:layout_width="@dimen/radio_image_pago"
-                            android:layout_height="@dimen/radio_image_pago"
+                            android:layout_width="@dimen/radio_image_pago_payment_tab"
+                            android:layout_height="@dimen/radio_image_pago_payment_tab"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
@@ -116,8 +116,8 @@
 
                         <ImageView
                             android:id="@+id/imgPagosServiceToPay"
-                            android:layout_width="@dimen/radio_image_pago"
-                            android:layout_height="@dimen/radio_image_pago"
+                            android:layout_width="@dimen/radio_image_pago_payment_tab"
+                            android:layout_height="@dimen/radio_image_pago_payment_tab"
                             android:layout_alignParentLeft="true"
                             android:layout_alignParentStart="true"
                             android:layout_alignParentTop="true"
@@ -151,7 +151,7 @@
 
                             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                 android:id="@+id/txtPagosUserName"
-                                style="@style/generic_text_style_2"
+                                style="@style/generic_text_style_3"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:gravity="center"
@@ -167,7 +167,7 @@
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/txtPagosYourBalance"
-                                    style="@style/generic_text_style_2"
+                                    style="@style/generic_text_style_3"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_centerVertical="true"

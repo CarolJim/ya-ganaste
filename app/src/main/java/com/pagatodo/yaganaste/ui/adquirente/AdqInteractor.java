@@ -332,9 +332,9 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
 //            }
 //        }
 
-        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+        } /*else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
             iSessionExpired.errorSessionExpired(response);
-        } else {
+        } */else {
             prefs.clearPreference(KSN_LECTOR);
             accountManager.onError(response.getWebService(), data.getMessage());
             //accountManager.onError(response.getWebService(),data.getMessage());//Retornamos mensaje de error.

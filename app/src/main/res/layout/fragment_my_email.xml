@@ -84,7 +84,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/edtitEmail"
-                    style="@style/GenericFragmentElementTop"
+                    style="@style/FragmentElementTop"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="@dimen/double_space"
@@ -101,7 +101,7 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/edtitConfirmEmail"
-                    style="@style/GenericCustomValidationEditTextWithValidation"
+                    style="@style/FragmentElementWithValidation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:formato="email"

@@ -94,7 +94,7 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                         android:id="@+id/editOldPassword"
-                        style="@style/GenericCustomValidationEditTextWithValidation"
+                        style="@style/FragmentElementWithValidation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:formato="password"
@@ -111,7 +111,7 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                         android:id="@+id/editPassword"
-                        style="@style/GenericCustomValidationEditTextWithValidation"
+                        style="@style/FragmentElementWithValidation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:formato="password"
@@ -128,7 +128,7 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                         android:id="@+id/editPasswordConfirmation"
-                        style="@style/GenericCustomValidationEditTextWithValidation"
+                        style="@style/FragmentElementWithValidation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:formato="password"
