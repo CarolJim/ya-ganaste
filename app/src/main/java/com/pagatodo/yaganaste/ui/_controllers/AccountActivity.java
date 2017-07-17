@@ -30,6 +30,7 @@ import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.EnviosFormFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 
@@ -91,7 +92,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 break;
 
             case GO_TO_REGISTER:
-                loadFragment(DatosUsuarioFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(EnviosFormFragment.newInstance(), Direction.FORDWARD, false);
 
                 // TODO: 28/04/2017
                 resetRegisterData();

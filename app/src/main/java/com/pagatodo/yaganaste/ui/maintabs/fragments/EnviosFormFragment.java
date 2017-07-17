@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
+import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
@@ -94,17 +95,22 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
 
         List<String> tipoPago = new ArrayList<>();
 
-        tipoPago.add(0, "");
+       /* tipoPago.add(0, "");
         tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(getContext()));
         tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(getContext()));
 
         if (comercioItem.getIdComercio() != 8609) {
             tipoPago.add(CABLE.getId(), CABLE.getName(getContext()));
-        }
+        }*/
+        tipoPago.add(0, "");
+        tipoPago.add(1, "Telefono");
+        tipoPago.add(2, "Tarjeta");
+        tipoPago.add(3, "Cuenta");
         SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), TAB3, tipoPago);
         tipoEnvio.setAdapter(dataAdapter);
         tipoEnvio.setOnItemSelectedListener(this);
         amountToSend.addTextChangedListener(new NumberTextWatcher(amountToSend));
+        cardNumber.addTextChangedListener(new NumberCardTextWatcher(cardNumber));
     }
 
     @Override
@@ -167,7 +173,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
 
 
         if (position == NUMERO_TARJETA.getId()) {
-            maxLength = comercioItem.getIdComercio() == 814 ? 15 : 16;
+          //  maxLength = comercioItem.getIdComercio() == 814 ? 15 : 16;
             cardNumber.setHint(getString(R.string.card_number));
             selectedType = NUMERO_TARJETA;
         } else if (position == NUMERO_TELEFONO.getId()) {
@@ -186,8 +192,8 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
             selectedType = null;
         }
 
-        fArray[0] = new InputFilter.LengthFilter(maxLength);
-        cardNumber.setFilters(fArray);
+//        fArray[0] = new InputFilter.LengthFilter(maxLength);
+//        cardNumber.setFilters(fArray);
     }
 
     @Override
