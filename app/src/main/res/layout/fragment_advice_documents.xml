@@ -72,7 +72,7 @@
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/txtAdviceDocumentsBack"
-            style="@style/GenericbuttonRoundedStroke"
+            style="@style/buttonRoundedStroke"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_alignParentBottom="true"

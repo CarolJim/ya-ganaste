@@ -22,7 +22,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
                 android:id="@+id/layoutContent"
-                style="@style/GenericBorderTitleStyle"
+                style="@style/BorderTitleStyle"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 app:title="@string/personalInfoTitle">
@@ -107,7 +107,7 @@
 
                         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                             android:id="@+id/editNames"
-                            style="@style/GenericCustomValidationEditTextFragmentElement"
+                            style="@style/FragmentElement"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="@dimen/margin_xsmall"
@@ -126,7 +126,7 @@
 
                         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                             android:id="@+id/editFirstLastName"
-                            style="@style/GenericCustomValidationEditTextWithValidation"
+                            style="@style/FragmentElementWithValidation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:formato="text"
@@ -146,7 +146,7 @@
 
                         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                             android:id="@+id/editSecoundLastName"
-                            style="@style/GenericCustomValidationEditTextWithValidation"
+                            style="@style/FragmentElementWithValidation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             app:formato="text"
@@ -168,7 +168,7 @@
 
                         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                             android:id="@+id/editBirthDay"
-                            style="@style/GenericCustomValidationEditTextWithValidation"
+                            style="@style/FragmentElementWithValidation"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:focusableInTouchMode="false"

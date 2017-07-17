@@ -41,7 +41,7 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtSubtitle"
-        style="@style/GenerictextDescInputs"
+        style="@style/textDescInputs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtTitle"
@@ -50,7 +50,7 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtMessage"
-        style="@style/GenerictextDescInputs"
+        style="@style/textDescInputs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_above="@+id/lnr_buttons"
