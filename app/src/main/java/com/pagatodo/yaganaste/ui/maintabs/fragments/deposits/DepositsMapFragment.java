@@ -1,9 +1,13 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments.deposits;
 
 import android.Manifest;
+import android.content.Context;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Location;
+import android.location.LocationManager;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -18,6 +22,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -33,6 +38,8 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
@@ -40,6 +47,8 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerSucursalesAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositMapManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.DepositMapPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IDepositMapPresenter;
+import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ClickListener;
 import com.pagatodo.yaganaste.utils.customviews.CustomMapFragment;
 import com.pagatodo.yaganaste.utils.customviews.DividerItemDecoration;
@@ -52,6 +61,8 @@ import java.util.Random;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 
 /**
  * Created by Jordan on 17/05/2017.
@@ -78,6 +89,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     private RecyclerSucursalesAdapter adapter;
     private List<DataLocalizaSucursal> sucursales;
     private List<Marker> markers;
+    boolean onlineGPS;
 
     public static DepositsMapFragment newInstance() {
         DepositsMapFragment depositsMapFragment = new DepositsMapFragment();
@@ -151,6 +163,36 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
                 adapter.filter(myFilter);
             }
         });
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        // Verificamos que el GPS este encendido
+        final LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        onlineGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+
+        if (onlineGPS) {
+            getSucursales();
+        } else {
+            showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
+            showLastFragment();
+        }
+    }
+
+    @Override
+    public void onRefresh() {
+        ((TabActivity) getActivity()).showProgressLayout("Cargando");
+        if (onlineGPS) {
+            getSucursales();
+        } else {
+            showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
+            showLastFragment();
+        }
+    }
+
+    private void showLastFragment() {
+        // ((TabActivity) getActivity()).goHome();
     }
 
     @Override
@@ -256,6 +298,12 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
             map.moveCamera(CameraUpdateFactory.newLatLngZoom(latlon, 12));
 
             getSucursales();
+        } else {
+            parentActivity.hideProgresLayout();
+            if (!onlineGPS) {
+                //  Toast.makeText(getActivity(), "GPS apagado", Toast.LENGTH_SHORT).show();
+                showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
+            }
         }
 
         //map.setOnMarkerClickListener(this);
@@ -273,6 +321,24 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
             ((DepositsFragment) getParentFragment()).showErrorMessage(getString(R.string.no_internet_access));
             ((DepositsFragment) getParentFragment()).onBtnBackPress();
         }
+    }
+
+    private void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        Intent gpsOptionsIntent = new Intent(
+                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(gpsOptionsIntent);
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
     }
 
     public void addMarker(DataLocalizaSucursal sucursal) {
@@ -298,11 +364,4 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
             }
         }
     }
-
-    @Override
-    public void onRefresh() {
-        ((TabActivity) getActivity()).showProgressLayout("Cargando");
-        getSucursales();
-    }
-
 }

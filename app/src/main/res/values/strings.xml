@@ -616,6 +616,8 @@
     <string name="mount_cero">$0.00</string>
     <string name="send_to_txt">Enviado a:</string>
     <string name="last_date_update">Actualizado el %s</string>
+
+    <string name="ask_permission_gps">Por Favor Activa tu GPS</string>
 </resources>
 
 
