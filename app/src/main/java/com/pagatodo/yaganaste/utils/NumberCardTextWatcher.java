@@ -33,6 +33,11 @@ public class NumberCardTextWatcher implements TextWatcher {
 
     @Override
     public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+    }
+
+    @Override
+    public void afterTextChanged(Editable s) {
         dataNumberNew = s.toString();
         if (dataNumberNew.length() > dataNumberOld.length()) {
             Log.d("NumberTextWatcher", "dataNumberNew Es mayor");
@@ -59,16 +64,16 @@ public class NumberCardTextWatcher implements TextWatcher {
         } else {
             Log.d("NumberTextWatcher", "dataNumberNew Es menor");
 
-            if (dataNumberNew.length() == 15) {
+            if (dataNumberNew.length() == 14) {
                 dataNumberNew = dataNumberNew.substring(0, dataNumberNew.length() -1);
                 cardNumber.setText(dataNumberNew.toString());
                 Selection.setSelection(cardNumber.getText(), dataNumberNew.toString().length());
 
-            } else if (dataNumberNew.length() == 10) {
+            } else if (dataNumberNew.length() == 9) {
                 dataNumberNew = dataNumberNew.substring(0, dataNumberNew.length() -1);
                 cardNumber.setText(dataNumberNew.toString());
                 Selection.setSelection(cardNumber.getText(), dataNumberNew.toString().length());
-            } else if (dataNumberNew.length() == 5) {
+            } else if (dataNumberNew.length() == 4) {
                 dataNumberNew = dataNumberNew.substring(0, dataNumberNew.length() -1);
                 cardNumber.setText(dataNumberNew.toString());
                 Selection.setSelection(cardNumber.getText(), dataNumberNew.toString().length());
@@ -77,33 +82,5 @@ public class NumberCardTextWatcher implements TextWatcher {
             countData--;
             dataNumberOld = dataNumberNew;
         }
-        /*if (!s.toString().matches("^\\$(\\d{1,3}(\\,\\d{3})*|(\\d+))(\\.\\d{2})?$")) {
-            String userInput = "" + s.toString().replaceAll("[^\\d]", "");
-            StringBuilder cashAmountBuilder = new StringBuilder(userInput);
-
-            while (cashAmountBuilder.length() > 3 && cashAmountBuilder.charAt(0) == '0') {
-                cashAmountBuilder.deleteCharAt(0);
-            }
-
-            while (cashAmountBuilder.length() < 3) {
-                cashAmountBuilder.insert(0, '0');
-            }
-            *//*Format comas*//*
-            if (cashAmountBuilder.length() > 5 && cashAmountBuilder.length() < 9) {
-                cashAmountBuilder.insert(cashAmountBuilder.length() - 5, ',');
-            }
-
-            cashAmountBuilder.insert(cashAmountBuilder.length() - 2, '.');
-            cashAmountBuilder.insert(0, '$');
-
-            edtText.setText(cashAmountBuilder.toString());
-            // keeps the cursor always to the right
-            Selection.setSelection(edtText.getText(), cashAmountBuilder.toString().length());
-        }*/
-    }
-
-    @Override
-    public void afterTextChanged(Editable s) {
-
     }
 }
