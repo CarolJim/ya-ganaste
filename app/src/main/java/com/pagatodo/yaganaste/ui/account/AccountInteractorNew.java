@@ -583,11 +583,12 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                     stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
                 }
                 accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
-            } else { // No es usuario
+                } else { // No es usuario
                 accountManager.onError(response.getWebService(), App.getContext().getString(R.string.usuario_no_existe));
+                }
+            } else {
+                accountManager.onError(response.getWebService(), data.getMensaje());
             }
-        } else {
-            accountManager.onError(response.getWebService(), data.getMensaje());
         }
     }
 
