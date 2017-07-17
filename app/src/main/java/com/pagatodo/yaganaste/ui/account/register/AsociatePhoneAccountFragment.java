@@ -121,13 +121,14 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
     @Override
     protected void continuePayment() {
+        mySeekBar.setEnabled(false);
         accountPresenter.gerNumberToSMS();
 
-        new Handler().postDelayed(new Runnable() {
+       /* new Handler().postDelayed(new Runnable() {
             public void run() {
                 mySeekBar.setProgress(0);
             }
-        }, 300);
+        }, 300);*/
 
     }
 
@@ -220,6 +221,8 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
                             if (error.toString().equals(Recursos.MESSAGE_OPEN_SESSION)) {
                                 onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
                             }
+                            mySeekBar.setEnabled(true);
+                            mySeekBar.setProgress(0);
                         }
 
                         @Override
@@ -319,6 +322,13 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     private void goToLogin() {
         RegisterUser.resetRegisterUser();
         nextScreen(EVENT_GO_LOGIN, null);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        mySeekBar.setEnabled(true);
+        mySeekBar.setProgress(0);
     }
 }
 

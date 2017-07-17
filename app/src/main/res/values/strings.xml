@@ -511,7 +511,7 @@
     <string name="btn_send">Enviar</string>
     <string name="no_services_msg">Cargando servicios...(*)</string>
     <string name="recharge_success_title">¡Recarga Exitosa!</string>
-    <string name="txt_comision">Comisión</string>
+    <string name="txt_comision">Comisión:</string>
     <string name="txt_phone_b">Teléfono: </string>
     <string name="add_favorites">Agregar a Favoritos</string>
     <string name="email_send_ticket">¿A Qué Correo Electrónico \nEnvíamos Tu Recibo?</string>
