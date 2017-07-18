@@ -73,7 +73,8 @@
     <string name="adqTransactionCard">/agMov/transactionEMVSwipe</string>
     <string name="adqSignatureVaucher">/agMov/signBankTransaction</string>
     <string name="adqConsultTransaction">/agMov/getStatusTransactionEMVSwipe</string>
-    <string name="adqSendTicket">/agMov/sendTicket</string>
+    <!-- <string name="adqSendTicket">/agMov/sendTicket</string> -->
+    <string name="adqSendTicket">/agMov/sendTicketADQ</string>
     <string name="adqResumeDay">/agMov/getResumenYG?fecha=</string>
     <string name="adqResumeMonth">/agMov/getResumenMonthYG</string>
     <string name="adqGetBalance">/agMov/getSaldo</string>
