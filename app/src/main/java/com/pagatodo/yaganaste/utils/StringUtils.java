@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.utils;
 
 import android.support.annotation.Nullable;
 import android.text.SpannableStringBuilder;
+import android.util.Log;
 import android.widget.TextView;
 
 import java.math.RoundingMode;
@@ -125,5 +126,47 @@ public class StringUtils {
         } else {
             return comodines + separador + comodines + separador + comodines + separador + "1234";
         }
+    }
+
+    public static String formatoPagoMedios(String mFormatoPago) {
+        String formatoPago = "";
+        String comodin = " ";
+        if (mFormatoPago.length() == 10) {
+            try {
+                String parteTel1 = mFormatoPago.substring(0, 2);
+                String parteTel2 = mFormatoPago.substring(2, 6);
+                String parteTel3 = mFormatoPago.substring(6);
+                formatoPago = parteTel1 + comodin + parteTel2 + comodin + parteTel3;
+            } catch (Exception e) {
+                Log.d("StringUtils", "Exception tipo" + e);
+                formatoPago = mFormatoPago;
+            }
+        } else if (mFormatoPago.length() == 16) {
+            try {
+                String formatoTDC1 = mFormatoPago.substring(0, 4);
+                String formatoTDC2 = mFormatoPago.substring(4, 8);
+                String formatoTDC3 = mFormatoPago.substring(8, 12);
+                String formatoTDC4 = mFormatoPago.substring(12, 16);
+                formatoPago = formatoTDC1 + comodin + formatoTDC2 + comodin + formatoTDC3 + comodin + formatoTDC4;
+            } catch (Exception e) {
+                Log.d("StringUtils", "Exception tipo" + e);
+                formatoPago = mFormatoPago;
+            }
+        } else if (mFormatoPago.length() == 18) {
+            try {
+                String formatoClabe1 = mFormatoPago.substring(0, 3);
+                String formatoClabe2 = mFormatoPago.substring(3, 6);
+                String formatoClabe3 = mFormatoPago.substring(6, 10);
+                String formatoClabe4 = mFormatoPago.substring(10, 14);
+                String formatoClabe5 = mFormatoPago.substring(14, 18);
+                formatoPago = formatoClabe1 + comodin + formatoClabe2 + comodin + formatoClabe3
+                        + comodin + formatoClabe4 + comodin + formatoClabe5;
+            } catch (Exception e) {
+                Log.d("StringUtils", "Exception tipo" + e);
+                formatoPago = mFormatoPago;
+            }
+        }
+
+        return formatoPago;
     }
 }
