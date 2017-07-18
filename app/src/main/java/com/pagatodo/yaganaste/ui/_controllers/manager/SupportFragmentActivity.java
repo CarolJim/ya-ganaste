@@ -34,6 +34,7 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
 
     public static final String EVENT_SESSION_EXPIRED = "EVENT_SESSION_EXPIRED";
     private SupportComponent mSupportComponent;
+    private boolean isFromActivityForResult = false;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -101,7 +102,6 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         if (requestCode == Constants.PERMISSION_GENERAL) {
-
             if (!ValidatePermissions.isAllPermissionsActives(this, ValidatePermissions.getPermissionsCheck())) {
                 checkPermissions();
             }
@@ -136,5 +136,32 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
                     }
                 },
                 true, false);
+    }
+
+
+    public void setIsFromActivityForResult(boolean b) {
+        isFromActivityForResult = b;
+    }
+
+    public boolean isFromActivityForResult() {
+        return isFromActivityForResult;
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode) {
+        isFromActivityForResult = true;
+        super.startActivityForResult(intent, requestCode);
+    }
+
+    @Override
+    public void startActivityForResult(Intent intent, int requestCode, @Nullable Bundle options) {
+        isFromActivityForResult = true;
+        super.startActivityForResult(intent, requestCode, options);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isFromActivityForResult = false;
     }
 }

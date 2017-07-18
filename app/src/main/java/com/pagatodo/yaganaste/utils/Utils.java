@@ -1281,7 +1281,7 @@ public class Utils {
     public static void sessionExpired() {
         Intent intent = new Intent(App.getContext(), MainActivity.class);
         intent.putExtra(SELECTION, MAIN_SCREEN);
-        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK);
+        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         App.getContext().startActivity(intent);
     }
 

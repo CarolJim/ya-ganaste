@@ -11,12 +11,14 @@ import android.os.Looper;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
+import android.widget.Toast;
 
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.adquirente.readers.IposListener;
+import com.pagatodo.yaganaste.utils.ApplicationLifecycleHandler;
 
 import java.util.Locale;
 
@@ -63,55 +65,9 @@ public class App extends Application {
         initEMVListener();
         RequestHeaders.initHeaders(this);
 
-        registerActivityLifecycleCallbacks(new ActivityLifecycleCallbacks() {
-            @Override
-            public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
-                activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-            }
-
-            @Override
-            public void onActivityStarted(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityResumed(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivityPaused(Activity activity) {
-
-                if (SingletonSession.getInstance().isActive()) {
-                    Log.e("SessionPaused", SingletonSession.getInstance().isActive() + "");
-                }
-                /*if (SingletonSesion.isInSession()) {
-                    Log.e("SessionPaused", SingletonSesion.isInSession() + "");
-                    if (!SingletonSesion.isFlowUser()) {
-                        closeSession();
-                        SingletonSesion.setInSession(false);
-                        Intent intent = new Intent(getApplicationContext(), SplashActivity.class);
-                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK | Intent.FLAG_ACTIVITY_NEW_TASK);
-                        startActivity(intent);
-                    }
-                }*/
-            }
-
-            @Override
-            public void onActivityStopped(Activity activity) {
-
-            }
-
-            @Override
-            public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
-
-            }
-
-            @Override
-            public void onActivityDestroyed(Activity activity) {
-
-            }
-        });
+        ApplicationLifecycleHandler lifecycleHandler = new ApplicationLifecycleHandler();
+        registerActivityLifecycleCallbacks(lifecycleHandler);
+        registerComponentCallbacks(lifecycleHandler);
     }
 
     // Called by the system when the device configuration changes while your component is running.

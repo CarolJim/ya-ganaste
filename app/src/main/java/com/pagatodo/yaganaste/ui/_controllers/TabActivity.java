@@ -44,6 +44,8 @@ import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.List;
 
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.CODE_CANCEL;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
@@ -304,21 +306,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             ((DepositsFragment) actualFragment).getDepositManager().onBtnBackPress();
         } else if (actualFragment instanceof GetMountFragment) {
             goHome();
-            /*GetMountFragment getMountFragment = (GetMountFragment)actualFragment;
-            if (getMountFragment.isCustomKeyboardVisible()) {
-                getMountFragment.hideKeyboard();
-            } else {
-
-            }*/
-
+        } else if (actualFragment instanceof HomeTabFragment) {
+            showDialogOut();
         } else {
-            if (mainViewPagerAdapter.getItem(mainViewPager.getCurrentItem()) instanceof HomeTabFragment) {
-                showDialogOut();
-            } else {
-                goHome();
-            }
+            goHome();
         }
-
     }
 
     private void showDialogOut() {
@@ -327,7 +319,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                     @Override
                     public void actionConfirm(Object... params) {
                         SingletonSession.getInstance().setFinish(true);//Terminamos Activity si va a background
-                        finish();
+                        Intent intent = new Intent(TabActivity.this, MainActivity.class);
+                        intent.putExtra(SELECTION, MAIN_SCREEN);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                     }
 
                     @Override

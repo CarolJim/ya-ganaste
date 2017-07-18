@@ -108,6 +108,7 @@
             android:screenOrientation="portrait"
             android:theme="@android:style/Theme.Translucent"
             android:windowSoftInputMode="adjustPan" />
+
         <activity android:name=".ui._controllers.DetailsActivity" />
         <activity android:name=".ui._controllers.OnlineTxActivity" />
         <activity android:name=".ui.otp.activities.OtpCodeActivity" />
