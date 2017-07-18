@@ -110,10 +110,19 @@ public class StyleButton extends AppCompatButton implements View.OnClickListener
 
     @Override
     public void onClick(View view) {
+        setEnabled(false);
         if (mClickListener != null) {
             mClickListener.onClick(this);
-            if (interceptor) eneableButton();
+            if (interceptor) {
+                eneableButton();
+            }
         }
+        new Handler().postDelayed(new Runnable() {
+            @Override
+            public void run() {
+                setEnabled(true);
+            }
+        }, 3000);
     }
 
     private void setPadding(Context context, AttributeSet attrs) {

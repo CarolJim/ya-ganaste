@@ -177,7 +177,8 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
                 color = APROBADO.getColor();
             }
 
-            movementsList.add(new ItemMovements<>(movimientoAdq.getOperacion(), movimientoAdq.isEsReversada() ? App.getInstance().getString(R.string.cancelada) : movimientoAdq.getCompania(),
+            movementsList.add(new ItemMovements<>(movimientoAdq.getOperacion(),
+                    movimientoAdq.isEsReversada() ? App.getInstance().getString(R.string.cancelada) : movimientoAdq.getCompania(),
                     StringUtils.getDoubleValue(movimientoAdq.getMonto()), String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)),
                     DateUtil.getMonthShortName(calendar), color, movimientoAdq));
         }

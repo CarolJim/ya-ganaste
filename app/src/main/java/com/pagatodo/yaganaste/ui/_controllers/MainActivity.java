@@ -1,18 +1,23 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
 import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.login.MainFragment;
 import com.pagatodo.yaganaste.ui.adquirente.TransactionResultFragment;
 
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
+import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 
 public class MainActivity extends ToolBarActivity {
 
@@ -25,7 +30,15 @@ public class MainActivity extends ToolBarActivity {
         if (action.equals(NO_SIM_CARD)) {
             loadFragment(TransactionResultFragment.newInstance(getPageResultNiSIM()));
         } else if (action.equals(MAIN_SCREEN)) {
-            loadFragment(MainFragment.newInstance(), true);
+            Preferencias prefs = App.getInstance().getPrefs();
+            if (prefs.containsData(HAS_SESSION)) {
+                Intent intent = new Intent(this, AccountActivity.class);
+                intent.putExtra(SELECTION, GO_TO_LOGIN);
+                startActivity(intent);
+                finish();
+            } else {
+                loadFragment(MainFragment.newInstance(), true);
+            }
         }
     }
 

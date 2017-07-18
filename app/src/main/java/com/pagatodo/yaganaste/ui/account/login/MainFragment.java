@@ -4,6 +4,7 @@ package com.pagatodo.yaganaste.ui.account.login;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -53,7 +54,6 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         fragmentRegister.setArguments(args);
         return fragmentRegister;
     }
-
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,

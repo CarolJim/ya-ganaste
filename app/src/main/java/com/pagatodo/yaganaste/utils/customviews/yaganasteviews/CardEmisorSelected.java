@@ -50,7 +50,9 @@ public class CardEmisorSelected extends TabViewElement {
     @Override
     public void updateData() {
         UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
-        txtNombre.setText(userData.getNombre() + SPACE + userData.getPrimerApellido() + SPACE + userData.getSegundoApellido());
+        String name = userData.getNombre();
+        txtNombre.setText(name.contains(" ") ? name.substring(0, userData.getNombre().indexOf(" ")) : name
+                + SPACE + userData.getPrimerApellido());
         txtSaldo.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()));
     }
 
