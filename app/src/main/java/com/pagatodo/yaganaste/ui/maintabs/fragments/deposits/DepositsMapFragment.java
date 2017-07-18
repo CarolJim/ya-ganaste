@@ -7,7 +7,6 @@ import android.content.pm.PackageManager;
 import android.location.Location;
 import android.location.LocationManager;
 import android.os.Bundle;
-import android.provider.Settings;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.FragmentManager;
@@ -22,7 +21,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.GoogleApiAvailability;
@@ -39,7 +37,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaS
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
@@ -47,7 +44,6 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerSucursalesAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositMapManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.DepositMapPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IDepositMapPresenter;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ClickListener;
 import com.pagatodo.yaganaste.utils.customviews.CustomMapFragment;
@@ -62,14 +58,12 @@ import java.util.Random;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
-
 /**
  * Created by Jordan on 17/05/2017.
  */
 
 public class DepositsMapFragment extends SupportFragment implements DepositMapManager,
-        OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, MyInterfase {
+        OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, IFilterMap {
 
     protected Location actualLocation;
     CustomMapFragment customMapFragment;
@@ -211,6 +205,14 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         txtInfoSucursales.setVisibility(View.VISIBLE);
         swipeMap.setRefreshing(false);
         txtInfoSucursales.setVisibility(View.VISIBLE);
+        parentActivity.hideProgresLayout();
+    }
+
+    @Override
+    public void setOnSucursalesShow() {
+        this.sucurasalesList.setVisibility(View.VISIBLE);
+        txtInfoSucursales.setVisibility(View.GONE);
+        txtInfoSucursales.setVisibility(View.GONE);
         parentActivity.hideProgresLayout();
     }
 

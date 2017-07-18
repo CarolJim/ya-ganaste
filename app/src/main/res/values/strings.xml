@@ -538,6 +538,7 @@
     <string name="desea_cacelar">¿Deseas Salir y Cancelar la Operación Actual?</string>
 
     <string name="no_sucursales">No existen sucursales en tu área.</string>
+    <string name="no_sucursales2">No se Encontraron Conincidencias en tu Área.</string>
     <string name="buscar_sucursal">Buscar  Sucursal</string>
 
     <string name="cancelada">Cancelada</string>

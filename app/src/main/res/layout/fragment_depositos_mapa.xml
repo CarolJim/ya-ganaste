@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/fragment_child_tab"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -38,8 +39,12 @@
                     android:id="@+id/frag_depositos_mapa_et"
                     style="@style/GenericStyleEditText"
                     android:layout_width="match_parent"
+                    app:isTextEnabled="true"
                     android:layout_height="wrap_content"
                     android:layout_weight="20"
+                    android:clickable="true"
+                    android:inputType="text"
+                    android:imeOptions="actionDone"
                     android:hint="@string/buscar_sucursal"
                     android:longClickable="false"
                     android:maxLength="12"
@@ -107,7 +112,7 @@
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:gravity="top|center"
-                android:text="@string/no_sucursales"
+                android:text="@string/no_sucursales2"
                 android:textSize="@dimen/frag_depositos_sin_sucursal_text_Size"
                 android:visibility="invisible" />
 

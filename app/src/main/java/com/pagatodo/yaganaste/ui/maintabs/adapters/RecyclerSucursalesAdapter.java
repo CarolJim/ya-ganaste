@@ -9,11 +9,9 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.google.android.gms.maps.model.LatLng;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsMapFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.MyInterfase;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.IFilterMap;
 import com.pagatodo.yaganaste.utils.UtilsLocation;
 
 import java.util.ArrayList;
@@ -30,9 +28,9 @@ public class RecyclerSucursalesAdapter extends RecyclerView.Adapter<RecyclerSucu
     private List<DataLocalizaSucursal> sucursalList;
     private Location myLocation;
     private Context mContext;
-    MyInterfase myInterfase;
+    IFilterMap myInterfase;
 
-    public RecyclerSucursalesAdapter(List<DataLocalizaSucursal> l, Location location, MyInterfase myInterfase) {
+    public RecyclerSucursalesAdapter(List<DataLocalizaSucursal> l, Location location, IFilterMap myInterfase) {
         this.sucursalList = l;
         this.myLocation = location;
         this.arraylist = new ArrayList<>();
@@ -74,14 +72,18 @@ public class RecyclerSucursalesAdapter extends RecyclerView.Adapter<RecyclerSucu
         // Si no existen caracteres agregamos los elementos
         if (charText.length() == 0) {
             sucursalList.addAll(arraylist);
+            myInterfase.setOnSucursalesShow();
         } else {
             // Recorremos el arreglo, si existe un nombre que coincida, agregamos a la lista
             for (DataLocalizaSucursal wp : arraylist) {
                 if (wp.getNombre().toLowerCase(Locale.getDefault()).contains(charText)) {
                     sucursalList.add(wp);
-                } else {
-                 //   myInterfase.setOnSucursalesNull();
                 }
+            }
+            if(sucursalList.size()>0){
+                myInterfase.setOnSucursalesShow();
+            }else{
+                myInterfase.setOnSucursalesNull();
             }
         }
         // Notificamso que los datos cambiaron
