@@ -287,8 +287,8 @@
     <!--datos_domicilio-->
     <string name="currentAddressTitle">Domicilio Personal</string>
     <string name="streetHint">Calle</string>
-    <string name="outdoorNumber">N°Exterior</string>
-    <string name="interiorNumber">N°Interior</string>
+    <string name="outdoorNumber">N° Exterior</string>
+    <string name="interiorNumber">N° Interior</string>
     <string name="zipCodeHint">Código Postal</string>
     <string name="stateHint">Estado</string>
     <string name="datos_domicilio_calle">Calle Requerida, Verifique su Información.</string>
@@ -301,7 +301,7 @@
 
     <!--activacion_sms-->
     <string name="activacion_sms_mes_1">Para Terminar tu Registro,\n Debemos Asociar tu Teléfono a tu\n Cuenta Ya Ganaste.</string>
-    <string name="activacion_sms_mes_2">Sólo Envía el SMS que Aparecerá\nen la Siguiente Pantalla.</string>
+    <string name="activacion_sms_mes_2">Sólo Desliza Para Enviar \nel SMS Requerido.</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
     <!--tienes_tarjeta-->
@@ -564,7 +564,7 @@
     <string name="enviando_ticket">Enviando Recibo</string>
 
     <string name="fecha_nacimiento_erronea">Fecha de Nacimiento Errónea, Verifique su Información.</string>
-    <string name="feha_nacimiento_menor_edad">Fecha de Nacimiento Errónea, Debe Ser Mayor de 18 años para Realizar el Tramite.</string>
+    <string name="feha_nacimiento_menor_edad">Para Poder Continuar, Debes Ser Mayor de Edad.</string>
 
     <string name="perm_read">Ability to read files from this app</string>
     <string name="perm_read_label">Read Files</string>
@@ -594,12 +594,12 @@
 
     <!-- Landing -->
     <string name="landing_emisor_saldo_disponible">Tu Saldo Disponible</string>
-    <string name="landing_emisor_movimientos_cuenta">Los Movimientos\n de Tu Cuenta</string>
+    <string name="landing_emisor_movimientos_cuenta">Los Movimientos de tu Cuenta</string>
     <string name="landing_emisor_cobros_tarjeta">Tus Cobros Con\nTarjeta</string>
-    <string name="landing_emisor_recarga_movimientos">Recarga Tu Celular, Paga tus\nServicios u Envía Dinero a\nQuien Quieras</string>
-    <string name="landing_emisor_opciones_deposito">Aquí te Damos Todas Las\nOpciones Para Depositar\nDinero a tu Cuenta</string>
-    <string name="landing_emisor_activa_lector">Activa tu Lector Para Hacer\nCobros con Tarjetas de Crédito\ny Débito</string>
-    <string name="landing_emisor_configura_cuenta">Y aquí, Configura\ntu Cuenta</string>
+    <string name="landing_emisor_recarga_movimientos">Recarga tu Celular, Paga Tus\nServicios y Envía Dinero a\nQuien Quieras</string>
+    <string name="landing_emisor_opciones_deposito">Revisa Todas Las\nOpciones Para Depositar\nDinero a tu Cuenta</string>
+    <string name="landing_emisor_activa_lector">Activa tu Lector Para Hacer\nCobros Con Tarjetas de Crédito\ny Débito</string>
+    <string name="landing_emisor_configura_cuenta">Y Aquí, Configura\ntu Cuenta</string>
 
     <string name="landing_adq_saldo_reembolso">El saldo que te\nreembolsaremos\nal dia siguiente</string>
     <string name="landing_adq_azul">En Azul, tus Cobros\nPendientes de Reembolso</string>

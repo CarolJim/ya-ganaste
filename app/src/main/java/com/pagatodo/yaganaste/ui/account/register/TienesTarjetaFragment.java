@@ -78,6 +78,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     String a;
     private View rootview;
     private AccountPresenterNew accountPresenter;
+    private char mask_number_card =  'X';
 
     public TienesTarjetaFragment() {
     }
@@ -131,10 +132,11 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
 
 
         // Hacemos Set de la fecha de caducidad de la TDC y nombre del usuario
-        UsuarioClienteResponse singletonUser = SingletonUser.getInstance().getDataUser().getUsuario();
+        UsuarioClienteResponse singletonUser= new UsuarioClienteResponse();
+        singletonUser = SingletonUser.getInstance().getDataUser().getUsuario();
         String mUserName = singletonUser.getNombre()
-                + " " + singletonUser.getPrimerApellido()
-                + " " + singletonUser.getSegundoApellido();
+                + " " + singletonUser.getPrimerApellido();
+                //+ " " + singletonUser.getSegundoApellido();
         dateTDC.setText("02/22");
         userName.setText(mUserName);
 
@@ -168,19 +170,19 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                     @Override
                     public boolean onKey(View v, int keyCode, KeyEvent event) {
                         StringBuilder cardNumber = new StringBuilder(editNumber.getText().toString());
-                        int lastSharpIndex = cardNumber.indexOf("#");
+                        int lastSharpIndex = cardNumber.indexOf("X");
                         if (keyCode == KeyEvent.KEYCODE_DEL) {
                             if (lastSharpIndex <= 7 && lastSharpIndex >= 0) {
                                 return false;
                             }
                             if (lastSharpIndex != -1) {
                                 if (lastSharpIndex == 10 || lastSharpIndex == 15) {
-                                    cardNumber.setCharAt(lastSharpIndex - 2, '#');
+                                    cardNumber.setCharAt(lastSharpIndex - 2, mask_number_card);
                                 } else {
-                                    cardNumber.setCharAt(lastSharpIndex - 1, '#');
+                                    cardNumber.setCharAt(lastSharpIndex - 1, mask_number_card);
                                 }
                             } else {
-                                cardNumber.setCharAt(cardNumber.length() - 1, '#');
+                                cardNumber.setCharAt(cardNumber.length() - 1, mask_number_card);
                             }
 
                         } else {
@@ -190,7 +192,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                             }
                         }
                         editNumber.setText(cardNumber);
-                        if (cardNumber.indexOf("#") == -1) {
+                        if (cardNumber.indexOf("X") == -1) {
                             hideKeyboard();
                         }
                         return false;
@@ -362,7 +364,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     }
 
     private void resetCardNumberDefault() {
-        editNumber.setText(DEFAULT_CARD + "## #### ####");
+        editNumber.setText(DEFAULT_CARD + "XX XXXX XXXX");
     }
 
     private void generateCardNumberRamdon() {
