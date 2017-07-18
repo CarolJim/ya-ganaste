@@ -72,6 +72,7 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
             e.printStackTrace();
             onError(getString(R.string.no_internet_access));
         }
+
         /*if (pago instanceof Recarga || pago instanceof Servicios) {
             try {
                 presenter.sendPayment(tab, pago);
@@ -94,10 +95,10 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
         String mensajeLoader = "";
         switch (tab.toString()) {
             case "TAB1":
-                mensajeLoader = getString(R.string.procesando_servicios_loader);
+                mensajeLoader = getString(R.string.procesando_recarga_loader);
                 break;
             case "TAB2":
-                mensajeLoader = getString(R.string.procesando_recarga_loader);
+                mensajeLoader = getString(R.string.procesando_servicios_loader);
                 break;
             case "TAB3":
                 mensajeLoader = getString(R.string.procesando_envios_loader);
