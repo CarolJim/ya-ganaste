@@ -568,30 +568,28 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 if (dataUser.isConCuenta()) {// Si Cuenta
                     RequestHeaders.setIdCuenta(String.format("%s", data.getData().getUsuario().getCuentas().get(0).getIdCuenta()));
                     if (dataUser.getUsuario().getCuentas().get(0).isAsignoNip()) { // NO necesita NIP
-                        if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
+                        //if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()) {
                         /*if (!dataUser.getUsuario().getClaveAgente().isEmpty() && !dataUser.getUsuario().getPetroNumero().isEmpty()){
                             loginAdq();
                             return;
                         } else {*/
-                            checkAfterLogin();
-                            return;
+                        checkAfterLogin();
+                        return;
                         //}
-                    } else {//Requiere setear el NIP
-                        stepByUserStatus = EVENT_GO_ASSIGN_PIN;
-                    }
+                        } else {//Requiere setear el NIP
+                            stepByUserStatus = EVENT_GO_ASSIGN_PIN;
+                        }
                 } else { // No tiene cuenta asignada.
                     stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
                 }
                 accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
-                } else { // No es usuario
+            } else { // No es usuario
                 accountManager.onError(response.getWebService(), App.getContext().getString(R.string.usuario_no_existe));
-                }
-            } else {
-                accountManager.onError(response.getWebService(), data.getMensaje());
             }
+        } else {
+            accountManager.onError(response.getWebService(), data.getMensaje());
         }
     }
-
 
     private void checkAfterLogin() {
         String stepByUserStatus;

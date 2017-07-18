@@ -327,7 +327,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
-
+                        getActivity().onBackPressed();
                         Intent gpsOptionsIntent = new Intent(
                                 android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
                         startActivity(gpsOptionsIntent);
