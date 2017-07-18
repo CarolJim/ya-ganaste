@@ -173,6 +173,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         onlineGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
         if (onlineGPS) {
+          //  onEventListener.onEvent("UPDATE_MAP", null);
             getSucursales();
         } else {
             showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
@@ -183,6 +184,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     public void onRefresh() {
         ((TabActivity) getActivity()).showProgressLayout("Cargando");
         if (onlineGPS) {
+          onEventListener.onEvent("UPDATE_MAP", null);
             getSucursales();
         } else {
             showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
@@ -327,6 +329,10 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
+                        isBackAvailable = true;
+                        getActivity().onBackPressed();
+
+
 
                         Intent gpsOptionsIntent = new Intent(
                                 android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);

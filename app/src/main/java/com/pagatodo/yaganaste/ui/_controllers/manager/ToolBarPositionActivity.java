@@ -152,9 +152,4 @@ public class ToolBarPositionActivity extends ToolBarActivity implements OnEventL
             }
         }
     }
-
-    @Override
-    public void onEvent(String event, Object data) {
-        super.onEvent(event, data);
-    }
 }
