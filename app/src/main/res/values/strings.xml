@@ -410,6 +410,7 @@
 
     <string name="autorizacion">Autorización:</string>
     <string name="tarjeta">Tarjeta:</string>
+    <string name="ferencia_txt">Referencia:</string>
     <string name="emisor">Emisor:</string>
 
     <!-- Autorizaciones Online -->
