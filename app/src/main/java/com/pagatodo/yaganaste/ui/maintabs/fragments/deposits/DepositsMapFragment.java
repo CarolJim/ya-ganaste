@@ -150,9 +150,12 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
 
             }
 
+            /**
+             * Este filtro reacciona cuando el texto ha cambiado y comenzamos a buscar un destino
+             * @param s
+             */
             @Override
             public void afterTextChanged(Editable s) {
-                //  Toast.makeText(getContext(), "Texto " + s, Toast.LENGTH_SHORT).show();
                 String myFilter = etBuscar.getText().toString();
                 adapter.filter(myFilter);
             }
@@ -199,6 +202,9 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         parentActivity.hideProgresLayout();
     }
 
+    /**
+     * No tenemos resultados entocnces mostramos una pantalla de RV vacia
+     */
     @Override
     public void setOnSucursalesNull() {
         this.sucurasalesList.setVisibility(View.GONE);
@@ -208,6 +214,9 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         parentActivity.hideProgresLayout();
     }
 
+    /**
+     * Tenemos resultados entocnces mostramos una pantalla de RV con los datos del filtro
+     */
     @Override
     public void setOnSucursalesShow() {
         this.sucurasalesList.setVisibility(View.VISIBLE);

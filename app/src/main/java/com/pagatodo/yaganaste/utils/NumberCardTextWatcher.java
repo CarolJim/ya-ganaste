@@ -7,7 +7,8 @@ import android.util.Log;
 import android.widget.EditText;
 
 /**
- * Created by flima on 09/03/2017.
+ * Created by Francisco Manzo on 17/03/2017.
+ * Encargda de realizar el formato de CreditCard con los espacios visuales
  */
 
 public class NumberCardTextWatcher implements TextWatcher {
@@ -16,9 +17,6 @@ public class NumberCardTextWatcher implements TextWatcher {
     String dataNumberOld;
     int countData;
     EditText cardNumber;
-
-    public NumberCardTextWatcher() {
-    }
 
     public NumberCardTextWatcher(EditText cardNumber) {
         this.cardNumber = cardNumber;
@@ -36,12 +34,21 @@ public class NumberCardTextWatcher implements TextWatcher {
 
     }
 
+    /**
+     * Procesa el formato de poner espacios cuando se registran los numetros
+     * 4, 9 y 14. Y cuando se hace un borrado, se registra con esos mismos nuemros, borando el
+     * espacio mas el numero que logicamente corresponde
+     * @param s
+     */
     @Override
     public void afterTextChanged(Editable s) {
         dataNumberNew = s.toString();
         if (dataNumberNew.length() > dataNumberOld.length()) {
-            Log.d("NumberTextWatcher", "dataNumberNew Es mayor");
 
+            /**
+             * Registra los espacios y posisciona el cursor al final del editext para continuar de
+             * manera normal
+             */
             if (dataNumberNew.length() == 4) {
                 dataNumberNew = dataNumberNew + " ";
                 cardNumber.setText(dataNumberNew.toString());
@@ -62,8 +69,10 @@ public class NumberCardTextWatcher implements TextWatcher {
             countData++;
             dataNumberOld = dataNumberNew;
         } else {
-            Log.d("NumberTextWatcher", "dataNumberNew Es menor");
-
+            /**
+             * Proceso de brrado, elimina es caracter siguiente a la izquierda, despues de que se
+             * borra de manera automatica el espacio al orpimir la flecha
+             */
             if (dataNumberNew.length() == 14) {
                 dataNumberNew = dataNumberNew.substring(0, dataNumberNew.length() -1);
                 cardNumber.setText(dataNumberNew.toString());
