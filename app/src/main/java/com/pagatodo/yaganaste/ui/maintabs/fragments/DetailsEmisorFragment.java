@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.os.Bundle;
-import android.support.annotation.ColorInt;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -15,16 +14,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
-
-import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -122,31 +120,31 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     public void initViews() {
         ButterKnife.bind(this, rootView);
         layoutRecibo.setVisibility(View.GONE);
-        @ColorInt int movementColor = ContextCompat.getColor(getActivity(),
-                MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor());
-        layoutMovementTypeColor.setBackgroundColor(movementColor);
-        txtMonto.setTextColor(movementColor);
 
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(DateUtil.getEmisorMovementDate(movimientosResponse.getFechaMovimiento()));
-        txtItemMovDate.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
-        txtItemMovMonth.setText(DateUtil.getMonthShortName(calendar));
-        txtConceptShort.setText(movimientosResponse.getDetalle());
+        String[] date = movimientosResponse.getFechaMovimiento().split(" ");
+        ItemMovements item = new ItemMovements<>(movimientosResponse.getDetalle(), movimientosResponse.getDescripcion(),
+                movimientosResponse.getTotal(), date[0], date[1],
+                MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),
+                movimientosResponse);
+
+        txtMonto.setTextColor(ContextCompat.getColor(getContext(), item.getColor()));
+        txtMonto.setText(StringUtils.getCurrencyValue(Double.toString(item.getMonto())));
+        if (item.getColor() == android.R.color.transparent) {
+            txtMonto.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
+        }
+
+        layoutMovementTypeColor.setBackgroundColor(item.getColor());
+        txtItemMovDate.setText(item.getDate());
+        txtItemMovMonth.setText(item.getMonth());
+        txtConceptShort.setText(item.getPremio());
+        txtMarca.setText(item.getMarca());
 
         MovementsTab movementsType = MovementsTab.getMovementById(movimientosResponse.getIdTipoTransaccion());
-
-        txtConceptShort.setText(movementsType.getDescription());
-        txtMarca.setText(movementsType == MovementsTab.TAB1 || movementsType == MovementsTab.TAB2 ?
-                movimientosResponse.getComercio() :
-                movimientosResponse.getDetalle() + ", " + movimientosResponse.getComercio());
-
-
-        txtMonto.setText(String.format("%.2f", movimientosResponse.getImporte()).trim().replace(",", "."));
 
         Glide.with(this).load(movimientosResponse.getURLImagen())
                 .placeholder(R.mipmap.logo_ya_ganaste).into(imageDetail);
 
-        txtMontoDescripcion.setText(String.format("%.2f", movimientosResponse.getImporte()).trim().replace(",", "."));
+        txtMontoDescripcion.setText(StringUtils.getCurrencyValue(Double.toString(item.getMonto())));
 
         if (movementsType == MovementsTab.TAB1) {
             txtReferenciaTitle.setText(movimientosResponse.getIdComercio() == 7 ?

@@ -9,7 +9,11 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
+
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 
 
 /**
@@ -75,6 +79,9 @@ public abstract class ToolBarActivity extends SupportFragmentActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == CODE_LOG_OUT && resultCode == RESULT_LOG_OUT) {
+            Intent intent = new Intent(this, MainActivity.class);
+            intent.putExtra(SELECTION, MAIN_SCREEN);
+            startActivity(intent);
             finish();
         }
     }
