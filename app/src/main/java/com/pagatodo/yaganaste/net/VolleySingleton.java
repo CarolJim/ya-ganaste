@@ -9,6 +9,7 @@ import com.android.volley.RequestQueue;
 import com.android.volley.toolbox.HttpClientStack;
 import com.android.volley.toolbox.ImageLoader;
 import com.android.volley.toolbox.Volley;
+import com.pagatodo.yaganaste.utils.Recursos;
 
 import org.apache.http.conn.ClientConnectionManager;
 import org.apache.http.conn.scheme.PlainSocketFactory;
@@ -73,7 +74,7 @@ public class VolleySingleton {
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
 
-            String[] pins = new String[]{""};
+            String[] pins = new String[]{Recursos.PIN_ADVO, Recursos.PIN_TRANS, Recursos.PIN_YA};
             HttpParams httpParameters = new BasicHttpParams();
 
             SchemeRegistry schemeRegistry = new SchemeRegistry();
