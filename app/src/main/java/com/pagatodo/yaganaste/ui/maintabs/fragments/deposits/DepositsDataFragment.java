@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
 import com.pagatodo.yaganaste.utils.FontCache;
+import com.pagatodo.yaganaste.utils.StringUtils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -78,7 +79,11 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         if (usuario.getCuentas() != null && usuario.getCuentas().size() >= 1) {
             cuenta = usuario.getCuentas().get(0);
             cardNumber = getCreditCardFormat(cuenta.getTarjeta());
-            txtCableNumber.setText(cuenta.getCLABE());
+            txtCableNumber.setText(
+                    StringUtils.formatoPagoMedios(
+                            cuenta.getCLABE()
+                    )
+            );
             txtNumberCard.setText(cardNumber);
         }
         printCard(cardNumber);
