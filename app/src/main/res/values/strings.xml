@@ -131,7 +131,7 @@
     <string name="giro_commerce_spinner">Giro Comercial</string>
     <string name="subgiro_commerce">SubGiro del Comercio</string>
     <string name="this_is_optional">Este Dato es Opcional</string>
-    <string name="short_form_and_finish">Favor de Completar este Breve Cuestionario y Habremos Terminado</string>
+    <string name="short_form_and_finish">Favor de Completar Este Breve Cuestionario y Habremos Terminado</string>
     <string name="answer_the_next_form">Contesta el Cuestionario Según\ntu Caso o lo más Apegado</string>
     <string name="your_sells_exceds">¿Tus Ventas Exceden los\n50,000 00/100 MN al Mes</string>
     <string name="are_you_gonna_have_transactions">¿Vas a Realizar Más de 100\nTransacciones al Mes?</string>
@@ -139,11 +139,11 @@
     <string name="are_you_or_parent_have_public_charge">¿Tu o Algún Familiar Desempeñan o\nhan Desempeñado Cargos Públicos en\nTerritorio Nacional o Extranjero?</string>
     <string name="are_you_do_sells_outsite">¿Haces Ventas Fuera de tu\nDomicilio Comercial?</string>
     <string name="the_benefits_are_for_you">¿Los Beneficios de las Ventas\nSon Para ti?</string>
-    <string name="sync_your_phone">Estamos Asociando\ntu Teléfono con tu Cuenta</string>
+    <string name="sync_your_phone">Estamos Asociando\ntu Teléfono Con tu Cuenta</string>
     <string name="can_be_late">*Esto Podría Demorar Unos Minutos</string>
     <string name="register_compleate">¡Registro Completo!</string>
     <string name="pinpad_template">%1$s%2$s</string>
-    <string name="please_ingress_the_sms_pin">Por Favor, Ingresa el PIN\nque te ha llegado</string>
+    <string name="please_ingress_the_sms_pin">Por Favor, Ingresa el PIN\nQue te ha llegado</string>
     <string name="developed_by">Desarollado Por:</string>
     <string name="version_app_build">Versión: 1.0 Build: 2.1.1.12</string>
     <string name="pagatodo_public_url">www.pagatodo.com</string>
@@ -151,7 +151,7 @@
     <string name="txt_current_pass">Contraseña Actual</string>
     <string name="txt_new_pass">Nueva Contraseña</string>
     <string name="txt_change_pass">Cambiar Contraseña</string>
-    <string name="txt_leyenda_password">(Tu Contraseña Debe ser al Menos de 8 Caracteres, Incluyendo al Menos una Letra Mayúscula y un Número. No Debe Incluir Tres Caracteres Idénticos en Forma Consecutiva ni Valores Consecutivos)</string>
+    <string name="txt_leyenda_password">(Tu Contraseña Debe ser al Menos de 8 Caracteres, Incluyendo al Menos Una Letra Mayúscula y un Número. No Debe Incluir Tres Caracteres Idénticos en Forma Consecutiva ni Valores Consecutivos)</string>
     <string name="title_dialogs">Ya Ganaste</string>
     <string name="accept_alerts">OK</string>
     <string name="error_message_ingress_pass">Ingresa tu Contraseña Actual</string>
@@ -159,20 +159,20 @@
     <string name="error_message_verify_new_pass">Ingresa la Confirmación de la Nueva Contraseña</string>
     <string name="lorem_ipsum_extended">Lorem Ipsum es simplemente el texto de relleno de las imprentas y archivos de texto. Lorem Ipsum ha sido el texto de relleno estándar de las industrias desde el año 1500, cuando un impresor (N. del T. persona que se dedica a la imprenta) desconocido usó una galería de textos y los mezcló de tal manera que logró hacer un libro de textos especimen. No sólo sobrevivió 500 años, sino que tambien ingresó como texto de relleno en documentos electrónicos, quedando esencialmente igual al original. Fue popularizado en los 60s con la creación de las hojas Letraset\", las cuales contenian pasajes de Lorem Ipsum, y más recientemente con software de autoedición, como por ejemplo Aldus PageMaker, el cual incluye versiones de Lorem Ipsum.\" Al contrario del pensamiento popular, el texto de Lorem Ipsum no es simplemente texto aleatorio. Tiene sus raices en una pieza cl´sica de la literatura del Latin, que data del año 45 antes de Cristo, haciendo que este adquiera mas de 2000 años de antiguedad. Richard McClintock, un profesor de Latin de la Universidad de Hampden-Sydney en Virginia, encontró una de las palabras más oscuras de la lengua del latín, \"consecteur\", en un pasaje de Lorem Ipsum, y al seguir leyendo distintos textos del latín, descubrió la fuente indudable. Lorem Ipsum viene de las secciones 1.10.32 y 1.10.33 de \"de Finnibus Bonorum et Malorum\" (Los Extremos del Bien y El Mal) por Cicero, escrito en el año 45 antes de Cristo. Este libro es un tratado de teoría de éticas, muy popular durante el Renacimiento. La primera linea del Lorem Ipsum, \"Lorem ipsum dolor sit amet..\", viene de una linea en la sección 1.10.32  El trozo de texto estándar de Lorem Ipsum usado desde el año 1500 es reproducido debajo para aquellos interesados. Las secciones 1.10.32 y 1.10.33 de \"de Finibus Bonorum et Malorum\" por Cicero son también reproducidas en su forma original exacta, acompañadas por versiones en Inglés de la traducción realizada en 1914 por H. Rackham</string>
     <string name="txt_felicidades">¡Felicidades!</string>
-    <string name="txt_leyenda_felicidades">Tu aplicación Ya Ganaste Está Preparada Para que Comiences una Nueva Experiencia y Disfrutes de Todos los Beneficios</string>
+    <string name="txt_leyenda_felicidades">Tu aplicación Ya Ganaste Está Preparada Para Que Comiences Una Nueva Experiencia y Disfrutes de Todos Los Beneficios</string>
     <string name="txt_comenzar">COMENZAR</string>
     <string name="activate_now">¡ACTÍVALA YA SIN COSTO!</string>
     <string name="txt_escribe_tu_pass">Ingresa tu Contraseña</string>
     <string name="txt_login">INGRESAR</string>
     <string name="txt_iniciar_sesion">Iniciar Sesión</string>
     <string name="recover_pass">¿Olvidaste tu Contraseña?</string>
-    <string name="ingress_mail_to_recover_pass">Ingresa el Correo Electrónico\ncon el que Registraste tu\nCuenta Ya Ganaste</string>
+    <string name="ingress_mail_to_recover_pass">Ingresa el Correo Electrónico\nCon el que Registraste tu\nCuenta Ya Ganaste</string>
     <string name="txt_mail">Correo Electrónico</string>
     <string name="send">ENVIAR</string>
     <string name="check_your_mail">Revisa tu Correo Electrónico</string>
     <string name="txt_escribe_tu_correo">Escribe tu Correo Electrónico</string>
     <string name="txt_phone">Teléfono: </string>
-    <string name="txt_referencia_envio">Referencia De Envío</string>
+    <string name="txt_referencia_envio">Referencia de Envío</string>
     <string name="hint_referencia_numerica">Referencia Numérica</string>
     <string name="txt_referencia_servicio">Referencia</string>
     <string name="title_aviso">Aviso</string>
@@ -182,7 +182,6 @@
     <string name="nextButton">Continuar</string>
     <string name="imagen_duplicada">Imagen Duplicada , Seleccione Una Imagen Diferente</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="messages">Mensajes</string>
     <string name="confirm_pass">Confirma tu Contraseña</string>
@@ -192,7 +191,7 @@
     <string name="txt_ver_mapa">VER MAPA</string>
     <string name="hint_importe">Importe</string>
     <string name="hint_importe_envio">Importe a Enviar</string>
-    <string name="hint_name_destinatario">Nombre del Destinatario</string>
+    <string name="hint_name_destinatario">Nombre Del Destinatario</string>
     <string name="txt_importe">Importe:</string>
     <string name="txt_fecha">Fecha:</string>
     <string name="txt_hora">Hora:</string>
@@ -202,10 +201,10 @@
     <string name="hint_concepto">Concepto</string>
     <string name="txt_concepto">Concepto:</string>
     <string name="inserta_el_lector_para_ncontinuar">Inserta Tu Lector de Tarjetas\nYa Ganaste</string>
-    <string name="text_slide_or_insert">Inserta o Desliza la Tarjeta para Continuar.</string>
+    <string name="text_slide_or_insert">Inserta o Desliza la Tarjeta Para Continuar.</string>
     <string name="finalizar">Finalizar</string>
     <string name="insert_slide_card">Inserta o desliza la tarjeta</string>
-    <string name="no_internet_access">No Cuentas con Conexión a Internet</string>
+    <string name="no_internet_access">No Cuentas Con Conexión a Internet</string>
     <string name="something_is_wrong_try_again">Algo Salio mal, Intenta de Nuevo</string>
     <string name="tag_number">Número de TAG</string>
     <string name="phone_number_hint">Teléfono (10 Dígitos)</string>
@@ -214,19 +213,19 @@
     <string name="actionJsonObj">CodigoRespuesta</string>
     <string name="omitir">OMITIR</string>
     <string name="hi_user_login">Hola %s</string>
-    <string name="we_need_your_files">Necesitamos tus Documentos</string>
-    <string name="omit_files_message">En Caso de no Tener tus Documentos a la Mano, Podrás Continuar con el Registro, Pero Deberás Agregarlos Posteriormente</string>
+    <string name="we_need_your_files">Necesitamos Tus Documentos</string>
+    <string name="omit_files_message">En Caso de no Tener Tus Documentos a la Mano, Podrás Continuar Con el Registro, Pero Deberás Agregarlos Posteriormente</string>
     <string name="omit">Omitir</string>
 
 
     <!-- Lectura Dongle -->
     <string name="device_no_response">Lector no Responde, por Favor Vuelva a Conectarlo</string>
-    <string name="device_busy">Lector Ocupado, por Favor Espere</string>
+    <string name="device_busy">Lector Ocupado, Por Favor Espere</string>
     <string name="input_invalid">Lectura Incorrecta, Intente de Nuevo.</string>
-    <string name="comm_error">No fue Posible Comunicarse con el Lector, Revise su Entrada de Audio.</string>
+    <string name="comm_error">No Fue Posible Comunicarse Con el Lector, Revise su Entrada de Audio.</string>
     <string name="registro_automatico">Inserta el Lector Para Registrarlo a su Cuenta</string>
     <string name="registro_small">Inserta el Lector Para Registrarlo</string>
-    <string name="error_de_lectura">No fue Posible Completar la Operación, Intenta de Nuevo.</string>
+    <string name="error_de_lectura">No Fue Posible Completar la Operación, Intenta de Nuevo.</string>
 
     <string name="cobrar">Cobrar</string>
     <string name="validatelector"></string>
@@ -253,7 +252,7 @@
     <string name="action_select_picture_cancel">Cancelar</string>
 
     <!--datos_usuario-->
-    <string name="datos_usuario_correo_existe">Este Correo Ya ha Sido Registrado.</string>
+    <string name="datos_usuario_correo_existe">Este Correo ya ha Sido Registrado.</string>
     <string name="userDataTitle">Datos de Usuario</string>
     <string name="confirmEmail">Confirma tu Correo</string>
     <string name="password">Contraseña</string>
@@ -296,7 +295,7 @@
     <string name="datos_domicilio_num_ext">Número Exterior Requerido, Verifique su Información.</string>
     <string name="datos_domicilio_cp">Código Postal Requerido, Verifique su Información.</string>
     <string name="datos_domicilio_colonia">Colonia Requerida, Verifique su Información.</string>
-    <string name="datos_domicilio_terminos">Debes aceptar los términos y condiciones.</string>
+    <string name="datos_domicilio_terminos">Debes Aceptar los Términos y Condiciones.</string>
     <string name="msg_register">Registrando Usuario</string>
     <string name="msg_renapo">Validando Información</string>
 
@@ -318,7 +317,7 @@
     <string name="permission_request_desc">Debes Aceptar Todos los Permisos para el Correcto Funcionamiento de Ya Ganaste.</string>
     <string name="asignar_pin">Verifica tu NIP.</string>
     <string name="confirma_pin">Confirma tu NIP.</string>
-    <string name="confirmar_pin">El NIP no coincide</string>
+    <string name="confirmar_pin">El NIP no Coincide</string>
     <string name="longitud_nip">NIP de 4 Dígitos</string>
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
@@ -338,7 +337,7 @@
     <string name="datos_telefono_incorrecto">Ingrese un Teléfono Válido</string>
     <string name="datos_negocio_preguntas">Debes Contestar Todas las Preguntas.</string>
     <!--Server problem-->
-    <string name="message_generic_ws">Ocurró un problema. Intente más tarde.</string>
+    <string name="message_generic_ws">Ocurró un Problema. Intente más tarde.</string>
 
     <!-- Strings Menu Principal-->
     <string name="main_tab_inicio">Inicio</string>
@@ -361,7 +360,7 @@
     <string name="adq_must_upload_documents">Debes de Subir Todos Los Documentos.</string>
     <string name="adq_upload_documents">Enviando Solicitud</string>
     <string name="adq_upgrade_documents">Actualizando Documentos</string>
-    <string name="adq_error_open_image">La aplicacion no pudo acceder a su imagen intente con otra galeria</string>
+    <string name="adq_error_open_image">La Aplicación no Pudo Acceder a su Imagen Intente Con Otra Galería</string>
     <string name="adq_title_thanks">¡Gracias!</string>
     <string name="adq_subtitle_thanks">Tus Documentos Están\nSiendo Revisados</string>
     <string name="adq_title_thanks_msg">Este Proceso Puede Tardar\nHasta 48 Horas Hábiles</string>
@@ -370,9 +369,9 @@
     <string name="adq_msg_accept">A Continuación, te Enseñaremos tu\nNueva Sección de Cobros</string>
     <string name="adq_aproved">Aprobado</string>
     <string name="adq_succes_aproved">El Pago Fue Completado\nCorrectamente\n\nYa Puedes\nRetirar la Tarjeta.</string>
-    <string name="adq_error_signature">No se ha Capturado una Firma</string>
+    <string name="adq_error_signature">No se ha Capturado Una Firma</string>
 
-    <string name="usuario_no_existe">Este correo no se encuentra registrado.</string>
+    <string name="usuario_no_existe">Este Correo no se Encuentra Registrado.</string>
 
     <string name="child_tab_recharge">Recargas</string>
     <string name="child_tab_services">Servicios</string>
@@ -398,12 +397,12 @@
     <string name="correo_enviar_ticket">¿A Qué Correo Electrónico\nEnviamos Tu Recibo?</string>
     <string name="gracias_por_compra">¡Gracias Por tu Compra!</string>
     <string name="mensaje_pagaste1">Pagaste:</string>
-    <string name="mensaje_pagaste2">con tu tarjeta:</string>
+    <string name="mensaje_pagaste2">Con tu tarjeta:</string>
 
     <string name="monto_cobrar">Monto a Cobrar</string>
     <string name="retirar_tarjeta">Retira la Tarjeta</string>
     <string name="tu_firma">Tu Firma</string>
-    <string name="pago_por">Pago por </string>
+    <string name="pago_por">Pago Por </string>
 
     <string name="cancelar_operacion">Cancelar Cobro</string>
     <string name="txt_monto">Monto:</string>
@@ -417,14 +416,14 @@
     <!-- Autorizaciones Online -->
     <string name="este_movimiento">Este Movimiento Requiere Autorización: </string>
     <string name="monto">Importe:</string>
-    <string name="ingresa_tu_contrasenia">Ingresa tu Contraseña para Autorizar este Movimiento en tu
+    <string name="ingresa_tu_contrasenia">Ingresa tu Contraseña para Autorizar Este Movimiento en tu
     Banca en Línea</string>
 
     <string name="autorizacion_completa">¡Autorización Completa!</string>
-    <string name="revisa_el_resumen">Revisa el Resumen de este Movimiento en tu Banca en Línea</string>
+    <string name="revisa_el_resumen">Revisa el Resumen de Este Movimiento en tu Banca en Línea</string>
     <string name="terminar">Terminar</string>
 
-    <string name="nip_empty">Debes Introducir tu NIP para Poder Aprobar esta Transacción</string>
+    <string name="nip_empty">Debes Introducir tu NIP para Poder Aprobar Esta Transacción</string>
 
     <string name="tx_expired">La Transacción ha Expirado</string>
 
@@ -432,8 +431,8 @@
     <string name="aproving_transaction">Aprobando Transacción</string>
     <string name="ingresa_tu_contrasenia_otp">Ingresa tu Contraseña para Generar un Código de Acceso</string>
 
-    <string name="no_offline_token">El Dispositivo no Cuenta con Token Offline, Asegúrate de que
-    tu Dispositivo esté Asociado por SMS</string>
+    <string name="no_offline_token">El Dispositivo no Cuenta con Token Offline, Asegúrate de Que
+    tu Dispositivo Esté Asociado por SMS</string>
 
     <string name="tu_codigo">Tu Código de Acceso es:</string>
     <string name="caduca_en"><![CDATA[Caduca en <b><font color="#10B2E6">%1$s</font></b> Minutos]]></string>
@@ -444,9 +443,9 @@
 
 
     <string name="ok">OK</string>
-    <string name="permission_camera_rationale">El acceso a la cámara es necesario para la detección de código de barras</string>
-    <string name="no_camera_permission">Esta acción no se puede ejecutar porque no tiene el permiso de cámara.</string>
-    <string name="low_storage_error">No se pueden descargar las dependencias del detector de códigos de barras debido al bajo almacenamiento del dispositivo</string>
+    <string name="permission_camera_rationale">El acceso a la Cámara es Necesario Para la Detección de Código de Barras</string>
+    <string name="no_camera_permission">Esta acción no se Puede Ejecutar Porque no Tiene el Permiso de Cámara.</string>
+    <string name="low_storage_error">No se Pueden Descargar Las Dependencias del Detector de Códigos de Barras Debido al Bajo Almacenamiento del Dispositivo</string>
 
 
     <string name="no_tiene_tarjeta">No te Preocupes ¡Ya te Asignamos Una!</string>
@@ -462,7 +461,7 @@
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
     <string name="tienes_cuenta2">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
     <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01-800-500-1000\n contacto@yaganaste.com</string>
-    <string name="documents_comprobantes">CFE, Teléfono, Agua (No mayor a 3 meses)</string>
+    <string name="documents_comprobantes">CFE, Teléfono, Agua (No Mayor a 3 Meses)</string>
     <string name="documents_vigentes">Credencial de Elector o Pasaporte</string>
 
 
@@ -495,8 +494,8 @@
     <string name="procesando_solicitud"> </string>
 
     <string name="listo">¡Listo!</string>
-    <string name="recibo_enviado">El Recibo Fue Enviado con Éxito.</string>
-    <string name="recibo_enviado_line">El Recibo Fue\nEnviado con Éxito.</string>
+    <string name="recibo_enviado">El Recibo Fue Enviado Con Éxito.</string>
+    <string name="recibo_enviado_line">El Recibo Fue\nEnviado Con Éxito.</string>
 
     <!-- Mensajes de error para registro SMS -->
     <string name="fallo_envio">Falla al Enviar el Mensaje</string>
@@ -511,7 +510,7 @@
     <string name="tab_envios">Envíos</string>
     <string name="your_balance">Saldo: </string>
     <string name="btn_send">Enviar</string>
-    <string name="no_services_msg">Cargando servicios...(*)</string>
+    <string name="no_services_msg">Cargando Servicios...(*)</string>
     <string name="recharge_success_title">¡Recarga Exitosa!</string>
     <string name="txt_comision">Comisión:</string>
     <string name="txt_phone_b">Teléfono: </string>
@@ -544,8 +543,8 @@
     <string name="title_activity_prefer_user">PreferUserActivity</string>
     <string name="recuperando_docs_estatus"></string>
     <string name="desea_cacelar">¿Deseas Salir y Cancelar la Operación Actual?</string>
-    <string name="no_sucursales">No existen sucursales en tu área.</string>
-    <string name="no_sucursales2">No se Encontraron Conincidencias en tu Área.</string>
+    <string name="no_sucursales">No Existen Sucursales en tu Área.</string>
+    <string name="no_sucursales2">No se Encontraron Coincidencias  en tu Área.</string>
     <string name="buscar_sucursal">Buscar  Sucursal</string>
 
     <string name="cancelada">Cancelada</string>
@@ -553,7 +552,6 @@
     <!-- PreferUSerActivity -->
     <string name="listaopciones_load_image_wait">Cargando Imagen</string>
 
-    procesando_recarga_loader procesando_pago_loader procesando_email_loader
     <!-- Mensajes de Loader en el comneoto de hacer recargas, envios y depositos -->
     <string name="procesando_recarga_loader">Realizando Recarga</string>
     <string name="procesando_servicios_loader">Realizando Pago</string>
@@ -569,7 +567,7 @@
 
     <string name="detalle_movimiento">Detalle de Movimiento</string>
     <string name="cobraste">Cobraste</string>
-    <string name="con_la_tarjeta">Con la tarjeta:</string>
+    <string name="con_la_tarjeta">Con la Tarjeta:</string>
     <string name="cancel_cobro_confirmation">¿Estás Seguro Que Quieres\n Cancelar Este Cobro?</string>
     <string name="procesando_cobro">Realizando Cobro</string>
     <string name="procesando_cancelacion">Realizando Cancelación</string>
@@ -611,22 +609,22 @@
     <string name="landing_emisor_saldo_disponible">Tu Saldo Disponible</string>
     <string name="landing_emisor_movimientos_cuenta">Los Movimientos\nde tu Cuenta</string>
     <string name="landing_emisor_cobros_tarjeta">Tus Cobros Con\nTarjeta</string>
-    <string name="landing_emisor_recarga_movimientos">Recarga Tu Celular, Paga tus\nServicios y Envía Dinero a\nQuien Quieras</string>
+    <string name="landing_emisor_recarga_movimientos">Recarga Tu Celular, Paga Tus\nServicios y Envía Dinero a\nQuien Quieras</string>
     <string name="landing_emisor_opciones_deposito">Revisa Todas Las\nOpciones Para Depositar\nDinero a tu Cuenta</string>
     <string name="landing_emisor_activa_lector">Activa tu Lector Para Hacer\nCobros Con Tarjetas de Crédito\ny Débito</string>
     <string name="landing_emisor_configura_cuenta">Y Aquí, Configura\ntu Cuenta</string>
 
-    <string name="landing_adq_saldo_reembolso">El saldo que te\nreembolsaremos\nal dia siguiente</string>
-    <string name="landing_adq_azul">En Azul, tus Cobros\nPendientes de Reembolso</string>
+    <string name="landing_adq_saldo_reembolso">El Saldo que te\nReembolsaremos\nal Dia Siguiente</string>
+    <string name="landing_adq_azul">En Azul, Tus Cobros\nPendientes de Reembolso</string>
     <string name="landing_adq_verdes">En Verde, Los Que Ya\n Te Reembolsamos</string>
-    <string name="landing_adq_rojos">Y En Rojo, Los Cobros\nque Cancelaste</string>
+    <string name="landing_adq_rojos">Y En Rojo, Los Cobros\nQue Cancelaste</string>
 
     <string name="aprobada">Aprobada</string>
     <string name="pago_success">El Pago Fue Completado\nCorrectamente.</string>
     <string name="execution_success">Ejecución Éxitosa</string>
     <string name="cancelation_success">Cancelación Exitosa</string>
     <string name="cancelation_success_message">El Cobro Fue Cancelado\nCorrectamente.</string>
-    <string name="mount_be_higer">El Monto Tiene que ser Mayor</string>
+    <string name="mount_be_higer">El Monto Tiene Que Ser Mayor</string>
     <string name="mount_valid">Ingresa un Monto Válido.</string>
     <string name="enter_mount">Por Favor Ingrese un Monto</string>
     <string name="mount_cero">$0.00</string>
@@ -635,7 +633,7 @@
 
     <string name="ask_permission_gps">Por Favor Activa tu GPS</string>
     <string name="adq_invt_me_interesa">¡Me interesa!</string>
-    <string name="adq_invt_no_me_interesa"><u>En otro momento</u></string>
+    <string name="adq_invt_no_me_interesa"><u>En Otro Momento</u></string>
 </resources>
 
 
