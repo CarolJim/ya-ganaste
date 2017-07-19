@@ -12,7 +12,10 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
 public enum MovementsTab implements IEnumTab {
     TAB1(R.string.child_tab_recharge, 1, "Recarga TAE"),
     TAB2(R.string.child_tab_services, 2, "Pago de Servicio"),
-    TAB3(R.string.child_tab_mony_send, 3, "Envío de Dinero");
+    TAB3(R.string.child_tab_mony_send, 3, "Envío de Dinero"),
+    TAB4(0, 4, "Envío Otro Banco"),
+    TAB5(0, 5, "Recepción de Dinero"),
+    TAB6(0, 6, "Recepción Otro Banco"),;
 
     private int name;
     private int id;

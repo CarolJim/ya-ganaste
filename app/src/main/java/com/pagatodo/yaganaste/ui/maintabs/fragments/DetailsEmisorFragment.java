@@ -15,6 +15,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
@@ -162,11 +163,19 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         }
 
 
-        if (movementsType == MovementsTab.TAB3) {
-            layoutSendTo.setVisibility(View.VISIBLE);
-            txtSendTo.setText(movimientosResponse.getBeneficiario());
+        if (movementsType == MovementsTab.TAB3 || movementsType == MovementsTab.TAB4
+                || movementsType == MovementsTab.TAB5 || movementsType == MovementsTab.TAB6) {
+
+            if (!movimientosResponse.getBeneficiario().isEmpty()) {
+                layoutSendTo.setVisibility(View.VISIBLE);
+                txtSendTo.setText(movimientosResponse.getBeneficiario());
+            }
+
             txtReferenciaTitle.setText(getString(R.string.cuenta));
             String ref = movimientosResponse.getReferencia().replaceAll(" ", "");
+            if (ref.isEmpty()) {
+                ref = SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta();
+            }
             ref = ref.substring(ref.length() - 4, ref.length());
             txtRefernciaDescripcion.setText(getString(R.string.mask_card) + " " + ref);
             txtConceptoDescripcion.setText(movimientosResponse.getConcepto());

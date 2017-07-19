@@ -32,6 +32,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsSuccessPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsSuccessPresenter;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidateForm;
@@ -39,6 +40,7 @@ import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import java.text.SimpleDateFormat;
+import java.util.Calendar;
 import java.util.Date;
 
 import butterknife.BindView;
@@ -177,7 +179,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
             txtComision.setVisibility(View.INVISIBLE);
             comisionReferenciaText.setText("A:");
             titleReferencia.setText(((Envios) pago).getNombreDestinatario());
-            layoutMail.setVisibility(View.VISIBLE);
+            layoutMail.setVisibility(View.INVISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             titleMail.setText("Envía Este Comprobante a " + ((Envios) pago).getNombreDestinatario() + " (Opcional)");
         }
@@ -215,8 +217,9 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
         SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat dateFormatH = new SimpleDateFormat("HH:mm:ss");
 
-        fecha.setText(dateFormat.format(new Date()));
-        hora.setText(dateFormatH.format(new Date()));
+        fecha.setText(DateUtil.getBirthDateCustomString(Calendar.getInstance()));
+        hora.setText(dateFormatH.format(new Date()) + " hrs");
+
         //fecha.setText(result.getData().getFecha());
         //hora.setText(result.getData().getHora());
 

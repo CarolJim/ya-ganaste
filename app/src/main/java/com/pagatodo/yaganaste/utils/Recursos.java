@@ -1,8 +1,9 @@
 package com.pagatodo.yaganaste.utils;
 
+import com.pagatodo.yaganaste.BuildConfig;
+
 public class Recursos {
 
-    public final static Boolean DEBUG = true;
     //HOST
     public static final String URL_SERVER_ADTVO;
     public static final String URL_SERVER_TRANS;
@@ -21,9 +22,11 @@ public class Recursos {
     public static final String PIN_TRANS;
     public static final String PIN_YA;
 
+    public static final int IDCOMERCIO_YA_GANASTE = 8609;
+
     //URL DE WS
     static {
-        if (DEBUG) {
+        if (BuildConfig.DEBUG) {
 
             URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
             URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
