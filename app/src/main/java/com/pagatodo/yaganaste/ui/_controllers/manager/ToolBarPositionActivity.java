@@ -8,19 +8,21 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.util.Log;
+import android.view.Menu;
 
 import com.google.android.gms.common.ConnectionResult;
 import com.google.android.gms.common.api.GoogleApiClient;
 import com.google.android.gms.location.LocationListener;
 import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 
 /**
  * Created by Jordan on 19/05/2017.
  */
 
-public class ToolBarPositionActivity extends ToolBarActivity implements OnEventListener,
+public class ToolBarPositionActivity extends LoaderActivity implements OnEventListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
 
     private static final String REQUESTING_LOCATION_UPDATES_KEY = "location_key";
@@ -152,4 +154,5 @@ public class ToolBarPositionActivity extends ToolBarActivity implements OnEventL
             }
         }
     }
+
 }

@@ -9,6 +9,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -350,4 +351,5 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public void hideProgresLayout() {
         progressGIF.setVisibility(View.GONE);
     }
+
 }

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.view.ViewPager;
+import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -147,6 +148,11 @@ public class SessionActivity extends ToolBarActivity implements TabsView, OnEven
                 break;
 
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
     }
 
 }

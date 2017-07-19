@@ -31,6 +31,10 @@ public abstract class ToolBarActivity extends SupportFragmentActivity {
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
         super.setContentView(layoutResID);
+        setUpActionBar();
+    }
+
+    public void setUpActionBar() {
         toolbarLayout = findViewById(R.id.toolbarLy);
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarTest);
         if (toolbar != null) {
@@ -51,7 +55,6 @@ public abstract class ToolBarActivity extends SupportFragmentActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.my_account_menu, menu);
-
         return true;
     }
 
