@@ -135,12 +135,9 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleButton
                         android:id="@+id/btnClear"
-                        style="@style/generic_text_style_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        style="@style/AppButton"
                         android:background="@drawable/button_rounded_transparent"
-                        android:text="LIMPIAR"
+                        android:text="Limpiar"
                         android:textColor="@color/whiteColor" />
 
                     <View
@@ -151,12 +148,9 @@
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleButton
                         android:id="@+id/btnSendSignature"
-                        style="@style/generic_text_style_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_weight="1"
+                        style="@style/AppButton"
                         android:background="@drawable/button_rounded_transparent"
-                        android:text="CONTINUAR"
+                        android:text="Continuar"
                         android:textColor="@color/whiteColor" />
                 </LinearLayout>
             </LinearLayout>

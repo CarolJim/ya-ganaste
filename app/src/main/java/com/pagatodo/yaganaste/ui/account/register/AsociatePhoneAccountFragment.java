@@ -83,6 +83,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
                     goLoginAlert(getString(R.string.sin_senial));
                     break;
             }
+            getActivity().unregisterReceiver(this);
         }
     };
 
@@ -273,6 +274,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
                         UI.showToastShort("SMS No Entregado", getActivity());
                         break;
                 }
+                getActivity().unregisterReceiver(this);
             }
         };
 

@@ -19,6 +19,7 @@ public class StringConstants {
     public static final String ID_CUENTA = "ID_CUENTA";
     public static final String ADQUIRENTE_BALANCE = "ADQUIRENTE_BALANCE";
     public static final String CATALOG_VERSION = "CATALOG_VERSION";
+    public static final String SIMPLE_NAME = "SIMPLE_NAME";
 
     private StringConstants() {
         throw new IllegalCallException("You can not create an instance for ViewPagerDataFactory");

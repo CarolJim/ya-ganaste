@@ -46,7 +46,6 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_REMOVE
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_ERROR;
-import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 
 /**
@@ -416,9 +415,9 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         FirmaDeVoucherResponse data = (FirmaDeVoucherResponse) response.getData();
         if (data.getId().equals(ADQ_CODE_OK)) {
             accountManager.onSucces(response.getWebService(), data.getMessage());
-        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+        } /*else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
             iSessionExpired.errorSessionExpired(response);
-        } else {
+        } */else {
             accountManager.onError(response.getWebService(), data.getMessage());//Retornamos mensaje de error.
         }
     }
@@ -457,9 +456,9 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             result.setPageResult(pageResult);
             result.setTransaccionResponse(new TransaccionEMVDepositResponse());
             accountManager.onSucces(response.getWebService(), data.getMessage());
-        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+        } /*else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
             iSessionExpired.errorSessionExpired(response);
-        } else {
+        } */else {
             accountManager.onError(response.getWebService(), data.getMessage());//Retornamos mensaje de error.
         }
     }

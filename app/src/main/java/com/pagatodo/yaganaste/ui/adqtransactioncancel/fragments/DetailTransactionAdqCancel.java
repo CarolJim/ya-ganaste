@@ -94,8 +94,8 @@ public class DetailTransactionAdqCancel extends GenericFragment implements View.
 
         txtConceptoCobroCancel.setText(dataMovimientoAdq.getOperacion());
 
-        DateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy", new Locale("es", "ES"));
-        txtFechaCobroCancel.setText(dateFormat.format(calendar.getTime()));
+
+        txtFechaCobroCancel.setText(DateUtil.getBirthDateCustomString(calendar));
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", new Locale("es", "ES"));
         txtHoraCobroCancel.setText(hourFormat.format(calendar.getTime()) + " hrs");
 

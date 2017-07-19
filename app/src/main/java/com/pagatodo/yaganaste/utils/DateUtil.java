@@ -27,27 +27,23 @@ public class DateUtil {
 
 
 
-    public static Calendar getCalendar(Date date) {
-        Calendar cal = Calendar.getInstance(Locale.US);
-        cal.setTime(date);
-        return cal;
-    }
 
-
-
-    public static String getBirthDateCustomString(Calendar date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormatCustom, new Locale("es", "mx"));
-        String result = dateFormat.format(date.getTime());
-
-        char[] chars = result.toCharArray();
-
+    public static String renameDateMonth(String fullDateName) {
+        char[] chars = fullDateName.toCharArray();
         for (int x = 0; x < chars.length; x++) {
             if (Character.isLetter(chars[x])) {
                 chars[x] = Character.toUpperCase(chars[x]);
                 return new String(chars).replace(".", "");
             }
         }
-        return result.replace(".", "");
+        return fullDateName.replace(".", "");
+    }
+
+
+    public static String getBirthDateCustomString(Calendar date) {
+        SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormatCustom, new Locale("es", "mx"));
+        return renameDateMonth(dateFormat.format(date.getTime()));
+
     }
 
 
@@ -59,7 +55,7 @@ public class DateUtil {
     public static String getCompleteDateFormat(Calendar date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(completeDateFormat, new Locale("es"));
         String result = dateFormat.format(date.getTime());
-        return result;
+        return renameDateMonth(result);
     }
 
 
@@ -87,17 +83,6 @@ public class DateUtil {
         return StringUtils.capitalize(StringUtils.getMonthShortName(calendar.getDisplayName(Calendar.MONTH, Calendar.LONG, new Locale("es", "MX"))));
     }
 
-    public static AdquirentePaymentsTab getTabAdquirente() {
-
-
-        DateFormat dateFormat = new SimpleDateFormat("MM-yyyy", Locale.US);
-        Date date = new Date();
-        String formatDate = dateFormat.format(date);
-
-
-        return new AdquirentePaymentsTab("", formatDate);
-    }
-
 
     public static List<AdquirentePaymentsTab> getTabsAdquirente() {
 
@@ -116,12 +101,12 @@ public class DateUtil {
     }
 
     public static Date getAdquirenteMovementDate(String movDate) {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy hh:mm", Locale.US);
+        DateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy hh:mm", new Locale("es", "mx"));
         Date date = null;
         try {
             date = dateFormat.parse(movDate);
         } catch (ParseException e) {
-            dateFormat = new SimpleDateFormat("dd MMM yyyy", new Locale("es", "mx"));
+            dateFormat = new SimpleDateFormat("dd MMM yyyy  hh:mm", new Locale("es", "mx"));
             try {
                 date = dateFormat.parse(movDate);
             } catch (ParseException e1) {
@@ -131,20 +116,5 @@ public class DateUtil {
         return date;
     }
 
-    public static Date getEmisorMovementDate(String movDate) {
-        DateFormat dateFormat = new SimpleDateFormat("dd MMM yyyy", Locale.US);
-        Date date = null;
-        try {
-            date = dateFormat.parse(movDate);
-        } catch (ParseException e) {
-            dateFormat = new SimpleDateFormat("dd MMM yyyy", new Locale("es", "mx"));
-            try {
-                date = dateFormat.parse(movDate);
-            } catch (ParseException e1) {
-                e1.printStackTrace();
-            }
-        }
-        return date;
-    }
 
 }

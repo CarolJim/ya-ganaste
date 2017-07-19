@@ -134,8 +134,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         txtRefernciaDescripcion.setText(dataMovimientoAdq.getReferencia());
         txtConceptoDescripcion.setText(dataMovimientoAdq.getOperacion());
 
-        DateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy", new Locale("es", "ES"));
-        txtFechaDescripcion.setText(dateFormat.format(calendar.getTime()));
+        txtFechaDescripcion.setText(DateUtil.getBirthDateCustomString(calendar));
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", new Locale("es", "ES"));
         txtHoraDescripcion.setText(hourFormat.format(calendar.getTime()) + " hrs");
 
