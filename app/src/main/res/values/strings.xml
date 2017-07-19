@@ -96,8 +96,8 @@
     <string name="write_your_name">Escribe tu Nombre</string>
     <string name="second_last_name">Segundo Apellido</string>
     <string name="last_name">Primer Apellido</string>
-    <string name="your_password_need_to_have">Tu Contraseña Debe ser al Menos de 8 Caracteres, Incluyendo al Menos una Letra Mayúscula y un Número. No Debe Incluir Tres Caracteres Idénticos en Forma Consecutiva ni Valores Consecutivos</string>
-    <string name="create_your_pass">Crea una contraseña</string>
+    <string name="your_password_need_to_have">Tu Contraseña Debe ser al Menos de 8 Caracteres, Incluyendo al Menos Una Letra Mayúscula y un Número. No Debe Incluir Tres Caracteres Idénticos en Forma Consecutiva ni Valores Consecutivos</string>
+    <string name="create_your_pass">Crea Una Contraseña</string>
     <string name="more_data_and_finish">Unos Datos más\ny Habremos Terminado</string>
     <string name="put_your_birthday">Indícanos tu Fecha de Nacimiento</string>
     <string name="put_your_gender">Indícanos tu Género</string>
@@ -117,7 +117,7 @@
     <string name="i_have_it">YA LO TENGO</string>
     <string name="idont_have_it">NO TENGO LECTOR</string>
     <string name="where_buyit">¿Dónde Comprarlo?</string>
-    <string name="plug_your_card_reader">Inserta tu Lector\npara Asociarlo a tu Cuenta</string>
+    <string name="plug_your_card_reader">Inserta tu Lector\nPara Asociarlo a tu Cuenta</string>
     <string name="if_you_want_get_cards">Si en el Futuro Quieres Recibir Tarjetas</string>
     <string name="get_our_lector">Adquiere Nuestro Lector en:</string>
     <string name="are_you_want_sell">¿Quieres Vender Tiempo Aire\ny/o Recibir Pagos de Servicios?</string>
@@ -127,18 +127,18 @@
     <string name="commerce_name">Nombre del Comercio</string>
     <string name="r_social">Razon Social</string>
     <string name="my_commerce_is">Mi Comercio es…</string>
-    <string name="giro_commerce">Giro del comercio</string>
+    <string name="giro_commerce">Giro del Comercio</string>
     <string name="giro_commerce_spinner">Giro Comercial</string>
-    <string name="subgiro_commerce">SubGiro del comercio</string>
+    <string name="subgiro_commerce">SubGiro del Comercio</string>
     <string name="this_is_optional">Este Dato es Opcional</string>
     <string name="short_form_and_finish">Favor de Completar este Breve Cuestionario y Habremos Terminado</string>
     <string name="answer_the_next_form">Contesta el Cuestionario Según\ntu Caso o lo más Apegado</string>
     <string name="your_sells_exceds">¿Tus Ventas Exceden los\n50,000 00/100 MN al Mes</string>
     <string name="are_you_gonna_have_transactions">¿Vas a Realizar Más de 100\nTransacciones al Mes?</string>
-    <string name="are_you_sell_differente_type">¿Utilizarás el Servicio para Ventas\nDiferentes a tu Giro?</string>
+    <string name="are_you_sell_differente_type">¿Utilizarás el Servicio Para Ventas\nDiferentes a tu Giro?</string>
     <string name="are_you_or_parent_have_public_charge">¿Tu o Algún Familiar Desempeñan o\nhan Desempeñado Cargos Públicos en\nTerritorio Nacional o Extranjero?</string>
     <string name="are_you_do_sells_outsite">¿Haces Ventas Fuera de tu\nDomicilio Comercial?</string>
-    <string name="the_benefits_are_for_you">¿Los Beneficios de las Ventas\nson Para ti?</string>
+    <string name="the_benefits_are_for_you">¿Los Beneficios de las Ventas\nSon Para ti?</string>
     <string name="sync_your_phone">Estamos Asociando\ntu Teléfono con tu Cuenta</string>
     <string name="can_be_late">*Esto Podría Demorar Unos Minutos</string>
     <string name="register_compleate">¡Registro Completo!</string>
@@ -561,11 +561,11 @@
     <string name="procesando_enviando_email_loader">Enviando Correo Electrónico</string>
 
 
-    <string name="favor_selecciona_importe">Por favor Selecióna un Importe</string>
+    <string name="favor_selecciona_importe">Por Favor Selecciona un Importe</string>
     <string name="numero_iave_vacio">Número de IAVE Vacío</string>
-    <string name="numero_telefono_vacio">Numero de Teléfono Vacío</string>
+    <string name="numero_telefono_vacio">Número de Teléfono Vacío</string>
     <string name="numero_iave_incorrecto">Número de IAVE Incorrecto</string>
-    <string name="numero_telefono_incorrecto">Numero de Teléfono Incorrecto</string>
+    <string name="numero_telefono_incorrecto">Número de Teléfono Incorrecto</string>
 
     <string name="detalle_movimiento">Detalle de Movimiento</string>
     <string name="cobraste">Cobraste</string>
