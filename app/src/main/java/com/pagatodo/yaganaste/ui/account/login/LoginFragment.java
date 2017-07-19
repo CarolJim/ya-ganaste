@@ -105,7 +105,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
             Preferencias preferencias = App.getInstance().getPrefs();
-            textNameUser.setText(preferencias.loadData(StringConstants.NAME_USER));
+            textNameUser.setText(preferencias.loadData(StringConstants.SIMPLE_NAME));
 
             edtUserName.setText(RequestHeaders.getUsername());
             edtUserName.setVisibility(GONE);
