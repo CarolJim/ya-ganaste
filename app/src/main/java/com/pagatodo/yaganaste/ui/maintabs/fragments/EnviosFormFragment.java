@@ -35,6 +35,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CABLE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
+import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 
 /**
  * Created by Jordan on 12/04/2017.
@@ -56,11 +57,14 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
     EditText concept;
     @BindView(R.id.numberReference)
     EditText numberReference;
+    @BindView(R.id.fragment_envios_referencia_layout)
+    LinearLayout referenciaLayout;
 
     TransferType selectedType;
     IEnviosPresenter enviosPresenter;
     private String nombreDestinatario;
     private String referenciaNumber;
+    int keyIdComercio;
 
     public static EnviosFormFragment newInstance() {
         EnviosFormFragment fragment = new EnviosFormFragment();
@@ -76,6 +80,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
             tab = TAB3;
             paymentsTabPresenter = ((PaymentsTabFragment) getParentFragment()).getPresenter();
             comercioItem = paymentsTabPresenter.getCarouselItem().getComercio();
+            keyIdComercio = comercioItem.getIdComercio();
             enviosPresenter = new EnviosPresenter(this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -101,13 +106,20 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
         tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(getContext()));
         tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(getContext()));
 
-        if (comercioItem.getIdComercio() != 8609) {
+        if (keyIdComercio != IDCOMERCIO_YA_GANASTE) {
             tipoPago.add(CABLE.getId(), CABLE.getName(getContext()));
         }
+
         SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), TAB3, tipoPago);
         tipoEnvio.setAdapter(dataAdapter);
         tipoEnvio.setOnItemSelectedListener(this);
         amountToSend.addTextChangedListener(new NumberTextWatcher(amountToSend));
+
+        // Validacion para ocultar campo de Referencia numerica si el comercio es YaGanaste
+        if(keyIdComercio == IDCOMERCIO_YA_GANASTE){
+            referenciaLayout.setVisibility(View.GONE);
+            numberReference.setText("123456");
+        }
     }
 
     @Override

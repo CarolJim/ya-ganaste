@@ -21,6 +21,8 @@ public class Recursos {
     public static final String PIN_TRANS;
     public static final String PIN_YA;
 
+    public static final int IDCOMERCIO_YA_GANASTE = 8609;
+
     //URL DE WS
     static {
         if (DEBUG) {
