@@ -621,6 +621,8 @@
     <string name="last_date_update">Actualizado el %s</string>
 
     <string name="ask_permission_gps">Por Favor Activa tu GPS</string>
+    <string name="adq_invt_me_interesa">¡Me interesa!</string>
+    <string name="adq_invt_no_me_interesa"><u>En otro momento</u></string>
 </resources>
 
 
