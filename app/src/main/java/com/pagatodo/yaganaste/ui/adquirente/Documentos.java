@@ -283,7 +283,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 bitmapLoader.execute();
             } catch (Exception e) {
                 e.printStackTrace();
-                UI.createSimpleCustomDialog("", "Error al cargar imágen", getActivity().getSupportFragmentManager(), null, true, false);
+                UI.createSimpleCustomDialog("", "Error al Cargar Imagen", getActivity().getSupportFragmentManager(), null, true, false);
                 adqPresenter.showGaleryError();
             } finally {
                 if (cursor != null) {
@@ -291,7 +291,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
                 }
             }
         } else {
-            UI.createSimpleCustomDialog("", "Error al cargar imágen", getActivity().getSupportFragmentManager(), null, true, false);
+            UI.createSimpleCustomDialog("", "Error al Cargar Imagen", getActivity().getSupportFragmentManager(), null, true, false);
         }
     }
 
@@ -579,7 +579,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
      */
     private void sendDocumentsPending() {
         if (dataDocumnets.size() < documentPendientes) {
-            UI.createSimpleCustomDialog("", "Debes de Subir los documentos marcados con el signo de admiración", getActivity().getSupportFragmentManager(),
+            UI.createSimpleCustomDialog("", "Debes de Subir Los Documentos Marcados Con el Signo de Admiración", getActivity().getSupportFragmentManager(),
                     new DialogDoubleActions() {
                         @Override
                         public void actionConfirm(Object... params) {
