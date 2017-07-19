@@ -180,7 +180,7 @@
     <string name="txt_validacion_docs_2">No Te Preocupes, Puedes Seguir Usando Tu App Para Realizar Recargas y Pagos de Servicios Personales</string>
     <string name="backButton">Volver</string>
     <string name="nextButton">Continuar</string>
-    <string name="imagen_duplicada">Imagen duplicada , seleccione una imagen diferente</string>
+    <string name="imagen_duplicada">Imagen Duplicada , Seleccione Una Imagen Diferente</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -358,7 +358,7 @@
     <string name="adq_more_hardsell">Conoce Más</string>
 
     <!-- Proceso de enviar documentos -->
-    <string name="adq_must_upload_documents">Debes de Subir Todos los Documentos.</string>
+    <string name="adq_must_upload_documents">Debes de Subir Todos Los Documentos.</string>
     <string name="adq_upload_documents">Enviando Solicitud</string>
     <string name="adq_upgrade_documents">Actualizando Documentos</string>
     <string name="adq_error_open_image">La aplicacion no pudo acceder a su imagen intente con otra galeria</string>
