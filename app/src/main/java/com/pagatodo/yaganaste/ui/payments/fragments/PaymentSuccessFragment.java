@@ -166,7 +166,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
         } else if (pago instanceof Servicios) {
             title.setText(R.string.title_servicio_success);
             layoutComision.setVisibility(View.VISIBLE);
-            titleReferencia.setText("Referencia:");
+            titleReferencia.setText("Referencia: ");
             Double comision = result.getData().getComision();
             String textComision = String.format("%.2f", comision);
             textComision = textComision.replace(",", ".");
@@ -322,7 +322,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
     }
 
     private void showDialogError(String text) {
-        UI.createCustomDialog("Error Envando Ticket", text != null ? text : "Error Envando Ticket",
+        UI.createCustomDialog("Error Enviando Ticket", text != null ? text : "Error Enviando Ticket",
                 getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {

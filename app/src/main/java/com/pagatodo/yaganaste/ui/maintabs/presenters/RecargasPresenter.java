@@ -33,12 +33,12 @@ public class RecargasPresenter implements IRecargasPresenter, IRecargasInteracto
 
     @Override
     public void onNumberEmpty() {
-        paymentsManager.onError(isIAVE ? "Numero de IAVE vacío" : "Numero de Teléfono vacío");
+        paymentsManager.onError(isIAVE ? "Número de IAVE Vacío" : "Número de Teléfono Vacío");
     }
 
     @Override
     public void onNumberError() {
-        paymentsManager.onError(isIAVE ? "Numero de IAVE incorrecto" : "Numero de Teléfono incorrecto");
+        paymentsManager.onError(isIAVE ? "Número de IAVE incorrecto" : "Número de Teléfono incorrecto");
     }
 
     @Override
