@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.ui.payments.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,8 +30,8 @@ import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsSuccessPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsSuccessPresenter;
-import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidateForm;
@@ -166,7 +165,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
         } else if (pago instanceof Servicios) {
             title.setText(R.string.title_servicio_success);
             layoutComision.setVisibility(View.VISIBLE);
-            titleReferencia.setText(R.string.ferencia_txt + ": ");
+            titleReferencia.setText(R.string.ferencia_txt);
             Double comision = result.getData().getComision();
             String textComision = String.format("%.2f", comision);
             textComision = textComision.replace(",", ".");
@@ -202,7 +201,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
         } else if (pago instanceof Servicios) {
 
         } else if (pago instanceof Envios) {
-           // Log.d("PaymentSuccessFragment", "Punto de Debug");
+            // Log.d("PaymentSuccessFragment", "Punto de Debug");
             formatoPago = StringUtils.formatoPagoMedios(formatoPago);
         }
 
