@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.view.Menu;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
@@ -31,5 +32,10 @@ public class OtpCodeActivity extends SupportFragmentActivity {
         setContentView(R.layout.activity_details_em_adq);
 
         loadFragment(OtpViewFragment.newInstance(getIntent().getExtras().getString(OTP_PARAM)));
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
     }
 }

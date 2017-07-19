@@ -133,7 +133,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
     private void setData(String balance, String updateDate) {
         txtSaldo.setText(Utils.getCurrencyValue(balance));
-        txtDateUpdated.setText(updateDate + " " + "Hrs");
+        txtDateUpdated.setText(String.format(getString(R.string.last_date_update), updateDate));
     }
 
     @Override

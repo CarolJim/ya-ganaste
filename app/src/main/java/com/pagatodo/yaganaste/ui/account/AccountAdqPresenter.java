@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui.account;
 
 import android.content.Context;
-import android.os.Handler;
 import android.util.Log;
 import android.view.View;
 
@@ -28,13 +27,13 @@ import com.pagatodo.yaganaste.utils.UI;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
-import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
 
 /**
@@ -73,7 +72,9 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
 
     @Override
     public void getEstatusDocs() {
-        iAdqView.showLoader(context.getString(R.string.recuperando_docs_estatus));
+        //No se muestra el loader porque se maneja desde el fragment debido a que el mismo puede
+        // interferir con otros servicios
+        // NO MOVER :)
         adqIteractor.getEstatusDocs();
 
     }
@@ -104,13 +105,6 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
 
         iAdqView.showLoader(App.getContext().getResources().getString(R.string.adq_upgrade_documents));
         adqIteractor.sendDocumentsPendientes(data);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                if (iAdqView instanceof IUploadDocumentsView)
-                    ((IUploadDocumentsView) iAdqView).documentosActualizados(App.getContext().getResources().getString(R.string.adq_upgrade_documents));
-            }
-        }, DELAY_MESSAGE_PROGRESS);
     }
 
     @Override
@@ -156,6 +150,8 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
             } else if (ws == CARGA_DOCUMENTOS) {
                 ((IUploadDocumentsView) iAdqView).documentsUploaded(
                         App.getContext().getResources().getString(R.string.execution_success));
+            } else if (ws == ACTUALIZAR_DOCUMENTOS) {
+                ((IUploadDocumentsView) iAdqView).documentosActualizados(App.getContext().getResources().getString(R.string.adq_upgrade_documents));
             }
         } else {
             Log.i(TAG, "La sesión se ha cerrado.");

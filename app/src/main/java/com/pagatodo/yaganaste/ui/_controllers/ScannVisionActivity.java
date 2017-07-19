@@ -17,6 +17,7 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.util.DisplayMetrics;
 import android.util.Log;
+import android.view.Menu;
 import android.view.Window;
 import android.widget.Toast;
 
@@ -252,5 +253,10 @@ public class ScannVisionActivity extends AppCompatActivity implements BarcodeTra
                 mCameraSource = null;
             }
         }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
     }
 }
