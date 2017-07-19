@@ -62,6 +62,8 @@ public class RecyclerSucursalesAdapter extends RecyclerView.Adapter<RecyclerSucu
 
     /**
      * Encargada de Filtrar la lista del RecyclerView
+     * Se utilizan los metodos setOnSucursalesShow y setOnSucursalesNull para mostrar el mensaje
+     * cuando no se tienen resultados y cuando tenemos resultados a mostrar
      *
      * @param charText
      */
@@ -69,7 +71,11 @@ public class RecyclerSucursalesAdapter extends RecyclerView.Adapter<RecyclerSucu
         // Pasamos cadena a LowerCase
         charText = charText.toLowerCase(Locale.getDefault());
         sucursalList.clear();
-        // Si no existen caracteres agregamos los elementos
+        /*
+        Si no existen caracteres agregamos los elementos, esto reacciona igual cuando ya no tenemos
+        busquedas y regresamos al original
+         */
+
         if (charText.length() == 0) {
             sucursalList.addAll(arraylist);
             myInterfase.setOnSucursalesShow();
@@ -80,9 +86,10 @@ public class RecyclerSucursalesAdapter extends RecyclerView.Adapter<RecyclerSucu
                     sucursalList.add(wp);
                 }
             }
-            if(sucursalList.size()>0){
+            // Si no tenemos resultados mostramos una pantalla diferente, controlada por esta itnerfase
+            if (sucursalList.size() > 0) {
                 myInterfase.setOnSucursalesShow();
-            }else{
+            } else {
                 myInterfase.setOnSucursalesNull();
             }
         }

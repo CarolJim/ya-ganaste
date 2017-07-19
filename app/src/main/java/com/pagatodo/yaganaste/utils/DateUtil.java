@@ -21,35 +21,11 @@ import java.util.Locale;
  */
 public class DateUtil {
 
-    public static String simpleDateFormat = "dd/MMM/yyyy";
-    public static String simpleDateFormatCustom = "dd/MMM/yyyy";
-    public static String completeDateFormat = "dd/MMM/yyyy hh:mm:ss";
+    public static String simpleDateFormatCustom = "dd MMM yyyy";
+    public static String completeDateFormat = "dd MMM yyyy hh:mm:ss";
     public static String simpleDateFormatFirstYear = "yyyy-MM-dd";
-    public static String screenShotDateFormat = "yyyy-MM-dd_hh:mm:ss";
 
 
-    public static String formatDate(int dayOfMonth, int monthOfYear, int year) {
-
-        String day = "";
-        String month = "";
-        int iMonth = ++monthOfYear;
-        if (dayOfMonth < 10) {
-            day = String.format("0%s", dayOfMonth);
-        } else {
-            day = String.format("%s", dayOfMonth);
-        }
-
-        if (iMonth < 10) {
-            month = String.format("0%s", iMonth);
-        } else {
-            month = String.format("%s", iMonth);
-        }
-
-        String date = String.format("%s/%s/%s", day, month, year);
-
-        return date;
-
-    }
 
     public static Calendar getCalendar(Date date) {
         Calendar cal = Calendar.getInstance(Locale.US);
@@ -57,46 +33,7 @@ public class DateUtil {
         return cal;
     }
 
-    public static Calendar getCalendarYearsAgo(int yearsAgo) {
-        Calendar c = Calendar.getInstance();
 
-        c.set(c.get(Calendar.YEAR) - yearsAgo, c.get(Calendar.MONTH),
-                c.get(Calendar.DAY_OF_MONTH));
-
-        return c;
-    }
-
-    public static int getYearsDiffFromNow(Date last) {
-        Calendar a = getCalendar(last);
-        Calendar b = getCalendar(new Date());
-        int diff = b.get(Calendar.YEAR) - a.get(Calendar.YEAR);
-        if (a.get(Calendar.MONTH) > b.get(Calendar.MONTH) ||
-                (a.get(Calendar.MONTH) == b.get(Calendar.MONTH) && a.get(Calendar.DATE) > b.get(Calendar.DATE))) {
-            diff--;
-        }
-        return diff;
-    }
-
-    public static Date getDateFromString(String dateAsString) {
-        SimpleDateFormat sdf = new SimpleDateFormat("ddd/MM/yyyy");
-        Date date = null;
-        try {
-
-            date = sdf.parse(dateAsString);
-
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-        return date;
-    }
-
-
-    public static String getBirthDateString(Calendar date) {
-        SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormat, new Locale("es"));
-        String result = dateFormat.format(date.getTime());
-        return result;
-    }
 
     public static String getBirthDateCustomString(Calendar date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormatCustom, new Locale("es", "mx"));
@@ -184,7 +121,12 @@ public class DateUtil {
         try {
             date = dateFormat.parse(movDate);
         } catch (ParseException e) {
-            e.printStackTrace();
+            dateFormat = new SimpleDateFormat("dd MMM yyyy", new Locale("es", "mx"));
+            try {
+                date = dateFormat.parse(movDate);
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
         }
         return date;
     }
@@ -195,18 +137,12 @@ public class DateUtil {
         try {
             date = dateFormat.parse(movDate);
         } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return date;
-    }
-
-    public static Date getEmisorMovementTime(String movDate) {
-        DateFormat dateFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
-        Date date = null;
-        try {
-            date = dateFormat.parse(movDate);
-        } catch (ParseException e) {
-            e.printStackTrace();
+            dateFormat = new SimpleDateFormat("dd MMM yyyy", new Locale("es", "mx"));
+            try {
+                date = dateFormat.parse(movDate);
+            } catch (ParseException e1) {
+                e1.printStackTrace();
+            }
         }
         return date;
     }

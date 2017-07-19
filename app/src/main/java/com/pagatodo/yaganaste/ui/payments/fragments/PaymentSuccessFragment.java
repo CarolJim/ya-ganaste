@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.payments.fragments;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -30,6 +31,7 @@ import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsSuccessPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsSuccessPresenter;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidateForm;
@@ -184,7 +186,26 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
         text = text.replace(",", ".");
         importe.setText(text);
 
-        txtReferencia.setText(pago.getReferencia());
+        /*
+        Bloqur para poner el formato de telefono o otros ejemplos
+        5534812289
+        0123456789
+         */
+        String formatoPago = pago.getReferencia();
+
+        if (pago instanceof Recarga) {
+            if (pago.getComercio().getIdComercio() != 7) {
+                formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+            }
+        } else if (pago instanceof Servicios) {
+
+        } else if (pago instanceof Envios) {
+            Log.d("PaymentSuccessFragment", "Punto de Debug");
+            formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+        }
+
+
+        txtReferencia.setText(formatoPago);
         Glide.with(getContext()).load(pago.getComercio().getLogoURL())
                 .placeholder(R.mipmap.logo_ya_ganaste)
                 .error(R.mipmap.icon_tab_promos)

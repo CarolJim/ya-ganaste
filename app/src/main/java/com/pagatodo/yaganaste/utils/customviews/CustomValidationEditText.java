@@ -354,7 +354,11 @@ public class CustomValidationEditText extends LinearLayout {
     private void setIconPinned(int pinnedIcon) {
         if (imageView != null && pinnedIcon != -1) {
             switch (pinnedIcon) {
+                case 2130837639:
+                    imageView.setImageResource(R.drawable.calendar);
+                    break;
                 case 0:
+                    break;
                 default:
                     imageView.setImageResource(R.drawable.mail_canvas);
                     break;

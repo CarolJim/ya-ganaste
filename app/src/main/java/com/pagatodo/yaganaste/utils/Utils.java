@@ -1196,37 +1196,6 @@ public class Utils {
         return digest.digest(password.getBytes());
     }
 
-    public static String getScreenShotPath(View v1) {
-        Date now = new Date();
-        DateFormat.format(DateUtil.screenShotDateFormat, now);
-        String mPath = Environment.getExternalStorageDirectory().toString() + "/" + now + ".jpg";
-
-        try {
-
-            // View v1 = getWindow().getDecorView().getRootView();
-            v1.setDrawingCacheEnabled(true);
-            v1.measure(View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED),
-                    View.MeasureSpec.makeMeasureSpec(0, View.MeasureSpec.UNSPECIFIED));
-            v1.layout(0, 0, v1.getMeasuredWidth(), v1.getMeasuredHeight());
-
-            v1.buildDrawingCache(true);
-            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
-            File imageFile = new File(mPath);
-
-            FileOutputStream outputStream = new FileOutputStream(imageFile);
-            int quality = 100;
-            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
-            outputStream.flush();
-            outputStream.close();
-
-        } catch (Throwable ex) {
-            ex.printStackTrace();
-        } finally {
-            mPath = "";
-        }
-
-        return mPath;
-    }
 
     public static int getTransactionSequence() {
         Preferencias prefs = App.getInstance().getPrefs();

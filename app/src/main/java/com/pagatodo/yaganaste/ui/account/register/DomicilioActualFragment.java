@@ -108,6 +108,8 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     private String Idcolonia = "";
     private boolean cpDefault;
     private AccountPresenterNew accountPresenter;
+
+
     AbstractTextWatcher textWatcherZipCode = new AbstractTextWatcher() {
         @Override
         public void afterTextChanged(String s) {
@@ -356,6 +358,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     @Override
     public void setNeighborhoodsAvaliables(List<ColoniasResponse> listaColonias) {
         hideLoader();
+        UI.hideKeyBoard(getActivity());
         this.listaColonias = listaColonias;
         this.estadoDomicilio = listaColonias.get(0).getEstado();
         fillAdapter();

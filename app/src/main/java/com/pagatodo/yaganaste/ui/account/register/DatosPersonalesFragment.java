@@ -436,7 +436,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
         } else if (registerUser.getGenero().equals("M")) {
             radioBtnFemale.setChecked(true);
         } else {
-            radioGroupGender.clearCheck();
+            //radioGroupGender.clearCheck();
+            radioBtnFemale.setChecked(true);
         }
 
         editNames.setText(registerUser.getNombre());

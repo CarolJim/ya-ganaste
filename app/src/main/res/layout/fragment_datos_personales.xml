@@ -75,7 +75,8 @@
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
                         android:gravity="center"
-                        android:text="@string/female" />
+                        android:text="@string/female"
+                        android:checked="true"/>
 
                         <android.support.v4.widget.Space
                             android:layout_width="0dp"
