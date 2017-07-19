@@ -213,6 +213,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
     @Override
     public void showError(final Object error) {
+
         if (error != null && !error.toString().isEmpty()) {
             //  UI.showToastShort(error.toString(), getActivity());
             UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),

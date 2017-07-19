@@ -11,6 +11,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -19,7 +20,7 @@ import butterknife.ButterKnife;
  * Created by Jordan on 31/03/2017.
  */
 
-public class LandingFragment extends Activity implements Animation.AnimationListener {
+public class LandingFragment extends SupportFragmentActivity implements Animation.AnimationListener {
 
     @BindView(R.id.tutorialPage1)
     LinearLayout tutorialPage1;

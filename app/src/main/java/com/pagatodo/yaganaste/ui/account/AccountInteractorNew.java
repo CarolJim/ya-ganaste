@@ -308,7 +308,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.obtenerNumeroSMS(this);
         } catch (OfflineException e) {
             e.printStackTrace();
-            accountManager.onError(OBTENER_NUMERO_SMS, "");
+            accountManager.onError(OBTENER_NUMERO_SMS, App.getContext().getString(R.string.no_internet_access));
         }
     }
 

@@ -101,13 +101,13 @@
         <activity
             android:name=".ui.account.register.LandingFragment"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent"
+            android:theme="@style/AppTheme.Translucent"
             android:windowSoftInputMode="adjustPan" />
 
         <activity
             android:name=".ui._controllers.LandingAdqFragment"
             android:screenOrientation="portrait"
-            android:theme="@android:style/Theme.Translucent"
+            android:theme="@style/AppTheme.Translucent"
             android:windowSoftInputMode="adjustPan" />
 
         <activity android:name=".ui._controllers.DetailsActivity" />
