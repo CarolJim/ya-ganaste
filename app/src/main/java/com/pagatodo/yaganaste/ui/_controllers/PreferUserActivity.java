@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -127,7 +128,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
             case "PREFER_USER_CLOSE":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                UI.createSimpleCustomDialog("", "¿Desea realmente cerrar sesión?", getSupportFragmentManager(),
+                UI.createSimpleCustomDialog("",
+                        App.getContext().getResources().getString(R.string.desea_cerrar_sesion),
+                        getSupportFragmentManager(),
                         doubleActions, true, true);
                 break;
 

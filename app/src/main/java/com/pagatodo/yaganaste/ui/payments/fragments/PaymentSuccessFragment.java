@@ -166,7 +166,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
         } else if (pago instanceof Servicios) {
             title.setText(R.string.title_servicio_success);
             layoutComision.setVisibility(View.VISIBLE);
-            titleReferencia.setText("Referencia: ");
+            titleReferencia.setText(R.string.ferencia_txt + ": ");
             Double comision = result.getData().getComision();
             String textComision = String.format("%.2f", comision);
             textComision = textComision.replace(",", ".");
@@ -181,7 +181,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
             titleReferencia.setText(((Envios) pago).getNombreDestinatario());
             layoutMail.setVisibility(View.INVISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
-            titleMail.setText("Envía Este Comprobante a " + ((Envios) pago).getNombreDestinatario() + " (Opcional)");
+            titleMail.setText(R.string.envia_comprobante_a + ((Envios) pago).getNombreDestinatario() + " " + R.string.envia_comprobante_opcional);
         }
 
         String text = String.format("%.2f", pago.getMonto());
@@ -202,7 +202,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
         } else if (pago instanceof Servicios) {
 
         } else if (pago instanceof Envios) {
-            Log.d("PaymentSuccessFragment", "Punto de Debug");
+           // Log.d("PaymentSuccessFragment", "Punto de Debug");
             formatoPago = StringUtils.formatoPagoMedios(formatoPago);
         }
 
@@ -257,7 +257,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
     }
 
     private void sendTicket(String mail) {
-        ((PaymentsProcessingActivity) getActivity()).showLoader("Enviando Email");
+        ((PaymentsProcessingActivity) getActivity()).showLoader(getString(R.string.envia_email));
         EnviarTicketTAEPDSRequest request = new EnviarTicketTAEPDSRequest();
         request.setEmail(mail);
         request.setIdTransaction(result.getData().getIdTransaccion());
@@ -302,7 +302,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
     }
 
     private void showDialog(String text) {
-        UI.createSimpleCustomDialogNoCancel("Exito", text,
+        UI.createSimpleCustomDialogNoCancel(getString(R.string.txt_exito), text,
                 getFragmentManager(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
@@ -322,7 +322,8 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
     }
 
     private void showDialogError(String text) {
-        UI.createCustomDialog("Error Enviando Ticket", text != null ? text : "Error Enviando Ticket",
+        UI.createCustomDialog(getString(R.string.error_enviando_ticket),
+                text != null ? text : getString(R.string.error_enviando_ticket),
                 getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
@@ -333,7 +334,8 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
                     public void actionCancel(Object... params) {
                         onFinalize();
                     }
-                }, "Reintentar", "Cancelar");
+                }, getString(R.string.txt_reintent_lowcase),
+                getString(R.string.txt_cancelar));
     }
 
 

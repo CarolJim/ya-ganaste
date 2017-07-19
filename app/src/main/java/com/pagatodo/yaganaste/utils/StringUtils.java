@@ -128,6 +128,12 @@ public class StringUtils {
         }
     }
 
+    /**
+     * Se encarga de dar fomato a los 10 digitos dr telefono, 16 de TDC y 18 de clave, segun las
+     * reglas de espaciado seleccionado
+     * @param mFormatoPago
+     * @return
+     */
     public static String formatoPagoMedios(String mFormatoPago) {
         String formatoPago = "";
         String comodin = " ";

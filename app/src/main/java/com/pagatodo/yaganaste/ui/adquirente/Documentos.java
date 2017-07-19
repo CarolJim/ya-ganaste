@@ -155,6 +155,14 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
         rootview = inflater.inflate(R.layout.fragments_documents, container, false);
         initViews();
+
+        if (swipeRefreshLayout.isRefreshing()) {
+            swipeRefreshLayout.setRefreshing(false);
+        }
+        swipeRefreshLayout.destroyDrawingCache();
+        if (mExisteDocs) {
+            adqPresenter.getEstatusDocs();
+        }
         return rootview;
     }
 
@@ -631,13 +639,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     @Override
     public void onResume() {
         super.onResume();
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-        swipeRefreshLayout.destroyDrawingCache();
-        if (mExisteDocs) {
-            adqPresenter.getEstatusDocs();
-        }
     }
 
 }
