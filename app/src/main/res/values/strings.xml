@@ -171,7 +171,7 @@
     <string name="send">ENVIAR</string>
     <string name="check_your_mail">Revisa tu Correo Electrónico</string>
     <string name="txt_escribe_tu_correo">Escribe tu Correo Electrónico</string>
-    <string name="txt_phone">Teléfono</string>
+    <string name="txt_phone">Teléfono: </string>
     <string name="txt_referencia_envio">Referencia De Envío</string>
     <string name="hint_referencia_numerica">Referencia Numérica</string>
     <string name="txt_referencia_servicio">Referencia</string>
@@ -377,7 +377,7 @@
     <string name="child_tab_recharge">Recargas</string>
     <string name="child_tab_services">Servicios</string>
     <string name="child_tab_mony_send">Envíos</string>
-    <string name="comision_service_payment">La Comisión es de: %1$s(IVA Incluido)</string>
+    <string name="comision_service_payment">La Comisión es de: %1$s (IVA Incluido)</string>
     <string name="title_recarga_success">¡Recarga Exitosa!</string>
     <string name="title_servicio_success">¡Pago Exitoso!</string>
     <string name="title_envio_success">¡Envío Exitoso!</string>
@@ -520,25 +520,24 @@
     <string name="btn_recharge_txt">Recarga</string>
     <string name="btn_payment_txt">Pagar</string>
 
-    <string name="txt_referencia_error">Error al introducir el campo referencia.</string>
-    <string name="txt_referencia_empty">El campo referencia está vacío.</string>
-    <string name="txt_importe_empty">El campo importe está vacío.</string>
-    <string name="txt_importe_error">El importe es incorrecto.</string>
-    <string name="txt_concept_empty">El campo concepto está vacío.</string>
+    <string name="txt_referencia_error">Error al Introducir el Campo Referencia.</string>
+    <string name="txt_referencia_empty">El Campo Referencia Está Vacío.</string>
+    <string name="txt_importe_empty">El Campo Importe Está Vacío.</string>
+    <string name="txt_importe_error">El Importe es Incorrecto.</string>
+    <string name="txt_concept_empty">El Campo Concepto Está Vacío.</string>
 
-    <string name="txt_tipo_envio_error">Por favor seleccione un tipo de envío.</string>
-    <string name="txt_name_empty">El campo nombre está vacío.</string>
-    <string name="txt_name_error">Error al introducir el nombre del destinatario.</string>
-    <string name="txt_concept_error">Error al introducir el campo concepto.</string>
-    <string name="txt_referencia_number_error">Error al introducir el campo referencia numerica.</string>
-    <string name="txt_referencia_number_empty">El campo referencia numérica está vacío.</string>
+    <string name="txt_tipo_envio_error">Por Favor Seleccione un Tipo de Envío.</string>
+    <string name="txt_name_empty">El Campo Nombre Está Vacío.</string>
+    <string name="txt_name_error">Error al Introducir el Nombre Del Destinatario.</string>
+    <string name="txt_concept_error">Error al Introducir el Campo Concepto.</string>
+    <string name="txt_referencia_number_error">Error al Introducir el Campo Referencia Numérica.</string>
+    <string name="txt_referencia_number_empty">El Campo Referencia Numérica Está Vacío.</string>
 
-    <string name="txt_referencia_envio_error">Error al introducir el número de teléfono/cuenta/CABLE</string>
-    <string name="txt_referencia_envio_empty">Por favor ingrese un número de teléfono/cuenta/CABLE</string>
+    <string name="txt_referencia_envio_error">Error al Introducir el Número de Teléfono/Cuenta/CLABE</string>
+    <string name="txt_referencia_envio_empty">Por Favor Ingrese un Número de Teléfono/Cuenta/CLABE</string>
     <string name="title_activity_prefer_user">PreferUserActivity</string>
     <string name="recuperando_docs_estatus"></string>
     <string name="desea_cacelar">¿Deseas Salir y Cancelar la Operación Actual?</string>
-
     <string name="no_sucursales">No existen sucursales en tu área.</string>
     <string name="no_sucursales2">No se Encontraron Conincidencias en tu Área.</string>
     <string name="buscar_sucursal">Buscar  Sucursal</string>
