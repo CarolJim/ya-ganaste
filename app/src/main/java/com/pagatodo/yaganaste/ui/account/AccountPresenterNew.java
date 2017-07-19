@@ -129,6 +129,7 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
 
     @Override
     public void updateUserInfo() {
+        accountView.showLoader(context.getString(R.string.msg_register));
         accountIteractor.updateSessionData();
     }
 

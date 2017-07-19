@@ -94,12 +94,28 @@ public class DatosPersonalesFragment extends GenericFragment implements
     private String apPaterno = "";
     private String apMaterno = "";
     private String fechaNacimiento = "";
+
     View.OnClickListener onClickListenerDatePicker = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
             hideErrorMessage(editBirthDay.getId());
             editBirthDay.setDrawableImage(R.drawable.calendar);
             Calendar newCalendar = Calendar.getInstance();
+            int year;
+            int month;
+            int day;
+
+            if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {
+                year = newDate.get(Calendar.YEAR);
+                month = newDate.get(Calendar.MONTH);
+                day = newDate.get(Calendar.DAY_OF_MONTH);
+            } else {
+                year = newCalendar.get(Calendar.YEAR);
+                month = newCalendar.get(Calendar.MONTH);
+                day = newCalendar.get(Calendar.DAY_OF_MONTH);
+
+            }
+
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int date) {
@@ -125,10 +141,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
                     }
                 }
 
-            }, newCalendar.get(Calendar.YEAR), newCalendar.get(Calendar.MONTH), newCalendar.get(Calendar.DAY_OF_MONTH));
+            }, year, month, day);
             datePickerDialog.show();
         }
     };
+
     private String lugarNacimiento = "";
     private String idEstadoNacimiento = "";
     private AccountPresenterNew accountPresenter;

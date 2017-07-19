@@ -170,10 +170,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void checkSessionState(Request request) {
         this.requestAccountOperation = request;
-        if (request instanceof IniciarSesionRequest)
+        if (request instanceof IniciarSesionRequest) {
             this.operationAccount = LOGIN;
-        else if (request instanceof CrearUsuarioClienteRequest)
+        } else if (request instanceof CrearUsuarioClienteRequest) {
             this.operationAccount = CREATE_USER;
+        }
 
         if (!RequestHeaders.getTokensesion().isEmpty()) {
             logOutBefore = true;
@@ -189,7 +190,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                     login((IniciarSesionRequest) this.requestAccountOperation);
                     break;
             }
-
         }
     }
 
@@ -576,9 +576,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                         checkAfterLogin();
                         return;
                         //}
-                        } else {//Requiere setear el NIP
-                            stepByUserStatus = EVENT_GO_ASSIGN_PIN;
-                        }
+                    } else {//Requiere setear el NIP
+                        stepByUserStatus = EVENT_GO_ASSIGN_PIN;
+                    }
                 } else { // No tiene cuenta asignada.
                     stepByUserStatus = EVENT_GO_GET_CARD; // Mostramos pantalla para asignar cuenta.
                 }

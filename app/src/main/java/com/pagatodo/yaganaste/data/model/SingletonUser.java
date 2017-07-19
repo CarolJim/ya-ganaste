@@ -54,7 +54,10 @@ public class SingletonUser {
         if (dataUser.isConCuenta()) {
             prefs.saveDataBool(HAS_SESSION, true);
             String name = dataUser.getUsuario().getNombre();
-            prefs.saveData(SIMPLE_NAME, name.contains(" ") ? name.substring(0, name.indexOf(" ")) : name + SPACE + dataUser.getUsuario().getPrimerApellido());
+
+            prefs.saveData(SIMPLE_NAME, (name.contains(" ") ? name.substring(0, name.indexOf(" ")) : name)
+                    .concat(SPACE).concat(dataUser.getUsuario().getPrimerApellido()));
+
             prefs.saveData(NAME_USER, dataUser.getUsuario().getNombre());
             prefs.saveData(FULL_NAME_USER, dataUser.getUsuario().getNombre().concat(SPACE).
                     concat(dataUser.getUsuario().getPrimerApellido().concat(SPACE).

@@ -8,7 +8,6 @@ import android.support.annotation.IdRes;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -24,8 +23,8 @@ import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -78,7 +77,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     String a;
     private View rootview;
     private AccountPresenterNew accountPresenter;
-    private char mask_number_card =  'X';
+    private char mask_number_card = 'X';
 
     public TienesTarjetaFragment() {
     }
@@ -132,16 +131,30 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
 
 
         // Hacemos Set de la fecha de caducidad de la TDC y nombre del usuario
-        UsuarioClienteResponse singletonUser= new UsuarioClienteResponse();
-        singletonUser = SingletonUser.getInstance().getDataUser().getUsuario();
-        String mUserName = singletonUser.getNombre()
-                + " " + singletonUser.getPrimerApellido();
-                //+ " " + singletonUser.getSegundoApellido();
-        dateTDC.setText("02/22");
-        userName.setText(mUserName);
+        /*UsuarioClienteResponse singletonUser = SingletonUser.getInstance().getDataUser().getUsuario();
 
-        Log.d("TienesTarjetaFrag", "mUserName " + singletonUser.getNombre() + " " + singletonUser.getPrimerApellido()
-                + " " + singletonUser.getSegundoApellido());
+        String mUserName = singletonUser.getNombre()
+                + " " + singletonUser.getPrimerApellido();*/
+
+
+        dateTDC.setText("02/22");
+        RegisterUser registerUser = RegisterUser.getInstance();
+        String name;
+        String lastame;
+        if (registerUser.getNombre().isEmpty() || registerUser.getApellidoPaterno().isEmpty()) {
+
+            name = SingletonUser.getInstance().getDataUser().getUsuario().getNombre();
+            lastame = SingletonUser.getInstance().getDataUser().getUsuario().getPrimerApellido();
+        } else {
+            name = registerUser.getNombre();
+            lastame = registerUser.getApellidoPaterno();
+        }
+
+        name = (name.contains(" ") ? name.substring(0, name.indexOf(" ")) : name);
+        userName.setText(name.concat(" ").concat(lastame));
+
+        /*Log.d("TienesTarjetaFrag", "mUserName " + singletonUser.getNombre() + " " + singletonUser.getPrimerApellido()
+                + " " + singletonUser.getSegundoApellido());*/
 
         editNumber.setTypeface(typeface);
         ViewTreeObserver viewTreeObserver = layoutCard.getViewTreeObserver();
