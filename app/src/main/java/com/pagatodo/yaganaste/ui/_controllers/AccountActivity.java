@@ -188,6 +188,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 pref.clearPreference(COUCHMARK_EMISOR);
                 loadFragment(RegisterCompleteFragment.newInstance(EMISOR), Direction.FORDWARD, false);
                 break;
+
             case EVENT_COUCHMARK:
                 loadFragment(Couchmark.newInstance(), Direction.FORDWARD, false);
                 break;

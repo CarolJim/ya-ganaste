@@ -595,9 +595,9 @@
 
     <!-- Landing -->
     <string name="landing_emisor_saldo_disponible">Tu Saldo Disponible</string>
-    <string name="landing_emisor_movimientos_cuenta">Los Movimientos de tu Cuenta</string>
+    <string name="landing_emisor_movimientos_cuenta">Los Movimientos\nde tu Cuenta</string>
     <string name="landing_emisor_cobros_tarjeta">Tus Cobros Con\nTarjeta</string>
-    <string name="landing_emisor_recarga_movimientos">Recarga tu Celular, Paga Tus\nServicios y Envía Dinero a\nQuien Quieras</string>
+    <string name="landing_emisor_recarga_movimientos">Recarga Tu Celular, Paga tus\nServicios y Envía Dinero a\nQuien Quieras</string>
     <string name="landing_emisor_opciones_deposito">Revisa Todas Las\nOpciones Para Depositar\nDinero a tu Cuenta</string>
     <string name="landing_emisor_activa_lector">Activa tu Lector Para Hacer\nCobros Con Tarjetas de Crédito\ny Débito</string>
     <string name="landing_emisor_configura_cuenta">Y Aquí, Configura\ntu Cuenta</string>

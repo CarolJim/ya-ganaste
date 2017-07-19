@@ -22,7 +22,10 @@
             android:id="@+id/imageView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_gravity="center"
+            android:layout_gravity="center|right"
+            android:layout_marginEnd="40dp"
+            android:layout_marginRight="40dp"
+            android:rotation="-15"
             android:src="@mipmap/flecha_couchmark" />
 
         <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
@@ -63,8 +66,8 @@
                 android:layout_centerVertical="true"
                 android:adjustViewBounds="true"
                 android:padding="@dimen/margin_small"
-                android:rotation="-90"
-                android:scaleType="fitXY"
+                android:rotation="-130"
+                android:scaleType="centerCrop"
                 android:src="@mipmap/flecha_couchmark" />
         </RelativeLayout>
 
@@ -98,6 +101,7 @@
                         android:layout_height="wrap_content"
                         android:layout_alignParentBottom="true"
                         android:layout_centerHorizontal="true"
+                        android:rotation="60"
                         android:src="@mipmap/flecha_couchmark" />
                 </RelativeLayout>
 
@@ -155,7 +159,7 @@
                 android:layout_gravity="center"
                 android:layout_weight="1"
                 android:padding="@dimen/margin_small"
-                android:rotation="240"
+                android:rotation="210"
                 android:src="@mipmap/flecha_couchmark" />
 
             <android.support.v4.widget.Space
@@ -203,7 +207,7 @@
                 android:layout_height="wrap_content"
                 android:layout_weight="1"
                 android:padding="@dimen/margin_small"
-                android:rotation="100"
+                android:rotation="150"
                 android:scaleX="-1"
                 android:src="@mipmap/flecha_couchmark" />
 
@@ -288,9 +292,10 @@
             android:layout_marginTop="25dp"
             android:layout_toEndOf="@+id/text7"
             android:layout_toRightOf="@+id/text7"
+            android:scaleX="1.3"
+            android:scaleY="1.3"
             android:rotation="90"
             android:src="@mipmap/flecha_couchmark" />
-
 
     </RelativeLayout>
 </RelativeLayout>

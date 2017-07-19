@@ -40,17 +40,25 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
     @Override
     public void onActivityResumed(Activity activity) {
         Log.i("TAG", "onActivityResumed");
-        if (isInBackground) {
-            if (!(activity instanceof MainActivity || activity instanceof AccountActivity || activity instanceof SplashActivity)
-                    && !((SupportFragmentActivity) activity).isFromActivityForResult()
-                    && !(activity instanceof LandingAdqFragment || activity instanceof LandingFragment)) {
-                Intent intent = new Intent(activity, MainActivity.class);
-                intent.putExtra(SELECTION, MAIN_SCREEN);
-                intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
-                activity.startActivity(intent);
+
+        if (isInBackground && !(activity instanceof MainActivity || activity instanceof AccountActivity || activity instanceof SplashActivity)) {
+            if ((activity instanceof LandingAdqFragment || activity instanceof LandingFragment)) {
+                goToLoginScreen(activity);
+            } else {
+                if (!((SupportFragmentActivity) activity).isFromActivityForResult()) {
+                    goToLoginScreen(activity);
+                }
             }
         }
+
         isInBackground = false;
+    }
+
+    private void goToLoginScreen(Activity activity) {
+        Intent intent = new Intent(activity, MainActivity.class);
+        intent.putExtra(SELECTION, MAIN_SCREEN);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+        activity.startActivity(intent);
     }
 
     @Override
