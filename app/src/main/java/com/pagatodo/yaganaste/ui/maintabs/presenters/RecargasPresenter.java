@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.RecargasInteractor;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IRecargasInteractor;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
@@ -28,17 +30,19 @@ public class RecargasPresenter implements IRecargasPresenter, IRecargasInteracto
 
     @Override
     public void onMontoError() {
-        paymentsManager.onError("Por favor selecióna un Importe");
+        paymentsManager.onError(App.getContext().getString(R.string.favor_selecciona_importe));
     }
 
     @Override
     public void onNumberEmpty() {
-        paymentsManager.onError(isIAVE ? "Número de IAVE Vacío" : "Número de Teléfono Vacío");
+        paymentsManager.onError(isIAVE ? App.getContext().getString(R.string.numero_iave_vacio)  :
+        App.getContext().getString(R.string.numero_telefono_vacio) );
     }
 
     @Override
     public void onNumberError() {
-        paymentsManager.onError(isIAVE ? "Número de IAVE incorrecto" : "Número de Teléfono incorrecto");
+        paymentsManager.onError(isIAVE ? App.getContext().getString(R.string.numero_iave_incorrecto) :
+        App.getContext().getString(R.string.numero_telefono_incorrecto) );
     }
 
     @Override

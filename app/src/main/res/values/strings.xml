@@ -57,7 +57,7 @@
     <string name="enviarTicketTAEPDS">/EnviarTicketTAEPDS</string>
     <string name="desasociarDispositivo">/DesasociarDispositivo</string>
     <string name="desasociarDispositivoTittle">Desasociar Dispositivo</string>
-    <string name="deseaDesasociarDispositivo">¿Desea desasociar el dispositivo?</string>
+    <string name="deseaDesasociarDispositivo">¿Desea Desasociar el Dispositivo?</string>
     <string name="sel_fotografia">Seleccionar Fotografía</string>
     <string name="myUserText">Mi Usuario</string>
 
@@ -462,7 +462,7 @@
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
     <string name="tienes_cuenta2">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
     <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01-800-500-1000\n contacto@yaganaste.com</string>
-    <string name="documents_comprobantes">CFE,Teléfono,Agua(No mayor a 3 meses)</string>
+    <string name="documents_comprobantes">CFE, Teléfono, Agua (No mayor a 3 meses)</string>
     <string name="documents_vigentes">Credencial de Elector o Pasaporte</string>
 
 
@@ -516,9 +516,15 @@
     <string name="txt_comision">Comisión:</string>
     <string name="txt_phone_b">Teléfono: </string>
     <string name="add_favorites">Agregar a Favoritos</string>
-    <string name="email_send_ticket">¿A Qué Correo Electrónico \nEnvíamos Tu Recibo?</string>
+    <string name="email_send_ticket">¿A Qué Correo Electrónico \nEnvíamos tu Recibo?</string>
+    <string name="envia_comprobante_a">Envía Este Comprobante a </string>
+    <string name="envia_comprobante_opcional"> (Opcional)</string>
+    <string name="envia_email">Enviando Email</string>
     <string name="btn_recharge_txt">Recarga</string>
     <string name="btn_payment_txt">Pagar</string>
+    <string name="txt_exito">Exito</string>
+    <string name="txt_cancelar">Cancelar</string>
+    <string name="error_enviando_ticket">Error Enviando Ticket</string>
 
     <string name="txt_referencia_error">Error al Introducir el Campo Referencia.</string>
     <string name="txt_referencia_empty">El Campo Referencia Está Vacío.</string>
@@ -554,6 +560,13 @@
     <string name="procesando_envios_loader">Realizando Envio</string>
     <string name="procesando_enviando_email_loader">Enviando Correo Electrónico</string>
 
+
+    <string name="favor_selecciona_importe">Por favor Selecióna un Importe</string>
+    <string name="numero_iave_vacio">Número de IAVE Vacío</string>
+    <string name="numero_telefono_vacio">Numero de Teléfono Vacío</string>
+    <string name="numero_iave_incorrecto">Número de IAVE Incorrecto</string>
+    <string name="numero_telefono_incorrecto">Numero de Teléfono Incorrecto</string>
+
     <string name="detalle_movimiento">Detalle de Movimiento</string>
     <string name="cobraste">Cobraste</string>
     <string name="con_la_tarjeta">Con la tarjeta:</string>
@@ -576,13 +589,14 @@
     <string name="catalogo_version_init">0</string>
     <string name="asigna_nip">Asigna tu NIP</string>
 
-    <string name="vuelve_conectar_lector">Vuelve a conectar el Lector.</string>
+    <string name="vuelve_conectar_lector">Vuelve a Conectar el Lector.</string>
     <string name="inserta_lector_valido">Inserta un Lector de Tarjeta Válido.</string>
     <string name="verificando_email">Verificando Correo Electrónico.</string>
     <string name="actualizando_saldo"> </string>
     <!-- <string name="actualizando_saldo">Actualizando Saldo.</string> -->
     <string name="password_incorrect">Su Contraseña es Incorrecta</string>
-    <string name="sesion_close">La sesión se ha cerrado.</string>
+    <string name="desea_cerrar_sesion">¿Desea Realmente Cerrar Sesión?</string>
+    <string name="sesion_close">La Sesión se ha Cerrado.</string>
     <string name="search_zipcode"> </string>
     <string name="password_required">Contraseña Requerida, Verifique su Información</string>
 
