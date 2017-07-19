@@ -32,6 +32,7 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Locale;
 
@@ -123,6 +124,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                     newDate.set(year, month, date);
                     // editBirthDay.setText(DateUtil.getBirthDateString(newDate));
                     editBirthDay.setText(DateUtil.getBirthDateCustomString(newDate));
+                    editBirthDay.setIsValid();
                     fechaNacimiento = DateUtil.getDateStringFirstYear(newDate);
 
                     Calendar mCalendar = Calendar.getInstance();
@@ -130,13 +132,13 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
                     if (newDate.getTimeInMillis() > actualDate.getTimeInMillis()) {
                         showValidationError(editBirthDay.getId(), getString(R.string.fecha_nacimiento_erronea));
-                        editBirthDay.setIsValid();
+                        editBirthDay.setIsInvalid();
                         return;
                     }
 
                     if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
                         showValidationError(editBirthDay.getId(), getString(R.string.feha_nacimiento_menor_edad));
-                        editBirthDay.setIsValid();
+                        editBirthDay.setIsInvalid();
                         return;
                     }
                 }
@@ -319,7 +321,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
             mCalendar.set(actualDate.get(Calendar.YEAR) - 18, actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH));
 
             if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
-
                 showValidationError(editBirthDay.getId(), getString(R.string.feha_nacimiento_menor_edad));
                 editBirthDay.setIsInvalid();
                 isValid = false;
@@ -480,11 +481,12 @@ public class DatosPersonalesFragment extends GenericFragment implements
         //Actualizamos el newDate para no tener null, solo en evento Back
         if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {
             newDate = Calendar.getInstance(new Locale("es"));
-            newDate.set(
-                    Integer.parseInt(fechaNacimiento.substring(0, 4)),
-                    Integer.parseInt(fechaNacimiento.substring(6, 7)),
-                    Integer.parseInt(fechaNacimiento.substring(9)));
-            // editBirthDay.setText(DateUtil.getBirthDateString(newDate));
+            try {
+                SimpleDateFormat format = new SimpleDateFormat(DateUtil.simpleDateFormatFirstYear, new Locale("es"));
+                newDate.setTime(format.parse(fechaNacimiento));
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
         //1975 - 06 - 29
     }

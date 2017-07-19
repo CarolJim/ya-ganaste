@@ -11,7 +11,6 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
-import android.os.Handler;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
@@ -31,7 +30,6 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
-import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
@@ -155,14 +153,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
         rootview = inflater.inflate(R.layout.fragments_documents, container, false);
         initViews();
-
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-        swipeRefreshLayout.destroyDrawingCache();
-        if (mExisteDocs) {
-            adqPresenter.getEstatusDocs();
-        }
         return rootview;
     }
 
@@ -170,14 +160,13 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     public void initViews() {
         ButterKnife.bind(this, rootview);
         swipeRefreshLayout.setOnRefreshListener(this);
-        swipeRefreshLayout.setRefreshing(false);
         dataDocumnets = new ArrayList<>();
         if (SingletonUser.getInstance().getDataUser().isEsAgente()
                 && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_PENDIENTE
                 && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == CRM_PENDIENTE) {  //si ya se hiso el proceso de envio de documentos
             mExisteDocs = true;
             lnr_help.setVisibility(VISIBLE);
-            getEstatusDocs();
+            refreshContent();
             initSetClickableStatusDocs();
             btnWeNeedSmFilesNext.setVisibility(View.INVISIBLE);
         } else {     // si no se han enviado los documentos
@@ -311,9 +300,6 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
         backScreen(EVENT_GO_HOME, null);
     }
 
-    private void getEstatusDocs() {
-        adqPresenter.getEstatusDocs();
-    }
 
     private void galleryAddPic() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
@@ -496,16 +482,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
      */
     @Override
     public void documentsUploaded(String message) {
-        showLoader(message);
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
-                hideLoader();
-                if (mExisteDocs) {
-                    getEstatusDocs();
-                }
-                nextScreen(EVENT_GO_BUSSINES_COMPLETE, null);
-            }
-        }, DELAY_MESSAGE_PROGRESS);
+        nextScreen(EVENT_GO_BUSSINES_COMPLETE, null);
     }
 
     /***
@@ -514,16 +491,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
      */
     @Override
     public void documentosActualizados(String s) {
-        showLoader(s);
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                hideLoader();
-                getEstatusDocs();
-                nextScreen(EVENT_GO_HOME, null);
-            }
-        }, DELAY_MESSAGE_PROGRESS);
-
+        refreshContent();
     }
 
     /**
@@ -563,7 +531,10 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
     @Override
     public void hideLoader() {
-        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+        if (isMenuVisible() && onEventListener != null) {
+            onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+        }
+        swipeRefreshLayout.setRefreshing(false);
     }
 
     @Override
@@ -619,26 +590,17 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
 
     @Override
     public void onRefresh() {
-        if (swipeRefreshLayout.isRefreshing()) {
-            swipeRefreshLayout.setRefreshing(false);
-        }
-        swipeRefreshLayout.destroyDrawingCache();
-        new Handler().postDelayed(new Runnable() {
-            @Override
-            public void run() {
-                refreshContent();
-            }
-        }, DELAY_MESSAGE_PROGRESS);
+        swipeRefreshLayout.setRefreshing(false);
+        refreshContent();
     }
 
     private void refreshContent() {
-        swipeRefreshLayout.setRefreshing(false);
+        if (isMenuVisible()) {
+            showLoader(getString(R.string.recuperando_docs_estatus));
+        } else {
+            swipeRefreshLayout.setRefreshing(true);
+        }
         adqPresenter.getEstatusDocs();
-    }
-
-    @Override
-    public void onResume() {
-        super.onResume();
     }
 
 }

@@ -34,6 +34,7 @@ public class LoaderActivity extends ToolBarActivity implements OnEventListener, 
             View view = getLayoutInflater().inflate(layoutResID, null);
             content.addView(view, new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,
                     ViewGroup.LayoutParams.MATCH_PARENT));
+            setUpActionBar();
         }
 
         progressLayout = (ProgressLayout) findViewById(R.id.progress_view);

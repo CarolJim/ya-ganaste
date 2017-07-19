@@ -7,7 +7,6 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.LandingAdqFragment;
@@ -39,18 +38,13 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
 
     @Override
     public void onActivityResumed(Activity activity) {
-        Log.i("TAG", "onActivityResumed");
-
         if (isInBackground && !(activity instanceof MainActivity || activity instanceof AccountActivity || activity instanceof SplashActivity)) {
             if ((activity instanceof LandingAdqFragment || activity instanceof LandingFragment)) {
                 goToLoginScreen(activity);
-            } else {
-                if (!((SupportFragmentActivity) activity).isFromActivityForResult()) {
-                    goToLoginScreen(activity);
-                }
+            } else if (!((SupportFragmentActivity) activity).isFromActivityForResult()) {
+                goToLoginScreen(activity);
             }
         }
-
         isInBackground = false;
     }
 
@@ -63,12 +57,10 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
 
     @Override
     public void onActivityPaused(Activity activity) {
-        Log.i("TAG", "onActivityPaused");
     }
 
     @Override
     public void onActivityStopped(Activity activity) {
-        Log.i("TAG", "onActivityStopped");
     }
 
     @Override
@@ -83,8 +75,7 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
 
     @Override
     public void onTrimMemory(int level) {
-        Log.i("TAG", "onTrimMemory");
-        if (level == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN || level == ComponentCallbacks2.TRIM_MEMORY_COMPLETE) {
+        if (level == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN || level == ComponentCallbacks2.TRIM_MEMORY_COMPLETE || level == ComponentCallbacks2.TRIM_MEMORY_MODERATE) {
             isInBackground = true;
         }
     }

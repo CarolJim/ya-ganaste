@@ -215,7 +215,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             cargaDocumentosRequest.setDocumentos(data);
             ApiAdtvo.actualizarDocumentos(cargaDocumentosRequest, this);
         } catch (OfflineException e) {
-
             accountManager.onError(ACTUALIZAR_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
         }
     }
@@ -309,7 +308,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         if (data.getCodigoRespuesta() == CODE_OK) {
             accountManager.onSucces(ACTUALIZAR_DOCUMENTOS, data.getMensaje());
         } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
-            // TODO FRANK Verificar el flujo para ver que responda sin errores
             iSessionExpired.errorSessionExpired(response);
         } else {
             accountManager.onError(ACTUALIZAR_DOCUMENTOS, "error" + data.getMensaje());
