@@ -14,7 +14,7 @@
         <item name="android:radioButtonStyle">@style/CustomRadioButton</item>
     </style>
 
-    <style name="AppThemeFullView" parent="Theme.AppCompat.NoActionBar">
+    <style name="AppThemeFullView" parent="Theme.AppCompat.NoActionBar">s
         <!-- Customize your theme here. -->
         <item name="colorPrimary">@color/colorPrimary</item>
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
