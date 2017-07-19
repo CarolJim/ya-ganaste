@@ -13,8 +13,7 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="wrap_content">
 
         <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
             android:id="@+id/layoutBorder"
@@ -104,15 +103,27 @@
     <LinearLayout
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_medium"
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:layout_marginTop="45dp"
         android:gravity="center_horizontal"
-        android:orientation="vertical">
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/btn_navigation_bottom">
+
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:textSize="@dimen/size_text_style_2_value"
+            android:textColor="@color/colorAccent"
+            android:text="@string/formato_password"/>
+
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextDatosUsuario"
             style="@style/buttonDirecctionNext"
-            android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:gravity="center"
             android:text="@string/nextButton" />
     </LinearLayout>
