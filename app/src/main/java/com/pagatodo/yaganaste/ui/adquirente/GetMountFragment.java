@@ -225,6 +225,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         return keyboardView.getVisibility() == View.VISIBLE;
     }
 
+
     public void hideKeyboard() {
         keyboardView.hideCustomKeyboard();
     }
@@ -239,6 +240,9 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         super.setMenuVisibility(menuVisible);
         if (menuVisible) {
             et_amount.requestFocus();
+        } else if (et_amount != null){
+            NumberCalcTextWatcher.cleanData();
+            et_amount.setText("0");
         }
     }
 }

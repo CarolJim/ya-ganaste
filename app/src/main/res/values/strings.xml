@@ -588,7 +588,7 @@
 
     <!-- Depositos -->
     <string name="datos_deposito">Tus Datos Para Depósito</string>
-    <string name="datos_deposito_titular">Titular</string>
+    <string name="datos_deposito_titular">Titular:</string>
     <string name="datos_deposito_num_card">N° Tarjeta:</string>
     <string name="datos_deposito_clabe">CLABE:</string>
     <string name="datos_deposito_donde_depos">¿Dónde Depositar?</string>
