@@ -10,9 +10,10 @@
     tools:context=".ui._controllers.AccountActivity">
 
     <LinearLayout
+        android:id="@+id/lay_detail"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_below="@+id/toolbarLy"
+        android:layout_above="@+id/lay_seekbar"
         android:layout_marginLeft="@dimen/activity_vertical_margin"
         android:layout_marginRight="@dimen/activity_vertical_margin"
         android:orientation="vertical">
@@ -42,7 +43,6 @@
                 style="@style/GenerictextDetailTransaction2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtThanksBuy"
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="@string/mensaje_pagaste1"
                 app:tipo="Descripcion" />
@@ -64,7 +64,6 @@
                 style="@style/GenerictextDetailTransaction3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_below="@+id/txtAmountPayment"
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="@string/mensaje_pagaste2"
                 app:tipo="Descripcion" />
@@ -136,23 +135,33 @@
                 android:layout_height="0dp"
                 android:layout_weight="1" />
 
-            <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar
-                android:id="@+id/myseek"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/seek_background"
-                android:clickable="false"
-                android:max="100"
-                android:progressDrawable="@android:color/transparent"
-                android:thumb="@drawable/thumb_size"
-                android:thumbOffset="15dp"
-                app:text="Enviar"
-                app:textSize="@dimen/size_text_style_2_value" />
-
 
         </LinearLayout>
     </LinearLayout>
 
+    <LinearLayout
+        android:id="@+id/lay_seekbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginBottom="22dp"
+        android:layout_marginLeft="@dimen/seekbar_margin"
+        android:layout_marginRight="@dimen/seekbar_margin">
+
+
+        <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar
+            android:id="@+id/myseek"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/seek_background"
+            android:clickable="false"
+            android:max="100"
+            android:progressDrawable="@android:color/transparent"
+            android:thumb="@drawable/thumb_size"
+            android:thumbOffset="15dp"
+            app:text="Enviar"
+            app:textSize="@dimen/size_text_style_2_value" />
+    </LinearLayout>
 
     <!--com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressLayout"

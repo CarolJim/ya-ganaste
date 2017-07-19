@@ -89,6 +89,7 @@
                 android:layout_marginBottom="@dimen/margin_small"
                 android:layout_marginTop="@dimen/margin_medium"
                 android:gravity="center"
+                android:visibility="invisible"
                 android:text="Actualizado el 15/Jun/2017 24:24:59"
                 android:textSize="@dimen/text_screen_size_normal" />
         </LinearLayout>

@@ -22,7 +22,6 @@
     <dimen name="seekbar_thumb_arrow_width">10dp</dimen>
     <dimen name="arrow_seekbar_heigth">20dp</dimen>
     <dimen name="arrow_seekbar_width">10dp</dimen>
-    <dimen name="seekbar_thumb_arrow_left">65dp</dimen>
 
     <dimen name="btn_margin_bottom">20dp</dimen>
     <dimen name="btn_corner_radius">24dp</dimen>
