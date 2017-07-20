@@ -148,11 +148,9 @@
         android:id="@+id/containerSlideButon"
         android:layout_width="fill_parent"
         android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_below="@+id/containerEnviosForm"
         android:layout_marginBottom="@dimen/btn_navigation_bottom"
-        android:layout_marginLeft="@dimen/margin_medium"
-        android:layout_marginRight="@dimen/margin_medium"
+        android:layout_marginLeft="@dimen/seekbar_margin"
+        android:layout_marginRight="@dimen/seekbar_margin"
         android:layout_marginTop="@dimen/margin_big">
 
         <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar

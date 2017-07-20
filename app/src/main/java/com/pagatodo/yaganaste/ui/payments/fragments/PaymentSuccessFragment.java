@@ -154,7 +154,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
             }
 
             if (pago.getComercio().getIdComercio() == 7) {
-                titleReferencia.setText(R.string.tag_number);
+                titleReferencia.setText(getString(R.string.tag_number) + ":");
             } else {
                 titleReferencia.setText(R.string.txt_phone);
 

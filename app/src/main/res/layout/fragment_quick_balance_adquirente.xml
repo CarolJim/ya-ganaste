@@ -79,7 +79,8 @@
                         android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:text="Actualizado el 15/Jun/2017 24:24:59"
-                        android:textSize="@dimen/text_screen_size_normal" />
+                        android:textSize="@dimen/text_screen_size_normal"
+                        android:visibility="invisible" />
 
                     <android.support.v4.widget.Space
                         android:layout_width="match_parent"
@@ -121,7 +122,8 @@
                         android:layout_marginTop="10dp"
                         android:gravity="center"
                         android:text="Actualizado el 15/Jun/2017 24:24:59"
-                        android:textSize="@dimen/text_screen_size_normal" />
+                        android:textSize="@dimen/text_screen_size_normal"
+                        android:visibility="invisible" />
                 </LinearLayout>
 
             </LinearLayout>

@@ -20,15 +20,13 @@
     <dimen name="edit_corner_radius">1.5dp</dimen>
 
     <dimen name="seekbar_radius">30dp</dimen>
-    <dimen name="seekbar_thumb_width">90dp</dimen>
-    <dimen name="seekbar_thumb_height">45dp</dimen>
+    <dimen name="seekbar_thumb_width">93dp</dimen>
+    <dimen name="seekbar_thumb_height">43dp</dimen>
     <dimen name="seekbar_thumb_arrow_width">6dp</dimen>
     <dimen name="seekbar_thumb__arrow_height">13dp</dimen>
     <dimen name="thumb_text_size">12sp</dimen>
-    <dimen name="seekbbar_thumb_arrow_margin_top_bottom">12.5dp</dimen>
     <dimen name="arrow_seekbar_heigth">20dp</dimen>
     <dimen name="arrow_seekbar_width">10dp</dimen>
-    <dimen name="seekbar_thumb_arrow_left">75dp</dimen>
 
     <dimen name="ad_em_tab_mount_text_size">9sp</dimen>
 

@@ -15,7 +15,7 @@
         android:drawable="@drawable/arrow_canvas"
         android:gravity="center|right"
         android:left="@dimen/seekbar_thumb_arrow_left"
-        android:right="5dp"
+        android:right="9.3dp"
         android:top="@dimen/seekbbar_thumb_arrow_margin_top_bottom">
 
         <!--bitmap android:src="@drawable/arrow_icon"/-->
