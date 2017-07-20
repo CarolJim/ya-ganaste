@@ -85,7 +85,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     app:formato="celphone"
-                    app:hintText="@string/txt_phone"
+                    app:hintText="@string/txt_home_phone"
                     app:imageIsGone="true"
                     app:isSingleLine="true" />
 

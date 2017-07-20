@@ -4,10 +4,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.view.Menu;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
@@ -17,7 +19,9 @@ import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTrans
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentSuccessFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentsProcessingManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsProcessingPresenter;
@@ -37,11 +41,12 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT;
  * Created by Jordan on 25/04/2017.
  */
 
-public class PaymentsProcessingActivity extends SupportFragmentActivity implements PaymentsProcessingManager, ISessionExpired {
-    @BindView(R.id.progressGIF)
-    ProgressLayout progressLayout;
+public class PaymentsProcessingActivity extends LoaderActivity implements PaymentsProcessingManager, ISessionExpired {
+
     @BindView(R.id.container)
     FrameLayout container;
+
+    private View llMain;
 
     IPaymentsProcessingPresenter presenter;
     Object pago;
@@ -56,15 +61,12 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
 
         pago = getIntent().getExtras().get("pagoItem");
         tab = (MovementsTab) getIntent().getExtras().get("TAB");
+        llMain = findViewById(R.id.ll_main);
 
         initViews();
-        progressLayout.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                return false;
-            }
-        });
         presenter = new PaymentsProcessingPresenter(this);
+
+        changeToolbarVisibility(false);
 
         try {
             presenter.sendPayment(tab, pago);
@@ -72,22 +74,6 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
             e.printStackTrace();
             onError(getString(R.string.no_internet_access));
         }
-
-        /*if (pago instanceof Recarga || pago instanceof Servicios) {
-            try {
-                presenter.sendPayment(tab, pago);
-            } catch (OfflineException e) {
-                e.printStackTrace();
-                onError(getString(R.string.no_internet_access));
-            }
-        } else if (pago instanceof Envios) {
-            hideLoader();
-            container.setVisibility(View.VISIBLE);
-            View root = container.getRootView();
-            root.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
-            loadFragment(PaymentAuthorizeFragment.newInstance((Envios) pago), NONE, false);
-        }*/
-        //loadFragment(SendPaymentFragment.newInstance(), Direction.NONE, false);
     }
 
     private void initViews() {
@@ -115,22 +101,8 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
         return presenter;
     }
 
-    @Override
-    public void showLoader(String message) {
-        progressLayout.setTextMessage(message);
-        progressLayout.setVisibility(View.VISIBLE);
 
-    }
 
-    @Override
-    public void hideLoader() {
-        progressLayout.setVisibility(View.GONE);
-    }
-
-    @Override
-    public void showError(Object error) {
-        Toast.makeText(this, "Error", Toast.LENGTH_SHORT).show();
-    }
 
     @Override
     public void onBackPressed() {
@@ -148,13 +120,9 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
         EjecutarTransaccionResponse response = (EjecutarTransaccionResponse) result.getData();
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             hideLoader();
-            container.setVisibility(View.VISIBLE);
-            View root = container.getRootView();
-            root.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
+            changeToolbarVisibility(true);
+            llMain.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
             loadFragment(PaymentSuccessFragment.newInstance((Payments) pago, response), NONE, false);
-//        } else if (response.getCodigoRespuesta() == Recursos.CODE_SESSION_EXPIRED) {
-//            hideLoader();
-//            errorSessionExpired(result);
         } else {
             onFailPaimentResponse(result);
         }
@@ -167,14 +135,12 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
             EjecutarTransaccionResponse response = (EjecutarTransaccionResponse) error.getData();
             if (response.getMensaje() != null)
                 errorTxt = response.getMensaje();
-            //Toast.makeText(this, response.getMensaje(), Toast.LENGTH_LONG).show();
 
         } catch (ClassCastException ex) {
             ex.printStackTrace();
         }
 
         onError(errorTxt);
-        //overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     private void onError(String message) {
@@ -183,5 +149,11 @@ public class PaymentsProcessingActivity extends SupportFragmentActivity implemen
         intent.putExtra(MESSAGE, message != null ? message : getString(R.string.error_respuesta));
         setResult(2, intent);
         finish();
+    }
+
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
     }
 }
