@@ -188,7 +188,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
             selectedType = NUMERO_TARJETA;
         } else if (position == NUMERO_TELEFONO.getId()) {
             maxLength = 12;
-            cardNumber.setHint(getString(R.string.transfer_phone));
+            cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
             cardNumber.addTextChangedListener(new PhoneTextWatcher(cardNumber));
             selectedType = NUMERO_TELEFONO;
         } else if (position == CABLE.getId()) {

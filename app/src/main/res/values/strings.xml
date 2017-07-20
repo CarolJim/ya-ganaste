@@ -91,6 +91,7 @@
     <string name="txt_reintent_lowcase">Reintentar</string>
     <string name="ingress_your_data_card">Ingresa los Datos de tu Tarjeta</string>
     <string name="card_number">Número de Tarjeta</string>
+    <string name="debit_card_number">Tarjeta de Débito</string>
     <string name="not_have_card">NO TENGO TARJETA</string>
     <string name="example_mail">algun@mail.com</string>
     <string name="write_your_name">Escribe tu Nombre</string>
@@ -383,6 +384,7 @@
     <string name="title_envio_success">¡Envío Exitoso!</string>
 
     <string name="transfer_phone">Número de Teléfono</string>
+    <string name="transfer_phone_cellphone">Número de Celular</string>
     <string name="transfer_cable">Cuenta CABLE</string>
     <string name="saldo_pendiente">Saldo Pendiente\n de Reembolso</string>
     <string name="saldo_reembolso">Saldo a Reembolsar</string>
@@ -535,12 +537,20 @@
     <string name="txt_tipo_envio_error">Por Favor Seleccione un Tipo de Envío.</string>
     <string name="txt_name_empty">El Campo Nombre Está Vacío.</string>
     <string name="txt_name_error">Error al Introducir el Nombre Del Destinatario.</string>
-    <string name="txt_concept_error">Error al Introducir el Campo Concepto.</string>
+    <string name="txt_concept_error">Error al Introducir el Campo Concepto.</string>g>
+    <string name="txt_referencia_number_invalid">El Campo Referencia Numérica es Inválido.</string>
+
+    <string name="txt_referencia_envio_empty">Por Favor Ingrese un Número de Teléfono/Cuenta/CLABE</string>
+    <string name="txt_referencia_envio_empty_telefono">Por Favor Ingrese un Número de Celular</string>
+    <string name="txt_referencia_envio_empty_creditc">Por Favor Ingrese un Número de Tarjeta de Débito</string>
+    <string name="txt_referencia_envio_empty_clabe">Por Favor Ingrese un Número de CLABE</string>
+    <string name="txt_referencia_envio_error">Error al Introducir el Número de Teléfono/Cuenta/CLABE</string>
+    <string name="txt_referencia_envio_error_telefono">Número de Celular Incorrecto</string>
+    <string name="txt_referencia_envio_error_creditc">Número de Tarjeta de Débito Incorrecta</string>
+    <string name="txt_referencia_envio_error_clabe">Número de CLABE Incorrecta</string>
     <string name="txt_referencia_number_error">Error al Introducir el Campo Referencia Numérica.</string>
     <string name="txt_referencia_number_empty">El Campo Referencia Numérica Está Vacío.</string>
-
-    <string name="txt_referencia_envio_error">Error al Introducir el Número de Teléfono/Cuenta/CLABE</string>
-    <string name="txt_referencia_envio_empty">Por Favor Ingrese un Número de Teléfono/Cuenta/CLABE</string>
+    <string name="txt_referencia_number_short">El Campo Referencia Numérica Debe Ser de 6 Dígitos.</string>
     <string name="title_activity_prefer_user">PreferUserActivity</string>
     <string name="recuperando_docs_estatus"></string>
     <string name="desea_cacelar">¿Deseas Salir y Cancelar la Operación Actual?</string>

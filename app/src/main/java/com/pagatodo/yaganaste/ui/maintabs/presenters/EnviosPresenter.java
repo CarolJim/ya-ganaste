@@ -39,9 +39,40 @@ public class EnviosPresenter implements IEnviosPresenter, IEnviosInteractor.OnVa
         paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_envio_empty));
     }
 
+
+    @Override
+    public void onNumberCABLEEmpty() {
+        paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_envio_empty_clabe));
+    }
+
+    @Override
+    public void onNumberCreditCardEmpty() {
+        paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_envio_empty_creditc));
+    }
+
+    @Override
+    public void onNumberCellPhoneEmpty() {
+        paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_envio_empty_telefono));
+    }
+
     @Override
     public void onNumberError() {
         paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_envio_error));
+    }
+
+    @Override
+    public void onNumberErrorCABLE() {
+        paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_envio_error_clabe));
+    }
+
+    @Override
+    public void onNumberErrorCreditCard() {
+        paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_envio_error_creditc));
+    }
+
+    @Override
+    public void onNumberErrorCellPhone() {
+        paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_envio_error_telefono));
     }
 
     @Override
@@ -80,6 +111,16 @@ public class EnviosPresenter implements IEnviosPresenter, IEnviosInteractor.OnVa
     }
 
     @Override
+    public void onReferenceShort() {
+        paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_number_short));
+    }
+
+    @Override
+    public void onReferenceInvalid() {
+        paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_number_invalid));
+    }
+
+    @Override
     public void onReferenceError() {
         paymentsManager.onError(App.getContext().getString(R.string.txt_referencia_number_error));
     }
@@ -88,4 +129,5 @@ public class EnviosPresenter implements IEnviosPresenter, IEnviosInteractor.OnVa
     public void onSuccess(Double monto) {
         paymentsManager.onSuccess(monto);
     }
+
 }

@@ -18,26 +18,37 @@ public class EnviosInteractor implements IEnviosInteractor {
 
         if (type != null) {
             if (number == null || number.isEmpty()) {
-                listener.onNumberEmpty();
-                return;
+                switch (type) {
+                    case CABLE:
+                        listener.onNumberCABLEEmpty();
+                        return;
+                    case NUMERO_TARJETA:
+                        listener.onNumberCreditCardEmpty();
+                        return;
+                    case NUMERO_TELEFONO:
+                        listener.onNumberCellPhoneEmpty();
+                        return;
+//                listener.onNumberEmpty();
+//                return;
+                }
             }
 
             switch (type) {
                 case CABLE:
                     if (!ValidateForm.isValidCABLE(number)) {
-                        listener.onNumberError();
+                        listener.onNumberErrorCABLE();
                         return;
                     }
                     break;
                 case NUMERO_TARJETA:
                     if (!ValidateForm.isValidCreditCard(number)) {
-                        listener.onNumberError();
+                        listener.onNumberErrorCreditCard();
                         return;
                     }
                     break;
                 case NUMERO_TELEFONO:
                     if (!ValidateForm.isValidCellPhone(number)) {
-                        listener.onNumberError();
+                        listener.onNumberErrorCellPhone();
                         return;
                     }
                     break;
@@ -79,6 +90,16 @@ public class EnviosInteractor implements IEnviosInteractor {
 
         if (reference == null || reference.isEmpty()) {
             listener.onReferenceEmpty();
+            return;
+        }
+
+        if (reference.length() < 6) {
+            listener.onReferenceShort();
+            return;
+        }
+
+        if (reference.equals("000000")) {
+            listener.onReferenceInvalid();
             return;
         }
 
