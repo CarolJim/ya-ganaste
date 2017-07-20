@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.Menu;
 import android.view.Window;
 
 import com.pagatodo.yaganaste.App;
@@ -43,6 +44,18 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
         onEvent(EVENT_GO_INSERT_DONGLE, null);
         //App.getInstance().initEMVListener();
 
+    }
+
+    /**
+     * Sobre escribimos el metodo del PAdre ToolBar para no tener el boton que nos abre esta+
+     * activitydad
+     *
+     * @param menu
+     * @return
+     */
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        return false;
     }
 
     @Override

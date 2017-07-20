@@ -1199,9 +1199,15 @@ public class Utils {
 
     public static int getTransactionSequence() {
         Preferencias prefs = App.getInstance().getPrefs();
-        int value = (Integer.parseInt(prefs.loadData(Recursos.TRANSACTION_SEQUENCE)) + 1) % 1000000;
-        Log.i("IposListener: ", "=====>>  transaction  " + value);
+        int value;
+        String varTransaction = prefs.loadData(Recursos.TRANSACTION_SEQUENCE);
+
+        if (varTransaction.isEmpty()) {
+            varTransaction = "20";
+        }
+        value = (Integer.parseInt(varTransaction) + 1) % 1000000;
         prefs.saveData(Recursos.TRANSACTION_SEQUENCE, Integer.toString(value));
+
         return value;
     }
 
