@@ -1,22 +1,22 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
+    android:orientation="vertical"
     android:focusableInTouchMode="true">
+
+    <include
+        android:id="@+id/toolbarLy"
+        layout="@layout/toolbar"/>
 
     <FrameLayout
         android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@drawable/bg_gradient_bottom"
-        android:visibility="gone" />
+        android:layout_height="0dp"
+        android:layout_weight="1"
+        android:visibility="visible" />
 
-    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
-        android:id="@+id/progressGIF"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryAlpha"
-        android:visibility="gone" />
 
-</RelativeLayout>
+
+</LinearLayout>

@@ -173,6 +173,9 @@
     <string name="check_your_mail">Revisa tu Correo Electrónico</string>
     <string name="txt_escribe_tu_correo">Escribe tu Correo Electrónico</string>
     <string name="txt_phone">Teléfono: </string>
+    <string name="txt_home_phone">Teléfono Fijo</string>
+
+
     <string name="txt_referencia_envio">Referencia de Envío</string>
     <string name="hint_referencia_numerica">Referencia Numérica</string>
     <string name="txt_referencia_servicio">Referencia</string>

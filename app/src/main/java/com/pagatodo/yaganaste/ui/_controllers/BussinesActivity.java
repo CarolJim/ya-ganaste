@@ -73,6 +73,8 @@ public class BussinesActivity extends LoaderActivity {
         }
 
         pref = App.getInstance().getPrefs();
+
+        System.gc();
     }
 
     @Override

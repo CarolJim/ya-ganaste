@@ -88,6 +88,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         // AccountInteractorNew.
 
         //  mPreferPresenter.testToast();
+
+        System.gc();
     }
 
     public AccountPresenterNew getPresenterAccount() {

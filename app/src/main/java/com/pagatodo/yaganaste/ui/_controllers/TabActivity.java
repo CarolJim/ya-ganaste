@@ -97,6 +97,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             Intent intent = new Intent(this, LandingAdqFragment.class);
             startActivity(intent);
         }
+
+        System.gc();
     }
 
     private void load() {
@@ -132,11 +134,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         mainTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
-                if (tab.getPosition() == 3) {
+                /*if (tab.getPosition() == 3) {
                     hideMainTab();
                 } else {
                     showMainTab();
-                }
+                }*/
             }
 
             @Override

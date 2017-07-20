@@ -53,7 +53,7 @@ public class InviteAdquirenteFragment extends GenericFragment implements View.On
         super.setMenuVisibility(menuVisible);
         if (onEventListener != null) {
             onEventListener.onEvent(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY, !menuVisible);
-            onEventListener.onEvent(TabActivity.EVENT_CHANGE_MAIN_TAB_VISIBILITY, !menuVisible);
+            //onEventListener.onEvent(TabActivity.EVENT_CHANGE_MAIN_TAB_VISIBILITY, !menuVisible);
         }
     }
 
