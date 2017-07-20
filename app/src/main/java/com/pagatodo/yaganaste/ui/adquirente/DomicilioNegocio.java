@@ -542,8 +542,11 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
 
     @Override
     public void showError(ErrorObject error) {
+        // Reiniciamos el editTExt para no teenr nada de texto
+        editBussinesZipCode.setText("");
         if (error.getWebService() == OBTENER_COLONIAS_CP) {
-            onClick(btnBackBussinesAddress);
+            // Se comenta esta linea para evitar el salto hacia atras
+          //  onClick(btnBackBussinesAddress);
         } else if (error.getWebService() == OBTENER_DOMICILIO || error.getWebService() == OBTENER_DOMICILIO_PRINCIPAL) {
             cleanFields();
             radioIsBussinesAddress.check(R.id.radioBtnIsBussinesAddressNo);

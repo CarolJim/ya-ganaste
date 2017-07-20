@@ -34,5 +34,21 @@ public interface IEnviosInteractor {
         void onReferenceError();
 
         void onSuccess(Double monto);
+
+        void onReferenceShort();
+
+        void onReferenceInvalid();
+
+        void onNumberErrorCABLE();
+
+        void onNumberErrorCreditCard();
+
+        void onNumberErrorCellPhone();
+
+        void onNumberCABLEEmpty();
+
+        void onNumberCreditCardEmpty();
+
+        void onNumberCellPhoneEmpty();
     }
 }

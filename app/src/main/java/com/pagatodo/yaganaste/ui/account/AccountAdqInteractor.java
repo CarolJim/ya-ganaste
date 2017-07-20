@@ -255,33 +255,38 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
 
-        switch (dataSourceResult.getWebService()) {
+        // if (16 == CODE_SESSION_EXPIRED) {
+        if (((GenericResponse) dataSourceResult.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            iSessionExpired.errorSessionExpired(dataSourceResult);
+        } else {
+            switch (dataSourceResult.getWebService()) {
 
-            case OBTENER_COLONIAS_CP:
-                processNeighborhoods(dataSourceResult);
-                break;
-            case CREAR_AGENTE:
-                processAgentCreated(dataSourceResult);
-                break;
-            case CARGA_DOCUMENTOS:
-                processSendDocuments(dataSourceResult);
-                break;
-            case ACTUALIZAR_DOCUMENTOS:
-                processSendDocumentsPendientes(dataSourceResult);
-                break;
-            case OBTENER_DOCUMENTOS:
-                processStatusDocuments(dataSourceResult);
-                break;
-            case VALIDAR_ESTATUS_USUARIO:
-                processEstatusUsuario(dataSourceResult);
-                break;
-            case OBTENER_DOMICILIO:
-                break;
-            case OBTENER_DOMICILIO_PRINCIPAL:
-                processAddress(dataSourceResult);
-                break;
-            default:
-                break;
+                case OBTENER_COLONIAS_CP:
+                    processNeighborhoods(dataSourceResult);
+                    break;
+                case CREAR_AGENTE:
+                    processAgentCreated(dataSourceResult);
+                    break;
+                case CARGA_DOCUMENTOS:
+                    processSendDocuments(dataSourceResult);
+                    break;
+                case ACTUALIZAR_DOCUMENTOS:
+                    processSendDocumentsPendientes(dataSourceResult);
+                    break;
+                case OBTENER_DOCUMENTOS:
+                    processStatusDocuments(dataSourceResult);
+                    break;
+                case VALIDAR_ESTATUS_USUARIO:
+                    processEstatusUsuario(dataSourceResult);
+                    break;
+                case OBTENER_DOMICILIO:
+                    break;
+                case OBTENER_DOMICILIO_PRINCIPAL:
+                    processAddress(dataSourceResult);
+                    break;
+                default:
+                    break;
+            }
         }
     }
 
