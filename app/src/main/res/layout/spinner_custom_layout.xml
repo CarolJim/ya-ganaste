@@ -10,19 +10,18 @@
     <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
         android:id="@+id/editTextCustomSpinner"
         style="@style/StyleEditText"
-        android:layout_width="match_parent"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_weight="2"
         android:clickable="false"
         android:focusable="false"
         android:focusableInTouchMode="false"
         android:longClickable="false"
-        android:textSize="@dimen/text_custom_validation_spinner_size" />
+        android:textSize="@dimen/size_text_style_2_value" />
 
     <RelativeLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_weight="8">
+        android:layout_width="@dimen/custom_validation_edittext_imagelay_width"
+        android:layout_height="match_parent">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageViewCustomSpinner"

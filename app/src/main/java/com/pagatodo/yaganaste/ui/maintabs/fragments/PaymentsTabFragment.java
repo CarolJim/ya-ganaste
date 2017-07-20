@@ -150,17 +150,8 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         botonEnvios.setOnClickListener(this);
 
         rlimgPagosServiceToPay.setOnDragListener(this);
-        txtPagosUserName.setText(SingletonUser.getInstance().getDataUser().getUsuario().getNombre());
-
-
-        Double saldo = Double.parseDouble(singletonUser.getDatosSaldo().getSaldoEmisor());
-        /*if (singletonUser.getDataUser().isEsAgente() && singletonUser.getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO) {
-            saldo = Double.parseDouble(singletonUser.getDatosSaldo().getSaldoAdq());
-        } else {
-            saldo = Double.parseDouble(singletonUser.getDatosSaldo().getSaldoEmisor());
-        }*/
-
-        txtBalance.setText(getString(R.string.your_balance) + StringUtils.getCurrencyValue(saldo));
+        txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre()));
+        txtBalance.setText(getString(R.string.your_balance).concat(StringUtils.getCurrencyValue(singletonUser.getDatosSaldo().getSaldoEmisor())));
     }
 
 
