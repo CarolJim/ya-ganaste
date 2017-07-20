@@ -30,6 +30,7 @@ import com.pagatodo.yaganaste.interfaces.IAccountCardView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -150,11 +151,8 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             lastame = registerUser.getApellidoPaterno();
         }
 
-        name = (name.contains(" ") ? name.substring(0, name.indexOf(" ")) : name);
+        name = StringUtils.getFirstName(name);
         userName.setText(name.concat(" ").concat(lastame));
-
-        /*Log.d("TienesTarjetaFrag", "mUserName " + singletonUser.getNombre() + " " + singletonUser.getPrimerApellido()
-                + " " + singletonUser.getSegundoApellido());*/
 
         editNumber.setTypeface(typeface);
         ViewTreeObserver viewTreeObserver = layoutCard.getViewTreeObserver();

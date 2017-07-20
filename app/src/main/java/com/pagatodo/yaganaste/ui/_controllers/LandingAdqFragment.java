@@ -8,7 +8,7 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.RelativeLayout;
+import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
 
@@ -23,9 +23,10 @@ public class LandingAdqFragment extends Activity implements Animation.AnimationL
 
 
     @BindView(R.id.tutorialPage1)
-    RelativeLayout tutorialPage1;
+    ImageView tutorialPage1;
     @BindView(R.id.tutorialPage2)
-    RelativeLayout tutorialPage2;
+    ImageView tutorialPage2;
+
     Animation animFadeIn, animFadeOut;
     int animationCounter = 0;
     boolean animaationEnd = true;
@@ -76,7 +77,7 @@ public class LandingAdqFragment extends Activity implements Animation.AnimationL
                     tutorialPage2.startAnimation(animFadeIn);
                     break;
                 case 1:
-                    tutorialPage2.setVisibility(View.GONE);
+                    //tutorialPage2.setVisibility(View.GONE);
                     break;
                 default:
                     break;
@@ -87,10 +88,10 @@ public class LandingAdqFragment extends Activity implements Animation.AnimationL
             //tutorialPage2.setVisibility(View.VISIBLE);
             switch (animationCounter) {
                 case 0:
-                    tutorialPage1.setVisibility(View.VISIBLE);
+                    tutorialPage2.setVisibility(View.VISIBLE);
                     break;
                 case 1:
-                    tutorialPage2.setVisibility(View.VISIBLE);
+                    //tutorialPage2.setVisibility(View.VISIBLE);
                     break;
             }
             animaationEnd = true;
@@ -115,11 +116,12 @@ public class LandingAdqFragment extends Activity implements Animation.AnimationL
                             tutorialPage1.startAnimation(animFadeOut);
                             break;
                         case 1:
-                            tutorialPage2.startAnimation(animFadeOut);
+                            //tutorialPage2.startAnimation(animFadeOut);
                             finishActivity();
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             break;
                         case 2:
+
                             break;
                         default:
 

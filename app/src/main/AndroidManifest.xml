@@ -16,7 +16,7 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
-    <uses-permission android:name="com.pagatodo.yaganaste.fileprovider.READ"/>
+    <uses-permission android:name="com.pagatodo.yaganaste.fileprovider.READ" />
     <!-- PERMISOS DEL GPS -->
     <uses-permission android:name="android.hadware.location.gps" />
     <!-- FIN DE LOS PERMISOS DEL GPS -->
@@ -107,7 +107,6 @@
         <activity
             android:name=".ui._controllers.LandingAdqFragment"
             android:screenOrientation="portrait"
-            android:theme="@style/AppTheme.Translucent"
             android:windowSoftInputMode="adjustPan" />
 
         <activity android:name=".ui._controllers.DetailsActivity" />

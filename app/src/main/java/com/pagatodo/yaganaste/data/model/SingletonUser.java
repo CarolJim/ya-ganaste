@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.data.model;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
+import com.pagatodo.yaganaste.utils.StringUtils;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
@@ -53,9 +54,8 @@ public class SingletonUser {
 
         if (dataUser.isConCuenta()) {
             prefs.saveDataBool(HAS_SESSION, true);
-            String name = dataUser.getUsuario().getNombre();
 
-            prefs.saveData(SIMPLE_NAME, (name.contains(" ") ? name.substring(0, name.indexOf(" ")) : name)
+            prefs.saveData(SIMPLE_NAME, StringUtils.getFirstName(dataUser.getUsuario().getNombre())
                     .concat(SPACE).concat(dataUser.getUsuario().getPrimerApellido()));
 
             prefs.saveData(NAME_USER, dataUser.getUsuario().getNombre());

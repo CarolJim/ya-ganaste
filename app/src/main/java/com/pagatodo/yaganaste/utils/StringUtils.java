@@ -175,4 +175,8 @@ public class StringUtils {
 
         return formatoPago;
     }
+
+    public static String getFirstName(String name){
+        return name.contains(" ") ? name.substring(0, name.indexOf(" ")) : name;
+    }
 }
