@@ -49,9 +49,9 @@
                         android:id="@+id/cardBalanceAdq"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_marginRight="65dp"
+                        android:layout_gravity="center"
                         android:layout_marginLeft="65dp"
-                        android:layout_gravity="center" />
+                        android:layout_marginRight="65dp" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtMessageCard"
@@ -82,7 +82,7 @@
                         android:gravity="center"
                         android:text="Actualizado el 15/Jun/2017 24:24:59"
                         android:textSize="@dimen/text_screen_size_normal"
-                        android:visibility="invisible" />
+                        android:visibility="gone" />
 
                     <android.support.v4.widget.Space
                         android:layout_width="match_parent"
@@ -125,7 +125,7 @@
                         android:gravity="center"
                         android:text="Actualizado el 15/Jun/2017 24:24:59"
                         android:textSize="@dimen/text_screen_size_normal"
-                        android:visibility="invisible" />
+                        android:visibility="gone" />
                 </LinearLayout>
 
             </LinearLayout>
