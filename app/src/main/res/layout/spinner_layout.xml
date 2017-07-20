@@ -2,6 +2,7 @@
 <com.pagatodo.yaganaste.utils.customviews.StyleTextView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/textView_spinner"
+    style="@style/generic_text_style_2"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:background="@color/backgroundEditText"
@@ -10,7 +11,6 @@
     android:padding="7dp"
     android:text="Hola"
     android:textColor="@color/whiteColor_disable"
-    android:textSize="@dimen/size_text_style_3_value"
     app:tipo="Titulo">
 
 </com.pagatodo.yaganaste.utils.customviews.StyleTextView>

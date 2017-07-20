@@ -165,6 +165,11 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
         iv_photo_item_status.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.camara_white_blue_canvas));
 
+       // updatePhoto();
+
+    }
+
+    private void updatePhoto() {
         /**
          * Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
          */
@@ -176,7 +181,6 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
                 // Hacemos algo si falla por no tener internet
                 showDialogMesage(e.toString());
             }
-
         } else {
             // iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.add_photo_canvas, null));
         }
@@ -313,5 +317,11 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     @Override
     public void errorSessionExpired(DataSourceResult dataSourceResult) {
         super.errorSessionExpired(dataSourceResult);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        updatePhoto();
     }
 }

@@ -118,7 +118,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         try {
             ApiAdtvo.validarEstatusUsuario(request, this);
         } catch (OfflineException e) {
-            e.printStackTrace();
+         //   e.printStackTrace();
             accountManager.onError(VALIDAR_ESTATUS_USUARIO, App.getContext().getString(R.string.no_internet_access));
         }
     }
@@ -128,7 +128,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         try {
             ApiAdtvo.iniciarSesionSimple(request, this);
         } catch (OfflineException e) {
-            e.printStackTrace();
+
             accountManager.onError(INICIAR_SESION_SIMPLE, App.getContext().getString(R.string.no_internet_access));
         }
     }
