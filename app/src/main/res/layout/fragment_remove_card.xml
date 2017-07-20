@@ -15,7 +15,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@mipmap/dongle"
+            android:src="@mipmap/dongle_retired_card"
             tools:ignore="ContentDescription" />
 
         <pl.droidsonroids.gif.GifImageView
@@ -23,7 +23,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:scaleType="centerCrop"
-            android:src="@mipmap/dongle_card"
+            android:src="@mipmap/dongle_insert_card"
             android:visibility="invisible"
             tools:ignore="ContentDescription" />
 
