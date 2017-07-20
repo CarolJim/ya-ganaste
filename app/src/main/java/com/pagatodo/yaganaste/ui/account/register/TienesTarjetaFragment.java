@@ -125,7 +125,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
         btnNextTienesTarjeta.setOnClickListener(this);
-        final Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Light.ttf");
+        final Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Regular.ttf");
         radioHasCard.setOnCheckedChangeListener(this);
         radioBtnNo.setChecked(true);//Selección por Default
 
@@ -162,7 +162,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             @Override
             public void onGlobalLayout() {
                 int layoutHeight = layoutCard.getHeight();
-                float sp = (float) ((layoutHeight * 0.09) / getResources().getDisplayMetrics().scaledDensity);
+                float sp = (float) ((layoutHeight * 0.11) / getResources().getDisplayMetrics().scaledDensity);
                 editNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, sp);
             }
         });

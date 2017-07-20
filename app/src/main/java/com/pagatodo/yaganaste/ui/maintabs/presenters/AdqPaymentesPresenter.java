@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataResultAdq;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
@@ -28,6 +29,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.APROBADO;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CANCELADO;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CARGO;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.PENDIENTE;
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
 
 /**
@@ -52,12 +54,12 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
         resumenMovimientosMesRequest.setFecha(data.getDate());
         movementsIteractor.getMovements(resumenMovimientosMesRequest);
 
-        /*
-        List<DataMovimientoAdq> movimientos = new ArrayList<>();
+
+        /*List<DataMovimientoAdq> movimientos = new ArrayList<>();
         DataMovimientoAdq movimientoAdq = new DataMovimientoAdq();
         movimientoAdq.setAfiliacion("123");
-        movimientoAdq.setOperacion("Venta Con Tarjeta");
-        movimientoAdq.setBancoEmisor("Banco felicidad");
+        movimientoAdq.setOperacion("Venta Con Tarjeta 5334");
+        movimientoAdq.setBancoEmisor("Bancomer");
         movimientoAdq.setCompania("Bancomer");
         movimientoAdq.setDescripcionRechazo("Por que si");
         movimientoAdq.setEsAprobada(false);
@@ -74,7 +76,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
         DataMovimientoAdq movimientoAdq2 = new DataMovimientoAdq();
         movimientoAdq2.setOperacion("Venta Con Tarjeta 5332");
-        movimientoAdq2.setCompania("Bancomer");
+        movimientoAdq2.setBancoEmisor("Bancomer");
         movimientoAdq2.setEsAprobada(true);
         movimientoAdq2.setEsCargo(false);
         movimientoAdq2.setEsPendiente(false);
@@ -85,7 +87,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
         DataMovimientoAdq movimientoAdq3 = new DataMovimientoAdq();
         movimientoAdq3.setOperacion("Venta Con Tarjeta 5603");
-        movimientoAdq3.setCompania("Santander");
+        movimientoAdq3.setBancoEmisor("Santander");
         movimientoAdq3.setEsAprobada(true);
         movimientoAdq3.setEsCargo(false);
         movimientoAdq3.setEsPendiente(false);
@@ -95,7 +97,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
         DataMovimientoAdq movimientoAdq4 = new DataMovimientoAdq();
         movimientoAdq4.setOperacion("Venta Con Tarjeta 5345(Cancelada)");
-        movimientoAdq4.setCompania("Bancomer");
+        movimientoAdq4.setBancoEmisor("Bancomer");
         movimientoAdq4.setEsAprobada(false);
         movimientoAdq4.setEsCargo(false);
         movimientoAdq4.setEsPendiente(false);
@@ -106,7 +108,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
         DataMovimientoAdq movimientoAdq5 = new DataMovimientoAdq();
         movimientoAdq5.setOperacion("Venta Con Tarjeta 3495(Cancelada)");
-        movimientoAdq5.setCompania("Santander");
+        movimientoAdq5.setBancoEmisor("Santander");
         movimientoAdq5.setEsAprobada(false);
         movimientoAdq5.setEsCargo(false);
         movimientoAdq5.setEsPendiente(false);
@@ -116,7 +118,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
         DataMovimientoAdq movimientoAdq6 = new DataMovimientoAdq();
         movimientoAdq6.setOperacion("Venta Con Tarjeta 7463");
-        movimientoAdq6.setCompania("Banamex");
+        movimientoAdq6.setBancoEmisor("Banamex");
         movimientoAdq6.setEsAprobada(false);
         movimientoAdq6.setEsCargo(true);
         movimientoAdq6.setEsPendiente(false);
@@ -178,7 +180,10 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
             }
 
             movementsList.add(new ItemMovements<>(movimientoAdq.getOperacion(),
-                    movimientoAdq.isEsReversada() ? App.getInstance().getString(R.string.cancelada) : movimientoAdq.getCompania(),
+
+                    movimientoAdq.getBancoEmisor().concat(SPACE).concat(
+                            movimientoAdq.isEsReversada() ? "- " + App.getInstance().getString(R.string.cancelada) :
+                                    movimientoAdq.isEsPendiente() ? "- " + App.getInstance().getString(R.string.pendiente) : SPACE),
                     StringUtils.getDoubleValue(movimientoAdq.getMonto()), String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)),
                     DateUtil.getMonthShortName(calendar), color, movimientoAdq));
         }

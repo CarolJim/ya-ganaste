@@ -43,7 +43,6 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                     android:id="@+id/editNumber"
-                    style="@style/generic_text_style_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:background="@color/transparent"
@@ -55,7 +54,7 @@
                     android:maxLength="19"
                     android:text="1234 1234 1234 1234"
                     android:textColor="@color/whiteColor"
-                    android:textSize="@dimen/text_size_title" />
+                    android:textSize="24sp" />
             </LinearLayout>
 
             <LinearLayout
@@ -91,7 +90,8 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_tarjeta_user_name"
-                    style="@style/generic_text_style_4"
+                    android:textColor="@color/whiteColor"
+                    android:textSize="16sp"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:gravity="center"

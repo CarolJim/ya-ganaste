@@ -392,7 +392,7 @@
     <string name="linea_credito">Línea de Crédito*</string>
     <string name="monto_depositar">Monto a Depositar</string>
     <string name="saldo_disponible">Saldo Disponible</string>
-    <string name="cobros_tarjeta">Cobros Con Tarjeta</string>
+    <string name="cobros_tarjeta">Cobros Con\nTarjeta</string>
     <string name="mas_tarde">Más Tarde</string>
 
     <string name="correo_enviar_ticket">¿A Qué Correo Electrónico\nEnviamos Tu Recibo?</string>
@@ -549,6 +549,7 @@
     <string name="buscar_sucursal">Buscar  Sucursal</string>
 
     <string name="cancelada">Cancelada</string>
+    <string name="pendiente">Pendiente</string>
 
     <!-- PreferUSerActivity -->
     <string name="listaopciones_load_image_wait">Cargando Imagen</string>

@@ -11,6 +11,7 @@ import android.os.Bundle;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.LandingAdqFragment;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
+import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
@@ -39,7 +40,7 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
     @Override
     public void onActivityResumed(Activity activity) {
         if (isInBackground && !(activity instanceof MainActivity || activity instanceof AccountActivity || activity instanceof SplashActivity)) {
-            if ((activity instanceof LandingAdqFragment || activity instanceof LandingFragment)) {
+            if ((activity instanceof LandingAdqFragment || activity instanceof LandingFragment || activity instanceof ScannVisionActivity)) {
                 goToLoginScreen(activity);
             } else if (!((SupportFragmentActivity) activity).isFromActivityForResult()) {
                 goToLoginScreen(activity);

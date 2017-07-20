@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.maintabs.iteractors;
 import com.google.gson.Gson;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
@@ -35,7 +36,8 @@ public class PaymentsCarouselIteractor implements IPaymentsCarouselIteractor, IR
     public void getCatalogosFromService() {
         try {
             ObtenerCatalogoRequest request = new ObtenerCatalogoRequest();
-            request.setVersion(App.getInstance().getPrefs().loadData(StringConstants.CATALOG_VERSION));
+            Preferencias preferencias = App.getInstance().getPrefs();
+            request.setVersion(preferencias.loadData(StringConstants.CATALOG_VERSION).isEmpty() ? "1" : preferencias.loadData(StringConstants.CATALOG_VERSION));
             ApiAdtvo.obtenerCatalogos(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();

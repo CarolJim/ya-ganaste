@@ -52,7 +52,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
 
     @Override
     protected RecyclerView.Adapter createAdapter(List<ItemMovements<MovimientosResponse>> movementsList) {
-        return new RecyclerMovementsAdapter<MovimientosResponse>(getContext(), movementsList, this);
+        return new RecyclerMovementsAdapter<>(getContext(), movementsList, this);
     }
 
     @Override

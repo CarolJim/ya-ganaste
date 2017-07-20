@@ -32,7 +32,6 @@ public class AccountMovementsIteractorImp implements MovementsIteractor<Consulta
         } catch (OfflineException e) {
             e.printStackTrace();
             movementsManager.onFailed(Recursos.CODE_OFFLINE, Recursos.NO_ACTION, App.getInstance().getString(R.string.no_internet_access));
-
         }
     }
 

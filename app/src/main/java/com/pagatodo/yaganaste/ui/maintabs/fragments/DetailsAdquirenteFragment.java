@@ -11,7 +11,10 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
@@ -31,6 +34,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.APROBADO;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CANCELADO;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CARGO;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.PENDIENTE;
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * @author Juan Guerra on 12/04/2017.
@@ -127,7 +131,12 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         txtItemMovDate.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         txtItemMovMonth.setText(DateUtil.getMonthShortName(calendar));
         txtConceptShort.setText(dataMovimientoAdq.getOperacion());
-        txtMarca.setText(dataMovimientoAdq.getCompania());
+
+        txtMarca.setText(dataMovimientoAdq.getBancoEmisor().concat(SPACE).concat(
+                dataMovimientoAdq.isEsReversada() ? "- " + App.getInstance().getString(R.string.cancelada) :
+                        dataMovimientoAdq.isEsPendiente() ? "- " + App.getInstance().getString(R.string.pendiente) : SPACE));
+
+
         txtMonto.setText(dataMovimientoAdq.getMonto());
         txtMonto.setTextColor(ContextCompat.getColor(getContext(), color));
         txtMontoDescripcion.setText(dataMovimientoAdq.getMonto());
@@ -148,6 +157,14 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         }
 
         btnVolver.setOnClickListener(this);
+
+        CatalogsDbApi catalogsDbApi = new CatalogsDbApi(getContext());
+        String url = catalogsDbApi.getURLIconComercio(dataMovimientoAdq.getBancoEmisor());
+
+        Glide.with(getContext()).load(url)
+                .placeholder(R.mipmap.logo_ya_ganaste)
+                .error(R.mipmap.logo_ya_ganaste)
+                .dontAnimate().into(imageDetail);
     }
 
 

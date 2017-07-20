@@ -62,7 +62,7 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
 
     @Override
     protected RecyclerView.Adapter createAdapter(List<ItemMovements<DataMovimientoAdq>> movementsList) {
-        return new RecyclerMovementsAdapter<DataMovimientoAdq>(getContext(), movementsList, this);
+        return new RecyclerMovementsAdapter<>(getContext(), movementsList, this);
     }
 
     @Override

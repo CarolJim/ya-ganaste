@@ -75,4 +75,14 @@ public class CatalogsDbApi {
 
         return comerciosRespose;
     }
+
+    public static String getURLIconComercio(String nombreComercio) {
+        genericDao.open();
+        ComercioResponse comercioResponse = genericDao.getByQuery(ComercioResponse.class,
+                 DBContract.Comercios.COMERCIO + "= '" + nombreComercio + "'");
+
+        genericDao.close();
+
+        return comercioResponse != null ? comercioResponse.getLogoURL() : "";
+    }
 }
