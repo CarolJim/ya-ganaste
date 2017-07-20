@@ -9,6 +9,7 @@ import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
+import android.widget.LinearLayout;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
@@ -45,6 +46,8 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     @BindView(R.id.container)
     FrameLayout container;
 
+    private View llMain;
+
     IPaymentsProcessingPresenter presenter;
     Object pago;
     private boolean isAvailableToBack = false;
@@ -58,6 +61,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
 
         pago = getIntent().getExtras().get("pagoItem");
         tab = (MovementsTab) getIntent().getExtras().get("TAB");
+        llMain = findViewById(R.id.ll_main);
 
         initViews();
         presenter = new PaymentsProcessingPresenter(this);
@@ -117,6 +121,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             hideLoader();
             changeToolbarVisibility(true);
+            llMain.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
             loadFragment(PaymentSuccessFragment.newInstance((Payments) pago, response), NONE, false);
         } else {
             onFailPaimentResponse(result);
