@@ -52,7 +52,7 @@ public class WsCaller implements IServiceConsumer {
 
         if (request.getBody() != null)
             Log.d(TAG, "Body Request : " + request.getBody().toString());
-        CustomJsonObjectRequest jsonRequest = new CustomJsonObjectRequest(
+        CustomJsonObjectRequest jsonRequest = new CustomJsonObjectRequest (
                 request.getMethod(),
                 request.getMethod() == POST ? request.get_url_request() : parseGetRequest(request.get_url_request(), request.getBody()),
                 request.getMethod() == POST ? request.getBody() : null,
@@ -70,6 +70,10 @@ public class WsCaller implements IServiceConsumer {
                     public void onErrorResponse(VolleyError error) {
                         Log.d(TAG, "Request Failed : " + error.getMessage());
                         if (request.getRequestResult() != null) {
+                            if (error.networkResponse != null ) {
+                                Log.d(TAG, "Request Failed : " + error.networkResponse.statusCode);
+                            }
+
                             request.getRequestResult().onFailed(new DataSourceResult(request.getMethod_name(), DataSource.WS, CustomErrors.getError(error)));
                         }
                     }

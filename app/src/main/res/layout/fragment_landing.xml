@@ -2,300 +2,66 @@
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    android:background="@color/colorPrimaryAlpha">
+    android:layout_height="match_parent">
 
-    <LinearLayout
+    <ImageView
         android:id="@+id/tutorialPage1"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentTop="true"
-        android:layout_marginLeft="22dp"
-        android:layout_marginStart="22dp"
-        android:layout_marginTop="118dp"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_couch_em_1"
+        android:visibility="gone"/>
 
-        <ImageView
-            android:id="@+id/imageView"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center|right"
-            android:layout_marginEnd="40dp"
-            android:layout_marginRight="40dp"
-            android:rotation="-15"
-            android:src="@mipmap/flecha_couchmark" />
 
-        <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
-            android:id="@+id/text1"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:text="@string/landing_emisor_saldo_disponible"
-            android:textColor="@color/whiteColor"
-            android:textSize="@dimen/landing_text"
-            app:font_type="Bupkis" />
-
-    </LinearLayout>
-
-    <LinearLayout
+    <ImageView
         android:id="@+id/tutorialPage2"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/margin_regular"
-        android:orientation="horizontal"
-        android:paddingTop="@dimen/margin_regular"
-        android:visibility="gone">
-
-        <Space
-            android:layout_width="20dp"
-            android:layout_height="match_parent" />
-
-        <RelativeLayout
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_marginTop="@dimen/margin_doble">
-
-            <ImageView
-                android:id="@+id/imageView4"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_alignParentLeft="true"
-                android:layout_alignParentStart="true"
-                android:layout_centerVertical="true"
-                android:adjustViewBounds="true"
-                android:padding="@dimen/margin_small"
-                android:rotation="-130"
-                android:scaleType="centerCrop"
-                android:src="@mipmap/flecha_couchmark" />
-        </RelativeLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="vertical">
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal">
-
-                <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
-                    android:id="@+id/text2"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/margin_medium"
-                    android:text="@string/landing_emisor_movimientos_cuenta"
-                    android:textColor="@color/whiteColor"
-                    android:textSize="@dimen/landing_text"
-                    app:font_type="Bupkis" />
-
-                <RelativeLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent">
-
-                    <ImageView
-                        android:id="@+id/imageView5"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_alignParentBottom="true"
-                        android:layout_centerHorizontal="true"
-                        android:rotation="60"
-                        android:src="@mipmap/flecha_couchmark" />
-                </RelativeLayout>
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_couch_em_2"
+        android:visibility="gone"/>
 
 
-            </LinearLayout>
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
-                android:id="@+id/text3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="end"
-                android:text="@string/landing_emisor_cobros_tarjeta"
-                android:textColor="@color/whiteColor"
-                android:textSize="@dimen/landing_text"
-                app:font_type="Bupkis" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <ImageView
         android:id="@+id/tutorialPage3"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_couch_em_3"
+        android:visibility="gone"/>
 
-        <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
-            android:id="@+id/text4"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/landing_emisor_recarga_movimientos"
-            android:textColor="@color/whiteColor"
-            android:textSize="@dimen/landing_text"
-            app:font_type="Bupkis" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <android.support.v4.widget.Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:id="@+id/imageView6"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_weight="1"
-                android:padding="@dimen/margin_small"
-                android:rotation="210"
-                android:src="@mipmap/flecha_couchmark" />
-
-            <android.support.v4.widget.Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2" />
-        </LinearLayout>
-
-    </LinearLayout>
-
-    <LinearLayout
+    <ImageView
         android:id="@+id/tutorialPage4"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_couch_em_4"
+        android:visibility="gone"/>
 
-        <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
-            android:id="@+id/text5"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/landing_emisor_opciones_deposito"
-            android:textColor="@color/whiteColor"
-            android:textSize="@dimen/landing_text"
-            app:font_type="Bupkis" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <android.support.v4.widget.Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2" />
-
-            <ImageView
-                android:id="@+id/imageVie7"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1"
-                android:padding="@dimen/margin_small"
-                android:rotation="150"
-                android:scaleX="-1"
-                android:src="@mipmap/flecha_couchmark" />
-
-            <android.support.v4.widget.Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-        </LinearLayout>
-    </LinearLayout>
-
-    <LinearLayout
+    <ImageView
         android:id="@+id/tutorialPage5"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_alignParentBottom="true"
-        android:layout_marginBottom="50dp"
-        android:orientation="vertical"
-        android:visibility="gone">
+        android:layout_height="match_parent"
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_couch_em_5"
+        android:visibility="gone"/>
 
-        <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
-            android:id="@+id/text6"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center"
-            android:gravity="center"
-            android:text="@string/landing_emisor_activa_lector"
-            android:textColor="@color/whiteColor"
-            android:textSize="@dimen/landing_text"
-            app:font_type="Bupkis" />
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:orientation="horizontal"
-            android:weightSum="4">
-
-            <android.support.v4.widget.Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="2.5" />
-
-            <ImageView
-                android:id="@+id/imageVie8"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5"
-                android:padding="@dimen/margin_small"
-                android:rotation="100"
-                android:scaleX="-1"
-                android:src="@mipmap/flecha_couchmark" />
-
-        </LinearLayout>
-    </LinearLayout>
-
-    <RelativeLayout
+    <ImageView
         android:id="@+id/tutorialPage6"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:visibility="gone">
+        android:scaleType="fitXY"
+        android:adjustViewBounds="true"
+        android:src="@drawable/img_couch_em_1"
+        android:visibility="gone"/>
 
-        <com.pagatodo.yaganaste.utils.customviews.CustomFontTextView
-            android:id="@+id/text7"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignTop="@+id/imageVie9"
-            android:layout_centerHorizontal="true"
-            android:layout_gravity="center"
-            android:layout_marginTop="23dp"
-            android:gravity="center"
-            android:text="@string/landing_emisor_configura_cuenta"
-            android:textColor="@color/whiteColor"
-            android:textSize="@dimen/landing_text"
-            app:font_type="Bupkis" />
 
-        <ImageView
-            android:id="@+id/imageVie9"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_alignParentEnd="true"
-            android:layout_alignParentRight="true"
-            android:layout_alignParentTop="true"
-            android:layout_marginTop="25dp"
-            android:layout_toEndOf="@+id/text7"
-            android:layout_toRightOf="@+id/text7"
-            android:scaleX="1.3"
-            android:scaleY="1.3"
-            android:rotation="90"
-            android:src="@mipmap/flecha_couchmark" />
-
-    </RelativeLayout>
 </RelativeLayout>

@@ -84,17 +84,18 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         setContentView(R.layout.activity_main_tab);
         load();
 
-        if (!pref.containsData(COUCHMARK_EMISOR)) {
-            pref.saveDataBool(COUCHMARK_EMISOR, true);
-            Intent intent = new Intent(this, LandingFragment.class);
-            startActivity(intent);
-        }
-
         if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
                 SingletonUser.getInstance().getDataUser().getEstatusAgente() == PTH_DOCTO_APROBADO &&
                 !pref.containsData(COUCHMARK_ADQ)) {
             pref.saveDataBool(COUCHMARK_ADQ, true);
             Intent intent = new Intent(this, LandingAdqFragment.class);
+            startActivity(intent);
+        }
+
+
+        if (!pref.containsData(COUCHMARK_EMISOR)) {
+            pref.saveDataBool(COUCHMARK_EMISOR, true);
+            Intent intent = new Intent(this, LandingFragment.class);
             startActivity(intent);
         }
 

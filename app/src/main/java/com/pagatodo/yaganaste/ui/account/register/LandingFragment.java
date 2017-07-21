@@ -7,7 +7,6 @@ import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
@@ -23,17 +22,17 @@ import butterknife.ButterKnife;
 public class LandingFragment extends SupportFragmentActivity implements Animation.AnimationListener {
 
     @BindView(R.id.tutorialPage1)
-    LinearLayout tutorialPage1;
+    View tutorialPage1;
     @BindView(R.id.tutorialPage2)
-    LinearLayout tutorialPage2;
+    View tutorialPage2;
     @BindView(R.id.tutorialPage3)
-    LinearLayout tutorialPage3;
+    View tutorialPage3;
     @BindView(R.id.tutorialPage4)
-    LinearLayout tutorialPage4;
+    View tutorialPage4;
     @BindView(R.id.tutorialPage5)
-    LinearLayout tutorialPage5;
-    @BindView(R.id.tutorialPage6)
-    RelativeLayout tutorialPage6;
+    View tutorialPage5;
+    //@BindView(R.id.tutorialPage6)
+    //RelativeLayout tutorialPage6;
     Animation animFadeIn, animFadeOut;
     int animationCounter = 0;
     boolean animaationEnd = true;
@@ -54,17 +53,6 @@ public class LandingFragment extends SupportFragmentActivity implements Animatio
         tutorialPage1.setVisibility(View.VISIBLE);
 
     }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
 
     @Override
     public void onAnimationStart(Animation animation) {
@@ -104,9 +92,9 @@ public class LandingFragment extends SupportFragmentActivity implements Animatio
                     tutorialPage5.startAnimation(animFadeIn);
                     break;
                 case 4:
-                    tutorialPage5.setVisibility(View.GONE);
-                    tutorialPage6.setVisibility(View.VISIBLE);
-                    tutorialPage6.startAnimation(animFadeIn);
+                    //tutorialPage5.setVisibility(View.GONE);
+                    //tutorialPage6.setVisibility(View.VISIBLE);
+                    //tutorialPage6.startAnimation(animFadeIn);
                     break;
                 case 5:
                     break;
@@ -132,7 +120,7 @@ public class LandingFragment extends SupportFragmentActivity implements Animatio
                     tutorialPage5.setVisibility(View.VISIBLE);
                     break;
                 case 4:
-                    tutorialPage6.setVisibility(View.VISIBLE);
+                    //tutorialPage6.setVisibility(View.VISIBLE);
                     break;
                 case 5:
                     break;
@@ -171,9 +159,9 @@ public class LandingFragment extends SupportFragmentActivity implements Animatio
                             tutorialPage4.startAnimation(animFadeOut);
                             break;
                         case 4:
-                            tutorialPage5.startAnimation(animFadeOut);
-                            break;
-                        case 5:
+                            //tutorialPage5.startAnimation(animFadeOut);
+                            //break;
+                        //case 5:
                             finishActivity();
                             overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
                             break;
@@ -185,17 +173,13 @@ public class LandingFragment extends SupportFragmentActivity implements Animatio
                 break;
         }
 
-
         return true;
-        //return super.onTouchEvent(event);
     }
 
     @Override
     public void onBackPressed() {
-        //super.onBackPressed();
         finishActivity();
     }
-
 
     private void finishActivity() {
         this.finish();
