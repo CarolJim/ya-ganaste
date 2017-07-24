@@ -626,10 +626,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 Log.w(TAG, "parseJson Card Account: " + dataCard.getIdCuenta());
                 SingletonUser user = SingletonUser.getInstance();
                 user.getDataExtraUser().setNeedSetPin(true);//TODO Validar esta bandera
-                accountManager.onSucces(response.getWebService(), "Tarjeta Válida");
+                accountManager.onSucces(response.getWebService(), App.getContext().getString(R.string.emisor_validate_card));
             } else {
                 /*TODO enviar mensaje a vista*/
-                accountManager.onError(response.getWebService(), "Esta Tarjeta Ya Ha Sido Asignada, Ingresa Otra Tarjeta o Selecciona la Opción NO TENGO TARJETA");
+                accountManager.onError(response.getWebService(), App.getContext().getString(R.string.emisor_validate_card_fail));
             }
         } else {
             accountManager.onError(response.getWebService(), data.getMensaje());
@@ -695,7 +695,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 accountManager.onSucces(response.getWebService(), listaColonias);
 
             } else {
-                accountManager.onError(response.getWebService(), "Verifica tu Código Postal");//Retornamos mensaje de error.
+                accountManager.onError(response.getWebService(), App.getContext().getString(R.string.emisor_validate_postalcode));//Retornamos mensaje de error.
             }
         } else {
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.

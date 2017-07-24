@@ -450,21 +450,21 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showError(Object error) {
-        if (!error.toString().isEmpty())
-            //UI.showToastShort(error.toString(), getActivity());
-            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
-                    new DialogDoubleActions() {
-                        @Override
-                        public void actionConfirm(Object... params) {
-
-                        }
-
-                        @Override
-                        public void actionCancel(Object... params) {
-
-                        }
-                    },
-                    true, false);
+        if (!error.toString().isEmpty()) {
+//            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+//                    new DialogDoubleActions() {
+//                        @Override
+//                        public void actionConfirm(Object... params) {
+//
+//                        }
+//
+//                        @Override
+//                        public void actionCancel(Object... params) {
+//
+//                        }
+//                    },
+//                    true, false);
+        }
     }
 
     @Override
