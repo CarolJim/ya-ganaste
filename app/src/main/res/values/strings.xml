@@ -163,7 +163,7 @@
     <string name="txt_leyenda_felicidades">Tu aplicación Ya Ganaste Está Preparada Para Que Comiences Una Nueva Experiencia y Disfrutes de Todos Los Beneficios</string>
     <string name="txt_comenzar">COMENZAR</string>
     <string name="activate_now">¡ACTÍVALA YA SIN COSTO!</string>
-    <string name="txt_escribe_tu_pass">Ingresa tu Contraseña</string>
+    <string name="txt_escribe_tu_pass">Contraseña</string>
     <string name="txt_login">INGRESAR</string>
     <string name="txt_iniciar_sesion">Iniciar Sesión</string>
     <string name="recover_pass">¿Olvidaste tu Contraseña?</string>
@@ -258,7 +258,7 @@
     <!--datos_usuario-->
     <string name="datos_usuario_correo_existe">Este Correo ya ha Sido Registrado.</string>
     <string name="userDataTitle">Datos de Usuario</string>
-    <string name="confirmEmail">Confirma tu Correo</string>
+    <string name="confirmEmail">Confirma Correo</string>
     <string name="password">Contraseña</string>
     <string name="passwordConfirm">Confirma Contraseña</string>
     <string name="datos_usuario_correo">Introduce un Correo Válido (*)</string>
@@ -342,7 +342,7 @@
     <string name="datos_telefono_incorrecto">Ingrese un Teléfono Válido</string>
     <string name="datos_negocio_preguntas">Debes Contestar Todas las Preguntas.</string>
     <!--Server problem-->
-    <string name="message_generic_ws">Ocurró un Problema. Intente más tarde.</string>
+    <string name="message_generic_ws">Ocurrió un Problema. Intente Más Tarde.</string>
 
     <!-- Strings Menu Principal-->
     <string name="main_tab_inicio">Inicio</string>
@@ -449,7 +449,7 @@
 
 
     <string name="ok">OK</string>
-    <string name="permission_camera_rationale">El acceso a la Cámara es Necesario Para la Detección de Código de Barras</string>
+    <string name="permission_camera_rationale">El Acceso a la Cámara es Necesario Para la Detección de Código de Barras</string>
     <string name="no_camera_permission">Esta acción no se Puede Ejecutar Porque no Tiene el Permiso de Cámara.</string>
     <string name="low_storage_error">No se Pueden Descargar Las Dependencias del Detector de Códigos de Barras Debido al Bajo Almacenamiento del Dispositivo</string>
 
@@ -461,7 +461,7 @@
     <string name="title_cancelar">Cancelar</string>
     <string name="title_reintentar">Reintentar</string>
     <string name="title_llamar">Llamar</string>
-    <string name="title_error">Ocurrió Un Error</string>
+    <string name="title_error">Ocurrió un Error</string>
 
 
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>

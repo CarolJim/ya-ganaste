@@ -79,7 +79,7 @@
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_name_destinatario"
                 android:inputType="textCapSentences"
-                android:maxLength="16" />
+                android:maxLength="25" />
 
         </LinearLayout>
 
