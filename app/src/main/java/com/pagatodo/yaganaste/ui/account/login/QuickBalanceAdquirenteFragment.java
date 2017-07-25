@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
 import com.pagatodo.yaganaste.utils.StringConstants;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -116,7 +117,10 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         if (preferencias.containsData(HAS_SESSION)) {
             String cardNumber = preferencias.loadData(CARD_NUMBER);
 
-            cardBalanceAdq.setCardNumber(cardNumber);
+            cardBalanceAdq.setCardNumber(
+                    StringUtils.ocultarCardNumberFormat(
+                            cardNumber
+                    ));
             cardBalanceAdq.setCardDate("02/21");
 
             if (Build.VERSION.SDK_INT >= 24) {

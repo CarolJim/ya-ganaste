@@ -55,7 +55,7 @@
         style="@style/textDescInputs"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/layoutButtonsResult"
+        android:layout_below="@+id/txtSubtitleResult"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:gravity="center"
         app:tipo="Subtitulo" />

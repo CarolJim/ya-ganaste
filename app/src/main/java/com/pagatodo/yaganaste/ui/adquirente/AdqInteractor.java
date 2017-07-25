@@ -41,6 +41,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHE
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SIGNATURE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_REMOVE_CARD;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_CODE_OK;
@@ -333,7 +334,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
 
         } /*else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
             iSessionExpired.errorSessionExpired(response);
-        } */else {
+        } */ else {
             prefs.clearPreference(KSN_LECTOR);
             accountManager.onError(response.getWebService(), data.getMessage());
             //accountManager.onError(response.getWebService(),data.getMessage());//Retornamos mensaje de error.
@@ -363,13 +364,19 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                     @Override
                     public void action(Context context, Object... params) {
                         INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(EVENT_GO_REMOVE_CARD, App.getContext().getString(R.string.execution_success));
+                        viewInterface.nextScreen(EVENT_GO_GET_SIGNATURE, App.getContext().getString(R.string.execution_success));
                     }
                 });
                 pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
+                pageResult.setDescription(App.getContext().getString(R.string.adq_remove_tdc));
                 result.setPageResult(pageResult);
                 accountManager.onSucces(response.getWebService(), data.getError().getMessage());
                 break;
+            /* Se realizo un cambio de EVENT_GO_REMOVE_CARD a EVENT_GO_GET_SIGNATURE para evitar
+             animacion de quitar al tarjeta e ir directo a la firma
+             Igualmente aqui podemos poner la informacion de Description en PageResult para que se muestre de acuero
+             a la proramacion de Transaction Result Fragment
+             */
             default:
                 result.setStatusTransaction(ADQ_TRANSACTION_ERROR);
                 PageResult pageResultError = new PageResult(R.drawable.ic_cancel,
@@ -417,7 +424,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             accountManager.onSucces(response.getWebService(), data.getMessage());
         } /*else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
             iSessionExpired.errorSessionExpired(response);
-        } */else {
+        } */ else {
             accountManager.onError(response.getWebService(), data.getMessage());//Retornamos mensaje de error.
         }
     }
@@ -458,7 +465,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             accountManager.onSucces(response.getWebService(), data.getMessage());
         } /*else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
             iSessionExpired.errorSessionExpired(response);
-        } */else {
+        } */ else {
             accountManager.onError(response.getWebService(), data.getMessage());//Retornamos mensaje de error.
         }
     }
