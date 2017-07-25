@@ -652,6 +652,18 @@
     <string name="emisor_validate_card"><u>Tarjeta Válida</u></string>
     <string name="emisor_validate_card_fail"><u>Esta Tarjeta Ya Ha Sido Asignada, Ingresa Otra Tarjeta o Selecciona la Opción NO TENGO TARJETA</u></string>
     <string name="emisor_validate_postalcode"><u>Verifica tu Código Postal</u></string>
+
+   <!--start Cupo Strings-->
+
+    <string name="txt_contacto">¿Tienes Dudas? Contáctanos\n01-800-500-1000\ncontacto@yaganaste.com</string>
+    <string name="txt_validate_info">Estamos Revisando\nTu Información </string>
+    <string name="txt_validate_success_info">Solicitud Exitosa </string>
+    <string name="txt_validate_fail_info">Solicitud Rechazada </string>
+    <string name="txt_congratulations">¡Felicidades!\n\n</string>
+    <string name="txt_limit_credit">\n\nEs tu Linea de\nCrédito Aprobada</string>
+    <string name="txt_mount_credit">$%1$s</string>
+    <!--end Cupo Strings-->
+
 </resources>
 
 

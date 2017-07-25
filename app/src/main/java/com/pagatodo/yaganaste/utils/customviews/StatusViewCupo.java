@@ -113,7 +113,17 @@ public class StatusViewCupo extends View {
     }
 
 
-    public void updatePercent(STATUS status,int mPercent){
+    public void updateStatus(int mPercentFirst, int mPercentSecond){
+        updatePercent(STATUS.FIRST, mPercentFirst);
+        updatePercent(STATUS.SECOND,mPercentSecond);
+    }
+
+    public void updateError(int mPercentError,int mPercentSecond){
+        updatePercent(STATUS.ERROR, mPercentError);
+        updatePercent(STATUS.SECOND,mPercentSecond);
+    }
+
+    private void updatePercent(STATUS status,int mPercent){
         switch (status){
             case FIRST:
                 mPercentFirst = mPercent;
