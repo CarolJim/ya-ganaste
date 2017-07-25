@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <Button
+        android:id="@+id/btn_phase_0"
+        android:textColor="@color/whiteColor"
+        android:text="Reset"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+    <Button
+        android:id="@+id/btn_phase_1"
+        android:textColor="@color/whiteColor"
+        android:text="Confirmar Fase 1"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+
+        android:id="@+id/btn_phase_2"
+        android:textColor="@color/whiteColor"
+        android:text="Confirmar Fase 2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+    <Button
+
+        android:id="@+id/btn_phase_3"
+        android:textColor="@color/whiteColor"
+        android:text="Confirmar Fase 3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <Button
+
+        android:id="@+id/btn_phase_4"
+        android:textColor="@color/whiteColor"
+        android:text="Completado"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content">
+    <com.pagatodo.yaganaste.utils.customviews.StatusViewCupo
+        android:layout_centerInParent="true"
+        xmlns:custom="http://schemas.android.com/apk/res/com.pagatodo.yaganaste"
+        android:id="@+id/status_view"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:bgColor="#e1e1e1"
+        app:firstColor="@android:color/holo_blue_bright"
+        app:secondColor="@android:color/holo_green_dark"
+        app:thirdColor="@android:color/holo_red_dark"
+        app:percent="30"
+        app:startAngle="0"
+        app:strokeWidth="21dp"
+        />
+
+        <TextView
+            android:id="@+id/txt_status"
+            android:gravity="center_horizontal"
+            android:text="Validando\nDocumentos\n1/3"
+            android:textColor="@android:color/white"
+            android:layout_centerInParent="true"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+    </RelativeLayout>
+
+</LinearLayout>
