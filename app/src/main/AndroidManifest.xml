@@ -57,12 +57,19 @@
         </provider>
 
         <activity android:name=".ui._controllers.SplashActivity">
+
+        </activity>
+        <activity
+            android:name=".ui._controllers.CupoStatusActivity"
+            android:screenOrientation="portrait"
+            android:windowSoftInputMode="adjustPan" >
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
         <activity
             android:name=".ui._controllers.MainActivity"
             android:screenOrientation="portrait"

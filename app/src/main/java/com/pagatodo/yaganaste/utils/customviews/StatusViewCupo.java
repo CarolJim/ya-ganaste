@@ -13,6 +13,7 @@ import android.graphics.Shader;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.animation.AccelerateDecelerateInterpolator;
+import android.view.animation.LinearInterpolator;
 
 import com.pagatodo.yaganaste.R;
 
@@ -46,6 +47,8 @@ public class StatusViewCupo extends View {
     private LinearGradient mShaderFirst;
     private LinearGradient mShaderSecond;
 
+
+    private ObjectAnimator animator;
 
     public StatusViewCupo(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -115,12 +118,16 @@ public class StatusViewCupo extends View {
 
     public void updateStatus(int mPercentFirst, int mPercentSecond){
         updatePercent(STATUS.FIRST, mPercentFirst);
+        animateFistColor();
         updatePercent(STATUS.SECOND,mPercentSecond);
+        animateSecondColor();
     }
 
     public void updateError(int mPercentError,int mPercentSecond){
         updatePercent(STATUS.ERROR, mPercentError);
+        animateFistColor();
         updatePercent(STATUS.SECOND,mPercentSecond);
+        animateSecondColor();
     }
 
     private void updatePercent(STATUS status,int mPercent){
@@ -174,7 +181,69 @@ public class StatusViewCupo extends View {
     }
 
 
+    public void animateIndeterminate() {
+        animateIndeterminate(1000, new AccelerateDecelerateInterpolator());
+    }
+
+    public void animateIndeterminate(int durationOneCircle,
+                                     TimeInterpolator interpolator) {
+        animator = ObjectAnimator.ofFloat(this, "startAngle", mStartAngle, mStartAngle + 360);
+        if (interpolator != null) animator.setInterpolator(interpolator);
+        animator.setDuration(durationOneCircle);
+        animator.setRepeatCount(ValueAnimator.INFINITE);
+        animator.setRepeatMode(ValueAnimator.RESTART);
+        animator.start();
+    }
+
+    public void stopAnimateIndeterminate() {
+        if (animator != null) {
+            animator.cancel();
+            animator = null;
+        }
+    }
+
+    public float getStartAngle() {
+        return mStartAngle;
+    }
+
+    public void setStartAngle(float mStartAngle) {
+        this.mStartAngle = mStartAngle + 270;
+        refreshTheLayout();
+    }
 
 
+    public float getFirstPercent() {
+        return mPercentFirst;
+    }
+
+    public void setFirstPercent(float mPercentFirst) {
+        this.mPercentFirst = mPercentFirst;
+        refreshTheLayout();
+    }
+
+    public float getSecondPercent() {
+        return mPercentSecond;
+    }
+
+    public void setSecondPercent(float mPercentFirst) {
+        this.mPercentSecond = mPercentFirst;
+        refreshTheLayout();
+    }
+
+    public void animateFistColor(){
+        ObjectAnimator anim = ObjectAnimator.ofFloat(this, "firstPercent",
+                0, this.getFirstPercent());
+        anim.setInterpolator(new LinearInterpolator());
+        anim.setDuration(1000);
+        anim.start();
+    }
+
+    public void animateSecondColor(){
+        ObjectAnimator anim = ObjectAnimator.ofFloat(this, "secondPercent",
+                0, this.getSecondPercent());
+        anim.setInterpolator(new LinearInterpolator());
+        anim.setDuration(1000);
+        anim.start();
+    }
 
 }
