@@ -170,7 +170,7 @@
         <attr name="bgColor" format="color"/>
         <attr name="firstColor" format="color" />
         <attr name="secondColor" format="color" />
-        <attr name="thirdColor" format="color" />
+        <attr name="errorColor" format="color" />
         <attr name="strokeWidth" format="dimension" />
         <attr name="startAngle" format="integer"/>
         <attr name="percent" format="integer"/>

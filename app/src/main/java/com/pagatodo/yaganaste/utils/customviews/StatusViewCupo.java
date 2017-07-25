@@ -23,12 +23,11 @@ import com.pagatodo.yaganaste.R;
 public class StatusViewCupo extends View {
 
     public static enum STATUS{
-        FIRST,SECOND,THIRD
+        FIRST,SECOND,ERROR
     }
 
     private float mPercentFirst  = 0;
     private float mPercentSecond = 0;
-    private float mPercentThird  = 0;
 
     private float mStrokeWidth;
     private int mBgColor = 0xffe1e1e1;
@@ -36,18 +35,16 @@ public class StatusViewCupo extends View {
 
     private int mColorFirst    = 0;
     private int mColorSecond   = 0;
-    private int mColorThird    = 0;
+    private int mColorError    = 0;
 
 
     private Context mContext;
     private RectF mOval;
     private Paint mPaint;
 
-    private ObjectAnimator animator;
 
     private LinearGradient mShaderFirst;
     private LinearGradient mShaderSecond;
-    private LinearGradient mShaderThird;
 
 
     public StatusViewCupo(Context context, AttributeSet attrs) {
@@ -62,7 +59,7 @@ public class StatusViewCupo extends View {
             mBgColor = a.getColor(R.styleable.StatusCupoColors_bgColor, 0xffe1e1e1);
             mColorFirst     = a.getColor(R.styleable.StatusCupoColors_firstColor, 0xffff4800);
             mColorSecond = a.getColor(R.styleable.StatusCupoColors_secondColor, 0xffff4800);
-            mColorThird  = a.getColor(R.styleable.StatusCupoColors_thirdColor, 0xffff4800);
+            mColorError  = a.getColor(R.styleable.StatusCupoColors_errorColor, 0xffff4800);
 
 
             mPercentFirst = a.getFloat(R.styleable.StatusCupoColors_percent, 0);
@@ -101,8 +98,7 @@ public class StatusViewCupo extends View {
         mPaint.setShader(mShaderSecond);
         canvas.drawArc(mOval, mStartAngle, mPercentSecond * 3.6f, false, mPaint);
 
-        mPaint.setShader(mShaderThird);
-        canvas.drawArc(mOval, mStartAngle, mPercentThird * 3.6f, false, mPaint);
+
 
     }
 
@@ -113,7 +109,7 @@ public class StatusViewCupo extends View {
         updateOval();
         mShaderFirst  = new LinearGradient(mOval.left, mOval.top, mOval.left, mOval.bottom, mColorFirst, mColorFirst, Shader.TileMode.MIRROR);
         mShaderSecond = new LinearGradient(mOval.left, mOval.top, mOval.left, mOval.bottom, mColorSecond, mColorSecond, Shader.TileMode.MIRROR);
-        mShaderThird  = new LinearGradient(mOval.left, mOval.top, mOval.left, mOval.bottom, mColorThird, mColorThird, Shader.TileMode.MIRROR);
+
     }
 
 
@@ -121,12 +117,14 @@ public class StatusViewCupo extends View {
         switch (status){
             case FIRST:
                 mPercentFirst = mPercent;
+                mShaderFirst   = new LinearGradient(mOval.left, mOval.top, mOval.left, mOval.bottom, mColorFirst, mColorFirst, Shader.TileMode.MIRROR);
                 break;
             case SECOND:
                 mPercentSecond = mPercent;
                 break;
-            case THIRD:
-                mPercentThird  = mPercent;
+            case ERROR:
+                mPercentFirst  = mPercent;
+                mShaderFirst   = new LinearGradient(mOval.left, mOval.top, mOval.left, mOval.bottom, mColorError, mColorError, Shader.TileMode.MIRROR);
                 break;
         }
 
@@ -168,33 +166,5 @@ public class StatusViewCupo extends View {
 
 
 
-    public float getStartAngle() {
-        return mStartAngle;
-    }
 
-    public void setStartAngle(float mStartAngle) {
-        this.mStartAngle = mStartAngle + 270;
-        refreshTheLayout();
-    }
-
-    public void animateIndeterminate() {
-        animateIndeterminate(800, new AccelerateDecelerateInterpolator());
-    }
-
-    public void animateIndeterminate(int durationOneCircle,
-                                     TimeInterpolator interpolator) {
-        animator = ObjectAnimator.ofFloat(this, "startAngle", getStartAngle(), getStartAngle() + 360);
-        if (interpolator != null) animator.setInterpolator(interpolator);
-        animator.setDuration(durationOneCircle);
-        animator.setRepeatCount(ValueAnimator.INFINITE);
-        animator.setRepeatMode(ValueAnimator.RESTART);
-        animator.start();
-    }
-
-    public void stopAnimateIndeterminate() {
-        if (animator != null) {
-            animator.cancel();
-            animator = null;
-        }
-    }
 }

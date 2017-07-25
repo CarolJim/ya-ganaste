@@ -43,6 +43,14 @@ android:orientation="vertical" android:layout_width="match_parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
 
+    <Button
+
+        android:id="@+id/btn_error_phase2"
+        android:textColor="@color/whiteColor"
+        android:text="Error Validando "
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
 
     <RelativeLayout
         android:layout_width="wrap_content"
@@ -56,7 +64,7 @@ android:orientation="vertical" android:layout_width="match_parent"
         app:bgColor="#e1e1e1"
         app:firstColor="@android:color/holo_blue_bright"
         app:secondColor="@android:color/holo_green_dark"
-        app:thirdColor="@android:color/holo_red_dark"
+        app:errorColor="@android:color/holo_red_dark"
         app:percent="30"
         app:startAngle="0"
         app:strokeWidth="21dp"
