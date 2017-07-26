@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
@@ -41,6 +42,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -280,6 +282,10 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         CameraManager.cleanBitmap();
         hideLoader();
         onEventListener.onEvent("DISABLE_BACK", false);
+
+        // Guardamos el Sitring de la foto en los Preferencioes
+        Preferencias preferencias = App.getInstance().getPrefs();
+        preferencias.saveData(URL_PHOTO_USER, mUserImage);
     }
 
     @Override

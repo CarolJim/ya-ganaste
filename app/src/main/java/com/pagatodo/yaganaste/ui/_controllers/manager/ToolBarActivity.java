@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.Toolbar;
@@ -9,24 +10,32 @@ import android.view.MenuItem;
 import android.view.View;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.interfaces.IPhotoUserWeb;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
+import com.pagatodo.yaganaste.utils.BitmapDownload;
+import com.pagatodo.yaganaste.utils.StringUtils;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
-
 
 /**
  * Created by jguerras on 29/11/2016.
  * Updated by flima on 8/02/2017.
  */
 
-public abstract class ToolBarActivity extends SupportFragmentActivity {
+public abstract class ToolBarActivity extends SupportFragmentActivity implements IPhotoUserWeb,
+        View.OnClickListener {
 
     public static final int CODE_LOG_OUT = 3124;
     public static final int RESULT_LOG_OUT = 3125;
     public static final String EVENT_CHANGE_TOOLBAR_VISIBILITY = "eventChangeToolbarVisibility";
     private View toolbarLayout;
+    public String mUserImage;
+    CircleImageView imageView;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -36,13 +45,51 @@ public abstract class ToolBarActivity extends SupportFragmentActivity {
 
     public void setUpActionBar() {
         toolbarLayout = findViewById(R.id.toolbarLy);
+        imageView = (CircleImageView) findViewById(R.id.imgToRight_prefe);
+        if (imageView != null) {
+            imageView.setOnClickListener(this);
+        }
+
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarTest);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
     }
 
-    public void changeToolbarVisibility(boolean visibility) {
+    /**
+     * Metodo que heredamos, controla el que se muestre el icono con la foto como visible o no, en
+     * todos sus descendientes
+     * @param mBoolean
+     */
+    public void setVisibilityPrefer(Boolean mBoolean){
+        if(mBoolean){
+            imageView.setVisibility(View.VISIBLE);
+        }else{
+            imageView.setVisibility(View.GONE);
+        }
+    }
+    /**
+     * Codigo para hacer Set en la imagen de preferencias con la foto actual
+     */
+    private void updatePhoto() {
+        mUserImage = SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL();
+
+        if (mUserImage != null && !mUserImage.isEmpty()) {
+            try {
+                // Pedimos la imagen por internet y generamos el Bitmap
+                String urlEdit = StringUtils.procesarURLString(mUserImage);
+                BitmapDownload bitmapDownload = new BitmapDownload(urlEdit, this);
+                bitmapDownload.execute();
+            } catch (Exception e) {
+                // Hacemos algo si falla por no tener internet
+                //  showDialogMesage(e.toString());
+            }
+        } else {
+
+        }
+    }
+
+ public void changeToolbarVisibility(boolean visibility) {
         if (toolbarLayout != null) {
             if (visibility) {
                 toolbarLayout.setVisibility(View.VISIBLE);
@@ -52,9 +99,18 @@ public abstract class ToolBarActivity extends SupportFragmentActivity {
         }
     }
 
+    /**
+     * Respuesta de la interfase, contieen el Bitmap listo para usarse y hacer SET del mismo
+     * @param bitmap
+     */
+    @Override
+    public void sendToIteractorBitmap(Bitmap bitmap) {
+        imageView.setImageBitmap(bitmap);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        getMenuInflater().inflate(R.menu.my_account_menu, menu);
+     //   getMenuInflater().inflate(R.menu.my_account_menu, menu);
         return true;
     }
 
@@ -73,6 +129,13 @@ public abstract class ToolBarActivity extends SupportFragmentActivity {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        setVisibilityPrefer(true);
+        updatePhoto();
+    }
+
+    @Override
     public void onEvent(String event, Object data) {
         super.onEvent(event, data);
     }
@@ -87,5 +150,15 @@ public abstract class ToolBarActivity extends SupportFragmentActivity {
             startActivity(intent);
             finish();
         }
+    }
+
+    /**
+     * Abrimos la actividad de las preferencias
+     * @param v
+     */
+    @Override
+    public void onClick(View v) {
+        Intent intent = new Intent(this, PreferUserActivity.class);
+        startActivityForResult(intent, CODE_LOG_OUT);
     }
 }

@@ -113,6 +113,12 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     }
 
     @Override
+    protected void onResume() {
+        super.onResume();
+        setVisibilityPrefer(false);
+    }
+
+    @Override
     public void onEvent(String event, Object o) {
         super.onEvent(event, o);
         Log.e(TAG, "onEvent - - " + event);

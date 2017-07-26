@@ -8,6 +8,7 @@ import com.pagatodo.yaganaste.utils.StringUtils;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.FULL_NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
@@ -79,6 +80,9 @@ public class SingletonUser {
             if (urlSplit.length > 1) {
                 dataUser.getUsuario().setImagenAvatarURL(urlSplit[0] + "_M.png");
             }
+
+            // Guardamos en las preferencias la direccion de la imagen
+            prefs.saveData(URL_PHOTO_USER, mUserImage);
         }
     }
 

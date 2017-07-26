@@ -100,6 +100,13 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         return mPreferPresenter;
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
+        setVisibilityPrefer(false);
+    }
+
     /**
      * Sobre escribimos el metodo del PAdre ToolBar para no tener el boton que nos abre esta+
      * activitydad

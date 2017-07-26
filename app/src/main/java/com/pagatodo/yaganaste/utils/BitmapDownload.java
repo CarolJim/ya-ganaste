@@ -5,6 +5,7 @@ import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.os.AsyncTask;
 
+import com.pagatodo.yaganaste.interfaces.IPhotoUserWeb;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserIteractor;
 
 import java.io.IOException;
@@ -26,6 +27,7 @@ public class BitmapDownload extends AsyncTask<String, Object, Bitmap> {
 
     private String mUserImage;
     private IPreferUserIteractor mIteractor;
+    private IPhotoUserWeb toolBarActivity;
 
     public BitmapDownload(Bitmap bitmap, BitmapBase64Listener listener) {
         this.listener = listener;
@@ -41,6 +43,11 @@ public class BitmapDownload extends AsyncTask<String, Object, Bitmap> {
     public BitmapDownload(String mUserImage, IPreferUserIteractor mIteractor) {
         this.mUserImage = mUserImage;
         this.mIteractor = mIteractor;
+    }
+
+    public BitmapDownload(String mUserImage, IPhotoUserWeb toolBarActivity) {
+        this.mUserImage = mUserImage;
+        this.toolBarActivity = toolBarActivity;
     }
 
     @Override
@@ -64,7 +71,11 @@ public class BitmapDownload extends AsyncTask<String, Object, Bitmap> {
     @Override
     protected void onPostExecute(Bitmap bitmap) {
         super.onPostExecute(bitmap);
-        mIteractor.sendToIteractorBitmap(bitmap);
+        if(mIteractor != null) {
+            mIteractor.sendToIteractorBitmap(bitmap);
+        }else{
+            toolBarActivity.sendToIteractorBitmap(bitmap);
+        }
 
     }
 }
