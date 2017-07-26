@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.utils.StringConstants;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -132,7 +133,11 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     }
 
     private void setData(String balance, String updateDate) {
-        txtSaldo.setText(Utils.getCurrencyValue(balance));
+        txtSaldo.setText(
+                StringUtils.formatoPagoMedios(
+                        Utils.getCurrencyValue(balance)
+                )
+        );
         txtDateUpdated.setText(String.format(getString(R.string.last_date_update), updateDate));
     }
 

@@ -649,6 +649,7 @@
     <string name="ask_permission_gps">Por Favor Activa tu GPS</string>
     <string name="adq_invt_me_interesa">¡Me interesa!</string>
     <string name="adq_invt_no_me_interesa"><u>En Otro Momento</u></string>
+    <string name="adq_remove_tdc">Ya Puedes\nRetirar la Tarjeta</string>
     <string name="emisor_validate_card"><u>Tarjeta Válida</u></string>
     <string name="emisor_validate_card_fail"><u>Esta Tarjeta Ya Ha Sido Asignada, Ingresa Otra Tarjeta o Selecciona la Opción NO TENGO TARJETA</u></string>
     <string name="emisor_validate_postalcode"><u>Verifica tu Código Postal</u></string>
