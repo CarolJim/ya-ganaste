@@ -322,7 +322,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
-                        SingletonSession.getInstance().setFinish(true);//Terminamos Activity si va a background
+                        SingletonSession.getInstance().setFinish(true);//Terminamos CupoStatusFragment si va a background
                         Intent intent = new Intent(TabActivity.this, MainActivity.class);
                         intent.putExtra(SELECTION, MAIN_SCREEN);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);

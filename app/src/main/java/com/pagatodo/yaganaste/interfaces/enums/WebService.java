@@ -84,7 +84,13 @@ public enum WebService {
     /**
      * Servicio para crer usuario
      **/
-    DESASOCIAR_DISPOSITIVO
+    DESASOCIAR_DISPOSITIVO,
+
+    /**
+     * Servicios CUPO
+     * */
+    CONSULTA_STATUS_REGISTRO_CUPO
+
 
 }
 

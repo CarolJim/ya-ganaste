@@ -30,6 +30,7 @@ import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 
 import java.util.Map;
+import java.util.Objects;
 
 import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_GET;
 import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_POST;
@@ -41,6 +42,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGN
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_TITULAR_CUENTA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.EJECUTAR_TRANSACCION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FONDEAR_CUPO;
@@ -248,5 +250,20 @@ public class ApiTrans extends Api {
         NetFacade.consumeWS(CONSULTAR_SALDO_ADQ,
                 METHOD_GET, URL_SERVER_TRANS + App.getContext().getString(R.string.getBalanceAdqUrl),
                 headers, null, ConsultarSaldoADQResponse.class, result);
+    }
+
+
+
+
+    public static void consultaStatusRegistroCupo(IRequestResult result) throws OfflineException{
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
+
+        //todo CUPO  poner URL correcta  y Class Response adecuada
+        String URL = "";
+        Class classResponse = Object.class;
+
+        NetFacade.consumeWS(CONSULTA_STATUS_REGISTRO_CUPO,METHOD_GET,URL,headers,null, classResponse,result);
     }
 }
