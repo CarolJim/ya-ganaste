@@ -23,7 +23,7 @@ import com.pagatodo.yaganaste.R;
 
 public class StatusViewCupo extends View {
 
-    public static enum STATUS{
+    public  enum PROGRESS{
         FIRST,SECOND,ERROR
     }
 
@@ -47,6 +47,8 @@ public class StatusViewCupo extends View {
     private LinearGradient mShaderFirst;
     private LinearGradient mShaderSecond;
 
+
+    private long mTimeAnimation = 1000;
 
     private ObjectAnimator animator;
 
@@ -117,31 +119,41 @@ public class StatusViewCupo extends View {
 
 
     public void updateStatus(int mPercentFirst, int mPercentSecond){
-        updatePercent(STATUS.FIRST, mPercentFirst);
+        updatePercent(PROGRESS.FIRST, mPercentFirst);
         animateFistColor();
-        updatePercent(STATUS.SECOND,mPercentSecond);
+        updatePercent(PROGRESS.SECOND,mPercentSecond);
         animateSecondColor();
     }
 
     public void updateError(int mPercentError,int mPercentSecond){
-        updatePercent(STATUS.ERROR, mPercentError);
+        updatePercent(PROGRESS.ERROR, mPercentError);
         animateFistColor();
-        updatePercent(STATUS.SECOND,mPercentSecond);
+        updatePercent(PROGRESS.SECOND,mPercentSecond);
         animateSecondColor();
     }
 
-    private void updatePercent(STATUS status,int mPercent){
+    private void updatePercent(PROGRESS status,int mPercent){
         switch (status){
             case FIRST:
                 mPercentFirst = mPercent;
-                mShaderFirst   = new LinearGradient(mOval.left, mOval.top, mOval.left, mOval.bottom, mColorFirst, mColorFirst, Shader.TileMode.MIRROR);
+                if(mOval != null){
+                    mShaderFirst   = new LinearGradient(mOval.left, mOval.top, mOval.left, mOval.bottom, mColorFirst, mColorFirst, Shader.TileMode.MIRROR);
+                }else{
+                    updateOval();
+                    updatePercent(status,mPercent);
+                }
                 break;
             case SECOND:
                 mPercentSecond = mPercent;
                 break;
             case ERROR:
                 mPercentFirst  = mPercent;
-                mShaderFirst   = new LinearGradient(mOval.left, mOval.top, mOval.left, mOval.bottom, mColorError, mColorError, Shader.TileMode.MIRROR);
+                if(mOval != null) {
+                    mShaderFirst = new LinearGradient(mOval.left, mOval.top, mOval.left, mOval.bottom, mColorError, mColorError, Shader.TileMode.MIRROR);
+                }else{
+                    updateOval();
+                    updatePercent(status,mPercent);
+                }
                 break;
         }
 
@@ -230,20 +242,27 @@ public class StatusViewCupo extends View {
         refreshTheLayout();
     }
 
-    public void animateFistColor(){
+    private void animateFistColor(){
         ObjectAnimator anim = ObjectAnimator.ofFloat(this, "firstPercent",
                 0, this.getFirstPercent());
         anim.setInterpolator(new LinearInterpolator());
-        anim.setDuration(1000);
+        anim.setDuration(mTimeAnimation);
         anim.start();
     }
 
-    public void animateSecondColor(){
+    private void animateSecondColor(){
         ObjectAnimator anim = ObjectAnimator.ofFloat(this, "secondPercent",
                 0, this.getSecondPercent());
         anim.setInterpolator(new LinearInterpolator());
-        anim.setDuration(1000);
+        anim.setDuration(mTimeAnimation);
         anim.start();
+    }
+
+
+    /**Actualiza el tiempo en que se ejecuta las animaciones
+     *@param time tiempo en milisegundos*/
+    public void setTimeAnimation(long time){
+        this.mTimeAnimation =time;
     }
 
 }
