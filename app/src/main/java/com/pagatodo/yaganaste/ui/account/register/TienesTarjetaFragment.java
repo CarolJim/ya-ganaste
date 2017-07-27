@@ -128,7 +128,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         btnNextTienesTarjeta.setOnClickListener(this);
         final Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Regular.ttf");
         radioHasCard.setOnCheckedChangeListener(this);
-        radioBtnNo.setChecked(true);//Selección por Default
+        //radioBtnNo.setChecked(true);//Selección por Default
 
 
         // Hacemos Set de la fecha de caducidad de la TDC y nombre del usuario

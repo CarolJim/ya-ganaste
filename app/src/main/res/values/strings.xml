@@ -454,7 +454,7 @@
     <string name="low_storage_error">No se Pueden Descargar Las Dependencias del Detector de Códigos de Barras Debido al Bajo Almacenamiento del Dispositivo</string>
 
 
-    <string name="no_tiene_tarjeta">No te Preocupes ¡Ya te Asignamos Una!</string>
+    <string name="no_tiene_tarjeta">No te Preocupes\n¡Ya te Asignamos Una!</string>
     <string name="si_tiene_tarjeta">Ingresa tu Número de Tarjeta</string>
     <string name="tarjeta_lista">Tu Tarjeta Esta Lista</string>
     <string name="title_aceptar">Aceptar</string>
@@ -619,6 +619,8 @@
     <string name="datos_deposito_num_card">N° Tarjeta:</string>
     <string name="datos_deposito_clabe">CLABE:</string>
     <string name="datos_deposito_donde_depos">¿Dónde Depositar?</string>
+    <string name="datos_deposito_num_agent">N° de Agente: </string>
+    <string name="datos_deposito_num_afil">N° de Afiliación: </string>
 
     <!-- Landing -->
     <string name="landing_emisor_saldo_disponible">Tu Saldo Disponible</string>
@@ -647,7 +649,7 @@
     <string name="last_date_update">Actualizado el %s hrs</string>
 
     <string name="ask_permission_gps">Por Favor Activa tu GPS</string>
-    <string name="adq_invt_me_interesa">¡Me interesa!</string>
+    <string name="adq_invt_me_interesa">¡Me Interesa!</string>
     <string name="adq_invt_no_me_interesa"><u>En Otro Momento</u></string>
     <string name="adq_remove_tdc">Ya Puedes\nRetirar la Tarjeta</string>
     <string name="emisor_validate_card"><u>Tarjeta Válida</u></string>

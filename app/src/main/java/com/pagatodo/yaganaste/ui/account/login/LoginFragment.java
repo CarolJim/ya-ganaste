@@ -39,6 +39,7 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 
 
 /**
@@ -325,8 +326,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
      */
     private void updatePhoto() {
         Preferencias preferencias = App.getInstance().getPrefs();
-        //String mUserImage = preferencias.loadData(URL_PHOTO_USER);
-        String mUserImage = "http://189.201.137.21:8033/RecursosApp/RecursosYaGanaste/Avatar/58580a38d0afa32b48fffdda1dde46da574ee8ff0a68dc593ff4749c74a69da6_M.png";
+        String mUserImage = preferencias.loadData(URL_PHOTO_USER);
+        //String mUserImage = "http://189.201.137.21:8033/RecursosApp/RecursosYaGanaste/Avatar/58580a38d0afa32b48fffdda1dde46da574ee8ff0a68dc593ff4749c74a69da6_M.png";
 
         if (mUserImage != null && !mUserImage.isEmpty()) {
             try {
@@ -338,8 +339,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 // Hacemos algo si falla por no tener internet
                 //  showDialogMesage(e.toString());
             }
-        } else {
-
         }
     }
 

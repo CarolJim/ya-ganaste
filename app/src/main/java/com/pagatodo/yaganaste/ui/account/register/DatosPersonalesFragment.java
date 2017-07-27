@@ -43,6 +43,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_ADDRE
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DATA_USER_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
 /**
  * A simple {@link GenericFragment} subclass.
@@ -182,7 +183,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
-        radioGroupGender.clearCheck();
         errorGenderMsessage.alingCenter();
 
         errorGenderMsessage.setVisibilityImageError(false);
@@ -452,9 +452,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
         if (registerUser.getGenero().equals("H")) {
             radioBtnMale.setChecked(true);
         } else if (registerUser.getGenero().equals("M")) {
-            radioBtnFemale.setChecked(true);
-        } else {
-            //radioGroupGender.clearCheck();
             radioBtnFemale.setChecked(true);
         }
 

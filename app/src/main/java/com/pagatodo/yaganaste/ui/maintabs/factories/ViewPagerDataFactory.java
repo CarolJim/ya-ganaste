@@ -39,7 +39,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 public class ViewPagerDataFactory {
 
     private ViewPagerDataFactory() {
-        throw new IllegalCallException("You can't create an instance for ViewPagerDataFactory");
+        throw new IllegalCallException("You Can't Create an Instance for ViewPagerDataFactory");
     }
 
     public static ViewPagerData createList(final TABS type) {
@@ -71,6 +71,9 @@ public class ViewPagerDataFactory {
                 fragmentList.add(GetMountFragment.newInstance());
                 return new ViewPagerData<>(fragmentList, SessionExistTab.values());
 
+            case DEPOSITS:
+
+                return null;
 
             default:
                 throw new IllegalFactoryParameterException(type.toString());
@@ -111,7 +114,8 @@ public class ViewPagerDataFactory {
         HOME_FRAGMENT,
         PERSONAL_ACCOUNT,
         PAYMENTS,
-        SESSION_EXIST
+        SESSION_EXIST,
+        DEPOSITS
     }
 
 }
