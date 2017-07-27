@@ -73,7 +73,6 @@ public class VolleySingleton {
      */
     public RequestQueue getRequestQueue() {
         if (mRequestQueue == null) {
-
             String[] pins = new String[]{Recursos.PIN_ADVO, Recursos.PIN_TRANS, Recursos.PIN_YA};
             HttpParams httpParameters = new BasicHttpParams();
 
@@ -104,4 +103,7 @@ public class VolleySingleton {
     public ImageLoader getImageLoader() {
         return mImageLoader;
     }
+
+
+
 }
