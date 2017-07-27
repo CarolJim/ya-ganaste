@@ -1,0 +1,276 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
+
+            <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+                android:id="@+id/layoutContent"
+                style="@style/BorderTitleStyle"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/cuentanos_mas_de_ti">
+
+                <LinearLayout
+                    style="@style/BorderLayoutContent"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+
+                    <Spinner
+                        android:id="@+id/spEstadoCivil"
+                        style="@style/SpinnerNoArrow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_xsmall"
+                        android:background="@null"
+                        android:backgroundTint="@color/transparent" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorEstadoCivil"
+                        style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <Spinner
+                        android:id="@+id/spHijos"
+                        style="@style/SpinnerNoArrow"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/margin_xsmall"
+                        android:background="@null"
+                        android:backgroundTint="@color/transparent" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorHijos"
+                        style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        style="@style/generic_text_style_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:gravity="center"
+                        android:text="@string/en_los_ultimos_anios"
+                        android:textColor="@color/colorAccent" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txtCreditoBancario"
+                        style="@style/generic_text_style_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_regular"
+                        android:layout_marginRight="@dimen/margin_regular"
+                        android:layout_marginTop="@dimen/space_between_elements"
+                        android:gravity="center"
+                        android:text="@string/has_tenido_credito"
+                        android:textColor="@color/whiteColor"
+                        app:tipo="Descripcion" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupHasCreditBank"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_between_elements"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:theme="@style/RadioButtonTheme">
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <RadioButton
+                            android:id="@+id/radioBtnrgHasCreditBankYes"
+                            style="@style/generic_text_style_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/no" />
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <RadioButton
+                            android:id="@+id/radioBtnrgHasCreditBankNo"
+                            style="@style/generic_text_style_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/yes" />
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+                    </RadioGroup>
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txtCreditoAuto"
+                        style="@style/generic_text_style_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_regular"
+                        android:layout_marginRight="@dimen/margin_regular"
+                        android:layout_marginTop="@dimen/space_between_elements"
+                        android:gravity="center"
+                        android:text="@string/obtuviste_credito_auto"
+                        android:textColor="@color/whiteColor"
+                        app:tipo="Descripcion" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupHasCreditCar"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_between_elements"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:theme="@style/RadioButtonTheme">
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <RadioButton
+                            android:id="@+id/radioBtnrgHasCreditCarYes"
+                            style="@style/generic_text_style_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/no" />
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <RadioButton
+                            android:id="@+id/radioBtnrgHasCreditCarNo"
+                            style="@style/generic_text_style_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/yes" />
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+                    </RadioGroup>
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txtTarjetaCredito"
+                        style="@style/generic_text_style_3"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="@dimen/margin_regular"
+                        android:layout_marginRight="@dimen/margin_regular"
+                        android:layout_marginTop="@dimen/space_between_elements"
+                        android:gravity="center"
+                        android:text="@string/has_tenido_tarjeta_credito"
+                        android:textColor="@color/whiteColor"
+                        app:tipo="Descripcion" />
+
+                    <RadioGroup
+                        android:id="@+id/radioGroupHasCreditCard"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginTop="@dimen/space_between_elements"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:theme="@style/RadioButtonTheme">
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <RadioButton
+                            android:id="@+id/radioBtnrgHasCreditCardYes"
+                            style="@style/generic_text_style_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/no" />
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+
+                        <RadioButton
+                            android:id="@+id/radioBtnrgHasCreditCardNo"
+                            style="@style/generic_text_style_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:text="@string/yes" />
+
+                        <android.support.v4.widget.Space
+                            android:layout_width="0dp"
+                            android:layout_height="0dp"
+                            android:layout_weight="1" />
+                    </RadioGroup>
+                </LinearLayout>
+            </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layoutBtns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnBack"
+                style="@style/buttonDirecctionBackSmall"
+                android:text="@string/backButton"
+                android:textAllCaps="false" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="@dimen/btns_separation"
+                android:layout_height="match_parent" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnNext"
+                style="@style/buttonDirecctionNext"
+                android:gravity="center"
+                android:text="@string/nextButton" />
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>

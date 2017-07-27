@@ -369,4 +369,8 @@ public class CustomValidationEditText extends LinearLayout {
     public void requestEditFocus() {
         editText.requestFocus();
     }
+
+    public void setEnabled(boolean isEnabled){
+        editText.setEnabled(isEnabled);
+    }
 }

@@ -25,11 +25,11 @@
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/imageViewCustomSpinner"
-            android:layout_width="17dp"
-            android:layout_height="wrap_content"
+            android:layout_width="15dp"
+            android:layout_height="@dimen/custom_validation_edittext_image_height"
             android:layout_centerInParent="true"
             android:adjustViewBounds="true"
-            android:scaleType="centerInside"
+            android:scaleType="fitCenter"
             app:srcCompat="@drawable/menu_canvas" />
     </RelativeLayout>
 </LinearLayout>

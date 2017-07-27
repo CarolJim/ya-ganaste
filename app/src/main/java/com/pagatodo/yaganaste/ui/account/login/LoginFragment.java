@@ -130,7 +130,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnLoginExistUser:
-                //Intent intent = new Intent(getActivity(), TabActivity.class);
+                //Intent intent = new Intent(getActivity(), RegistryCupoActivity.class);
                 //startActivity(intent);
                 actionBtnLogin();
                 break;

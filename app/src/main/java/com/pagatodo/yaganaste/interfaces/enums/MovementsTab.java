@@ -15,7 +15,7 @@ public enum MovementsTab implements IEnumTab {
     TAB3(R.string.child_tab_mony_send, 3, "Envío de Dinero"),
     TAB4(0, 4, "Envío Otro Banco"),
     TAB5(0, 5, "Recepción de Dinero"),
-    TAB6(0, 6, "Recepción Otro Banco"),;
+    TAB6(0, 6, "Recepción Otro Banco");
 
     private int name;
     private int id;
@@ -51,16 +51,7 @@ public enum MovementsTab implements IEnumTab {
     }
 
     public MovementsTab getTABfromId(int id) {
-        switch (id) {
-            case 1:
-                return TAB1;
-            case 2:
-                return TAB2;
-            case 3:
-                return TAB3;
-            default:
-                return TAB1;
-        }
+        return  getMovementById(id);
     }
 
     public String getDescription() {

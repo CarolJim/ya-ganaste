@@ -68,8 +68,8 @@ public class LandingAdqFragment extends Activity implements Animation.AnimationL
     @Override
     public void onAnimationEnd(Animation animation) {
         if (animation == animFadeOut) {
-            animFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-            animFadeIn.setAnimationListener(this);
+            //animFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+            //animFadeIn.setAnimationListener(this);
             switch (animationCounter) {
                 case 0:
                     tutorialPage1.setVisibility(View.GONE);

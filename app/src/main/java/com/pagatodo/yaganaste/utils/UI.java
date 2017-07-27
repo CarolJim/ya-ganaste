@@ -2,12 +2,15 @@ package com.pagatodo.yaganaste.utils;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.app.Dialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.support.annotation.StringRes;
 import android.support.v4.app.FragmentManager;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.Button;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;

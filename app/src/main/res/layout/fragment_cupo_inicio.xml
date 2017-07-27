@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@drawable/carrousel4"
+    android:orientation="vertical">
+
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnMeInteresa"
+            style="@style/buttonSquareRoundedBlue"
+            android:layout_centerHorizontal="true"
+            android:gravity="center"
+            android:text="@string/me_interesa"
+            android:textAllCaps="false" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txtOtroMomento"
+            style="@style/generic_text_style_3"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/btnMeInteresa"
+            android:gravity="center"
+            android:paddingBottom="@dimen/generic_padig"
+            android:paddingLeft="@dimen/generic_padig"
+            android:paddingRight="@dimen/generic_padig"
+            android:paddingTop="@dimen/generic_padig"
+            android:text="@string/otro_momento"
+            app:tipo="Descripcion" />
+
+    </RelativeLayout>
+
+</RelativeLayout>

@@ -158,17 +158,17 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     protected void onStart() {
         super.onStart();
-        if (!pref.containsData(COUCHMARK_EMISOR)) {
+        //if (!pref.containsData(COUCHMARK_EMISOR)) {
 
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     pref.saveDataBool(COUCHMARK_EMISOR, true);
-                    Intent intent = new Intent(TabActivity.this, LandingFragment.class);
+                    Intent intent = new Intent(TabActivity.this, LandingAdqFragment.class);
                     startActivity(intent);
                 }
             }, 500);
-        }
+        //}
     }
 
 

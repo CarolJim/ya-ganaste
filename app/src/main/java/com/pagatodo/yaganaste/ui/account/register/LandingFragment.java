@@ -1,13 +1,12 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
-import android.app.Activity;
 import android.os.Bundle;
+import android.os.Handler;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
-import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
@@ -31,13 +30,14 @@ public class LandingFragment extends SupportFragmentActivity implements Animatio
     View tutorialPage4;
     @BindView(R.id.tutorialPage5)
     View tutorialPage5;
-    //@BindView(R.id.tutorialPage6)
-    //RelativeLayout tutorialPage6;
+
     Animation animFadeIn, animFadeOut;
     int animationCounter = 0;
     boolean animaationEnd = true;
-    private View rootview;
-    private String imagePath;
+
+    private Runnable runnable;
+    private Handler handler;
+    private static int HANDLER_TIME = 2000;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -51,7 +51,7 @@ public class LandingFragment extends SupportFragmentActivity implements Animatio
         animFadeOut.setAnimationListener(this);
         animFadeIn.setAnimationListener(this);
         tutorialPage1.setVisibility(View.VISIBLE);
-
+        startTimerNextAnimation();
     }
 
     @Override
@@ -68,33 +68,30 @@ public class LandingFragment extends SupportFragmentActivity implements Animatio
     @Override
     public void onAnimationEnd(Animation animation) {
         if (animation == animFadeOut) {
-            animFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
-            animFadeIn.setAnimationListener(this);
+            //animFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
+            //animFadeIn.setAnimationListener(this);
             switch (animationCounter) {
                 case 0:
                     tutorialPage1.setVisibility(View.GONE);
-                    tutorialPage2.setVisibility(View.VISIBLE);
                     tutorialPage2.startAnimation(animFadeIn);
+                    tutorialPage2.setVisibility(View.VISIBLE);
                     break;
                 case 1:
                     tutorialPage2.setVisibility(View.GONE);
-                    tutorialPage3.setVisibility(View.VISIBLE);
                     tutorialPage3.startAnimation(animFadeIn);
+                    tutorialPage3.setVisibility(View.VISIBLE);
                     break;
                 case 2:
                     tutorialPage3.setVisibility(View.GONE);
-                    tutorialPage4.setVisibility(View.VISIBLE);
                     tutorialPage4.startAnimation(animFadeIn);
+                    tutorialPage4.setVisibility(View.VISIBLE);
                     break;
                 case 3:
                     tutorialPage4.setVisibility(View.GONE);
-                    tutorialPage5.setVisibility(View.VISIBLE);
                     tutorialPage5.startAnimation(animFadeIn);
+                    tutorialPage5.setVisibility(View.VISIBLE);
                     break;
                 case 4:
-                    //tutorialPage5.setVisibility(View.GONE);
-                    //tutorialPage6.setVisibility(View.VISIBLE);
-                    //tutorialPage6.startAnimation(animFadeIn);
                     break;
                 case 5:
                     break;
@@ -105,31 +102,42 @@ public class LandingFragment extends SupportFragmentActivity implements Animatio
         }
 
         if (animation == animFadeIn) {
-            //tutorialPage2.setVisibility(View.VISIBLE);
-            switch (animationCounter) {
+            /*switch (animationCounter) {
                 case 0:
-                    tutorialPage2.setVisibility(View.VISIBLE);
+                    //tutorialPage2.setVisibility(View.VISIBLE);
                     break;
                 case 1:
-                    tutorialPage3.setVisibility(View.VISIBLE);
+                    //tutorialPage3.setVisibility(View.VISIBLE);
                     break;
                 case 2:
-                    tutorialPage4.setVisibility(View.VISIBLE);
+                    //tutorialPage4.setVisibility(View.VISIBLE);
                     break;
                 case 3:
-                    tutorialPage5.setVisibility(View.VISIBLE);
+                    //tutorialPage5.setVisibility(View.VISIBLE);
                     break;
                 case 4:
-                    //tutorialPage6.setVisibility(View.VISIBLE);
                     break;
                 case 5:
                     break;
                 case 6:
                     break;
-            }
+            }*/
             animaationEnd = true;
             animationCounter++;
+            startTimerNextAnimation();
+
         }
+    }
+
+    private void startTimerNextAnimation() {
+        handler = new Handler();
+        runnable = new Runnable() {
+            @Override
+            public void run() {
+                startNextAnimation();
+            }
+        };
+        handler.postDelayed(runnable, HANDLER_TIME);
     }
 
     @Override
@@ -139,41 +147,46 @@ public class LandingFragment extends SupportFragmentActivity implements Animatio
 
     @Override
     public boolean onTouchEvent(MotionEvent event) {
-
+        handler.removeCallbacks(runnable);
         switch (event.getAction()) {
             case MotionEvent.ACTION_UP:
-                if (animaationEnd) {
-                    animFadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
-                    animFadeOut.setAnimationListener(this);
-                    switch (animationCounter) {
-                        case 0:
-                            tutorialPage1.startAnimation(animFadeOut);
-                            break;
-                        case 1:
-                            tutorialPage2.startAnimation(animFadeOut);
-                            break;
-                        case 2:
-                            tutorialPage3.startAnimation(animFadeOut);
-                            break;
-                        case 3:
-                            tutorialPage4.startAnimation(animFadeOut);
-                            break;
-                        case 4:
-                            //tutorialPage5.startAnimation(animFadeOut);
-                            //break;
-                        //case 5:
-                            finishActivity();
-                            overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-                            break;
-                        default:
-
-                            break;
-                    }
-                }
+                startNextAnimation();
                 break;
         }
-
         return true;
+    }
+
+    private void startNextAnimation() {
+        if (animaationEnd) {
+            //animFadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
+            //animFadeOut.setAnimationListener(this);
+            switch (animationCounter) {
+                case 0:
+                    tutorialPage1.startAnimation(animFadeOut);
+                    break;
+                case 1:
+                    tutorialPage1.clearAnimation();
+                    tutorialPage2.startAnimation(animFadeOut);
+                    break;
+                case 2:
+                    tutorialPage2.clearAnimation();
+                    tutorialPage3.startAnimation(animFadeOut);
+                    break;
+                case 3:
+                    tutorialPage3.clearAnimation();
+                    tutorialPage4.startAnimation(animFadeOut);
+                    break;
+                case 4:
+                    tutorialPage4.clearAnimation();
+                    handler.removeCallbacks(runnable);
+                    finishActivity();
+                    overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+                    break;
+                default:
+
+                    break;
+            }
+        }
     }
 
     @Override
