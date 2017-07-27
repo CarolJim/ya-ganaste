@@ -42,7 +42,7 @@ public class DepositsViewPagerFragment extends SupportFragment {
 
     @Override
     public void initViews() {
-        rootView.setAdapter(new GenericPagerAdapter<>());
+        //rootView.setAdapter(new GenericPagerAdapter<>());
     }
 
 

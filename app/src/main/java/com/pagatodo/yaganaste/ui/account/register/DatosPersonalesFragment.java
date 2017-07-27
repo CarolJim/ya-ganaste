@@ -183,7 +183,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
-        radioGroupGender.clearCheck();
         errorGenderMsessage.alingCenter();
 
         errorGenderMsessage.setVisibilityImageError(false);
@@ -453,9 +452,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
         if (registerUser.getGenero().equals("H")) {
             radioBtnMale.setChecked(true);
         } else if (registerUser.getGenero().equals("M")) {
-            radioBtnFemale.setChecked(true);
-        } else {
-            //radioGroupGender.clearCheck();
             radioBtnFemale.setChecked(true);
         }
 
