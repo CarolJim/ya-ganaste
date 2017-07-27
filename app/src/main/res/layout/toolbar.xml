@@ -46,14 +46,25 @@
         tools:ignore="ContentDescription" />
 
     <ImageView
-        android:id="@+id/imgToRight_prefe"
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_alignParentRight="true"
         android:layout_centerVertical="true"
         android:layout_marginRight="30dp"
-        android:src="@android:drawable/ic_menu_preferences"
         android:visibility="gone"
+        app:srcCompat="@drawable/profile_1_canvas"
         tools:ignore="ContentDescription" />
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/imgToRight_prefe"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_alignParentRight="true"
+        android:layout_centerVertical="true"
+        android:layout_marginRight="13dp"
+        android:src="@drawable/icon_preferuser"
+        android:visibility="gone"
+        app:civ_border_color="@color/colorAccent"
+        app:civ_border_width="1dp" />
 
 </RelativeLayout>

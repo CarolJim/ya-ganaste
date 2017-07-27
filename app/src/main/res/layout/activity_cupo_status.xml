@@ -1,0 +1,83 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+
+
+<RelativeLayout
+xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+android:layout_width="match_parent"
+android:layout_height="match_parent">
+
+<com.pagatodo.yaganaste.utils.customviews.StyleTextView
+    style="@style/generic_text_style_2"
+    android:layout_alignParentTop="true"
+    android:layout_margin="20dp"
+    android:layout_gravity="center_horizontal"
+    android:id="@+id/txt_status_info"
+    android:gravity="center_horizontal"
+    android:text="@string/txt_validate_info"
+    android:textColor="@android:color/white"
+    android:layout_centerInParent="true"
+    
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+<RelativeLayout
+    android:id="@+id/content_progress"
+    android:layout_marginTop="100dp"
+    android:layout_alignParentTop="true"
+    android:layout_centerHorizontal="true"
+    android:layout_width="wrap_content"
+    android:layout_gravity="center_horizontal"
+    android:layout_height="wrap_content">
+    <com.pagatodo.yaganaste.utils.customviews.StatusViewCupo
+        xmlns:custom="http://schemas.android.com/apk/res/com.pagatodo.yaganaste"
+        android:id="@+id/status_view"
+        android:layout_width="200dp"
+        android:layout_height="200dp"
+        app:bgColor="#e1e1e1"
+        app:firstColor="@android:color/holo_blue_bright"
+        app:secondColor="@android:color/holo_green_dark"
+        app:errorColor="@android:color/holo_red_dark"
+        app:percent="0"
+        app:startAngle="0"
+        app:strokeWidth="15dp"
+        />
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        style="@style/generic_text_style_2"
+        android:id="@+id/txt_status"
+        android:gravity="center_horizontal"
+        android:textColor="@android:color/white"
+        android:layout_centerInParent="true"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content" />
+
+</RelativeLayout>
+
+
+<com.pagatodo.yaganaste.utils.customviews.StyleTextView
+    style="@style/generic_text_style_2"
+    android:layout_marginTop="40dp"
+    android:layout_below="@+id/content_progress"
+    android:layout_centerHorizontal="true"
+    android:layout_alignParentBottom="true"
+    android:layout_marginBottom="10dp"
+    android:id="@+id/txt_contactanos"
+    android:gravity="center_horizontal"
+    android:text="@string/txt_contacto"
+    android:textColor="@android:color/white"
+    android:layout_centerInParent="true"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content" />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:visibility="gone"
+        android:id="@+id/btnNextScreen"
+        style="@style/buttonDirecctionNext"
+        android:gravity="center"
+        android:text="@string/nextButton"
+        android:textSize="@dimen/text_size_normal"
+        android:layout_centerHorizontal="true"
+        android:layout_alignParentBottom="true"
+        android:layout_margin="50dp"
+        />
+</RelativeLayout>

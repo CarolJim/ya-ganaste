@@ -179,4 +179,13 @@ public class StringUtils {
     public static String getFirstName(String name){
         return name.contains(" ") ? name.substring(0, name.indexOf(" ")) : name;
     }
+
+    /**
+     * Procesa la URL de la imagen y le agrega lo necesario para tomar el tamaño correcto
+     */
+    public static String procesarURLString(String mUserImage) {
+        String[] urlSplit = mUserImage.split("_");
+        String urlEdit = urlSplit[0] + "_M.png";
+        return urlEdit;
+    }
 }

@@ -649,11 +649,21 @@
     <string name="ask_permission_gps">Por Favor Activa tu GPS</string>
     <string name="adq_invt_me_interesa">¡Me interesa!</string>
     <string name="adq_invt_no_me_interesa"><u>En Otro Momento</u></string>
+    <string name="adq_remove_tdc">Ya Puedes\nRetirar la Tarjeta</string>
     <string name="emisor_validate_card"><u>Tarjeta Válida</u></string>
     <string name="emisor_validate_card_fail"><u>Esta Tarjeta Ya Ha Sido Asignada, Ingresa Otra Tarjeta o Selecciona la Opción NO TENGO TARJETA</u></string>
     <string name="emisor_validate_postalcode"><u>Verifica tu Código Postal</u></string>
 
-    <!-- CUPO -->
+   <!--start Cupo Strings-->
+
+    <string name="txt_contacto">¿Tienes Dudas? Contáctanos\n01-800-500-1000\ncontacto@yaganaste.com</string>
+    <string name="txt_validate_info">Estamos Revisando\nTu Información </string>
+    <string name="txt_validate_success_info">Solicitud Exitosa </string>
+    <string name="txt_validate_fail_info">Solicitud Rechazada </string>
+    <string name="txt_congratulations">¡Felicidades!\n\n</string>
+    <string name="txt_limit_credit">\n\nEs tu Linea de\nCrédito Aprobada</string>
+    <string name="txt_mount_credit">$%1$s</string>
+
     <string name="sigue_siendo_tu_domicilio">¿Sigue Siendo Este tu Domicilio?</string>
     <string name="cuentanos_mas_de_ti">Cuéntanos Más de ti</string>
     <string name="en_los_ultimos_anios">En Los Últimos Seis Años:</string>
@@ -668,6 +678,8 @@
     <string name="cual_estado_civil">¿Cuál es tu Estado Civil?</string>
     <string name="cuantos_hijos">¿Cuántos Hijos Tienes?</string>
     <string name="relacion">Relación</string>
+
+    <!--end Cupo Strings-->
 </resources>
 
 

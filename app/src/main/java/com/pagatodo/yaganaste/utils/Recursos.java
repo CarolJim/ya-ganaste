@@ -82,6 +82,9 @@ public class Recursos {
     public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
     public static final String ADQ_PROCESS = "FLAG_PROCESS";
 
+    // Preferencias para Foto de Usuario. URL
+    public static final String URL_PHOTO_USER = "URL_PHOTO_USER";
+
     /**
      * Catálogos
      **/

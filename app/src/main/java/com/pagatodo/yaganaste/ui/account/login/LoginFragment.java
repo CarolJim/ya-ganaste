@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,6 +13,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
+import com.pagatodo.yaganaste.interfaces.IPhotoUserWeb;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.net.UtilsNet;
@@ -20,7 +22,9 @@ import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
+import com.pagatodo.yaganaste.utils.BitmapDownload;
 import com.pagatodo.yaganaste.utils.StringConstants;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -40,7 +44,8 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class LoginFragment extends GenericFragment implements View.OnClickListener, ILoginView, ValidationForms {
+public class LoginFragment extends GenericFragment implements View.OnClickListener, ILoginView,
+        ValidationForms, IPhotoUserWeb {
 
     @BindView(R.id.imgLoginExistProfile)
     CircleImageView imgLoginExistProfile;
@@ -311,6 +316,40 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         if (!RequestHeaders.getTokenauth().isEmpty()) {
             edtUserName.setText(RequestHeaders.getUsername());
         }
+
+        updatePhoto();
+    }
+
+    /**
+     * Codigo para hacer Set en la imagen de preferencias con la foto actual
+     */
+    private void updatePhoto() {
+        Preferencias preferencias = App.getInstance().getPrefs();
+        //String mUserImage = preferencias.loadData(URL_PHOTO_USER);
+        String mUserImage = "http://189.201.137.21:8033/RecursosApp/RecursosYaGanaste/Avatar/58580a38d0afa32b48fffdda1dde46da574ee8ff0a68dc593ff4749c74a69da6_M.png";
+
+        if (mUserImage != null && !mUserImage.isEmpty()) {
+            try {
+                // Pedimos la imagen por internet y generamos el Bitmap
+                String urlEdit = StringUtils.procesarURLString(mUserImage);
+                BitmapDownload bitmapDownload = new BitmapDownload(urlEdit, this);
+                bitmapDownload.execute();
+            } catch (Exception e) {
+                // Hacemos algo si falla por no tener internet
+                //  showDialogMesage(e.toString());
+            }
+        } else {
+
+        }
+    }
+
+    /**
+     * Respuesta de la interfase, contieen el Bitmap listo para usarse y hacer SET del mismo
+     * @param bitmap
+     */
+    @Override
+    public void sendToIteractorBitmap(Bitmap bitmap) {
+        imgLoginExistProfile.setImageBitmap(bitmap);
     }
 }
 
