@@ -489,9 +489,13 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response) {
-        App.getInstance().getPrefs().saveData(StringConstants.ADQUIRENTE_BALANCE, response.getSaldo());
-        prefs.saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
-        accountManager.onSuccesBalanceAdq(response);
+        if(response.getResult().getId().equals(Recursos.ADQ_CODE_OK)) {
+            App.getInstance().getPrefs().saveData(StringConstants.ADQUIRENTE_BALANCE, response.getSaldo());
+            prefs.saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
+            accountManager.onSuccesBalanceAdq(response);
+        }else {
+            accountManager.onError(CONSULTA_SALDO_CUPO, null);
+        }
     }
 
     /**
