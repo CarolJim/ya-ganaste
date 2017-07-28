@@ -19,9 +19,12 @@ import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.preferuser.DesasociarPhoneFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaLegalesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
+import com.pagatodo.yaganaste.ui.preferuser.MyAccountFragment;
+import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.MyEmailFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyPassFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
+import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
@@ -37,10 +40,15 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_PRIVACIDAD = "PREFER_USER_PRIVACIDAD";
     public static String PREFER_USER_TERMINOS = "PREFER_USER_TERMINOS";
     public static String PREFER_USER_DESASOCIAR = "PREFER_USER_DESASOCIAR";
+    public static String PREFER_USER_DESASOCIAR_BACK = "PREFER_USER_DESASOCIAR_BACK";
     public static String PREFER_USER_MY_USER = "PREFER_USER_MY_USER";
+    public static String PREFER_USER_MY_ACCOUNT = "PREFER_USER_MY_ACCOUNT";
+    public static String PREFER_USER_MY_CARD = "PREFER_USER_MY_CARD";
     public static String PREFER_USER_MY_USER_BACK = "PREFER_USER_MY_USER_BACK";
     public static String PREFER_USER_EMAIL = "PREFER_USER_EMAIL";
     public static String PREFER_USER_PASS = "PREFER_USER_PASS";
+    public static String PREFER_USER_CHANGE_NIP = "PREFER_USER_CHANGE_NIP";
+    public static String PREFER_USER_CHANGE_NIP_BACK = "PREFER_USER_CHANGE_NIP_BACK";
     /**
      * Acciones para dialogo de confirmacion en cerrar session
      */
@@ -135,6 +143,11 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 loadFragment(DesasociarPhoneFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
+            case "PREFER_USER_DESASOCIAR_BACK":
+                //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                loadFragment(MyAccountFragment.newInstance(), Direction.BACK, false);
+                break;
+
             case "PREFER_USER_CLOSE":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 UI.createSimpleCustomDialog("",
@@ -170,6 +183,26 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 loadFragment(MyUserFragment.newInstance(), Direction.BACK, false);
                 break;
 
+            case "PREFER_USER_MY_ACCOUNT":
+                //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                loadFragment(MyAccountFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+
+            case "PREFER_USER_MY_CARD":
+                //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                loadFragment(MyCardFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+
+            case "PREFER_USER_CHANGE_NIP":
+                //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                loadFragment(MyChangeNip.newInstance(), Direction.FORDWARD, false);
+                break;
+
+            case "PREFER_USER_CHANGE_NIP_BACK":
+                //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                loadFragment(MyCardFragment.newInstance(), Direction.BACK, false);
+                break;
+
             case "PREFER_USER_EMAIL":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 // loadFragment(MyEmailFragment.newInstance(),Direction.FORDWARD, false);
@@ -203,9 +236,19 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             if (currentFragment instanceof ListaLegalesFragment) {
                 onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof DesasociarPhoneFragment) {
-                onEvent(PREFER_USER_LISTA, null);
+                onEvent(PREFER_USER_DESASOCIAR_BACK, null);
             } else if (currentFragment instanceof MyUserFragment) {
                 onEvent(PREFER_USER_LISTA, null);
+            } else if (currentFragment instanceof MyAccountFragment) {
+                onEvent(PREFER_USER_LISTA, null);
+            } else if (currentFragment instanceof MyCardFragment) {
+                onEvent(PREFER_USER_LISTA, null);
+            } else if (currentFragment instanceof MyChangeNip) {
+                if (((MyChangeNip) currentFragment).isCustomKeyboardVisible()) {
+                    ((MyChangeNip) currentFragment).hideKeyboard();
+                } else {
+                    onEvent(PREFER_USER_CHANGE_NIP_BACK, null);
+                }
             } else if (currentFragment instanceof MyEmailFragment) {
                 onEvent(PREFER_USER_MY_USER_BACK, null);
             } else if (currentFragment instanceof MyPassFragment) {
