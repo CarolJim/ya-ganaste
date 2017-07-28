@@ -86,21 +86,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         setContentView(R.layout.activity_main_tab);
         load();
 
-        if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
-                SingletonUser.getInstance().getDataUser().getEstatusAgente() == PTH_DOCTO_APROBADO &&
-                !pref.containsData(COUCHMARK_ADQ)) {
-            pref.saveDataBool(COUCHMARK_ADQ, true);
-            Intent intent = new Intent(this, LandingActivity.class);
-            intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawablesAdquirente);
-            startActivity(intent);
-        }
-
-
         if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             Intent intent = new Intent(this, LandingActivity.class);
             intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawablesEmisor);
-            startActivity(intent);
+            startActivityForResult(intent, Constants.ACTIVITY_LANDING);
         }
 
         System.gc();
@@ -169,7 +159,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                     pref.saveDataBool(COUCHMARK_EMISOR, true);
                     Intent intent = new Intent(TabActivity.this, LandingActivity.class);
                     intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawablesEmisor);
-                    startActivity(intent);
+                    startActivityForResult(intent, Constants.ACTIVITY_LANDING);
                 }
             }, 500);
         }
@@ -273,6 +263,15 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
         } else if (requestCode == CODE_CANCEL && resultCode == RESULT_CANCEL_OK) {
             getFragment(TYPE_DETAILS).onActivityResult(requestCode, resultCode, data);
+        } else if (requestCode == Constants.ACTIVITY_LANDING) {
+            if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+                    SingletonUser.getInstance().getDataUser().getEstatusAgente() == PTH_DOCTO_APROBADO &&
+                    !pref.containsData(COUCHMARK_ADQ)) {
+                pref.saveDataBool(COUCHMARK_ADQ, true);
+                Intent intent = new Intent(this, LandingActivity.class);
+                intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawablesAdquirente);
+                startActivity(intent);
+            }
         }
     }
 

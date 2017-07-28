@@ -38,6 +38,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
+import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 
 
@@ -193,6 +194,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
 
             case EVENT_GO_REGISTER_COMPLETE:
                 pref.clearPreference(COUCHMARK_EMISOR);
+                pref.clearPreference(COUCHMARK_ADQ);
                 loadFragment(RegisterCompleteFragment.newInstance(EMISOR), Direction.FORDWARD, false);
                 break;
 

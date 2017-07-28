@@ -42,16 +42,6 @@ public class LandingActivity extends SupportFragmentActivity implements Animatio
         if (extras != null) {
             drawable = (int[]) extras.get(LANDING_EXTRAS_ARRAY_DRAWABLE);
         }
-
-        /*drawable = new Drawable[5];
-        Resources res = getResources();
-        drawable[0] = res.getDrawable(R.drawable.img_couch_em_1);
-        drawable[1] = res.getDrawable(R.drawable.img_couch_em_2);
-        drawable[2] = res.getDrawable(R.drawable.img_couch_em_3);
-        drawable[3] = res.getDrawable(R.drawable.img_couch_em_4);
-        drawable[4] = res.getDrawable(R.drawable.img_couch_em_5);*/
-
-
         imagesIndex = drawable.length;
         imageView.setImageResource(drawable[0]);
 
@@ -104,7 +94,6 @@ public class LandingActivity extends SupportFragmentActivity implements Animatio
     private void startNextAnimation() {
         if (animaationEnd) {
             if (animationCounter < imagesIndex) {
-                //imageView.setVisibility(View.INVISIBLE);
                 imageView.clearAnimation();
                 imageView.startAnimation(animFadeOut);
             } else {
@@ -132,6 +121,6 @@ public class LandingActivity extends SupportFragmentActivity implements Animatio
 
     @Override
     public void onBackPressed() {
-        finishActivity();
+
     }
 }

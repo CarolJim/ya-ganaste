@@ -22,6 +22,7 @@ public class Constants {
     public static final int REGISTER_ADQUIRENTE_CODE = 840;
 
     public static final int PAYMENTS_ADQUIRENTE = 818;
+    public static final int ACTIVITY_LANDING = 181;
 
 
     public static final String RESULT = "Resultado";
