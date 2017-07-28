@@ -44,6 +44,7 @@ public class AsignarNipCustomWatcher implements TextWatcher {
     int posCount;
     Handler handler;
     Runnable myRunnable;
+    boolean isValid;
 
     private String TAG = getClass().getSimpleName();
 
@@ -55,6 +56,7 @@ public class AsignarNipCustomWatcher implements TextWatcher {
         this.tv3Num = tv3Num;
         this.tv4Num = tv4Num;
         this.textCustomTv1 = textCustomTv1;
+        isValid = false;
 
         /*Log.d("ds","WNIP "+tv1Num.getWidth());
         float textSize = tv1Num.getTextSize();
@@ -151,6 +153,9 @@ public class AsignarNipCustomWatcher implements TextWatcher {
             }
             posCount++;
 
+            // Cambiamos a true si el posCount == 4
+            if(posCount == 4){ isValid = true; }
+
             myRunnable = new Runnable() {
                 public void run() {
                     SpannableStringBuilder ssb = new SpannableStringBuilder(" "); // 20
@@ -202,6 +207,9 @@ public class AsignarNipCustomWatcher implements TextWatcher {
 
             // Reiniciamos el posCount hasta no menor que 0
             posCount = countString;
+
+            // Cambiamos a true si el posCount == 4
+            if(posCount < 4){ isValid = false; }
         }
 
         if(posCount == 0){
@@ -229,5 +237,9 @@ public class AsignarNipCustomWatcher implements TextWatcher {
                 tv4Num.setText(ssb, TextView.BufferType.SPANNABLE);
                 break;
         }
+    }
+
+    public boolean isValid() {
+        return isValid;
     }
 }
