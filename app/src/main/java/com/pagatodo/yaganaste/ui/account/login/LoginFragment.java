@@ -125,7 +125,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 }
             });
         } else {
-            edtUserName.setText("");
+            edtUserName.setText(RequestHeaders.getUsername());
             edtUserName.setVisibility(VISIBLE);
             textNameUser.setVisibility(GONE);
         }
