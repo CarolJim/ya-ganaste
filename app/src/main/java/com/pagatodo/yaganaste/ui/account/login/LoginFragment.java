@@ -125,7 +125,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 }
             });
         } else {
-            edtUserName.setText("");
+            edtUserName.setText(RequestHeaders.getUsername());
             edtUserName.setVisibility(VISIBLE);
             textNameUser.setVisibility(GONE);
         }
@@ -136,6 +136,12 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnLoginExistUser:
+                /*final int[] drawables = {R.drawable.img_couch_em_1, R.drawable.img_couch_em_2,
+                        R.drawable.img_couch_em_3, R.drawable.img_couch_em_4, R.drawable.img_couch_em_5};
+                Intent intent = new Intent(getActivity(), LandingActivity.class);
+                intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawables);
+                startActivity(intent);*/
+
                 //Intent intent = new Intent(getActivity(), RegistryCupoActivity.class);
                 //startActivity(intent);
                 actionBtnLogin();
@@ -344,6 +350,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     /**
      * Respuesta de la interfase, contieen el Bitmap listo para usarse y hacer SET del mismo
+     *
      * @param bitmap
      */
     @Override
