@@ -9,7 +9,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
-import android.view.Menu;
 import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
@@ -26,7 +25,6 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
-import com.pagatodo.yaganaste.ui.account.register.LandingFragment;
 import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
@@ -74,6 +72,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
     private ProgressLayout progressGIF;
 
+    final int[] drawablesEmisor = {R.drawable.img_couch_em_1, R.drawable.img_couch_em_2,
+            R.drawable.img_couch_em_3, R.drawable.img_couch_em_4, R.drawable.img_couch_em_5};
+    final int[] drawablesAdquirente = {R.drawable.coachmark_adquirente_1, R.drawable.coachmark_adquirente_2};
+
     public static Intent createIntent(Context from) {
         return new Intent(from, TabActivity.class);
     }
@@ -88,14 +90,16 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 SingletonUser.getInstance().getDataUser().getEstatusAgente() == PTH_DOCTO_APROBADO &&
                 !pref.containsData(COUCHMARK_ADQ)) {
             pref.saveDataBool(COUCHMARK_ADQ, true);
-            Intent intent = new Intent(this, LandingAdqFragment.class);
+            Intent intent = new Intent(this, LandingActivity.class);
+            intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawablesAdquirente);
             startActivity(intent);
         }
 
 
         if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
-            Intent intent = new Intent(this, LandingFragment.class);
+            Intent intent = new Intent(this, LandingActivity.class);
+            intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawablesEmisor);
             startActivity(intent);
         }
 
@@ -159,12 +163,12 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     protected void onStart() {
         super.onStart();
         if (!pref.containsData(COUCHMARK_EMISOR)) {
-
             new Handler().postDelayed(new Runnable() {
                 @Override
                 public void run() {
                     pref.saveDataBool(COUCHMARK_EMISOR, true);
-                    Intent intent = new Intent(TabActivity.this, LandingFragment.class);
+                    Intent intent = new Intent(TabActivity.this, LandingActivity.class);
+                    intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawablesEmisor);
                     startActivity(intent);
                 }
             }, 500);
