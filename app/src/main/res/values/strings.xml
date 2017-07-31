@@ -683,6 +683,7 @@
     <string name="cual_estado_civil">¿Cuál es tu Estado Civil?</string>
     <string name="cuantos_hijos">¿Cuántos Hijos Tienes?</string>
     <string name="relacion">Relación</string>
+    <string name="access_code_text">Ingresa tu Contraseña Para \nGenerar un Código de Acceso</string>
 
     <!--end Cupo Strings-->
 </resources>

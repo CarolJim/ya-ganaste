@@ -10,10 +10,15 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.RecoveryPasswordView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -30,6 +35,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOV
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
+import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 
 
 /**
@@ -106,6 +112,13 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
         btnBack.setOnClickListener(this);
         btnRecuperarContrasenia.setOnClickListener(this);
         setValidationRules();
+
+        Preferencias prefs = App.getInstance().getPrefs();
+        if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
+            Toast.makeText(getContext(), "Tenemos Session", Toast.LENGTH_SHORT).show();
+        } else {
+            Toast.makeText(getContext(), "SIN Session", Toast.LENGTH_SHORT).show();
+        }
     }
 
     @Override

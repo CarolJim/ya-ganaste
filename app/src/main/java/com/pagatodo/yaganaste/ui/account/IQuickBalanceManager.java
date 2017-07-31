@@ -5,6 +5,8 @@ package com.pagatodo.yaganaste.ui.account;
  */
 
 public interface IQuickBalanceManager {
+    void backPage();
+
     void nextPage();
 
     void onBackPress();
