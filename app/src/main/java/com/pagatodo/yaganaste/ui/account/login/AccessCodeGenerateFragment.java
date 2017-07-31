@@ -13,6 +13,9 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,6 +30,12 @@ public class AccessCodeGenerateFragment extends GenericFragment implements
 
     @BindView(R.id.imgArrowNext)
     ImageView imgArrowNext;
+    @BindView(R.id.editPassword)
+    CustomValidationEditText editPassword;
+    @BindView(R.id.errorPasswordMessage)
+    ErrorMessage errorPasswordMessage;
+    @BindView(R.id.btnGenerateCode)
+    StyleButton btnGenerateCode;
     View rootView;
     private IQuickBalanceManager quickBalanceManager;
 

@@ -1,43 +1,93 @@
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:context="com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="Layout para codigo de acceso" />
 
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+            android:id="@+id/layoutBorder"
+            style="@style/BorderTitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="50dp"
+            app:title="@string/password">
+
+            <LinearLayout
+                style="@style/BorderLayoutContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/seleccionaGenero"
+                    style="@style/generic_text_style_3"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/access_code_text" />
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/editPassword"
+                    style="@style/GenericCustomValidationEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="30dp"
+                    app:formato="email"
+                    app:hintText="@string/password"
+                    app:isSingleLine="true"
+                    app:maxLength="50" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorPasswordMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+        </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+    </ScrollView>
 
     <LinearLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="45dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/btn_navigation_bottom">
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/formato_password"
+            android:visibility="invisible"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/size_text_style_2_value" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnGenerateCode"
+            style="@style/buttonSquareRoundedBlue"
+            android:gravity="center"
+            android:text="@string/continuar" />
+    </LinearLayout>
+
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@id/progressLayout"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/imgArrowBack"
-            android:layout_width="@dimen/activity_horizontal_double_margin"
-            android:layout_height="@dimen/activity_horizontal_double_margin"
-            android:foreground="?attr/selectableItemBackground"
-            android:visibility="gone"
-            app:srcCompat="@drawable/back_canvas" />
-
-        <android.support.v4.widget.Space
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="1" />
-
-        <ImageView
-            android:id="@+id/imgArrowNext"
-            android:visibility="visible"
-            android:layout_width="@dimen/activity_horizontal_double_margin"
-            android:layout_height="@dimen/activity_horizontal_double_margin"
-            android:foreground="?attr/selectableItemBackground"
-            app:srcCompat="@drawable/arrow_canvas_blue" />
-
-    </LinearLayout>
-</FrameLayout>
+        android:visibility="gone" />
+</LinearLayout>
