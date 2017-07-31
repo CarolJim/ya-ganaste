@@ -148,6 +148,19 @@ public class ReflectionUtils {
         return listToReturn;
     }
 
+    public static <T extends AbstractEntity> ArrayList<T> cursorToArrayList(Cursor from, @NonNull Class<T> toReturn) {
+        ArrayList<T> listToReturn = new ArrayList<>();
+        if (from.moveToFirst()) {
+            String columns[] = from.getColumnNames();
+            Map<String, Field> entityAttrs = getEntityDBRelation(toReturn);
+            //validateEntityWithCursor(columns, entityAttrs);
+            do {
+                listToReturn.add(getFromCursor(from, entityAttrs, columns, createInstance(getConstructor(toReturn))));
+            } while (from.moveToNext());
+        }
+        return listToReturn;
+    }
+
     public static <T extends AbstractEntity> T cursorToEntity(Cursor from, Class<T> toReturn) {
         if (from.moveToFirst()) {
             String columns[] = from.getColumnNames();

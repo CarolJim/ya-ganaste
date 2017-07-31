@@ -7,8 +7,10 @@ import android.support.annotation.Nullable;
 
 import com.pagatodo.yaganaste.data.local.persistence.db.AbstractEntity;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.data.local.persistence.db.utils.ReflectionUtils.cursorToArrayList;
 import static com.pagatodo.yaganaste.data.local.persistence.db.utils.ReflectionUtils.cursorToEntity;
 import static com.pagatodo.yaganaste.data.local.persistence.db.utils.ReflectionUtils.cursorToList;
 import static com.pagatodo.yaganaste.data.local.persistence.db.utils.ReflectionUtils.getContentValues;
@@ -67,6 +69,13 @@ public class GenericDao extends AbstractDao {
         List<T> toReturn;
         Cursor queryResult = query(getTableName(classToReturn), query, orderBy, null);
         toReturn = cursorToList(queryResult, classToReturn);
+        return toReturn;
+    }
+
+    public <T extends AbstractEntity> ArrayList<T> getArrayListByQueryOrderBy(@NonNull Class<T> classToReturn, @Nullable String query, @Nullable String orderBy) {
+        ArrayList<T> toReturn;
+        Cursor queryResult = query(getTableName(classToReturn), query, orderBy, null);
+        toReturn = cursorToArrayList(queryResult, classToReturn);
         return toReturn;
     }
 

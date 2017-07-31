@@ -290,6 +290,8 @@
     <string name="datos_personal_estado">Lugar de Nacimiento Requerido, Verifique su Información.</string>
     <string name="datos_personal_nacionalidad">Nacionalidad Requerida, Verifique su Información.</string>
     <string name="datos_personal_genero">Genero Requerido, Verifique su Información.</string>
+    <string name="datos_personal_pais">País de Nacimiento Requerido, Verifique su Información.</string>
+    <string name="buscar_pais">Busca tu País</string>
     <!--datos_domicilio-->
     <string name="currentAddressTitle">Domicilio Personal</string>
     <string name="streetHint">Calle</string>
@@ -657,7 +659,7 @@
     <string name="emisor_validate_card_fail"><u>Esta Tarjeta Ya Ha Sido Asignada, Ingresa Otra Tarjeta o Selecciona la Opción NO TENGO TARJETA</u></string>
     <string name="emisor_validate_postalcode"><u>Verifica tu Código Postal</u></string>
 
-   <!--start Cupo Strings-->
+    <!--start Cupo Strings-->
 
     <string name="txt_contacto">¿Tienes Dudas? Contáctanos\n01-800-500-1000\ncontacto@yaganaste.com</string>
     <string name="txt_validate_info">Estamos Revisando\nTu Información </string>

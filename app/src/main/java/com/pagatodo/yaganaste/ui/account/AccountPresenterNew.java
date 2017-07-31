@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
@@ -35,10 +36,9 @@ import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.TabPresenterImpl;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
 import com.pagatodo.yaganaste.utils.Codec;
-import com.pagatodo.yaganaste.utils.DateUtil;
-import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.Utils;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO_SESION;
@@ -56,7 +56,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIV
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
 import static com.pagatodo.yaganaste.utils.Recursos.CRC32_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
-import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 
 /**
  * Created by flima on 22/03/2017.
@@ -254,6 +253,16 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
     public void updateBalanceAdq() {
         this.accountView.showLoader(context.getString(R.string.actualizando_saldo));
         accountIteractor.getBalanceAdq();
+    }
+
+    @Override
+    public void getPaisesList() {
+        ArrayList<Countries> arrayList = accountIteractor.getPaisesList();
+        if (arrayList == null) {
+            arrayList = new ArrayList<>();
+        }
+
+        ((IRenapoView) accountView).showDialogList(arrayList);
     }
 
     @Override

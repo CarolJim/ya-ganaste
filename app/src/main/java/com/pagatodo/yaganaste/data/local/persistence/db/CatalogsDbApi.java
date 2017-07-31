@@ -95,9 +95,9 @@ public class CatalogsDbApi {
         return comerciosRespose;
     }
 
-    public static List<Countries> getPaisesList(){
+    public static ArrayList<Countries> getPaisesList(){
         genericDao.open();
-        List<Countries> paises = genericDao.getAllOrderBy(Countries.class, DBContract.Paises.ID);
+        ArrayList<Countries> paises = genericDao.getArrayListByQueryOrderBy(Countries.class, DBContract.Paises.ID, null);
         genericDao.close();
 
         return paises;

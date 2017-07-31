@@ -204,7 +204,7 @@
                             android:visibility="gone"
                             app:formato="text"
                             app:hintText="@string/county"
-                            app:imageIsGone="true"
+                            app:imageIsGone="false"
                             app:isTextEnabled="false" />
 
                         <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
