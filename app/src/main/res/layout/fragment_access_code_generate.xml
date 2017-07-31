@@ -9,21 +9,13 @@
     android:orientation="vertical"
     tools:context="com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment">
 
-
-    <ScrollView
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content">
-
-        <RelativeLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent">
-
-
-        </RelativeLayout>
+        android:layout_height="match_parent">
 
         <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
             android:id="@+id/layoutBorder"
-                    style="@style/BorderTitleStyle"
+            style="@style/BorderTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="50dp"
@@ -63,66 +55,56 @@
             </LinearLayout>
 
         </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
-    </ScrollView>
 
-    <LinearLayout
-        android:id="@+id/layoutBottom"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="45dp"
-        android:layout_weight="1"
-        android:gravity="center_horizontal"
-        android:orientation="vertical"
-        android:paddingBottom="@dimen/btn_navigation_bottom">
-
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        <LinearLayout
+            android:layout_alignParentBottom="true"
+            android:id="@+id/layoutBottom"
             android:layout_width="match_parent"
-            android:layout_height="0dp"
-            android:layout_weight="1"
+            android:layout_height="wrap_content"
             android:gravity="center_horizontal"
-            android:text="@string/formato_password"
-            android:textColor="@color/colorAccent"
-            android:textSize="@dimen/size_text_style_2_value"
-            android:visibility="invisible" />
+            android:paddingBottom="@dimen/btn_navigation_bottom">
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleButton
-            android:id="@+id/btnGenerateCode"
-            style="@style/buttonSquareRoundedBlue"
-            android:gravity="center"
-            android:text="@string/continuar" />
-    </LinearLayout>
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnGenerateCode"
+                style="@style/buttonSquareRoundedBlue"
+                android:gravity="center"
+                android:text="@string/continuar" />
+        </LinearLayout>
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:gravity="center_vertical"
-        android:orientation="horizontal">
-
-        <android.support.v7.widget.AppCompatImageView
-            android:id="@+id/imgArrowBack"
-            android:layout_width="@dimen/activity_horizontal_double_margin"
-            android:layout_height="@dimen/activity_horizontal_double_margin"
-            android:foreground="?attr/selectableItemBackground"
-            android:visibility="gone"
-            app:srcCompat="@drawable/back_canvas" />
-
-        <android.support.v4.widget.Space
-            android:layout_width="0dp"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:layout_weight="1" />
+            android:gravity="center_vertical"
+            android:orientation="horizontal">
 
-        <ImageView
-            android:id="@+id/imgArrowNext"
-            android:layout_width="@dimen/activity_horizontal_double_margin"
-            android:layout_height="@dimen/activity_horizontal_double_margin"
-            android:foreground="?attr/selectableItemBackground"
-            android:visibility="visible"
-            app:srcCompat="@drawable/arrow_canvas_blue" />
+            <android.support.v7.widget.AppCompatImageView
+                android:id="@+id/imgArrowBack"
+                android:layout_width="@dimen/activity_horizontal_double_margin"
+                android:layout_height="@dimen/activity_horizontal_double_margin"
+                android:foreground="?attr/selectableItemBackground"
+                android:visibility="gone"
+                app:srcCompat="@drawable/back_canvas" />
 
-    </LinearLayout>
+            <android.support.v4.widget.Space
+                android:layout_width="0dp"
+                android:layout_height="match_parent"
+                android:layout_weight="1" />
 
-    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+            <ImageView
+                android:id="@+id/imgArrowNext"
+                android:layout_width="@dimen/activity_horizontal_double_margin"
+                android:layout_height="@dimen/activity_horizontal_double_margin"
+                android:foreground="?attr/selectableItemBackground"
+                android:visibility="visible"
+                app:srcCompat="@drawable/arrow_canvas_blue" />
+
+        </LinearLayout>
+
+        <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:visibility="gone" />
+    </RelativeLayout>
+
+
 </LinearLayout>
