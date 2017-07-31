@@ -60,6 +60,7 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
     public void initViews() {
         ButterKnife.bind(this, rootView);
         viewPagerQuickBalance.setAdapter(quickBalanceAdapter);
+        viewPagerQuickBalance.setCurrentItem(1);
     }
 
     public ILoginContainerManager getLoginContainerManager() {
@@ -70,17 +71,46 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
         return this;
     }
 
+    /**
+     * GEstion de los eventos de oprimir la flecha Back (Navegacion), se comporta dependiendo el caso de los
+     * fragmento que esten seleccionados, recordemos que puede cargar 2 o 3 fragmntos
+     */
     @Override
     public void onBackPress() {
-        if (viewPagerQuickBalance.getCurrentItem() > 0) {
-            viewPagerQuickBalance.setCurrentItem(0);
+        if (viewPagerQuickBalance.getCurrentItem() == 0) {
+            viewPagerQuickBalance.setCurrentItem(1);
+        }else if (viewPagerQuickBalance.getCurrentItem() == 2) {
+            viewPagerQuickBalance.setCurrentItem(1);
         } else {
             getActivity().finish();
         }
     }
 
+
+    /**
+     * GEstion de los eventos de oprimir la flecha Back (Izquierda), se comporta dependiendo el caso de los
+     * fragmento que esten seleccionados, recordemos que puede cargar 2 o 3 fragmntos
+     */
+    @Override
+    public void backPage() {
+        if (viewPagerQuickBalance.getCurrentItem() == 2) {
+            viewPagerQuickBalance.setCurrentItem(1);
+        }else if (viewPagerQuickBalance.getCurrentItem() == 1) {
+            viewPagerQuickBalance.setCurrentItem(0);
+        }
+    }
+
+
+    /**
+     * GEstion de los eventos de oprimir la flecha NExt (Derecha), se comporta dependiendo el caso de los
+     * fragmento que esten seleccionados, recordemos que puede cargar 2 o 3 fragmntos
+     */
     @Override
     public void nextPage() {
-        viewPagerQuickBalance.setCurrentItem(1);
+        if (viewPagerQuickBalance.getCurrentItem() == 0) {
+            viewPagerQuickBalance.setCurrentItem(1);
+        }else if (viewPagerQuickBalance.getCurrentItem() == 1) {
+            viewPagerQuickBalance.setCurrentItem(2);
+        }
     }
 }

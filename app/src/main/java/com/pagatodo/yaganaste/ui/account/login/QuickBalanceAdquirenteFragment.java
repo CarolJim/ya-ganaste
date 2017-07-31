@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -68,6 +69,8 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     SwipeRefreshLayout swipeContainer;
     @BindView(R.id.imgArrowNext)
     ImageView imgArrowNext;
+    @BindView(R.id.imgArrowBack)
+    AppCompatImageView imgArrowBack;
 
     private boolean isBalance;
     private boolean isBalanceAdq;
@@ -111,6 +114,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         ButterKnife.bind(this, rootView);
         swipeContainer.setOnRefreshListener(this);
         btnGoToLogin.setOnClickListener(this);
+        imgArrowBack.setOnClickListener(this);
         imgArrowNext.setOnClickListener(this);
 
         Preferencias preferencias = App.getInstance().getPrefs();
@@ -121,7 +125,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
                     StringUtils.ocultarCardNumberFormat(
                             cardNumber
                     ));
-            cardBalanceAdq.setCardDate("02/21");
+            cardBalanceAdq.setCardDate("03/21");
 
             if (Build.VERSION.SDK_INT >= 24) {
                 txtUserName.setText(Html.fromHtml(getString(R.string.bienvenido_usuario,
@@ -159,6 +163,9 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
             case R.id.btnGoToLogin:
                 loginContainerManager.loadLoginFragment();
                 break;
+            case R.id.imgArrowBack:
+                backScreen(null, null);
+                break;
             case R.id.imgArrowNext:
                 nextScreen(null, null);
                 break;
@@ -192,7 +199,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
 
     @Override
     public void backScreen(String event, Void data) {
-
+        quickBalanceManager.backPage();
     }
 
     @Override
