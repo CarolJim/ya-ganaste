@@ -121,10 +121,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         if (preferencias.containsData(HAS_SESSION)) {
             String cardNumber = preferencias.loadData(CARD_NUMBER);
 
-            cardBalanceAdq.setCardNumber(
-                    StringUtils.ocultarCardNumberFormat(
-                            cardNumber
-                    ));
+            cardBalanceAdq.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
             cardBalanceAdq.setCardDate("03/21");
 
             if (Build.VERSION.SDK_INT >= 24) {
