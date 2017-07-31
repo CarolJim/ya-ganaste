@@ -2,10 +2,14 @@ package com.pagatodo.yaganaste.utils;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import com.pagatodo.yaganaste.App;
 
 import org.json.JSONArray;
 import org.json.JSONException;
 import org.json.JSONObject;
+
+import java.io.IOException;
+import java.io.InputStream;
 
 /**
  * Created by Gorro on 28/07/16.
@@ -55,7 +59,22 @@ public class JsonManager {
         }
 
         return jsonObject;
+    }
 
+    public static String loadJSONFromAsset(String path) {
+        String json = null;
+        try {
+            InputStream is = App.getContext().getAssets().open(path);
+            int size = is.available();
+            byte[] buffer = new byte[size];
+            is.read(buffer);
+            is.close();
+            json = new String(buffer, "UTF-8");
+        } catch (IOException ex) {
+            ex.printStackTrace();
+            return null;
+        }
+        return json;
     }
 
 }

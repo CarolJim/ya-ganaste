@@ -44,6 +44,11 @@ public class GenericDao extends AbstractDao {
         return getListByQuery(classToReturn, null);
     }
 
+    public <T extends AbstractEntity> List<T> getAllOrderBy(@NonNull Class<T> classToReturn,
+                                                            @Nullable String orderBy) {
+        return getListByQueryOrderBy(classToReturn, null, orderBy);
+    }
+
     public <T extends AbstractEntity> T getByQuery(Class<T> classToReturn, String query) {
         T toReturn;
         Cursor queryResult = query(getTableName(classToReturn), query);

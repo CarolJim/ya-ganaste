@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -43,7 +44,6 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_ADDRE
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DATA_USER_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
 /**
  * A simple {@link GenericFragment} subclass.
@@ -87,6 +87,10 @@ public class DatosPersonalesFragment extends GenericFragment implements
     ErrorMessage errorBirthPlaceMessage;
     @BindView(R.id.errorGenderMessage)
     ErrorMessage errorGenderMsessage;
+    @BindView(R.id.editCountry)
+    CustomValidationEditText editCountry;
+    @BindView(R.id.errorCountryMessage)
+    ErrorMessage errorCountryMessage;
     StatesSpinnerAdapter adapterBirthPlace;
     Calendar newDate;
     Calendar actualDate;
@@ -192,6 +196,10 @@ public class DatosPersonalesFragment extends GenericFragment implements
         errorBirthPlaceMessage.setVisibilityImageError(false);
 
         editBirthDay.setFullOnClickListener(onClickListenerDatePicker);
+
+        editCountry.setDrawableImage(R.drawable.menu_canvas);
+        editCountry.setEnabled(false);
+        editCountry.setFullOnClickListener(this);
 
 
         editBirthDay.setDrawableImage(R.drawable.calendar);
@@ -394,6 +402,12 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
+        IEnumSpinner itemSelected = adapterBirthPlace.getItem(position);
+        if (itemSelected == States.S33) {
+            editCountry.setVisibility(View.VISIBLE);
+            errorCountryMessage.setVisibility(View.VISIBLE);
+        }
+
         /*if(position > 0){
             Toast.makeText(getActivity(), adapterBirthPlace.getItemName(position), Toast.LENGTH_SHORT ).show();
         }*/
@@ -460,20 +474,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
         editSecoundLastName.setText(registerUser.getApellidoMaterno());
         editBirthDay.setText(registerUser.getFechaNacimientoToShow());
         fechaNacimiento = registerUser.getFechaNacimiento();
-        StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
-        spinnerBirthPlace.setSelection(adapter.getPositionItemByName(registerUser.getLugarNacimiento()));
+        spinnerBirthPlace.setSelection(adapterBirthPlace.getPositionItemByName(registerUser.getLugarNacimiento()));
 
-        spinnerBirthPlace.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                onSpinnerClick();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                onSpinnerClick();
-            }
-        });
 
         //Actualizamos el newDate para no tener null, solo en evento Back
         if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {
