@@ -7,7 +7,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginLeft="40dp"
-        android:layout_marginRight="40dp">
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="3dp">
 
         <LinearLayout
             android:id="@+id/asignar_nip1_contol"
@@ -61,9 +62,9 @@
             android:id="@+id/asignar_nip1_change_tv1"
             style="@style/generic_text_style_2.1"
             android:layout_width="match_parent"
-            android:layout_marginLeft="20dp"
-            android:layout_centerVertical="true"
             android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
             android:text="NIP Actual" />
     </RelativeLayout>
 </LinearLayout>

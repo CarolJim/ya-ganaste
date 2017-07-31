@@ -23,18 +23,20 @@ import com.pagatodo.yaganaste.utils.AsignarNipCustomWatcher;
 import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link MyChangeNip#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyChangeNip extends GenericFragment implements ValidationForms {
+public class MyChangeNip extends GenericFragment implements ValidationForms, View.OnClickListener {
 
     private static int PIN_LENGHT = 4;
     @BindView(R.id.keyboard_view)
@@ -53,6 +55,12 @@ public class MyChangeNip extends GenericFragment implements ValidationForms {
     StyleTextView textCustomTv3;
     @BindView(R.id.fragment_myemail_btn)
     StyleButton finishBtn;
+    @BindView(R.id.errorOldNipMessage)
+    ErrorMessage errorOldNip;
+    @BindView(R.id.errorNewNipMessage)
+    ErrorMessage errorNewNip;
+    @BindView(R.id.errorNewNipConfirmMessage)
+    ErrorMessage errorNewNipConfirm;
     TextView tv1Num;
     TextView tv2Num;
     TextView tv3Num;
@@ -70,9 +78,13 @@ public class MyChangeNip extends GenericFragment implements ValidationForms {
     LinearLayout layout_control2;
     LinearLayout layout_control3;
     private String nip = "";
+    private String nipNew = "";
+    private String nipNewConfirm = "";
     Drawable backgroundGrey;
     Drawable backgroundRed;
-
+    AsignarNipCustomWatcher asinarNipWatcher1;
+    AsignarNipCustomWatcher asinarNipWatcher2;
+    AsignarNipCustomWatcher asinarNipWatcher3;
 
 
     public MyChangeNip() {
@@ -102,6 +114,8 @@ public class MyChangeNip extends GenericFragment implements ValidationForms {
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
+        finishBtn.setOnClickListener(this);
 
         backgroundGrey = getContext().getResources()
                 .getDrawable(R.drawable.rounded_border_edittext);
@@ -137,12 +151,16 @@ public class MyChangeNip extends GenericFragment implements ValidationForms {
         edtPin2 = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext2);
         edtPin3 = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext3);
 
-        edtPin.addCustomTextWatcher(new AsignarNipCustomWatcher(edtPin, tv1Num, tv2Num, tv3Num,
-                tv4Num, textCustomTv1));
-        edtPin2.addCustomTextWatcher(new AsignarNipCustomWatcher(edtPin2, tv5Num, tv6Num, tv7Num,
-                tv8Num, textCustomTv2));
-        edtPin3.addCustomTextWatcher(new AsignarNipCustomWatcher(edtPin3, tv9Num, tv10Num, tv11Num,
-                tv12Num, textCustomTv3));
+        asinarNipWatcher1 = new AsignarNipCustomWatcher(edtPin, tv1Num, tv2Num, tv3Num,
+                tv4Num, textCustomTv1);
+        asinarNipWatcher2 = new AsignarNipCustomWatcher(edtPin2, tv5Num, tv6Num, tv7Num,
+                tv8Num, textCustomTv2);
+        asinarNipWatcher3 = new AsignarNipCustomWatcher(edtPin3, tv9Num, tv10Num, tv11Num,
+                tv12Num, textCustomTv3);
+
+        edtPin.addCustomTextWatcher(asinarNipWatcher1);
+        edtPin2.addCustomTextWatcher(asinarNipWatcher2);
+        edtPin3.addCustomTextWatcher(asinarNipWatcher3);
 
         edtPin.addCustomTextWatcher(new TextWatcher() {
             @Override
@@ -210,7 +228,6 @@ public class MyChangeNip extends GenericFragment implements ValidationForms {
             }
         });
 
-
         //Si ocamos el area especial del Layout abrimos el Keyboard
         layout_control.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -273,6 +290,9 @@ public class MyChangeNip extends GenericFragment implements ValidationForms {
     public void hideKeyboard() {
         keyboardView.hideCustomKeyboard();
         finishBtn.setVisibility(View.VISIBLE);
+        layout_control.setBackground(backgroundGrey);
+        layout_control2.setBackground(backgroundGrey);
+        layout_control3.setBackground(backgroundGrey);
     }
 
     private void showValidationError(Object err) {
@@ -292,5 +312,63 @@ public class MyChangeNip extends GenericFragment implements ValidationForms {
     @Override
     public void getDataForm() {
         nip = edtPin.getText().toString().trim();
+        nipNew = edtPin2.getText().toString().trim();
+        nipNewConfirm = edtPin3.getText().toString().trim();
+    }
+
+    @Override
+    public void onClick(View v) {
+        getDataForm();
+        if (!asinarNipWatcher1.isValid()) {
+            errorOldNip.setMessageText("Son necesarios 4 números");
+            errorOldNip.setVisibility(View.VISIBLE);
+        } else {
+            errorOldNip.setVisibility(View.INVISIBLE);
+        }
+
+        if (!asinarNipWatcher2.isValid()) {
+            errorNewNip.setMessageText("Son necesarios 4 números");
+            errorNewNip.setVisibility(View.VISIBLE);
+        } else {
+            errorNewNip.setVisibility(View.INVISIBLE);
+        }
+
+        if (!asinarNipWatcher3.isValid()) {
+            errorNewNipConfirm.setMessageText("Son necesarios 4 números");
+            errorNewNipConfirm.setVisibility(View.VISIBLE);
+        } else {
+            errorNewNipConfirm.setVisibility(View.INVISIBLE);
+        }
+
+        if (asinarNipWatcher1.isValid() && asinarNipWatcher2.isValid()) {
+            if (nip.equals(nipNew)) {
+                errorNewNip.setMessageText("El nuevo NIP debe ser diferente del anterior");
+                errorNewNip.setVisibility(View.VISIBLE);
+            }else{
+                errorNewNip.setVisibility(View.INVISIBLE);
+            }
+        }
+
+        if (asinarNipWatcher2.isValid() && asinarNipWatcher3.isValid()) {
+            if (nipNew.equals(nipNewConfirm)) {
+                errorNewNipConfirm.setVisibility(View.INVISIBLE);
+            }else{
+                errorNewNipConfirm.setMessageText("El NIP no coincide");
+                errorNewNipConfirm.setVisibility(View.VISIBLE);
+            }
+        }
+
+        if (asinarNipWatcher2.isValid() && !asinarNipWatcher3.isValid()) {
+            if (nipNew.equals(nipNewConfirm)) {
+                errorNewNipConfirm.setVisibility(View.INVISIBLE);
+            }else{
+                errorNewNipConfirm.setMessageText("El NIP no coincide");
+                errorNewNipConfirm.setVisibility(View.VISIBLE);
+            }
+        }
+
+
+
+        // errorOldNip errorNewNip errorNewNipConfirm
     }
 }

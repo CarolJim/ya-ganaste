@@ -21,32 +21,46 @@
             android:gravity="center"
             android:text="Cambia tu NIP" />
 
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="2dp"
+            android:layout_marginTop="30dp" />
+
         <include layout="@layout/asignar_nip1_change" />
 
         <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-            android:id="@+id/errorOldPasswordMessage"
+            android:id="@+id/errorOldNipMessage"
             style="@style/generic_text_style_2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
+            android:textAlignment="center"
             android:visibility="visible" />
 
         <include layout="@layout/asignar_nip2_change" />
 
         <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-            android:id="@+id/errorPasswordMessage"
+            android:id="@+id/errorNewNipMessage"
             style="@style/generic_text_style_2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:visibility="visible" />
 
         <include layout="@layout/asignar_nip3_change" />
 
         <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-            android:id="@+id/errorConfirmPasswordMessage"
+            android:id="@+id/errorNewNipConfirmMessage"
             style="@style/generic_text_style_2"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:layout_gravity="center"
             android:layout_marginBottom="@dimen/margin_doble"
+            android:layout_marginLeft="40dp"
+            android:layout_marginRight="40dp"
             android:visibility="visible" />
 
         <LinearLayout
