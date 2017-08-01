@@ -6,19 +6,26 @@ import android.os.Handler;
 import android.view.Window;
 
 import com.crashlytics.android.Crashlytics;
+import com.google.gson.Gson;
+import com.google.gson.reflect.TypeToken;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
+import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
+import com.pagatodo.yaganaste.utils.JsonManager;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
+
+import java.lang.reflect.Type;
+import java.util.List;
 
 import io.fabric.sdk.android.Fabric;
 
@@ -48,6 +55,14 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
             @Override
             public void run() {
                 try {
+                    if (api.isPaisesTableEmpty()) {
+                        String json = JsonManager.loadJSONFromAsset("files/paises.json");
+                        Type token = new TypeToken<List<Countries>>() {
+                        }.getType();
+                        List<Countries> countries = new Gson().fromJson(json, token);
+                        api.insertPaises(countries);
+                    }
+
                     //if (api.isCatalogTableEmpty()) {
                     ObtenerCatalogoRequest request = new ObtenerCatalogoRequest();
                     request.setVersion(preferencias.loadData(StringConstants.CATALOG_VERSION).isEmpty() ? "1" : preferencias.loadData(StringConstants.CATALOG_VERSION));
@@ -55,6 +70,7 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
                     //} else {
                     //    callNextActivity();
                     //}
+
                 } catch (OfflineException e) {
                     e.printStackTrace();
                     callNextActivity();

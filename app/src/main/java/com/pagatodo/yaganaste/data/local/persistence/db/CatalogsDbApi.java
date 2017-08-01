@@ -4,6 +4,7 @@ import android.content.Context;
 
 import com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract;
 import com.pagatodo.yaganaste.data.local.persistence.db.dao.GenericDao;
+import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.db.MontoComercio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 
@@ -21,12 +22,30 @@ public class CatalogsDbApi {
         genericDao = GenericDao.getNewInstance(context);
     }
 
+    public static boolean isPaisesTableEmpty() {
+        genericDao.open();
+        boolean result = genericDao.isEmpty(Countries.class);
+        genericDao.close();
+
+        return result;
+    }
+
     public static boolean isCatalogTableEmpty() {
         genericDao.open();
         boolean result = genericDao.isEmpty(ComercioResponse.class);
         genericDao.close();
 
         return result;
+    }
+
+    public static void insertPaises(List<Countries> paises) {
+        genericDao.open();
+        genericDao.deleteAll(Countries.class);
+
+        for (Countries pais : paises) {
+            genericDao.insert(pais);
+        }
+        genericDao.close();
     }
 
     public static void insertComercios(List<ComercioResponse> comercios) {
@@ -76,10 +95,18 @@ public class CatalogsDbApi {
         return comerciosRespose;
     }
 
+    public static ArrayList<Countries> getPaisesList(){
+        genericDao.open();
+        ArrayList<Countries> paises = genericDao.getArrayListByQueryOrderBy(Countries.class, DBContract.Paises.ID, null);
+        genericDao.close();
+
+        return paises;
+    }
+
     public static String getURLIconComercio(String nombreComercio) {
         genericDao.open();
         ComercioResponse comercioResponse = genericDao.getByQuery(ComercioResponse.class,
-                 DBContract.Comercios.COMERCIO + "= '" + nombreComercio + "'");
+                DBContract.Comercios.COMERCIO + "= '" + nombreComercio + "'");
 
         genericDao.close();
 

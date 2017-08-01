@@ -70,7 +70,6 @@ public class SQLiteHelper extends SQLiteOpenHelper {
                 mapped = annotation.value();
                 sqLiteDatabase.execSQL(getQuery(mapped));
             }
-
         }
     }
 

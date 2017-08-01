@@ -28,7 +28,8 @@ public class ColoniasArrayAdapter extends ArrayAdapter<String> {
     List<String> mList;
     IOnSpinnerClick spinnerClick;
 
-    public ColoniasArrayAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<String> objects, IOnSpinnerClick iOnSpinnerClick) {
+    public ColoniasArrayAdapter(@NonNull Context context, @LayoutRes int resource,
+                                @NonNull List<String> objects, IOnSpinnerClick iOnSpinnerClick) {
         super(context, resource, objects);
         this.mContext = context;
         this.mList = objects;

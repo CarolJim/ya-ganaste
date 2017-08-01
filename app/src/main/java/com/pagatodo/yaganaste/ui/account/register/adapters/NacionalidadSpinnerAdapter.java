@@ -9,124 +9,145 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
-import android.widget.EditText;
-import android.widget.ImageView;
+import android.widget.Filter;
+import android.widget.Filterable;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
+import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import java.text.Normalizer;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jordan on 28/03/2017.
  */
 
-public class NacionalidadSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
-    Context mContext;
-    int mLayoutResourceId;
-    IEnumSpinner[] mItems;
+public class NacionalidadSpinnerAdapter extends ArrayAdapter<Countries> implements Filterable {
+    private Context mContext;
+    private int mLayoutResourceId;
+    private List<Countries> orgCountriesList;
+    private List<Countries> countriesList;
+    private Filter countriesFilter;
 
-    public NacionalidadSpinnerAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull IEnumSpinner[] objects) {
-        super(context, resource, objects);
+    public NacionalidadSpinnerAdapter(@NonNull Context context, @LayoutRes int resource, @NonNull List<Countries> countries) {
+        super(context, resource, countries);
         this.mLayoutResourceId = resource;
         this.mContext = context;
-        this.mItems = objects;
+        this.orgCountriesList = countries;
+        this.countriesList = countries;
     }
 
 
+    public Countries getItem(int position) {
+        return countriesList.get(position);
+    }
+
     @Override
-    public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
+    public long getItemId(int position) {
+        return countriesList.get(position).hashCode();
+    }
+
+    @Override
+    public int getCount() {
+        return countriesList.size();
+    }
+
+    @Override
+    public View getView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
-        NacionalidadSpinnerAdapter.DropDownHolder holder;
+        DropDownHolder holder;
+        Countries item = countriesList.get(position);
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
             row = inflater.inflate(mLayoutResourceId, parent, false);
 
-            holder = new NacionalidadSpinnerAdapter.DropDownHolder();
+            holder = new DropDownHolder();
             holder.txtTitle = (StyleTextView) row.findViewById(R.id.textView_spinner);
 
             row.setTag(holder);
         } else {
-            holder = (NacionalidadSpinnerAdapter.DropDownHolder) row.getTag();
+            holder = (DropDownHolder) row.getTag();
         }
-        IEnumSpinner item = mItems[position];
-        if (position == 0) {
-            holder.txtTitle.setText("");
-            holder.txtTitle.setHint(item.getName());
-        } else {
-            holder.txtTitle.setText(item.getName());
-        }
+
+        holder.txtTitle.setText(item.getPais());
 
         return row;
     }
 
-    @NonNull
-    @Override
-    public View getView(int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
-        View row = convertView;
-        NacionalidadSpinnerAdapter.ViewHolder holder;
-        if (row == null) {
-            LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
-            row = inflater.inflate(R.layout.spinner_custom_layout, parent, false);
-
-            holder = new NacionalidadSpinnerAdapter.ViewHolder();
-            holder.editText = (EditText) row.findViewById(R.id.editTextCustomSpinner);
-            holder.downArrow = (ImageView) row.findViewById(R.id.imageViewCustomSpinner);
-            row.setTag(holder);
-        } else {
-            holder = (NacionalidadSpinnerAdapter.ViewHolder) row.getTag();
-        }
-
-        holder.editText.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                parent.performClick();
-            }
-        });
-
-        IEnumSpinner item = mItems[position];
-        if (position == 0) {
-            holder.editText.setHint(item.getName());
-        } else {
-            holder.editText.setText(item.getName());
-        }
-
-        return row;
+    public void resetData() {
+        countriesList = orgCountriesList;
     }
 
-    @Override
-    public long getItemId(int position) {
-        return super.getItemId(position);
-    }
-
-    @Override
-    public int getCount() {
-        return mItems.length;
-    }
 
     public String getItemIdString(int position) {
-        return mItems[position].getId();
+        return countriesList.get(position).getIdPais();
     }
 
     public String getItemName(int position) {
-        return mItems[position].getName();
+        return countriesList.get(position).getPais();
     }
 
     public int getPositionItemByName(String name) {
-        for (int position = 0; position < mItems.length; position++) {
-            if (mItems[position].getName().equals(name))
+        for (int position = 0; position < countriesList.size(); position++) {
+            if (countriesList.get(position).getPais().equals(name))
                 return position;
         }
-        return 0;
+        return -1;
     }
 
     static class DropDownHolder {
         StyleTextView txtTitle;
     }
 
-    static class ViewHolder {
-        EditText editText;
-        ImageView downArrow;
+    @NonNull
+    @Override
+    public Filter getFilter() {
+        if (countriesFilter == null) {
+            countriesFilter = new CountriesFilter();
+        }
+        return countriesFilter;
     }
 
+    private class CountriesFilter extends Filter {
+
+        @Override
+        protected FilterResults performFiltering(CharSequence constraint) {
+            FilterResults results = new FilterResults();
+            if (constraint == null || constraint.length() == 0) {
+                results.values = orgCountriesList;
+                results.count = orgCountriesList.size();
+            } else {
+                List<Countries> nCountriesList = new ArrayList<>();
+                for (Countries country : orgCountriesList) {
+                    if (removeDiacriticalMarks(country.getPais()).toUpperCase().contains(removeDiacriticalMarks(constraint.toString()).toUpperCase())) {
+                        nCountriesList.add(country);
+                    }
+                }
+
+                results.values = nCountriesList;
+                results.count = nCountriesList.size();
+            }
+
+            return results;
+        }
+
+        @Override
+        protected void publishResults(CharSequence constraint, FilterResults results) {
+            if (results.count == 0) {
+                countriesList = new ArrayList<>();
+                notifyDataSetChanged();
+            } else {
+                countriesList = (List<Countries>) results.values;
+                notifyDataSetChanged();
+            }
+        }
+
+        private String removeDiacriticalMarks(String string) {
+            return Normalizer.normalize(string, Normalizer.Form.NFD)
+                    .replaceAll("\\p{InCombiningDiacriticalMarks}+", "");
+        }
+    }
 }

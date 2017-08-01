@@ -283,12 +283,15 @@
     <string name="male">Hombre</string>
     <string name="nameHint">Nombre(s)</string>
     <string name="birthDay">Fecha de Nacimiento</string>
+    <string name="county">País de Nacimiento</string>
     <string name="datos_personal_nombre">Nombre Requerido, Verifique su Información.</string>
     <string name="datos_personal_paterno">Primer Apellido Requerido, Verifique su Información.</string>
     <string name="datos_personal_fecha">Fecha de Nacimiento Requerida, Verifique su Información.</string>
     <string name="datos_personal_estado">Lugar de Nacimiento Requerido, Verifique su Información.</string>
     <string name="datos_personal_nacionalidad">Nacionalidad Requerida, Verifique su Información.</string>
     <string name="datos_personal_genero">Genero Requerido, Verifique su Información.</string>
+    <string name="datos_personal_pais">País de Nacimiento Requerido, Verifique su Información.</string>
+    <string name="buscar_pais">Busca tu País</string>
     <!--datos_domicilio-->
     <string name="currentAddressTitle">Domicilio Personal</string>
     <string name="streetHint">Calle</string>

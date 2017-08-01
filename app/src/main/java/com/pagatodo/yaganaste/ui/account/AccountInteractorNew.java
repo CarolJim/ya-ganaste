@@ -7,11 +7,13 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.DatosSaldo;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
@@ -362,6 +364,12 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         } catch (OfflineException e) {
             accountManager.onError(CONSULTA_SALDO_CUPO, null);
         }
+    }
+
+    @Override
+    public ArrayList<Countries> getPaisesList() {
+        CatalogsDbApi api = new CatalogsDbApi(App.getContext());
+        return api.getPaisesList();
     }
 
     @Override

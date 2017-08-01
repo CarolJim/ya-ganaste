@@ -1,10 +1,13 @@
 package com.pagatodo.yaganaste.interfaces;
 
+import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
+
+import java.util.ArrayList;
 
 /**
  * Created by flima on 22/03/2017.
@@ -49,5 +52,6 @@ public interface IAccountIteractorNew<T> {
 
     void getBalanceAdq();
 
+    ArrayList<Countries> getPaisesList();
 }
 

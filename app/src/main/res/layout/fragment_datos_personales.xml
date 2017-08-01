@@ -194,6 +194,25 @@
                             android:layout_width="match_parent"
                             android:layout_height="match_parent"
                             android:visibility="visible" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                            android:id="@+id/editCountry"
+                            style="@style/FragmentElementWithValidation"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:focusableInTouchMode="false"
+                            android:visibility="gone"
+                            app:formato="text"
+                            app:hintText="@string/county"
+                            app:imageIsGone="false"
+                            app:isTextEnabled="false" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                            android:id="@+id/errorCountryMessage"
+                            style="@style/generic_text_style_2"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            android:visibility="gone" />
                     </LinearLayout>
 
                 </LinearLayout>

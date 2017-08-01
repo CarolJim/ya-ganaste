@@ -38,5 +38,5 @@ public interface IAccountPresenterNew {
 
     void updateBalanceAdq();
 
-
+    void getPaisesList();
 }
