@@ -240,6 +240,8 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             }
         });
 
+        // Iniciamos al TDC vacia
+        editNumber.setText("");
     }
 
     @Override
@@ -271,8 +273,13 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                 txtMessageCard.setText(getString(R.string.no_tiene_tarjeta));
                 generateCardNumberRamdon();
                 keyboardView.hideCustomKeyboard();
+
+                // Reiniciamos al TDC vacia
+                editNumber.setText("");
                 break;
             default:
+                // Reiniciamos al TDC vacia
+                editNumber.setText("");
                 break;
         }
     }
