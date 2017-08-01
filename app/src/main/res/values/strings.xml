@@ -327,6 +327,8 @@
     <string name="confirma_pin">Confirma tu NIP.</string>
     <string name="confirmar_pin">El NIP no Coincide</string>
     <string name="longitud_nip">NIP de 4 Dígitos</string>
+    <string name="new_nip_diferent">El Nuevo NIP Debe Ser Diferente Del Anterior</string>
+    <string name="new_nip_four_digits">Son Necesarios 4 Números</string>
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
