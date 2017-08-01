@@ -306,7 +306,7 @@
 
     <!--activacion_sms-->
     <string name="activacion_sms_mes_1">Para Terminar tu Registro,\n Debemos Asociar tu Teléfono a tu\n Cuenta Ya Ganaste.</string>
-    <string name="activacion_sms_mes_2">Sólo Desliza Para Enviar \nel SMS Requerido.</string>
+    <string name="activacion_sms_mes_2">Desliza el Boton y Enviaremos un \nSMS Para Realizar el Proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
     <!--tienes_tarjeta-->
@@ -481,6 +481,7 @@
     <string name="cargando">Cargando</string>
 
     <string name="recupera_contrasenia_title">Recupera tu Contraseña</string>
+    <string name="enviaremos_enlace_restablecer">Enviaremos un Enlace Para \nRestablecer tu Contraseña a:</string>
     <string name="ingresa_correo_registrado">Ingresa tu Correo\nElectrónico Registrado</string>
     <string name="ingresa_correo_registrado_requerido">El Correo Electrónico es Requerido. Verifica tu Información.</string>
 
