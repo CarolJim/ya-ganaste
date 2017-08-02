@@ -188,4 +188,16 @@ public class StringUtils {
         String urlEdit = urlSplit[0] + "_M.png";
         return urlEdit;
     }
+
+    /**
+     * Se encarga de cifrar el correo, muestra 3 caracteres, asteriscos y la direccion de servidor
+     * @param username
+     * @return
+     */
+    public static String cifrarPass(String username) {
+        String[] mStringPart = username.split("@");
+        String mStringLetters = mStringPart[0].substring(0, 3);
+
+        return mStringLetters + "******@" + mStringPart[1];
+    }
 }

@@ -33,9 +33,10 @@
                     android:id="@+id/txtHeaderRecovery"
                     style="@style/FragmentElement"
                     android:layout_width="match_parent"
+                    android:textSize="@dimen/size_text_style_3_value"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/ingresa_correo_registrado" />
+                    android:text="@string/enviaremos_enlace_restablecer" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/edtCorreoRegistrado"
@@ -45,6 +46,15 @@
                     app:formato="email"
                     app:hintText="@string/txt_mail"
                     app:isSingleLine="true" />
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/tvCorreoRegistrado"
+                    style="@style/FragmentElement"
+                    android:layout_width="match_parent"
+                    android:textColor="@color/colorAccent"
+                    android:layout_height="wrap_content" android:visibility="gone"
+                    android:gravity="center"
+                    android:text="dantestark@gmail.com" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorMessage"

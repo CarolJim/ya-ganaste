@@ -311,7 +311,7 @@
 
     <!--activacion_sms-->
     <string name="activacion_sms_mes_1">Para Terminar tu Registro,\n Debemos Asociar tu Teléfono a tu\n Cuenta Ya Ganaste.</string>
-    <string name="activacion_sms_mes_2">Sólo Desliza Para Enviar \nel SMS Requerido.</string>
+    <string name="activacion_sms_mes_2">Desliza el Boton y Enviaremos un \nSMS Para Realizar el Proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
     <!--tienes_tarjeta-->
@@ -329,6 +329,8 @@
     <string name="confirma_pin">Confirma tu NIP.</string>
     <string name="confirmar_pin">El NIP no Coincide</string>
     <string name="longitud_nip">NIP de 4 Dígitos</string>
+    <string name="new_nip_diferent">El Nuevo NIP Debe Ser Diferente Del Anterior</string>
+    <string name="new_nip_four_digits">Son Necesarios 4 Números</string>
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
@@ -490,6 +492,7 @@
     <string name="cargando">Cargando</string>
 
     <string name="recupera_contrasenia_title">Recupera tu Contraseña</string>
+    <string name="enviaremos_enlace_restablecer">Enviaremos un Enlace Para \nRestablecer tu Contraseña a:</string>
     <string name="ingresa_correo_registrado">Ingresa tu Correo\nElectrónico Registrado</string>
     <string name="ingresa_correo_registrado_requerido">El Correo Electrónico es Requerido. Verifica tu Información.</string>
 
