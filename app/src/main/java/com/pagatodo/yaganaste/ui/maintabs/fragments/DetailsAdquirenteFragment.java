@@ -68,8 +68,8 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     TextView txtHoraDescripcion;
     @BindView(R.id.txtAutorizacionDescripcion)
     TextView txtAutorizacionDescripcion;
-    @BindView(R.id.txtReciboDescripcion)
-    TextView txtReciboDescripcion;
+    /*@BindView(R.id.txtReciboDescripcion)
+    TextView txtReciboDescripcion;*/
     @BindView(R.id.btn_cancel)
     Button btnCancel;
     @BindView(R.id.btn_volver)
@@ -148,7 +148,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         txtHoraDescripcion.setText(hourFormat.format(calendar.getTime()) + " hrs");
 
         txtAutorizacionDescripcion.setText(dataMovimientoAdq.getNoAutorizacion().trim().toString());
-        txtReciboDescripcion.setText(dataMovimientoAdq.getNoTicket());
+        //txtReciboDescripcion.setText(dataMovimientoAdq.getNoTicket());
 
         if (dataMovimientoAdq.isEsAprobada() && !dataMovimientoAdq.isEsCargo() && !dataMovimientoAdq.isEsReversada()) {
             btnCancel.setVisibility(View.VISIBLE);

@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.data.model.db;
 
 import android.os.Parcel;
-import android.os.Parcelable;
 
 import com.google.gson.annotations.SerializedName;
 import com.pagatodo.yaganaste.data.local.persistence.db.AbstractEntity;
@@ -34,6 +33,12 @@ public class Countries extends AbstractEntity implements Serializable {
     private String pais;
 
     public Countries() {
+    }
+
+    public Countries(int id, String pais, String idPais) {
+        this.id = id;
+        this.pais = pais;
+        this.idPais = idPais;
     }
 
     private Countries(Parcel parcel) {

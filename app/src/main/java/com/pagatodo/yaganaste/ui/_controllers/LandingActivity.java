@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
@@ -19,8 +21,10 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 public class LandingActivity extends SupportFragmentActivity implements Animation.AnimationListener {
 
     public static String LANDING_EXTRAS_ARRAY_DRAWABLE = "LANDING_EXTRAS_ARRAY_DRAWABLE";
+    public static String LANDING_EXTRAS_BACKGROUND_IMAGE = "LANDING_EXTRAS_BACKGROUND_IMAGE";
 
     private int[] drawable;
+    private int backImage;
     private Animation animFadeIn, animFadeOut;
     private int imagesIndex;
     private ImageView imageView;
@@ -31,18 +35,31 @@ public class LandingActivity extends SupportFragmentActivity implements Animatio
     boolean animaationEnd = true;
     int animationCounter = 1;
 
+    public static Intent createIntent(Context context, int backImage, int... drawable) {
+        Intent intent = new Intent(context, LandingActivity.class);
+        intent.putExtra(LANDING_EXTRAS_BACKGROUND_IMAGE, backImage);
+        intent.putExtra(LANDING_EXTRAS_ARRAY_DRAWABLE, drawable);
+        return intent;
+    }
+
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_landing);
         imageView = (ImageView) findViewById(R.id.imageLanding);
+        ImageView imageViewBack = (ImageView) findViewById(R.id.imageBack);
 
         Bundle extras = getIntent().getExtras();
         if (extras != null) {
             drawable = (int[]) extras.get(LANDING_EXTRAS_ARRAY_DRAWABLE);
+            backImage = (int) extras.get(LANDING_EXTRAS_BACKGROUND_IMAGE);
         }
         imagesIndex = drawable.length;
+
+        if (backImage != 0) {
+            imageViewBack.setImageResource(backImage);
+        }
         imageView.setImageResource(drawable[0]);
 
         animFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
