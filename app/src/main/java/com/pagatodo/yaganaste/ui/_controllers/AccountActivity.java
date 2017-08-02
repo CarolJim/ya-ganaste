@@ -93,7 +93,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 break;
 
             case GO_TO_REGISTER:
-                loadFragment(DatosUsuarioFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(DomicilioActualFragment.newInstance(), Direction.FORDWARD, false);
 
                 // TODO: 28/04/2017
                 resetRegisterData();
