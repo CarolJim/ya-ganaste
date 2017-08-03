@@ -34,10 +34,8 @@ import com.pagatodo.yaganaste.interfaces.View;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.TabPresenterImpl;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
-import com.pagatodo.yaganaste.utils.Codec;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
@@ -59,10 +57,9 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
-import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.ui.preferuser.MyChangeNip.EVENT_GO_CHANGE_NIP_SUCCESS;
-import static com.pagatodo.yaganaste.utils.Recursos.CRC32_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
 /**
  * Created by flima on 22/03/2017.
@@ -245,9 +242,9 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 } else {
                     ((IVerificationSMSView) accountView).smsVerificationFailed(error.toString());
                 }
-            } else if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN){
+            } else if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) {
                 ((IVerificationSMSView) accountView).verifyActivationProvisingFailed(error.toString());
-            } else if (ws == ACTIVACION_APROV_SOFTTOKEN){
+            } else if (ws == ACTIVACION_APROV_SOFTTOKEN) {
                 ((IVerificationSMSView) accountView).activationProvisingFailed(error.toString());
             } else if (ws == ACTUALIZAR_INFO_SESION) { // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).dataUpdated(error.toString());
@@ -347,10 +344,10 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 ((IVerificationSMSView) accountView).smsVerificationSuccess();
             } else if (ws == ACTUALIZAR_INFO_SESION) { // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).dataUpdated(data.toString());
-            } else if(ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN){ // Error en Verificacion de Aprovisionamiento
+            } else if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) { // Error en Verificacion de Aprovisionamiento
                 accountView.showLoader("");
                 getPinPolicy(); // Obtenemos las Reglas del Pin
-            } else if(ws == ACTIVACION_APROV_SOFTTOKEN){// Error activación de Aprovisionamiento
+            } else if (ws == ACTIVACION_APROV_SOFTTOKEN) {// Error activación de Aprovisionamiento
                 accountView.showLoader("");
                 ((IVerificationSMSView) accountView).provisingCompleted();
             }

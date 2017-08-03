@@ -72,7 +72,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
     private ProgressLayout progressGIF;
 
-    final int[] drawablesEmisor = {R.drawable.cem1, R.drawable.img_couch_em_2,
+    final int[] drawablesEmisor = {0, R.drawable.img_couch_em_2,
             R.drawable.img_couch_em_3, R.drawable.img_couch_em_4, R.drawable.img_couch_em_5};
     final int[] drawablesAdquirente = {R.drawable.coachmark_adquirente_1, R.drawable.coachmark_adquirente_2};
 
