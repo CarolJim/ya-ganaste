@@ -485,9 +485,9 @@ public class DatosPersonalesFragment extends GenericFragment implements
         //registerUser.setNacionalidad("MX");
         if (country != null) {
             registerUser.setPaisNacimiento(country);
-            registerUser.setNacionalidad(country.getIdPais());
+            //registerUser.setNacionalidad(country.getIdPais());
         } else {
-            registerUser.setNacionalidad("MX");
+            registerUser.setPaisNacimiento(new Countries(127, "Mexico", "MX"));
         }
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);

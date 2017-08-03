@@ -243,7 +243,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 registerUser.getFechaNacimiento(),
                 "",/*RFC*/
                 "",/*CURP*/
-                registerUser.getNacionalidad(),/*Nacionalidad*/
+                registerUser.getPaisNacimiento().getId(),/*Nacionalidad*/
                 registerUser.getIdEstadoNacimineto(),
                 registerUser.getEmail(),
                 "",/*Telefono*/

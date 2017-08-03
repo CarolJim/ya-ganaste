@@ -205,6 +205,8 @@
     <string name="txt_fecha_hora">Fecha y Hora:</string>
     <string name="hint_concepto">Concepto</string>
     <string name="txt_concepto">Concepto:</string>
+    <string name="txt_clave_rastreo">Clave Rastreo:</string>
+    <string name="txt_numero_referencia">Número de Referencia:</string>
     <string name="inserta_el_lector_para_ncontinuar">Inserta Tu Lector de Tarjetas\nYa Ganaste</string>
     <string name="text_slide_or_insert">Inserta o Desliza la Tarjeta Para Continuar.</string>
     <string name="finalizar">Finalizar</string>
@@ -418,7 +420,11 @@
 
     <string name="cancelar_operacion">Cancelar Cobro</string>
     <string name="txt_monto">Monto:</string>
+    <string name="txt_monto_compra">Monto Compra:</string>
+    <string name="txt_monto_retiro">Monto Retiro:</string>
     <string name="txt_recibo">Recibo:</string>
+    <string name="txt_iva">IVA:</string>
+    <string name="txt_cargo_servicio">Cargo Por Servicio:</string>
 
     <string name="autorizacion">Autorización:</string>
     <string name="tarjeta">Tarjeta:</string>
@@ -654,7 +660,10 @@
     <string name="mount_valid">Ingresa un Monto Válido.</string>
     <string name="enter_mount">Por Favor Ingrese un Monto</string>
     <string name="mount_cero">$0.00</string>
-    <string name="send_to_txt">Enviado a:</string>
+    <string name="send_to_txt">Para:</string>
+    <string name="from_txt">De:</string>
+    <string name="cuenta_ordenante">Cuenta Ordenante:</string>
+    <string name="cuenta_beneficiario">Cuenta Beneficiario:</string>
     <string name="last_date_update">Actualizado el %s hrs</string>
 
     <string name="ask_permission_gps">Por Favor Activa tu GPS</string>

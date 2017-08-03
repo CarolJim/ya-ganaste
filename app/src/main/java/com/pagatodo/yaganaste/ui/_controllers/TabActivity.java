@@ -72,7 +72,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
     private ProgressLayout progressGIF;
 
-    final int[] drawablesEmisor = {R.drawable.img_couch_em_1, R.drawable.img_couch_em_2,
+    final int[] drawablesEmisor = {0, R.drawable.img_couch_em_2,
             R.drawable.img_couch_em_3, R.drawable.img_couch_em_4, R.drawable.img_couch_em_5};
     final int[] drawablesAdquirente = {R.drawable.coachmark_adquirente_1, R.drawable.coachmark_adquirente_2};
 
@@ -88,9 +88,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
         if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
-            Intent intent = new Intent(this, LandingActivity.class);
-            intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawablesEmisor);
-            startActivityForResult(intent, Constants.ACTIVITY_LANDING);
+            startActivityForResult(LandingActivity.createIntent(this, 0, drawablesEmisor), Constants.ACTIVITY_LANDING);
         }
 
         System.gc();
@@ -157,9 +155,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 @Override
                 public void run() {
                     pref.saveDataBool(COUCHMARK_EMISOR, true);
-                    Intent intent = new Intent(TabActivity.this, LandingActivity.class);
-                    intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawablesEmisor);
-                    startActivityForResult(intent, Constants.ACTIVITY_LANDING);
+                    startActivityForResult(LandingActivity.createIntent(TabActivity.this, 0, drawablesEmisor), Constants.ACTIVITY_LANDING);
                 }
             }, 500);
         }
@@ -268,9 +264,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                     SingletonUser.getInstance().getDataUser().getEstatusAgente() == PTH_DOCTO_APROBADO &&
                     !pref.containsData(COUCHMARK_ADQ)) {
                 pref.saveDataBool(COUCHMARK_ADQ, true);
-                Intent intent = new Intent(this, LandingActivity.class);
-                intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawablesAdquirente);
-                startActivity(intent);
+                startActivity(LandingActivity.createIntent(this, 0, drawablesAdquirente));
             }
         }
     }

@@ -44,6 +44,7 @@ public class RegisterUser {
 
     public void setPaisNacimiento(Countries paisNacimiento) {
         this.paisNacimiento = paisNacimiento;
+        this.nacionalidad = paisNacimiento.getIdPais();
     }
 
     public static synchronized RegisterUser getInstance() {
