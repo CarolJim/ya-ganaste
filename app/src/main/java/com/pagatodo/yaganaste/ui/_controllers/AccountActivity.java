@@ -82,8 +82,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
         action = getIntent().getExtras().getString(SELECTION);
         pref = App.getInstance().getPrefs();
         resetRegisterData();
+        setUpActionBar();
         presenterAccount = new AccountPresenterNew(this);
-        loginContainerFragment = LoginManagerContainerFragment.newInstance();// LoginContainerFragment.newInstance();
+        loginContainerFragment = LoginManagerContainerFragment.newInstance();
 
         container = (FrameLayout) findViewById(R.id.container);
 

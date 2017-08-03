@@ -10,4 +10,6 @@ public interface IQuickBalanceManager {
     void nextPage();
 
     void onBackPress();
+
+    void setViewPagerSwipeable(boolean isSwipeable);
 }

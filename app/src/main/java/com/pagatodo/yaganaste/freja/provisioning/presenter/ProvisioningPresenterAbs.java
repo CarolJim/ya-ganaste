@@ -5,14 +5,17 @@ import android.content.Context;
 import com.pagatodo.yaganaste.freja.provisioning.iteractor.ProvisioningIteractor;
 import com.pagatodo.yaganaste.freja.provisioning.iteractor.ProvisioningIteractorImp;
 import com.pagatodo.yaganaste.freja.provisioning.manager.ProvisioningManager;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.TabPresenterImpl;
 
 import java.util.concurrent.Executors;
+
+import static com.pagatodo.yaganaste.utils.Recursos.PT_CLIENT_CODE;
 
 /**
  * @author Juan Guerra on 31/03/2017.
  */
 
-public abstract class ProvisioningPresenterAbs implements ProvisioningPresenter, ProvisioningManager {
+public abstract class ProvisioningPresenterAbs extends TabPresenterImpl implements ProvisioningPresenter, ProvisioningManager {
 
     private ProvisioningIteractor provisioningIteractor;
 
@@ -23,7 +26,7 @@ public abstract class ProvisioningPresenterAbs implements ProvisioningPresenter,
 
     @Override
     public void getActivationCode() {
-        provisioningIteractor.getActivationCode("775363");
+        provisioningIteractor.getActivationCode(PT_CLIENT_CODE);
     }
 
     @Override

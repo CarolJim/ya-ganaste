@@ -20,7 +20,6 @@
             style="@style/BorderTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
             app:title="@string/userDataTitle">
 
             <LinearLayout
@@ -120,12 +119,31 @@
             android:textColor="@color/colorAccent"
             android:text="@string/formato_password"/>
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_horizontal">
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleButton
-            android:id="@+id/btnNextDatosUsuario"
-            style="@style/buttonDirecctionNext"
-            android:gravity="center"
-            android:text="@string/nextButton" />
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnBackDatosUsuario"
+                style="@style/buttonDirecctionBackSmall"
+                android:gravity="center"
+                android:text="@string/backButton"/>
+
+            <android.support.v4.widget.Space
+                android:layout_width="@dimen/btns_separation"
+                android:layout_height="match_parent" />
+
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnNextDatosUsuario"
+                style="@style/buttonDirecctionNext"
+                android:gravity="center"
+                android:text="@string/nextButton" />
+
+        </LinearLayout>
+
     </LinearLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout

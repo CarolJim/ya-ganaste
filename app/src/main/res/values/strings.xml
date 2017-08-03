@@ -289,7 +289,7 @@
     <string name="datos_personal_fecha">Fecha de Nacimiento Requerida, Verifique su Información.</string>
     <string name="datos_personal_estado">Lugar de Nacimiento Requerido, Verifique su Información.</string>
     <string name="datos_personal_nacionalidad">Nacionalidad Requerida, Verifique su Información.</string>
-    <string name="datos_personal_genero">Genero Requerido, Verifique su Información.</string>
+    <string name="datos_personal_genero">Género Requerido, Verifique su Información.</string>
     <string name="datos_personal_pais">País de Nacimiento Requerido, Verifique su Información.</string>
     <string name="buscar_pais">Busca tu País</string>
     <!--datos_domicilio-->
@@ -442,6 +442,8 @@
 
     <string name="no_offline_token">El Dispositivo no Cuenta con Token Offline, Asegúrate de Que
     tu Dispositivo Esté Asociado por SMS</string>
+
+    <string name="generando_token">Generando Código</string>
 
     <string name="tu_codigo">Tu Código de Acceso es:</string>
     <string name="caduca_en"><![CDATA[Caduca en <b><font color="#10B2E6">%1$s</font></b> Minutos]]></string>

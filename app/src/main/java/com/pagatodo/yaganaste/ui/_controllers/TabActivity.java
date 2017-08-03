@@ -72,7 +72,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
     private ProgressLayout progressGIF;
 
-    final int[] drawablesEmisor = {R.drawable.img_couch_em_1, R.drawable.img_couch_em_2,
+    final int[] drawablesEmisor = {R.drawable.cem1, R.drawable.img_couch_em_2,
             R.drawable.img_couch_em_3, R.drawable.img_couch_em_4, R.drawable.img_couch_em_5};
     final int[] drawablesAdquirente = {R.drawable.coachmark_adquirente_1, R.drawable.coachmark_adquirente_2};
 
@@ -86,7 +86,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         setContentView(R.layout.activity_main_tab);
         load();
 
-        if (!pref.containsData(COUCHMARK_EMISOR)) {
+        if (true) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             Intent intent = new Intent(this, LandingActivity.class);
             intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawablesEmisor);

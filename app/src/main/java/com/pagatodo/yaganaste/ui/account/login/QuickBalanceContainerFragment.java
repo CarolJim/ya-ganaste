@@ -13,6 +13,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
 import com.pagatodo.yaganaste.ui.account.QuickBalanceAdapter;
+import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -27,7 +28,7 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
     private View rootView;
 
     @BindView(R.id.viewPagerQuickBalance)
-    ViewPager viewPagerQuickBalance;
+    NoSwipeViewPager viewPagerQuickBalance;
     ILoginContainerManager loginContainerManager;
 
     public static QuickBalanceContainerFragment newInstance() {
@@ -61,6 +62,7 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
         ButterKnife.bind(this, rootView);
         viewPagerQuickBalance.setAdapter(quickBalanceAdapter);
         viewPagerQuickBalance.setCurrentItem(1);
+        viewPagerQuickBalance.setIsSwipeable(true);
     }
 
     public ILoginContainerManager getLoginContainerManager() {
@@ -78,12 +80,22 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
     @Override
     public void onBackPress() {
         if (viewPagerQuickBalance.getCurrentItem() == 0) {
-            viewPagerQuickBalance.setCurrentItem(1);
+            if (!((OtpContainerFratgment)quickBalanceAdapter.getItem(0)).onBack()) {
+                viewPagerQuickBalance.setCurrentItem(1);
+            } else {
+                viewPagerQuickBalance.setIsSwipeable(true);
+            }
+
         }else if (viewPagerQuickBalance.getCurrentItem() == 2) {
             viewPagerQuickBalance.setCurrentItem(1);
         } else {
             getActivity().finish();
         }
+    }
+
+    @Override
+    public void setViewPagerSwipeable(boolean isSwipeable) {
+        viewPagerQuickBalance.setIsSwipeable(isSwipeable);
     }
 
 

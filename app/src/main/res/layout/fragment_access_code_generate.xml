@@ -18,7 +18,7 @@
             style="@style/BorderTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="50dp"
+            android:layout_marginTop="20dp"
             app:title="@string/password">
 
             <LinearLayout
@@ -41,7 +41,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="30dp"
-                    app:formato="email"
+                    app:formato="password"
                     app:hintText="@string/password"
                     app:isSingleLine="true"
                     app:maxLength="50" />
@@ -57,10 +57,10 @@
         </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
         <LinearLayout
-            android:layout_alignParentBottom="true"
             android:id="@+id/layoutBottom"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
             android:gravity="center_horizontal"
             android:paddingBottom="@dimen/btn_navigation_bottom">
 
@@ -71,39 +71,7 @@
                 android:text="@string/continuar" />
         </LinearLayout>
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
 
-            <android.support.v7.widget.AppCompatImageView
-                android:id="@+id/imgArrowBack"
-                android:layout_width="@dimen/activity_horizontal_double_margin"
-                android:layout_height="@dimen/activity_horizontal_double_margin"
-                android:foreground="?attr/selectableItemBackground"
-                android:visibility="gone"
-                app:srcCompat="@drawable/back_canvas" />
-
-            <android.support.v4.widget.Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="1" />
-
-            <ImageView
-                android:id="@+id/imgArrowNext"
-                android:layout_width="@dimen/activity_horizontal_double_margin"
-                android:layout_height="@dimen/activity_horizontal_double_margin"
-                android:foreground="?attr/selectableItemBackground"
-                android:visibility="visible"
-                app:srcCompat="@drawable/arrow_canvas_blue" />
-
-        </LinearLayout>
-
-        <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:visibility="gone" />
     </RelativeLayout>
 
 

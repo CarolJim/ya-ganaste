@@ -16,12 +16,12 @@ import com.pagatodo.yaganaste.ui.otp.fragments.OtpViewFragment;
 
 public class OtpCodeActivity extends SupportFragmentActivity {
 
-    public static final String OTP_PARAM = "1";
+    public static final String OTP_PASS = "1";
 
-    public static Intent createIntent(Context from, String otp) {
+    public static Intent createIntent(Context from, String passOtp) {
         Intent intent = new Intent(from, OtpCodeActivity.class);
         Bundle args = new Bundle();
-        args.putString(OTP_PARAM, otp);
+        args.putString(OTP_PASS, passOtp);
         intent.putExtras(args);
         return intent;
     }
@@ -31,7 +31,7 @@ public class OtpCodeActivity extends SupportFragmentActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_em_adq);
 
-        loadFragment(OtpViewFragment.newInstance(getIntent().getExtras().getString(OTP_PARAM)));
+        loadFragment(OtpViewFragment.newInstance(getIntent().getExtras().getString(OTP_PASS)));
     }
 
     @Override
