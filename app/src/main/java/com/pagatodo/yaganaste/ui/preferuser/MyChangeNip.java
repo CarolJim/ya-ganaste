@@ -15,10 +15,14 @@ import android.view.WindowManager;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.utils.AsignarNipCustomWatcher;
 import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
@@ -36,7 +40,8 @@ import butterknife.OnClick;
  * Use the {@link MyChangeNip#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class MyChangeNip extends GenericFragment implements ValidationForms, View.OnClickListener {
+public class MyChangeNip extends GenericFragment implements ValidationForms, View.OnClickListener,
+        IChangeNIPView {
 
     private static int PIN_LENGHT = 4;
     @BindView(R.id.keyboard_view)
@@ -85,6 +90,8 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     AsignarNipCustomWatcher asinarNipWatcher1;
     AsignarNipCustomWatcher asinarNipWatcher2;
     AsignarNipCustomWatcher asinarNipWatcher3;
+    private AccountPresenterNew accountPresenter;
+    boolean isValid;
 
 
     public MyChangeNip() {
@@ -100,6 +107,8 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
+//        accountPresenter = ((AccountActivity) getActivity()).getPresenter();
+//        accountPresenter.setIView(this);
     }
 
     @Override
@@ -170,17 +179,20 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
                 if (s.toString().length() == 4) {
                     validateForm();
                     layout_control.setBackground(backgroundGrey);
                     keyboardView.hideCustomKeyboard();
                     finishBtn.setVisibility(View.VISIBLE);
+                    validateEt1();
+                } else if(s.toString().length() == 0){
+                    errorOldNip.setVisibility(View.INVISIBLE);
                 }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -192,17 +204,20 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
                 if (s.toString().length() == 4) {
                     validateForm();
                     layout_control2.setBackground(backgroundGrey);
                     keyboardView.hideCustomKeyboard();
                     finishBtn.setVisibility(View.VISIBLE);
+                    //validateEt2();
+                    validateEt1_Et2();
+                } else if(s.toString().length() == 0){
+                    errorNewNip.setVisibility(View.INVISIBLE);
                 }
-            }
-
-            @Override
-            public void afterTextChanged(Editable s) {
-
             }
         });
 
@@ -264,6 +279,36 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                 finishBtn.setVisibility(View.GONE);
             }
         });
+
+        // Aplicamos FocusChangeListener a los 3 EditText ocultos para poder vidar el nip
+        edtPin.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    validateEt1();
+                }
+            }
+        });
+
+        edtPin2.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                    validateEt2();
+                    validateEt1_Et2();
+                }
+            }
+        });
+
+        edtPin3.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (!hasFocus) {
+                 //   validateEt3();
+                    validateEt2_Et3();
+                }
+            }
+        });
     }
 
     @Override
@@ -293,6 +338,11 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         layout_control.setBackground(backgroundGrey);
         layout_control2.setBackground(backgroundGrey);
         layout_control3.setBackground(backgroundGrey);
+
+        validateEt1();
+        validateEt2();
+        validateEt1_Et2();
+        validateEt2_Et3();
     }
 
     private void showValidationError(Object err) {
@@ -306,7 +356,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
     @Override
     public void onValidationSuccess() {
-
+//        accountPresenter.assignNIP(nip);
     }
 
     @Override
@@ -319,56 +369,107 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     @Override
     public void onClick(View v) {
         getDataForm();
-        if (!asinarNipWatcher1.isValid()) {
-            errorOldNip.setMessageText("Son necesarios 4 números");
-            errorOldNip.setVisibility(View.VISIBLE);
-        } else {
-            errorOldNip.setVisibility(View.INVISIBLE);
-        }
+         isValid = true;
 
-        if (!asinarNipWatcher2.isValid()) {
-            errorNewNip.setMessageText("Son necesarios 4 números");
-            errorNewNip.setVisibility(View.VISIBLE);
-        } else {
-            errorNewNip.setVisibility(View.INVISIBLE);
-        }
+        validateEt1();
+        validateEt2();
+      //  validateEt3();
 
-        if (!asinarNipWatcher3.isValid()) {
-            errorNewNipConfirm.setMessageText("Son necesarios 4 números");
-            errorNewNipConfirm.setVisibility(View.VISIBLE);
-        } else {
-            errorNewNipConfirm.setVisibility(View.INVISIBLE);
-        }
+        validateEt1_Et2();
+        validateEt2_Et3();
 
-        if (asinarNipWatcher1.isValid() && asinarNipWatcher2.isValid()) {
-            if (nip.equals(nipNew)) {
-                errorNewNip.setMessageText("El nuevo NIP debe ser diferente del anterior");
-                errorNewNip.setVisibility(View.VISIBLE);
-            }else{
-                errorNewNip.setVisibility(View.INVISIBLE);
-            }
+        if (isValid) {
+            Toast.makeText(getContext(), "Validaciones listas", Toast.LENGTH_SHORT).show();
+            onValidationSuccess();
         }
+    }
 
+    private void validateEt2_Et3() {
         if (asinarNipWatcher2.isValid() && asinarNipWatcher3.isValid()) {
             if (nipNew.equals(nipNewConfirm)) {
                 errorNewNipConfirm.setVisibility(View.INVISIBLE);
-            }else{
-                errorNewNipConfirm.setMessageText("El NIP no coincide");
+            } else {
+                errorNewNipConfirm.setMessageText(getContext().getResources().getString(R.string.confirmar_pin));
                 errorNewNipConfirm.setVisibility(View.VISIBLE);
+                isValid = false;
             }
         }
 
         if (asinarNipWatcher2.isValid() && !asinarNipWatcher3.isValid()) {
             if (nipNew.equals(nipNewConfirm)) {
                 errorNewNipConfirm.setVisibility(View.INVISIBLE);
-            }else{
-                errorNewNipConfirm.setMessageText("El NIP no coincide");
+            } else {
+                errorNewNipConfirm.setMessageText(getContext().getResources().getString(R.string.confirmar_pin));
                 errorNewNipConfirm.setVisibility(View.VISIBLE);
+                isValid = false;
             }
         }
+    }
 
+    private void validateEt1_Et2() {
+        if (asinarNipWatcher1.isValid() && asinarNipWatcher2.isValid()) {
+            if (nip.equals(nipNew)) {
+                errorNewNip.setMessageText(getContext().getResources().getString(R.string.new_nip_diferent));
+                errorNewNip.setVisibility(View.VISIBLE);
+                isValid = false;
+            } else {
+                errorNewNip.setVisibility(View.INVISIBLE);
+            }
+        }
+    }
 
+    private void validateEt3() {
+        if (!asinarNipWatcher3.isValid()) {
+            errorNewNipConfirm.setMessageText(getContext().getResources().getString(R.string.new_nip_four_digits));
+            errorNewNipConfirm.setVisibility(View.VISIBLE);
+            isValid = false;
+        } else {
+            errorNewNipConfirm.setVisibility(View.INVISIBLE);
+        }
+    }
 
-        // errorOldNip errorNewNip errorNewNipConfirm
+    private void validateEt2() {
+        if (!asinarNipWatcher2.isValid()) {
+            errorNewNip.setMessageText(getContext().getResources().getString(R.string.new_nip_four_digits));
+            errorNewNip.setVisibility(View.VISIBLE);
+            isValid = false;
+        } else {
+            errorNewNip.setVisibility(View.INVISIBLE);
+        }
+    }
+
+    private void validateEt1(){
+        if (!asinarNipWatcher1.isValid()) {
+            errorOldNip.setMessageText(getContext().getResources().getString(R.string.new_nip_four_digits));
+            errorOldNip.setVisibility(View.VISIBLE);
+            isValid = false;
+        } else {
+            errorOldNip.setVisibility(View.INVISIBLE);
+        }    // code to execute when EditText loses focus
+    }
+
+    @Override
+    public void nextScreen(String event, Object data) {
+
+    }
+
+    @Override
+    public void backScreen(String event, Object data) {
+
+    }
+
+    @Override
+    public void showLoader(String message) {
+
+    }
+
+    @Override
+    public void hideLoader() {
+
+    }
+
+    @Override
+    public void showError(Object error) {
+
     }
 }
