@@ -1,10 +1,13 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments.deposits;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
@@ -19,11 +22,13 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
 import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import butterknife.BindView;
@@ -42,7 +47,8 @@ public class DepositsCupoDataFragment extends SupportFragment implements View.On
     private TextView txtNumberAgent;
     private TextView txtNumAfil;
     private Button btnDepositar;
-
+    boolean onlineGPS;
+    boolean isBackAvailable = false;
     private View rootView;
 
     public static DepositsCupoDataFragment newInstance() {
@@ -56,6 +62,9 @@ public class DepositsCupoDataFragment extends SupportFragment implements View.On
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         depositsManager = ((DepositsFragment) getParentFragment()).getDepositManager();
+
+        final LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        onlineGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     @Nullable
@@ -78,21 +87,46 @@ public class DepositsCupoDataFragment extends SupportFragment implements View.On
 
     @Override
     public void initViews() {
-        txtNameTitular = (TextView)rootView.findViewById(R.id.txt_name_titular);
-        txtNumberAgent = (TextView)rootView.findViewById(R.id.txt_number_agent);
-        txtNumAfil = (TextView)rootView.findViewById(R.id.txt_num_afil);
-        btnDepositar = (Button)rootView.findViewById(R.id.btn_depositar);
+        txtNameTitular = (TextView) rootView.findViewById(R.id.txt_name_titular);
+        txtNumberAgent = (TextView) rootView.findViewById(R.id.txt_number_agent);
+        txtNumAfil = (TextView) rootView.findViewById(R.id.txt_num_afil);
+        btnDepositar = (Button) rootView.findViewById(R.id.btn_depositar);
         btnDepositar.setOnClickListener(this);
 
     }
 
-
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnDepositar) {
-            depositsManager.onTapButton();
+            if (onlineGPS) {
+                //getSucursales();
+                depositsManager.onTapButton();
+            } else {
+                showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
+            }
+
         }
     }
 
+    private void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                       // isBackAvailable = true;
+                     //   getActivity().onBackPressed();
+
+//                        Intent gpsOptionsIntent = new Intent(
+//                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+//                        startActivity(gpsOptionsIntent);
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
+    }
 
 }
