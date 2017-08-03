@@ -66,7 +66,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
-                            accountPresenter.doPullActivationSMS(getString(R.string.activacion_sms_verificando));
+                            accountPresenter.doPullActivationSMS(getString(R.string.verificando_sms_espera));
                         }
                     }, CHECK_SMS_VALIDATE_DELAY);
                     break;
@@ -185,10 +185,10 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     public void smsVerificationFailed(String message) {
         if (counterRetry < 4) {
             counterRetry++;
-            showLoader(getString(R.string.activacion_sms_verificando));
+            showLoader(getString(R.string.verificando_sms_espera));
             new Handler().postDelayed(new Runnable() {
                 public void run() {
-                    accountPresenter.doPullActivationSMS(getString(R.string.activacion_sms_verificando));
+                    accountPresenter.doPullActivationSMS(getString(R.string.verificando_sms_espera));
                 }
             }, CHECK_SMS_VALIDATE_DELAY);
         } else {
@@ -281,7 +281,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
         getActivity().registerReceiver(broadcastReceiver, new IntentFilter(DELIVERED));
 
-        showLoader("Enviando Mensaje");
+        showLoader(getContext().getString(R.string.verificando_sms_espera));
         SmsManager sms = SmsManager.getDefault();
         sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
     }

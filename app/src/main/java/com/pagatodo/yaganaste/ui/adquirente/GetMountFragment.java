@@ -83,7 +83,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         tvMontoEntero = (StyleTextView) rootview.findViewById(R.id.tv_monto_entero);
         tvMontoDecimal = (StyleTextView) rootview.findViewById(R.id.tv_monto_decimal);
         imgArrowPrev = (ImageView) rootview.findViewById(R.id.img_arrow_previous);
-        et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal));
+        et_amount.addTextChangedListener(new NumberCalcTextWatcher(et_amount, tvMontoEntero, tvMontoDecimal, edtConcept));
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
 
@@ -205,13 +205,15 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     }
 
     private void setData(String amount, String concept) {
-        Log.d("GetMount", "setData After Amount " + amount);
+    //    Log.d("GetMount", "setData After Amount " + amount);
         et_amount.setText(amount);
         Selection.setSelection(et_amount.getText(), et_amount.getText().toString().length());
         if (!concept.equals("")) {
             edtConcept.setText(concept);
+        }else{
+            edtConcept.setText("");
         }
-        Log.d("GetMount", "setData Before Amount " + amount);
+        //    Log.d("GetMount", "setData Before Amount " + amount);
     }
 
     @Override

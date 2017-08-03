@@ -6,6 +6,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioCl
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
 
 import java.util.ArrayList;
 
@@ -44,7 +45,7 @@ public interface IAccountIteractorNew<T> {
 
     void verifyActivationSMS();
 
-    void assignmentNIP(AsignarNIPRequest request);
+    void assignmentNIP(AsignarNIPRequest request, WebService asignarNip);
 
     void recoveryPassword(RecuperarContraseniaRequest request);
 

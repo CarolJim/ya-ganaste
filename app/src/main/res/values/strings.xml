@@ -56,7 +56,8 @@
     <string name="obtenerDomicilio">/ObtenerDomicilioPrincipal</string>
     <string name="enviarTicketTAEPDS">/EnviarTicketTAEPDS</string>
     <string name="desasociarDispositivo">/DesasociarDispositivo</string>
-    <string name="desasociarDispositivoTittle">Desasociar Dispositivo</string>
+    <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
+    <string name="desvincula_dispositivo_texto">Al Desvincular tu Dispositivo ya no Estará Ligado a tu Cuenta Ya Ganaste. Si Quieres Volver a Usarlo, Deberás Enviar Nuevamente el SMS de Vinculación</string>
     <string name="deseaDesasociarDispositivo">¿Desea Desasociar el Dispositivo?</string>
     <string name="sel_fotografia">Seleccionar Fotografía</string>
     <string name="myUserText">Mi Usuario</string>
@@ -687,7 +688,9 @@
     <string name="cuantos_hijos">¿Cuántos Hijos Tienes?</string>
     <string name="relacion">Relación</string>
     <string name="access_code_text">Ingresa tu Contraseña Para \nGenerar un Código de Acceso</string>
-
+    <string name="verificando_sms_espera">Estamos Verificando tu SMS, \nNos Tomará Sólo Unos Segundos</string>
+    <string name="change_your_pass">Cambia tu Contraseña</string>
+    <string name="unlike_your_device">Desvincula tu Dispositivo</string>
     <!--end Cupo Strings-->
 </resources>
 

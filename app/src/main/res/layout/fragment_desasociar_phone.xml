@@ -17,6 +17,7 @@
             android:layout_marginBottom="30dp"
             android:layout_marginTop="20dp"
             android:layout_weight="1"
+            android:gravity="center"
             android:orientation="vertical">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -26,6 +27,16 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/desasociarDispositivoTittle" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                style="@style/generic_text_style_3.1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="15dp"
+                android:paddingLeft="10dp"
+                android:paddingRight="10dp"
+                android:gravity="center"
+                android:text="@string/desvincula_dispositivo_texto" />
 
         </LinearLayout>
 

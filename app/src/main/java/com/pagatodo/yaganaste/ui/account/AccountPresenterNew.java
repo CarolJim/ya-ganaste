@@ -34,6 +34,7 @@ import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.TabPresenterImpl;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
 import com.pagatodo.yaganaste.utils.Codec;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -43,6 +44,7 @@ import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NEW_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
@@ -54,6 +56,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
+import static com.pagatodo.yaganaste.ui.preferuser.MyChangeNip.EVENT_GO_CHANGE_NIP_SUCCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRC32_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 
@@ -103,7 +106,7 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
 
     @Override
     public void createUser() {
-        accountView.showLoader(context.getString(R.string.msg_register));
+        accountView.showLoader(context.getString(R.string.verificando_sms_espera));
         RegisterUser registerUser = RegisterUser.getInstance();
         prefs.saveData(CRC32_FREJA, Codec.applyCRC32(registerUser.getContrasenia()));//Freja
 
@@ -128,7 +131,8 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
 
     @Override
     public void updateUserInfo() {
-        accountView.showLoader(context.getString(R.string.msg_register));
+        //accountView.showLoader(context.getString(R.string.msg_register));
+        accountView.showLoader(context.getString(R.string.verificando_sms_espera));
         accountIteractor.updateSessionData();
     }
 
@@ -161,12 +165,21 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
     public void assignNIP(String nip) {
         accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nip));
         AsignarNIPRequest request = new AsignarNIPRequest(Utils.cipherRSA(nip));
-        accountIteractor.assignmentNIP(request);
+        accountIteractor.assignmentNIP(request, ASIGNAR_NIP);
+    }
+
+    public void assignNIP(String nip, String nipNewConfirm) {
+        accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nip));
+        AsignarNIPRequest request = new AsignarNIPRequest(
+                Utils.cipherRSA(nip),
+                Utils.cipherRSA(nipNewConfirm)
+        );
+        accountIteractor.assignmentNIP(request, ASIGNAR_NEW_NIP);
     }
 
     @Override
     public void gerNumberToSMS() {
-        accountView.showLoader(context.getString(R.string.activacion_sms_loader));
+        accountView.showLoader(context.getString(R.string.verificando_sms_espera));
         accountIteractor.getSMSNumber();
     }
 
@@ -209,6 +222,10 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
             accountView.showError(error);
         } else if (accountView instanceof IAccountCardNIPView) {
             if (ws == ASIGNAR_NIP) {
+                accountView.showError(error.toString());
+            }
+        } else if (accountView instanceof IChangeNIPView) {
+            if (ws == ASIGNAR_NEW_NIP) {
                 accountView.showError(error.toString());
             }
         } else if (accountView instanceof IVerificationSMSView) {
@@ -309,6 +326,10 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
             if (ws == ASIGNAR_NIP) {
                 accountView.nextScreen(EVENT_GO_ASOCIATE_PHONE, data);
             }
+        } else if (accountView instanceof IChangeNIPView) {
+            if (ws == ASIGNAR_NEW_NIP) {
+                accountView.nextScreen(EVENT_GO_CHANGE_NIP_SUCCESS, data);
+            }
         } else if (accountView instanceof IVerificationSMSView) {
             if (ws == OBTENER_NUMERO_SMS) {
                 ((IVerificationSMSView) accountView).messageCreated((MessageValidation) data);
@@ -341,5 +362,4 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
     public void onSuccesBalanceAdq(ConsultaSaldoCupoResponse response) {
         ((IBalanceView) this.accountView).updateBalanceAdq(response.getSaldo());
     }
-
 }
