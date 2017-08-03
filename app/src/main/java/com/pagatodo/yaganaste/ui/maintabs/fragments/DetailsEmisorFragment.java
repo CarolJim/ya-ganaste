@@ -77,7 +77,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     @BindView(R.id.layoutReferencia)
     LinearLayout layoutReferencia;
     @BindView(R.id.txtRefernciaDescripcion)
-    TextView txtRefernciaDescripcion;
+    StyleTextView txtRefernciaDescripcion;
     @BindView(R.id.txtReferenciaTitle)
     TextView txtReferenciaTitle;
 
@@ -184,7 +184,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_detail_movements, container, false);
+        return inflater.inflate(R.layout.fragment_detail_movements_emisor, container, false);
     }
 
     @Override
@@ -198,7 +198,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        initFieldsByType();
+        initFieldsViews();
         //layoutRecibo.setVisibility(View.GONE);
 
         String[] date = movimientosResponse.getFechaMovimiento().split(" ");
@@ -208,7 +208,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 movimientosResponse);
 
         txtMonto.setTextColor(ContextCompat.getColor(getContext(), item.getColor()));
-        txtMonto.setText(StringUtils.getCurrencyValue(Double.toString(item.getMonto())));
+        txtMonto.setText(StringUtils.getCurrencyValue(item.getMonto()));
         if (item.getColor() == android.R.color.transparent) {
             txtMonto.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
         }
@@ -225,8 +225,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         Glide.with(this).load(movimientosResponse.getURLImagen())
                 .placeholder(R.mipmap.logo_ya_ganaste).into(imageDetail);
 
-        txtMontoDescripcion.setText(StringUtils.getCurrencyValue(Double.toString(item.getMonto())));
-
         if (tipoTransaccion == RECARGA) {
             txtReferenciaTitle.setText(movimientosResponse.getIdComercio() == 7 ?
                     getString(R.string.iave_pase) : getString(R.string.txt_phone_b));
@@ -235,15 +233,15 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
             layoutConcepto.setVisibility(GONE);
         }
 
-        if (tipoTransaccion == TipoTransaccionPCODE.PAGO_DE_SERVICIO) {
+        /*if (tipoTransaccion == TipoTransaccionPCODE.PAGO_DE_SERVICIO) {
             layoutComision.setVisibility(VISIBLE);
             txtComision.setText(String.format("%.2f", movimientosResponse.getComision()).trim().replace(",", "."));
             txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
             layoutConcepto.setVisibility(GONE);
-        }
+        }*/
 
 
-        if (tipoTransaccion == TipoTransaccionPCODE.ENVIO_DE_DINERO_MISMO_BANCO || tipoTransaccion == TipoTransaccionPCODE.ENVIO_DE_DINERO_OTRO_BANCO
+        /*if (tipoTransaccion == TipoTransaccionPCODE.ENVIO_DE_DINERO_MISMO_BANCO || tipoTransaccion == TipoTransaccionPCODE.ENVIO_DE_DINERO_OTRO_BANCO
                 || tipoTransaccion == TipoTransaccionPCODE.RECEPCION_DE_DINERO_MISMO_BANCO || tipoTransaccion == TipoTransaccionPCODE.RECEPCION_DE_DINERO_OTRO_BANCO) {
 
             if (!movimientosResponse.getBeneficiario().isEmpty()) {
@@ -259,156 +257,132 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
             ref = ref.substring(ref.length() - 4, ref.length());
             txtRefernciaDescripcion.setText(getString(R.string.mask_card) + " " + ref);
             txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
-        }
+        }*/
 
-
-        txtFechaDescripcion.setText(movimientosResponse.getFechaMovimiento());
-        txtHoraDescripcion.setText(movimientosResponse.getHoraMovimiento() + " hrs");
-        txtAutorizacionDescripcion.setText(movimientosResponse.getNumAutorizacion().trim().toString());
         btnVolver.setOnClickListener(this);
     }
 
 
-    private void initFieldsByType() {
+    private void initFieldsViews() {
+        layoutMonto.setVisibility(VISIBLE);
+        txtMontoDescripcion.setText(StringUtils.getCurrencyValue(movimientosResponse.getTotal()));
 
         layoutFechaDescripcion.setVisibility(VISIBLE);
+        txtFechaDescripcion.setText(movimientosResponse.getFechaMovimiento());
         layoutHora.setVisibility(VISIBLE);
+        txtHoraDescripcion.setText(movimientosResponse.getHoraMovimiento() + " hrs");
         layoutAutorizacon.setVisibility(VISIBLE);
+        txtAutorizacionDescripcion.setText(movimientosResponse.getNumAutorizacion().trim().toString());
 
         switch (TipoTransaccionPCODE.getTipoTransaccionById(movimientosResponse.getIdTipoTransaccion())) {
             case RECARGA:
-                layoutMonto.setVisibility(VISIBLE);
+                if (movimientosResponse.getIdComercio() == 7) {
+                    layoutIVA.setVisibility(VISIBLE);
+                    txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
+                    layoutCargoServicio.setVisibility(VISIBLE);
+                    txtCargoServicio.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
+                    layoutReferencia.setVisibility(VISIBLE);
+                    txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+                } else {
+                    layoutTelefono.setVisibility(VISIBLE);
+                    txtTelefono.setText(movimientosResponse.getReferencia());
+                }
+                break;
+            case PAGO_DE_SERVICIO:
+                layoutIVA.setVisibility(VISIBLE);
+                txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
+                layoutCargoServicio.setVisibility(VISIBLE);
+                txtCargoServicio.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
+                layoutReferencia.setVisibility(VISIBLE);
+                txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+                break;
+            case ENVIO_DE_DINERO_MISMO_BANCO:
+                layoutReferencia.setVisibility(VISIBLE);
+                txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+                layoutSendTo.setVisibility(VISIBLE);
+                txtSendTo.setText(movimientosResponse.getBeneficiario());
+                layoutConcepto.setVisibility(VISIBLE);
+                txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
+                break;
+            case ENVIO_DE_DINERO_OTRO_BANCO:
+                layoutComision.setVisibility(VISIBLE);
+                txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
+                layoutIVA.setVisibility(VISIBLE);
+                txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
+                layoutSendTo.setVisibility(VISIBLE);
+                txtSendTo.setText(movimientosResponse.getBeneficiario());
+                layoutConcepto.setVisibility(VISIBLE);
+                txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
+                layoutClaveRastreo.setVisibility(VISIBLE);
+                txtClaveRastreo.setText(movimientosResponse.getClaveRastreo());
+                layoutNumeroReferencia.setVisibility(VISIBLE);
+                txtNumeroReferencia.setText(movimientosResponse.getReferenciaNum());
+                break;
+            case RECEPCION_DE_DINERO_MISMO_BANCO:
+                layoutReferencia.setVisibility(VISIBLE);
+                txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+                layoutFrom.setVisibility(VISIBLE);
+                txtFrom.setText(movimientosResponse.getBeneficiario());
+                layoutConcepto.setVisibility(VISIBLE);
+                txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
+                break;
+            case RECEPCION_DE_DINERO_OTRO_BANCO:
+                layoutFrom.setVisibility(VISIBLE);
+                txtFrom.setText(movimientosResponse.getBeneficiario());
+                layoutConcepto.setVisibility(VISIBLE);
+                txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
+                layoutClaveRastreo.setVisibility(VISIBLE);
+                txtClaveRastreo.setText(movimientosResponse.getClaveRastreo());
+                layoutNumeroReferencia.setVisibility(VISIBLE);
+                txtNumeroReferencia.setText(movimientosResponse.getReferenciaNum());
+                break;
+            case YA_GANASTE_PROMO_CODES:
+                layoutMontoCompra.setVisibility(VISIBLE);
+                layoutMontoRetiro.setVisibility(VISIBLE);
+                layoutComision.setVisibility(VISIBLE);
+                layoutIVA.setVisibility(VISIBLE);
+                layoutCargoServicio.setVisibility(VISIBLE);
                 layoutTelefono.setVisibility(VISIBLE);
-
+                layoutReferencia.setVisibility(VISIBLE);
+                layoutFrom.setVisibility(VISIBLE);
+                layoutCuentaOdenante.setVisibility(VISIBLE);
+                layoutSendTo.setVisibility(VISIBLE);
+                layoutCuentaBeneficiario.setVisibility(VISIBLE);
+                layoutConcepto.setVisibility(VISIBLE);
+                layoutClaveRastreo.setVisibility(VISIBLE);
+                layoutNumeroReferencia.setVisibility(VISIBLE);
+                break;
+            case COMPRA:
+                layoutConcepto.setVisibility(VISIBLE);
+                txtConceptoDescripcion.setText(movimientosResponse.getDetalle());
+                break;
+            case RETIRO_DE_DINERO_ATM:
+                layoutMontoRetiro.setVisibility(VISIBLE);
+                txtMontoRetiro.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
+                layoutComision.setVisibility(VISIBLE);
+                txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
+                layoutIVA.setVisibility(VISIBLE);
+                txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
+                layoutConcepto.setVisibility(VISIBLE);
+                txtConceptoDescripcion.setText(movimientosResponse.getDetalle());
+                break;
+            case CONSULTA_ATM:
+                layoutIVA.setVisibility(VISIBLE);
+                txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
                 break;
             case CASH_BACK:
                 layoutMontoCompra.setVisibility(VISIBLE);
+                txtMontoCompra.setTag(StringUtils.getCurrencyValue(movimientosResponse.getCompra()));
                 layoutMontoRetiro.setVisibility(VISIBLE);
+                txtMontoRetiro.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
                 layoutConcepto.setVisibility(VISIBLE);
-                break;
-            case COBRO_CON_TARJETA_DISPERSION_ADQ:
-                layoutMonto.setVisibility(VISIBLE);
-                layoutMontoCompra.setVisibility(VISIBLE);
-                layoutMontoRetiro.setVisibility(VISIBLE);
-                layoutComision.setVisibility(VISIBLE);
-                layoutIVA.setVisibility(VISIBLE);
-                layoutCargoServicio.setVisibility(VISIBLE);
-                layoutTelefono.setVisibility(VISIBLE);
-                layoutReferencia.setVisibility(VISIBLE);
-                layoutFrom.setVisibility(VISIBLE);
-                layoutCuentaOdenante.setVisibility(VISIBLE);
-                layoutSendTo.setVisibility(VISIBLE);
-                layoutCuentaBeneficiario.setVisibility(VISIBLE);
-                layoutConcepto.setVisibility(VISIBLE);
-                layoutClaveRastreo.setVisibility(VISIBLE);
-                layoutNumeroReferencia.setVisibility(VISIBLE);
+                txtConceptoDescripcion.setText(movimientosResponse.getDetalle());
                 break;
             case COMISION:
-                layoutMonto.setVisibility(VISIBLE);
                 layoutIVA.setVisibility(VISIBLE);
+                txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
                 break;
-            case COMPRA:
-                layoutMonto.setVisibility(VISIBLE);
-                layoutConcepto.setVisibility(VISIBLE);
-                break;
-            case CONSULTA_ATM:
-                layoutMonto.setVisibility(VISIBLE);
-                layoutMontoCompra.setVisibility(VISIBLE);
-                layoutMontoRetiro.setVisibility(VISIBLE);
-                layoutComision.setVisibility(VISIBLE);
-                layoutIVA.setVisibility(VISIBLE);
-                layoutCargoServicio.setVisibility(VISIBLE);
-                layoutTelefono.setVisibility(VISIBLE);
-                layoutReferencia.setVisibility(VISIBLE);
-                layoutFrom.setVisibility(VISIBLE);
-                layoutCuentaOdenante.setVisibility(VISIBLE);
-                layoutSendTo.setVisibility(VISIBLE);
-                layoutCuentaBeneficiario.setVisibility(VISIBLE);
-                layoutConcepto.setVisibility(VISIBLE);
-                layoutClaveRastreo.setVisibility(VISIBLE);
-                layoutNumeroReferencia.setVisibility(VISIBLE);
-                break;
-            case ENVIO_DE_DINERO_MISMO_BANCO:
-                layoutMonto.setVisibility(VISIBLE);
-                layoutMontoCompra.setVisibility(VISIBLE);
-                layoutMontoRetiro.setVisibility(VISIBLE);
-                layoutComision.setVisibility(VISIBLE);
-                layoutIVA.setVisibility(VISIBLE);
-                layoutCargoServicio.setVisibility(VISIBLE);
-                layoutTelefono.setVisibility(VISIBLE);
-                layoutReferencia.setVisibility(VISIBLE);
-                layoutFrom.setVisibility(VISIBLE);
-                layoutCuentaOdenante.setVisibility(VISIBLE);
-                layoutSendTo.setVisibility(VISIBLE);
-                layoutCuentaBeneficiario.setVisibility(VISIBLE);
-                layoutConcepto.setVisibility(VISIBLE);
-                layoutClaveRastreo.setVisibility(VISIBLE);
-                layoutNumeroReferencia.setVisibility(VISIBLE);
-                break;
-            case ENVIO_DE_DINERO_OTRO_BANCO:
-                layoutMonto.setVisibility(VISIBLE);
-                layoutMontoCompra.setVisibility(VISIBLE);
-                layoutMontoRetiro.setVisibility(VISIBLE);
-                layoutComision.setVisibility(VISIBLE);
-                layoutIVA.setVisibility(VISIBLE);
-                layoutCargoServicio.setVisibility(VISIBLE);
-                layoutTelefono.setVisibility(VISIBLE);
-                layoutReferencia.setVisibility(VISIBLE);
-                layoutFrom.setVisibility(VISIBLE);
-                layoutCuentaOdenante.setVisibility(VISIBLE);
-                layoutSendTo.setVisibility(VISIBLE);
-                layoutCuentaBeneficiario.setVisibility(VISIBLE);
-                layoutConcepto.setVisibility(VISIBLE);
-                layoutClaveRastreo.setVisibility(VISIBLE);
-                layoutNumeroReferencia.setVisibility(VISIBLE);
-                break;
-            case PAGO_DE_SERVICIO:
-                layoutMonto.setVisibility(VISIBLE);
-                layoutCargoServicio.setVisibility(VISIBLE);
-                layoutReferencia.setVisibility(VISIBLE);
-                break;
-            case RECEPCION_DE_DINERO_MISMO_BANCO:
-                layoutMonto.setVisibility(VISIBLE);
-                layoutMontoCompra.setVisibility(VISIBLE);
-                layoutMontoRetiro.setVisibility(VISIBLE);
-                layoutComision.setVisibility(VISIBLE);
-                layoutIVA.setVisibility(VISIBLE);
-                layoutCargoServicio.setVisibility(VISIBLE);
-                layoutTelefono.setVisibility(VISIBLE);
-                layoutReferencia.setVisibility(VISIBLE);
-                layoutFrom.setVisibility(VISIBLE);
-                layoutCuentaOdenante.setVisibility(VISIBLE);
-                layoutSendTo.setVisibility(VISIBLE);
-                layoutCuentaBeneficiario.setVisibility(VISIBLE);
-                layoutConcepto.setVisibility(VISIBLE);
-                layoutClaveRastreo.setVisibility(VISIBLE);
-                layoutNumeroReferencia.setVisibility(VISIBLE);
-                break;
-            case RECEPCION_DE_DINERO_OTRO_BANCO:
-                layoutMonto.setVisibility(VISIBLE);
-                layoutMontoCompra.setVisibility(VISIBLE);
-                layoutMontoRetiro.setVisibility(VISIBLE);
-                layoutComision.setVisibility(VISIBLE);
-                layoutIVA.setVisibility(VISIBLE);
-                layoutCargoServicio.setVisibility(VISIBLE);
-                layoutTelefono.setVisibility(VISIBLE);
-                layoutReferencia.setVisibility(VISIBLE);
-                layoutFrom.setVisibility(VISIBLE);
-                layoutCuentaOdenante.setVisibility(VISIBLE);
-                layoutSendTo.setVisibility(VISIBLE);
-                layoutCuentaBeneficiario.setVisibility(VISIBLE);
-                layoutConcepto.setVisibility(VISIBLE);
-                layoutClaveRastreo.setVisibility(VISIBLE);
-                layoutNumeroReferencia.setVisibility(VISIBLE);
-                break;
-            case RETIRO_DE_DINERO_ATM:
-                layoutMonto.setVisibility(VISIBLE);
-                layoutComision.setVisibility(VISIBLE);
-                layoutIVA.setVisibility(VISIBLE);
-                layoutConcepto.setVisibility(VISIBLE);
-                break;
-            case YA_GANASTE_PROMO_CODES:
-                layoutMonto.setVisibility(VISIBLE);
+            case COBRO_CON_TARJETA_DISPERSION_ADQ:
                 layoutMontoCompra.setVisibility(VISIBLE);
                 layoutMontoRetiro.setVisibility(VISIBLE);
                 layoutComision.setVisibility(VISIBLE);
