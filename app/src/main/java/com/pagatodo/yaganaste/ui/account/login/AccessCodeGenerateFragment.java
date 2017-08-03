@@ -2,17 +2,16 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
+import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
+import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -20,16 +19,15 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+
 /**
  * A simple {@link Fragment} subclass.
  * Use the {@link AccessCodeGenerateFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AccessCodeGenerateFragment extends GenericFragment implements
-        INavigationView<Void, Void>, View.OnClickListener {
+public class AccessCodeGenerateFragment extends GenericFragment implements View.OnClickListener {
 
-    @BindView(R.id.imgArrowNext)
-    ImageView imgArrowNext;
     @BindView(R.id.editPassword)
     CustomValidationEditText editPassword;
     @BindView(R.id.errorPasswordMessage)
@@ -37,30 +35,23 @@ public class AccessCodeGenerateFragment extends GenericFragment implements
     @BindView(R.id.btnGenerateCode)
     StyleButton btnGenerateCode;
     View rootView;
-    private IQuickBalanceManager quickBalanceManager;
 
-    public AccessCodeGenerateFragment() {
-        // Required empty public constructor
+
+    public interface OtpInterface {
+        void loadCode(String code);
     }
 
     public static AccessCodeGenerateFragment newInstance() {
         AccessCodeGenerateFragment fragment = new AccessCodeGenerateFragment();
         Bundle args = new Bundle();
+        fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        quickBalanceManager = ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager();
     }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
         rootView = inflater.inflate(R.layout.fragment_access_code_generate, container, false);
-
         initViews();
         return rootView;
     }
@@ -68,45 +59,51 @@ public class AccessCodeGenerateFragment extends GenericFragment implements
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        imgArrowNext.setOnClickListener(this);
+        btnGenerateCode.setOnClickListener(this);
+        editPassword.addCustomTextWatcher(new MTextWatcher());
 
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            /*case R.id.btnGoToLogin:
-                loginContainerManager.loadLoginFragment();
-                break;*/
-            case R.id.imgArrowNext:
-                nextScreen(null, null);
+            case R.id.btnGenerateCode:
+                loadOtp();
+                break;
+            default:
+                //Nothing To Do
                 break;
         }
     }
 
-    @Override
-    public void nextScreen(String event, Void data) {
-        quickBalanceManager.nextPage();
-    }
-
-    @Override
-    public void backScreen(String event, Void data) {
-    }
-
-    @Override
-    public void showLoader(String message) {
-
-    }
-
-    @Override
-    public void hideLoader() {
-
-    }
-
-    @Override
-    public void showError(Void error) {
-
+    private void loadOtp() {
+        if (editPassword.isValidText()) {
+            onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
+            ((OtpInterface)getParentFragment()).loadCode(Utils.getSHA256(editPassword.getText()));
+        } else if (editPassword.getText().isEmpty()) {
+            editPassword.setIsInvalid();
+            errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass));
+        } else {
+            editPassword.setIsInvalid();
+            errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass_formato));
+        }
     }
 
 
+    private class MTextWatcher extends AbstractTextWatcher {
+        @Override
+        public void afterTextChanged(String s) {
+            editPassword.imageViewIsGone(true);
+            errorPasswordMessage.setMessageText(null);
+        }
+    }
+
+    @Override
+    public void setMenuVisibility(boolean menuVisible) {
+        super.setMenuVisibility(menuVisible);
+        if (!menuVisible && editPassword != null && isAdded()) {
+            editPassword.setText(null);
+            UI.hideKeyBoard(getActivity());
+        }
+    }
 }

@@ -9,9 +9,11 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.interfaces.Command;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.login.MainFragment;
 import com.pagatodo.yaganaste.ui.adquirente.TransactionResultFragment;
+import com.pagatodo.yaganaste.ui.otp.activities.OtpCodeActivity;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
@@ -31,7 +33,7 @@ public class MainActivity extends ToolBarActivity {
             loadFragment(TransactionResultFragment.newInstance(getPageResultNiSIM()));
         } else if (action.equals(MAIN_SCREEN)) {
             Preferencias prefs = App.getInstance().getPrefs();
-            if (prefs.containsData(HAS_SESSION)) {
+            if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
                 Intent intent = new Intent(this, AccountActivity.class);
                 intent.putExtra(SELECTION, GO_TO_LOGIN);
                 startActivity(intent);
@@ -40,6 +42,7 @@ public class MainActivity extends ToolBarActivity {
                 loadFragment(MainFragment.newInstance(), true);
             }
         }
+
     }
 
     private void initViews() {

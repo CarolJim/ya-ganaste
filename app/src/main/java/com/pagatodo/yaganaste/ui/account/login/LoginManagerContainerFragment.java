@@ -99,7 +99,6 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
     }
 
     public void onBackActions() {
-
         if (getChildFragmentManager().findFragmentById(R.id.container) instanceof QuickBalanceContainerFragment) {
             ((QuickBalanceContainerFragment) getChildFragmentManager().findFragmentById(R.id.container)).onBackPress();
         } else {
