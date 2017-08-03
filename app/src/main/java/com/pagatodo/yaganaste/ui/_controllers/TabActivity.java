@@ -86,7 +86,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         setContentView(R.layout.activity_main_tab);
         load();
 
-        if (true) {
+        if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             Intent intent = new Intent(this, LandingActivity.class);
             intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawablesEmisor);
