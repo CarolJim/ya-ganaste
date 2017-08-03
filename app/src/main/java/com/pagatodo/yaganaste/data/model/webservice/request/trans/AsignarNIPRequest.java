@@ -18,6 +18,11 @@ public class AsignarNIPRequest implements Serializable {
         this.NIPNuevo = NIPNuevo;
     }
 
+    public AsignarNIPRequest(String nipActual, String nipNuevo) {
+        this.NIPActual = nipActual;
+        this.NIPNuevo = nipNuevo;
+    }
+
     public String getNIPActual() {
         return NIPActual;
     }

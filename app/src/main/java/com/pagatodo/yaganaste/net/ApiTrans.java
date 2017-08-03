@@ -28,6 +28,8 @@ import com.pagatodo.yaganaste.data.model.webservice.response.trans.ObtenerEstatu
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ValidarEstatusTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.ui.account.AccountInteractorNew;
 
 import java.util.Map;
 import java.util.Objects;
@@ -75,15 +77,15 @@ public class ApiTrans extends Api {
 
     /**
      * Método para Asignar/Cambiar NIP de la tarjeta Activa.
-     *
-     * @param request {@link AsignarNIPRequest} body de la petición.
+     *  @param request {@link AsignarNIPRequest} body de la petición.
      * @param result  {@link IRequestResult} listener del resultado de la petición.
+     * @param webService
      */
-    public static void asignarNip(AsignarNIPRequest request, IRequestResult result) throws OfflineException {
+    public static void asignarNip(AsignarNIPRequest request, IRequestResult result, WebService webService) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
-        NetFacade.consumeWS(ASIGNAR_NIP,
+        NetFacade.consumeWS(webService,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.assignNIPUrl),
                 headers, request, AsignarNIPResponse.class, result);
     }
@@ -266,4 +268,5 @@ public class ApiTrans extends Api {
 
         NetFacade.consumeWS(CONSULTA_STATUS_REGISTRO_CUPO,METHOD_GET,URL,headers,null, classResponse,result);
     }
+
 }

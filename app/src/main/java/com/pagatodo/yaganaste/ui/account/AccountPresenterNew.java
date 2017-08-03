@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.interfaces.IAccountIteractorNew;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAccountPresenterNew;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
+import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
@@ -34,6 +35,7 @@ import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.TabPresenterImpl;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
 import com.pagatodo.yaganaste.utils.Codec;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -41,8 +43,10 @@ import com.pagatodo.yaganaste.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NEW_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
@@ -53,7 +57,10 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTR
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.ui.preferuser.MyChangeNip.EVENT_GO_CHANGE_NIP_SUCCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRC32_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 
@@ -61,7 +68,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
  * Created by flima on 22/03/2017.
  */
 
-public class AccountPresenterNew extends TabPresenterImpl implements IAccountPresenterNew, IAccountManager {
+public class AccountPresenterNew extends AprovPresenter implements IAccountPresenterNew, IAccountManager {
     private static final String TAG = AccountPresenterNew.class.getName();
     private IAccountIteractorNew accountIteractor;
     private INavigationView accountView;
@@ -69,7 +76,7 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
     private Context context;
 
     public AccountPresenterNew(Context context) {
-        super();
+        super(context);
         this.context = context;
         accountIteractor = new AccountInteractorNew(this);
     }
@@ -79,6 +86,8 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
         this.accountView = (INavigationView) accountView;
         if (accountView instanceof TabsView) {
             setTabsView((TabsView) accountView);
+        } else if (accountView instanceof IAprovView) {
+            super.setAprovView((IAprovView) accountView);
         }
     }
 
@@ -103,10 +112,9 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
 
     @Override
     public void createUser() {
-        accountView.showLoader(context.getString(R.string.msg_register));
+        accountView.showLoader(context.getString(R.string.verificando_sms_espera));
         RegisterUser registerUser = RegisterUser.getInstance();
-        prefs.saveData(CRC32_FREJA, Codec.applyCRC32(registerUser.getContrasenia()));//Freja
-
+        prefs.saveData(SHA_256_FREJA, Utils.getSHA256(registerUser.getContrasenia()));//Freja
         accountIteractor.createUser();
     }
 
@@ -115,6 +123,7 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
         RequestHeaders.setUsername(user);
         RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getInstance().getApplicationContext()));
         accountView.showLoader("");
+        prefs.saveData(SHA_256_FREJA, Utils.getSHA256(password));//Freja
         IniciarSesionRequest requestLogin = new IniciarSesionRequest(user, Utils.cipherRSA(password), "");//TODO Validar si se envia el telefono vacío-
         // Validamos estatus de la sesion, si se encuentra abierta, la cerramos.
         accountIteractor.checkSessionState(requestLogin);
@@ -128,7 +137,8 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
 
     @Override
     public void updateUserInfo() {
-        accountView.showLoader(context.getString(R.string.msg_register));
+        //accountView.showLoader(context.getString(R.string.msg_register));
+        accountView.showLoader(context.getString(R.string.verificando_sms_espera));
         accountIteractor.updateSessionData();
     }
 
@@ -161,12 +171,21 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
     public void assignNIP(String nip) {
         accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nip));
         AsignarNIPRequest request = new AsignarNIPRequest(Utils.cipherRSA(nip));
-        accountIteractor.assignmentNIP(request);
+        accountIteractor.assignmentNIP(request, ASIGNAR_NIP);
+    }
+
+    public void assignNIP(String nip, String nipNewConfirm) {
+        accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nip));
+        AsignarNIPRequest request = new AsignarNIPRequest(
+                Utils.cipherRSA(nip),
+                Utils.cipherRSA(nipNewConfirm)
+        );
+        accountIteractor.assignmentNIP(request, ASIGNAR_NEW_NIP);
     }
 
     @Override
     public void gerNumberToSMS() {
-        accountView.showLoader(context.getString(R.string.activacion_sms_loader));
+        accountView.showLoader(context.getString(R.string.verificando_sms_espera));
         accountIteractor.getSMSNumber();
     }
 
@@ -211,6 +230,10 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
             if (ws == ASIGNAR_NIP) {
                 accountView.showError(error.toString());
             }
+        } else if (accountView instanceof IChangeNIPView) {
+            if (ws == ASIGNAR_NEW_NIP) {
+                accountView.showError(error.toString());
+            }
         } else if (accountView instanceof IVerificationSMSView) {
             if (ws == VERIFICAR_ACTIVACION) {
                 if (error instanceof Object[]) {
@@ -222,6 +245,10 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
                 } else {
                     ((IVerificationSMSView) accountView).smsVerificationFailed(error.toString());
                 }
+            } else if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN){
+                ((IVerificationSMSView) accountView).verifyActivationProvisingFailed(error.toString());
+            } else if (ws == ACTIVACION_APROV_SOFTTOKEN){
+                ((IVerificationSMSView) accountView).activationProvisingFailed(error.toString());
             } else if (ws == ACTUALIZAR_INFO_SESION) { // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).dataUpdated(error.toString());
             } else {
@@ -309,6 +336,10 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
             if (ws == ASIGNAR_NIP) {
                 accountView.nextScreen(EVENT_GO_ASOCIATE_PHONE, data);
             }
+        } else if (accountView instanceof IChangeNIPView) {
+            if (ws == ASIGNAR_NEW_NIP) {
+                accountView.nextScreen(EVENT_GO_CHANGE_NIP_SUCCESS, data);
+            }
         } else if (accountView instanceof IVerificationSMSView) {
             if (ws == OBTENER_NUMERO_SMS) {
                 ((IVerificationSMSView) accountView).messageCreated((MessageValidation) data);
@@ -316,6 +347,12 @@ public class AccountPresenterNew extends TabPresenterImpl implements IAccountPre
                 ((IVerificationSMSView) accountView).smsVerificationSuccess();
             } else if (ws == ACTUALIZAR_INFO_SESION) { // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).dataUpdated(data.toString());
+            } else if(ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN){ // Error en Verificacion de Aprovisionamiento
+                accountView.showLoader("");
+                getPinPolicy(); // Obtenemos las Reglas del Pin
+            } else if(ws == ACTIVACION_APROV_SOFTTOKEN){// Error activación de Aprovisionamiento
+                accountView.showLoader("");
+                ((IVerificationSMSView) accountView).provisingCompleted();
             }
         } else if (accountView instanceof RecoveryPasswordView) {
             if (ws == RECUPERAR_CONTRASENIA) {

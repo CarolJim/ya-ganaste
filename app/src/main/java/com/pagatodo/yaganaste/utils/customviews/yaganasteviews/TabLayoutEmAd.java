@@ -73,8 +73,8 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         cardEmisorSelected = new CardEmisorSelected(getContext());
         cardAdq = new CardAdq(getContext());
         if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == CRM_DOCTO_APROBADO) {
-            //cardAdqSel = new CardAdqSelected(getContext());
-            cardAdqSel = new CardAdqCredSelected(getContext());
+            cardAdqSel = new CardAdqSelected(getContext());
+            //cardAdqSel = new CardAdqCredSelected(getContext());
         }
         updateData();
     }

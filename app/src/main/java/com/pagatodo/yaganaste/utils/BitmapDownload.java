@@ -63,7 +63,9 @@ public class BitmapDownload extends AsyncTask<String, Object, Bitmap> {
             return myBitmap;
         } catch (IOException e) {
             // e.printStackTrace();
-            mIteractor.showExceptionBitmapDownloadToIteractor(e.toString());
+            if(mIteractor != null) {
+                mIteractor.showExceptionBitmapDownloadToIteractor(e.toString());
+            }
             return null;
         }
     }

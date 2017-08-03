@@ -54,6 +54,7 @@ import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountIteractorNew;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.enums.AccountOperation;
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiTrans;
@@ -295,9 +296,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     @Override
-    public void assignmentNIP(AsignarNIPRequest request) {
+    public void assignmentNIP(AsignarNIPRequest request, WebService webService) {
         try {
-            ApiTrans.asignarNip(request, this);
+            ApiTrans.asignarNip(request, this, webService);
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.onError(ASIGNAR_NIP, "");
@@ -429,6 +430,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 break;
 
             case ASIGNAR_NIP:
+                processNIPAssigned(dataSourceResult);
+                break;
+
+            case ASIGNAR_NEW_NIP:
                 processNIPAssigned(dataSourceResult);
                 break;
 

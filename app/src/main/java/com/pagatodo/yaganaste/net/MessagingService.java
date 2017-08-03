@@ -14,12 +14,7 @@ import com.pagatodo.yaganaste.utils.NotificationBuilder;
 
 public class MessagingService extends FirebaseMessagingService {
 
-    private static final String TAG = "MyFirebaseMsgService";
-
-    public MessagingService() {
-        super();
-        Log.d(TAG, "MServ");
-    }
+    private static final String TAG = "MessagingService";
 
     /**
      * Called when message is received.
@@ -42,42 +37,6 @@ public class MessagingService extends FirebaseMessagingService {
         }
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
-    }
-
-    @Override
-    public void onDeletedMessages() {
-        super.onDeletedMessages();
-        Log.d(TAG, "DMess");
-    }
-
-    @Override
-    public void onMessageSent(String s) {
-        super.onMessageSent(s);
-        Log.d(TAG, "MSent");
-    }
-
-    @Override
-    public void onSendError(String s, Exception e) {
-        super.onSendError(s, e);
-        Log.d(TAG, "SError");
-    }
-
-    @Override
-    protected Intent zzF(Intent intent) {
-        Log.d(TAG, "zzF");
-        return super.zzF(intent);
-    }
-
-    @Override
-    public boolean zzH(Intent intent) {
-        Log.d(TAG, "zzH");
-        return super.zzH(intent);
-    }
-
-    @Override
-    public void zzm(Intent intent) {
-        Log.d(TAG, "zzM");
-        super.zzm(intent);
     }
 
 

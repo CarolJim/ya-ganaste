@@ -10,10 +10,12 @@ import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_DESASOCIAR;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_EMAIL;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_PASS;
 
@@ -28,6 +30,8 @@ public class MyUserFragment extends GenericFragment implements View.OnClickListe
     LinearLayout myEmail;
     @BindView(R.id.fragment_myuser_pass)
     LinearLayout myPass;
+    @BindView(R.id.fragment_my_account_desvincula)
+    StyleTextView txtDesvincula;
 
     View rootview;
 
@@ -57,6 +61,7 @@ public class MyUserFragment extends GenericFragment implements View.OnClickListe
         ButterKnife.bind(this, rootview);
         myEmail.setOnClickListener(this);
         myPass.setOnClickListener(this);
+        txtDesvincula.setOnClickListener(this);
     }
 
     @Override
@@ -67,6 +72,9 @@ public class MyUserFragment extends GenericFragment implements View.OnClickListe
                 break;
             case R.id.fragment_myuser_pass:
                 onEventListener.onEvent(PREFER_USER_PASS, null);
+                break;
+            case R.id.fragment_my_account_desvincula:
+                onEventListener.onEvent(PREFER_USER_DESASOCIAR, 1);
                 break;
         }
     }

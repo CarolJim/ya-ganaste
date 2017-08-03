@@ -18,13 +18,17 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
+import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.utils.AsignarNipCustomWatcher;
 import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
+import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
@@ -34,6 +38,10 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -92,6 +100,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     AsignarNipCustomWatcher asinarNipWatcher3;
     private AccountPresenterNew accountPresenter;
     boolean isValid;
+    public final static String EVENT_GO_CHANGE_NIP_SUCCESS = "EVENT_GO_CHANGE_NIP_SUCCESS";
 
 
     public MyChangeNip() {
@@ -107,8 +116,8 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
-//        accountPresenter = ((AccountActivity) getActivity()).getPresenter();
-//        accountPresenter.setIView(this);
+        accountPresenter = ((PreferUserActivity) getActivity()).getPresenterAccount();
+        accountPresenter.setIView(this);
     }
 
     @Override
@@ -179,13 +188,12 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
             }
 
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() == 4) {
-                    validateForm();
+                    //validateForm();
                     layout_control.setBackground(backgroundGrey);
                     keyboardView.hideCustomKeyboard();
                     finishBtn.setVisibility(View.VISIBLE);
@@ -209,7 +217,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             @Override
             public void afterTextChanged(Editable s) {
                 if (s.toString().length() == 4) {
-                    validateForm();
+                    //validateForm();
                     layout_control2.setBackground(backgroundGrey);
                     keyboardView.hideCustomKeyboard();
                     finishBtn.setVisibility(View.VISIBLE);
@@ -229,17 +237,19 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-                if (s.toString().length() == 4) {
-                    validateForm();
-                    layout_control3.setBackground(backgroundGrey);
-                    keyboardView.hideCustomKeyboard();
-                    finishBtn.setVisibility(View.VISIBLE);
-                }
             }
 
             @Override
             public void afterTextChanged(Editable s) {
-
+                if (s.toString().length() == 4) {
+                    //validateForm();
+                    layout_control3.setBackground(backgroundGrey);
+                    keyboardView.hideCustomKeyboard();
+                    finishBtn.setVisibility(View.VISIBLE);
+                    validateEt2_Et3();
+                } else if(s.toString().length() == 0){
+                    errorNewNipConfirm.setVisibility(View.INVISIBLE);
+                }
             }
         });
 
@@ -356,7 +366,8 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
     @Override
     public void onValidationSuccess() {
-//        accountPresenter.assignNIP(nip);
+        showLoader(getContext().getResources().getString(R.string.msg_renapo));
+        accountPresenter.assignNIP(nip, nipNewConfirm);
     }
 
     @Override
@@ -379,13 +390,15 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         validateEt2_Et3();
 
         if (isValid) {
-            Toast.makeText(getContext(), "Validaciones listas", Toast.LENGTH_SHORT).show();
+           // Toast.makeText(getContext(), "Validaciones listas", Toast.LENGTH_SHORT).show();
             onValidationSuccess();
         }
     }
 
     private void validateEt2_Et3() {
+        // Ambos campos tienen datos
         if (asinarNipWatcher2.isValid() && asinarNipWatcher3.isValid()) {
+            getDataForm();
             if (nipNew.equals(nipNewConfirm)) {
                 errorNewNipConfirm.setVisibility(View.INVISIBLE);
             } else {
@@ -395,6 +408,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             }
         }
 
+        // asinarNipWatcher2 tiene datos asinarNipWatcher3 no tiene datos
         if (asinarNipWatcher2.isValid() && !asinarNipWatcher3.isValid()) {
             if (nipNew.equals(nipNewConfirm)) {
                 errorNewNipConfirm.setVisibility(View.INVISIBLE);
@@ -408,6 +422,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
     private void validateEt1_Et2() {
         if (asinarNipWatcher1.isValid() && asinarNipWatcher2.isValid()) {
+            getDataForm();
             if (nip.equals(nipNew)) {
                 errorNewNip.setMessageText(getContext().getResources().getString(R.string.new_nip_diferent));
                 errorNewNip.setVisibility(View.VISIBLE);
@@ -460,16 +475,34 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
     @Override
     public void showLoader(String message) {
-
+        hideLoader();
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override
-    public void showError(Object error) {
+    public void showError(final Object error) {
+        if (!error.toString().isEmpty()) {
+            //UI.showToastShort(error.toString(), getActivity()); error
+            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+                    new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+                            if (error.toString().equals(Recursos.MESSAGE_OPEN_SESSION)) {
+                                onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
+                            }
+                        }
 
+                        @Override
+                        public void actionCancel(Object... params) {
+
+                        }
+                    },
+                    true, false);
+        }
     }
 }

@@ -17,6 +17,8 @@ import android.view.animation.LinearInterpolator;
 
 import com.pagatodo.yaganaste.R;
 
+import java.lang.reflect.Field;
+
 /**
  * Created by Dell on 25/07/2017.
  */
@@ -59,6 +61,8 @@ public class StatusViewCupo extends View {
         TypedArray a = context.getTheme().obtainStyledAttributes(attrs,
                 R.styleable.StatusCupoColors,
                 0,0);
+
+        setDurationScale(1);
 
         try {
             mBgColor = a.getColor(R.styleable.StatusCupoColors_bgColor, 0xffe1e1e1);
@@ -262,7 +266,27 @@ public class StatusViewCupo extends View {
     /**Actualiza el tiempo en que se ejecuta las animaciones
      *@param time tiempo en milisegundos*/
     public void setTimeAnimation(long time){
+        setTimeAnimation(time, 1);
+    }
+
+
+    /**Actualiza el tiempo en que se ejecuta las animaciones
+     *@param time tiempo en milisegundos*/
+    public void setTimeAnimation(long time, int scaleDuration){
         this.mTimeAnimation =time;
+        setDurationScale(scaleDuration);
+    }
+
+    private void setDurationScale(float durationScale) {
+        try {
+            Field scale = ValueAnimator.class.getDeclaredField("sDurationScale");
+            scale.setAccessible(true);
+            scale.set(null, durationScale);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
     }
 
 }
