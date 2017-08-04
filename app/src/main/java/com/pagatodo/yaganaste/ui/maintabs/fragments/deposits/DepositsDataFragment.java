@@ -1,10 +1,13 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments.deposits;
 
+import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
@@ -19,11 +22,13 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
 import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -48,6 +53,9 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     Button btnDepositar;
     private View rootView;
 
+    boolean onlineGPS;
+    boolean isBackAvailable = false;
+
     public static DepositsDataFragment newInstance() {
         DepositsDataFragment depositsDataFragment = new DepositsDataFragment();
         Bundle args = new Bundle();
@@ -66,6 +74,13 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         onEventListener.onEvent(ToolBarActivity.EVENT_CHANGE_TOOLBAR_VISIBILITY, true);
         return inflater.inflate(R.layout.fragment_deposito_datos, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        final LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        onlineGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
     @Override
@@ -100,9 +115,36 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnDepositar) {
-            //Siguiente Fragment
-            depositsManager.onTapButton();
+             if (onlineGPS) {
+                //getSucursales();
+                depositsManager.onTapButton();
+            } else {
+                showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
+            }
         }
+    }
+
+    private void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+//                        isBackAvailable = true;
+//                        getActivity().onBackPressed();
+                    //    onResume();
+
+                        Intent gpsOptionsIntent = new Intent(
+                                android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
+                        startActivity(gpsOptionsIntent);
+
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
     }
 
     private void printCard(String cardNumber) {
