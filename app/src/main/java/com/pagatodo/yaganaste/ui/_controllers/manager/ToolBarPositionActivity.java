@@ -17,18 +17,21 @@ import com.google.android.gms.location.LocationRequest;
 import com.google.android.gms.location.LocationServices;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.ui._controllers.manager.interfase.ILocationChanged;
 
 /**
  * Created by Jordan on 19/05/2017.
  */
 
 public class ToolBarPositionActivity extends LoaderActivity implements OnEventListener,
-        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener, LocationListener {
+        GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
+        LocationListener, ILocationChanged {
 
     private static final String REQUESTING_LOCATION_UPDATES_KEY = "location_key";
     private static final String LOCATION_KEY = "lastLocation";
     private GoogleApiClient mGoogleApiClient;
     private Location mLocation;
+    ILocationChanged iLocationChanged;
 
     private boolean mRequestingLocationUpdates = true;
 
@@ -44,6 +47,7 @@ public class ToolBarPositionActivity extends LoaderActivity implements OnEventLi
                     .addApi(LocationServices.API)
                     .build();
         }
+        iLocationChanged = this;
     }
 
     @Override
@@ -125,6 +129,7 @@ public class ToolBarPositionActivity extends LoaderActivity implements OnEventLi
     @Override
     public void onLocationChanged(Location location) {
         mLocation = location;
+//        iLocationChanged.onLocationChanged(location);
     }
 
     @Override
