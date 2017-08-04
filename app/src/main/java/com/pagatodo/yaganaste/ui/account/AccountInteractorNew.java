@@ -345,7 +345,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.recuperarContrasenia(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
-            accountManager.onError(RECUPERAR_CONTRASENIA, "");
+            accountManager.onError(RECUPERAR_CONTRASENIA, App.getInstance().getString(R.string.no_internet_access));
         }
     }
 

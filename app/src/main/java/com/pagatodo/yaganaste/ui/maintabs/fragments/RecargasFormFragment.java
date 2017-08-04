@@ -11,13 +11,16 @@ import android.support.annotation.Nullable;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Recarga;
@@ -40,6 +43,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB1;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
@@ -100,7 +104,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     public void initViews() {
         super.initViews();
         if (comercioItem.getFormato().equals("N")) {
-            recargaNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
+            recargaNumber.setInputType(InputType.TYPE_CLASS_NUMBER);recargaNumber.setSingleLine();
         }
 
         int longitudReferencia = comercioItem.getLongitudReferencia();
@@ -118,6 +122,17 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             recargaNumber.setHint(getString(R.string.phone_number_hint));
             layoutImageContact.setOnClickListener(this);
         }
+
+        recargaNumber.setSingleLine(true);
+        recargaNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == IME_ACTION_DONE) {
+                    UI.hideKeyBoard(getActivity());
+                }
+                return false;
+            }
+        });
 
         if (comercioItem.getSobrecargo() > 0) {
             comisionText.setText(String.format(getString(R.string.comision_service_payment), StringUtils.getCurrencyValue(comercioItem.getSobrecargo())));
@@ -214,37 +229,5 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     }
 
 
-    public void copyDataBaseDebug() throws IOException {
-        Log.i("copiado", "inicia..");
-        // abre la BD local
-        InputStream myInput = new FileInputStream(new File(
-                getContext().getDatabasePath("yaganaste.db").toURI())); // context.getAssets().open("db/"+DB_NAME);
 
-        File folder = new File(Environment.getExternalStoragePublicDirectory(Environment.DIRECTORY_DOCUMENTS) + "/YaGanaste");
-        if (!folder.exists()) {
-            folder.mkdir();
-        }
-
-        File outFileName = new File(folder, "/yaganaste.db");
-        outFileName.createNewFile();
-        // Direccion de la
-        //String outFileName = folder.getPath() + "/yaganaste.db"; // DataBaseUtilsB.DB_PATH +
-        // DB_NAME;
-
-        // Open the empty db as the output stream
-        OutputStream myOutput = new FileOutputStream(outFileName);
-
-        // transfer bytes from the inputfile to the outputfile
-        byte[] buffer = new byte[1024];
-        int length;
-        while ((length = myInput.read(buffer)) > 0) {
-            myOutput.write(buffer, 0, length);
-        }
-
-        // Close the streams
-        myOutput.flush();
-        myOutput.close();
-        myInput.close();
-        Log.i("copiado", "termina..");
-    }
 }

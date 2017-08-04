@@ -9,13 +9,11 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
+import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.interfaces.IPhotoUserWeb;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
-import com.pagatodo.yaganaste.utils.BitmapDownload;
-import com.pagatodo.yaganaste.utils.StringUtils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -27,8 +25,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
  * Updated by flima on 8/02/2017.
  */
 
-public abstract class ToolBarActivity extends SupportFragmentActivity implements IPhotoUserWeb,
-        View.OnClickListener {
+public abstract class ToolBarActivity extends SupportFragmentActivity implements View.OnClickListener {
 
     public static final int CODE_LOG_OUT = 3124;
     public static final int RESULT_LOG_OUT = 3125;
@@ -75,17 +72,8 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         mUserImage = SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL();
 
         if (mUserImage != null && !mUserImage.isEmpty()) {
-            try {
-                // Pedimos la imagen por internet y generamos el Bitmap
-                String urlEdit = StringUtils.procesarURLString(mUserImage);
-                BitmapDownload bitmapDownload = new BitmapDownload(urlEdit, this);
-                bitmapDownload.execute();
-            } catch (Exception e) {
-                // Hacemos algo si falla por no tener internet
-                //  showDialogMesage(e.toString());
-            }
-        } else {
-
+            Glide.with(this).load(mUserImage).placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+                    .dontAnimate().into(imageView);
         }
     }
 
@@ -99,14 +87,6 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         }
     }
 
-    /**
-     * Respuesta de la interfase, contieen el Bitmap listo para usarse y hacer SET del mismo
-     * @param bitmap
-     */
-    @Override
-    public void sendToIteractorBitmap(Bitmap bitmap) {
-        imageView.setImageBitmap(bitmap);
-    }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
