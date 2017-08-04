@@ -116,7 +116,6 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     public void onClick(View v) {
         if (v.getId() == R.id.btnDepositar) {
              if (onlineGPS) {
-                //getSucursales();
                 depositsManager.onTapButton();
             } else {
                 showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
@@ -129,9 +128,6 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
-//                        isBackAvailable = true;
-//                        getActivity().onBackPressed();
-                    //    onResume();
 
                         Intent gpsOptionsIntent = new Intent(
                                 android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS);
