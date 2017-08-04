@@ -55,6 +55,7 @@ public class GenericDao extends AbstractDao {
         T toReturn;
         Cursor queryResult = query(getTableName(classToReturn), query);
         toReturn = cursorToEntity(queryResult, classToReturn);
+        queryResult.close();
         return toReturn;
     }
 
@@ -62,6 +63,7 @@ public class GenericDao extends AbstractDao {
         List<T> toReturn;
         Cursor queryResult = query(getTableName(classToReturn), query);
         toReturn = cursorToList(queryResult, classToReturn);
+        queryResult.close();
         return toReturn;
     }
 
@@ -69,6 +71,7 @@ public class GenericDao extends AbstractDao {
         List<T> toReturn;
         Cursor queryResult = query(getTableName(classToReturn), query, orderBy, null);
         toReturn = cursorToList(queryResult, classToReturn);
+        queryResult.close();
         return toReturn;
     }
 
@@ -76,6 +79,7 @@ public class GenericDao extends AbstractDao {
         ArrayList<T> toReturn;
         Cursor queryResult = query(getTableName(classToReturn), query, orderBy, null);
         toReturn = cursorToArrayList(queryResult, classToReturn);
+        queryResult.close();
         return toReturn;
     }
 

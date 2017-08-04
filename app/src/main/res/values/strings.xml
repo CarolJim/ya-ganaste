@@ -341,7 +341,7 @@
 
     <!--felicidades-->
     <string name="congratulation_text1">Tu Cuenta Ya Ganaste Está Lista</string>
-    <string name="congratulation_text2">A Continuación te Enseñaremos Todo lo\nQue Puedes Hacer Con Ella</string>
+    <string name="congratulation_text2">A Continuación, te Enseñaremos Todo lo\nQue Puedes Hacer Con Ella</string>
     <!--Registro Agente-->
     <string name="datos_negocio_nombre">Nombre Requerido, Verifique su Información.</string>
     <string name="datos_negocio_giro">Giro Requerido, Verifique su Información.</string>
@@ -397,7 +397,7 @@
     <string name="transfer_phone">Número de Teléfono</string>
     <string name="transfer_phone_cellphone">Número de Celular</string>
     <string name="transfer_cable">Cuenta CABLE</string>
-    <string name="saldo_pendiente">Saldo Pendiente\n de Reembolso</string>
+    <string name="saldo_pendiente">Saldo Por\nReembolsar</string>
     <string name="saldo_reembolso">Saldo a Reembolsar</string>
     <string name="saldo_en_cuenta">Saldo en Cuenta</string>
     <string name="saldo_personal">Saldo Personal:</string>
@@ -629,7 +629,7 @@
     <string name="password_required">Contraseña Requerida, Verifique su Información</string>
 
     <!-- Depositos -->
-    <string name="datos_deposito">Tus Datos Para Depósito</string>
+    <string name="datos_deposito">Tus Datos Para Depósitos</string>
     <string name="datos_deposito_titular">Titular:</string>
     <string name="datos_deposito_num_card">N° Tarjeta:</string>
     <string name="datos_deposito_clabe">CLABE:</string>

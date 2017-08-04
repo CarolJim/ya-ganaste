@@ -2,13 +2,15 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.v4.view.ViewPager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.ui._controllers.LandingActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
@@ -17,6 +19,9 @@ import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.pagatodo.yaganaste.utils.Recursos.CO_QUICK_ADQ;
+import static com.pagatodo.yaganaste.utils.Recursos.CO_QUICK_EM;
 
 /**
  * Created by Jordan on 14/07/2017.
@@ -30,6 +35,7 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
     @BindView(R.id.viewPagerQuickBalance)
     NoSwipeViewPager viewPagerQuickBalance;
     ILoginContainerManager loginContainerManager;
+    private Preferencias pref;
 
     public static QuickBalanceContainerFragment newInstance() {
         QuickBalanceContainerFragment fragment = new QuickBalanceContainerFragment();
@@ -63,6 +69,19 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
         viewPagerQuickBalance.setAdapter(quickBalanceAdapter);
         viewPagerQuickBalance.setCurrentItem(1);
         viewPagerQuickBalance.setIsSwipeable(true);
+        pref = App.getInstance().getPrefs();
+        if (RequestHeaders.getTokenAdq().isEmpty() && !pref.containsData(CO_QUICK_EM)) {
+            pref.saveDataBool(CO_QUICK_EM, true);
+            startActivity(LandingActivity.createIntent(getActivity(), R.drawable.img_couch_qem_back,
+                    R.drawable.img_couch_qucik_em_1,
+                    R.drawable.img_couch_qucik_em_2));
+        } else if (!RequestHeaders.getTokenAdq().isEmpty() && !pref.containsData(CO_QUICK_ADQ)) {
+            pref.saveDataBool(CO_QUICK_ADQ, true);
+            startActivity(LandingActivity.createIntent(getActivity(), R.drawable.img_couch_qadq_back,
+                    R.drawable.img_couch_qucik_adq_1,
+                    R.drawable.img_couch_qucik_adq_2));
+        }
+
     }
 
     public ILoginContainerManager getLoginContainerManager() {
