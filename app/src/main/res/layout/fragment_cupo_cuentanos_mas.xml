@@ -82,6 +82,12 @@
                         android:textColor="@color/whiteColor"
                         app:tipo="Descripcion" />
 
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorCreditoBancario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
+
                     <RadioGroup
                         android:id="@+id/radioGroupHasCreditBank"
                         android:layout_width="match_parent"
@@ -125,6 +131,8 @@
                             android:layout_weight="1" />
                     </RadioGroup>
 
+
+
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtCreditoAuto"
                         style="@style/generic_text_style_3"
@@ -137,6 +145,12 @@
                         android:text="@string/obtuviste_credito_auto"
                         android:textColor="@color/whiteColor"
                         app:tipo="Descripcion" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorCreditoAutomotriz"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
 
                     <RadioGroup
                         android:id="@+id/radioGroupHasCreditCar"
@@ -193,6 +207,12 @@
                         android:text="@string/has_tenido_tarjeta_credito"
                         android:textColor="@color/whiteColor"
                         app:tipo="Descripcion" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorTarjetaCredito"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
 
                     <RadioGroup
                         android:id="@+id/radioGroupHasCreditCard"

@@ -49,11 +49,12 @@
 
                         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                             android:id="@+id/editNameReferenciaCupo"
+                            app:formato="text"
+                            app:hintText="@string/nameHint"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="20"
-                            app:formato="text"
-                            app:hintText="@string/nameHint"
+                            android:hint="@string/name_cupo_hint"
                             android:longClickable="false"
                             android:maxLength="12" />
 
@@ -72,6 +73,7 @@
                                 android:layout_margin="5dp"
                                 android:src="@drawable/icono_agenda" />
                         </RelativeLayout>
+
                         -->
 
                     </LinearLayout>
@@ -116,17 +118,15 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-
                     <!--
                     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                         android:id="@+id/editPhoneReferenciaCupo"
+                        style="@style/GenericCustomValidationEditText"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_weight="20"
                         app:formato="text"
                         app:hintText="@string/telefono_cupo_hint"
                         app:isSingleLine="true"
-                        android:longClickable="false"
                         app:maxLength="30" />
                     -->
 
@@ -138,16 +138,16 @@
                         android:weightSum="100">
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-                            android:id="@+id/editPhoneReferenciaCupo"
+                            android:id="@+id/editPhoneReferenciaCupoProveedor"
                             style="@style/GenericStyleEditText"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="20"
-                            android:inputType="phone"
-                            android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
                             android:hint="@string/telefono_cupo_hint"
+                            android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
                             android:longClickable="false"
-                            android:maxLength="12" />
+                            android:maxLength="12"
+                            android:inputType="phone" />
 
                         <RelativeLayout
                             android:id="@+id/layoutImageContact"
@@ -168,13 +168,27 @@
                     </LinearLayout>
 
 
-
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorPhoneReferenciaCupo"
                         style="@style/generic_text_style_2"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/editProductCupo"
+                        style="@style/GenericCustomValidationEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:formato="text"
+                        app:hintText="@string/produto_servicio_hint"
+                        app:isSingleLine="true"
+                        app:maxLength="30" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorProductCupo"
+                        style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
 
                     <Spinner
                         android:id="@+id/spRelationshipCupo"
@@ -202,7 +216,7 @@
         android:layout_marginTop="@dimen/margin_medium"
         android:orientation="vertical">
 
-        <!--
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -231,12 +245,10 @@
                         android:textSize="@dimen/text_screen_size_normal"
                         app:tipo="Descripcion" />
 
-
                 </LinearLayout>
             </LinearLayout>
 
         </LinearLayout>
-        -->
 
         <LinearLayout
             android:id="@+id/layoutBtns"

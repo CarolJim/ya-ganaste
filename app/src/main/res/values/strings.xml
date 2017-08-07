@@ -285,10 +285,12 @@
     <string name="birthDay">Fecha de Nacimiento</string>
     <string name="datos_personal_nombre">Nombre Requerido, Verifique su Información.</string>
     <string name="datos_personal_paterno">Primer Apellido Requerido, Verifique su Información.</string>
+    <string name="datos_personal_materno">Segundo Apellido Requerido, Verifique su Información.</string>
     <string name="datos_personal_fecha">Fecha de Nacimiento Requerida, Verifique su Información.</string>
     <string name="datos_personal_estado">Lugar de Nacimiento Requerido, Verifique su Información.</string>
     <string name="datos_personal_nacionalidad">Nacionalidad Requerida, Verifique su Información.</string>
     <string name="datos_personal_genero">Genero Requerido, Verifique su Información.</string>
+
     <!--datos_domicilio-->
     <string name="currentAddressTitle">Domicilio Personal</string>
     <string name="streetHint">Calle</string>
@@ -680,6 +682,22 @@
     <string name="cual_estado_civil">¿Cuál es tu Estado Civil?</string>
     <string name="cuantos_hijos">¿Cuántos Hijos Tienes?</string>
     <string name="relacion">Relación</string>
+    <string name="relacion_requerida">Relación Requerida, Verifique su Información.</string>
+    <string name="producto_servicio_requerido">Producto/Servicio Requerido, Verifique su Información.</string>
+    <string name="estado_civil_requerido">Estado Civil Requerido, Verifique su Información.</string>
+    <string name="numero_hijos_requerido">Cantidad de Hijos Requerida, Verifique su Información.</string>
+    <string name="opcion_requerido">Seleccione una Opción, Verifique su Información.</string>
+    <string name="cupo_domicilio">¿Sigue Siendo Este tu Domicilio?</string>
+
+
+    <string name="cupo_title_thanks">¡Gracias!</string>
+    <string name="cupo_subtitle_thanks">Tu Solicitud Está\n Siendo Evaluada</string>
+    <string name="cupo_title_thanks_msg">Este Proceso Puede Tardar Hasta\n 24 Horas Habiles</string>
+
+    <string name="titulo_referencia_familiar">Referencia Familiar</string>
+    <string name="titulo_referencia_personal">Referencia Personal</string>
+    <string name="titulo_referencia_proveedor">Referencia Proveedor </string>
+
 
     <!--end Cupo Strings-->
 </resources>

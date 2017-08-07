@@ -18,6 +18,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_DOC_CHECK;
+import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.EVENT_GO_CM_DOCUMENTOS;
 
 
 /**
@@ -57,7 +58,6 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
-
             Bundle b = getArguments();
             type = (COMPLETE_MESSAGES) b.get(TIPO_MENSAJE);
         }
@@ -125,6 +125,15 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
                 btnName = getString(R.string.txt_felicidades);
                 NEXT_SCREEN = EVENT_GO_MAINTAB;
                 break;
+            case CUPO_REVISION:
+                Log.e(TAG, "- CUPO_REVISION");
+                iIdIcon = R.drawable.ic_done;
+                title = getString(R.string.cupo_title_thanks);
+                subTitle = getString(R.string.cupo_subtitle_thanks);
+                message = getString(R.string.cupo_title_thanks_msg);
+                btnName = getString(R.string.nextButton);
+                NEXT_SCREEN = EVENT_GO_CM_DOCUMENTOS;
+                break;
         }
 
         /*Seteamos la información.*/
@@ -139,7 +148,8 @@ public class RegisterCompleteFragment extends GenericFragment implements View.On
         EMISOR,
         ADQ_REVISION,
         ADQ_ACEPTADOS,
-        SALDO
+        SALDO,
+        CUPO_REVISION
     }
 }
 

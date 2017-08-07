@@ -1,32 +1,100 @@
 package com.pagatodo.yaganaste.ui.cupo.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
+import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.Button;
+import android.widget.ImageView;
+import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.CupoSpinnerTypes;
+import com.pagatodo.yaganaste.interfaces.enums.Relaciones;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.cupo.CupoSpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.cupo.managers.CupoActivityManager;
+import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
+import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
+import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.ValidateForm;
+import com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
+import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
+import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT_PERSONAL;
 
 /**
  * Created by Jordan on 26/07/2017.
  */
 
-public class CupoReferenciaPersonalFragment extends GenericFragment implements View.OnClickListener{
+public class CupoReferenciaPersonalFragment extends GenericFragment implements View.OnClickListener , ValidationForms, AdapterView.OnItemSelectedListener {
     protected View rootview;
 
     @BindView(R.id.btnBack)
     Button btnBack;
     @BindView(R.id.btnNext)
     Button btnNext;
+    @BindView(R.id.layoutContent)
+    BorderTitleLayout borderTitleLayout;
     private CupoActivityManager cupoActivityManager;
+
+    @BindView(R.id.spRelationshipCupo)
+    Spinner spRelationshipCupo;
+    @BindView(R.id.errorRelationshipCupo)
+    ErrorMessage errorRelationshipCupo;
+
+
+    // Campos a llenar
+    @BindView(R.id.editNameReferenciaCupo)
+    CustomValidationEditText editNameReferenciaCupo;
+    @BindView(R.id.editFirstLastNameReferencuaCupo)
+    CustomValidationEditText editFirstLastNameReferencuaCupo;
+    @BindView(R.id.editSecoundLastNameReferenciaCupo)
+    CustomValidationEditText editSecoundLastNameReferenciaCupo;
+    @BindView(R.id.editPhoneReferenciaCupo)
+    StyleEdittext editPhoneReferenciaCupo;
+    @BindView(R.id.imgContact)
+    ImageView imgContact;
+
+    private String nombre;
+    private String primerApellido;
+    private String segundoApellido;
+    private String telefono;
+
+    private String relacion = "";
+    private String idRelacion = "";
+
+    // Errores Views
+    @BindView(R.id.errorNameReferenciaCupo)
+    ErrorMessage errorNameReferenciaCupo;
+    @BindView(R.id.errorFirstLastNameReferencuaCupo)
+    ErrorMessage errorFirstLastNameReferencuaCupo;
+    @BindView(R.id.errorSecoundLastNameReferenciaCupo)
+    ErrorMessage errorSecoundLastNameReferenciaCupo;
+    @BindView(R.id.errorPhoneReferenciaCupo)
+    ErrorMessage errorPhoneReferenciaCupo;
+
+    private CupoSpinnerArrayAdapter relacionAdapter;
+
 
     public static CupoReferenciaPersonalFragment newInstance() {
         CupoReferenciaPersonalFragment fragment = new CupoReferenciaPersonalFragment();
@@ -51,9 +119,37 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
 
     @Override
     public void initViews() {
+
         ButterKnife.bind(this, rootview);
+        borderTitleLayout.setTitle(getResources().getString(R.string.titulo_referencia_personal));
+        relacionAdapter = new CupoSpinnerArrayAdapter(getContext(), Relaciones.values(), CupoSpinnerTypes.RELACION);
+        spRelationshipCupo.setAdapter(relacionAdapter);
+        spRelationshipCupo.setOnItemSelectedListener(this);
+
+        editPhoneReferenciaCupo.setInputType(InputType.TYPE_CLASS_NUMBER);
+        editPhoneReferenciaCupo.addTextChangedListener(new PhoneTextWatcher(editPhoneReferenciaCupo));
+        editPhoneReferenciaCupo.setHint(getString(R.string.phone_number_hint));
+
         btnBack.setOnClickListener(this);
         btnNext.setOnClickListener(this);
+
+        setValidationRules();
+    }
+
+    @OnClick(R.id.imgContact)
+    public void obtenerNumeroPersonal() {
+        Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+        getActivity().startActivityForResult(contactPickerIntent, CONTACTS_CONTRACT_PERSONAL);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CONTACTS_CONTRACT_PERSONAL) {
+                editPhoneReferenciaCupo.setText(Utils.contactPicked(data, getContext()));
+            }
+        }
     }
 
     @Override
@@ -64,7 +160,231 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
                 break;
             case R.id.btnNext:
                 cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PROVEEDOR, null);
+                //validateForm();
+                break;
+            case R.id.imgContact:
+                obtenerNumeroPersonal();
                 break;
         }
+    }
+
+    @Override
+    public void setValidationRules() {
+        editNameReferenciaCupo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideErrorMessage(editNameReferenciaCupo.getId());
+                    editNameReferenciaCupo.imageViewIsGone(true);
+                } else {
+                    if (editNameReferenciaCupo.getText().isEmpty()) {
+                        showValidationError(editNameReferenciaCupo.getId(), getString(R.string.datos_personal_nombre));
+                        editNameReferenciaCupo.setIsInvalid();
+                    } else {
+                        hideErrorMessage(editNameReferenciaCupo.getId());
+                        editNameReferenciaCupo.setIsValid();
+                    }
+                }
+            }
+        });
+
+        editNameReferenciaCupo.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                hideErrorMessage(editNameReferenciaCupo.getId());
+                editNameReferenciaCupo.imageViewIsGone(true);
+            }
+        });
+
+        editFirstLastNameReferencuaCupo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideErrorMessage(editFirstLastNameReferencuaCupo.getId());
+                    editFirstLastNameReferencuaCupo.imageViewIsGone(true);
+                } else {
+                    if (editFirstLastNameReferencuaCupo.getText().isEmpty()) {
+                        showValidationError(editFirstLastNameReferencuaCupo.getId(), getString(R.string.datos_personal_paterno));
+                        editFirstLastNameReferencuaCupo.setIsInvalid();
+                    } else {
+                        hideErrorMessage(editFirstLastNameReferencuaCupo.getId());
+                        editFirstLastNameReferencuaCupo.setIsValid();
+                    }
+                }
+            }
+        });
+
+        editFirstLastNameReferencuaCupo.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                hideErrorMessage(editFirstLastNameReferencuaCupo.getId());
+                editFirstLastNameReferencuaCupo.imageViewIsGone(true);
+            }
+        });
+
+        editSecoundLastNameReferenciaCupo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideErrorMessage(editSecoundLastNameReferenciaCupo.getId());
+                    editSecoundLastNameReferenciaCupo.imageViewIsGone(true);
+                } else {
+                    if (editSecoundLastNameReferenciaCupo.getText().isEmpty()) {
+                        showValidationError(editSecoundLastNameReferenciaCupo.getId(), getString(R.string.datos_personal_materno));
+                        editSecoundLastNameReferenciaCupo.setIsInvalid();
+                    } else {
+                        hideErrorMessage(editSecoundLastNameReferenciaCupo.getId());
+                        editSecoundLastNameReferenciaCupo.setIsValid();
+                    }
+                }
+            }
+        });
+
+
+        editSecoundLastNameReferenciaCupo.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                hideErrorMessage(editSecoundLastNameReferenciaCupo.getId());
+                editSecoundLastNameReferenciaCupo.imageViewIsGone(true);
+            }
+        });
+
+
+        editPhoneReferenciaCupo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    hideErrorMessage(editPhoneReferenciaCupo.getId());
+                } else {
+                    if (editPhoneReferenciaCupo.getText().toString().equals("")) {
+                        showValidationError(editPhoneReferenciaCupo.getId(), getString(R.string.numero_telefono_vacio));
+                    } else if (!ValidateForm.isValidCellPhone(editPhoneReferenciaCupo.getText().toString())) {
+                        showValidationError(editPhoneReferenciaCupo.getId(), getString(R.string.numero_telefono_incorrecto));
+                    } else {
+                        hideErrorMessage(editPhoneReferenciaCupo.getId());
+                    }
+                }
+            }
+        });
+    }
+
+    private void hideErrorMessage(int id) {
+        //errorMessageView.setVisibilityImageError(false);
+
+        switch (id) {
+            case R.id.editNameReferenciaCupo:
+                errorNameReferenciaCupo.setVisibilityImageError(false);
+                break;
+            case R.id.editFirstLastNameReferencuaCupo:
+                errorFirstLastNameReferencuaCupo.setVisibilityImageError(false);
+                break;
+            case R.id.editSecoundLastNameReferenciaCupo:
+                errorSecoundLastNameReferenciaCupo.setVisibilityImageError(false);
+                break;
+            case R.id.spRelationshipCupo:
+                errorRelationshipCupo.setVisibilityImageError(false);
+                break;
+            case R.id.editPhoneReferenciaCupo:
+                errorPhoneReferenciaCupo.setVisibilityImageError(false);
+                break;
+
+        }
+    }
+
+    @Override
+    public void validateForm() {
+        getDataForm();
+        boolean isValid = true;
+
+        if (nombre.isEmpty()) {
+            showValidationError(editNameReferenciaCupo.getId(), getString(R.string.datos_personal_nombre));
+            editNameReferenciaCupo.setIsInvalid();
+            isValid = false;
+        }
+
+        if (primerApellido.isEmpty()) {
+            showValidationError(editFirstLastNameReferencuaCupo.getId(), getString(R.string.datos_personal_paterno));
+            editFirstLastNameReferencuaCupo.setIsInvalid();
+            isValid = false;
+        }
+
+        if (segundoApellido.isEmpty()) {
+            showValidationError(editSecoundLastNameReferenciaCupo.getId(), getString(R.string.datos_personal_materno));
+            editSecoundLastNameReferenciaCupo.setIsInvalid();
+            isValid = false;
+        }
+
+        if (relacion.isEmpty() || relacion.equals("")) {
+            showValidationError(spRelationshipCupo.getId(), getString(R.string.relacion_requerida));
+            isValid = false;
+        }
+
+        if (telefono.equals("")){
+            showValidationError(editPhoneReferenciaCupo.getId(), getString(R.string.numero_telefono_vacio));
+            isValid = false;
+        } else if (!ValidateForm.isValidCellPhone(telefono)) {
+            showValidationError(editPhoneReferenciaCupo.getId(), getString(R.string.numero_telefono_incorrecto));
+            isValid = false;
+        }
+
+
+    }
+
+    @Override
+    public void showValidationError(int id, Object error) {
+        switch (id) {
+            case R.id.editNameReferenciaCupo:
+                errorNameReferenciaCupo.setMessageText(error.toString());
+                break;
+            case R.id.editFirstLastNameReferencuaCupo:
+                errorFirstLastNameReferencuaCupo.setMessageText(error.toString());
+                break;
+            case R.id.editSecoundLastNameReferenciaCupo:
+                errorSecoundLastNameReferenciaCupo.setMessageText(error.toString());
+                break;
+            case R.id.spRelationshipCupo:
+                errorRelationshipCupo.setMessageText(error.toString());
+                break;
+            case R.id.editPhoneReferenciaCupo:
+                errorPhoneReferenciaCupo.setMessageText(error.toString());
+        }
+        UI.hideKeyBoard(getActivity());
+    }
+
+    @Override
+    public void onValidationSuccess() {
+
+    }
+
+    @Override
+    public void getDataForm() {
+        nombre = editNameReferenciaCupo.getText().trim();
+        primerApellido = editFirstLastNameReferencuaCupo.getText().trim();
+        segundoApellido = editSecoundLastNameReferenciaCupo.getText().trim();
+
+        if (spRelationshipCupo.getSelectedItemPosition() != 0) {
+            relacion = spRelationshipCupo.getSelectedItem().toString();
+            CupoSpinnerArrayAdapter adapter = (CupoSpinnerArrayAdapter) spRelationshipCupo.getAdapter();
+            idRelacion = adapter.getItemIdString(spRelationshipCupo.getSelectedItemPosition());
+        } else {
+            relacion = "";
+            idRelacion = "";
+        }
+
+        telefono = editPhoneReferenciaCupo.getText().toString();
+    }
+
+    @Override
+    public void onItemSelected(AdapterView<?> adapterView, View view, int i, long l) {
+        onSpinnerClick();
+    }
+
+    @Override
+    public void onNothingSelected(AdapterView<?> adapterView) {
+        onSpinnerClick();
+    }
+
+    private void onSpinnerClick() {
+        hideErrorMessage(spRelationshipCupo.getId());
     }
 }
