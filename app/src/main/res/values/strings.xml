@@ -702,6 +702,7 @@
     <string name="verificando_sms_espera">Estamos Verificando tu SMS, \nNos Tomará Sólo Unos Segundos</string>
     <string name="change_your_pass">Cambia tu Contraseña</string>
     <string name="unlike_your_device">Desvincula tu Dispositivo</string>
+    <string name="no_existen_resultados">No Existen Resultados</string>
     <!--end Cupo Strings-->
 </resources>
 
