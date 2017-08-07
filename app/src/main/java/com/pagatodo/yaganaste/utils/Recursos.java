@@ -93,6 +93,10 @@ public class Recursos {
     public static final String CODE_ACTIVATION_FREJA = "CODEACTIVATIONFREJA";
     public static String COUCHMARK_EMISOR = "COUCHMARKEMISOR";
     public static String COUCHMARK_ADQ = "COUCHMARKADQ";
+
+    public static String CO_QUICK_EM = "CO_QUICK_EM";
+    public static String CO_QUICK_ADQ = "CO_QUICK_ADQ";
+
     public static String SHA_256_FREJA = "SHA_256_FREJA";
     public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
     public static final String ADQ_PROCESS = "FLAG_PROCESS";

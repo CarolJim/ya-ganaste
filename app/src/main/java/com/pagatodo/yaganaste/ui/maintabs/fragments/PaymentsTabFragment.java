@@ -250,7 +250,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public void changeImgageToPay() {
         CarouselItem item = paymentsTabPresenter.getCarouselItem();
-        Glide.with(getContext()).load(item.getImageUrl()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).dontAnimate().into(imgPagosServiceToPay);
+        Glide.with(getContext()).load(item.getImageUrl()).placeholder(R.mipmap.icon_tab_promos).error(R.mipmap.icon_tab_promos).dontAnimate().into(imgPagosServiceToPay);
         imgPagosServiceToPayRound.setBorderColor(Color.parseColor(item.getColor()));
         //onEventListener.onEvent(TabActivity.EVENT_CHANGE_MAIN_TAB_VISIBILITY, false);
     }

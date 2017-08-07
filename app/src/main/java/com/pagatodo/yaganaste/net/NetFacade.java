@@ -46,7 +46,6 @@ public class NetFacade {
             wsCaller.sendJsonPost(createRequest(method_name, method, urlService, oRequest,
                     getMethodType(method) == POST, headers, responseType, requestResult));
         } else {
-            UI.showToastShort(App.getContext().getString(R.string.no_internet_access), App.getContext());
             throw new OfflineException();
         }
     }

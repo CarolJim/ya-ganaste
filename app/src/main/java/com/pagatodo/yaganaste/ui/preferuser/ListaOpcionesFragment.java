@@ -14,11 +14,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
@@ -172,15 +174,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
          * Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
          */
         if (mUserImage != null && !mUserImage.isEmpty()) {
-            try {
-                // Pedimos la imagen por internet y generamos el Bitmap
-                mPreferPresenter.getImagenURLToPresenter(mUserImage);
-            } catch (Exception e) {
-                // Hacemos algo si falla por no tener internet
-                showDialogMesage(e.toString());
-            }
-        } else {
-            // iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.add_photo_canvas, null));
+            Glide.with(getContext()).load(mUserImage).placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+                    .dontAnimate().into(iv_photo_item);
         }
     }
 
@@ -237,8 +232,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         // Creamos el objeto ActualizarAvatarRequest
         ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
 
-        // Deshabilitamos el backButton
-        //getActivity().onBackPressed();
+
         onEventListener.onEvent("DISABLE_BACK", true);
 
         // Enviamos al presenter
@@ -253,15 +247,6 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
                 getString(R.string.listaopciones_load_image_wait));
     }
 
-    /**
-     * Hacemos Set de la imagen que viene del servidor en la vista final
-     *
-     * @param bitmap
-     */
-    @Override
-    public void sendImageBitmapToView(Bitmap bitmap) {
-        iv_photo_item.setImageBitmap(bitmap);
-    }
 
     @Override
     public void showExceptionToView(String mMesage) {

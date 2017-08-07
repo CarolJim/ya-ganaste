@@ -104,15 +104,6 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
     }
 
     @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-    }
-
-    @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         pago = (Payments) getArguments().getSerializable("pago");

@@ -145,7 +145,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
             case "PREFER_USER_DESASOCIAR_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                loadFragment(MyAccountFragment.newInstance(), Direction.BACK, false);
+                loadFragment(MyUserFragment.newInstance(), Direction.BACK, false);
                 break;
 
             case "PREFER_USER_CLOSE":

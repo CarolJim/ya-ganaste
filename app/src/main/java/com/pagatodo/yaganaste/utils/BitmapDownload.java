@@ -74,7 +74,7 @@ public class BitmapDownload extends AsyncTask<String, Object, Bitmap> {
     protected void onPostExecute(Bitmap bitmap) {
         super.onPostExecute(bitmap);
         if(mIteractor != null) {
-            mIteractor.sendToIteractorBitmap(bitmap);
+
         }else{
             toolBarActivity.sendToIteractorBitmap(bitmap);
         }
