@@ -30,7 +30,10 @@
                 android:layout_weight="20"
                 android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
                 android:longClickable="false"
-                android:maxLength="12" />
+                android:maxLength="12"
+                android:maxLines="1"
+                android:inputType="text"
+                android:imeOptions="actionDone" />
 
             <RelativeLayout
                 android:id="@+id/layoutImageContact"

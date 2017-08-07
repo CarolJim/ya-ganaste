@@ -15,10 +15,6 @@ public interface IPreferUserPresenter {
 
     void sendErrorServerPresenter(String error);
 
-    void getImagenURLToPresenter(String mUserImage);
-
-    void sendImageBitmapToPresenter(Bitmap bitmap);
-
     void openMenuPhoto(int i, CameraManager cameraManager);
 
     void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest);

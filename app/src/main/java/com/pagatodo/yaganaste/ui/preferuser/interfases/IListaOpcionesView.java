@@ -11,8 +11,6 @@ public interface IListaOpcionesView extends IPreferUserGeneric {
 
     void showProgress(String mMensaje);
 
-    void sendImageBitmapToView(Bitmap bitmap);
-
     void showExceptionToView(String mMesage);
 
     void sendSuccessAvatarToView(String mensaje);

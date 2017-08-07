@@ -22,7 +22,6 @@ import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
-import com.pagatodo.yaganaste.utils.BitmapDownload;
 import com.pagatodo.yaganaste.utils.Recursos;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVATAR;
@@ -67,21 +66,6 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         }
 
 
-    }
-
-    /**
-     * @param mUserImage
-     */
-    @Override
-    public void getImagenURLToIteractor(String mUserImage) {
-        String urlEdit = procesarURLString(mUserImage);
-        BitmapDownload bitmapDownload = new BitmapDownload(urlEdit, this);
-        bitmapDownload.execute();
-    }
-
-    @Override
-    public void sendToIteractorBitmap(Bitmap bitmap) {
-        preferUserPresenter.sendImageBitmapToPresenter(bitmap);
     }
 
     @Override

@@ -23,7 +23,8 @@
             android:id="@+id/btn_si"
             style="@style/buttonSquareRoundedBlue"
             android:gravity="center"
-            android:text="@string/adq_invt_me_interesa" />
+            android:text="@string/adq_invt_me_interesa"
+            android:layout_marginBottom="@dimen/btn_margin_bottom"/>
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/btn_mas_tarde"
@@ -33,10 +34,10 @@
             android:layout_below="@+id/btnMainCreateAccount"
             android:background="?attr/selectableItemBackground"
             android:gravity="center"
-            android:paddingBottom="@dimen/generic_padig"
             android:paddingTop="@dimen/generic_padig"
             android:text="@string/adq_invt_no_me_interesa"
-            app:tipo="Descripcion" />
+            app:tipo="Descripcion"
+            android:visibility="gone"/>
     </LinearLayout>
 
 
