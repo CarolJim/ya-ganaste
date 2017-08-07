@@ -10,18 +10,27 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.RecoveryPasswordView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -30,6 +39,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOV
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
+import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 
 
 /**
@@ -47,8 +57,14 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
     ErrorMessage errorMessageView;
     @BindView(R.id.progressIndicator)
     ProgressLayout progressLayout;
+    @BindView(R.id.tvCorreoRegistrado)
+    StyleTextView tvCorreoRegistrado;
+    @BindView(R.id.txtHeaderRecovery)
+    StyleTextView txtHeaderRecovery;
     private View rootview;
     private AccountPresenterNew accountPresenter;
+    Preferencias prefs;
+    String userEmail;
 
     private String correoRegistrado = "";
 
@@ -106,6 +122,38 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
         btnBack.setOnClickListener(this);
         btnRecuperarContrasenia.setOnClickListener(this);
         setValidationRules();
+
+        prefs = App.getInstance().getPrefs();
+        /**
+         * Dependiendo si tenemos session activa o no, tomamos diferentes caminos.
+         * 1 - Trabajo con un TextView cifrado con el correo
+         * 2 - Trabajo con un EditText para acomodar el nueo texto
+         */
+        if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
+            edtCorreoRegistrado.setVisibility(View.GONE);
+
+            // Asignamos el texto de enlace de correo
+            String mTextEnlace = getContext().getResources()
+                    .getString(R.string.enviaremos_enlace_restablecer);
+            txtHeaderRecovery.setText(mTextEnlace);
+
+            // Mostramos el correo con formato
+
+            userEmail = RequestHeaders.getUsername();
+            String userEmailCifrado = StringUtils.cifrarPass(userEmail);
+            tvCorreoRegistrado.setVisibility(View.VISIBLE);
+            tvCorreoRegistrado.setText(userEmailCifrado);
+
+        } else {
+            tvCorreoRegistrado.setVisibility(View.GONE);
+
+            // Asignamos el texto de enlace de correo
+            String mTextEnlace = getContext().getResources()
+                    .getString(R.string.ingresa_correo_registrado);
+            txtHeaderRecovery.setText(mTextEnlace);
+
+            edtCorreoRegistrado.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -180,15 +228,27 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
     @Override
     public void validateForm() {
         getDataForm();
-        if (correoRegistrado.isEmpty()) {
-            showValidationError(edtCorreoRegistrado.getId(), getString(R.string.ingresa_correo_registrado_requerido));
-            edtCorreoRegistrado.setIsInvalid();
-        } else if (!edtCorreoRegistrado.isValidText()) {
-            showValidationError(edtCorreoRegistrado.getId(), getString(R.string.datos_usuario_correo_formato));
-            edtCorreoRegistrado.setIsInvalid();
-        } else {
+
+        /**
+         * Dependiendo si tenemos session activa o no, tomamos diferentes caminos.
+         * 1 - Trabajo con un TextView cifrado con el correo
+         * 2 - Trabajo con un EditText para acomodar el nueo texto
+         */
+        if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
             onValidationSuccess();
+        } else {
+            if (correoRegistrado.isEmpty()) {
+                showValidationError(edtCorreoRegistrado.getId(), getString(R.string.ingresa_correo_registrado_requerido));
+                edtCorreoRegistrado.setIsInvalid();
+            } else if (!edtCorreoRegistrado.isValidText()) {
+                showValidationError(edtCorreoRegistrado.getId(), getString(R.string.datos_usuario_correo_formato));
+                edtCorreoRegistrado.setIsInvalid();
+            } else {
+                onValidationSuccess();
+            }
         }
+
+
     }
 
     @Override
@@ -206,7 +266,16 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void getDataForm() {
-        correoRegistrado = edtCorreoRegistrado.getText().trim();
+        /**
+         * Dependiendo si tenemos session activa o no, tomamos diferentes caminos.
+         * 1 - Trabajo con un TextView cifrado con el correo
+         * 2 - Trabajo con un EditText para acomodar el nueo texto
+         */
+        if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
+            correoRegistrado = userEmail;
+        } else {
+            correoRegistrado = edtCorreoRegistrado.getText().trim();
+        }
     }
 
 
@@ -223,7 +292,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void recoveryPasswordFailed(String message) {
-        UI.showToastShort(message, getActivity());
+        UI.createSimpleCustomDialog("", message, getFragmentManager(), CustomErrorDialog.TAG);
         setEnableViews(true);
     }
 

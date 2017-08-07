@@ -56,7 +56,8 @@
     <string name="obtenerDomicilio">/ObtenerDomicilioPrincipal</string>
     <string name="enviarTicketTAEPDS">/EnviarTicketTAEPDS</string>
     <string name="desasociarDispositivo">/DesasociarDispositivo</string>
-    <string name="desasociarDispositivoTittle">Desasociar Dispositivo</string>
+    <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
+    <string name="desvincula_dispositivo_texto">Al Desvincular tu Dispositivo ya no Estará Ligado a tu Cuenta Ya Ganaste. Si Quieres Volver a Usarlo, Deberás Enviar Nuevamente el SMS de Vinculación</string>
     <string name="deseaDesasociarDispositivo">¿Desea Desasociar el Dispositivo?</string>
     <string name="sel_fotografia">Seleccionar Fotografía</string>
     <string name="myUserText">Mi Usuario</string>
@@ -204,6 +205,8 @@
     <string name="txt_fecha_hora">Fecha y Hora:</string>
     <string name="hint_concepto">Concepto</string>
     <string name="txt_concepto">Concepto:</string>
+    <string name="txt_clave_rastreo">Clave Rastreo:</string>
+    <string name="txt_numero_referencia">Número de Referencia:</string>
     <string name="inserta_el_lector_para_ncontinuar">Inserta Tu Lector de Tarjetas\nYa Ganaste</string>
     <string name="text_slide_or_insert">Inserta o Desliza la Tarjeta Para Continuar.</string>
     <string name="finalizar">Finalizar</string>
@@ -283,14 +286,16 @@
     <string name="male">Hombre</string>
     <string name="nameHint">Nombre(s)</string>
     <string name="birthDay">Fecha de Nacimiento</string>
+    <string name="county">País de Nacimiento</string>
     <string name="datos_personal_nombre">Nombre Requerido, Verifique su Información.</string>
     <string name="datos_personal_paterno">Primer Apellido Requerido, Verifique su Información.</string>
     <string name="datos_personal_materno">Segundo Apellido Requerido, Verifique su Información.</string>
     <string name="datos_personal_fecha">Fecha de Nacimiento Requerida, Verifique su Información.</string>
     <string name="datos_personal_estado">Lugar de Nacimiento Requerido, Verifique su Información.</string>
     <string name="datos_personal_nacionalidad">Nacionalidad Requerida, Verifique su Información.</string>
-    <string name="datos_personal_genero">Genero Requerido, Verifique su Información.</string>
-
+    <string name="datos_personal_genero">Género Requerido, Verifique su Información.</string>
+    <string name="datos_personal_pais">País de Nacimiento Requerido, Verifique su Información.</string>
+    <string name="buscar_pais">Busca tu País</string>
     <!--datos_domicilio-->
     <string name="currentAddressTitle">Domicilio Personal</string>
     <string name="streetHint">Calle</string>
@@ -308,7 +313,7 @@
 
     <!--activacion_sms-->
     <string name="activacion_sms_mes_1">Para Terminar tu Registro,\n Debemos Asociar tu Teléfono a tu\n Cuenta Ya Ganaste.</string>
-    <string name="activacion_sms_mes_2">Sólo Desliza Para Enviar \nel SMS Requerido.</string>
+    <string name="activacion_sms_mes_2">Desliza el Boton y Enviaremos un \nSMS Para Realizar el Proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
     <!--tienes_tarjeta-->
@@ -326,6 +331,8 @@
     <string name="confirma_pin">Confirma tu NIP.</string>
     <string name="confirmar_pin">El NIP no Coincide</string>
     <string name="longitud_nip">NIP de 4 Dígitos</string>
+    <string name="new_nip_diferent">El Nuevo NIP Debe Ser Diferente Del Anterior</string>
+    <string name="new_nip_four_digits">Son Necesarios 4 Números</string>
     <!--Datos Negocio-->
     <string name="bussinesAddressTitle">Domicilio de tu Negocio</string>
     <string name="bussinesInfoTitle">Datos de tu Negocio</string>
@@ -335,7 +342,7 @@
 
     <!--felicidades-->
     <string name="congratulation_text1">Tu Cuenta Ya Ganaste Está Lista</string>
-    <string name="congratulation_text2">A Continuación te Enseñaremos Todo lo\nQue Puedes Hacer Con Ella</string>
+    <string name="congratulation_text2">A Continuación, te Enseñaremos Todo lo\nQue Puedes Hacer Con Ella</string>
     <!--Registro Agente-->
     <string name="datos_negocio_nombre">Nombre Requerido, Verifique su Información.</string>
     <string name="datos_negocio_giro">Giro Requerido, Verifique su Información.</string>
@@ -391,7 +398,7 @@
     <string name="transfer_phone">Número de Teléfono</string>
     <string name="transfer_phone_cellphone">Número de Celular</string>
     <string name="transfer_cable">Cuenta CABLE</string>
-    <string name="saldo_pendiente">Saldo Pendiente\n de Reembolso</string>
+    <string name="saldo_pendiente">Saldo Por\nReembolsar</string>
     <string name="saldo_reembolso">Saldo a Reembolsar</string>
     <string name="saldo_en_cuenta">Saldo en Cuenta</string>
     <string name="saldo_personal">Saldo Personal:</string>
@@ -414,7 +421,11 @@
 
     <string name="cancelar_operacion">Cancelar Cobro</string>
     <string name="txt_monto">Monto:</string>
+    <string name="txt_monto_compra">Monto Compra:</string>
+    <string name="txt_monto_retiro">Monto Retiro:</string>
     <string name="txt_recibo">Recibo:</string>
+    <string name="txt_iva">IVA:</string>
+    <string name="txt_cargo_servicio">Cargo Por Servicio:</string>
 
     <string name="autorizacion">Autorización:</string>
     <string name="tarjeta">Tarjeta:</string>
@@ -441,6 +452,8 @@
 
     <string name="no_offline_token">El Dispositivo no Cuenta con Token Offline, Asegúrate de Que
     tu Dispositivo Esté Asociado por SMS</string>
+
+    <string name="generando_token">Generando Código</string>
 
     <string name="tu_codigo">Tu Código de Acceso es:</string>
     <string name="caduca_en"><![CDATA[Caduca en <b><font color="#10B2E6">%1$s</font></b> Minutos]]></string>
@@ -483,6 +496,7 @@
     <string name="cargando">Cargando</string>
 
     <string name="recupera_contrasenia_title">Recupera tu Contraseña</string>
+    <string name="enviaremos_enlace_restablecer">Enviaremos un Enlace Para \nRestablecer tu Contraseña a:</string>
     <string name="ingresa_correo_registrado">Ingresa tu Correo\nElectrónico Registrado</string>
     <string name="ingresa_correo_registrado_requerido">El Correo Electrónico es Requerido. Verifica tu Información.</string>
 
@@ -616,7 +630,7 @@
     <string name="password_required">Contraseña Requerida, Verifique su Información</string>
 
     <!-- Depositos -->
-    <string name="datos_deposito">Tus Datos Para Depósito</string>
+    <string name="datos_deposito">Tus Datos Para Depósitos</string>
     <string name="datos_deposito_titular">Titular:</string>
     <string name="datos_deposito_num_card">N° Tarjeta:</string>
     <string name="datos_deposito_clabe">CLABE:</string>
@@ -647,7 +661,10 @@
     <string name="mount_valid">Ingresa un Monto Válido.</string>
     <string name="enter_mount">Por Favor Ingrese un Monto</string>
     <string name="mount_cero">$0.00</string>
-    <string name="send_to_txt">Enviado a:</string>
+    <string name="send_to_txt">Para:</string>
+    <string name="from_txt">De:</string>
+    <string name="cuenta_ordenante">Cuenta Ordenante:</string>
+    <string name="cuenta_beneficiario">Cuenta Beneficiario:</string>
     <string name="last_date_update">Actualizado el %s hrs</string>
 
     <string name="ask_permission_gps">Por Favor Activa tu GPS</string>
@@ -658,7 +675,7 @@
     <string name="emisor_validate_card_fail"><u>Esta Tarjeta Ya Ha Sido Asignada, Ingresa Otra Tarjeta o Selecciona la Opción NO TENGO TARJETA</u></string>
     <string name="emisor_validate_postalcode"><u>Verifica tu Código Postal</u></string>
 
-   <!--start Cupo Strings-->
+    <!--start Cupo Strings-->
 
     <string name="txt_contacto">¿Tienes Dudas? Contáctanos\n01-800-500-1000\ncontacto@yaganaste.com</string>
     <string name="txt_validate_info">Estamos Revisando\nTu Información </string>
@@ -682,6 +699,7 @@
     <string name="cual_estado_civil">¿Cuál es tu Estado Civil?</string>
     <string name="cuantos_hijos">¿Cuántos Hijos Tienes?</string>
     <string name="relacion">Relación</string>
+
     <string name="relacion_requerida">Relación Requerida, Verifique su Información.</string>
     <string name="producto_servicio_requerido">Producto/Servicio Requerido, Verifique su Información.</string>
     <string name="estado_civil_requerido">Estado Civil Requerido, Verifique su Información.</string>
@@ -699,6 +717,10 @@
     <string name="titulo_referencia_proveedor">Referencia Proveedor </string>
 
 
+    <string name="access_code_text">Ingresa tu Contraseña Para \nGenerar un Código de Acceso</string>
+    <string name="verificando_sms_espera">Estamos Verificando tu SMS, \nNos Tomará Sólo Unos Segundos</string>
+    <string name="change_your_pass">Cambia tu Contraseña</string>
+    <string name="unlike_your_device">Desvincula tu Dispositivo</string>
     <!--end Cupo Strings-->
 </resources>
 

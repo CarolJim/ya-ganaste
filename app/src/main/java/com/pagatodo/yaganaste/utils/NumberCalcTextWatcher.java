@@ -8,6 +8,7 @@ import android.widget.TextView;
 
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
+import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 
 import java.text.DecimalFormat;
 import java.text.DecimalFormatSymbols;
@@ -29,6 +30,7 @@ public class NumberCalcTextWatcher implements TextWatcher {
     protected static String amount = "";
     String tmpAMount, strAmountEditText;
     private EditText etMonto;
+    StyleEdittext edtConcept;
     private TextView tvMontoEntero, tvMontoDecimal;
     private DecimalFormat formatter;
     private DecimalFormat fmt;
@@ -37,10 +39,11 @@ public class NumberCalcTextWatcher implements TextWatcher {
     private String newData;
     private String TAG = getClass().getSimpleName();
 
-    public NumberCalcTextWatcher(EditText edtMount, TextView tvMontoEntero, TextView tvMontoDecimal) {
+    public NumberCalcTextWatcher(EditText edtMount, TextView tvMontoEntero, TextView tvMontoDecimal, StyleEdittext edtConcept) {
         this.etMonto = edtMount;
         this.tvMontoEntero = tvMontoEntero;
         this.tvMontoDecimal = tvMontoDecimal;
+        this.edtConcept = edtConcept;
     }
 
     public static void cleanData() {
@@ -197,6 +200,11 @@ public class NumberCalcTextWatcher implements TextWatcher {
                     // Guardamos la cantidad en el modelo para recuperar en caso de perdida
                     TransactionAdqData.getCurrentTransaction()
                             .setAmount(Utils.getCurrencyValue(strAmountEditText));
+
+                    // Hacemos un set vacio en el concepto al reiniciarse la cantidad
+                    if(tmp.equals("0.00")){
+                        edtConcept.setText("");
+                    }
                 }
             }
         }

@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PERSONAL_DATA;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
@@ -46,6 +47,8 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     CustomValidationEditText editPasswordConfirm;
     @BindView(R.id.btnNextDatosUsuario)
     StyleButton btnNextDatosUsuario;
+    @BindView(R.id.btnBackDatosUsuario)
+    StyleButton btnBackDatosUsuario;
     @BindView(R.id.errorMailMessage)
     ErrorMessage errorMailMessage;
     @BindView(R.id.errorConfirmaMailMessage)
@@ -107,6 +110,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         errorMailMessage.setVisibilityImageError(false);
 
         btnNextDatosUsuario.setOnClickListener(this);
+        btnBackDatosUsuario.setOnClickListener(this);
         edtitConfirmEmail.setOnFocusChangeListener(this);
         editPassword.setOnFocusChangeListener(this);
         editPasswordConfirm.setOnFocusChangeListener(this);
@@ -118,6 +122,8 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     public void onClick(View view) {
         if (view.getId() == R.id.btnNextDatosUsuario) {
             validateForm();
+        } else if (view.getId() == R.id.btnBackDatosUsuario) {
+            getActivity().onBackPressed();
         }
     }
 

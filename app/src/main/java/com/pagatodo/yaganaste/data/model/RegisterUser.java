@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.data.model;
 
+import com.pagatodo.yaganaste.data.model.db.Countries;
+
 /**
  * Created by flima on 27/03/2017.
  */
@@ -30,9 +32,19 @@ public class RegisterUser {
     private String colonia = "";
     private String idColonia = "";
     private boolean aceptaTerminos;
+    private Countries paisNacimiento;
 
     private RegisterUser() {
 
+    }
+
+    public Countries getPaisNacimiento() {
+        return paisNacimiento;
+    }
+
+    public void setPaisNacimiento(Countries paisNacimiento) {
+        this.paisNacimiento = paisNacimiento;
+        this.nacionalidad = paisNacimiento.getIdPais();
     }
 
     public static synchronized RegisterUser getInstance() {

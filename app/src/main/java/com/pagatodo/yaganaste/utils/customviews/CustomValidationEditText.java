@@ -327,6 +327,7 @@ public class CustomValidationEditText extends LinearLayout {
     public void setFullOnClickListener(OnClickListener onClickListener) {
         editText.setFocusableInTouchMode(false);
         editText.setOnClickListener(onClickListener);
+        imageView.setOnClickListener(onClickListener);
         this.setOnClickListener(onClickListener);
     }
 

@@ -8,12 +8,12 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
-import com.pagatodo.yaganaste.interfaces.IPhotoUserWeb;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.net.UtilsNet;
@@ -22,7 +22,6 @@ import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
-import com.pagatodo.yaganaste.utils.BitmapDownload;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
@@ -46,7 +45,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
  * A simple {@link GenericFragment} subclass.
  */
 public class LoginFragment extends GenericFragment implements View.OnClickListener, ILoginView,
-        ValidationForms, IPhotoUserWeb {
+        ValidationForms {
 
     @BindView(R.id.imgLoginExistProfile)
     CircleImageView imgLoginExistProfile;
@@ -125,7 +124,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 }
             });
         } else {
-            edtUserName.setText("");
+            edtUserName.setText(RequestHeaders.getUsername());
             edtUserName.setVisibility(VISIBLE);
             textNameUser.setVisibility(GONE);
         }
@@ -136,6 +135,12 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnLoginExistUser:
+                /*final int[] drawables = {R.drawable.img_couch_em_1, R.drawable.img_couch_em_2,
+                        R.drawable.img_couch_em_3, R.drawable.img_couch_em_4, R.drawable.img_couch_em_5};
+                Intent intent = new Intent(getActivity(), LandingActivity.class);
+                intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawables);
+                startActivity(intent);*/
+
                 //Intent intent = new Intent(getActivity(), RegistryCupoActivity.class);
                 //startActivity(intent);
                 actionBtnLogin();
@@ -327,28 +332,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     private void updatePhoto() {
         Preferencias preferencias = App.getInstance().getPrefs();
         String mUserImage = preferencias.loadData(URL_PHOTO_USER);
-        //String mUserImage = "http://189.201.137.21:8033/RecursosApp/RecursosYaGanaste/Avatar/58580a38d0afa32b48fffdda1dde46da574ee8ff0a68dc593ff4749c74a69da6_M.png";
+        Glide.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
+                .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+                .dontAnimate().into(imgLoginExistProfile);
 
-        if (mUserImage != null && !mUserImage.isEmpty()) {
-            try {
-                // Pedimos la imagen por internet y generamos el Bitmap
-                String urlEdit = StringUtils.procesarURLString(mUserImage);
-                BitmapDownload bitmapDownload = new BitmapDownload(urlEdit, this);
-                bitmapDownload.execute();
-            } catch (Exception e) {
-                // Hacemos algo si falla por no tener internet
-                //  showDialogMesage(e.toString());
-            }
-        }
     }
 
-    /**
-     * Respuesta de la interfase, contieen el Bitmap listo para usarse y hacer SET del mismo
-     * @param bitmap
-     */
-    @Override
-    public void sendToIteractorBitmap(Bitmap bitmap) {
-        imgLoginExistProfile.setImageBitmap(bitmap);
-    }
 }
 

@@ -12,6 +12,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.enums.CupoSpinnerTypes;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -25,7 +26,7 @@ import java.util.List;
 public class CupoSpinnerArrayAdapter extends ArrayAdapter {
 
     private Context mContext;
-    private List<?> mItems;
+    private IEnumSpinner[] mItems;
     private CupoSpinnerTypes spinnerType;
 
     public CupoSpinnerArrayAdapter(@NonNull Context context, @LayoutRes int resource) {
@@ -33,7 +34,7 @@ public class CupoSpinnerArrayAdapter extends ArrayAdapter {
         this.mContext = context;
     }
 
-    public CupoSpinnerArrayAdapter(@NonNull Context context, List<?> items, CupoSpinnerTypes spinnerType) {
+    public CupoSpinnerArrayAdapter(@NonNull Context context, IEnumSpinner[] items, CupoSpinnerTypes spinnerType) {
         super(context, 0, items);
         this.mContext = context;
         this.mItems = items;
@@ -45,11 +46,15 @@ public class CupoSpinnerArrayAdapter extends ArrayAdapter {
         return super.getCount();
     }
 
+    public String getItemIdString(int position) {
+        return mItems[position].getId();
+    }
+
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
         CupoSpinnerArrayAdapter.DropDownHolder holder;
-        Object item = mItems.get(position);
+        Object item = mItems[position];
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();
@@ -79,7 +84,7 @@ public class CupoSpinnerArrayAdapter extends ArrayAdapter {
     public View getView(int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         View row = convertView;
         CupoSpinnerArrayAdapter.ViewHolder holder;
-        Object item = mItems.get(position);
+        Object item = mItems[position];
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) mContext).getLayoutInflater();

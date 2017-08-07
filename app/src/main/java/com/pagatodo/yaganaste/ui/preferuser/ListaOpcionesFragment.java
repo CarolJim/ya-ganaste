@@ -15,11 +15,13 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
@@ -39,6 +41,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CLOSE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_DESASOCIAR;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_LEGALES;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_ACCOUNT;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -76,16 +80,12 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     LinearLayout ll_legal;
     @BindView(R.id.fragment_lista_opciones_close)
     LinearLayout ll_close;
-    @BindView(R.id.fragment_lista_opciones_desasociar)
-    LinearLayout ll_desasociar;
     @BindView(R.id.frag_lista_opciones_photo_item)
     CircleImageView iv_photo_item;
     @BindView(R.id.frag_lista_opciones_photo_status)
     CircleImageView iv_photo_item_status;
     @BindView(R.id.fragment_lista_opciones_version)
     TextView tv_version_code;
-    @BindView(R.id.testIV)
-    ImageView testIV;
     View rootview;
     CameraManager cameraManager;
     private boolean isEsAgente;
@@ -148,12 +148,12 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
             ll_cuenta.setOnClickListener(this);
         }
 
+        ll_cuenta.setOnClickListener(this);
         ll_card.setOnClickListener(this);
         ll_help.setOnClickListener(this);
         ll_legal.setOnClickListener(this);
         ll_close.setOnClickListener(this);
         iv_photo_item.setOnClickListener(this);
-        ll_desasociar.setOnClickListener(this);
 
         // Hacemos SET de la infromacion del user
         // mName = "Mi Nombre";
@@ -176,15 +176,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
          * Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
          */
         if (mUserImage != null && !mUserImage.isEmpty()) {
-            try {
-                // Pedimos la imagen por internet y generamos el Bitmap
-                mPreferPresenter.getImagenURLToPresenter(mUserImage);
-            } catch (Exception e) {
-                // Hacemos algo si falla por no tener internet
-                showDialogMesage(e.toString());
-            }
-        } else {
-            // iv_photo_item.setStatusImage(getResources().getDrawable(R.drawable.add_photo_canvas, null));
+            Glide.with(getContext()).load(mUserImage).placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+                    .dontAnimate().into(iv_photo_item);
         }
     }
 
@@ -196,19 +189,18 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
                 onEventListener.onEvent(PREFER_USER_MY_USER, 1);
                 break;
             case R.id.fragment_lista_opciones_account:
-                Toast.makeText(getContext(), "Click Cuenta", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Click Cuenta", Toast.LENGTH_SHORT).show();
+                onEventListener.onEvent(PREFER_USER_MY_ACCOUNT, 1);
                 break;
             case R.id.fragment_lista_opciones_card:
-                Toast.makeText(getContext(), "Click Card", Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getContext(), "Click Card", Toast.LENGTH_SHORT).show();
+                onEventListener.onEvent(PREFER_USER_MY_CARD, 1);
                 break;
             case R.id.fragment_lista_opciones_help:
                 Toast.makeText(getContext(), "Click Help", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fragment_lista_opciones_legal:
                 onEventListener.onEvent(PREFER_USER_LEGALES, 1);
-                break;
-            case R.id.fragment_lista_opciones_desasociar:
-                onEventListener.onEvent(PREFER_USER_DESASOCIAR, 1);
                 break;
             case R.id.fragment_lista_opciones_close:
                 onEventListener.onEvent(PREFER_USER_CLOSE, 1);
@@ -242,8 +234,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         // Creamos el objeto ActualizarAvatarRequest
         ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
 
-        // Deshabilitamos el backButton
-        //getActivity().onBackPressed();
+
         onEventListener.onEvent("DISABLE_BACK", true);
 
         // Enviamos al presenter
@@ -258,15 +249,6 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
                 getString(R.string.listaopciones_load_image_wait));
     }
 
-    /**
-     * Hacemos Set de la imagen que viene del servidor en la vista final
-     *
-     * @param bitmap
-     */
-    @Override
-    public void sendImageBitmapToView(Bitmap bitmap) {
-        iv_photo_item.setImageBitmap(bitmap);
-    }
 
     @Override
     public void showExceptionToView(String mMesage) {
@@ -275,8 +257,6 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void sendSuccessAvatarToView(String mMesage) {
-         /* Glide.with(this).load(SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL())
-                .placeholder(R.mipmap.ic_background_pago).error(R.mipmap.ic_background_pago).into(testIV);*/
         showDialogMesage(mMesage);
         iv_photo_item.setImageBitmap(CameraManager.getBitmap());
         CameraManager.cleanBitmap();

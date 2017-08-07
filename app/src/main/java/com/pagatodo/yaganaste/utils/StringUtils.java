@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.utils;
 
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.text.SpannableStringBuilder;
 import android.util.Log;
@@ -8,8 +9,12 @@ import android.widget.TextView;
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
+import java.util.Arrays;
 import java.util.Calendar;
+import java.util.Collections;
 import java.util.Locale;
+
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * @author Juan Guerra on 27/03/2017.
@@ -129,11 +134,15 @@ public class StringUtils {
     }
 
     /**
+     * @deprecated Use {@link StringUtils#format(String, String, int...)} instead
+     * <p>
      * Se encarga de dar fomato a los 10 digitos dr telefono, 16 de TDC y 18 de clave, segun las
      * reglas de espaciado seleccionado
+     * </p>
      * @param mFormatoPago
      * @return
      */
+    @Deprecated
     public static String formatoPagoMedios(String mFormatoPago) {
         String formatoPago = "";
         String comodin = " ";
@@ -176,6 +185,46 @@ public class StringUtils {
         return formatoPago;
     }
 
+
+    /**
+     * added by Juan Guerra
+     * @param text text to format
+     * @param separator string that must be between groups
+     * @param formatPattern int array for example 2,4,4 for phone number
+     * @return String formatted or empty if text is null
+     */
+    public static String format(@Nullable String text, @NonNull String separator, @NonNull int... formatPattern) {
+        StringBuilder format = new StringBuilder();
+        int size = 0;
+        for (int current : formatPattern) {
+            size+= current;
+        }
+        if ( text == null || text.length() > size) {
+            return text;
+        }
+
+        int currentGroup = 0;
+        int currentSize = formatPattern[currentGroup];
+        for (int n = 0 ; n < text.length() ; n++){
+            format.append(text.charAt(n));
+            currentSize--;
+            if (currentSize == 0){
+                currentGroup++;
+                if (n != text.length() - 1){
+                    currentSize = formatPattern[currentGroup];
+                    format.append(separator);
+                }
+            }
+        }
+        return format.toString();
+    }
+
+    public static String formatWithSpace(@Nullable String text,@NonNull int... formatPattern) {
+        return format(text, SPACE, formatPattern);
+    }
+
+
+
     public static String getFirstName(String name){
         return name.contains(" ") ? name.substring(0, name.indexOf(" ")) : name;
     }
@@ -187,5 +236,17 @@ public class StringUtils {
         String[] urlSplit = mUserImage.split("_");
         String urlEdit = urlSplit[0] + "_M.png";
         return urlEdit;
+    }
+
+    /**
+     * Se encarga de cifrar el correo, muestra 3 caracteres, asteriscos y la direccion de servidor
+     * @param username
+     * @return
+     */
+    public static String cifrarPass(String username) {
+        String[] mStringPart = username.split("@");
+        String mStringLetters = mStringPart[0].substring(0, 3);
+
+        return mStringLetters + "******@" + mStringPart[1];
     }
 }

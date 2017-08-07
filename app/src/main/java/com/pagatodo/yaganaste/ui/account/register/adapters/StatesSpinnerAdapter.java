@@ -35,7 +35,7 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
         this.mLayoutResourceId = resource;
         this.mContext = context;
         this.mItems = objects;
-        spinnerClick = iOnSpinnerClick;
+        this.spinnerClick = iOnSpinnerClick;
     }
 
 

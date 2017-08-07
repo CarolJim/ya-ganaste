@@ -66,12 +66,6 @@
             </RelativeLayout>
         </LinearLayout>
 
-        <ImageView
-            android:id="@+id/testIV"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:visibility="gone" />
-
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -153,10 +147,10 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
-                android:layout_weight="1"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp" android:visibility="gone"
                 android:gravity="center"
-                android:orientation="vertical"
-                android:visibility="gone">
+                android:orientation="vertical">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -288,43 +282,6 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
                         android:text="Legales" />
-
-                    <android.support.v7.widget.AppCompatImageView
-                        android:layout_width="17dp"
-                        android:layout_height="17dp"
-                        android:layout_marginRight="20dp"
-                        app:srcCompat="@drawable/arrow_canvas_blue" />
-                </LinearLayout>
-            </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="1dp"
-                android:background="@color/whiteColor" />
-
-            <LinearLayout
-                android:id="@+id/fragment_lista_opciones_desasociar"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center"
-                android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp"
-                android:gravity="center"
-                android:orientation="vertical">
-
-                <LinearLayout
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:orientation="horizontal">
-
-                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        style="@style/generic_text_style_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:layout_marginLeft="10dp"
-                        android:layout_weight="2"
-                        android:text="Desasociar Dispositivo" />
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="17dp"

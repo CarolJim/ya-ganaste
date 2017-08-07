@@ -40,6 +40,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.interfase.ILocationChanged;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.RecyclerSucursalesAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositMapManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.DepositMapPresenter;
@@ -63,7 +64,7 @@ import butterknife.ButterKnife;
  */
 
 public class DepositsMapFragment extends SupportFragment implements DepositMapManager,
-        OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, IFilterMap {
+        OnMapReadyCallback, GoogleMap.OnInfoWindowClickListener, IFilterMap, ILocationChanged {
 
     protected Location actualLocation;
     CustomMapFragment customMapFragment;
@@ -170,7 +171,9 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         onlineGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
 
         if (onlineGPS) {
-            getSucursales();
+            if (actualLocation != null) {
+                getSucursales();
+            }
         } else {
             showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
         }
@@ -180,7 +183,9 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     public void onRefresh() {
         ((TabActivity) getActivity()).showProgressLayout("Cargando");
         if (onlineGPS) {
-            getSucursales();
+            if (actualLocation != null) {
+                getSucursales();
+            }
         } else {
             showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
         }
@@ -257,7 +262,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         if (sucursalList.size() > 0) {
 
 
-           // Lineas para probar el buscador de Filtro, eliminar en versiones posteriores
+            // Lineas para probar el buscador de Filtro, eliminar en versiones posteriores
             /*
             sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Plaza Loreto", "12345678"));
             sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Plaza Lorena", "12345678"));
@@ -314,7 +319,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
             parentActivity.hideProgresLayout();
             if (!onlineGPS) {
                 //  Toast.makeText(getActivity(), "GPS apagado", Toast.LENGTH_SHORT).show();
-             //   showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
+                //   showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
             }
         }
 
@@ -326,13 +331,22 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
 
     private void getSucursales() {
         try {
-            depositMapPresenter.getSucursales(actualLocation);
+            if (actualLocation != null) {
+                depositMapPresenter.getSucursales(actualLocation);
+            } else {
+                actualLocation = getNewLocation();
+                depositMapPresenter.getSucursales(actualLocation);
+            }
         } catch (OfflineException e) {
             e.printStackTrace();
             //Toast.makeText(getContext(), "Sin Conexión", Toast.LENGTH_SHORT).show();
             ((DepositsFragment) getParentFragment()).showErrorMessage(getString(R.string.no_internet_access));
             ((DepositsFragment) getParentFragment()).onBtnBackPress();
         }
+    }
+
+    private Location getNewLocation() {
+        return actualLocation;
     }
 
     private void showDialogMesage(final String mensaje) {
@@ -342,7 +356,6 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
                     public void actionConfirm(Object... params) {
                         isBackAvailable = true;
                         getActivity().onBackPressed();
-
 
 
                         Intent gpsOptionsIntent = new Intent(
@@ -380,5 +393,10 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
                 break;
             }
         }
+    }
+
+    @Override
+    public void onLocationChanged(Location location) {
+      //  actualLocation = location;
     }
 }

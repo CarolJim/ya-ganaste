@@ -66,7 +66,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
                     new Handler().postDelayed(new Runnable() {
                         public void run() {
-                            accountPresenter.doPullActivationSMS(getString(R.string.activacion_sms_verificando));
+                            accountPresenter.doPullActivationSMS(getString(R.string.verificando_sms_espera));
                         }
                     }, CHECK_SMS_VALIDATE_DELAY);
                     break;
@@ -103,7 +103,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         super.onCreate(savedInstanceState);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
-        //aprovPresenter = new AprovPresenter(getActivity(),this);
     }
 
     @Override
@@ -124,23 +123,15 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     protected void continuePayment() {
         mySeekBar.setEnabled(false);
         accountPresenter.gerNumberToSMS();
-
-       /* new Handler().postDelayed(new Runnable() {
-            public void run() {
-                mySeekBar.setProgress(0);
-            }
-        }, 300);*/
-
     }
 
     @Override
     public void dataUpdated(String message) {
-        finishAssociation();
+        executeProvisioning();
     }
 
     @Override
     public void smsVerificationSuccess() {
-        // executeProvisioning();//TODO Descomentar para realizar aprovisionamiento
         accountPresenter.updateUserInfo();
     }
 
@@ -155,24 +146,25 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     }
 
     private void executeProvisioning() {
-        //    aprovPresenter.getActivationCode();
+        showLoader("");
+        accountPresenter.getActivationCode();
     }
 
     @Override
     public void showErrorAprov(Object error) {
         showError(error.toString());
-        finishAssociation();
+        //finishAssociation();
     }
 
     /*Una vez aprovisionado, se suscribe a las notificationes*/
     @Override
     public void provisingCompleted() {
-
-        //aprovPresenter.subscribePushNotification();
+        accountPresenter.subscribePushNotification();
     }
 
     @Override
     public void subscribeNotificationSuccess() {
+        hideLoader();
         /*TODO Almacenar preference indicando que ya se encuentra registrado a las notificaciones desde presenter*/
         finishAssociation();
     }
@@ -185,10 +177,10 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     public void smsVerificationFailed(String message) {
         if (counterRetry < 4) {
             counterRetry++;
-            showLoader(getString(R.string.activacion_sms_verificando));
+            showLoader(getString(R.string.verificando_sms_espera));
             new Handler().postDelayed(new Runnable() {
                 public void run() {
-                    accountPresenter.doPullActivationSMS(getString(R.string.activacion_sms_verificando));
+                    accountPresenter.doPullActivationSMS(getString(R.string.verificando_sms_espera));
                 }
             }, CHECK_SMS_VALIDATE_DELAY);
         } else {
@@ -281,7 +273,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
         getActivity().registerReceiver(broadcastReceiver, new IntentFilter(DELIVERED));
 
-        showLoader("Enviando Mensaje");
+        showLoader(getContext().getString(R.string.verificando_sms_espera));
         SmsManager sms = SmsManager.getDefault();
         sms.sendTextMessage(phoneNumber, null, message, sentPI, deliveredPI);
     }

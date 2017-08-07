@@ -4,6 +4,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -20,6 +21,7 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
+import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -36,6 +38,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
+import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 
 /**
  * @author Juan Guerra on 15/06/2017.
@@ -54,11 +57,14 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     StyleTextView txtDateUpdated;
     @BindView(R.id.btnGoToLogin)
     Button goToLogin;
+    @BindView(R.id.imgArrowBack)
+    AppCompatImageView imgArrowBack;
     @BindView(R.id.swipe_container)
     SwipeRefreshLayout swipeContainer;
     private View mRootView;
     private AccountPresenterNew accountPresenter;
     private ILoginContainerManager loginContainerManager;
+    private IQuickBalanceManager quickBalanceManager;
 
     public static QuickBalanceFragment newInstance() {
 
@@ -80,6 +86,8 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         super.onCreate(savedInstanceState);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         loginContainerManager = ((QuickBalanceContainerFragment) getParentFragment()).getLoginContainerManager();
+        quickBalanceManager = ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager();
+        // quickBalanceManager Obtenemos la referencia a la interfase desde  QuickBalanceContainerFragment
     }
 
     @Override
@@ -109,13 +117,15 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
         swipeContainer.setOnRefreshListener(this);
         goToLogin.setOnClickListener(this);
+        imgArrowBack.setOnClickListener(this);
 
         Preferencias preferencias = App.getInstance().getPrefs();
         if (preferencias.containsData(HAS_SESSION)) {
 
             String cardNumber = preferencias.loadData(CARD_NUMBER);
 
-            cardSaldo.setCardNumber(cardNumber);
+//                    Utils.getCurrencyValue(cardNumber))
+            cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
             cardSaldo.setCardDate("02/21");
 
 
@@ -133,11 +143,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     }
 
     private void setData(String balance, String updateDate) {
-        txtSaldo.setText(
-                StringUtils.formatoPagoMedios(
-                        Utils.getCurrencyValue(balance)
-                )
-        );
+        txtSaldo.setText(Utils.getCurrencyValue(balance));
         txtDateUpdated.setText(String.format(getString(R.string.last_date_update), updateDate));
     }
 
@@ -180,7 +186,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
     @Override
     public void backScreen(String event, Void data) {
-
+        quickBalanceManager.backPage();
     }
 
     @Override
@@ -188,6 +194,9 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         switch (v.getId()) {
             case R.id.btnGoToLogin:
                 loginContainerManager.loadLoginFragment();
+                break;
+            case R.id.imgArrowBack:
+                backScreen(null, null);
                 break;
         }
     }

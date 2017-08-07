@@ -14,10 +14,6 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRe
 public interface IPreferUserIteractor {
     void desasociarToIteracto(Request request);
 
-    void getImagenURLToIteractor(String mUserImage);
-
-    void sendToIteractorBitmap(Bitmap bitmap);
-
     void sendIteractorActualizarAvatar(ActualizarAvatarRequest avatarRequest);
 
     void showExceptionBitmapDownloadToIteractor(String s);

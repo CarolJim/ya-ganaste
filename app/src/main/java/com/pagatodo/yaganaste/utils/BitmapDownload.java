@@ -63,7 +63,9 @@ public class BitmapDownload extends AsyncTask<String, Object, Bitmap> {
             return myBitmap;
         } catch (IOException e) {
             // e.printStackTrace();
-            mIteractor.showExceptionBitmapDownloadToIteractor(e.toString());
+            if(mIteractor != null) {
+                mIteractor.showExceptionBitmapDownloadToIteractor(e.toString());
+            }
             return null;
         }
     }
@@ -72,7 +74,7 @@ public class BitmapDownload extends AsyncTask<String, Object, Bitmap> {
     protected void onPostExecute(Bitmap bitmap) {
         super.onPostExecute(bitmap);
         if(mIteractor != null) {
-            mIteractor.sendToIteractorBitmap(bitmap);
+
         }else{
             toolBarActivity.sendToIteractorBitmap(bitmap);
         }

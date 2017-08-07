@@ -88,16 +88,52 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
-                    android:text="Cambia tu Contraseña"
-                    android:textSize="18sp" />
+                    android:textSize="18sp"
+                    android:text="@string/change_your_pass" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="17dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    app:srcCompat="@drawable/menu_canvas_blue" />
+                    app:srcCompat="@drawable/arrow_canvas_blue" />
             </LinearLayout>
 
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/whiteColor" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginBottom="10dp"
+                android:layout_marginTop="10dp"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="horizontal">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        style="@style/generic_text_style_2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:id="@+id/fragment_my_account_desvincula"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_weight="2"
+                        android:text="@string/unlike_your_device" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/arrow_canvas_blue" />
+                </LinearLayout>
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

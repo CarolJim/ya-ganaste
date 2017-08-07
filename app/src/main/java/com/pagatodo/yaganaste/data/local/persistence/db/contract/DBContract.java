@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.data.local.persistence.db.contract;
 import android.provider.BaseColumns;
 
 import com.pagatodo.yaganaste.data.local.persistence.db.utils.MappedFrom;
+import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.db.MontoComercio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 
@@ -47,5 +48,14 @@ public class DBContract {
         public static final String ID_MONTO_COMERCIO = "ID_MontosComercio";
         public static final String ID_COMERCIO = "ID_Comercio";
         public static final String MONTO = "Monto";
+    }
+
+    @MappedFrom(Countries.class)
+    public static final class Paises extends DBTable{
+        public static final String TABLE = "tbl_Paises";
+
+        public static final String ID = "ID";
+        public static final String ID_PAIS = "ID_Pais";
+        public static final String PAIS = "Pais";
     }
 }

@@ -102,25 +102,6 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         iPreferDesasociarView.sendErrorServerView(error);
     }
 
-    /**
-     * Peticion al Iteractor para el servicio que proporciona la foto del servidor
-     *
-     * @param mUserImage
-     */
-    @Override
-    public void getImagenURLToPresenter(String mUserImage) {
-        iPreferUserIteractor.getImagenURLToIteractor(mUserImage);
-    }
-
-    /**
-     * Recibe el Bitmap procesado, listo para enviarse a la vista
-     *
-     * @param bitmap
-     */
-    @Override
-    public void sendImageBitmapToPresenter(Bitmap bitmap) {
-        iListaOpcionesView.sendImageBitmapToView(bitmap);
-    }
 
     /**
      * Usamos la instancia del CameraManager para abrir la camara e iniciar el procedimiento

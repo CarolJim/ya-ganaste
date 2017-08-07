@@ -7,11 +7,13 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.DatosSaldo;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
@@ -52,6 +54,7 @@ import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountIteractorNew;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.enums.AccountOperation;
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.ApiAdq;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiTrans;
@@ -240,7 +243,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 registerUser.getFechaNacimiento(),
                 "",/*RFC*/
                 "",/*CURP*/
-                registerUser.getNacionalidad(),/*Nacionalidad*/
+                registerUser.getPaisNacimiento().getId(),/*Nacionalidad*/
                 registerUser.getIdEstadoNacimineto(),
                 registerUser.getEmail(),
                 "",/*Telefono*/
@@ -293,9 +296,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     @Override
-    public void assignmentNIP(AsignarNIPRequest request) {
+    public void assignmentNIP(AsignarNIPRequest request, WebService webService) {
         try {
-            ApiTrans.asignarNip(request, this);
+            ApiTrans.asignarNip(request, this, webService);
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.onError(ASIGNAR_NIP, "");
@@ -342,7 +345,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.recuperarContrasenia(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
-            accountManager.onError(RECUPERAR_CONTRASENIA, "");
+            accountManager.onError(RECUPERAR_CONTRASENIA, App.getInstance().getString(R.string.no_internet_access));
         }
     }
 
@@ -362,6 +365,12 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         } catch (OfflineException e) {
             accountManager.onError(CONSULTA_SALDO_CUPO, null);
         }
+    }
+
+    @Override
+    public ArrayList<Countries> getPaisesList() {
+        CatalogsDbApi api = new CatalogsDbApi(App.getContext());
+        return api.getPaisesList();
     }
 
     @Override
@@ -421,6 +430,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 break;
 
             case ASIGNAR_NIP:
+                processNIPAssigned(dataSourceResult);
+                break;
+
+            case ASIGNAR_NEW_NIP:
                 processNIPAssigned(dataSourceResult);
                 break;
 
@@ -489,9 +502,13 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response) {
-        App.getInstance().getPrefs().saveData(StringConstants.ADQUIRENTE_BALANCE, response.getSaldo());
-        prefs.saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
-        accountManager.onSuccesBalanceAdq(response);
+        if(response.getResult().getId().equals(Recursos.ADQ_CODE_OK)) {
+            App.getInstance().getPrefs().saveData(StringConstants.ADQUIRENTE_BALANCE, response.getSaldo());
+            prefs.saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
+            accountManager.onSuccesBalanceAdq(response);
+        }else {
+            accountManager.onError(CONSULTA_SALDO_CUPO, null);
+        }
     }
 
     /**

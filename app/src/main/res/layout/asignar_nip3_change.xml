@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="40dp"
+        android:layout_marginRight="40dp"
+        android:layout_marginTop="3dp">
+
+        <LinearLayout
+            android:id="@+id/asignar_nip3_contol"
+            android:layout_width="match_parent"
+            android:layout_height="40dp"
+            android:layout_alignParentTop="true"
+            android:background="@drawable/rounded_border_edittext"
+            android:gravity="center"
+            android:orientation="horizontal">
+
+            <TextView
+                android:id="@+id/asignar_nip3_tv1"
+                style="@style/formatPIN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:ems="10" />
+
+            <TextView
+                android:id="@+id/asignar_nip3_tv2"
+                style="@style/formatPIN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/asignar_nip3_tv3"
+                style="@style/formatPIN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center" />
+
+            <TextView
+                android:id="@+id/asignar_nip3_tv4"
+                style="@style/formatPIN"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_weight="1"
+                android:ems="10"
+                android:gravity="center" />
+        </LinearLayout>
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/asignar_nip3_change_tv1"
+            style="@style/generic_text_style_2.1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_centerVertical="true"
+            android:layout_marginLeft="20dp"
+            android:text="Confirmar Nuevo NIP" />
+    </RelativeLayout>
+</LinearLayout>

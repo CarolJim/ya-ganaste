@@ -17,10 +17,12 @@ import android.widget.RadioGroup;
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.interfaces.IDatosPersonalesManager;
+import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
-import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.States;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -29,27 +31,30 @@ import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.CountriesDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.view.View.GONE;
+import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_ADDRESS_DATA;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DATA_USER_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
 public class DatosPersonalesFragment extends GenericFragment implements
-        View.OnClickListener, ValidationForms, IRenapoView,
+        View.OnClickListener, IDatosPersonalesManager, IRenapoView,
         AdapterView.OnItemSelectedListener, IOnSpinnerClick {
 
 
@@ -87,6 +92,10 @@ public class DatosPersonalesFragment extends GenericFragment implements
     ErrorMessage errorBirthPlaceMessage;
     @BindView(R.id.errorGenderMessage)
     ErrorMessage errorGenderMsessage;
+    @BindView(R.id.editCountry)
+    CustomValidationEditText editCountry;
+    @BindView(R.id.errorCountryMessage)
+    ErrorMessage errorCountryMessage;
     StatesSpinnerAdapter adapterBirthPlace;
     Calendar newDate;
     Calendar actualDate;
@@ -96,6 +105,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     private String apPaterno = "";
     private String apMaterno = "";
     private String fechaNacimiento = "";
+    private Countries country;
 
     View.OnClickListener onClickListenerDatePicker = new View.OnClickListener() {
         @Override
@@ -192,13 +202,16 @@ public class DatosPersonalesFragment extends GenericFragment implements
         errorBirthPlaceMessage.setVisibilityImageError(false);
 
         editBirthDay.setFullOnClickListener(onClickListenerDatePicker);
-
-
         editBirthDay.setDrawableImage(R.drawable.calendar);
         editBirthDay.imageViewIsGone(true);
         adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout, States.values(), this);
         spinnerBirthPlace.setAdapter(adapterBirthPlace);
         spinnerBirthPlace.setOnItemSelectedListener(this);
+
+        editCountry.imageViewIsGone(false);
+        editCountry.setEnabled(false);
+        editCountry.setFullOnClickListener(this);
+
         btnNextDatosPersonales.setOnClickListener(this);
         btnBackDatosPersonales.setOnClickListener(this);
         //radioBtnMale.setChecked(true);/
@@ -209,17 +222,36 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.editBirthDay:
-                break;
             case R.id.btnBackPersonalInfo:
                 backScreen(EVENT_DATA_USER_BACK, null);
                 break;
             case R.id.btnNextPersonalInfo:
                 validateForm();
                 break;
+            case R.id.editCountry:
+                onCountryClick();
+                break;
+            case R.id.editTextCustom:
+                onCountryClick();
+                break;
+            case R.id.imageViewValidation:
+                onCountryClick();
+                break;
             default:
                 break;
         }
+    }
+
+    private void onCountryClick() {
+        accountPresenter.getPaisesList();
+        hideErrorMessage(R.id.editCountry);
+    }
+
+    @Override
+    public void showDialogList(ArrayList<Countries> paises) {
+
+        CountriesDialogFragment dialogFragment = CountriesDialogFragment.newInstance(paises);
+        dialogFragment.show(getChildFragmentManager(), "FragmentDialog");
     }
 
     /*Implementacion de ValidationForms*/
@@ -338,6 +370,13 @@ public class DatosPersonalesFragment extends GenericFragment implements
             isValid = false;
         }
 
+        if (!lugarNacimiento.isEmpty() && lugarNacimiento.equals(States.S33.getName())) {
+            if (country == null) {
+                showValidationError(R.id.editCountry, getString(R.string.datos_personal_pais));
+                isValid = false;
+            }
+        }
+
         if (isValid) {
             setPersonData();
         }
@@ -362,6 +401,10 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 break;
             case R.id.radioGender:
                 errorGenderMsessage.setMessageText(error.toString());
+                break;
+            case R.id.editCountry:
+                errorCountryMessage.setMessageText(error.toString());
+                editCountry.setIsInvalid();
                 break;
         }
         UI.hideKeyBoard(getActivity());
@@ -388,15 +431,36 @@ public class DatosPersonalesFragment extends GenericFragment implements
             case R.id.radioGender:
                 errorGenderMsessage.setVisibilityImageError(false);
                 break;
+            case R.id.editCountry:
+                errorCountryMessage.setVisibilityImageError(false);
+                editCountry.setDrawableImage(R.drawable.menu_canvas);
+                break;
         }
     }
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
-        /*if(position > 0){
-            Toast.makeText(getActivity(), adapterBirthPlace.getItemName(position), Toast.LENGTH_SHORT ).show();
-        }*/
+        IEnumSpinner itemSelected = adapterBirthPlace.getItem(position);
+        if (itemSelected == States.S33) {
+            if (country != null) {
+                editCountry.setVisibility(VISIBLE);
+                errorCountryMessage.setVisibility(VISIBLE);
+                editCountry.setText(country.getPais());
+                editCountry.setIsValid();
+            } else {
+                editCountry.setText("");
+                editCountry.setVisibility(VISIBLE);
+                editCountry.imageViewIsGone(false);
+                editCountry.setDrawableImage(R.drawable.menu_canvas);
+                errorCountryMessage.setVisibility(VISIBLE);
+            }
+        } else {
+            hideErrorMessage(editCountry.getId());
+            editCountry.setVisibility(GONE);
+            errorCountryMessage.setVisibility(GONE);
+            errorCountryMessage.setMessageText("");
+            country = null;
+        }
     }
 
     @Override
@@ -418,7 +482,13 @@ public class DatosPersonalesFragment extends GenericFragment implements
         registerUser.setApellidoMaterno(apMaterno);
         registerUser.setFechaNacimientoToShow(editBirthDay.getText());
         registerUser.setFechaNacimiento(fechaNacimiento);
-        registerUser.setNacionalidad("MX");
+        //registerUser.setNacionalidad("MX");
+        if (country != null) {
+            registerUser.setPaisNacimiento(country);
+            //registerUser.setNacionalidad(country.getIdPais());
+        } else {
+            registerUser.setPaisNacimiento(new Countries(127, "Mexico", "MX"));
+        }
         registerUser.setLugarNacimiento(lugarNacimiento);
         registerUser.setIdEstadoNacimineto(idEstadoNacimiento);
 
@@ -460,20 +530,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
         editSecoundLastName.setText(registerUser.getApellidoMaterno());
         editBirthDay.setText(registerUser.getFechaNacimientoToShow());
         fechaNacimiento = registerUser.getFechaNacimiento();
-        StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
-        spinnerBirthPlace.setSelection(adapter.getPositionItemByName(registerUser.getLugarNacimiento()));
 
-        spinnerBirthPlace.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                onSpinnerClick();
-            }
-
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-                onSpinnerClick();
-            }
-        });
+        if (registerUser.getPaisNacimiento() != null) {
+            country = registerUser.getPaisNacimiento();
+        }
+        spinnerBirthPlace.setSelection(adapterBirthPlace.getPositionItemByName(registerUser.getLugarNacimiento()));
 
         //Actualizamos el newDate para no tener null, solo en evento Back
         if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {
@@ -485,6 +546,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 e.printStackTrace();
             }
         }
+
+
         //1975 - 06 - 29
     }
 
@@ -535,5 +598,12 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @Override
     public void onValidateUserDataSuccess() {
         onValidationSuccess();
+    }
+
+    @Override
+    public void onCountrySelected(Countries item) {
+        country = item;
+        editCountry.setText(country.getPais());
+        editCountry.setIsValid();
     }
 }

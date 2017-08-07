@@ -4,10 +4,15 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
+import com.pagatodo.yaganaste.ui.account.login.OtpContainerFratgment;
 import com.pagatodo.yaganaste.ui.account.login.QuickBalanceAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.account.login.QuickBalanceFragment;
 import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Jordan on 14/07/2017.
@@ -16,23 +21,29 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
 public class QuickBalanceAdapter extends FragmentPagerAdapter {
 
     private boolean isAdquirente;
+    private List<Fragment> fragmentList;
 
     public QuickBalanceAdapter(FragmentManager fm, Boolean isAdquirente) {
         super(fm);
         this.isAdquirente = isAdquirente;
-    }
+        fragmentList = new ArrayList<>();
 
-    @Override
-    public Fragment getItem(int position) {
+        fragmentList.add(OtpContainerFratgment.newInstance());
         if (isAdquirente) {
-            return position == 0 ? QuickBalanceAdquirenteFragment.newInstance() : GetMountFragment.newInstance();
+            fragmentList.add(QuickBalanceAdquirenteFragment.newInstance());
+            fragmentList.add(GetMountFragment.newInstance());
         } else {
-            return position == 0 ? QuickBalanceFragment.newInstance() : BlankFragment.newInstance();
+            fragmentList.add(QuickBalanceFragment.newInstance());
         }
     }
 
     @Override
+    public Fragment getItem(int position) {
+        return fragmentList.get(position);
+    }
+
+    @Override
     public int getCount() {
-        return isAdquirente ? 2 : 1;
+        return isAdquirente ? 3 : 2;
     }
 }
