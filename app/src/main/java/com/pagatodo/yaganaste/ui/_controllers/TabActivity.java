@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.ui.adquirente.Documentos;
 import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
@@ -284,7 +285,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         if (fragmentList != null) {
             for (Fragment fragment : fragmentList) {
                 if ((fragmentType == 0 && fragment instanceof PaymentsTabFragment)
-                        || (fragmentType == 1 && fragment instanceof Documentos)
+                        || (fragmentType == 1 && fragment instanceof DocumentsContainerFragment)
                         || (fragmentType == TYPE_DETAILS && fragment instanceof HomeTabFragment)) {
                     return fragment;
                 }

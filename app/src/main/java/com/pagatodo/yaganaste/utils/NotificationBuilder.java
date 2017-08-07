@@ -31,8 +31,7 @@ public class NotificationBuilder {
     private static void sendNotification(Context context, PendingIntent pendingIntent, int idNotification, String title, String message) {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.mipmap.icon_lapiz)
-                .setContentTitle("TITULO;" + title)
+                .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)
                 .setSound(defaultSoundUri)
