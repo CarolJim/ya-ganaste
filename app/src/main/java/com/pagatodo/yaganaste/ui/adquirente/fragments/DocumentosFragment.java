@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui.adquirente;
+package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 
 import android.app.AlertDialog;
@@ -58,7 +58,6 @@ import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_B
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_GO_HOME;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
@@ -70,12 +69,12 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class Documentos extends GenericFragment implements View.OnClickListener, IUploadDocumentsView,
+public class DocumentosFragment extends GenericFragment implements View.OnClickListener, IUploadDocumentsView,
         SwipeRefreshLayout.OnRefreshListener, IPreferUserGeneric {
 
     public static final int REQUEST_TAKE_PHOTO = 10; // Intent para Capturar fotografía
     public static final int SELECT_FILE_PHOTO = 20; // Intent para seleccionar fotografía
-    private static final String TAG = Documentos.class.getSimpleName();
+    private static final String TAG = DocumentosFragment.class.getSimpleName();
     private static final int IFE_FRONT = 1;
     private static final int IFE_BACK = 2;
     private static final int COMPROBANTE_FRONT = 3;
@@ -111,11 +110,11 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
     private AccountAdqPresenter adqPresenter;
     private Boolean mExisteDocs = false;
 
-    public Documentos() {
+    public DocumentosFragment() {
     }
 
-    public static Documentos newInstance() {
-        Documentos fragmentRegister = new Documentos();
+    public static DocumentosFragment newInstance() {
+        DocumentosFragment fragmentRegister = new DocumentosFragment();
         Bundle args = new Bundle();
         fragmentRegister.setArguments(args);
         return fragmentRegister;
@@ -558,7 +557,7 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
      */
     private void sendDocumentsPending() {
         if (dataDocumnets.size() < documentPendientes) {
-            UI.createSimpleCustomDialog("", "Debes de Subir Los Documentos Marcados Con el Signo de Admiración", getActivity().getSupportFragmentManager(),
+            UI.createSimpleCustomDialog("", "Debes de Subir Los DocumentosFragment Marcados Con el Signo de Admiración", getActivity().getSupportFragmentManager(),
                     new DialogDoubleActions() {
                         @Override
                         public void actionConfirm(Object... params) {

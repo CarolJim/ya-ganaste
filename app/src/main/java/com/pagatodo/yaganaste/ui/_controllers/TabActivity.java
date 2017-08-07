@@ -25,8 +25,8 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
-import com.pagatodo.yaganaste.ui.adquirente.Documentos;
-import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
@@ -251,7 +251,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
                 }
             }
-        } else if (requestCode == Documentos.REQUEST_TAKE_PHOTO || requestCode == Documentos.SELECT_FILE_PHOTO
+        } else if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO
                 && getFragment(1) != null) {
             getFragment(1).onActivityResult(requestCode, resultCode, data);
         } else if (requestCode == REGISTER_ADQUIRENTE_CODE && resultCode == RESULT_ADQUIRENTE_SUCCESS) {
@@ -284,7 +284,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         if (fragmentList != null) {
             for (Fragment fragment : fragmentList) {
                 if ((fragmentType == 0 && fragment instanceof PaymentsTabFragment)
-                        || (fragmentType == 1 && fragment instanceof Documentos)
+                        || (fragmentType == 1 && fragment instanceof DocumentosFragment)
                         || (fragmentType == TYPE_DETAILS && fragment instanceof HomeTabFragment)) {
                     return fragment;
                 }

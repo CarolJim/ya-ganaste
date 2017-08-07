@@ -130,7 +130,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 break;
 
             case EVENT_RECOVERY_PASS:
-                //loadFragment(Documentos.newInstance(), Direction.FORDWARD, false);
+                //loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD, false);
                 //loadFragment(RecoveryFragment.newInstance(), Direction.FORDWARD, false);
                 loginContainerFragment.loadRecoveryFragment();
                 break;

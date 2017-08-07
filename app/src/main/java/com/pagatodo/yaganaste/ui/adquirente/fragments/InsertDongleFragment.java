@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui.adquirente;
+package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 
 import android.annotation.SuppressLint;
@@ -27,6 +27,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoA
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;

@@ -8,13 +8,13 @@ import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 
 public enum Genders implements IEnumSpinner {
 
-    G1("H", "Mujer"),
-    G2("M", "Hombre");
+    G1(1, "H", "Mujer"),
+    G2(2, "M", "Hombre");
 
     private String name;
     private String id;
 
-    Genders(String i, String name) {
+    Genders(int id, String i, String name) {
         this.name = name;
         this.id = i;
     }
@@ -24,13 +24,28 @@ public enum Genders implements IEnumSpinner {
         return this.name;
     }
 
-    @Override
-    public String getId() {
+
+    public String getIdentificador() {
         return this.id;
+    }
+
+    @Override
+    public int getId() {
+        return 0;
     }
 
     @Override
     public String getName() {
         return this.name;
+    }
+
+    @Override
+    public IEnumSpinner getItemById(int id) {
+        for (IEnumSpinner item : values()) {
+            if (item.getId() == id) {
+                return item;
+            }
+        }
+        return G1;
     }
 }

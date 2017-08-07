@@ -339,6 +339,15 @@
     <string name="bussinesName">Nombre del Negocio</string>
     <string name="publicServantQuestion">¿Tú o Algún Familiar Han Desempeñado Cargos Públicos?</string>
 
+    <!--Informacion Adicional-->
+    <string name="title_informacion_adicional">Información Adicional</string>
+    <string name="txt_eres_mexa">¿Eres Mexicano Naturalizado?</string>
+    <string name="txt_cargo">Cargo</string>
+    <string name="error_parentesco">Parentesco Requerido, Verifique su Información.</string>
+    <string name="error_cargo">Cargo Requerido, Verifique su Información.</string>
+    <string name="terminos_condiciones">Términos y Condiciones</string>
+    <string name="terms_and_conditions_aditional_info">Al Continuar Reconozco Ser Mayor de Edad, Así Como Haber Leído y Aceptado los Términos y Condiciones</string>
+
     <!--felicidades-->
     <string name="congratulation_text1">Tu Cuenta Ya Ganaste Está Lista</string>
     <string name="congratulation_text2">A Continuación te Enseñaremos Todo lo\nQue Puedes Hacer Con Ella</string>

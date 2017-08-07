@@ -18,6 +18,8 @@ public interface ValidationForms<Error> {
     /*Método para mostrar errores en la validación*/
     void showValidationError(int id, Error error);
 
+    void hideValidationError(int id);
+
     /*Método para disparar la acción posterior a la validación satisfactoria del formulario*/
     void onValidationSuccess();
 

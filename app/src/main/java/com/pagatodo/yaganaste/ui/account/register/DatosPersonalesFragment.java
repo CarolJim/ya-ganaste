@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.interfaces.IDatosPersonalesManager;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
+import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.States;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -54,7 +55,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
  * A simple {@link GenericFragment} subclass.
  */
 public class DatosPersonalesFragment extends GenericFragment implements
-        View.OnClickListener, IDatosPersonalesManager, IRenapoView,
+        View.OnClickListener, IDatosPersonalesManager, ValidationForms, IRenapoView,
         AdapterView.OnItemSelectedListener, IOnSpinnerClick {
 
 
@@ -110,7 +111,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     View.OnClickListener onClickListenerDatePicker = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            hideErrorMessage(editBirthDay.getId());
+            hideValidationError(editBirthDay.getId());
             editBirthDay.setDrawableImage(R.drawable.calendar);
             Calendar newCalendar = Calendar.getInstance();
             int year;
@@ -204,7 +205,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
         editBirthDay.setFullOnClickListener(onClickListenerDatePicker);
         editBirthDay.setDrawableImage(R.drawable.calendar);
         editBirthDay.imageViewIsGone(true);
-        adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout, States.values(), this);
+        adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout,
+                States.values(), this);
         spinnerBirthPlace.setAdapter(adapterBirthPlace);
         spinnerBirthPlace.setOnItemSelectedListener(this);
 
@@ -244,13 +246,14 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     private void onCountryClick() {
         accountPresenter.getPaisesList();
-        hideErrorMessage(R.id.editCountry);
+        hideValidationError(R.id.editCountry);
     }
 
     @Override
     public void showDialogList(ArrayList<Countries> paises) {
 
         CountriesDialogFragment dialogFragment = CountriesDialogFragment.newInstance(paises);
+        dialogFragment.setOnCountrySelectedListener(this);
         dialogFragment.show(getChildFragmentManager(), "FragmentDialog");
     }
 
@@ -262,14 +265,14 @@ public class DatosPersonalesFragment extends GenericFragment implements
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editNames.getId());
+                    hideValidationError(editNames.getId());
                     editNames.imageViewIsGone(true);
                 } else {
                     if (editNames.getText().isEmpty()) {
                         showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
                         editNames.setIsInvalid();
                     } else {
-                        hideErrorMessage(editNames.getId());
+                        hideValidationError(editNames.getId());
                         editNames.setIsValid();
                     }
                 }
@@ -279,7 +282,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         editNames.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editNames.getId());
+                hideValidationError(editNames.getId());
                 editNames.imageViewIsGone(true);
             }
         });
@@ -288,14 +291,14 @@ public class DatosPersonalesFragment extends GenericFragment implements
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editFirstLastName.getId());
+                    hideValidationError(editFirstLastName.getId());
                     editFirstLastName.imageViewIsGone(true);
                 } else {
                     if (editFirstLastName.getText().isEmpty()) {
                         showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
                         editFirstLastName.setIsInvalid();
                     } else {
-                        hideErrorMessage(editFirstLastName.getId());
+                        hideValidationError(editFirstLastName.getId());
                         editFirstLastName.setIsValid();
                     }
                 }
@@ -305,7 +308,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         editFirstLastName.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editFirstLastName.getId());
+                hideValidationError(editFirstLastName.getId());
                 editFirstLastName.imageViewIsGone(true);
             }
         });
@@ -313,7 +316,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         radioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                hideErrorMessage(radioGroupGender.getId());
+                hideValidationError(radioGroupGender.getId());
             }
         });
 
@@ -411,7 +414,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
         //UI.showToastShort(error.toString(),getActivity());
     }
 
-    private void hideErrorMessage(int id) {
+    @Override
+    public void hideValidationError(int id) {
         //errorMessageView.setVisibilityImageError(false);
 
         switch (id) {
@@ -455,7 +459,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 errorCountryMessage.setVisibility(VISIBLE);
             }
         } else {
-            hideErrorMessage(editCountry.getId());
+            hideValidationError(editCountry.getId());
             editCountry.setVisibility(GONE);
             errorCountryMessage.setVisibility(GONE);
             errorCountryMessage.setMessageText("");
@@ -513,7 +517,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
             StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
-            idEstadoNacimiento = adapter.getItemIdString(spinnerBirthPlace.getSelectedItemPosition());
+            idEstadoNacimiento = Integer.toString(((IEnumSpinner) spinnerBirthPlace.getSelectedItem()).getId());
         }
     }
 
@@ -534,7 +538,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         if (registerUser.getPaisNacimiento() != null) {
             country = registerUser.getPaisNacimiento();
         }
-        spinnerBirthPlace.setSelection(adapterBirthPlace.getPositionItemByName(registerUser.getLugarNacimiento()));
+        spinnerBirthPlace.setSelection(States.getItemByName(registerUser.getLugarNacimiento()).getId());
 
         //Actualizamos el newDate para no tener null, solo en evento Back
         if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {
@@ -592,7 +596,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     @Override
     public void onSpinnerClick() {
-        hideErrorMessage(spinnerBirthPlace.getId());
+        hideValidationError(spinnerBirthPlace.getId());
     }
 
     @Override
@@ -601,7 +605,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     }
 
     @Override
-    public void onCountrySelected(Countries item) {
+    public void onCountrySelectedListener(Countries item) {
         country = item;
         editCountry.setText(country.getPais());
         editCountry.setIsValid();

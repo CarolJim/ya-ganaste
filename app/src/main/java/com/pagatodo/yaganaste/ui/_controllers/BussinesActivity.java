@@ -18,9 +18,10 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
-import com.pagatodo.yaganaste.ui.adquirente.DatosNegocio;
-import com.pagatodo.yaganaste.ui.adquirente.Documentos;
-import com.pagatodo.yaganaste.ui.adquirente.DomicilioNegocio;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.DatosNegocioFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.DomicilioNegocioFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionAdicionalFragment;
 
 import java.util.List;
 
@@ -45,9 +46,9 @@ public class BussinesActivity extends LoaderActivity {
     public final static String EVENT_SET_COLONIES_LIST = "EVENT_SET_COLONIES_LIST";
     private Preferencias pref;
     private AccountPresenterNew presenterAccount;
-    private DatosNegocio datosNegocioFragment;
-    private DomicilioNegocio domicilioNegocioFragment;
-    private Documentos documentosFragment;
+    private DatosNegocioFragment datosNegocioFragmentFragment;
+    private DomicilioNegocioFragment domicilioNegocioFragmentFragment;
+    private DocumentosFragment documentosFragmentFragment;
 
     private DataObtenerDomicilio domicilio;
     private List<SubGiro> girosComercio;
@@ -67,9 +68,10 @@ public class BussinesActivity extends LoaderActivity {
         presenterAccount = new AccountPresenterNew(this);
 
         if (App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
-            loadFragment(Documentos.newInstance(), Direction.FORDWARD);
+            loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
         } else {
-            loadFragment(DatosNegocio.newInstance(girosComercio), Direction.FORDWARD, true);
+            //loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
+            loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, true);
         }
 
         pref = App.getInstance().getPrefs();
@@ -82,23 +84,23 @@ public class BussinesActivity extends LoaderActivity {
         super.onEvent(event, o);
         switch (event) {
             case EVENT_GO_BUSSINES_DATA:
-                loadFragment(DatosNegocio.newInstance(girosComercio), Direction.FORDWARD, false);
+                loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_DATA_BACK:
-                loadFragment(DatosNegocio.newInstance(girosComercio), Direction.BACK, false);
+                loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.BACK, false);
                 RegisterAgent.resetBussinessAddress();
                 listaColonias = null;
                 break;
             case EVENT_GO_BUSSINES_ADDRESS:
-                loadFragment(DomicilioNegocio.newInstance(domicilio, listaColonias), Direction.FORDWARD, false);
+                loadFragment(DomicilioNegocioFragment.newInstance(domicilio, listaColonias), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_ADDRESS_BACK:
-                //loadFragment(DomicilioNegocio.newInstance(domicilio, listaColonias), Direction.BACK, false);
+                //loadFragment(DomicilioNegocioFragment.newInstance(domicilio, listaColonias), Direction.BACK, false);
                 resetRegisterData();
                 finish();
                 break;
             case EVENT_GO_BUSSINES_DOCUMENTS:
-                loadFragment(Documentos.newInstance(), Direction.FORDWARD, false);
+                loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_COMPLETE:
                 loadFragment(RegisterCompleteFragment.newInstance(ADQ_REVISION), Direction.FORDWARD, false);
@@ -131,29 +133,37 @@ public class BussinesActivity extends LoaderActivity {
     @Override
     public void onBackPressed() {
         if (!isLoaderShow) {
+
             Fragment currentFragment = getCurrentFragment();
-            if (currentFragment instanceof DatosNegocio) {
+            if (currentFragment instanceof InformacionAdicionalFragment) {
                 RegisterAgent.resetRegisterAgent();
                 finish();
-            } else if (currentFragment instanceof DomicilioNegocio) {
+            } else {
+                super.onBackPressed();
+            }
+            /*Fragment currentFragment = getCurrentFragment();
+            if (currentFragment instanceof DatosNegocioFragment) {
+                RegisterAgent.resetRegisterAgent();
+                finish();
+            } else if (currentFragment instanceof DomicilioNegocioFragment) {
                 onEvent(EVENT_GO_BUSSINES_DATA_BACK, null);
-            } else if (currentFragment instanceof Documentos) {
+            } else if (currentFragment instanceof DocumentosFragment) {
                 onEvent(EVENT_GO_BUSSINES_ADDRESS_BACK, null);
-            } else if (currentFragment instanceof Documentos) {
+            } else if (currentFragment instanceof DocumentosFragment) {
                 onEvent(EVENT_GO_BUSSINES_ADDRESS_BACK, null);
             } else if (currentFragment instanceof RegisterCompleteFragment) {
 
             } else {
                 RegisterAgent.resetRegisterAgent();
                 finish();
-            }
+            }*/
         }
     }
 
     private void initFragments() {
-        datosNegocioFragment = DatosNegocio.newInstance(girosComercio);
-        domicilioNegocioFragment = DomicilioNegocio.newInstance(domicilio, listaColonias);
-        documentosFragment = Documentos.newInstance();
+        datosNegocioFragmentFragment = DatosNegocioFragment.newInstance(girosComercio);
+        domicilioNegocioFragmentFragment = DomicilioNegocioFragment.newInstance(domicilio, listaColonias);
+        documentosFragmentFragment = DocumentosFragment.newInstance();
     }
 
     @Override

@@ -22,7 +22,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
-import com.pagatodo.yaganaste.ui.adquirente.Documentos;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
@@ -40,7 +40,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.app.Activity.RESULT_OK;
 import static com.pagatodo.yaganaste.App.getContext;
-import static com.pagatodo.yaganaste.ui.adquirente.Documentos.checkDuplicate;
+import static com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment.checkDuplicate;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
 
 /**
@@ -61,7 +61,7 @@ public class CameraManager {
 
     public static final int REQUEST_TAKE_PHOTO = 10; // Intent para Capturar fotografía
     public static final int SELECT_FILE_PHOTO = 20; // Intent para seleccionar fotografía
-    private static final String TAG = Documentos.class.getSimpleName();
+    private static final String TAG = DocumentosFragment.class.getSimpleName();
     private static final int USER_PHOTO = 1;
     private static final int IFE_BACK = 2;
     private static final int COMPROBANTE_FRONT = 3;

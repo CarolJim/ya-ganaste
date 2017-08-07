@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui.adquirente;
+package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 import android.os.Bundle;
 import android.support.annotation.IdRes;
@@ -51,7 +51,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_DOMICILIO;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DomicilioNegocio extends GenericFragment implements ValidationForms,
+public class DomicilioNegocioFragment extends GenericFragment implements ValidationForms,
         View.OnClickListener, IAdqRegisterView<ErrorObject>, RadioGroup.OnCheckedChangeListener,
         IOnSpinnerClick {
 
@@ -107,9 +107,9 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
 
     private DataObtenerDomicilio domicilio;
 
-    public static DomicilioNegocio newInstance(DataObtenerDomicilio domicilio,
-                                               List<ColoniasResponse> listaColonias) {
-        DomicilioNegocio fragmentRegister = new DomicilioNegocio();
+    public static DomicilioNegocioFragment newInstance(DataObtenerDomicilio domicilio,
+                                                       List<ColoniasResponse> listaColonias) {
+        DomicilioNegocioFragment fragmentRegister = new DomicilioNegocioFragment();
         Bundle args = new Bundle();
         args.putSerializable(_DOMICILIO, domicilio);
         args.putSerializable(COLONIAS, (Serializable) listaColonias);
@@ -195,14 +195,14 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editBussinesStreet.getId());
+                    hideValidationError(editBussinesStreet.getId());
                     editBussinesStreet.imageViewIsGone(true);
                 } else {
                     if (editBussinesStreet.getText().isEmpty()) {
                         showValidationError(editBussinesStreet.getId(), getString(R.string.datos_domicilio_calle));
                         editBussinesStreet.setIsInvalid();
                     } else {
-                        hideErrorMessage(editBussinesStreet.getId());
+                        hideValidationError(editBussinesStreet.getId());
                         editBussinesStreet.setIsValid();
                     }
                 }
@@ -212,7 +212,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         editBussinesStreet.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editBussinesStreet.getId());
+                hideValidationError(editBussinesStreet.getId());
                 editBussinesStreet.imageViewIsGone(true);
             }
         });
@@ -222,14 +222,14 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editBussinesExtNumber.getId());
+                    hideValidationError(editBussinesExtNumber.getId());
                     editBussinesExtNumber.imageViewIsGone(true);
                 } else {
                     if (editBussinesExtNumber.getText().isEmpty()) {
                         showValidationError(editBussinesExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
                         editBussinesExtNumber.setIsInvalid();
                     } else {
-                        hideErrorMessage(editBussinesExtNumber.getId());
+                        hideValidationError(editBussinesExtNumber.getId());
                         editBussinesExtNumber.setIsValid();
                     }
                 }
@@ -239,7 +239,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         editBussinesExtNumber.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editBussinesExtNumber.getId());
+                hideValidationError(editBussinesExtNumber.getId());
                 editBussinesExtNumber.imageViewIsGone(true);
             }
         });
@@ -248,14 +248,14 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editBussinesZipCode.getId());
+                    hideValidationError(editBussinesZipCode.getId());
                     editBussinesZipCode.imageViewIsGone(true);
                 } else {
                     if (editBussinesZipCode.getText().isEmpty()) {
                         showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
                         editBussinesZipCode.setIsInvalid();
                     } else {
-                        hideErrorMessage(editBussinesZipCode.getId());
+                        hideValidationError(editBussinesZipCode.getId());
                         editBussinesZipCode.imageViewIsGone(true);
                     }
                 }
@@ -267,7 +267,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editBussinesZipCode.getId());
+                    hideValidationError(editBussinesZipCode.getId());
                     editBussinesZipCode.imageViewIsGone(true);
                 } else {
                     if (editBussinesZipCode.getText().isEmpty()) {
@@ -283,7 +283,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
                             fillAdapter();
                         }
                     } else if (editBussinesZipCode.isValidText() && editBussinesZipCode.getText().toString().length() > MIN_LENGHT_VALIDATION_CP) {
-                        hideErrorMessage(editBussinesZipCode.getId());
+                        hideValidationError(editBussinesZipCode.getId());
                         editBussinesZipCode.setIsValid();
                         showLoader(getString(R.string.search_zipcode));
                         adqPresenter.getNeighborhoods(editBussinesZipCode.getText().toString().toString().trim());//Buscamos por CP
@@ -296,7 +296,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         editBussinesZipCode.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editBussinesZipCode.getId());
+                hideValidationError(editBussinesZipCode.getId());
                 editBussinesZipCode.imageViewIsGone(true);
             }
         });
@@ -412,7 +412,8 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         }
     }
 
-    private void hideErrorMessage(int id) {
+    @Override
+    public void hideValidationError(int id) {
         switch (id) {
             case R.id.editBussinesStreet:
                 errorStreet.setVisibilityImageError(false);
@@ -546,7 +547,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
         editBussinesZipCode.setText("");
         if (error.getWebService() == OBTENER_COLONIAS_CP) {
             // Se comenta esta linea para evitar el salto hacia atras
-          //  onClick(btnBackBussinesAddress);
+            //  onClick(btnBackBussinesAddress);
         } else if (error.getWebService() == OBTENER_DOMICILIO || error.getWebService() == OBTENER_DOMICILIO_PRINCIPAL) {
             cleanFields();
             radioIsBussinesAddress.check(R.id.radioBtnIsBussinesAddressNo);
@@ -595,7 +596,7 @@ public class DomicilioNegocio extends GenericFragment implements ValidationForms
 
     @Override
     public void onSpinnerClick() {
-        hideErrorMessage(spBussinesColonia.getId());
+        hideValidationError(spBussinesColonia.getId());
     }
 
     private void clearAllFocus() {

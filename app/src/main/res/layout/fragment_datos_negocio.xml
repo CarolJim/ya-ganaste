@@ -5,7 +5,6 @@
     android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/bg_gradient_bottom"
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
@@ -95,68 +94,6 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content" />
 
-                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                    android:id="@+id/textPublicServant"
-                    style="@style/generic_text_style_3"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/margin_regular"
-                    android:layout_marginRight="@dimen/margin_regular"
-                    android:layout_marginTop="@dimen/space_between_elements"
-                    android:gravity="center"
-                    android:text="@string/publicServantQuestion"
-                    android:textColor="@color/whiteColor"
-                    app:tipo="Descripcion" />
-
-                <RadioGroup
-                    android:id="@+id/radioPublicServant"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_marginTop="@dimen/space_between_elements"
-                    android:gravity="center"
-                    android:orientation="horizontal"
-                    android:theme="@style/RadioButtonTheme">
-
-                    <android.support.v4.widget.Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <RadioButton
-                        android:id="@+id/radioBtnPublicServantNo"
-                        style="@style/generic_text_style_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:checked="true"
-                        android:gravity="center"
-                        android:text="@string/no" />
-
-                    <android.support.v4.widget.Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-
-                    <RadioButton
-                        android:id="@+id/radioBtnPublicServantYes"
-                        style="@style/generic_text_style_2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_gravity="center"
-                        android:gravity="center"
-                        android:text="@string/yes" />
-
-                    <android.support.v4.widget.Space
-                        android:layout_width="0dp"
-                        android:layout_height="0dp"
-                        android:layout_weight="1" />
-                </RadioGroup>
-
-                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorRadioPublicServantMessage"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:gravity="center" />
 
             </LinearLayout>
         </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>

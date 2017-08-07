@@ -8,5 +8,7 @@ public interface IEnumSpinner {
 
     String getName();
 
-    String getId();
+    int getId();
+
+    IEnumSpinner getItemById(int id);
 }

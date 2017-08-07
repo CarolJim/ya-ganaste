@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui.adquirente;
+package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 
 import android.content.pm.ActivityInfo;
@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
@@ -111,6 +112,11 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     public void showValidationError(int id, Object o) {
         UI.showToast(o.toString(), getActivity());
         mySeekBar.setProgress(0);
+    }
+
+    @Override
+    public void hideValidationError(int id) {
+
     }
 
     @Override

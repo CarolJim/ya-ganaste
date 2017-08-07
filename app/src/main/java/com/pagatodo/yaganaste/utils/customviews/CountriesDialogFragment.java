@@ -13,8 +13,7 @@ import android.widget.ListView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.db.Countries;
-import com.pagatodo.yaganaste.interfaces.IDatosPersonalesManager;
-import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
+import com.pagatodo.yaganaste.interfaces.OnCountrySelectedListener;
 import com.pagatodo.yaganaste.ui.account.register.adapters.NacionalidadSpinnerAdapter;
 
 import java.util.ArrayList;
@@ -38,7 +37,7 @@ public class CountriesDialogFragment extends DialogFragment implements SearchVie
 
     private final static String COUNTRIES_LIST = "COUNTRIES_LIST";
     View rootView;
-    private IDatosPersonalesManager datosPersonalesManager;
+    private OnCountrySelectedListener onCountrySelectedListener;
 
     public final static CountriesDialogFragment newInstance(ArrayList<Countries> paises) {
         CountriesDialogFragment dialogFragment = new CountriesDialogFragment();
@@ -57,9 +56,6 @@ public class CountriesDialogFragment extends DialogFragment implements SearchVie
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        if (getParentFragment() instanceof DatosPersonalesFragment) {
-            datosPersonalesManager = ((DatosPersonalesFragment) getParentFragment());
-        }
     }
 
     @Nullable
@@ -80,6 +76,10 @@ public class CountriesDialogFragment extends DialogFragment implements SearchVie
         listViewPaises.setOnItemClickListener(this);
     }
 
+    public void setOnCountrySelectedListener(OnCountrySelectedListener listener){
+        this.onCountrySelectedListener = listener;
+    }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -98,8 +98,8 @@ public class CountriesDialogFragment extends DialogFragment implements SearchVie
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        if (datosPersonalesManager != null) {
-            datosPersonalesManager.onCountrySelected(arrayAdapter.getItem(position));
+        if (onCountrySelectedListener != null) {
+            onCountrySelectedListener.onCountrySelectedListener(arrayAdapter.getItem(position));
         }
         dismiss();
     }

@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui.adquirente;
+package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 
 import android.app.Activity;
@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVD
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
