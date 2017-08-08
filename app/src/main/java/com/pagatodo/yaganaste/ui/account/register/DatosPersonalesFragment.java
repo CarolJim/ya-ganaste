@@ -239,47 +239,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 backScreen(EVENT_DATA_USER_BACK, null);
                 break;
             case R.id.btnNextPersonalInfo:
-                ArrayList a = new ArrayList();
-                a.add("AF");
-                a.add("ET");
-                a.add("IQ");
-                a.add("IR");
-                a.add("KP");
-                a.add("LA");
-                a.add("SY");
-                a.add("UG");
-                a.add("VU");
-                a.add("YE");
-                a.add("BA");
                 String pais;
-
                 try {
                     pais = country.getIdPais().toString();
                     if (pais != null) {
-                        for (int i = 0; i < a.size(); i++) {
-                            if (a.get(i).equals(pais)) {
-                                String text = getString(R.string.problem_with_register);
-                               u=100;
-                                //////////////////////////
-                                UI.createCustomDialog("Tuvimos un problema", text, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
-                                    @Override
-                                    public void actionConfirm(Object... params) {
-                                        llamar();
-
-                    }
-                    @Override
-                    public void actionCancel(Object... params) {
-
-                        backScreen(EVENT_DATA_USER_BACK, null);
-
-                    }
-                }, "Llamar", "Cancelar");
-
-            }
-            if (u==0 && pais!=null) {
-                                validateForm();
-            }
-        }
+                        validateFormextranjero(pais);
     }else
         validateForm();
 }catch (Exception e)
@@ -300,7 +264,48 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 break;
         }
     }
+public void buscapais(String pais){
+    boolean esta=true;
+    ArrayList a = new ArrayList();
+    a.add("AF");
+    a.add("ET");
+    a.add("IQ");
+    a.add("IR");
+    a.add("KP");
+    a.add("LA");
+    a.add("SY");
+    a.add("UG");
+    a.add("VU");
+    a.add("YE");
+    a.add("BA");
+    for (int i = 0; i < a.size(); i++) {
+        if (a.get(i).equals(pais)) {
+            String text = getString(R.string.problem_with_register);
+            u=100;
+            String titulo=getString(R.string.titulo_extranjero);
+            //////////////////////////
+            esta=false;
+            UI.createCustomDialogextranjero(titulo, text, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                @Override
+                public void actionConfirm(Object... params) {
+                    llamar();
 
+                }
+                @Override
+                public void actionCancel(Object... params) {
+
+
+
+                }
+            }, "Llamar", "Cancelar");
+
+        }
+    }
+    if(esta==true) {
+        validateForm();
+    }
+
+}
     public  void  llamar(){
         String number = "7225499673";
 
@@ -404,6 +409,57 @@ public class DatosPersonalesFragment extends GenericFragment implements
         });
 
     }
+
+
+    public void validateFormextranjero( String pais) {
+        getDataForm();
+        String nuestrop=pais;
+        boolean isValid = true;
+
+        if (genero == null || genero.equals("")) {
+            showValidationError(radioGroupGender.getId(), getString(R.string.datos_personal_genero));
+            isValid = false;
+        }
+
+        if (nombre.isEmpty()) {
+            showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
+            editNames.setIsInvalid();
+            isValid = false;
+        }
+        if (apPaterno.isEmpty()) {
+            showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
+            editFirstLastName.setIsInvalid();
+            isValid = false;
+        }
+
+        if (!fechaNacimiento.isEmpty() && newDate != null && (newDate.getTimeInMillis() > actualDate.getTimeInMillis())) {
+            showValidationError(editBirthDay.getId(), getString(R.string.fecha_nacimiento_erronea));
+            editBirthDay.setIsInvalid();
+            isValid = false;
+        }
+
+        if (!fechaNacimiento.isEmpty() && actualDate != null) {
+
+            Calendar mCalendar = Calendar.getInstance();
+            mCalendar.set(actualDate.get(Calendar.YEAR) - 18, actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH));
+
+            if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
+                showValidationError(editBirthDay.getId(), getString(R.string.feha_nacimiento_menor_edad));
+                editBirthDay.setIsInvalid();
+                isValid = false;
+            }
+        }
+
+        if (fechaNacimiento.isEmpty()) {
+            showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
+            editBirthDay.setIsInvalid();
+            isValid = false;
+        }
+        if (isValid) {
+            buscapais(nuestrop);
+        }
+    }
+
 
     @Override
     public void validateForm() {

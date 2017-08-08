@@ -465,7 +465,8 @@
     <string name="no_offline_token">El Dispositivo no Cuenta con Token Offline, Asegúrate de Que
     tu Dispositivo Esté Asociado por SMS</string>
 
-    <string name="problem_with_register">No pudimos continuar con tu registro por favor contactanos para ayudarte</string>
+    <string name="problem_with_register">No Pudimos Continuar Con tu Registro. \n por favor contactanos para \n ayudarte a Resolverlo</string>
+    <string name="titulo_extranjero">Tuvimos un problema</string>
 
     <string name="generando_token">Generando Código</string>
 

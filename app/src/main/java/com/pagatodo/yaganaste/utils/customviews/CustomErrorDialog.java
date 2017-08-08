@@ -196,6 +196,8 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
     public void onGlobalLayout() {
         buttonsContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
     }
+
+
 }
 
 
