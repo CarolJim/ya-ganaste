@@ -541,4 +541,22 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Descripcion</item>
     </style>
+
+
+
+    <style name="styleSign">
+        <item name="android:textSize">24sp</item>
+        <item name="android:textColor">@color/whiteColor</item>
+    </style>
+
+    <style name="styleInt">
+        <item name="android:textSize">55sp</item>
+        <item name="android:textColor">@color/whiteColor</item>
+    </style>
+
+    <style name="styleCents">
+        <item name="android:textSize">18sp</item>
+        <item name="android:textColor">@color/whiteColor</item>
+    </style>
+
 </resources>
