@@ -13,7 +13,6 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 public class PhoneTextWatcher implements TextWatcher {
 
     protected EditText editText;
-    private int lengthAnterior;
 
     public PhoneTextWatcher(EditText e) {
         editText = e;
@@ -35,7 +34,6 @@ public class PhoneTextWatcher implements TextWatcher {
         String response = StringUtils.format(s.toString().replaceAll(" ", ""), SPACE, 2,4,4);
         editText.setText(response);
         editText.setSelection(response.length());
-        lengthAnterior = s.length();
         editText.addTextChangedListener(this);
     }
 }

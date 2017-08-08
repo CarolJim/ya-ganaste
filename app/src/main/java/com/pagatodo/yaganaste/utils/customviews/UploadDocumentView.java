@@ -26,6 +26,7 @@ public class UploadDocumentView extends RelativeLayout {
     private CircleImageView circleImageView;
     private CircleImageView circleImageStatus;
     private ImageView imgCamera;
+    private int isStatus;
 
     public UploadDocumentView(Context context) {
         super(context);
@@ -104,5 +105,11 @@ public class UploadDocumentView extends RelativeLayout {
         circleImageStatus.invalidate();
     }
 
+    public int getIsStatus() {
+        return isStatus;
+    }
 
+    public void setIsStatus(int isStatus) {
+        this.isStatus = isStatus;
+    }
 }

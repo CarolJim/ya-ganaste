@@ -218,6 +218,11 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     }
 
     @Override
+    public void hideValidationError(int id) {
+
+    }
+
+    @Override
     public void onValidationSuccess() {
         accountPresenter.assignNIP(nip);
     }

@@ -18,12 +18,12 @@ import com.pagatodo.yaganaste.R;
 public class NotificationBuilder {
 
 
-    public static void createTransactionNotification(Context context, Class clazz, RemoteMessage.Notification notificationContent) {
+    public static void createTransactionNotification(Context context, Class clazz, String title, String body) {
         Intent intent = new Intent(context, clazz);
         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP);
         PendingIntent pendingIntent = PendingIntent.getActivity(context, 0 /* Request code */, intent,
                 PendingIntent.FLAG_ONE_SHOT);
-        sendNotification(context, pendingIntent, 0, notificationContent.getTitle(), notificationContent.getBody());
+        sendNotification(context, pendingIntent, 0, title, body);
 
     }
 
@@ -31,10 +31,10 @@ public class NotificationBuilder {
     private static void sendNotification(Context context, PendingIntent pendingIntent, int idNotification, String title, String message) {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
-                .setSmallIcon(R.mipmap.icon_lapiz)
-                .setContentTitle("TITULO;" + title)
+                .setContentTitle(title)
                 .setContentText(message)
                 .setAutoCancel(true)
+                .setSmallIcon(R.mipmap.ic_launcher)
                 .setSound(defaultSoundUri)
                 .setContentIntent(pendingIntent);
 

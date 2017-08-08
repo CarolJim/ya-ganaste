@@ -1,11 +1,13 @@
 package com.pagatodo.yaganaste.net;
 
+import android.app.NotificationManager;
 import android.content.Intent;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
+import com.pagatodo.yaganaste.ui._controllers.OnlineTxActivity;
 import com.pagatodo.yaganaste.utils.NotificationBuilder;
 
 /**
@@ -33,11 +35,16 @@ public class MessagingService extends FirebaseMessagingService {
         if (remoteMessage.getNotification() != null) {
             Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             RemoteMessage.Notification notification = remoteMessage.getNotification();
-            NotificationBuilder.createTransactionNotification(this, MainActivity.class, notification);
+            NotificationBuilder.createTransactionNotification(this, OnlineTxActivity.class, notification.getTitle(), notification.getBody());
         }
         // Also if you intend on generating your own notifications as a result of a received FCM
         // message, here is where that should be initiated. See sendNotification method below.
     }
 
-
+    @Override
+    public void handleIntent(Intent intent) {
+        NotificationBuilder.createTransactionNotification(this, OnlineTxActivity.class,
+                "Hola :)" + intent.getExtras().getString("gcm.notification.title"),
+                intent.getExtras().getString("gcm.notification.body"));
+    }
 }

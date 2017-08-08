@@ -14,7 +14,6 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
-import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
@@ -23,7 +22,6 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PERSONAL_DATA;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
@@ -136,7 +134,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editMail.getId());
+                    hideValidationError(editMail.getId());
                     editMail.imageViewIsGone(true);
                 } else {
                     if (editMail.getText().isEmpty()) {
@@ -148,7 +146,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                     } else if (editMail.isValidText() && !emailValidatedByWS) {
                         accountPresenter.validateEmail(editMail.getText());
                     } else if (editMail.isValidText() && emailValidatedByWS) {
-                        hideErrorMessage(editMail.getId());
+                        hideValidationError(editMail.getId());
                         editMail.setIsValid();
                     }
                 }
@@ -158,7 +156,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         editMail.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editMail.getId());
+                hideValidationError(editMail.getId());
                 editMail.imageViewIsGone(true);
                 emailValidatedByWS = false;
             }
@@ -168,7 +166,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(edtitConfirmEmail.getId());
+                    hideValidationError(edtitConfirmEmail.getId());
                     edtitConfirmEmail.imageViewIsGone(true);
                 } else {
                     if (edtitConfirmEmail.getText().isEmpty()) {
@@ -178,7 +176,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                         showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_no_coinciden));
                         edtitConfirmEmail.setIsInvalid();
                     } else if (edtitConfirmEmail.getText().equals(editMail.getText())) {
-                        hideErrorMessage(edtitConfirmEmail.getId());
+                        hideValidationError(edtitConfirmEmail.getId());
                         edtitConfirmEmail.setIsValid();
                     }
                 }
@@ -188,7 +186,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         edtitConfirmEmail.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(edtitConfirmEmail.getId());
+                hideValidationError(edtitConfirmEmail.getId());
                 edtitConfirmEmail.imageViewIsGone(true);
             }
         });
@@ -199,7 +197,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
             public void onFocusChange(View v, boolean hasFocus) {
 
                 if (hasFocus) {
-                    hideErrorMessage(editPassword.getId());
+                    hideValidationError(editPassword.getId());
                     editPassword.imageViewIsGone(true);
                 } else {
 
@@ -212,7 +210,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                     } else if (editPassword.isValidText() && !isValidPassword) {
                         accountPresenter.validatePasswordFormat(editPassword.getText());
                     } else if (editPassword.isValidText() && isValidPassword) {
-                        hideErrorMessage(editPassword.getId());
+                        hideValidationError(editPassword.getId());
                         editPassword.setIsValid();
                     }
                 }
@@ -223,7 +221,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         editPassword.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editPassword.getId());
+                hideValidationError(editPassword.getId());
                 editPassword.imageViewIsGone(true);
                 isValidPassword = false;
             }
@@ -233,7 +231,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editPasswordConfirm.getId());
+                    hideValidationError(editPasswordConfirm.getId());
                     editPasswordConfirm.imageViewIsGone(true);
 
                 } else {
@@ -244,7 +242,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                         showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
                         editPasswordConfirm.setIsInvalid();
                     } else if (editPasswordConfirm.getText().equals(editPassword.getText())) {
-                        hideErrorMessage(editPasswordConfirm.getId());
+                        hideValidationError(editPasswordConfirm.getId());
                         editPasswordConfirm.setIsValid();
                     }
                 }
@@ -254,7 +252,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         editPasswordConfirm.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editPasswordConfirm.getId());
+                hideValidationError(editPasswordConfirm.getId());
                 editPasswordConfirm.imageViewIsGone(true);
             }
         });
@@ -383,7 +381,8 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         errorIsShowed = true;
     }
 
-    private void hideErrorMessage(int id) {
+    @Override
+    public void hideValidationError(int id) {
         switch (id) {
             case R.id.edtitEmail:
                 errorMailMessage.setVisibilityImageError(false);
@@ -478,7 +477,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         isValidPassword = true;
         editPassword.setIsValid();
         passErrorMessage = "";
-        hideErrorMessage(editPassword.getId());
+        hideValidationError(editPassword.getId());
     }
 
     @Override
@@ -495,7 +494,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         emailValidatedByWS = true;
         userExist = false;
         editMail.setIsValid();
-        hideErrorMessage(editMail.getId());
+        hideValidationError(editMail.getId());
     }
 
     @Override
@@ -528,7 +527,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     public void onFocusChange(View v, boolean hasFocus) {
         if (hasFocus) {
         }
-        //hideErrorMessage();
+        //hideValidationError();
     }
 
     private void validate(int field) {

@@ -365,6 +365,11 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     }
 
     @Override
+    public void hideValidationError(int id) {
+
+    }
+
+    @Override
     public void onValidationSuccess() {
         showLoader(getContext().getResources().getString(R.string.msg_renapo));
         accountPresenter.assignNIP(nip, nipNewConfirm);

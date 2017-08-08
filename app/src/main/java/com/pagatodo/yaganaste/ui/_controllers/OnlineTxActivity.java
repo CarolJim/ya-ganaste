@@ -53,6 +53,7 @@ public class OnlineTxActivity extends SupportFragmentActivity implements OnEvent
 
     @Override
     public void onEvent(String event, Object data) {
+        super.onEvent(event, data);
         if (event.equals(EVENT_TX_APROVED)) {
             loadFragment(TxApprovedFragment.newInstance(), Direction.FORDWARD);
         }

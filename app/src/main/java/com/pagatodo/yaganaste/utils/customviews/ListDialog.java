@@ -10,11 +10,13 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
+import com.pagatodo.yaganaste.utils.customviews.carousel.CustomAdapterPagos;
 
 import java.util.ArrayList;
 
@@ -25,6 +27,7 @@ import java.util.ArrayList;
 public class ListDialog extends Dialog implements View.OnClickListener, AdapterView.OnItemClickListener {
 
     ArrayAdapter<String> adapter = null;
+    CustomAdapterPagos adapter2 = null;
     ArrayList<String> mList = new ArrayList<>();
     ArrayList<CarouselItem> listCarousel;
     Context context;
@@ -35,6 +38,11 @@ public class ListDialog extends Dialog implements View.OnClickListener, AdapterV
     private TextWatcher filterTextWatcher = new TextWatcher() {
 
         public void afterTextChanged(Editable s) {
+//            if(adapter.getCount() == 0){
+//                Toast.makeText(getContext(), "No existen resultados", Toast.LENGTH_SHORT).show();
+//            }else{
+//                Toast.makeText(getContext(), "Tenemos nuevos resultados", Toast.LENGTH_SHORT).show();
+//            }
         }
 
         public void beforeTextChanged(CharSequence s, int start, int count,
@@ -43,7 +51,7 @@ public class ListDialog extends Dialog implements View.OnClickListener, AdapterV
 
         public void onTextChanged(CharSequence s, int start, int before,
                                   int count) {
-            adapter.getFilter().filter(s);
+            adapter2.getFilter().filter(s);
         }
     };
 
@@ -68,9 +76,11 @@ public class ListDialog extends Dialog implements View.OnClickListener, AdapterV
         filterText = (EditText) findViewById(R.id.searchText);
         filterText.addTextChangedListener(filterTextWatcher);
         list = (ListView) findViewById(R.id.list);
-        adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, mList);
-        list.setAdapter(adapter);
+//        adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, mList);
+//        list.setAdapter(adapter);
 
+        adapter2 = new CustomAdapterPagos(getContext(), R.layout.item_pagos_textview, mList);
+        list.setAdapter(adapter2);
         list.setOnItemClickListener(this);
     }
 
@@ -87,7 +97,7 @@ public class ListDialog extends Dialog implements View.OnClickListener, AdapterV
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-        String value = adapter.getItem(position);
+        String value = adapter2.getItem(position);
         int pos = mList.indexOf(value);
         presenter.setCarouselItem(listCarousel.get(pos));
 

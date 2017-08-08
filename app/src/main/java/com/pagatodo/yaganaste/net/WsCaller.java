@@ -81,7 +81,7 @@ public class WsCaller implements IServiceConsumer {
 
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
                 request.getTimeOut(),
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                0,//Se quitan los reintentos para validar si esto arroja SocketException
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         volleySingleton.addToRequestQueue(jsonRequest);

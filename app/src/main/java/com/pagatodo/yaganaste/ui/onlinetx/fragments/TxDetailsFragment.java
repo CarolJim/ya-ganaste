@@ -37,7 +37,7 @@ public class TxDetailsFragment extends GenericFragment implements View.OnClickLi
     private TextView txtReference;
     private EditText edtNip;
     private Button btnContinue;
-    private ProgressLayout progressLayout;
+    //private ProgressLayout progressLayout;
 
     private OnlineTxData data;
 
@@ -79,7 +79,7 @@ public class TxDetailsFragment extends GenericFragment implements View.OnClickLi
         txtReference = (TextView) rootView.findViewById(R.id.txt_reference);
         edtNip = (EditText) rootView.findViewById(R.id.edt_nip);
         btnContinue = (Button) rootView.findViewById(R.id.btn_continue);
-        progressLayout = (ProgressLayout) rootView.findViewById(R.id.progress_indicator);
+        //progressLayout = (ProgressLayout) rootView.findViewById(R.id.progress_indicator);
         btnContinue.setOnClickListener(this);
     }
 
@@ -119,13 +119,13 @@ public class TxDetailsFragment extends GenericFragment implements View.OnClickLi
 
     @Override
     public void showLoader(String message) {
-        progressLayout.setVisibility(View.VISIBLE);
-        progressLayout.setTextMessage(message);
+        //progressLayout.setVisibility(View.VISIBLE);
+        //progressLayout.setTextMessage(message);
     }
 
     @Override
     public void hideLoader() {
-        progressLayout.setVisibility(View.GONE);
+        //progressLayout.setVisibility(View.GONE);
     }
 
     @Override

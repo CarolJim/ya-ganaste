@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -25,6 +27,8 @@ public class UsuarioClienteResponse implements Serializable {
     private String PetroNumero = "72851001";
     private String ClaveAgente = "7320";
     private int TipoAgente;
+    @SerializedName("EsExtranjero")
+    private boolean isExtranjero;
 
     private String NombreNegocio;
 
@@ -164,5 +168,13 @@ public class UsuarioClienteResponse implements Serializable {
 
     public void setIdUsuarioAdquirente(String idUsuarioAdquirente) {
         IdUsuarioAdquirente = idUsuarioAdquirente;
+    }
+
+    public boolean isExtranjero() {
+        return isExtranjero;
+    }
+
+    public void setExtranjero(boolean extranjero) {
+        isExtranjero = extranjero;
     }
 }

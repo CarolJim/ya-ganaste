@@ -120,21 +120,21 @@ public class StatesSpinnerAdapter extends ArrayAdapter<IEnumSpinner> {
         return mItems.length;
     }
 
-    public String getItemIdString(int position) {
+    /*public String getItemIdString(int position) {
         return mItems[position].getId();
-    }
+    }*/
 
     public String getItemName(int position) {
         return mItems[position].getName();
     }
 
-    public int getPositionItemByName(String name) {
+    /*public int getPositionItemByName(String name) {
         for (int position = 0; position < mItems.length; position++) {
             if (mItems[position].getName().equals(name))
                 return position;
         }
         return 0;
-    }
+    }*/
 
     static class DropDownHolder {
         StyleTextView txtTitle;

@@ -242,7 +242,7 @@
     <string name="readcard">Leyendo Tarjeta</string>
     <string name="fecha_formater">%1$s/%2$s/%3$s</string>
     <string name="metodo_transaction">TransactionEmvDepositAccount</string>
-    <string name="rfc">RFC</string>
+    <string name="rfc">rfc</string>
     <string name="phone_number">Teléfono del Comercio</string>
     <string name="title_activity_depositos_maps">Depósitos</string>
     <string name="rfchomoclave">Homoclave</string>
@@ -339,6 +339,15 @@
     <string name="bussinesName">Nombre del Negocio</string>
     <string name="publicServantQuestion">¿Tú o Algún Familiar Han Desempeñado Cargos Públicos?</string>
 
+    <!--Informacion Adicional-->
+    <string name="title_informacion_adicional">Información Adicional</string>
+    <string name="txt_eres_mexa">¿Eres Mexicano Naturalizado?</string>
+    <string name="txt_cargo">Cargo</string>
+    <string name="error_parentesco">Parentesco Requerido, Verifique su Información.</string>
+    <string name="error_cargo">Cargo Requerido, Verifique su Información.</string>
+    <string name="terminos_condiciones">Términos y Condiciones</string>
+    <string name="terms_and_conditions_aditional_info">Al Continuar Reconozco Ser Mayor de Edad, Así Como Haber Leído y Aceptado los Términos y Condiciones</string>
+
     <!--felicidades-->
     <string name="congratulation_text1">Tu Cuenta Ya Ganaste Está Lista</string>
     <string name="congratulation_text2">A Continuación, te Enseñaremos Todo lo\nQue Puedes Hacer Con Ella</string>
@@ -371,11 +380,16 @@
 
     <!-- Proceso de enviar documentos -->
     <string name="adq_must_upload_documents">Debes de Subir Todos Los Documentos.</string>
+    <string name="adq_upload_again">Subir de Nuevo</string>
     <string name="adq_upload_documents">Enviando Solicitud</string>
     <string name="adq_upgrade_documents">Actualizando Documentos</string>
     <string name="adq_error_open_image">La Aplicación no Pudo Acceder a su Imagen Intente Con Otra Galería</string>
     <string name="adq_title_thanks">¡Gracias!</string>
     <string name="adq_subtitle_thanks">Tus Documentos Están\nSiendo Revisados</string>
+    <string name="adq_documents_approved">Tus Documentos \nFueron Aprobados</string>
+    <string name="adq_notification_pending">Te Notificaremos Cuando \ntu Seccion de Cobros Este Lista</string>
+    <string name="adq_payment_with_card">Ya Puedes Recibir \nPagos Con Tarjeta</string>
+    <string name="adq_new_section_payment">A Continuación, te Enseñaremos tu \nNueva Sección de Cobros</string>
     <string name="adq_title_thanks_msg">Este Proceso Puede Tardar\nHasta 48 Horas Hábiles</string>
 
     <string name="adq_subtitle_accept">Tus Documentos Han Sido\nAprobados</string>
@@ -432,10 +446,9 @@
     <string name="emisor">Emisor:</string>
 
     <!-- Autorizaciones Online -->
-    <string name="este_movimiento">Este Movimiento Requiere Autorización: </string>
+    <string name="este_movimiento">Este Movimiento se Está Realizando\nen tu Sitio Web Ya Ganaste</string>
     <string name="monto">Importe:</string>
-    <string name="ingresa_tu_contrasenia">Ingresa tu Contraseña para Autorizar Este Movimiento en tu
-    Banca en Línea</string>
+    <string name="ingresa_tu_contrasenia">Ingresa tu Contraseña para Autorizarlo</string>
 
     <string name="autorizacion_completa">¡Autorización Completa!</string>
     <string name="revisa_el_resumen">Revisa el Resumen de Este Movimiento en tu Banca en Línea</string>
@@ -704,6 +717,8 @@
     <string name="verificando_sms_espera">Estamos Verificando tu SMS, \nNos Tomará Sólo Unos Segundos</string>
     <string name="change_your_pass">Cambia tu Contraseña</string>
     <string name="unlike_your_device">Desvincula tu Dispositivo</string>
+    <string name="no_existen_resultados">No Existen Resultados</string>
+    <string name="title_activity_landing_approved">LandingApprovedActivity</string>
     <!--end Cupo Strings-->
 </resources>
 

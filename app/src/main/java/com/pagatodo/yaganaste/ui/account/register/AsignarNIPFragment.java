@@ -193,6 +193,11 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     }
 
     @Override
+    public void hideValidationError(int id) {
+
+    }
+
+    @Override
     public void onValidationSuccess() {
         nextScreen(EVENT_GO_CONFIRM_PIN, nip);
     }

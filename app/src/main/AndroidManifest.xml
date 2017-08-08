@@ -33,7 +33,6 @@
     <uses-feature
         android:name="android.hardware.camera.flash"
         android:required="false" />
-
     <uses-feature
         android:glEsVersion="0x00020000"
         android:required="true" />
@@ -66,10 +65,7 @@
         <activity
             android:name=".ui._controllers.CupoStatusActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
-
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity
             android:name=".ui._controllers.MainActivity"
             android:screenOrientation="portrait"
@@ -108,13 +104,11 @@
             android:name=".ui._controllers.LandingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
         <activity android:name=".ui._controllers.DetailsActivity" />
         <activity android:name=".ui._controllers.OnlineTxActivity" />
         <activity android:name=".ui.otp.activities.OtpCodeActivity" />
         <activity android:name=".ui._controllers.ScannVisionActivity" />
         <activity android:name=".ui._controllers.SessionActivity" />
-
         <activity
             android:name=".ui._controllers.RegistryCupoActivity"
             android:screenOrientation="portrait"
@@ -141,14 +135,16 @@
              android:value="@string/google_maps_key" />
         -->
 
-        <service android:name=".net.MessagingService"
+        <service
+            android:name=".net.MessagingService"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
-        <service android:name=".notifications.FirebaseInstanceServer"
+        <service
+            android:name=".notifications.FirebaseInstanceServer"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
@@ -166,11 +162,14 @@
                 android:value="com.pagatodo.yaganaste.ui._controllers.TabActivity" />
         </activity>
 
-
         <meta-data
             android:name="io.fabric.ApiKey"
             android:value="6586b24eda23982e86678c62a9df721f3aed82b0" />
 
+        <activity
+            android:name=".ui._controllers.LandingApprovedActivity"
+            android:label="@string/title_activity_landing_approved"
+            android:theme="@style/AppTheme"></activity>
     </application>
 
 </manifest>

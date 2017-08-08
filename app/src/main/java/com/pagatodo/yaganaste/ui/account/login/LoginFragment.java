@@ -290,6 +290,11 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     }
 
     @Override
+    public void hideValidationError(int id) {
+
+    }
+
+    @Override
     public void onValidationSuccess() {
 
         setEnableViews(false);

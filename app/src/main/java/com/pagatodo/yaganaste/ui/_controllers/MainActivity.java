@@ -12,8 +12,7 @@ import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.login.MainFragment;
-import com.pagatodo.yaganaste.ui.adquirente.TransactionResultFragment;
-import com.pagatodo.yaganaste.ui.otp.activities.OtpCodeActivity;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;

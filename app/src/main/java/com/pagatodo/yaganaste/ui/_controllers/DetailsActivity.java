@@ -17,8 +17,8 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.adqtransactioncancel.fragments.DetailTransactionAdqCancel;
-import com.pagatodo.yaganaste.ui.adquirente.InsertDongleFragment;
-import com.pagatodo.yaganaste.ui.adquirente.TransactionResultFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
 

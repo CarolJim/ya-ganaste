@@ -129,10 +129,12 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
                     case STATUS_DOCTO_APROBADO:
                         mBitmap = BitmapFactory.decodeResource(view.getContext().getResources(), R.drawable.ic_status_ok);
                         mDrawable = ContextCompat.getDrawable(context, R.drawable.ic_status_ok);
+
                         break;
                     case STATUS_DOCTO_PENDIENTE:
                         mBitmap = BitmapFactory.decodeResource(view.getContext().getResources(), R.drawable.ic_status_pending);
                         mDrawable = ContextCompat.getDrawable(context, R.drawable.ic_status_pending);
+
                         break;
                     case STATUS_DOCTO_RECHAZADO:
                         if (tipoDoc == DOC_ID_FRONT) {
