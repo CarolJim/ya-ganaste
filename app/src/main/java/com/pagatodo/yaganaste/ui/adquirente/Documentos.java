@@ -511,12 +511,13 @@ public class Documentos extends GenericFragment implements View.OnClickListener,
             if (docs.getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
                 documentPendientes++;
             } else if (docs.getIdEstatus() == STATUS_DOCTO_PENDIENTE) {
+                // Cambiar a STATUS_DOCTO_APROBADO cuando podamos probar esta camino de funcionalidad
                 documentApproved++;
             }
         }
 
         if (documentApproved == 4) {
-            onEventListener.onEvent("TEST_APPROVED", null);
+            onEventListener.onEvent("EVENT_DOCUMENT_APPROVED", null);
         }
         // Coigo SOLO para probar la carga correcta de estado al cargar imagen
         //itemWeNeedSmFilesIFEfront.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
