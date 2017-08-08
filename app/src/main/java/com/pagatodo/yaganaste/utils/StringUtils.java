@@ -1,8 +1,12 @@
 package com.pagatodo.yaganaste.utils;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.text.SpannableString;
 import android.text.SpannableStringBuilder;
+import android.text.Spanned;
+import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.widget.TextView;
 
@@ -38,6 +42,10 @@ public class StringUtils {
             return monthLongName;
         }
         return monthLongName.substring(0, SHORT_MONTH_NAME_L);
+    }
+
+    public static String cleanMount(String value){
+        return getCurrencyValue(value).replace("$","");
     }
 
     public static String getCurrencyValue(double value) {
@@ -248,5 +256,25 @@ public class StringUtils {
         String mStringLetters = mStringPart[0].substring(0, 3);
 
         return mStringLetters + "******@" + mStringPart[1];
+    }
+
+
+
+    public static SpannableString formatStyles(Context context, SpanTextStyle... elements)
+    {
+        StringBuilder fullText = new StringBuilder("");
+        for (SpanTextStyle spanTextStyle : elements) {
+            fullText.append(spanTextStyle.getText());
+        }
+
+        int currentStartLocation = 0;
+        SpannableString styledText = new SpannableString(fullText.toString());
+        for (SpanTextStyle spanTextStyle : elements) {
+            styledText.setSpan(new TextAppearanceSpan(context, spanTextStyle.getStyle()),
+                    currentStartLocation, currentStartLocation + spanTextStyle.getText().length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+            currentStartLocation += spanTextStyle.getText().length();
+        }
+
+        return styledText;
     }
 }

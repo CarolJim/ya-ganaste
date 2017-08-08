@@ -445,10 +445,9 @@
     <string name="emisor">Emisor:</string>
 
     <!-- Autorizaciones Online -->
-    <string name="este_movimiento">Este Movimiento Requiere Autorización: </string>
+    <string name="este_movimiento">Este Movimiento se Está Realizando\nen tu Sitio Web Ya Ganaste</string>
     <string name="monto">Importe:</string>
-    <string name="ingresa_tu_contrasenia">Ingresa tu Contraseña para Autorizar Este Movimiento en tu
-    Banca en Línea</string>
+    <string name="ingresa_tu_contrasenia">Ingresa tu Contraseña para Autorizarlo</string>
 
     <string name="autorizacion_completa">¡Autorización Completa!</string>
     <string name="revisa_el_resumen">Revisa el Resumen de Este Movimiento en tu Banca en Línea</string>
