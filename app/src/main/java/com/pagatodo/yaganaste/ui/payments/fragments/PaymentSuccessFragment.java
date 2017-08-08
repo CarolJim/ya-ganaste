@@ -189,6 +189,9 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
             if (pago.getComercio().getIdComercio() != 7) {
                 formatoPago = StringUtils.formatoPagoMedios(formatoPago);
             }
+            if (pago.getComercio().getIdComercio() == 7) {
+                formatoPago = StringUtils.formatoPagoMediostag(formatoPago);
+            }
         } else if (pago instanceof Servicios) {
 
         } else if (pago instanceof Envios) {

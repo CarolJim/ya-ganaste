@@ -1,9 +1,16 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,6 +20,7 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -32,6 +40,7 @@ import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CountriesDialogFragment;
+import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
@@ -57,8 +66,9 @@ public class DatosPersonalesFragment extends GenericFragment implements
         View.OnClickListener, IDatosPersonalesManager, IRenapoView,
         AdapterView.OnItemSelectedListener, IOnSpinnerClick {
 
-
+    ArrayList paisesno = new ArrayList();
     private final int MX = 1;
+    int u=0;
     private final int EXTRANJERO = 2;
     @BindView(R.id.radioGender)
     RadioGroup radioGroupGender;
@@ -221,12 +231,59 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     @Override
     public void onClick(View view) {
+
         switch (view.getId()) {
             case R.id.btnBackPersonalInfo:
                 backScreen(EVENT_DATA_USER_BACK, null);
                 break;
             case R.id.btnNextPersonalInfo:
-                validateForm();
+                ArrayList a = new ArrayList();
+                a.add("AF");
+                a.add("ET");
+                a.add("IQ");
+                a.add("IR");
+                a.add("KP");
+                a.add("LA");
+                a.add("SY");
+                a.add("UG");
+                a.add("VU");
+                a.add("YE");
+                a.add("BA");
+                String pais;
+
+                try {
+                    pais = country.getIdPais().toString();
+                    if (pais != null) {
+                        for (int i = 0; i < a.size(); i++) {
+                            if (a.get(i).equals(pais)) {
+                                String text = getString(R.string.problem_with_register);
+                               u=100;
+                                //////////////////////////
+                                UI.createCustomDialog("Tuvimos un problema", text, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                                    @Override
+                                    public void actionConfirm(Object... params) {
+                                        llamar();
+
+                    }
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                        backScreen(EVENT_DATA_USER_BACK, null);
+
+                    }
+                }, "Llamar", "Cancelar");
+
+            }
+            if (u==0 && pais!=null) {
+                                validateForm();
+            }
+        }
+    }else
+        validateForm();
+}catch (Exception e)
+{
+    validateForm();
+}
                 break;
             case R.id.editCountry:
                 onCountryClick();
@@ -240,6 +297,32 @@ public class DatosPersonalesFragment extends GenericFragment implements
             default:
                 break;
         }
+    }
+
+    public  void  llamar(){
+        String number = "7225499673";
+
+        if (number != null) {
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            callIntent.setData(Uri.parse("tel:" + number));
+
+
+            if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
+            getActivity().startActivity(callIntent);
+
+        }else if(number.length()<2){
+        }
+
     }
 
     private void onCountryClick() {

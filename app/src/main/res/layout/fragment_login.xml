@@ -9,11 +9,13 @@
     android:focusableInTouchMode="true"
     tools:context=".ui._controllers.AccountActivity">
 
+ >
     <RelativeLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true">
+        android:layout_toRightOf="@+id/progressIndicator"
+        android:layout_toEndOf="@+id/progressIndicator">
 
         <RelativeLayout
             android:id="@+id/layoutImagenLogin"
@@ -26,19 +28,19 @@
                 android:id="@+id/imgLoginExistProfile"
                 android:layout_width="140dp"
                 android:layout_height="140dp"
-                android:layout_centerHorizontal="true"
-                android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal"
-                android:layout_marginTop="15dp"
                 android:src="@mipmap/icon_user"
                 app:civ_border_color="@color/colorAccent"
-                app:civ_border_width="2dp" />
+                app:civ_border_width="2dp"
+                android:layout_centerVertical="true"
+                android:layout_centerHorizontal="true" />
         </RelativeLayout>
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@+id/layoutImagenLogin"
+            android:layout_marginTop="20dp"
             android:layout_margin="@dimen/activity_vertical_margin"
             android:layout_marginLeft="@dimen/activity_vertical_margin"
             android:layout_marginRight="@dimen/activity_vertical_margin"
@@ -77,7 +79,9 @@
                 android:hint="@string/txt_escribe_tu_pass"
                 app:formato="password"
                 app:hintText="@string/txt_escribe_tu_pass"
-                app:isTextEnabled="true" />
+                app:isTextEnabled="true">
+                <requestFocus />
+            </com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtLoginExistUserRecoverPass"
@@ -122,6 +126,8 @@
 
             </LinearLayout>
         </LinearLayout>
+
+
     </RelativeLayout>
 
 
