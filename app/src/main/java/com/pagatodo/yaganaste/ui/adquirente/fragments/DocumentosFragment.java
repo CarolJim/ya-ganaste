@@ -63,6 +63,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 
@@ -111,6 +112,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     private ArrayList<DataDocuments> dataDocumnets;
     private AccountAdqPresenter adqPresenter;
     private Boolean mExisteDocs = false;
+    ArrayList<EstatusDocumentosResponse> dataStatusDocuments;
 
     public DocumentosFragment() {
     }
@@ -146,6 +148,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         contador = new ArrayList<>();
         adqPresenter = new AccountAdqPresenter(this, getContext());
         adqPresenter.setIView(this);
+        dataStatusDocuments = new ArrayList<>();
     }
 
     @Override
@@ -180,18 +183,35 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.itemWeNeedSmFilesIFEfront:
-                selectImageSource(IFE_FRONT);
+                if (dataStatusDocuments.get(0).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
+                    showDocumentRejected(dataStatusDocuments.get(0), 0);
+                } else {
+                    selectImageSource(IFE_FRONT);
+                }
                 break;
             case R.id.itemWeNeedSmFilesIFEBack:
-                selectImageSource(IFE_BACK);
+                //selectImageSource(IFE_BACK);
+                if (dataStatusDocuments.get(1).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
+                    showDocumentRejected(dataStatusDocuments.get(1), 1);
+                } else {
+                    selectImageSource(IFE_BACK);
+                }
                 break;
 
             case R.id.itemWeNeedSmFilesAddressFront:
-                selectImageSource(COMPROBANTE_FRONT);
+                if (dataStatusDocuments.get(2).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
+                    showDocumentRejected(dataStatusDocuments.get(2), 2);
+                } else {
+                    selectImageSource(COMPROBANTE_FRONT);
+                }
                 break;
 
             case R.id.itemWeNeedSmFilesAddressBack:
-                selectImageSource(COMPROBANTE_BACK);
+                if (dataStatusDocuments.get(3).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
+                    showDocumentRejected(dataStatusDocuments.get(3), 3);
+                } else {
+                    selectImageSource(COMPROBANTE_BACK);
+                }
                 break;
 
             case R.id.btnWeNeedSmFilesNext:
@@ -502,6 +522,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
      */
     @Override
     public void setDocumentosStatus(List<EstatusDocumentosResponse> data) {
+        // Borramos los elementos de nuestro array de apoyo
+        dataStatusDocuments.clear();
+
         adqPresenter.setEstatusDocs(rootview, data);
         // Contamos los documentos pendientes
         documentPendientes = 0;
@@ -509,10 +532,20 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         for (EstatusDocumentosResponse docs : data) {
             if (docs.getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
                 documentPendientes++;
-            } else if (docs.getIdEstatus() == STATUS_DOCTO_PENDIENTE) {
+            } else if (docs.getIdEstatus() == STATUS_DOCTO_APROBADO) {
                 // Cambiar a STATUS_DOCTO_APROBADO cuando podamos probar esta camino de funcionalidad
                 documentApproved++;
             }
+
+            // Guardamos el estado de los documentos
+            dataStatusDocuments.add(new EstatusDocumentosResponse(
+                            docs.getTipoDocumento(),
+                            docs.getEstatus(),
+                            docs.getComentario(),
+                            docs.getIdEstatus(),
+                            docs.getMotivo()
+                    )
+            );
         }
 
         if (documentApproved == 4) {
@@ -552,6 +585,35 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             @Override
             public void actionConfirm(Object... params) {
                 // Toast.makeText(getContext(), "Click CERRAR SESSION", Toast.LENGTH_SHORT).show();
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+
+            }
+        }, true, false);
+    }
+
+    public void showDocumentRejected(EstatusDocumentosResponse mData, final int mPosition) {
+        UI.createSimpleCustomDialogError(mData.getEstatus(), mData.getMotivo(), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                switch (mPosition){
+                    case 0:
+                        selectImageSource(IFE_FRONT);
+                        break;
+                    case 1:
+                        selectImageSource(IFE_BACK);
+                        break;
+                    case 2:
+                        selectImageSource(COMPROBANTE_FRONT);
+                        break;
+                    case 3:
+                        selectImageSource(COMPROBANTE_BACK);
+                        break;
+                    default:
+                        break;
+                }
             }
 
             @Override
