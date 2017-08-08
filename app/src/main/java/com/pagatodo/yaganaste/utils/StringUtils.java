@@ -277,4 +277,17 @@ public class StringUtils {
 
         return styledText;
     }
+
+    public static String formatStatus(String estatus) {
+        String mTitleStatus = "";
+        switch (estatus){
+            case "DOCTO. RECHAZADO" :
+                mTitleStatus = "Documento Rechazado";
+                break;
+            default:
+                mTitleStatus = "Documento Rechazado";
+                break;
+        }
+        return mTitleStatus;
+    }
 }
