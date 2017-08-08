@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -59,6 +60,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.PTH_DOCTO_APROBADO;
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener {
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
+    public static final String TEST_APPROVED = "TEST_APPROVED";
     public static final String EVENT_GO_HOME = "2";
     public static final String EVENT_CHANGE_MAIN_TAB_VISIBILITY = "3";
     public static final String EVENT_HIDE_MANIN_TAB = "eventhideToolbar";
@@ -182,6 +184,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             hideMainTab();
         } else if (event.equals(EVENT_SHOW_MAIN_TAB)) {
             showMainTab();
+        } else if (event.equals(TEST_APPROVED)) {
+           // Toast.makeText(getApplicationContext(), "Load FRagment New", Toast.LENGTH_SHORT).show();
+            //DocumentsContainerFragment mFragment = mainViewPager.findViewById(R.id)
+            DocumentsContainerFragment mFragment = (DocumentsContainerFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.main_view_pager);
+            mFragment.loadApprovedFragment();
+
         }
     }
 

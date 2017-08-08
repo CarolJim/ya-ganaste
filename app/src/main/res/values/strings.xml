@@ -376,6 +376,10 @@
     <string name="adq_error_open_image">La Aplicación no Pudo Acceder a su Imagen Intente Con Otra Galería</string>
     <string name="adq_title_thanks">¡Gracias!</string>
     <string name="adq_subtitle_thanks">Tus Documentos Están\nSiendo Revisados</string>
+    <string name="adq_documents_approved">Tus Documentos \nFueron Aprobados</string>
+    <string name="adq_notification_pending">Te Notificaremos Cuando \ntu Seccion de Cobros Este Lista</string>
+    <string name="adq_payment_with_card">Ya Puedes Recibir \nPagos Con Tarjeta</string>
+    <string name="adq_new_section_payment">A Continuación, te Enseñaremos tu \nNueva Sección de Cobros</string>
     <string name="adq_title_thanks_msg">Este Proceso Puede Tardar\nHasta 48 Horas Hábiles</string>
 
     <string name="adq_subtitle_accept">Tus Documentos Han Sido\nAprobados</string>
@@ -703,6 +707,7 @@
     <string name="change_your_pass">Cambia tu Contraseña</string>
     <string name="unlike_your_device">Desvincula tu Dispositivo</string>
     <string name="no_existen_resultados">No Existen Resultados</string>
+    <string name="title_activity_landing_approved">LandingApprovedActivity</string>
     <!--end Cupo Strings-->
 </resources>
 

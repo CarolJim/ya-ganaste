@@ -1,0 +1,82 @@
+<?xml version="1.0" encoding="utf-8"?>
+<android.support.v4.widget.SwipeRefreshLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/swiperefresh"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui._controllers.AccountActivity">
+
+    <RelativeLayout
+        android:id="@+id/activity_lets_start"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:focusable="true"
+        android:focusableInTouchMode="true">
+
+        <RelativeLayout
+            android:id="@+id/layoutImagenLogin"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/toolbarLy"
+            android:layout_marginTop="@dimen/activity_horizontal_margin"
+            android:padding="@dimen/generic_padig">
+
+            <ImageView
+                android:id="@+id/imgCompleted"
+                android:layout_width="140dp"
+                android:layout_height="140dp"
+                android:layout_centerHorizontal="true"
+                android:layout_centerVertical="true"
+                android:layout_gravity="center_horizontal"
+                android:layout_margin="15dp"
+                android:layout_marginTop="15dp"
+                app:srcCompat="@drawable/ic_done" />
+        </RelativeLayout>
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txtTitle"
+            style="@style/generic_text_style_1"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/layoutImagenLogin"
+            android:gravity="center"
+            android:text="@string/txt_felicidades"
+            app:tipo="Titulo" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txtSubtitle"
+            style="@style/textDescInputs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_below="@+id/txtTitle"
+            android:layout_marginBottom="@dimen/btn_margin_bottom"
+            android:gravity="center"
+            android:text="@string/adq_documents_approved" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txtMessage"
+            style="@style/textDescInputs"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_above="@+id/lnr_buttons"
+            android:layout_marginBottom="@dimen/btn_margin_bottom"
+            android:gravity="center"
+            android:text="@string/adq_notification_pending" />
+
+        <LinearLayout
+            android:id="@+id/lnr_buttons"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"
+            android:gravity="center">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnNextComplete" android:visibility="invisible"
+                style="@style/buttonDirecctionNext"
+                android:text="@string/next" />
+        </LinearLayout>
+    </RelativeLayout>
+</android.support.v4.widget.SwipeRefreshLayout>
+
