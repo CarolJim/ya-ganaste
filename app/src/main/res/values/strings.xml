@@ -242,7 +242,7 @@
     <string name="readcard">Leyendo Tarjeta</string>
     <string name="fecha_formater">%1$s/%2$s/%3$s</string>
     <string name="metodo_transaction">TransactionEmvDepositAccount</string>
-    <string name="rfc">RFC</string>
+    <string name="rfc">rfc</string>
     <string name="phone_number">Teléfono del Comercio</string>
     <string name="title_activity_depositos_maps">Depósitos</string>
     <string name="rfchomoclave">Homoclave</string>

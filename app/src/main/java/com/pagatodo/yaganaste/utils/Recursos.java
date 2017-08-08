@@ -18,7 +18,7 @@ public class Recursos {
     public static final String PUBLIC_KEY_RSA;
 
 
-    public static final String PIN_ADVO ;
+    public static final String PIN_ADVO;
     public static final String PIN_TRANS;
     public static final String PIN_YA;
 
@@ -152,6 +152,7 @@ public class Recursos {
     public static final int PREGUNTA_FAMILIAR = 4;
     public static final int PREGUNTA_DOMICILIO = 5;
     public static final int PREGUNTA_BENEFICIARIOS = 6;
+    public static final int PREGUNTA_ERES_MEXICANO_NATURALIZADO = 10;
 
 
     //Constantes

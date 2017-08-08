@@ -23,16 +23,19 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEntity;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
-import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.OnCountrySelectedListener;
 import com.pagatodo.yaganaste.interfaces.enums.Parentescos;
+import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
@@ -51,9 +54,14 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DOCUMENTS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
+import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_ERES_MEXICANO_NATURALIZADO;
+import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_FAMILIAR;
 
 /**
  * Created by Jordan on 03/08/2017.
@@ -61,7 +69,7 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TE
 
 public class InformacionAdicionalFragment extends GenericFragment implements View.OnClickListener,
         InformationAdicionalManager, IOnSpinnerClick, RadioGroup.OnCheckedChangeListener,
-        OnCountrySelectedListener, AdapterView.OnItemSelectedListener, INavigationView {
+        OnCountrySelectedListener, AdapterView.OnItemSelectedListener {
 
     @BindView(R.id.layoutEresMexa)
     LinearLayout layoutEresMexa;
@@ -177,7 +185,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnBack:
-                getActivity().onBackPressed();
+                backScreen(BussinesActivity.EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK, null);
                 break;
             case R.id.btnNext:
                 validateForm();
@@ -297,7 +305,37 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
     @Override
     public void onValidationSuccess() {
-        Toast.makeText(getContext(), "Validation OK", Toast.LENGTH_LONG).show();
+        RegisterAgent registerAgent = RegisterAgent.getInstance();
+
+        if (registerAgent.getCuestionario().size() > 0) {
+            for (CuestionarioEntity cuestionario : registerAgent.getCuestionario()) {
+                if (cuestionario.getPreguntaId() == PREGUNTA_FAMILIAR) {
+                    registerAgent.getCuestionario().remove(cuestionario);
+                } else if (cuestionario.getPreguntaId() == PREGUNTA_ERES_MEXICANO_NATURALIZADO) {
+                    registerAgent.getCuestionario().remove(cuestionario);
+                }
+            }
+        }
+
+        addNewCuestionarios(registerAgent);
+
+        infoAdicionalPresenter.createUsuarioAdquirente();
+    }
+
+    private void addNewCuestionarios(RegisterAgent registerAgent) {
+        if (hasFamiliaCargoPublico) {
+            registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_FAMILIAR, hasFamiliaCargoPublico, parentesco.getId(), cargo));
+        } else {
+            registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_FAMILIAR, hasFamiliaCargoPublico));
+        }
+
+        if (isExtranjero) {
+            if (isMexaNaturalizado) {
+                registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_ERES_MEXICANO_NATURALIZADO, isMexaNaturalizado));
+            } else {
+                registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_ERES_MEXICANO_NATURALIZADO, isMexaNaturalizado, paisNacimiento.getId()));
+            }
+        }
     }
 
     @Override
@@ -312,6 +350,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
     @Override
     public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
+        UI.hideKeyBoard(getActivity());
         switch (checkedId) {
             case R.id.radioBtnPublicServantNo:
                 onHasFamiliarNoCheck();
@@ -370,11 +409,12 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         cargo = "";
         editCargo.setText("");
         editCargo.imageViewIsGone(true);
+        editCargo.clearFocus();
 
         if (spinnerParentescoAdapter != null) {
             spParentesco.setSelection(0);
         }
-
+        spParentesco.clearFocus();
         parentesco = null;
     }
 
@@ -383,6 +423,17 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         CountriesDialogFragment dialogFragment = CountriesDialogFragment.newInstance(paises);
         dialogFragment.setOnCountrySelectedListener(this);
         dialogFragment.show(getChildFragmentManager(), "FragmentDialog");
+    }
+
+    @Override
+    public void onSuccessCreateAgente() {
+        App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
+        nextScreen(EVENT_GO_BUSSINES_DOCUMENTS, null);
+    }
+
+    @Override
+    public void onErrorCreateAgente(ErrorObject errorObject) {
+        showError(errorObject);
     }
 
     @Override
@@ -404,12 +455,12 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
     @Override
     public void nextScreen(String event, Object data) {
-
+        onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-
+        onEventListener.onEvent(event, data);
     }
 
     @Override
@@ -424,7 +475,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
     @Override
     public void showError(Object error) {
-
+        onEventListener.onEvent(EVENT_SHOW_ERROR, error);
     }
 
     private void setClickLegales() {

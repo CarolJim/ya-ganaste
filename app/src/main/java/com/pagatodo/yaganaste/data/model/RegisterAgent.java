@@ -5,6 +5,9 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEn
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_ERES_MEXICANO_NATURALIZADO;
+import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_FAMILIAR;
+
 /**
  * Created by flima on 27/03/2017.
  */
@@ -32,7 +35,7 @@ public class RegisterAgent {
     private String idEstado = "";
 
     private RegisterAgent() {
-        cuestionario = new ArrayList<CuestionarioEntity>();
+        cuestionario = new ArrayList<>();
     }
 
     public static synchronized RegisterAgent getInstance() {
@@ -68,6 +71,18 @@ public class RegisterAgent {
             registerUser.idEstado = "";
         }
 
+    }
+
+    public void resetAditionalInformation() {
+        if (this.cuestionario.size() > 0) {
+            for (CuestionarioEntity cuestionario : this.cuestionario) {
+                if (cuestionario.getPreguntaId() == PREGUNTA_FAMILIAR) {
+                    this.cuestionario.remove(cuestionario);
+                } else if (cuestionario.getPreguntaId() == PREGUNTA_ERES_MEXICANO_NATURALIZADO) {
+                    this.cuestionario.remove(cuestionario);
+                }
+            }
+        }
     }
 
     public int getTipoAgente() {

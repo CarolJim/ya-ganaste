@@ -69,7 +69,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     private View rootview;
     private String nombre = "";
     private String telefono = "";
-    private boolean respuestaFamiliares;
 
     private List<SubGiro> girosComercio;
 
@@ -233,16 +232,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                 editBussinesPhone.imageViewIsGone(true);
             }
         });
-
-        /*radioPublicServant.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
-            @Override
-            public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                hideValidationError(radioPublicServant.getId());
-                radioPublicServant.requestFocus();
-                editBussinesName.clearFocus();
-                editBussinesPhone.clearFocus();
-            }
-        });*/
     }
 
     @Override
@@ -275,11 +264,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             isValid = false;
         }
 
-        /*if (!radioBtnPublicServantYes.isChecked() && !radioBtnPublicServantNo.isChecked()) {
-            showValidationError(radioPublicServant.getId(), getString(R.string.datos_negocio_preguntas));
-            isValid = false;
-        }*/
-
         if (isValid) {
             onValidationSuccess();
         }
@@ -299,10 +283,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             case R.id.editBussinesPhone:
                 errorPhone.setMessageText(error.toString());
                 break;
-
-            /*case R.id.radioPublicServant:
-                errorPublicServant.setMessageText(error.toString());
-                break;*/
         }
 
         /*ErrorObject errorObject = new ErrorObject(error.toString(), null);
@@ -322,10 +302,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             case R.id.editBussinesPhone:
                 errorPhone.setVisibilityImageError(false);
                 break;
-
-            /*case R.id.radioPublicServant:
-                errorPublicServant.setVisibilityImageError(false);
-                break;*/
         }
     }
 
@@ -336,10 +312,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         registerAgent.setNombre(nombre);
         registerAgent.setTelefono(telefono);
         registerAgent.setGiro(giroArrayAdapter.getItem(spinnerBussineLine.getSelectedItemPosition()));
-        if (registerAgent.getCuestionario().size() > 0)
-            registerAgent.getCuestionario().get(0).setValor(respuestaFamiliares);
-        else
-            registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_FAMILIAR, respuestaFamiliares));
 
         onEventListener.onEvent(EVENT_SET_BUSINESS_LIST, girosComercio);
 
@@ -349,9 +321,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     @Override
     public void getDataForm() {
         nombre = editBussinesName.getText();
-
         telefono = editBussinesPhone.getText();
-        //respuestaFamiliares = radioBtnPublicServantYes.isChecked();
     }
 
     private void setCurrentData() {
@@ -365,15 +335,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         editBussinesName.setText(registerAgent.getNombre());
         editBussinesPhone.setText(registerAgent.getTelefono());
         spinnerBussineLine.setSelection(giroArrayAdapter.getItemPosition(registerAgent.getGiro()));
-
-        if (!registerAgent.getCuestionario().isEmpty()) {
-            for (CuestionarioEntity q : registerAgent.getCuestionario()) {
-                /*if (q.getPreguntaId() == PREGUNTA_FAMILIAR) {
-                    radioBtnPublicServantYes.setChecked(q.isValor());
-                    radioBtnPublicServantNo.setChecked(!q.isValor());
-                }*/
-            }
-        }
 
     }
 
@@ -418,7 +379,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     @Override
     public void onSpinnerClick() {
         hideValidationError(spinnerBussineLine.getId());
-        //radioPublicServant.clearFocus();
         editBussinesName.clearFocus();
         editBussinesPhone.clearFocus();
         spinnerBussineLine.requestFocus();

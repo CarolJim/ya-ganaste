@@ -273,6 +273,28 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             }
         });
 
+        editIntNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    editIntNumber.imageViewIsGone(true);
+                } else {
+                    if (editIntNumber.getText().isEmpty()) {
+                        editIntNumber.imageViewIsGone(true);
+                    } else {
+                        editIntNumber.setIsValid();
+                    }
+                }
+            }
+        });
+
+        editIntNumber.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                editIntNumber.imageViewIsGone(true);
+            }
+        });
+
         editZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {

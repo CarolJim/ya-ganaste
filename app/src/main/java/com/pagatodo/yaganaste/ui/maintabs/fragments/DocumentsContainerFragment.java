@@ -9,7 +9,7 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui.adquirente.Documentos;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 
 /**
  * @author Juan Guerra on 07/08/2017.
@@ -39,13 +39,13 @@ public class DocumentsContainerFragment extends SupportFragment {
 
     @Override
     public void initViews() {
-        loadFragment(Documentos.newInstance());
+        loadFragment(DocumentosFragment.newInstance());
     }
 
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        if (requestCode == Documentos.REQUEST_TAKE_PHOTO || requestCode == Documentos.SELECT_FILE_PHOTO) {
+        if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO) {
             getCurrentFragment().onActivityResult(requestCode, resultCode, data);
         }
     }

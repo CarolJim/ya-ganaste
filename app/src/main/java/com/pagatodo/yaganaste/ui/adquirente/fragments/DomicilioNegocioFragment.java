@@ -11,7 +11,6 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
@@ -38,14 +37,12 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADITIONAL_INFORMATION;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DATA_BACK;
-import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DOCUMENTS;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_ADDRESS;
-import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_COLONIES_LIST;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_DOMICILIO;
 
 /**
@@ -156,8 +153,9 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         btnNextBussinesAddress.setOnClickListener(this);
         btnBackBussinesAddress.setOnClickListener(this);
         editBussinesState.setTextEnabled(false);
-        setCurrentData();
+
         radioIsBussinesAddress.setOnCheckedChangeListener(this);
+
         spBussinesColonia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -170,6 +168,8 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             }
         });
         setValidationRules();
+
+        setCurrentData();
     }
 
     @Override
@@ -355,21 +355,20 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
 
 
     private void setCurrentData() {
-        errorStreet.setVisibilityImageError(false);
+        /*errorStreet.setVisibilityImageError(false);
         errorNumberAddress.setVisibilityImageError(false);
         errorZipCode.setVisibilityImageError(false);
-        errorColonia.setVisibilityImageError(false);
+        errorColonia.setVisibilityImageError(false);*/
 
         clearAllFocus();
 
         RegisterAgent registerAgente = RegisterAgent.getInstance();
+
+
         if (!registerAgente.getCodigoPostal().isEmpty()) {
-            List<CuestionarioEntity> cuestionario = registerAgente.getCuestionario();
-            for (CuestionarioEntity q : cuestionario) {
+            for (CuestionarioEntity q : registerAgente.getCuestionario()) {
                 if (q.getPreguntaId() == PREGUNTA_DOMICILIO) {
-                    if (q.isValor()) {
-                        radioIsBussinesAddress.check(q.isValor() ? R.id.radioBtnIsBussinesAddressYes : R.id.radioBtnIsBussinesAddressNo);
-                    }
+                    radioIsBussinesAddress.check(q.isValor() ? R.id.radioBtnIsBussinesAddressYes : R.id.radioBtnIsBussinesAddressNo);
                 }
             }
         }
@@ -381,7 +380,6 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             editBussinesExtNumber.setText(registerAgente.getNumExterior());
             editBussinesIntNumber.setText(registerAgente.getNumInterior());
             colonyToLoad = registerAgente.getColonia();
-
             editBussinesZipCode.setText(registerAgente.getCodigoPostal());
 
             if (listaColonias == null) {
@@ -391,7 +389,6 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             }
         }
     }
-
 
     @Override
     public void showValidationError(int id, Object error) {
@@ -444,13 +441,17 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         registerAgent.setIdColonia(Idcolonia);
         editBussinesZipCode.removeCustomTextWatcher(textWatcherZipCode);
         respuestaDomicilio = radioIsBussinesAddress.getCheckedRadioButtonId() == R.id.radioBtnIsBussinesAddressYes;
-        registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_DOMICILIO, respuestaDomicilio));
-        if (!registerAgent.getCuestionario().isEmpty())
-            registerAgent.getCuestionario().get(1).setValor(respuestaDomicilio);
-        else
-            registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_DOMICILIO, respuestaDomicilio));
 
-        adqPresenter.createAdq();
+        if (registerAgent.getCuestionario().size() > 0) {
+            for (CuestionarioEntity cuestionario : registerAgent.getCuestionario()) {
+                if (cuestionario.getPreguntaId() == PREGUNTA_DOMICILIO) {
+                    registerAgent.getCuestionario().remove(cuestionario);
+                }
+            }
+        }
+        registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_DOMICILIO, respuestaDomicilio));
+
+        nextScreen(EVENT_GO_BUSSINES_ADITIONAL_INFORMATION, null);
     }
 
     @Override
@@ -459,7 +460,8 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         numExt = editBussinesExtNumber.getText();
         numInt = editBussinesIntNumber.getText();
         codigoPostal = editBussinesZipCode.getText();
-        estado = editBussinesZipCode.getText();
+        estado =  estadoDomicilio;//editBussinesZipCode.getText();
+
         Idcolonia = "-1";
         if (spBussinesColonia.getSelectedItem() != null) {
             colonia = spBussinesColonia.getSelectedItem().toString();
@@ -516,9 +518,9 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
 
     @Override
     public void agentCreated(String message) {
-        App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
+        /*App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
         onEventListener.onEvent(EVENT_SET_COLONIES_LIST, listaColonias);
-        nextScreen(EVENT_GO_BUSSINES_DOCUMENTS, null);
+        nextScreen(EVENT_GO_BUSSINES_DOCUMENTS, null);*/
     }
 
     @Override

@@ -44,6 +44,8 @@ public class BussinesActivity extends LoaderActivity {
     public final static String EVENT_SET_ADDRESS = "EVENT_SET_ADDRESS";
     public final static String EVENT_SET_BUSINESS_LIST = "EVENT_SET_BUSINESS_LIST";
     public final static String EVENT_SET_COLONIES_LIST = "EVENT_SET_COLONIES_LIST";
+    public final static String EVENT_GO_BUSSINES_ADITIONAL_INFORMATION = "EVENT_GO_BUSSINES_INFORMACION_ADICIONAL";
+    public final static String EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK = "EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK";
     private Preferencias pref;
     private AccountPresenterNew presenterAccount;
     private DatosNegocioFragment datosNegocioFragmentFragment;
@@ -67,11 +69,14 @@ public class BussinesActivity extends LoaderActivity {
         setContentView(R.layout.activity_fragment_conainer);
         presenterAccount = new AccountPresenterNew(this);
 
+        setUpActionBar();
+        setVisibilityPrefer(false);
+
         if (App.getInstance().getPrefs().containsData(ADQ_PROCESS)) {
             loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD);
         } else {
-            //loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
-            loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, true);
+            loadFragment(DatosNegocioFragment.newInstance(girosComercio), Direction.FORDWARD, true);
+            //loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, true);
         }
 
         pref = App.getInstance().getPrefs();
@@ -101,6 +106,13 @@ public class BussinesActivity extends LoaderActivity {
                 break;
             case EVENT_GO_BUSSINES_DOCUMENTS:
                 loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+            case EVENT_GO_BUSSINES_ADITIONAL_INFORMATION:
+                loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+            case EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK:
+                RegisterAgent.getInstance().resetAditionalInformation();
+                loadFragment(DomicilioNegocioFragment.newInstance(domicilio, listaColonias), Direction.BACK, false);
                 break;
             case EVENT_GO_BUSSINES_COMPLETE:
                 loadFragment(RegisterCompleteFragment.newInstance(ADQ_REVISION), Direction.FORDWARD, false);
@@ -175,6 +187,12 @@ public class BussinesActivity extends LoaderActivity {
 
     private void resetRegisterData() {
         RegisterAgent.resetRegisterAgent();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setVisibilityPrefer(false);
     }
 }
 
