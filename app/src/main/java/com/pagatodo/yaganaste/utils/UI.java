@@ -204,4 +204,29 @@ public class UI {
         customErrorDialog.setCancelable(false);
         customErrorDialog.show(fragmentManager, CustomErrorDialog.class.getSimpleName());
     }
+
+    public static void createSimpleCustomDialogError(String title, String message,
+                                                     FragmentManager fragmentManager, final DialogDoubleActions actions,
+                                                     boolean hasConfirmBtn, boolean hasCancelBtn) {
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_document_error_message, title, message, hasConfirmBtn, hasCancelBtn);
+        customErrorDialog.setDialogActions(new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                customErrorDialog.dismiss();
+                if (actions != null) {
+                    actions.actionConfirm(params);
+                }
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+                customErrorDialog.dismiss();
+                if (actions != null) {
+                    actions.actionCancel(params);
+                }
+            }
+        });
+        customErrorDialog.setCancelable(false);
+        customErrorDialog.show(fragmentManager, CustomErrorDialog.class.getSimpleName());
+    }
 }

@@ -371,6 +371,7 @@
 
     <!-- Proceso de enviar documentos -->
     <string name="adq_must_upload_documents">Debes de Subir Todos Los Documentos.</string>
+    <string name="adq_upload_again">Subir de Nuevo</string>
     <string name="adq_upload_documents">Enviando Solicitud</string>
     <string name="adq_upgrade_documents">Actualizando Documentos</string>
     <string name="adq_error_open_image">La Aplicación no Pudo Acceder a su Imagen Intente Con Otra Galería</string>
