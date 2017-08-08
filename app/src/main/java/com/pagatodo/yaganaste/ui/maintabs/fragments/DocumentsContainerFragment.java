@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.ui.adquirente.DocumentApprovedFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 
 /**
@@ -48,5 +49,9 @@ public class DocumentsContainerFragment extends SupportFragment {
         if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO) {
             getCurrentFragment().onActivityResult(requestCode, resultCode, data);
         }
+    }
+
+    public void loadApprovedFragment() {
+        loadFragment(DocumentApprovedFragment.newInstance());
     }
 }

@@ -63,6 +63,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 
 
@@ -102,6 +103,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     //ProgressLayout progressLayout;
     private int documentProcessed = 0;
     private int documentPendientes = 0;
+    private int documentApproved = 0;
     private BitmapLoader bitmapLoader;
 
     private String imgs[] = new String[4];
@@ -503,12 +505,19 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         adqPresenter.setEstatusDocs(rootview, data);
         // Contamos los documentos pendientes
         documentPendientes = 0;
+        documentApproved = 0;
         for (EstatusDocumentosResponse docs : data) {
             if (docs.getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
                 documentPendientes++;
+            } else if (docs.getIdEstatus() == STATUS_DOCTO_PENDIENTE) {
+                // Cambiar a STATUS_DOCTO_APROBADO cuando podamos probar esta camino de funcionalidad
+                documentApproved++;
             }
         }
 
+        if (documentApproved == 4) {
+            onEventListener.onEvent("EVENT_DOCUMENT_APPROVED", null);
+        }
         // Coigo SOLO para probar la carga correcta de estado al cargar imagen
         //itemWeNeedSmFilesIFEfront.setStatusImage(getResources().getDrawable(R.drawable.upload_canvas_blue));
     }

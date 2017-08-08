@@ -33,6 +33,7 @@ import com.pagatodo.yaganaste.interfaces.RecoveryPasswordView;
 import com.pagatodo.yaganaste.interfaces.View;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.ui.adquirente.interfases.IDocumentApproved;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
@@ -136,7 +137,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void updateUserInfo() {
         //accountView.showLoader(context.getString(R.string.msg_register));
-        accountView.showLoader(context.getString(R.string.verificando_sms_espera));
+        if(accountView instanceof IDocumentApproved){
+            accountView.showLoader("Verificando Estado");
+        }else{
+            accountView.showLoader(context.getString(R.string.verificando_sms_espera));
+        }
+
         accountIteractor.updateSessionData();
     }
 
@@ -259,6 +265,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
         } else if (!(accountView instanceof IBalanceView)) {
             accountView.showError(error);
+        } else if (accountView instanceof IDocumentApproved){
+            accountView.showError(error);
         }
 
         if (accountView instanceof IMyPassValidation) {
@@ -358,6 +366,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             }
         } else if (ws == CERRAR_SESION) {
             Log.i(TAG, context.getString(R.string.sesion_close));
+        } else if (accountView instanceof IDocumentApproved){
+            ((IDocumentApproved) accountView).dataUpdated(data.toString());
         }
 
         if (accountView instanceof IMyPassValidation) {
