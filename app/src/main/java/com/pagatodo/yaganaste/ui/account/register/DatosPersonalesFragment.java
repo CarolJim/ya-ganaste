@@ -70,6 +70,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     ArrayList paisesno = new ArrayList();
     private final int MX = 1;
     int u=0;
+    Boolean seencuentra=false;
     private final int EXTRANJERO = 2;
     @BindView(R.id.radioGender)
     RadioGroup radioGroupGender;
@@ -265,7 +266,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         }
     }
 public void buscapais(String pais){
-    boolean esta=true;
+    seencuentra=false;
     ArrayList a = new ArrayList();
     a.add("AF");
     a.add("ET");
@@ -284,7 +285,7 @@ public void buscapais(String pais){
             u=100;
             String titulo=getString(R.string.titulo_extranjero);
             //////////////////////////
-            esta=false;
+            seencuentra=true;
             UI.createCustomDialogextranjero(titulo, text, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                 @Override
                 public void actionConfirm(Object... params) {
@@ -293,16 +294,13 @@ public void buscapais(String pais){
                 }
                 @Override
                 public void actionCancel(Object... params) {
-
-
-
+                    llamar();
                 }
-            }, "Llamar", "Cancelar");
+            }, " ", "Llamar");
 
+        }if (seencuentra==false && i==a.size()-1) {
+            validateForm();
         }
-    }
-    if(esta==true) {
-        validateForm();
     }
 
 }

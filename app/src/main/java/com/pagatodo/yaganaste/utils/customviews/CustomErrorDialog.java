@@ -39,6 +39,7 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
     private String titleBtnCancel = "";
     private DialogDoubleActions dialogActions;
 
+
     private boolean showConfirmButton = true;
     private boolean showCancelButton = true;
 

@@ -5,6 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:minWidth="270dp"
+
     android:orientation="vertical"
     tools:ignore="MissingPrefix">
 
@@ -71,17 +72,14 @@
             android:orientation="horizontal"
             android:weightSum="2.3">
 
-            <android.support.v4.widget.Space
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="0.1" />
+
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnCancelDialog"
+                android:id="@+id/btnCancelDialogh"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
-                android:layout_height="@dimen/dimen_margin_pinpad"
-                android:layout_weight="1"
+                android:layout_height="30dp"
+                android:visibility="invisible"
                 android:background="@drawable/button_rounded_blue"
                 android:gravity="center"
                 android:text="@string/title_aceptar"
@@ -101,10 +99,10 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dimen_margin_pinpad"
-                android:layout_weight="1"
-                android:background="@drawable/button_rounded_blue"
+                android:layout_weight="0.25"
+                android:background="@drawable/ic_phone_white_24dp"
                 android:gravity="center"
-                android:text="@string/title_aceptar"
+
                 android:textAllCaps="false"
                 android:textColor="@color/whiteColor"
                 android:textSize="@dimen/size_text_style_2_value"
@@ -120,4 +118,17 @@
 
     </LinearLayout>
 
+    <com.pagatodo.yaganaste.utils.customviews.StyleButton
+        android:id="@+id/btnCancelDialog"
+        style="?android:attr/borderlessButtonStyle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="visible"
+        android:gravity="center"
+        android:text="@string/title_llamar"
+        android:textAllCaps="false"
+        android:textColor="@color/colorAccent"
+        android:textSize="@dimen/size_text_style_2_value"
+        app:cornerRadius="@dimen/btn_corner_radius"
+        app:intercepterOnclick="true" />
 </LinearLayout>
