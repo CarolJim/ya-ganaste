@@ -90,7 +90,9 @@ public enum WebService {
     /**
      * Servicios CUPO
      * */
-    CONSULTA_STATUS_REGISTRO_CUPO
+    CONSULTA_STATUS_REGISTRO_CUPO,
+    CREA_SOLICITUD_CUPO
+
 
 
 }

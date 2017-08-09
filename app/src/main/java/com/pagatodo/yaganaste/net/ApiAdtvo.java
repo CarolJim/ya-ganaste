@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarDatosPe
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActivacionAprovSofttokenRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.cupo.CrearCupoSolicitudRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActivacionServicioMovilResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
@@ -59,6 +60,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatu
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.CrearCupoSolicitud;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 
@@ -80,6 +82,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_FWS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_FWS_LOGIN;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREA_SOLICITUD_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.DESASOCIAR_DISPOSITIVO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ELIMINAR_AVATAR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_TAEPDS;
@@ -659,4 +662,22 @@ public class ApiAdtvo extends Api {
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.changePasswordUrl),
                 headers, request, true, CambiarEmailResponse.class, result);
     }
+
+
+    public static void CrearSolicitudCupo(CrearCupoSolicitudRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put("Content-Type", "application/json");
+        NetFacade.consumeWS(CREA_SOLICITUD_CUPO,
+                METHOD_POST,
+                URL_SERVER_ADTVO + App.getContext().getString(R.string.cupoCrearSolicitudCupo),
+                headers,
+                request,
+                CrearCupoSolicitud.class,
+                result
+        );
+
+    }
+
+
 }

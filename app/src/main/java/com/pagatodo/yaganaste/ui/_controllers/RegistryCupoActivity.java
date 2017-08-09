@@ -96,7 +96,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 break;
             case EVENT_GO_CUPO_CUENTAME_MAS:
                 loadFragment(CupoCuentanosMasFragment.newInstance(), Direction.FORDWARD, true);
-                //loadFragment(CupoReferenciaPersonalFragment.newInstance(), Direction.FORDWARD, true);
+                //loadFragment(CupoComprobantesFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_REFERENCIA_FAMILIAR:
                 loadFragment(CupoReferenciaFamiliarFragment.newInstance(), Direction.FORDWARD, true);

@@ -23,10 +23,13 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.cupo.managers.CupoActivityManager;
@@ -74,6 +77,8 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     LinearLayout layoutHelp;
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
+
+    private Boolean mExisteDocs = false;
 
     private ArrayList<DataDocuments> dataDocuments;
 
@@ -160,10 +165,12 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
             case R.id.btnRegresar:
                 cupoActivityManager.onBtnBackPress();
                 break;
+            /*
             case R.id.btnWeNeedSmFilesNext:
                 cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPLETE, null);
                 //getActivity().finish();
                 break;
+            */
 
             case R.id.itemWeNeedSmFilesAddressFront:
                 selectImageSource(COMPROBANTE_FRONT);
@@ -172,6 +179,15 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
             case R.id.itemWeNeedSmFilesAddressBack:
                 selectImageSource(COMPROBANTE_BACK);
                 break;
+
+            case R.id.btnWeNeedSmFilesNext:
+                if (mExisteDocs) {
+                    //sendDocumentsPending();
+                } else {
+                    sendDocuments();
+                }
+                break;
+
         }
     }
 
@@ -389,6 +405,18 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     }
 
     /**
+     * Enviamos los documentos cuando se esta registrando el adquirente
+     */
+    private void sendDocuments() {
+        for (String s : imgs)
+            if (s == null || s.isEmpty()) {
+                showError(App.getContext().getResources().getString(R.string.adq_must_upload_documents));
+                return;
+            }
+        presenter.sendDocumentos(dataDocuments);
+    }
+
+    /**
      * Validamos que no se repitan las fotos obtenidas de la galeria
      *
      * @param list
@@ -431,7 +459,18 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
 
     @Override
     public void showError(Object error) {
+        final String message = error instanceof ErrorObject ? ((ErrorObject) error).getErrorMessage() : error.toString();
+        UI.createSimpleCustomDialog("", message, getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                // Toast.makeText(getContext(), "Click CERRAR SESSION", Toast.LENGTH_SHORT).show();
+            }
 
+            @Override
+            public void actionCancel(Object... params) {
+
+            }
+        }, true, false);
     }
 
     @Override

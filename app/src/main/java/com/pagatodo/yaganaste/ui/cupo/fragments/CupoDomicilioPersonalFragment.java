@@ -440,6 +440,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         registerCupo.setEstadoDomicilio(estado);
         registerCupo.setColonia(colonia);
         registerCupo.setIdColonia(Idcolonia);
+        registerCupo.setIdEstadoNacimineto(idEstado);
         editBussinesZipCode.removeCustomTextWatcher(textWatcherZipCode);
 
         Log.e("Calle",        registerCupo.getCalle() );
@@ -449,7 +450,8 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         Log.e("Estado", "" + registerCupo.getEstadoDomicilio());
         Log.e("Colonia",""+ registerCupo.getColonia());
         Log.e("Id Colonia",""+ registerCupo.getIdColonia());
-        cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
+        //cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
+        presenter.createCupoSolicitud();
 
 
     }
@@ -470,6 +472,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
                 }
             }
         }
+
     }
 
 

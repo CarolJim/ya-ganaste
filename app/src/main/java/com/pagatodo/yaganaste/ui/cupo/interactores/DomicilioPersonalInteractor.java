@@ -1,13 +1,21 @@
 package com.pagatodo.yaganaste.ui.cupo.interactores;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CargaDocumentosRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.cupo.CrearCupoSolicitudRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.cupo.CupoReferencia;
+import com.pagatodo.yaganaste.data.model.webservice.request.cupo.Domicilio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CargaDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
@@ -21,7 +29,11 @@ import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.cupo.interactores.interfaces.IDomicilioPersonalInteractor;
+import com.pagatodo.yaganaste.utils.JsonManager;
 
+import org.json.JSONObject;
+
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
@@ -33,7 +45,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 
 /**
- * Created by Tato on 03/08/17.
+ * Created by Horacio on 03/08/17.
  */
 
 public class DomicilioPersonalInteractor implements IDomicilioPersonalInteractor, IRequestResult {
@@ -79,6 +91,104 @@ public class DomicilioPersonalInteractor implements IDomicilioPersonalInteractor
         } catch (OfflineException e) {
             accountManager.onError(OBTENER_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
         }
+    }
+
+    /***
+     * Envio de documentos
+     * @param docs
+     */
+    @Override
+    public void sendDocuments(ArrayList<DataDocuments> docs) {
+        try {
+            CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
+            cargaDocumentosRequest.setDocumentos(docs);
+            ApiAdtvo.cargaDocumentos(cargaDocumentosRequest, this);
+        } catch (OfflineException e) {
+            accountManager.onError(CARGA_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
+        }
+
+    }
+
+    @Override
+    public void createSolicitudCupo() {
+
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+
+        CrearCupoSolicitudRequest request = new CrearCupoSolicitudRequest();
+        request.setIdEstadoCivil(registerCupo.getIdEstadoCivil());
+        request.setNumeroHijos(registerCupo.getHijos());
+        request.setTieneCreditoBancario(registerCupo.getCreditoBancario());
+        request.setTieneCreditoAuto(registerCupo.getCreditoAutomotriz());
+        request.setTieneTarjetaCredito(registerCupo.getTarjetaCreditoBancario());
+
+        List<CupoReferencia> referencias = new ArrayList<>();
+
+        CupoReferencia referenciaFamiliar  = new CupoReferencia();
+        referenciaFamiliar.setTipoReferencia(1);
+        referenciaFamiliar.setNombre(registerCupo.getFamiliarNombre());
+        referenciaFamiliar.setPrimerApellido(registerCupo.getFamiliarApellidoPaterno());
+        referenciaFamiliar.setSegundoApellido(registerCupo.getFamiliarApellidoMaterno());
+        referenciaFamiliar.setTelefono(registerCupo.getFamiliarTelefono());
+        referenciaFamiliar.setIdRelacion(registerCupo.getFamiliarIdRelacion());
+
+        CupoReferencia referenciaPersonal  = new CupoReferencia();
+        referenciaPersonal.setTipoReferencia(2);
+        referenciaPersonal.setNombre(registerCupo.getPersonalNombre());
+        referenciaPersonal.setPrimerApellido(registerCupo.getPersonalApellidoPaterno());
+        referenciaPersonal.setSegundoApellido(registerCupo.getPersonalApellidoMaterno());
+        referenciaPersonal.setTelefono(registerCupo.getPersonalTelefono());
+        referenciaPersonal.setIdRelacion(registerCupo.getPersonalIdRelacion());
+
+        CupoReferencia referenciaProveedor = new CupoReferencia();
+        referenciaProveedor.setTipoReferencia(3);
+        referenciaProveedor.setNombre(registerCupo.getProveedorNombre());
+        referenciaProveedor.setPrimerApellido(registerCupo.getProveedorApellidoPaterno());
+        referenciaProveedor.setSegundoApellido(registerCupo.getProveedorApellidoMaterno());
+        referenciaProveedor.setTelefono(registerCupo.getProveedorTelefono());
+        referenciaProveedor.setProductoServicioProveedor(registerCupo.getProveedorProductoServicio());
+        referenciaProveedor.setIdRelacion(30);
+
+        referencias.add(referenciaFamiliar);
+        referencias.add(referenciaPersonal);
+        referencias.add(referenciaProveedor);
+
+        request.setReferencias(referencias);
+
+        Domicilio domicilioPersonal = new Domicilio();
+
+        domicilioPersonal.setCalle(registerCupo.getCalle());
+        domicilioPersonal.setNumeroExterior(registerCupo.getNumExterior());
+        domicilioPersonal.setNumeroInterior(registerCupo.getNumInterior());
+        domicilioPersonal.setCP(registerCupo.getCodigoPostal());
+        domicilioPersonal.setIdEstado(registerCupo.getIdEstadoNacimineto());
+        domicilioPersonal.setIdColonia(registerCupo.getIdColonia());
+
+        List<Domicilio> domicilios = new ArrayList<>();
+        domicilios.add(domicilioPersonal);
+
+        request.setDomicilioPersonal(domicilios);
+
+        Log.e("Cupo JSON",   createParams(false, request ).toString()  );
+
+    }
+
+
+
+    private static JSONObject createParams(boolean envolve, Object oRequest) {
+
+        if (oRequest != null) {
+            JSONObject tmp = JsonManager.madeJsonFromObject(oRequest);
+            if (envolve) {
+                if (oRequest instanceof AdqRequest) {
+                    return JsonManager.madeJsonAdquirente(tmp);
+                } else {
+                    return JsonManager.madeJson(tmp);
+                }
+            } else {
+                return tmp;
+            }
+        }
+        return null;
     }
 
     @Override
@@ -180,6 +290,10 @@ public class DomicilioPersonalInteractor implements IDomicilioPersonalInteractor
         }
 
     }
+
+
+
+
 
 
 }

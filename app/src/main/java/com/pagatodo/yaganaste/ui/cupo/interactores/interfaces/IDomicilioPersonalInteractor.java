@@ -1,5 +1,9 @@
 package com.pagatodo.yaganaste.ui.cupo.interactores.interfaces;
 
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
+
+import java.util.ArrayList;
+
 /**
  * Created by Tato on 03/08/17.
  */
@@ -10,8 +14,12 @@ public interface IDomicilioPersonalInteractor {
 
     void getClientAddress();
 
-
     void getEstatusDocs();
+
+    void sendDocuments(ArrayList<DataDocuments> string);
+
+    void createSolicitudCupo();
+
 
 
 

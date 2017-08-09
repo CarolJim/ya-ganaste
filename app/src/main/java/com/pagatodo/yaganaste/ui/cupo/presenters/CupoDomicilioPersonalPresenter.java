@@ -7,6 +7,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
@@ -26,6 +27,7 @@ import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.UI;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
@@ -98,6 +100,18 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
         // interferir con otros servicios
         // NO MOVER :)
         iteractor.getEstatusDocs();
+    }
+
+    @Override
+    public void sendDocumentos(ArrayList<DataDocuments> data) {
+        iNavigationView.showLoader(App.getContext().getResources().getString(R.string.adq_upload_documents));
+        iteractor.sendDocuments(data);
+    }
+
+    @Override
+    public void createCupoSolicitud() {
+        iNavigationView.showLoader(context.getString(R.string.solicitud_cupo));
+        iteractor.createSolicitudCupo();
     }
 
     @Override
