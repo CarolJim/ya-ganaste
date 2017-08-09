@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.cupo.fragments;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.RadioGroup;
 import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.interfaces.enums.CupoSpinnerTypes;
 import com.pagatodo.yaganaste.interfaces.enums.EstadoCivil;
 import com.pagatodo.yaganaste.interfaces.enums.Hijos;
@@ -47,7 +49,9 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
     private CupoSpinnerArrayAdapter hijosAdapter;
 
     private String numeroHijos;
+    private int    idNumeroHijos;
     private String estadoCivil;
+    private int    idEstadoCivil;
     private String hasCreditBank;
     private String hasCarCredit;
     private String hasTarjetaCredit;
@@ -151,8 +155,8 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
                 cupoActivityManager.onBtnBackPress();
                 break;
             case R.id.btnNext:
-                //validateForm();
-                cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_FAMILIAR, null);
+                validateForm();
+                //cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_FAMILIAR, null);
                 break;
         }
     }
@@ -263,6 +267,10 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
             isValid = false;
         }
 
+        if (isValid) {
+            onValidationSuccess();
+        }
+
     }
 
     @Override
@@ -313,26 +321,59 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
     @Override
     public void onValidationSuccess() {
 
+        /*Guardamos datos en Singleton de registro.*/
+        errorEstadoCivil.setVisibilityImageError(false);
+        errorHijos.setVisibilityImageError(false);
+        errorCreditoBancario.setVisibilityImageError(false);
+        errorCreditoAutomotriz.setVisibilityImageError(false);
+        errorTarjetaCredito.setVisibilityImageError(false);
+
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+        registerCupo.setEstadoCivil(estadoCivil);
+        registerCupo.setIdEstadoCivil(idEstadoCivil);
+        registerCupo.setHijos(numeroHijos);
+        registerCupo.setIdHijos(idNumeroHijos);
+        registerCupo.setCreditoBancario(Boolean.valueOf(hasCreditBank));
+        registerCupo.setCreditoAutomotriz(Boolean.valueOf(hasCarCredit));
+        registerCupo.setTarjetaCreditoBancario(Boolean.valueOf(hasTarjetaCredit));
+
+
+        Log.e("Estado Civil", registerCupo.getEstadoCivil() );
+        Log.e("Id Estado Civil", "" + registerCupo.getIdEstadoCivil());
+        Log.e("Hijos", "" + registerCupo.getHijos());
+        Log.e("Id Hijos", "" + registerCupo.getIdHijos());
+        Log.e("Credito Bancario", "" + registerCupo.getCreditoBancario());
+        Log.e("Credito Automotriz", "" + registerCupo.getCreditoAutomotriz());
+        Log.e("Tarjeta Credito", "" + registerCupo.getTarjetaCreditoBancario());
+        cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_FAMILIAR, null);
+
     }
 
     @Override
     public void getDataForm() {
 
-        hasCreditBank = radioBtnrgHasCreditBankYes.isChecked() ? "true" : radioBtnrgHasCreditBankNo.isChecked() ? "false" : "";
-        hasCarCredit =  radioBtnrgHasCreditCarYes.isChecked()  ? "true" :  radioBtnrgHasCreditCarNo.isChecked() ? "false" : "";
-        hasTarjetaCredit =  radioBtnrgHasCreditCardYes.isChecked()  ? "true" :  radioBtnrgHasCreditCardNo.isChecked() ? "false" : "";
+        hasCreditBank = radioBtnrgHasCreditBankYes.isChecked() ? "false" : radioBtnrgHasCreditBankNo.isChecked() ? "true" : "";
+        hasCarCredit =  radioBtnrgHasCreditCarYes.isChecked()  ? "false" :  radioBtnrgHasCreditCarNo.isChecked() ? "true" : "";
+        hasTarjetaCredit =  radioBtnrgHasCreditCardYes.isChecked()  ? "false" :  radioBtnrgHasCreditCardNo.isChecked() ? "true" : "";
+
+        Log.e("Test", hasCreditBank);
 
         if (spEstadoCivil.getSelectedItemPosition() != 0) {
             estadoCivil = spEstadoCivil.getSelectedItem().toString();
+            idEstadoCivil = spEstadoCivil.getSelectedItemPosition();
         } else {
             estadoCivil = "";
+            idEstadoCivil = 0;
         }
 
         if (spHijos.getSelectedItemPosition() != 0) {
             numeroHijos = spHijos.getSelectedItem().toString();
+            idNumeroHijos = spHijos.getSelectedItemPosition();
         } else {
             numeroHijos = "";
+            idNumeroHijos = 0;
         }
+
 
     }
 }

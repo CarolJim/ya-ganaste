@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.CupoSpinnerTypes;
 import com.pagatodo.yaganaste.interfaces.enums.Relaciones;
@@ -81,7 +83,7 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
     private String telefono;
 
     private String relacion = "";
-    private String idRelacion = "";
+    private int    idRelacion = 0;
 
     // Errores Views
     @BindView(R.id.errorNameReferenciaCupo)
@@ -156,16 +158,27 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnBack:
+                removeData();
                 cupoActivityManager.onBtnBackPress();
                 break;
             case R.id.btnNext:
-                cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PROVEEDOR, null);
-                //validateForm();
+                //cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PROVEEDOR, null);
+                validateForm();
                 break;
             case R.id.imgContact:
                 obtenerNumeroPersonal();
                 break;
         }
+    }
+
+    private void removeData () {
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+        registerCupo.setPersonalNombre("");
+        registerCupo.setPersonalApellidoPaterno("");
+        registerCupo.setPersonalApellidoMaterno("");
+        registerCupo.setPersonalTelefono("");
+        registerCupo.setPersonalRelacion("");
+        registerCupo.setPersonalIdRelacion(0);
     }
 
     @Override
@@ -269,8 +282,6 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
     }
 
     private void hideErrorMessage(int id) {
-        //errorMessageView.setVisibilityImageError(false);
-
         switch (id) {
             case R.id.editNameReferenciaCupo:
                 errorNameReferenciaCupo.setVisibilityImageError(false);
@@ -327,7 +338,29 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
             isValid = false;
         }
 
+        if (isValid) {
+            onValidationSuccess();
+        }
 
+
+    }
+
+
+    @Override
+    public void onResume() {
+        String a = RegisterCupo.getInstance().getPersonalNombre();
+        if (!a.equals("")) {
+            cargarDatos();
+        }
+        super.onResume();
+    }
+
+    private void cargarDatos() {
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+        editNameReferenciaCupo.setText(registerCupo.getPersonalNombre());
+        editFirstLastNameReferencuaCupo.setText(registerCupo.getPersonalApellidoPaterno());
+        editSecoundLastNameReferenciaCupo.setText(registerCupo.getPersonalApellidoMaterno());
+        editPhoneReferenciaCupo.setText(registerCupo.getPersonalTelefono());
     }
 
     @Override
@@ -354,6 +387,29 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
     @Override
     public void onValidationSuccess() {
 
+        /*Guardamos datos en Singleton de registro.*/
+        errorNameReferenciaCupo.setVisibilityImageError(false);
+        errorFirstLastNameReferencuaCupo.setVisibilityImageError(false);
+        errorSecoundLastNameReferenciaCupo.setVisibilityImageError(false);
+        errorRelationshipCupo.setVisibilityImageError(false);
+        errorPhoneReferenciaCupo.setVisibilityImageError(false);
+
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+        registerCupo.setPersonalNombre(nombre);
+        registerCupo.setPersonalApellidoPaterno(primerApellido);
+        registerCupo.setPersonalApellidoMaterno(segundoApellido);
+        registerCupo.setPersonalTelefono(telefono);
+        registerCupo.setPersonalRelacion(relacion);
+        registerCupo.setPersonalIdRelacion(idRelacion);
+
+        Log.e("Personal nombre",        registerCupo.getPersonalNombre() );
+        Log.e("Personal paterno", ""  + registerCupo.getPersonalApellidoPaterno());
+        Log.e("Personal Materno", ""  + registerCupo.getPersonalApellidoMaterno());
+        Log.e("Personal Telefono", "" + registerCupo.getPersonalTelefono());
+        Log.e("Personal Relacion", "" + registerCupo.getPersonalRelacion());
+        Log.e("Personal IdRelacion",""+ registerCupo.getPersonalIdRelacion());
+        cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PROVEEDOR, null);
+
     }
 
     @Override
@@ -364,14 +420,12 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
 
         if (spRelationshipCupo.getSelectedItemPosition() != 0) {
             relacion = spRelationshipCupo.getSelectedItem().toString();
-            CupoSpinnerArrayAdapter adapter = (CupoSpinnerArrayAdapter) spRelationshipCupo.getAdapter();
-            idRelacion = adapter.getItemIdString(spRelationshipCupo.getSelectedItemPosition());
+            idRelacion = spRelationshipCupo.getSelectedItemPosition();
         } else {
             relacion = "";
-            idRelacion = "";
+            idRelacion = 0;
         }
-
-        telefono = editPhoneReferenciaCupo.getText().toString();
+        telefono = editPhoneReferenciaCupo.getText().toString().replace(" ", "");
     }
 
     @Override

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.text.InputType;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -53,7 +55,6 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
     @BindView(R.id.imgContact)
     ImageView imgContact;
 
-
     // Campos a llenar
     @BindView(R.id.editNameReferenciaCupo)
     CustomValidationEditText editNameReferenciaCupo;
@@ -65,7 +66,6 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
     StyleEdittext editPhoneReferenciaCupoProveedor;
     @BindView(R.id.editProductCupo)
     CustomValidationEditText editProductCupo;
-
 
     private String nombre;
     private String primerApellido;
@@ -99,6 +99,15 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
         cupoActivityManager = ((RegistryCupoActivity) getActivity()).getCupoActivityManager();
     }
 
+    @Override
+    public void onResume() {
+        String a = RegisterCupo.getInstance().getProveedorNombre();
+        if (!a.equals("")) {
+            cargarDatos();
+        }
+        super.onResume();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -120,6 +129,16 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
         btnNext.setOnClickListener(this);
 
         setValidationRules();
+
+    }
+
+    private void cargarDatos() {
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+        editNameReferenciaCupo.setText(registerCupo.getProveedorNombre());
+        editFirstLastNameReferencuaCupo.setText(registerCupo.getProveedorApellidoPaterno());
+        editSecoundLastNameReferenciaCupo.setText(registerCupo.getPersonalApellidoMaterno());
+        editPhoneReferenciaCupoProveedor.setText(registerCupo.getProveedorTelefono());
+        editProductCupo.setText(registerCupo.getProveedorProductoServicio());
     }
 
 
@@ -143,13 +162,23 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnBack:
+                removeData();
                 cupoActivityManager.onBtnBackPress();
                 break;
             case R.id.btnNext:
-                cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_DOMICILIO_PERSONAL, null);
-                //validateForm();
+                //cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_DOMICILIO_PERSONAL, null);
+                validateForm();
                 break;
         }
+    }
+
+    private void removeData() {
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+        registerCupo.setProveedorNombre("");
+        registerCupo.setProveedorApellidoPaterno("");
+        registerCupo.setProveedorApellidoMaterno("");
+        registerCupo.setProveedorTelefono("");
+        registerCupo.setProveedorProductoServicio("");
     }
 
     @Override
@@ -338,6 +367,13 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
             editProductCupo.setIsInvalid();
             isValid = false;
         }
+
+
+        if (isValid) {
+            onValidationSuccess();
+        }
+
+
     }
 
     @Override
@@ -365,6 +401,27 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
     @Override
     public void onValidationSuccess() {
 
+        /*Guardamos datos en Singleton de registro.*/
+        errorNameReferenciaCupo.setVisibilityImageError(false);
+        errorFirstLastNameReferencuaCupo.setVisibilityImageError(false);
+        errorSecoundLastNameReferenciaCupo.setVisibilityImageError(false);
+        errorProductCupo.setVisibilityImageError(false);
+        errorPhoneReferenciaCupo.setVisibilityImageError(false);
+
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+        registerCupo.setProveedorNombre(nombre);
+        registerCupo.setProveedorApellidoPaterno(primerApellido);
+        registerCupo.setProveedorApellidoMaterno(segundoApellido);
+        registerCupo.setProveedorTelefono(telefono);
+        registerCupo.setProveedorProductoServicio(productoServicio);
+
+        Log.e("Proveedor nombre",        registerCupo.getProveedorNombre());
+        Log.e("Proveedor paterno", ""  + registerCupo.getProveedorApellidoPaterno());
+        Log.e("Proveedor Materno", ""  + registerCupo.getProveedorApellidoMaterno());
+        Log.e("Proveedor Telefono", "" + registerCupo.getProveedorTelefono());
+        Log.e("Proveedor Producto", "" + registerCupo.getProveedorProductoServicio());
+        cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_DOMICILIO_PERSONAL, null);
+
     }
 
     @Override
@@ -372,7 +429,7 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
         nombre = editNameReferenciaCupo.getText().trim();
         primerApellido = editFirstLastNameReferencuaCupo.getText().trim();
         segundoApellido = editSecoundLastNameReferenciaCupo.getText().trim();
-        telefono = editPhoneReferenciaCupoProveedor.getText().toString();
+        telefono = editPhoneReferenciaCupoProveedor.getText().toString().replace(" ", "");
         productoServicio = editProductCupo.getText().trim();
     }
 }

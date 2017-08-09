@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.CupoSpinnerTypes;
 import com.pagatodo.yaganaste.interfaces.enums.Relaciones;
@@ -85,7 +86,7 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
     private String telefono;
 
     private String relacion = "";
-    private String idRelacion = "";
+    private int idRelacion = 0;
 
     // Errores Views
     @BindView(R.id.errorNameReferenciaCupo)
@@ -98,8 +99,6 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
     ErrorMessage errorPhoneReferenciaCupo;
 
     private CupoSpinnerArrayAdapter relacionAdapter;
-
-
 
 
     public static CupoReferenciaFamiliarFragment newInstance() {
@@ -149,13 +148,44 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnBack:
+                removeData();
                 cupoActivityManager.onBtnBackPress();
                 break;
             case R.id.btnNext:
-                //validateForm();
-                cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PERSONAL, null);
+                validateForm();
+                //cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PERSONAL, null);
                 break;
         }
+    }
+
+
+    @Override
+    public void onResume() {
+        String a = RegisterCupo.getInstance().getPersonalNombre();
+        if (!a.equals("")) {
+            cargarDatos();
+        }
+        super.onResume();
+    }
+
+
+    private void cargarDatos() {
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+        editNameReferenciaCupo.setText(registerCupo.getPersonalNombre());
+        editFirstLastNameReferencuaCupo.setText(registerCupo.getPersonalApellidoPaterno());
+        editSecoundLastNameReferenciaCupo.setText(registerCupo.getPersonalApellidoMaterno());
+        editPhoneReferenciaCupo.setText(registerCupo.getPersonalTelefono());
+    }
+
+
+    private void removeData () {
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+        registerCupo.setFamiliarNombre("");
+        registerCupo.setFamiliarApellidoPaterno("");
+        registerCupo.setFamiliarApellidoMaterno("");
+        registerCupo.setFamiliarTelefono("");
+        registerCupo.setFamiliarRelacion("");
+        registerCupo.setFamiliarIdRelacion(0);
     }
 
     @OnClick(R.id.imgContact)
@@ -281,7 +311,6 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
 
 
     private void hideErrorMessage(int id) {
-        //errorMessageView.setVisibilityImageError(false);
 
         switch (id) {
             case R.id.editNameReferenciaCupo:
@@ -340,6 +369,10 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
             isValid = false;
         }
 
+        if (isValid) {
+            onValidationSuccess();
+        }
+
 
 
     }
@@ -369,6 +402,30 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
     @Override
     public void onValidationSuccess() {
 
+        /*Guardamos datos en Singleton de registro.*/
+        errorNameReferenciaCupo.setVisibilityImageError(false);
+        errorFirstLastNameReferencuaCupo.setVisibilityImageError(false);
+        errorSecoundLastNameReferenciaCupo.setVisibilityImageError(false);
+        errorRelationshipCupo.setVisibilityImageError(false);
+        errorPhoneReferenciaCupo.setVisibilityImageError(false);
+
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+        registerCupo.setFamiliarNombre(nombre);
+        registerCupo.setFamiliarApellidoPaterno(primerApellido);
+        registerCupo.setFamiliarApellidoMaterno(segundoApellido);
+        registerCupo.setFamiliarTelefono(telefono);
+        registerCupo.setFamiliarRelacion(relacion);
+        registerCupo.setFamiliarIdRelacion(idRelacion);
+
+
+        Log.e("Familiar nombre",        registerCupo.getFamiliarNombre() );
+        Log.e("Familiar paterno", ""  + registerCupo.getFamiliarApellidoPaterno());
+        Log.e("Familiar Materno", ""  + registerCupo.getFamiliarApellidoMaterno());
+        Log.e("Familiar Telefono", "" + registerCupo.getFamiliarTelefono());
+        Log.e("Familiar Relacion", "" + registerCupo.getFamiliarRelacion());
+        Log.e("Familiar IdRelacion",""+ registerCupo.getFamiliarIdRelacion());
+        cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PERSONAL, null);
+
     }
 
     @Override
@@ -379,17 +436,17 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
 
         if (spRelationshipCupo.getSelectedItemPosition() != 0) {
             relacion = spRelationshipCupo.getSelectedItem().toString();
-            CupoSpinnerArrayAdapter adapter = (CupoSpinnerArrayAdapter) spRelationshipCupo.getAdapter();
-            idRelacion = adapter.getItemIdString(spRelationshipCupo.getSelectedItemPosition());
+            idRelacion = spRelationshipCupo.getSelectedItemPosition();
         } else {
             relacion = "";
-            idRelacion = "";
+            idRelacion = 0;
         }
 
-        telefono = editPhoneReferenciaCupo.getText().toString();
+        telefono = editPhoneReferenciaCupo.getText().toString().replace(" ", "");
 
         Log.e("Test", "Relacion seleccionada:" + relacion );
         Log.e("Test", "Id de Relación: " + idRelacion );
+        Log.e("Test", "Telefono: " +  telefono);
 
 
     }

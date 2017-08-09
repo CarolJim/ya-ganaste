@@ -15,6 +15,7 @@ import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
@@ -146,6 +147,39 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         return rootview;
     }
 
+
+    @Override
+    public void onResume() {
+        editBussinesZipCode.removeCustomTextWatcher(textWatcherZipCode);
+        String a = RegisterCupo.getInstance().getCalle();
+        if (!a.equals("")) {
+            cargarDatos();
+        }
+        super.onResume();
+    }
+
+    private void cargarDatos() {
+
+
+
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+        editBussinesStreet.setText(registerCupo.getCalle());
+        editBussinesExtNumber.setText(registerCupo.getNumExterior());
+        editBussinesIntNumber.setText(registerCupo.getNumInterior());
+        editBussinesZipCode.setText(registerCupo.getCodigoPostal());
+        editBussinesState.setText(registerCupo.getEstadoDomicilio());
+
+        for (int position = 0; position < coloniasNombre.size(); position++) {
+            if (coloniasNombre.get(position).equals(registerCupo.getColonia())) {
+                spBussinesColonia.setSelection(position);
+                break;
+            }
+        }
+
+        editBussinesZipCode.addCustomTextWatcher(textWatcherZipCode);
+
+    }
+
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
@@ -166,8 +200,8 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnNextBussinesAddress:
-                cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
-                //validateForm();
+                //cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
+                validateForm();
                 break;
             case R.id.btnBackBussinesAddress:
                 cupoActivityManager.onBtnBackPress();
@@ -204,7 +238,6 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
                 editBussinesStreet.imageViewIsGone(true);
             }
         });
-
 
         editBussinesExtNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
@@ -359,6 +392,10 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
             isValid = false;
         }
 
+        if (isValid) {
+            onValidationSuccess();
+        }
+
     }
 
     @Override
@@ -381,9 +418,28 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
 
     @Override
     public void onValidationSuccess() {
-        calle = editBussinesStreet.getText();
-        numExt = editBussinesExtNumber.getText();
-        numInt = editBussinesIntNumber.getText();
+
+        //Almacenamos la información para el registro.
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+        registerCupo.setCalle(calle);
+        registerCupo.setNumExterior(numExt);
+        registerCupo.setNumInterior(numInt);
+        registerCupo.setCodigoPostal(codigoPostal);
+        registerCupo.setEstadoDomicilio(estado);
+        registerCupo.setColonia(colonia);
+        registerCupo.setIdColonia(Idcolonia);
+        editBussinesZipCode.removeCustomTextWatcher(textWatcherZipCode);
+
+        Log.e("Calle",        registerCupo.getCalle() );
+        Log.e("numExt", ""  + registerCupo.getNumExterior());
+        Log.e("numInt", ""  + registerCupo.getNumInterior());
+        Log.e("Codigo Postal", "" + registerCupo.getCodigoPostal());
+        Log.e("Estado", "" + registerCupo.getEstadoDomicilio());
+        Log.e("Colonia",""+ registerCupo.getColonia());
+        Log.e("Id Colonia",""+ registerCupo.getIdColonia());
+        cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
+
+
     }
 
     @Override
@@ -392,7 +448,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         numExt = editBussinesExtNumber.getText();
         numInt = editBussinesIntNumber.getText();
         codigoPostal = editBussinesZipCode.getText();
-        estado = editBussinesZipCode.getText();
+        estado = editBussinesState.getText();
         Idcolonia = "-1";
         if (spBussinesColonia.getSelectedItem() != null) {
             colonia = spBussinesColonia.getSelectedItem().toString();
@@ -413,9 +469,18 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
                 break;
             case R.id.radioBtnIsBussinesAddressYes:
             default:
-                loadHomeAddress();
+                if (RegisterCupo.getInstance().getCalle().equals("")) {
+                    //loadHomeAddress();
+                } else {
+                    loadDataFromSigleton();
+                }
+                //loadHomeAddress();
                 break;
         }
+    }
+
+    private void loadDataFromSigleton () {
+        onResume();
     }
 
 
