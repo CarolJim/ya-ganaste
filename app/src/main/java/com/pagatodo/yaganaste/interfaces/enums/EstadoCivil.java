@@ -8,11 +8,12 @@ import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 
 public enum EstadoCivil implements IEnumSpinner {
 
-    E0("0", ""),
-    E1("1", "Soltero"),
-    E2("2", "Casado"),
-    E3("3", "Viudo"),
-    E4("4", "Otro");
+    E0("0", "No Indicado"),
+    E1("1", "Soltero(a)"),
+    E2("2", "Casado(a)"),
+    E3("3", "Divorciado(a)"),
+    E4("4", "Viudo(a)"),
+    E5("5", "Unión Libre");
 
     private String name;
     private String id;

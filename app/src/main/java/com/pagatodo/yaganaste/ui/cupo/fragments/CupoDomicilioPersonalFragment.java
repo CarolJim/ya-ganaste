@@ -150,7 +150,6 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
 
     @Override
     public void onResume() {
-        editBussinesZipCode.removeCustomTextWatcher(textWatcherZipCode);
         String a = RegisterCupo.getInstance().getCalle();
         if (!a.equals("")) {
             cargarDatos();
@@ -160,24 +159,12 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
 
     private void cargarDatos() {
 
-
-
         RegisterCupo registerCupo = RegisterCupo.getInstance();
         editBussinesStreet.setText(registerCupo.getCalle());
         editBussinesExtNumber.setText(registerCupo.getNumExterior());
         editBussinesIntNumber.setText(registerCupo.getNumInterior());
         editBussinesZipCode.setText(registerCupo.getCodigoPostal());
         editBussinesState.setText(registerCupo.getEstadoDomicilio());
-
-        for (int position = 0; position < coloniasNombre.size(); position++) {
-            if (coloniasNombre.get(position).equals(registerCupo.getColonia())) {
-                spBussinesColonia.setSelection(position);
-                break;
-            }
-        }
-
-        editBussinesZipCode.addCustomTextWatcher(textWatcherZipCode);
-
     }
 
     @Override
@@ -204,6 +191,16 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
                 validateForm();
                 break;
             case R.id.btnBackBussinesAddress:
+
+                RegisterCupo registerCupo = RegisterCupo.getInstance();
+                registerCupo.setCalle("");
+                registerCupo.setNumExterior("");
+                registerCupo.setNumInterior("");
+                registerCupo.setCodigoPostal("");
+                registerCupo.setEstadoDomicilio("");
+                registerCupo.setColonia("");
+                registerCupo.setIdColonia("");
+
                 cupoActivityManager.onBtnBackPress();
                 break;
         }
@@ -334,6 +331,21 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         }
         adapterColonia.notifyDataSetChanged();
         editBussinesState.setText(this.estadoDomicilio);
+
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+
+        // Aqui se carga la colonia si ya se habia guardado antes.
+        if (!registerCupo.getCalle().equals("")) {
+            for (int position = 0; position < coloniasNombre.size(); position++) {
+                if (coloniasNombre.get(position).equals(registerCupo.getColonia())) {
+                    spBussinesColonia.setSelection(position);
+                    break;
+                }
+            }
+        }
+
+
+
     }
 
     private void hideErrorMessage(int id) {

@@ -14,7 +14,12 @@ public enum Hijos implements IEnumSpinner {
     H3("3", "2"),
     H4("4", "3"),
     H5("5", "4"),
-    H6("6", "Mas");
+    H6("6", "5"),
+    H7("7", "6"),
+    H8("8", "7"),
+    H9("9", "8"),
+    H10("10", "9"),
+    H11("11", "10");
 
     private String name;
     private String id;
