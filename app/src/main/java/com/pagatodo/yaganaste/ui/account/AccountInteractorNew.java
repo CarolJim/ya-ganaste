@@ -161,6 +161,15 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     @Override
+    public void logoutSinRespuesta() {
+        try {
+            ApiAdtvo.cerrarSesion();// Se envia null ya que el Body no aplica.
+        } catch (OfflineException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
     public void updateSessionData() {
         try {
             ApiAdtvo.actualizarInformacionSesion(this);
@@ -402,6 +411,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 } else {
                     //TODO Evento para llevar al usuario al splash
                     Intent intent = new Intent(App.getContext(), SplashActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     App.getContext().startActivity(intent);
                 }
 

@@ -41,14 +41,14 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/styleTextView"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="@string/saldo_en_cuenta"
                     android:textColor="@color/whiteColor"
-                    android:textSize="12sp"
+                    android:textSize="@dimen/text_size_cardEmisorSelected"
                     app:tipo="Subtitulo" />
 
 
@@ -56,7 +56,7 @@
                     android:id="@+id/txt_saldo"
                     style="@style/generic_text_style_2"
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_height="wrap_content"
                     android:layout_weight="8"
                     android:gravity="top"
                     android:maxLines="1"
@@ -71,14 +71,14 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_nombre"
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
                     android:layout_weight="2.5"
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="Jorge Ehrenwald"
                     android:textColor="@color/whiteColor"
-                    android:textSize="12sp" />
+                    android:textSize="@dimen/text_size_cardEmisorSelected" />
 
             </LinearLayout>
 

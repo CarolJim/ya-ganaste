@@ -23,7 +23,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import java.lang.reflect.Field;
 
 
-public class CustomErrorDialog extends DialogFragment implements ViewTreeObserver.OnGlobalLayoutListener {
+public class CustomDocumentsErrorDialog extends DialogFragment implements ViewTreeObserver.OnGlobalLayoutListener {
 
     public static final String TAG = "ActionsDialog";
     public static final String KEY_LAYOUT_NOTIFICATION = "KEY_LAYOUT_NOTIFICATION";
@@ -39,7 +39,6 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
     private String titleBtnCancel = "";
     private DialogDoubleActions dialogActions;
 
-
     private boolean showConfirmButton = true;
     private boolean showCancelButton = true;
 
@@ -54,16 +53,16 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
      * @param hasCancelBtn        boolean de cancelación del dialog
      * @return {@link DialogDoubleActions} instancia del dialog
      */
-    public static CustomErrorDialog getInstance(@LayoutRes int idLayout, String titleNotification, String messageNotification,
-                                                boolean hasConfirmBtn, boolean hasCancelBtn) {
+    public static CustomDocumentsErrorDialog getInstance(@LayoutRes int idLayout, String titleNotification, String messageNotification,
+                                                         boolean hasConfirmBtn, boolean hasCancelBtn) {
 
-        CustomErrorDialog actionsDialog = new CustomErrorDialog();
+        CustomDocumentsErrorDialog actionsDialog = new CustomDocumentsErrorDialog();
         Bundle args = new Bundle();
-        args.putInt(CustomErrorDialog.KEY_LAYOUT_NOTIFICATION, idLayout);
-        args.putString(CustomErrorDialog.KEY_CONFIRM_TITLE, titleNotification);
-        args.putString(CustomErrorDialog.KEY_MESSAGE_NOTIFICATION, messageNotification);
-        args.putBoolean(CustomErrorDialog.KEY_SHOW_BTN_CONFIRM, hasConfirmBtn);
-        args.putBoolean(CustomErrorDialog.KEY_SHOW_BTN_CANCEL, hasCancelBtn);
+        args.putInt(CustomDocumentsErrorDialog.KEY_LAYOUT_NOTIFICATION, idLayout);
+        args.putString(CustomDocumentsErrorDialog.KEY_CONFIRM_TITLE, titleNotification);
+        args.putString(CustomDocumentsErrorDialog.KEY_MESSAGE_NOTIFICATION, messageNotification);
+        args.putBoolean(CustomDocumentsErrorDialog.KEY_SHOW_BTN_CONFIRM, hasConfirmBtn);
+        args.putBoolean(CustomDocumentsErrorDialog.KEY_SHOW_BTN_CANCEL, hasCancelBtn);
         actionsDialog.setArguments(args);
 
         return actionsDialog;
@@ -73,6 +72,7 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(idLayoutDialog, container, false);
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
+        setCancelable(true);
 
         //setStyle();
         //getDialog() (getActivity(), R.style.DialogFragment);
@@ -135,11 +135,11 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
             Bundle arg = getArguments();
-            idLayoutDialog = arg.getInt(CustomErrorDialog.KEY_LAYOUT_NOTIFICATION);
-            titleMessage = arg.getString(CustomErrorDialog.KEY_CONFIRM_TITLE, "");
-            messageNotification = arg.getString(CustomErrorDialog.KEY_MESSAGE_NOTIFICATION, "");
-            showConfirmButton = arg.getBoolean(CustomErrorDialog.KEY_SHOW_BTN_CONFIRM, true);
-            showCancelButton = arg.getBoolean(CustomErrorDialog.KEY_SHOW_BTN_CANCEL, true);
+            idLayoutDialog = arg.getInt(CustomDocumentsErrorDialog.KEY_LAYOUT_NOTIFICATION);
+            titleMessage = arg.getString(CustomDocumentsErrorDialog.KEY_CONFIRM_TITLE, "");
+            messageNotification = arg.getString(CustomDocumentsErrorDialog.KEY_MESSAGE_NOTIFICATION, "");
+            showConfirmButton = arg.getBoolean(CustomDocumentsErrorDialog.KEY_SHOW_BTN_CONFIRM, true);
+            showCancelButton = arg.getBoolean(CustomDocumentsErrorDialog.KEY_SHOW_BTN_CANCEL, true);
         }
 
     }
@@ -197,8 +197,6 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
     public void onGlobalLayout() {
         buttonsContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
     }
-
-
 }
 
 

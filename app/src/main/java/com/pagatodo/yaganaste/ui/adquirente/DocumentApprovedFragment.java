@@ -121,7 +121,7 @@ public class DocumentApprovedFragment extends GenericFragment implements
         SingletonUser user = SingletonUser.getInstance();
         DataIniciarSesion dataUser = user.getDataUser();
         String myVar = dataUser.getUsuario().getTokenSesionAdquirente();
-        if(myVar != null && myVar.isEmpty()){
+        if(myVar != null && !myVar.isEmpty()){
             //Toast.makeText(getContext(), "Update Token Success " + mResult, Toast.LENGTH_SHORT).show();
             getActivity().finish();
             Intent intent = new Intent(getContext(), LandingApprovedActivity.class);

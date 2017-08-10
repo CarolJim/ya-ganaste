@@ -215,6 +215,7 @@ public class Recursos {
     Var para controlar los mensajes de session del servicio, se tiene una variacion porque tenemos un error de ortografia
      */
     public static final String MESSAGE_OPEN_SESSION = "Por Favor Inicia Sesión";
+    public static final String MESSAGE_CHANGE_PASS = "Ejecución Exitosa";
     public static final String MESSAGE_OPEN_SESSION2 = "Por favor inicia sesión";
 
 

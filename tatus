@@ -1,0 +1,63 @@
+[1mdiff --git a/app/src/main/java/com/pagatodo/yaganaste/ui/account/AccountAdqInteractor.java b/app/src/main/java/com/pagatodo/yaganaste/ui/account/AccountAdqInteractor.java[m
+[1mindex 5b4a9f9..b7f977c 100644[m
+[1m--- a/app/src/main/java/com/pagatodo/yaganaste/ui/account/AccountAdqInteractor.java[m
+[1m+++ b/app/src/main/java/com/pagatodo/yaganaste/ui/account/AccountAdqInteractor.java[m
+[36m@@ -127,11 +127,33 @@[m [mpublic class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul[m
+ [m
+                 switch (estatusDocs.getIdEstatus()) {[m
+                     case STATUS_DOCTO_APROBADO:[m
+[32m+[m[32m                        // Codigo para deshabilitar los botones despues de un envio exitoso al hacer Swipe[m
+[32m+[m[32m                        if (tipoDoc == DOC_ID_FRONT) {[m
+[32m+[m[32m                            IFEfront.setClickable(false);[m
+[32m+[m[32m                        } else if (tipoDoc == DOC_ID_BACK) {[m
+[32m+[m[32m                            IFEback.setClickable(false);[m
+[32m+[m[32m                        } else if (tipoDoc == DOC_DOM_FRONT) {[m
+[32m+[m[32m                            Addressfront.setClickable(false);[m
+[32m+[m[32m                        } else if (tipoDoc == DOC_DOM_BACK) {[m
+[32m+[m[32m                            Addressback.setClickable(false);[m
+[32m+[m[32m                        }[m
+[32m+[m
+                         mBitmap = BitmapFactory.decodeResource(view.getContext().getResources(), R.drawable.ic_status_ok);[m
+                         mDrawable = ContextCompat.getDrawable(context, R.drawable.ic_status_ok);[m
+ [m
+                         break;[m
+                     case STATUS_DOCTO_PENDIENTE:[m
+[32m+[m[32m                        // Codigo para deshabilitar los botones despues de un envio exitoso al hacer Swipe[m
+[32m+[m[32m                        if (tipoDoc == DOC_ID_FRONT) {[m
+[32m+[m[32m                            IFEfront.setClickable(false);[m
+[32m+[m[32m                        } else if (tipoDoc == DOC_ID_BACK) {[m
+[32m+[m[32m                            IFEback.setClickable(false);[m
+[32m+[m[32m                        } else if (tipoDoc == DOC_DOM_FRONT) {[m
+[32m+[m[32m                            Addressfront.setClickable(false);[m
+[32m+[m[32m                        } else if (tipoDoc == DOC_DOM_BACK) {[m
+[32m+[m[32m                            Addressback.setClickable(false);[m
+[32m+[m[32m                        }[m
+[32m+[m
+                         mBitmap = BitmapFactory.decodeResource(view.getContext().getResources(), R.drawable.ic_status_pending);[m
+                         mDrawable = ContextCompat.getDrawable(context, R.drawable.ic_status_pending);[m
+ [m
+[1mdiff --git a/app/src/main/java/com/pagatodo/yaganaste/ui/account/login/LoginFragment.java b/app/src/main/java/com/pagatodo/yaganaste/ui/account/login/LoginFragment.java[m
+[1mindex 82288c7..25a456c 100644[m
+[1m--- a/app/src/main/java/com/pagatodo/yaganaste/ui/account/login/LoginFragment.java[m
+[1m+++ b/app/src/main/java/com/pagatodo/yaganaste/ui/account/login/LoginFragment.java[m
+[36m@@ -303,6 +303,7 @@[m [mpublic class LoginFragment extends GenericFragment implements View.OnClickListen[m
+ [m
+     @Override[m
+     public void getDataForm() {[m
+[32m+[m[32m        edtUserPass.setText("Q1w2e3r4");[m
+         username = edtUserName.getText().trim();[m
+         password = edtUserPass.getText().trim();[m
+     }[m
+[1mdiff --git a/app/src/main/java/com/pagatodo/yaganaste/ui/adquirente/DocumentApprovedFragment.java b/app/src/main/java/com/pagatodo/yaganaste/ui/adquirente/DocumentApprovedFragment.java[m
+[1mindex 630b881..b512221 100644[m
+[1m--- a/app/src/main/java/com/pagatodo/yaganaste/ui/adquirente/DocumentApprovedFragment.java[m
+[1m+++ b/app/src/main/java/com/pagatodo/yaganaste/ui/adquirente/DocumentApprovedFragment.java[m
+[36m@@ -121,7 +121,7 @@[m [mpublic class DocumentApprovedFragment extends GenericFragment implements[m
+         SingletonUser user = SingletonUser.getInstance();[m
+         DataIniciarSesion dataUser = user.getDataUser();[m
+         String myVar = dataUser.getUsuario().getTokenSesionAdquirente();[m
+[31m-        if(myVar != null && myVar.isEmpty()){[m
+[32m+[m[32m        if(myVar != null && !myVar.isEmpty()){[m
+             //Toast.makeText(getContext(), "Update Token Success " + mResult, Toast.LENGTH_SHORT).show();[m
+             getActivity().finish();[m
+             Intent intent = new Intent(getContext(), LandingApprovedActivity.class);[m

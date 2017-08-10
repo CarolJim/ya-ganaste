@@ -192,7 +192,26 @@ public class StringUtils {
 
         return formatoPago;
     }
+    @Deprecated
+    public static String formatoPagoMediostag(String mFormatoPago) {
+        String formatoPago = "";
+        String comodin = " ";
+        if (mFormatoPago.length() == 13) {
+            try {
+                String parteTel1 = mFormatoPago.substring(0, 1);
+                String parteTel2 = mFormatoPago.substring(1, 5);
+                String parteTel3 = mFormatoPago.substring(5, 9);
+                String parteTel4 = mFormatoPago.substring(9, 13);
 
+                formatoPago = parteTel1 + comodin + parteTel2 + comodin + parteTel3+ comodin + parteTel4;
+            } catch (Exception e) {
+                Log.d("StringUtils", "Exception tipo" + e);
+                formatoPago = mFormatoPago;
+            }
+        }
+
+        return formatoPago;
+    }
 
     /**
      * added by Juan Guerra
@@ -276,5 +295,18 @@ public class StringUtils {
         }
 
         return styledText;
+    }
+
+    public static String formatStatus(String estatus) {
+        String mTitleStatus = "";
+        switch (estatus){
+            case "DOCTO. RECHAZADO" :
+                mTitleStatus = "Documento Rechazado";
+                break;
+            default:
+                mTitleStatus = "Documento Rechazado";
+                break;
+        }
+        return mTitleStatus;
     }
 }
