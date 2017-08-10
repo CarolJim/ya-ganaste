@@ -35,6 +35,7 @@ import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
@@ -181,9 +182,14 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
     @Override
     public void onClick(View view) {
+        /**
+         * En cada clic hacemos una comprobacion, si el dataStatusDocuments tiene elementos del servidor
+         * y dependiendo del estadfo, si es STATUS_DOCTO_RECHAZADO mostramos elPopup, si no, es el
+         * primer envio y mostramos el proceso de tomar foto de manera normal
+         */
         switch (view.getId()) {
             case R.id.itemWeNeedSmFilesIFEfront:
-                if (dataStatusDocuments.get(0).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
+                if (dataStatusDocuments.size() > 0 && dataStatusDocuments.get(0).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
                     showDocumentRejected(dataStatusDocuments.get(0), 0);
                 } else {
                     selectImageSource(IFE_FRONT);
@@ -191,7 +197,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 break;
             case R.id.itemWeNeedSmFilesIFEBack:
                 //selectImageSource(IFE_BACK);
-                if (dataStatusDocuments.get(1).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
+                if (dataStatusDocuments.size() > 0 && dataStatusDocuments.get(1).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
                     showDocumentRejected(dataStatusDocuments.get(1), 1);
                 } else {
                     selectImageSource(IFE_BACK);
@@ -199,7 +205,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 break;
 
             case R.id.itemWeNeedSmFilesAddressFront:
-                if (dataStatusDocuments.get(2).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
+                if (dataStatusDocuments.size() > 0 && dataStatusDocuments.get(2).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
                     showDocumentRejected(dataStatusDocuments.get(2), 2);
                 } else {
                     selectImageSource(COMPROBANTE_FRONT);
@@ -207,7 +213,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 break;
 
             case R.id.itemWeNeedSmFilesAddressBack:
-                if (dataStatusDocuments.get(3).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
+                if (dataStatusDocuments.size() > 0 && dataStatusDocuments.get(3).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
                     showDocumentRejected(dataStatusDocuments.get(3), 3);
                 } else {
                     selectImageSource(COMPROBANTE_BACK);
@@ -548,6 +554,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             );
         }
 
+        // Enviamos a la pantalla de documentos aprovados
         if (documentApproved == 4) {
             onEventListener.onEvent("EVENT_DOCUMENT_APPROVED", null);
         }
@@ -595,7 +602,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     }
 
     public void showDocumentRejected(EstatusDocumentosResponse mData, final int mPosition) {
-        UI.createSimpleCustomDialogError(mData.getEstatus(), mData.getMotivo(), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
+        String mTitleStatus = StringUtils.formatStatus(mData.getEstatus());
+        UI.createSimpleCustomDialogError(mTitleStatus, mData.getMotivo(), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
                 switch (mPosition){

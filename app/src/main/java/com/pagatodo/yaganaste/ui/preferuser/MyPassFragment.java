@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_LISTA;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
@@ -392,6 +393,9 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     @Override
 
     public void sendSuccessPassToView(String mensaje) {
+        editOldPassword.setText("");
+        editPassword.setText("");
+        editPasswordConfirm.getText().trim();
         showDialogMesage(mensaje);
         hideLoader();
         onEventListener.onEvent("DISABLE_BACK", false);
@@ -425,6 +429,8 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
                     public void actionConfirm(Object... params) {
                         if (mensaje.equals(Recursos.MESSAGE_OPEN_SESSION)) {
                             onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
+                        }else if (mensaje.equals(Recursos.MESSAGE_CHANGE_PASS)) {
+                            onEventListener.onEvent(PREFER_USER_LISTA, 1);
                         }
                     }
 

@@ -94,17 +94,14 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnConfirmDialog"
-                style="?android:attr/borderlessButtonStyle"
+                style="@style/buttonSquareRoundedBlue"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dimen_margin_pinpad"
                 android:layout_weight="1"
-                android:background="@drawable/button_rounded_blue"
                 android:gravity="center"
                 android:text="@string/adq_upload_again"
                 android:textAllCaps="false"
                 android:textColor="@color/whiteColor"
-                android:textSize="@dimen/size_text_style_2_value"
-                app:cornerRadius="@dimen/btn_corner_radius"
                 app:intercepterOnclick="true" />
 
             <android.support.v4.widget.Space

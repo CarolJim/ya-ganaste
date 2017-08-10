@@ -127,11 +127,31 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
 
                 switch (estatusDocs.getIdEstatus()) {
                     case STATUS_DOCTO_APROBADO:
+                        if (tipoDoc == DOC_ID_FRONT) {
+                            IFEfront.setClickable(false);
+                        } else if (tipoDoc == DOC_ID_BACK) {
+                            IFEback.setClickable(false);
+                        } else if (tipoDoc == DOC_DOM_FRONT) {
+                            Addressfront.setClickable(false);
+                        } else if (tipoDoc == DOC_DOM_BACK) {
+                            Addressback.setClickable(false);
+                        }
+
                         mBitmap = BitmapFactory.decodeResource(view.getContext().getResources(), R.drawable.ic_status_ok);
                         mDrawable = ContextCompat.getDrawable(context, R.drawable.ic_status_ok);
 
                         break;
                     case STATUS_DOCTO_PENDIENTE:
+                        if (tipoDoc == DOC_ID_FRONT) {
+                            IFEfront.setClickable(false);
+                        } else if (tipoDoc == DOC_ID_BACK) {
+                            IFEback.setClickable(false);
+                        } else if (tipoDoc == DOC_DOM_FRONT) {
+                            Addressfront.setClickable(false);
+                        } else if (tipoDoc == DOC_DOM_BACK) {
+                            Addressback.setClickable(false);
+                        }
+                        
                         mBitmap = BitmapFactory.decodeResource(view.getContext().getResources(), R.drawable.ic_status_pending);
                         mDrawable = ContextCompat.getDrawable(context, R.drawable.ic_status_pending);
 
