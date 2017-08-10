@@ -3,7 +3,9 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
+import android.view.View;
 
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
@@ -20,6 +22,7 @@ import java.util.List;
 
 public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovementsTab, ItemMovements<MovimientosResponse>> {
 
+    RecyclerView.Adapter currentAdapter;
 
     public static PersonalAccountFragment newInstance() {
         PersonalAccountFragment homeTabFragment = new PersonalAccountFragment();
@@ -35,6 +38,12 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
     }
 
     @Override
+    public void initViews() {
+        super.initViews();
+        tabMonths.setEnabled(false);
+    }
+
+    @Override
     protected void onTabLoaded() {
         tabMonths.getTabAt(tabMonths.getTabCount() - 1).select();
     }
@@ -45,20 +54,67 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
     }
 
     @Override
-    public void loadMovementsResult(List<ItemMovements<MovimientosResponse>> movementsList) {
-        updateRecyclerData(createAdapter(movementsList), movementsList);
+    public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        super.onRefresh(direction);
+        this.direction = direction;
+        List<ItemMovements<MovimientosResponse>> actualList = this.movementsList.get(tabMonths.getSelectedTabPosition());
+        String itemId = "";
+        int listSize = actualList.size();
+        if (direction == SwipyRefreshLayoutDirection.TOP) {
+            if (listSize > 0) {
+                itemId = actualList.get(0).getMovement().getIdMovimiento();
+            }
+        } else {
+            if (listSize > 0) {
+                itemId = actualList.get(listSize - 1).getMovement().getIdMovimiento();
+            }
+        }
+
+        movementsPresenter.getRemoteMovementsData(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()),
+                direction, itemId);
+
     }
 
+    @Override
+    public void loadMovementsResult(List<ItemMovements<MovimientosResponse>> movementsList) {
+
+        List<ItemMovements<MovimientosResponse>> actualList = null;
+        int tabPosition = tabMonths.getSelectedTabPosition();
+        try {
+            actualList = this.movementsList.get(tabPosition);
+        } catch (Exception ex) {
+            ex.printStackTrace();
+        }
+
+        if (actualList != null && actualList.size() > 0) {
+            if (movementsList.size() > 0) {
+                if (direction.equals(SwipyRefreshLayoutDirection.TOP)) {
+                    this.movementsList.get(tabPosition).addAll(0, movementsList);
+                } else {
+                    this.movementsList.get(tabPosition).addAll(actualList.size(), movementsList);
+                }
+                currentAdapter.notifyDataSetChanged();
+            }
+        } else {
+            this.movementsList.set(tabPosition, movementsList);
+            currentAdapter = createAdapter(this.movementsList.get(tabPosition));
+            updateRecyclerData(currentAdapter, movementsList);
+        }
+    }
 
     @Override
-    protected RecyclerView.Adapter createAdapter(List<ItemMovements<MovimientosResponse>> movementsList) {
-        return new RecyclerMovementsAdapter<>(getContext(), movementsList, this);
+    protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemMovements<MovimientosResponse>> movements) {
+        txtInfoMovements.setVisibility(movements.isEmpty() ? View.VISIBLE : View.GONE);
+        updateRecyclerData(adapter);
+    }
+
+    @Override
+    protected RecyclerView.Adapter createAdapter(final List<ItemMovements<MovimientosResponse>> movementsList) {
+        return new RecyclerMovementsAdapter<>(movementsList, this);
     }
 
     @Override
     protected void performClickOnRecycler(ItemMovements<MovimientosResponse> itemClicked) {
         startActivity(DetailsActivity.createIntent(getActivity(), itemClicked.getMovement()));
     }
-
-
 }
