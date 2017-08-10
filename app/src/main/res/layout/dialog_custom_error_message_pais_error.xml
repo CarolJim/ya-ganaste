@@ -117,11 +117,19 @@
         </LinearLayout>
 
     </LinearLayout>
-
+    <LinearLayout
+        android:id="@+id/buttons_containerllamr"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center_horizontal"
+        android:layout_marginTop="15dp"
+        android:gravity="center"
+        android:orientation="horizontal"
+        android:paddingBottom="10dp">
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/btnCancelDialog"
         style="?android:attr/borderlessButtonStyle"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:visibility="visible"
         android:gravity="center"
@@ -131,4 +139,5 @@
         android:textSize="@dimen/size_text_style_2_value"
         app:cornerRadius="@dimen/btn_corner_radius"
         app:intercepterOnclick="true" />
+        </LinearLayout>
 </LinearLayout>
