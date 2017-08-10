@@ -69,8 +69,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     ArrayList paisesno = new ArrayList();
     private final int MX = 1;
-    int u=0;
-    Boolean seencuentra=false;
+    int u = 0;
+    Boolean seencuentra = false;
     private final int EXTRANJERO = 2;
     @BindView(R.id.radioGender)
     RadioGroup radioGroupGender;
@@ -245,12 +245,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
                     pais = country.getIdPais().toString();
                     if (pais != null) {
                         validateFormextranjero(pais);
-    }else
-        validateForm();
-}catch (Exception e)
-{
-    validateForm();
-}
+                    } else
+                        validateForm();
+                } catch (Exception e) {
+                    validateForm();
+                }
                 break;
             case R.id.editCountry:
                 onCountryClick();
@@ -265,46 +264,50 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 break;
         }
     }
-public void buscapais(String pais){
-    seencuentra=false;
-    ArrayList a = new ArrayList();
-    a.add("AF");
-    a.add("ET");
-    a.add("IQ");
-    a.add("IR");
-    a.add("KP");
-    a.add("LA");
-    a.add("SY");
-    a.add("UG");
-    a.add("VU");
-    a.add("YE");
-    a.add("BA");
-    for (int i = 0; i < a.size(); i++) {
-        if (a.get(i).equals(pais)) {
-            String text = getString(R.string.problem_with_register);
-            u=100;
-            String titulo=getString(R.string.titulo_extranjero);
-            //////////////////////////
-            seencuentra=true;
-            UI.createCustomDialogextranjero(titulo, text, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
-                @Override
-                public void actionConfirm(Object... params) {
-                    llamar();
 
-                }
-                @Override
-                public void actionCancel(Object... params) {
-                    llamar();
-                }
-            }, " ", "Llamar");
+    public void buscapais(String pais) {
+        seencuentra = false;
+        ArrayList a = new ArrayList();
+        a.add("AF");
+        a.add("ET");
+        a.add("IQ");
+        a.add("IR");
+        a.add("KP");
+        a.add("LA");
+        a.add("SY");
+        a.add("UG");
+        a.add("VU");
+        a.add("YE");
+        a.add("BA");
+        for (int i = 0; i < a.size(); i++) {
+            if (a.get(i).equals(pais)) {
+                String text = getString(R.string.problem_with_register);
+                u = 100;
+                String titulo = getString(R.string.titulo_extranjero);
+                //////////////////////////
+                seencuentra = true;
+                UI.createCustomDialogextranjero(titulo, text, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        llamar();
 
-        }if (seencuentra==false && i==a.size()-1) {
-            validateForm();
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+                        llamar();
+                    }
+                }, " ", "Llamar");
+
+            }
+            if (seencuentra == false && i == a.size() - 1) {
+                validateForm();
+            }
         }
+
     }
 
-}
-    public  void  llamar(){
+    public void llamar() {
         String number = "7225499673";
 
         if (number != null) {
@@ -325,7 +328,7 @@ public void buscapais(String pais){
             }
             getActivity().startActivity(callIntent);
 
-        }else if(number.length()<2){
+        } else if (number.length() < 2) {
         }
 
     }
@@ -409,9 +412,9 @@ public void buscapais(String pais){
     }
 
 
-    public void validateFormextranjero( String pais) {
+    public void validateFormextranjero(String pais) {
         getDataForm();
-        String nuestrop=pais;
+        String nuestrop = pais;
         boolean isValid = true;
 
         if (genero == null || genero.equals("")) {

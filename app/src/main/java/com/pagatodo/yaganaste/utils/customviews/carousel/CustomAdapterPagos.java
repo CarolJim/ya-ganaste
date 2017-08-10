@@ -101,7 +101,7 @@ public class CustomAdapterPagos extends ArrayAdapter<String> {
                     /**
                      * Si no tenenmos resultados, agregamos al leyenda de No existen Resultados
                      */
-                    if(results.count == 0){
+                    if (results.count == 0) {
                         resultsData.add(mContext.getResources().getString(R.string.no_existen_resultados));
                         results.count = resultsData.size();
                         results.values = resultsData;

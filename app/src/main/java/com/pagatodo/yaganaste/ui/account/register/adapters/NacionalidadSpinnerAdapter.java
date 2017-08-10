@@ -116,6 +116,7 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<Countries> implemen
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
             FilterResults results = new FilterResults();
+
             if (constraint == null || constraint.length() == 0) {
                 results.values = orgCountriesList;
                 results.count = orgCountriesList.size();
@@ -127,8 +128,24 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<Countries> implemen
                     }
                 }
 
-                results.values = nCountriesList;
                 results.count = nCountriesList.size();
+                results.values = nCountriesList;
+
+                /**
+                 * Si no tenenmos resultados, agregamos al leyenda de No existen Resultados
+                 */
+                if (results.count == 0) {
+                    String noExisten = mContext.getResources()
+                            .getString(R.string.no_existen_resultados);
+                    nCountriesList.add(new Countries(
+                                    999,
+                                    noExisten,
+                                    "999"
+                            )
+                    );
+                    results.count = nCountriesList.size();
+                    results.values = nCountriesList;
+                }
             }
 
             return results;
