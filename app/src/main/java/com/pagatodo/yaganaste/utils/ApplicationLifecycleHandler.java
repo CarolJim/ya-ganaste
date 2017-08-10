@@ -57,6 +57,7 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
     }
 
     private void goToLoginScreen(Activity activity) {
+        // Consumimos de manera directa el servicio de cerrar session
         try {
             ApiAdtvo.cerrarSesion(this);// Se envia null ya que el Body no aplica.
         } catch (OfflineException e) {
@@ -106,11 +107,9 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
 
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
-        Log.d("AppLifecycle", "Success");
     }
 
     @Override
     public void onFailed(DataSourceResult error) {
-        Log.d("AppLifecycle", "Failed");
     }
 }
