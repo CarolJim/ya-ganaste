@@ -271,7 +271,7 @@
     <string name="datos_usuario_pass">Introduce la Contraseña.</string>
     <string name="datos_usuario_pass_new">Introduce la nueva Contraseña.</string>
     <string name="datos_usuario_pass_confirm">Debes Confirmar la Nueva Contraseña.</string>
-    <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide.kkk</string>
+    <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide.</string>
     <string name="datos_usuario_pass_formato">Verifica tu Contraseña.</string>
     <string name="bienvenido_usuario"><![CDATA[¡<b>Bienvenido</b> %1$s!]]></string>
     <string name="user_change_password">Asignando Nueva Contraseña</string>
