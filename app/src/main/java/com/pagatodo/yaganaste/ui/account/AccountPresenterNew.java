@@ -37,6 +37,7 @@ import com.pagatodo.yaganaste.ui.adquirente.interfases.IDocumentApproved;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
+import com.pagatodo.yaganaste.utils.ApplicationLifecycleHandler;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
@@ -79,7 +80,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         this.context = context;
         accountIteractor = new AccountInteractorNew(this);
     }
-
 
     public void setIView(View accountView) {
         this.accountView = (INavigationView) accountView;
@@ -132,6 +132,10 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void logout() {
         accountIteractor.logout();
+    }
+
+    public void logoutSinRespuesta() {
+        accountIteractor.logoutSinRespuesta();
     }
 
     @Override
@@ -386,5 +390,4 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     public void onSuccesBalanceAdq(ConsultaSaldoCupoResponse response) {
         ((IBalanceView) this.accountView).updateBalanceAdq(response.getSaldo());
     }
-
 }

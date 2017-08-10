@@ -57,7 +57,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         public void actionConfirm(Object... params) {
             setResult(ToolBarActivity.RESULT_LOG_OUT);
             //mPreferPresenter.closeSession(mContext);
-            finish();
+            presenterAccount.logout();
+           // finish();
         }
 
         @Override
