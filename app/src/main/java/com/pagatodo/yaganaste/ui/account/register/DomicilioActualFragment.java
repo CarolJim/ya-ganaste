@@ -6,7 +6,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -29,6 +28,7 @@ import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.customviews.CustomClickableSpan;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -616,7 +616,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
     private void setClickLegales() {
         SpannableString ss = new SpannableString(getString(R.string.terms_and_conditions));
-        ClickableSpan span1 = new ClickableSpan() {
+        CustomClickableSpan span1 = new CustomClickableSpan() {
             @Override
             public void onClick(View textView) {
                 boolean isOnline = Utils.isDeviceOnline();
@@ -633,7 +633,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
         //"Al Continuar Reconozco Ser Mayor de Edad, Así Como Haber Leído y Aceptado los Términos y Condiciones y el Aviso de Privacidad"
 
-        ClickableSpan span2 = new ClickableSpan() {
+        CustomClickableSpan span2 = new CustomClickableSpan() {
             @Override
             public void onClick(View textView) {
                 boolean isOnline2 = Utils.isDeviceOnline();

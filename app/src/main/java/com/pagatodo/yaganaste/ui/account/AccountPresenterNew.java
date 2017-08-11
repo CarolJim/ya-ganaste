@@ -269,7 +269,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 ((RecoveryPasswordView) accountView).recoveryPasswordFailed(error.toString());
             }
 
-        } else if (!(accountView instanceof IBalanceView)) {
+        } else if ((accountView instanceof IBalanceView)) {
             if (ws == CONSULTAR_SALDO) {
                 onSuccesBalance();
             } else if (ws == CONSULTAR_SALDO_ADQ) {

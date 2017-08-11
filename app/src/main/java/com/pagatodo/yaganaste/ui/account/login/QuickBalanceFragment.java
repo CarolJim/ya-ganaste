@@ -16,7 +16,6 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
-import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -44,7 +43,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
  */
 
 public class QuickBalanceFragment extends GenericFragment implements IBalanceView,
-        SwipeRefreshLayout.OnRefreshListener, INavigationView<Void, Void>, View.OnClickListener {
+        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     @BindView(R.id.cardSaldo)
     YaGanasteCard cardSaldo;
@@ -172,18 +171,8 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     }
 
     @Override
-    public void showError(Void error) {
+    public void showError(Object error) {
         throw new IllegalCallException("this method is not implemented yet");
-    }
-
-    @Override
-    public void nextScreen(String event, Void data) {
-
-    }
-
-    @Override
-    public void backScreen(String event, Void data) {
-        quickBalanceManager.backPage();
     }
 
     @Override
@@ -196,5 +185,15 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
                 backScreen(null, null);
                 break;
         }
+    }
+
+    @Override
+    public void nextScreen(String event, Object data) {
+
+    }
+
+    @Override
+    public void backScreen(String event, Object data) {
+        quickBalanceManager.backPage();
     }
 }
