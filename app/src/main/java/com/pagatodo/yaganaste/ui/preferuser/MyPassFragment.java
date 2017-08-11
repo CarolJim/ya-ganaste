@@ -167,7 +167,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
                 if (hasFocus) {
                     if (editPassword.getText().isEmpty()) {
                         editPassword.setIsInvalid();
-                        showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
+                        showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_new));
                     }
                 } else {
                     if (editPassword.isValidText() && !isValidPassword) {
@@ -175,7 +175,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
                                 editPassword.getText().trim());
                     } else if (editPassword.getText().isEmpty()) {
                         editPassword.setIsInvalid();
-                        showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
+                        showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_new));
                     } else if (editPassword.isValidText() && isValidPassword) {
                         hideValidationError(editPassword.getId());
                         editPassword.setIsValid();
@@ -190,7 +190,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
             public void onTextChanged(String s, int start, int before, int count) {
                 isValidPassword = false;
                 if (editPassword.getText().isEmpty()) {
-                    showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
+                    showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_new));
                     editPassword.setIsInvalid();
                 } else if (!editPassword.isValidText()) {
                     showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_formato));
@@ -288,7 +288,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
 
         //Validate if Password is empty
         if (password.isEmpty()) {
-            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
+            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_new));
             editPassword.setIsInvalid();
             isValid = false;
         }
