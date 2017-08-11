@@ -4,6 +4,8 @@ package com.pagatodo.yaganaste.utils;
  * Created by flima on 23/02/2017.
  */
 
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 
@@ -44,6 +46,58 @@ public class DateUtil {
         SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormatCustom, new Locale("es", "mx"));
         return renameDateMonth(dateFormat.format(date.getTime()));
 
+    }
+
+    /**
+     * Encargado de hacer un formato especial de nombres a 3 letras, para evitar cambios de idiomas o
+     * configuraciones adicionales
+     * @param year
+     * @param moth
+     * @param day
+     * @return
+     */
+    public static String getBirthDateSpecialCustom( int year, int moth, int day){
+        String myMonth = "";
+
+        switch (moth){
+            case 0:
+                myMonth = App.getContext().getResources().getString(R.string.lista_meses_enero);
+                break;
+            case 1:
+                myMonth = App.getContext().getResources().getString(R.string.lista_meses_febrero);
+                break;
+            case 2:
+                myMonth = App.getContext().getResources().getString(R.string.lista_meses_marzo);
+                break;
+            case 3:
+                myMonth = App.getContext().getResources().getString(R.string.lista_meses_abril);
+                break;
+            case 4:
+                myMonth = App.getContext().getResources().getString(R.string.lista_meses_mayo);
+                break;
+            case 5:
+                myMonth = App.getContext().getResources().getString(R.string.lista_meses_junio);
+                break;
+            case 6:
+                myMonth = App.getContext().getResources().getString(R.string.lista_meses_julio);
+                break;
+            case 7:
+                myMonth = App.getContext().getResources().getString(R.string.lista_meses_agosto);
+                break;
+            case 8:
+                myMonth = App.getContext().getResources().getString(R.string.lista_meses_septiembre);
+                break;
+            case 9:
+                myMonth = App.getContext().getResources().getString(R.string.lista_meses_octubre);
+                break;
+            case 10:
+                myMonth = App.getContext().getResources().getString(R.string.lista_meses_noviembre);
+                break;
+            case 11:
+                myMonth = App.getContext().getResources().getString(R.string.lista_meses_diciembre);
+                break;
+        }
+        return day + " " + myMonth + " " + year;
     }
 
 

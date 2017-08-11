@@ -119,6 +119,9 @@ public class DatosPersonalesFragment extends GenericFragment implements
     private String apMaterno = "";
     private String fechaNacimiento = "";
     private Countries country;
+    int year;
+    int month;
+    int day;
 
     View.OnClickListener onClickListenerDatePicker = new View.OnClickListener() {
         @Override
@@ -126,9 +129,9 @@ public class DatosPersonalesFragment extends GenericFragment implements
             hideValidationError(editBirthDay.getId());
             editBirthDay.setDrawableImage(R.drawable.calendar);
             Calendar newCalendar = Calendar.getInstance();
-            int year;
-            int month;
-            int day;
+            year = 0;
+            month = 0;
+            day = 0;
 
             if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {
                 year = newDate.get(Calendar.YEAR);
@@ -138,7 +141,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 year = newCalendar.get(Calendar.YEAR);
                 month = newCalendar.get(Calendar.MONTH);
                 day = newCalendar.get(Calendar.DAY_OF_MONTH);
-
             }
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
@@ -146,8 +148,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 public void onDateSet(DatePicker view, int year, int month, int date) {
                     newDate = Calendar.getInstance(new Locale("es"));
                     newDate.set(year, month, date);
-                    // editBirthDay.setText(DateUtil.getBirthDateString(newDate));
-                    editBirthDay.setText(DateUtil.getBirthDateCustomString(newDate));
+                 // editBirthDay.setText(DateUtil.getBirthDateCustomString(newDate));
+                    editBirthDay.setText(DateUtil.getBirthDateSpecialCustom(year, month, date));
                     editBirthDay.setIsValid();
                     fechaNacimiento = DateUtil.getDateStringFirstYear(newDate);
 

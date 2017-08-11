@@ -722,6 +722,24 @@
     <string name="unlike_your_device">Desvincula tu Dispositivo</string>
     <string name="no_existen_resultados">No Existen Resultados</string>
     <string name="title_activity_landing_approved">LandingApprovedActivity</string>
+
+    <!-- Lista de meses para calendarios -->
+    <string name="lista_meses_enero">Ene</string>
+    <string name="lista_meses_febrero">Feb</string>
+    <string name="lista_meses_marzo">Mar</string>
+    <string name="lista_meses_abril">Abr</string>
+    <string name="lista_meses_mayo">May</string>
+    <string name="lista_meses_junio">Jun</string>
+    <string name="lista_meses_julio">Jul</string>
+    <string name="lista_meses_agosto">Ago</string>
+    <string name="lista_meses_septiembre">Sep</string>
+    <string name="lista_meses_octubre">Oct</string>
+    <string name="lista_meses_noviembre">Nov</string>
+    <string name="lista_meses_diciembre">Dic</string>
+
+
+
+
     <!--end Cupo Strings-->
 </resources>
 
