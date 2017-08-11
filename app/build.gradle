@@ -102,6 +102,7 @@ dependencies {
     compile 'com.github.demoNo:AutoScrollViewPager:v1.0.2'
     compile 'com.google.android.gms:play-services-maps:11.0.4'
     compile 'com.android.support.constraint:constraint-layout:1.0.2'
+    compile 'com.github.omadahealth:swipy:1.2.3@aar'
     testCompile 'junit:junit:4.12'
     apt 'com.jakewharton:butterknife-compiler:8.4.+'
 }

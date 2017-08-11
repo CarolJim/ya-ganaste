@@ -70,8 +70,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     ArrayList paisesno = new ArrayList();
     private final int MX = 1;
-    int u=0;
-    Boolean seencuentra=false;
+    int u = 0;
+    Boolean seencuentra = false;
     private final int EXTRANJERO = 2;
     @BindView(R.id.radioGender)
     RadioGroup radioGroupGender;

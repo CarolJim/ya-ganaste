@@ -1,5 +1,8 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
+import android.text.TextUtils;
+
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
@@ -42,8 +45,7 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
 
     @Override
     public void getRemoteMovementsData(MonthsMovementsTab data) {
-        movementsView.showLoader("");
-
+        //movementsView.showLoader("");
         ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
         if (data.getYear() == -1) {
             request.setAnio("");
@@ -54,6 +56,27 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
         }
         request.setDireccion("");
         request.setIdMovimiento("");
+
+        movementsIteractor.getMovements(request);
+    }
+
+    @Override
+    public void getRemoteMovementsData(MonthsMovementsTab data, SwipyRefreshLayoutDirection direction, String lastId) {
+        //movementsView.showLoader("");
+        ConsultarMovimientosRequest request = new ConsultarMovimientosRequest();
+        if (data.getYear() == -1) {
+            request.setAnio("");
+            request.setMes("");
+        } else {
+            request.setAnio(String.valueOf(data.getYear()));
+            request.setMes(String.valueOf(data.getMonth() + 1));
+        }
+        String directionReq = "";
+        if (!TextUtils.isEmpty(lastId)) {
+            directionReq = direction == SwipyRefreshLayoutDirection.TOP ? "top" : "bottom";
+        }
+        request.setDireccion(directionReq);
+        request.setIdMovimiento(lastId);
 
         movementsIteractor.getMovements(request);
     }
@@ -94,7 +117,6 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
     public void onFailed(int errorCode, int action, String error) {
         movementsView.hideLoader();
         movementsView.showError(error);
-
     }
 
 
