@@ -49,6 +49,7 @@ import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -260,9 +261,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
     }
 
     public  void  llamar(){
-        String number = "7225499673";
+        String number = getString(R.string.numero_telefono_paises);
 
-        if (number != null) {
             Intent callIntent = new Intent(Intent.ACTION_CALL);
             callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
             callIntent.setData(Uri.parse("tel:" + number));
@@ -279,9 +279,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 return;
             }
             getActivity().startActivity(callIntent);
-
-        }else if(number.length()<2){
-        }
 
     }
 
@@ -422,7 +419,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         if (isValid) {
             if (country!=null) {
                 String pais = country.getIdPais().toString();
-                ArrayList<String> paises = new ArrayList<String>();
+                List<String> paises = new ArrayList<String>();
                 bucaPais(paises,pais);
             }else{
                 setPersonData();
@@ -596,7 +593,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
             }
         }
 
-
         //1975 - 06 - 29
     }
 
@@ -657,8 +653,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     }
 
     @Override
-    public void bucaPais(ArrayList<String> paises, String pais) {
-
+    public void bucaPais(List<String> paises, String pais) {
         seencuentra=false;
         paises.add("AF");
         paises.add("ET");
@@ -692,41 +687,4 @@ public class DatosPersonalesFragment extends GenericFragment implements
             }
         }
     }
-    /*
-    public void buscapais(String pais){
-        seencuentra=false;
-        ArrayList a = new ArrayList();
-        a.add("AF");
-        a.add("ET");
-        a.add("IQ");
-        a.add("IR");
-        a.add("KP");
-        a.add("LA");
-        a.add("SY");
-        a.add("UG");
-        a.add("VU");
-        a.add("YE");
-        a.add("BA");
-        for (int i = 0; i < a.size(); i++) {
-            if (a.get(i).equals(pais)) {
-                String text = getString(R.string.problem_with_register);
-                u=100;
-                String titulo=getString(R.string.titulo_extranjero);
-                UI.createCustomDialogextranjero(titulo, text, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        llamar();
-                    }
-                    @Override
-                    public void actionCancel(Object... params) {
-                        llamar();
-                    }
-                }, " ", "Llamar");
-
-            }if (seencuentra==false && i==a.size()-1) {
-                setPersonData();
-            }
-        }
-
-    }*/
 }

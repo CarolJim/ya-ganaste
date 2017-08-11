@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.interfaces;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by Armando Sandoval on 11/08/2017.
@@ -8,6 +9,6 @@ import java.util.ArrayList;
 
 public interface IBuscaPais {
 
-    void bucaPais(ArrayList<String> paises,String pais);
+    void bucaPais(List<String> paises, String pais);
 
 }

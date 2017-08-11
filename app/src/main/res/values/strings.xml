@@ -609,6 +609,8 @@
 
     <string name="favor_selecciona_importe">Por Favor Selecciona un Importe</string>
     <string name="numero_iave_vacio">Número de IAVE Vacío</string>
+    <string name="numero_telefono_paises">7225499673</string>
+
     <string name="numero_telefono_vacio">Número de Teléfono Vacío</string>
     <string name="numero_iave_incorrecto">Número de IAVE Incorrecto</string>
     <string name="numero_telefono_incorrecto">Número de Teléfono Incorrecto</string>
