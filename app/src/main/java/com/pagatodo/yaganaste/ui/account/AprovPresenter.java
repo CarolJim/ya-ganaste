@@ -53,12 +53,12 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
     }
 
     @Override
-    public void onSuccesBalance(ConsultarSaldoResponse response) {
+    public void onSuccesBalance() {
 
     }
 
     @Override
-    public void onSuccesBalanceAdq(ConsultaSaldoCupoResponse response) {
+    public void onSuccesBalanceAdq() {
 
     }
 

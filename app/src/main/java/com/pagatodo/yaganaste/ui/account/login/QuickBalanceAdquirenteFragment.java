@@ -23,7 +23,6 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
-import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -41,6 +40,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 /**
  * Created by Jordan on 06/07/2017.
@@ -131,9 +131,9 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
             } else {
                 txtUserName.setText(Html.fromHtml(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER))));
             }
-
-            setData(preferencias.loadData(StringConstants.USER_BALANCE), preferencias.loadData(UPDATE_DATE));
-            setDataAdq(preferencias.loadData(ADQUIRENTE_BALANCE), preferencias.loadData(UPDATE_DATE_BALANCE_ADQ));
+            onRefresh();
+            //setData(preferencias.loadData(StringConstants.USER_BALANCE), preferencias.loadData(UPDATE_DATE));
+            //setDataAdq(preferencias.loadData(ADQUIRENTE_BALANCE), preferencias.loadData(UPDATE_DATE_BALANCE_ADQ));
         }
     }
 
@@ -170,15 +170,17 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     }
 
     @Override
-    public void updateBalance(String saldo) {
-        setData(saldo, App.getInstance().getPrefs().loadData(UPDATE_DATE));
+    public void updateBalance() {
+        Preferencias prefs = App.getInstance().getPrefs();
+        setData(prefs.loadData(USER_BALANCE), prefs.loadData(UPDATE_DATE));
         isBalance = true;
         hideLoaderBalance();
     }
 
     @Override
-    public void updateBalanceAdq(String saldoAdq) {
-        setDataAdq(saldoAdq, App.getInstance().getPrefs().loadData(UPDATE_DATE_BALANCE_ADQ));
+    public void updateBalanceAdq() {
+        Preferencias prefs = App.getInstance().getPrefs();
+        setDataAdq(prefs.loadData(ADQUIRENTE_BALANCE), prefs.loadData(UPDATE_DATE_BALANCE_ADQ));
         isBalanceAdq = true;
         hideLoaderBalance();
     }

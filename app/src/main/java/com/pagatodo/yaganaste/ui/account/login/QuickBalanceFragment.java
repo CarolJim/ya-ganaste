@@ -22,7 +22,6 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
-import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -38,7 +37,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
-import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 /**
  * @author Juan Guerra on 15/06/2017.
@@ -121,14 +120,10 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
         Preferencias preferencias = App.getInstance().getPrefs();
         if (preferencias.containsData(HAS_SESSION)) {
-
             String cardNumber = preferencias.loadData(CARD_NUMBER);
-
 //                    Utils.getCurrencyValue(cardNumber))
             cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
             cardSaldo.setCardDate("02/21");
-
-
             if (Build.VERSION.SDK_INT >= 24) {
                 txtNameUser.setText(Html.fromHtml(getString(R.string.bienvenido_usuario,
                         preferencias.loadData(NAME_USER)),
@@ -137,8 +132,9 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
                 txtNameUser.setText(Html.fromHtml(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER))));
             }
 
-
-            setData(preferencias.loadData(StringConstants.USER_BALANCE), preferencias.loadData(UPDATE_DATE));
+            //onRefresh();
+            accountPresenter.updateBalance();
+            //setData(preferencias.loadData(StringConstants.USER_BALANCE), preferencias.loadData(UPDATE_DATE));
         }
     }
 
@@ -148,13 +144,14 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     }
 
     @Override
-    public void updateBalance(String saldo) {
+    public void updateBalance() {
         hideLoader();
-        setData(saldo, App.getInstance().getPrefs().loadData(UPDATE_DATE));
+        Preferencias prefs = App.getInstance().getPrefs();
+        setData(prefs.loadData(USER_BALANCE), prefs.loadData(UPDATE_DATE));
     }
 
     @Override
-    public void updateBalanceAdq(String saldoAdq) {
+    public void updateBalanceAdq() {
 
     }
 

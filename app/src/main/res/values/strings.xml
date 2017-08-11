@@ -172,7 +172,7 @@
     <string name="txt_mail">Correo Electrónico</string>
     <string name="send">ENVIAR</string>
     <string name="check_your_mail">Revisa tu Correo Electrónico</string>
-    <string name="txt_escribe_tu_correo">Escribe tu Correo Electrónico</string>
+    <string name="txt_escribe_tu_correo">Correo Electrónico</string>
     <string name="txt_phone">Teléfono: </string>
     <string name="txt_home_phone">Teléfono Fijo</string>
 
@@ -269,9 +269,9 @@
     <string name="datos_usuario_correo_confirma">Debes Confirmar el Correo.</string>
     <string name="datos_usuario_correo_no_coinciden">El Correo no Coincide.</string>
     <string name="datos_usuario_pass">Introduce la Contraseña.</string>
-    <string name="datos_usuario_pass_new">Introduce la nueva Contraseña.</string>
+    <string name="datos_usuario_pass_new">Introduce la Nueva Contraseña.</string>
     <string name="datos_usuario_pass_confirm">Debes Confirmar la Nueva Contraseña.</string>
-    <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide.kkk</string>
+    <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide.</string>
     <string name="datos_usuario_pass_formato">Verifica tu Contraseña.</string>
     <string name="bienvenido_usuario"><![CDATA[¡<b>Bienvenido</b> %1$s!]]></string>
     <string name="user_change_password">Asignando Nueva Contraseña</string>
@@ -467,7 +467,7 @@
     <string name="no_offline_token">El Dispositivo no Cuenta con Token Offline, Asegúrate de Que
     tu Dispositivo Esté Asociado por SMS</string>
 
-    <string name="problem_with_register">No Pudimos Continuar Con tu Registro. \n por favor contactanos para \n ayudarte a Resolverlo</string>
+    <string name="problem_with_register">No Pudimos Continuar Con tu Registro. \n Por Favor Contactanos Para \n Ayudar a Resolverlo</string>
     <string name="titulo_extranjero">Tuvimos un problema</string>
 
     <string name="generando_token">Generando Código</string>
@@ -512,7 +512,7 @@
     <string name="selecciona_genero">Selecciona tu Género</string>
     <string name="cargando">Cargando</string>
 
-    <string name="recupera_contrasenia_title">Recupera tu Contraseña</string>
+    <string name="recupera_contrasenia_title">Restablece tu Contraseña</string>
     <string name="enviaremos_enlace_restablecer">Enviaremos un Enlace Para \nRestablecer tu Contraseña a:</string>
     <string name="ingresa_correo_registrado">Ingresa tu Correo\nElectrónico Registrado</string>
     <string name="ingresa_correo_registrado_requerido">El Correo Electrónico es Requerido. Verifica tu Información.</string>
@@ -609,6 +609,8 @@
 
     <string name="favor_selecciona_importe">Por Favor Selecciona un Importe</string>
     <string name="numero_iave_vacio">Número de IAVE Vacío</string>
+    <string name="numero_telefono_paises">7225499673</string>
+
     <string name="numero_telefono_vacio">Número de Teléfono Vacío</string>
     <string name="numero_iave_incorrecto">Número de IAVE Incorrecto</string>
     <string name="numero_telefono_incorrecto">Número de Teléfono Incorrecto</string>
