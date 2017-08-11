@@ -13,6 +13,7 @@ public class ItemMovements<T> {
     private int color;
     private T movement;
 
+
     public ItemMovements(String premio, String marca, double monto, String date, String month, int color) {
         this(premio, marca, monto, date, month, color, null);
     }
@@ -77,5 +78,9 @@ public class ItemMovements<T> {
 
     public T getMovement() {
         return movement;
+    }
+
+    public void setMovement(T movement) {
+        this.movement = movement;
     }
 }

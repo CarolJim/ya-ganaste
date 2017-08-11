@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
 import android.util.Log;
 
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
@@ -49,7 +50,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void getRemoteMovementsData(AdquirentePaymentsTab data) {
-        movementsView.showLoader("");
+        //movementsView.showLoader("");
         ResumenMovimientosMesRequest resumenMovimientosMesRequest = new ResumenMovimientosMesRequest();
         resumenMovimientosMesRequest.setFecha(data.getDate());
         movementsIteractor.getMovements(resumenMovimientosMesRequest);
@@ -145,6 +146,11 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
                 result, "15000.00", "14000.00", "", "");
 
         onSuccesResponse(response);*/
+    }
+
+    @Override
+    public void getRemoteMovementsData(AdquirentePaymentsTab data, SwipyRefreshLayoutDirection direction, String lastId) {
+
     }
 
     @Override

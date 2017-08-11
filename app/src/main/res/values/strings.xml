@@ -435,6 +435,7 @@
 
     <string name="cancelar_operacion">Cancelar Cobro</string>
     <string name="txt_monto">Monto:</string>
+    <string name="txt_monto_total">Monto Total:</string>
     <string name="txt_monto_compra">Monto Compra:</string>
     <string name="txt_monto_retiro">Monto Retiro:</string>
     <string name="txt_recibo">Recibo:</string>

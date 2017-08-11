@@ -4,7 +4,6 @@ import android.os.Bundle;
 import android.support.annotation.CallSuper;
 import android.support.annotation.Nullable;
 import android.support.design.widget.TabLayout;
-import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -12,6 +11,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout;
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
@@ -23,29 +24,46 @@ import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.MovementsPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.GenericTabLayout;
+import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.ArrayList;
 import java.util.List;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
+
 
 /**
  * @author Juan Guerra on 27/11/2016.
+ * @author Jordan on 08/08/2017
  */
 
 public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> extends GenericFragment
-        implements MovementsView<ItemRecycler, T>, SwipeRefreshLayout.OnRefreshListener,
+        implements MovementsView<ItemRecycler, T>, SwipyRefreshLayout.OnRefreshListener,
         TabLayout.OnTabSelectedListener, OnRecyclerItemClickListener {
 
+    public SwipyRefreshLayoutDirection direction;
     public static final int MOVEMENTS = 1;
     public static final int PAYMENTS = 2;
-    protected GenericTabLayout<T> tabMonths;
+    public static final String TYPE = "TYPE";
+    @BindView(R.id.tab_months)
+    GenericTabLayout<T> tabMonths;
 
+    //public List<ItemRecycler> movements;
     protected MovementsPresenter<T> movementsPresenter;
-    private List<List<ItemRecycler>> movementsList;
+    public List<List<ItemRecycler>> movementsList;
     private View rootView;
-    private RecyclerView recyclerMovements;
-    private TextView txtInfoMovements;
-    private SwipeRefreshLayout swipeContainer;
+    private int type;
+
+    @BindView(R.id.recycler_movements)
+    RecyclerView recyclerMovements;
+    @BindView(R.id.txt_info_movements)
+    TextView txtInfoMovements;
+    @BindView(R.id.swipe_container)
+    SwipyRefreshLayout swipeContainer;
+    @BindView(R.id.progress_emisor)
+    ProgressLayout progress_emisor;
+
 
     public static AbstractAdEmFragment newInstance(int type) {
         AbstractAdEmFragment instance;
@@ -56,11 +74,11 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
             case PAYMENTS:
                 instance = PaymentsFragment.newInstance();
                 break;
-
             default:
                 throw new IllegalFactoryParameterException(String.valueOf(type));
         }
         Bundle args = new Bundle();
+        args.putInt(TYPE, type);
         instance.setArguments(args);
         return instance;
     }
@@ -69,6 +87,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     public void onCreate(@Nullable Bundle savedInstanceState) {
         this.movementsList = new ArrayList<>();
         super.onCreate(savedInstanceState);
+        Bundle args = getArguments();
+        if (args != null) {
+            type = args.getInt(TYPE);
+        }
     }
 
     @Override
@@ -85,15 +107,15 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     @CallSuper
     @Override
     public void initViews() {
-
-        recyclerMovements = (RecyclerView) rootView.findViewById(R.id.recycler_movements);
-        txtInfoMovements = (TextView) rootView.findViewById(R.id.txt_info_movements);
+        ButterKnife.bind(this, rootView);
         txtInfoMovements.setVisibility(View.GONE);
-        swipeContainer = (SwipeRefreshLayout) rootView.findViewById(R.id.swipe_container);
+        progress_emisor.setVisibility(View.VISIBLE);
+        progress_emisor.setBackgroundColor(R.color.transparent);
+        swipeContainer.setDirection(type == MOVEMENTS ? SwipyRefreshLayoutDirection.BOTH : SwipyRefreshLayoutDirection.TOP);
         swipeContainer.setOnRefreshListener(this);
-        recyclerMovements.setLayoutManager(new LinearLayoutManager(getActivity()));
+        final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
+        recyclerMovements.setLayoutManager(layoutManager);
         recyclerMovements.setHasFixedSize(true);
-        this.tabMonths = (GenericTabLayout<T>) rootView.findViewById(R.id.tab_months);
         movementsPresenter.getPagerData(getTab());
     }
 
@@ -113,9 +135,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     }
 
     @Override
-    public void onRefresh() {
+    public void onRefresh(SwipyRefreshLayoutDirection direction) {
         movementsPresenter.updateBalance();
-        getDataForTab(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()));
+        progress_emisor.setVisivilityImage(View.GONE);
+        progress_emisor.setVisibility(View.VISIBLE);
     }
 
     protected abstract void onTabLoaded();
@@ -125,9 +148,15 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
         movementsPresenter.updateBalance();
+        recyclerMovements.setVisibility(View.GONE);
         if (movementsList.get(tab.getPosition()) != null) {
-            updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
+            if (movementsList.get(tab.getPosition()).size() > 0) {
+                updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
+            } else {
+                txtInfoMovements.setVisibility(View.VISIBLE);
+            }
         } else {
+            showLoader("");
             getDataForTab(tabMonths.getCurrentData(tab.getPosition()));
         }
     }
@@ -137,12 +166,12 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         movementsPresenter.getRemoteMovementsData(dataToRequest);
     }
 
-    private void updateRecyclerData(RecyclerView.Adapter adapter) {
+    public void updateRecyclerData(RecyclerView.Adapter adapter) {
         recyclerMovements.setAdapter(adapter);
+        recyclerMovements.setVisibility(View.VISIBLE);
     }
 
     protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemRecycler> movements) {
-
         movementsList.set(tabMonths.getSelectedTabPosition(), movements);
         txtInfoMovements.setVisibility(movements.isEmpty() ? View.VISIBLE : View.GONE);
         updateRecyclerData(adapter);
@@ -163,16 +192,20 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     @Override
     public void showError(String error) {
         UI.showToastShort(error, getActivity());
+        //hideLoader();
     }
 
     @Override
     public void showLoader(String message) {
-        swipeContainer.setRefreshing(true);
+        progress_emisor.setTextMessage(message);
+        progress_emisor.setVisivilityImage(View.VISIBLE);
+        progress_emisor.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void hideLoader() {
         swipeContainer.setRefreshing(false);
+        progress_emisor.setVisibility(View.GONE);
     }
 
     @Override
