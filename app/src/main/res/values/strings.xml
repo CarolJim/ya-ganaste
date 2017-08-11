@@ -172,7 +172,7 @@
     <string name="txt_mail">Correo Electrónico</string>
     <string name="send">ENVIAR</string>
     <string name="check_your_mail">Revisa tu Correo Electrónico</string>
-    <string name="txt_escribe_tu_correo">Escribe tu Correo Electrónico</string>
+    <string name="txt_escribe_tu_correo">Correo Electrónico</string>
     <string name="txt_phone">Teléfono: </string>
     <string name="txt_home_phone">Teléfono Fijo</string>
 
@@ -512,7 +512,7 @@
     <string name="selecciona_genero">Selecciona tu Género</string>
     <string name="cargando">Cargando</string>
 
-    <string name="recupera_contrasenia_title">Recupera tu Contraseña</string>
+    <string name="recupera_contrasenia_title">Restablece tu Contraseña</string>
     <string name="enviaremos_enlace_restablecer">Enviaremos un Enlace Para \nRestablecer tu Contraseña a:</string>
     <string name="ingresa_correo_registrado">Ingresa tu Correo\nElectrónico Registrado</string>
     <string name="ingresa_correo_registrado_requerido">El Correo Electrónico es Requerido. Verifica tu Información.</string>
