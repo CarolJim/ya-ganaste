@@ -9,7 +9,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.TextUtils;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -45,6 +44,7 @@ import com.pagatodo.yaganaste.ui.adquirente.presenters.interfaces.IinfoAdicional
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CountriesDialogFragment;
+import com.pagatodo.yaganaste.utils.customviews.CustomClickableSpan;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -480,7 +480,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
     private void setClickLegales() {
         SpannableString ss = new SpannableString(getString(R.string.terms_and_conditions_aditional_info));
-        ClickableSpan span1 = new ClickableSpan() {
+        CustomClickableSpan span1 = new CustomClickableSpan() {
             @Override
             public void onClick(View textView) {
 
