@@ -73,13 +73,13 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
         if (RequestHeaders.getTokenAdq().isEmpty() && !pref.containsData(CO_QUICK_EM)) {
             pref.saveDataBool(CO_QUICK_EM, true);
             startActivity(LandingActivity.createIntent(getActivity(), R.drawable.img_couch_qem_back,
-                    R.drawable.img_couch_qucik_em_1,
-                    R.drawable.img_couch_qucik_em_2));
+                    R.drawable.img_couch_quick_em_1,
+                    R.drawable.img_couch_quick_em_2));
         } else if (!RequestHeaders.getTokenAdq().isEmpty() && !pref.containsData(CO_QUICK_ADQ)) {
             pref.saveDataBool(CO_QUICK_ADQ, true);
             startActivity(LandingActivity.createIntent(getActivity(), R.drawable.img_couch_qadq_back,
-                    R.drawable.img_couch_qucik_adq_1,
-                    R.drawable.img_couch_qucik_adq_2));
+                    R.drawable.img_couch_quick_adq_1,
+                    R.drawable.img_couch_quick_adq_2));
         }
 
     }
@@ -99,13 +99,13 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
     @Override
     public void onBackPress() {
         if (viewPagerQuickBalance.getCurrentItem() == 0) {
-            if (!((OtpContainerFratgment)quickBalanceAdapter.getItem(0)).onBack()) {
+            if (!((OtpContainerFratgment) quickBalanceAdapter.getItem(0)).onBack()) {
                 viewPagerQuickBalance.setCurrentItem(1);
             } else {
                 viewPagerQuickBalance.setIsSwipeable(true);
             }
 
-        }else if (viewPagerQuickBalance.getCurrentItem() == 2) {
+        } else if (viewPagerQuickBalance.getCurrentItem() == 2) {
             viewPagerQuickBalance.setCurrentItem(1);
         } else {
             getActivity().finish();
@@ -126,7 +126,7 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
     public void backPage() {
         if (viewPagerQuickBalance.getCurrentItem() == 2) {
             viewPagerQuickBalance.setCurrentItem(1);
-        }else if (viewPagerQuickBalance.getCurrentItem() == 1) {
+        } else if (viewPagerQuickBalance.getCurrentItem() == 1) {
             viewPagerQuickBalance.setCurrentItem(0);
         }
     }
@@ -140,7 +140,7 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
     public void nextPage() {
         if (viewPagerQuickBalance.getCurrentItem() == 0) {
             viewPagerQuickBalance.setCurrentItem(1);
-        }else if (viewPagerQuickBalance.getCurrentItem() == 1) {
+        } else if (viewPagerQuickBalance.getCurrentItem() == 1) {
             viewPagerQuickBalance.setCurrentItem(2);
         }
     }

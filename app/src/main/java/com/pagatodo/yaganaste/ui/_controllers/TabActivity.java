@@ -184,7 +184,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (event.equals(EVENT_SHOW_MAIN_TAB)) {
             showMainTab();
         } else if (event.equals(EVENT_DOCUMENT_APPROVED)) {
-           // Toast.makeText(getApplicationContext(), "Load FRagment New", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getApplicationContext(), "Load FRagment New", Toast.LENGTH_SHORT).show();
             //DocumentsContainerFragment mFragment = mainViewPager.findViewById(R.id)
             DocumentsContainerFragment mFragment = (DocumentsContainerFragment)
                     getSupportFragmentManager().findFragmentById(R.id.main_view_pager);
