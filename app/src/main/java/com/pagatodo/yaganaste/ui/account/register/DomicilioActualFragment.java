@@ -28,6 +28,7 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -618,9 +619,15 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         ClickableSpan span1 = new ClickableSpan() {
             @Override
             public void onClick(View textView) {
+                boolean isOnline = Utils.isDeviceOnline();
+                if(isOnline) {
+                    LegalsDialog legalsDialog = LegalsDialog.newInstance(TERMINOS);
+                    legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
+                }else{
+                    showDialogMesage(getResources().getString(R.string.no_internet_access));
+                }
 
-                LegalsDialog legalsDialog = LegalsDialog.newInstance(TERMINOS);
-                legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
+
             }
         };
 
@@ -629,8 +636,16 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         ClickableSpan span2 = new ClickableSpan() {
             @Override
             public void onClick(View textView) {
-                LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDAD);
-                legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
+                boolean isOnline2 = Utils.isDeviceOnline();
+                if(isOnline2) {
+                    //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                    LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDAD);
+                    legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
+                }else{
+                    showDialogMesage(getResources().getString(R.string.no_internet_access));
+                }
+
+
             }
         };
 
@@ -648,6 +663,22 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     @Override
     public void onSpinnerClick() {
         hideValidationError(spColonia.getId());
+    }
+
+
+    private void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
     }
 }
 

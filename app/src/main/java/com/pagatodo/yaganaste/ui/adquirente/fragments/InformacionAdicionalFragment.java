@@ -31,6 +31,7 @@ import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEntity;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.OnCountrySelectedListener;
@@ -44,6 +45,7 @@ import com.pagatodo.yaganaste.ui.adquirente.presenters.InfoAdicionalPresenter;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.interfaces.IinfoAdicionalPresenter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CountriesDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
@@ -483,9 +485,14 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         ClickableSpan span1 = new ClickableSpan() {
             @Override
             public void onClick(View textView) {
+                boolean isOnline = Utils.isDeviceOnline();
+                if(isOnline) {
+                    LegalsDialog legalsDialog = LegalsDialog.newInstance(TERMINOS);
+                    legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
+                }else{
+                    showDialogMesage(getResources().getString(R.string.no_internet_access));
+                }
 
-                LegalsDialog legalsDialog = LegalsDialog.newInstance(TERMINOS);
-                legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
             }
         };
 
@@ -497,4 +504,18 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         txtLegales.setMovementMethod(LinkMovementMethod.getInstance());
     }
 
+    private void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
+    }
 }

@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -27,6 +28,7 @@ import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
@@ -163,15 +165,27 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 break;
 
             case "PREFER_USER_PRIVACIDAD":
-                //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDAD);
-                legalsDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
+                boolean isOnline = Utils.isDeviceOnline();
+                if(isOnline) {
+                    //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                    LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDAD);
+                    legalsDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
+                }else{
+                   // Toast.makeText(this, "Is OffLine Privacidad", Toast.LENGTH_SHORT).show();
+                    showDialogMesage(getResources().getString(R.string.no_internet_access));
+                }
                 break;
 
             case "PREFER_USER_TERMINOS":
-                //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                LegalsDialog legalsTerminosDialog = LegalsDialog.newInstance(TERMINOS);
-                legalsTerminosDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
+                boolean isOnline2 = Utils.isDeviceOnline();
+                if(isOnline2) {
+                    LegalsDialog legalsTerminosDialog = LegalsDialog.newInstance(TERMINOS);
+                    legalsTerminosDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
+                }else{
+                    showDialogMesage(getResources().getString(R.string.no_internet_access));
+                    //Toast.makeText(this, "Is OffLine Terminos", Toast.LENGTH_SHORT).show();
+                }
+
                 break;
 
             case "PREFER_USER_MY_USER":
@@ -276,5 +290,21 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         CameraManager cameraManager = mFragment.getCameraManager();
         // Enviamos datos recibidos al CameraManager
         cameraManager.setOnActivityResult(requestCode, resultCode, data);
+    }
+
+
+    private void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getSupportFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
     }
 }
