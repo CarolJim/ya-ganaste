@@ -7,6 +7,8 @@ import android.support.v4.app.Fragment;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.RegisterCupo;
+import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
@@ -22,6 +24,7 @@ import com.pagatodo.yaganaste.ui.cupo.presenters.CupoDomicilioPersonalPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.RecargasFormFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.ServiciosFormFragment;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_COMPLETE;
@@ -56,6 +59,58 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_conainer);
         initViews();
+    }
+
+
+    @Override
+    protected void onPause() {
+        Log.e("Test","Entre a onPause");
+        clearSingleton();
+
+        super.onPause();
+    }
+
+    private void clearSingleton () {
+        RegisterCupo registerCupo = RegisterCupo.getInstance();
+        registerCupo.setEstadoCivil("");
+        registerCupo.setIdEstadoCivil(0);
+        registerCupo.setHijos("");
+        registerCupo.setIdHijos(0);
+        registerCupo.setCreditoBancario(false);
+        registerCupo.setCreditoAutomotriz(false);
+        registerCupo.setCreditoBancario(false);
+
+        registerCupo.setFamiliarNombre("");
+        registerCupo.setFamiliarApellidoPaterno("");
+        registerCupo.setFamiliarApellidoMaterno("");
+        registerCupo.setFamiliarTelefono("");
+        registerCupo.setFamiliarRelacion("");
+        registerCupo.setFamiliarIdRelacion(0);
+
+        registerCupo.setPersonalNombre("");
+        registerCupo.setPersonalApellidoPaterno("");
+        registerCupo.setPersonalApellidoMaterno("");
+        registerCupo.setPersonalTelefono("");
+        registerCupo.setPersonalRelacion("");
+        registerCupo.setPersonalIdRelacion(0);
+
+        registerCupo.setProveedorNombre("");
+        registerCupo.setProveedorApellidoPaterno("");
+        registerCupo.setProveedorApellidoMaterno("");
+        registerCupo.setProveedorTelefono("");
+        registerCupo.setProveedorProductoServicio("");
+
+        registerCupo.setCalle("");
+        registerCupo.setNumExterior("");
+        registerCupo.setNumInterior("");
+        registerCupo.setCodigoPostal("");
+        registerCupo.setEstadoDomicilio("");
+        registerCupo.setColonia("");
+        registerCupo.setIdColonia("");
+        registerCupo.setNacionalidad("");
+        registerCupo.setLugarNacimiento("");
+        registerCupo.setIdEstadoNacimineto("");
+
     }
 
     private void initViews() {

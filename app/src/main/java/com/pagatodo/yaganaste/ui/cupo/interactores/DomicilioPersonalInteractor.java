@@ -106,7 +106,6 @@ public class DomicilioPersonalInteractor implements IDomicilioPersonalInteractor
         } catch (OfflineException e) {
             accountManager.onError(CARGA_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
         }
-
     }
 
     @Override
