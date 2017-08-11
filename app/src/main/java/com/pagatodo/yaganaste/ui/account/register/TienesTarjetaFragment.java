@@ -273,6 +273,8 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                 txtMessageCard.setText(getString(R.string.no_tiene_tarjeta));
                 generateCardNumberRamdon();
                 keyboardView.hideCustomKeyboard();
+                btnNextTienesTarjeta.setVisibility(View.VISIBLE);
+
 
                 // Reiniciamos al TDC vacia
                 editNumber.setText("");

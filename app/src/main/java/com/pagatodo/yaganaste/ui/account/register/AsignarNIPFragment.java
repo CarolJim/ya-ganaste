@@ -102,6 +102,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
         // EditTExt oculto que procesa el PIN y sirve como ancla para validacion
         // Se le asigna un TextWatcher personalizado para realizar las oepraciones
         edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
+        edtPin.setMaxLength(4); // Se asigna un maximo de 4 caracteres para no tener problrmas
         edtPin.addCustomTextWatcher(new AsignarNipTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num));
         edtPin.addCustomTextWatcher(new TextWatcher() {
             @Override
