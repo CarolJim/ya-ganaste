@@ -68,6 +68,7 @@ public class WsCaller implements IServiceConsumer {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
                         Log.d(TAG, "Request Failed : " + error.getMessage());
                         if (request.getRequestResult() != null) {
                             if (error.networkResponse != null ) {

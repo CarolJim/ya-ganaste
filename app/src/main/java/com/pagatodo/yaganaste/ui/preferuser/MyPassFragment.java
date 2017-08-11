@@ -128,13 +128,13 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
                 if (hasFocus) {
                     if (editOldPassword.getText().isEmpty()) {
                         editOldPassword.setIsInvalid();
-                        showValidationError(editOldPassword.getId(), getString(R.string.datos_usuario_pass));
+                        showValidationError(editOldPassword.getId(), getString(R.string.cambiar_pass_actual));
                     }
                 } else {
                     if (editOldPassword.isValidText() && !isValidPassword) {
                     } else if (editOldPassword.getText().isEmpty()) {
                         editOldPassword.setIsInvalid();
-                        showValidationError(editOldPassword.getId(), getString(R.string.datos_usuario_pass));
+                        showValidationError(editOldPassword.getId(), getString(R.string.cambiar_pass_actual));
                     } else if (editOldPassword.isValidText() && isValidPassword) {
                         hideValidationError(editOldPassword.getId());
                         editOldPassword.setIsValid();
@@ -148,7 +148,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
             public void onTextChanged(String s, int start, int before, int count) {
                 isValidPassword = false;
                 if (editOldPassword.getText().isEmpty()) {
-                    showValidationError(editOldPassword.getId(), getString(R.string.datos_usuario_pass));
+                    showValidationError(editOldPassword.getId(), getString(R.string.cambiar_pass_actual));
                     editOldPassword.setIsInvalid();
                 } else if (!editOldPassword.isValidText()) {
                     showValidationError(editOldPassword.getId(), getString(R.string.datos_usuario_pass_formato));
@@ -309,7 +309,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
 
         //Validate if OldPassword Confirmation is Empty
         if (passwordOld.isEmpty()) {
-            showValidationError(editOldPassword.getId(), getString(R.string.datos_usuario_pass));
+            showValidationError(editOldPassword.getId(), getString(R.string.cambiar_pass_actual));
             editOldPassword.setIsInvalid();
             isValid = false;
         }

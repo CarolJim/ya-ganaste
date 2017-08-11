@@ -148,6 +148,8 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
 
     @Override
     public void onRefresh() {
+        isBalance = false;
+        isBalanceAdq = false;
         swipeContainer.setRefreshing(false);
         accountPresenter.updateBalance();
         accountPresenter.updateBalanceAdq();
@@ -185,9 +187,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     }
 
     private void hideLoaderBalance() {
-        if (isBalance && isBalanceAdq) {
-            hideLoader();
-        }
+        hideLoader();
     }
 
     @Override
@@ -197,12 +197,14 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
 
     @Override
     public void hideLoader() {
-        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+        if (isBalance && isBalanceAdq && onEventListener != null) {
+            onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+        }
     }
 
     @Override
     public void showError(Object error) {
-        throw new IllegalCallException("this method is not implemented yet");
+        //throw new IllegalCallException("this method is not implemented yet");
     }
 
 

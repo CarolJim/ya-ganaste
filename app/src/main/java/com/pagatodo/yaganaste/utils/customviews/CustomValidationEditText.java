@@ -17,6 +17,7 @@ import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
 import android.util.TypedValue;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
@@ -32,7 +33,7 @@ import com.pagatodo.yaganaste.utils.ValidateForm;
  * Created by Jordan on 27/03/2017.
  */
 
-public class CustomValidationEditText extends LinearLayout {
+public class CustomValidationEditText extends LinearLayout implements View.OnTouchListener, View.OnLongClickListener {
     //@BindView(R.id.editTextCustom)
     EditText editText;
     //@BindView(R.id.imageViewValidation)
@@ -47,6 +48,8 @@ public class CustomValidationEditText extends LinearLayout {
     boolean isSingleLine = false;
     boolean isTextEnabled = true;
     private int pinnedIcon;
+
+    private OnClickListener externalListener;
 
     public CustomValidationEditText(Context context, @Nullable AttributeSet attrs) {
         super(context, attrs);
@@ -141,6 +144,7 @@ public class CustomValidationEditText extends LinearLayout {
 
         Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
         editText.setTypeface(customFont);
+        editText.setOnLongClickListener(this);
     }
 
 
@@ -308,7 +312,11 @@ public class CustomValidationEditText extends LinearLayout {
     }
 
     public void setMaxLines(int n) {
-        editText.setLines(n);
+        if (n > 1) {
+            editText.setLines(n);
+        } else {
+            editText.setSingleLine(true);
+        }
     }
 
     public void setSingleLine(boolean singleLine) {
@@ -325,10 +333,12 @@ public class CustomValidationEditText extends LinearLayout {
 
 
     public void setFullOnClickListener(OnClickListener onClickListener) {
-        editText.setFocusable(true);
-        editText.setFocusableInTouchMode(true);
-        editText.requestFocus();
-        editText.setOnClickListener(onClickListener);
+        editText.setFocusable(false);
+        editText.setFocusableInTouchMode(false);
+        editText.setEnabled(true);
+        externalListener = onClickListener;
+        //editText.setOnClickListener(onClickListener);
+        editText.setOnTouchListener(this);
         imageView.setOnClickListener(onClickListener);
         //this.setOnClickListener(onClickListener);
     }
@@ -375,5 +385,18 @@ public class CustomValidationEditText extends LinearLayout {
 
     public void setEnabled(boolean isEnabled){
         editText.setEnabled(isEnabled);
+    }
+
+    @Override
+    public boolean onTouch(View v, MotionEvent event) {
+        if(event.getAction() == MotionEvent.ACTION_UP && externalListener != null) {
+            externalListener.onClick(v);
+        }
+        return false;
+    }
+
+    @Override
+    public boolean onLongClick(View v) {
+        return true;
     }
 }

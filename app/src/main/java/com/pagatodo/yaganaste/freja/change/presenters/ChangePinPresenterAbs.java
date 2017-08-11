@@ -6,6 +6,7 @@ import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.change.iteractors.ChangePinIteractor;
 import com.pagatodo.yaganaste.freja.change.iteractors.ChangePinIteractorImp;
 import com.pagatodo.yaganaste.freja.change.managers.ChangePinManager;
+import com.verisec.freja.mobile.core.exceptions.FmcCodeException;
 
 import java.util.concurrent.Executors;
 
@@ -37,7 +38,8 @@ public abstract class ChangePinPresenterAbs implements ChangePinPresenter, Chang
         if (min <= size && size <= max) {
             changePinIteractor.changePin(oldPin, newPin);
         } else {
-            onError(Errors.BAD_CHANGE_POLICY);
+            handleException(new FmcCodeException(-1,""));
+
         }
     }
 

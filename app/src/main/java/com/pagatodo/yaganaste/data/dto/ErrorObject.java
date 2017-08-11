@@ -53,6 +53,10 @@ public class ErrorObject {
         return errorMessage;
     }
 
+    public void setErrorMessage(String errorMessage) {
+        this.errorMessage = errorMessage;
+    }
+
     public WebService getWebService() {
         return webService;
     }
