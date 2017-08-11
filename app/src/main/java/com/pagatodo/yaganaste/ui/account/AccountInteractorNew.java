@@ -502,10 +502,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void validateBalanceResponse(ConsultarSaldoResponse response) {
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-
             prefs.saveData(StringConstants.USER_BALANCE, response.getData().getSaldo());
             prefs.saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
-            accountManager.onSuccesBalance(response);
+            accountManager.onSuccesBalance();
         } else {
             accountManager.onError(CONSULTAR_SALDO, null);
         }
@@ -513,9 +512,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response) {
         if(response.getResult().getId().equals(Recursos.ADQ_CODE_OK)) {
-            App.getInstance().getPrefs().saveData(StringConstants.ADQUIRENTE_BALANCE, response.getSaldo());
+            prefs.saveData(StringConstants.ADQUIRENTE_BALANCE, response.getSaldo());
             prefs.saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
-            accountManager.onSuccesBalanceAdq(response);
+            accountManager.onSuccesBalanceAdq();
         }else {
             accountManager.onError(CONSULTA_SALDO_CUPO, null);
         }

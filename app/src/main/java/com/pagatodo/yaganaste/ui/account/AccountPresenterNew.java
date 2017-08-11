@@ -13,9 +13,7 @@ import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountAddressRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;
@@ -50,6 +48,8 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NEW_NIP
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
@@ -270,7 +270,13 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             }
 
         } else if (!(accountView instanceof IBalanceView)) {
-            accountView.showError(error);
+            if (ws == CONSULTAR_SALDO) {
+                onSuccesBalance();
+            } else if (ws == CONSULTAR_SALDO_ADQ) {
+                onSuccesBalanceAdq();
+            } else {
+                accountView.showError(error);
+            }
         } else if (accountView instanceof IDocumentApproved) {
             accountView.showError(error);
         } else if (accountView instanceof ILoginView) {
@@ -388,12 +394,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     }
 
     @Override
-    public void onSuccesBalance(ConsultarSaldoResponse response) {
-        ((IBalanceView) this.accountView).updateBalance(response.getData().getSaldo());
+    public void onSuccesBalance() {
+        ((IBalanceView) this.accountView).updateBalance();
     }
 
     @Override
-    public void onSuccesBalanceAdq(ConsultaSaldoCupoResponse response) {
-        ((IBalanceView) this.accountView).updateBalanceAdq(response.getSaldo());
+    public void onSuccesBalanceAdq() {
+        ((IBalanceView) this.accountView).updateBalanceAdq();
     }
 }
