@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
@@ -30,6 +31,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 
 /**
  * Encargada de gestionar el cambio de contraseña, los elementos graficos de la vista y enviar al MVP
@@ -113,8 +115,12 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.fragment_myemail_btn:
-                validateForm();
-                //onValidationSuccess();
+                boolean isOnline = Utils.isDeviceOnline();
+                if(isOnline) {
+                    validateForm();
+                }else{
+                    showDialogMesage(getResources().getString(R.string.no_internet_access));
+                }
                 break;
         }
     }
