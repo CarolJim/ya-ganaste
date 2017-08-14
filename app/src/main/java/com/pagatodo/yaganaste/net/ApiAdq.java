@@ -34,8 +34,8 @@ import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_GET;
 import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_POST;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.AUTENTICA_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELA_TRANSACTION_EMV_DEPOSIT;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_MOVIMIENTOS_MES_ADQ;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SESION_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
@@ -226,7 +226,7 @@ public class ApiAdq extends Api {
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
-        NetFacade.consumeWS(CONSULTA_SALDO_CUPO,
+        NetFacade.consumeWS(CONSULTAR_SALDO_ADQ,
                 METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqGetBalance),
                 headers, null, ConsultaSaldoCupoResponse.class, result);
     }

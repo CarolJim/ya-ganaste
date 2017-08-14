@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.net;
 
 import android.app.NotificationManager;
 import android.content.Intent;
+import android.os.Bundle;
 import android.util.Log;
 
 import com.google.firebase.messaging.FirebaseMessagingService;
@@ -26,25 +27,24 @@ public class MessagingService extends FirebaseMessagingService {
     @Override
     public void onMessageReceived(RemoteMessage remoteMessage) {
         Log.d(TAG, "From: " + remoteMessage.getFrom());
-        // Check if message contains a data payload.
-        if (remoteMessage.getData().size() > 0) {
-            Log.d(TAG, "Message data payload: " + remoteMessage.getData());
-
-        }
-        // Check if message contains a notification payload.
         if (remoteMessage.getNotification() != null) {
-            Log.d(TAG, "Message Notification Body: " + remoteMessage.getNotification().getBody());
             RemoteMessage.Notification notification = remoteMessage.getNotification();
-            NotificationBuilder.createTransactionNotification(this, OnlineTxActivity.class, notification.getTitle(), notification.getBody());
+            handleData(notification.getTitle(), notification.getBody());
         }
-        // Also if you intend on generating your own notifications as a result of a received FCM
-        // message, here is where that should be initiated. See sendNotification method below.
     }
 
     @Override
     public void handleIntent(Intent intent) {
-        NotificationBuilder.createTransactionNotification(this, OnlineTxActivity.class,
-                "Hola :)" + intent.getExtras().getString("gcm.notification.title"),
-                intent.getExtras().getString("gcm.notification.body"));
+        Bundle extras = intent.getExtras();
+        String title = extras.getString("gcm.notification.title");
+        String body = extras.getString("gcm.notification.body");
+        handleData(title, body);
+    }
+
+    private void handleData(String title, String body) {
+        ((NotificationManager) getSystemService(NOTIFICATION_SERVICE)).cancelAll();
+        String[] values = body.split("-");
+        NotificationBuilder.createTransactionNotification(this, OnlineTxActivity.createIntent(this, values[1].trim()),
+                title, values[0]);
     }
 }

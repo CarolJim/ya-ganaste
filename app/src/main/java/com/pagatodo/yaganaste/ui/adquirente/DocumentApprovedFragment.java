@@ -110,24 +110,19 @@ public class DocumentApprovedFragment extends GenericFragment implements
     @Override
     public void showError(Object error) {
         hideLoader();
-        //Toast.makeText(getContext(), "Update Fragment ShowError", Toast.LENGTH_SHORT).show();
     }
 
     @Override
     public void dataUpdated(String mResult) {
         hideLoader();
-        //Toast.makeText(getContext(), "Update Fragment Success " + mResult, Toast.LENGTH_SHORT).show();
 
         SingletonUser user = SingletonUser.getInstance();
         DataIniciarSesion dataUser = user.getDataUser();
         String myVar = dataUser.getUsuario().getTokenSesionAdquirente();
         if(myVar != null && !myVar.isEmpty()){
-            //Toast.makeText(getContext(), "Update Token Success " + mResult, Toast.LENGTH_SHORT).show();
             getActivity().finish();
             Intent intent = new Intent(getContext(), LandingApprovedActivity.class);
             startActivity(intent);
-        }else{
-            //Toast.makeText(getContext(), "Update Token Fail " + mResult, Toast.LENGTH_SHORT).show();
         }
     }
 }

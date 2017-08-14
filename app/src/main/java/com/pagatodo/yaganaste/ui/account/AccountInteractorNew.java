@@ -76,7 +76,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_CUPO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGIN_ADQ;
@@ -372,7 +372,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         try {
             ApiAdq.consultaSaldoCupo(this);
         } catch (OfflineException e) {
-            accountManager.onError(CONSULTA_SALDO_CUPO, null);
+            accountManager.onError(CONSULTAR_SALDO_ADQ, null);
         }
     }
 
@@ -471,7 +471,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 validatePersonDataResponse((GenericResponse) dataSourceResult.getData());
                 break;
 
-            case CONSULTA_SALDO_CUPO:
+            case CONSULTAR_SALDO_ADQ:
                 validateBalanceAdqResponse((ConsultaSaldoCupoResponse) dataSourceResult.getData());
                 break;
 
@@ -516,7 +516,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             prefs.saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
             accountManager.onSuccesBalanceAdq();
         }else {
-            accountManager.onError(CONSULTA_SALDO_CUPO, null);
+            accountManager.onError(CONSULTAR_SALDO_ADQ, null);
         }
     }
 

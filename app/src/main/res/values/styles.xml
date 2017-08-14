@@ -118,7 +118,6 @@
         <item name="tipo">Text</item>
     </style>
 
-
     <style name="buttonDirecctionBackSmall" parent="buttonDirecctionBack">
         <item name="android:layout_width">@dimen/width_btns_small</item>
     </style>

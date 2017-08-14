@@ -7,7 +7,7 @@
     android:orientation="vertical"
     android:gravity="center_horizontal"
     android:background="@drawable/bg_gradient_bottom"
-    android:paddingTop="@dimen/btn_margin_bottom">
+    android:paddingTop="@dimen/activity_vertical_margin">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:layout_width="match_parent"
@@ -16,16 +16,20 @@
         android:gravity="center_horizontal"
         style="@style/generic_text_style_3" />
 
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space" />
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/space" />
+
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txt_type_tx"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         style="@style/generic_text_style_1"
         tools:text="Envio de Dinero" />
-
-    <android.support.v4.widget.Space
-        android:layout_width="match_parent"
-        android:layout_height="@dimen/space" />
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
@@ -39,8 +43,7 @@
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space" />
-
+        android:layout_height="@dimen/space_between_forms" />
 
     <com.pagatodo.yaganaste.utils.customviews.MontoTextView
         android:id="@+id/txt_mount"
@@ -49,21 +52,19 @@
         android:gravity="center"
         android:text="00"
         android:textAlignment="center"
-        android:textSize="22sp"
+        android:textSize="37sp"
         app:dotBottom="false"
         app:symbolSmaller="true" />
-
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
         android:layout_height="@dimen/space" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        android:id="@+id/txt_details"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textSize="@dimen/online_movements_small_b"
-        tools:text="A la Cuenta: " />
+        style="@style/generic_text_style_2"
+        android:text= "@string/a_la_cuenta"/>
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
@@ -78,7 +79,7 @@
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
-        android:layout_height="@dimen/double_space" />
+        android:layout_height="@dimen/space" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:layout_width="wrap_content"
@@ -89,9 +90,7 @@
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
-        android:layout_height="@dimen/space" />
-
-
+        android:layout_height="@dimen/space_between_forms" />
 
     <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
         android:id="@+id/edt_password"
@@ -104,10 +103,10 @@
         app:hintText="@string/txt_escribe_tu_pass"
         app:isTextEnabled="true"/>
 
-
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
-        android:layout_height="@dimen/double_space" />
+        android:layout_height = "0dp"
+        android:layout_weight="1"/>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:id="@+id/btn_continue"

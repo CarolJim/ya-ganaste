@@ -8,7 +8,7 @@ import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 
 public enum States implements IEnumSpinner {
 
-    S0(0, "Entidad de Nacimiento"),
+    S0(0, "Lugar de Nacimiento"),
     S1(1, "Aguascalientes"),
     S2(2, "Baja California"),
     S3(3, "Baja California Sur"),

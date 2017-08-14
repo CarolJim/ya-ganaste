@@ -53,7 +53,7 @@ public class AdqPayMovementsIteractorImp implements MovementsIteractor<ResumenMo
                 validateResponse((ResumenMovimientosAdqResponse) dataSourceResult.getData());
                 break;
 
-            case CONSULTA_SALDO_CUPO:
+            case CONSULTAR_SALDO_ADQ:
                 validateBalanceResponse((ConsultaSaldoCupoResponse) dataSourceResult.getData());
                 break;
         }

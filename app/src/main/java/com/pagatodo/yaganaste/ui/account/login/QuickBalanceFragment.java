@@ -172,7 +172,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
     @Override
     public void showError(Object error) {
-        throw new IllegalCallException("this method is not implemented yet");
+        //throw new IllegalCallException("this method is not implemented yet");
     }
 
     @Override
