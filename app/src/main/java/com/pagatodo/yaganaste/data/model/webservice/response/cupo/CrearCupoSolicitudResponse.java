@@ -7,9 +7,9 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
  * Created by Tato on 09/08/17.
  */
 
-public class CrearCupoSolicitud extends GenericResponse {
+public class CrearCupoSolicitudResponse extends GenericResponse {
 
-    public CrearCupoSolicitud() {
+    public CrearCupoSolicitudResponse() {
     }
 
 }

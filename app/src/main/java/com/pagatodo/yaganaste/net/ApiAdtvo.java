@@ -60,7 +60,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatu
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.cupo.CrearCupoSolicitud;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.CrearCupoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 
@@ -76,6 +76,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CAMBIAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_MOVIMIENTOS_MES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
@@ -663,20 +664,40 @@ public class ApiAdtvo extends Api {
                 headers, request, true, CambiarEmailResponse.class, result);
     }
 
-
     public static void CrearSolicitudCupo(CrearCupoSolicitudRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put("Content-Type", "application/json");
+
+        // TODO: Cambiar a la url correcta.
+
         NetFacade.consumeWS(CREA_SOLICITUD_CUPO,
                 METHOD_POST,
-                URL_SERVER_ADTVO + App.getContext().getString(R.string.cupoCrearSolicitudCupo),
+                /*URL_SERVER_ADTVO*/ "http://10.140.140.247:9000"   + App.getContext().getString(R.string.cupoCrearSolicitudCupo),
                 headers,
                 request,
-                CrearCupoSolicitud.class,
+                CrearCupoSolicitudResponse.class,
                 result
         );
+    }
 
+
+    /**
+     * Método para realizar la Carga de los documentos para cupo.
+     *
+     * @param request {@link CargaDocumentosRequest} body de la petición.
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void cargaDocumentosCupo(CargaDocumentosRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        NetFacade.consumeWS(CARGA_DOCUMENTOS_CUPO,
+                METHOD_POST,
+                URL_SERVER_ADTVO + App.getContext().getString(R.string.cupoCargaDocumentos),
+                headers,
+                request,
+                CargaDocumentosResponse.class,
+                result);
     }
 
 

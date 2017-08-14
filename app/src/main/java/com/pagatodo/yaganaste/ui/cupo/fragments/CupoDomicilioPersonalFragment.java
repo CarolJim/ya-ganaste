@@ -606,6 +606,11 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
     }
 
     @Override
+    public void setResponseCreaSolicitudCupo() {
+        cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
+    }
+
+    @Override
     public void onSpinnerClick() {
         hideErrorMessage(spBussinesColonia.getId());
     }

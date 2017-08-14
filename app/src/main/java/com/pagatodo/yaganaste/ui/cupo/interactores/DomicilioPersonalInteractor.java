@@ -9,7 +9,6 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CargaDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
@@ -21,6 +20,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasRespo
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.CrearCupoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
@@ -37,6 +37,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREA_SOLICITUD_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
@@ -99,13 +101,17 @@ public class DomicilioPersonalInteractor implements IDomicilioPersonalInteractor
      */
     @Override
     public void sendDocuments(ArrayList<DataDocuments> docs) {
+
+        /*TODO : Probar el servicio
         try {
             CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
             cargaDocumentosRequest.setDocumentos(docs);
-            ApiAdtvo.cargaDocumentos(cargaDocumentosRequest, this);
+            ApiAdtvo.cargaDocumentosCupo(cargaDocumentosRequest, this);
         } catch (OfflineException e) {
             accountManager.onError(CARGA_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
         }
+        */
+
     }
 
     @Override
@@ -167,11 +173,17 @@ public class DomicilioPersonalInteractor implements IDomicilioPersonalInteractor
 
         request.setDomicilioPersonal(domicilios);
 
-        Log.e("Cupo JSON",   createParams(false, request ).toString()  );
+        //Log.e("Cupo JSON", createParams(false, request ).toString()  );
+
+        try {
+            ApiAdtvo.CrearSolicitudCupo(request, this);
+        } catch (OfflineException e) {
+            accountManager.onError(CREA_SOLICITUD_CUPO, App.getInstance().getString(R.string.no_internet_access));
+        }
+
+
 
     }
-
-
 
     private static JSONObject createParams(boolean envolve, Object oRequest) {
 
@@ -205,9 +217,46 @@ public class DomicilioPersonalInteractor implements IDomicilioPersonalInteractor
                 case CARGA_DOCUMENTOS:
                     processSendDocuments(dataSourceResult);
                     break;
+                case CARGA_DOCUMENTOS_CUPO:
+                    processSendDocumentsCupo(dataSourceResult);
+                    break;
+                case CREA_SOLICITUD_CUPO:
+                    processSolicitudCupo(dataSourceResult);
+                    break;
             }
         }
     }
+
+
+    @Override
+    public void onFailed(DataSourceResult error) {
+        accountManager.onError(error.getWebService(), error.getData().toString());
+    }
+
+    private void processSolicitudCupo(DataSourceResult response) {
+        CrearCupoSolicitudResponse data = (CrearCupoSolicitudResponse) response.getData();
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            accountManager.onSucces(CREA_SOLICITUD_CUPO, "Registro Cupo Enviado");
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            iNavigationView.errorSessionExpired(response);
+        } else {
+            accountManager.onError(CREA_SOLICITUD_CUPO, data.getMensaje());
+        }
+    }
+
+    // TODO: Probar
+    private void processSendDocumentsCupo(DataSourceResult response) {
+        CargaDocumentosResponse data = (CargaDocumentosResponse) response.getData();
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            //actualizaEstatusUsuario();
+            accountManager.onSucces(CARGA_DOCUMENTOS_CUPO, "Envio de documentos");
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            iNavigationView.errorSessionExpired(response);
+        } else {
+            accountManager.onError(CARGA_DOCUMENTOS_CUPO, data.getMensaje());
+        }
+    }
+
 
     /***
      * Metodo para procesar la respuesta cuando se envian los documentos
@@ -262,10 +311,7 @@ public class DomicilioPersonalInteractor implements IDomicilioPersonalInteractor
         }
     }
 
-    @Override
-    public void onFailed(DataSourceResult error) {
 
-    }
 
 
     /**

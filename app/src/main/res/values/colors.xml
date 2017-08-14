@@ -57,4 +57,13 @@
 
     <color name="inputTextColor123">#FFF</color>
     <color name="borderColor123">#FFF</color>
+
+    <!--Colores Barra de progreso cupo-->
+    <color name="progreso_cupo_first">#00A1E1</color>
+    <color name="progreso_cupo_second">#1CC65D</color>
+    <color name="progreso_cupo_error">#E70050</color>
+    <color name="progreso_cupo_rechazo">#808080</color>
+
+
+
 </resources>

@@ -489,6 +489,12 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     }
 
     @Override
+    public void setResponseDocuments() {
+        // TODO:  Manejo de respuesta de los docuemntos
+    }
+
+
+    @Override
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(false);
         refreshContent();

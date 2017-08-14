@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.ui.cupo.fragments.CupoInicioFragment;
 import com.pagatodo.yaganaste.ui.cupo.fragments.CupoReferenciaFamiliarFragment;
 import com.pagatodo.yaganaste.ui.cupo.fragments.CupoReferenciaPersonalFragment;
 import com.pagatodo.yaganaste.ui.cupo.fragments.CupoReferenciaProveedorFragment;
+import com.pagatodo.yaganaste.ui.cupo.fragments.StatusRegisterCupoFragment;
 import com.pagatodo.yaganaste.ui.cupo.managers.CupoActivityManager;
 import com.pagatodo.yaganaste.ui.cupo.presenters.CupoDomicilioPersonalPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.RecargasFormFragment;
@@ -65,7 +66,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     @Override
     protected void onPause() {
         Log.e("Test","Entre a onPause");
-        clearSingleton();
+        //clearSingleton();
 
         super.onPause();
     }
@@ -151,7 +152,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 break;
             case EVENT_GO_CUPO_CUENTAME_MAS:
                 loadFragment(CupoCuentanosMasFragment.newInstance(), Direction.FORDWARD, true);
-                //loadFragment(CupoComprobantesFragment.newInstance(), Direction.FORDWARD, true);
+                //loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_REFERENCIA_FAMILIAR:
                 loadFragment(CupoReferenciaFamiliarFragment.newInstance(), Direction.FORDWARD, true);

@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.ui.account.AccountInteractorNew;
 import com.pagatodo.yaganaste.ui.cupo.interactores.DomicilioPersonalInteractor;
 import com.pagatodo.yaganaste.ui.cupo.interactores.interfaces.IDomicilioPersonalInteractor;
 import com.pagatodo.yaganaste.ui.cupo.presenters.interfaces.IViewDomicilioPersonalPresenter;
+import com.pagatodo.yaganaste.ui.cupo.view.IViewCupoComprobantes;
 import com.pagatodo.yaganaste.ui.cupo.view.IViewDomicilioPersonal;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
@@ -30,6 +31,8 @@ import com.pagatodo.yaganaste.utils.UI;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREA_SOLICITUD_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 
 /**
@@ -67,6 +70,10 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
         iNavigationView.hideLoader();
         if (ws == OBTENER_COLONIAS_CP) {
             ((IViewDomicilioPersonal) iNavigationView).setNeighborhoodsAvaliables((List<ColoniasResponse>) msgSuccess);
+        } else if (ws == CARGA_DOCUMENTOS_CUPO) {
+            ((IViewCupoComprobantes) iNavigationView).setResponseDocuments();
+        } else if (ws == CREA_SOLICITUD_CUPO) {
+            ((IViewDomicilioPersonal) iNavigationView).setResponseCreaSolicitudCupo();
         }
     }
 

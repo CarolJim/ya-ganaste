@@ -142,8 +142,10 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
 
     @Override
     public void showStatusRegister() {
-        statusText.setText("Validando\nReferencias\n2/3");
-        statusViewCupo.updateStatus(66,33);
+        statusText.setText("Validando\nReferencias\n1/3");
+        statusViewCupo.updateStatus(33,0);
+        statusViewCupo.updateError(66, 33);
+
 
     }
 }

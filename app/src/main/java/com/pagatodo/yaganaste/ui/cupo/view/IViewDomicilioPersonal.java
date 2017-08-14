@@ -14,4 +14,6 @@ public interface IViewDomicilioPersonal<E> extends INavigationView<Object, E> {
 
     void setNeighborhoodsAvaliables(List<ColoniasResponse> listaColonias);
 
+    void setResponseCreaSolicitudCupo();
+
 }
