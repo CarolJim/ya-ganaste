@@ -330,9 +330,9 @@
     <string name="permission_request">Solicitud de Permisos</string>
     <string name="permission_request_desc">Debes Aceptar Todos los Permisos para el Correcto Funcionamiento de Ya Ganaste.</string>
     <string name="asignar_pin">Verifica tu NIP.</string>
-    <string name="confirma_pin">Confirma tu NIP.</string>
+    <string name="confirma_pin">Confirma tu NIP</string>
     <string name="confirmar_pin">El NIP no Coincide</string>
-    <string name="longitud_nip">NIP de 4 Dígitos</string>
+    <string name="longitud_nip">NIP de 4 Digitos</string>
     <string name="new_nip_diferent">El Nuevo NIP Debe Ser Diferente Del Anterior</string>
     <string name="new_nip_four_digits">Son Necesarios 4 Números</string>
     <!--Datos Negocio-->

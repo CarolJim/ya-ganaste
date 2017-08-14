@@ -18,6 +18,9 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 /**
@@ -107,6 +110,7 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<Countries> implemen
     public Filter getFilter() {
         if (countriesFilter == null) {
             countriesFilter = new CountriesFilter();
+
         }
         return countriesFilter;
     }
@@ -128,6 +132,14 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<Countries> implemen
                     }
                 }
 
+                Collections.sort(nCountriesList, new Comparator<Countries>() {
+                    @Override
+                    public int compare(Countries countries, Countries t1) {
+                        return countries.getPais().compareTo(t1.getPais());
+                    }
+                });
+
+
                 results.count = nCountriesList.size();
                 results.values = nCountriesList;
 
@@ -147,7 +159,6 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<Countries> implemen
                     results.values = nCountriesList;
                 }
             }
-
             return results;
         }
 
