@@ -31,6 +31,7 @@ import java.util.List;
 
 import butterknife.BindView;
 
+import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CABLE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
@@ -106,7 +107,9 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
         tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(getContext()));
         tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(getContext()));
 
-        if (keyIdComercio != IDCOMERCIO_YA_GANASTE) {
+        if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
+            //receiverName.setVisibility(GONE);
+        } else {
             tipoPago.add(CABLE.getId(), CABLE.getName(getContext()));
         }
 
@@ -116,8 +119,8 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
         amountToSend.addTextChangedListener(new NumberTextWatcher(amountToSend));
 
         // Validacion para ocultar campo de Referencia numerica si el comercio es YaGanaste
-        if(keyIdComercio == IDCOMERCIO_YA_GANASTE){
-            referenciaLayout.setVisibility(View.GONE);
+        if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
+            referenciaLayout.setVisibility(GONE);
             numberReference.setText("123456");
         }
     }
@@ -199,7 +202,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
         } else {
             maxLength = 2;
             cardNumber.setHint("");
-            layout_cardNumber.setVisibility(View.GONE);
+            layout_cardNumber.setVisibility(GONE);
             selectedType = null;
         }
 

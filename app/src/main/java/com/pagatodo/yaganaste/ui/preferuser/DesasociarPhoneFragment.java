@@ -8,8 +8,10 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferDesasociarView;
@@ -120,6 +122,8 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
         //showDialogCustom(mensaje);
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 closeSession, true, false);
+        App.getInstance().getPrefs().clearPreferences();
+        RequestHeaders.clearPreferences();
         //
 
     }
