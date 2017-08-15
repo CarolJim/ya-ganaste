@@ -14,15 +14,18 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferDesasociarView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -107,8 +110,16 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
      */
     @Override
     public void onClick(View v) {
-        UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaDesasociarDispositivo), getFragmentManager(),
-                doubleActions, true, true);
+
+        boolean isOnline = Utils.isDeviceOnline();
+        if(isOnline) {
+            UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaDesasociarDispositivo), getFragmentManager(),
+                    doubleActions, true, true);
+        }else{
+            // Toast.makeText(this, "Is OffLine Privacidad", Toast.LENGTH_SHORT).show();
+            showDialogCustom(getResources().getString(R.string.no_internet_access));
+        }
+
     }
 
     /**

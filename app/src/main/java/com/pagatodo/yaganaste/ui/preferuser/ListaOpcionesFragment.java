@@ -25,10 +25,12 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvat
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 import java.io.ByteArrayOutputStream;
@@ -44,6 +46,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 
 /**
@@ -201,14 +204,26 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
                 onEventListener.onEvent(PREFER_USER_LEGALES, 1);
                 break;
             case R.id.fragment_lista_opciones_close:
-                onEventListener.onEvent(PREFER_USER_CLOSE, 1);
+                boolean isOnline2 = Utils.isDeviceOnline();
+                if(isOnline2) {
+                    onEventListener.onEvent(PREFER_USER_CLOSE, 1);
+                }else{
+                    showDialogMesage(getResources().getString(R.string.no_internet_access));
+                }
+
                 break;
 
             /**
              * Evento para Click de camara
              */
             case R.id.frag_lista_opciones_photo_item:
-                mPreferPresenter.openMenuPhoto(1, cameraManager);
+                boolean isOnline = Utils.isDeviceOnline();
+                if(isOnline) {
+                    mPreferPresenter.openMenuPhoto(1, cameraManager);
+                }else{
+                    showDialogMesage(getResources().getString(R.string.no_internet_access));
+                }
+
                 break;
         }
     }

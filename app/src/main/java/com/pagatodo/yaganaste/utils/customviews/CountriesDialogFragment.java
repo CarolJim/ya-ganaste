@@ -17,6 +17,9 @@ import com.pagatodo.yaganaste.interfaces.OnCountrySelectedListener;
 import com.pagatodo.yaganaste.ui.account.register.adapters.NacionalidadSpinnerAdapter;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -51,6 +54,13 @@ public class CountriesDialogFragment extends DialogFragment implements SearchVie
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         paises = (ArrayList<Countries>) getArguments().getSerializable(COUNTRIES_LIST);
+        Collections.sort(paises, new Comparator<Countries>() {
+            @Override
+            public int compare(Countries countries, Countries t1) {
+                return countries.getPais().compareTo(t1.getPais());
+            }
+        });
+
     }
 
     @Override
@@ -68,6 +78,7 @@ public class CountriesDialogFragment extends DialogFragment implements SearchVie
 
     private void initViews() {
         ButterKnife.bind(this, rootView);
+
         arrayAdapter = new NacionalidadSpinnerAdapter(getContext(), R.layout.spinner_layout, paises);
         listViewPaises.setAdapter(arrayAdapter);
         searchViewPaises.setQueryHint(getString(R.string.buscar_pais));
