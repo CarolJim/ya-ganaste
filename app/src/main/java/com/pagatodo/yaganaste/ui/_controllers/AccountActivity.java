@@ -11,6 +11,7 @@ import android.widget.FrameLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
@@ -294,5 +295,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     public boolean onCreateOptionsMenu(Menu menu) {
         return false;
     }
+
+    @Override
+    public void showError(ErrorObject error) {
+        UI.createSimpleCustomDialog("", error.getErrorMessage(), getSupportFragmentManager(), error.getErrorActions(), error.hasConfirm(), error.hasCancel());
+    }
+
 }
 

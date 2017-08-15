@@ -8,7 +8,5 @@ import com.pagatodo.yaganaste.freja.Errors;
 
 public interface ErrorFmcManager {
 
-    void handleException(Exception e);
-
     void onError(Errors error);
 }

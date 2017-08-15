@@ -7,7 +7,5 @@ import com.pagatodo.yaganaste.freja.Errors;
  */
 
 public interface ExceptionCallback {
-    void handleException(Exception e);
-
     void onError(Errors error);
 }

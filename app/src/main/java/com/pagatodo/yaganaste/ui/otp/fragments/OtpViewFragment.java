@@ -11,8 +11,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.otp.presenter.OtpPResenter;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.otp.controllers.OtpView;
 import com.pagatodo.yaganaste.ui.otp.presenters.OtpPresenterImp;
@@ -132,9 +134,30 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
     }
 
     @Override
-    public void showError(Errors error) {
-        UI.createSimpleCustomDialog("", getString(R.string.no_offline_token),
-                getActivity().getSupportFragmentManager(), CustomErrorDialog.TAG);
+    public void showError(final Errors error) {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+
+        DialogDoubleActions actions = new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                if (error.allowsReintent()) {
+                    otpPResenter.generateOTP(shaPass);
+                } else {
+                    getActivity().onBackPressed();
+                }
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+                getActivity().onBackPressed();
+            }
+        };
+
+        UI.createSimpleCustomDialog("", error.getMessage(), getActivity().getSupportFragmentManager(),
+                actions, true, error.allowsReintent());
+
+
+
     }
 
     @Override

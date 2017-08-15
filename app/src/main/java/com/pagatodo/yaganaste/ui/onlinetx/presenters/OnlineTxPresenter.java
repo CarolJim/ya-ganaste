@@ -88,19 +88,9 @@ public class OnlineTxPresenter extends TransactionPresenterAbs {
     }
 
     @Override
-    public void handleException(Exception e) {
-        onlineTxView.hideLoader();
-        Log.e(TAG, e.toString());
-
-
-        onlineTxView.hideLoader();
-        ErrorObject errorObject = new ErrorObject();
-        errorObject.setErrorMessage("En construccion");
-        onlineTxView.showError(errorObject);
-    }
-
-    @Override
     public void onError(Errors error) {
-
+        ErrorObject.Builder builder = new ErrorObject.Builder().setMessage(error.getMessage())
+                .setHasCancel(error.allowsReintent());
+        onlineTxView.showError(builder.build());
     }
 }
