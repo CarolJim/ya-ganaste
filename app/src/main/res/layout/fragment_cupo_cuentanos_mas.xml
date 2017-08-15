@@ -256,6 +256,28 @@
                             android:layout_height="0dp"
                             android:layout_weight="1" />
                     </RadioGroup>
+
+
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/editNumTarjeta"
+                        style="@style/GenericCustomValidationEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:visibility="gone"
+                        app:formato="number"
+                        app:hintText="@string/cupo_numero"
+                        app:isSingleLine="true"
+                        app:maxLength="4" />
+
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorNumTarjeta"
+                        style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
                 </LinearLayout>
             </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
         </LinearLayout>

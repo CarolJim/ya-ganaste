@@ -18,6 +18,7 @@ public class RegisterCupo {
     private Boolean creditoBancario;
     private Boolean creditoAutomotriz;
     private Boolean tarjetaCreditoBancario;
+    private String  numeroTarjeta = "";
 
     // Refrencia Familiar
 
@@ -143,6 +144,13 @@ public class RegisterCupo {
         this.tarjetaCreditoBancario = tarjetaCreditoBancario;
     }
 
+    public String getNumeroTarjeta() {
+        return numeroTarjeta;
+    }
+
+    public void setNumeroTarjeta(String numeroTarjeta) {
+        this.numeroTarjeta = numeroTarjeta;
+    }
 
     public String getFamiliarNombre() {
         return familiarNombre;

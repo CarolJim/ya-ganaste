@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CargaDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
@@ -102,17 +103,23 @@ public class DomicilioPersonalInteractor implements IDomicilioPersonalInteractor
     @Override
     public void sendDocuments(ArrayList<DataDocuments> docs) {
 
-        /*TODO : Probar el servicio
+
         try {
             CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
             cargaDocumentosRequest.setDocumentos(docs);
+
+            //Log.e("Test", "Datos a enviar: " + createParams(false, cargaDocumentosRequest ).toString() );
+
             ApiAdtvo.cargaDocumentosCupo(cargaDocumentosRequest, this);
         } catch (OfflineException e) {
-            accountManager.onError(CARGA_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
+            accountManager.onError(CARGA_DOCUMENTOS_CUPO, App.getInstance().getString(R.string.no_internet_access));
         }
-        */
+
 
     }
+
+
+
 
     @Override
     public void createSolicitudCupo() {
@@ -125,6 +132,7 @@ public class DomicilioPersonalInteractor implements IDomicilioPersonalInteractor
         request.setTieneCreditoBancario(registerCupo.getCreditoBancario());
         request.setTieneCreditoAuto(registerCupo.getCreditoAutomotriz());
         request.setTieneTarjetaCredito(registerCupo.getTarjetaCreditoBancario());
+        request.setNumeroTarjeta(registerCupo.getNumeroTarjeta());
 
         List<CupoReferencia> referencias = new ArrayList<>();
 
@@ -172,8 +180,7 @@ public class DomicilioPersonalInteractor implements IDomicilioPersonalInteractor
         domicilios.add(domicilioPersonal);
 
         request.setDomicilioPersonal(domicilios);
-
-        //Log.e("Cupo JSON", createParams(false, request ).toString()  );
+        Log.e("Cupo JSON", createParams(false, request ).toString()  );
 
         try {
             ApiAdtvo.CrearSolicitudCupo(request, this);

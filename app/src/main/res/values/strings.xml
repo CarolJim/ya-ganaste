@@ -716,6 +716,9 @@
     <string name="cupo_title_thanks">¡Gracias!</string>
     <string name="cupo_subtitle_thanks">Tu Solicitud Está\n Siendo Evaluada</string>
     <string name="cupo_title_thanks_msg">Este Proceso Puede Tardar Hasta\n 24 Horas Habiles</string>
+    <string name="cupo_numero">Últimos 4 Digitos</string>
+    <string name="numero_tarjeta_vacio">Numero requerido</string>
+    <string name="numero_tarjeta_invalido">Numero Invalido</string>
 
     <string name="titulo_referencia_familiar">Referencia Familiar</string>
     <string name="titulo_referencia_personal">Referencia Personal</string>

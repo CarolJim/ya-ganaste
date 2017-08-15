@@ -28,6 +28,7 @@ import com.pagatodo.yaganaste.ui.cupo.managers.CupoCuentameMasManager;
 import com.pagatodo.yaganaste.ui.cupo.presenters.CuentanosMasPresenter;
 import com.pagatodo.yaganaste.ui.cupo.presenters.interfaces.ICuentanosMasPresenter;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
 import java.util.ArrayList;
@@ -55,6 +56,7 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
     private String hasCreditBank;
     private String hasCarCredit;
     private String hasTarjetaCredit;
+    private String numeroTarjeta = "";
 
     @BindView(R.id.spEstadoCivil)
     Spinner spEstadoCivil;
@@ -82,6 +84,8 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
     @BindView(R.id.radioBtnrgHasCreditCardNo)
     RadioButton radioBtnrgHasCreditCardNo;
 
+    @BindView(R.id.editNumTarjeta) CustomValidationEditText editNumTarjeta;
+
     @BindView(R.id.btnBack)
     Button btnBack;
     @BindView(R.id.btnNext)
@@ -102,6 +106,9 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
 
     @BindView(R.id.errorTarjetaCredito)
     ErrorMessage errorTarjetaCredito;
+
+    @BindView(R.id.errorNumTarjeta)
+    ErrorMessage errorNumTarjeta;
 
     public static CupoCuentanosMasFragment newInstance() {
         CupoCuentanosMasFragment fragment = new CupoCuentanosMasFragment();
@@ -230,6 +237,13 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
                 hideErrorMessage(radioGroupHasCreditCard.getId());
+
+                if (!radioBtnrgHasCreditCardYes.isChecked()) {
+                    editNumTarjeta.setVisibility(View.VISIBLE);
+                } else {
+                    editNumTarjeta.setVisibility(View.GONE);
+                    errorNumTarjeta.setVisibilityImageError(false);
+                }
             }
         });
 
@@ -267,6 +281,16 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
             isValid = false;
         }
 
+        if (!radioBtnrgHasCreditCardYes.isChecked()) {
+            if (numeroTarjeta.equals("")) {
+                showValidationError(editNumTarjeta.getId(), getString(R.string.numero_tarjeta_vacio));
+                isValid = false;
+            } else if (numeroTarjeta.length() < 4 ) {
+                showValidationError(editNumTarjeta.getId(), getString(R.string.numero_tarjeta_invalido));
+                isValid = false;
+            }
+        }
+
         if (isValid) {
             onValidationSuccess();
         }
@@ -293,6 +317,10 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
             case R.id.radioGroupHasCreditCard:
                 errorTarjetaCredito.setMessageText(error.toString());
                 errorTarjetaCredito.alingCenter();
+                break;
+            case R.id.editNumTarjeta :
+                errorNumTarjeta.setMessageText(error.toString());
+                errorNumTarjeta.alingCenter();
                 break;
         }
         UI.hideKeyBoard(getActivity());
@@ -327,6 +355,7 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
         errorCreditoBancario.setVisibilityImageError(false);
         errorCreditoAutomotriz.setVisibilityImageError(false);
         errorTarjetaCredito.setVisibilityImageError(false);
+        errorNumTarjeta.setVisibilityImageError(false);
 
         RegisterCupo registerCupo = RegisterCupo.getInstance();
         registerCupo.setEstadoCivil(estadoCivil);
@@ -336,7 +365,7 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
         registerCupo.setCreditoBancario(Boolean.valueOf(hasCreditBank));
         registerCupo.setCreditoAutomotriz(Boolean.valueOf(hasCarCredit));
         registerCupo.setTarjetaCreditoBancario(Boolean.valueOf(hasTarjetaCredit));
-
+        registerCupo.setNumeroTarjeta(numeroTarjeta);
 
         Log.e("Estado Civil", registerCupo.getEstadoCivil() );
         Log.e("Id Estado Civil", "" + registerCupo.getIdEstadoCivil());
@@ -355,6 +384,8 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
         hasCreditBank = radioBtnrgHasCreditBankYes.isChecked() ? "false" : radioBtnrgHasCreditBankNo.isChecked() ? "true" : "";
         hasCarCredit =  radioBtnrgHasCreditCarYes.isChecked()  ? "false" :  radioBtnrgHasCreditCarNo.isChecked() ? "true" : "";
         hasTarjetaCredit =  radioBtnrgHasCreditCardYes.isChecked()  ? "false" :  radioBtnrgHasCreditCardNo.isChecked() ? "true" : "";
+
+        numeroTarjeta = editNumTarjeta.getText();
 
         Log.e("Test", hasCreditBank);
 

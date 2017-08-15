@@ -20,6 +20,7 @@ public class CrearCupoSolicitudRequest extends Request implements Serializable {
     private boolean TieneCreditoBancario = false;
     private boolean TieneCreditoAuto = false;
     private boolean TieneTarjetaCredito = false;
+    private String  NumeroTarjeta = "";
 
     // Datos Referencia Familiar
 
@@ -72,6 +73,14 @@ public class CrearCupoSolicitudRequest extends Request implements Serializable {
 
     public void setTieneTarjetaCredito(boolean tieneTarjetaCredito) {
         TieneTarjetaCredito = tieneTarjetaCredito;
+    }
+
+    public String getNumeroTarjeta() {
+        return NumeroTarjeta;
+    }
+
+    public void setNumeroTarjeta(String numeroTarjeta) {
+        NumeroTarjeta = numeroTarjeta;
     }
 
     public List<CupoReferencia> getReferencias() {

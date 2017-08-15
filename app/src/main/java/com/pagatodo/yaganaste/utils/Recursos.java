@@ -127,6 +127,11 @@ public class Recursos {
     public static final int DOC_DOM_FRONT = 7;
     public static final int DOC_DOM_BACK = 30;
 
+    // Documentos Cupo
+
+    public static final int DOC_CUPO_FRONT = 3;
+    public static final int DOC_CUPO_BACK  = 29;
+
 
     public static final int STATUS_DOCTO_ACTUALIZADO = 5;
     public static final int STATUS_DOCTO_RECHAZADO = 3;

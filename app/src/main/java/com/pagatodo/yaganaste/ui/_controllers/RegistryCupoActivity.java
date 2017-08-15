@@ -80,6 +80,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
         registerCupo.setCreditoBancario(false);
         registerCupo.setCreditoAutomotriz(false);
         registerCupo.setCreditoBancario(false);
+        registerCupo.setNumeroTarjeta("");
 
         registerCupo.setFamiliarNombre("");
         registerCupo.setFamiliarApellidoPaterno("");
@@ -136,7 +137,6 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
             default:
                 super.onEvent(event, data);
         }
-
     }
 
     @Override
@@ -152,7 +152,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 break;
             case EVENT_GO_CUPO_CUENTAME_MAS:
                 loadFragment(CupoCuentanosMasFragment.newInstance(), Direction.FORDWARD, true);
-                //loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, true);
+                //loadFragment(CupoComprobantesFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_REFERENCIA_FAMILIAR:
                 loadFragment(CupoReferenciaFamiliarFragment.newInstance(), Direction.FORDWARD, true);
@@ -167,7 +167,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 loadFragment(CupoComprobantesFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_COMPLETE:
-                //loadFragment(RegisterCompleteFragment.newInstance(CUPO_REVISION), Direction.FORDWARD, false);
+                loadFragment(RegisterCompleteFragment.newInstance(CUPO_REVISION), Direction.FORDWARD, false);
                 break;
             default:
                 onEvent(event, data);

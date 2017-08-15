@@ -59,6 +59,8 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.DOC_CUPO_BACK;
+import static com.pagatodo.yaganaste.utils.Recursos.DOC_CUPO_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
@@ -379,7 +381,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
                     itemWeNeedSmFilesAddressFront.setStatusImage(ContextCompat.getDrawable(getContext(), R.drawable.ic_status_upload));
                     itemWeNeedSmFilesAddressFront.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
-                    dataDoc.setTipoDocumento(DOC_DOM_FRONT);
+                    dataDoc.setTipoDocumento(DOC_CUPO_FRONT);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
 
@@ -390,7 +392,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
                     itemWeNeedSmFilesAddressBack.setStatusImage(ContextCompat.getDrawable(getContext(), R.drawable.ic_status_upload));
                     itemWeNeedSmFilesAddressBack.invalidate();
                     imgs[documentProcessed - 1] = imgBase64;
-                    dataDoc.setTipoDocumento(DOC_DOM_BACK);
+                    dataDoc.setTipoDocumento(DOC_CUPO_BACK);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
                     break;
@@ -490,7 +492,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
 
     @Override
     public void setResponseDocuments() {
-        // TODO:  Manejo de respuesta de los docuemntos
+        cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPLETE, null);
     }
 
 
