@@ -10,13 +10,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:id="@+id/fragment_lista_opciones_version"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="YaGanaste Version 1.1"
-            android:textColor="@color/bluecolor_disable" />
+
     </LinearLayout>
 
     <LinearLayout

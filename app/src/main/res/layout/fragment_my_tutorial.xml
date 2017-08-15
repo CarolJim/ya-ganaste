@@ -64,7 +64,10 @@
                     app:srcCompat="@drawable/menu_canvas_blue" />
             </LinearLayout>
 
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/whiteColor" />
 
             <LinearLayout
                 android:id="@+id/fragment_ayuda_tutoriales_tu_pantalla_principal"
@@ -90,7 +93,10 @@
                     android:layout_marginRight="20dp"
                     app:srcCompat="@drawable/menu_canvas_blue" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/whiteColor" />
 
             <LinearLayout
                 android:id="@+id/fragment_ayuda_tutoriales_tu_pantalla_Cobros"
@@ -115,6 +121,10 @@
                     android:layout_marginRight="20dp"
                     app:srcCompat="@drawable/menu_canvas_blue" />
             </LinearLayout>
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/whiteColor" />
             <LinearLayout
                 android:id="@+id/fragment_ayuda_tutoriales_tu_linea_credito"
                 android:layout_width="match_parent"
@@ -139,7 +149,10 @@
                     android:layout_marginRight="20dp"
                     app:srcCompat="@drawable/menu_canvas_blue" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/whiteColor" />
             <LinearLayout
                 android:id="@+id/fragment_ayuda_tutoriales_bloquear_tarjeta"
                 android:layout_width="match_parent"
@@ -165,7 +178,10 @@
                     app:srcCompat="@drawable/menu_canvas_blue" />
             </LinearLayout>
 
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/whiteColor" />
 
 
         </LinearLayout>

@@ -280,6 +280,7 @@
     <string name="user_change_email">Asignando Nuevo Correo</string>
     <string name="user_change_desasociar">En Proceso</string>
     <string name="yaganaste_version">YaGanaste Versión:</string>
+    <string name="confrimacion">Confirmar</string>
     <string name="formato_password">Tu Contraseña Debe Tener 8\nCaracteres, Incluyendo Una Letra\nMayúscula y un Número.</string>
 
 
@@ -700,6 +701,14 @@
     <string name="emisor_validate_card"><u>Tarjeta Válida</u></string>
     <string name="emisor_validate_card_fail"><u>Esta Tarjeta Ya Ha Sido Asignada, Ingresa Otra Tarjeta o Selecciona la Opción NO TENGO TARJETA</u></string>
     <string name="emisor_validate_postalcode"><u>Verifica tu Código Postal</u></string>
+
+    <!--  Menu de ayuda-->
+    <string name="contactanos"><u>Contáctanos</u></string>
+    <string name="email">Email</string>
+    <string name="correo_vacio">El email esta vacio</string>
+
+
+
 
     <!--start Cupo Strings-->
 

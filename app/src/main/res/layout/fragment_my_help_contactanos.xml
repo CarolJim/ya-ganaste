@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Contáctanos" />
+                android:text="@string/contactanos" />
 
         </LinearLayout>
 
@@ -77,6 +77,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:id="@+id/imgtelefonocontactanos"
                             android:src="@drawable/ic_phone_white_24dp" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleButton
@@ -112,13 +113,13 @@
                             android:src="@drawable/ic_email_white_24dp" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                            android:id="@+id/btnCancelDialog"
+                            android:id="@+id/btnEmail"
                             style="?android:attr/borderlessButtonStyle"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:gravity="center"
-                            android:text="@string/title_llamar"
+                            android:text="@string/email"
                             android:textAllCaps="false"
                             android:textColor="@color/colorAccent"
                             android:textSize="@dimen/size_text_style_2_value"

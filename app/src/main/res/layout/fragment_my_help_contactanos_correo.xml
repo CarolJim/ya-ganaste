@@ -7,7 +7,7 @@
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp"
         android:layout_alignParentTop="true"
@@ -37,6 +37,7 @@
             android:layout_height="match_parent"
             android:layout_gravity="center"
             android:orientation="vertical">
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
@@ -53,18 +54,38 @@
                 android:text="¿Como Podemos Ayudarte?" />
 
 
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+            <com.pagatodo.yaganaste.utils.customviews.ValidatedEdittext
                 android:id="@+id/edtxtUserName"
-                style="@style/GenericInputTextForms"
-
+                style="@style/GenericInputTextFormsComentario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
-                android:visibility="visible"
+                android:gravity="start"
+                android:paddingLeft="@dimen/margin_error"
+                android:paddingTop="@dimen/margin_error"
                 android:hint="Por definir :)"
+                android:visibility="visible"
                 app:formato="text"
                 app:hintText="Por definir :)"
                 app:isTextEnabled="true" />
+
         </LinearLayout>
-        </LinearLayout>
+
+    </LinearLayout>
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="14dp"
+        android:orientation="horizontal"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true">
+
+        <Button
+            android:id="@+id/btn_continue"
+            style="@style/buttonSquareRoundedBlue"
+            android:layout_centerInParent="true"
+            android:text="@string/confrimacion" />
+
+    </RelativeLayout>
+
     </RelativeLayout>
