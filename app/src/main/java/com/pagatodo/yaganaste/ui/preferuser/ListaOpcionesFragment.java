@@ -40,6 +40,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CLOSE;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_HELP;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_LEGALES;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_ACCOUNT;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_CARD;
@@ -198,7 +199,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
                 onEventListener.onEvent(PREFER_USER_MY_CARD, 1);
                 break;
             case R.id.fragment_lista_opciones_help:
-                Toast.makeText(getContext(), "Click Help", Toast.LENGTH_SHORT).show();
+                onEventListener.onEvent(PREFER_USER_HELP, 1);
+               // Toast.makeText(getContext(), "Click Help", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fragment_lista_opciones_legal:
                 onEventListener.onEvent(PREFER_USER_LEGALES, 1);
