@@ -13,6 +13,9 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -25,10 +28,10 @@ public class MyHelpContactanosCorreo  extends GenericFragment implements View.On
             View rootview;
             private String mensaje = "";
             @BindView(R.id.edtxtUserName)
-            CustomValidationEditText editbodyemail;
+            StyleEdittext editbodyemail;
 
             @BindView(R.id.btn_continue)
-            CustomValidationEditText btncontinuee;
+            StyleButton btncontinuee;
 
             String contenidoemail="";
 
@@ -58,7 +61,7 @@ public class MyHelpContactanosCorreo  extends GenericFragment implements View.On
     public void onClick(View view) {
         switch (view.getId()){
             case R.id.btn_continue:
-                 contenidoemail = editbodyemail.getText().trim();
+                 contenidoemail = editbodyemail.getText().toString();
                 valida();
                 break;
 
@@ -67,12 +70,11 @@ public class MyHelpContactanosCorreo  extends GenericFragment implements View.On
     }
             private void valida() {
                 if (contenidoemail.isEmpty()) {
-                    editbodyemail.setIsInvalid();
                     UI.createSimpleCustomDialog("Error", getString(R.string.correo_vacio), getFragmentManager(), getFragmentTag());
                 }
                 if (!contenidoemail.isEmpty()) {
                  //   onValidationSuccess();
-                    UI.createSimpleCustomDialog("Error", "Enviando Correo:  "+mensaje, getFragmentManager(), getFragmentTag());
+                    UI.createSimpleCustomDialog("Error", "Enviando Correo:  "+contenidoemail, getFragmentManager(), getFragmentTag());
                 }
 
 

@@ -58,7 +58,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
-                    android:text="Tutoriales" />
+                    android:text="@string/Tutoriales" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="17dp"
@@ -88,7 +88,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
-                    android:text="Contáctanos" />
+                    android:text="@string/contactanos" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="17dp"
@@ -116,7 +116,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
-                    android:text="Acerca de la App" />
+                    android:text="@string/acerca_de_app" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="17dp"

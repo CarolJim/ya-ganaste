@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Enviar Mail" />
+                android:text="@string/enviar_email" />
 
         </LinearLayout>
 
@@ -51,19 +51,19 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="40dp"
                 android:gravity="center"
-                android:text="¿Como Podemos Ayudarte?" />
+                android:text="@string/como_ayudarte" />
 
-
-            <com.pagatodo.yaganaste.utils.customviews.ValidatedEdittext
+            <!-- ValidatedEdittext-->
+            <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/edtxtUserName"
                 style="@style/GenericInputTextFormsComentario"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:gravity="start"
+                android:hint="Por definir :)"
                 android:paddingLeft="@dimen/margin_error"
                 android:paddingTop="@dimen/margin_error"
-                android:hint="Por definir :)"
                 android:visibility="visible"
                 app:formato="text"
                 app:hintText="Por definir :)"
@@ -80,11 +80,15 @@
         android:layout_alignParentBottom="true"
         android:layout_centerHorizontal="true">
 
-        <Button
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btn_continue"
             style="@style/buttonSquareRoundedBlue"
-            android:layout_centerInParent="true"
+            android:layout_gravity="center"
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"
+            android:layout_marginTop="@dimen/margin_medium"
+            android:gravity="center"
             android:text="@string/confrimacion" />
+
 
     </RelativeLayout>
 

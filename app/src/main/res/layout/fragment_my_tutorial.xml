@@ -51,11 +51,12 @@
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     style="@style/generic_text_style_2"
                     android:layout_width="wrap_content"
+                    android:id="@+id/my_help_inicio_sesion"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
-                    android:text="Inicio de Sesión" />
+                    android:text="@string/Inicio_de_Sesión" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="17dp"
@@ -85,7 +86,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
-                    android:text="Tu Pantalla Principal" />
+                    android:text="@string/tu_pantalla_principal" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="17dp"
@@ -113,7 +114,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
-                    android:text="Tu Pantalla de Cobros" />
+                    android:text="@string/tu_pantalla_de_cobros" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="17dp"
@@ -141,7 +142,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
-                    android:text="Tu Línea de Crédito" />
+                    android:text="@string/tu_línea_credito" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="17dp"
@@ -169,7 +170,7 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
-                    android:text="Bloquear Tarjeta" />
+                    android:text="@string/bloquear_tarjeta" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="17dp"

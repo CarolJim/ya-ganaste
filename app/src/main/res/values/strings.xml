@@ -279,7 +279,7 @@
     <string name="user_change_password">Asignando Nueva Contraseña</string>
     <string name="user_change_email">Asignando Nuevo Correo</string>
     <string name="user_change_desasociar">En Proceso</string>
-    <string name="yaganaste_version">YaGanaste Versión:</string>
+    <string name="yaganaste_version">Ya Ganaste Versión:</string>
     <string name="confrimacion">Confirmar</string>
     <string name="formato_password">Tu Contraseña Debe Tener 8\nCaracteres, Incluyendo Una Letra\nMayúscula y un Número.</string>
 
@@ -706,6 +706,27 @@
     <string name="contactanos"><u>Contáctanos</u></string>
     <string name="email">Email</string>
     <string name="correo_vacio">El email esta vacio</string>
+    <string name="enviar_email">Enviar Mail</string>
+    <string name="como_ayudarte">¿Como Podemos Ayudarte?</string>
+    <string name="comunicate_con_nosotros">Comunicate Con Nosotros \n\n 01-800-500-1000\ninformes@yaganste.com</string>
+    <string name="acerca_de_app">Acerca de la App</string>
+
+    <string name="Tutoriales">Tutoriales</string>
+    <string name="Inicio_de_Sesión">Inicio de Sesión</string>
+    <string name="tu_pantalla_principal">Tu Pantalla Principal</string>
+    <string name="tu_pantalla_de_cobros">Tu Pantalla de Cobros</string>
+    <string name="tu_línea_credito">Tu Línea de Crédito</string>
+    <string name="bloquear_tarjeta">Bloquear Tarjeta</string>
+
+
+
+
+
+
+
+
+
+
 
 
 

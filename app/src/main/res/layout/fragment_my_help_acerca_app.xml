@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Acerca de la App" />
+                android:text="@string/acerca_de_app" />
 
         </LinearLayout>
 
@@ -63,8 +63,8 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="YaGanaste Version 1.1"
-                    android:textColor="@color/bluecolor_disable" />
+                    android:text="Ya Ganaste Versión 1.1"
+                    android:textColor="@color/whiteColor" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
