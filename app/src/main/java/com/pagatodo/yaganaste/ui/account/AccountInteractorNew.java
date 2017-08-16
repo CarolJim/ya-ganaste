@@ -135,7 +135,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
     }
 
-
     @Override
     public void loginAdq() {
         SingletonUser singletonUser = SingletonUser.getInstance();
@@ -267,7 +266,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         checkSessionState(request);
     }
 
-
     @Override
     public void validatePersonData() {
 
@@ -289,7 +287,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
 
     }
-
 
     @Override
     public void createUserClient(CrearUsuarioClienteRequest request) {
@@ -576,7 +573,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
     }
 
-
     private void processLogin(DataSourceResult response) {
         IniciarSesionResponse data = (IniciarSesionResponse) response.getData();
         DataIniciarSesion dataUser = data.getData();
@@ -634,7 +630,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
         accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
     }
-
 
     /**
      * Método para seleccionar la pantalla que se debe mostrar dependiendo de la validación de la tarjeta.

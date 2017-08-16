@@ -10,22 +10,17 @@
         android:layout_height="wrap_content"
         android:layout_alignParentBottom="true">
 
-        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-            android:id="@+id/fragment_lista_opciones_version"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:gravity="center"
-            android:text="YaGanaste Version 1.1"
-            android:textColor="@color/bluecolor_disable" />
+
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_marginBottom="8dp"
-        android:layout_marginTop="8dp"
         android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp">
+        tools:layout_editor_absoluteX="8dp"
+        android:layout_centerVertical="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -140,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/whiteColor"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_account"
@@ -148,7 +143,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp" android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:visibility="visible"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -170,7 +166,7 @@
                         android:layout_width="17dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        app:srcCompat="@drawable/edit_canvas_blue" />
+                        app:srcCompat="@drawable/arrow_canvas_blue" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -219,7 +215,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/whiteColor"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_help"
@@ -230,7 +226,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:visibility="gone">
+                android:visibility="visible">
 
                 <LinearLayout
                     android:layout_width="match_parent"

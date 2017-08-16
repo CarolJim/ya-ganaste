@@ -399,4 +399,6 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
     public boolean onLongClick(View v) {
         return true;
     }
+
+
 }

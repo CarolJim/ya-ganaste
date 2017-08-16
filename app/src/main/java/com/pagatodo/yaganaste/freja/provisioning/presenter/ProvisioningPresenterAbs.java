@@ -17,6 +17,9 @@ import static com.pagatodo.yaganaste.utils.Recursos.PT_CLIENT_CODE;
 
 public abstract class ProvisioningPresenterAbs extends TabPresenterImpl implements ProvisioningPresenter, ProvisioningManager {
 
+    public static final String EVENT_APROV_SUCCES = "EVENT_APROV_SUCCES";
+    public static final String EVENT_APROV_FAILED = "EVENT_APROV_FAILED";
+
     private ProvisioningIteractor provisioningIteractor;
 
     public ProvisioningPresenterAbs(Context context) {

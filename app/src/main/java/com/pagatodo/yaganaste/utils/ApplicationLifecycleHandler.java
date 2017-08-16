@@ -57,14 +57,7 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
     }
 
     private void goToLoginScreen(Activity activity) {
-        // Consumimos de manera directa el servicio de cerrar session
-        try {
-            ApiAdtvo.cerrarSesion(this);// Se envia null ya que el Body no aplica.
-        } catch (OfflineException e) {
-            e.printStackTrace();
-        }
-
-        Intent intent = new Intent(activity, MainActivity.class);
+               Intent intent = new Intent(activity, MainActivity.class);
         intent.putExtra(SELECTION, MAIN_SCREEN);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
         activity.startActivity(intent);
@@ -90,6 +83,13 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
 
     @Override
     public void onTrimMemory(int level) {
+        // Consumimos de manera directa el servicio de cerrar session
+        try {
+            ApiAdtvo.cerrarSesion(this);// Se envia null ya que el Body no aplica.
+        } catch (OfflineException e) {
+            e.printStackTrace();
+        }
+
         if (level == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN || level == ComponentCallbacks2.TRIM_MEMORY_COMPLETE || level == ComponentCallbacks2.TRIM_MEMORY_MODERATE) {
             isInBackground = true;
         }
