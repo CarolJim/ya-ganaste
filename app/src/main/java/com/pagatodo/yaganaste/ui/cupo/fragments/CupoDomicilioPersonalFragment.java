@@ -13,6 +13,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.RegisterCupo;
@@ -44,10 +45,14 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
+import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.CUPO_PASO;
+import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.CUPO_PASO_REGISTRO_ENVIADO;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment.MIN_LENGHT_VALIDATION_CP;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
+import static com.pagatodo.yaganaste.utils.Recursos.CUPO_PROCESS;
 
 /**
  * Created by Jordan on 25/07/2017.
@@ -213,14 +218,14 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editBussinesStreet.getId());
+                    hideValidationError(editBussinesStreet.getId());
                     editBussinesStreet.imageViewIsGone(true);
                 } else {
                     if (editBussinesStreet.getText().isEmpty()) {
                         showValidationError(editBussinesStreet.getId(), getString(R.string.datos_domicilio_calle));
                         editBussinesStreet.setIsInvalid();
                     } else {
-                        hideErrorMessage(editBussinesStreet.getId());
+                        hideValidationError(editBussinesStreet.getId());
                         editBussinesStreet.setIsValid();
                     }
                 }
@@ -230,7 +235,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         editBussinesStreet.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editBussinesStreet.getId());
+                hideValidationError(editBussinesStreet.getId());
                 editBussinesStreet.imageViewIsGone(true);
             }
         });
@@ -239,14 +244,14 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editBussinesExtNumber.getId());
+                    hideValidationError(editBussinesExtNumber.getId());
                     editBussinesExtNumber.imageViewIsGone(true);
                 } else {
                     if (editBussinesExtNumber.getText().isEmpty()) {
                         showValidationError(editBussinesExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
                         editBussinesExtNumber.setIsInvalid();
                     } else {
-                        hideErrorMessage(editBussinesExtNumber.getId());
+                        hideValidationError(editBussinesExtNumber.getId());
                         editBussinesExtNumber.setIsValid();
                     }
                 }
@@ -256,7 +261,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         editBussinesExtNumber.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editBussinesExtNumber.getId());
+                hideValidationError(editBussinesExtNumber.getId());
                 editBussinesExtNumber.imageViewIsGone(true);
             }
         });
@@ -265,14 +270,14 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editBussinesZipCode.getId());
+                    hideValidationError(editBussinesZipCode.getId());
                     editBussinesZipCode.imageViewIsGone(true);
                 } else {
                     if (editBussinesZipCode.getText().isEmpty()) {
                         showValidationError(editBussinesZipCode.getId(), getString(R.string.datos_domicilio_cp));
                         editBussinesZipCode.setIsInvalid();
                     } else {
-                        hideErrorMessage(editBussinesZipCode.getId());
+                        hideValidationError(editBussinesZipCode.getId());
                         editBussinesZipCode.imageViewIsGone(true);
                     }
                 }
@@ -285,7 +290,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editBussinesZipCode.getId());
+                    hideValidationError(editBussinesZipCode.getId());
                     editBussinesZipCode.imageViewIsGone(true);
                 } else {
                     if (editBussinesZipCode.getText().isEmpty()) {
@@ -301,7 +306,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
                             fillAdapter();
                         }
                     } else if (editBussinesZipCode.isValidText() && editBussinesZipCode.getText().toString().length() > MIN_LENGHT_VALIDATION_CP) {
-                        hideErrorMessage(editBussinesZipCode.getId());
+                        hideValidationError(editBussinesZipCode.getId());
                         editBussinesZipCode.setIsValid();
                         showLoader(getString(R.string.search_zipcode));
                         presenter.getNeighborhoods(editBussinesZipCode.getText().toString().toString().trim());//Buscamos por CP
@@ -314,7 +319,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         editBussinesZipCode.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editBussinesZipCode.getId());
+                hideValidationError(editBussinesZipCode.getId());
                 editBussinesZipCode.imageViewIsGone(true);
             }
         });
@@ -347,26 +352,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
 
     }
 
-    private void hideErrorMessage(int id) {
-        switch (id) {
-            case R.id.editBussinesStreet:
-                errorStreet.setVisibilityImageError(false);
-                break;
-            case R.id.editBussinesExtNumber:
-                errorNumberAddress.setVisibilityImageError(false);
-                break;
-            case R.id.editBussinesZipCode:
-                errorZipCode.setVisibilityImageError(false);
-                break;
-            case R.id.spBussinesColonia:
-                errorColonia.setVisibilityImageError(false);
-                break;
-        }
-    }
-
-
-
-
+    
     @Override
     public void validateForm() {
 
@@ -429,7 +415,20 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
 
     @Override
     public void hideValidationError(int id) {
-
+        switch (id) {
+            case R.id.editBussinesStreet:
+                errorStreet.setVisibilityImageError(false);
+                break;
+            case R.id.editBussinesExtNumber:
+                errorNumberAddress.setVisibilityImageError(false);
+                break;
+            case R.id.editBussinesZipCode:
+                errorZipCode.setVisibilityImageError(false);
+                break;
+            case R.id.spBussinesColonia:
+                errorColonia.setVisibilityImageError(false);
+                break;
+        }
     }
 
     @Override
@@ -611,12 +610,13 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
 
     @Override
     public void setResponseCreaSolicitudCupo() {
+        App.getInstance().getPrefs().saveData( CUPO_PASO , CUPO_PASO_REGISTRO_ENVIADO);
         cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
     }
 
     @Override
     public void onSpinnerClick() {
-        hideErrorMessage(spBussinesColonia.getId());
+        hideValidationError(spBussinesColonia.getId());
     }
 
 

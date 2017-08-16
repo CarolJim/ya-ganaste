@@ -6,6 +6,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.data.model.db.Countries;
@@ -38,6 +39,8 @@ import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT_FAMILIAR;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT_PERSONAL;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT_PROVEEDOR;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
+import static com.pagatodo.yaganaste.utils.Recursos.CUPO_PROCESS;
 
 /**
  * Created by Jordan on 25/07/2017.
@@ -53,6 +56,13 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     public final static String EVENT_GO_CUPO_REFERENCIA_PROVEEDOR = "EVENT_GO_CUPO_REFERENCIA_PROVEEDOR";
     public final static String EVENT_GO_CUPO_COMPLETE = "EVENT_GO_CUPO_COMPLETE";
     public final static String EVENT_GO_CM_DOCUMENTOS = "EVENT_GO_CM_DOCUMENTOS";
+    public final static String EVENT_GO_CUPO_INICIO = "EVENT_GO_CM_DOCUMENTOS";
+
+    public final static String CUPO_PASO  = "CUPO_PASO";
+    public final static String CUPO_PASO_REGISTRO_ENVIADO     = "CUPO_PASO_REGISTRO_ENVIADO";
+    public final static String CUPO_PASO_DOCUMENTOS_ENVIADOS  = "CUPO_PASO_DOCUMENTOS_ENVIADOS";
+
+
 
 
     @Override
@@ -66,12 +76,11 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     @Override
     protected void onPause() {
         Log.e("Test","Entre a onPause");
-        //clearSingleton();
-
+        clearSingletonCupo();
         super.onPause();
     }
 
-    private void clearSingleton () {
+    public static void clearSingletonCupo () {
         RegisterCupo registerCupo = RegisterCupo.getInstance();
         registerCupo.setEstadoCivil("");
         registerCupo.setIdEstadoCivil(0);
@@ -133,6 +142,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
         switch (event) {
             case EVENT_GO_CM_DOCUMENTOS:
                 Log.e("Test", "A la nueva venta");
+                finish();
                 break;
             default:
                 super.onEvent(event, data);
@@ -151,7 +161,13 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 loadFragment(CupoDomicilioPersonalFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_CUENTAME_MAS:
-                loadFragment(CupoCuentanosMasFragment.newInstance(), Direction.FORDWARD, true);
+                if (App.getInstance().getPrefs().loadData(CUPO_PASO).equals("")) {
+                    loadFragment(CupoCuentanosMasFragment.newInstance(), Direction.FORDWARD, true);
+                } else if ( App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_REGISTRO_ENVIADO) ) {
+                    loadFragment(CupoComprobantesFragment.newInstance(), Direction.FORDWARD, true);
+                } else if ( App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_DOCUMENTOS_ENVIADOS) ) {
+                    loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, true);
+                }
                 //loadFragment(CupoComprobantesFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_REFERENCIA_FAMILIAR:
@@ -168,6 +184,9 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 break;
             case EVENT_GO_CUPO_COMPLETE:
                 loadFragment(RegisterCompleteFragment.newInstance(CUPO_REVISION), Direction.FORDWARD, false);
+                break;
+            case EVENT_GO_CUPO_INICIO:
+                loadFragment(CupoInicioFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             default:
                 onEvent(event, data);

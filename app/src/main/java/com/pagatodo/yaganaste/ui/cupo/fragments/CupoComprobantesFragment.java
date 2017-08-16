@@ -26,6 +26,7 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
@@ -57,6 +58,9 @@ import butterknife.ButterKnife;
 import static android.app.Activity.RESULT_OK;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.CUPO_PASO;
+import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.CUPO_PASO_DOCUMENTOS_ENVIADOS;
+import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.CUPO_PASO_REGISTRO_ENVIADO;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_CUPO_BACK;
@@ -146,8 +150,6 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
         layoutIdentificacion.setVisibility(View.GONE);
         layoutHelp.setVisibility(View.GONE);
 
-
-
         initSetClickableDocs();
     }
 
@@ -165,7 +167,8 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnRegresar:
-                cupoActivityManager.onBtnBackPress();
+                //cupoActivityManager.onBtnBackPress();
+                cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_INICIO, null);
                 break;
             /*
             case R.id.btnWeNeedSmFilesNext:
@@ -492,6 +495,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
 
     @Override
     public void setResponseDocuments() {
+        App.getInstance().getPrefs().saveData( CUPO_PASO , CUPO_PASO_DOCUMENTOS_ENVIADOS);
         cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPLETE, null);
     }
 
