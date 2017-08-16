@@ -6,7 +6,6 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
-import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -28,6 +27,8 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.customviews.CustomClickableSpan;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
@@ -224,14 +225,14 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editStreet.getId());
+                    hideValidationError(editStreet.getId());
                     editStreet.imageViewIsGone(true);
                 } else {
                     if (editStreet.getText().isEmpty()) {
                         showValidationError(editStreet.getId(), getString(R.string.datos_domicilio_calle));
                         editStreet.setIsInvalid();
                     } else {
-                        hideErrorMessage(editStreet.getId());
+                        hideValidationError(editStreet.getId());
                         editStreet.setIsValid();
                     }
                 }
@@ -241,7 +242,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         editStreet.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editStreet.getId());
+                hideValidationError(editStreet.getId());
                 editStreet.imageViewIsGone(true);
             }
         });
@@ -251,14 +252,14 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editExtNumber.getId());
+                    hideValidationError(editExtNumber.getId());
                     editExtNumber.imageViewIsGone(true);
                 } else {
                     if (editExtNumber.getText().isEmpty()) {
                         showValidationError(editExtNumber.getId(), getString(R.string.datos_domicilio_num_ext));
                         editExtNumber.setIsInvalid();
                     } else {
-                        hideErrorMessage(editExtNumber.getId());
+                        hideValidationError(editExtNumber.getId());
                         editExtNumber.setIsValid();
                     }
                 }
@@ -268,8 +269,30 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         editExtNumber.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editExtNumber.getId());
+                hideValidationError(editExtNumber.getId());
                 editExtNumber.imageViewIsGone(true);
+            }
+        });
+
+        editIntNumber.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    editIntNumber.imageViewIsGone(true);
+                } else {
+                    if (editIntNumber.getText().isEmpty()) {
+                        editIntNumber.imageViewIsGone(true);
+                    } else {
+                        editIntNumber.setIsValid();
+                    }
+                }
+            }
+        });
+
+        editIntNumber.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                editIntNumber.imageViewIsGone(true);
             }
         });
 
@@ -277,14 +300,14 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editZipCode.getId());
+                    hideValidationError(editZipCode.getId());
                     editZipCode.imageViewIsGone(true);
                 } else {
                     if (editZipCode.getText().isEmpty()) {
                         showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
                         editZipCode.setIsInvalid();
                     } else {
-                        hideErrorMessage(editZipCode.getId());
+                        hideValidationError(editZipCode.getId());
                         editZipCode.imageViewIsGone(true);
                     }
                 }
@@ -296,7 +319,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editZipCode.getId());
+                    hideValidationError(editZipCode.getId());
                     editZipCode.imageViewIsGone(true);
                 } else {
                     if (editZipCode.getText().isEmpty()) {
@@ -312,7 +335,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                             fillAdapter();
                         }
                     } else if (editZipCode.isValidText() && editZipCode.getText().toString().length() > MIN_LENGHT_VALIDATION_CP) {
-                        hideErrorMessage(editZipCode.getId());
+                        hideValidationError(editZipCode.getId());
                         editZipCode.setIsValid();
                         showLoader(getString(R.string.search_zipcode));
                         accountPresenter.getNeighborhoods(editZipCode.getText().toString().toString().trim());//Buscamos por CP
@@ -325,7 +348,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         editZipCode.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editZipCode.getId());
+                hideValidationError(editZipCode.getId());
                 editZipCode.imageViewIsGone(true);
             }
         });
@@ -333,7 +356,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         /*radioBtnTerms.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                hideErrorMessage(radioBtnTerms.getId());
+                hideValidationError(radioBtnTerms.getId());
             }
         });*/
     }
@@ -444,7 +467,8 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         UI.hideKeyBoard(getActivity());
     }
 
-    private void hideErrorMessage(int id) {
+    @Override
+    public void hideValidationError(int id) {
         switch (id) {
             case R.id.editStreet:
                 errorStreetMessage.setVisibilityImageError(false);
@@ -592,22 +616,36 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
     private void setClickLegales() {
         SpannableString ss = new SpannableString(getString(R.string.terms_and_conditions));
-        ClickableSpan span1 = new ClickableSpan() {
+        CustomClickableSpan span1 = new CustomClickableSpan() {
             @Override
             public void onClick(View textView) {
+                boolean isOnline = Utils.isDeviceOnline();
+                if(isOnline) {
+                    LegalsDialog legalsDialog = LegalsDialog.newInstance(TERMINOS);
+                    legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
+                }else{
+                    showDialogMesage(getResources().getString(R.string.no_internet_access));
+                }
 
-                LegalsDialog legalsDialog = LegalsDialog.newInstance(TERMINOS);
-                legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
+
             }
         };
 
         //"Al Continuar Reconozco Ser Mayor de Edad, Así Como Haber Leído y Aceptado los Términos y Condiciones y el Aviso de Privacidad"
 
-        ClickableSpan span2 = new ClickableSpan() {
+        CustomClickableSpan span2 = new CustomClickableSpan() {
             @Override
             public void onClick(View textView) {
-                LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDAD);
-                legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
+                boolean isOnline2 = Utils.isDeviceOnline();
+                if(isOnline2) {
+                    //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                    LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDAD);
+                    legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
+                }else{
+                    showDialogMesage(getResources().getString(R.string.no_internet_access));
+                }
+
+
             }
         };
 
@@ -624,7 +662,23 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
     @Override
     public void onSpinnerClick() {
-        hideErrorMessage(spColonia.getId());
+        hideValidationError(spColonia.getId());
+    }
+
+
+    private void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
     }
 }
 

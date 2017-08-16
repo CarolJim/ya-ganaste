@@ -65,6 +65,8 @@ public class ChangePinIteractorImp extends FmcIteractorImp implements ChangePinI
 
     @Override
     public void onError(Errors error) {
-        changePinManager.onError(error);
+
     }
+
+
 }

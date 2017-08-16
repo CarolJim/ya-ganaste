@@ -28,6 +28,7 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.RecargasPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IRecargasPresenter;
+import com.pagatodo.yaganaste.utils.NumberTagPase;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
@@ -115,6 +116,11 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
         }
 
         if (isIAVE) {
+            InputFilter[] fArray = new InputFilter[1];
+            fArray[0] = new InputFilter.LengthFilter(16);
+            recargaNumber.setFilters(fArray);
+
+            recargaNumber.addTextChangedListener(new NumberTagPase(recargaNumber));
             recargaNumber.setHint(getString(R.string.tag_number));
             layoutImageContact.setVisibility(View.GONE);
         } else {

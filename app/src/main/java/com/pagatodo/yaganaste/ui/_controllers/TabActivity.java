@@ -25,10 +25,11 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
-import com.pagatodo.yaganaste.ui.adquirente.Documentos;
-import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.HomeTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
@@ -58,6 +59,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.PTH_DOCTO_APROBADO;
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener {
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
+    public static final String EVENT_DOCUMENT_APPROVED = "EVENT_DOCUMENT_APPROVED";
     public static final String EVENT_GO_HOME = "2";
     public static final String EVENT_CHANGE_MAIN_TAB_VISIBILITY = "3";
     public static final String EVENT_HIDE_MANIN_TAB = "eventhideToolbar";
@@ -181,6 +183,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             hideMainTab();
         } else if (event.equals(EVENT_SHOW_MAIN_TAB)) {
             showMainTab();
+        } else if (event.equals(EVENT_DOCUMENT_APPROVED)) {
+            // Toast.makeText(getApplicationContext(), "Load FRagment New", Toast.LENGTH_SHORT).show();
+            //DocumentsContainerFragment mFragment = mainViewPager.findViewById(R.id)
+            DocumentsContainerFragment mFragment = (DocumentsContainerFragment)
+                    getSupportFragmentManager().findFragmentById(R.id.main_view_pager);
+            mFragment.loadApprovedFragment();
+
         }
     }
 
@@ -251,7 +260,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
                 }
             }
-        } else if (requestCode == Documentos.REQUEST_TAKE_PHOTO || requestCode == Documentos.SELECT_FILE_PHOTO
+        } else if (requestCode == DocumentosFragment.REQUEST_TAKE_PHOTO || requestCode == DocumentosFragment.SELECT_FILE_PHOTO
                 && getFragment(1) != null) {
             getFragment(1).onActivityResult(requestCode, resultCode, data);
         } else if (requestCode == REGISTER_ADQUIRENTE_CODE && resultCode == RESULT_ADQUIRENTE_SUCCESS) {
@@ -284,7 +293,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         if (fragmentList != null) {
             for (Fragment fragment : fragmentList) {
                 if ((fragmentType == 0 && fragment instanceof PaymentsTabFragment)
-                        || (fragmentType == 1 && fragment instanceof Documentos)
+                        || (fragmentType == 1 && fragment instanceof DocumentsContainerFragment)
                         || (fragmentType == TYPE_DETAILS && fragment instanceof HomeTabFragment)) {
                     return fragment;
                 }

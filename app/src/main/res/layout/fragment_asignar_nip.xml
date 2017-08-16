@@ -18,9 +18,9 @@
 
         <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
             android:id="@+id/borderLayout"
+            style="@style/BorderTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            style="@style/BorderTitleStyle"
             android:layout_marginLeft="@dimen/margin_big"
             android:layout_marginRight="@dimen/margin_big"
             android:layout_marginTop="@dimen/margin_big"
@@ -41,17 +41,15 @@
                 android:layout_width="1px"
                 android:layout_height="1px"
                 android:layout_marginTop="20dp"
-                android:ems="10"
-                android:inputType="numberPassword"
-                android:maxLength="4" />
+                android:inputType="numberPassword" />
 
             <include layout="@layout/asignar_pin_layout" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtMessageCard"
+                style="@style/generic_text_style_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                style="@style/generic_text_style_2"
                 android:layout_below="@+id/asignar_control_layout"
                 android:layout_marginBottom="30dp"
                 android:layout_marginTop="@dimen/margin_medium"

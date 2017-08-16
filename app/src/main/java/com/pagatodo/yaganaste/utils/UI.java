@@ -15,6 +15,7 @@ import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.utils.customviews.CustomDocumentsErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
 public class UI {
@@ -175,6 +176,19 @@ public class UI {
         customErrorDialog.show(fragmentManager, tag);
     }
 
+    public static void createCustomDialogextranjero(String title, String message, FragmentManager fragmentManager, String tag,
+                                          DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_error_message_pais_error,
+                title, message, true, true);
+
+
+        customErrorDialog.setTitleBtnAcept(btnAceptar);
+        customErrorDialog.setTitleBtnCancel(btnCancelar);
+
+        customErrorDialog.setDialogActions(actions);
+        customErrorDialog.show(fragmentManager, tag);
+    }
+
     public static void createSimpleCustomDialogNoCancel(String title, String message,
                                                         FragmentManager fragmentManager, final DialogDoubleActions actions) {
         createSimpleCustomDialog(title, message, fragmentManager, actions, true, false);
@@ -184,6 +198,33 @@ public class UI {
                                                 FragmentManager fragmentManager, final DialogDoubleActions actions,
                                                 boolean hasConfirmBtn, boolean hasCancelBtn) {
         final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_error_message, title, message, hasConfirmBtn, hasCancelBtn);
+        customErrorDialog.setDialogActions(new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                customErrorDialog.dismiss();
+                if (actions != null) {
+                    actions.actionConfirm(params);
+                }
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+                customErrorDialog.dismiss();
+                if (actions != null) {
+                    actions.actionCancel(params);
+                }
+            }
+        });
+        customErrorDialog.setCancelable(false);
+        customErrorDialog.show(fragmentManager, CustomErrorDialog.class.getSimpleName());
+    }
+
+    public static void createSimpleCustomDialogError(String title, String message,
+                                                     FragmentManager fragmentManager, final DialogDoubleActions actions,
+                                                     boolean hasConfirmBtn, boolean hasCancelBtn) {
+        final CustomDocumentsErrorDialog customErrorDialog = CustomDocumentsErrorDialog.getInstance(
+                R.layout.dialog_custom_document_error_message, title, message, hasConfirmBtn,
+                hasCancelBtn);
         customErrorDialog.setDialogActions(new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {

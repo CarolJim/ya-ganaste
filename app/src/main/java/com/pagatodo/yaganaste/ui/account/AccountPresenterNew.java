@@ -13,9 +13,7 @@ import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountAddressRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;
@@ -25,6 +23,7 @@ import com.pagatodo.yaganaste.interfaces.IAccountPresenterNew;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
+import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
@@ -33,6 +32,7 @@ import com.pagatodo.yaganaste.interfaces.RecoveryPasswordView;
 import com.pagatodo.yaganaste.interfaces.View;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.ui.adquirente.interfases.IDocumentApproved;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
@@ -48,7 +48,10 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NEW_NIP
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
@@ -58,9 +61,10 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIV
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
 import static com.pagatodo.yaganaste.ui.preferuser.MyChangeNip.EVENT_GO_CHANGE_NIP_SUCCESS;
-//import static com.pagatodo.yaganaste.utils.Recursos.CRC32_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+
+//import static com.pagatodo.yaganaste.utils.Recursos.CRC32_FREJA;
 
 /**
  * Created by flima on 22/03/2017.
@@ -78,7 +82,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         this.context = context;
         accountIteractor = new AccountInteractorNew(this);
     }
-
 
     public void setIView(View accountView) {
         this.accountView = (INavigationView) accountView;
@@ -133,10 +136,19 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         accountIteractor.logout();
     }
 
+    public void logoutSinRespuesta() {
+        accountIteractor.logoutSinRespuesta();
+    }
+
     @Override
     public void updateUserInfo() {
         //accountView.showLoader(context.getString(R.string.msg_register));
-        accountView.showLoader(context.getString(R.string.verificando_sms_espera));
+        if (accountView instanceof IDocumentApproved) {
+            accountView.showLoader("Verificando Estado");
+        } else {
+            accountView.showLoader(context.getString(R.string.verificando_sms_espera));
+        }
+
         accountIteractor.updateSessionData();
     }
 
@@ -257,10 +269,22 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 ((RecoveryPasswordView) accountView).recoveryPasswordFailed(error.toString());
             }
 
-        } else if (!(accountView instanceof IBalanceView)) {
+        } else if ((accountView instanceof IBalanceView)) {
+            if (ws == CONSULTAR_SALDO) {
+                onSuccesBalance();
+            } else if (ws == CONSULTAR_SALDO_ADQ) {
+                onSuccesBalanceAdq();
+            } else {
+                accountView.showError(error);
+            }
+        } else if (accountView instanceof IDocumentApproved) {
+            accountView.showError(error);
+        } else if (accountView instanceof ILoginView) {
+            if (ws == INICIAR_SESION_SIMPLE) {
+                RequestHeaders.setUsername("");
+            }
             accountView.showError(error);
         }
-
         if (accountView instanceof IMyPassValidation) {
             if (ws == VALIDAR_FORMATO_CONTRASENIA) {
                 ((IMyPassValidation) accountView).validationPasswordFailed(error.toString());
@@ -358,6 +382,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             }
         } else if (ws == CERRAR_SESION) {
             Log.i(TAG, context.getString(R.string.sesion_close));
+        } else if (accountView instanceof IDocumentApproved) {
+            ((IDocumentApproved) accountView).dataUpdated(data.toString());
         }
 
         if (accountView instanceof IMyPassValidation) {
@@ -368,13 +394,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     }
 
     @Override
-    public void onSuccesBalance(ConsultarSaldoResponse response) {
-        ((IBalanceView) this.accountView).updateBalance(response.getData().getSaldo());
+    public void onSuccesBalance() {
+        ((IBalanceView) this.accountView).updateBalance();
     }
 
     @Override
-    public void onSuccesBalanceAdq(ConsultaSaldoCupoResponse response) {
-        ((IBalanceView) this.accountView).updateBalanceAdq(response.getSaldo());
+    public void onSuccesBalanceAdq() {
+        ((IBalanceView) this.accountView).updateBalanceAdq();
     }
-
 }

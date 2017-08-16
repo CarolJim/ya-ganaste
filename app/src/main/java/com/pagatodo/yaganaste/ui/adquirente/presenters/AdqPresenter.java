@@ -1,4 +1,4 @@
-package com.pagatodo.yaganaste.ui.adquirente;
+package com.pagatodo.yaganaste.ui.adquirente.presenters;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -18,6 +18,7 @@ import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;
+import com.pagatodo.yaganaste.ui.adquirente.interactores.AdqInteractor;
 import com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.DateUtil;
@@ -156,12 +157,12 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
     }
 
     @Override
-    public void onSuccesBalance(ConsultarSaldoResponse response) {
+    public void onSuccesBalance() {
 
     }
 
     @Override
-    public void onSuccesBalanceAdq(ConsultaSaldoCupoResponse response) {
+    public void onSuccesBalanceAdq() {
 
     }
 

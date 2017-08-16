@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -12,37 +12,38 @@
         app:tabIndicatorHeight="0dp" />
 
 
-    <android.support.v4.widget.SwipeRefreshLayout
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        android:id="@+id/txt_info_movements"
+        style="@style/generic_text_style_3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tab_months"
+        android:layout_margin="@dimen/activity_horizontal_margin"
+        android:layout_marginTop="@dimen/margin_doble"
+        android:gravity="center_horizontal"
+        android:text="@string/no_movimientos"
+        android:textSize="@dimen/frag_inicio_tab_no_movements_text_size"
+        android:visibility="visible" />
+
+    <com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
         android:id="@+id/swipe_container"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/tab_months">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="20dp"
-            android:orientation="vertical">
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/recycler_movements"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scrollbars="vertical"
+            android:visibility="visible" />
 
-            <android.support.v7.widget.RecyclerView
-                android:id="@+id/recycler_movements"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:scrollbars="vertical" />
+    </com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout>
 
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/txt_info_movements"
-                style="@style/generic_text_style_3"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_margin="@dimen/activity_horizontal_margin"
-                android:text="@string/no_movimientos"
-                android:textSize="@dimen/frag_inicio_tab_no_movements_text_size"
-                android:visibility="gone" />
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@+id/progress_emisor"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
 
-        </LinearLayout>
-
-    </android.support.v4.widget.SwipeRefreshLayout>
-
-
-</LinearLayout>
+</RelativeLayout>

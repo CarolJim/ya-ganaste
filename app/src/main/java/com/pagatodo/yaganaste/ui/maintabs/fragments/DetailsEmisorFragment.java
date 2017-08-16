@@ -15,7 +15,6 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
@@ -38,6 +37,11 @@ import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.RECAR
  */
 
 public class DetailsEmisorFragment extends GenericFragment implements View.OnClickListener {
+
+    @BindView(R.id.layoutMontoTotal)
+    LinearLayout layoutMontoTotal;
+    @BindView(R.id.txtMontoTotal)
+    MontoTextView txtMontoTotal;
 
     @BindView(R.id.layoutMonto)
     LinearLayout layoutMonto;
@@ -86,20 +90,20 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     @BindView(R.id.txtFrom)
     StyleTextView txtFrom;
 
-    @BindView(R.id.layoutCuentaOdenante)
+    /*@BindView(R.id.layoutCuentaOdenante)
     LinearLayout layoutCuentaOdenante;
     @BindView(R.id.txtCuentaOdenante)
-    StyleTextView txtCuentaOdenante;
+    StyleTextView txtCuentaOdenante;*/
 
     @BindView(R.id.layoutSendTo)
     LinearLayout layoutSendTo;
     @BindView(R.id.txtSendToDescripcion)
     TextView txtSendTo;
 
-    @BindView(R.id.layoutCuentaBeneficiario)
+    /*@BindView(R.id.layoutCuentaBeneficiario)
     LinearLayout layoutCuentaBeneficiario;
     @BindView(R.id.txtCuentaBeneficiario)
-    StyleTextView txtCuentaBeneficiario;
+    StyleTextView txtCuentaBeneficiario;*/
 
     @BindView(R.id.layoutConcepto)
     LinearLayout layoutConcepto;
@@ -232,40 +236,13 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
             txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
             layoutConcepto.setVisibility(GONE);
         }
-
-        /*if (tipoTransaccion == TipoTransaccionPCODE.PAGO_DE_SERVICIO) {
-            layoutComision.setVisibility(VISIBLE);
-            txtComision.setText(String.format("%.2f", movimientosResponse.getComision()).trim().replace(",", "."));
-            txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
-            layoutConcepto.setVisibility(GONE);
-        }*/
-
-
-        /*if (tipoTransaccion == TipoTransaccionPCODE.ENVIO_DE_DINERO_MISMO_BANCO || tipoTransaccion == TipoTransaccionPCODE.ENVIO_DE_DINERO_OTRO_BANCO
-                || tipoTransaccion == TipoTransaccionPCODE.RECEPCION_DE_DINERO_MISMO_BANCO || tipoTransaccion == TipoTransaccionPCODE.RECEPCION_DE_DINERO_OTRO_BANCO) {
-
-            if (!movimientosResponse.getBeneficiario().isEmpty()) {
-                layoutSendTo.setVisibility(VISIBLE);
-                txtSendTo.setText(movimientosResponse.getBeneficiario());
-            }
-
-            txtReferenciaTitle.setText(getString(R.string.cuenta));
-            String ref = movimientosResponse.getReferencia().replaceAll(" ", "");
-            if (ref.isEmpty()) {
-                ref = SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta();
-            }
-            ref = ref.substring(ref.length() - 4, ref.length());
-            txtRefernciaDescripcion.setText(getString(R.string.mask_card) + " " + ref);
-            txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
-        }*/
-
         btnVolver.setOnClickListener(this);
     }
 
 
     private void initFieldsViews() {
-        layoutMonto.setVisibility(VISIBLE);
-        txtMontoDescripcion.setText(StringUtils.getCurrencyValue(movimientosResponse.getTotal()));
+        layoutMontoTotal.setVisibility(VISIBLE);
+        txtMontoTotal.setText(StringUtils.getCurrencyValue(movimientosResponse.getTotal()));
 
         layoutFechaDescripcion.setVisibility(VISIBLE);
         txtFechaDescripcion.setText(movimientosResponse.getFechaMovimiento());
@@ -275,7 +252,9 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         txtAutorizacionDescripcion.setText(movimientosResponse.getNumAutorizacion().trim().toString());
 
         switch (TipoTransaccionPCODE.getTipoTransaccionById(movimientosResponse.getIdTipoTransaccion())) {
-            case RECARGA:
+            case RECARGA://1
+                layoutMonto.setVisibility(VISIBLE);
+                txtMontoDescripcion.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
                 if (movimientosResponse.getIdComercio() == 7) {
                     layoutIVA.setVisibility(VISIBLE);
                     txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
@@ -288,7 +267,9 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                     txtTelefono.setText(movimientosResponse.getReferencia());
                 }
                 break;
-            case PAGO_DE_SERVICIO:
+            case PAGO_DE_SERVICIO://2
+                layoutMonto.setVisibility(VISIBLE);
+                txtMontoDescripcion.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
                 layoutIVA.setVisibility(VISIBLE);
                 txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
                 layoutCargoServicio.setVisibility(VISIBLE);
@@ -296,7 +277,9 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 layoutReferencia.setVisibility(VISIBLE);
                 txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
                 break;
-            case ENVIO_DE_DINERO_MISMO_BANCO:
+            case ENVIO_DE_DINERO_MISMO_BANCO://3
+                layoutMonto.setVisibility(VISIBLE);
+                txtMontoDescripcion.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
                 layoutReferencia.setVisibility(VISIBLE);
                 txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
                 layoutSendTo.setVisibility(VISIBLE);
@@ -304,7 +287,9 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 layoutConcepto.setVisibility(VISIBLE);
                 txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
                 break;
-            case ENVIO_DE_DINERO_OTRO_BANCO:
+            case ENVIO_DE_DINERO_OTRO_BANCO://4
+                layoutMonto.setVisibility(VISIBLE);
+                txtMontoDescripcion.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
                 layoutComision.setVisibility(VISIBLE);
                 txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
                 layoutIVA.setVisibility(VISIBLE);
@@ -318,17 +303,21 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 layoutNumeroReferencia.setVisibility(VISIBLE);
                 txtNumeroReferencia.setText(movimientosResponse.getReferenciaNum());
                 break;
-            case RECEPCION_DE_DINERO_MISMO_BANCO:
-                layoutReferencia.setVisibility(VISIBLE);
-                txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+            case RECEPCION_DE_DINERO_MISMO_BANCO://5
+                layoutMonto.setVisibility(VISIBLE);
+                txtMontoDescripcion.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
+                //layoutReferencia.setVisibility(VISIBLE);
+                //txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
                 layoutFrom.setVisibility(VISIBLE);
-                txtFrom.setText(movimientosResponse.getBeneficiario());
+                txtFrom.setText(movimientosResponse.getDetalle());
                 layoutConcepto.setVisibility(VISIBLE);
                 txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
                 break;
-            case RECEPCION_DE_DINERO_OTRO_BANCO:
+            case RECEPCION_DE_DINERO_OTRO_BANCO://6
+                layoutMonto.setVisibility(VISIBLE);
+                txtMontoDescripcion.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
                 layoutFrom.setVisibility(VISIBLE);
-                txtFrom.setText(movimientosResponse.getBeneficiario());
+                txtFrom.setText(movimientosResponse.getDetalle());
                 layoutConcepto.setVisibility(VISIBLE);
                 txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
                 layoutClaveRastreo.setVisibility(VISIBLE);
@@ -336,7 +325,9 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 layoutNumeroReferencia.setVisibility(VISIBLE);
                 txtNumeroReferencia.setText(movimientosResponse.getReferenciaNum());
                 break;
-            case YA_GANASTE_PROMO_CODES:
+            case YA_GANASTE_PROMO_CODES://7
+                layoutMonto.setVisibility(VISIBLE);
+                txtMontoDescripcion.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
                 layoutMontoCompra.setVisibility(VISIBLE);
                 layoutMontoRetiro.setVisibility(VISIBLE);
                 layoutComision.setVisibility(VISIBLE);
@@ -345,18 +336,20 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 layoutTelefono.setVisibility(VISIBLE);
                 layoutReferencia.setVisibility(VISIBLE);
                 layoutFrom.setVisibility(VISIBLE);
-                layoutCuentaOdenante.setVisibility(VISIBLE);
+                //layoutCuentaOdenante.setVisibility(VISIBLE);
                 layoutSendTo.setVisibility(VISIBLE);
-                layoutCuentaBeneficiario.setVisibility(VISIBLE);
+                //layoutCuentaBeneficiario.setVisibility(VISIBLE);
                 layoutConcepto.setVisibility(VISIBLE);
                 layoutClaveRastreo.setVisibility(VISIBLE);
                 layoutNumeroReferencia.setVisibility(VISIBLE);
                 break;
-            case COMPRA:
+            case COMPRA://8
+                layoutMonto.setVisibility(VISIBLE);
+                txtMontoDescripcion.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
                 layoutConcepto.setVisibility(VISIBLE);
                 txtConceptoDescripcion.setText(movimientosResponse.getDetalle());
                 break;
-            case RETIRO_DE_DINERO_ATM:
+            case RETIRO_DE_DINERO_ATM://9
                 layoutMontoRetiro.setVisibility(VISIBLE);
                 txtMontoRetiro.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
                 layoutComision.setVisibility(VISIBLE);
@@ -366,11 +359,13 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 layoutConcepto.setVisibility(VISIBLE);
                 txtConceptoDescripcion.setText(movimientosResponse.getDetalle());
                 break;
-            case CONSULTA_ATM:
+            case CONSULTA_ATM://10
+                layoutComision.setVisibility(VISIBLE);
+                txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
                 layoutIVA.setVisibility(VISIBLE);
                 txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
                 break;
-            case CASH_BACK:
+            case CASH_BACK://11
                 layoutMontoCompra.setVisibility(VISIBLE);
                 txtMontoCompra.setTag(StringUtils.getCurrencyValue(movimientosResponse.getCompra()));
                 layoutMontoRetiro.setVisibility(VISIBLE);
@@ -378,11 +373,13 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 layoutConcepto.setVisibility(VISIBLE);
                 txtConceptoDescripcion.setText(movimientosResponse.getDetalle());
                 break;
-            case COMISION:
+            case COMISION://12
+                layoutComision.setVisibility(VISIBLE);
+                txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
                 layoutIVA.setVisibility(VISIBLE);
                 txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
                 break;
-            case COBRO_CON_TARJETA_DISPERSION_ADQ:
+            case COBRO_CON_TARJETA_DISPERSION_ADQ://13
                 layoutMontoCompra.setVisibility(VISIBLE);
                 layoutMontoRetiro.setVisibility(VISIBLE);
                 layoutComision.setVisibility(VISIBLE);
@@ -391,9 +388,9 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 layoutTelefono.setVisibility(VISIBLE);
                 layoutReferencia.setVisibility(VISIBLE);
                 layoutFrom.setVisibility(VISIBLE);
-                layoutCuentaOdenante.setVisibility(VISIBLE);
+                //layoutCuentaOdenante.setVisibility(VISIBLE);
                 layoutSendTo.setVisibility(VISIBLE);
-                layoutCuentaBeneficiario.setVisibility(VISIBLE);
+                //layoutCuentaBeneficiario.setVisibility(VISIBLE);
                 layoutConcepto.setVisibility(VISIBLE);
                 layoutClaveRastreo.setVisibility(VISIBLE);
                 layoutNumeroReferencia.setVisibility(VISIBLE);

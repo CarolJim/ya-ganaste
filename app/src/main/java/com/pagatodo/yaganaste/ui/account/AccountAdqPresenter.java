@@ -6,7 +6,6 @@ import android.view.View;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
@@ -19,12 +18,10 @@ import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountPresenter;
 import com.pagatodo.yaganaste.interfaces.IAdqRegisterView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
-import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
-import com.pagatodo.yaganaste.ui.adquirente.DocumentsPresenter;
+import com.pagatodo.yaganaste.ui.adquirente.presenters.DocumentsPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
-import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 
 import java.util.ArrayList;
@@ -122,12 +119,12 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     }
 
     @Override
-    public void onSuccesBalance(ConsultarSaldoResponse response) {
+    public void onSuccesBalance() {
 
     }
 
     @Override
-    public void onSuccesBalanceAdq(ConsultaSaldoCupoResponse response) {
+    public void onSuccesBalanceAdq() {
 
     }
 

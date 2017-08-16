@@ -39,6 +39,7 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
     private String titleBtnCancel = "";
     private DialogDoubleActions dialogActions;
 
+
     private boolean showConfirmButton = true;
     private boolean showCancelButton = true;
 
@@ -135,6 +136,7 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
         if (getArguments() != null) {
             Bundle arg = getArguments();
             idLayoutDialog = arg.getInt(CustomErrorDialog.KEY_LAYOUT_NOTIFICATION);
+            titleMessage = arg.getString(CustomErrorDialog.KEY_CONFIRM_TITLE, "");
             messageNotification = arg.getString(CustomErrorDialog.KEY_MESSAGE_NOTIFICATION, "");
             showConfirmButton = arg.getBoolean(CustomErrorDialog.KEY_SHOW_BTN_CONFIRM, true);
             showCancelButton = arg.getBoolean(CustomErrorDialog.KEY_SHOW_BTN_CANCEL, true);
@@ -195,6 +197,8 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
     public void onGlobalLayout() {
         buttonsContainer.getViewTreeObserver().removeOnGlobalLayoutListener(this);
     }
+
+
 }
 
 

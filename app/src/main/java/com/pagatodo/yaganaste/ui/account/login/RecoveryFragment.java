@@ -10,15 +10,12 @@ import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.RecoveryPasswordView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
-import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -35,7 +32,6 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
@@ -198,7 +194,8 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
         UI.hideKeyBoard(getActivity());
     }
 
-    private void hideErrorMessage() {
+    @Override
+    public void hideValidationError(int id) {
         errorMessageView.setVisibilityImageError(false);
     }
 
@@ -210,7 +207,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
                 if (!edtCorreoRegistrado.isValidText()) {
-                    hideErrorMessage();
+                    hideValidationError(0);
                 }
             }
 

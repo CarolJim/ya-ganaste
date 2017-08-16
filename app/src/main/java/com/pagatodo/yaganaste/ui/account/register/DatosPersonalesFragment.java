@@ -1,10 +1,18 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
+import android.Manifest;
+import android.app.Activity;
 import android.app.DatePickerDialog;
+import android.content.Intent;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.AppCompatSpinner;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,16 +21,20 @@ import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.interfaces.IBuscaPais;
 import com.pagatodo.yaganaste.interfaces.IDatosPersonalesManager;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
+import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.States;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -31,13 +43,16 @@ import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.CountriesDialogFragment;
+import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 import java.util.Locale;
 
 import butterknife.BindView;
@@ -45,20 +60,24 @@ import butterknife.ButterKnife;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_ADDRESS_DATA;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_DATA_USER_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
 public class DatosPersonalesFragment extends GenericFragment implements
-        View.OnClickListener, IDatosPersonalesManager, IRenapoView,
-        AdapterView.OnItemSelectedListener, IOnSpinnerClick {
+        View.OnClickListener, IDatosPersonalesManager, ValidationForms, IRenapoView,
+        AdapterView.OnItemSelectedListener, IOnSpinnerClick, IBuscaPais {
 
-
+    ArrayList paisesno = new ArrayList();
     private final int MX = 1;
+    int u = 0;
+    Boolean seencuentra = false;
     private final int EXTRANJERO = 2;
     @BindView(R.id.radioGender)
     RadioGroup radioGroupGender;
@@ -106,16 +125,19 @@ public class DatosPersonalesFragment extends GenericFragment implements
     private String apMaterno = "";
     private String fechaNacimiento = "";
     private Countries country;
+    int year;
+    int month;
+    int day;
 
     View.OnClickListener onClickListenerDatePicker = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            hideErrorMessage(editBirthDay.getId());
+            hideValidationError(editBirthDay.getId());
             editBirthDay.setDrawableImage(R.drawable.calendar);
             Calendar newCalendar = Calendar.getInstance();
-            int year;
-            int month;
-            int day;
+            year = 0;
+            month = 0;
+            day = 0;
 
             if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {
                 year = newDate.get(Calendar.YEAR);
@@ -125,7 +147,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 year = newCalendar.get(Calendar.YEAR);
                 month = newCalendar.get(Calendar.MONTH);
                 day = newCalendar.get(Calendar.DAY_OF_MONTH);
-
             }
 
             DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
@@ -133,8 +154,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 public void onDateSet(DatePicker view, int year, int month, int date) {
                     newDate = Calendar.getInstance(new Locale("es"));
                     newDate.set(year, month, date);
-                    // editBirthDay.setText(DateUtil.getBirthDateString(newDate));
-                    editBirthDay.setText(DateUtil.getBirthDateCustomString(newDate));
+                 // editBirthDay.setText(DateUtil.getBirthDateCustomString(newDate));
+                    editBirthDay.setText(DateUtil.getBirthDateSpecialCustom(year, month, date));
                     editBirthDay.setIsValid();
                     fechaNacimiento = DateUtil.getDateStringFirstYear(newDate);
 
@@ -204,7 +225,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
         editBirthDay.setFullOnClickListener(onClickListenerDatePicker);
         editBirthDay.setDrawableImage(R.drawable.calendar);
         editBirthDay.imageViewIsGone(true);
-        adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout, States.values(), this);
+        adapterBirthPlace = new StatesSpinnerAdapter(getContext(), R.layout.spinner_layout,
+                States.values(), this);
         spinnerBirthPlace.setAdapter(adapterBirthPlace);
         spinnerBirthPlace.setOnItemSelectedListener(this);
 
@@ -214,6 +236,18 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
         btnNextDatosPersonales.setOnClickListener(this);
         btnBackDatosPersonales.setOnClickListener(this);
+
+        editSecoundLastName.getEditText().setImeOptions(IME_ACTION_DONE);
+        editSecoundLastName.getEditText().setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == IME_ACTION_DONE) {
+                    UI.hideKeyBoard(getActivity());
+                }
+                return false;
+            }
+        });
+
         //radioBtnMale.setChecked(true);/
         setCurrentData();// Seteamos datos si hay registro en proceso.
         setValidationRules();
@@ -221,6 +255,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     @Override
     public void onClick(View view) {
+
         switch (view.getId()) {
             case R.id.btnBackPersonalInfo:
                 backScreen(EVENT_DATA_USER_BACK, null);
@@ -242,15 +277,32 @@ public class DatosPersonalesFragment extends GenericFragment implements
         }
     }
 
+    public  void  llamar(){
+        String number = getString(R.string.numero_telefono_paises);
+
+            Intent callIntent = new Intent(Intent.ACTION_CALL);
+            callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+            callIntent.setData(Uri.parse("tel:" + number));
+
+
+        if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
+            ValidatePermissions.checkPermissions(getActivity(), new String[]{
+                    Manifest.permission.CALL_PHONE},PERMISSION_GENERAL);
+        } else {
+            getActivity().startActivity(callIntent);
+        }
+    }
+
     private void onCountryClick() {
         accountPresenter.getPaisesList();
-        hideErrorMessage(R.id.editCountry);
+        hideValidationError(R.id.editCountry);
     }
 
     @Override
     public void showDialogList(ArrayList<Countries> paises) {
 
         CountriesDialogFragment dialogFragment = CountriesDialogFragment.newInstance(paises);
+        dialogFragment.setOnCountrySelectedListener(this);
         dialogFragment.show(getChildFragmentManager(), "FragmentDialog");
     }
 
@@ -262,14 +314,14 @@ public class DatosPersonalesFragment extends GenericFragment implements
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editNames.getId());
+                    hideValidationError(editNames.getId());
                     editNames.imageViewIsGone(true);
                 } else {
                     if (editNames.getText().isEmpty()) {
                         showValidationError(editNames.getId(), getString(R.string.datos_personal_nombre));
                         editNames.setIsInvalid();
                     } else {
-                        hideErrorMessage(editNames.getId());
+                        hideValidationError(editNames.getId());
                         editNames.setIsValid();
                     }
                 }
@@ -279,7 +331,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         editNames.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editNames.getId());
+                hideValidationError(editNames.getId());
                 editNames.imageViewIsGone(true);
             }
         });
@@ -288,14 +340,14 @@ public class DatosPersonalesFragment extends GenericFragment implements
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editFirstLastName.getId());
+                    hideValidationError(editFirstLastName.getId());
                     editFirstLastName.imageViewIsGone(true);
                 } else {
                     if (editFirstLastName.getText().isEmpty()) {
                         showValidationError(editFirstLastName.getId(), getString(R.string.datos_personal_paterno));
                         editFirstLastName.setIsInvalid();
                     } else {
-                        hideErrorMessage(editFirstLastName.getId());
+                        hideValidationError(editFirstLastName.getId());
                         editFirstLastName.setIsValid();
                     }
                 }
@@ -305,7 +357,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         editFirstLastName.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editFirstLastName.getId());
+                hideValidationError(editFirstLastName.getId());
                 editFirstLastName.imageViewIsGone(true);
             }
         });
@@ -313,12 +365,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
         radioGroupGender.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(RadioGroup group, @IdRes int checkedId) {
-                hideErrorMessage(radioGroupGender.getId());
+                hideValidationError(radioGroupGender.getId());
             }
         });
 
     }
-
     @Override
     public void validateForm() {
         getDataForm();
@@ -376,9 +427,14 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 isValid = false;
             }
         }
-
         if (isValid) {
-            setPersonData();
+            if (country!=null) {
+                String pais = country.getIdPais().toString();
+                List<String> paises = new ArrayList<String>();
+                bucaPais(paises,pais);
+            }else{
+                setPersonData();
+            }
         }
     }
 
@@ -411,7 +467,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
         //UI.showToastShort(error.toString(),getActivity());
     }
 
-    private void hideErrorMessage(int id) {
+    @Override
+    public void hideValidationError(int id) {
         //errorMessageView.setVisibilityImageError(false);
 
         switch (id) {
@@ -455,7 +512,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 errorCountryMessage.setVisibility(VISIBLE);
             }
         } else {
-            hideErrorMessage(editCountry.getId());
+            hideValidationError(editCountry.getId());
             editCountry.setVisibility(GONE);
             errorCountryMessage.setVisibility(GONE);
             errorCountryMessage.setMessageText("");
@@ -513,7 +570,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         if (spinnerBirthPlace.getSelectedItemPosition() != 0) {
             lugarNacimiento = spinnerBirthPlace.getSelectedItem().toString();
             StatesSpinnerAdapter adapter = (StatesSpinnerAdapter) spinnerBirthPlace.getAdapter();
-            idEstadoNacimiento = adapter.getItemIdString(spinnerBirthPlace.getSelectedItemPosition());
+            idEstadoNacimiento = Integer.toString(((IEnumSpinner) spinnerBirthPlace.getSelectedItem()).getId());
         }
     }
 
@@ -534,7 +591,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         if (registerUser.getPaisNacimiento() != null) {
             country = registerUser.getPaisNacimiento();
         }
-        spinnerBirthPlace.setSelection(adapterBirthPlace.getPositionItemByName(registerUser.getLugarNacimiento()));
+        spinnerBirthPlace.setSelection(States.getItemByName(registerUser.getLugarNacimiento()).getId());
 
         //Actualizamos el newDate para no tener null, solo en evento Back
         if (fechaNacimiento != null && !fechaNacimiento.isEmpty()) {
@@ -546,7 +603,6 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 e.printStackTrace();
             }
         }
-
 
         //1975 - 06 - 29
     }
@@ -592,7 +648,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     @Override
     public void onSpinnerClick() {
-        hideErrorMessage(spinnerBirthPlace.getId());
+        hideValidationError(spinnerBirthPlace.getId());
     }
 
     @Override
@@ -601,9 +657,45 @@ public class DatosPersonalesFragment extends GenericFragment implements
     }
 
     @Override
-    public void onCountrySelected(Countries item) {
+    public void onCountrySelectedListener(Countries item) {
         country = item;
         editCountry.setText(country.getPais());
         editCountry.setIsValid();
+    }
+
+    @Override
+    public void bucaPais(List<String> paises, String pais) {
+        seencuentra=false;
+        paises.add("AF");
+        paises.add("ET");
+        paises.add("IQ");
+        paises.add("IR");
+        paises.add("KP");
+        paises.add("LA");
+        paises.add("SY");
+        paises.add("UG");
+        paises.add("VU");
+        paises.add("YE");
+        paises.add("BA");
+        for (int i = 0; i < paises.size(); i++) {
+            if (paises.get(i).equals(pais)) {
+                String text = getString(R.string.problem_with_register);
+                String titulo=getString(R.string.titulo_extranjero);
+                seencuentra=true;
+                UI.createCustomDialogextranjero(titulo, text, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        llamar();
+                    }
+                    @Override
+                    public void actionCancel(Object... params) {
+                        llamar();
+                    }
+                }, " ", "Llamar");
+
+            }if (seencuentra==false && i==paises.size()-1) {
+                setPersonData();
+            }
+        }
     }
 }

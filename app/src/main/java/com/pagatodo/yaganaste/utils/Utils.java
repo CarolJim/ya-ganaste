@@ -8,11 +8,11 @@ import android.content.SharedPreferences;
 import android.content.SharedPreferences.Editor;
 import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
-import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.Uri;
 import android.os.Environment;
-import android.provider.ContactsContract;
 import android.provider.Settings;
 import android.text.InputFilter;
 import android.text.Spanned;
@@ -1268,38 +1268,15 @@ public class Utils {
         return dp;
     }
 
+    public static boolean isDeviceOnline() {
+        ConnectivityManager connManager = (ConnectivityManager) App.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
+        NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
 
-
-    public static String contactPicked(Intent data , Context context) {
-        Cursor cursor;
-        String phoneNo = null;
-        Uri uri = data.getData();
-        String returnString = "";
-        cursor = context.getContentResolver().query(uri, null, null, null, null);
-        if (cursor != null) {
-            cursor.moveToFirst();
-            //get column index of the Phone Number
-            int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
-            // column index of the contact name
-            //int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
-            phoneNo = cursor.getString(phoneIndex).replaceAll("\\s", "").replaceAll("\\+", "").replaceAll("-", "").trim();
-            if (phoneNo.length() > 10) {
-                phoneNo = phoneNo.substring(phoneNo.length() - 10);
-            }
-
-            String number = phoneNo;
-            number = number.replaceAll(" ", "");
-            String response = "";
-            for (int i = 0; i < number.length(); i++) {
-                response = response + number.charAt(i);
-                if (i == 1 || i == 5) {
-                    response = response + " ";
-                }
-            }
-            returnString =  response;
+        if(networkInfo != null && networkInfo.isConnectedOrConnecting()){
+            return true;
         }
-
-        return returnString;
+        else{
+            return false;
+        }
     }
-
 }

@@ -86,6 +86,7 @@ public class ValidatedEdittext extends AppCompatEditText {
                 case 4:
                     type = TYPE.TEXT;
                     break;
+
             }
         }
     }

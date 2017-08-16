@@ -1,6 +1,8 @@
 package com.pagatodo.yaganaste.data.model.webservice.request.adtvo;
 
 import com.google.gson.annotations.SerializedName;
+import com.pagatodo.yaganaste.data.model.RegisterAgent;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 
 import java.io.Serializable;
@@ -13,55 +15,83 @@ import java.util.List;
 
 public class CrearAgenteRequest implements Serializable {
 
-    private int TipoAgente;
-    private String NombreComercio = "";
-    private String NumeroTelefono = "";
-    private String RazonSocial = "";
+    @SerializedName("TipoAgente")
+    private int tipoAgente;
+    @SerializedName("NombreComercio")
+    private String nombreComercio = "";
+    @SerializedName("NumeroTelefono")
+    private String numeroTelefono = "";
+    @SerializedName("RazonSocial")
+    private String razonSocial = "";
     //private int Giro;
-    private int SubGiro;
-    private String RFC = "";
-    private int Latitud;
-    private int Longitud;
-    private List<CuestionarioEntity> Cuestionario;
+    @SerializedName("SubGiro")
+    private int subGiro;
+    @SerializedName("RFC")
+    private String rfc = "";
+    @SerializedName("Latitud")
+    private int latitud;
+    @SerializedName("Longitud")
+    private int longitud;
+    @SerializedName("Cuestionario")
+    private List<CuestionarioEntity> cuestionario;
 
     @SerializedName("DomicilioNegocio")
     private DataObtenerDomicilio domicilioNegocio;
 
     public CrearAgenteRequest() {
+        cuestionario = new ArrayList<>();
+    }
 
-        Cuestionario = new ArrayList<CuestionarioEntity>();
+    public CrearAgenteRequest(RegisterAgent registerAgent, int tipoAgente){
+        nombreComercio = registerAgent.getNombre();
+        subGiro = registerAgent.getGiro().getIdSubgiro();
+        numeroTelefono = registerAgent.getTelefono();
+        this.tipoAgente = tipoAgente;
+        cuestionario = registerAgent.getCuestionario();
+
+        DataObtenerDomicilio dataObtenerDomicilio = new DataObtenerDomicilio();
+        dataObtenerDomicilio.setCp(registerAgent.getCodigoPostal());
+        dataObtenerDomicilio.setCalle(registerAgent.getCalle());
+        dataObtenerDomicilio.setColonia(registerAgent.getColonia());
+        dataObtenerDomicilio.setEstado(registerAgent.getEstadoDomicilio());
+        dataObtenerDomicilio.setIdColonia(registerAgent.getIdColonia());
+        dataObtenerDomicilio.setNumeroExterior(registerAgent.getNumExterior());
+        dataObtenerDomicilio.setNumeroInterior(registerAgent.getNumInterior());
+        dataObtenerDomicilio.setIdEstado(registerAgent.getIdEstado());
+
+        domicilioNegocio = dataObtenerDomicilio;
     }
 
     public int getTipoAgente() {
-        return TipoAgente;
+        return tipoAgente;
     }
 
     public void setTipoAgente(int tipoAgente) {
-        TipoAgente = tipoAgente;
+        this.tipoAgente = tipoAgente;
     }
 
     public String getNombreComercio() {
-        return NombreComercio;
+        return nombreComercio;
     }
 
     public void setNombreComercio(String nombreComercio) {
-        NombreComercio = nombreComercio;
+        this.nombreComercio = nombreComercio;
     }
 
     public String getNumeroTelefono() {
-        return NumeroTelefono;
+        return numeroTelefono;
     }
 
     public void setNumeroTelefono(String numeroTelefono) {
-        NumeroTelefono = numeroTelefono;
+        this.numeroTelefono = numeroTelefono;
     }
 
     public String getRazonSocial() {
-        return RazonSocial;
+        return razonSocial;
     }
 
     public void setRazonSocial(String razonSocial) {
-        RazonSocial = razonSocial;
+        this.razonSocial = razonSocial;
     }
 
     /*public int getGiro() {
@@ -73,43 +103,43 @@ public class CrearAgenteRequest implements Serializable {
     }*/
 
     public int getSubGiro() {
-        return SubGiro;
+        return subGiro;
     }
 
     public void setSubGiro(int subGiro) {
-        SubGiro = subGiro;
+        this.subGiro = subGiro;
     }
 
-    public String getRFC() {
-        return RFC;
+    public String getRfc() {
+        return rfc;
     }
 
-    public void setRFC(String RFC) {
-        this.RFC = RFC;
+    public void setRfc(String rfc) {
+        this.rfc = rfc;
     }
 
     public int getLatitud() {
-        return Latitud;
+        return latitud;
     }
 
     public void setLatitud(int latitud) {
-        Latitud = latitud;
+        this.latitud = latitud;
     }
 
     public int getLongitud() {
-        return Longitud;
+        return longitud;
     }
 
     public void setLongitud(int longitud) {
-        Longitud = longitud;
+        this.longitud = longitud;
     }
 
     public List<CuestionarioEntity> getCuestionario() {
-        return Cuestionario;
+        return cuestionario;
     }
 
     public void setCuestionario(List<CuestionarioEntity> cuestionario) {
-        Cuestionario = cuestionario;
+        this.cuestionario = cuestionario;
     }
 
     public DataObtenerDomicilio getDomicilioNegocio() {

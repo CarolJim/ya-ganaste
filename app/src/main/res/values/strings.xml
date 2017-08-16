@@ -177,7 +177,7 @@
     <string name="txt_mail">Correo Electrónico</string>
     <string name="send">ENVIAR</string>
     <string name="check_your_mail">Revisa tu Correo Electrónico</string>
-    <string name="txt_escribe_tu_correo">Escribe tu Correo Electrónico</string>
+    <string name="txt_escribe_tu_correo">Correo Electrónico</string>
     <string name="txt_phone">Teléfono: </string>
     <string name="txt_home_phone">Teléfono Fijo</string>
 
@@ -247,7 +247,7 @@
     <string name="readcard">Leyendo Tarjeta</string>
     <string name="fecha_formater">%1$s/%2$s/%3$s</string>
     <string name="metodo_transaction">TransactionEmvDepositAccount</string>
-    <string name="rfc">RFC</string>
+    <string name="rfc">rfc</string>
     <string name="phone_number">Teléfono del Comercio</string>
     <string name="title_activity_depositos_maps">Depósitos</string>
     <string name="rfchomoclave">Homoclave</string>
@@ -274,7 +274,10 @@
     <string name="datos_usuario_correo_confirma">Debes Confirmar el Correo.</string>
     <string name="datos_usuario_correo_no_coinciden">El Correo no Coincide.</string>
     <string name="datos_usuario_pass">Introduce la Contraseña.</string>
-    <string name="datos_usuario_pass_confirm">Debes Confirmar la Contraseña.</string>
+    <string name="cambiar_pass_actual">Introduce la Contraseña Actual.</string>
+    <string name="datos_usuario_pass_c">Debes Confirmar la Nueva Contraseña.</string>
+    <string name="datos_usuario_pass_new">Introduce la Nueva Contraseña.</string>
+    <string name="datos_usuario_pass_confirm">Debes Confirmar la Nueva Contraseña.</string>
     <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide.</string>
     <string name="datos_usuario_pass_formato">Verifica tu Contraseña.</string>
     <string name="bienvenido_usuario"><![CDATA[¡<b>Bienvenido</b> %1$s!]]></string>
@@ -345,6 +348,15 @@
     <string name="bussinesName">Nombre del Negocio</string>
     <string name="publicServantQuestion">¿Tú o Algún Familiar Han Desempeñado Cargos Públicos?</string>
 
+    <!--Informacion Adicional-->
+    <string name="title_informacion_adicional">Información Adicional</string>
+    <string name="txt_eres_mexa">¿Eres Mexicano Naturalizado?</string>
+    <string name="txt_cargo">Cargo</string>
+    <string name="error_parentesco">Parentesco Requerido, Verifique su Información.</string>
+    <string name="error_cargo">Cargo Requerido, Verifique su Información.</string>
+    <string name="terminos_condiciones">Términos y Condiciones</string>
+    <string name="terms_and_conditions_aditional_info">Al Continuar Reconozco Ser Mayor de Edad, Así Como Haber Leído y Aceptado los Términos y Condiciones</string>
+
     <!--felicidades-->
     <string name="congratulation_text1">Tu Cuenta Ya Ganaste Está Lista</string>
     <string name="congratulation_text2">A Continuación, te Enseñaremos Todo lo\nQue Puedes Hacer Con Ella</string>
@@ -377,11 +389,16 @@
 
     <!-- Proceso de enviar documentos -->
     <string name="adq_must_upload_documents">Debes de Subir Todos Los Documentos.</string>
+    <string name="adq_upload_again">Subir de Nuevo</string>
     <string name="adq_upload_documents">Enviando Solicitud</string>
     <string name="adq_upgrade_documents">Actualizando Documentos</string>
     <string name="adq_error_open_image">La Aplicación no Pudo Acceder a su Imagen Intente Con Otra Galería</string>
     <string name="adq_title_thanks">¡Gracias!</string>
     <string name="adq_subtitle_thanks">Tus Documentos Están\nSiendo Revisados</string>
+    <string name="adq_documents_approved">Tus Documentos \nFueron Aprobados</string>
+    <string name="adq_notification_pending">Te Notificaremos Cuando \ntu Seccion de Cobros Este Lista</string>
+    <string name="adq_payment_with_card">Ya Puedes Recibir \nPagos Con Tarjeta</string>
+    <string name="adq_new_section_payment">A Continuación, te Enseñaremos tu \nNueva Sección de Cobros</string>
     <string name="adq_title_thanks_msg">Este Proceso Puede Tardar\nHasta 48 Horas Hábiles</string>
 
     <string name="adq_subtitle_accept">Tus Documentos Han Sido\nAprobados</string>
@@ -426,6 +443,7 @@
 
     <string name="cancelar_operacion">Cancelar Cobro</string>
     <string name="txt_monto">Monto:</string>
+    <string name="txt_monto_total">Monto Total:</string>
     <string name="txt_monto_compra">Monto Compra:</string>
     <string name="txt_monto_retiro">Monto Retiro:</string>
     <string name="txt_recibo">Recibo:</string>
@@ -438,13 +456,15 @@
     <string name="emisor">Emisor:</string>
 
     <!-- Autorizaciones Online -->
-    <string name="este_movimiento">Este Movimiento Requiere Autorización: </string>
+    <string name="este_movimiento">Este Movimiento se Está Realizando\nen tu Sitio Web Ya Ganaste</string>
     <string name="monto">Importe:</string>
-    <string name="ingresa_tu_contrasenia">Ingresa tu Contraseña para Autorizar Este Movimiento en tu
-    Banca en Línea</string>
+    <string name="a_la_cuenta">A la Cuenta:</string>
+    <string name="ingresa_tu_contrasenia">Ingresa tu Contraseña para Autorizarlo</string>
+    <string name="envio_dinero"><b>Envío de Dinero</b></string>
 
-    <string name="autorizacion_completa">¡Autorización Completa!</string>
-    <string name="revisa_el_resumen">Revisa el Resumen de Este Movimiento en tu Banca en Línea</string>
+    <string name="autorizacion_completa">¡Autorización Exitosa!</string>
+    <string name="algo_salio">Algo Salió Mal</string>
+    <string name="revisa_el_resumen">Revisa el Resumen del\nMovimiento en el Sitio Web Ya Ganaste</string>
     <string name="terminar">Terminar</string>
 
     <string name="nip_empty">Debes Introducir tu NIP para Poder Aprobar Esta Transacción</string>
@@ -457,6 +477,9 @@
 
     <string name="no_offline_token">El Dispositivo no Cuenta con Token Offline, Asegúrate de Que
     tu Dispositivo Esté Asociado por SMS</string>
+
+    <string name="problem_with_register">No Pudimos Continuar Con tu Registro. \n Por Favor Contactanos Para \n Ayudar a Resolverlo</string>
+    <string name="titulo_extranjero">Tuvimos un problema</string>
 
     <string name="generando_token">Generando Código</string>
 
@@ -500,7 +523,7 @@
     <string name="selecciona_genero">Selecciona tu Género</string>
     <string name="cargando">Cargando</string>
 
-    <string name="recupera_contrasenia_title">Recupera tu Contraseña</string>
+    <string name="recupera_contrasenia_title">Restablece tu Contraseña</string>
     <string name="enviaremos_enlace_restablecer">Enviaremos un Enlace Para \nRestablecer tu Contraseña a:</string>
     <string name="ingresa_correo_registrado">Ingresa tu Correo\nElectrónico Registrado</string>
     <string name="ingresa_correo_registrado_requerido">El Correo Electrónico es Requerido. Verifica tu Información.</string>
@@ -597,6 +620,8 @@
 
     <string name="favor_selecciona_importe">Por Favor Selecciona un Importe</string>
     <string name="numero_iave_vacio">Número de IAVE Vacío</string>
+    <string name="numero_telefono_paises">7225499673</string>
+
     <string name="numero_telefono_vacio">Número de Teléfono Vacío</string>
     <string name="numero_iave_incorrecto">Número de IAVE Incorrecto</string>
     <string name="numero_telefono_incorrecto">Número de Teléfono Incorrecto</string>
@@ -729,6 +754,26 @@
     <string name="verificando_sms_espera">Estamos Verificando tu SMS, \nNos Tomará Sólo Unos Segundos</string>
     <string name="change_your_pass">Cambia tu Contraseña</string>
     <string name="unlike_your_device">Desvincula tu Dispositivo</string>
+    <string name="no_existen_resultados">No Existen Resultados</string>
+    <string name="title_activity_landing_approved">LandingApprovedActivity</string>
+
+    <!-- Lista de meses para calendarios -->
+    <string name="lista_meses_enero">Ene</string>
+    <string name="lista_meses_febrero">Feb</string>
+    <string name="lista_meses_marzo">Mar</string>
+    <string name="lista_meses_abril">Abr</string>
+    <string name="lista_meses_mayo">May</string>
+    <string name="lista_meses_junio">Jun</string>
+    <string name="lista_meses_julio">Jul</string>
+    <string name="lista_meses_agosto">Ago</string>
+    <string name="lista_meses_septiembre">Sep</string>
+    <string name="lista_meses_octubre">Oct</string>
+    <string name="lista_meses_noviembre">Nov</string>
+    <string name="lista_meses_diciembre">Dic</string>
+
+
+
+
     <!--end Cupo Strings-->
 </resources>
 

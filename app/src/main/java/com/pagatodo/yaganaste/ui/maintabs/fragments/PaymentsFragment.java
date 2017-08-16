@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
@@ -62,7 +63,7 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
 
     @Override
     protected RecyclerView.Adapter createAdapter(List<ItemMovements<DataMovimientoAdq>> movementsList) {
-        return new RecyclerMovementsAdapter<>(getContext(), movementsList, this);
+        return new RecyclerMovementsAdapter<>(movementsList, this);
     }
 
     @Override
@@ -77,5 +78,11 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
         itemClicked.getMovement().setEsReversada(true);
         itemClicked.setMarca(getString(R.string.cancelada));
         notifyDataSetChanged();
+    }
+
+    @Override
+    public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        super.onRefresh(direction);
+        getDataForTab(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()));
     }
 }

@@ -68,6 +68,7 @@ public class WsCaller implements IServiceConsumer {
                 new Response.ErrorListener() {
                     @Override
                     public void onErrorResponse(VolleyError error) {
+                        Log.d(TAG, error.toString());
                         Log.d(TAG, "Request Failed : " + error.getMessage());
                         if (request.getRequestResult() != null) {
                             if (error.networkResponse != null ) {
@@ -81,7 +82,7 @@ public class WsCaller implements IServiceConsumer {
 
         jsonRequest.setRetryPolicy(new DefaultRetryPolicy(
                 request.getTimeOut(),
-                DefaultRetryPolicy.DEFAULT_MAX_RETRIES,
+                0,//Se quitan los reintentos para validar si esto arroja SocketException
                 DefaultRetryPolicy.DEFAULT_BACKOFF_MULT));
 
         volleySingleton.addToRequestQueue(jsonRequest);

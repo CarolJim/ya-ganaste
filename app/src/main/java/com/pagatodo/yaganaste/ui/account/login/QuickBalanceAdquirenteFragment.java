@@ -15,15 +15,12 @@ import android.widget.ImageView;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
-import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
-import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -41,13 +38,14 @@ import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
 /**
  * Created by Jordan on 06/07/2017.
  */
 
 public class QuickBalanceAdquirenteFragment extends GenericFragment implements IBalanceView,
-        SwipeRefreshLayout.OnRefreshListener, INavigationView<Void, Void>, View.OnClickListener {
+        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
 
     View rootView;
 
@@ -72,12 +70,10 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     @BindView(R.id.imgArrowBack)
     AppCompatImageView imgArrowBack;
 
-    private boolean isBalance;
-    private boolean isBalanceAdq;
-
     private AccountPresenterNew accountPresenter;
     private ILoginContainerManager loginContainerManager;
     private IQuickBalanceManager quickBalanceManager;
+    private Preferencias prefs = App.getInstance().getPrefs();
 
     public static QuickBalanceAdquirenteFragment newInstance() {
         QuickBalanceAdquirenteFragment fragment = new QuickBalanceAdquirenteFragment();
@@ -116,24 +112,25 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         btnGoToLogin.setOnClickListener(this);
         imgArrowBack.setOnClickListener(this);
         imgArrowNext.setOnClickListener(this);
+        txtSaldoPersonal.setText(Utils.getCurrencyValue(prefs.loadData(USER_BALANCE)));
+        txtBalanceReembolsar.setText(Utils.getCurrencyValue(prefs.loadData(ADQUIRENTE_BALANCE)));
 
-        Preferencias preferencias = App.getInstance().getPrefs();
-        if (preferencias.containsData(HAS_SESSION)) {
-            String cardNumber = preferencias.loadData(CARD_NUMBER);
+        if (prefs.containsData(HAS_SESSION)) {
+            String cardNumber = prefs.loadData(CARD_NUMBER);
 
             cardBalanceAdq.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
             cardBalanceAdq.setCardDate("03/21");
 
             if (Build.VERSION.SDK_INT >= 24) {
                 txtUserName.setText(Html.fromHtml(getString(R.string.bienvenido_usuario,
-                        preferencias.loadData(NAME_USER)),
+                        prefs.loadData(NAME_USER)),
                         Html.FROM_HTML_MODE_LEGACY, null, null));
             } else {
-                txtUserName.setText(Html.fromHtml(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER))));
+                txtUserName.setText(Html.fromHtml(getString(R.string.bienvenido_usuario, prefs.loadData(NAME_USER))));
             }
-
-            setData(preferencias.loadData(StringConstants.USER_BALANCE), preferencias.loadData(UPDATE_DATE));
-            setDataAdq(preferencias.loadData(ADQUIRENTE_BALANCE), preferencias.loadData(UPDATE_DATE_BALANCE_ADQ));
+            onRefresh();
+            //setData(preferencias.loadData(StringConstants.USER_BALANCE), preferencias.loadData(UPDATE_DATE));
+            //setDataAdq(preferencias.loadData(ADQUIRENTE_BALANCE), preferencias.loadData(UPDATE_DATE_BALANCE_ADQ));
         }
     }
 
@@ -151,7 +148,6 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     public void onRefresh() {
         swipeContainer.setRefreshing(false);
         accountPresenter.updateBalance();
-        accountPresenter.updateBalanceAdq();
     }
 
     @Override
@@ -170,33 +166,15 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     }
 
     @Override
-    public void updateBalance(String saldo) {
-        setData(saldo, App.getInstance().getPrefs().loadData(UPDATE_DATE));
-        isBalance = true;
-        hideLoaderBalance();
+    public void updateBalance() {
+        setData(prefs.loadData(USER_BALANCE), prefs.loadData(UPDATE_DATE));
+        accountPresenter.updateBalanceAdq();
     }
 
     @Override
-    public void updateBalanceAdq(String saldoAdq) {
-        setDataAdq(saldoAdq, App.getInstance().getPrefs().loadData(UPDATE_DATE_BALANCE_ADQ));
-        isBalanceAdq = true;
-        hideLoaderBalance();
-    }
-
-    private void hideLoaderBalance() {
-        if (isBalance && isBalanceAdq) {
-            hideLoader();
-        }
-    }
-
-    @Override
-    public void nextScreen(String event, Void data) {
-        quickBalanceManager.nextPage();
-    }
-
-    @Override
-    public void backScreen(String event, Void data) {
-        quickBalanceManager.backPage();
+    public void updateBalanceAdq() {
+        setDataAdq(prefs.loadData(ADQUIRENTE_BALANCE), prefs.loadData(UPDATE_DATE_BALANCE_ADQ));
+        hideLoader();
     }
 
     @Override
@@ -206,11 +184,24 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
 
     @Override
     public void hideLoader() {
-        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+        if (onEventListener != null) {
+            onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+        }
     }
 
     @Override
-    public void showError(Void error) {
-        throw new IllegalCallException("this method is not implemented yet");
+    public void showError(Object error) {
+        //throw new IllegalCallException("this method is not implemented yet");
+    }
+
+
+    @Override
+    public void nextScreen(String event, Object data) {
+        quickBalanceManager.nextPage();
+    }
+
+    @Override
+    public void backScreen(String event, Object data) {
+        quickBalanceManager.backPage();
     }
 }

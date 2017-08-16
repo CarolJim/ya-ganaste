@@ -415,7 +415,7 @@ public class ApiAdtvo extends Api {
     }
 
     /**
-     * Método que se invoca para Consultar el estatus de los Documentos de los Comercios.
+     * Método que se invoca para Consultar el estatus de los DocumentosFragment de los Comercios.
      *
      * @param result {@link IRequestResult} listener del resultado de la petición.
      */

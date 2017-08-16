@@ -19,9 +19,9 @@ public interface IAccountManager<T> {
 
     void hideLoader();
 
-    void onSuccesBalance(ConsultarSaldoResponse response);
+    void onSuccesBalance();
 
-    void onSuccesBalanceAdq(ConsultaSaldoCupoResponse response);
+    void onSuccesBalanceAdq();
 
     void onSuccessDataPerson();
 

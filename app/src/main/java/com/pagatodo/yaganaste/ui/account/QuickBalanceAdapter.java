@@ -4,12 +4,10 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
-import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
 import com.pagatodo.yaganaste.ui.account.login.OtpContainerFratgment;
 import com.pagatodo.yaganaste.ui.account.login.QuickBalanceAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.account.login.QuickBalanceFragment;
-import com.pagatodo.yaganaste.ui.adquirente.GetMountFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 
 import java.util.ArrayList;
 import java.util.List;

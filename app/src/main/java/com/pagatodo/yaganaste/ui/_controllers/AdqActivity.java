@@ -15,11 +15,11 @@ import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
-import com.pagatodo.yaganaste.ui.adquirente.DetailTransactionFragment;
-import com.pagatodo.yaganaste.ui.adquirente.GetSignatureFragment;
-import com.pagatodo.yaganaste.ui.adquirente.InsertDongleFragment;
-import com.pagatodo.yaganaste.ui.adquirente.RemoveCardFragment;
-import com.pagatodo.yaganaste.ui.adquirente.TransactionResultFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.DetailTransactionFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.GetSignatureFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 

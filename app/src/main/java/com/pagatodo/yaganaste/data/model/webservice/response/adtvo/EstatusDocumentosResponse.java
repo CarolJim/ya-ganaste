@@ -14,7 +14,12 @@ public class EstatusDocumentosResponse implements Serializable {
     private int IdEstatus;
     private String Motivo = "";
 
-    public EstatusDocumentosResponse() {
+    public EstatusDocumentosResponse(int tipoDocumento, String estatus, String comentario, int idEstatus, String motivo) {
+        this.TipoDocumento = tipoDocumento;
+        this.Estatus = estatus;
+        this.Comentario = comentario;
+        this.IdEstatus = idEstatus;
+        this.Motivo = motivo;
     }
 
     public int getTipoDocumento() {

@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui.maintabs.adapters;
 
-import android.content.Context;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
@@ -10,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
@@ -20,51 +20,30 @@ import java.util.List;
 
 /**
  * @author Juan Guerra
+ *         Jordan Rosas 09/08/2017
  */
 
-public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerMovementsAdapter.RecyclerViewHolderMovements> implements View.OnClickListener {
+public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
     private List<ItemMovements<T>> itemMovementses;
-    private Context context;
     private OnRecyclerItemClickListener listener;
 
-    public RecyclerMovementsAdapter(@NonNull Context context, @NonNull List<ItemMovements<T>> itemMovementses, @Nullable OnRecyclerItemClickListener listener) {
+    public RecyclerMovementsAdapter(@NonNull List<ItemMovements<T>> itemMovementses, @Nullable OnRecyclerItemClickListener listener) {
         this.itemMovementses = itemMovementses;
-        this.context = context;
         this.listener = listener;
     }
 
-    public RecyclerMovementsAdapter(@NonNull Context context, @NonNull List<ItemMovements<T>> itemMovementses) {
-        this(context, itemMovementses, null);
+    @Override
+    public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        LayoutInflater inflater = LayoutInflater.from(parent.getContext());
+        return new RecyclerViewHolderMovements(inflater.inflate(R.layout.item_movement, parent, false));
     }
 
     @Override
-    public RecyclerViewHolderMovements onCreateViewHolder(ViewGroup parent, int viewType) {
-        View layoutView = LayoutInflater.from(parent.getContext()).inflate(R.layout.item_movement, parent, false);
-        return new RecyclerViewHolderMovements(layoutView);
+    public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
+        ((RecyclerViewHolderMovements) holder).bindData(itemMovementses.get(position), position, this);
     }
 
-    @Override
-    public void onBindViewHolder(final RecyclerViewHolderMovements holder, int position) {
-        ItemMovements itemMovements = itemMovementses.get(position);
-        //String[] monto = Utils.getCurrencyValue(itemMovements.getMonto()).split("\\.");
-        holder.layoutMovementTypeColor.setBackgroundResource(itemMovements.getColor());
-        holder.txtMonto.setTextColor(ContextCompat.getColor(context, itemMovements.getColor()));
-        holder.txtPremios.setText(itemMovements.getPremio());
-        holder.txtMarca.setText(itemMovements.getMarca());
-
-        holder.txtMonto.setText(StringUtils.getCurrencyValue(Double.toString(itemMovements.getMonto())));//(monto[0].concat("."));
-
-        holder.txtItemMovDate.setText(itemMovements.getDate());
-        holder.txtItemMovMonth.setText(itemMovements.getMonth());
-
-        if (itemMovementses.get(position).getColor() == android.R.color.transparent) {
-            holder.txtMonto.setTextColor(ContextCompat.getColor(context, R.color.colorAccent));
-        }
-
-        holder.itemView.setOnClickListener(this);
-        holder.itemView.setTag(position);
-    }
 
     @Override
     public int getItemCount() {
@@ -78,7 +57,7 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerMo
         }
     }
 
-    public static class RecyclerViewHolderMovements extends RecyclerView.ViewHolder {
+    static class RecyclerViewHolderMovements extends RecyclerView.ViewHolder {
 
         View layoutMovementTypeColor;
         TextView txtItemMovDate;
@@ -86,7 +65,6 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerMo
         TextView txtPremios;
         TextView txtMarca;
         MontoTextView txtMonto;
-        //TextView txtItemMovCents;
 
         private RecyclerViewHolderMovements(View itemView) {
             super(itemView);
@@ -98,6 +76,25 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerMo
             txtMonto = (MontoTextView) itemView.findViewById(R.id.txt_monto);
             //txtItemMovCents = (TextView)itemView.findViewById(R.id.txt_item_mov_cents);
         }
-    }
 
+        void bindData(ItemMovements itemMovements, int position, View.OnClickListener clickListener) {
+            //String[] monto = Utils.getCurrencyValue(itemMovements.getMonto()).split("\\.");
+            layoutMovementTypeColor.setBackgroundResource(itemMovements.getColor());
+            txtMonto.setTextColor(ContextCompat.getColor(App.getContext(), itemMovements.getColor()));
+            txtPremios.setText(itemMovements.getPremio());
+            txtMarca.setText(itemMovements.getMarca());
+
+            txtMonto.setText(StringUtils.getCurrencyValue(Double.toString(itemMovements.getMonto())));//(monto[0].concat("."));
+
+            txtItemMovDate.setText(itemMovements.getDate());
+            txtItemMovMonth.setText(itemMovements.getMonth());
+
+            if (itemMovements.getColor() == android.R.color.transparent) {
+                txtMonto.setTextColor(ContextCompat.getColor(App.getContext(), R.color.colorAccent));
+            }
+
+            itemView.setOnClickListener(clickListener);
+            itemView.setTag(position);
+        }
+    }
 }

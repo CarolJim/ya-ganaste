@@ -76,7 +76,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_CUPO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGIN_ADQ;
@@ -155,6 +155,15 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     public void logout() {
         try {
             ApiAdtvo.cerrarSesion(this);// Se envia null ya que el Body no aplica.
+        } catch (OfflineException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void logoutSinRespuesta() {
+        try {
+            ApiAdtvo.cerrarSesion();// Se envia null ya que el Body no aplica.
         } catch (OfflineException e) {
             e.printStackTrace();
         }
@@ -363,7 +372,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         try {
             ApiAdq.consultaSaldoCupo(this);
         } catch (OfflineException e) {
-            accountManager.onError(CONSULTA_SALDO_CUPO, null);
+            accountManager.onError(CONSULTAR_SALDO_ADQ, null);
         }
     }
 
@@ -402,6 +411,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 } else {
                     //TODO Evento para llevar al usuario al splash
                     Intent intent = new Intent(App.getContext(), SplashActivity.class);
+                    intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK);
                     App.getContext().startActivity(intent);
                 }
 
@@ -461,7 +471,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 validatePersonDataResponse((GenericResponse) dataSourceResult.getData());
                 break;
 
-            case CONSULTA_SALDO_CUPO:
+            case CONSULTAR_SALDO_ADQ:
                 validateBalanceAdqResponse((ConsultaSaldoCupoResponse) dataSourceResult.getData());
                 break;
 
@@ -492,10 +502,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void validateBalanceResponse(ConsultarSaldoResponse response) {
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-
             prefs.saveData(StringConstants.USER_BALANCE, response.getData().getSaldo());
             prefs.saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
-            accountManager.onSuccesBalance(response);
+            accountManager.onSuccesBalance();
         } else {
             accountManager.onError(CONSULTAR_SALDO, null);
         }
@@ -503,11 +512,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response) {
         if(response.getResult().getId().equals(Recursos.ADQ_CODE_OK)) {
-            App.getInstance().getPrefs().saveData(StringConstants.ADQUIRENTE_BALANCE, response.getSaldo());
+            prefs.saveData(StringConstants.ADQUIRENTE_BALANCE, response.getSaldo());
             prefs.saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
-            accountManager.onSuccesBalanceAdq(response);
+            accountManager.onSuccesBalanceAdq();
         }else {
-            accountManager.onError(CONSULTA_SALDO_CUPO, null);
+            accountManager.onError(CONSULTAR_SALDO_ADQ, null);
         }
     }
 
@@ -601,9 +610,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 }
                 accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
             } else { // No es usuario
+                RequestHeaders.setUsername("");
                 accountManager.onError(response.getWebService(), App.getContext().getString(R.string.usuario_no_existe));
             }
         } else {
+            RequestHeaders.setUsername("");
             accountManager.onError(response.getWebService(), data.getMensaje());
         }
     }

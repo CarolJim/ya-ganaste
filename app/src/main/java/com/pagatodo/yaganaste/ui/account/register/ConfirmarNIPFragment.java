@@ -111,6 +111,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         borderTitleLayout.setTitle(getString(R.string.confirma_pin));
 
         edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
+        edtPin.setMaxLength(4); // Se asigna un maximo de 4 caracteres para no tener problrmas
         edtPin.addCustomTextWatcher(new AsignarNipTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num));
         edtPin.addCustomTextWatcher(new TextWatcher() {
             @Override
@@ -119,17 +120,15 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
-
-                if (s.toString().length() == 4) {
-                    buttonIsVisible(false);
-                    //keyboardView.hideCustomKeyboard();
-                    validateForm();
-                }
             }
 
             @Override
             public void afterTextChanged(Editable editable) {
-
+                if (editable.toString().length() == 4) {
+                    buttonIsVisible(false);
+                    //keyboardView.hideCustomKeyboard();
+                    validateForm();
+                }
             }
         });
 
@@ -215,6 +214,11 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
                     }
                 },
                 true, false);
+    }
+
+    @Override
+    public void hideValidationError(int id) {
+
     }
 
     @Override
