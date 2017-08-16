@@ -48,10 +48,12 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     TextView txtItemMovDate;
     @BindView(R.id.txt_item_mov_month)
     TextView txtItemMovMonth;
-    @BindView(R.id.txt_premios)
-    TextView txtConceptShort;
-    @BindView(R.id.txt_marca)
-    TextView txtMarca;
+
+    @BindView(R.id.txtTituloDescripcion)
+    TextView txtTituloDescripcion;
+    @BindView(R.id.txtSubTituloDetalle)
+    TextView txtSubTituloDetalle;
+
     @BindView(R.id.txt_monto)
     MontoTextView txtMonto;
     @BindView(R.id.imageDetail)
@@ -130,9 +132,9 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
 
         txtItemMovDate.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         txtItemMovMonth.setText(DateUtil.getMonthShortName(calendar));
-        txtConceptShort.setText(dataMovimientoAdq.getOperacion());
+        txtTituloDescripcion.setText(dataMovimientoAdq.getOperacion());
 
-        txtMarca.setText(dataMovimientoAdq.getBancoEmisor().concat(SPACE).concat(
+        txtSubTituloDetalle.setText(dataMovimientoAdq.getBancoEmisor().concat(SPACE).concat(
                 dataMovimientoAdq.isEsReversada() ? "- " + App.getInstance().getString(R.string.cancelada) :
                         dataMovimientoAdq.isEsPendiente() ? "- " + App.getInstance().getString(R.string.pendiente) : SPACE));
 

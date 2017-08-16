@@ -5,8 +5,8 @@ package com.pagatodo.yaganaste.data.dto;
  */
 public class ItemMovements<T> {
 
-    private String premio;
-    private String marca;
+    private String tituloDescripcion;
+    private String subtituloDetalle;
     private double monto;
     private String date;
     private String month;
@@ -14,13 +14,13 @@ public class ItemMovements<T> {
     private T movement;
 
 
-    public ItemMovements(String premio, String marca, double monto, String date, String month, int color) {
-        this(premio, marca, monto, date, month, color, null);
+    public ItemMovements(String tituloDescripcion, String subtituloDetalle, double monto, String date, String month, int color) {
+        this(tituloDescripcion, subtituloDetalle, monto, date, month, color, null);
     }
 
-    public ItemMovements(String premio, String marca, double monto, String date, String month, int color, T movement) {
-        this.premio = premio;
-        this.marca = marca;
+    public ItemMovements(String tituloDescripcion, String subtituloDetalle, double monto, String date, String month, int color, T movement) {
+        this.tituloDescripcion = tituloDescripcion;
+        this.subtituloDetalle = subtituloDetalle;
         this.monto = monto;
         this.date = date;
         this.month = month;
@@ -28,20 +28,20 @@ public class ItemMovements<T> {
         this.movement = movement;
     }
 
-    public String getPremio() {
-        return premio;
+    public String getTituloDescripcion() {
+        return tituloDescripcion;
     }
 
-    public void setPremio(String premio) {
-        this.premio = premio;
+    public void setTituloDescripcion(String tituloDescripcion) {
+        this.tituloDescripcion = tituloDescripcion;
     }
 
-    public String getMarca() {
-        return marca;
+    public String getSubtituloDetalle() {
+        return subtituloDetalle;
     }
 
-    public void setMarca(String marca) {
-        this.marca = marca;
+    public void setSubtituloDetalle(String subtituloDetalle) {
+        this.subtituloDetalle = subtituloDetalle;
     }
 
     public double getMonto() {

@@ -96,7 +96,7 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
         for (MovimientosResponse movimientosResponse : response.getData()) {
             date = movimientosResponse.getFechaMovimiento().split(" ");
             // TODO: 28/03/2017 Verificar si el color debe ser local o si viene del servicio
-            movementsList.add(new ItemMovements<>(movimientosResponse.getDetalle(), movimientosResponse.getDescripcion(),
+            movementsList.add(new ItemMovements<>(movimientosResponse.getDescripcion(), movimientosResponse.getDetalle(),
                     movimientosResponse.getTotal(), date[0], date[1],
                     MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),
                     movimientosResponse));

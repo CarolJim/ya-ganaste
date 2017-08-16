@@ -197,7 +197,6 @@
     <string name="hint_importe">Importe</string>
     <string name="hint_importe_envio">Importe a Enviar</string>
     <string name="hint_name_destinatario">Nombre Del Destinatario</string>
-    <string name="txt_importe">Importe:</string>
     <string name="txt_fecha">Fecha:</string>
     <string name="txt_hora">Hora:</string>
     <string name="beneficiario">A:</string>
@@ -214,6 +213,7 @@
     <string name="no_internet_access">No Cuentas Con Conexión a Internet</string>
     <string name="something_is_wrong_try_again">Algo Salio mal, Intenta de Nuevo</string>
     <string name="tag_number">Número de TAG</string>
+    <string name="txt_tag">Tag</string>
     <string name="phone_number_hint">Teléfono (10 Dígitos)</string>
     <string name="card_number_hint">Número de Tarjeta (16 Dígitos)</string>
     <string name="msgJsonObj">Mensaje</string>
@@ -437,12 +437,16 @@
 
     <string name="cancelar_operacion">Cancelar Cobro</string>
     <string name="txt_monto">Monto:</string>
+    <string name="txt_compra">Compra:</string>
+    <string name="txt_importe">Importe:</string>
     <string name="txt_monto_total">Monto Total:</string>
     <string name="txt_monto_compra">Monto Compra:</string>
     <string name="txt_monto_retiro">Monto Retiro:</string>
     <string name="txt_recibo">Recibo:</string>
     <string name="txt_iva">IVA:</string>
     <string name="txt_cargo_servicio">Cargo Por Servicio:</string>
+    <string name="txt_cuenta">Cuenta:</string>
+    <string name="txt_cable">CABLE:</string>
 
     <string name="autorizacion">Autorización:</string>
     <string name="tarjeta">Tarjeta:</string>
@@ -743,8 +747,6 @@
     <string name="lista_meses_octubre">Oct</string>
     <string name="lista_meses_noviembre">Nov</string>
     <string name="lista_meses_diciembre">Dic</string>
-
-
 
 
     <!--end Cupo Strings-->
