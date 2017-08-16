@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.freja.change.async;
 
 import android.os.AsyncTask;
 
+import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.provisioning.manager.ExceptionCallback;
 import com.verisec.freja.mobile.core.FmcManager;
 
@@ -47,7 +48,7 @@ public class ChangePinRequest extends AsyncTask<Void, Void, Exception> {
         if (response == null) {
             this.changePinCallback.onChangeNipSuccessful();
         } else {
-            this.changePinCallback.handleException(response);
+            this.changePinCallback.onError(Errors.cast(response));
         }
     }
 

@@ -14,13 +14,17 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -36,8 +40,12 @@ import butterknife.BindView;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
+import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
+import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PUSH;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_PROVISIONED;
 
 
 /**
@@ -54,6 +62,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     BroadcastReceiver broadcastReceiver;
     private WebService failed;
     private AccountPresenterNew accountPresenter;
+    private Preferencias preferencias;
     /**
      * BroadcastReceiver para realizar el envío del SMS
      **/
@@ -87,10 +96,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         }
     };
 
-    //private AprovPresenter aprovPresenter;
-    public AsociatePhoneAccountFragment() {
-    }
-
     public static AsociatePhoneAccountFragment newInstance() {
         AsociatePhoneAccountFragment fragmentRegister = new AsociatePhoneAccountFragment();
         Bundle args = new Bundle();
@@ -101,6 +106,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.preferencias = App.getInstance().getPrefs();
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
     }
@@ -127,6 +133,13 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
     @Override
     public void dataUpdated(String message) {
+
+        /*if (!preferencias.containsData(HAS_PROVISIONING) || !preferencias.loadData(USER_PROVISIONED).equals(RequestHeaders.getUsername())) {
+            executeProvisioning();
+        } else if (!preferencias.containsData(HAS_PUSH)){
+            provisingCompleted();
+        }*/
+
         executeProvisioning();
     }
 
@@ -151,21 +164,22 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     }
 
     @Override
-    public void showErrorAprov(Object error) {
-        showError(error.toString());
-        //finishAssociation();
+    public void showErrorAprov(ErrorObject error) {
+        onEventListener.onEvent(EVENT_SHOW_ERROR, error);
     }
 
     /*Una vez aprovisionado, se suscribe a las notificationes*/
     @Override
     public void provisingCompleted() {
+        preferencias.saveDataBool(HAS_PROVISIONING, true);
+        preferencias.saveData(USER_PROVISIONED,RequestHeaders.getUsername());
         accountPresenter.subscribePushNotification();
     }
 
     @Override
     public void subscribeNotificationSuccess() {
         hideLoader();
-        /*TODO Almacenar preference indicando que ya se encuentra registrado a las notificaciones desde presenter*/
+        preferencias.saveDataBool(HAS_PUSH, true);
         finishAssociation();
     }
 

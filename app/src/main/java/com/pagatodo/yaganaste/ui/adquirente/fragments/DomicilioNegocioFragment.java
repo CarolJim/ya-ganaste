@@ -154,7 +154,6 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         btnBackBussinesAddress.setOnClickListener(this);
         editBussinesState.setTextEnabled(false);
 
-        radioIsBussinesAddress.setOnCheckedChangeListener(this);
 
         spBussinesColonia.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
@@ -167,9 +166,10 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
                 onSpinnerClick();
             }
         });
-        setValidationRules();
 
         setCurrentData();
+        radioIsBussinesAddress.setOnCheckedChangeListener(this);
+        setValidationRules();
     }
 
     @Override
@@ -379,7 +379,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
             editBussinesStreet.setText(registerAgente.getCalle());
             editBussinesExtNumber.setText(registerAgente.getNumExterior());
             editBussinesIntNumber.setText(registerAgente.getNumInterior());
-            colonyToLoad = registerAgente.getColonia();
+            colonyToLoad = registerAgente.getIdColonia();
             editBussinesZipCode.setText(registerAgente.getCodigoPostal());
 
             if (listaColonias == null) {
@@ -460,7 +460,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         numExt = editBussinesExtNumber.getText();
         numInt = editBussinesIntNumber.getText();
         codigoPostal = editBussinesZipCode.getText();
-        estado =  estadoDomicilio;//editBussinesZipCode.getText();
+        estado = estadoDomicilio;//editBussinesZipCode.getText();
 
         Idcolonia = "-1";
         if (spBussinesColonia.getSelectedItem() != null) {
@@ -484,9 +484,10 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         fillAdapter();
 
         if (colonyToLoad != null && !colonyToLoad.isEmpty()) {
-            for (int pos = 0; pos < coloniasNombre.size(); pos++) {
-                if (coloniasNombre.get(pos).equalsIgnoreCase(colonyToLoad)) {
-                    spBussinesColonia.setSelection(pos);
+            for (int pos = 0; pos < this.listaColonias.size(); pos++) {
+                if (this.listaColonias.get(pos).getColoniaId().equalsIgnoreCase(colonyToLoad)) {
+                    spBussinesColonia.setSelection(pos + 1);
+                    break;
                 }
             }
             colonyToLoad = null;
@@ -506,7 +507,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         editBussinesStreet.setText(domicilio.getCalle());
         editBussinesExtNumber.setText(domicilio.getNumeroExterior());
         editBussinesIntNumber.setText(domicilio.getNumeroInterior());
-        colonyToLoad = domicilio.getColonia();
+        colonyToLoad = domicilio.getIdColonia();
         textWatcherZipCode.setEnabled(true);
         if (domicilio.getColoniasDomicilio() == null) {
             textWatcherZipCode.afterTextChanged(editBussinesZipCode.getText());

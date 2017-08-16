@@ -362,7 +362,7 @@ public class ApiAdtvo extends Api {
     public static void iniciarSesionSimple(IniciarSesionRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
-        if (!RequestHeaders.getTokenauth().equals(""))//Si ya se almaceno el tokenAuth, se envia en el login
+        if (!RequestHeaders.getTokenauth().isEmpty())//Si ya se almaceno el tokenAuth, se envia en el login
             headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
 
         NetFacade.consumeWS(INICIAR_SESION_SIMPLE,

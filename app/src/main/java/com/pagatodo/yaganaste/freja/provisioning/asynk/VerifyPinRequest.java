@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.freja.provisioning.asynk;
 
 import android.os.AsyncTask;
 
+import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.provisioning.manager.ExceptionCallback;
 import com.verisec.freja.mobile.core.FmcManager;
 
@@ -37,7 +38,7 @@ public class VerifyPinRequest extends AsyncTask<byte[], Void, Exception> {
         if (response == null) {
             this.verifyPinCallback.onVerifyPinSuccessful();
         } else {
-            this.verifyPinCallback.handleException(response);
+            this.verifyPinCallback.onError(Errors.cast(response));
         }
     }
 

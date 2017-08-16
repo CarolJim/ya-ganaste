@@ -56,6 +56,8 @@ public class ColoniasArrayAdapter extends ArrayAdapter<String> {
 
             holder = new ViewHolder();
             holder.editText = (EditText) row.findViewById(R.id.editTextCustomSpinner);
+            holder.editText.setMovementMethod(null);
+            holder.editText.setSingleLine();
             holder.downArrow = (ImageView) row.findViewById(R.id.imageViewCustomSpinner);
             holder.laySpinnerCustom = (LinearLayout) row.findViewById(R.id.laySpinnerCustom);
             row.setTag(holder);

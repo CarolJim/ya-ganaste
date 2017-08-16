@@ -44,7 +44,7 @@ public class PinPolicyRequest extends AsyncTask<Void, Void, Object> {
     @Override
     protected void onPostExecute(Object response) {
         if (response instanceof Exception) {
-            this.pinPolicyCallback.handleException((Exception) response);
+            this.pinPolicyCallback.onError(Errors.cast((Exception) response));
         } else if (response instanceof FmcPinPolicy) {
             FmcPinPolicy pinPolicy = (FmcPinPolicy) response;
             this.pinPolicyCallback.onPinPolicyReceived(pinPolicy.getMin(), pinPolicy.getMax());

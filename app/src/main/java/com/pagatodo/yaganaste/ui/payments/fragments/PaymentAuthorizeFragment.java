@@ -1,79 +1,104 @@
 package com.pagatodo.yaganaste.ui.payments.fragments;
 
-import android.app.Activity;
-import android.content.Context;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
-import android.widget.EditText;
 import android.widget.ImageView;
-import android.widget.Toast;
+import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
-import com.pagatodo.yaganaste.exceptions.OfflineException;
-import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
-import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
+import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.payments.managers.PaymentsProcessingManager;
-import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcessingPresenter;
+import com.pagatodo.yaganaste.ui.payments.managers.PaymentAuthorizeManager;
+import com.pagatodo.yaganaste.ui.payments.presenters.PaymentAuthorizePresenter;
+import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentAuthorizePresenter;
+import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.view.View.GONE;
+import static android.view.View.INVISIBLE;
+import static android.view.View.VISIBLE;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.EVENT_SEND_PAYMENT;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+
 /**
  * Created by Jordan on 02/05/2017.
  */
 
-public class PaymentAuthorizeFragment extends GenericFragment implements View.OnClickListener {
+public class PaymentAuthorizeFragment extends GenericFragment implements View.OnClickListener, PaymentAuthorizeManager {
 
-    PaymentsProcessingManager manager;
-    IPaymentsProcessingPresenter presenter;
-    @BindView(R.id.btn_continueEnvio)
-    Button btnContinue;
-    @BindView(R.id.editPasswordEnvio)
-    EditText pass;
-    @BindView(R.id.editDestinatario)
-    StyleTextView referencia;
-    @BindView(R.id.txt_nombre)
-    StyleTextView nombre;
+    IPaymentAuthorizePresenter paymentAuthorizePresenter;
+
+    @BindView(R.id.txt_paymentTitle)
+    TextView title;
     @BindView(R.id.txt_importe)
-    StyleTextView importe;
+    MontoTextView importe;
+    @BindView(R.id.layoutComision)
+    LinearLayout layoutComision;
+    @BindView(R.id.comisionReferenciaText)
+    TextView comisionReferenciaText;
+    @BindView(R.id.titleReferencia)
+    TextView titleReferencia;
+    @BindView(R.id.txtReferencia)
+    TextView txtReferencia;
     @BindView(R.id.imgLogoPago)
     ImageView imgLogoPago;
+
+    @BindView(R.id.layoutMail)
+    LinearLayout layoutMail;
+
+    @BindView(R.id.btn_continueEnvio)
+    StyleButton btnContinueEnvio;
+    @BindView(R.id.layoutFavoritos)
+    LinearLayout layoutFavoritos;
+    @BindView(R.id.nombreEnvio)
+    StyleTextView nombreEnvio;
+    @BindView(R.id.layoutAutorizacon)
+    LinearLayout layoutAutorizacon;
+    @BindView(R.id.layoutFecha)
+    LinearLayout layoutFecha;
+    @BindView(R.id.layoutHora)
+    LinearLayout layoutHora;
+    @BindView(R.id.layoutPass)
+    LinearLayout layoutPass;
+    @BindView(R.id.editPassword)
+    CustomValidationEditText editPassword;
+    @BindView(R.id.errorPasswordMessage)
+    ErrorMessage errorPasswordMessage;
+
     String password;
-    Envios envios;
+    Envios envio;
     private View rootview;
 
-    public static PaymentAuthorizeFragment newInstance(Envios envios) {
+    public static PaymentAuthorizeFragment newInstance(Payments envio) {
         PaymentAuthorizeFragment fragment = new PaymentAuthorizeFragment();
         Bundle args = new Bundle();
-        args.putSerializable("envios", envios);
+        args.putSerializable("envios", envio);
         fragment.setArguments(args);
         return fragment;
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        Activity activity = null;
-        if (context instanceof Activity) {
-            activity = (Activity) context;
-        }
-    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        envios = (Envios) getArguments().getSerializable("envios");
-        PaymentsProcessingActivity parentActivity = (PaymentsProcessingActivity) getActivity();
-        manager = parentActivity.getManager();
-        presenter = parentActivity.getPresenter();
+        envio = (Envios) getArguments().getSerializable("envios");
+        paymentAuthorizePresenter = new PaymentAuthorizePresenter(this);
     }
 
     @Override
@@ -89,7 +114,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.fragment_authorize_payment, container, false);
+        rootview = inflater.inflate(R.layout.fragment_payment_success, container, false);
         initViews();
         return rootview;
     }
@@ -97,46 +122,126 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        nombre.setText(envios.getNombreDestinatario());
+        title.setText(getString(R.string.authorize_payment_title));
+        layoutComision.setVisibility(GONE);
+        titleReferencia.setText("A:");
+        nombreEnvio.setVisibility(VISIBLE);
+        nombreEnvio.setText(envio.getNombreDestinatario());
 
-        //String text = String.format("%.2f", envios.getMonto());
-        //text = text.replace(",", ".");
+        layoutMail.setVisibility(GONE);
+        layoutFavoritos.setVisibility(GONE);
 
-        importe.setText(StringUtils.getCurrencyValue(envios.getMonto()));
-        String ref = envios.getReferencia();
-        switch (envios.getTipoEnvio()) {
+        layoutAutorizacon.setVisibility(INVISIBLE);
+        layoutFecha.setVisibility(INVISIBLE);
+        layoutHora.setVisibility(INVISIBLE);
+
+        layoutPass.setVisibility(VISIBLE);
+
+        importe.setText(StringUtils.getCurrencyValue(envio.getMonto()));
+        String ref = envio.getReferencia();
+        switch (envio.getTipoEnvio()) {
             case CABLE:
-                referencia.setText(ref);
+                txtReferencia.setText(ref);
                 break;
             case NUMERO_TARJETA:
-                referencia.setText("**** **** **** " + ref.substring(13, ref.length()));
+                txtReferencia.setText("**** **** **** " + ref.substring(13, ref.length()));
                 break;
             case NUMERO_TELEFONO:
-                referencia.setText(ref);
+                txtReferencia.setText(ref);
                 break;
             default:
                 break;
         }
 
-        Glide.with(getContext()).load(envios.getComercio().getLogoURL()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.icon_tab_promos).dontAnimate().into(imgLogoPago);
-
-        btnContinue.setOnClickListener(this);
+        Glide.with(getContext()).load(envio.getComercio().getLogoURL()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).dontAnimate().into(imgLogoPago);
+        setValidationRules();
+        btnContinueEnvio.setOnClickListener(this);
     }
 
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btn_continueEnvio) {
-            password = pass.getText().toString();
-            if (password.isEmpty() || password.equals("")) {
-                Toast.makeText(getContext(), "password vacío", Toast.LENGTH_LONG).show();
-            } else {
-                try {
-                    manager.showLoader("Enviando Pago");
-                    presenter.sendPayment(MovementsTab.TAB3, envios);
-                } catch (OfflineException e) {
-                    e.printStackTrace();
+            validateForm();
+        }
+    }
+
+    @Override
+    public void setValidationRules() {
+        editPassword.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+
+                if (hasFocus) {
+                    hideValidationError(editPassword.getId());
+                    editPassword.imageViewIsGone(true);
                 }
             }
+        });
+
+        editPassword.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                hideValidationError(editPassword.getId());
+                editPassword.imageViewIsGone(true);
+            }
+        });
+    }
+
+    @Override
+    public void validateForm() {
+        getDataForm();
+        if (TextUtils.isEmpty(password)) {
+            showValidationError(0, getString(R.string.datos_usuario_pass));
+        } else {
+            paymentAuthorizePresenter.validatePasswordFormat(password);
         }
+    }
+
+    @Override
+    public void showValidationError(int id, Object error) {
+        errorPasswordMessage.setMessageText(error.toString());
+    }
+
+    @Override
+    public void hideValidationError(int id) {
+        errorPasswordMessage.setVisibilityImageError(false);
+    }
+
+    @Override
+    public void onValidationSuccess() {
+        onEventListener.onEvent(EVENT_SEND_PAYMENT, envio);
+    }
+
+    @Override
+    public void getDataForm() {
+        password = editPassword.getText().toString();
+    }
+
+    @Override
+    public void showError(Object error) {
+        if (!TextUtils.isEmpty(error.toString())) {
+            UI.createSimpleCustomDialog("Error", error.toString(), getActivity().getSupportFragmentManager(), getFragmentTag());
+        }
+    }
+
+    @Override
+    public void validationPasswordSucces() {
+        onEventListener.onEvent(EVENT_SEND_PAYMENT, envio);
+    }
+
+    @Override
+    public void validationPasswordFailed(String error) {
+        hideLoader();
+        showValidationError(0, error);
+    }
+
+    @Override
+    public void showLoader(String title) {
+        onEventListener.onEvent(EVENT_SHOW_LOADER, title);
+    }
+
+    @Override
+    public void hideLoader() {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 }

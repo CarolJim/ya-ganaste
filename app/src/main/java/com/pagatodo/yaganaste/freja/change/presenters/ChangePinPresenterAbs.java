@@ -38,7 +38,7 @@ public abstract class ChangePinPresenterAbs implements ChangePinPresenter, Chang
         if (min <= size && size <= max) {
             changePinIteractor.changePin(oldPin, newPin);
         } else {
-            handleException(new FmcCodeException(-1,""));
+            onError(Errors.BAD_CHANGE_POLICY);
 
         }
     }

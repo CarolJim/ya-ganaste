@@ -164,4 +164,10 @@ public class RequestHeaders {
         editor.apply();
     }
 
+    public static void clearPreferences() {
+        editor = sharedPreferences.edit();
+        editor.clear();
+        editor.commit();
+        return;
+    }
 }

@@ -7,8 +7,10 @@ import android.support.annotation.Nullable;
 import android.view.Menu;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.dto.OnlineTxData;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
@@ -30,6 +32,8 @@ public class OnlineTxActivity extends LoaderActivity implements OnEventListener,
 
     private OnlineTxPresenter onlineTxPresenter;
     private String idToAprove;
+    private boolean isAproving;
+    private String shaPWD;
 
 
     public static Intent createIntent(Context from, String idFreja) {
@@ -69,6 +73,8 @@ public class OnlineTxActivity extends LoaderActivity implements OnEventListener,
         super.onEvent(event, data);
         switch (event) {
             case EVENT_APROVE_TX:
+                isAproving = true;
+                shaPWD = data.toString();
                 onlineTxPresenter.aproveTransaction(idToAprove, data.toString());
                 break;
 
@@ -92,5 +98,29 @@ public class OnlineTxActivity extends LoaderActivity implements OnEventListener,
     public void loadTransactionData(OnlineTxData data) {
         idToAprove = data.getIdFreja();
         loadFragment(TxDetailsFragment.newInstance(data));
+    }
+
+    @Override
+    public void showError(final ErrorObject error) {
+        DialogDoubleActions actions = new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                if (error.hasCancel()) { //Quiere decir que se puede reintentar
+                    if (isAproving) {
+                        onEvent(EVENT_APROVE_TX, shaPWD);
+                    } else {
+                        onlineTxPresenter.getTransactions();
+                    }
+                } else {
+                    onBackPressed();
+                }
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+                onBackPressed();
+            }
+        };
+        error.setErrorActions(actions);
     }
 }

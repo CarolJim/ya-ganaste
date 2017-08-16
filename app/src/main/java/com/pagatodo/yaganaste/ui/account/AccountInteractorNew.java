@@ -116,7 +116,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     @Override
     public void validateUserStatus(String usuario) {
-        //RequestHeaders.setUsername(usuario); // Seteamos el usuario en el Header
         ValidarEstatusUsuarioRequest request = new ValidarEstatusUsuarioRequest(usuario);
         try {
             ApiAdtvo.validarEstatusUsuario(request, this);
@@ -614,7 +613,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 accountManager.onError(response.getWebService(), App.getContext().getString(R.string.usuario_no_existe));
             }
         } else {
-            RequestHeaders.setUsername("");
+            if (RequestHeaders.getTokenauth().isEmpty()) {
+                RequestHeaders.setUsername("");
+            }
             accountManager.onError(response.getWebService(), data.getMensaje());
         }
     }

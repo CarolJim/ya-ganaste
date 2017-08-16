@@ -172,12 +172,6 @@ public class BussinesActivity extends LoaderActivity {
         }
     }
 
-    private void initFragments() {
-        datosNegocioFragmentFragment = DatosNegocioFragment.newInstance(girosComercio);
-        domicilioNegocioFragmentFragment = DomicilioNegocioFragment.newInstance(domicilio, listaColonias);
-        documentosFragmentFragment = DocumentosFragment.newInstance();
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

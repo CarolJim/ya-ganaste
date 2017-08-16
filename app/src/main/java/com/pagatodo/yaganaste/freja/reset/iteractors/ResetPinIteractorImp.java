@@ -25,7 +25,7 @@ public class ResetPinIteractorImp extends FmcIteractorImp implements ResetPinIte
 
     @Override
     public void throwInitException(Exception e) {
-        resetPinManager.handleException(e);
+        resetPinManager.onError(Errors.cast(e));
     }
 
     @Override
@@ -56,11 +56,6 @@ public class ResetPinIteractorImp extends FmcIteractorImp implements ResetPinIte
     @Override
     public void onResetNipSuccessful() {
         resetPinManager.endResetPin();
-    }
-
-    @Override
-    public void handleException(Exception e) {
-        resetPinManager.handleException(e);
     }
 
     @Override

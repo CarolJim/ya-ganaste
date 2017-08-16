@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionR
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.IAccountAddressRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;
@@ -64,8 +65,6 @@ import static com.pagatodo.yaganaste.ui.preferuser.MyChangeNip.EVENT_GO_CHANGE_N
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
-//import static com.pagatodo.yaganaste.utils.Recursos.CRC32_FREJA;
-
 /**
  * Created by flima on 22/03/2017.
  */
@@ -103,7 +102,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         accountView.hideLoader();
         accountView.nextScreen(event, data);
     }
-
 
     @Override
     public void validatePersonData() {
@@ -205,14 +203,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         accountIteractor.verifyActivationSMS();
     }
 
-
     @Override
     public void recoveryPassword(String email) {
         accountView.showLoader("");
         RecuperarContraseniaRequest request = new RecuperarContraseniaRequest(email);
         accountIteractor.recoveryPassword(request);
     }
-
 
     @Override
     public void onSuccessDataPerson() {
@@ -256,9 +252,11 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                     ((IVerificationSMSView) accountView).smsVerificationFailed(error.toString());
                 }
             } else if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) {
-                ((IVerificationSMSView) accountView).verifyActivationProvisingFailed(error.toString());
+                super.onError(ws, error);
+                //((IVerificationSMSView) accountView).verifyActivationProvisingFailed(error.toString());
             } else if (ws == ACTIVACION_APROV_SOFTTOKEN) {
-                ((IVerificationSMSView) accountView).activationProvisingFailed(error.toString());
+                super.onError(ws, error);
+                //((IVerificationSMSView) accountView).activationProvisingFailed(error.toString());
             } else if (ws == ACTUALIZAR_INFO_SESION) { // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).dataUpdated(error.toString());
             } else {
@@ -284,11 +282,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 RequestHeaders.setUsername("");
             }
             accountView.showError(error);
-        }
-        if (accountView instanceof IMyPassValidation) {
+        } else if (accountView instanceof IMyPassValidation) {
             if (ws == VALIDAR_FORMATO_CONTRASENIA) {
                 ((IMyPassValidation) accountView).validationPasswordFailed(error.toString());
             }
+        } else {
+            accountView.showError(error);
         }
     }
 
@@ -402,4 +401,5 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     public void onSuccesBalanceAdq() {
         ((IBalanceView) this.accountView).updateBalanceAdq();
     }
+
 }

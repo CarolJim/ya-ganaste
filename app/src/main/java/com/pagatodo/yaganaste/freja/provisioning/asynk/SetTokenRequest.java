@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.freja.provisioning.asynk;
 
 import android.os.AsyncTask;
 
+import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.provisioning.manager.ExceptionCallback;
 import com.verisec.freja.mobile.core.FmcManager;
 
@@ -39,7 +40,7 @@ public class SetTokenRequest extends AsyncTask<byte[], Void, Exception> {
         if (response == null) {
             this.setTokenCallback.onSetTokenSuccess();
         } else {
-            this.setTokenCallback.handleException(response);
+            this.setTokenCallback.onError(Errors.cast(response));
         }
     }
 

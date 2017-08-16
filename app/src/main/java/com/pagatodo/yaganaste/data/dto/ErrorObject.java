@@ -60,4 +60,38 @@ public class ErrorObject {
     public WebService getWebService() {
         return webService;
     }
+
+
+    public static class Builder {
+        private ErrorObject errorObject;
+        public Builder() {
+            errorObject = new ErrorObject();
+            errorObject.hasConfirm = true;
+        }
+
+
+        public Builder setHasCancel(boolean hasCancel) {
+            errorObject.hasCancel = hasCancel;
+            return this;
+        }
+
+        public Builder setActions (DialogDoubleActions actions) {
+            errorObject.errorActions = actions;
+            return this;
+        }
+
+        public Builder setMessage(String message) {
+            errorObject.errorMessage = message;
+            return this;
+        }
+
+        public Builder setWebService (WebService webService) {
+            errorObject.webService = webService;
+            return this;
+        }
+
+        public ErrorObject build() {
+            return this.errorObject;
+        }
+    }
 }

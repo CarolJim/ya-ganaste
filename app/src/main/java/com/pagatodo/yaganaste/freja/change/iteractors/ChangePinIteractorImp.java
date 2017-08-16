@@ -25,7 +25,7 @@ public class ChangePinIteractorImp extends FmcIteractorImp implements ChangePinI
 
     @Override
     public void throwInitException(Exception e) {
-        changePinManager.handleException(e);
+        changePinManager.onError(Errors.cast(e));
     }
 
     @Override
@@ -59,13 +59,8 @@ public class ChangePinIteractorImp extends FmcIteractorImp implements ChangePinI
     }
 
     @Override
-    public void handleException(Exception e) {
-        changePinManager.handleException(e);
-    }
-
-    @Override
     public void onError(Errors error) {
-
+        changePinManager.onError(error);
     }
 
 

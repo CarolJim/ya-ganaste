@@ -21,6 +21,11 @@ public class StringConstants {
     public static final String CATALOG_VERSION = "CATALOG_VERSION";
     public static final String SIMPLE_NAME = "SIMPLE_NAME";
 
+    public static final String HAS_PROVISIONING = "HAS_PROVISIONING";
+    public static final String USER_PROVISIONED = "USER_PROVISIONED";
+    public static final String HAS_PUSH = "HAS_PUSH";
+
+
     public static final String HAS_TOKEN_ONLINE = "HAS_TOKEN_ONLINE";
 
     private StringConstants() {

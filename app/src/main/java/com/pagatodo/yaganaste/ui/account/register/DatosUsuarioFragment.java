@@ -462,7 +462,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 //                        public void actionConfirm(Object... params) {
 //
 //                        }
-//
+//z
 //                        @Override
 //                        public void actionCancel(Object... params) {
 //

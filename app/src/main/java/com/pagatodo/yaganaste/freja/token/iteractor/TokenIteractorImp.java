@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.freja.token.iteractor;
 
 import android.content.Context;
 
+import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.general.FmcIteractorImp;
 import com.pagatodo.yaganaste.freja.token.manager.TokenManager;
 import com.verisec.freja.mobile.core.configuration.FmcConfiguration;
@@ -62,6 +63,6 @@ public class TokenIteractorImp extends FmcIteractorImp implements TokenIteractor
 
     @Override
     public void throwInitException(Exception e) {
-        tokenManager.handleException(e);
+        tokenManager.onError(Errors.cast(e));
     }
 }

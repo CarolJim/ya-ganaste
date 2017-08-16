@@ -68,8 +68,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnGenerateCode:
-                UI.createSimpleCustomDialog("", "Seccion en Construcción", getFragmentManager(), "TAG");
-                //loadOtp();
+                loadOtp();
                 break;
             default:
                 //Nothing To Do
