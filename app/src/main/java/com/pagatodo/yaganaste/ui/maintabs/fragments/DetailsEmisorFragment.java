@@ -70,11 +70,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     @BindView(R.id.txtReferenciaTitle)
     TextView txtReferenciaTitle;
 
-    @BindView(R.id.layoutSendTo)
-    LinearLayout layoutSendTo;
-    @BindView(R.id.txtSendToDescripcion)
-    TextView txtSendTo;
-
     @BindView(R.id.layoutConcepto)
     LinearLayout layoutConcepto;
     @BindView(R.id.txtConceptoDescripcion)
