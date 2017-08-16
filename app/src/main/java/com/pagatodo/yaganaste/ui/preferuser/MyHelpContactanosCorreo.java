@@ -70,11 +70,11 @@ public class MyHelpContactanosCorreo  extends GenericFragment implements View.On
     }
             private void valida() {
                 if (contenidoemail.isEmpty()) {
-                    UI.createSimpleCustomDialog("Error", getString(R.string.correo_vacio), getFragmentManager(), getFragmentTag());
+                    UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.correo_vacio), getFragmentManager(), getFragmentTag());
                 }
                 if (!contenidoemail.isEmpty()) {
                  //   onValidationSuccess();
-                    UI.createSimpleCustomDialog("Error", "Enviando Correo:  "+contenidoemail, getFragmentManager(), getFragmentTag());
+                    UI.createSimpleCustomDialog("Ya Ganaste", "Enviando Correo:  "+contenidoemail, getFragmentManager(), getFragmentTag());
                 }
 
 
@@ -87,5 +87,4 @@ public class MyHelpContactanosCorreo  extends GenericFragment implements View.On
                 ButterKnife.bind(this, rootview);
         btncontinuee.setOnClickListener(this);
     }
-
         }

@@ -703,12 +703,12 @@
     <string name="emisor_validate_postalcode"><u>Verifica tu Código Postal</u></string>
 
     <!--  Menu de ayuda-->
-    <string name="contactanos"><u>Contáctanos</u></string>
+    <string name="contactanos">Contáctanos</string>
     <string name="email">Email</string>
-    <string name="correo_vacio">El email esta vacio</string>
+    <string name="correo_vacio">El Mensaje Esta Vacío</string>
     <string name="enviar_email">Enviar Mail</string>
-    <string name="como_ayudarte">¿Como Podemos Ayudarte?</string>
-    <string name="comunicate_con_nosotros">Comunicate Con Nosotros \n\n 01-800-500-1000\ninformes@yaganste.com</string>
+    <string name="como_ayudarte">¿Cómo Podemos Ayudarte?</string>
+    <string name="comunicate_con_nosotros">Comunícate Con Nosotros \n\n 01-800-500-1000\ninformes@yaganste.com</string>
     <string name="acerca_de_app">Acerca de la App</string>
 
     <string name="Tutoriales">Tutoriales</string>
@@ -719,16 +719,16 @@
     <string name="bloquear_tarjeta">Bloquear Tarjeta</string>
 
 
+    <string name="termin_condiciones">Términos y Condiciones</string>
+    <string name="cuentaterminos">Cuenta Ya Ganaste</string>
+    <string name="contratosterminos">Contratos</string>
+    <string name="aviso_privacidad_linea_credito">Linea de Crédito </string>
+    <string name="aviso_privacidad">Aviso de Privacidad</string>
+    <string name="aviso_privacidad_cuenta_ganaste">Cuenta Ya Ganaste</string>
 
-
-
-
-
-
-
-
-
-
+    <string name="micuenta">Mi Cuenta</string>
+    <string name="cuentareebolso">Cuenta de Reembolso</string>
+    <string name="solicitacredito">Solicita tu Línea de Crédito</string>
 
 
     <!--start Cupo Strings-->
