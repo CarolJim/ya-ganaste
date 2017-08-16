@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -23,7 +22,12 @@ import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyAccountFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.MyEmailFragment;
+import com.pagatodo.yaganaste.ui.preferuser.MyHelpAcercaApp;
+import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanos;
+import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanosCorreo;
+import com.pagatodo.yaganaste.ui.preferuser.MyHelpFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyPassFragment;
+import com.pagatodo.yaganaste.ui.preferuser.MyTutorialFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
@@ -44,6 +48,17 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_DESASOCIAR = "PREFER_USER_DESASOCIAR";
     public static String PREFER_USER_DESASOCIAR_BACK = "PREFER_USER_DESASOCIAR_BACK";
     public static String PREFER_USER_MY_USER = "PREFER_USER_MY_USER";
+    public static String PREFER_USER_HELP_TUTORIALES= "PREFER_USER_HELP_TUTORIALES";
+    public static String PREFER_USER_HELP_CONTACT= "PREFER_USER_HELP_CONTACT";
+    public static String PREFER_USER_HELP_CONTACT_BACK= "PREFER_USER_HELP_CONTACT_BACK";
+    public static String PREFER_USER_HELP_ABOUT= "PREFER_USER_HELP_ABOUT";
+    public static String PREFER_USER_HELP_CORREO= "PREFER_USER_HELP_CORREO";
+
+
+
+
+    public static String PREFER_USER_HELP = "PREFER_USER_HELP";
+    public static String PREFER_USER_HELP_BACK = "PREFER_USER_HELP_BACK";
     public static String PREFER_USER_MY_ACCOUNT = "PREFER_USER_MY_ACCOUNT";
     public static String PREFER_USER_MY_CARD = "PREFER_USER_MY_CARD";
     public static String PREFER_USER_MY_USER_BACK = "PREFER_USER_MY_USER_BACK";
@@ -137,14 +152,38 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         /**
          * Eventos desde Fragmentos
          */
+
         switch (event) {
+
+            case "PREFER_USER_HELP_CORREO":
+                loadFragment(MyHelpContactanosCorreo.newInstance(), Direction.FORDWARD, false);
+                break;
+            case "PREFER_USER_HELP_ABOUT":
+                loadFragment(MyHelpAcercaApp.newInstance(), Direction.FORDWARD, false);
+                break;
+            case "PREFER_USER_HELP_CONTACT":
+                loadFragment(MyHelpContactanos.newInstance(), Direction.FORDWARD, false);
+                break;
+            case "PREFER_USER_HELP_CONTACT_BACK":
+                loadFragment(MyHelpContactanos.newInstance(), Direction.BACK, false);
+                break;
+            case "PREFER_USER_HELP":
+                loadFragment(MyHelpFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+            case "PREFER_USER_HELP_BACK":
+                loadFragment(MyHelpFragment.newInstance(), Direction.BACK, false);
+                break;
             case "PREFER_USER_LEGALES":
                 loadFragment(ListaLegalesFragment.newInstance(), Direction.FORDWARD, false);
                 break;
-
             case "PREFER_USER_DESASOCIAR":
                 loadFragment(DesasociarPhoneFragment.newInstance(), Direction.FORDWARD, false);
                 break;
+            case "PREFER_USER_HELP_TUTORIALES":
+                loadFragment(MyTutorialFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+
+
 
             case "PREFER_USER_DESASOCIAR_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
@@ -268,7 +307,24 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_MY_USER_BACK, null);
             } else if (currentFragment instanceof MyPassFragment) {
                 onEvent(PREFER_USER_MY_USER_BACK, null);
-            } else {
+
+            }else if (currentFragment instanceof MyHelpFragment) {
+                onEvent(PREFER_USER_LISTA, null);
+            }
+            else if (currentFragment instanceof MyTutorialFragment) {
+                onEvent(PREFER_USER_HELP_BACK, null);
+            } else if (currentFragment instanceof MyHelpContactanos) {
+                onEvent(PREFER_USER_HELP_BACK, null);
+            }
+            else if (currentFragment instanceof MyHelpAcercaApp) {
+                onEvent(PREFER_USER_HELP_BACK, null);
+            }
+            else if (currentFragment instanceof MyHelpContactanosCorreo) {
+                onEvent(PREFER_USER_HELP_CONTACT_BACK, null);
+            }
+
+
+            else {
                 super.onBackPressed();
             }
         }

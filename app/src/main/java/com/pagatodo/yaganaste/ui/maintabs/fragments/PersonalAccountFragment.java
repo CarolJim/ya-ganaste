@@ -58,20 +58,23 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
         super.onRefresh(direction);
         this.direction = direction;
         List<ItemMovements<MovimientosResponse>> actualList = this.movementsList.get(tabMonths.getSelectedTabPosition());
-        String itemId = "";
-        int listSize = actualList.size();
-        if (direction == SwipyRefreshLayoutDirection.TOP) {
-            if (listSize > 0) {
-                itemId = actualList.get(0).getMovement().getIdMovimiento();
+        if (actualList != null) {
+            String itemId = "";
+            int listSize = actualList.size();
+            if (direction == SwipyRefreshLayoutDirection.TOP) {
+                if (listSize > 0) {
+                    itemId = actualList.get(0).getMovement().getIdMovimiento();
+                }
+            } else {
+                if (listSize > 0) {
+                    itemId = actualList.get(listSize - 1).getMovement().getIdMovimiento();
+                }
             }
+            movementsPresenter.getRemoteMovementsData(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()), direction, itemId);
         } else {
-            if (listSize > 0) {
-                itemId = actualList.get(listSize - 1).getMovement().getIdMovimiento();
-            }
+            showLoader("");
+            getDataForTab(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()));
         }
-
-        movementsPresenter.getRemoteMovementsData(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()),
-                direction, itemId);
 
     }
 

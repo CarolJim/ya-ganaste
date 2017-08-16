@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.freja.provisioning.asynk;
 
 import android.os.AsyncTask;
 
+import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.provisioning.manager.ExceptionCallback;
 import com.verisec.freja.mobile.core.FmcManager;
 
@@ -33,9 +34,10 @@ public class ActivationCodeRequest extends AsyncTask<Void, Void, Object> {
     @Override
     protected void onPostExecute(Object response) {
         if (response instanceof Exception) {
-            this.activationCodeCallback.handleException((Exception) response);
+            this.activationCodeCallback.onError(Errors.cast((Exception) response));
+        } else {
+            this.activationCodeCallback.onActivationCodeReceived(response.toString());
         }
-        this.activationCodeCallback.onActivationCodeReceived(response.toString());
     }
 
     public interface ActivationCodeCallback extends ExceptionCallback {

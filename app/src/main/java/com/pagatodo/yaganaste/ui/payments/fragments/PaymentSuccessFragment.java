@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui.payments.fragments;
 
-import android.app.Activity;
-import android.content.Context;
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -30,6 +29,7 @@ import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsSuccessPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsSuccessPresenter;
+import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
@@ -45,6 +45,8 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.utils.Constants.RESULT;
+import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 
 /**
@@ -229,6 +231,9 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
     }
 
     private void onFinalize() {
+        Intent intent = new Intent();
+        intent.putExtra(RESULT, Constants.RESULT_SUCCESS);
+        getActivity().setResult(RESULT_CODE_OK, intent);
         getActivity().finish();
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }

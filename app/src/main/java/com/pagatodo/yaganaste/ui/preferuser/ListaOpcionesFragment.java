@@ -40,6 +40,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CLOSE;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_HELP;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_LEGALES;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_ACCOUNT;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_CARD;
@@ -85,8 +86,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     CircleImageView iv_photo_item;
     @BindView(R.id.frag_lista_opciones_photo_status)
     CircleImageView iv_photo_item_status;
-    @BindView(R.id.fragment_lista_opciones_version)
-    TextView tv_version_code;
+
     View rootview;
     CameraManager cameraManager;
     private boolean isEsAgente;
@@ -163,8 +163,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         tv_email.setText(mEmail);
 
         // Hacemos Set de la version de codigo
-        tv_version_code.setText(App.getContext().getResources().getString(R.string.yaganaste_version)
-                .concat(String.valueOf(BuildConfig.VERSION_NAME)));
+
 
         iv_photo_item_status.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.camara_white_blue_canvas));
 
@@ -198,7 +197,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
                 onEventListener.onEvent(PREFER_USER_MY_CARD, 1);
                 break;
             case R.id.fragment_lista_opciones_help:
-                Toast.makeText(getContext(), "Click Help", Toast.LENGTH_SHORT).show();
+                onEventListener.onEvent(PREFER_USER_HELP, 1);
+               // Toast.makeText(getContext(), "Click Help", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fragment_lista_opciones_legal:
                 onEventListener.onEvent(PREFER_USER_LEGALES, 1);

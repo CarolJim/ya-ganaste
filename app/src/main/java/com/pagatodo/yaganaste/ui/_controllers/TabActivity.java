@@ -52,6 +52,8 @@ import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
+import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
+import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.PTH_DOCTO_APROBADO;
@@ -230,12 +232,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             if (childFragment != null && requestCode != BACK_FROM_PAYMENTS) {
                 childFragment.onActivityResult(requestCode, resultCode, data);
             } else if (childFragment != null) {
-                if (data != null && data.getStringExtra(RESULT) != null && data.getStringExtra(RESULT).equals(Constants.RESULT_ERROR)) {
-                    PaymentFormBaseFragment paymentFormBaseFragment = getVisibleFragment(childFragment.getChildFragmentManager().getFragments());
-                    if (paymentFormBaseFragment != null) {
-                        paymentFormBaseFragment.setSeekBarProgress(0);
-                    }
-                    // UI.createSimpleCustomDialog("Error!", data.getStringExtra(MESSAGE), getSupportFragmentManager(), getLocalClassName());
+                if (resultCode == RESULT_CODE_BACK_PRESS) {
+                    clearSeekBar(childFragment);
+                } else if (resultCode == RESULT_CODE_FAIL && data != null
+                        && data.getStringExtra(RESULT) != null
+                        && data.getStringExtra(RESULT).equals(Constants.RESULT_ERROR)) {
+
+                    clearSeekBar(childFragment);
 
                     UI.createSimpleCustomDialog("Error!", data.getStringExtra(MESSAGE), getSupportFragmentManager(),
                             new DialogDoubleActions() {
@@ -275,6 +278,13 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 pref.saveDataBool(COUCHMARK_ADQ, true);
                 startActivity(LandingActivity.createIntent(this, 0, drawablesAdquirente));
             }
+        }
+    }
+
+    protected void clearSeekBar(Fragment childFragment) {
+        PaymentFormBaseFragment paymentFormBaseFragment = getVisibleFragment(childFragment.getChildFragmentManager().getFragments());
+        if (paymentFormBaseFragment != null) {
+            paymentFormBaseFragment.setSeekBarProgress(0);
         }
     }
 

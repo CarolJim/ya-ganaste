@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.freja.reset.async;
 
 import android.os.AsyncTask;
 
+import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.provisioning.manager.ExceptionCallback;
 import com.verisec.freja.mobile.core.FmcManager;
 
@@ -47,7 +48,7 @@ public class ResetPinRequest extends AsyncTask<Void, Void, Exception> {
         if (response == null) {
             this.resetPinCallback.onResetNipSuccessful();
         } else {
-            this.resetPinCallback.handleException(response);
+            this.resetPinCallback.onError(Errors.cast(response));
         }
     }
 

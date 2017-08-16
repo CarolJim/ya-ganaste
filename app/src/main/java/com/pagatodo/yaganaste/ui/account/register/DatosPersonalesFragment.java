@@ -693,7 +693,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
                     }
                 }, " ", "Llamar");
 
-            }if (seencuentra==false && i==paises.size()-1) {
+            }
+            if (!seencuentra && i == paises.size()-1 ) {
                 setPersonData();
             }
         }

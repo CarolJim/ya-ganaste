@@ -14,7 +14,6 @@ import android.widget.Button;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -63,6 +62,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     private AccountPresenterNew accountPresenter;
     private ILoginContainerManager loginContainerManager;
     private IQuickBalanceManager quickBalanceManager;
+    private static Preferencias preferencias = App.getInstance().getPrefs();
 
     public static QuickBalanceFragment newInstance() {
 
@@ -116,8 +116,8 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         swipeContainer.setOnRefreshListener(this);
         goToLogin.setOnClickListener(this);
         imgArrowBack.setOnClickListener(this);
+        txtSaldo.setText(Utils.getCurrencyValue(preferencias.loadData(USER_BALANCE)));
 
-        Preferencias preferencias = App.getInstance().getPrefs();
         if (preferencias.containsData(HAS_SESSION)) {
             String cardNumber = preferencias.loadData(CARD_NUMBER);
 //                    Utils.getCurrencyValue(cardNumber))
@@ -145,8 +145,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     @Override
     public void updateBalance() {
         hideLoader();
-        Preferencias prefs = App.getInstance().getPrefs();
-        setData(prefs.loadData(USER_BALANCE), prefs.loadData(UPDATE_DATE));
+        setData(preferencias.loadData(USER_BALANCE), preferencias.loadData(UPDATE_DATE));
     }
 
     @Override
