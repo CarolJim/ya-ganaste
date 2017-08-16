@@ -255,6 +255,7 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
 
         boolean isValid = true;
 
+        /* Se comenta validaciones ya que se solicito quitar estos campos
         if (estadoCivil.isEmpty() || estadoCivil.equals("")) {
             showValidationError(spEstadoCivil.getId(), getString(R.string.estado_civil_requerido));
             isValid = false;
@@ -264,6 +265,7 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
             showValidationError(spHijos.getId(), getString(R.string.numero_hijos_requerido));
             isValid = false;
         }
+        */
 
         if (hasCreditBank == null || hasCreditBank.equals("")) {
             showValidationError(radioGroupHasCreditBank.getId(), getString(R.string.opcion_requerido));
@@ -281,7 +283,7 @@ public class CupoCuentanosMasFragment extends GenericFragment implements CupoCue
             isValid = false;
         }
 
-        if (!radioBtnrgHasCreditCardYes.isChecked()) {
+        if (radioBtnrgHasCreditCardNo.isChecked()) {
             if (numeroTarjeta.equals("")) {
                 showValidationError(editNumTarjeta.getId(), getString(R.string.numero_tarjeta_vacio));
                 isValid = false;

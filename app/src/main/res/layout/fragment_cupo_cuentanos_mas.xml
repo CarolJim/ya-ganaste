@@ -37,6 +37,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_xsmall"
+                        android:visibility="gone"
                         android:background="@null"
                         android:backgroundTint="@color/transparent" />
 
@@ -47,6 +48,7 @@
                         android:layout_height="wrap_content" />
 
                     <Spinner
+                        android:visibility="gone"
                         android:id="@+id/spHijos"
                         style="@style/SpinnerNoArrow"
                         android:layout_width="match_parent"
