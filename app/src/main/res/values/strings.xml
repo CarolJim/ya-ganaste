@@ -282,8 +282,7 @@
     <string name="user_change_desasociar">En Proceso</string>
     <string name="yaganaste_version">Ya Ganaste Versión:</string>
     <string name="confrimacion">Confirmar</string>
-    <string name="formato_password">Tu Contraseña Debe Tener 8\nCaracteres, Incluyendo Una Letra\nMayúscula y un Número.</string>
-
+    <string name="formato_password">Tu Contraseña Debe Tener Mínimo 8\nCaracteres, Incluyendo al Menos Una Letra\nMayúscula, Una Minúscula y un Número</string>
 
     <!--datos_personales-->
     <string name="personalInfoTitle">Datos Personales</string>

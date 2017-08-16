@@ -14,8 +14,4 @@ public interface IAprovView {
 
     void subscribeNotificationSuccess();
 
-    void verifyActivationProvisingFailed(String message);
-
-    void activationProvisingFailed(String message);
-
 }

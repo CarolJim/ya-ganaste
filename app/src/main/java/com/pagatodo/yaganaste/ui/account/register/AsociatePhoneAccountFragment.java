@@ -148,18 +148,9 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         accountPresenter.updateUserInfo();
     }
 
-    @Override
-    public void verifyActivationProvisingFailed(String message) {
-        showError(message);
-    }
-
-    @Override
-    public void activationProvisingFailed(String message) {
-        showError(message);
-    }
-
     private void executeProvisioning() {
         showLoader("");
+        accountPresenter.reset();
         accountPresenter.getActivationCode();
     }
 

@@ -77,7 +77,6 @@ public class AprovInteractor implements IAprovIteractor,IRequestResult {
         if(data.getCodigoRespuesta() == CODE_OK) {
             accountManager.onSucces(response.getWebService(), "");
         }else{
-            //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(),data.getMensaje());//Retornamos mensaje de error.
         }
     }
@@ -87,7 +86,6 @@ public class AprovInteractor implements IAprovIteractor,IRequestResult {
         if(data.getCodigoRespuesta() == CODE_OK) {
             accountManager.onSucces(response.getWebService(), "Aprovisionamiento Exitoso");
         }else{
-            //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(),data.getMensaje());//Retornamos mensaje de error.
         }
     }
