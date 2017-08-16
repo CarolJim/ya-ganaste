@@ -17,6 +17,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.Editable;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -77,7 +78,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     SwipeRefreshLayout swipeMap;
     @BindView(R.id.frag_depositos_mapa_et)
     StyleEdittext etBuscar;
-    boolean isBackAvailable = false;
+    boolean isBackAvailable = true;
     private View rootView;
     private TabActivity parentActivity;
     private GoogleMap map;
@@ -85,6 +86,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     private List<DataLocalizaSucursal> sucursales;
     private List<Marker> markers;
     boolean onlineGPS;
+    public static final String TAG = DepositsMapFragment.class.getClass().getSimpleName();
 
     public static DepositsMapFragment newInstance() {
         DepositsMapFragment depositsMapFragment = new DepositsMapFragment();
@@ -246,8 +248,13 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         swipeMap.setRefreshing(false);
         parentActivity.hideProgresLayout();
         txtInfoSucursales.setVisibility(View.VISIBLE);
-        ((DepositsFragment) getParentFragment()).showErrorMessage(errorTxt != null ? errorTxt : getString(R.string.error_respuesta));
-        ((DepositsFragment) getParentFragment()).onBtnBackPress();
+
+        try{
+            ((DepositsFragment) getParentFragment()).showErrorMessage(errorTxt != null ? errorTxt : getString(R.string.error_respuesta));
+            ((DepositsFragment) getParentFragment()).onBtnBackPress();
+        } catch (Exception e){
+            Log.d(TAG, "Exception de Fragment " + e);
+        }
     }
 
     private void prinSucursalesOnMap(List<DataLocalizaSucursal> sucursalList) {
