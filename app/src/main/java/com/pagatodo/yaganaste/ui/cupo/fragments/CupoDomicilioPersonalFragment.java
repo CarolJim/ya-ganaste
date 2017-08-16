@@ -27,7 +27,6 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
-import com.pagatodo.yaganaste.ui.adquirente.DomicilioNegocio;
 import com.pagatodo.yaganaste.ui.cupo.managers.CupoActivityManager;
 import com.pagatodo.yaganaste.ui.cupo.presenters.CupoDomicilioPersonalPresenter;
 import com.pagatodo.yaganaste.ui.cupo.view.IViewDomicilioPersonal;
@@ -426,6 +425,11 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
                 errorColonia.setMessageText(error.toString());
                 break;
         }
+    }
+
+    @Override
+    public void hideValidationError(int id) {
+
     }
 
     @Override

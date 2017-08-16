@@ -14,6 +14,7 @@ import android.widget.ImageView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.enums.CupoSpinnerTypes;
+import com.pagatodo.yaganaste.ui.cupo.view.IEnumSpinnerCupo;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -26,7 +27,7 @@ import java.util.List;
 public class CupoSpinnerArrayAdapter extends ArrayAdapter {
 
     private Context mContext;
-    private IEnumSpinner[] mItems;
+    private IEnumSpinnerCupo[] mItems;
     private CupoSpinnerTypes spinnerType;
 
     public CupoSpinnerArrayAdapter(@NonNull Context context, @LayoutRes int resource) {
@@ -34,7 +35,7 @@ public class CupoSpinnerArrayAdapter extends ArrayAdapter {
         this.mContext = context;
     }
 
-    public CupoSpinnerArrayAdapter(@NonNull Context context, IEnumSpinner[] items, CupoSpinnerTypes spinnerType) {
+    public CupoSpinnerArrayAdapter(@NonNull Context context, IEnumSpinnerCupo[] items, CupoSpinnerTypes spinnerType) {
         super(context, 0, items);
         this.mContext = context;
         this.mItems = items;

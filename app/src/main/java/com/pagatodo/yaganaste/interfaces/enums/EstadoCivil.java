@@ -1,12 +1,13 @@
 package com.pagatodo.yaganaste.interfaces.enums;
 
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
+import com.pagatodo.yaganaste.ui.cupo.view.IEnumSpinnerCupo;
 
 /**
  * Created by Tato on 01/08/17.
  */
 
-public enum EstadoCivil implements IEnumSpinner {
+public enum EstadoCivil implements IEnumSpinnerCupo {
 
     E0("0", "No Indicado"),
     E1("1", "Soltero(a)"),
@@ -37,5 +38,8 @@ public enum EstadoCivil implements IEnumSpinner {
     public String getName() {
         return this.name;
     }
+
+
+
 
 }

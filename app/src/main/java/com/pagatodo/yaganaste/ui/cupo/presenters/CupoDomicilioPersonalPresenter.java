@@ -88,6 +88,16 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
         iNavigationView.hideLoader();
     }
 
+    @Override
+    public void onSuccesBalance() {
+
+    }
+
+    @Override
+    public void onSuccesBalanceAdq() {
+
+    }
+
 
     @Override
     public void getClientAddress() {
@@ -121,15 +131,6 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
         iteractor.createSolicitudCupo();
     }
 
-    @Override
-    public void onSuccesBalance(ConsultarSaldoResponse response) {
-
-    }
-
-    @Override
-    public void onSuccesBalanceAdq(ConsultaSaldoCupoResponse response) {
-
-    }
 
     @Override
     public void onSuccessDataPerson() {

@@ -1,12 +1,13 @@
 package com.pagatodo.yaganaste.interfaces.enums;
 
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
+import com.pagatodo.yaganaste.ui.cupo.view.IEnumSpinnerCupo;
 
 /**
  * Created by Tato on 01/08/17.
  */
 
-public enum Relaciones implements IEnumSpinner {
+public enum Relaciones implements IEnumSpinnerCupo {
 
     R0("0", ""),
     R1("1", "Madre"),

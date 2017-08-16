@@ -187,14 +187,14 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editNameReferenciaCupo.getId());
+                    hideValidationError(editNameReferenciaCupo.getId());
                     editNameReferenciaCupo.imageViewIsGone(true);
                 } else {
                     if (editNameReferenciaCupo.getText().isEmpty()) {
                         showValidationError(editNameReferenciaCupo.getId(), getString(R.string.datos_personal_nombre));
                         editNameReferenciaCupo.setIsInvalid();
                     } else {
-                        hideErrorMessage(editNameReferenciaCupo.getId());
+                        hideValidationError(editNameReferenciaCupo.getId());
                         editNameReferenciaCupo.setIsValid();
                     }
                 }
@@ -204,7 +204,7 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
         editNameReferenciaCupo.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editNameReferenciaCupo.getId());
+                hideValidationError(editNameReferenciaCupo.getId());
                 editNameReferenciaCupo.imageViewIsGone(true);
             }
         });
@@ -213,14 +213,14 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editFirstLastNameReferencuaCupo.getId());
+                    hideValidationError(editFirstLastNameReferencuaCupo.getId());
                     editFirstLastNameReferencuaCupo.imageViewIsGone(true);
                 } else {
                     if (editFirstLastNameReferencuaCupo.getText().isEmpty()) {
                         showValidationError(editFirstLastNameReferencuaCupo.getId(), getString(R.string.datos_personal_paterno));
                         editFirstLastNameReferencuaCupo.setIsInvalid();
                     } else {
-                        hideErrorMessage(editFirstLastNameReferencuaCupo.getId());
+                        hideValidationError(editFirstLastNameReferencuaCupo.getId());
                         editFirstLastNameReferencuaCupo.setIsValid();
                     }
                 }
@@ -230,7 +230,7 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
         editFirstLastNameReferencuaCupo.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editFirstLastNameReferencuaCupo.getId());
+                hideValidationError(editFirstLastNameReferencuaCupo.getId());
                 editFirstLastNameReferencuaCupo.imageViewIsGone(true);
             }
         });
@@ -239,14 +239,14 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editSecoundLastNameReferenciaCupo.getId());
+                    hideValidationError(editSecoundLastNameReferenciaCupo.getId());
                     editSecoundLastNameReferenciaCupo.imageViewIsGone(true);
                 } else {
                     if (editSecoundLastNameReferenciaCupo.getText().isEmpty()) {
                         showValidationError(editSecoundLastNameReferenciaCupo.getId(), getString(R.string.datos_personal_materno));
                         editSecoundLastNameReferenciaCupo.setIsInvalid();
                     } else {
-                        hideErrorMessage(editSecoundLastNameReferenciaCupo.getId());
+                        hideValidationError(editSecoundLastNameReferenciaCupo.getId());
                         editSecoundLastNameReferenciaCupo.setIsValid();
                     }
                 }
@@ -257,7 +257,7 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
         editSecoundLastNameReferenciaCupo.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editSecoundLastNameReferenciaCupo.getId());
+                hideValidationError(editSecoundLastNameReferenciaCupo.getId());
                 editSecoundLastNameReferenciaCupo.imageViewIsGone(true);
             }
         });
@@ -267,14 +267,14 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editPhoneReferenciaCupoProveedor.getId());
+                    hideValidationError(editPhoneReferenciaCupoProveedor.getId());
                 } else {
                     if (editPhoneReferenciaCupoProveedor.getText().toString().equals("")) {
                         showValidationError(editPhoneReferenciaCupoProveedor.getId(), getString(R.string.numero_telefono_vacio));
                     } else if (!ValidateForm.isValidCellPhone(editPhoneReferenciaCupoProveedor.getText().toString())) {
                         showValidationError(editPhoneReferenciaCupoProveedor.getId(), getString(R.string.numero_telefono_incorrecto));
                     } else {
-                        hideErrorMessage(editPhoneReferenciaCupoProveedor.getId());
+                        hideValidationError(editPhoneReferenciaCupoProveedor.getId());
                     }
                 }
             }
@@ -285,14 +285,14 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (hasFocus) {
-                    hideErrorMessage(editProductCupo.getId());
+                    hideValidationError(editProductCupo.getId());
                     editProductCupo.imageViewIsGone(true);
                 } else {
                     if (editProductCupo.getText().isEmpty()) {
                         showValidationError(editProductCupo.getId(), getString(R.string.datos_personal_materno));
                         editProductCupo.setIsInvalid();
                     } else {
-                        hideErrorMessage(editProductCupo.getId());
+                        hideValidationError(editProductCupo.getId());
                         editProductCupo.setIsValid();
                     }
                 }
@@ -303,33 +303,13 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
         editProductCupo.addCustomTextWatcher(new AbstractTextWatcher() {
             @Override
             public void afterTextChanged(String s) {
-                hideErrorMessage(editProductCupo.getId());
+                hideValidationError(editProductCupo.getId());
                 editProductCupo.imageViewIsGone(true);
             }
         });
 
     }
 
-
-    private void hideErrorMessage(int id) {
-        switch (id) {
-            case R.id.editNameReferenciaCupo:
-                errorNameReferenciaCupo.setVisibilityImageError(false);
-                break;
-            case R.id.editFirstLastNameReferencuaCupo:
-                errorFirstLastNameReferencuaCupo.setVisibilityImageError(false);
-                break;
-            case R.id.editSecoundLastNameReferenciaCupo:
-                errorSecoundLastNameReferenciaCupo.setVisibilityImageError(false);
-                break;
-            case R.id.editPhoneReferenciaCupoProveedor:
-                errorPhoneReferenciaCupo.setVisibilityImageError(false);
-                break;
-            case R.id.editProductCupo:
-                errorProductCupo.setVisibilityImageError(false);
-                break;
-        }
-    }
 
     @Override
     public void validateForm() {
@@ -396,6 +376,27 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
                 break;
         }
         UI.hideKeyBoard(getActivity());
+    }
+
+    @Override
+    public void hideValidationError(int id) {
+        switch (id) {
+            case R.id.editNameReferenciaCupo:
+                errorNameReferenciaCupo.setVisibilityImageError(false);
+                break;
+            case R.id.editFirstLastNameReferencuaCupo:
+                errorFirstLastNameReferencuaCupo.setVisibilityImageError(false);
+                break;
+            case R.id.editSecoundLastNameReferenciaCupo:
+                errorSecoundLastNameReferenciaCupo.setVisibilityImageError(false);
+                break;
+            case R.id.editPhoneReferenciaCupoProveedor:
+                errorPhoneReferenciaCupo.setVisibilityImageError(false);
+                break;
+            case R.id.editProductCupo:
+                errorProductCupo.setVisibilityImageError(false);
+                break;
+        }
     }
 
     @Override

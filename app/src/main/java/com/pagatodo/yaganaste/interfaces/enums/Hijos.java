@@ -1,12 +1,13 @@
 package com.pagatodo.yaganaste.interfaces.enums;
 
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
+import com.pagatodo.yaganaste.ui.cupo.view.IEnumSpinnerCupo;
 
 /**
  * Created by Tato on 01/08/17.
  */
 
-public enum Hijos implements IEnumSpinner {
+public enum Hijos implements IEnumSpinnerCupo {
 
     H0("0", ""),
     H1("1", "0"),
@@ -43,5 +44,7 @@ public enum Hijos implements IEnumSpinner {
     public String getName() {
         return this.name;
     }
+
+
 
 }
