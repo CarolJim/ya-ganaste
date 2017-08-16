@@ -38,6 +38,8 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     StyleTextView txtAmountPayment;
     @BindView(R.id.txtNumberCard)
     StyleTextView txtMaskedPan;
+    @BindView(R.id.txtConceptMessage)
+    StyleTextView txtConceptMessage;
     @BindView(R.id.imgTypeCard)
     ImageView imgTypeCard;
     @BindView(R.id.edtEmailSendticket)
@@ -76,6 +78,11 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     public void initViews() {
         super.initViews();
         txtAmountPayment.setText(String.format("$%s", TransactionAdqData.getCurrentTransaction().getAmount()));
+
+        String mDescription = TransactionAdqData.getCurrentTransaction().getDescription();
+        if (mDescription != null && !mDescription.isEmpty()) {
+            txtConceptMessage.setText("Concepto: " + mDescription);
+        }
 
         String cardNumber = emvDepositResponse.getMaskedPan();
         String cardNumberFormat = StringUtils.ocultarCardNumberFormat(cardNumber);
