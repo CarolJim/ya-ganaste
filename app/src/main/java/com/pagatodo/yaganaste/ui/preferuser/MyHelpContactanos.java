@@ -33,15 +33,8 @@ public class MyHelpContactanos extends GenericFragment implements View.OnClickLi
     @BindView(R.id.ll_contactanos_llamasr)
     LinearLayout ll_llamar1;
 
-    @BindView(R.id.btnllamar)
-    StyleButton callButton;
-
-
     @BindView(R.id.ll_contactanos_correo)
     LinearLayout ll_correo;
-
-    @BindView(R.id.btnEmail)
-    StyleButton emailButton;
 
 
 
@@ -123,8 +116,7 @@ public class MyHelpContactanos extends GenericFragment implements View.OnClickLi
     public void initViews() {
         ButterKnife.bind(this, rootview);
         ll_llamar1.setOnClickListener(this);
-        callButton.setOnClickListener(this);
         ll_correo.setOnClickListener(this);
-        emailButton.setOnClickListener(this);
+
     }
 }

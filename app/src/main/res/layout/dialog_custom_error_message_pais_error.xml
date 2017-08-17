@@ -99,6 +99,7 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dimen_margin_pinpad"
+                android:tint="@color/colorAccent"
                 android:layout_weight="0.25"
                 android:background="@drawable/ic_phone_white_24dp"
                 android:gravity="center"

@@ -77,7 +77,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     private Context context;
 
     public AccountPresenterNew(Context context) {
-        super(context);
+        super(context, false);
         this.context = context;
         accountIteractor = new AccountInteractorNew(this);
     }
@@ -251,12 +251,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 } else {
                     ((IVerificationSMSView) accountView).smsVerificationFailed(error.toString());
                 }
-            } else if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) {
+            } else if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN || ws == ACTIVACION_APROV_SOFTTOKEN) {
                 super.onError(ws, error);
-                //((IVerificationSMSView) accountView).verifyActivationProvisingFailed(error.toString());
-            } else if (ws == ACTIVACION_APROV_SOFTTOKEN) {
-                super.onError(ws, error);
-                //((IVerificationSMSView) accountView).activationProvisingFailed(error.toString());
             } else if (ws == ACTUALIZAR_INFO_SESION) { // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).dataUpdated(error.toString());
             } else {
@@ -368,12 +364,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 ((IVerificationSMSView) accountView).smsVerificationSuccess();
             } else if (ws == ACTUALIZAR_INFO_SESION) { // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).dataUpdated(data.toString());
-            } else if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) { // Error en Verificacion de Aprovisionamiento
-                accountView.showLoader("");
-                getPinPolicy(); // Obtenemos las Reglas del Pin
-            } else if (ws == ACTIVACION_APROV_SOFTTOKEN) {// Error activación de Aprovisionamiento
-                accountView.showLoader("");
-                ((IVerificationSMSView) accountView).provisingCompleted();
+            } else if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN || ws == ACTIVACION_APROV_SOFTTOKEN) {
+                super.onSucces(ws, data);
             }
         } else if (accountView instanceof RecoveryPasswordView) {
             if (ws == RECUPERAR_CONTRASENIA) {

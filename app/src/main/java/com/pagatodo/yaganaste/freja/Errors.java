@@ -22,6 +22,9 @@ public enum  Errors {
     BAD_CHANGE_POLICY(-6, false, "Las Reglas Para Cambio de PIN Son Incorrectas"),
     NO_PENDING_TRANSACTIONS(-7, false, "No Hay Transacciones Por Aprovar"),
     NO_OFFLINE_TOKEN(-8, false, "No Cuentas Con Generación de Token Offline"),
+    VERIFICAR_ACTIVACION_APROV_SOFTTOKEN(-9, true, "" ),
+    ACTIVACION_APROV_SOFTTOKEN(-10, true, ""),
+
 
     INTERNAL(-1, true, "An unknown internal error has occurred "),
     ILLEGAL_STATE(-2, false, "A method has been called outside of the proper sequence"),
@@ -111,6 +114,10 @@ public enum  Errors {
 
     public boolean allowsReintent() {
         return this.allowReintent;
+    }
+
+    public void setAllowReintent(boolean allowReintent) {
+        this.allowReintent = allowReintent;
     }
 
 /*

@@ -6,6 +6,7 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -15,6 +16,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CUENTA_REEMBOLSO;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_DESASOCIAR;
 
 /**
@@ -22,8 +24,8 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
  */
 public class MyAccountFragment extends GenericFragment implements View.OnClickListener{
 
-    @BindView(R.id.fragment_my_account_desvincula)
-    StyleTextView txtDesvincula;
+    @BindView(R.id.fragment_my_account_reembolso)
+    LinearLayout txtreebolso;
     View rootview;
 
     public MyAccountFragment() {
@@ -48,16 +50,15 @@ public class MyAccountFragment extends GenericFragment implements View.OnClickLi
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-
-        txtDesvincula.setOnClickListener(this);
+        txtreebolso.setOnClickListener(this);
 
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
-            case R.id.fragment_my_account_desvincula:
-                onEventListener.onEvent(PREFER_USER_DESASOCIAR, 1);
+            case R.id.fragment_my_account_reembolso:
+                onEventListener.onEvent(PREFER_USER_CUENTA_REEMBOLSO, 1);
                 break;
         }
     }

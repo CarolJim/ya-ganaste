@@ -135,7 +135,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/whiteColor"
-                android:visibility="gone" />
+                android:visibility="visible" />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_account"
@@ -143,7 +143,8 @@
                 android:layout_height="wrap_content"
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
-                android:layout_marginTop="10dp" android:visibility="gone"
+                android:layout_marginTop="10dp"
+                android:visibility="visible"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -165,7 +166,7 @@
                         android:layout_width="17dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        app:srcCompat="@drawable/edit_canvas_blue" />
+                        app:srcCompat="@drawable/arrow_canvas_blue" />
                 </LinearLayout>
             </LinearLayout>
 

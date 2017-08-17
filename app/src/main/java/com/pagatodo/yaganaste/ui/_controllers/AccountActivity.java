@@ -37,6 +37,8 @@ import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 
+import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_FAILED;
+import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_SUCCES;
 import static com.pagatodo.yaganaste.App.getContext;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
@@ -199,6 +201,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 break;
 
             case EVENT_GO_REGISTER_COMPLETE:
+            case EVENT_APROV_FAILED:
+            case EVENT_APROV_SUCCES:
                 pref.clearPreference(COUCHMARK_EMISOR);
                 pref.clearPreference(COUCHMARK_ADQ);
                 loadFragment(RegisterCompleteFragment.newInstance(EMISOR), Direction.FORDWARD, false);

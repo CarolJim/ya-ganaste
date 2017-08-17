@@ -33,7 +33,6 @@ import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
-import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK;
 
 /**
  * Created by Jordan on 25/04/2017.

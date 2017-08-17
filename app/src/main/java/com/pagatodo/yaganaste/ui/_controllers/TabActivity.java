@@ -16,15 +16,19 @@ import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
+import com.pagatodo.yaganaste.ui.account.AprovPresenter;
+import com.pagatodo.yaganaste.ui.adquirente.DocumentApprovedFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
@@ -57,9 +61,10 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.PTH_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 
-public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener {
+public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener, IAprovView<ErrorObject> {
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_DOCUMENT_APPROVED = "EVENT_DOCUMENT_APPROVED";
     public static final String EVENT_GO_HOME = "2";
@@ -71,7 +76,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private Preferencias pref;
     private ViewPager mainViewPager;
     private TabLayout mainTab;
-    private TabPresenter tabPresenter;
+    private AprovPresenter tabPresenter;
     private Animation animShow, animHide;
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
     private ProgressLayout progressGIF;
@@ -94,8 +99,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             startActivityForResult(LandingActivity.createIntent(this, R.drawable.img_couch_em_back, drawablesEmisor), Constants.ACTIVITY_LANDING);
         }
-
-        System.gc();
     }
 
     private void load() {
@@ -150,7 +153,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         });
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
@@ -164,7 +166,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             }, 500);
         }
     }
-
 
     @Override
     public void onEvent(String event, Object data) {
@@ -288,7 +289,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         }
     }
 
-
     protected PaymentFormBaseFragment getVisibleFragment(List<Fragment> fragmentList) {
         for (Fragment fragment2 : fragmentList) {
             if (fragment2 instanceof PaymentFormBaseFragment && fragment2.isVisible()) {
@@ -352,7 +352,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 }, true, true);
     }
 
-
     @Override
     protected void onPause() {
         super.onPause();
@@ -369,6 +368,16 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     public void hideProgresLayout() {
         progressGIF.setVisibility(View.GONE);
+    }
+
+    @Override
+    public void showErrorAprov(ErrorObject error) {
+
+    }
+
+    @Override
+    public void finishAssociation() {
+
     }
 
 }

@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.payments.fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -13,21 +14,15 @@ import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.data.model.Servicios;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarTicketTAEPDSRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarTicketTAEPDSResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
-import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.net.ApiAdtvo;
-import com.pagatodo.yaganaste.net.IRequestResult;
-import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsSuccessPresenter;
+import com.pagatodo.yaganaste.ui.payments.managers.PaymentSuccessManager;
+import com.pagatodo.yaganaste.ui.payments.presenters.PaymentSuccessPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsSuccessPresenter;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.DateUtil;
@@ -35,6 +30,7 @@ import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidateForm;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
@@ -45,15 +41,16 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK;
-import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 
 /**
  * Created by Jordan on 27/04/2017.
  */
 
-public class PaymentSuccessFragment extends GenericFragment implements IRequestResult {
+public class PaymentSuccessFragment extends GenericFragment implements PaymentSuccessManager, View.OnClickListener {
 
     @BindView(R.id.txt_paymentTitle)
     TextView title;
@@ -81,10 +78,8 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
     LinearLayout layoutMail;
     @BindView(R.id.titleMail)
     TextView titleMail;
-    @BindView(R.id.layoutEditMail)
-    RelativeLayout layoutEditMail;
     @BindView(R.id.editMail)
-    EditText editMail;
+    CustomValidationEditText editMail;
     @BindView(R.id.btn_continueEnvio)
     StyleButton btnContinueEnvio;
     @BindView(R.id.layoutFavoritos)
@@ -110,7 +105,7 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
         super.onCreate(savedInstanceState);
         pago = (Payments) getArguments().getSerializable("pago");
         result = (EjecutarTransaccionResponse) getArguments().getSerializable("result");
-        presenter = new PaymentsSuccessPresenter(getContext(), result);
+        presenter = new PaymentSuccessPresenter(this);
     }
 
     @Override
@@ -140,7 +135,6 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
             Double comision = result.getData().getComision();
             if (comision > 0) {
                 layoutComision.setVisibility(View.VISIBLE);
-                //String textComision = String.format("%.2f", comision);
                 txtComision.setText(Utils.getCurrencyValue(comision));
             } else {
                 layoutComision.setVisibility(View.INVISIBLE);
@@ -168,17 +162,19 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
             isMailAviable = true;
         } else if (pago instanceof Envios) {
             title.setText(R.string.title_envio_success);
-            txtComision.setVisibility(View.INVISIBLE);
+            txtComision.setVisibility(View.GONE);
             comisionReferenciaText.setText("A:");
             titleReferencia.setText(((Envios) pago).getNombreDestinatario());
-            layoutMail.setVisibility(View.INVISIBLE);
+            layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
-            titleMail.setText(R.string.envia_comprobante_a + ((Envios) pago).getNombreDestinatario() + " " + R.string.envia_comprobante_opcional);
+            //titleMail.setText(R.string.envia_comprobante_a + ((Envios) pago).getNombreDestinatario() + " " + R.string.envia_comprobante_opcional);
+            isMailAviable = true;
         }
 
         String text = String.format("%.2f", pago.getMonto());
         text = text.replace(",", ".");
         importe.setText(text);
+        editMail.setDrawableImage(R.drawable.mail_canvas);
 
         /*
         Bloqur para poner el formato de telefono o otros ejemplos
@@ -209,102 +205,51 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
                 .dontAnimate().into(imgLogoPago);
 
         autorizacion.setText(result.getData().getNumeroAutorizacion());
-        SimpleDateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy");
         SimpleDateFormat dateFormatH = new SimpleDateFormat("HH:mm:ss");
 
         fecha.setText(DateUtil.getBirthDateCustomString(Calendar.getInstance()));
         hora.setText(dateFormatH.format(new Date()) + " hrs");
 
-        //fecha.setText(result.getData().getFecha());
-        //hora.setText(result.getData().getHora());
-
-        btnContinueEnvio.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (isMailAviable) {
-                    validateMail();
-                } else {
-                    onFinalize();
-                }
-            }
-        });
+        btnContinueEnvio.setOnClickListener(this);
     }
 
-    private void onFinalize() {
-        Intent intent = new Intent();
-        intent.putExtra(RESULT, Constants.RESULT_SUCCESS);
-        getActivity().setResult(RESULT_CODE_OK, intent);
-        getActivity().finish();
-        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
-    }
-
-    private void validateMail() {
-
+    @Override
+    public void validateMail() {
         String mail = editMail.getText().toString().trim();
-        if (mail != null && !mail.equals("")) {
+
+        if (!TextUtils.isEmpty(mail)) {
             if (ValidateForm.isValidEmailAddress(mail)) {
-                sendTicket(mail);
+                showLoader(getString(R.string.procesando_enviando_email_loader));
+                presenter.sendTicket(mail, result.getData().getIdTransaccion());
             } else {
-                showSimpleDialog(getString(R.string.datos_usuario_correo_formato));
+                showSimpleDialog(getString(R.string.title_error), getString(R.string.datos_usuario_correo_formato));
             }
         } else {
-            onFinalize();
-        }
-
-        presenter.validaEmail(mail);
-    }
-
-    private void sendTicket(String mail) {
-        ((PaymentsProcessingActivity) getActivity()).showLoader(getString(R.string.envia_email));
-        EnviarTicketTAEPDSRequest request = new EnviarTicketTAEPDSRequest();
-        request.setEmail(mail);
-        request.setIdTransaction(result.getData().getIdTransaccion());
-        try {
-            ApiAdtvo.enviarTicketTAEPDS(request, this);
-        } catch (OfflineException e) {
-            e.printStackTrace();
-            ((PaymentsProcessingActivity) getActivity()).hideLoader();
-            showSimpleDialog(getString(R.string.no_internet_access));
-        }
-    }
-
-
-    @Override
-    public void onSuccess(DataSourceResult result) {
-        ((PaymentsProcessingActivity) getActivity()).hideLoader();
-
-        EnviarTicketTAEPDSResponse data = (EnviarTicketTAEPDSResponse) result.getData();
-        if (data.getCodigoRespuesta() == CODE_OK) {
-            showDialog(data.getMensaje());
-        } else {
-            onFailSendTicket(result);
+            finalizePayment();
         }
     }
 
     @Override
-    public void onFailed(DataSourceResult error) {
-        ((PaymentsProcessingActivity) getActivity()).hideLoader();
-        onFailSendTicket(error);
+    public void onSuccessSendMail(String successMessage) {
+        showSuccessDialog(getString(R.string.txt_exito), successMessage);
     }
 
-    private void onFailSendTicket(DataSourceResult error) {
-        String errorTxt = null;
-        try {
-            EjecutarTransaccionResponse response = (EjecutarTransaccionResponse) error.getData();
-            if (response.getMensaje() != null)
-                errorTxt = response.getMensaje();
-        } catch (ClassCastException ex) {
-            ex.printStackTrace();
-        }
-        showDialogError(errorTxt);
+    @Override
+    public void onErrorSendMail(String errorMessage) {
+        showDialogErrorSendTicket(errorMessage);
     }
 
-    private void showDialog(String text) {
-        UI.createSimpleCustomDialogNoCancel(getString(R.string.txt_exito), text,
+    private void showSimpleDialog(String title, String text) {
+        UI.createSimpleCustomDialog(title, text, getFragmentManager(), this.getFragmentTag());
+    }
+
+
+    private void showSuccessDialog(String title, String text) {
+        UI.createSimpleCustomDialogNoCancel(title, text,
                 getFragmentManager(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
-                        onFinalize();
+                        finalizePayment();
                     }
 
                     @Override
@@ -314,12 +259,8 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
                 });
     }
 
-    private void showSimpleDialog(String text) {
-        UI.createSimpleCustomDialog("Error", text,
-                getFragmentManager(), getFragmentTag());
-    }
 
-    private void showDialogError(String text) {
+    private void showDialogErrorSendTicket(String text) {
         UI.createCustomDialog(getString(R.string.error_enviando_ticket),
                 text != null ? text : getString(R.string.error_enviando_ticket),
                 getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
@@ -330,11 +271,45 @@ public class PaymentSuccessFragment extends GenericFragment implements IRequestR
 
                     @Override
                     public void actionCancel(Object... params) {
-                        onFinalize();
+                        finalizePayment();
                     }
                 }, getString(R.string.txt_reintent_lowcase),
                 getString(R.string.txt_cancelar));
     }
 
 
+    @Override
+    public void showLoader(String message) {
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
+    }
+
+    @Override
+    public void hideLoader() {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+    }
+
+    @Override
+    public void showError(Object error) {
+
+    }
+
+    @Override
+    public void finalizePayment() {
+        Intent intent = new Intent();
+        intent.putExtra(RESULT, Constants.RESULT_SUCCESS);
+        getActivity().setResult(RESULT_CODE_OK, intent);
+        getActivity().finish();
+        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == btnContinueEnvio.getId()) {
+            if (isMailAviable) {
+                validateMail();
+            } else {
+                finalizePayment();
+            }
+        }
+    }
 }

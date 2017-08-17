@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -53,5 +54,9 @@ public class DocumentsContainerFragment extends SupportFragment {
 
     public void loadApprovedFragment() {
         loadFragment(DocumentApprovedFragment.newInstance());
+    }
+
+    public Fragment getCurrentFragment(){
+        return getCurrentFragment();
     }
 }
