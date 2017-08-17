@@ -14,7 +14,6 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SubGiro;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEntity;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IDatosNegView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
@@ -39,7 +38,6 @@ import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_SET_
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_FAMILIAR;
 
 
 /**
@@ -163,7 +161,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-
             case R.id.btnBackBussinesInfo:
                 RegisterAgent.resetRegisterAgent();
                 getActivity().finish();
@@ -355,7 +352,9 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void hideLoader() {
-        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+        if (onEventListener != null) {
+            onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+        }
     }
 
     @Override

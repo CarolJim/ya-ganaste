@@ -65,7 +65,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_APROBADO;
-import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 
 
@@ -229,15 +228,19 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 break;
 
             case R.id.btnRegresar:
-                if (mExisteDocs) {
-                    bacToHome();
-                } else {
-                    backToRegister();
-                }
+                onBtnBack();
                 break;
 
             default:
                 break;
+        }
+    }
+
+    public void onBtnBack() {
+        if (mExisteDocs) {
+            bacToHome();
+        } else {
+            backToRegister();
         }
     }
 
@@ -606,7 +609,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         UI.createSimpleCustomDialogError(mTitleStatus, mData.getMotivo(), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
-                switch (mPosition){
+                switch (mPosition) {
                     case 0:
                         selectImageSource(IFE_FRONT);
                         break;

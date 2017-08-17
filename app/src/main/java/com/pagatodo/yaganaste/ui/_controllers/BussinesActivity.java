@@ -46,11 +46,7 @@ public class BussinesActivity extends LoaderActivity {
     public final static String EVENT_SET_COLONIES_LIST = "EVENT_SET_COLONIES_LIST";
     public final static String EVENT_GO_BUSSINES_ADITIONAL_INFORMATION = "EVENT_GO_BUSSINES_INFORMACION_ADICIONAL";
     public final static String EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK = "EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK";
-    private Preferencias pref;
-    private AccountPresenterNew presenterAccount;
-    private DatosNegocioFragment datosNegocioFragmentFragment;
-    private DomicilioNegocioFragment domicilioNegocioFragmentFragment;
-    private DocumentosFragment documentosFragmentFragment;
+
 
     private DataObtenerDomicilio domicilio;
     private List<SubGiro> girosComercio;
@@ -67,7 +63,7 @@ public class BussinesActivity extends LoaderActivity {
         super.onCreate(savedInstanceState);
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.activity_fragment_conainer);
-        presenterAccount = new AccountPresenterNew(this);
+        //presenterAccount = new AccountPresenterNew(this);
 
         setUpActionBar();
         setVisibilityPrefer(false);
@@ -79,7 +75,7 @@ public class BussinesActivity extends LoaderActivity {
             //loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, true);
         }
 
-        pref = App.getInstance().getPrefs();
+        //pref = App.getInstance().getPrefs();
 
         System.gc();
     }
@@ -145,30 +141,22 @@ public class BussinesActivity extends LoaderActivity {
     @Override
     public void onBackPressed() {
         if (!isLoaderShow) {
-
             Fragment currentFragment = getCurrentFragment();
-            if (currentFragment instanceof InformacionAdicionalFragment) {
-                RegisterAgent.resetRegisterAgent();
-                finish();
-            } else {
-                super.onBackPressed();
-            }
-            /*Fragment currentFragment = getCurrentFragment();
             if (currentFragment instanceof DatosNegocioFragment) {
                 RegisterAgent.resetRegisterAgent();
                 finish();
             } else if (currentFragment instanceof DomicilioNegocioFragment) {
                 onEvent(EVENT_GO_BUSSINES_DATA_BACK, null);
+            } else if (currentFragment instanceof InformacionAdicionalFragment) {
+                onEvent(EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK, null);
             } else if (currentFragment instanceof DocumentosFragment) {
-                onEvent(EVENT_GO_BUSSINES_ADDRESS_BACK, null);
-            } else if (currentFragment instanceof DocumentosFragment) {
-                onEvent(EVENT_GO_BUSSINES_ADDRESS_BACK, null);
+                ((DocumentosFragment) currentFragment).onBtnBack();
             } else if (currentFragment instanceof RegisterCompleteFragment) {
 
             } else {
                 RegisterAgent.resetRegisterAgent();
                 finish();
-            }*/
+            }
         }
     }
 
