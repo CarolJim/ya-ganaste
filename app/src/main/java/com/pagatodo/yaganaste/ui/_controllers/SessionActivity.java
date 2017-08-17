@@ -10,8 +10,10 @@ import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
@@ -27,7 +29,8 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 
-public class SessionActivity extends ToolBarActivity implements TabsView, OnEventListener, View.OnClickListener {
+public class SessionActivity extends ToolBarActivity implements TabsView, OnEventListener,
+        View.OnClickListener, IAprovView {
 
     public final static int REQUESTCODE_OTP = 415;
     public final static String EVENT_GO_OTP = "EVENTGOOTP";
@@ -112,7 +115,7 @@ public class SessionActivity extends ToolBarActivity implements TabsView, OnEven
 
     @Override
     public void onEvent(String event, Object data) {
-
+        super.onEvent(event, data);
         switch (event) {
             case EVENT_GO_OTP:
                 mainViewPager.setCurrentItem(0);
@@ -155,4 +158,28 @@ public class SessionActivity extends ToolBarActivity implements TabsView, OnEven
         return false;
     }
 
+    @Override
+    public void showLoader(String message) {
+
+    }
+
+    @Override
+    public void hideLoader() {
+
+    }
+
+    @Override
+    public void showError(Object error) {
+
+    }
+
+    @Override
+    public void showErrorAprov(ErrorObject error) {
+
+    }
+
+    @Override
+    public void finishAssociation() {
+
+    }
 }

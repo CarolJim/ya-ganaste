@@ -764,6 +764,7 @@
     <string name="change_your_pass">Cambia tu Contraseña</string>
     <string name="unlike_your_device">Desvincula tu Dispositivo</string>
     <string name="no_existen_resultados">No Existen Resultados</string>
+    <string name="no_companias_busqueda">No Hay Compañías Para la Búsqueda</string>
     <string name="title_activity_landing_approved">LandingApprovedActivity</string>
 
     <!-- Lista de meses para calendarios -->
