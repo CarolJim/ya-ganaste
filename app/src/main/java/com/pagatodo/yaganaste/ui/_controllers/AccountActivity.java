@@ -15,6 +15,8 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -35,12 +37,14 @@ import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 
+import static com.pagatodo.yaganaste.App.getContext;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
+import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
 
 
 public class AccountActivity extends LoaderActivity implements OnEventListener {
@@ -206,9 +210,30 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
 
             case EVENT_GO_MAINTAB:
                 resetRegisterData();
-                Intent intent = new Intent(AccountActivity.this, TabActivity.class);
-                startActivity(intent);
-                finish();
+
+                        /*
+         * Verificamos si las condiciones de Adquirente ya han sido cumplidas para mostrar pantalla
+         */
+                SingletonUser user = SingletonUser.getInstance();
+                DataIniciarSesion dataUser = user.getDataUser();
+                String tokenSesionAdquirente = dataUser.getUsuario().getTokenSesionAdquirente();
+
+                Preferencias prefs = App.getInstance().getPrefs();
+                boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);
+
+                // Lineas de prueba, comentar al tener version lista para pruebas
+                //tokenSesionAdquirente = "MiSuperTokenAdquirente";
+                //isAdquirente = "";
+
+                if(tokenSesionAdquirente != null && !tokenSesionAdquirente.isEmpty() && !isAdquirente){
+                    // getActivity().finish();
+                    Intent intent = new Intent(AccountActivity.this, LandingApprovedActivity.class);
+                    startActivity(intent);
+                }else{
+                    Intent intent = new Intent(AccountActivity.this, TabActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
 
 

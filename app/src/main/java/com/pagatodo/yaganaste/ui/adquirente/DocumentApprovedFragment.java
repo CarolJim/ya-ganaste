@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
@@ -28,6 +29,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -54,7 +56,7 @@ public class DocumentApprovedFragment extends GenericFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-      //  iAccountPresenterNew = new AccountPresenterNew(getContext());
+        //  iAccountPresenterNew = new AccountPresenterNew(getContext());
         accountPresenter = new AccountPresenterNew(getContext());
         accountPresenter.setIView(this);
     }
@@ -81,8 +83,8 @@ public class DocumentApprovedFragment extends GenericFragment implements
     }
 
     private void refreshContent() {
-       // Toast.makeText(getContext(), "Update Fragment", Toast.LENGTH_SHORT).show();
-       // showLoader("Verificando Estado");
+        // Toast.makeText(getContext(), "Update Fragment", Toast.LENGTH_SHORT).show();
+        // showLoader("Verificando Estado");
         accountPresenter.updateUserInfo();
     }
 
@@ -118,9 +120,17 @@ public class DocumentApprovedFragment extends GenericFragment implements
 
         SingletonUser user = SingletonUser.getInstance();
         DataIniciarSesion dataUser = user.getDataUser();
-        String myVar = dataUser.getUsuario().getTokenSesionAdquirente();
-        if(myVar != null && !myVar.isEmpty()){
-            getActivity().finish();
+        String tokenSesionAdquirente = dataUser.getUsuario().getTokenSesionAdquirente();
+
+        Preferencias prefs = App.getInstance().getPrefs();
+        boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);
+
+        // Lineas de prueba, comentar al tener version lista para pruebas
+        //tokenSesionAdquirente = "MiSuperTokenAdquirente";
+        // isAdquirente = "";
+
+        if (tokenSesionAdquirente != null && !tokenSesionAdquirente.isEmpty() && !isAdquirente) {
+            // getActivity().finish();
             Intent intent = new Intent(getContext(), LandingApprovedActivity.class);
             startActivity(intent);
         }
