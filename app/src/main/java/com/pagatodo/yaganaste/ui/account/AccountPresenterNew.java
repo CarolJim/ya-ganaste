@@ -365,7 +365,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             } else if (ws == ACTUALIZAR_INFO_SESION) { // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).dataUpdated(data.toString());
             } else if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN || ws == ACTIVACION_APROV_SOFTTOKEN) {
-                accountView.showLoader("");
                 super.onSucces(ws, data);
             }
         } else if (accountView instanceof RecoveryPasswordView) {
@@ -393,20 +392,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void onSuccesBalanceAdq() {
         ((IBalanceView) this.accountView).updateBalanceAdq();
-    }
-
-
-    @Override
-    public void verifyActivationAprov(String codeActivation) {
-        accountView.showLoader("");
-        super.verifyActivationAprov(codeActivation);
-    }
-
-
-    @Override
-    public void activationAprov(String codeActivation) {
-        accountView.showLoader("");
-        super.activationAprov(codeActivation);
     }
 
 }

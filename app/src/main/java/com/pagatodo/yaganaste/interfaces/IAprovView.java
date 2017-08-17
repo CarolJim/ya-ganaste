@@ -6,12 +6,10 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
  * Created by flima on 20/02/2017.
  */
 
-public interface IAprovView {
+public interface IAprovView<T> extends IProgressView<T>, View {
 
     void showErrorAprov(ErrorObject error);
 
-    void provisingCompleted();
-
-    void subscribeNotificationSuccess();
+    void finishAssociation();
 
 }

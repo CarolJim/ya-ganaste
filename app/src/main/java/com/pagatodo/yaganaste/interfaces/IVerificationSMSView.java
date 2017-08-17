@@ -17,8 +17,6 @@ public interface IVerificationSMSView extends INavigationView {
 
     void devicesAlreadyAssign(String message);
 
-    void provisingCompleted();
-
     void dataUpdated(String message);
 
 }

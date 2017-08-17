@@ -133,13 +133,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
     @Override
     public void dataUpdated(String message) {
-
-        /*if (!preferencias.containsData(HAS_PROVISIONING) || !preferencias.loadData(USER_PROVISIONED).equals(RequestHeaders.getUsername())) {
-            executeProvisioning();
-        } else if (!preferencias.containsData(HAS_PUSH)){
-            provisingCompleted();
-        }*/
-
         executeProvisioning();
     }
 
@@ -149,30 +142,15 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     }
 
     private void executeProvisioning() {
-        showLoader("");
-        accountPresenter.reset();
-        accountPresenter.getActivationCode();
+        accountPresenter.doProvisioning();
     }
 
     @Override
     public void showErrorAprov(ErrorObject error) {
+        hideLoader();
         onEventListener.onEvent(EVENT_SHOW_ERROR, error);
     }
 
-    /*Una vez aprovisionado, se suscribe a las notificationes*/
-    @Override
-    public void provisingCompleted() {
-        preferencias.saveDataBool(HAS_PROVISIONING, true);
-        preferencias.saveData(USER_PROVISIONED,RequestHeaders.getUsername());
-        accountPresenter.subscribePushNotification();
-    }
-
-    @Override
-    public void subscribeNotificationSuccess() {
-        hideLoader();
-        preferencias.saveDataBool(HAS_PUSH, true);
-        finishAssociation();
-    }
 
     public void finishAssociation() {
         nextScreen(EVENT_GO_REGISTER_COMPLETE, null);

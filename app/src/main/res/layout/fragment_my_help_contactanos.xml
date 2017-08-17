@@ -87,7 +87,6 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
-                        android:id="@+id/ll_contactanos_correo"
                         android:layout_weight=".5"
                         android:clickable="true"
                         android:foreground="?attr/selectableItemBackground"
@@ -97,7 +96,6 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
-                            android:src="@drawable/ic_email_white_24dp"
                             android:tint="@color/colorAccent" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView

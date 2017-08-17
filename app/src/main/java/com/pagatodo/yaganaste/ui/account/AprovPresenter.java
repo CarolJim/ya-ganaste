@@ -18,6 +18,8 @@ import com.pagatodo.yaganaste.interfaces.IAprovPresenter;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 
 import java.lang.reflect.Method;
 
@@ -25,6 +27,9 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTIVACION_APRO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
+import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PUSH;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_PROVISIONED;
 
 /**
  * Created by flima on 22/03/2017.
@@ -43,19 +48,34 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
     private boolean requiresUserFeedback;
 
     private final int maxIntents = 3;
+    private Preferencias preferencias;
 
 
 
-    AprovPresenter(Context context, boolean requiresUserFeedback) {
+    public AprovPresenter(Context context, boolean requiresUserFeedback) {
         super(context);
         this.requiresUserFeedback = requiresUserFeedback;
         aprovIteractor = new AprovInteractor(this);
+        this.preferencias = App.getInstance().getPrefs();
     }
 
-    void setAprovView(IAprovView aprovView) {
+    public void setAprovView(IAprovView aprovView) {
+        if (aprovView instanceof TabsView){
+            super.setTabsView((TabsView) aprovView);
+        }
         this.aprovView = aprovView;
     }
 
+    public void doProvisioning(){
+        reset();
+        if (!preferencias.containsData(HAS_PROVISIONING) || !preferencias.loadData(USER_PROVISIONED).equals(RequestHeaders.getUsername())) {
+            aprovView.showLoader("");
+            getActivationCode();
+        } else if (!preferencias.containsData(HAS_PUSH)){
+            subscribePushNotification();
+        }
+
+    }
 
     /***
      *Implementación de Aprovisionamiento*
@@ -68,59 +88,13 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
 
     @Override
     public void getActivationCode() {
+        aprovView.showLoader("");
         individualReintent++;
         this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
         initProvisioning = currentMethod;
         this.currentMethodParams = new Object[]{};
         super.getActivationCode();
     }
-
-
-    @Override
-    public void getPinPolicy() {
-        individualReintent++;
-        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
-        this.currentMethodParams = new Object[]{};
-        super.getPinPolicy();
-    }
-
-
-    @Override
-    public void registerPin(String pin) {
-        individualReintent++;
-        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
-        this.currentMethodParams = new Object[]{pin};
-        super.registerPin(pin);
-    }
-
-
-    @Override
-    public void setTokenNotificationId(String tokenNotificationId, String pin) {
-        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
-        this.currentMethodParams = new Object[]{tokenNotificationId, pin};
-        super.setTokenNotificationId(tokenNotificationId, pin);
-    }
-
-
-    @Override
-    public void verifyActivationAprov(String codeActivation) {
-        individualReintent++;
-        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
-        this.currentMethodParams = new Object[]{codeActivation};
-        VerificarActivacionAprovSofttokenRequest request = new VerificarActivacionAprovSofttokenRequest(codeActivation);
-        aprovIteractor.verifyActivationAprov(request);
-    }
-
-
-    @Override
-    public void activationAprov(String codeActivation) {
-        individualReintent++;
-        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
-        this.currentMethodParams = new Object[]{codeActivation};
-        ActivacionAprovSofttokenRequest request = new ActivacionAprovSofttokenRequest(codeActivation);
-        aprovIteractor.activationAprov(request);
-    }
-
 
     /**Implementación de Freja**/
     @Override
@@ -132,12 +106,39 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
 
 
     @Override
+    public void verifyActivationAprov(String codeActivation) {
+        aprovView.showLoader("");
+        individualReintent++;
+        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        this.currentMethodParams = new Object[]{codeActivation};
+        VerificarActivacionAprovSofttokenRequest request = new VerificarActivacionAprovSofttokenRequest(codeActivation);
+        aprovIteractor.verifyActivationAprov(request);
+    }
+
+    @Override
+    public void getPinPolicy() {
+        aprovView.showLoader("");
+        individualReintent++;
+        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        this.currentMethodParams = new Object[]{};
+        super.getPinPolicy();
+    }
+
+    @Override
     public void setPinPolicy(int min, int max) {
         individualReintent = 0;
         String pin = prefs.loadData(SHA_256_FREJA);
         registerPin(pin);
     }
 
+    @Override
+    public void registerPin(String pin) {
+        aprovView.showLoader("");
+        individualReintent++;
+        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        this.currentMethodParams = new Object[]{pin};
+        super.registerPin(pin);
+    }
 
     @Override
     public void endProvisioning() { // Finaliza el proceso con FREJA
@@ -146,18 +147,61 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         activationAprov(activationCode);
     }
 
+    @Override
+    public void activationAprov(String codeActivation) {
+        aprovView.showLoader("");
+        individualReintent++;
+        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        this.currentMethodParams = new Object[]{codeActivation};
+        ActivacionAprovSofttokenRequest request = new ActivacionAprovSofttokenRequest(codeActivation);
+        aprovIteractor.activationAprov(request);
+    }
+
+    @Override
+    public void onSucces(WebService ws, Object msgSuccess) {
+        aprovView.showLoader("");
+        if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) {
+            individualReintent = 0;
+            getPinPolicy();
+        } else if (ws == ACTIVACION_APROV_SOFTTOKEN) {
+            preferencias.saveDataBool(HAS_PROVISIONING, true);
+            preferencias.saveData(USER_PROVISIONED, RequestHeaders.getUsername());
+            subscribePushNotification();
+        }
+    }
+
+    @Override
+    public void onError(WebService ws, Object error) {
+        if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) {
+            onError(Errors.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN);
+        } else if (ws == ACTIVACION_APROV_SOFTTOKEN) {
+            onError(Errors.ACTIVACION_APROV_SOFTTOKEN);
+        }
+    }
 
     @Override
     public void subscribePushNotification() {
         String pin = prefs.loadData(SHA_256_FREJA);
         String tokenId = FirebaseInstanceId.getInstance().getToken();
+        individualReintent = 0;
         setTokenNotificationId(tokenId,pin);
     }
 
     @Override
-    public void endTokenNotification() {
-       aprovView.subscribeNotificationSuccess();
+    public void setTokenNotificationId(String tokenNotificationId, String pin) {
+        aprovView.showLoader("");
+        this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        initProvisioning = currentMethod;
+        this.currentMethodParams = new Object[]{tokenNotificationId, pin};
+        super.setTokenNotificationId(tokenNotificationId, pin);
     }
+
+    @Override
+    public void endTokenNotification() {
+        preferencias.saveDataBool(HAS_PUSH, true);
+        aprovView.finishAssociation();
+    }
+
 
 
     @Override
@@ -171,7 +215,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
                 return;
             } else {
                 if (error.allowsReintent()) {
-                    handleIndividualErrorNoFeedback(error);
+                    handleIndividualErrorNoFeedback();
                     return;
                 }
             }
@@ -191,6 +235,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
                 return;
             }
         }
+        aprovView.hideLoader();
         if (navigationView != null) {
             navigationView.nextScreen(EVENT_APROV_FAILED, null);
         }
@@ -198,8 +243,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
     }
 
     private void handleIndividualErrorWithUserFeedback(final Errors error, final INavigationView navigationView) {
-
-
+        aprovView.hideLoader();
         DialogDoubleActions actions = new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
@@ -227,35 +271,14 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         aprovView.showErrorAprov(builder.build());
     }
 
-    private void handleIndividualErrorNoFeedback(Errors error) {
-        if (error.allowsReintent()) {
-            currentMethod.setAccessible(true);
-            try {
-                currentMethod.invoke(AprovPresenter.this, currentMethodParams);
-            } catch (Exception e) {
-                e.printStackTrace();
-            }
+    private void handleIndividualErrorNoFeedback() {
+        currentMethod.setAccessible(true);
+        try {
+            currentMethod.invoke(AprovPresenter.this, currentMethodParams);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }
 
-    @Override
-    public void onSucces(WebService ws, Object msgSuccess) {
-        if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) {
-            individualReintent = 0;
-            getPinPolicy();
-        } else if (ws == ACTIVACION_APROV_SOFTTOKEN) {
-            aprovView.provisingCompleted();
-        }
     }
-
-    @Override
-    public void onError(WebService ws, Object error) {
-        if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) {
-            onError(Errors.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN);
-        } else if (ws == ACTIVACION_APROV_SOFTTOKEN) {
-            onError(Errors.ACTIVACION_APROV_SOFTTOKEN);
-        }
-    }
-
 
 }
