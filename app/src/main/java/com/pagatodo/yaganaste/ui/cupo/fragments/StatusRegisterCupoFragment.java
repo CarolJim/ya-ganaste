@@ -34,6 +34,8 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import org.json.JSONObject;
 
+import java.text.BreakIterator;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
@@ -47,6 +49,18 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
  */
 
 public class StatusRegisterCupoFragment extends GenericFragment  implements IViewStatusRegisterCupo {
+
+    public static final int PASO_CUPO_DOCUMENTACION_INCOMPLETA = 1;
+    public static final int PASO_CUPO_VALIDACION_DE_DOCUMENTOS = 2;
+    public static final int PASO_CUPO_VALIDACION_DE_REFERENCIAS = 3;
+    public static final int PASO_CUPO_VALIDACION_DE_LINEA_DE_CREDITO = 4;
+
+
+    public static final int ID_ESTATUS_PASO_NA = 0;
+    public static final int ID_ESTATUS_PASO_EN_VALIDACION = 1;
+    public static final int ID_ESTATUS_PASO_APROVADO = 2;
+    public static final int ID_ESTATUS_PASO_RECHAZADO = 3;
+    public static final int ID_ESTATUS_PASO_RECHAZO_DEFINITIVO = 4;
 
     @BindView(R.id.status_view)StatusViewCupo statusViewCupo;
     @BindView(R.id.txt_status)StyleTextView statusText;
@@ -144,6 +158,41 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
     public void setResponseEstadoCupo(DataEstadoSolicitud dataEstadoSolicitud) {
         Log.e("Data respuesta fragment", createParams(false, dataEstadoSolicitud).toString());
 
+        int pasoActual = dataEstadoSolicitud.getIdPaso();
+        int idEstado   = dataEstadoSolicitud.getIdEstatusPaso();
+
+        switch (pasoActual) {
+            case PASO_CUPO_DOCUMENTACION_INCOMPLETA:
+                Log.e("Que pedo", "Que pedo");
+                break;
+            case PASO_CUPO_VALIDACION_DE_DOCUMENTOS:
+                setValidandoDocumentos(idEstado);
+                break;
+
+        }
+
+
+    }
+
+
+    private void setValidandoDocumentos(int idEstado) {
+
+        switch (idEstado){
+            case ID_ESTATUS_PASO_NA:
+                break;
+            case ID_ESTATUS_PASO_EN_VALIDACION:
+                statusText.setText("Validando\nDocumentos\n1/3");
+                statusViewCupo.updateStatus(33,0);
+                break;
+            case ID_ESTATUS_PASO_APROVADO:
+
+                break;
+            case ID_ESTATUS_PASO_RECHAZADO:
+                statusTextInfo.setText("Ocurrió un Error\nCon Tu Documentación");
+                statusText.setText("Reenvía Tus\nDocumentos\n1/3");
+                statusViewCupo.updateError(33,0);
+                break;
+        }
 
     }
 

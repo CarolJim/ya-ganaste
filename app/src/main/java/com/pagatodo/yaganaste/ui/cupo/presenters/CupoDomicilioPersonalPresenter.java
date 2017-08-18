@@ -28,6 +28,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREA_SOLICITUD_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 
@@ -73,7 +74,7 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
             ((IViewCupoComprobantes) iNavigationView).setResponseDocuments();
         } else if (ws == CREA_SOLICITUD_CUPO) {
             ((IViewDomicilioPersonal) iNavigationView).setResponseCreaSolicitudCupo();
-        } else if (ws == CREA_SOLICITUD_CUPO) {
+        } else if (ws == CONSULTA_STATUS_REGISTRO_CUPO) {
             ((IViewStatusRegisterCupo) iNavigationView).setResponseEstadoCupo((DataEstadoSolicitud) msgSuccess );
         }
     }
