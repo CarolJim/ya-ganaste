@@ -331,6 +331,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 }
             }
         } else {
+
+
             //UI.createSimpleCustomDialog("", "Error al Cargar Imagen", getActivity().getSupportFragmentManager(), null, true, false);
         }
     }
