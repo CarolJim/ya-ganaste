@@ -12,6 +12,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
+import android.support.annotation.NonNull;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -43,10 +44,14 @@ import java.io.File;
 import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+import java.util.Set;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -109,7 +114,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
     private String imgs[] = new String[4];
     private ArrayList<String> contador;
-    private ArrayList<DataDocuments> dataDocumnets;
+    private Map<Integer, DataDocuments> dataDocumnets;
+    private ArrayList<DataDocuments> dataDocumnetsServer;
     private AccountAdqPresenter adqPresenter;
     private Boolean mExisteDocs = false;
     ArrayList<EstatusDocumentosResponse> dataStatusDocuments;
@@ -164,7 +170,14 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void initViews() {
         ButterKnife.bind(this, rootview);
         swipeRefreshLayout.setOnRefreshListener(this);
-        dataDocumnets = new ArrayList<>();
+
+        /**
+         * Usamos un Map dataDocumnets para ir actualizando los documentos y evitar el problema de
+         * escoger una imagen y luego cambiarla a otra diferente.
+         */
+        dataDocumnetsServer = new ArrayList<>();
+        dataDocumnets = new HashMap<>();
+
         if (SingletonUser.getInstance().getDataUser().isEsAgente()
                 && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_PENDIENTE
                 && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == CRM_PENDIENTE) {  //si ya se hiso el proceso de envio de documentos
@@ -359,6 +372,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     dataDoc.setTipoDocumento(DOC_ID_FRONT);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
+                    dataDocumnets.put(IFE_FRONT, dataDoc);
                     break;
 
                 case IFE_BACK:
@@ -370,6 +384,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     dataDoc.setTipoDocumento(DOC_ID_BACK);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
+                    dataDocumnets.put(IFE_BACK, dataDoc);
                     break;
 
                 case COMPROBANTE_FRONT:
@@ -381,6 +396,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     dataDoc.setTipoDocumento(DOC_DOM_FRONT);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
+                    dataDocumnets.put(COMPROBANTE_FRONT, dataDoc);
 
                     break;
                 case COMPROBANTE_BACK:
@@ -392,9 +408,10 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     dataDoc.setTipoDocumento(DOC_DOM_BACK);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
+                    dataDocumnets.put(COMPROBANTE_BACK, dataDoc);
                     break;
             }
-            dataDocumnets.add(dataDoc);
+
             if (bitmap.isRecycled()) {
                 bitmap.recycle();
             }
@@ -638,6 +655,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
      * Enviamos los documentos que fueron rechazados
      */
     private void sendDocumentsPending() {
+        updateListFromMapHash();
         if (dataDocumnets.size() < documentPendientes) {
             UI.createSimpleCustomDialog("", "Debes de Subir Los DocumentosFragment Marcados Con el Signo de Admiración", getActivity().getSupportFragmentManager(),
                     new DialogDoubleActions() {
@@ -653,7 +671,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     }, true, false);
             return;
         }
-        adqPresenter.sendDocumentosPendientes(dataDocumnets);
+        adqPresenter.sendDocumentosPendientes(dataDocumnetsServer);
     }
 
 
@@ -661,12 +679,33 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
      * Enviamos los documentos cuando se esta registrando el adquirente
      */
     private void sendDocuments() {
+        updateListFromMapHash();
+
         for (String s : imgs)
             if (s == null || s.isEmpty()) {
                 showError(App.getContext().getResources().getString(R.string.adq_must_upload_documents));
                 return;
             }
-        adqPresenter.sendDocumentos(dataDocumnets);
+        adqPresenter.sendDocumentos(dataDocumnetsServer);
+    }
+
+    /**
+     * Se encarga de llenar el dataDocumnetsServer que se envia al servidor, con los datos del
+     * dataDocumnets que es un Map<K,V> asi evitamos problemas de cambiar constantemente imagenes
+     */
+    private void updateListFromMapHash() {
+        if (dataDocumnets.get(IFE_FRONT) != null && !dataDocumnets.get(IFE_FRONT).equals("")) {
+            dataDocumnetsServer.add(dataDocumnets.get(IFE_FRONT));
+        }
+        if (dataDocumnets.get(IFE_BACK ) != null && !dataDocumnets.get(IFE_BACK ).equals("")) {
+            dataDocumnetsServer.add(dataDocumnets.get(IFE_BACK ));
+        }
+        if (dataDocumnets.get(COMPROBANTE_FRONT) != null && !dataDocumnets.get(COMPROBANTE_FRONT).equals("")) {
+            dataDocumnetsServer.add(dataDocumnets.get(COMPROBANTE_FRONT));
+        }
+        if (dataDocumnets.get(COMPROBANTE_BACK) != null && !dataDocumnets.get(COMPROBANTE_BACK).equals("")) {
+            dataDocumnetsServer.add(dataDocumnets.get(COMPROBANTE_BACK));
+        }
     }
 
     @Override
