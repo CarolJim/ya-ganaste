@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.dto.OnlineTxData;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
+import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -18,6 +19,7 @@ import com.pagatodo.yaganaste.ui.onlinetx.controllers.OnlineTxView;
 import com.pagatodo.yaganaste.ui.onlinetx.fragments.TxApprovedFragment;
 import com.pagatodo.yaganaste.ui.onlinetx.fragments.TxDetailsFragment;
 import com.pagatodo.yaganaste.ui.onlinetx.presenters.OnlineTxPresenter;
+import com.pagatodo.yaganaste.utils.UI;
 
 /**
  * @author Juan Guerra on 11/04/2017.
@@ -28,7 +30,8 @@ public class OnlineTxActivity extends LoaderActivity implements OnEventListener,
     public static final String DATA = "data";
 
     public static final String EVENT_TX_APROVED = "1";
-    public static final String EVENT_APROVE_TX = "2";
+    public static final String EVENT_TX_NOT_APROVED = "2";
+    public static final String EVENT_APROVE_TX = "3";
 
     private OnlineTxPresenter onlineTxPresenter;
     private String idToAprove;
@@ -80,6 +83,10 @@ public class OnlineTxActivity extends LoaderActivity implements OnEventListener,
 
             case EVENT_TX_APROVED:
                 loadFragment(TxApprovedFragment.newInstance(), Direction.FORDWARD);
+                break;
+
+            case EVENT_TX_NOT_APROVED:
+                loadFragment(TxApprovedFragment.newInstance(false, data.toString()), Direction.FORDWARD);
         }
     }
 
@@ -95,6 +102,11 @@ public class OnlineTxActivity extends LoaderActivity implements OnEventListener,
     }
 
     @Override
+    public void onTxFailed(String message) {
+        onEvent(EVENT_TX_NOT_APROVED, message);
+    }
+
+    @Override
     public void loadTransactionData(OnlineTxData data) {
         idToAprove = data.getIdFreja();
         loadFragment(TxDetailsFragment.newInstance(data));
@@ -102,25 +114,6 @@ public class OnlineTxActivity extends LoaderActivity implements OnEventListener,
 
     @Override
     public void showError(final ErrorObject error) {
-        DialogDoubleActions actions = new DialogDoubleActions() {
-            @Override
-            public void actionConfirm(Object... params) {
-                if (error.hasCancel()) { //Quiere decir que se puede reintentar
-                    if (isAproving) {
-                        onEvent(EVENT_APROVE_TX, shaPWD);
-                    } else {
-                        onlineTxPresenter.getTransactions();
-                    }
-                } else {
-                    onBackPressed();
-                }
-            }
-
-            @Override
-            public void actionCancel(Object... params) {
-                onBackPressed();
-            }
-        };
-        error.setErrorActions(actions);
+        UI.createSimpleCustomDialog("", error.getErrorMessage(), getSupportFragmentManager(), error.getErrorActions(), error.hasConfirm(), error.hasCancel());
     }
 }
