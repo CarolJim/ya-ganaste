@@ -248,7 +248,6 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
                     processSolicitudCupo(dataSourceResult);
                     break;
                 case CONSULTA_STATUS_REGISTRO_CUPO:
-                    Log.e("Test", "Respuesta Carga de docuementos exitosa");
                     processEstadoRegistro(dataSourceResult);
                     break;
             }
@@ -258,7 +257,7 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
     private void processEstadoRegistro(DataSourceResult dataSourceResult) {
 
         EstadoSolicitudResponse data = (EstadoSolicitudResponse) dataSourceResult.getData();
-        /*
+
         if (data.getCodigoRespuesta() == CODE_OK) {
             DataEstadoSolicitud estadoSolicitud = data.getData();
             if (estadoSolicitud != null) {
@@ -270,9 +269,6 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(dataSourceResult.getWebService(), data.getMensaje());//Retornamos mensaje de error.
         }
-        */
-
-
 
     }
 

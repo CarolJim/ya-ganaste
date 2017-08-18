@@ -38,6 +38,8 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
 
 /**
@@ -141,6 +143,8 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
     @Override
     public void setResponseEstadoCupo(DataEstadoSolicitud dataEstadoSolicitud) {
         Log.e("Data respuesta fragment", createParams(false, dataEstadoSolicitud).toString());
+
+
     }
 
 
@@ -173,12 +177,12 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
 
     @Override
     public void showLoader(String message) {
-
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
-
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override
