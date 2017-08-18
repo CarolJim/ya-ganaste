@@ -70,6 +70,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:id="@+id/lineacuenta"
                 android:background="@color/whiteColor" />
 
             <LinearLayout
@@ -78,6 +79,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
+
                 android:paddingTop="10dp">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -99,6 +101,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:id="@+id/lineancredito"
                 android:background="@color/whiteColor" />
 
             <LinearLayout
@@ -108,7 +111,6 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:paddingTop="10dp">
-
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     style="@style/generic_text_style_2"
                     android:layout_width="wrap_content"
@@ -128,6 +130,8 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
+                android:id="@+id/lineacontrato"
+                android:visibility="visible"
                 android:background="@color/whiteColor" />
 
         </LinearLayout>

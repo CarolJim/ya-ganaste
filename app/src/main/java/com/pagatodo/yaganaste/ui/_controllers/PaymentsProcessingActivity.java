@@ -91,6 +91,12 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setVisibilityPrefer(false);
+    }
+
 
     private void initViews() {
         ButterKnife.bind(this);
@@ -137,6 +143,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             hideLoader();
             changeToolbarVisibility(true);
+            setVisibilityPrefer(false);
             llMain.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
             loadFragment(PaymentSuccessFragment.newInstance((Payments) pago, response), FORDWARD, true);
         } else {

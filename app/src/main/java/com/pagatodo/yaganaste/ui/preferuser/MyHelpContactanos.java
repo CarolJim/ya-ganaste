@@ -9,9 +9,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -33,6 +35,9 @@ public class MyHelpContactanos extends GenericFragment implements View.OnClickLi
     @BindView(R.id.ll_contactanos_llamasr)
     LinearLayout ll_llamar1;
 
+    @BindView(R.id.imgtelefonocontactanos)
+    ImageView botonllamar;
+
     @BindView(R.id.ll_contactanos_correo)
     LinearLayout ll_correo;
 
@@ -53,6 +58,7 @@ public class MyHelpContactanos extends GenericFragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
         rootview = inflater.inflate(R.layout.fragment_my_help_contactanos, container, false);
         initViews();
 
@@ -77,8 +83,8 @@ public class MyHelpContactanos extends GenericFragment implements View.OnClickLi
                 }
                 break;
             case (R.id.ll_contactanos_llamasr):
-                 number = getString(R.string.numero_telefono_contactanos);
-                 callIntent = new Intent(Intent.ACTION_CALL);
+                number = getString(R.string.numero_telefono_contactanos);
+                callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 callIntent.setData(Uri.parse("tel:" + number));
 
@@ -90,8 +96,8 @@ public class MyHelpContactanos extends GenericFragment implements View.OnClickLi
                 }
                 break;
             case (R.id.imgtelefonocontactanos):
-                 number = getString(R.string.numero_telefono_contactanos);
-                 callIntent = new Intent(Intent.ACTION_CALL);
+                number = getString(R.string.numero_telefono_contactanos);
+                callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
                 callIntent.setData(Uri.parse("tel:" + number));
 
@@ -117,6 +123,7 @@ public class MyHelpContactanos extends GenericFragment implements View.OnClickLi
         ButterKnife.bind(this, rootview);
         ll_llamar1.setOnClickListener(this);
         ll_correo.setOnClickListener(this);
+
 
     }
 }

@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
 import butterknife.BindView;
@@ -23,10 +25,20 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
  */
 public class AvisoPrivacidadFragment extends GenericFragment implements View.OnClickListener {
 
+
+    private int Idestatus;
+
+
     @BindView(R.id.fragment_aviso_cuenta_ya_ganaste)
     LinearLayout ll_cuenta_ganaste;
     @BindView(R.id.fragment_aviso_linea_credito)
     LinearLayout ll_linea_credito;
+
+
+    @BindView(R.id.lineacreditoaviso)
+    View lineacaviso;
+
+
 
     View rootview;
 
@@ -45,6 +57,8 @@ public class AvisoPrivacidadFragment extends GenericFragment implements View.OnC
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+
+        Idestatus= SingletonUser.getInstance().getDataUser().getIdEstatus();
         rootview= inflater.inflate(R.layout.fragment_aviso_privacidad, container, false);
         initViews();
         return rootview;
@@ -72,6 +86,12 @@ public class AvisoPrivacidadFragment extends GenericFragment implements View.OnC
         ButterKnife.bind(this, rootview);
         ll_cuenta_ganaste.setOnClickListener(this);
         ll_linea_credito.setOnClickListener(this);
+
+        if (Idestatus== IdEstatus.I16.getId()){
+            ll_linea_credito.setVisibility(View.VISIBLE);
+            lineacaviso.setVisibility(View.VISIBLE);
+
+        }
 
     }
 }

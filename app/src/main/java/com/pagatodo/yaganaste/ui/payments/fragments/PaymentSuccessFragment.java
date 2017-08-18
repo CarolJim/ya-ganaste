@@ -53,6 +53,9 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 public class PaymentSuccessFragment extends GenericFragment implements PaymentSuccessManager, View.OnClickListener {
 
+
+
+
     @BindView(R.id.txt_paymentTitle)
     TextView title;
     @BindView(R.id.txt_importe)
@@ -107,6 +110,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
         pago = (Payments) getArguments().getSerializable("pago");
         result = (EjecutarTransaccionResponse) getArguments().getSerializable("result");
         presenter = new PaymentSuccessPresenter(this);
+
     }
 
     @Override
@@ -130,6 +134,8 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
+
 
         if (pago instanceof Recarga) {
             title.setText(R.string.title_recarga_success);

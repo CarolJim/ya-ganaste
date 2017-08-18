@@ -15,6 +15,8 @@ public class DataIniciarSesion implements Serializable {
     private boolean EsAgente = false;//EsAdquirente
     private boolean EsAgenteRechazado;
     private boolean ConCuenta;
+
+    private int IdEstatus;
     private int EstatusDocumentacion; // TODO validar, ya que no se encuentra en la documentacion
     private int EstatusAgente = CRM_DOCTO_APROBADO;//CRM_DOCTO_APROBADO; // TODO validar, ya que no se encuentra en la documentacion
     private boolean RequiereActivacionSMS;
@@ -26,14 +28,22 @@ public class DataIniciarSesion implements Serializable {
         Usuario = new UsuarioClienteResponse();
     }
 
-    public DataIniciarSesion(boolean esUsuario, boolean esCliente, boolean esAgente, boolean conCuenta, UsuarioClienteResponse dataUser) {
+    public DataIniciarSesion(boolean esUsuario, boolean esCliente, boolean esAgente, boolean conCuenta, UsuarioClienteResponse dataUser,int idestatus) {
         EsUsuario = esUsuario;
         EsCliente = esCliente;
         EsAgente = esAgente;
         ConCuenta = conCuenta;
         Usuario = dataUser;
+        IdEstatus=idestatus;
     }
 
+    public int getIdEstatus() {
+        return IdEstatus;
+    }
+
+    public void setIdEstatus(int idEstatus) {
+        IdEstatus = idEstatus;
+    }
 
     public boolean isEsUsuario() {
         return EsUsuario;
