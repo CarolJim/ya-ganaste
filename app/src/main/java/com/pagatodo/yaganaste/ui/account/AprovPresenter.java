@@ -47,6 +47,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
     private Method currentMethod;
     private Method initProvisioning;
     private Object[] currentMethodParams;
+    private Object[] initMethodParams;
 
     private int generalReintent;
     private int individualReintent;
@@ -104,6 +105,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         Log.e(TAG, currentMethod.getName());
         initProvisioning = currentMethod;
         this.currentMethodParams = new Object[]{};
+        this.initMethodParams = new Object[]{};
         super.getActivationCode();
     }
 
@@ -211,6 +213,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         Log.e(TAG, currentMethod.getName());
         initProvisioning = currentMethod;
         this.currentMethodParams = new Object[]{tokenNotificationId, pin};
+        initMethodParams = new Object[]{tokenNotificationId, pin};
         super.setTokenNotificationId(tokenNotificationId, pin);
     }
 
@@ -245,7 +248,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
             individualReintent = 0;
             if (requiresUserFeedback) {
                 currentMethod = initProvisioning;
-                currentMethodParams = new Object[]{};
+                currentMethodParams = initMethodParams;
                 error.setAllowReintent(true);
                 handleIndividualErrorWithUserFeedback(error, navigationView);
                 return;
