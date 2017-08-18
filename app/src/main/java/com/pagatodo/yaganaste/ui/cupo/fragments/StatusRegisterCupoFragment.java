@@ -8,6 +8,7 @@ import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.SuperscriptSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -15,14 +16,23 @@ import android.widget.Button;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoSolicitud;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.cupo.interactores.CupoInteractor;
 import com.pagatodo.yaganaste.ui.cupo.interactors.StatusRegisterCupoInteractor;
+import com.pagatodo.yaganaste.ui.cupo.managers.CupoActivityManager;
+import com.pagatodo.yaganaste.ui.cupo.presenters.CupoDomicilioPersonalPresenter;
 import com.pagatodo.yaganaste.ui.cupo.presenters.StatusRegisterCupoPresenter;
 import com.pagatodo.yaganaste.ui.cupo.view.IViewStatusRegisterCupo;
+import com.pagatodo.yaganaste.utils.JsonManager;
 import com.pagatodo.yaganaste.utils.customviews.StatusViewCupo;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import org.json.JSONObject;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -34,7 +44,7 @@ import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
  * Created by Dell on 25/07/2017.
  */
 
-public class StatusRegisterCupoFragment extends GenericFragment  implements IViewStatusRegisterCupo{
+public class StatusRegisterCupoFragment extends GenericFragment  implements IViewStatusRegisterCupo {
 
     @BindView(R.id.status_view)StatusViewCupo statusViewCupo;
     @BindView(R.id.txt_status)StyleTextView statusText;
@@ -44,8 +54,10 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
     @BindView(R.id.btnNextScreen)Button mButtonContinue;
 
     private View rootview;
-    private StatusRegisterCupoPresenter mPresenter;
-    private LoaderActivity mLoader;
+
+    private CupoActivityManager cupoActivityManager;
+
+    private CupoDomicilioPersonalPresenter presenter;
 
     public static StatusRegisterCupoFragment newInstance() {
         
@@ -59,17 +71,10 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPresenter = new StatusRegisterCupoPresenter(new StatusRegisterCupoInteractor());
-        mPresenter.setView(this);
+        cupoActivityManager = ((RegistryCupoActivity) getActivity()).getCupoActivityManager();
+        presenter = new CupoDomicilioPersonalPresenter(this, getContext());
     }
 
-    @Override
-    public void onAttach(Context context) {
-        super.onAttach(context);
-        if(context != null){
-            mLoader = (LoaderActivity) context;
-        }
-    }
 
     @Nullable
     @Override
@@ -86,8 +91,7 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-
-        mPresenter.doRequestStatusRegister();
+        presenter.getEstadoSolicitudCupo();
 
     }
 
@@ -126,26 +130,59 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
     }
 
     @Override
-    public void showLoader(boolean show) {
-        if (show ) {
-            mLoader.showLoader("Solicitando Estatus");
-        }else{
-            mLoader.hideLoader();
-        }
-
-    }
-
-    @Override
-    public void showError(String error) {
-        // mLoader.showError(new ErrorObject());
-    }
-
-    @Override
     public void showStatusRegister() {
         statusText.setText("Validando\nReferencias\n1/3");
         statusViewCupo.updateStatus(33,0);
         statusViewCupo.updateError(66, 33);
 
+
+    }
+
+    @Override
+    public void setResponseEstadoCupo(DataEstadoSolicitud dataEstadoSolicitud) {
+        Log.e("Data respuesta fragment", createParams(false, dataEstadoSolicitud).toString());
+    }
+
+
+    private static JSONObject createParams(boolean envolve, Object oRequest) {
+
+        if (oRequest != null) {
+            JSONObject tmp = JsonManager.madeJsonFromObject(oRequest);
+            if (envolve) {
+                if (oRequest instanceof AdqRequest) {
+                    return JsonManager.madeJsonAdquirente(tmp);
+                } else {
+                    return JsonManager.madeJson(tmp);
+                }
+            } else {
+                return tmp;
+            }
+        }
+        return null;
+    }
+
+    @Override
+    public void nextScreen(String event, Object data) {
+
+    }
+
+    @Override
+    public void backScreen(String event, Object data) {
+
+    }
+
+    @Override
+    public void showLoader(String message) {
+
+    }
+
+    @Override
+    public void hideLoader() {
+
+    }
+
+    @Override
+    public void showError(Object error) {
 
     }
 }

@@ -18,10 +18,14 @@ import com.pagatodo.yaganaste.data.model.webservice.request.cupo.CupoReferencia;
 import com.pagatodo.yaganaste.data.model.webservice.request.cupo.Domicilio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CargaDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataEstatusUsuario;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.CrearCupoSolicitudResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoSolicitud;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
@@ -29,7 +33,7 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
-import com.pagatodo.yaganaste.ui.cupo.interactores.interfaces.IDomicilioPersonalInteractor;
+import com.pagatodo.yaganaste.ui.cupo.interactores.interfaces.ICupoInteractor;
 import com.pagatodo.yaganaste.utils.JsonManager;
 
 import org.json.JSONObject;
@@ -39,6 +43,7 @@ import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREA_SOLICITUD_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
@@ -46,19 +51,20 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICIL
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
+import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
 
 /**
  * Created by Horacio on 03/08/17.
  */
 
-public class DomicilioPersonalInteractor implements IDomicilioPersonalInteractor, IRequestResult {
+public class CupoInteractor implements ICupoInteractor, IRequestResult {
 
     INavigationView iNavigationView;
-    private String TAG = DomicilioPersonalInteractor.class.getSimpleName();
+    private String TAG = CupoInteractor.class.getSimpleName();
     private IAccountManager accountManager;
     private Context context;
 
-    public DomicilioPersonalInteractor(IAccountManager accountManager, Context ctx, INavigationView iNavigationView) {
+    public CupoInteractor(IAccountManager accountManager, Context ctx, INavigationView iNavigationView) {
         this.accountManager = accountManager;
         context = ctx;
         this.iNavigationView = iNavigationView;
@@ -114,9 +120,20 @@ public class DomicilioPersonalInteractor implements IDomicilioPersonalInteractor
         } catch (OfflineException e) {
             accountManager.onError(CARGA_DOCUMENTOS_CUPO, App.getInstance().getString(R.string.no_internet_access));
         }
-
-
     }
+
+
+
+    @Override
+    public void getEstadoSolicitudCupo() {
+        try {
+            ApiAdtvo.consultaStatusRegistroCupo(this);
+        } catch (OfflineException e) {
+            accountManager.onError(CONSULTA_STATUS_REGISTRO_CUPO, App.getInstance().getString(R.string.no_internet_access));
+        }
+    }
+
+
 
 
 
@@ -230,8 +247,33 @@ public class DomicilioPersonalInteractor implements IDomicilioPersonalInteractor
                 case CREA_SOLICITUD_CUPO:
                     processSolicitudCupo(dataSourceResult);
                     break;
+                case CONSULTA_STATUS_REGISTRO_CUPO:
+                    Log.e("Test", "Respuesta Carga de docuementos exitosa");
+                    processEstadoRegistro(dataSourceResult);
+                    break;
             }
         }
+    }
+
+    private void processEstadoRegistro(DataSourceResult dataSourceResult) {
+
+        EstadoSolicitudResponse data = (EstadoSolicitudResponse) dataSourceResult.getData();
+        /*
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            DataEstadoSolicitud estadoSolicitud = data.getData();
+            if (estadoSolicitud != null) {
+                accountManager.onSucces(dataSourceResult.getWebService(), estadoSolicitud);
+            } else {
+                accountManager.onError(dataSourceResult.getWebService(), "Ocurrio un Error al Consultar el Estado de Solicitud de Cupo");//Retornamos mensaje de error.
+            }
+        } else {
+            //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
+            accountManager.onError(dataSourceResult.getWebService(), data.getMensaje());//Retornamos mensaje de error.
+        }
+        */
+
+
+
     }
 
 

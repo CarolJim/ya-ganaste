@@ -28,7 +28,7 @@ public class StatusRegisterCupoPresenter  implements IStatusRegisterCupo {
     @Override
     public void doRequestStatusRegister() {
         if(mView != null){
-            mView.showLoader(true);
+            //mView.showLoader(true);
         }
 
         if(mInteractor != null){
@@ -39,7 +39,7 @@ public class StatusRegisterCupoPresenter  implements IStatusRegisterCupo {
     @Override
     public void onObtainStatusSuccess(DataSourceResult dataSourceResult) {
         if(mView != null){
-            mView.showLoader(false);
+            //mView.showLoader(false);
             mView.showStatusRegister();
         }
 
@@ -49,7 +49,7 @@ public class StatusRegisterCupoPresenter  implements IStatusRegisterCupo {
     @Override
     public void onObtainStatusFailed(DataSourceResult dataSourceResult) {
         if(mView != null){
-            mView.showLoader(false);
+            //mView.showLoader(false);
 
             //todo CUPO ajustar flujo en caso de que el request falle
             if(dataSourceResult.getData() instanceof OfflineException){

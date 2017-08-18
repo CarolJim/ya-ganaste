@@ -8,7 +8,7 @@ import java.util.ArrayList;
  * Created by Tato on 03/08/17.
  */
 
-public interface IDomicilioPersonalInteractor {
+public interface ICupoInteractor {
 
     void getNeighborhoodByZipCode(String zipCode);
 
@@ -19,6 +19,8 @@ public interface IDomicilioPersonalInteractor {
     void sendDocuments(ArrayList<DataDocuments> string);
 
     void createSolicitudCupo();
+
+    void getEstadoSolicitudCupo();
 
 
 

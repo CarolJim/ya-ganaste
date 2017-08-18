@@ -78,6 +78,7 @@
     <!--Métodos de WS CUPO-->
     <string name="cupoCrearSolicitudCupo">/CrearSolicitudCupo</string>
     <string name="cupoCargaDocumentos">/CargaDocumentosCupo</string>
+    <string name="cupoObtenerSolicitudCupo">/ObtenerSolicitudCupo</string>
 
     <!-- <string name="adqSendTicket">/agMov/sendTicket</string> -->
     <string name="adqSendTicket">/agMov/sendTicketADQ</string>

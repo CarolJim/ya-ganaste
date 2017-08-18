@@ -61,6 +61,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormat
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.CrearCupoSolicitudResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 
@@ -79,6 +80,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_MOVIMIENTOS_MES;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_FWS;
@@ -700,6 +702,20 @@ public class ApiAdtvo extends Api {
                 headers,
                 request,
                 CargaDocumentosResponse.class,
+                result);
+    }
+
+    public static void consultaStatusRegistroCupo(IRequestResult result) throws OfflineException{
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
+        NetFacade.consumeWS(
+                CONSULTA_STATUS_REGISTRO_CUPO,
+                METHOD_GET,
+                /*URL_SERVER_ADTVO*/ "http://10.140.140.247:9000"  + App.getContext().getString(R.string.cupoObtenerSolicitudCupo),
+                headers,
+                null,
+                EstadoSolicitudResponse.class ,
                 result);
     }
 

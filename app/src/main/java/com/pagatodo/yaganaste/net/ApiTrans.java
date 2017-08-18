@@ -254,19 +254,4 @@ public class ApiTrans extends Api {
                 headers, null, ConsultarSaldoADQResponse.class, result);
     }
 
-
-
-
-    public static void consultaStatusRegistroCupo(IRequestResult result) throws OfflineException{
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
-
-        //todo CUPO  poner URL correcta  y Class Response adecuada
-        String URL = "";
-        Class classResponse = Object.class;
-
-        NetFacade.consumeWS(CONSULTA_STATUS_REGISTRO_CUPO,METHOD_GET,URL,headers,null, classResponse,result);
-    }
-
 }

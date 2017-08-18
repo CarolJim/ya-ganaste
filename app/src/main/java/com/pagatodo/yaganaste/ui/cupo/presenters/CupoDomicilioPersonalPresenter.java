@@ -5,26 +5,22 @@ import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
-import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoSolicitud;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
-import com.pagatodo.yaganaste.interfaces.IAdqRegisterView;
 import com.pagatodo.yaganaste.interfaces.IDocumentsPresenter;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
-import com.pagatodo.yaganaste.interfaces.View;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;
-import com.pagatodo.yaganaste.ui.account.AccountInteractorNew;
-import com.pagatodo.yaganaste.ui.cupo.interactores.DomicilioPersonalInteractor;
-import com.pagatodo.yaganaste.ui.cupo.interactores.interfaces.IDomicilioPersonalInteractor;
+import com.pagatodo.yaganaste.ui.cupo.interactores.CupoInteractor;
+import com.pagatodo.yaganaste.ui.cupo.interactores.interfaces.ICupoInteractor;
 import com.pagatodo.yaganaste.ui.cupo.presenters.interfaces.IViewDomicilioPersonalPresenter;
 import com.pagatodo.yaganaste.ui.cupo.view.IViewCupoComprobantes;
 import com.pagatodo.yaganaste.ui.cupo.view.IViewDomicilioPersonal;
-import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
+import com.pagatodo.yaganaste.ui.cupo.view.IViewStatusRegisterCupo;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.UI;
 
@@ -44,12 +40,12 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
     private Context context;
     private INavigationView iNavigationView;
     private String TAG = getClass().getSimpleName();
-    private IDomicilioPersonalInteractor iteractor;
+    private ICupoInteractor iteractor;
 
     public CupoDomicilioPersonalPresenter(INavigationView iNavigationView, Context context) {
         this.context = context;
         this.iNavigationView = iNavigationView;
-        iteractor = new DomicilioPersonalInteractor(this, context, iNavigationView);
+        iteractor = new CupoInteractor(this, context, iNavigationView);
     }
 
 
@@ -65,6 +61,9 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
         iteractor.getNeighborhoodByZipCode(zipCode);
     }
 
+
+
+
     @Override
     public void onSucces(WebService ws, Object msgSuccess) {
         iNavigationView.hideLoader();
@@ -74,6 +73,8 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
             ((IViewCupoComprobantes) iNavigationView).setResponseDocuments();
         } else if (ws == CREA_SOLICITUD_CUPO) {
             ((IViewDomicilioPersonal) iNavigationView).setResponseCreaSolicitudCupo();
+        } else if (ws == CREA_SOLICITUD_CUPO) {
+            ((IViewStatusRegisterCupo) iNavigationView).setResponseEstadoCupo((DataEstadoSolicitud) msgSuccess );
         }
     }
 
@@ -129,6 +130,12 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
     public void createCupoSolicitud() {
         iNavigationView.showLoader(context.getString(R.string.solicitud_cupo));
         iteractor.createSolicitudCupo();
+    }
+
+    @Override
+    public void getEstadoSolicitudCupo() {
+        iNavigationView.showLoader(context.getString(R.string.obteniendo_domicilio));
+        iteractor.getEstadoSolicitudCupo();
     }
 
 
