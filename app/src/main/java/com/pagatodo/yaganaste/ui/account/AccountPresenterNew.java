@@ -14,7 +14,6 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionR
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
-import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.IAccountAddressRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;

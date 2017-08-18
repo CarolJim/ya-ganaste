@@ -148,8 +148,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
             if (ws == OBTENER_DOCUMENTOS) {
                 ((IUploadDocumentsView) iAdqView).setDocumentosStatus((List<EstatusDocumentosResponse>) data);
             } else if (ws == CARGA_DOCUMENTOS) {
-                ((IUploadDocumentsView) iAdqView).documentsUploaded(
-                        App.getContext().getResources().getString(R.string.execution_success));
+                ((IUploadDocumentsView) iAdqView).documentsUploaded("");
             } else if (ws == ACTUALIZAR_DOCUMENTOS) {
                 ((IUploadDocumentsView) iAdqView).documentosActualizados(App.getContext().getResources().getString(R.string.adq_upgrade_documents));
             }

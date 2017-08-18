@@ -278,7 +278,7 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void recoveryPasswordSuccess(String message) {
-        UI.showToastShort(message, getActivity());
+        //UI.showToastShort(message, getActivity());
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 backScreen(null, null);

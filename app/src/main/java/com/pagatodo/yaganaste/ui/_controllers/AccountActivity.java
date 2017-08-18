@@ -31,7 +31,6 @@ import com.pagatodo.yaganaste.ui.account.register.Couchmark;
 import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
 import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
-import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
 import com.pagatodo.yaganaste.utils.Constants;
@@ -39,7 +38,6 @@ import com.pagatodo.yaganaste.utils.UI;
 
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_FAILED;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_SUCCES;
-import static com.pagatodo.yaganaste.App.getContext;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
@@ -229,11 +227,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 //tokenSesionAdquirente = "MiSuperTokenAdquirente";
                 //isAdquirente = "";
 
-                if(tokenSesionAdquirente != null && !tokenSesionAdquirente.isEmpty() && !isAdquirente){
+                if (tokenSesionAdquirente != null && !tokenSesionAdquirente.isEmpty() && !isAdquirente) {
                     // getActivity().finish();
                     Intent intent = new Intent(AccountActivity.this, LandingApprovedActivity.class);
                     startActivity(intent);
-                }else{
+                } else {
                     Intent intent = new Intent(AccountActivity.this, TabActivity.class);
                     startActivity(intent);
                     finish();
