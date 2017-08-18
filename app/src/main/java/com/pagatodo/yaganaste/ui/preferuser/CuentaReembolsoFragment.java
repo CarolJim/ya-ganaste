@@ -13,12 +13,12 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CuentaReenbolsoFragment  extends GenericFragment implements View.OnClickListener  {
+public class CuentaReembolsoFragment extends GenericFragment implements View.OnClickListener  {
 
 
-    public static CuentaReenbolsoFragment newInstance(){
+    public static CuentaReembolsoFragment newInstance(){
 
-        CuentaReenbolsoFragment  cuentaReenbolsoFragment= new CuentaReenbolsoFragment();
+        CuentaReembolsoFragment cuentaReenbolsoFragment= new CuentaReembolsoFragment();
         return cuentaReenbolsoFragment;
     }
 
@@ -27,7 +27,7 @@ public class CuentaReenbolsoFragment  extends GenericFragment implements View.On
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_cuenta_reenbolso, container, false);
+        return inflater.inflate(R.layout.fragment_cuenta_reembolso, container, false);
     }
 
     @Override

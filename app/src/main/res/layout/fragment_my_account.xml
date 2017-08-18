@@ -60,7 +60,7 @@
                         android:layout_gravity="center"
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
-                        android:text="@string/aviso_privacidad_cuenta_ganaste" />
+                        android:text="@string/cuentareebolso" />
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="17dp"
