@@ -32,6 +32,7 @@ import com.pagatodo.yaganaste.utils.NumberTagPase;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.io.File;
@@ -111,15 +112,12 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
         int longitudReferencia = comercioItem.getLongitudReferencia();
         if (longitudReferencia > 0 && longitudReferencia != 10) {
             InputFilter[] fArray = new InputFilter[1];
-            fArray[0] = new InputFilter.LengthFilter(longitudReferencia);
+            fArray[0] = new InputFilter.LengthFilter(Utils.calculateFilterLength(longitudReferencia));
             recargaNumber.setFilters(fArray);
         }
 
-        if (isIAVE) {
-            InputFilter[] fArray = new InputFilter[1];
-            fArray[0] = new InputFilter.LengthFilter(16);
-            recargaNumber.setFilters(fArray);
 
+        if (isIAVE) {
             recargaNumber.addTextChangedListener(new NumberTagPase(recargaNumber));
             recargaNumber.setHint(getString(R.string.tag_number));
             layoutImageContact.setVisibility(View.GONE);

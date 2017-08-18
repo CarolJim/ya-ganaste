@@ -582,7 +582,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
     @Override
     public void hideLoader() {
-        if (isMenuVisible() && onEventListener != null) {
+        if (getParentFragment().isMenuVisible() && onEventListener != null) {
             onEventListener.onEvent(EVENT_HIDE_LOADER, null);
         }
         swipeRefreshLayout.setRefreshing(false);
@@ -676,7 +676,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     }
 
     private void refreshContent() {
-        if (isMenuVisible()) {
+        if (getParentFragment().isMenuVisible()) {
             showLoader(getString(R.string.recuperando_docs_estatus));
         } else {
             swipeRefreshLayout.setRefreshing(true);

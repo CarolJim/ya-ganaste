@@ -492,6 +492,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         if (error != null && error.getWebService() == LOGIN_ADQ) {
             checkAfterLogin();
         } else {
+            if (error.getWebService() == INICIAR_SESION_SIMPLE && RequestHeaders.getTokenauth().isEmpty()) {
+                RequestHeaders.setUsername("");
+            }
             accountManager.onError(error.getWebService(), error.getData().toString());
         }
     }

@@ -45,6 +45,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK;
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * Created by Jordan on 27/04/2017.
@@ -191,7 +192,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
                 formatoPago = StringUtils.formatoPagoMediostag(formatoPago);
             }
         } else if (pago instanceof Servicios) {
-
+            formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
         } else if (pago instanceof Envios) {
             // Log.d("PaymentSuccessFragment", "Punto de Debug");
             formatoPago = StringUtils.formatoPagoMedios(formatoPago);

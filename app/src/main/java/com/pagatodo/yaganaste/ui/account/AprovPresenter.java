@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.account;
 
 import android.content.Context;
+import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.pagatodo.yaganaste.App;
@@ -20,8 +21,10 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
+import com.pagatodo.yaganaste.utils.StringConstants;
 
 import java.lang.reflect.Method;
+import java.util.concurrent.atomic.AtomicBoolean;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
@@ -36,6 +39,8 @@ import static com.pagatodo.yaganaste.utils.StringConstants.USER_PROVISIONED;
  */
 
 public abstract class AprovPresenter extends ProvisioningPresenterAbs implements IAprovPresenter, IAccountManager {
+
+    private static final String TAG = AprovPresenter.class.getSimpleName();
     private IAprovIteractor aprovIteractor;
     private IAprovView aprovView;
     private Preferencias prefs = App.getInstance().getPrefs();
@@ -49,6 +54,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
 
     private final int maxIntents = 3;
     private Preferencias preferencias;
+    private static AtomicBoolean isProvisioning = new AtomicBoolean(false);
 
 
 
@@ -67,21 +73,25 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
     }
 
     public void doProvisioning(){
-        reset();
-        if (!preferencias.containsData(HAS_PROVISIONING) || !preferencias.loadData(USER_PROVISIONED).equals(RequestHeaders.getUsername())) {
-            aprovView.showLoader("");
-            getActivationCode();
-        } else if (!preferencias.containsData(HAS_PUSH)){
-            subscribePushNotification();
+        if (!isProvisioning.get()) {
+            isProvisioning.set(true);
+            reset();
+            if (!preferencias.containsData(HAS_PROVISIONING) || !preferencias.loadData(USER_PROVISIONED).equals(RequestHeaders.getUsername())) {
+                aprovView.showLoader("");
+                getActivationCode();
+            } else if (!preferencias.containsData(HAS_PUSH)){
+                subscribePushNotification();
+            } else {
+                isProvisioning.set(false);
+            }
         }
-
     }
 
     /***
      *Implementación de Aprovisionamiento*
      *
      * */
-    public void reset() {
+    private void reset() {
         this.generalReintent = 0;
         this.individualReintent = 0;
     }
@@ -91,6 +101,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         aprovView.showLoader("");
         individualReintent++;
         this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        Log.e(TAG, currentMethod.getName());
         initProvisioning = currentMethod;
         this.currentMethodParams = new Object[]{};
         super.getActivationCode();
@@ -110,6 +121,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         aprovView.showLoader("");
         individualReintent++;
         this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        Log.e(TAG, currentMethod.getName());
         this.currentMethodParams = new Object[]{codeActivation};
         VerificarActivacionAprovSofttokenRequest request = new VerificarActivacionAprovSofttokenRequest(codeActivation);
         aprovIteractor.verifyActivationAprov(request);
@@ -120,6 +132,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         aprovView.showLoader("");
         individualReintent++;
         this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        Log.e(TAG, currentMethod.getName());
         this.currentMethodParams = new Object[]{};
         super.getPinPolicy();
     }
@@ -136,6 +149,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         aprovView.showLoader("");
         individualReintent++;
         this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        Log.e(TAG, currentMethod.getName());
         this.currentMethodParams = new Object[]{pin};
         super.registerPin(pin);
     }
@@ -152,6 +166,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         aprovView.showLoader("");
         individualReintent++;
         this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        Log.e(TAG, currentMethod.getName());
         this.currentMethodParams = new Object[]{codeActivation};
         ActivacionAprovSofttokenRequest request = new ActivacionAprovSofttokenRequest(codeActivation);
         aprovIteractor.activationAprov(request);
@@ -159,6 +174,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
 
     @Override
     public void onSucces(WebService ws, Object msgSuccess) {
+        Log.e(TAG, "onSucces: " + ws.toString());
         aprovView.showLoader("");
         if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) {
             individualReintent = 0;
@@ -172,6 +188,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
 
     @Override
     public void onError(WebService ws, Object error) {
+        Log.e(TAG, "onError: " + ws.toString());
         if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) {
             onError(Errors.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN);
         } else if (ws == ACTIVACION_APROV_SOFTTOKEN) {
@@ -191,6 +208,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
     public void setTokenNotificationId(String tokenNotificationId, String pin) {
         aprovView.showLoader("");
         this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
+        Log.e(TAG, currentMethod.getName());
         initProvisioning = currentMethod;
         this.currentMethodParams = new Object[]{tokenNotificationId, pin};
         super.setTokenNotificationId(tokenNotificationId, pin);
@@ -206,6 +224,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
 
     @Override
     public void onError(final Errors error) {
+        Log.e(TAG, "onError: " + error.getMessage() + "\n Code: " + String.valueOf(error.getErrorCode()));
         final INavigationView navigationView =
                 aprovView instanceof INavigationView ? (INavigationView) aprovView : null;
 
@@ -236,6 +255,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
             }
         }
         aprovView.hideLoader();
+        isProvisioning.set(false);
         if (navigationView != null) {
             navigationView.nextScreen(EVENT_APROV_FAILED, null);
         }
@@ -255,12 +275,15 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
                         e.printStackTrace();
                     }
                 } else {
+                    isProvisioning.set(false);
                     navigationView.nextScreen(EVENT_APROV_FAILED, null);
+
                 }
             }
 
             @Override
             public void actionCancel(Object... params) {
+                isProvisioning.set(false);
                 navigationView.nextScreen(EVENT_APROV_FAILED, null);
             }
         };

@@ -71,6 +71,7 @@ import javax.crypto.Cipher;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
+import static com.pagatodo.yaganaste.utils.Recursos.GROUP_FORMAT;
 import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 
 
@@ -1278,5 +1279,9 @@ public class Utils {
         else{
             return false;
         }
+    }
+
+    public static int calculateFilterLength(int rawLength) {
+        return rawLength += (rawLength - 1) / GROUP_FORMAT;
     }
 }

@@ -112,6 +112,10 @@ public enum  Errors {
         return message;
     }
 
+    public int getErrorCode() {
+        return errorCode;
+    }
+
     public boolean allowsReintent() {
         return this.allowReintent;
     }

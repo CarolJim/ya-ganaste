@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.payments.presenters;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.ui.otp.presenters.OtpPresenterImp;
 import com.pagatodo.yaganaste.ui.payments.interactors.PaymentAuthorizeInteractor;
 import com.pagatodo.yaganaste.ui.payments.interactors.interfaces.IPaymentAuthorizeInteractor;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentAuthorizeManager;
@@ -15,13 +16,14 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO
  * Created by Jordan on 14/08/2017.
  */
 
-public class PaymentAuthorizePresenter implements IPaymentAuthorizePresenter {
+public class PaymentAuthorizePresenter extends OtpPresenterImp implements IPaymentAuthorizePresenter {
 
     IPaymentAuthorizeInteractor interactor;
     PaymentAuthorizeManager manager;
 
 
     public PaymentAuthorizePresenter(PaymentAuthorizeManager manager) {
+        super(App.getInstance(), manager);
         interactor = new PaymentAuthorizeInteractor(this);
         this.manager = manager;
     }

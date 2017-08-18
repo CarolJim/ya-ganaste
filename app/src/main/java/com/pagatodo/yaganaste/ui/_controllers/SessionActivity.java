@@ -29,8 +29,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 
 
-public class SessionActivity extends ToolBarActivity implements TabsView, OnEventListener,
-        View.OnClickListener, IAprovView {
+public class SessionActivity extends ToolBarActivity implements TabsView, OnEventListener, View.OnClickListener, IAprovView {
 
     public final static int REQUESTCODE_OTP = 415;
     public final static String EVENT_GO_OTP = "EVENTGOOTP";
