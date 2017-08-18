@@ -209,6 +209,7 @@
     <string name="inserta_el_lector_para_ncontinuar">Inserta Tu Lector de Tarjetas\nYa Ganaste</string>
     <!--<string name="text_slide_or_insert">Inserta o Desliza la Tarjeta Para Continuar.</string>-->
     <string name="text_slide_or_insert">Inserta la Tarjeta Con Chip</string>
+    <string name="text_slide_or_insert_cancelation">Inserta la Misma Tarjeta Con\nla Que se Hizo el Cobro</string>
     <string name="finalizar">Finalizar</string>
     <string name="insert_slide_card">Inserta o desliza la tarjeta</string>
     <string name="no_internet_access">No Cuentas Con Conexión a Internet</string>
@@ -237,10 +238,11 @@
 
     <string name="cobrar">Cobrar</string>
     <string name="validatelector"></string>
-    <string name="startpayment">Realizando Pago ...</string>
+    <string name="startpayment">Realizando Pago</string>
     <string name="validatelectorOk">Lector Validado</string>
-    <string name="initlector">Configurando el Lector ...</string>
+    <string name="initlector">Configurando el Lector</string>
     <string name="readcard">Estamos Procesando \nel Cobro</string>
+    <string name="readcard_cancelation">Estamos Procesando \nla Cancelación</string>
     <string name="fecha_formater">%1$s/%2$s/%3$s</string>
     <string name="metodo_transaction">TransactionEmvDepositAccount</string>
     <string name="rfc">rfc</string>
@@ -685,10 +687,10 @@
     <string name="landing_adq_rojos">Y En Rojo, Los Cobros\nQue Cancelaste</string>
 
     <string name="aprobada">Aprobado</string>
-    <string name="pago_success">El Pago Fue Completado\nCorrectamente.</string>
+    <string name="pago_success">El Pago Fue Completado\nCorrectamente</string>
     <string name="execution_success">Ejecución Éxitosa</string>
     <string name="cancelation_success">Cancelación Exitosa</string>
-    <string name="cancelation_success_message">El Cobro Fue Cancelado\nCorrectamente.</string>
+    <string name="cancelation_success_message">El Cobro Fue Cancelado\nCorrectamente</string>
     <string name="mount_be_higer">El Monto Tiene Que Ser Mayor</string>
     <string name="mount_valid">Ingresa un Monto Válido.</string>
     <string name="enter_mount">Por Favor Ingrese un Monto</string>
