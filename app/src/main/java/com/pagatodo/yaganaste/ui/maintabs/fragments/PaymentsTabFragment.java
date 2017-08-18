@@ -282,7 +282,8 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         if (fragmentList != null) {
             if (requestCode == CONTACTS_CONTRACT) {
                 for (Fragment fragment : fragmentList) {
-                    if (fragment instanceof RecargasFormFragment) {
+                    if (fragment instanceof RecargasFormFragment
+                            || fragment instanceof EnviosFormFragment) {
                         fragment.onActivityResult(requestCode, resultCode, data);
                         break;
 

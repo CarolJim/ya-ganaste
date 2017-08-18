@@ -9,6 +9,8 @@ import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -23,9 +25,29 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
  * A simple {@link Fragment} subclass.
  */
 public class MyAccountFragment extends GenericFragment implements View.OnClickListener{
-
+    private int Idestatus;
     @BindView(R.id.fragment_my_account_reembolso)
     LinearLayout txtreebolso;
+    @BindView(R.id.lineareebolso)
+    View lreembolso;
+
+
+
+
+    @BindView(R.id.fragment_my_account_linea_credito)
+    LinearLayout solicita_credito;
+    @BindView(R.id.llcredito)
+    View llcredito;
+
+
+
+
+
+
+
+
+
+
     View rootview;
 
     public MyAccountFragment() {
@@ -41,6 +63,7 @@ public class MyAccountFragment extends GenericFragment implements View.OnClickLi
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
+        Idestatus= SingletonUser.getInstance().getDataUser().getIdEstatus();
         rootview = inflater.inflate(R.layout.fragment_my_account, container, false);
         initViews();
 
@@ -51,6 +74,23 @@ public class MyAccountFragment extends GenericFragment implements View.OnClickLi
     public void initViews() {
         ButterKnife.bind(this, rootview);
         txtreebolso.setOnClickListener(this);
+        if (Idestatus== IdEstatus.I16.getId()){
+            txtreebolso.setVisibility(View.VISIBLE);
+            lreembolso.setVisibility(View.VISIBLE);
+            llcredito.setVisibility(View.GONE);
+            solicita_credito.setVisibility(View.GONE);
+        }
+        if (Idestatus== IdEstatus.I5.getId()){
+            txtreebolso.setVisibility(View.GONE);
+            lreembolso.setVisibility(View.GONE);
+            llcredito.setVisibility(View.VISIBLE);
+            solicita_credito.setVisibility(View.VISIBLE);
+        }
+
+
+
+
+
 
     }
 

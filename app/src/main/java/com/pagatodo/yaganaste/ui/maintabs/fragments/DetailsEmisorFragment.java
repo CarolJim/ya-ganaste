@@ -203,9 +203,9 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         layoutFechaDescripcion.setVisibility(VISIBLE);
         txtFechaDescripcion.setText(movimientosResponse.getFechaMovimiento());
         layoutHora.setVisibility(VISIBLE);
-        txtHoraDescripcion.setText(movimientosResponse.getHoraMovimiento() + " hrs");
+        txtHoraDescripcion.setText(movimientosResponse.getHoraMovimiento().concat(" hrs"));
         layoutAutorizacon.setVisibility(VISIBLE);
-        txtAutorizacionDescripcion.setText(movimientosResponse.getNumAutorizacion().trim().toString());
+        txtAutorizacionDescripcion.setText(movimientosResponse.getNumAutorizacion().trim());
 
         switch (TipoTransaccionPCODE.getTipoTransaccionById(movimientosResponse.getIdTipoTransaccion())) {
             case RECARGA://1
@@ -232,17 +232,29 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 layoutReferencia.setVisibility(VISIBLE);
                 txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
                 break;
-            case TRES://3
-
-                break;
-            case TRASPASO_MISMO_BANCO_ABONO://4
-                layoutConcepto.setVisibility(VISIBLE);
-                txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
-                break;
-            case TRASPASO_MISMO_BANCO_CARGO://5
+            case TRASPASO_MISMO_BANCO_CARGO://3
                 layoutReferencia.setVisibility(VISIBLE);
                 txtReferenciaTitle.setText(getReferencuaTitleType(movimientosResponse.getReferencia()));
                 txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+                layoutConcepto.setVisibility(VISIBLE);
+                txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
+                break;
+            case SPEI_CARGO://4
+                layoutComision.setVisibility(VISIBLE);
+                txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
+                layoutIVA.setVisibility(VISIBLE);
+                txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
+                layoutReferencia.setVisibility(VISIBLE);
+                txtReferenciaTitle.setText(getReferencuaTitleType(movimientosResponse.getReferencia()));
+                txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+                layoutConcepto.setVisibility(VISIBLE);
+                txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
+                layoutClaveRastreo.setVisibility(VISIBLE);
+                txtClaveRastreo.setText(movimientosResponse.getClaveRastreo());
+                layoutNumeroReferencia.setVisibility(VISIBLE);
+                txtNumeroReferencia.setText(movimientosResponse.getReferenciaNum());
+                break;
+            case TRASPASO_MISMO_BANCO_ABONO://5
                 layoutConcepto.setVisibility(VISIBLE);
                 txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
                 break;
@@ -254,21 +266,11 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 layoutNumeroReferencia.setVisibility(VISIBLE);
                 txtNumeroReferencia.setText(movimientosResponse.getReferenciaNum());
                 break;
-            case SPEI_CARGO://7
-                layoutComision.setVisibility(VISIBLE);
-                txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
-                layoutIVA.setVisibility(VISIBLE);
-                txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
-                txtReferenciaTitle.setText(getReferencuaTitleType(movimientosResponse.getReferencia()));
-                txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
-                layoutConcepto.setVisibility(VISIBLE);
-                txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
-                layoutClaveRastreo.setVisibility(VISIBLE);
-                txtClaveRastreo.setText(movimientosResponse.getClaveRastreo());
-                layoutNumeroReferencia.setVisibility(VISIBLE);
-                txtNumeroReferencia.setText(movimientosResponse.getReferenciaNum());
+
+            case SIETE://7
+
                 break;
-            case COMPRA://8
+            case COMPRA:
 
                 break;
             case RETIRO_DE_DINERO_ATM://9

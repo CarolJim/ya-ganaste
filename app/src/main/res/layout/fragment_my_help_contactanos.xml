@@ -8,11 +8,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -63,11 +63,11 @@
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
                             android:src="@drawable/ic_phone_white_24dp"
-                            android:tint="@color/colorAccent" />
+                            android:tint="@color/colorAccent"
+                            android:visibility="visible" />
 
-                        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             android:id="@+id/btnllamar"
-
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
@@ -96,6 +96,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_gravity="center"
+                            android:src="@drawable/ic_email_white_24dp"
                             android:tint="@color/colorAccent" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView

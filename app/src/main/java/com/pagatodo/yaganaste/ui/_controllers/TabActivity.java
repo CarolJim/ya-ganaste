@@ -151,6 +151,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
             }
         });
+        tabPresenter.doProvisioning();
     }
 
     @Override
@@ -377,7 +378,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     @Override
     public void finishAssociation() {
-
+        hideLoader();
     }
 
 }

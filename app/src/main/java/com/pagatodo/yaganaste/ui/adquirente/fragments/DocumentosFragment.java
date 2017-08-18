@@ -70,7 +70,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_APROBADO;
-import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 
 
@@ -242,15 +241,19 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 break;
 
             case R.id.btnRegresar:
-                if (mExisteDocs) {
-                    bacToHome();
-                } else {
-                    backToRegister();
-                }
+                onBtnBack();
                 break;
 
             default:
                 break;
+        }
+    }
+
+    public void onBtnBack() {
+        if (mExisteDocs) {
+            bacToHome();
+        } else {
+            backToRegister();
         }
     }
 
@@ -596,7 +599,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
     @Override
     public void hideLoader() {
-        if (isMenuVisible() && onEventListener != null) {
+        if (getParentFragment().isMenuVisible() && onEventListener != null) {
             onEventListener.onEvent(EVENT_HIDE_LOADER, null);
         }
         swipeRefreshLayout.setRefreshing(false);
@@ -712,7 +715,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     }
 
     private void refreshContent() {
-        if (isMenuVisible()) {
+        if (getParentFragment().isMenuVisible()) {
             showLoader(getString(R.string.recuperando_docs_estatus));
         } else {
             swipeRefreshLayout.setRefreshing(true);

@@ -13,6 +13,8 @@ import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
+import com.pagatodo.yaganaste.freja.Errors;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentAuthorizeManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentAuthorizePresenter;
@@ -20,6 +22,7 @@ import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentAuthoriz
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -226,7 +229,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     @Override
     public void validationPasswordSucces() {
-        onEventListener.onEvent(EVENT_SEND_PAYMENT, envio);
+        paymentAuthorizePresenter.generateOTP(Utils.getSHA256(password));
     }
 
     @Override
@@ -243,5 +246,34 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void hideLoader() {
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+    }
+
+    @Override
+    public void onOtpGenerated(String otp) {
+        onEventListener.onEvent(EVENT_SEND_PAYMENT, envio);
+    }
+
+    @Override
+    public void showError(final Errors error) {
+        hideLoader();
+
+        DialogDoubleActions actions = new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                if (error.allowsReintent()) {
+                    paymentAuthorizePresenter.generateOTP(Utils.getSHA256(password));
+                } else {
+                    getActivity().onBackPressed();
+                }
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+                getActivity().onBackPressed();
+            }
+        };
+
+        UI.createSimpleCustomDialog("", error.getMessage(), getActivity().getSupportFragmentManager(),
+                actions, true, error.allowsReintent());
     }
 }

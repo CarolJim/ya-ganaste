@@ -23,6 +23,7 @@ public class Recursos {
     public static final String PIN_YA;
 
     public static final int IDCOMERCIO_YA_GANASTE = 8609;
+    public static final int GROUP_FORMAT = 4;
 
     public static final boolean DEBUG = true;
 

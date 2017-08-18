@@ -18,6 +18,7 @@ import java.util.Calendar;
 import java.util.Collections;
 import java.util.Locale;
 
+import static com.pagatodo.yaganaste.utils.Recursos.GROUP_FORMAT;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
@@ -244,6 +245,51 @@ public class StringUtils {
             }
         }
         return format.toString();
+    }
+
+
+    /**
+     * Metodo que da formato generico en 4 4 4 4 4 4 4 de derecha a izquierda, ejemplo:
+     * <p>
+     *     Si son 8 digitos el formato regresado es: 2 4 4
+     * </p>
+     * <p>
+     *     Si son 13 Digitos el formato será: 1 4 4 4
+     * </p>
+     * @param text Texto a formatear
+     * @param separator Texto separador entre grupos
+     * @return
+     */
+    public static String genericFormat(String text, String separator) {
+
+        int groups = (text.length() - 1) / GROUP_FORMAT + 1;
+        int[] formatPattern = new int[groups];
+        Arrays.fill(formatPattern, GROUP_FORMAT);
+        StringBuilder format = new StringBuilder();
+        int size = 0;
+        for (int current : formatPattern) {
+            size+= current;
+        }
+        if (text != null && text.length() <= size) {
+
+            int currentGroup = formatPattern.length - 1;
+            int currentSize = formatPattern[currentGroup];
+            for (int n = text.length()-1 ; n >= 0 ; n--){
+                format.insert(0, text.charAt(n));
+                currentSize--;
+                if (currentSize == 0){
+                    currentGroup--;
+                    if (n != 0){
+                        currentSize = formatPattern[currentGroup];
+                        format.insert(0, separator);
+                        //format.append(separator);
+                    }
+                }
+            }
+
+        }
+        return format.toString();
+
     }
 
     public static String formatWithSpace(@Nullable String text,@NonNull int... formatPattern) {

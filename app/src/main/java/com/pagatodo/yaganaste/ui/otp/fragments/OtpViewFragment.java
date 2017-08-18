@@ -115,7 +115,9 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
 
     @Override
     public void onDetach() {
-        timer.cancel();
+        if (timer != null) {
+            timer.cancel();
+        }
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
         super.onDetach();
 

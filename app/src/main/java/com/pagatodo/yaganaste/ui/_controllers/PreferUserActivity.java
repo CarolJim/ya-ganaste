@@ -57,7 +57,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_PRIVACIDAD_LINEA_CREDITO= "PREFER_USER_PRIVACIDAD_LINEA_CREDITO";
     public static String PREFER_USER_TERMINOS_LINEA_CREDITO= "PREFER_USER_TERMINOS_LINEA_CREDITO";
     public static String PREFER_USER_CUENTA_REEMBOLSO= "PREFER_USER_CUENTA_REEMBOLSO";
-    public static String PREFER_USER_CUENTA_REEMBOLSO_BACK= "PPREFER_USER_CUENTA_REEMBOLSO_BACK";
+    public static String PREFER_USER_CUENTA_REEMBOLSO_BACK= "PREFER_USER_CUENTA_REEMBOLSO_BACK";
 
 
     public static String PREFER_USER_DESASOCIAR = "PREFER_USER_DESASOCIAR";
@@ -203,7 +203,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_USER_CUENTA_REEMBOLSO_BACK":
                 loadFragment(MyAccountFragment.newInstance(), Direction.BACK, false);
                 break;
-
             case "PREFER_USER_DESASOCIAR_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 loadFragment(MyUserFragment.newInstance(), Direction.BACK, false);
@@ -379,7 +378,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
             }
             else if (currentFragment instanceof CuentaReenbolsoFragment) {
-                onEvent(PREFER_USER_TERMINOS_BACK, null);
+                onEvent(PREFER_USER_CUENTA_REEMBOLSO_BACK, null);
 
             }
 

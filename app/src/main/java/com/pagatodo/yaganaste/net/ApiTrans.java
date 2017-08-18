@@ -192,6 +192,26 @@ public class ApiTrans extends Api {
     }
 
     /**
+     * Método que se invoca cuando se realiza una Recarga, Pago de Servicio o Envío de Dinero.
+     *
+     * @param request {@link EjecutarTransaccionRequest} body de la petición.
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void ejecutarEnvio(EjecutarTransaccionRequest request, String otp, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdTransaccionFreja, RequestHeaders.getIdTransaccionFreja());
+        headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
+        if (request.getIdTipoTransaccion() == MovementsTab.TAB3.getId()) {
+            headers.put(RequestHeaders.IdOperacion, "1");
+        }
+
+        NetFacade.consumeWS(EJECUTAR_TRANSACCION,
+                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.executeTransactionUrl),
+                headers, request, EjecutarTransaccionResponse.class, result);
+    }
+
+    /**
      * Método que se invoca cuando se desea validar el Estatus de una Transacción, permitiendo ejecutar
      * nuevamente la transacción en caso de requerirse (Modo Transaccional).
      *

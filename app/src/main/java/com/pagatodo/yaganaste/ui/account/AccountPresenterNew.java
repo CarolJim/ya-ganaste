@@ -275,7 +275,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             accountView.showError(error);
         } else if (accountView instanceof ILoginView) {
             if (ws == INICIAR_SESION_SIMPLE) {
-                RequestHeaders.setUsername("");
+                //RequestHeaders.setUsername("");
             }
             accountView.showError(error);
         } else if (accountView instanceof IMyPassValidation) {

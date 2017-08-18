@@ -1,22 +1,34 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
+import android.database.Cursor;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.text.InputFilter;
+import android.text.TextUtils;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataTitular;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
-import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
+import com.pagatodo.yaganaste.ui.maintabs.managers.EnviosManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
@@ -27,6 +39,7 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 
 import java.util.ArrayList;
+import java.util.Formatter;
 import java.util.List;
 
 import butterknife.BindView;
@@ -36,13 +49,17 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CABLE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 
 /**
  * Created by Jordan on 12/04/2017.
  */
 
-public class EnviosFormFragment extends PaymentFormBaseFragment implements PaymentsManager, AdapterView.OnItemSelectedListener {
+public class EnviosFormFragment extends PaymentFormBaseFragment implements EnviosManager,
+        AdapterView.OnItemSelectedListener, TextView.OnEditorActionListener, View.OnClickListener {
 
     @BindView(R.id.tipoEnvio)
     Spinner tipoEnvio;
@@ -60,12 +77,19 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
     EditText numberReference;
     @BindView(R.id.fragment_envios_referencia_layout)
     LinearLayout referenciaLayout;
+    @BindView(R.id.layoutImageContact)
+    RelativeLayout layoutImageContact;
+    @BindView(R.id.imgMakePaymentContact)
+    ImageView imgMakePaymentContact;
+
 
     TransferType selectedType;
     IEnviosPresenter enviosPresenter;
     private String nombreDestinatario;
     private String referenciaNumber;
     int keyIdComercio;
+    int maxLength;
+    private boolean isCuentaValida = true;
 
     public static EnviosFormFragment newInstance() {
         EnviosFormFragment fragment = new EnviosFormFragment();
@@ -109,6 +133,14 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
 
         if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
             //receiverName.setVisibility(GONE);
+            receiverName.setEnabled(false);
+            receiverName.cancelLongPress();
+            receiverName.setClickable(false);
+            referenciaLayout.setVisibility(GONE);
+            numberReference.setText("123456");
+            //cardNumber.setOnFocusChangeListener(this);
+            amountToSend.setImeOptions(EditorInfo.IME_ACTION_NEXT);
+            amountToSend.setOnEditorActionListener(this);
         } else {
             tipoPago.add(CABLE.getId(), CABLE.getName(getContext()));
         }
@@ -117,17 +149,17 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
         tipoEnvio.setAdapter(dataAdapter);
         tipoEnvio.setOnItemSelectedListener(this);
         amountToSend.addTextChangedListener(new NumberTextWatcher(amountToSend));
+        receiverName.setSingleLine();
 
-        // Validacion para ocultar campo de Referencia numerica si el comercio es YaGanaste
-        if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
-            referenciaLayout.setVisibility(GONE);
-            numberReference.setText("123456");
-        }
     }
 
     @Override
     public void continuePayment() {
-        if (!isValid) {
+        if (!isCuentaValida) {
+            Formatter formatter = new Formatter();
+            showError(formatter.format(getString(R.string.error_cuenta_no_valida), tipoEnvio.getSelectedItem().toString()).toString());
+            mySeekBar.setProgress(0);
+        } else if (!isValid) {
             showError();
             mySeekBar.setProgress(0);
         } else {
@@ -143,7 +175,13 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
         if (errorText != null && !errorText.equals("")) {
             //Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
             UI.createSimpleCustomDialog("Error", errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
+        }
+    }
 
+    @Override
+    public void showError(String text) {
+        if (!TextUtils.isEmpty(text)) {
+            UI.createSimpleCustomDialog("Error", text, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
     }
 
@@ -157,6 +195,34 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
     public void onSuccess(Double monto) {
         this.monto = monto;
         isValid = true;
+    }
+
+    @Override
+    public void setTitularName(DataTitular dataTitular) {
+        isCuentaValida = true;
+        receiverName.setText(dataTitular.getNombre().concat(" ").concat(dataTitular.getPrimerApellido()).concat(" ").concat(dataTitular.getSegundoApellido()));
+    }
+
+    @Override
+    public void onFailGetTitulaName() {
+        isCuentaValida = false;
+        clearTitularName();
+    }
+
+
+    private void clearTitularName() {
+        isCuentaValida = false;
+        receiverName.setText("");
+    }
+
+    @Override
+    public void showLoader(String text) {
+        onEventListener.onEvent(EVENT_SHOW_LOADER, text);
+    }
+
+    @Override
+    public void hideLoader() {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override
@@ -174,6 +240,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
                 referenciaNumber);
     }
 
+
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
 
@@ -181,18 +248,29 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
         cardNumber.setText("");
         cardNumber.removeTextChangedListener();
 
-        int maxLength;
+
         InputFilter[] fArray = new InputFilter[1];
 
         if (position == NUMERO_TARJETA.getId()) {
             maxLength = comercioItem.getIdComercio() == 814 ? 15 : 19;
             cardNumber.setHint(getString(R.string.card_number));
-            cardNumber.addTextChangedListener(new NumberCardTextWatcher(cardNumber));
+            NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber);
+            if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
+                numberCardTextWatcher.setOnITextChangeListener(this);
+            }
+            cardNumber.addTextChangedListener(numberCardTextWatcher);
+
             selectedType = NUMERO_TARJETA;
         } else if (position == NUMERO_TELEFONO.getId()) {
             maxLength = 12;
             cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
-            cardNumber.addTextChangedListener(new PhoneTextWatcher(cardNumber));
+            layoutImageContact.setVisibility(View.VISIBLE);
+            layoutImageContact.setOnClickListener(this);
+            PhoneTextWatcher phoneTextWatcher = new PhoneTextWatcher(cardNumber);
+            if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
+                phoneTextWatcher.setOnITextChangeListener(this);
+            }
+            cardNumber.addTextChangedListener(phoneTextWatcher);
             selectedType = NUMERO_TELEFONO;
         } else if (position == CABLE.getId()) {
             maxLength = 22;
@@ -215,4 +293,69 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Payme
 
     }
 
+    /*@Override
+    public void onFocusChange(View v, boolean hasFocus) {
+        if (v.getId() == R.id.cardNumber && !hasFocus
+                && cardNumber.getText().length() == maxLength) {
+            //Buscar Nombre
+            enviosPresenter.getTitularName(cardNumber.getText().toString().trim());
+        }
+    }*/
+
+    @Override
+    public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+        if (actionId == EditorInfo.IME_ACTION_DONE ||
+                actionId == EditorInfo.IME_ACTION_NEXT) {
+            concept.requestFocus();
+            return true;
+        }
+        return false;
+    }
+
+    @Override
+    public void onTextChanged() {
+        isCuentaValida = false;
+        receiverName.setText("");
+    }
+
+    @Override
+    public void onTextComplete() {
+        enviosPresenter.getTitularName(cardNumber.getText().toString().trim());
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.layoutImageContact) {
+            Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
+            getActivity().startActivityForResult(contactPickerIntent, CONTACTS_CONTRACT);
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == CONTACTS_CONTRACT) {
+                contactPicked(data);
+            }
+        }
+    }
+    private void contactPicked(Intent data) {
+        Cursor cursor;
+        String phoneNo = null;
+        Uri uri = data.getData();
+        cursor = getContext().getContentResolver().query(uri, null, null, null, null);
+        if (cursor != null) {
+            cursor.moveToFirst();
+            //get column index of the Phone Number
+            int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            // column index of the contact name
+            //int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
+            phoneNo = cursor.getString(phoneIndex).replaceAll("\\s", "").replaceAll("\\+", "").replaceAll("-", "").trim();
+            if (phoneNo.length() > 10) {
+                phoneNo = phoneNo.substring(phoneNo.length() - 10);
+            }
+        }
+        cardNumber.setText(phoneNo);
+    }
 }

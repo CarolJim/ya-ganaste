@@ -435,6 +435,7 @@
     <string name="retirar_tarjeta">Retira la Tarjeta</string>
     <string name="tu_firma">Tu Firma</string>
     <string name="pago_por">Pago Por </string>
+    <string name="error_cuenta_no_valida">%1$s no Valido,\nPor Favor Verifica la Información</string>
 
     <string name="cancelar_operacion">Cancelar Cobro</string>
     <string name="txt_monto">Monto:</string>
