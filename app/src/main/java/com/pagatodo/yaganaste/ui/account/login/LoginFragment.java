@@ -39,6 +39,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOV
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
+import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 
 
 /**
@@ -64,6 +65,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     private String username = "";
     private String password = "";
+    private Preferencias preferencias;
 
 
     public static LoginFragment newInstance() {
@@ -78,6 +80,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         super.onCreate(savedInstanceState);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
+        this.preferencias = App.getInstance().getPrefs();
     }
 
     @Override
@@ -327,15 +330,15 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         if (!RequestHeaders.getTokenauth().isEmpty()) {
             edtUserName.setText(RequestHeaders.getUsername());
         }
-
-        updatePhoto();
+        if (preferencias.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
+            updatePhoto();
+        }
     }
 
     /**
      * Codigo para hacer Set en la imagen de preferencias con la foto actual
      */
     private void updatePhoto() {
-        Preferencias preferencias = App.getInstance().getPrefs();
         String mUserImage = preferencias.loadData(URL_PHOTO_USER);
         Glide.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
                 .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)

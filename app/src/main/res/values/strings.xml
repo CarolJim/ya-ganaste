@@ -335,7 +335,7 @@
     <string name="asignar_pin">Verifica tu NIP.</string>
     <string name="confirma_pin">Confirma tu NIP</string>
     <string name="confirmar_pin">El NIP no Coincide</string>
-    <string name="longitud_nip">NIP de 4 Digitos</string>
+    <string name="longitud_nip">NIP de 4 Dígitos</string>
     <string name="new_nip_diferent">El Nuevo NIP Debe Ser Diferente Del Anterior</string>
     <string name="new_nip_four_digits">Son Necesarios 4 Números</string>
     <!--Datos Negocio-->
@@ -784,6 +784,8 @@
     <string name="lista_meses_noviembre">Nov</string>
     <string name="lista_meses_diciembre">Dic</string>
 
+    <string name="operacion_cancelada_usuario">Operación Cancelada Por el Usuario</string>
+    <string name="intentos_excedidos">Se Excedió el Número Máximo de Intentos</string>
 
     <!--end Cupo Strings-->
 </resources>

@@ -11,5 +11,7 @@ import com.pagatodo.yaganaste.interfaces.IProgressView;
 public interface OnlineTxView extends IProgressView<ErrorObject> {
     void onTxAproved();
 
+    void onTxFailed(String message);
+
     void loadTransactionData(OnlineTxData onlineTxData);
 }
