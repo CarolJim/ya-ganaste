@@ -95,7 +95,10 @@
                     android:layout_marginRight="20dp"
                     app:srcCompat="@drawable/arrow_canvas_blue" />
             </LinearLayout>
-
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="1dp"
+                android:background="@color/whiteColor" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

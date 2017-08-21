@@ -95,15 +95,7 @@ public class TerminosyCondicionesFragment extends GenericFragment implements Vie
         ll_cuenta_ya_terminos.setOnClickListener(this);
         ll_linea_terminos.setOnClickListener(this);
         ll_contrato_terminos.setOnClickListener(this);
-        if (Idestatus== IdEstatus.I5.getId()|| Idestatus== IdEstatus.I6.getId()|| Idestatus== IdEstatus.I7.getId()|| Idestatus== IdEstatus.I8.getId()|| Idestatus== IdEstatus.I9.getId() ||Idestatus== IdEstatus.I10.getId() ||Idestatus== IdEstatus.I11.getId()||Idestatus== IdEstatus.I12.getId()|| Idestatus== IdEstatus.I13.getId()||Idestatus== IdEstatus.I14.getId()  ){
-            ll_contrato_terminos.setVisibility(View.INVISIBLE);
-            lcontrato.setVisibility(View.INVISIBLE);
-            lcuenta.setVisibility(View.VISIBLE);
-            ll_cuenta_ya_terminos.setVisibility(View.VISIBLE);
-            ll_linea_terminos.setVisibility(View.INVISIBLE);
-            lcredito.setVisibility(View.INVISIBLE);
 
-        }
         if (Idestatus == IdEstatus.I16.getId()){
             ll_contrato_terminos.setVisibility(View.VISIBLE);
             lcontrato.setVisibility(View.VISIBLE);

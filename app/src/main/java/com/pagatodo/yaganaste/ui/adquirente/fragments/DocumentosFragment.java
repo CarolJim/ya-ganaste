@@ -113,7 +113,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     private int documentApproved = 0;
     private BitmapLoader bitmapLoader;
 
-    private int Idestatus;
 
     private String imgs[] = new String[4];
     private ArrayList<String> contador;
@@ -155,7 +154,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         contador = new ArrayList<>();
-        Idestatus= SingletonUser.getInstance().getDataUser().getIdEstatus();
+
         adqPresenter = new AccountAdqPresenter(this, getContext());
         adqPresenter.setIView(this);
         dataStatusDocuments = new ArrayList<>();
@@ -194,9 +193,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
             initSetClickableDocs();
         }
-        if (!mExisteDocs) {
-            swipeRefreshLayout.setEnabled(false);
-        }
+
+
+
     }
 
     @Override
@@ -278,6 +277,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     }
 
     public void initSetClickableDocs() {
+        swipeRefreshLayout.setEnabled(false);
         lnr_buttons.setVisibility(VISIBLE);
         lnr_help.setVisibility(GONE);
         itemWeNeedSmFilesIFEfront.setOnClickListener(this);
