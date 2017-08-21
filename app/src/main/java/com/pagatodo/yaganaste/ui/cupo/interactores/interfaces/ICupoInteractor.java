@@ -18,6 +18,8 @@ public interface ICupoInteractor {
 
     void sendDocuments(ArrayList<DataDocuments> string);
 
+    void reenviaDocumentos(ArrayList<DataDocuments> string);
+
     void createSolicitudCupo();
 
     void getEstadoSolicitudCupo();

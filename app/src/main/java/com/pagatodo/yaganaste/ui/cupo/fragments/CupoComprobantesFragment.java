@@ -61,6 +61,7 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.CUPO_PASO;
 import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.CUPO_PASO_DOCUMENTOS_ENVIADOS;
 import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.CUPO_PASO_REGISTRO_ENVIADO;
+import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.ESTADO_REENVIAR_DOCUMENTOS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_CUPO_BACK;
@@ -83,6 +84,8 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     LinearLayout layoutHelp;
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
+
+    private int estado = 0;
 
     private Boolean mExisteDocs = false;
 
@@ -117,9 +120,10 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
 
     private CupoDomicilioPersonalPresenter presenter;
 
-    public static CupoComprobantesFragment newInstance() {
+    public static CupoComprobantesFragment newInstance(int index) {
         CupoComprobantesFragment fragment = new CupoComprobantesFragment();
         Bundle args = new Bundle();
+        args.putInt("paso", index);
         fragment.setArguments(args);
         return fragment;
     }
@@ -138,6 +142,9 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragments_documents, container, false);
+
+        Bundle args = getArguments();
+        estado = args.getInt("paso", 0);
         initViews();
         return rootview;
     }
@@ -151,6 +158,9 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
         layoutHelp.setVisibility(View.GONE);
 
         initSetClickableDocs();
+        if (estado == ESTADO_REENVIAR_DOCUMENTOS ) {
+            obtieneEstadoDeDocumentos();
+        }
     }
 
 
@@ -188,6 +198,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
             case R.id.btnWeNeedSmFilesNext:
                 if (mExisteDocs) {
                     //sendDocumentsPending();
+                    Log.e("Test", "Reenvia Documentos");
                 } else {
                     sendDocuments();
                 }
@@ -421,6 +432,16 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
         presenter.sendDocumentos(dataDocuments);
     }
 
+
+    private void reenviaDocumentos() {
+        for (String s : imgs)
+            if (s == null || s.isEmpty()) {
+                showError(App.getContext().getResources().getString(R.string.adq_must_upload_documents));
+                return;
+            }
+        presenter.reenviaDocumentos(dataDocuments);
+    }
+
     /**
      * Validamos que no se repitan las fotos obtenidas de la galeria
      *
@@ -479,24 +500,14 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     }
 
     @Override
-    public void documentsUploaded(String message) {
-
-    }
-
-    @Override
-    public void setDocumentosStatus(List<EstatusDocumentosResponse> data) {
-
-    }
-
-    @Override
-    public void documentosActualizados(String s) {
-
-    }
-
-    @Override
     public void setResponseDocuments() {
         App.getInstance().getPrefs().saveData( CUPO_PASO , CUPO_PASO_DOCUMENTOS_ENVIADOS);
         cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPLETE, null);
+    }
+
+    @Override
+    public void obtieneEstadoDeDocumentos() {
+        presenter.getEstatusDocs();
     }
 
 

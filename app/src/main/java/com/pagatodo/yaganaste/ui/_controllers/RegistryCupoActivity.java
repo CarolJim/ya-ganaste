@@ -50,6 +50,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
 
     public final static String EVENT_GO_CUPO_DOMICILIO_PERSONAL = "EVENT_GO_CUPO_DOMICILIO_PERSONAL";
     public final static String EVENT_GO_CUPO_COMPROBANTES = "EVENT_GO_CUPO_COMPROBANTES";
+    public final static String EVENT_GO_CUPO_REENVIAR_COMPROBANTES = "EVENT_GO_CUPO_REENVIAR_COMPROBANTES";
     public final static String EVENT_GO_CUPO_CUENTAME_MAS = "EVENT_GO_CUPO_CUENTAME_MAS";
     public final static String EVENT_GO_CUPO_REFERENCIA_FAMILIAR = "EVENT_GO_CUPO_REFERENCIA_FAMILIAR";
     public final static String EVENT_GO_CUPO_REFERENCIA_PERSONAL = "EVENT_GO_CUPO_REFERENCIA_PERSONAL";
@@ -62,6 +63,8 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     public final static String CUPO_PASO_REGISTRO_ENVIADO     = "CUPO_PASO_REGISTRO_ENVIADO";
     public final static String CUPO_PASO_DOCUMENTOS_ENVIADOS  = "CUPO_PASO_DOCUMENTOS_ENVIADOS";
 
+    public final static int ESTADO_ENVIO_DOCUMENTOS    = 0;
+    public final static int ESTADO_REENVIAR_DOCUMENTOS = 1;
 
 
 
@@ -164,7 +167,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 if (App.getInstance().getPrefs().loadData(CUPO_PASO).equals("")) {
                     loadFragment(CupoCuentanosMasFragment.newInstance(), Direction.FORDWARD, true);
                 } else if ( App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_REGISTRO_ENVIADO) ) {
-                    loadFragment(CupoComprobantesFragment.newInstance(), Direction.FORDWARD, true);
+                    loadFragment(CupoComprobantesFragment.newInstance(ESTADO_ENVIO_DOCUMENTOS), Direction.FORDWARD, true);
                 } else if ( App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_DOCUMENTOS_ENVIADOS) ) {
                     loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, true);
                 }
@@ -180,7 +183,10 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 loadFragment(CupoReferenciaProveedorFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_COMPROBANTES:
-                loadFragment(CupoComprobantesFragment.newInstance(), Direction.FORDWARD, true);
+                loadFragment(CupoComprobantesFragment.newInstance(ESTADO_ENVIO_DOCUMENTOS), Direction.FORDWARD, true);
+                break;
+            case EVENT_GO_CUPO_REENVIAR_COMPROBANTES:
+                loadFragment(CupoComprobantesFragment.newInstance(ESTADO_REENVIAR_DOCUMENTOS), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_COMPLETE:
                 loadFragment(RegisterCompleteFragment.newInstance(CUPO_REVISION), Direction.FORDWARD, false);

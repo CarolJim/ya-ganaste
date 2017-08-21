@@ -195,7 +195,6 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
                 validateForm();
                 break;
             case R.id.btnBackBussinesAddress:
-
                 RegisterCupo registerCupo = RegisterCupo.getInstance();
                 registerCupo.setCalle("");
                 registerCupo.setNumExterior("");

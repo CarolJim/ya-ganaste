@@ -24,7 +24,9 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoni
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.CrearCupoSolicitudResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoDocumentos;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoSolicitud;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
@@ -48,6 +50,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREA_SOLICITUD_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTADO_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
@@ -96,7 +99,7 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
     @Override
     public void getEstatusDocs() {
         try {
-            ApiAdtvo.obtenerDocumentos(this);
+            ApiAdtvo.obtenerEstadoDocumentosCupo(this);
         } catch (OfflineException e) {
             accountManager.onError(OBTENER_DOCUMENTOS, App.getInstance().getString(R.string.no_internet_access));
         }
@@ -108,20 +111,25 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
      */
     @Override
     public void sendDocuments(ArrayList<DataDocuments> docs) {
-
-
         try {
             CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
             cargaDocumentosRequest.setDocumentos(docs);
-
-            //Log.e("Test", "Datos a enviar: " + createParams(false, cargaDocumentosRequest ).toString() );
-
             ApiAdtvo.cargaDocumentosCupo(cargaDocumentosRequest, this);
         } catch (OfflineException e) {
             accountManager.onError(CARGA_DOCUMENTOS_CUPO, App.getInstance().getString(R.string.no_internet_access));
         }
     }
 
+    @Override
+    public void reenviaDocumentos(ArrayList<DataDocuments> docs) {
+        try {
+            CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
+            cargaDocumentosRequest.setDocumentos(docs);
+            ApiAdtvo.cargaDocumentosCupo(cargaDocumentosRequest, this);
+        } catch (OfflineException e) {
+            accountManager.onError(OBTENER_ESTADO_DOCUMENTOS_CUPO, App.getInstance().getString(R.string.no_internet_access));
+        }
+    }
 
 
     @Override
@@ -250,8 +258,33 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
                 case CONSULTA_STATUS_REGISTRO_CUPO:
                     processEstadoRegistro(dataSourceResult);
                     break;
+                case OBTENER_ESTADO_DOCUMENTOS_CUPO:
+                    processEstadoDeDocumentos(dataSourceResult);
+                    break;
             }
         }
+    }
+
+    private void processEstadoDeDocumentos(DataSourceResult dataSourceResult) {
+
+        EstadoDocumentosResponse data = (EstadoDocumentosResponse) dataSourceResult.getData();
+
+        Log.e("Estado Documentos JSON", createParams(false, dataSourceResult ).toString());
+
+        /*
+        if (data.getCodigoRespuesta() == CODE_OK) {
+
+            List<DataEstadoDocumentos> estadoSolicitud = data.getData();
+            if (estadoSolicitud != null) {
+                accountManager.onSucces(dataSourceResult.getWebService(), estadoSolicitud);
+            } else {
+                accountManager.onError(dataSourceResult.getWebService(), "Ocurrio un Error al Consultar el Estado de Solicitud de Cupo");//Retornamos mensaje de error.
+            }
+        } else {
+            //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
+            accountManager.onError(dataSourceResult.getWebService(), data.getMensaje());//Retornamos mensaje de error.
+        }
+        */
     }
 
     private void processEstadoRegistro(DataSourceResult dataSourceResult) {

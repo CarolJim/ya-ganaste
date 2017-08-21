@@ -48,13 +48,12 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
  * Created by Dell on 25/07/2017.
  */
 
-public class StatusRegisterCupoFragment extends GenericFragment  implements IViewStatusRegisterCupo {
+public class StatusRegisterCupoFragment extends GenericFragment  implements IViewStatusRegisterCupo, View.OnClickListener {
 
     public static final int PASO_CUPO_DOCUMENTACION_INCOMPLETA = 1;
     public static final int PASO_CUPO_VALIDACION_DE_DOCUMENTOS = 2;
     public static final int PASO_CUPO_VALIDACION_DE_REFERENCIAS = 3;
     public static final int PASO_CUPO_VALIDACION_DE_LINEA_DE_CREDITO = 4;
-
 
     public static final int ID_ESTATUS_PASO_NA = 0;
     public static final int ID_ESTATUS_PASO_EN_VALIDACION = 1;
@@ -62,11 +61,14 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
     public static final int ID_ESTATUS_PASO_RECHAZADO = 3;
     public static final int ID_ESTATUS_PASO_RECHAZO_DEFINITIVO = 4;
 
+    public static final int ESTADO_RENEENVIA_DOCUMENTOS = 0;
+
+    private int ESTADO_ACTUAL = 0;
+
     @BindView(R.id.status_view)StatusViewCupo statusViewCupo;
     @BindView(R.id.txt_status)StyleTextView statusText;
     @BindView(R.id.txt_status_info)StyleTextView statusTextInfo;
     @BindView(R.id.txt_contactanos)StyleTextView mTextContact;
-
     @BindView(R.id.btnNextScreen)Button mButtonContinue;
 
     private View rootview;
@@ -76,9 +78,7 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
     private CupoDomicilioPersonalPresenter presenter;
 
     public static StatusRegisterCupoFragment newInstance() {
-        
         Bundle args = new Bundle();
-        
         StatusRegisterCupoFragment fragment = new StatusRegisterCupoFragment();
         fragment.setArguments(args);
         return fragment;
@@ -108,7 +108,7 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         presenter.getEstadoSolicitudCupo();
-
+        mButtonContinue.setOnClickListener(this);
     }
 
 
@@ -163,15 +163,39 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
 
         switch (pasoActual) {
             case PASO_CUPO_DOCUMENTACION_INCOMPLETA:
-                Log.e("Que pedo", "Que pedo");
+
                 break;
             case PASO_CUPO_VALIDACION_DE_DOCUMENTOS:
                 setValidandoDocumentos(idEstado);
                 break;
+            case PASO_CUPO_VALIDACION_DE_REFERENCIAS:
+                setValidandoReferecias(idEstado);
 
         }
 
 
+    }
+
+    private void setValidandoReferecias(int idEstado) {
+        switch (idEstado){
+            case ID_ESTATUS_PASO_NA:
+                break;
+            case ID_ESTATUS_PASO_EN_VALIDACION:
+                statusTextInfo.setText(getText(R.string.txt_validate_info));
+                statusText.setText("Validando\nReferencias\n2/3");
+                statusViewCupo.updateStatus(66,33);
+                break;
+            case ID_ESTATUS_PASO_APROVADO:
+                statusTextInfo.setText(getText(R.string.txt_validate_info));
+                statusText.setText("Documentos\nAprovados\n1/3");
+                statusViewCupo.updateStatus(0,66);
+                break;
+            case ID_ESTATUS_PASO_RECHAZADO:
+                statusTextInfo.setText("Ocurrió un Error\nCon Tus Referencias");
+                statusText.setText("Envia Nuevas\nReferencias\n2/3");
+                statusViewCupo.updateError(66,33);
+                break;
+        }
     }
 
 
@@ -181,24 +205,28 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
             case ID_ESTATUS_PASO_NA:
                 break;
             case ID_ESTATUS_PASO_EN_VALIDACION:
+                statusTextInfo.setText(getText(R.string.txt_validate_info));
                 statusText.setText("Validando\nDocumentos\n1/3");
                 statusViewCupo.updateStatus(33,0);
                 break;
             case ID_ESTATUS_PASO_APROVADO:
-
+                statusTextInfo.setText(getText(R.string.txt_validate_info));
+                statusText.setText("Documentos\nAprovados\n1/3");
+                statusViewCupo.updateStatus(0,33);
                 break;
             case ID_ESTATUS_PASO_RECHAZADO:
                 statusTextInfo.setText("Ocurrió un Error\nCon Tu Documentación");
                 statusText.setText("Reenvía Tus\nDocumentos\n1/3");
                 statusViewCupo.updateError(33,0);
+                mTextContact.setVisibility(View.GONE);
+                mButtonContinue.setVisibility(View.VISIBLE);
+                ESTADO_ACTUAL = ESTADO_RENEENVIA_DOCUMENTOS;
                 break;
         }
-
     }
 
 
     private static JSONObject createParams(boolean envolve, Object oRequest) {
-
         if (oRequest != null) {
             JSONObject tmp = JsonManager.madeJsonFromObject(oRequest);
             if (envolve) {
@@ -236,6 +264,20 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
 
     @Override
     public void showError(Object error) {
+
+    }
+
+    @Override
+    public void onClick(View view) {
+        int id = view.getId();
+        if (id == R.id.btnNextScreen) {
+            switch (ESTADO_ACTUAL) {
+                case ESTADO_RENEENVIA_DOCUMENTOS:
+                    Log.e("Test", "Abrereenvia Documentos");
+                    cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REENVIAR_COMPROBANTES, null);
+                    break;
+            }
+        }
 
     }
 }

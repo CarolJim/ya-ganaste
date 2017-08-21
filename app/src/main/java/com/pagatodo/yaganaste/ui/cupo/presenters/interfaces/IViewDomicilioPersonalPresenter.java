@@ -20,6 +20,8 @@ public interface IViewDomicilioPersonalPresenter {
 
         void sendDocumentos(ArrayList<DataDocuments> data);
 
+        void reenviaDocumentos(ArrayList<DataDocuments> data);
+
         void createCupoSolicitud();
 
         void getEstadoSolicitudCupo();

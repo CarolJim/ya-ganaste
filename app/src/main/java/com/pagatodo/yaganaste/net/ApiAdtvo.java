@@ -61,6 +61,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormat
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.CrearCupoSolicitudResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
@@ -98,6 +99,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_CATALOG
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTADO_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_SUBGIROS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
@@ -704,6 +706,41 @@ public class ApiAdtvo extends Api {
                 CargaDocumentosResponse.class,
                 result);
     }
+
+
+    public static void actualizaDocumentosCupo(CargaDocumentosRequest request, IRequestResult result) throws OfflineException {
+        // TODO: Cambiar a url de desarollo
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        NetFacade.consumeWS(CARGA_DOCUMENTOS_CUPO,
+                METHOD_POST,
+                URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/  + App.getContext().getString(R.string.cupoCargaDocumentos),
+                headers,
+                request,
+                CargaDocumentosResponse.class,
+                result);
+    }
+
+
+    /**
+     * Método que se invoca para Consultar el estatus de los DocumentosCupo dell Flujo de Cupo.
+     *
+     * @param result {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void obtenerEstadoDocumentosCupo(IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        NetFacade.consumeWS(OBTENER_ESTADO_DOCUMENTOS_CUPO,
+                METHOD_GET,
+                 /*URL_SERVER_ADTVO*/  "http://10.140.140.247:9000" + App.getContext().getString(R.string.cupoObtenerEstadoDeDocumentos),
+                headers,
+                null,
+                EstadoDocumentosResponse.class,
+                result);
+    }
+
+
 
     public static void consultaStatusRegistroCupo(IRequestResult result) throws OfflineException{
         Map<String, String> headers = getHeadersYaGanaste();

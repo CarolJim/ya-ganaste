@@ -11,12 +11,8 @@ import java.util.List;
 
 public interface IViewCupoComprobantes extends INavigationView {
 
-    void documentsUploaded(String message);
-
-    void setDocumentosStatus(List<EstatusDocumentosResponse> data);
-
-    void documentosActualizados(String s);
-
     void setResponseDocuments();
+
+    void obtieneEstadoDeDocumentos();
 
 }

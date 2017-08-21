@@ -117,7 +117,8 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
     public void getEstatusDocs() {
         //No se muestra el loader porque se maneja desde el fragment debido a que el mismo puede
         // interferir con otros servicios
-        // NO MOVER :)
+        // NO MOVER :) TODO: Se esta Revisando
+        iNavigationView.showLoader(context.getString(R.string.obteniendo_domicilio));
         iteractor.getEstatusDocs();
     }
 
@@ -126,6 +127,13 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
         iNavigationView.showLoader(App.getContext().getResources().getString(R.string.adq_upload_documents));
         iteractor.sendDocuments(data);
     }
+
+    @Override
+    public void reenviaDocumentos(ArrayList<DataDocuments> data) {
+        iNavigationView.showLoader(App.getContext().getResources().getString(R.string.adq_upload_documents));
+        iteractor.sendDocuments(data);
+    }
+
 
     @Override
     public void createCupoSolicitud() {

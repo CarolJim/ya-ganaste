@@ -54,7 +54,7 @@ android:layout_height="match_parent">
 </RelativeLayout>
 
 
-<com.pagatodo.yaganaste.utils.customviews.StyleTextView
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
     style="@style/generic_text_style_2"
     android:layout_marginTop="40dp"
     android:layout_below="@+id/content_progress"
@@ -70,7 +70,7 @@ android:layout_height="match_parent">
     android:layout_height="wrap_content" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
-        android:visibility="gone"
+        android:visibility="visible"
         android:id="@+id/btnNextScreen"
         style="@style/buttonDirecctionNext"
         android:gravity="center"
@@ -80,4 +80,5 @@ android:layout_height="match_parent">
         android:layout_alignParentBottom="true"
         android:layout_margin="50dp"
         />
+
 </RelativeLayout>
