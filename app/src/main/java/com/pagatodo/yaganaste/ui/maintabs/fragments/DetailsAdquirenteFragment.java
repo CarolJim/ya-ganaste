@@ -163,10 +163,10 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         CatalogsDbApi catalogsDbApi = new CatalogsDbApi(getContext());
         String url = catalogsDbApi.getURLIconComercio(dataMovimientoAdq.getBancoEmisor());
 
-        Glide.with(getContext()).load(url)
+        Glide.with(getContext())
+                .load(url)
                 .placeholder(R.mipmap.logo_ya_ganaste)
-                .error(R.mipmap.logo_ya_ganaste)
-                .dontAnimate().into(imageDetail);
+                .into(imageDetail);
     }
 
 

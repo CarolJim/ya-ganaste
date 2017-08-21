@@ -118,7 +118,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        adqPresenter = new AccountAdqPresenter(this, getContext());
+        adqPresenter = new AccountAdqPresenter(this);
         Bundle args = getArguments();
         if (args != null) {
             Serializable dom = args.getSerializable(_DOMICILIO);

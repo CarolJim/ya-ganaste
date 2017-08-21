@@ -8,7 +8,7 @@
     <!-- Oval -->
     <path
         android:name="oval"
-        android:fillColor="#182630"
+        android:fillColor="@color/color_background_image_docs"
         android:pathData="M 53,27 C 53,41.36 41.36,53 27,53 C 12.64,53 1,41.36 1,27 C 1,12.64 12.64,1 27,1 C 41.36,1 53,12.64 53,27 Z"
         android:strokeColor="#00A1E1"
         android:strokeWidth="2" />

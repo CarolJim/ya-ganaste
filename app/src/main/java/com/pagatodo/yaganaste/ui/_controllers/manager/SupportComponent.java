@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentTransaction;
 
-import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
@@ -28,6 +27,7 @@ public class SupportComponent {
         containerID = -1;
     }
 
+    /*
     protected void loadFragment(@NonNull GenericFragment fragment) {
         loadFragment(fragment, R.id.container, Direction.NONE, false);
     }
@@ -55,10 +55,11 @@ public class SupportComponent {
     protected void loadFragment(@NonNull GenericFragment fragment, @NonNull Direction direction,
                                 boolean addToBackStack) {
         loadFragment(fragment, R.id.container, direction, addToBackStack);
-    }
+    }*/
 
     protected void loadFragment(@NonNull GenericFragment fragment, @IdRes int idContainer, @NonNull Direction direction,
                                 boolean addToBackStack) {
+
         this.containerID = idContainer;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
         if (direction.equals(Direction.FORDWARD)) {
@@ -71,13 +72,16 @@ public class SupportComponent {
         if (addToBackStack) {
             fragmentTransaction.addToBackStack(null);
         }
+
         lastFragment = fragment;
-        fragmentTransaction.replace(idContainer, fragment, fragment.getFragmentTag()).commit();
+        fragmentTransaction.replace(idContainer, fragment, fragment.getFragmentTag()).commitAllowingStateLoss();
+
     }
 
 
     protected void loadFragment(@NonNull Fragment fragment, @IdRes int idContainer, @NonNull Direction direction,
                                 boolean addToBackStack) {
+
         this.containerID = idContainer;
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
 
@@ -92,7 +96,8 @@ public class SupportComponent {
         if (addToBackStack) {
             fragmentTransaction.addToBackStack(null);
         }
-        fragmentTransaction.replace(idContainer, fragment, fragment.getClass().getSimpleName()).commit();
+        fragmentTransaction.replace(idContainer, fragment, fragment.getClass().getSimpleName()).commitAllowingStateLoss();
+
     }
 
     protected void removeLastFragment() {

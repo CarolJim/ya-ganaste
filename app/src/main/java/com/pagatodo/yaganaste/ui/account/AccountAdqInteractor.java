@@ -1,14 +1,6 @@
 package com.pagatodo.yaganaste.ui.account;
 
-import android.content.Context;
-import android.graphics.Bitmap;
-import android.graphics.BitmapFactory;
-import android.graphics.drawable.Drawable;
-import android.support.v4.content.ContextCompat;
 import android.util.Log;
-import android.view.View;
-import android.widget.Button;
-import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -38,15 +30,10 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
-import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
 import java.util.ArrayList;
 import java.util.List;
 
-import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesAddressBack;
-import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesAddressFront;
-import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesIFEBack;
-import static com.pagatodo.yaganaste.R.id.itemWeNeedSmFilesIFEfront;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
@@ -57,13 +44,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
-import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
-import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
-import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
-import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_APROBADO;
-import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 
 /**
  * Created by flima on 22/03/2017.
@@ -72,13 +52,10 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResult {
 
     INavigationView iSessionExpired;
-    private String TAG = AccountAdqInteractor.class.getSimpleName();
     private IAccountManager accountManager;
-    private Context context;
 
-    public AccountAdqInteractor(IAccountManager accountManager, Context ctx, INavigationView iSessionExpired) {
+    public AccountAdqInteractor(IAccountManager accountManager, INavigationView iSessionExpired) {
         this.accountManager = accountManager;
-        context = ctx;
         this.iSessionExpired = iSessionExpired;
     }
 
@@ -96,114 +73,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         }
     }
 
-    /***
-     * Metodo que sea la vista de lo documentos con los estatus que le corresponde
-     * @param view
-     * @param mListaDocumentos
-     */
-    @Override
-    public void setListDocuments(View view, List<EstatusDocumentosResponse> mListaDocumentos) {
-        UploadDocumentView IFEfront = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesIFEfront);
-        UploadDocumentView IFEback = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesIFEBack);
-        UploadDocumentView Addressfront = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesAddressFront);
-        UploadDocumentView Addressback = (UploadDocumentView) view.findViewById(itemWeNeedSmFilesAddressBack);
-
-        IFEfront.setStatusImage(null);
-        IFEback.setStatusImage(null);
-        Addressfront.setStatusImage(null);
-        Addressback.setStatusImage(null);
-
-        view.findViewById(R.id.btnWeNeedSmFilesNext).setVisibility(View.INVISIBLE);
-        LinearLayout lnrButtons = (LinearLayout) view.findViewById(R.id.lnr_buttons);
-        Button btnNext = (Button) view.findViewById(R.id.btnWeNeedSmFilesNext);
-        btnNext.setClickable(false);
-
-        Bitmap mBitmap = null;
-        Drawable mDrawable = null;
-
-        if (mListaDocumentos != null && mListaDocumentos.size() > 0) {
-            for (EstatusDocumentosResponse estatusDocs : mListaDocumentos) {
-                int tipoDoc = estatusDocs.getTipoDocumento();
-
-                switch (estatusDocs.getIdEstatus()) {
-                    case STATUS_DOCTO_APROBADO:
-                        if (tipoDoc == DOC_ID_FRONT) {
-                            IFEfront.setClickable(false);
-                        } else if (tipoDoc == DOC_ID_BACK) {
-                            IFEback.setClickable(false);
-                        } else if (tipoDoc == DOC_DOM_FRONT) {
-                            Addressfront.setClickable(false);
-                        } else if (tipoDoc == DOC_DOM_BACK) {
-                            Addressback.setClickable(false);
-                        }
-
-                        mBitmap = BitmapFactory.decodeResource(view.getContext().getResources(), R.drawable.ic_status_ok);
-                        mDrawable = ContextCompat.getDrawable(context, R.drawable.ic_status_ok);
-
-                        break;
-                    case STATUS_DOCTO_PENDIENTE:
-                        if (tipoDoc == DOC_ID_FRONT) {
-                            IFEfront.setClickable(false);
-                        } else if (tipoDoc == DOC_ID_BACK) {
-                            IFEback.setClickable(false);
-                        } else if (tipoDoc == DOC_DOM_FRONT) {
-                            Addressfront.setClickable(false);
-                        } else if (tipoDoc == DOC_DOM_BACK) {
-                            Addressback.setClickable(false);
-                        }
-                        
-                        mBitmap = BitmapFactory.decodeResource(view.getContext().getResources(), R.drawable.ic_status_pending);
-                        mDrawable = ContextCompat.getDrawable(context, R.drawable.ic_status_pending);
-
-                        break;
-                    case STATUS_DOCTO_RECHAZADO:
-                        if (tipoDoc == DOC_ID_FRONT) {
-                            IFEfront.setClickable(true);
-                        } else if (tipoDoc == DOC_ID_BACK) {
-                            IFEback.setClickable(true);
-                        } else if (tipoDoc == DOC_DOM_FRONT) {
-                            Addressfront.setClickable(true);
-                        } else if (tipoDoc == DOC_DOM_BACK) {
-                            Addressback.setClickable(true);
-                        }
-                        lnrButtons.setVisibility(View.VISIBLE);
-                        btnNext.setClickable(true);
-                        mBitmap = BitmapFactory.decodeResource(view.getContext().getResources(), R.drawable.ic_status_warning);
-                        mDrawable = ContextCompat.getDrawable(context, R.drawable.ic_status_warning);
-                        break;
-                    default:
-                        mBitmap = BitmapFactory.decodeResource(view.getContext().getResources(), R.drawable.ic_status_pending);
-                        mDrawable = ContextCompat.getDrawable(context, R.drawable.ic_status_pending);
-                        break;
-                }
-                if (estatusDocs.getTipoDocumento() == DOC_ID_FRONT) {
-                    IFEfront.setVisibilityStatus(true);
-
-                    IFEfront.setImageDrawable(mDrawable);
-                } else if (estatusDocs.getTipoDocumento() == DOC_ID_BACK) {
-                    IFEback.setVisibilityStatus(true);
-
-                    IFEback.setImageDrawable(mDrawable);
-                } else if (estatusDocs.getTipoDocumento() == DOC_DOM_FRONT) {
-                    Addressfront.setVisibilityStatus(true);
-
-                    Addressfront.setImageDrawable(mDrawable);
-                } else if (estatusDocs.getTipoDocumento() == DOC_DOM_BACK) {
-                    Addressback.setVisibilityStatus(true);
-
-                    Addressback.setImageDrawable(mDrawable);
-                }
-            }
-
-            /**
-             * Lineas para probar los estados y carga de imagenes, sin importar los estados del servidor
-             */
-            //IFEfront.setClickable(true);
-            //IFEback.setClickable(true);
-            //Addressfront.setClickable(true);
-            //Addressback.setClickable(true);
-        }
-    }
 
     @Override
     public void getEstatusDocs() {
@@ -477,9 +346,6 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(result.getWebService(), data.getMensaje());//Retornamos mensaje de error.
         }
-
-
     }
-
 
 }

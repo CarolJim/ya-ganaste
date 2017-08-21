@@ -95,6 +95,11 @@ public class UploadDocumentView extends RelativeLayout {
         circleImageView.invalidate();
     }
 
+    public void setBackgroundResource(int id) {
+        circleImageView.setBackgroundResource(id);
+        circleImageView.invalidate();
+    }
+
     public void setStatusImage(Drawable bitmap) {
 
         circleImageStatus.setImageDrawable(bitmap);
