@@ -266,25 +266,18 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
     }
 
     private void processEstadoDeDocumentos(DataSourceResult dataSourceResult) {
-
         EstadoDocumentosResponse data = (EstadoDocumentosResponse) dataSourceResult.getData();
-
-        Log.e("Estado Documentos JSON", createParams(false, dataSourceResult ).toString());
-
-        /*
         if (data.getCodigoRespuesta() == CODE_OK) {
-
             List<DataEstadoDocumentos> estadoSolicitud = data.getData();
             if (estadoSolicitud != null) {
                 accountManager.onSucces(dataSourceResult.getWebService(), estadoSolicitud);
             } else {
-                accountManager.onError(dataSourceResult.getWebService(), "Ocurrio un Error al Consultar el Estado de Solicitud de Cupo");//Retornamos mensaje de error.
+                accountManager.onError(dataSourceResult.getWebService(), "Ocurrio un Error al Consultar los Documentos");//Retornamos mensaje de error.
             }
         } else {
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(dataSourceResult.getWebService(), data.getMensaje());//Retornamos mensaje de error.
         }
-        */
     }
 
     private void processEstadoRegistro(DataSourceResult dataSourceResult) {

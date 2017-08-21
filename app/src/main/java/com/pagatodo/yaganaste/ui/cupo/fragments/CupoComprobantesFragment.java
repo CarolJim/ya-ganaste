@@ -30,6 +30,7 @@ import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoDocumentos;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -70,6 +71,9 @@ import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 
 /**
  * Created by Jordan on 25/07/2017.
@@ -116,6 +120,8 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     private BitmapLoader bitmapLoader;
 
     private ArrayList<String> contador;
+
+
 
 
     private CupoDomicilioPersonalPresenter presenter;
@@ -508,6 +514,59 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     @Override
     public void obtieneEstadoDeDocumentos() {
         presenter.getEstatusDocs();
+    }
+
+    @Override
+    public void setResponseEstadoDocumentos(List<DataEstadoDocumentos> datos) {
+        Log.e("Test", "Respuesta de estado de documentos");
+        for (int i=0; i<datos.size(); i++) {
+
+            DataEstadoDocumentos actual = datos.get(i);
+            int estado = actual.getIdEstatus();
+
+            if (actual.getTipoDocumento() == DOC_CUPO_FRONT  ) {
+
+
+
+                switch (estado) {
+                    case STATUS_DOCTO_PENDIENTE:
+                        itemWeNeedSmFilesAddressFront.setCenterDrawable(R.drawable.ic_status_pending);
+                        itemWeNeedSmFilesAddressFront.setVisibilityStatus(false);
+                        itemWeNeedSmFilesAddressFront.setOnClickListener(null);
+                        break;
+                    case STATUS_DOCTO_APROBADO:
+                        itemWeNeedSmFilesAddressFront.setCenterDrawable(R.drawable.ic_status_ok);
+                        itemWeNeedSmFilesAddressFront.setVisibilityStatus(false);
+                        itemWeNeedSmFilesAddressFront.setOnClickListener(null);
+                        break;
+                    case STATUS_DOCTO_RECHAZADO:
+                        itemWeNeedSmFilesAddressFront.setCenterDrawable(R.drawable.warning_1_canvas);
+                        itemWeNeedSmFilesAddressFront.setVisibilityStatus(false);
+                        itemWeNeedSmFilesAddressFront.setOnClickListener(this);
+                        break;
+                }
+
+            } else if (actual.getTipoDocumento() == DOC_CUPO_BACK) {
+                switch (estado) {
+                    case STATUS_DOCTO_PENDIENTE:
+                        itemWeNeedSmFilesAddressBack.setCenterDrawable(R.drawable.ic_status_pending);
+                        itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
+                        itemWeNeedSmFilesAddressBack.setOnClickListener(null);
+                        break;
+                    case STATUS_DOCTO_APROBADO:
+                        itemWeNeedSmFilesAddressBack.setCenterDrawable(R.drawable.ic_status_ok);
+                        itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
+                        itemWeNeedSmFilesAddressBack.setOnClickListener(null);
+                        break;
+                    case STATUS_DOCTO_RECHAZADO:
+                        itemWeNeedSmFilesAddressBack.setCenterDrawable(R.drawable.warning_1_canvas);
+                        itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
+                        itemWeNeedSmFilesAddressBack.setOnClickListener(this);
+                        break;
+                }
+            }
+        }
+
     }
 
 

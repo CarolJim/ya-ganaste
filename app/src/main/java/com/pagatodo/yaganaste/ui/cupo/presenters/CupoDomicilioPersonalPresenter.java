@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoDocumentos;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoSolicitud;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IDocumentsPresenter;
@@ -31,6 +32,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREA_SOLICITUD_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTADO_DOCUMENTOS_CUPO;
 
 /**
  * Created by Tato on 02/08/17.
@@ -62,9 +64,6 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
         iteractor.getNeighborhoodByZipCode(zipCode);
     }
 
-
-
-
     @Override
     public void onSucces(WebService ws, Object msgSuccess) {
         iNavigationView.hideLoader();
@@ -76,6 +75,8 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
             ((IViewDomicilioPersonal) iNavigationView).setResponseCreaSolicitudCupo();
         } else if (ws == CONSULTA_STATUS_REGISTRO_CUPO) {
             ((IViewStatusRegisterCupo) iNavigationView).setResponseEstadoCupo((DataEstadoSolicitud) msgSuccess );
+        } else if (ws == OBTENER_ESTADO_DOCUMENTOS_CUPO) {
+            ((IViewCupoComprobantes) iNavigationView).setResponseEstadoDocumentos((List<DataEstadoDocumentos>) msgSuccess );
         }
     }
 
