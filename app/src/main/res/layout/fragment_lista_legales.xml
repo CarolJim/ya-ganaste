@@ -57,13 +57,13 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
-                    android:text="Aviso de Privacidad" />
+                    android:text="@string/aviso_privacidad" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="17dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    app:srcCompat="@drawable/menu_canvas_blue" />
+                    app:srcCompat="@drawable/arrow_canvas_blue" />
             </LinearLayout>
 
             <View
@@ -87,13 +87,13 @@
                     android:layout_gravity="center"
                     android:layout_marginLeft="10dp"
                     android:layout_weight="2"
-                    android:text="Términos y Condiciones" />
+                    android:text="@string/termin_condiciones" />
 
                 <android.support.v7.widget.AppCompatImageView
                     android:layout_width="17dp"
                     android:layout_height="wrap_content"
                     android:layout_marginRight="20dp"
-                    app:srcCompat="@drawable/menu_canvas_blue" />
+                    app:srcCompat="@drawable/arrow_canvas_blue" />
             </LinearLayout>
 
         </LinearLayout>

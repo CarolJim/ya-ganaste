@@ -31,6 +31,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
@@ -112,6 +113,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     private int documentApproved = 0;
     private BitmapLoader bitmapLoader;
 
+    private int Idestatus;
+
     private String imgs[] = new String[4];
     private ArrayList<String> contador;
     private Map<Integer, DataDocuments> dataDocumnets;
@@ -152,6 +155,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         contador = new ArrayList<>();
+        Idestatus= SingletonUser.getInstance().getDataUser().getIdEstatus();
         adqPresenter = new AccountAdqPresenter(this, getContext());
         adqPresenter.setIView(this);
         dataStatusDocuments = new ArrayList<>();
@@ -178,17 +182,20 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         dataDocumnetsServer = new ArrayList<>();
         dataDocumnets = new HashMap<>();
 
+
         if (SingletonUser.getInstance().getDataUser().isEsAgente()
                 && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_PENDIENTE
                 && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == CRM_PENDIENTE) {  //si ya se hiso el proceso de envio de documentos
             mExisteDocs = true;
             lnr_help.setVisibility(VISIBLE);
-            refreshContent();
             initSetClickableStatusDocs();
             btnWeNeedSmFilesNext.setVisibility(View.INVISIBLE);
         } else {     // si no se han enviado los documentos
 
             initSetClickableDocs();
+        }
+        if (!mExisteDocs) {
+            swipeRefreshLayout.setEnabled(false);
         }
     }
 
@@ -599,7 +606,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
     @Override
     public void hideLoader() {
-        if (getParentFragment().isMenuVisible() && onEventListener != null) {
+        if ((getParentFragment()==null || getParentFragment().isMenuVisible() )&& onEventListener != null) {
             onEventListener.onEvent(EVENT_HIDE_LOADER, null);
         }
         swipeRefreshLayout.setRefreshing(false);
@@ -715,7 +722,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     }
 
     private void refreshContent() {
-        if (getParentFragment().isMenuVisible()) {
+        if (getParentFragment()==null || getParentFragment().isMenuVisible()) {
             showLoader(getString(R.string.recuperando_docs_estatus));
         } else {
             swipeRefreshLayout.setRefreshing(true);
