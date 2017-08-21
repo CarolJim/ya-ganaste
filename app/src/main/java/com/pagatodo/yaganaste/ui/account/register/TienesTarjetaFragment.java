@@ -319,7 +319,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
 
     @Override
     public void accountAssigned(String message) {
-        showLoader(message);
+        showLoader("");
         txtMessageCard.setText(getString(R.string.si_tiene_tarjeta));
         new Handler().postDelayed(new Runnable() {
             public void run() {

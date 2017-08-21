@@ -549,7 +549,6 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
     private void validate(int field) {
 
-
     }
 
 }

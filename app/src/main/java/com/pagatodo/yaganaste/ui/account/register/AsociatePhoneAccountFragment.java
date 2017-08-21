@@ -24,7 +24,6 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
-import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -43,9 +42,6 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
-import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PUSH;
-import static com.pagatodo.yaganaste.utils.StringConstants.USER_PROVISIONED;
 
 
 /**
