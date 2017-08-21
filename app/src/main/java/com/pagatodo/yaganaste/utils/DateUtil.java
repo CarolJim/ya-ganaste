@@ -160,11 +160,21 @@ public class DateUtil {
         try {
             date = dateFormat.parse(movDate);
         } catch (ParseException e) {
-            dateFormat = new SimpleDateFormat("dd MMM yyyy  hh:mm", new Locale("es", "mx"));
+            dateFormat = new SimpleDateFormat("dd/MMM/yyyy hh:mm", new Locale("es"));
             try {
                 date = dateFormat.parse(movDate);
             } catch (ParseException e1) {
-                e1.printStackTrace();
+                dateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm", new Locale("es", "mx"));
+                try {
+                    date = dateFormat.parse(movDate);
+                } catch (ParseException e2) {
+                    dateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm", new Locale("es"));
+                    try {
+                        date = dateFormat.parse(movDate);
+                    } catch (ParseException e3) {
+                        e3.printStackTrace();
+                    }
+                }
             }
         }
         return date;

@@ -42,6 +42,7 @@ public enum WebService {
     OBTENER_SUBGIROS,
     OBTENER_DOMICILIO_PRINCIPAL,
     OBTENER_DOMICILIO,
+    GENERAR_CODIGO_RECUPERACION,
     /**
      * WS Transaccional
      **/
