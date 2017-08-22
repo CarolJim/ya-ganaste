@@ -22,7 +22,6 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -35,7 +34,6 @@ import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
-import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
@@ -58,6 +56,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADDRESS_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_COMPLETE;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_DOCUMENT_APPROVED;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_GO_HOME;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -103,8 +102,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
     private View rootview;
-    //@BindView(R.id.progressLayout)
-    //ProgressLayout progressLayout;
     private int documentProcessed = 0;
     private int documentPendientes = 0;
     private int documentApproved = 0;
@@ -323,7 +320,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 bitmapLoader.execute();
             } catch (Exception e) {
                 e.printStackTrace();
-                UI.createSimpleCustomDialog("", "Error al Cargar Imagen", getActivity().getSupportFragmentManager(), null, true, false);
+                UI.createSimpleCustomDialog("", getString(R.string.error_cargar_imagen), getActivity().getSupportFragmentManager(), null, true, false);
                 adqPresenter.showGaleryError();
             } finally {
                 if (cursor != null) {
@@ -479,7 +476,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         documentProcessed = document;
         Intent intentGallery = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intentGallery.setType("image/*");
-        getActivity().startActivityForResult(Intent.createChooser(intentGallery, "Selecciona Archivo"), SELECT_FILE_PHOTO);
+        getActivity().startActivityForResult(Intent.createChooser(intentGallery, getString(R.string.txt_selecciona_archivo)), SELECT_FILE_PHOTO);
         //enableItems(false);
     }
 
@@ -559,7 +556,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
         // Enviamos a la pantalla de documentos aprovados
         if (documentApproved == 4) {
-            onEventListener.onEvent("EVENT_DOCUMENT_APPROVED", null);
+            onEventListener.onEvent(EVENT_DOCUMENT_APPROVED, null);
         }
     }
 
@@ -657,8 +654,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     }
 
     public void showDocumentRejected(EstatusDocumentosResponse mData, final int mPosition) {
-        String mTitleStatus = StringUtils.formatStatus(mData.getEstatus());
-        UI.createSimpleCustomDialogError(mTitleStatus, mData.getMotivo(), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
+        UI.createSimpleCustomDialogError(mData.getMotivo(), mData.getComentario(), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
                 switch (mPosition) {
@@ -683,7 +679,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             public void actionCancel(Object... params) {
 
             }
-        }, true, false);
+        }, true, false, getString(R.string.adq_upload_again));
     }
 
     /**
@@ -692,7 +688,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     private void sendDocumentsPending() {
         updateListFromMapHash();
         if (dataDocumnets.size() < documentPendientes) {
-            UI.createSimpleCustomDialog("", "Debes de Subir Los DocumentosFragment Marcados Con el Signo de Admiración", getActivity().getSupportFragmentManager(),
+            UI.createSimpleCustomDialog("", getString(R.string.txt_dialogo_subir_documentos_marcados), getActivity().getSupportFragmentManager(),
                     new DialogDoubleActions() {
                         @Override
                         public void actionConfirm(Object... params) {
@@ -718,7 +714,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
         for (String s : imgs)
             if (s == null || s.isEmpty()) {
-                showError(App.getContext().getResources().getString(R.string.adq_must_upload_documents));
+                showError(getString(R.string.adq_must_upload_documents));
                 return;
             }
         adqPresenter.sendDocumentos(dataDocumnetsServer);

@@ -28,7 +28,6 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
 import com.pagatodo.yaganaste.ui.account.AprovPresenter;
-import com.pagatodo.yaganaste.ui.adquirente.DocumentApprovedFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
@@ -39,7 +38,6 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.DepositsFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.MainMenuPresenterImp;
-import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.TabPresenter;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
@@ -48,10 +46,13 @@ import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.List;
 
+import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.PANTALLA_COBROS;
+import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.PANTALLA_PRINCIPAL_EMISOR;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.CODE_CANCEL;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
+import static com.pagatodo.yaganaste.utils.Constants.ACTIVITY_LANDING;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
@@ -61,7 +62,6 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.PTH_DOCTO_APROBADO;
-import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener, IAprovView<ErrorObject> {
@@ -97,7 +97,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
         if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
-            startActivityForResult(LandingActivity.createIntent(this, R.drawable.img_couch_em_back, drawablesEmisor), Constants.ACTIVITY_LANDING);
+            startActivityForResult(LandingActivity.createIntent(this, PANTALLA_PRINCIPAL_EMISOR), ACTIVITY_LANDING);
         }
     }
 
@@ -162,7 +162,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 @Override
                 public void run() {
                     pref.saveDataBool(COUCHMARK_EMISOR, true);
-                    startActivityForResult(LandingActivity.createIntent(TabActivity.this, R.drawable.img_couch_em_back, drawablesEmisor), Constants.ACTIVITY_LANDING);
+                    startActivityForResult(LandingActivity.createIntent(TabActivity.this, PANTALLA_PRINCIPAL_EMISOR), ACTIVITY_LANDING);
                 }
             }, 500);
         }
@@ -188,8 +188,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (event.equals(EVENT_SHOW_MAIN_TAB)) {
             showMainTab();
         } else if (event.equals(EVENT_DOCUMENT_APPROVED)) {
-            // Toast.makeText(getApplicationContext(), "Load FRagment New", Toast.LENGTH_SHORT).show();
-            //DocumentsContainerFragment mFragment = mainViewPager.findViewById(R.id)
             DocumentsContainerFragment mFragment = (DocumentsContainerFragment)
                     getSupportFragmentManager().findFragmentById(R.id.main_view_pager);
             mFragment.loadApprovedFragment();
@@ -278,7 +276,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                     SingletonUser.getInstance().getDataUser().getEstatusAgente() == PTH_DOCTO_APROBADO &&
                     !pref.containsData(COUCHMARK_ADQ)) {
                 pref.saveDataBool(COUCHMARK_ADQ, true);
-                startActivity(LandingActivity.createIntent(this, 0, drawablesAdquirente));
+                startActivity(LandingActivity.createIntent(this, PANTALLA_COBROS));
             }
         }
     }

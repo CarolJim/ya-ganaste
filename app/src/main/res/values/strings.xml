@@ -189,6 +189,9 @@
     <string name="backButton">Volver</string>
     <string name="nextButton">Continuar</string>
     <string name="imagen_duplicada">Imagen Duplicada , Seleccione Una Imagen Diferente</string>
+    <string name="txt_dialogo_subir_documentos_marcados">Debes de Subir Los Documentos Marcados Con el Signo de Admiración</string>
+    <string name="txt_selecciona_archivo">Selecciona Archivo</string>
+    <string name="error_cargar_imagen">Error al Cargar Imagen</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="messages">Mensajes</string>
