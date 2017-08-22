@@ -1,0 +1,125 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment">
+
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+            android:layout_weight="1"
+            android:gravity="center"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="30dp"
+                android:layout_marginTop="20dp"
+                android:orientation="vertical">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/textView2"
+                    style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/cuentareebolso" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/whiteColor" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="20dp"
+                    android:layout_marginRight="20dp"
+                    android:gravity="center"
+                    android:layout_marginTop="40dp"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/ll_content_parent_emisor"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:orientation="vertical">
+
+                        <com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout
+                            android:id="@+id/ll_material_emisor_container"
+                            android:layout_width="match_parent"
+                            android:layout_height="match_parent"
+                            app:buttonStrokeColor="@color/transparent"
+                            app:cornerRadius="6dp">
+
+                            <com.pagatodo.yaganaste.utils.customviews.yaganasteviews.CardEmisorSelected
+                                android:layout_width="match_parent"
+                                android:layout_height="match_parent" />
+
+                        </com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:orientation="vertical">
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/cuenta_reembolso_name_user"
+                            style="@style/generic_text_style_2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Frank Manzo" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/cuenta_reembolso_num_cuenta"
+                            style="@style/generic_text_style_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Tarjeta: **** **** **** 5678" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/cuenta_reembolso_num_clabe"
+                            style="@style/generic_text_style_4"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            tools:text="Utilizada Por Ultima Vez: 23/Mar/17" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/fragment_desasociar_btn"
+            style="@style/buttonSquareRoundedBlue"
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"
+            android:gravity="center"
+            android:text="Cambiar Cuenta" />
+
+    </LinearLayout>
+</RelativeLayout>

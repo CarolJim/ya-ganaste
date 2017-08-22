@@ -4,6 +4,8 @@ import android.graphics.Bitmap;
 
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarDatosCuentaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.BloquearCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
 
@@ -23,4 +25,8 @@ public interface IPreferUserIteractor {
     void changeEmailToIteractor(CambiarEmailRequest cambiarEmailRequest);
 
     void changePassToIteractor(CambiarContraseniaRequest cambiarContraseniaRequest);
+
+    void sendIteractorDatosCuenta(ActualizarDatosCuentaRequest datosCuentaRequest);
+
+    void toIteractorBloquearCuenta(BloquearCuentaRequest bloquearCuentaRequest);
 }

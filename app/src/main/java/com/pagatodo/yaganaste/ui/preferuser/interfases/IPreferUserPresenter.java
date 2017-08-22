@@ -40,4 +40,10 @@ public interface IPreferUserPresenter {
     void sendErrorServerDesasociarToPresenter(String s);
 
     void showExceptionDesasociarToPresenter(String s);
+
+    void toPresenterBloquearCuenta(int i);
+
+    void showExceptionBloquearCuentaToPresenter(String s);
+
+    void sendErrorServerBloquearCuentaToPresenter(String s);
 }

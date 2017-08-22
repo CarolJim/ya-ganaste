@@ -7,7 +7,9 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionAprovSofttokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionServicioMovilRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarDatosCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AsignarContraseniaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.BloquearCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CargaDocumentosRequest;
@@ -32,8 +34,10 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActiv
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActivacionServicioMovilResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AsignarContraseniaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CargaDocumentosResponse;
@@ -61,6 +65,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActi
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 
 import java.util.Map;
 
@@ -72,6 +77,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVAT
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CONTRASENIA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.BLOQUEAR_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CAMBIAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
@@ -96,12 +102,14 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_SUBGIROS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECURSO_IMAGEN;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATE_DATOS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_TRANS;
 
 /**
  * Created by flima on 17/03/2017.
@@ -658,5 +666,17 @@ public class ApiAdtvo extends Api {
         NetFacade.consumeWS(DESASOCIAR_DISPOSITIVO,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.changePasswordUrl),
                 headers, request, true, CambiarEmailResponse.class, result);
+    }
+
+    public static void updateDatosCuenta(ActualizarDatosCuentaRequest request,
+                                         PreferUserIteractor result) throws OfflineException  {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put("IdOperacion", "0");
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(UPDATE_DATOS_CUENTA,
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerDatosCuenta),
+                headers, request, true, ActualizarDatosCuentaResponse.class, result);
     }
 }
