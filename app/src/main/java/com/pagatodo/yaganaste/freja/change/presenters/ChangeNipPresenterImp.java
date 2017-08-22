@@ -99,7 +99,7 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
     public void onError(final Errors error) {
         Log.e(TAG, "onError: " + error.getMessage() + "\n Code: " + String.valueOf(error.getErrorCode()));
         mIChangeNipView.hideLoader();
-        if (individualReintent < 3) { //Si el reintento individual aun no excede el maximo
+        if (individualReintent < 3 && error.allowsReintent()) { //Si el reintento individual aun no excede el maximo
             handleError(error);
             return;
         }
@@ -107,19 +107,29 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
         if (generalReintent < maxIntents-1) { //Si el numero de intentos general aun no excede
             generalReintent++;
             individualReintent = 0;
-
             currentMethod = initChangeNipMethod;
             currentMethodParams = initChangeParams;
             error.setAllowReintent(true);
             handleError(error);
             return;
         }
-
+        // TODO: 21/08/2017 Verificar como manejar error
         mIChangeNipView.onFrejaNipChanged();
     }
 
     private void handleError(final Errors error) {
-        DialogDoubleActions actions = new DialogDoubleActions() {
+        //En este caso no se maneja feedback del usuario, si se requiere descomentar el resto de codigo
+        //e implementar el resto del codigo
+
+        currentMethod.setAccessible(true);
+        try {
+            currentMethod.invoke(ChangeNipPresenterImp.this, currentMethodParams);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+        /*DialogDoubleActions actions = new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
                 if (error.allowsReintent()) {
@@ -141,7 +151,7 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
         ErrorObject.Builder builder = new ErrorObject.Builder().setMessage(error.getMessage())
                 .setHasCancel(error.allowsReintent()).setActions(actions);
 
-        mIChangeNipView.showErrorNip(builder.build());
+        mIChangeNipView.showErrorNip(builder.build());*/
     }
 
 }

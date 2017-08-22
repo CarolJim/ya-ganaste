@@ -10,7 +10,9 @@ import com.pagatodo.yaganaste.interfaces.View;
 
 public interface IResetNIPView<T> extends IProgressView<T>, View {
 
-    void showErrorAprov(ErrorObject error);
+    void showErrorReset(ErrorObject error);
 
     void finishReseting();
+
+    void onResetingFailed();
 }
