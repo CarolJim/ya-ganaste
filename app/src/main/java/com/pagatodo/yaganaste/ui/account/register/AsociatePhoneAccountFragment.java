@@ -20,6 +20,8 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
@@ -42,12 +44,14 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements IVerificationSMSView, IAprovView {
+public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements IVerificationSMSView,
+        IAprovView, IResetNIPView {
 
     private static final String TAG = AsociatePhoneAccountFragment.class.getSimpleName();
     private static final long CHECK_SMS_VALIDATE_DELAY = 10000;
@@ -149,8 +153,28 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
 
     public void finishAssociation() {
+        if (SingletonUser.getInstance().needsReset()) {
+            accountPresenter.doReseting(preferencias.loadData(SHA_256_FREJA));
+        } else {
+            nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+        }
+    }
+
+    @Override
+    public void showErrorReset(ErrorObject error) {
+        showErrorAprov(error);
+    }
+
+    @Override
+    public void finishReseting() {
         nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
     }
+
+    @Override
+    public void onResetingFailed() {
+        nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+    }
+
 
     @Override
     public void smsVerificationFailed(String message) {
@@ -304,5 +328,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         mySeekBar.setEnabled(true);
         mySeekBar.setProgress(0);
     }
+
+
 }
 

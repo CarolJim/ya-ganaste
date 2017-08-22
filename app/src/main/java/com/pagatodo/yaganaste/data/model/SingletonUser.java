@@ -31,6 +31,7 @@ public class SingletonUser {
     private DatosSaldo datosSaldo;
     private String pathPictureTemp = "";
     private String activacionCodeFreja = "";
+    private boolean needsReset;
 
     private SingletonUser() {
         dataUser = new DataIniciarSesion();
@@ -117,5 +118,14 @@ public class SingletonUser {
 
     public void setDatosSaldo(DatosSaldo datosSaldo) {
         this.datosSaldo = datosSaldo;
+    }
+
+
+    public boolean needsReset() {
+        return needsReset;
+    }
+
+    public void setNeedsReset(boolean needsReset) {
+        this.needsReset = needsReset;
     }
 }

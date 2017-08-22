@@ -326,7 +326,7 @@
 
     <!--activacion_sms-->
     <string name="activacion_sms_mes_1">Para Terminar tu Registro,\n Debemos Asociar tu Teléfono a tu\n Cuenta Ya Ganaste.</string>
-    <string name="activacion_sms_mes_2">Desliza el Boton y Enviaremos un \nSMS Para Realizar el Proceso</string>
+    <string name="activacion_sms_mes_2">Desliza el Botón y Enviaremos un \nSMS Para Realizar el Proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
     <!--tienes_tarjeta-->

@@ -77,15 +77,23 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         if (!isProvisioning.get()) {
             isProvisioning.set(true);
             reset();
-            if (!preferencias.containsData(HAS_PROVISIONING) || !preferencias.loadData(USER_PROVISIONED).equals(RequestHeaders.getUsername())) {
+            if (needsProvisioning()) {
                 aprovView.showLoader("");
                 getActivationCode();
-            } else if (!preferencias.containsData(HAS_PUSH)){
+            } else if (needsPush()){
                 subscribePushNotification();
             } else {
                 isProvisioning.set(false);
             }
         }
+    }
+
+    public boolean needsProvisioning() {
+        return  (!preferencias.containsData(HAS_PROVISIONING) || !preferencias.loadData(USER_PROVISIONED).equals(RequestHeaders.getUsername()));
+    }
+
+    public boolean needsPush() {
+        return !preferencias.containsData(HAS_PUSH);
     }
 
     /***
@@ -225,8 +233,6 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
         aprovView.finishAssociation();
     }
 
-
-
     @Override
     public void onError(final Errors error) {
         Log.e(TAG, "onError: " + error.getMessage() + "\n Code: " + String.valueOf(error.getErrorCode()));
@@ -260,11 +266,7 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
             }
         }
         aprovView.hideLoader();
-        isProvisioning.set(false);
-        if (navigationView != null) {
-            navigationView.nextScreen(EVENT_APROV_FAILED, null);
-        }
-
+        onProcessFailed(navigationView);
     }
 
     private void handleIndividualErrorWithUserFeedback(final Errors error, final INavigationView navigationView) {
@@ -280,16 +282,13 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
                         e.printStackTrace();
                     }
                 } else {
-                    isProvisioning.set(false);
-                    navigationView.nextScreen(EVENT_APROV_FAILED, null);
-
+                    onProcessFailed(navigationView);
                 }
             }
 
             @Override
             public void actionCancel(Object... params) {
-                isProvisioning.set(false);
-                navigationView.nextScreen(EVENT_APROV_FAILED, null);
+                onProcessFailed(navigationView);
             }
         };
 
@@ -307,6 +306,12 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
             e.printStackTrace();
         }
 
+    }
+
+
+    public void onProcessFailed(INavigationView navigationView) {
+        isProvisioning.set(false);
+        aprovView.finishAssociation();
     }
 
 }

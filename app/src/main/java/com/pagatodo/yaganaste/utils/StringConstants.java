@@ -27,6 +27,7 @@ public class StringConstants {
     public static final String HAS_PUSH = "HAS_PUSH";
 
 
+    public static final String OLD_NIP = "OLD_NIP";
     public static final String HAS_TOKEN_ONLINE = "HAS_TOKEN_ONLINE";
 
     private StringConstants() {

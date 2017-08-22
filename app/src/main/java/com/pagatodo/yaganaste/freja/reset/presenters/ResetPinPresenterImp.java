@@ -1,11 +1,11 @@
 package com.pagatodo.yaganaste.freja.reset.presenters;
 
-import android.content.Context;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenerarCodigoRecuperacionResponse;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.reset.iteractors.ResetPinIteractor;
@@ -18,14 +18,16 @@ import java.lang.reflect.Method;
 import java.util.concurrent.Executors;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.StringConstants.OLD_NIP;
 
 /**
  * @author Juan Guerra on 31/03/2017.
  */
 
-public class ResetPinPresenterAbs implements ResetPinPresenter, ResetPinManager {
+public class ResetPinPresenterImp implements ResetPinPresenter, ResetPinManager {
 
-    private static final String TAG = ResetPinPresenterAbs.class.getSimpleName();
+    private static final String TAG = ResetPinPresenterImp.class.getSimpleName();
 
     private ResetPinIteractor resetPinIteractor;
     private IResetNIPView resetNIPView;
@@ -45,11 +47,15 @@ public class ResetPinPresenterAbs implements ResetPinPresenter, ResetPinManager 
     private byte[] rpcCode;
     private byte[] newPin;
 
-    public ResetPinPresenterAbs(IResetNIPView resetNIPView, boolean userFeedback) {
+    public ResetPinPresenterImp(boolean userFeedback) {
         this.resetPinIteractor = new ResetPinIteractorImp(this, Executors.newFixedThreadPool(1));
         this.resetPinIteractor.init(App.getInstance());
-        this.resetNIPView = resetNIPView;
         this.userFeedback = userFeedback;
+    }
+
+    @Override
+    public void setResetNIPView(IResetNIPView resetNIPView) {
+        this.resetNIPView = resetNIPView;
     }
 
     @Override
@@ -108,6 +114,8 @@ public class ResetPinPresenterAbs implements ResetPinPresenter, ResetPinManager 
 
     @Override
     public void endResetPin() {
+        SingletonUser.getInstance().setNeedsReset(false);
+        App.getInstance().getPrefs().saveData(OLD_NIP, App.getInstance().getPrefs().loadData(SHA_256_FREJA));
         resetNIPView.hideLoader();
         resetNIPView.finishReseting();
     }
@@ -154,7 +162,7 @@ public class ResetPinPresenterAbs implements ResetPinPresenter, ResetPinManager 
     private void handleError(final Errors error) {
         currentMethod.setAccessible(true);
         try {
-            currentMethod.invoke(ResetPinPresenterAbs.this, currentMethodParams);
+            currentMethod.invoke(ResetPinPresenterImp.this, currentMethodParams);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -167,7 +175,7 @@ public class ResetPinPresenterAbs implements ResetPinPresenter, ResetPinManager 
                 if (error.allowsReintent()) {
                     currentMethod.setAccessible(true);
                     try {
-                        currentMethod.invoke(ResetPinPresenterAbs.this, currentMethodParams);
+                        currentMethod.invoke(ResetPinPresenterImp.this, currentMethodParams);
                     } catch (Exception e) {
                         e.printStackTrace();
                     }
