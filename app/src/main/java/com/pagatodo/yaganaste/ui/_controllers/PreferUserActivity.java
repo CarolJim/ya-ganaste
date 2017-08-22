@@ -9,6 +9,9 @@ import android.view.Menu;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarDatosCuentaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -53,25 +56,19 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_PRIVACIDAD_BACK = "PREFER_USER_PRIVACIDAD_BACK";
     public static String PREFER_USER_TERMINOS_BACK = "PREFER_USER_TERMINOS_BACK";
     public static String PREFER_USER_PRIVACIDAD_CUENTA_YA = "PREFER_USER_PRIVACIDAD_CUENTA_YA";
-    public static String PREFER_USER_TERMINOS_CUENTA_YA= "PREFER_USER_TERMINOS_CUENTA_YA";
-    public static String PREFER_USER_PRIVACIDAD_LINEA_CREDITO= "PREFER_USER_PRIVACIDAD_LINEA_CREDITO";
-    public static String PREFER_USER_TERMINOS_LINEA_CREDITO= "PREFER_USER_TERMINOS_LINEA_CREDITO";
-    public static String PREFER_USER_CUENTA_REEMBOLSO= "PREFER_USER_CUENTA_REEMBOLSO";
-    public static String PREFER_USER_CUENTA_REEMBOLSO_BACK= "PREFER_USER_CUENTA_REEMBOLSO_BACK";
-
-
+    public static String PREFER_USER_TERMINOS_CUENTA_YA = "PREFER_USER_TERMINOS_CUENTA_YA";
+    public static String PREFER_USER_PRIVACIDAD_LINEA_CREDITO = "PREFER_USER_PRIVACIDAD_LINEA_CREDITO";
+    public static String PREFER_USER_TERMINOS_LINEA_CREDITO = "PREFER_USER_TERMINOS_LINEA_CREDITO";
+    public static String PREFER_USER_CUENTA_REEMBOLSO = "PREFER_USER_CUENTA_REEMBOLSO";
+    public static String PREFER_USER_CUENTA_REEMBOLSO_BACK = "PREFER_USER_CUENTA_REEMBOLSO_BACK";
     public static String PREFER_USER_DESASOCIAR = "PREFER_USER_DESASOCIAR";
     public static String PREFER_USER_DESASOCIAR_BACK = "PREFER_USER_DESASOCIAR_BACK";
     public static String PREFER_USER_MY_USER = "PREFER_USER_MY_USER";
-    public static String PREFER_USER_HELP_TUTORIALES= "PREFER_USER_HELP_TUTORIALES";
-    public static String PREFER_USER_HELP_CONTACT= "PREFER_USER_HELP_CONTACT";
-    public static String PREFER_USER_HELP_CONTACT_BACK= "PREFER_USER_HELP_CONTACT_BACK";
-    public static String PREFER_USER_HELP_ABOUT= "PREFER_USER_HELP_ABOUT";
-    public static String PREFER_USER_HELP_CORREO= "PREFER_USER_HELP_CORREO";
-
-
-
-
+    public static String PREFER_USER_HELP_TUTORIALES = "PREFER_USER_HELP_TUTORIALES";
+    public static String PREFER_USER_HELP_CONTACT = "PREFER_USER_HELP_CONTACT";
+    public static String PREFER_USER_HELP_CONTACT_BACK = "PREFER_USER_HELP_CONTACT_BACK";
+    public static String PREFER_USER_HELP_ABOUT = "PREFER_USER_HELP_ABOUT";
+    public static String PREFER_USER_HELP_CORREO = "PREFER_USER_HELP_CORREO";
     public static String PREFER_USER_HELP = "PREFER_USER_HELP";
     public static String PREFER_USER_HELP_BACK = "PREFER_USER_HELP_BACK";
     public static String PREFER_USER_MY_ACCOUNT = "PREFER_USER_MY_ACCOUNT";
@@ -90,7 +87,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             setResult(ToolBarActivity.RESULT_LOG_OUT);
             //mPreferPresenter.closeSession(mContext);
             presenterAccount.logout();
-           // finish();
+            // finish();
         }
 
         @Override
@@ -99,7 +96,12 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         }
     };
     private boolean isEsAgente;
-    private String mName, mEmail, mUserImage;
+    private String mName;
+    private String mEmail;
+    private String mUserImage;
+    private String mTDC;
+    private String mClabe;
+    private String mLastTime;
     private boolean disableBackButton = false;
     private AccountPresenterNew presenterAccount;
     private PreferUserPresenter mPreferPresenter;
@@ -113,10 +115,19 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         isEsAgente = SingletonUser.getInstance().getDataUser().isEsAgente();
         isEsAgente = false;
 
-        mName = SingletonUser.getInstance().getDataUser().getUsuario().getNombre() + " " +
-                SingletonUser.getInstance().getDataUser().getUsuario().getPrimerApellido();
-        mEmail = SingletonUser.getInstance().getDataUser().getUsuario().getNombreUsuario();
-        mUserImage = SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL();
+        UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
+
+        mName = usuarioClienteResponse.getNombre() + " " +
+                usuarioClienteResponse.getPrimerApellido();
+        mEmail = usuarioClienteResponse.getNombreUsuario();
+        mUserImage = usuarioClienteResponse.getImagenAvatarURL();
+
+        // Creamos la variables que tendran los datos de Tarjeta y Clabe
+        //mTDC = "1234567890123456";
+        mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
+        //mClabe = "123456789012345678";
+        mClabe = usuarioClienteResponse.getCuentas().get(0).getCLABE();
+        mLastTime = "23/Mar/17";
 
 
         loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage));
@@ -125,10 +136,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         mPreferPresenter = new PreferUserPresenter(this);
 
         mContext = this;
-        // CReamos las referencias al AcoountInteractot
-        // AccountInteractorNew.
-
-        //  mPreferPresenter.testToast();
 
         System.gc();
     }
@@ -198,7 +205,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 loadFragment(MyTutorialFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case "PREFER_USER_CUENTA_REEMBOLSO":
-                loadFragment(CuentaReembolsoFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(CuentaReembolsoFragment.newInstance(mName, mTDC, mClabe), Direction.FORDWARD, false);
                 break;
             case "PREFER_USER_CUENTA_REEMBOLSO_BACK":
                 loadFragment(MyAccountFragment.newInstance(), Direction.BACK, false);
@@ -235,21 +242,21 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 break;
             case "PREFER_USER_PRIVACIDAD_CUENTA_YA":
                 boolean isOnline = Utils.isDeviceOnline();
-                if(isOnline) {
+                if (isOnline) {
                     //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                     LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDAD);
                     legalsDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
-                }else{
+                } else {
                     // Toast.makeText(this, "Is OffLine Privacidad", Toast.LENGTH_SHORT).show();
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }
                 break;
             case "PREFER_USER_TERMINOS_CUENTA_YA":
                 boolean isOnline2 = Utils.isDeviceOnline();
-                if(isOnline2) {
+                if (isOnline2) {
                     LegalsDialog legalsTerminosDialog = LegalsDialog.newInstance(TERMINOS);
                     legalsTerminosDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
-                }else{
+                } else {
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                     //Toast.makeText(this, "Is OffLine Terminos", Toast.LENGTH_SHORT).show();
                 }
@@ -257,21 +264,21 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
             case "PREFER_USER_PRIVACIDAD_LINEA_CREDITO":
                 boolean isOnlinec = Utils.isDeviceOnline();
-                if(isOnlinec) {
+                if (isOnlinec) {
                     //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                     LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDADLC);
                     legalsDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
-                }else{
+                } else {
                     // Toast.makeText(this, "Is OffLine Privacidad", Toast.LENGTH_SHORT).show();
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }
                 break;
             case "PREFER_USER_TERMINOS_LINEA_CREDITO":
                 boolean isOnlinec2 = Utils.isDeviceOnline();
-                if(isOnlinec2) {
+                if (isOnlinec2) {
                     LegalsDialog legalsTerminosDialog = LegalsDialog.newInstance(TERMINOSLC);
                     legalsTerminosDialog.show(this.getFragmentManager(), LegalsDialog.TAG);
-                }else{
+                } else {
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                     //Toast.makeText(this, "Is OffLine Terminos", Toast.LENGTH_SHORT).show();
                 }
@@ -293,7 +300,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
             case "PREFER_USER_MY_CARD":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                loadFragment(MyCardFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(MyCardFragment.newInstance(mName, mTDC, mLastTime), Direction.FORDWARD, false);
                 break;
 
             case "PREFER_USER_CHANGE_NIP":
@@ -303,7 +310,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
             case "PREFER_USER_CHANGE_NIP_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                loadFragment(MyCardFragment.newInstance(), Direction.BACK, false);
+                loadFragment(MyCardFragment.newInstance(mName, mTDC, mLastTime), Direction.BACK, false);
                 break;
 
             case "PREFER_USER_EMAIL":
@@ -357,33 +364,24 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             } else if (currentFragment instanceof MyPassFragment) {
                 onEvent(PREFER_USER_MY_USER_BACK, null);
 
-            }else if (currentFragment instanceof MyHelpFragment) {
+            } else if (currentFragment instanceof MyHelpFragment) {
                 onEvent(PREFER_USER_LISTA, null);
-            }
-            else if (currentFragment instanceof MyTutorialFragment) {
+            } else if (currentFragment instanceof MyTutorialFragment) {
                 onEvent(PREFER_USER_HELP_BACK, null);
             } else if (currentFragment instanceof MyHelpContactanos) {
                 onEvent(PREFER_USER_HELP_BACK, null);
-            }
-            else if (currentFragment instanceof MyHelpAcercaApp) {
+            } else if (currentFragment instanceof MyHelpAcercaApp) {
                 onEvent(PREFER_USER_HELP_BACK, null);
-            }
-            else if (currentFragment instanceof MyHelpContactanosCorreo) {
+            } else if (currentFragment instanceof MyHelpContactanosCorreo) {
                 onEvent(PREFER_USER_HELP_CONTACT_BACK, null);
-            }
-            else if (currentFragment instanceof AvisoPrivacidadFragment) {
+            } else if (currentFragment instanceof AvisoPrivacidadFragment) {
                 onEvent(PREFER_USER_PRIVACIDAD_BACK, null);
-            }
-            else if (currentFragment instanceof TerminosyCondicionesFragment) {
+            } else if (currentFragment instanceof TerminosyCondicionesFragment) {
                 onEvent(PREFER_USER_TERMINOS_BACK, null);
 
-            }
-            else if (currentFragment instanceof CuentaReembolsoFragment) {
+            } else if (currentFragment instanceof CuentaReembolsoFragment) {
                 onEvent(PREFER_USER_CUENTA_REEMBOLSO_BACK, null);
-            }
-
-
-            else {
+            } else {
                 super.onBackPressed();
             }
         }
