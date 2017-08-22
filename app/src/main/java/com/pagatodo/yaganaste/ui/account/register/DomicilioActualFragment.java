@@ -594,7 +594,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
     @Override
     public void clientCreatedSuccess(String message) {
-        showLoader(message);
+        showLoader("");
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
@@ -620,10 +620,10 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             @Override
             public void onClick(View textView) {
                 boolean isOnline = Utils.isDeviceOnline();
-                if(isOnline) {
+                if (isOnline) {
                     LegalsDialog legalsDialog = LegalsDialog.newInstance(TERMINOS);
                     legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
-                }else{
+                } else {
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }
 
@@ -637,11 +637,11 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             @Override
             public void onClick(View textView) {
                 boolean isOnline2 = Utils.isDeviceOnline();
-                if(isOnline2) {
+                if (isOnline2) {
                     //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                     LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDAD);
                     legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
-                }else{
+                } else {
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }
 

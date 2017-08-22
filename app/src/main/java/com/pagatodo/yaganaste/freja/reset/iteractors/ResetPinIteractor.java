@@ -15,4 +15,6 @@ public interface ResetPinIteractor {
     void getResetPinPolicy();
 
     void resetPin(byte[] rpcCode, byte[] newPin);
+
+    void getResetCode();
 }

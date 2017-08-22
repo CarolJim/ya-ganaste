@@ -80,7 +80,7 @@ public class MyAccountFragment extends GenericFragment implements View.OnClickLi
             llcredito.setVisibility(View.GONE);
             solicita_credito.setVisibility(View.GONE);
         }
-        if (Idestatus== IdEstatus.I5.getId()){
+        if (Idestatus== IdEstatus.I5.getId()|| Idestatus== IdEstatus.I6.getId()|| Idestatus== IdEstatus.I7.getId()|| Idestatus== IdEstatus.I8.getId()|| Idestatus== IdEstatus.I9.getId() ||Idestatus== IdEstatus.I10.getId() ||Idestatus== IdEstatus.I11.getId()||Idestatus== IdEstatus.I12.getId()|| Idestatus== IdEstatus.I13.getId()||Idestatus== IdEstatus.I14.getId() ){
             txtreebolso.setVisibility(View.GONE);
             lreembolso.setVisibility(View.GONE);
             llcredito.setVisibility(View.VISIBLE);

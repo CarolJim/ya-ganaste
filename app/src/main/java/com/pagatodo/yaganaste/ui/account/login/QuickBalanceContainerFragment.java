@@ -20,6 +20,8 @@ import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.INICIO_SESION_ADQUIRENTE;
+import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.INICIO_SESION_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CO_QUICK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.CO_QUICK_EM;
 
@@ -72,14 +74,10 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
         pref = App.getInstance().getPrefs();
         if (RequestHeaders.getTokenAdq().isEmpty() && !pref.containsData(CO_QUICK_EM)) {
             pref.saveDataBool(CO_QUICK_EM, true);
-            startActivity(LandingActivity.createIntent(getActivity(), R.drawable.img_couch_qem_back,
-                    R.drawable.img_couch_quick_em_1,
-                    R.drawable.img_couch_quick_em_2));
+            startActivity(LandingActivity.createIntent(getActivity(), INICIO_SESION_EMISOR));
         } else if (!RequestHeaders.getTokenAdq().isEmpty() && !pref.containsData(CO_QUICK_ADQ)) {
             pref.saveDataBool(CO_QUICK_ADQ, true);
-            startActivity(LandingActivity.createIntent(getActivity(), R.drawable.img_couch_qadq_back,
-                    R.drawable.img_couch_quick_adq_1,
-                    R.drawable.img_couch_quick_adq_2));
+            startActivity(LandingActivity.createIntent(getActivity(), INICIO_SESION_ADQUIRENTE));
         }
 
     }

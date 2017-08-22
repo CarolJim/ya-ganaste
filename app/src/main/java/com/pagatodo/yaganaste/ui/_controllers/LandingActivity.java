@@ -12,6 +12,7 @@ import android.view.animation.AnimationUtils;
 import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 
 /**
@@ -34,6 +35,10 @@ public class LandingActivity extends SupportFragmentActivity implements Animatio
     private static int HANDLER_TIME = 2000;
     boolean animaationEnd = true;
     int animationCounter = 1;
+
+    public static Intent createIntent(Context context, LandingActivitiesEnum landingActivitiesEnum) {
+        return createIntent(context, landingActivitiesEnum.getBackImage(), landingActivitiesEnum.getDrawable());
+    }
 
     public static Intent createIntent(Context context, int backImage, int... drawable) {
         Intent intent = new Intent(context, LandingActivity.class);

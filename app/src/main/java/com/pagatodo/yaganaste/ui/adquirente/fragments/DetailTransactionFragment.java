@@ -102,6 +102,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     public void validateForm() {
         getDataForm();
         if (emailToSend.isEmpty()) {
+            TransactionAdqData.resetCurrentTransaction();
             onEventListener.onEvent(AdqActivity.EVENT_GO_LOGIN_FRAGMENT, null);
             return;
         } else if (!emailToSend.isEmpty() && !edtEmailSendticket.isValidText()) {

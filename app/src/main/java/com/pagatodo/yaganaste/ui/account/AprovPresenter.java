@@ -219,7 +219,9 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
 
     @Override
     public void endTokenNotification() {
+        hideLoader();
         preferencias.saveDataBool(HAS_PUSH, true);
+        isProvisioning.set(false);
         aprovView.finishAssociation();
     }
 

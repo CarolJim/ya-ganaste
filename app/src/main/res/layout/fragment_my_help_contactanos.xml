@@ -13,6 +13,22 @@
         android:layout_alignParentTop="true"
         android:orientation="vertical"
         tools:layout_editor_absoluteX="8dp">
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="30dp"
+            android:layout_marginTop="20dp"
+            android:orientation="vertical">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/textView2"
+                style="@style/generic_text_style_2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:text="@string/contactanos" />
+
+        </LinearLayout>
 
         <LinearLayout
             android:layout_width="match_parent"

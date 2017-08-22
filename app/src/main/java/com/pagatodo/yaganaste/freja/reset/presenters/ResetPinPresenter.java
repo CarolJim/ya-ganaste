@@ -5,5 +5,5 @@ package com.pagatodo.yaganaste.freja.reset.presenters;
  */
 
 public interface ResetPinPresenter {
-    void resetNip(String rpcCode, String newPin);
+    void doReseting(String newNip);
 }

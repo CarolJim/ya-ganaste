@@ -185,8 +185,10 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         //MovementsTab movementsType = MovementsTab.getMovementById(movimientosResponse.getIdTipoTransaccion());
         TipoTransaccionPCODE tipoTransaccion = TipoTransaccionPCODE.getTipoTransaccionById(movimientosResponse.getIdTipoTransaccion());
 
-        Glide.with(this).load(movimientosResponse.getURLImagen())
-                .placeholder(R.mipmap.logo_ya_ganaste).into(imageDetail);
+        Glide.with(this)
+                .load(movimientosResponse.getURLImagen())
+                .placeholder(R.mipmap.logo_ya_ganaste)
+                .into(imageDetail);
 
         if (tipoTransaccion == RECARGA) {
             txtReferenciaTitle.setText(movimientosResponse.getIdComercio() == 7 ?

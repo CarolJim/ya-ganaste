@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentAuthorizeManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentAuthorizePresenter;
@@ -250,6 +251,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     @Override
     public void onOtpGenerated(String otp) {
+        RequestHeaders.setTokenFreja(otp);
         onEventListener.onEvent(EVENT_SEND_PAYMENT, envio);
     }
 

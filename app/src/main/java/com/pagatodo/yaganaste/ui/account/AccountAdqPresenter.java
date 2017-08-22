@@ -1,18 +1,14 @@
 package com.pagatodo.yaganaste.ui.account;
 
-import android.content.Context;
 import android.util.Log;
-import android.view.View;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
-import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqAccountPresenter;
@@ -43,15 +39,13 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICIL
 public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccountPresenter,
         IAccountManager {
     private static final String TAG = AccountAdqPresenter.class.getName();
-    Context context;
     private IAdqAccountIteractor adqIteractor;
     private INavigationView iAdqView;
 
 
-    public AccountAdqPresenter(INavigationView iAdqView, Context ctx) {
+    public AccountAdqPresenter(INavigationView iAdqView) {
         this.iAdqView = iAdqView;
-        context = ctx;
-        adqIteractor = new AccountAdqInteractor(this, ctx, iAdqView);
+        adqIteractor = new AccountAdqInteractor(this, iAdqView);
     }
 
     @Override
@@ -66,7 +60,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
 
     @Override
     public void getNeighborhoods(String zipCode) {
-        iAdqView.showLoader(context.getString(R.string.obteniendo_colonias));
+        iAdqView.showLoader(App.getContext().getString(R.string.obteniendo_colonias));
         adqIteractor.getNeighborhoodByZipCode(zipCode);
     }
 
@@ -82,14 +76,14 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
 
     @Override
     public void getClientAddress() {
-        iAdqView.showLoader(context.getString(R.string.obteniendo_domicilio));
+        iAdqView.showLoader(App.getContext().getString(R.string.obteniendo_domicilio));
         adqIteractor.getClientAddress();
     }
 
 
     @Override
     public void createAdq() {
-        iAdqView.showLoader(context.getString(R.string.procesando_solicitud));
+        iAdqView.showLoader(App.getContext().getString(R.string.procesando_solicitud));
         adqIteractor.registerAdq();
     }
 
@@ -148,8 +142,7 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
             if (ws == OBTENER_DOCUMENTOS) {
                 ((IUploadDocumentsView) iAdqView).setDocumentosStatus((List<EstatusDocumentosResponse>) data);
             } else if (ws == CARGA_DOCUMENTOS) {
-                ((IUploadDocumentsView) iAdqView).documentsUploaded(
-                        App.getContext().getResources().getString(R.string.execution_success));
+                ((IUploadDocumentsView) iAdqView).documentsUploaded("");
             } else if (ws == ACTUALIZAR_DOCUMENTOS) {
                 ((IUploadDocumentsView) iAdqView).documentosActualizados(App.getContext().getResources().getString(R.string.adq_upgrade_documents));
             }
@@ -161,9 +154,5 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     @Override
     public void showGaleryError() {
         UI.showToastShort(App.getContext().getResources().getString(R.string.adq_error_open_image), App.getContext());
-    }
-
-    public void setEstatusDocs(View rootview, List<EstatusDocumentosResponse> data) {
-        adqIteractor.setListDocuments(rootview, data);
     }
 }

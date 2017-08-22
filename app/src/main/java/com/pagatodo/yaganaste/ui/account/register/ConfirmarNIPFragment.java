@@ -233,7 +233,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void nextScreen(String event, Object data) {
-        showLoader(data.toString());
+        showLoader("");
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();

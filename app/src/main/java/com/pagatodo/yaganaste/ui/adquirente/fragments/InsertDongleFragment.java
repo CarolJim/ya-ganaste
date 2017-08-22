@@ -152,7 +152,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
                 case LEYENDO:
                     Log.i("IposListener: ", "=====>>    LEYENDO");
                     App.getInstance().pos.doEmvApp(QPOSService.EmvOption.START);
-                    showLoader(getResources().getString(R.string.readcard));
+                    showLoader(isCancelation ? getString(R.string.readcard_cancelation) : getResources().getString(R.string.readcard));
                     break;
                 case REQUEST_AMOUNT:
                     Log.i("IposListener: ", "=====>>    REQUEST_AMOUNT");
@@ -446,7 +446,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         } catch (Exception e) {
 
         }
-        tv_lector.setText(getString(R.string.text_slide_or_insert));
+        String message = isCancelation ? getString(R.string.text_slide_or_insert_cancelation) : getString(R.string.text_slide_or_insert);
+        tv_lector.setText(message);
         tv_lector.setVisibility(View.VISIBLE);
     }
 
