@@ -75,6 +75,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTIVACION_SERV
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVATAR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO_SESION;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CAMBIAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
@@ -709,12 +710,11 @@ public class ApiAdtvo extends Api {
 
 
     public static void actualizaDocumentosCupo(CargaDocumentosRequest request, IRequestResult result) throws OfflineException {
-        // TODO: Cambiar a url de desarollo
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        NetFacade.consumeWS(CARGA_DOCUMENTOS_CUPO,
+        NetFacade.consumeWS(ACTUALIZA_DOCUMENTOS_CUPO,
                 METHOD_POST,
-                URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/  + App.getContext().getString(R.string.cupoCargaDocumentos),
+                /*URL_SERVER_ADTVO*/ "http://10.140.140.247:9000"  + App.getContext().getString(R.string.cupoActualizaDocumentosCupo),
                 headers,
                 request,
                 CargaDocumentosResponse.class,

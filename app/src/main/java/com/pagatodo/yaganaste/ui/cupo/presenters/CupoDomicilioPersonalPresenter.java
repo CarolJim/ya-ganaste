@@ -28,6 +28,7 @@ import com.pagatodo.yaganaste.utils.UI;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREA_SOLICITUD_CUPO;
@@ -77,6 +78,8 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
             ((IViewStatusRegisterCupo) iNavigationView).setResponseEstadoCupo((DataEstadoSolicitud) msgSuccess );
         } else if (ws == OBTENER_ESTADO_DOCUMENTOS_CUPO) {
             ((IViewCupoComprobantes) iNavigationView).setResponseEstadoDocumentos((List<DataEstadoDocumentos>) msgSuccess );
+        } else if (ws == ACTUALIZA_DOCUMENTOS_CUPO) {
+            ((IViewCupoComprobantes) iNavigationView).setResponseActualizaDocumentos();
         }
     }
 
@@ -132,7 +135,7 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
     @Override
     public void reenviaDocumentos(ArrayList<DataDocuments> data) {
         iNavigationView.showLoader(App.getContext().getResources().getString(R.string.adq_upload_documents));
-        iteractor.sendDocuments(data);
+        iteractor.reenviaDocumentos(data);
     }
 
 

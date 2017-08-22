@@ -43,6 +43,7 @@ import org.json.JSONObject;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
@@ -125,9 +126,9 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
         try {
             CargaDocumentosRequest cargaDocumentosRequest = new CargaDocumentosRequest();
             cargaDocumentosRequest.setDocumentos(docs);
-            ApiAdtvo.cargaDocumentosCupo(cargaDocumentosRequest, this);
+            ApiAdtvo.actualizaDocumentosCupo(cargaDocumentosRequest, this);
         } catch (OfflineException e) {
-            accountManager.onError(OBTENER_ESTADO_DOCUMENTOS_CUPO, App.getInstance().getString(R.string.no_internet_access));
+            accountManager.onError(ACTUALIZA_DOCUMENTOS_CUPO, App.getInstance().getString(R.string.no_internet_access));
         }
     }
 
@@ -140,10 +141,6 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
             accountManager.onError(CONSULTA_STATUS_REGISTRO_CUPO, App.getInstance().getString(R.string.no_internet_access));
         }
     }
-
-
-
-
 
 
     @Override
@@ -261,7 +258,21 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
                 case OBTENER_ESTADO_DOCUMENTOS_CUPO:
                     processEstadoDeDocumentos(dataSourceResult);
                     break;
+                case ACTUALIZA_DOCUMENTOS_CUPO:
+                    processActualizaDocumentos(dataSourceResult);
+                    break;
             }
+        }
+    }
+
+    private void processActualizaDocumentos(DataSourceResult response) {
+        CargaDocumentosResponse data = (CargaDocumentosResponse) response.getData();
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            accountManager.onSucces(ACTUALIZA_DOCUMENTOS_CUPO, "Se Actualizan Documentos de Cupo");
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            iNavigationView.errorSessionExpired(response);
+        } else {
+            accountManager.onError(ACTUALIZA_DOCUMENTOS_CUPO, data.getMensaje());
         }
     }
 

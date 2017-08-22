@@ -58,6 +58,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     public final static String EVENT_GO_CUPO_COMPLETE = "EVENT_GO_CUPO_COMPLETE";
     public final static String EVENT_GO_CM_DOCUMENTOS = "EVENT_GO_CM_DOCUMENTOS";
     public final static String EVENT_GO_CUPO_INICIO = "EVENT_GO_CM_DOCUMENTOS";
+    public final static String EVENT_GO_CUPO_ESTATUS_REGISTRO= "EVENT_GO_CUPO_ESTATUS_REGISTRO";
 
     public final static String CUPO_PASO  = "CUPO_PASO";
     public final static String CUPO_PASO_REGISTRO_ENVIADO     = "CUPO_PASO_REGISTRO_ENVIADO";
@@ -193,6 +194,9 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 break;
             case EVENT_GO_CUPO_INICIO:
                 loadFragment(CupoInicioFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+            case EVENT_GO_CUPO_ESTATUS_REGISTRO:
+                loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             default:
                 onEvent(event, data);

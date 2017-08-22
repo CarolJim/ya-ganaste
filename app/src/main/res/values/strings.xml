@@ -80,6 +80,7 @@
     <string name="cupoCargaDocumentos">/CargaDocumentosCupo</string>
     <string name="cupoObtenerSolicitudCupo">/ObtenerSolicitudCupo</string>
     <string name="cupoObtenerEstadoDeDocumentos">/ObtenerDocumentosCupo</string>
+    <string name="cupoActualizaDocumentosCupo">/ActualizaDocumentosCupo</string>
 
     <!-- <string name="adqSendTicket">/agMov/sendTicket</string> -->
     <string name="adqSendTicket">/agMov/sendTicketADQ</string>

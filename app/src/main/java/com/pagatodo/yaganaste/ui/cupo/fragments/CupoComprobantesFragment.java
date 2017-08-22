@@ -121,6 +121,8 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
 
     private ArrayList<String> contador;
 
+    private Boolean reenviarFront = false;
+    private Boolean reenviarBack  = false;
 
 
 
@@ -202,9 +204,8 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
                 break;
 
             case R.id.btnWeNeedSmFilesNext:
-                if (mExisteDocs) {
-                    //sendDocumentsPending();
-                    Log.e("Test", "Reenvia Documentos");
+                if (reenviarFront || reenviarBack) {
+                    reenviaDocumentos();
                 } else {
                     sendDocuments();
                 }
@@ -440,11 +441,13 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
 
 
     private void reenviaDocumentos() {
-        for (String s : imgs)
-            if (s == null || s.isEmpty()) {
-                showError(App.getContext().getResources().getString(R.string.adq_must_upload_documents));
-                return;
-            }
+        if (reenviarFront && ( imgs[0] == null || imgs[0].isEmpty())) {
+            showError(App.getContext().getResources().getString(R.string.adq_must_upload_documents));
+            return;
+        } else if (reenviarBack && (imgs[1] == null || imgs[1].isEmpty())) {
+            showError(App.getContext().getResources().getString(R.string.adq_must_upload_documents));
+            return;
+        }
         presenter.reenviaDocumentos(dataDocuments);
     }
 
@@ -525,9 +528,6 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
             int estado = actual.getIdEstatus();
 
             if (actual.getTipoDocumento() == DOC_CUPO_FRONT  ) {
-
-
-
                 switch (estado) {
                     case STATUS_DOCTO_PENDIENTE:
                         itemWeNeedSmFilesAddressFront.setCenterDrawable(R.drawable.ic_status_pending);
@@ -543,6 +543,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
                         itemWeNeedSmFilesAddressFront.setCenterDrawable(R.drawable.warning_1_canvas);
                         itemWeNeedSmFilesAddressFront.setVisibilityStatus(false);
                         itemWeNeedSmFilesAddressFront.setOnClickListener(this);
+                        reenviarFront = true;
                         break;
                 }
 
@@ -562,11 +563,17 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
                         itemWeNeedSmFilesAddressBack.setCenterDrawable(R.drawable.warning_1_canvas);
                         itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
                         itemWeNeedSmFilesAddressBack.setOnClickListener(this);
+                        reenviarBack = true;
                         break;
                 }
             }
         }
 
+    }
+
+    @Override
+    public void setResponseActualizaDocumentos() {
+        cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_ESTATUS_REGISTRO, null);
     }
 
 

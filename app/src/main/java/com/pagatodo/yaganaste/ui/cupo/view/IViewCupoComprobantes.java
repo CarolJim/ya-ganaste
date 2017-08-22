@@ -17,4 +17,7 @@ public interface IViewCupoComprobantes extends INavigationView {
     void obtieneEstadoDeDocumentos();
 
     void setResponseEstadoDocumentos(List<DataEstadoDocumentos> msgSuccess);
+
+    void setResponseActualizaDocumentos();
+
 }
