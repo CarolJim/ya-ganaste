@@ -127,7 +127,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
         //mClabe = "123456789012345678";
         mClabe = usuarioClienteResponse.getCuentas().get(0).getCLABE();
-        mLastTime = "23/Mar/17";
+        mLastTime = "";
 
 
         loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage));

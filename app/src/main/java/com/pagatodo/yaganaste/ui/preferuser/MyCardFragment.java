@@ -121,9 +121,19 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         mName = getArguments().getString(M_NAME);
         mNameTV.setText(mName);
 
-        // Creamos el objeto ActualizarAvatarRequest
-        ActualizarDatosCuentaRequest datosCuentaRequest = new ActualizarDatosCuentaRequest();
-        mPreferPresenter.sendPresenterUpdateDatosCuenta(datosCuentaRequest);
+        boolean isOnline = Utils.isDeviceOnline();
+        if (isOnline) {
+            // Creamos el objeto ActualizarAvatarRequest
+            ActualizarDatosCuentaRequest datosCuentaRequest = new ActualizarDatosCuentaRequest();
+            mPreferPresenter.sendPresenterUpdateDatosCuenta(datosCuentaRequest);
+        } else {
+            showDialogCustom(getResources().getString(R.string.no_internet_access));
+            mTDC = getArguments().getString(M_TDC);
+            mCuentaTV.setText("Tarjeta: " + StringUtils.ocultarCardNumberFormat(mTDC));
+
+            mLastTimeTV.setText("Utilizada Por Ultima Vez: \n" + "");
+            printCard(mTDC);
+        }
 
         /*mTDC = getArguments().getString(M_TDC);
         mLastTime = getArguments().getString(M_LASTTIME);
@@ -190,6 +200,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     /**
      * Manejamos la respuesta Success del servicio, mostrando el mensaje de Bloqueo o Desbloqueo,
      * dependiendo del caso
+     *
      * @param response
      */
     @Override
@@ -210,6 +221,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
      * las operaciones, porque siempre pasa por el onCheckedChanged, despues realizamos la operacioon
      * corespondiente para para regresar el boton a su estado original antes de intentar consumir
      * el servicio
+     *
      * @param mensaje
      */
     @Override
