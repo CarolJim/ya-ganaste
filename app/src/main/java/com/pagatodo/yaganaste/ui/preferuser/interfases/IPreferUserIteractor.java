@@ -8,6 +8,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarDato
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.BloquearCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 
 /**
  * Created by Francisco Manzo on 08/06/2017.
@@ -29,4 +30,6 @@ public interface IPreferUserIteractor {
     void sendIteractorDatosCuenta(ActualizarDatosCuentaRequest datosCuentaRequest);
 
     void toIteractorBloquearCuenta(BloquearCuentaRequest bloquearCuentaRequest);
+
+    void toIteractorEstatusCuenta(EstatusCuentaRequest estatusCuentaRequest);
 }

@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarDatosCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
@@ -138,6 +139,23 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         mContext = this;
 
         System.gc();
+
+        /**
+         * Hacemos la consulta del servio ObtenerEstatusTarjeta que se encarga de darnos el estado de la Card.
+         * Ya que obtenemos el estado tenemos que hacer Set en el Switch dependiendo del resultado
+         */
+        boolean isOnline = Utils.isDeviceOnline();
+        if (isOnline) {
+            // Creamos el objeto ActualizarAvatarRequest
+            mPreferPresenter.toPresenterEstatusCuenta(mTDC);
+        } else {
+            showDialogMesage(getResources().getString(R.string.no_internet_access));
+           /* mTDC = getArguments().getString(M_TDC);
+            mCuentaTV.setText("Tarjeta: " + StringUtils.ocultarCardNumberFormat(mTDC));
+
+            mLastTimeTV.setText("Utilizada Por Ultima Vez: \n" + "");
+            printCard(mTDC);*/
+        }
     }
 
     public AccountPresenterNew getPresenterAccount() {
@@ -417,5 +435,20 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                     }
                 },
                 true, false);
+    }
+
+    /**
+     * Se encarga de actualizar el campo de cardStatusId del SingletonUser con el statusId
+     * de servicio
+     * @param response
+     */
+    public void sendSuccessEstatusCuentaToView(EstatusCuentaResponse response) {
+        String statusId = response.getData().getStatusId();
+        SingletonUser.getInstance().setCardStatusId(statusId);
+    }
+
+    public void sendErrorEstatusCuentaToView(String mensaje) {
+        showDialogMesage(mensaje);
+        //onEventListener.onEvent("DISABLE_BACK", false);
     }
 }

@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.preferuser.interfases;
 
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 
 /**
  * Created by Francisco Manzo on 22/05/2017.

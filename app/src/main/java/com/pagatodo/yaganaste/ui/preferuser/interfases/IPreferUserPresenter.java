@@ -46,4 +46,6 @@ public interface IPreferUserPresenter {
     void showExceptionBloquearCuentaToPresenter(String s);
 
     void sendErrorServerBloquearCuentaToPresenter(String s);
+
+    void sendErrorServerEstatusCuentaToPresenter(String s);
 }

@@ -4,6 +4,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
@@ -32,6 +33,8 @@ public class SingletonUser {
     private String pathPictureTemp = "";
     private String activacionCodeFreja = "";
     private boolean needsReset;
+    private String cardStatusId = Recursos.ESTATUS_CUENTA_DESBLOQUEADA;
+    private String UltimaTransaccion = "";
 
     private SingletonUser() {
         dataUser = new DataIniciarSesion();
@@ -127,5 +130,21 @@ public class SingletonUser {
 
     public void setNeedsReset(boolean needsReset) {
         this.needsReset = needsReset;
+    }
+
+    public String getCardStatusId() {
+        return cardStatusId;
+    }
+
+    public void setCardStatusId(String cardStatusId) {
+        this.cardStatusId = cardStatusId;
+    }
+
+    public String getUltimaTransaccion() {
+        return UltimaTransaccion;
+    }
+
+    public void setUltimaTransaccion(String ultimaTransaccion) {
+        UltimaTransaccion = ultimaTransaccion;
     }
 }

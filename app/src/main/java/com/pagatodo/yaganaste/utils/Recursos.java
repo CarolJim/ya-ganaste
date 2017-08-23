@@ -226,4 +226,11 @@ public class Recursos {
     /*Freja*/
     public static final String PT_CLIENT_CODE = "775363";
 
+    /**
+     * EstatusCuenta
+     */
+    public static final String ESTATUS_CUENTA_BLOQUEADA = "0";
+    public static final String ESTATUS_CUENTA_DESBLOQUEADA = "1";
+    public static final String FLAG_BLOQUEAR_CUENTA = "1";
+    public static final String FLAG_DESBLOQUEAR_CUENTA = "2";
 }
