@@ -286,6 +286,11 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         showDialogMesage(mensaje);
     }
 
+    @Override
+    public void sendErrorEnvioCorreoContactanos(String mensaje) {
+        showDialogMesage(mensaje);
+    }
+
     public void hideLoader() {
         // progressLayout.setVisibility(GONE);
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");

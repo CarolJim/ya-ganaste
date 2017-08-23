@@ -58,7 +58,9 @@
     <string name="desasociarDispositivo">/DesasociarDispositivo</string>
     <string name="obtenerDatosCuenta">/ObtenerDatosCuenta</string>
     <string name="bloquearDatosCuenta">/BloquearTemporalmenteTarjeta</string>
+    <string name="estatusDatosCuenta">/ObtenerEstatusTarjeta</string>
     <string name="generate_rpc">/GenerarCodigoRecuperacionSoftToken</string>
+    <string name="enviarCorreo">/EnviarCorreoContactanos</string>
 
 
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
@@ -802,6 +804,13 @@
     <string name="intentos_excedidos">Se Excedió el Número Máximo de Intentos</string>
 
     <!--end Cupo Strings-->
+
+    <!-- String de MyCardFragemnt -->
+    <string name="used_card_last_time">Utilizada Por Última Vez</string>
+    <string name="card_locked_success">La Tarjeta Fue Bloqueada Con Éxito</string>
+    <string name="card_unlocked_success">La Tarjeta Fue Desloqueada Con Éxito</string>
+    <string name="card_num_autorization">Num. Autorización:</string>
+
 </resources>
 
 

@@ -178,7 +178,7 @@ public class AsignarNipCustomWatcher implements TextWatcher {
                 }
             };
             handler = new Handler();//
-            handler.postDelayed(myRunnable, 300);
+            handler.postDelayed(myRunnable, 0);
         } else {
             // Proceso de borrado de numeros,
             handler.removeCallbacks(myRunnable);

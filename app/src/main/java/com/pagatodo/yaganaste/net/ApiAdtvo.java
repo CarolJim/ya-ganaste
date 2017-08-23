@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionAprovSofttokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionServicioMovilRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
@@ -18,6 +19,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteReq
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioFWSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarCorreoContactanosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarTicketTAEPDSRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.GetJsonWebTokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
@@ -48,6 +50,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioC
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioFWSResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDispositivoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EliminarAvatarResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoContactanosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarTicketTAEPDSResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenerarCodigoRecuperacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GetJsonWebTokenResponse;
@@ -89,6 +92,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_F
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_FWS_LOGIN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.DESASOCIAR_DISPOSITIVO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ELIMINAR_AVATAR;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIARCORREO_CONTACTANOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_TAEPDS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GENERAR_CODIGO_RECUPERACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.GET_JSONWEBTOKEN;
@@ -133,6 +137,24 @@ public class ApiAdtvo extends Api {
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.activateMobileServiceUrl),
                 getHeadersYaGanaste(), request, ActivacionServicioMovilResponse.class, result);
     }
+
+    /**
+     * Método que se usa para enviar un mensaje de la sección contactanos.
+     *
+     * @param request {@link EnviarCorreoContactanosRequest} body de la petición.
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void enviarCorreo(EnviarCorreoContactanosRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.NombreUsuario, RequestHeaders.getUsername());
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
+
+        NetFacade.consumeWS(ENVIARCORREO_CONTACTANOS,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.enviarCorreo),
+                headers, request, EnviarCorreoContactanosResponse.class, result);
+    }
+
 
     /**
      * Método que se invoca para subir la imagen del Avatar, o para asociar una URL publica que será usada como Avatar.
@@ -691,4 +713,5 @@ public class ApiAdtvo extends Api {
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerDatosCuenta),
                 headers, request, true, ActualizarDatosCuentaResponse.class, result);
     }
+
 }

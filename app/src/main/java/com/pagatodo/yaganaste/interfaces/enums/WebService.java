@@ -43,6 +43,7 @@ public enum WebService {
     OBTENER_DOMICILIO_PRINCIPAL,
     OBTENER_DOMICILIO,
     GENERAR_CODIGO_RECUPERACION,
+    ENVIARCORREO_CONTACTANOS,
     /**
      * WS Transaccional
      **/
@@ -93,10 +94,13 @@ public enum WebService {
      **/
     UPDATE_DATOS_CUENTA,
     /**
-     * Servicio para Bloquear la TDC de la cuenta.
+     * Servicio para Bloquear y Desbloquear la TDC de la cuenta.
      **/
     BLOQUEAR_CUENTA,
-
+    /**
+     * Servicio para ESTATUS la TDC de la cuenta.
+     **/
+    ESTATUS_CUENTA,
     /**
      * Servicios CUPO
      * */
