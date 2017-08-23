@@ -30,6 +30,8 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
+import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
+
 /**
  * Created by Francisco Manzo on 08/06/2017.
  * Presenter general para la actividad PreferUserActivity
@@ -219,6 +221,11 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
          */
         if (dataSourceResult.getData() instanceof ActualizarAvatarResponse) {
             ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
+            String mUserImage = response.getData().getImagenAvatarURL();
+            String[] urlSplit = mUserImage.split("_");
+            if (urlSplit.length > 1) {
+                App.getInstance().getPrefs().saveData(URL_PHOTO_USER, urlSplit[0] + "_M.png");
+            }
             iListaOpcionesView.sendSuccessAvatarToView(response.getMensaje());
         }
 

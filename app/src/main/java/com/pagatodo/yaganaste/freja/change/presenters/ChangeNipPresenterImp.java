@@ -4,11 +4,15 @@ import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IChangeNipView;
 
 import java.lang.reflect.Method;
+
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.StringConstants.OLD_NIP;
 
 /**
  * @author Juan on 17/08/2017.
@@ -46,6 +50,7 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
 
     //Debe recibir los nips en sha256
     public void doChangeNip(String oldOne, String newOne){
+        App.getInstance().getPrefs().saveData(SHA_256_FREJA, newOne);
         reset();
         mIChangeNipView.showLoader("");
         changeNip(oldOne, newOne);
@@ -90,6 +95,8 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
 
     @Override
     public void endChangePin() {
+        App.getInstance().getPrefs().saveData(OLD_NIP, App.getInstance().getPrefs().loadData(SHA_256_FREJA));
+        SingletonUser.getInstance().setNeedsReset(false);
         mIChangeNipView.hideLoader();
         mIChangeNipView.onFrejaNipChanged();
     }
@@ -113,8 +120,7 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
             handleError(error);
             return;
         }
-        // TODO: 21/08/2017 Verificar como manejar error
-        mIChangeNipView.onFrejaNipChanged();
+        mIChangeNipView.onFrejaNipFailed();
     }
 
     private void handleError(final Errors error) {

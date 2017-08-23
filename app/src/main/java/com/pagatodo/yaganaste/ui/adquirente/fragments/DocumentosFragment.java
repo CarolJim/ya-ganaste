@@ -181,11 +181,10 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             lnr_help.setVisibility(VISIBLE);
             initSetClickableStatusDocs();
             btnWeNeedSmFilesNext.setVisibility(View.INVISIBLE);
+            refreshContent();
         } else {     // si no se han enviado los documentos
             initSetClickableDocs();
         }
-
-        refreshContent();
     }
 
     @Override
