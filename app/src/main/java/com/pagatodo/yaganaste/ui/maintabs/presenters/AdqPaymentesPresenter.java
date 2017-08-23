@@ -7,12 +7,14 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
+import com.pagatodo.yaganaste.data.model.DatosCupo;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
-import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataResultAdq;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.AdqPayMovementsIteractorImp;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.MovementsIteractor;
@@ -37,7 +39,8 @@ import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_A
  * @author Juan Guerra on 28/03/2017.
  */
 
-public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl implements MovementsPresenter<AdquirentePaymentsTab>, MovementsManager<ResumenMovimientosAdqResponse, String> {
+public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl implements MovementsPresenter<AdquirentePaymentsTab>,
+        MovementsManager<ResumenMovimientosAdqResponse, String> {
 
     private MovementsIteractor<ResumenMovimientosMesRequest> movementsIteractor;
     private MovementsView<ItemMovements<DataMovimientoAdq>, T> movementsView;
@@ -155,7 +158,11 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void updateBalance() {
-        movementsIteractor.getBalance();
+        if (SingletonUser.getInstance().getDataUser().getIdEstatus() == IdEstatus.I16.getId()) {
+            movementsIteractor.getDatosCupo();
+        } else {
+            movementsIteractor.getBalance();
+        }
     }
 
 
@@ -202,6 +209,12 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
         SingletonUser.getInstance().getDatosSaldo().setSaldoAdq(response);
         App.getInstance().getPrefs().saveData(StringConstants.ADQUIRENTE_BALANCE, response);
         App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
+        movementsView.updateBalance();
+    }
+
+    @Override
+    public void onSuccessDataCupo(ObtieneDatosCupoResponse response) {
+        SingletonUser.getInstance().setDatosCupo(new DatosCupo(response.getLimiteDeCredito(), response.getSaldoDisponible(), response.getTotalADepositar()));
         movementsView.updateBalance();
     }
 

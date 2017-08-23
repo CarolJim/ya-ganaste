@@ -58,4 +58,6 @@
 
     <color name="inputTextColor123">#FFF</color>
     <color name="borderColor123">#FFF</color>
+    
+    <color name="yellow">#ECDF00</color>
 </resources>

@@ -84,6 +84,7 @@
     <string name="adqResumeDay">/agMov/getResumenYG?fecha=</string>
     <string name="adqResumeMonth">/agMov/getResumenMonthYG</string>
     <string name="adqGetBalance">/agMov/getSaldo</string>
+    <string name="adqGetDatosCupo">/agMov/ObtieneDatosCupo</string>
     <string name="cancelationTransactionEmv">/agMov/CancellationTransactionEmvDeposit</string>
     <!--Textos de la Aplicación-->
     <string name="txt_registrate">Regístrate</string>
@@ -431,8 +432,11 @@
     <string name="saldo_personal">Saldo Personal:</string>
 
     <string name="linea_credito">Línea de Crédito*</string>
-    <string name="monto_depositar">Monto a Depositar</string>
+    <string name="linea_credito_cupo">Línea de Crédito:</string>
+    <string name="monto_depositar">Monto a Depositar:</string>
     <string name="saldo_disponible">Saldo Disponible</string>
+    <string name="total_reembolsar">Total a Reembolsar:</string>
+    <string name="total_depositar">Total a Depositar:</string>
     <string name="cobros_tarjeta">Cobros Con\nTarjeta</string>
     <string name="mas_tarde">Más Tarde</string>
 
@@ -726,9 +730,6 @@
     <string name="comunicate_con_nosotros">Comunícate Con Nosotros \n\n 01-800-500-1000\ninformes@yaganste.com</string>
     <string name="acerca_de_app">Acerca de la App</string>
     <string name="ayuda">Ayuda</string>
-
-
-
 
 
     <string name="Tutoriales">Tutoriales</string>

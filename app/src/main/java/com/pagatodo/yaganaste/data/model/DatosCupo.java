@@ -1,0 +1,58 @@
+package com.pagatodo.yaganaste.data.model;
+
+import android.text.TextUtils;
+
+import com.google.gson.annotations.SerializedName;
+
+import java.io.Serializable;
+
+/**
+ * Created by Jordan on 23/08/2017.
+ */
+
+public class DatosCupo implements Serializable {
+
+
+    @SerializedName("LimiteDeCredito")
+    private String limiteDeCredito;
+
+    @SerializedName("SaldoDisponible")
+    private String saldoDisponible;
+
+    @SerializedName("TotalADepositar")
+    private String totalADepositar;
+
+    public DatosCupo() {
+
+    }
+
+    public DatosCupo(String limiteCredito, String saldoDisponible, String totalDepositar) {
+        this.limiteDeCredito = limiteCredito;
+        this.saldoDisponible = saldoDisponible;
+        this.totalADepositar = totalDepositar;
+    }
+
+    public String getLimiteDeCredito() {
+        return TextUtils.isEmpty(limiteDeCredito) ? "0" : limiteDeCredito;
+    }
+
+    public void setLimiteDeCredito(String limiteDeCredito) {
+        this.limiteDeCredito = limiteDeCredito;
+    }
+
+    public String getSaldoDisponible() {
+        return TextUtils.isEmpty(saldoDisponible) ? "0" : saldoDisponible;
+    }
+
+    public void setSaldoDisponible(String saldoDisponible) {
+        this.saldoDisponible = saldoDisponible;
+    }
+
+    public String getTotalADepositar() {
+        return TextUtils.isEmpty(totalADepositar) ? "0" : totalADepositar;
+    }
+
+    public void setTotalADepositar(String totalADepositar) {
+        this.totalADepositar = totalADepositar;
+    }
+}

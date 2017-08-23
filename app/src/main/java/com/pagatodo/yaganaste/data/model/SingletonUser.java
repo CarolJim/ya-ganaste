@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.data.model;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
-import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
@@ -29,6 +28,7 @@ public class SingletonUser {
     private DataIniciarSesion dataUser;
     private ExtraInfoUser dataExtraUser;
     private DatosSaldo datosSaldo;
+    private DatosCupo datosCupo;
     private String pathPictureTemp = "";
     private String activacionCodeFreja = "";
     private boolean needsReset;
@@ -37,6 +37,7 @@ public class SingletonUser {
         dataUser = new DataIniciarSesion();
         dataExtraUser = new ExtraInfoUser();
         datosSaldo = new DatosSaldo();
+        datosCupo = new DatosCupo();
     }
 
     public static synchronized SingletonUser getInstance() {
@@ -126,5 +127,13 @@ public class SingletonUser {
 
     public void setNeedsReset(boolean needsReset) {
         this.needsReset = needsReset;
+    }
+
+    public DatosCupo getDatosCupo() {
+        return datosCupo;
+    }
+
+    public void setDatosCupo(DatosCupo datosCupo) {
+        this.datosCupo = datosCupo;
     }
 }

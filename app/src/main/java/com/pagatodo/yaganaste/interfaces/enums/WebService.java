@@ -79,6 +79,7 @@ public enum WebService {
     CONSULTA_MOVIMIENTOS_MES_ADQ,
     CONSULTA_SALDO_CUPO,
     CANCELA_TRANSACTION_EMV_DEPOSIT,
+    OBTIENE_DATOS_CUPO,
     /**
      * Servicio para crer usuario
      **/
