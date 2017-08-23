@@ -47,6 +47,10 @@ public class Preferencias {
         return this.preferences.getBoolean(key, false);
     }
 
+    public boolean loadDataBoolean(String key) {
+        return this.preferences.getBoolean(key, false);
+    }
+
     public Serializable loadData(String key, Boolean isObject) {
         return Utils.stringToObject(this.preferences.getString(key, null));
     }
@@ -86,5 +90,6 @@ public class Preferencias {
     public int loadDataInt(String key) {
         return this.preferences.getInt(key, -1);
     }
+
 }
 

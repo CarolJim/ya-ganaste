@@ -17,7 +17,7 @@ public interface IAdqAccountIteractor {
 
     void getNeighborhoodByZipCode(String zipCode);
 
-    void setListDocuments(View view, List<EstatusDocumentosResponse> mListaDocumentos);
+    //void setListDocuments(View view, List<EstatusDocumentosResponse> mListaDocumentos);
 
     void getEstatusDocs();
 

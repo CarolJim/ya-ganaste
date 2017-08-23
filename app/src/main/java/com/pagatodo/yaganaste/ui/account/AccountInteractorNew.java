@@ -116,7 +116,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     @Override
     public void validateUserStatus(String usuario) {
-        //RequestHeaders.setUsername(usuario); // Seteamos el usuario en el Header
         ValidarEstatusUsuarioRequest request = new ValidarEstatusUsuarioRequest(usuario);
         try {
             ApiAdtvo.validarEstatusUsuario(request, this);
@@ -135,7 +134,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onError(INICIAR_SESION_SIMPLE, App.getContext().getString(R.string.no_internet_access));
         }
     }
-
 
     @Override
     public void loginAdq() {
@@ -268,7 +266,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         checkSessionState(request);
     }
 
-
     @Override
     public void validatePersonData() {
 
@@ -290,7 +287,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
 
     }
-
 
     @Override
     public void createUserClient(CrearUsuarioClienteRequest request) {
@@ -496,6 +492,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         if (error != null && error.getWebService() == LOGIN_ADQ) {
             checkAfterLogin();
         } else {
+            if (error.getWebService() == INICIAR_SESION_SIMPLE && RequestHeaders.getTokenauth().isEmpty()) {
+                RequestHeaders.setUsername("");
+            }
             accountManager.onError(error.getWebService(), error.getData().toString());
         }
     }
@@ -577,7 +576,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
     }
 
-
     private void processLogin(DataSourceResult response) {
         IniciarSesionResponse data = (IniciarSesionResponse) response.getData();
         DataIniciarSesion dataUser = data.getData();
@@ -614,7 +612,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 accountManager.onError(response.getWebService(), App.getContext().getString(R.string.usuario_no_existe));
             }
         } else {
-            RequestHeaders.setUsername("");
+            if (RequestHeaders.getTokenauth().isEmpty()) {
+                RequestHeaders.setUsername("");
+            }
             accountManager.onError(response.getWebService(), data.getMensaje());
         }
     }
@@ -633,7 +633,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
         accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
     }
-
 
     /**
      * Método para seleccionar la pantalla que se debe mostrar dependiendo de la validación de la tarjeta.

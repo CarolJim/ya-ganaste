@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.dto.OnlineTxData;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.transactions.presenter.TransactionPresenterAbs;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.OnlineTypes;
 import com.pagatodo.yaganaste.ui.onlinetx.controllers.OnlineTxView;
 import com.pagatodo.yaganaste.utils.Codec;
@@ -33,6 +34,8 @@ public class OnlineTxPresenter extends TransactionPresenterAbs {
     private String idFreja;
     private OnlineTxView onlineTxView;
     private Context context;
+    private int intents;
+    private final int max = 3;
 
     public OnlineTxPresenter(OnlineTxView onlineTxView, String idFreja) {
         super(App.getInstance());
@@ -49,6 +52,7 @@ public class OnlineTxPresenter extends TransactionPresenterAbs {
 
     @Override
     public void aproveTransaction(String idFreja, String nip) {
+        intents++;
         onlineTxView.showLoader(context.getString(R.string.aproving_transaction));
         super.aproveTransaction(idFreja, nip);
     }
@@ -56,6 +60,7 @@ public class OnlineTxPresenter extends TransactionPresenterAbs {
     @Override
     public void setTransactions(FmcTransactionListResponse txs) {
         onlineTxView.hideLoader();
+        intents = 0;
         List<FmcTransactionResponse> transactions = txs.getTransactions();
         Gson deserializer = new GsonBuilder().registerTypeAdapter(OnlineTypes.class, new OnlineTypes.Deserializer())
                 .create();
@@ -88,19 +93,29 @@ public class OnlineTxPresenter extends TransactionPresenterAbs {
     }
 
     @Override
-    public void handleException(Exception e) {
-        onlineTxView.hideLoader();
-        Log.e(TAG, e.toString());
-
+    public void onError(final Errors error) {
 
         onlineTxView.hideLoader();
-        ErrorObject errorObject = new ErrorObject();
-        errorObject.setErrorMessage("En construccion");
-        onlineTxView.showError(errorObject);
-    }
+        if (error.allowsReintent() && intents < max) {
+            DialogDoubleActions actions = new DialogDoubleActions() {
+                @Override
+                public void actionConfirm(Object... params) {
 
-    @Override
-    public void onError(Errors error) {
+                }
 
+                @Override
+                public void actionCancel(Object... params) {
+                    onlineTxView.onTxFailed(App.getInstance().getString(R.string.operacion_cancelada_usuario));
+                }
+            };
+
+            ErrorObject.Builder builder = new ErrorObject.Builder().setMessage(error.getMessage())
+                    .setHasCancel(error.allowsReintent()).setActions(actions);
+            onlineTxView.showError(builder.build());
+        } else if (intents >= max){
+            onlineTxView.onTxFailed(App.getInstance().getString(R.string.intentos_excedidos));
+        } else {
+            onlineTxView.onTxFailed(error.getMessage());
+        }
     }
 }

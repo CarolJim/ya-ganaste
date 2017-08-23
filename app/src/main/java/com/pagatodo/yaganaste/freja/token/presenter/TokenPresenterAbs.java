@@ -13,7 +13,7 @@ import com.pagatodo.yaganaste.freja.token.manager.TokenManager;
  * @author Juan Guerra on 11/04/2017.
  */
 
-public class TokenPresenterAbs implements TokenPresenter, TokenManager {
+public abstract class TokenPresenterAbs implements TokenPresenter, TokenManager {
 
     private static final String TAG = TokenPresenterAbs.class.getName();
 
@@ -50,15 +50,5 @@ public class TokenPresenterAbs implements TokenPresenter, TokenManager {
             return tokenIteractor.getOfflineToken();
         }
         return null;
-    }
-
-    @Override
-    public void handleException(Exception e) {
-        Log.i(TAG, e.toString());
-    }
-
-    @Override
-    public void onError(Errors error) {
-        //NO-OP
     }
 }

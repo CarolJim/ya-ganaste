@@ -42,6 +42,7 @@ public enum WebService {
     OBTENER_SUBGIROS,
     OBTENER_DOMICILIO_PRINCIPAL,
     OBTENER_DOMICILIO,
+    GENERAR_CODIGO_RECUPERACION,
     /**
      * WS Transaccional
      **/
@@ -86,6 +87,14 @@ public enum WebService {
      * Servicio para crer usuario
      **/
     DESASOCIAR_DISPOSITIVO,
+    /**
+     * Servicio para obtener los datos de la cuenta.
+     **/
+    UPDATE_DATOS_CUENTA,
+    /**
+     * Servicio para Bloquear la TDC de la cuenta.
+     **/
+    BLOQUEAR_CUENTA,
 
     /**
      * Servicios CUPO

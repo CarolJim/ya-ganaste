@@ -21,9 +21,11 @@ import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.ServiciosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IServiciosPresenter;
+import com.pagatodo.yaganaste.utils.NumberTagPase;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import butterknife.BindView;
 
@@ -87,13 +89,14 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
         serviceImport.addTextChangedListener(new NumberTextWatcher(serviceImport));
         if (comercioItem.getLongitudReferencia() > 0) {
             InputFilter[] fArray = new InputFilter[1];
-            fArray[0] = new InputFilter.LengthFilter(comercioItem.getLongitudReferencia());
+            fArray[0] = new InputFilter.LengthFilter(Utils.calculateFilterLength(comercioItem.getLongitudReferencia()));
             referenceNumber.setFilters(fArray);
         }
 
         if (comercioItem.getFormato().equals("AN")) {
             referenceNumber.setInputType(InputType.TYPE_CLASS_TEXT);
         }
+        referenceNumber.addTextChangedListener(new NumberTagPase(referenceNumber));
         comisionText.setText(String.format(getString(R.string.comision_service_payment), StringUtils.getCurrencyValue(comercioItem.getSobrecargo())));
 
     }
@@ -155,7 +158,7 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
 
     @Override
     public void onStartTrackingTouch(SeekBar seekBar) {
-        referencia = referenceNumber.getText().toString().trim();
+        referencia = referenceNumber.getText().toString().replaceAll(" ", "");
         concepto = serviceConcept.getText().toString().trim();
         serviciosPresenter.validateFields(referencia, serviceImport.getText().toString().trim(), concepto, comercioItem.getLongitudReferencia());
     }

@@ -18,7 +18,6 @@ public abstract class FmcIteractorImp implements FmcIteractor {
     @Override
     public void init(Context context) {
         try {
-            FmcLogManager.enableLogging(true);
             FmcLogManager.enableLoggingAll(true);
             FmcManager.setContext(context);
             this.fmcManager = FmcManager.getFmcManager();

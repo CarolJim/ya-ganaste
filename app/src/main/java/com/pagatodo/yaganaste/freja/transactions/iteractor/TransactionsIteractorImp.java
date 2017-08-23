@@ -25,7 +25,7 @@ public class TransactionsIteractorImp extends FmcIteractorImp implements Transac
 
     @Override
     public void throwInitException(Exception e) {
-        transactionManager.handleException(e);
+        transactionManager.onError(Errors.cast(e));
     }
 
     @Override
@@ -56,11 +56,6 @@ public class TransactionsIteractorImp extends FmcIteractorImp implements Transac
     @Override
     public void onTxAproved() {
         transactionManager.onTransactionAproved();
-    }
-
-    @Override
-    public void handleException(Exception e) {
-        transactionManager.handleException(e);
     }
 
     @Override

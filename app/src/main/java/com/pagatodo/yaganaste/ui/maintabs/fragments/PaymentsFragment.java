@@ -76,7 +76,7 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
         itemClicked.setColor(CANCELADO.getColor());
         itemClicked.getMovement().setEsReversada(true);
-        itemClicked.setMarca(getString(R.string.cancelada));
+        itemClicked.setSubtituloDetalle(getString(R.string.cancelada));
         notifyDataSetChanged();
     }
 

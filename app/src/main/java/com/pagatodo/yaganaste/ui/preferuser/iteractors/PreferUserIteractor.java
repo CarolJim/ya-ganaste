@@ -1,16 +1,21 @@
 package com.pagatodo.yaganaste.ui.preferuser.iteractors;
 
 import android.graphics.Bitmap;
+import android.util.Log;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarDatosCuentaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.BloquearCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CerrarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDispositivoResponse;
@@ -18,6 +23,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
+import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserIteractor;
@@ -25,8 +31,10 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.Recursos;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVATAR;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.BLOQUEAR_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CAMBIAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.DESASOCIAR_DISPOSITIVO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATE_DATOS_CUENTA;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 
 /**
@@ -134,6 +142,16 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         }
     }
 
+    @Override
+    public void sendIteractorDatosCuenta(ActualizarDatosCuentaRequest datosCuentaRequest) {
+        try {
+            ApiAdtvo.updateDatosCuenta(datosCuentaRequest, this);
+        } catch (OfflineException e) {
+            // e.printStackTrace();
+            preferUserPresenter.showExceptionDatosCuentaToPresenter(e.toString());
+        }
+    }
+
     /**
      * Metodo que sirve para enviar a cerrar session
      */
@@ -157,6 +175,21 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         } catch (OfflineException e) {
             // e.printStackTrace();
             preferUserPresenter.showExceptionDesasociarToPresenter(e.toString());
+        }
+    }
+
+    /**
+     * Inicia la peticion al ApiTrans para consumir el servicio
+     *
+     * @param request
+     */
+    @Override
+    public void toIteractorBloquearCuenta(BloquearCuentaRequest request) {
+        try {
+            ApiTrans.bloquearCuenta(request, this);
+        } catch (OfflineException e) {
+            // e.printStackTrace();
+            preferUserPresenter.showExceptionBloquearCuentaToPresenter(e.toString());
         }
     }
 
@@ -245,6 +278,35 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
                 preferUserPresenter.errorGenericToPresenter(dataSourceResult);
             }
         }
+
+        /**
+         * Instancia de peticion exitosa de CambiarContraseniaResponse
+         */
+        if (dataSourceResult.getData() instanceof ActualizarDatosCuentaResponse) {
+            ActualizarDatosCuentaResponse response = (ActualizarDatosCuentaResponse) dataSourceResult.getData();
+
+            if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+                //Log.d("PreferUserIteractor", "ActualizarDatosCuentaResponse Sucess " + response.getMensaje());
+                preferUserPresenter.successGenericToPresenter(dataSourceResult);
+            } else {
+                //Log.d("PreferUserIteractor", "ActualizarDatosCuentaResponse Sucess with Error " + response.getMensaje());
+                preferUserPresenter.errorGenericToPresenter(dataSourceResult);
+            }
+        }
+        /**
+         * Instancia de peticion exitosa de BloquearCuentaResponse
+         */
+        if (dataSourceResult.getData() instanceof BloquearCuentaResponse) {
+            BloquearCuentaResponse response = (BloquearCuentaResponse) dataSourceResult.getData();
+
+            if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+                //Log.d("PreferUserIteractor", "BloquearCuentaResponse Sucess " + response.getMensaje());
+                preferUserPresenter.successGenericToPresenter(dataSourceResult);
+            } else {
+                //Log.d("PreferUserIteractor", "BloquearCuentaResponse Sucess with Error " + response.getMensaje());
+                preferUserPresenter.errorGenericToPresenter(dataSourceResult);
+            }
+        }
     }
 
     /**
@@ -263,6 +325,15 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         } else if (error.getWebService().equals(DESASOCIAR_DISPOSITIVO)) {
             //Log.d("PreferUserIteractor", "DesasociarDispositivoResponse ErrorServer " + error.toString());
             preferUserPresenter.sendErrorServerDesasociarToPresenter(error.getData().toString());
+        } else if (error.getWebService().equals(UPDATE_DATOS_CUENTA)) {
+            Log.d("PreferUserIteractor", "ActualizarDatosCuentaResponse ErrorServer " + error.toString());
+            // preferUserPresenter.sendErrorServerDesasociarToPresenter(error.getData().toString());
+        } else if (error.getWebService().equals(UPDATE_DATOS_CUENTA)) {
+            //Log.d("PreferUserIteractor", "DesasociarDispositivoResponse ErrorServer " + error.toString());
+            preferUserPresenter.sendErrorServerDatosCuentaToPresenter(error.getData().toString());
+        } else if (error.getWebService().equals(BLOQUEAR_CUENTA)) {
+            //Log.d("PreferUserIteractor", "BloquearCuentaResponse ErrorServer " + error.toString());
+            preferUserPresenter.sendErrorServerBloquearCuentaToPresenter(error.getData().toString());
         } else {
             preferUserPresenter.sendErrorServerPresenter(error.getData().toString());
         }

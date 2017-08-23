@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.data.model;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
@@ -30,6 +31,7 @@ public class SingletonUser {
     private DatosSaldo datosSaldo;
     private String pathPictureTemp = "";
     private String activacionCodeFreja = "";
+    private boolean needsReset;
 
     private SingletonUser() {
         dataUser = new DataIniciarSesion();
@@ -79,10 +81,9 @@ public class SingletonUser {
             String[] urlSplit = mUserImage.split("_");
             if (urlSplit.length > 1) {
                 dataUser.getUsuario().setImagenAvatarURL(urlSplit[0] + "_M.png");
+                prefs.saveData(URL_PHOTO_USER, dataUser.getUsuario().getImagenAvatarURL());
             }
 
-            // Guardamos en las preferencias la direccion de la imagen
-            prefs.saveData(URL_PHOTO_USER, mUserImage);
         }
     }
 
@@ -116,5 +117,14 @@ public class SingletonUser {
 
     public void setDatosSaldo(DatosSaldo datosSaldo) {
         this.datosSaldo = datosSaldo;
+    }
+
+
+    public boolean needsReset() {
+        return needsReset;
+    }
+
+    public void setNeedsReset(boolean needsReset) {
+        this.needsReset = needsReset;
     }
 }

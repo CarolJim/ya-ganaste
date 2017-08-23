@@ -87,18 +87,13 @@ public class ProvisioningIteractorImp extends FmcIteractorImp implements Provisi
     }
 
     @Override
-    public void handleException(Exception e) {
-        provisioningManager.handleException(e);
-    }
-
-    @Override
     public void onError(Errors error) {
         provisioningManager.onError(error);
     }
 
     @Override
     public void throwInitException(Exception e) {
-        provisioningManager.handleException(e);
+        provisioningManager.onError(Errors.cast(e));
     }
 
 

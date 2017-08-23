@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.net;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.BloquearCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsociarTarjetaCuentaRequest;
@@ -13,6 +15,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.trans.EjecutarTransa
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.FondearCUPORequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ObtenerEstatusTarjetaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ValidarTransaccionRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarNIPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsociarTarjetaCuentaResponse;
@@ -30,6 +33,7 @@ import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.account.AccountInteractorNew;
+import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 
 import java.util.Map;
 import java.util.Objects;
@@ -39,6 +43,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_POST;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASOCIAR_TARJETA_CUENTA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.BLOQUEAR_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.BLOQUEAR_TEMPORALMENTE_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO;
@@ -192,6 +197,26 @@ public class ApiTrans extends Api {
     }
 
     /**
+     * Método que se invoca cuando se realiza una Recarga, Pago de Servicio o Envío de Dinero.
+     *
+     * @param request {@link EjecutarTransaccionRequest} body de la petición.
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void ejecutarEnvio(EjecutarTransaccionRequest request, String otp, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdTransaccionFreja, RequestHeaders.getIdTransaccionFreja());
+        headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
+        if (request.getIdTipoTransaccion() == MovementsTab.TAB3.getId()) {
+            headers.put(RequestHeaders.IdOperacion, "1");
+        }
+
+        NetFacade.consumeWS(EJECUTAR_TRANSACCION,
+                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.executeTransactionUrl),
+                headers, request, EjecutarTransaccionResponse.class, result);
+    }
+
+    /**
      * Método que se invoca cuando se desea validar el Estatus de una Transacción, permitiendo ejecutar
      * nuevamente la transacción en caso de requerirse (Modo Transaccional).
      *
@@ -254,4 +279,37 @@ public class ApiTrans extends Api {
                 headers, null, ConsultarSaldoADQResponse.class, result);
     }
 
+    public static void consultaStatusRegistroCupo(IRequestResult result) throws OfflineException{
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
+
+        //todo CUPO  poner URL correcta  y Class Response adecuada
+        String URL = "";
+        Class classResponse = Object.class;
+
+        NetFacade.consumeWS(CONSULTA_STATUS_REGISTRO_CUPO,METHOD_GET,URL,headers,null, classResponse,result);
+    }
+
+    /**
+     * Servicio que se encarga de enviar la peticion para Bloquear o Desbloquear la Card
+     * @param request
+     * @param result
+     * @throws OfflineException
+     */
+    public static void bloquearCuenta(BloquearCuentaRequest request,
+                                      PreferUserIteractor result) throws OfflineException  {
+
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+
+        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+                .getCuentas().get(0).getIdCuenta();
+        headers.put("IdCuenta", "" + idCuenta);
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(BLOQUEAR_CUENTA,
+                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.bloquearDatosCuenta),
+                headers, request, true, BloquearCuentaResponse.class, result);
+    }
 }

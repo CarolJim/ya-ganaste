@@ -15,6 +15,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewTreeObserver;
 import android.view.Window;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
@@ -31,6 +32,7 @@ public class CustomDocumentsErrorDialog extends DialogFragment implements ViewTr
     public static final String KEY_MESSAGE_NOTIFICATION = "KEY_MESSAGE_NOTIFICATION";
     public static final String KEY_SHOW_BTN_CONFIRM = "KEY_SHOW_BTN_CONFIRM";
     public static final String KEY_SHOW_BTN_CANCEL = "KEY_SHOW_BTN_CANCEL";
+    public static final String KEY_IMAGE_TITLE = "KEY_IMAGE_TITLE";
 
     private int idLayoutDialog;
     private String titleMessage = "";
@@ -38,6 +40,7 @@ public class CustomDocumentsErrorDialog extends DialogFragment implements ViewTr
     private String titleBtnAcept = "";
     private String titleBtnCancel = "";
     private DialogDoubleActions dialogActions;
+    private int imageTitleId;
 
     private boolean showConfirmButton = true;
     private boolean showCancelButton = true;
@@ -68,12 +71,41 @@ public class CustomDocumentsErrorDialog extends DialogFragment implements ViewTr
         return actionsDialog;
     }
 
+    public static CustomDocumentsErrorDialog getInstance(@LayoutRes int idLayout, String titleNotification, String messageNotification,
+                                                         boolean hasConfirmBtn, boolean hasCancelBtn, int imageTitle) {
+
+        CustomDocumentsErrorDialog actionsDialog = new CustomDocumentsErrorDialog();
+        Bundle args = new Bundle();
+        args.putInt(CustomDocumentsErrorDialog.KEY_LAYOUT_NOTIFICATION, idLayout);
+        args.putString(CustomDocumentsErrorDialog.KEY_CONFIRM_TITLE, titleNotification);
+        args.putString(CustomDocumentsErrorDialog.KEY_MESSAGE_NOTIFICATION, messageNotification);
+        args.putBoolean(CustomDocumentsErrorDialog.KEY_SHOW_BTN_CONFIRM, hasConfirmBtn);
+        args.putBoolean(CustomDocumentsErrorDialog.KEY_SHOW_BTN_CANCEL, hasCancelBtn);
+        args.putInt(KEY_IMAGE_TITLE, imageTitle);
+        actionsDialog.setArguments(args);
+
+        return actionsDialog;
+    }
+
+    @Override
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if (getArguments() != null) {
+            Bundle arg = getArguments();
+            idLayoutDialog = arg.getInt(CustomDocumentsErrorDialog.KEY_LAYOUT_NOTIFICATION);
+            titleMessage = arg.getString(CustomDocumentsErrorDialog.KEY_CONFIRM_TITLE, "");
+            messageNotification = arg.getString(CustomDocumentsErrorDialog.KEY_MESSAGE_NOTIFICATION, "");
+            showConfirmButton = arg.getBoolean(CustomDocumentsErrorDialog.KEY_SHOW_BTN_CONFIRM, true);
+            showCancelButton = arg.getBoolean(CustomDocumentsErrorDialog.KEY_SHOW_BTN_CANCEL, true);
+            imageTitleId = arg.getInt(KEY_IMAGE_TITLE, 0);
+        }
+
+    }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(idLayoutDialog, container, false);
         getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
-        setCancelable(true);
-
         //setStyle();
         //getDialog() (getActivity(), R.style.DialogFragment);
         /**Creamos el {@link StyleButton} de confirmación, si se recibe título como parámetro, lo seteamos.*/
@@ -122,6 +154,11 @@ public class CustomDocumentsErrorDialog extends DialogFragment implements ViewTr
             });
         }
 
+        if (imageTitleId != 0) {
+            ImageView imageViewTitle = (ImageView) rootView.findViewById(R.id.imageTitle);
+            imageViewTitle.setImageResource(imageTitleId);
+        }
+
         buttonsContainer = (LinearLayout) rootView.findViewById(R.id.buttons_container);
         if (buttonsContainer != null) {
             buttonsContainer.getViewTreeObserver().addOnGlobalLayoutListener(this);
@@ -130,19 +167,6 @@ public class CustomDocumentsErrorDialog extends DialogFragment implements ViewTr
         return rootView;
     }
 
-    @Override
-    public void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
-            Bundle arg = getArguments();
-            idLayoutDialog = arg.getInt(CustomDocumentsErrorDialog.KEY_LAYOUT_NOTIFICATION);
-            titleMessage = arg.getString(CustomDocumentsErrorDialog.KEY_CONFIRM_TITLE, "");
-            messageNotification = arg.getString(CustomDocumentsErrorDialog.KEY_MESSAGE_NOTIFICATION, "");
-            showConfirmButton = arg.getBoolean(CustomDocumentsErrorDialog.KEY_SHOW_BTN_CONFIRM, true);
-            showCancelButton = arg.getBoolean(CustomDocumentsErrorDialog.KEY_SHOW_BTN_CANCEL, true);
-        }
-
-    }
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {

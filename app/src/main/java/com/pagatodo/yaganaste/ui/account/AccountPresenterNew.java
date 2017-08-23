@@ -9,11 +9,15 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
+import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
+import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenter;
+import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenterImp;
 import com.pagatodo.yaganaste.interfaces.IAccountAddressRegisterView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.IAccountCardView;
@@ -36,6 +40,7 @@ import com.pagatodo.yaganaste.ui.adquirente.interfases.IDocumentApproved;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
+import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import java.util.ArrayList;
@@ -63,8 +68,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui.preferuser.MyChangeNip.EVENT_GO_CHANGE_NIP_SUCCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
-
-//import static com.pagatodo.yaganaste.utils.Recursos.CRC32_FREJA;
+import static com.pagatodo.yaganaste.utils.StringConstants.OLD_NIP;
 
 /**
  * Created by flima on 22/03/2017.
@@ -77,11 +81,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     private Preferencias prefs = App.getInstance().getPrefs();
     private Context context;
 
-    public AccountPresenterNew(Context context) {
-        super(context);
-        this.context = context;
-        accountIteractor = new AccountInteractorNew(this);
-    }
+    private ResetPinPresenter resetPinPresenter;
 
     public void setIView(View accountView) {
         this.accountView = (INavigationView) accountView;
@@ -90,6 +90,16 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         } else if (accountView instanceof IAprovView) {
             super.setAprovView((IAprovView) accountView);
         }
+        if (accountView instanceof IResetNIPView) {
+            resetPinPresenter.setResetNIPView((IResetNIPView) accountView);
+        }
+    }
+
+    public AccountPresenterNew(Context context) {
+        super(context, false);
+        this.context = context;
+        accountIteractor = new AccountInteractorNew(this);
+        this.resetPinPresenter = new ResetPinPresenterImp(false);
     }
 
     @Override
@@ -103,7 +113,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         accountView.hideLoader();
         accountView.nextScreen(event, data);
     }
-
 
     @Override
     public void validatePersonData() {
@@ -205,14 +214,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         accountIteractor.verifyActivationSMS();
     }
 
-
     @Override
     public void recoveryPassword(String email) {
         accountView.showLoader("");
         RecuperarContraseniaRequest request = new RecuperarContraseniaRequest(email);
         accountIteractor.recoveryPassword(request);
     }
-
 
     @Override
     public void onSuccessDataPerson() {
@@ -255,10 +262,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 } else {
                     ((IVerificationSMSView) accountView).smsVerificationFailed(error.toString());
                 }
-            } else if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) {
-                ((IVerificationSMSView) accountView).verifyActivationProvisingFailed(error.toString());
-            } else if (ws == ACTIVACION_APROV_SOFTTOKEN) {
-                ((IVerificationSMSView) accountView).activationProvisingFailed(error.toString());
+            } else if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN || ws == ACTIVACION_APROV_SOFTTOKEN) {
+                super.onError(ws, error);
             } else if (ws == ACTUALIZAR_INFO_SESION) { // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).dataUpdated(error.toString());
             } else {
@@ -281,14 +286,15 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             accountView.showError(error);
         } else if (accountView instanceof ILoginView) {
             if (ws == INICIAR_SESION_SIMPLE) {
-                RequestHeaders.setUsername("");
+                //RequestHeaders.setUsername("");
             }
             accountView.showError(error);
-        }
-        if (accountView instanceof IMyPassValidation) {
+        } else if (accountView instanceof IMyPassValidation) {
             if (ws == VALIDAR_FORMATO_CONTRASENIA) {
                 ((IMyPassValidation) accountView).validationPasswordFailed(error.toString());
             }
+        } else {
+            accountView.showError(error);
         }
     }
 
@@ -369,12 +375,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 ((IVerificationSMSView) accountView).smsVerificationSuccess();
             } else if (ws == ACTUALIZAR_INFO_SESION) { // Activacion con SMS ha sido verificada.
                 ((IVerificationSMSView) accountView).dataUpdated(data.toString());
-            } else if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN) { // Error en Verificacion de Aprovisionamiento
-                accountView.showLoader("");
-                getPinPolicy(); // Obtenemos las Reglas del Pin
-            } else if (ws == ACTIVACION_APROV_SOFTTOKEN) {// Error activación de Aprovisionamiento
-                accountView.showLoader("");
-                ((IVerificationSMSView) accountView).provisingCompleted();
+            } else if (ws == VERIFICAR_ACTIVACION_APROV_SOFTTOKEN || ws == ACTIVACION_APROV_SOFTTOKEN) {
+                super.onSucces(ws, data);
             }
         } else if (accountView instanceof RecoveryPasswordView) {
             if (ws == RECUPERAR_CONTRASENIA) {
@@ -402,4 +404,23 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     public void onSuccesBalanceAdq() {
         ((IBalanceView) this.accountView).updateBalanceAdq();
     }
+
+    @Override
+    public void doProvisioning() {
+        String old = prefs.loadData(OLD_NIP);
+        SingletonUser.getInstance().setNeedsReset(!needsProvisioning() && ( !old.equals(prefs.loadData(SHA_256_FREJA)) && !old.isEmpty()));
+        if (!SingletonUser.getInstance().needsReset()) {
+            prefs.saveData(OLD_NIP, prefs.loadData(SHA_256_FREJA));
+        }
+        super.doProvisioning();
+    }
+
+    /**
+     * Methodo delegado de {@link ResetPinPresenterImp}
+     * @param newNip
+     */
+    public void doReseting(String newNip) {
+        resetPinPresenter.doReseting(newNip);
+    }
+
 }

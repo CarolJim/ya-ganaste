@@ -14,9 +14,14 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
@@ -36,14 +41,17 @@ import butterknife.BindView;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_LOGIN;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_REGISTER_COMPLETE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
 
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements IVerificationSMSView, IAprovView {
+public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements IVerificationSMSView,
+        IAprovView, IResetNIPView {
 
     private static final String TAG = AsociatePhoneAccountFragment.class.getSimpleName();
     private static final long CHECK_SMS_VALIDATE_DELAY = 10000;
@@ -54,6 +62,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     BroadcastReceiver broadcastReceiver;
     private WebService failed;
     private AccountPresenterNew accountPresenter;
+    private Preferencias preferencias;
     /**
      * BroadcastReceiver para realizar el envío del SMS
      **/
@@ -87,10 +96,6 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         }
     };
 
-    //private AprovPresenter aprovPresenter;
-    public AsociatePhoneAccountFragment() {
-    }
-
     public static AsociatePhoneAccountFragment newInstance() {
         AsociatePhoneAccountFragment fragmentRegister = new AsociatePhoneAccountFragment();
         Bundle args = new Bundle();
@@ -101,6 +106,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        this.preferencias = App.getInstance().getPrefs();
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
     }
@@ -135,43 +141,40 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         accountPresenter.updateUserInfo();
     }
 
-    @Override
-    public void verifyActivationProvisingFailed(String message) {
-        showError(message);
-    }
-
-    @Override
-    public void activationProvisingFailed(String message) {
-        showError(message);
-    }
-
     private void executeProvisioning() {
-        showLoader("");
-        accountPresenter.getActivationCode();
+        accountPresenter.doProvisioning();
     }
 
     @Override
-    public void showErrorAprov(Object error) {
-        showError(error.toString());
-        //finishAssociation();
-    }
-
-    /*Una vez aprovisionado, se suscribe a las notificationes*/
-    @Override
-    public void provisingCompleted() {
-        accountPresenter.subscribePushNotification();
-    }
-
-    @Override
-    public void subscribeNotificationSuccess() {
+    public void showErrorAprov(ErrorObject error) {
         hideLoader();
-        /*TODO Almacenar preference indicando que ya se encuentra registrado a las notificaciones desde presenter*/
-        finishAssociation();
+        onEventListener.onEvent(EVENT_SHOW_ERROR, error);
     }
+
 
     public void finishAssociation() {
+        if (SingletonUser.getInstance().needsReset()) {
+            accountPresenter.doReseting(preferencias.loadData(SHA_256_FREJA));
+        } else {
+            nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+        }
+    }
+
+    @Override
+    public void showErrorReset(ErrorObject error) {
+        showErrorAprov(error);
+    }
+
+    @Override
+    public void finishReseting() {
         nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
     }
+
+    @Override
+    public void onResetingFailed() {
+        nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+    }
+
 
     @Override
     public void smsVerificationFailed(String message) {
@@ -325,5 +328,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         mySeekBar.setEnabled(true);
         mySeekBar.setProgress(0);
     }
+
+
 }
 

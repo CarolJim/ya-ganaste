@@ -136,6 +136,9 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        if (movementsList.get(tabMonths.getSelectedTabPosition()) == null) {
+            showLoader("");
+        }
         movementsPresenter.updateBalance();
         progress_emisor.setVisivilityImage(View.GONE);
         progress_emisor.setVisibility(View.VISIBLE);

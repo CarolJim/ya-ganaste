@@ -55,7 +55,6 @@ public class ListaLegalesFragment extends GenericFragment implements View.OnClic
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-
         ll_aviso.setOnClickListener(this);
         ll_terminos.setOnClickListener(this);
     }

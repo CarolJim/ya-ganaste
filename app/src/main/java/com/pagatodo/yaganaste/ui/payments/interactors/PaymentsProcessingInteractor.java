@@ -12,7 +12,6 @@ import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcess
 
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB1;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB2;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 
 /**
  * Created by Jordan on 27/04/2017.
@@ -46,8 +45,9 @@ public class PaymentsProcessingInteractor implements IPaymentsProcessingInteract
 
     @Override
     public void sendEnvio(Envios envio) throws OfflineException {
+
         EjecutarTransaccionRequest request = new EjecutarTransaccionRequest(
-                TAB3.getId(), envio.getReferencia(), envio.getMonto(),
+                3, envio.getReferencia(), envio.getMonto(),
                 envio.getComercio().getIdComercio(), envio.getNombreDestinatario(),
                 envio.getConcepto(), envio.getReferenciaNumerica());
 

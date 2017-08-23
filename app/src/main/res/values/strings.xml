@@ -56,6 +56,11 @@
     <string name="obtenerDomicilio">/ObtenerDomicilioPrincipal</string>
     <string name="enviarTicketTAEPDS">/EnviarTicketTAEPDS</string>
     <string name="desasociarDispositivo">/DesasociarDispositivo</string>
+    <string name="obtenerDatosCuenta">/ObtenerDatosCuenta</string>
+    <string name="bloquearDatosCuenta">/BloquearTemporalmenteTarjeta</string>
+    <string name="generate_rpc">/GenerarCodigoRecuperacionSoftToken</string>
+
+
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
     <string name="desvincula_dispositivo_texto">Al Desvincular tu Dispositivo ya no Estará Ligado a tu Cuenta Ya Ganaste. Si Quieres Volver a Usarlo, Deberás Enviar Nuevamente el SMS de Vinculación</string>
     <string name="deseaDesasociarDispositivo">¿Desea Desasociar el Dispositivo?</string>
@@ -194,6 +199,9 @@
     <string name="backButton">Volver</string>
     <string name="nextButton">Continuar</string>
     <string name="imagen_duplicada">Imagen Duplicada , Seleccione Una Imagen Diferente</string>
+    <string name="txt_dialogo_subir_documentos_marcados">Debes de Subir Los Documentos Marcados Con el Signo de Admiración</string>
+    <string name="txt_selecciona_archivo">Selecciona Archivo</string>
+    <string name="error_cargar_imagen">Error al Cargar Imagen</string>
 
     <string name="hello_blank_fragment">Hello blank fragment</string>
     <string name="messages">Mensajes</string>
@@ -205,7 +213,6 @@
     <string name="hint_importe">Importe</string>
     <string name="hint_importe_envio">Importe a Enviar</string>
     <string name="hint_name_destinatario">Nombre Del Destinatario</string>
-    <string name="txt_importe">Importe:</string>
     <string name="txt_fecha">Fecha:</string>
     <string name="txt_hora">Hora:</string>
     <string name="beneficiario">A:</string>
@@ -216,12 +223,15 @@
     <string name="txt_clave_rastreo">Clave Rastreo:</string>
     <string name="txt_numero_referencia">Número de Referencia:</string>
     <string name="inserta_el_lector_para_ncontinuar">Inserta Tu Lector de Tarjetas\nYa Ganaste</string>
-    <string name="text_slide_or_insert">Inserta o Desliza la Tarjeta Para Continuar.</string>
+    <!--<string name="text_slide_or_insert">Inserta o Desliza la Tarjeta Para Continuar.</string>-->
+    <string name="text_slide_or_insert">Inserta la Tarjeta Con Chip</string>
+    <string name="text_slide_or_insert_cancelation">Inserta la Misma Tarjeta Con\nla Que se Hizo el Cobro</string>
     <string name="finalizar">Finalizar</string>
     <string name="insert_slide_card">Inserta o desliza la tarjeta</string>
     <string name="no_internet_access">No Cuentas Con Conexión a Internet</string>
     <string name="something_is_wrong_try_again">Algo Salio mal, Intenta de Nuevo</string>
     <string name="tag_number">Número de TAG</string>
+    <string name="txt_tag">Tag</string>
     <string name="phone_number_hint">Teléfono (10 Dígitos)</string>
     <string name="card_number_hint">Número de Tarjeta (16 Dígitos)</string>
     <string name="msgJsonObj">Mensaje</string>
@@ -244,10 +254,11 @@
 
     <string name="cobrar">Cobrar</string>
     <string name="validatelector"></string>
-    <string name="startpayment">Realizando Pago ...</string>
+    <string name="startpayment">Realizando Pago</string>
     <string name="validatelectorOk">Lector Validado</string>
-    <string name="initlector">Configurando el Lector ...</string>
-    <string name="readcard">Leyendo Tarjeta</string>
+    <string name="initlector">Configurando el Lector</string>
+    <string name="readcard">Estamos Procesando \nel Cobro</string>
+    <string name="readcard_cancelation">Estamos Procesando \nla Cancelación</string>
     <string name="fecha_formater">%1$s/%2$s/%3$s</string>
     <string name="metodo_transaction">TransactionEmvDepositAccount</string>
     <string name="rfc">rfc</string>
@@ -287,9 +298,9 @@
     <string name="user_change_password">Asignando Nueva Contraseña</string>
     <string name="user_change_email">Asignando Nuevo Correo</string>
     <string name="user_change_desasociar">En Proceso</string>
-    <string name="yaganaste_version">YaGanaste Versión:</string>
-    <string name="formato_password">Tu Contraseña Debe Tener 8\nCaracteres, Incluyendo Una Letra\nMayúscula y un Número.</string>
-
+    <string name="yaganaste_version">Ya Ganaste Versión:</string>
+    <string name="confrimacion">Confirmar</string>
+    <string name="formato_password">Tu Contraseña Debe Tener Mínimo 8\nCaracteres, Incluyendo al Menos Una Letra\nMayúscula, Una Minúscula y un Número</string>
 
     <!--datos_personales-->
     <string name="personalInfoTitle">Datos Personales</string>
@@ -324,7 +335,7 @@
 
     <!--activacion_sms-->
     <string name="activacion_sms_mes_1">Para Terminar tu Registro,\n Debemos Asociar tu Teléfono a tu\n Cuenta Ya Ganaste.</string>
-    <string name="activacion_sms_mes_2">Desliza el Boton y Enviaremos un \nSMS Para Realizar el Proceso</string>
+    <string name="activacion_sms_mes_2">Desliza el Botón y Enviaremos un \nSMS Para Realizar el Proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
     <!--tienes_tarjeta-->
@@ -339,7 +350,7 @@
     <string name="permission_request">Solicitud de Permisos</string>
     <string name="permission_request_desc">Debes Aceptar Todos los Permisos para el Correcto Funcionamiento de Ya Ganaste.</string>
     <string name="asignar_pin">Verifica tu NIP.</string>
-    <string name="confirma_pin">Confirma tu NIP.</string>
+    <string name="confirma_pin">Confirma tu NIP</string>
     <string name="confirmar_pin">El NIP no Coincide</string>
     <string name="longitud_nip">NIP de 4 Dígitos</string>
     <string name="new_nip_diferent">El Nuevo NIP Debe Ser Diferente Del Anterior</string>
@@ -406,7 +417,7 @@
 
     <string name="adq_subtitle_accept">Tus Documentos Han Sido\nAprobados</string>
     <string name="adq_msg_accept">A Continuación, te Enseñaremos tu\nNueva Sección de Cobros</string>
-    <string name="adq_aproved">Aprobado</string>
+    <string name="adq_aproved">Aprobada</string>
     <string name="adq_succes_aproved">El Pago Fue Completado\nCorrectamente\n\nYa Puedes\nRetirar la Tarjeta.</string>
     <string name="adq_error_signature">No se ha Capturado Una Firma</string>
 
@@ -443,15 +454,20 @@
     <string name="retirar_tarjeta">Retira la Tarjeta</string>
     <string name="tu_firma">Tu Firma</string>
     <string name="pago_por">Pago Por </string>
+    <string name="error_cuenta_no_valida">%1$s no Valido,\nPor Favor Verifica la Información</string>
 
     <string name="cancelar_operacion">Cancelar Cobro</string>
     <string name="txt_monto">Monto:</string>
+    <string name="txt_compra">Compra:</string>
+    <string name="txt_importe">Importe:</string>
     <string name="txt_monto_total">Monto Total:</string>
     <string name="txt_monto_compra">Monto Compra:</string>
     <string name="txt_monto_retiro">Monto Retiro:</string>
     <string name="txt_recibo">Recibo:</string>
     <string name="txt_iva">IVA:</string>
     <string name="txt_cargo_servicio">Cargo Por Servicio:</string>
+    <string name="txt_cuenta">Cuenta:</string>
+    <string name="txt_cable">CABLE:</string>
 
     <string name="autorizacion">Autorización:</string>
     <string name="tarjeta">Tarjeta:</string>
@@ -548,7 +564,7 @@
 
     <string name="listo">¡Listo!</string>
     <string name="recibo_enviado">El Recibo Fue Enviado Con Éxito.</string>
-    <string name="recibo_enviado_line">El Recibo Fue\nEnviado Con Éxito.</string>
+    <string name="recibo_enviado_line">El Recibo Fue Enviado \nCon Éxito.</string>
 
     <!-- Mensajes de error para registro SMS -->
     <string name="fallo_envio">Falla al Enviar el Mensaje</string>
@@ -624,6 +640,8 @@
     <string name="favor_selecciona_importe">Por Favor Selecciona un Importe</string>
     <string name="numero_iave_vacio">Número de IAVE Vacío</string>
     <string name="numero_telefono_paises">7225499673</string>
+    <string name="numero_telefono_contactanos">0180050010000</string>
+
 
     <string name="numero_telefono_vacio">Número de Teléfono Vacío</string>
     <string name="numero_iave_incorrecto">Número de IAVE Incorrecto</string>
@@ -633,7 +651,7 @@
     <string name="cobraste">Cobraste</string>
     <string name="con_la_tarjeta">Con la Tarjeta:</string>
     <string name="cancel_cobro_confirmation">¿Estás Seguro Que Quieres\n Cancelar Este Cobro?</string>
-    <string name="procesando_cobro">Realizando Cobro</string>
+    <string name="procesando_cobro">Estamos Procesando \nel Cobro</string>
     <string name="procesando_cancelacion">Realizando Cancelación</string>
     <string name="validando_lector"></string>
     <string name="enviando_firma"></string>
@@ -685,11 +703,11 @@
     <string name="landing_adq_verdes">En Verde, Los Que Ya\n Te Reembolsamos</string>
     <string name="landing_adq_rojos">Y En Rojo, Los Cobros\nQue Cancelaste</string>
 
-    <string name="aprobada">Aprobada</string>
-    <string name="pago_success">El Pago Fue Completado\nCorrectamente.</string>
+    <string name="aprobada">Aprobado</string>
+    <string name="pago_success">El Pago Fue Completado\nCorrectamente</string>
     <string name="execution_success">Ejecución Éxitosa</string>
     <string name="cancelation_success">Cancelación Exitosa</string>
-    <string name="cancelation_success_message">El Cobro Fue Cancelado\nCorrectamente.</string>
+    <string name="cancelation_success_message">El Cobro Fue Cancelado\nCorrectamente</string>
     <string name="mount_be_higer">El Monto Tiene Que Ser Mayor</string>
     <string name="mount_valid">Ingresa un Monto Válido.</string>
     <string name="enter_mount">Por Favor Ingrese un Monto</string>
@@ -707,6 +725,40 @@
     <string name="emisor_validate_card"><u>Tarjeta Válida</u></string>
     <string name="emisor_validate_card_fail"><u>Esta Tarjeta Ya Ha Sido Asignada, Ingresa Otra Tarjeta o Selecciona la Opción NO TENGO TARJETA</u></string>
     <string name="emisor_validate_postalcode"><u>Verifica tu Código Postal</u></string>
+
+    <!--  Menu de ayuda-->
+    <string name="contactanos">Contáctanos</string>
+    <string name="email">Email</string>
+    <string name="correo_vacio">El Mensaje Esta Vacío</string>
+    <string name="enviar_email">Enviar Mail</string>
+    <string name="como_ayudarte">¿Cómo Podemos Ayudarte?</string>
+    <string name="comunicate_con_nosotros">Comunícate Con Nosotros \n\n 01-800-500-1000\ninformes@yaganste.com</string>
+    <string name="acerca_de_app">Acerca de la App</string>
+    <string name="ayuda">Ayuda</string>
+
+
+
+
+
+    <string name="Tutoriales">Tutoriales</string>
+    <string name="Inicio_de_Sesión">Inicio de Sesión</string>
+    <string name="tu_pantalla_principal">Tu Pantalla Principal</string>
+    <string name="tu_pantalla_de_cobros">Tu Pantalla de Cobros</string>
+    <string name="tu_línea_credito">Tu Línea de Crédito</string>
+    <string name="bloquear_tarjeta">Bloquear Tarjeta</string>
+
+
+    <string name="termin_condiciones">Términos y Condiciones</string>
+    <string name="cuentaterminos">Cuenta Ya Ganaste</string>
+    <string name="contratosterminos">Contratos</string>
+    <string name="aviso_privacidad_linea_credito">Linea de Crédito </string>
+    <string name="aviso_privacidad">Aviso de Privacidad</string>
+    <string name="aviso_privacidad_cuenta_ganaste">Cuenta Ya Ganaste</string>
+
+    <string name="micuenta">Mi Cuenta</string>
+    <string name="cuentareebolso">Cuenta de Reembolso</string>
+    <string name="solicitacredito">Solicita tu Línea de Crédito *</string>
+
 
     <!--start Cupo Strings-->
 
@@ -758,6 +810,7 @@
     <string name="change_your_pass">Cambia tu Contraseña</string>
     <string name="unlike_your_device">Desvincula tu Dispositivo</string>
     <string name="no_existen_resultados">No Existen Resultados</string>
+    <string name="no_companias_busqueda">No Hay Compañías Para la Búsqueda</string>
     <string name="title_activity_landing_approved">LandingApprovedActivity</string>
 
     <!-- Lista de meses para calendarios -->
@@ -774,8 +827,8 @@
     <string name="lista_meses_noviembre">Nov</string>
     <string name="lista_meses_diciembre">Dic</string>
 
-
-
+    <string name="operacion_cancelada_usuario">Operación Cancelada Por el Usuario</string>
+    <string name="intentos_excedidos">Se Excedió el Número Máximo de Intentos</string>
 
     <!--end Cupo Strings-->
 </resources>

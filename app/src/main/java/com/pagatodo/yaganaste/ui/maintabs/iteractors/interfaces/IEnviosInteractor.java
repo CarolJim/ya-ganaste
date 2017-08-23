@@ -1,14 +1,18 @@
 package com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces;
 
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.net.IRequestResult;
 
 /**
  * Created by Jordan on 20/04/2017.
  */
 
-public interface IEnviosInteractor {
+public interface IEnviosInteractor extends IRequestResult{
 
-    void validateForms(TransferType type, String number, String importe, String name, String concept, String reference, OnValidationFinishListener listener);
+    void validateForms(TransferType type, String number, String importe, String name, String concept, String reference);
+
+    void getTitularName(String cuenta);
 
     interface OnValidationFinishListener {
         void onTypeError();
@@ -50,5 +54,9 @@ public interface IEnviosInteractor {
         void onNumberCreditCardEmpty();
 
         void onNumberCellPhoneEmpty();
+
+        void onSuccess(WebService ws, Object success);
+
+        void onError(WebService ws, Object error);
     }
 }

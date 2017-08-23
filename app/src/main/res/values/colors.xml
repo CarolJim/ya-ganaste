@@ -37,6 +37,7 @@
     <color name="backgroundEditText">#445C6C</color>
     <color name="colorGrayMenuDivider">#374149</color>
     <color name="colorBlackBagroundMoviments">#182630</color>
+    <color name="color_background_image_docs">#182630</color>
     <color name="whiteColor">#FFF</color>
     <color name="whiteColor_disable">#beffffff</color>
 

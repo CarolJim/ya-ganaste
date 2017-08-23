@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.freja.transactions.async;
 
 import android.os.AsyncTask;
 
+import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.provisioning.manager.ExceptionCallback;
 import com.verisec.freja.mobile.core.FmcManager;
 
@@ -43,7 +44,7 @@ public class AproveTransactionRequest extends AsyncTask<Void, Void, Exception> {
         if (response == null) {
             this.aproveTxCallback.onTxAproved();
         } else {
-            this.aproveTxCallback.handleException(response);
+            this.aproveTxCallback.onError(Errors.cast(response));
         }
     }
 

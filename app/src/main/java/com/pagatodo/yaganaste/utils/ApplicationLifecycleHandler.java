@@ -15,7 +15,9 @@ import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.LandingActivity;
+import com.pagatodo.yaganaste.ui._controllers.LandingApprovedActivity;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
+import com.pagatodo.yaganaste.ui._controllers.OnlineTxActivity;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
@@ -46,18 +48,20 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
 
     @Override
     public void onActivityResumed(Activity activity) {
-        if (isInBackground && !(activity instanceof MainActivity || activity instanceof AccountActivity || activity instanceof SplashActivity)) {
+        if (isInBackground &&
+                !(activity instanceof MainActivity || activity instanceof AccountActivity
+                        || activity instanceof SplashActivity || activity instanceof LandingApprovedActivity || activity instanceof OnlineTxActivity)) {
             if ((activity instanceof LandingActivity || activity instanceof ScannVisionActivity)) {
                 goToLoginScreen(activity);
             } else if (!((SupportFragmentActivity) activity).isFromActivityForResult()) {
                 goToLoginScreen(activity);
+            } else if ((activity instanceof LandingApprovedActivity)) {
             }
         }
         isInBackground = false;
     }
 
     private void goToLoginScreen(Activity activity) {
-        // Consumimos de manera directa el servicio de cerrar session
         try {
             ApiAdtvo.cerrarSesion(this);// Se envia null ya que el Body no aplica.
         } catch (OfflineException e) {
@@ -92,6 +96,15 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
     public void onTrimMemory(int level) {
         if (level == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN || level == ComponentCallbacks2.TRIM_MEMORY_COMPLETE || level == ComponentCallbacks2.TRIM_MEMORY_MODERATE) {
             isInBackground = true;
+         /*   if (isInBackground && !(activity instanceof MainActivity || activity instanceof AccountActivity || activity instanceof SplashActivity)
+                    && !((SupportFragmentActivity) activity).isFromActivityForResult()) {
+                // Consumimos de manera directa el servicio de cerrar session
+                try {
+                    ApiAdtvo.cerrarSesion(this);// Se envia null ya que el Body no aplica.
+                } catch (OfflineException e) {
+                    e.printStackTrace();
+                }
+            }*/
         }
     }
 

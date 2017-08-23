@@ -79,6 +79,10 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
+        getStatusGPS();
+    }
+
+    private void getStatusGPS() {
         final LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         onlineGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
@@ -114,6 +118,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
 
     @Override
     public void onClick(View v) {
+        getStatusGPS();
         if (v.getId() == R.id.btnDepositar) {
              if (onlineGPS) {
                 depositsManager.onTapButton();

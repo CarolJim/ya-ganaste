@@ -62,8 +62,8 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
         View layoutMovementTypeColor;
         TextView txtItemMovDate;
         TextView txtItemMovMonth;
-        TextView txtPremios;
-        TextView txtMarca;
+        TextView txtTituloDescripcion;
+        TextView txtSubTituloDetalle;
         MontoTextView txtMonto;
 
         private RecyclerViewHolderMovements(View itemView) {
@@ -71,8 +71,8 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             layoutMovementTypeColor = itemView.findViewById(R.id.layout_movement_type_color);
             txtItemMovDate = (TextView) itemView.findViewById(R.id.txt_item_mov_date);
             txtItemMovMonth = (TextView) itemView.findViewById(R.id.txt_item_mov_month);
-            txtPremios = (TextView) itemView.findViewById(R.id.txt_premios);
-            txtMarca = (TextView) itemView.findViewById(R.id.txt_marca);
+            txtTituloDescripcion = (TextView) itemView.findViewById(R.id.txtTituloDescripcion);
+            txtSubTituloDetalle = (TextView) itemView.findViewById(R.id.txtSubTituloDetalle);
             txtMonto = (MontoTextView) itemView.findViewById(R.id.txt_monto);
             //txtItemMovCents = (TextView)itemView.findViewById(R.id.txt_item_mov_cents);
         }
@@ -81,8 +81,8 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
             //String[] monto = Utils.getCurrencyValue(itemMovements.getMonto()).split("\\.");
             layoutMovementTypeColor.setBackgroundResource(itemMovements.getColor());
             txtMonto.setTextColor(ContextCompat.getColor(App.getContext(), itemMovements.getColor()));
-            txtPremios.setText(itemMovements.getPremio());
-            txtMarca.setText(itemMovements.getMarca());
+            txtTituloDescripcion.setText(itemMovements.getTituloDescripcion());
+            txtSubTituloDetalle.setText(itemMovements.getSubtituloDetalle());
 
             txtMonto.setText(StringUtils.getCurrencyValue(Double.toString(itemMovements.getMonto())));//(monto[0].concat("."));
 

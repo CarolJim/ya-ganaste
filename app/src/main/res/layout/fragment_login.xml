@@ -17,6 +17,19 @@
         android:layout_toRightOf="@+id/progressIndicator"
         android:layout_toEndOf="@+id/progressIndicator">
 
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="fill_parent"
+            android:id="@+id/scrollView"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true">
+            <LinearLayout
+                android:orientation="vertical"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_alignTop="@+id/scrollView">
+
         <RelativeLayout
             android:id="@+id/layoutImagenLogin"
             android:layout_width="match_parent"
@@ -80,7 +93,7 @@
                 app:formato="password"
                 app:hintText="@string/txt_escribe_tu_pass"
                 app:isTextEnabled="true">
-                <requestFocus />
+
             </com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -95,7 +108,9 @@
 
 
         </LinearLayout>
-
+////////////
+            </LinearLayout>
+        </ScrollView>
         <LinearLayout
             android:id="@+id/layoutBtns"
             android:layout_width="match_parent"
@@ -129,14 +144,11 @@
 
 
     </RelativeLayout>
-
-
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@+id/progressIndicator"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:visibility="gone" />
-
 
 </RelativeLayout>
 

@@ -219,7 +219,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     @Override
     public void onResume() {
         super.onResume();
-        Log.d("GetMount", "Resume Amount " + TransactionAdqData.getCurrentTransaction().getAmount());
+      //  Log.d("GetMount", "Resume Amount " + TransactionAdqData.getCurrentTransaction().getAmount());
         setData(TransactionAdqData.getCurrentTransaction().getAmount(), TransactionAdqData.getCurrentTransaction().getDescription());
     }
 

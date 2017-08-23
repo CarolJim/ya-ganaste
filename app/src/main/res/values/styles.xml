@@ -540,6 +540,15 @@
         <item name="android:textSize">@dimen/size_text_style_2_value</item>
         <item name="tipo">Descripcion</item>
     </style>
+    <style name="GenericInputTextFormsComentario" parent="InputTextForms">
+        <item name="android:textColorHint">@color/textColorAlternative</item>
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:lines">10</item>
+
+        <item name="android:background">#445C6C</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Descripcion</item>
+    </style>
 
 
 
@@ -558,4 +567,14 @@
         <item name="android:textColor">@color/whiteColor</item>
     </style>
 
+    <style name="SCBSwitch" parent="Theme.AppCompat.Light">
+        <!-- active thumb & track color (30% transparency) -->
+        <item name="colorControlActivated">@color/colorAccent</item>
+
+        <!-- inactive thumb color -->
+        <item name="colorSwitchThumbNormal">@color/greencolor222</item>
+
+        <!-- inactive track color (30% transparency) -->
+        <item name="android:colorForeground">@color/whiteColor</item>
+    </style>
 </resources>

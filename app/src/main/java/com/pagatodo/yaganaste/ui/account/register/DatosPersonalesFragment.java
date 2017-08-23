@@ -1,16 +1,12 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.DatePickerDialog;
 import android.content.Intent;
-import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.IdRes;
-import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
-import android.support.v4.app.ActivityCompat;
 import android.support.v7.widget.AppCompatSpinner;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -22,7 +18,6 @@ import android.widget.DatePicker;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
@@ -45,7 +40,6 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.CountriesDialogFragment;
-import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
@@ -74,9 +68,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         View.OnClickListener, IDatosPersonalesManager, ValidationForms, IRenapoView,
         AdapterView.OnItemSelectedListener, IOnSpinnerClick, IBuscaPais {
 
-    ArrayList paisesno = new ArrayList();
-    private final int MX = 1;
-    int u = 0;
+
     Boolean seencuentra = false;
     private final int EXTRANJERO = 2;
     @BindView(R.id.radioGender)
@@ -154,7 +146,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 public void onDateSet(DatePicker view, int year, int month, int date) {
                     newDate = Calendar.getInstance(new Locale("es"));
                     newDate.set(year, month, date);
-                 // editBirthDay.setText(DateUtil.getBirthDateCustomString(newDate));
+                    // editBirthDay.setText(DateUtil.getBirthDateCustomString(newDate));
                     editBirthDay.setText(DateUtil.getBirthDateSpecialCustom(year, month, date));
                     editBirthDay.setIsValid();
                     fechaNacimiento = DateUtil.getDateStringFirstYear(newDate);
@@ -277,17 +269,17 @@ public class DatosPersonalesFragment extends GenericFragment implements
         }
     }
 
-    public  void  llamar(){
+    public void llamar() {
         String number = getString(R.string.numero_telefono_paises);
 
-            Intent callIntent = new Intent(Intent.ACTION_CALL);
-            callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-            callIntent.setData(Uri.parse("tel:" + number));
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        callIntent.setData(Uri.parse("tel:" + number));
 
 
         if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
             ValidatePermissions.checkPermissions(getActivity(), new String[]{
-                    Manifest.permission.CALL_PHONE},PERMISSION_GENERAL);
+                    Manifest.permission.CALL_PHONE}, PERMISSION_GENERAL);
         } else {
             getActivity().startActivity(callIntent);
         }
@@ -370,6 +362,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         });
 
     }
+
     @Override
     public void validateForm() {
         getDataForm();
@@ -428,11 +421,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
             }
         }
         if (isValid) {
-            if (country!=null) {
-                String pais = country.getIdPais().toString();
-                List<String> paises = new ArrayList<String>();
-                bucaPais(paises,pais);
-            }else{
+            if (country != null) {
+                String pais = country.getIdPais();
+                List<String> paises = new ArrayList<>();
+                bucaPais(paises, pais);
+            } else {
                 setPersonData();
             }
         }
@@ -665,7 +658,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     @Override
     public void bucaPais(List<String> paises, String pais) {
-        seencuentra=false;
+        seencuentra = false;
         paises.add("AF");
         paises.add("ET");
         paises.add("IQ");
@@ -680,20 +673,22 @@ public class DatosPersonalesFragment extends GenericFragment implements
         for (int i = 0; i < paises.size(); i++) {
             if (paises.get(i).equals(pais)) {
                 String text = getString(R.string.problem_with_register);
-                String titulo=getString(R.string.titulo_extranjero);
-                seencuentra=true;
+                String titulo = getString(R.string.titulo_extranjero);
+                seencuentra = true;
                 UI.createCustomDialogextranjero(titulo, text, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
                         llamar();
                     }
+
                     @Override
                     public void actionCancel(Object... params) {
                         llamar();
                     }
                 }, " ", "Llamar");
 
-            }if (seencuentra==false && i==paises.size()-1) {
+            }
+            if (!seencuentra && i == paises.size() - 1) {
                 setPersonData();
             }
         }

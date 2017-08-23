@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui.otp.presenters;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.otp.presenter.OtpPresenterAbs;
@@ -23,18 +22,13 @@ public class OtpPresenterImp extends OtpPresenterAbs {
     }
 
     @Override
-    public void handleException(Exception e) {
-        Log.e(TAG, e.toString());
-    }
-
-    @Override
     public void onError(Errors error) {
-        Log.e(TAG, error.toString());
+        otpView.showError(error);
     }
 
     @Override
     public void onOtpGenerated(String otp) {
-        Log.i("OTP", "Otp generated: " + otp);
         otpView.onOtpGenerated(otp);
     }
+
 }

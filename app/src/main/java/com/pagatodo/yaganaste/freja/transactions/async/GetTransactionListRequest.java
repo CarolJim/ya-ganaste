@@ -39,7 +39,7 @@ public class GetTransactionListRequest extends AsyncTask<Void, Void, Object> {
         } else if (response instanceof FmcPollingResponse) {
             getTransactionsCallback.onError(Errors.NO_PENDING_TRANSACTIONS);
         } else {
-            getTransactionsCallback.handleException((Exception) response);
+            getTransactionsCallback.onError(Errors.cast((Exception) response));
         }
     }
 

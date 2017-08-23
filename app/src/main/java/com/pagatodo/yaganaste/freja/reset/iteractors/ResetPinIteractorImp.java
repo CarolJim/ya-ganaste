@@ -1,13 +1,19 @@
 package com.pagatodo.yaganaste.freja.reset.iteractors;
 
+import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.general.FmcIteractorImp;
 import com.pagatodo.yaganaste.freja.general.callbacks.PinPolicyCallback;
 import com.pagatodo.yaganaste.freja.reset.async.ResetPinPolicyRequest;
 import com.pagatodo.yaganaste.freja.reset.async.ResetPinRequest;
 import com.pagatodo.yaganaste.freja.reset.managers.ResetPinManager;
+import com.pagatodo.yaganaste.net.ApiAdtvo;
+import com.pagatodo.yaganaste.net.IRequestResult;
 
 import java.util.concurrent.Executor;
+
+import static com.pagatodo.yaganaste.freja.Errors.UNEXPECTED;
 
 /**
  * @author Juan Guerra on 03/04/2017.
@@ -25,7 +31,7 @@ public class ResetPinIteractorImp extends FmcIteractorImp implements ResetPinIte
 
     @Override
     public void throwInitException(Exception e) {
-        resetPinManager.handleException(e);
+        resetPinManager.onError(Errors.cast(e));
     }
 
     @Override
@@ -59,12 +65,16 @@ public class ResetPinIteractorImp extends FmcIteractorImp implements ResetPinIte
     }
 
     @Override
-    public void handleException(Exception e) {
-        resetPinManager.handleException(e);
+    public void onError(Errors error) {
+        resetPinManager.onError(error);
     }
 
     @Override
-    public void onError(Errors error) {
-        resetPinManager.onError(error);
+    public void getResetCode() {
+        try {
+            ApiAdtvo.generarRPC(resetPinManager);
+        } catch (OfflineException e) {
+            resetPinManager.onError(Errors.E2);
+        }
     }
 }

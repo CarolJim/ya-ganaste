@@ -100,6 +100,7 @@ public class TxDetailsFragment extends GenericFragment implements View.OnClickLi
             UI.showToast(R.string.nip_empty, getActivity());
         } else {
             onEventListener.onEvent(OnlineTxActivity.EVENT_APROVE_TX, Utils.getSHA256(edtPassword.getText()));
+            edtPassword.setText(null);
         }
     }
 

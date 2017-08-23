@@ -11,9 +11,12 @@ import android.widget.FrameLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Card;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -28,18 +31,20 @@ import com.pagatodo.yaganaste.ui.account.register.Couchmark;
 import com.pagatodo.yaganaste.ui.account.register.DatosPersonalesFragment;
 import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
-import com.pagatodo.yaganaste.ui.account.register.PermisosFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 
+import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_FAILED;
+import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_SUCCES;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
+import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
 
 
 public class AccountActivity extends LoaderActivity implements OnEventListener {
@@ -194,6 +199,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 break;
 
             case EVENT_GO_REGISTER_COMPLETE:
+            case EVENT_APROV_FAILED:
+            case EVENT_APROV_SUCCES:
                 pref.clearPreference(COUCHMARK_EMISOR);
                 pref.clearPreference(COUCHMARK_ADQ);
                 loadFragment(RegisterCompleteFragment.newInstance(EMISOR), Direction.FORDWARD, false);
@@ -205,9 +212,30 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
 
             case EVENT_GO_MAINTAB:
                 resetRegisterData();
-                Intent intent = new Intent(AccountActivity.this, TabActivity.class);
-                startActivity(intent);
-                finish();
+
+                        /*
+         * Verificamos si las condiciones de Adquirente ya han sido cumplidas para mostrar pantalla
+         */
+                SingletonUser user = SingletonUser.getInstance();
+                DataIniciarSesion dataUser = user.getDataUser();
+                String tokenSesionAdquirente = dataUser.getUsuario().getTokenSesionAdquirente();
+
+                Preferencias prefs = App.getInstance().getPrefs();
+                boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);
+
+                // Lineas de prueba, comentar al tener version lista para pruebas
+                //tokenSesionAdquirente = "MiSuperTokenAdquirente";
+                //isAdquirente = "";
+
+                if (tokenSesionAdquirente != null && !tokenSesionAdquirente.isEmpty() && !isAdquirente) {
+                    // getActivity().finish();
+                    Intent intent = new Intent(AccountActivity.this, LandingApprovedActivity.class);
+                    startActivity(intent);
+                } else {
+                    Intent intent = new Intent(AccountActivity.this, TabActivity.class);
+                    startActivity(intent);
+                    finish();
+                }
                 break;
 
 
@@ -294,5 +322,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     public boolean onCreateOptionsMenu(Menu menu) {
         return false;
     }
+
+    @Override
+    public void showError(ErrorObject error) {
+        UI.createSimpleCustomDialog("", error.getErrorMessage(), getSupportFragmentManager(), error.getErrorActions(), error.hasConfirm(), error.hasCancel());
+    }
+
 }
 

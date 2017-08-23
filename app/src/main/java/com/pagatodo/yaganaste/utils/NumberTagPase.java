@@ -31,7 +31,7 @@ public class NumberTagPase implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         editText.removeTextChangedListener(this);
-        String response = StringUtils.format(s.toString().replaceAll(" ", ""), SPACE, 1,4,4,4);
+        String response = StringUtils.genericFormat(s.toString().replaceAll(" ", ""), SPACE);
         editText.setText(response);
         editText.setSelection(response.length());
         lengthAnterior = s.length();
