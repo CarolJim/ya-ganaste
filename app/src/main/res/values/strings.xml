@@ -59,6 +59,7 @@
     <string name="obtenerDatosCuenta">/ObtenerDatosCuenta</string>
     <string name="bloquearDatosCuenta">/BloquearTemporalmenteTarjeta</string>
     <string name="generate_rpc">/GenerarCodigoRecuperacionSoftToken</string>
+    <string name="enviarCorreo">/EnviarCorreoContactanos</string>
 
 
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>

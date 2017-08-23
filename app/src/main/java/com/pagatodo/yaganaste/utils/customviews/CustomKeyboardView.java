@@ -42,7 +42,7 @@ public class CustomKeyboardView extends KeyboardView {
              */
             CustomKeyboardView.setCodeKey(primaryCode);
 
-            long eventTime = System.currentTimeMillis();
+            long eventTime = 0;
             KeyEvent event = new KeyEvent(eventTime, eventTime, KeyEvent.ACTION_DOWN, primaryCode, 0, 0, 0, 0, KeyEvent.FLAG_SOFT_KEYBOARD | KeyEvent.FLAG_KEEP_TOUCH_MODE);
             activity.dispatchKeyEvent(event);
         }

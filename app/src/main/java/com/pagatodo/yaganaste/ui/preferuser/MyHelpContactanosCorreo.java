@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.preferuser;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -8,8 +9,12 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarCorreoContactanosRequest;
+import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
@@ -25,6 +30,8 @@ import butterknife.ButterKnife;
  */
 public class MyHelpContactanosCorreo  extends GenericFragment implements View.OnClickListener
         {
+
+            PreferUserPresenter mPreferPresenter;
             View rootview;
             private String mensaje = "";
             @BindView(R.id.edtxtUserName)
@@ -36,7 +43,12 @@ public class MyHelpContactanosCorreo  extends GenericFragment implements View.On
             String contenidoemail="";
 
 
+            @Override
+            public void onAttach(Context context) {
+                mPreferPresenter = ((PreferUserActivity) getActivity()).getPreferPresenter();
 
+                super.onAttach(context);
+            }
 
     public MyHelpContactanosCorreo() {
         // Required empty public constructor
@@ -63,6 +75,7 @@ public class MyHelpContactanosCorreo  extends GenericFragment implements View.On
             case R.id.btn_continue:
                  contenidoemail = editbodyemail.getText().toString();
                 valida();
+                editbodyemail.setText("");
                 break;
 
         }
@@ -73,8 +86,15 @@ public class MyHelpContactanosCorreo  extends GenericFragment implements View.On
                     UI.createSimpleCustomDialog("Ya Ganaste", getString(R.string.correo_vacio), getFragmentManager(), getFragmentTag());
                 }
                 if (!contenidoemail.isEmpty()) {
+
+                    EnviarCorreoContactanosRequest mensajeRequest = new EnviarCorreoContactanosRequest(contenidoemail);
+                    onEventListener.onEvent("DISABLE_BACK", true);
+                    // Enviamos al presenter
                  //   onValidationSuccess();
-                    UI.createSimpleCustomDialog("Ya Ganaste", "Enviando Correo:  "+contenidoemail, getFragmentManager(), getFragmentTag());
+                    mPreferPresenter.enviarCorreoContactanosPresenter(mensajeRequest);
+
+
+                  //  UI.createSimpleCustomDialog("Ya Ganaste", "Enviando Correo:  "+contenidoemail, getFragmentManager(), getFragmentTag());
                 }
 
 

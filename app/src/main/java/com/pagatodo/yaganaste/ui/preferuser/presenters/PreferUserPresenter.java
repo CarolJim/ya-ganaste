@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.BloquearCuenta
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarCorreoContactanosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
@@ -396,4 +397,20 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         iMyCardView.hideLoader();
         iMyCardView.sendErrorBloquearCuentaToView(mensaje);
     }
+    @Override
+    public void enviarCorreoContactanosPresenter(EnviarCorreoContactanosRequest request) {
+        iPreferUserIteractor.enviarCorreoContactanos(request);
+    }
+
+    @Override
+    public void ShowExceptionCorreoContactanosPresenter(String s) {
+        iListaOpcionesView.sendErrorEnvioCorreoContactanos(s);
+    }
+
+    @Override
+    public void sendErrorServerCorreoContactanosPresenter(String s) {
+        iListaOpcionesView.sendErrorEnvioCorreoContactanos(s);
+    }
+
+
 }
