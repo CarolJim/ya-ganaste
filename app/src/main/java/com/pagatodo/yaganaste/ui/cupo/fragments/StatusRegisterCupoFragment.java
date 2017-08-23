@@ -62,6 +62,7 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
     public static final int ID_ESTATUS_PASO_RECHAZO_DEFINITIVO = 4;
 
     public static final int ESTADO_RENEENVIA_DOCUMENTOS = 0;
+    public static final int ESTADO_RENEENVIA_REFERENCIAS = 1;
 
     private int ESTADO_ACTUAL = 0;
 
@@ -194,6 +195,7 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
                 statusTextInfo.setText("Ocurrió un Error\nCon Tus Referencias");
                 statusText.setText("Envia Nuevas\nReferencias\n2/3");
                 statusViewCupo.updateError(66,33);
+                ESTADO_ACTUAL = ESTADO_RENEENVIA_REFERENCIAS;
                 break;
         }
     }
@@ -273,9 +275,11 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
         if (id == R.id.btnNextScreen) {
             switch (ESTADO_ACTUAL) {
                 case ESTADO_RENEENVIA_DOCUMENTOS:
-                    Log.e("Test", "Abrereenvia Documentos");
                     cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REENVIAR_COMPROBANTES, null);
                     break;
+                case ESTADO_RENEENVIA_REFERENCIAS:
+                    cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REENVIAR_REFERENCIAS, null);
+                break;
             }
         }
 

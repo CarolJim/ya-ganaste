@@ -737,9 +737,6 @@
     <string name="ayuda">Ayuda</string>
 
 
-
-
-
     <string name="Tutoriales">Tutoriales</string>
     <string name="Inicio_de_Sesión">Inicio de Sesión</string>
     <string name="tu_pantalla_principal">Tu Pantalla Principal</string>
@@ -801,6 +798,11 @@
     <string name="numero_tarjeta_invalido">Numero Invalido</string>
 
     <string name="titulo_referencia_familiar">Referencia Familiar</string>
+    <string name="cupo_referencias">Referencias</string>
+    <string name="reenviar_referencias">Vuelve a Enviar Las Referecnias Indicadas</string>
+    <string name="referencias_familiar">Familiar</string>
+    <string name="referencias_personal">Personal</string>
+    <string name="referencias_proveedor">Proveedor</string>
     <string name="titulo_referencia_personal">Referencia Personal</string>
     <string name="titulo_referencia_proveedor">Referencia Proveedor </string>
     <string name="solicitud_cupo">Estamos Enviando tu Información \nNos Tomará Sólo Unos Segundos</string>

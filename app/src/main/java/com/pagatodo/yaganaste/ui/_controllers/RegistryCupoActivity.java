@@ -17,6 +17,7 @@ import com.pagatodo.yaganaste.ui.cupo.fragments.CupoComprobantesFragment;
 import com.pagatodo.yaganaste.ui.cupo.fragments.CupoCuentanosMasFragment;
 import com.pagatodo.yaganaste.ui.cupo.fragments.CupoDomicilioPersonalFragment;
 import com.pagatodo.yaganaste.ui.cupo.fragments.CupoInicioFragment;
+import com.pagatodo.yaganaste.ui.cupo.fragments.CupoReenviarReferenciasFragment;
 import com.pagatodo.yaganaste.ui.cupo.fragments.CupoReferenciaFamiliarFragment;
 import com.pagatodo.yaganaste.ui.cupo.fragments.CupoReferenciaPersonalFragment;
 import com.pagatodo.yaganaste.ui.cupo.fragments.CupoReferenciaProveedorFragment;
@@ -51,6 +52,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     public final static String EVENT_GO_CUPO_DOMICILIO_PERSONAL = "EVENT_GO_CUPO_DOMICILIO_PERSONAL";
     public final static String EVENT_GO_CUPO_COMPROBANTES = "EVENT_GO_CUPO_COMPROBANTES";
     public final static String EVENT_GO_CUPO_REENVIAR_COMPROBANTES = "EVENT_GO_CUPO_REENVIAR_COMPROBANTES";
+    public final static String EVENT_GO_CUPO_REENVIAR_REFERENCIAS = "EVENT_GO_CUPO_REENVIAR_REFERENCIAS";
     public final static String EVENT_GO_CUPO_CUENTAME_MAS = "EVENT_GO_CUPO_CUENTAME_MAS";
     public final static String EVENT_GO_CUPO_REFERENCIA_FAMILIAR = "EVENT_GO_CUPO_REFERENCIA_FAMILIAR";
     public final static String EVENT_GO_CUPO_REFERENCIA_PERSONAL = "EVENT_GO_CUPO_REFERENCIA_PERSONAL";
@@ -67,6 +69,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     public final static int ESTADO_ENVIO_DOCUMENTOS    = 0;
     public final static int ESTADO_REENVIAR_DOCUMENTOS = 1;
 
+    public final static int VALOR_DEFAULT_ID_RELACION_PROVEEDOR = 9;
 
 
     @Override
@@ -188,6 +191,9 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 break;
             case EVENT_GO_CUPO_REENVIAR_COMPROBANTES:
                 loadFragment(CupoComprobantesFragment.newInstance(ESTADO_REENVIAR_DOCUMENTOS), Direction.FORDWARD, true);
+                break;
+            case EVENT_GO_CUPO_REENVIAR_REFERENCIAS:
+                loadFragment(CupoReenviarReferenciasFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_COMPLETE:
                 loadFragment(RegisterCompleteFragment.newInstance(CUPO_REVISION), Direction.FORDWARD, false);

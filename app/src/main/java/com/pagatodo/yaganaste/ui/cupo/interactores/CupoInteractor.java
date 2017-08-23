@@ -53,6 +53,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMEN
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTADO_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
+import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.VALOR_DEFAULT_ID_RELACION_PROVEEDOR;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_PENDIENTE;
@@ -181,7 +182,7 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
         referenciaProveedor.setSegundoApellido(registerCupo.getProveedorApellidoMaterno());
         referenciaProveedor.setTelefono(registerCupo.getProveedorTelefono());
         referenciaProveedor.setProductoServicioProveedor(registerCupo.getProveedorProductoServicio());
-        referenciaProveedor.setIdRelacion(30);
+        referenciaProveedor.setIdRelacion(VALOR_DEFAULT_ID_RELACION_PROVEEDOR); // Este id tiene un valor por defalt definido en el muckup
 
         referencias.add(referenciaFamiliar);
         referencias.add(referenciaPersonal);

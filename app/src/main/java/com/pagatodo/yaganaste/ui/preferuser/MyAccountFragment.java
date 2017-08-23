@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.preferuser;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -11,6 +12,8 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
+import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
+import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.UI;
 
@@ -84,7 +87,8 @@ public class MyAccountFragment extends GenericFragment implements View.OnClickLi
                 break;
 
             case R.id.fragment_my_account_linea_credito:
-                UI.showToast("Activity Solicitar Cupo", getActivity());
+                Intent intent = new Intent(getActivity(), RegistryCupoActivity.class);
+                startActivity(intent);
                 break;
         }
     }

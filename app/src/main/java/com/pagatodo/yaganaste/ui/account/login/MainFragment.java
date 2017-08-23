@@ -99,7 +99,7 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnMainCreateAccount:
-                Intent intent = new Intent(getActivity(), RegistryCupoActivity.class);
+                Intent intent = new Intent(getActivity(), AccountActivity.class);
                 intent.putExtra(SELECTION, GO_TO_REGISTER);
                 startActivity(intent);
                 //getActivity().finish();
