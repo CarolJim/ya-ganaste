@@ -4,6 +4,7 @@ import android.graphics.Bitmap;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarCorreoContactanosRequest;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 /**
@@ -48,4 +49,11 @@ public interface IPreferUserPresenter {
     void sendErrorServerBloquearCuentaToPresenter(String s);
 
     void sendErrorServerEstatusCuentaToPresenter(String s);
+
+    void enviarCorreoContactanosPresenter(EnviarCorreoContactanosRequest request);
+
+    void ShowExceptionCorreoContactanosPresenter(String s);
+
+    void sendErrorServerCorreoContactanosPresenter(String s);
+
 }

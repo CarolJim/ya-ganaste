@@ -8,7 +8,11 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.freja.change.presenters.ChangeNipPresenterImp;
+import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
+import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenter;
+import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenterImp;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IChangeNipView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -41,7 +45,7 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PR
  * Encargada de gestionar el cambio de contraseña, los elementos graficos de la vista y enviar al MVP
  */
 public class MyPassFragment extends GenericFragment implements View.OnFocusChangeListener, View.OnClickListener,
-        ValidationForms, IMyPassValidation, IMyPassView, IChangeNipView {
+        ValidationForms, IMyPassValidation, IMyPassView, IChangeNipView, IResetNIPView {
     //  ValidationForms, IUserDataRegisterView,
 
     @BindView(R.id.fragment_myemail_btn)
@@ -63,9 +67,9 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     View rootview;
     private String email = "";
     private String emailConfirmation = "";
-    private String password = "";
-    private String passwordOld = "";
-    private String passwordConfirmation = "";
+    private String password;
+    private String passwordOld;
+    private String passwordConfirmation;
     private boolean isValidPassword = false;
     private boolean emailValidatedByWS = false; // Indica que el email ha sido validado por el ws.
     private boolean userExist = false; // Indica que el email ya se encuentra registrado.
@@ -73,6 +77,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     private boolean errorIsShowed = false;
 
     private ChangeNipPresenterImp changeNipPresenterImp;
+    private ResetPinPresenter resetPinPresenter;
 
     public MyPassFragment() {
         // Required empty public constructor
@@ -92,6 +97,8 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
         accountPresenter.setIView(this);
         this.changeNipPresenterImp = new ChangeNipPresenterImp();
         changeNipPresenterImp.setIChangeNipView(this);
+        resetPinPresenter = new ResetPinPresenterImp(false);
+        resetPinPresenter.setResetNIPView(this);
     }
 
     @Override
@@ -407,8 +414,13 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     @Override
 
     public void sendSuccessPassToView(String mensaje) {
-        changeNipPresenterImp.doChangeNip(Utils.getSHA256(editOldPassword.getText()),
-                Utils.getSHA256(editPassword.getText()));
+        if (SingletonUser.getInstance().needsReset()) {
+            resetPinPresenter.doReseting(Utils.getSHA256(editPassword.getText()));
+        } else {
+            changeNipPresenterImp.doChangeNip(Utils.getSHA256(editOldPassword.getText()),
+                    Utils.getSHA256(editPassword.getText()));
+        }
+
     }
 
     /**
@@ -488,6 +500,38 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
 
     @Override
     public void onFrejaNipChanged() {
+        endAndBack();
+    }
+
+    @Override
+    public void showErrorNip(ErrorObject error) {
+        hideLoader();
+        //onEventListener.onEvent(EVENT_SHOW_ERROR, error);
+
+    }
+
+    @Override
+    public void showErrorReset(ErrorObject error) {
+
+    }
+
+    @Override
+    public void finishReseting() {
+        endAndBack();
+    }
+
+    @Override
+    public void onFrejaNipFailed() {
+        SingletonUser.getInstance().setNeedsReset(true);
+        resetPinPresenter.doReseting(Utils.getSHA256(editPassword.getText()));
+    }
+
+    @Override
+    public void onResetingFailed() {
+        endAndBack();
+    }
+
+    private void endAndBack(){
         editOldPassword.setText("");
         editPassword.setText("");
         editPasswordConfirm.setText("");
@@ -496,9 +540,4 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
         onEventListener.onEvent("DISABLE_BACK", false);
     }
 
-    @Override
-    public void showErrorNip(ErrorObject error) {
-        hideLoader();
-        onEventListener.onEvent(EVENT_SHOW_ERROR, error);
-    }
 }

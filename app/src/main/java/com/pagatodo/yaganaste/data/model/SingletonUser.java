@@ -84,10 +84,9 @@ public class SingletonUser {
             String[] urlSplit = mUserImage.split("_");
             if (urlSplit.length > 1) {
                 dataUser.getUsuario().setImagenAvatarURL(urlSplit[0] + "_M.png");
+                prefs.saveData(URL_PHOTO_USER, dataUser.getUsuario().getImagenAvatarURL());
             }
 
-            // Guardamos en las preferencias la direccion de la imagen
-            prefs.saveData(URL_PHOTO_USER, mUserImage);
         }
     }
 

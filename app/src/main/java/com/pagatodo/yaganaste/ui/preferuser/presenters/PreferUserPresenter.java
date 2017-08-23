@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContras
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarCorreoContactanosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
@@ -31,6 +32,8 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
+
+import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 
 /**
  * Created by Francisco Manzo on 08/06/2017.
@@ -231,6 +234,11 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
          */
         if (dataSourceResult.getData() instanceof ActualizarAvatarResponse) {
             ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
+            String mUserImage = response.getData().getImagenAvatarURL();
+            String[] urlSplit = mUserImage.split("_");
+            if (urlSplit.length > 1) {
+                App.getInstance().getPrefs().saveData(URL_PHOTO_USER, urlSplit[0] + "_M.png");
+            }
             iListaOpcionesView.sendSuccessAvatarToView(response.getMensaje());
         }
 
@@ -425,4 +433,20 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         mView.hideLoader();
         mView.sendErrorEstatusCuentaToView(mensaje);
     }
+    @Override
+    public void enviarCorreoContactanosPresenter(EnviarCorreoContactanosRequest request) {
+        iPreferUserIteractor.enviarCorreoContactanos(request);
+    }
+
+    @Override
+    public void ShowExceptionCorreoContactanosPresenter(String s) {
+        iListaOpcionesView.sendErrorEnvioCorreoContactanos(s);
+    }
+
+    @Override
+    public void sendErrorServerCorreoContactanosPresenter(String s) {
+        iListaOpcionesView.sendErrorEnvioCorreoContactanos(s);
+    }
+
+
 }

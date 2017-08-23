@@ -276,9 +276,6 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         hideLoader();
         onEventListener.onEvent("DISABLE_BACK", false);
 
-        // Guardamos el Sitring de la foto en los Preferencioes
-        Preferencias preferencias = App.getInstance().getPrefs();
-        preferencias.saveData(URL_PHOTO_USER, mUserImage);
     }
 
     @Override
@@ -286,6 +283,11 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         hideLoader();
         onEventListener.onEvent("DISABLE_BACK", false);
         CameraManager.cleanBitmap();
+        showDialogMesage(mensaje);
+    }
+
+    @Override
+    public void sendErrorEnvioCorreoContactanos(String mensaje) {
         showDialogMesage(mensaje);
     }
 

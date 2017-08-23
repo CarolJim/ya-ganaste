@@ -12,14 +12,12 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.utils.customviews.StyleButton;
-import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CUENTA_REEMBOLSO;
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_DESASOCIAR;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -31,22 +29,10 @@ public class MyAccountFragment extends GenericFragment implements View.OnClickLi
     @BindView(R.id.lineareebolso)
     View lreembolso;
 
-
-
-
     @BindView(R.id.fragment_my_account_linea_credito)
     LinearLayout solicita_credito;
     @BindView(R.id.llcredito)
     View llcredito;
-
-
-
-
-
-
-
-
-
 
     View rootview;
 
@@ -74,6 +60,8 @@ public class MyAccountFragment extends GenericFragment implements View.OnClickLi
     public void initViews() {
         ButterKnife.bind(this, rootview);
         txtreebolso.setOnClickListener(this);
+        solicita_credito.setOnClickListener(this);
+
         if (Idestatus== IdEstatus.I16.getId()){
             txtreebolso.setVisibility(View.VISIBLE);
             lreembolso.setVisibility(View.VISIBLE);
@@ -86,12 +74,6 @@ public class MyAccountFragment extends GenericFragment implements View.OnClickLi
             llcredito.setVisibility(View.VISIBLE);
             solicita_credito.setVisibility(View.VISIBLE);
         }
-
-
-
-
-
-
     }
 
     @Override
@@ -99,6 +81,10 @@ public class MyAccountFragment extends GenericFragment implements View.OnClickLi
         switch (v.getId()) {
             case R.id.fragment_my_account_reembolso:
                 onEventListener.onEvent(PREFER_USER_CUENTA_REEMBOLSO, 1);
+                break;
+
+            case R.id.fragment_my_account_linea_credito:
+                UI.showToast("Activity Solicitar Cupo", getActivity());
                 break;
         }
     }

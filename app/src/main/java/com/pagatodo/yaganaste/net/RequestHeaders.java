@@ -28,6 +28,13 @@ public class RequestHeaders {
     private static SharedPreferences sharedPreferences;
     private static SharedPreferences.Editor editor;
 
+    public static String getIdDispositivo() {
+        return IdDispositivo;
+    }
+
+    public static void setIdDispositivo(String idDispositivo) {
+        IdDispositivo = idDispositivo;
+    }
 
     public static void initHeaders(Context ctx) {
         sharedPreferences = ctx.getSharedPreferences("headers", Context.MODE_PRIVATE);

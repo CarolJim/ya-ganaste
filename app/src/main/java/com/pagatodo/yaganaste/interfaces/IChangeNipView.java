@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 public interface IChangeNipView extends IProgressView, View {
 
     void onFrejaNipChanged();
+    void onFrejaNipFailed();
 
     void showErrorNip(ErrorObject error);
 }

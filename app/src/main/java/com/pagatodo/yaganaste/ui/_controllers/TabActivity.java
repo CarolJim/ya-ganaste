@@ -21,6 +21,9 @@ import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.freja.reset.managers.IResetNIPView;
+import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenter;
+import com.pagatodo.yaganaste.freja.reset.presenters.ResetPinPresenterImp;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
@@ -62,9 +65,11 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.PTH_DOCTO_APROBADO;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
 
-public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener, IAprovView<ErrorObject> {
+public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
+        IAprovView<ErrorObject>,IResetNIPView<ErrorObject> {
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_DOCUMENT_APPROVED = "EVENT_DOCUMENT_APPROVED";
     public static final String EVENT_GO_HOME = "2";
@@ -77,13 +82,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private ViewPager mainViewPager;
     private TabLayout mainTab;
     private AprovPresenter tabPresenter;
-    private Animation animShow, animHide;
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
     private ProgressLayout progressGIF;
+    private ResetPinPresenter resetPinPresenter;
 
-    final int[] drawablesEmisor = {R.drawable.img_couch_em_1, R.drawable.img_couch_em_2,
-            R.drawable.img_couch_em_3, R.drawable.img_couch_em_4, R.drawable.img_couch_em_5, R.drawable.img_couch_em_6};
-    final int[] drawablesAdquirente = {R.drawable.coachmark_adquirente_1, R.drawable.coachmark_adquirente_2};
+
 
     public static Intent createIntent(Context from) {
         return new Intent(from, TabActivity.class);
@@ -110,8 +113,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         progressGIF.setVisibility(View.GONE);
 
         tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
-        animHide = AnimationUtils.loadAnimation(this, R.anim.view_hide);
-        animShow = AnimationUtils.loadAnimation(this, R.anim.view_show);
+        resetPinPresenter = new ResetPinPresenterImp(false);
+        resetPinPresenter.setResetNIPView(this);
     }
 
     @Override
@@ -151,7 +154,34 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
             }
         });
-        tabPresenter.doProvisioning();
+
+        if (tabPresenter.needsProvisioning() || tabPresenter.needsPush()){
+            tabPresenter.doProvisioning();
+        } else if (SingletonUser.getInstance().needsReset()) {
+            resetPinPresenter.doReseting(pref.loadData(SHA_256_FREJA));
+        }
+
+    }
+
+    @Override
+    public void finishAssociation() {
+        if (SingletonUser.getInstance().needsReset()){
+            resetPinPresenter.doReseting(pref.loadData(SHA_256_FREJA));
+        } else {
+            hideLoader();
+        }
+
+    }
+
+
+    @Override
+    public void finishReseting() {
+        hideLoader();
+    }
+
+    @Override
+    public void onResetingFailed() {
+        hideLoader();
     }
 
     @Override
@@ -373,10 +403,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public void showErrorAprov(ErrorObject error) {
 
     }
-
     @Override
-    public void finishAssociation() {
-        hideLoader();
+    public void showErrorReset(ErrorObject error) {
+
     }
+
+
 
 }

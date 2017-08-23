@@ -43,6 +43,7 @@ public enum WebService {
     OBTENER_DOMICILIO_PRINCIPAL,
     OBTENER_DOMICILIO,
     GENERAR_CODIGO_RECUPERACION,
+    ENVIARCORREO_CONTACTANOS,
     /**
      * WS Transaccional
      **/

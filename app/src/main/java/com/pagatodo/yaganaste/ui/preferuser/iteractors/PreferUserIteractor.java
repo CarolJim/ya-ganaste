@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRe
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CerrarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarCorreoContactanosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
@@ -36,6 +37,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVAT
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.BLOQUEAR_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CAMBIAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.DESASOCIAR_DISPOSITIVO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIARCORREO_CONTACTANOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.UPDATE_DATOS_CUENTA;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
@@ -142,6 +144,17 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         } catch (OfflineException e) {
             // e.printStackTrace();
             preferUserPresenter.showExceptionPassToPresenter(e.toString());
+        }
+    }
+
+
+    @Override
+    public void enviarCorreoContactanos(EnviarCorreoContactanosRequest enviarCorreoContactanosRequest) {
+        try {
+            ApiAdtvo.enviarCorreo(enviarCorreoContactanosRequest, this);
+        } catch (OfflineException e) {
+            // e.printStackTrace();
+            preferUserPresenter.ShowExceptionCorreoContactanosPresenter(e.toString());
         }
     }
 
@@ -350,7 +363,10 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
     @Override
     public void onFailed(DataSourceResult error) {
         // Log.d("PreferUserIteractor", "Error: " + error);
-        if (error.getWebService().equals(ACTUALIZAR_AVATAR)) {
+        if (error.getWebService().equals(ENVIARCORREO_CONTACTANOS)) {
+            preferUserPresenter.sendErrorServerCorreoContactanosPresenter(error.getData().toString());
+        }else if (error.getWebService().equals(ACTUALIZAR_AVATAR)) {
+             // Log.d("PreferUserIteractor", "Error: " + error);
             preferUserPresenter.sendErrorServerAvatarToPresenter(error.getData().toString());
         } else if (error.getWebService().equals(CAMBIAR_CONTRASENIA)) {
             //Log.d("PreferUserIteractor", "CambiarContrasenia ErrorServer " + error.toString());
