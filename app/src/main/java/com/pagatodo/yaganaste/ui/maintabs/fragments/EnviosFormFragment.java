@@ -178,6 +178,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
         if (!isCuentaValida) {
             Formatter formatter = new Formatter();
             showError(formatter.format(getString(R.string.error_cuenta_no_valida), tipoEnvio.getSelectedItem().toString()).toString());
+            formatter.close();
             mySeekBar.setProgress(0);
         } else if (!isValid) {
             showError();
