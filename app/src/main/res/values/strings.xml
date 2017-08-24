@@ -63,7 +63,6 @@
     <string name="enviarCorreo">/EnviarCorreoContactanos</string>
 
 
-
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
     <string name="desvincula_dispositivo_texto">Al Desvincular tu Dispositivo ya no Estará Ligado a tu Cuenta Ya Ganaste. Si Quieres Volver a Usarlo, Deberás Enviar Nuevamente el SMS de Vinculación</string>
     <string name="deseaDesasociarDispositivo">¿Desea Desasociar el Dispositivo?</string>
@@ -736,6 +735,9 @@
     <string name="acerca_de_app">Acerca de la App</string>
     <string name="ayuda">Ayuda</string>
     <string name="enviando_mensaje">Enviando Mensaje</string>
+    <string name="reporta_tu_tarjeta">Reporta tu Tarjeta</string>
+
+
 
 
     <string name="Tutoriales">Tutoriales</string>
