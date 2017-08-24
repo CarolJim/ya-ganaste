@@ -84,7 +84,7 @@ public class MyHelpContactanosCorreo extends GenericFragment implements View.OnC
             case R.id.btn_continue:
                 contenidoemail = editbodyemail.getText().toString();
                 valida();
-                editbodyemail.setText("");
+
                 break;
 
         }
@@ -137,6 +137,7 @@ public class MyHelpContactanosCorreo extends GenericFragment implements View.OnC
     public void sendSuccessMensaje(String mensaje) {
         showDialogMesage(mensaje);
         hideLoader();
+        editbodyemail.setText("");
     }
 
     @Override

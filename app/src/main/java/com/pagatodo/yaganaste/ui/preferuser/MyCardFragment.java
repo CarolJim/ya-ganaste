@@ -48,6 +48,7 @@ import butterknife.OnCheckedChanged;
 
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CHANGE_NIP;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_REPORTA_TARJETA;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
@@ -70,6 +71,9 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     ImageView imgYaGanasteCard;
     @BindView(R.id.mycard_switch)
     SwitchCompat mycard_switch;
+    @BindView(R.id.fragment_my_card_reporta_tarjeta_text)
+    StyleTextView mycard_reporta_tarjeta;
+
     @BindView(R.id.fragment_my_card_change_nip)
     StyleTextView mycard_change_nip;
 
@@ -174,6 +178,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
 
         // Agregamos el Listener para abrir seccion de cambio de Nip
         mycard_change_nip.setOnClickListener(this);
+        mycard_reporta_tarjeta.setOnClickListener(this);
     }
 
     @Override
@@ -182,6 +187,10 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
             case R.id.fragment_my_card_change_nip:
                 onEventListener.onEvent(PREFER_USER_CHANGE_NIP, 1);
                 break;
+            case R.id.fragment_my_card_reporta_tarjeta_text:
+                onEventListener.onEvent(PREFER_USER_REPORTA_TARJETA, 1);
+                break;
+
         }
     }
 
