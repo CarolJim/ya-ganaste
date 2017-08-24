@@ -52,7 +52,7 @@ public interface IPreferUserPresenter {
 
     void enviarCorreoContactanosPresenter(EnviarCorreoContactanosRequest request);
 
-    void ShowExceptionCorreoContactanosPresenter(String s);
+    void showExceptionCorreoContactanosPresenter(String s);
 
     void sendErrorServerCorreoContactanosPresenter(String s);
 

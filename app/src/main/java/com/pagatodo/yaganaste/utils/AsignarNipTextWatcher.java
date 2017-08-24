@@ -170,7 +170,7 @@ public class AsignarNipTextWatcher implements TextWatcher {
                 }
             };
             handler = new Handler();//
-            handler.postDelayed(myRunnable, 300);
+            handler.postDelayed(myRunnable, 000);
         } else {
             // Proceso de borrado de numeros,
             handler.removeCallbacks(myRunnable);

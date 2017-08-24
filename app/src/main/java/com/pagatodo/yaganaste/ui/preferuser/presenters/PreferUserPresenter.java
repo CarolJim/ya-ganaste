@@ -19,12 +19,14 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuent
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDispositivoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoContactanosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyEmailView;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyHelpMensajeContactanos;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferDesasociarView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
@@ -47,6 +49,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
     IPreferUserIteractor iPreferUserIteractor;
     IPreferDesasociarView iPreferDesasociarView;
     IListaOpcionesView iListaOpcionesView;
+    IMyHelpMensajeContactanos iMyHelpMensajeContactanos;
     IMyEmailView iMyEmailView;
     IMyPassView iMyPassView;
     IMyCardView iMyCardView;
@@ -93,6 +96,12 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         if (iPreferUserGeneric instanceof IMyCardView) {
             this.iMyCardView = (IMyCardView) iPreferUserGeneric;
         }
+
+        // Set de instancia de IMyHelpMensajeContactanos
+        if (iPreferUserGeneric instanceof IMyHelpMensajeContactanos) {
+            this.iMyHelpMensajeContactanos = (IMyHelpMensajeContactanos) iPreferUserGeneric;
+        }
+
     }
 
     /**
@@ -232,6 +241,12 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         /**
          * Instancia de peticion exitosa y operacion exitosa de ActualizarAvatarResponse
          */
+        if (dataSourceResult.getData() instanceof EnviarCorreoContactanosResponse) {
+            EnviarCorreoContactanosResponse response = (EnviarCorreoContactanosResponse) dataSourceResult.getData();
+            iMyHelpMensajeContactanos.sendSuccessMensaje(App.getContext().getString(R.string.correo_enviado));
+        }/**
+         * Instancia de peticion exitosa y operacion exitosa de ActualizarAvatarResponse
+         */
         if (dataSourceResult.getData() instanceof ActualizarAvatarResponse) {
             ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
             String mUserImage = response.getData().getImagenAvatarURL();
@@ -299,6 +314,11 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         /**
          * Instancia de peticion exitosa y operacion exitosa de ActualizarAvatarResponse
          */
+        if (dataSourceResult.getData() instanceof EnviarCorreoContactanosResponse) {
+            EnviarCorreoContactanosResponse response = (EnviarCorreoContactanosResponse) dataSourceResult.getData();
+            iMyHelpMensajeContactanos.sendErrorEnvioCorreoContactanos(response.getMensaje());
+        }
+
         if (dataSourceResult.getData() instanceof ActualizarAvatarResponse) {
             ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
             iListaOpcionesView.sendErrorAvatarToView(response.getMensaje());
@@ -439,13 +459,15 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
     }
 
     @Override
-    public void ShowExceptionCorreoContactanosPresenter(String s) {
-        iListaOpcionesView.sendErrorEnvioCorreoContactanos(s);
+    public void showExceptionCorreoContactanosPresenter(String mMesage) {
+        iMyHelpMensajeContactanos.hideLoader();
+        iMyHelpMensajeContactanos.sendErrorEnvioCorreoContactanos(mMesage);
     }
 
     @Override
     public void sendErrorServerCorreoContactanosPresenter(String s) {
-        iListaOpcionesView.sendErrorEnvioCorreoContactanos(s);
+        iMyHelpMensajeContactanos.hideLoader();
+        iMyHelpMensajeContactanos.sendErrorEnvioCorreoContactanos(s);
     }
 
 
