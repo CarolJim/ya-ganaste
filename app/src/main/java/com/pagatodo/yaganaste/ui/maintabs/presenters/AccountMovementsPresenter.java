@@ -8,6 +8,7 @@ import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.dto.MonthsMovementsTab;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovimientosRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
@@ -111,6 +112,11 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
         App.getInstance().getPrefs().saveData(UPDATE_DATE, DateUtil.getTodayCompleteDateFormat());
         App.getInstance().getPrefs().saveData(StringConstants.USER_BALANCE, response.getData().getSaldo());
         movementsView.updateBalance();
+    }
+
+    @Override
+    public void onSuccessDataCupo(ObtieneDatosCupoResponse response) {
+
     }
 
     @Override

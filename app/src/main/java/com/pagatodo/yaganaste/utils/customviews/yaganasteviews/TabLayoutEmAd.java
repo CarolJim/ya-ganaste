@@ -11,6 +11,8 @@ import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
@@ -72,9 +74,16 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         cardEmisor = new CardEmisor(getContext());
         cardEmisorSelected = new CardEmisorSelected(getContext());
         cardAdq = new CardAdq(getContext());
-        if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == CRM_DOCTO_APROBADO) {
-            cardAdqSel = new CardAdqSelected(getContext());
+        DataIniciarSesion dataUser = SingletonUser.getInstance().getDataUser();
+        if (dataUser.isEsAgente() && dataUser.getEstatusDocumentacion() == CRM_DOCTO_APROBADO) {
+            if (dataUser.getIdEstatus() == IdEstatus.I16.getId()) {
+                cardAdqSel = new CardCupoSelected(getContext());
+            } else {
+                cardAdqSel = new CardAdqSelected(getContext());
+            }
+            //cardAdqSel = new CardAdqSelected(getContext());
             //cardAdqSel = new CardAdqCredSelected(getContext());
+
         }
         updateData();
     }
