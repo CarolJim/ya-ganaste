@@ -9,6 +9,7 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoDocumentos;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoSolicitud;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
@@ -33,6 +34,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREA_SOLICITUD_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTADO_DOCUMENTOS_CUPO;
 
 /**
@@ -70,6 +72,8 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
         iNavigationView.hideLoader();
         if (ws == OBTENER_COLONIAS_CP) {
             ((IViewDomicilioPersonal) iNavigationView).setNeighborhoodsAvaliables((List<ColoniasResponse>) msgSuccess);
+        } else if (ws == OBTENER_DOMICILIO_PRINCIPAL) {
+            ((IViewDomicilioPersonal) iNavigationView).setDomicilio((DataObtenerDomicilio) msgSuccess);
         } else if (ws == CARGA_DOCUMENTOS_CUPO) {
             ((IViewCupoComprobantes) iNavigationView).setResponseDocuments();
         } else if (ws == CREA_SOLICITUD_CUPO) {

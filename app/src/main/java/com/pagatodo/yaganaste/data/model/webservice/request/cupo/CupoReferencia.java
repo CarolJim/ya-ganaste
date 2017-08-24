@@ -13,7 +13,7 @@ public class CupoReferencia implements Serializable {
     private String SegundoApellido = "";
     private String Telefono = "";
     private int    IdRelacion = 0;
-    private int    TipoReferencia = 0;
+    private int    IdTipoReferencia = 0;
     private String ProductoServicioProveedor = "";
 
 
@@ -57,12 +57,12 @@ public class CupoReferencia implements Serializable {
         IdRelacion = idRelacion;
     }
 
-    public int getTipoReferencia() {
-        return TipoReferencia;
+    public int getIdTipoReferencia() {
+        return IdTipoReferencia;
     }
 
-    public void setTipoReferencia(int tipoReferencia) {
-        TipoReferencia = tipoReferencia;
+    public void setIdTipoReferencia(int idTipoReferencia) {
+        IdTipoReferencia = idTipoReferencia;
     }
 
     public String getProductoServicioProveedor() {

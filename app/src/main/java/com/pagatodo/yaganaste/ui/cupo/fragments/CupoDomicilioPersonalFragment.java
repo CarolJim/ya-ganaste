@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
@@ -28,6 +29,7 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
+import com.pagatodo.yaganaste.ui.cupo.Colonias;
 import com.pagatodo.yaganaste.ui.cupo.managers.CupoActivityManager;
 import com.pagatodo.yaganaste.ui.cupo.presenters.CupoDomicilioPersonalPresenter;
 import com.pagatodo.yaganaste.ui.cupo.view.IViewDomicilioPersonal;
@@ -487,7 +489,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
             case R.id.radioBtnIsBussinesAddressYes:
             default:
                 if (RegisterCupo.getInstance().getCalle().equals("")) {
-                    //loadHomeAddress();
+                    loadHomeAddress();
                 } else {
                     loadDataFromSigleton();
                 }
@@ -515,7 +517,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         editBussinesStreet.setText(domicilio.getCalle());
         editBussinesExtNumber.setText(domicilio.getNumeroExterior());
         editBussinesIntNumber.setText(domicilio.getNumeroInterior());
-        colonyToLoad = domicilio.getColonia();
+        colonyToLoad = domicilio.getIdColonia();
         textWatcherZipCode.setEnabled(true);
         if (domicilio.getColoniasDomicilio() == null) {
             textWatcherZipCode.afterTextChanged(editBussinesZipCode.getText());
@@ -598,11 +600,16 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         fillAdapter();
 
         if (colonyToLoad != null && !colonyToLoad.isEmpty()) {
-            for (int pos = 0; pos < coloniasNombre.size(); pos++) {
-                if (coloniasNombre.get(pos).equalsIgnoreCase(colonyToLoad)) {
-                    spBussinesColonia.setSelection(pos);
+            for (int i = 0; i < listaColonias.size(); i ++ ) {
+                ColoniasResponse actual = listaColonias.get(i);
+                if (actual.getColoniaId().equals(colonyToLoad) ){
+                    int spinnerPosition = adapterColonia.getPosition(actual.getColonia());
+                    spBussinesColonia.setSelection(spinnerPosition);
+                    break;
                 }
             }
+
+
             colonyToLoad = null;
         }
     }
@@ -611,6 +618,13 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
     public void setResponseCreaSolicitudCupo() {
         App.getInstance().getPrefs().saveData( CUPO_PASO , CUPO_PASO_REGISTRO_ENVIADO);
         cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
+    }
+
+    @Override
+    public void setDomicilio(DataObtenerDomicilio domicilio) {
+        Log.e("Test", "Entre a obtener el domicilio actual");
+        this.domicilio = domicilio;
+        loadHomeAddress();
     }
 
     @Override

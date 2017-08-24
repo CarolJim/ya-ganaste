@@ -160,7 +160,7 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
         List<CupoReferencia> referencias = new ArrayList<>();
 
         CupoReferencia referenciaFamiliar  = new CupoReferencia();
-        referenciaFamiliar.setTipoReferencia(1);
+        referenciaFamiliar.setIdTipoReferencia(1);
         referenciaFamiliar.setNombre(registerCupo.getFamiliarNombre());
         referenciaFamiliar.setPrimerApellido(registerCupo.getFamiliarApellidoPaterno());
         referenciaFamiliar.setSegundoApellido(registerCupo.getFamiliarApellidoMaterno());
@@ -168,7 +168,7 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
         referenciaFamiliar.setIdRelacion(registerCupo.getFamiliarIdRelacion());
 
         CupoReferencia referenciaPersonal  = new CupoReferencia();
-        referenciaPersonal.setTipoReferencia(2);
+        referenciaPersonal.setIdTipoReferencia(2);
         referenciaPersonal.setNombre(registerCupo.getPersonalNombre());
         referenciaPersonal.setPrimerApellido(registerCupo.getPersonalApellidoPaterno());
         referenciaPersonal.setSegundoApellido(registerCupo.getPersonalApellidoMaterno());
@@ -176,7 +176,7 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
         referenciaPersonal.setIdRelacion(registerCupo.getPersonalIdRelacion());
 
         CupoReferencia referenciaProveedor = new CupoReferencia();
-        referenciaProveedor.setTipoReferencia(3);
+        referenciaProveedor.setIdTipoReferencia(3);
         referenciaProveedor.setNombre(registerCupo.getProveedorNombre());
         referenciaProveedor.setPrimerApellido(registerCupo.getProveedorApellidoPaterno());
         referenciaProveedor.setSegundoApellido(registerCupo.getProveedorApellidoMaterno());

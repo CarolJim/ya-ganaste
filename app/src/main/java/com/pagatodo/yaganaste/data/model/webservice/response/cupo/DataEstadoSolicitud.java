@@ -16,7 +16,7 @@ public class DataEstadoSolicitud  implements Serializable{
 
     private String CodigoColor;
     private String ComentarioRechazo;
-    private String DomicilioPersonal;
+    //private String DomicilioPersonal;
     private String EstatusPaso;
     private String FolioAfiliacion;
     private int IdEstadoCivil;
@@ -62,6 +62,7 @@ public class DataEstadoSolicitud  implements Serializable{
         ComentarioRechazo = comentarioRechazo;
     }
 
+    /*
     public String getDomicilioPersonal() {
         return DomicilioPersonal;
     }
@@ -69,6 +70,7 @@ public class DataEstadoSolicitud  implements Serializable{
     public void setDomicilioPersonal(String domicilioPersonal) {
         DomicilioPersonal = domicilioPersonal;
     }
+    */
 
     public String getEstatusPaso() {
         return EstatusPaso;

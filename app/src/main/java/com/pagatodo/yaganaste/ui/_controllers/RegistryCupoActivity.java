@@ -69,7 +69,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     public final static int ESTADO_ENVIO_DOCUMENTOS    = 0;
     public final static int ESTADO_REENVIAR_DOCUMENTOS = 1;
 
-    public final static int VALOR_DEFAULT_ID_RELACION_PROVEEDOR = 9;
+    public final static int VALOR_DEFAULT_ID_RELACION_PROVEEDOR = 30;
 
 
     @Override
@@ -175,7 +175,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 } else if ( App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_DOCUMENTOS_ENVIADOS) ) {
                     loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, true);
                 }
-                //loadFragment(CupoComprobantesFragment.newInstance(), Direction.FORDWARD, true);
+                //loadFragment(CupoDomicilioPersonalFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_REFERENCIA_FAMILIAR:
                 loadFragment(CupoReferenciaFamiliarFragment.newInstance(), Direction.FORDWARD, true);
