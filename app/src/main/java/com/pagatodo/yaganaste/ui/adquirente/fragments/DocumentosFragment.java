@@ -8,6 +8,7 @@ import android.content.pm.PackageManager;
 import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -22,6 +23,7 @@ import android.view.Window;
 import android.widget.Button;
 import android.widget.LinearLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -557,6 +559,53 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         if (documentApproved == 4) {
             onEventListener.onEvent(EVENT_DOCUMENT_APPROVED, null);
         }
+
+        int idStatus;
+        int tipoDoc;
+        int idDrawableStatus;
+        Bitmap bitmap;
+
+        for (EstatusDocumentosResponse estatusDocs : data) {
+            idStatus = estatusDocs.getIdEstatus();
+            tipoDoc = estatusDocs.getTipoDocumento();
+
+            if (idStatus == STATUS_DOCTO_RECHAZADO) {
+                idDrawableStatus = R.drawable.ic_alerta;
+            } else if (idStatus == STATUS_DOCTO_APROBADO) {
+                documentApproved++;
+                idDrawableStatus = R.drawable.ic_document_done;
+            } else if (idStatus == STATUS_DOCTO_PENDIENTE) {
+                idDrawableStatus = R.drawable.ic_wait;
+            } else {
+                idDrawableStatus = R.drawable.ic_wait;
+            }
+
+            bitmap = BitmapFactory.decodeResource(App.getContext().getResources(),
+                    idDrawableStatus);
+
+            switch (tipoDoc) {
+                case DOC_ID_FRONT:
+                    ifeFront.setImageBitmap(bitmap);
+                    break;
+                case DOC_ID_BACK:
+                    // ifeBack.setVisibilityStatus(true);
+                    // ifeBack.setBackgroundResource(R.drawable.ic_alerta);
+                    ifeBack.setImageBitmap(bitmap);
+                    break;
+                case DOC_DOM_FRONT:
+                    // addressFront.setVisibilityStatus(true);
+                    // addressFront.setBackgroundResource(R.drawable.ic_alerta);
+                    addressFront.setImageBitmap(bitmap);
+                    break;
+                case DOC_DOM_BACK:
+                    // addressBack.setVisibilityStatus(true);
+                    // addressBack.setBackgroundResource(R.drawable.ic_alerta);
+                    addressBack.setImageBitmap(bitmap);
+                    break;
+            }
+        }
+
+        btnWeNeedSmFilesNext.setClickable(true);
     }
 
     private void setDocumentsStatusDrawables(List<EstatusDocumentosResponse> mListaDocumentos) {
