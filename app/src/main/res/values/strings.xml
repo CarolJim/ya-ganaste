@@ -500,7 +500,7 @@
 
     <string name="generando_token">Generando Código</string>
 
-    <string name="tu_codigo">Tu Código de Acceso es:</string>
+    <string name="tu_codigo">Tu Código de Seguridad es:</string>
     <string name="caduca_en"><![CDATA[Caduca en <b><font color="#10B2E6">%1$s</font></b> Minutos]]></string>
 
     <string name="codigo_expirado">Tú Código de Acceso ha Expirado, Puedes Volver a Generar Otro</string>
@@ -781,7 +781,7 @@
     <string name="cual_estado_civil">¿Cuál es tu Estado Civil?</string>
     <string name="cuantos_hijos">¿Cuántos Hijos Tienes?</string>
     <string name="relacion">Relación</string>
-    <string name="access_code_text">Ingresa tu Contraseña Para \nGenerar un Código de Acceso</string>
+    <string name="access_code_text">Ingresa tu Contraseña Para \nGenerar un Código de Seguridad</string>
     <string name="verificando_sms_espera">Estamos Verificando tu SMS, \nNos Tomará Sólo Unos Segundos</string>
     <string name="change_your_pass">Cambia tu Contraseña</string>
     <string name="unlike_your_device">Desvincula tu Dispositivo</string>
@@ -813,6 +813,8 @@
     <string name="card_locked_success">La Tarjeta Fue Bloqueada Con Éxito</string>
     <string name="card_unlocked_success">La Tarjeta Fue Desloqueada Con Éxito</string>
     <string name="card_num_autorization">Num. Autorización:</string>
+
+    <string name="input_letters">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\u0020</string>
 
 </resources>
 

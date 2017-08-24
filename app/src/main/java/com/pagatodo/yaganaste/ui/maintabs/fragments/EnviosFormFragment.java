@@ -45,6 +45,8 @@ import java.util.List;
 import butterknife.BindView;
 
 import static android.view.View.GONE;
+import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
+import static android.view.inputmethod.EditorInfo.IME_ACTION_NEXT;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CABLE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
@@ -141,9 +143,27 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             //cardNumber.setOnFocusChangeListener(this);
             amountToSend.setImeOptions(EditorInfo.IME_ACTION_NEXT);
             amountToSend.setOnEditorActionListener(this);
+
+            concept.setImeOptions(IME_ACTION_DONE);
+
         } else {
             tipoPago.add(CABLE.getId(), CABLE.getName(getContext()));
+            receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
+            concept.setImeOptions(IME_ACTION_NEXT);
         }
+
+        concept.setSingleLine(true);
+        concept.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+                if (actionId == IME_ACTION_DONE) {
+                    UI.hideKeyBoard(getActivity());
+                } else if (actionId == IME_ACTION_NEXT) {
+                    numberReference.requestFocus();
+                }
+                return false;
+            }
+        });
 
         SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), TAB3, tipoPago);
         tipoEnvio.setAdapter(dataAdapter);
@@ -304,7 +324,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
 
     @Override
     public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-        if (actionId == EditorInfo.IME_ACTION_DONE ||
+        if (actionId == IME_ACTION_DONE ||
                 actionId == EditorInfo.IME_ACTION_NEXT) {
             concept.requestFocus();
             return true;
