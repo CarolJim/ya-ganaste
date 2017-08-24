@@ -279,7 +279,8 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
                 numberCardTextWatcher.setOnITextChangeListener(this);
             }
             cardNumber.addTextChangedListener(numberCardTextWatcher);
-
+            layoutImageContact.setVisibility(View.GONE);
+            layoutImageContact.setOnClickListener(null);
             selectedType = NUMERO_TARJETA;
         } else if (position == NUMERO_TELEFONO.getId()) {
             maxLength = 12;
@@ -296,11 +297,15 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             maxLength = 22;
             cardNumber.setHint(getString(R.string.transfer_cable));
             cardNumber.addTextChangedListener(new NumberClabeTextWatcher(cardNumber));
+            layoutImageContact.setVisibility(View.GONE);
+            layoutImageContact.setOnClickListener(null);
             selectedType = CABLE;
         } else {
             maxLength = 2;
             cardNumber.setHint("");
             layout_cardNumber.setVisibility(GONE);
+            layoutImageContact.setVisibility(View.GONE);
+            layoutImageContact.setOnClickListener(null);
             selectedType = null;
         }
 
@@ -360,6 +365,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             }
         }
     }
+
     private void contactPicked(Intent data) {
         Cursor cursor;
         String phoneNo = null;

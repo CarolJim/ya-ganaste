@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
@@ -20,6 +21,7 @@ import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
 import java.text.DateFormat;
@@ -54,24 +56,35 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     @BindView(R.id.txtSubTituloDetalle)
     TextView txtSubTituloDetalle;
 
+    @BindView(R.id.layoutComision)
+    LinearLayout layoutComision;
+    @BindView(R.id.txtComisionDescripcion)
+    MontoTextView txtComisionDescripcion;
+
+    @BindView(R.id.layoutIVA)
+    LinearLayout layoutIVA;
+
+    @BindView(R.id.txtIVADescripcion)
+    MontoTextView txtIVADescripcion;
+
     @BindView(R.id.txt_monto)
     MontoTextView txtMonto;
     @BindView(R.id.imageDetail)
     ImageView imageDetail;
-    @BindView(R.id.txtMontoDescripcion)
-    MontoTextView txtMontoDescripcion;
+    /*@BindView(R.id.txtMontoDescripcion)
+    MontoTextView txtMontoDescripcion;*/
     @BindView(R.id.txtRefernciaDescripcion)
     TextView txtRefernciaDescripcion;
-    @BindView(R.id.txtConceptoDescripcion)
-    TextView txtConceptoDescripcion;
+    /*@BindView(R.id.txtConceptoDescripcion)
+    TextView txtConceptoDescripcion;*/
     @BindView(R.id.txtFechaDescripcion)
     TextView txtFechaDescripcion;
     @BindView(R.id.txtHoraDescripcion)
     TextView txtHoraDescripcion;
     @BindView(R.id.txtAutorizacionDescripcion)
     TextView txtAutorizacionDescripcion;
-    @BindView(R.id.txtReciboDescripcion)
-    TextView txtReciboDescripcion;
+    //@BindView(R.id.txtReciboDescripcion)
+    //TextView txtReciboDescripcion;
     @BindView(R.id.btn_cancel)
     Button btnCancel;
     @BindView(R.id.btn_volver)
@@ -141,22 +154,25 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
 
         txtMonto.setText(dataMovimientoAdq.getMonto());
         txtMonto.setTextColor(ContextCompat.getColor(getContext(), color));
-        txtMontoDescripcion.setText(dataMovimientoAdq.getMonto());
+        //txtMontoDescripcion.setText(dataMovimientoAdq.getMonto());
         txtRefernciaDescripcion.setText(dataMovimientoAdq.getReferencia());
-        txtConceptoDescripcion.setText(dataMovimientoAdq.getOperacion());
+        //txtConceptoDescripcion.setText(dataMovimientoAdq.getOperacion());
 
         txtFechaDescripcion.setText(DateUtil.getBirthDateCustomString(calendar));
         DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", new Locale("es", "ES"));
         txtHoraDescripcion.setText(hourFormat.format(calendar.getTime()) + " hrs");
 
         txtAutorizacionDescripcion.setText(dataMovimientoAdq.getNoAutorizacion().trim().toString());
-        txtReciboDescripcion.setText(dataMovimientoAdq.getNoTicket());
+        //txtReciboDescripcion.setText(dataMovimientoAdq.getNoTicket());
 
         if (dataMovimientoAdq.isEsAprobada() && !dataMovimientoAdq.isEsCargo() && !dataMovimientoAdq.isEsReversada()) {
             btnCancel.setVisibility(View.VISIBLE);
             rootView.findViewById(R.id.view).setVisibility(View.VISIBLE);
             btnCancel.setOnClickListener(this);
         }
+
+        txtIVADescripcion.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMontoAdqComisionIva()));
+        txtComisionDescripcion.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMontoAdqComision()));
 
         btnVolver.setOnClickListener(this);
 

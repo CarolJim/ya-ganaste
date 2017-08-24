@@ -49,6 +49,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente.getImplicitData;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
+import static com.pagatodo.yaganaste.utils.Constants.TIPO_TRANSACCION_CHIP;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
@@ -440,13 +441,26 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void showInsertCard() {
         imgInsertDongle.setVisibility(View.INVISIBLE);
+        String message;
+
+        if (isCancelation) {
+            if (dataMovimientoAdq.getTipoTrans().equals(TIPO_TRANSACCION_CHIP)) {
+                message = getString(R.string.text_insert_cancelation);
+            } else {
+                message = getString(R.string.text_slide_cancelation);
+                imgInsertCard.setImageResource(R.mipmap.dongle_swipe_card);
+            }
+        } else {
+            message = getString(R.string.text_slide_or_insert);
+        }
         imgInsertCard.setVisibility(VISIBLE);
+
         try {
             ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
-        String message = isCancelation ? getString(R.string.text_slide_or_insert_cancelation) : getString(R.string.text_slide_or_insert);
+
         tv_lector.setText(message);
         tv_lector.setVisibility(View.VISIBLE);
     }
