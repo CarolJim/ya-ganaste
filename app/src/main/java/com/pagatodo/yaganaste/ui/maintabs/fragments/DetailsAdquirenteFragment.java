@@ -13,11 +13,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
+import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirete;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
@@ -31,12 +31,6 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.APROBADO;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CANCELADO;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CARGO;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.PENDIENTE;
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * @author Juan Guerra on 12/04/2017.
@@ -128,7 +122,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public void initViews() {
         ButterKnife.bind(this, rootView);
         //String[] monto = Utils.getCurrencyValue(dataMovimientoAdq.getMonto()).split("\\.");
-        int color;
+        /*int color;
         if (dataMovimientoAdq.isEsCargo()) {
             color = CARGO.getColor();
         } else if (dataMovimientoAdq.isEsReversada()) {
@@ -137,7 +131,9 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
             color = PENDIENTE.getColor();
         } else {
             color = APROBADO.getColor();
-        }
+        }*/
+
+        int color = EstatusMovimientoAdquirete.getEstatusById(dataMovimientoAdq.getEstatus()).getColor();
         layoutMovementTypeColor.setBackgroundColor(ContextCompat.getColor(getContext(), color));
 
         Calendar calendar = Calendar.getInstance();
@@ -147,9 +143,10 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         txtItemMovMonth.setText(DateUtil.getMonthShortName(calendar));
         txtTituloDescripcion.setText(dataMovimientoAdq.getOperacion());
 
-        txtSubTituloDetalle.setText(dataMovimientoAdq.getBancoEmisor().concat(SPACE).concat(
+        /*txtSubTituloDetalle.setText(dataMovimientoAdq.getBancoEmisor().concat(SPACE).concat(
                 dataMovimientoAdq.isEsReversada() ? "- " + App.getInstance().getString(R.string.cancelada) :
-                        dataMovimientoAdq.isEsPendiente() ? "- " + App.getInstance().getString(R.string.pendiente) : SPACE));
+                        dataMovimientoAdq.isEsPendiente() ? "- " + App.getInstance().getString(R.string.pendiente) : SPACE));*/
+        txtSubTituloDetalle.setText(dataMovimientoAdq.getConcepto());
 
 
         txtMonto.setText(dataMovimientoAdq.getMonto());
@@ -165,7 +162,8 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         txtAutorizacionDescripcion.setText(dataMovimientoAdq.getNoAutorizacion().trim().toString());
         //txtReciboDescripcion.setText(dataMovimientoAdq.getNoTicket());
 
-        if (dataMovimientoAdq.isEsAprobada() && !dataMovimientoAdq.isEsCargo() && !dataMovimientoAdq.isEsReversada()) {
+        //if (dataMovimientoAdq.isEsAprobada() && !dataMovimientoAdq.isEsCargo() && !dataMovimientoAdq.isEsReversada()) {
+        if(dataMovimientoAdq.getEstatus().equals(EstatusMovimientoAdquirete.POR_REEMBOLSAR.getId())){
             btnCancel.setVisibility(View.VISIBLE);
             rootView.findViewById(R.id.view).setVisibility(View.VISIBLE);
             btnCancel.setOnClickListener(this);

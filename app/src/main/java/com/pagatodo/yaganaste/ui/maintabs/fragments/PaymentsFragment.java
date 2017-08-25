@@ -78,6 +78,8 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
         itemClicked.getMovement().setEsReversada(true);
         itemClicked.setSubtituloDetalle(getString(R.string.cancelada));
         notifyDataSetChanged();
+        onRefresh(null);
+        showLoader("");
     }
 
     @Override

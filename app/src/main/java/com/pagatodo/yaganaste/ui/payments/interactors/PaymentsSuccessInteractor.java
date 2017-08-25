@@ -3,12 +3,14 @@ package com.pagatodo.yaganaste.ui.payments.interactors;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarTicketRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarTicketTAEPDSRequest;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.ui.payments.interactors.interfaces.IPaymentsSuccessInteractor;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsSuccessPresenter;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_TAEPDS;
 
 /**
@@ -39,16 +41,24 @@ public class PaymentsSuccessInteractor implements IPaymentsSuccessInteractor {
     }
 
     @Override
+    public void sendTicketEnvio(String mail, String idMovimiento) {
+        EnviarTicketRequest request = new EnviarTicketRequest(mail, idMovimiento);
+        try {
+            ApiAdtvo.enviarTicket(request, this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            successPresenter.onError(ENVIAR_TICKET, App.getContext().getString(R.string.no_internet_access));
+        }
+    }
+
+    @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
 
-        switch (dataSourceResult.getWebService()) {
-            case ENVIAR_TICKET_TAEPDS:
-                successPresenter.onSuccess(dataSourceResult.getWebService(), dataSourceResult);
-                break;
-            default:
-                break;
-
+        if (dataSourceResult.getWebService() == ENVIAR_TICKET ||
+                dataSourceResult.getWebService() == ENVIAR_TICKET_TAEPDS) {
+            successPresenter.onSuccess(dataSourceResult.getWebService(), dataSourceResult);
         }
+
     }
 
     @Override

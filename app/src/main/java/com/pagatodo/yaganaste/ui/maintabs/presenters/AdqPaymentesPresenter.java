@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoA
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
+import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirete;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.AdqPayMovementsIteractorImp;
@@ -180,8 +181,9 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
             //movimientoAdq.setEsPendiente(true);
             //movimientoAdq.setEsAprobada(false);
+            int color = EstatusMovimientoAdquirete.getEstatusById(movimientoAdq.getEstatus()).getColor();
 
-            int color;
+            /*int color;
             if (movimientoAdq.isEsCargo()) {
                 color = CARGO.getColor();
             } else if (movimientoAdq.isEsReversada()) {
@@ -190,13 +192,13 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
                 color = PENDIENTE.getColor();
             } else {
                 color = APROBADO.getColor();
-            }
+            }*/
 
             movementsList.add(new ItemMovements<>(movimientoAdq.getOperacion(),
-
-                    movimientoAdq.getBancoEmisor().concat(SPACE).concat(
+                    movimientoAdq.getConcepto()
+                    /*movimientoAdq.getBancoEmisor().concat(SPACE).concat(
                             movimientoAdq.isEsReversada() ? "- " + App.getInstance().getString(R.string.cancelada) :
-                                    movimientoAdq.isEsPendiente() ? "- " + App.getInstance().getString(R.string.pendiente) : SPACE),
+                                    movimientoAdq.isEsPendiente() ? "- " + App.getInstance().getString(R.string.pendiente) : SPACE)*/,
                     StringUtils.getDoubleValue(movimientoAdq.getMonto()), String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)),
                     DateUtil.getMonthShortName(calendar), color, movimientoAdq));
         }

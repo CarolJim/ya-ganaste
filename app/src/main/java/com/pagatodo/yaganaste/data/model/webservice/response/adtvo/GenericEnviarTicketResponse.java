@@ -6,7 +6,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResp
  * Created by Jordan on 18/05/2017.
  */
 
-public class EnviarTicketTAEPDSResponse extends GenericResponse {
-    public EnviarTicketTAEPDSResponse() {
+public class GenericEnviarTicketResponse extends GenericResponse {
+    public GenericEnviarTicketResponse() {
     }
 }

@@ -49,6 +49,8 @@ public class DataMovimientoAdq implements Serializable {
     private String tipoTrans;
     @SerializedName("Estatus")
     private String estatus;
+    @SerializedName("Concepto")
+    private String concepto;
 
 
     public DataMovimientoAdq() {
@@ -284,5 +286,13 @@ public class DataMovimientoAdq implements Serializable {
 
     public void setEstatus(String estatus) {
         this.estatus = estatus;
+    }
+
+    public String getConcepto() {
+        return concepto;
+    }
+
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
     }
 }

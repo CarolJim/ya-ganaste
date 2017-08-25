@@ -62,6 +62,7 @@ public enum WebService {
     OBTENER_ESTATUS_TARJETA,
     CONSULTAR_SALDO_ADQ,
     ENVIAR_TICKET_TAEPDS,
+    ENVIAR_TICKET,
     /**
      * WS Adquiriente
      **/
