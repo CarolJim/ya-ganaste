@@ -12,6 +12,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
@@ -48,6 +49,7 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
     boolean isSingleLine = false;
     boolean isTextEnabled = true;
     private int pinnedIcon;
+    private String blockCharacterSetEmail = "|°¬!\"\\#$%&/()=?¡¿'¨´+*{}[],;:";
 
     private OnClickListener externalListener;
 
@@ -145,7 +147,20 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
         Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
         editText.setTypeface(customFont);
         editText.setOnLongClickListener(this);
+        editText.setFilters(new InputFilter[] { filter });
     }
+
+    private InputFilter filter = new InputFilter() {
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+
+            if (source != null && blockCharacterSetEmail.contains(("" + source))) {
+                return "";
+            }
+            return null;
+        }
+    };
 
 
     public void setHintText(String txt) {
