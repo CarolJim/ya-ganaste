@@ -54,8 +54,6 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 public class PaymentSuccessFragment extends GenericFragment implements PaymentSuccessManager, View.OnClickListener {
 
 
-
-
     @BindView(R.id.txt_paymentTitle)
     TextView title;
     @BindView(R.id.txt_importe)
@@ -136,7 +134,6 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
         ButterKnife.bind(this, rootview);
 
 
-
         if (pago instanceof Recarga) {
             title.setText(R.string.title_recarga_success);
             Double comision = result.getData().getComision();
@@ -174,7 +171,11 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
             titleReferencia.setText(((Envios) pago).getNombreDestinatario());
             layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
-            //titleMail.setText(R.string.envia_comprobante_a + ((Envios) pago).getNombreDestinatario() + " " + R.string.envia_comprobante_opcional);
+            String fullName = ((Envios) pago).getNombreDestinatario();
+            titleMail.setText(
+                    getContext().getResources().getString(R.string.envia_comprobante_a)
+                            + " " + StringUtils.formatSingleName(fullName)
+                            + " " + getContext().getResources().getString(R.string.envia_comprobante_opcional));
             isMailAviable = true;
         }
 
@@ -211,7 +212,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
                 .error(R.mipmap.icon_tab_promos)
                 .dontAnimate().into(imgLogoPago);
 
-        autorizacion.setText(result.getData().getNumeroAutorizacion());
+        autorizacion.setText(StringUtils.formatAutorization(result.getData().getNumeroAutorizacion()));
         SimpleDateFormat dateFormatH = new SimpleDateFormat("HH:mm:ss");
 
         fecha.setText(DateUtil.getBirthDateCustomString(Calendar.getInstance()));

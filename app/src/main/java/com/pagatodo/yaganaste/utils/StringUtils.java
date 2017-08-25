@@ -10,6 +10,8 @@ import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.data.model.Envios;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -167,14 +169,20 @@ public class StringUtils {
             }
         } else if (mFormatoPago.length() == 16) {
             try {
+                /**
+                 * Cambiamos el codigo que separa, por el metodo ocultarCardNumberFormat que
+                 * separa y ofusca
+
                 String formatoTDC1 = mFormatoPago.substring(0, 4);
                 String formatoTDC2 = mFormatoPago.substring(4, 8);
                 String formatoTDC3 = mFormatoPago.substring(8, 12);
                 String formatoTDC4 = mFormatoPago.substring(12, 16);
                 formatoPago = formatoTDC1 + comodin + formatoTDC2 + comodin + formatoTDC3 + comodin + formatoTDC4;
+                 */
+                formatoPago = ocultarCardNumberFormat(mFormatoPago);
             } catch (Exception e) {
                 Log.d("StringUtils", "Exception tipo" + e);
-                formatoPago = mFormatoPago;
+                formatoPago = ocultarCardNumberFormat(mFormatoPago);
             }
         } else if (mFormatoPago.length() == 18) {
             try {
@@ -354,5 +362,17 @@ public class StringUtils {
                 break;
         }
         return mTitleStatus;
+    }
+
+    public static String formatAutorization(String numAut) {
+        String fullFormat = "";
+        fullFormat = numAut.substring(0, 3) + " " + numAut.substring(3);
+
+        return fullFormat;
+    }
+
+    public static String formatSingleName(String mFullName) {
+        String[] fullName = mFullName.split(" ");
+        return fullName[0];
     }
 }
