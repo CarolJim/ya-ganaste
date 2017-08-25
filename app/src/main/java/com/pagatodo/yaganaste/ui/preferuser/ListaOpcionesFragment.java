@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
@@ -141,7 +142,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
 
         ll_usuario.setOnClickListener(this);
 
-        if (isEsAgente) {
+        int idEstatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
+        if (idEstatus == IdEstatus.I16.getId()) {
             ll_cuenta.setVisibility(View.VISIBLE);
             View view_cuenta = rootview.findViewById(R.id.content_prefer_view_acount);
             view_cuenta.setVisibility(View.VISIBLE);
@@ -168,6 +170,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         iv_photo_item_status.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.camara_white_blue_canvas));
 
        // updatePhoto();
+
+
 
     }
 

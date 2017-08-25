@@ -16,7 +16,6 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_PRIVACIDAD_CUENTA_YA;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_PRIVACIDAD_LINEA_CREDITO;
 
@@ -28,15 +27,14 @@ public class AvisoPrivacidadFragment extends GenericFragment implements View.OnC
 
     private int Idestatus;
 
-
     @BindView(R.id.fragment_aviso_cuenta_ya_ganaste)
     LinearLayout ll_cuenta_ganaste;
-    @BindView(R.id.fragment_aviso_linea_credito)
-    LinearLayout ll_linea_credito;
+    @BindView(R.id.fragment_aviso_linea_credito_linearlayout)
+    LinearLayout ll_lcredito;
 
-
-    @BindView(R.id.lineacreditoaviso)
-    View lineacaviso;
+// fragment_aviso_linea_credito fragment_aviso_credit_view
+    @BindView(R.id.fragment_aviso_linea_credito_view)
+    View view_lcredito;
 
 
 
@@ -72,7 +70,7 @@ public class AvisoPrivacidadFragment extends GenericFragment implements View.OnC
             case R.id.fragment_aviso_cuenta_ya_ganaste:
                 onEventListener.onEvent(PREFER_USER_PRIVACIDAD_CUENTA_YA, 1);
                 break;
-            case R.id.fragment_aviso_linea_credito:
+            case R.id.fragment_aviso_linea_credito_linearlayout:
                 onEventListener.onEvent(PREFER_USER_PRIVACIDAD_LINEA_CREDITO, 1);
                 break;
 
@@ -85,12 +83,11 @@ public class AvisoPrivacidadFragment extends GenericFragment implements View.OnC
     public void initViews() {
         ButterKnife.bind(this, rootview);
         ll_cuenta_ganaste.setOnClickListener(this);
-        ll_linea_credito.setOnClickListener(this);
+        ll_lcredito.setOnClickListener(this);
 
         if (Idestatus== IdEstatus.I16.getId()){
-            ll_linea_credito.setVisibility(View.VISIBLE);
-            lineacaviso.setVisibility(View.VISIBLE);
-
+            ll_lcredito.setVisibility(View.VISIBLE);
+            view_lcredito.setVisibility(View.VISIBLE);
         }
 
     }

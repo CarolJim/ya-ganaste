@@ -8,11 +8,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical"
-        tools:layout_editor_absoluteX="8dp"
-        android:layout_alignParentTop="true"
         android:layout_alignParentLeft="true"
-        android:layout_alignParentStart="true">
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:orientation="vertical"
+        tools:layout_editor_absoluteX="8dp">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -41,6 +41,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/whiteColor" />
+
             <LinearLayout
                 android:id="@+id/fragment_terminos_cuenta_ya_ganaste_Terminos"
                 android:layout_width="match_parent"
@@ -66,19 +67,20 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/fragment_terminos_lcredito_view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:id="@+id/lineacuenta"
-                android:background="@color/whiteColor" />
+                android:background="@color/whiteColor"
+                android:visibility="gone" />
 
             <LinearLayout
-                android:id="@+id/fragment_terminos_linea_credito_terminos"
+                android:id="@+id/fragment_terminos_lcredito_linearlayout"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
-                android:visibility="gone"
-                android:paddingTop="10dp">
+                android:paddingTop="10dp"
+                android:visibility="gone">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     style="@style/generic_text_style_2"
@@ -97,20 +99,20 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/lineancredito"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:id="@+id/lineancredito"
-                android:visibility="gone"
-                android:background="@color/whiteColor" />
+                android:background="@color/whiteColor"
+                android:visibility="visible" />
 
             <LinearLayout
                 android:id="@+id/fragment_contrato_terminos"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginBottom="10dp"
-                android:visibility="gone"
                 android:orientation="horizontal"
-                android:paddingTop="10dp">
+                android:paddingTop="10dp"
+                android:visibility="visible">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/styleTextView5"
@@ -130,11 +132,11 @@
             </LinearLayout>
 
             <View
+                android:id="@+id/lineacontrato"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:id="@+id/lineacontrato"
-                android:visibility="gone"
-                android:background="@color/whiteColor" />
+                android:background="@color/whiteColor"
+                android:visibility="visible" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

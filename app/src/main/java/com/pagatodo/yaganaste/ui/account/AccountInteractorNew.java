@@ -221,7 +221,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiTrans.asignarCuentaDisponible(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
-            accountManager.onError(ASIGNAR_CUENTA_DISPONIBLE, "");
+            accountManager.onError(ASIGNAR_CUENTA_DISPONIBLE, App.getContext().getString(R.string.no_internet_access));
         }
     }
 
@@ -232,7 +232,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.validarFormatoContrasenia(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
-            accountManager.onError(VALIDAR_FORMATO_CONTRASENIA, "");
+            accountManager.onError(VALIDAR_FORMATO_CONTRASENIA, App.getContext().getString(R.string.no_internet_access));
         }
     }
 
@@ -326,7 +326,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.verificarActivacion(this);
         } catch (OfflineException e) {
             e.printStackTrace();
-            accountManager.onError(VERIFICAR_ACTIVACION, "");
+            accountManager.onError(VERIFICAR_ACTIVACION,App.getContext().getString(R.string.no_internet_access));
         }
     }
 
@@ -337,8 +337,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.obtenerColoniasPorCP(request, this);
 
         } catch (OfflineException e) {
-            e.printStackTrace();
-            accountManager.onError(OBTENER_COLONIAS_CP, "");
+           // e.printStackTrace();
+            accountManager.onError(OBTENER_COLONIAS_CP, App.getContext().getString(R.string.no_internet_access));
         }
     }
 
