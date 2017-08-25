@@ -259,7 +259,9 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void showError(Object error) {
-        UI.showToastShort(error.toString(), getActivity());
+       // UI.showToastShort(error.toString(), getActivity());
+        showValidationError(0, error.toString());
+
     }
 
     public boolean isCustomKeyboardVisible() {
