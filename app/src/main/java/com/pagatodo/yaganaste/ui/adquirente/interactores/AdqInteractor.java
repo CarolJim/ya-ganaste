@@ -379,13 +379,13 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
              */
             default:
                 result.setStatusTransaction(ADQ_TRANSACTION_ERROR);
-                PageResult pageResultError = new PageResult(R.drawable.ic_cancel,
+                PageResult pageResultError = new PageResult(R.drawable.ic_triangle_error,
                         context.getString(R.string.title_error),
                         data.getError().getMessage(),
                         true);
 
-                pageResultError.setNamerBtnPrimary(App.getInstance().getString(R.string.title_cancelar));
-                pageResultError.setNamerBtnSecondary(App.getInstance().getString(R.string.title_reintentar));
+                pageResultError.setNamerBtnPrimary(App.getInstance().getString(R.string.title_aceptar));
+                //pageResultError.setNamerBtnSecondary(App.getInstance().getString(R.string.title_reintentar));
                 pageResultError.setActionBtnPrimary(new Command() {
                     @Override
                     public void action(Context context, Object... params) {

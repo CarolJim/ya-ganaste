@@ -109,10 +109,10 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         mainTab = (TabLayout) findViewById(R.id.main_tab);
         progressGIF = (ProgressLayout) findViewById(R.id.progressGIF);
         progressGIF.setVisibility(View.GONE);
-
-        tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
         resetPinPresenter = new ResetPinPresenterImp(false);
         resetPinPresenter.setResetNIPView(this);
+        tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
+
     }
 
     @Override

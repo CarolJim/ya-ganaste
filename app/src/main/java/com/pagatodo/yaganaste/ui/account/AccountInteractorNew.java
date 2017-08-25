@@ -93,8 +93,12 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GE
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
+import static com.pagatodo.yaganaste.utils.StringConstants.OLD_NIP;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_PROVISIONED;
 
 /**
  * Created by flima on 22/03/2017.
@@ -629,13 +633,26 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         if (!dataUser.isRequiereActivacionSMS()) {// No Requiere Activacion de SMS
             //if(true){// No Requiere Activacion de SMS
                             /*TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento*/
+
+
+            String old = prefs.loadData(OLD_NIP);
+            SingletonUser.getInstance().setNeedsReset(!needsProvisioning() && ( !old.equals(prefs.loadData(SHA_256_FREJA)) && !old.isEmpty()));
+            if (!SingletonUser.getInstance().needsReset()) {
+                prefs.saveData(OLD_NIP, prefs.loadData(SHA_256_FREJA));
+            }
+
             user.setDatosSaldo(new DatosSaldo(String.format("%s", dataUser.getUsuario().getCuentas().get(0).getSaldo())));
             stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
-        } else { // Requiere Activacion SMS
+        } else { // Requiere Activacion SMS, es obligatorio hacer aprovisionamiento
             stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
         }
         accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
     }
+
+    public boolean needsProvisioning() {
+        return  (!prefs.containsData(HAS_PROVISIONING) || !prefs.loadData(USER_PROVISIONED).equals(RequestHeaders.getUsername()));
+    }
+
 
     /**
      * Método para seleccionar la pantalla que se debe mostrar dependiendo de la validación de la tarjeta.

@@ -85,6 +85,8 @@ public abstract class AprovPresenter extends ProvisioningPresenterAbs implements
             } else {
                 isProvisioning.set(false);
             }
+        } else {
+            aprovView.finishAssociation();
         }
     }
 
