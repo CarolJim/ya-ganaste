@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -176,7 +177,11 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
             txtMonto.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
         }
 
-        layoutMovementTypeColor.setBackgroundColor(item.getColor());
+
+
+
+        //layoutMovementTypeColor.setBackgroundColor(item.getColor());
+        layoutMovementTypeColor.setBackgroundResource(item.getColor());
         txtItemMovDate.setText(item.getDate());
         txtItemMovMonth.setText(item.getMonth());
         txtTituloDescripcion.setText(item.getTituloDescripcion());
