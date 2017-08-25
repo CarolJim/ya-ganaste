@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -303,7 +304,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                     hideValidationError(editZipCode.getId());
                     editZipCode.imageViewIsGone(true);
                 } else {
-                    if (editZipCode.getText().isEmpty()) {
+                     if (editZipCode.getText().isEmpty()) {
                         showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
                         editZipCode.setIsInvalid();
                     } else {
@@ -409,15 +410,13 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             editExtNumber.setIsInvalid();
             isValid = false;
         }
-
-        if (!editZipCode.isValidText()) {
+         if (!editZipCode.isValidText()) {
             showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
             editZipCode.setIsInvalid();
             isValid = false;
         }
 
         if (codigoPostal.isEmpty())
-
         {
             showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
             editZipCode.setIsInvalid();
@@ -612,6 +611,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     public void zipCodeInvalid(String message) {
         showValidationError(editZipCode.getId(), message);
         editZipCode.setIsInvalid();
+
     }
 
     private void setClickLegales() {

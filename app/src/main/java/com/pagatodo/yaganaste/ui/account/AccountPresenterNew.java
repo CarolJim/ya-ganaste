@@ -234,6 +234,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 ((IAccountRegisterView) accountView).clientCreateFailed(error.toString());
             } else if (ws == OBTENER_COLONIAS_CP) {
                 ((IAccountRegisterView) accountView).zipCodeInvalid(error.toString());
+                accountView.showError(error.toString());
             }
         } else if (accountView instanceof IUserDataRegisterView) {
             if (ws == VALIDAR_ESTATUS_USUARIO) {
