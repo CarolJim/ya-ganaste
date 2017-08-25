@@ -339,7 +339,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.onError(OBTENER_COLONIAS_CP, "");
-
         }
     }
 
@@ -489,6 +488,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     @Override
     public void onFailed(DataSourceResult error) {
+
+        if (error != null && error.getWebService() == ASIGNAR_NIP) {
+            checkAfterLogin();
+        }
         if (error != null && error.getWebService() == LOGIN_ADQ) {
             checkAfterLogin();
         } else {
