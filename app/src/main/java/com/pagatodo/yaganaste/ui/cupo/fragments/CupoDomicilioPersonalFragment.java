@@ -29,7 +29,6 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
-import com.pagatodo.yaganaste.ui.cupo.Colonias;
 import com.pagatodo.yaganaste.ui.cupo.managers.CupoActivityManager;
 import com.pagatodo.yaganaste.ui.cupo.presenters.CupoDomicilioPersonalPresenter;
 import com.pagatodo.yaganaste.ui.cupo.view.IViewDomicilioPersonal;
@@ -622,7 +621,6 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
 
     @Override
     public void setDomicilio(DataObtenerDomicilio domicilio) {
-        Log.e("Test", "Entre a obtener el domicilio actual");
         this.domicilio = domicilio;
         loadHomeAddress();
     }

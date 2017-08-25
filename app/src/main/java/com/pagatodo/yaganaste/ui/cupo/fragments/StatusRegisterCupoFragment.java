@@ -41,6 +41,7 @@ import butterknife.ButterKnife;
 
 import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
 
@@ -175,6 +176,8 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
         }
 
 
+
+
     }
 
     private void setValidandoReferecias(int idEstado) {
@@ -197,6 +200,12 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
                 statusViewCupo.updateError(66,33);
                 ESTADO_ACTUAL = ESTADO_RENEENVIA_REFERENCIAS;
                 break;
+            case ID_ESTATUS_PASO_RECHAZO_DEFINITIVO:
+                statusTextInfo.setText(getText(R.string.txt_solicitud_no_completada));
+                statusText.setText("Solicitud\nInterrumpida");
+                mTextContact.setText(getText(R.string.txt_solicitud_definitivo_rechazo));
+                //statusViewCupo.updateError(66,33);
+                break;
         }
     }
 
@@ -210,6 +219,7 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
                 statusTextInfo.setText(getText(R.string.txt_validate_info));
                 statusText.setText("Validando\nDocumentos\n1/3");
                 statusViewCupo.updateStatus(33,0);
+                mButtonContinue.setVisibility(View.GONE);
                 break;
             case ID_ESTATUS_PASO_APROVADO:
                 statusTextInfo.setText(getText(R.string.txt_validate_info));
@@ -256,6 +266,7 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
 
     @Override
     public void showLoader(String message) {
+        mButtonContinue.setVisibility(View.GONE);
         onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
@@ -266,7 +277,7 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
 
     @Override
     public void showError(Object error) {
-
+        onEventListener.onEvent(EVENT_SHOW_ERROR, error);
     }
 
     @Override

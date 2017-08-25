@@ -761,6 +761,9 @@
 
     <string name="txt_contacto">¿Tienes Dudas? Contáctanos\n01-800-500-1000\ncontacto@yaganaste.com</string>
     <string name="txt_validate_info">Estamos Revisando\nTu Información </string>
+    <string name="txt_solicitud_no_completada">Tu Solicitud no\nPudo Ser Completada</string>
+    <string name="txt_solicitud_definitivo_rechazo">Comunicate Con Nosotros Para\n\nConocer Más Detalles de tu Solicitud\n
+    01-800-500-1000\ncontacto@yaganaste.com</string>
     <string name="txt_validate_success_info">Solicitud Exitosa </string>
     <string name="txt_validate_fail_info">Solicitud Rechazada </string>
     <string name="txt_congratulations">¡Felicidades!\n\n</string>

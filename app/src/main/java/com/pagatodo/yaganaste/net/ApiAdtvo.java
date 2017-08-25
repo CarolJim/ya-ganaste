@@ -747,7 +747,7 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(ACTUALIZA_DOCUMENTOS_CUPO,
                 METHOD_POST,
-                /*URL_SERVER_ADTVO*/ "http://10.140.140.247:9000"  + App.getContext().getString(R.string.cupoActualizaDocumentosCupo),
+                URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/  + App.getContext().getString(R.string.cupoActualizaDocumentosCupo),
                 headers,
                 request,
                 CargaDocumentosResponse.class,
@@ -785,7 +785,7 @@ public class ApiAdtvo extends Api {
                 URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/  + App.getContext().getString(R.string.cupoObtenerSolicitudCupo),
                 headers,
                 null,
-                EstadoSolicitudResponse.class ,
+                EstadoSolicitudResponse.class,
                 result);
     }
 

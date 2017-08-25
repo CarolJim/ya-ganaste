@@ -173,7 +173,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 } else if ( App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_REGISTRO_ENVIADO) ) {
                     loadFragment(CupoComprobantesFragment.newInstance(ESTADO_ENVIO_DOCUMENTOS), Direction.FORDWARD, true);
                 } else if ( App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_DOCUMENTOS_ENVIADOS) ) {
-                    loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, true);
+                    loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, false);
                 }
                 //loadFragment(CupoDomicilioPersonalFragment.newInstance(), Direction.FORDWARD, true);
                 break;
@@ -187,13 +187,13 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 loadFragment(CupoReferenciaProveedorFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_COMPROBANTES:
-                loadFragment(CupoComprobantesFragment.newInstance(ESTADO_ENVIO_DOCUMENTOS), Direction.FORDWARD, true);
+                loadFragment(CupoComprobantesFragment.newInstance(ESTADO_ENVIO_DOCUMENTOS), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CUPO_REENVIAR_COMPROBANTES:
-                loadFragment(CupoComprobantesFragment.newInstance(ESTADO_REENVIAR_DOCUMENTOS), Direction.FORDWARD, true);
+                loadFragment(CupoComprobantesFragment.newInstance(ESTADO_REENVIAR_DOCUMENTOS), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CUPO_REENVIAR_REFERENCIAS:
-                loadFragment(CupoReenviarReferenciasFragment.newInstance(), Direction.FORDWARD, true);
+                loadFragment(CupoReenviarReferenciasFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CUPO_COMPLETE:
                 loadFragment(RegisterCompleteFragment.newInstance(CUPO_REVISION), Direction.FORDWARD, false);

@@ -42,14 +42,27 @@ android:layout_height="match_parent">
         app:startAngle="0"
         app:strokeWidth="15dp"
         />
+
+    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+        style="@style/generic_text_style_2"
+        android:id="@+id/txt_status2"
+        android:layout_margin="60dp"
+        android:text=""
+        android:textColor="@android:color/white"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true" />
+
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         style="@style/generic_text_style_2"
         android:id="@+id/txt_status"
         android:gravity="center_horizontal"
         android:textColor="@android:color/white"
-        android:layout_centerInParent="true"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true" />
 
 </RelativeLayout>
 
@@ -68,6 +81,9 @@ android:layout_height="match_parent">
     android:layout_centerInParent="true"
     android:layout_width="wrap_content"
     android:layout_height="wrap_content" />
+
+
+
 
     <com.pagatodo.yaganaste.utils.customviews.StyleButton
         android:visibility="visible"
