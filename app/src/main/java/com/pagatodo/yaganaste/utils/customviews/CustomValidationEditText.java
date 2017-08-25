@@ -147,7 +147,7 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
         Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
         editText.setTypeface(customFont);
         editText.setOnLongClickListener(this);
-        editText.setFilters(new InputFilter[] { filter });
+      //  editText.setFilters(new InputFilter[] { filter });
     }
 
     private InputFilter filter = new InputFilter() {
