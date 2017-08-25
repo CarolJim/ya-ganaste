@@ -215,7 +215,8 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
         autorizacion.setText(StringUtils.formatAutorization(result.getData().getNumeroAutorizacion()));
         SimpleDateFormat dateFormatH = new SimpleDateFormat("HH:mm:ss");
 
-        fecha.setText(DateUtil.getBirthDateCustomString(Calendar.getInstance()));
+       // fecha.setText(DateUtil.getBirthDateCustomString(Calendar.getInstance()));
+        fecha.setText(DateUtil.getPaymentDateSpecialCustom(Calendar.getInstance()));
         hora.setText(dateFormatH.format(new Date()) + " hrs");
 
         btnContinueEnvio.setOnClickListener(this);
