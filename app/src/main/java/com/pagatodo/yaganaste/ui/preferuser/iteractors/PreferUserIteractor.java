@@ -2,7 +2,10 @@ package com.pagatodo.yaganaste.ui.preferuser.iteractors;
 
 import android.graphics.Bitmap;
 import android.util.Log;
+import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
@@ -21,6 +24,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuent
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDispositivoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoContactanosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
@@ -154,7 +158,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             ApiAdtvo.enviarCorreo(enviarCorreoContactanosRequest, this);
         } catch (OfflineException e) {
             // e.printStackTrace();
-            preferUserPresenter.ShowExceptionCorreoContactanosPresenter(e.toString());
+            preferUserPresenter.showExceptionCorreoContactanosPresenter(App.getContext().getString(R.string.no_internet_access));
         }
     }
 
@@ -233,6 +237,23 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
         if (dataSourceResult.getData() instanceof CerrarSesionRequest) {
             //Log.d("PreferUserIteractor", "DataSource Sucess Server Error CerrarSesion");
         }
+
+        /**
+         * Instancia de peticion exitosa de enviar mensaje contactanos
+         */
+        if (dataSourceResult.getData() instanceof EnviarCorreoContactanosResponse) {
+
+            EnviarCorreoContactanosResponse response = (EnviarCorreoContactanosResponse) dataSourceResult.getData();
+
+            if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+                //Log.d("PreferUserIteractor", "DataSource Sucess " + response.getMensaje());
+                preferUserPresenter.successGenericToPresenter(dataSourceResult);
+            } else {
+                //Log.d("PreferUserIteractor", "DataSource Sucess with Error " + response.getMensaje());
+                preferUserPresenter.errorGenericToPresenter(dataSourceResult);
+            }
+        }
+
 
         /**
          * Instancia de peticion exitosa de ActualizarAvatarResponse

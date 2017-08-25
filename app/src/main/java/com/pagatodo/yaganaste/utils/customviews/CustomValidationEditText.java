@@ -205,8 +205,6 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
                     setValidationListener(txt);
                     break;
             }
-
-
         }
     }
 

@@ -175,7 +175,10 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                 if (current_mount >= MIN_AMOUNT) {
                     TransactionAdqData.getCurrentTransaction().setAmount(valueAmount);
                     TransactionAdqData.getCurrentTransaction().setDescription(current_concept);
-                    setData("", "");
+                    //setData("", "");
+                    NumberCalcTextWatcher.cleanData();
+                    et_amount.setText("0");
+                    edtConcept.setText(null);
                     mySeekBar.setProgress(0);
                     NumberCalcTextWatcher.cleanData();
 
@@ -208,19 +211,13 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     //    Log.d("GetMount", "setData After Amount " + amount);
         et_amount.setText(amount);
         Selection.setSelection(et_amount.getText(), et_amount.getText().toString().length());
-        if (!concept.equals("")) {
-            edtConcept.setText(concept);
-        }else{
-            edtConcept.setText("");
-        }
+        edtConcept.setText(concept);
         //    Log.d("GetMount", "setData Before Amount " + amount);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-      //  Log.d("GetMount", "Resume Amount " + TransactionAdqData.getCurrentTransaction().getAmount());
-        setData(TransactionAdqData.getCurrentTransaction().getAmount(), TransactionAdqData.getCurrentTransaction().getDescription());
     }
 
     public boolean isCustomKeyboardVisible() {
@@ -245,6 +242,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         } else if (et_amount != null){
             NumberCalcTextWatcher.cleanData();
             et_amount.setText("0");
+            edtConcept.setText(null);
         }
     }
 }

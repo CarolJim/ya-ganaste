@@ -61,7 +61,7 @@ public class MontoTextView extends StyleTextView {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (isCustom) {
-            if (!getText().toString().startsWith("$"))
+            if (!getText().toString().contains("$"))
                 setText(String.format("$%s", getText())); // Agregamos símbolo $
 
             if (!getText().toString().contains(".")) {

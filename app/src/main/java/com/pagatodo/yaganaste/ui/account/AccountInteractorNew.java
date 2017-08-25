@@ -306,7 +306,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiTrans.asignarNip(request, this, webService);
         } catch (OfflineException e) {
             e.printStackTrace();
-            accountManager.onError(ASIGNAR_NIP, "");
+            accountManager.onError(ASIGNAR_NIP,App.getContext().getString(R.string.no_internet_access));
         }
     }
 

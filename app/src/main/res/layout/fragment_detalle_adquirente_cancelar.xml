@@ -9,17 +9,18 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
+            android:layout_height="wrap_content"
             android:orientation="vertical">
 
 
             <android.support.v4.widget.Space
                 android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_medium" />
+                android:layout_height="@dimen/margin_form_top" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtThanksBuy"
@@ -172,52 +173,60 @@
             </LinearLayout>
 
 
-            <android.support.v4.widget.Space
-                android:layout_width="match_parent"
-                android:layout_height="@dimen/margin_regular" />
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/txtQuestionEmail"
-                style="@style/textTitleDetailTransaction"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/cancel_cobro_confirmation"
-                android:textSize="@dimen/size_text_style_2_value"
-                app:tipo="Descripcion" />
-
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_marginTop="@dimen/margin_elements"
-                android:layout_weight="1"
-                android:gravity="center"
-                android:orientation="horizontal"
-                android:weightSum="100">
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                    android:id="@+id/btnVolver"
-                    style="@style/buttonDirecctionBackSmall"
-                    android:text="@string/volver"
-                    android:textSize="@dimen/size_text_style_2_value"
-                    android:visibility="visible" />
-
-                <android.support.v4.widget.Space
-                    android:layout_width="@dimen/btns_separation"
-                    android:layout_height="match_parent" />
-
-                <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                    android:id="@+id/btnCancelCobro"
-                    style="@style/buttonSquareRoundedTransparent"
-                    android:gravity="center"
-                    android:text="@string/cancelar_operacion"
-                    android:textSize="@dimen/size_text_style_2_value"
-                    android:visibility="visible" />
-
-            </LinearLayout>
-
         </LinearLayout>
 
     </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/layoutBtns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginBottom="@dimen/btn_navigation_bottom"
+        android:orientation="vertical">
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="@dimen/margin_regular" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:id="@+id/txtQuestionEmail"
+            style="@style/textTitleDetailTransaction"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:text="@string/cancel_cobro_confirmation"
+            android:textSize="@dimen/size_text_style_2_value"
+            app:tipo="Descripcion" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_marginTop="@dimen/margin_elements"
+            android:layout_weight="1"
+            android:gravity="center|bottom"
+            android:orientation="horizontal"
+            android:weightSum="100">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnVolver"
+                style="@style/buttonDirecctionBackSmall"
+                android:text="@string/volver"
+                android:textSize="@dimen/size_text_style_2_value"
+                android:visibility="visible" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="@dimen/btns_separation"
+                android:layout_height="match_parent" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnCancelCobro"
+                style="@style/buttonSquareRoundedTransparent"
+                android:gravity="center"
+                android:text="@string/cancelar_operacion"
+                android:textSize="@dimen/size_text_style_2_value"
+                android:visibility="visible" />
+
+        </LinearLayout>
+    </LinearLayout>
 
 
 </LinearLayout>

@@ -148,7 +148,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
                 txtReferencia.setText(ref);
                 break;
             case NUMERO_TARJETA:
-                txtReferencia.setText("**** **** **** " + ref.substring(13, ref.length()));
+                txtReferencia.setText("**** **** **** " + ref.substring(12, ref.length()));
                 break;
             case NUMERO_TELEFONO:
                 txtReferencia.setText(ref);

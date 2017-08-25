@@ -17,5 +17,4 @@ public interface IListaOpcionesView extends IPreferUserGeneric {
 
     void sendErrorAvatarToView(String mensaje);
 
-    void sendErrorEnvioCorreoContactanos(String mensaje);
 }
