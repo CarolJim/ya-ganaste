@@ -8,7 +8,7 @@ import com.pagatodo.yaganaste.R;
  * Created by Jordan on 25/08/2017.
  */
 
-public enum EstatusMovimientoAdquirete {
+public enum EstatusMovimientoAdquirente {
 
     SIN_ESTATUS("0", "Error Estatus", R.color.yellow),
     CACELADA("1", "Cancelada", R.color.redColorNegativeMovements),
@@ -19,14 +19,14 @@ public enum EstatusMovimientoAdquirete {
     private String description;
     private int color;
 
-    EstatusMovimientoAdquirete(String id, String descripcion, @DrawableRes int color) {
+    EstatusMovimientoAdquirente(String id, String descripcion, @DrawableRes int color) {
         this.id = id;
         this.description = descripcion;
         this.color = color;
     }
 
-    public static EstatusMovimientoAdquirete getEstatusById(String id) {
-        for (EstatusMovimientoAdquirete estatus : values()) {
+    public static EstatusMovimientoAdquirente getEstatusById(String id) {
+        for (EstatusMovimientoAdquirente estatus : values()) {
             if (estatus.getId().equals(id)) {
                 return estatus;
             }

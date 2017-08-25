@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.AdquirentePaymentsTab;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
 import com.pagatodo.yaganaste.data.model.DatosCupo;
@@ -14,7 +13,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoA
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
-import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirete;
+import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.MovementsView;
 import com.pagatodo.yaganaste.ui.maintabs.iteractors.AdqPayMovementsIteractorImp;
@@ -29,11 +28,6 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.List;
 
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.APROBADO;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CANCELADO;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CARGO;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.PENDIENTE;
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
 
 /**
@@ -181,7 +175,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
             //movimientoAdq.setEsPendiente(true);
             //movimientoAdq.setEsAprobada(false);
-            int color = EstatusMovimientoAdquirete.getEstatusById(movimientoAdq.getEstatus()).getColor();
+            int color = EstatusMovimientoAdquirente.getEstatusById(movimientoAdq.getEstatus()).getColor();
 
             /*int color;
             if (movimientoAdq.isEsCargo()) {
