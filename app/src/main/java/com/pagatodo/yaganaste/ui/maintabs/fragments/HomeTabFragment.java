@@ -35,6 +35,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     private View rootView;
     private HomeFragmentPresenter homeFragmentPresenter;
     private TabLayoutEmAd tabLayoutEmAd;
+    private GenericPagerAdapter pagerAdapter;
 
     public static HomeTabFragment newInstance() {
         HomeTabFragment homeTabFragment = new HomeTabFragment();
@@ -71,7 +72,8 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
 
     @Override
     public void loadViewPager(ViewPagerData viewPagerData) {
-        pagerAdquirente.setAdapter(new GenericPagerAdapter<>(getActivity(), getChildFragmentManager(), viewPagerData.getFragmentList(), viewPagerData.getTabData()));
+        pagerAdapter = new GenericPagerAdapter<>(getActivity(), getChildFragmentManager(), viewPagerData.getFragmentList(), viewPagerData.getTabData());
+        pagerAdquirente.setAdapter(pagerAdapter);
         pagerAdquirente.setIsSwipeable(SingletonUser.getInstance().getDataUser().isEsAgente() &&
                 SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO);
     }
@@ -96,5 +98,13 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
                 current.onActivityResult(requestCode, resultCode, data);
             }
         }
+    }
+
+    public PaymentsFragment getPaymentsFragment() {
+        return (PaymentsFragment)pagerAdapter.getItem(1);
+    }
+
+    public void setCurrentItem(int item){
+        pagerAdquirente.setCurrentItem(item);
     }
 }

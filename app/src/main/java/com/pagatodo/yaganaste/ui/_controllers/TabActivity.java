@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
@@ -10,8 +11,6 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
@@ -69,7 +68,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
-        IAprovView<ErrorObject>,IResetNIPView<ErrorObject> {
+        IAprovView<ErrorObject>, IResetNIPView<ErrorObject> {
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_DOCUMENT_APPROVED = "EVENT_DOCUMENT_APPROVED";
     public static final String EVENT_GO_HOME = "2";
@@ -85,7 +84,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
     private ProgressLayout progressGIF;
     private ResetPinPresenter resetPinPresenter;
-
 
 
     public static Intent createIntent(Context from) {
@@ -154,7 +152,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             }
         });
 
-        if (tabPresenter.needsProvisioning() || tabPresenter.needsPush()){
+        if (tabPresenter.needsProvisioning() || tabPresenter.needsPush()) {
             tabPresenter.doProvisioning();
         } else if (SingletonUser.getInstance().needsReset()) {
             resetPinPresenter.doReseting(pref.loadData(SHA_256_FREJA));
@@ -164,7 +162,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     @Override
     public void finishAssociation() {
-        if (SingletonUser.getInstance().needsReset()){
+        if (SingletonUser.getInstance().needsReset()) {
             resetPinPresenter.doReseting(pref.loadData(SHA_256_FREJA));
         } else {
             hideLoader();
@@ -307,6 +305,20 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 pref.saveDataBool(COUCHMARK_ADQ, true);
                 startActivity(LandingActivity.createIntent(this, PANTALLA_COBROS));
             }
+        } else if (requestCode == Constants.PAYMENTS_ADQUIRENTE && resultCode == Activity.RESULT_OK) {
+            refreshAdquirenteMovements();
+        }
+    }
+
+    protected void refreshAdquirenteMovements() {
+        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+        for (Fragment fragment : fragmentList) {
+            if (fragment instanceof HomeTabFragment) {
+                goHome();
+                ((HomeTabFragment) fragment).setCurrentItem(1);
+                ((HomeTabFragment) fragment).getPaymentsFragment().onRefresh(null);
+                ((HomeTabFragment) fragment).getPaymentsFragment().showLoader("");
+            }
         }
     }
 
@@ -402,11 +414,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public void showErrorAprov(ErrorObject error) {
 
     }
+
     @Override
     public void showErrorReset(ErrorObject error) {
 
     }
-
 
 
 }

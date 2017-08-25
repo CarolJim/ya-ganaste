@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -118,14 +118,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             edtUserName.setText(RequestHeaders.getUsername());
             edtUserName.setVisibility(GONE);
 
-            textNameUser.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    textNameUser.setVisibility(GONE);
-                    edtUserName.setText(RequestHeaders.getUsername());//(textNameUser.getText().toString());
-                    edtUserName.setVisibility(VISIBLE);
-                }
-            });
+            textNameUser.setOnClickListener(this);
         } else {
             edtUserName.setText(RequestHeaders.getUsername());
             edtUserName.setVisibility(VISIBLE);
@@ -151,6 +144,13 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             case R.id.txtLoginExistUserRecoverPass:
                 //  startActivity(new Intent(getActivity(), TabActivity.class));
                 nextScreen(EVENT_RECOVERY_PASS, username);
+                break;
+            case R.id.textNameUser:
+                if (BuildConfig.DEBUG) {
+                    textNameUser.setVisibility(GONE);
+                    edtUserName.setText(RequestHeaders.getUsername());//(textNameUser.getText().toString());
+                    edtUserName.setVisibility(VISIBLE);
+                }
                 break;
             default:
                 break;

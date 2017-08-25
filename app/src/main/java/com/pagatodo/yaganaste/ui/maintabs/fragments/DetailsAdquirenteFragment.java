@@ -13,30 +13,21 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
+import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
 import java.util.Calendar;
-import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.APROBADO;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CANCELADO;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.CARGO;
-import static com.pagatodo.yaganaste.interfaces.enums.MovementsColors.PENDIENTE;
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * @author Juan Guerra on 12/04/2017.
@@ -127,17 +118,8 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        //String[] monto = Utils.getCurrencyValue(dataMovimientoAdq.getMonto()).split("\\.");
-        int color;
-        if (dataMovimientoAdq.isEsCargo()) {
-            color = CARGO.getColor();
-        } else if (dataMovimientoAdq.isEsReversada()) {
-            color = CANCELADO.getColor();
-        } else if (dataMovimientoAdq.isEsPendiente()) {
-            color = PENDIENTE.getColor();
-        } else {
-            color = APROBADO.getColor();
-        }
+
+        int color = EstatusMovimientoAdquirente.getEstatusById(dataMovimientoAdq.getEstatus()).getColor();
         layoutMovementTypeColor.setBackgroundColor(ContextCompat.getColor(getContext(), color));
 
         Calendar calendar = Calendar.getInstance();
@@ -146,26 +128,21 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         txtItemMovDate.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         txtItemMovMonth.setText(DateUtil.getMonthShortName(calendar));
         txtTituloDescripcion.setText(dataMovimientoAdq.getOperacion());
-
-        txtSubTituloDetalle.setText(dataMovimientoAdq.getBancoEmisor().concat(SPACE).concat(
-                dataMovimientoAdq.isEsReversada() ? "- " + App.getInstance().getString(R.string.cancelada) :
-                        dataMovimientoAdq.isEsPendiente() ? "- " + App.getInstance().getString(R.string.pendiente) : SPACE));
+        txtSubTituloDetalle.setText(dataMovimientoAdq.getConcepto());
 
 
         txtMonto.setText(dataMovimientoAdq.getMonto());
         txtMonto.setTextColor(ContextCompat.getColor(getContext(), color));
-        //txtMontoDescripcion.setText(dataMovimientoAdq.getMonto());
         txtRefernciaDescripcion.setText(dataMovimientoAdq.getReferencia());
-        //txtConceptoDescripcion.setText(dataMovimientoAdq.getOperacion());
 
         txtFechaDescripcion.setText(DateUtil.getBirthDateCustomString(calendar));
-        DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", new Locale("es", "ES"));
-        txtHoraDescripcion.setText(hourFormat.format(calendar.getTime()) + " hrs");
+        //DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
+        String[] fecha = dataMovimientoAdq.getFecha().split(" ");
+        txtHoraDescripcion.setText(fecha[1] + " hrs");
 
         txtAutorizacionDescripcion.setText(dataMovimientoAdq.getNoAutorizacion().trim().toString());
-        //txtReciboDescripcion.setText(dataMovimientoAdq.getNoTicket());
 
-        if (dataMovimientoAdq.isEsAprobada() && !dataMovimientoAdq.isEsCargo() && !dataMovimientoAdq.isEsReversada()) {
+        if (dataMovimientoAdq.getEstatus().equals(EstatusMovimientoAdquirente.POR_REEMBOLSAR.getId())) {
             btnCancel.setVisibility(View.VISIBLE);
             rootView.findViewById(R.id.view).setVisibility(View.VISIBLE);
             btnCancel.setOnClickListener(this);

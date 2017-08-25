@@ -229,7 +229,11 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
         if (!TextUtils.isEmpty(mail)) {
             if (ValidateForm.isValidEmailAddress(mail)) {
                 showLoader(getString(R.string.procesando_enviando_email_loader));
-                presenter.sendTicket(mail, result.getData().getIdTransaccion());
+                if(pago instanceof Envios){
+                    presenter.sendTicketEnvio(mail, result.getData().getIdTransaccion());
+                }else {
+                    presenter.sendTicket(mail, result.getData().getIdTransaccion());
+                }
             } else {
                 showSimpleDialog(getString(R.string.title_error), getString(R.string.datos_usuario_correo_formato));
             }

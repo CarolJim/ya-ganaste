@@ -8,4 +8,6 @@ import com.pagatodo.yaganaste.net.IRequestResult;
 
 public interface IPaymentsSuccessInteractor extends IRequestResult {
     void sendTicket(String mail, String idTransaction);
+
+    void sendTicketEnvio(String mail, String idMovimiento);
 }
