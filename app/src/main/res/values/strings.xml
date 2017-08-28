@@ -633,6 +633,7 @@
     <string name="procesando_recarga_loader">Realizando Recarga</string>
     <string name="procesando_servicios_loader">Realizando Pago</string>
     <string name="procesando_envios_loader">Realizando Envío</string>
+    <string name="procesando_envios_inter_loader">Realizando Envío Interbancario</string>
     <string name="procesando_enviando_email_loader">Enviando Correo Electrónico</string>
 
 

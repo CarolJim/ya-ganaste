@@ -49,7 +49,8 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
     boolean isSingleLine = false;
     boolean isTextEnabled = true;
     private int pinnedIcon;
-    private String blockCharacterSetEmail = "|°¬!\"\\#$%&/()=?¡¿'¨´+*{}[],;:";
+    private String blockCharacterSetEmail = "|°¬!\"\\#$%&/()=?¡¿'¨´+*{}[],;:€£+÷<>~`¥§µ";
+    private String blockCharacterName = "|°¬!\"#$%&/()='?¿¡'¨´+*{[}],;.:\\@€£U+÷x_-.<>~`¥§";
 
     private OnClickListener externalListener;
 
@@ -147,20 +148,50 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
         Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
         editText.setTypeface(customFont);
         editText.setOnLongClickListener(this);
-      //  editText.setFilters(new InputFilter[] { filter });
+        editText.setFilters(new InputFilter[] { filter });
     }
 
     private InputFilter filter = new InputFilter() {
 
         @Override
         public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-
-            if (source != null && blockCharacterSetEmail.contains(("" + source))) {
-                return "";
+            if(type.equals("0")){
+                if (source != null && blockCharacterSetEmail.contains(("" + source))) {
+                    return "";
+                }
+            }else if(type.equals("1")){
+                if (source != null && blockCharacterName.contains(("" + source))) {
+                    return "";
+                }
             }
             return null;
         }
     };
+
+/*    private InputFilter filter = new InputFilter() {
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            if (type.equals("0")) {
+                if (!source.equals("")) {
+                    if (source != null && blockCharacterSetEmail.contains(
+                            ("" + source.subSequence(source.length() - 1, source.length())
+                            ))) {
+                        return source;
+                    } else {
+                        return source.subSequence(0, source.length() - 1);
+                    }
+                } else {
+                    return "";
+                }
+            } else if (type.equals("1")) {
+                if (source != null && blockCharacterName.contains(("" + source))) {
+                    return "";
+                }
+            }
+            return null;
+        }
+    };*/
 
 
     public void setHintText(String txt) {

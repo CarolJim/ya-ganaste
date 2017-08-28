@@ -9,13 +9,16 @@ import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentSuccessFragment;
@@ -40,6 +43,8 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 
 public class PaymentsProcessingActivity extends LoaderActivity implements PaymentsProcessingManager, ISessionExpired {
 
+    public static final String NUMERO_TARJETA = "NUMERO_TARJETA";
+    public static final String YA_GANASTE = "Ya Ganaste";
     @BindView(R.id.container)
     FrameLayout container;
 
@@ -82,7 +87,15 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         switch (event) {
             case EVENT_SEND_PAYMENT:
                 try {
-                    showLoader(mensajeLoader);
+                    // Cambiamos a Envio Interbancario solo si el nombre de comercio es diferente
+                    // de YA Ganaste
+                    String tipoEnvio = String.valueOf(((Envios) data).getTipoEnvio());
+                    String nombreComercio = ((Envios) data).getComercio().getNombreComercio();
+                    if (nombreComercio.equals(YA_GANASTE)) {
+                        showLoader(mensajeLoader);
+                    } else {
+                        showLoader(getString(R.string.procesando_envios_inter_loader));
+                    }
                     presenter.sendPayment(tab, data);
                 } catch (OfflineException e) {
                     e.printStackTrace();
