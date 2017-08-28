@@ -99,11 +99,13 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
     ErrorMessage errorPhoneReferenciaCupo;
 
     private CupoSpinnerArrayAdapter relacionAdapter;
+    private Boolean reenviar;
 
 
-    public static CupoReferenciaFamiliarFragment newInstance() {
+    public static CupoReferenciaFamiliarFragment newInstance(Boolean reenviar) {
         CupoReferenciaFamiliarFragment fragment = new CupoReferenciaFamiliarFragment();
         Bundle args = new Bundle();
+        args.putBoolean("reenviar", reenviar);
         fragment.setArguments(args);
         return fragment;
     }
@@ -118,6 +120,7 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_cupo_referencias, container, false);
+        reenviar = getArguments().getBoolean("reenviar");
         initViews();
         return rootview;
     }
@@ -153,7 +156,6 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
                 break;
             case R.id.btnNext:
                 validateForm();
-                //cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PERSONAL, null);
                 break;
         }
     }
@@ -400,30 +402,32 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
     @Override
     public void onValidationSuccess() {
 
-        /*Guardamos datos en Singleton de registro.*/
-        errorNameReferenciaCupo.setVisibilityImageError(false);
-        errorFirstLastNameReferencuaCupo.setVisibilityImageError(false);
-        errorSecoundLastNameReferenciaCupo.setVisibilityImageError(false);
-        errorRelationshipCupo.setVisibilityImageError(false);
-        errorPhoneReferenciaCupo.setVisibilityImageError(false);
+        if (reenviar) {
+            Log.e("Test", "Entre a reenviar");
+        } else {
+            /*Guardamos datos en Singleton de registro.*/
+            errorNameReferenciaCupo.setVisibilityImageError(false);
+            errorFirstLastNameReferencuaCupo.setVisibilityImageError(false);
+            errorSecoundLastNameReferenciaCupo.setVisibilityImageError(false);
+            errorRelationshipCupo.setVisibilityImageError(false);
+            errorPhoneReferenciaCupo.setVisibilityImageError(false);
 
-        RegisterCupo registerCupo = RegisterCupo.getInstance();
-        registerCupo.setFamiliarNombre(nombre);
-        registerCupo.setFamiliarApellidoPaterno(primerApellido);
-        registerCupo.setFamiliarApellidoMaterno(segundoApellido);
-        registerCupo.setFamiliarTelefono(telefono);
-        registerCupo.setFamiliarRelacion(relacion);
-        registerCupo.setFamiliarIdRelacion(idRelacion);
+            RegisterCupo registerCupo = RegisterCupo.getInstance();
+            registerCupo.setFamiliarNombre(nombre);
+            registerCupo.setFamiliarApellidoPaterno(primerApellido);
+            registerCupo.setFamiliarApellidoMaterno(segundoApellido);
+            registerCupo.setFamiliarTelefono(telefono);
+            registerCupo.setFamiliarRelacion(relacion);
+            registerCupo.setFamiliarIdRelacion(idRelacion);
 
-
-        Log.e("Familiar nombre",        registerCupo.getFamiliarNombre() );
-        Log.e("Familiar paterno", ""  + registerCupo.getFamiliarApellidoPaterno());
-        Log.e("Familiar Materno", ""  + registerCupo.getFamiliarApellidoMaterno());
-        Log.e("Familiar Telefono", "" + registerCupo.getFamiliarTelefono());
-        Log.e("Familiar Relacion", "" + registerCupo.getFamiliarRelacion());
-        Log.e("Familiar IdRelacion",""+ registerCupo.getFamiliarIdRelacion());
-        cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PERSONAL, null);
-
+            Log.e("Familiar nombre",        registerCupo.getFamiliarNombre() );
+            Log.e("Familiar paterno", ""  + registerCupo.getFamiliarApellidoPaterno());
+            Log.e("Familiar Materno", ""  + registerCupo.getFamiliarApellidoMaterno());
+            Log.e("Familiar Telefono", "" + registerCupo.getFamiliarTelefono());
+            Log.e("Familiar Relacion", "" + registerCupo.getFamiliarRelacion());
+            Log.e("Familiar IdRelacion",""+ registerCupo.getFamiliarIdRelacion());
+            cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PERSONAL, null);
+        }
     }
 
     @Override

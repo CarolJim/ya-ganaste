@@ -198,11 +198,7 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
         domicilioPersonal.setCP(registerCupo.getCodigoPostal());
         domicilioPersonal.setIdEstado(registerCupo.getIdEstadoNacimineto());
         domicilioPersonal.setIdColonia(registerCupo.getIdColonia());
-
-        List<Domicilio> domicilios = new ArrayList<>();
-        domicilios.add(domicilioPersonal);
-
-        request.setDomicilioPersonal(domicilios);
+        request.setDomicilioPersonal(domicilioPersonal);
         Log.e("Cupo JSON", createParams(false, request ).toString()  );
 
         try {

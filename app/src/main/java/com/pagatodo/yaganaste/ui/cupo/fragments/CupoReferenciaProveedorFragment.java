@@ -85,10 +85,12 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
     @BindView(R.id.errorProductCupo)
     ErrorMessage errorProductCupo;
 
+    private Boolean reenviar;
 
-    public static CupoReferenciaProveedorFragment newInstance() {
+    public static CupoReferenciaProveedorFragment newInstance(Boolean reenviar) {
         CupoReferenciaProveedorFragment fragment = new CupoReferenciaProveedorFragment();
         Bundle args = new Bundle();
+        args.putBoolean("reenviar", reenviar);
         fragment.setArguments(args);
         return fragment;
     }
@@ -112,6 +114,7 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_cupo_referencia_proveedor, container, false);
+        reenviar = getArguments().getBoolean("reenviar");
         initViews();
         return rootview;
     }
@@ -402,26 +405,33 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
     @Override
     public void onValidationSuccess() {
 
-        /*Guardamos datos en Singleton de registro.*/
-        errorNameReferenciaCupo.setVisibilityImageError(false);
-        errorFirstLastNameReferencuaCupo.setVisibilityImageError(false);
-        errorSecoundLastNameReferenciaCupo.setVisibilityImageError(false);
-        errorProductCupo.setVisibilityImageError(false);
-        errorPhoneReferenciaCupo.setVisibilityImageError(false);
+        if (reenviar) {
+            Log.e("Test", "Reenviar proveedor");
 
-        RegisterCupo registerCupo = RegisterCupo.getInstance();
-        registerCupo.setProveedorNombre(nombre);
-        registerCupo.setProveedorApellidoPaterno(primerApellido);
-        registerCupo.setProveedorApellidoMaterno(segundoApellido);
-        registerCupo.setProveedorTelefono(telefono);
-        registerCupo.setProveedorProductoServicio(productoServicio);
+        } else {
+            /*Guardamos datos en Singleton de registro.*/
+            errorNameReferenciaCupo.setVisibilityImageError(false);
+            errorFirstLastNameReferencuaCupo.setVisibilityImageError(false);
+            errorSecoundLastNameReferenciaCupo.setVisibilityImageError(false);
+            errorProductCupo.setVisibilityImageError(false);
+            errorPhoneReferenciaCupo.setVisibilityImageError(false);
 
-        Log.e("Proveedor nombre",        registerCupo.getProveedorNombre());
-        Log.e("Proveedor paterno", ""  + registerCupo.getProveedorApellidoPaterno());
-        Log.e("Proveedor Materno", ""  + registerCupo.getProveedorApellidoMaterno());
-        Log.e("Proveedor Telefono", "" + registerCupo.getProveedorTelefono());
-        Log.e("Proveedor Producto", "" + registerCupo.getProveedorProductoServicio());
-        cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_DOMICILIO_PERSONAL, null);
+            RegisterCupo registerCupo = RegisterCupo.getInstance();
+            registerCupo.setProveedorNombre(nombre);
+            registerCupo.setProveedorApellidoPaterno(primerApellido);
+            registerCupo.setProveedorApellidoMaterno(segundoApellido);
+            registerCupo.setProveedorTelefono(telefono);
+            registerCupo.setProveedorProductoServicio(productoServicio);
+
+            Log.e("Proveedor nombre",        registerCupo.getProveedorNombre());
+            Log.e("Proveedor paterno", ""  + registerCupo.getProveedorApellidoPaterno());
+            Log.e("Proveedor Materno", ""  + registerCupo.getProveedorApellidoMaterno());
+            Log.e("Proveedor Telefono", "" + registerCupo.getProveedorTelefono());
+            Log.e("Proveedor Producto", "" + registerCupo.getProveedorProductoServicio());
+            cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_DOMICILIO_PERSONAL, null);
+        }
+
+
 
     }
 

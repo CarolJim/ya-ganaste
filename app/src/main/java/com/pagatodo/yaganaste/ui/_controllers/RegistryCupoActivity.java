@@ -56,8 +56,11 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     public final static String EVENT_GO_CUPO_REENVIAR_REFERENCIAS = "EVENT_GO_CUPO_REENVIAR_REFERENCIAS";
     public final static String EVENT_GO_CUPO_CUENTAME_MAS = "EVENT_GO_CUPO_CUENTAME_MAS";
     public final static String EVENT_GO_CUPO_REFERENCIA_FAMILIAR = "EVENT_GO_CUPO_REFERENCIA_FAMILIAR";
+    public final static String EVENT_GO_CUPO_REFERENCIA_FAMILIAR_REENVIAR = "EVENT_GO_CUPO_REFERENCIA_FAMILIAR_REENVIAR";
     public final static String EVENT_GO_CUPO_REFERENCIA_PERSONAL = "EVENT_GO_CUPO_REFERENCIA_PERSONAL";
+    public final static String EVENT_GO_CUPO_REFERENCIA_PERSONAL_REENVIAR = "EVENT_GO_CUPO_REFERENCIA_PERSONAL_REENVIAR";
     public final static String EVENT_GO_CUPO_REFERENCIA_PROVEEDOR = "EVENT_GO_CUPO_REFERENCIA_PROVEEDOR";
+    public final static String EVENT_GO_CUPO_REFERENCIA_PROVEEDOR_REENVIAR = "EVENT_GO_CUPO_REFERENCIA_PROVEEDOR_REENVIAR";
     public final static String EVENT_GO_CUPO_COMPLETE = "EVENT_GO_CUPO_COMPLETE";
     public final static String EVENT_GO_CM_DOCUMENTOS = "EVENT_GO_CM_DOCUMENTOS";
     public final static String EVENT_GO_CUPO_INICIO = "EVENT_GO_CM_DOCUMENTOS";
@@ -71,7 +74,6 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     public final static int ESTADO_REENVIAR_DOCUMENTOS = 1;
 
     public final static int VALOR_DEFAULT_ID_RELACION_PROVEEDOR = 30;
-
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -169,22 +171,23 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 break;
             case EVENT_GO_CUPO_CUENTAME_MAS:
                 if (App.getInstance().getPrefs().loadData(CUPO_PASO).equals("")) {
-                    loadFragment(CupoCuentanosMasFragment.newInstance(), Direction.FORDWARD, true);
+                    //loadFragment(CupoCuentanosMasFragment.newInstance(), Direction.FORDWARD, true);
+                    loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, true);
                 } else if ( App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_REGISTRO_ENVIADO) ) {
                     loadFragment(CupoComprobantesFragment.newInstance(ESTADO_ENVIO_DOCUMENTOS), Direction.FORDWARD, true);
                 } else if ( App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_DOCUMENTOS_ENVIADOS) ) {
-                    loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, false);
+                    loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, true);
                 }
                 //loadFragment(CupoDomicilioPersonalFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_REFERENCIA_FAMILIAR:
-                loadFragment(CupoReferenciaFamiliarFragment.newInstance(), Direction.FORDWARD, true);
+                loadFragment(CupoReferenciaFamiliarFragment.newInstance(false), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_REFERENCIA_PERSONAL:
-                loadFragment(CupoReferenciaPersonalFragment.newInstance(), Direction.FORDWARD, true);
+                loadFragment(CupoReferenciaPersonalFragment.newInstance(false), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_REFERENCIA_PROVEEDOR:
-                loadFragment(CupoReferenciaProveedorFragment.newInstance(), Direction.FORDWARD, true);
+                loadFragment(CupoReferenciaProveedorFragment.newInstance(false), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_COMPROBANTES:
                 loadFragment(CupoComprobantesFragment.newInstance(ESTADO_ENVIO_DOCUMENTOS), Direction.FORDWARD, false);
@@ -202,7 +205,16 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 loadFragment(CupoInicioFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CUPO_ESTATUS_REGISTRO:
-                loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, true);
+                break;
+            case EVENT_GO_CUPO_REFERENCIA_FAMILIAR_REENVIAR:
+                loadFragment(CupoReferenciaFamiliarFragment.newInstance(true), Direction.FORDWARD, true);
+                break;
+            case EVENT_GO_CUPO_REFERENCIA_PERSONAL_REENVIAR:
+                loadFragment(CupoReferenciaPersonalFragment.newInstance(true), Direction.FORDWARD, true);
+                break;
+            case EVENT_GO_CUPO_REFERENCIA_PROVEEDOR_REENVIAR:
+                loadFragment(CupoReferenciaProveedorFragment.newInstance(true), Direction.FORDWARD, true);
                 break;
             default:
                 onEvent(event, data);

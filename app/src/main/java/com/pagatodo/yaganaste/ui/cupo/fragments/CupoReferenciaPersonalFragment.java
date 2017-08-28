@@ -16,6 +16,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.Referencias;
 import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.CupoSpinnerTypes;
@@ -84,6 +85,7 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
 
     private String relacion = "";
     private int    idRelacion = 0;
+    private Boolean reenviar;
 
     // Errores Views
     @BindView(R.id.errorNameReferenciaCupo)
@@ -98,9 +100,11 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
     private CupoSpinnerArrayAdapter relacionAdapter;
 
 
-    public static CupoReferenciaPersonalFragment newInstance() {
+    public static CupoReferenciaPersonalFragment newInstance(Boolean reenviar) {
         CupoReferenciaPersonalFragment fragment = new CupoReferenciaPersonalFragment();
         Bundle args = new Bundle();
+        args.putBoolean("reenviar", reenviar);
+
         fragment.setArguments(args);
         return fragment;
     }
@@ -115,6 +119,7 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_cupo_referencias, container, false);
+        reenviar = getArguments().getBoolean("reenviar");
         initViews();
         return rootview;
     }
@@ -390,28 +395,39 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
     @Override
     public void onValidationSuccess() {
 
-        /*Guardamos datos en Singleton de registro.*/
-        errorNameReferenciaCupo.setVisibilityImageError(false);
-        errorFirstLastNameReferencuaCupo.setVisibilityImageError(false);
-        errorSecoundLastNameReferenciaCupo.setVisibilityImageError(false);
-        errorRelationshipCupo.setVisibilityImageError(false);
-        errorPhoneReferenciaCupo.setVisibilityImageError(false);
+        if (reenviar) {
+            Log.e("Test", "Reenviar personal");
 
-        RegisterCupo registerCupo = RegisterCupo.getInstance();
-        registerCupo.setPersonalNombre(nombre);
-        registerCupo.setPersonalApellidoPaterno(primerApellido);
-        registerCupo.setPersonalApellidoMaterno(segundoApellido);
-        registerCupo.setPersonalTelefono(telefono);
-        registerCupo.setPersonalRelacion(relacion);
-        registerCupo.setPersonalIdRelacion(idRelacion);
+            Referencias sigletonReferencia = Referencias.getInstance();
 
-        Log.e("Personal nombre",        registerCupo.getPersonalNombre() );
-        Log.e("Personal paterno", ""  + registerCupo.getPersonalApellidoPaterno());
-        Log.e("Personal Materno", ""  + registerCupo.getPersonalApellidoMaterno());
-        Log.e("Personal Telefono", "" + registerCupo.getPersonalTelefono());
-        Log.e("Personal Relacion", "" + registerCupo.getPersonalRelacion());
-        Log.e("Personal IdRelacion",""+ registerCupo.getPersonalIdRelacion());
-        cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PROVEEDOR, null);
+
+
+        } else {
+            /*Guardamos datos en Singleton de registro.*/
+            errorNameReferenciaCupo.setVisibilityImageError(false);
+            errorFirstLastNameReferencuaCupo.setVisibilityImageError(false);
+            errorSecoundLastNameReferenciaCupo.setVisibilityImageError(false);
+            errorRelationshipCupo.setVisibilityImageError(false);
+            errorPhoneReferenciaCupo.setVisibilityImageError(false);
+
+            RegisterCupo registerCupo = RegisterCupo.getInstance();
+            registerCupo.setPersonalNombre(nombre);
+            registerCupo.setPersonalApellidoPaterno(primerApellido);
+            registerCupo.setPersonalApellidoMaterno(segundoApellido);
+            registerCupo.setPersonalTelefono(telefono);
+            registerCupo.setPersonalRelacion(relacion);
+            registerCupo.setPersonalIdRelacion(idRelacion);
+
+            Log.e("Personal nombre",        registerCupo.getPersonalNombre() );
+            Log.e("Personal paterno", ""  + registerCupo.getPersonalApellidoPaterno());
+            Log.e("Personal Materno", ""  + registerCupo.getPersonalApellidoMaterno());
+            Log.e("Personal Telefono", "" + registerCupo.getPersonalTelefono());
+            Log.e("Personal Relacion", "" + registerCupo.getPersonalRelacion());
+            Log.e("Personal IdRelacion",""+ registerCupo.getPersonalIdRelacion());
+            cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PROVEEDOR, null);
+        }
+
+
 
     }
 

@@ -25,14 +25,12 @@ public class CrearCupoSolicitudRequest extends Request implements Serializable {
     // Datos Referencia Familiar
 
     private List<CupoReferencia> Referencias;
-    private List<Domicilio> DomicilioPersonal;
-
+    private Domicilio DomicilioPersonal;
 
 
 
     public CrearCupoSolicitudRequest() {
         Referencias = new ArrayList<CupoReferencia>();
-        DomicilioPersonal = new ArrayList<Domicilio>();
     }
 
     public int getIdEstadoCivil() {
@@ -91,11 +89,11 @@ public class CrearCupoSolicitudRequest extends Request implements Serializable {
         Referencias = referencias;
     }
 
-    public List<Domicilio> getDomicilioPersonal() {
+    public Domicilio getDomicilioPersonal() {
         return DomicilioPersonal;
     }
 
-    public void setDomicilioPersonal(List<Domicilio> domicilioPersonal) {
+    public void setDomicilioPersonal(Domicilio domicilioPersonal) {
         DomicilioPersonal = domicilioPersonal;
     }
 }

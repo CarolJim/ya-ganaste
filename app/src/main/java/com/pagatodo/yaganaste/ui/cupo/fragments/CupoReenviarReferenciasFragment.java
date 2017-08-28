@@ -13,7 +13,9 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoSolicitud;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.RefereciasResponse;
+import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.cupo.managers.CupoActivityManager;
 import com.pagatodo.yaganaste.utils.customviews.ReferenciaView;
 
 import java.util.List;
@@ -41,6 +43,8 @@ public class CupoReenviarReferenciasFragment extends GenericFragment implements 
 
     private List<RefereciasResponse> referecias;
 
+    private CupoActivityManager cupoActivityManager;
+
     public static CupoReenviarReferenciasFragment newInstance(DataEstadoSolicitud dataEstadoSolicitud) {
         CupoReenviarReferenciasFragment fragment = new CupoReenviarReferenciasFragment();
         Bundle args = new Bundle();
@@ -52,6 +56,7 @@ public class CupoReenviarReferenciasFragment extends GenericFragment implements 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        cupoActivityManager = ((RegistryCupoActivity) getActivity()).getCupoActivityManager();
     }
 
     @Override
@@ -69,9 +74,6 @@ public class CupoReenviarReferenciasFragment extends GenericFragment implements 
         Log.e("Test", "Los datos son:" + dataEstadoSolicitud.getIdPaso());
 
         referecias  = dataEstadoSolicitud.getReferencias();
-
-
-
         for (RefereciasResponse referencia: referecias) {
 
             int tipoReferenica = referencia.getIdTipoReferencia();
@@ -110,15 +112,17 @@ public class CupoReenviarReferenciasFragment extends GenericFragment implements 
                     break;
                 case 3: // Proveedor
                     prooveedorStatus.setStatus(estadoActual);
+                    /*
                     if (estadoActual == ESTADO_RECHAZADO) {
                         prooveedorStatus.setOnClickListener(this);
                     } else {
                         prooveedorStatus.setOnClickListener(null);
                     }
+                    */
+                    prooveedorStatus.setOnClickListener(this);
                     break;
             }
         }
-
 
     }
 
@@ -127,11 +131,13 @@ public class CupoReenviarReferenciasFragment extends GenericFragment implements 
         int id = view.getId();
         switch (id) {
             case R.id.familiarStatus:
-
+                cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_FAMILIAR_REENVIAR, null);
                 break;
             case R.id.personalStatus:
+                cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PERSONAL_REENVIAR, null);
                 break;
             case R.id.proveedorStatus:
+                cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PROVEEDOR_REENVIAR, null);
                 break;
         }
 
