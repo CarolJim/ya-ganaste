@@ -160,7 +160,8 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        swipeRefreshLayout.setOnRefreshListener(this);
+        //swipeRefreshLayout.setOnRefreshListener(this);
+        swipeRefreshLayout.setEnabled(false);
         dataDocuments = new ArrayList<>();
         layoutIdentificacion.setVisibility(View.GONE);
         layoutHelp.setVisibility(View.GONE);

@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoSolicitud;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
@@ -82,7 +83,6 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
 
     @Override
     protected void onPause() {
-        Log.e("Test","Entre a onPause");
         clearSingletonCupo();
         super.onPause();
     }
@@ -193,7 +193,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 loadFragment(CupoComprobantesFragment.newInstance(ESTADO_REENVIAR_DOCUMENTOS), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CUPO_REENVIAR_REFERENCIAS:
-                loadFragment(CupoReenviarReferenciasFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(CupoReenviarReferenciasFragment.newInstance((DataEstadoSolicitud) data), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CUPO_COMPLETE:
                 loadFragment(RegisterCompleteFragment.newInstance(CUPO_REVISION), Direction.FORDWARD, false);

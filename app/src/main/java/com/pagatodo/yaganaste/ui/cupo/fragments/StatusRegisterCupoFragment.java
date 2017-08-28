@@ -79,6 +79,8 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
 
     private CupoDomicilioPersonalPresenter presenter;
 
+    private DataEstadoSolicitud respuesta;
+
     public static StatusRegisterCupoFragment newInstance() {
         Bundle args = new Bundle();
         StatusRegisterCupoFragment fragment = new StatusRegisterCupoFragment();
@@ -158,11 +160,9 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
 
     @Override
     public void setResponseEstadoCupo(DataEstadoSolicitud dataEstadoSolicitud) {
-        Log.e("Data respuesta fragment", createParams(false, dataEstadoSolicitud).toString());
-
         int pasoActual = dataEstadoSolicitud.getIdPaso();
         int idEstado   = dataEstadoSolicitud.getIdEstatusPaso();
-
+        respuesta = dataEstadoSolicitud;
         switch (pasoActual) {
             case PASO_CUPO_DOCUMENTACION_INCOMPLETA:
 
@@ -174,10 +174,6 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
                 setValidandoReferecias(idEstado);
 
         }
-
-
-
-
     }
 
     private void setValidandoReferecias(int idEstado) {
@@ -198,7 +194,10 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
                 statusTextInfo.setText("Ocurrió un Error\nCon Tus Referencias");
                 statusText.setText("Envia Nuevas\nReferencias\n2/3");
                 statusViewCupo.updateError(66,33);
+                mButtonContinue.setVisibility(View.VISIBLE);
                 ESTADO_ACTUAL = ESTADO_RENEENVIA_REFERENCIAS;
+
+
                 break;
             case ID_ESTATUS_PASO_RECHAZO_DEFINITIVO:
                 statusTextInfo.setText(getText(R.string.txt_solicitud_no_completada));
@@ -237,23 +236,6 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
         }
     }
 
-
-    private static JSONObject createParams(boolean envolve, Object oRequest) {
-        if (oRequest != null) {
-            JSONObject tmp = JsonManager.madeJsonFromObject(oRequest);
-            if (envolve) {
-                if (oRequest instanceof AdqRequest) {
-                    return JsonManager.madeJsonAdquirente(tmp);
-                } else {
-                    return JsonManager.madeJson(tmp);
-                }
-            } else {
-                return tmp;
-            }
-        }
-        return null;
-    }
-
     @Override
     public void nextScreen(String event, Object data) {
 
@@ -289,7 +271,7 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
                     cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REENVIAR_COMPROBANTES, null);
                     break;
                 case ESTADO_RENEENVIA_REFERENCIAS:
-                    cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REENVIAR_REFERENCIAS, null);
+                    cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REENVIAR_REFERENCIAS, respuesta);
                 break;
             }
         }
