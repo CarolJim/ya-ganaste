@@ -22,6 +22,9 @@ public class DatosCupo implements Serializable {
     @SerializedName("TotalADepositar")
     private String totalADepositar;
 
+    @SerializedName("TotalAReembolsar")
+    private String totalAReembolsar;
+
     public DatosCupo() {
 
     }
@@ -54,5 +57,13 @@ public class DatosCupo implements Serializable {
 
     public void setTotalADepositar(String totalADepositar) {
         this.totalADepositar = totalADepositar;
+    }
+
+    public String getTotalAReembolsar() {
+        return totalAReembolsar;
+    }
+
+    public void setTotalAReembolsar(String totalAReembolsar) {
+        this.totalAReembolsar = totalAReembolsar;
     }
 }

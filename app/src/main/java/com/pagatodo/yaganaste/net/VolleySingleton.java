@@ -34,6 +34,7 @@ public class VolleySingleton {
     private static Context mCtx;
     private RequestQueue mRequestQueue;
     private ImageLoader mImageLoader;
+    public static String REQUEST_TAG = "VOLLEY_REQUEST_TAG";
 
     /**
      * Método para obtener una instancia de Volley
@@ -97,13 +98,17 @@ public class VolleySingleton {
     }
 
     public <T> void addToRequestQueue(Request<T> req) {
+        req.setTag(REQUEST_TAG);
         getRequestQueue().add(req);
+    }
+
+    public void deleteQueue() {
+        getRequestQueue().cancelAll(REQUEST_TAG);
     }
 
     public ImageLoader getImageLoader() {
         return mImageLoader;
     }
-
 
 
 }
