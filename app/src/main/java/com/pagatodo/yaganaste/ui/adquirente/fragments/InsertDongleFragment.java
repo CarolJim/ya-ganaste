@@ -39,6 +39,7 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -98,6 +99,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private AdqPresenter adqPresenter;
     private boolean isWaitingCard = false;
     private boolean isCancelation = false;
+    CircleImageView imageView;
     private Runnable starReaderEmvSwipe = new Runnable() {
         @Override
         public void run() {
@@ -291,6 +293,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isCancelation = getArguments().getBoolean(DATA_KEY);
+        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         dataMovimientoAdq = getArguments().getSerializable(DATA_MOVEMENTS) != null ? (DataMovimientoAdq) getArguments().getSerializable(DATA_MOVEMENTS) : null;
         prefs = App.getInstance().getPrefs();
         audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
@@ -383,10 +386,18 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
+        setVisibilityPrefer(false);
 
         App.getInstance().pos.openAudio();
         maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
+    }
+    public void setVisibilityPrefer(Boolean mBoolean){
+        if(mBoolean){
+            imageView.setVisibility(View.VISIBLE);
+        }else{
+            imageView.setVisibility(View.GONE);
+        }
     }
 
     @Override
