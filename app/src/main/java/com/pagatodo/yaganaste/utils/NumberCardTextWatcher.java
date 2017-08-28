@@ -1,11 +1,14 @@
 package com.pagatodo.yaganaste.utils;
 
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.Selection;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
 import com.pagatodo.yaganaste.interfaces.ITextChangeListener;
+
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * Created by Francisco Manzo on 17/03/2017.
@@ -14,15 +17,13 @@ import com.pagatodo.yaganaste.interfaces.ITextChangeListener;
 
 public class NumberCardTextWatcher implements TextWatcher {
 
-    private String dataNumberNew;
-    private String dataNumberOld;
     private EditText cardNumber;
     private ITextChangeListener listener;
+    private int maxLength;
 
-    public NumberCardTextWatcher(EditText cardNumber) {
+    public NumberCardTextWatcher(EditText cardNumber, int maxLength) {
         this.cardNumber = cardNumber;
-        dataNumberNew = "";
-        dataNumberOld = "";
+        this.maxLength = maxLength;
     }
 
     public void setOnITextChangeListener(ITextChangeListener listener) {
@@ -48,55 +49,21 @@ public class NumberCardTextWatcher implements TextWatcher {
      */
     @Override
     public void afterTextChanged(Editable s) {
-        dataNumberNew = s.toString();
-        if (dataNumberNew.length() > dataNumberOld.length()) {
-
-            /**
-             * Registra los espacios y posisciona el cursor al final del editext para continuar de
-             * manera normal
-             */
-            if (dataNumberNew.length() == 4) {
-                dataNumberNew = dataNumberNew + " ";
-                cardNumber.setText(dataNumberNew.toString());
-                Selection.setSelection(cardNumber.getText(), dataNumberNew.toString().length());
-
-            } else if (dataNumberNew.length() == 9) {
-                dataNumberNew = dataNumberNew + " ";
-                cardNumber.setText(dataNumberNew.toString());
-                Selection.setSelection(cardNumber.getText(), dataNumberNew.toString().length());
-            } else if (dataNumberNew.length() == 14) {
-                dataNumberNew = dataNumberNew + " ";
-                cardNumber.setText(dataNumberNew.toString());
-                Selection.setSelection(cardNumber.getText(), dataNumberNew.toString().length());
-            }
-
-            dataNumberOld = dataNumberNew;
-        } else {
-            /**
-             * Proceso de brrado, elimina es caracter siguiente a la izquierda, despues de que se
-             * borra de manera automatica el espacio al orpimir la flecha
-             */
-            if (dataNumberNew.length() == 14) {
-                dataNumberNew = dataNumberNew.substring(0, dataNumberNew.length() - 1);
-                cardNumber.setText(dataNumberNew.toString());
-                Selection.setSelection(cardNumber.getText(), dataNumberNew.toString().length());
-
-            } else if (dataNumberNew.length() == 9) {
-                dataNumberNew = dataNumberNew.substring(0, dataNumberNew.length() - 1);
-                cardNumber.setText(dataNumberNew.toString());
-                Selection.setSelection(cardNumber.getText(), dataNumberNew.toString().length());
-            } else if (dataNumberNew.length() == 4) {
-                dataNumberNew = dataNumberNew.substring(0, dataNumberNew.length() - 1);
-                cardNumber.setText(dataNumberNew.toString());
-                Selection.setSelection(cardNumber.getText(), dataNumberNew.toString().length());
-            }
-
-
-            dataNumberOld = dataNumberNew;
+        cardNumber.removeTextChangedListener(this);
+        String newS;
+        if (maxLength == 19) {//Formato 4 4 4 4
+            newS = StringUtils.format(s.toString().replace(" ",""), SPACE, 4,4,4,4);
+        } else { //Formato Amex: 4 6 5
+            newS = StringUtils.format(s.toString().replace(" ",""), SPACE, 4,6,5);
         }
+        cardNumber.setText(newS);
+        cardNumber.setSelection(newS.length());
+        cardNumber.addTextChangedListener(this);
+
+
         if (listener != null) {
             listener.onTextChanged();
-            if (dataNumberNew.length() == 19) {
+            if (cardNumber.getText().toString().length() == maxLength) {
                 listener.onTextComplete();
             }
         }

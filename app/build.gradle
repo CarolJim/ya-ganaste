@@ -27,7 +27,7 @@ android {
         minSdkVersion 16
         targetSdkVersion 25
         versionCode 1
-        versionName "1.5.3 QA"
+        versionName "1.5.4"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true
@@ -47,6 +47,14 @@ android {
             storePassword "ptmobile"
             keyAlias "PTmobile"
             keyPassword "ptmobile"
+        }
+
+        release {
+
+            storeFile file("cert.jks")
+            storePassword "pagatodo"
+            keyAlias "ptmobile"
+            keyPassword "pagatodo"
         }
     }
 

@@ -20,7 +20,7 @@ public abstract class FmcIteractorImp implements FmcIteractor {
     public void init(Context context) {
         try {
             if (fmcManager == null) {
-                FmcLogManager.enableLoggingAll(true);
+                FmcLogManager.enableLoggingAll(false);
                 FmcManager.setContext(App.getInstance());
                 this.fmcManager = FmcManager.getFmcManager();
             }

@@ -217,6 +217,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         prefs.clearPreference(HAS_PROVISIONING);
         prefs.clearPreference(HAS_PUSH);
         prefs.clearPreference(USER_PROVISIONED);
+        SingletonUser.getInstance().setNeedsReset(false);
         accountIteractor.verifyActivationSMS();
     }
 

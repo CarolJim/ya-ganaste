@@ -60,7 +60,6 @@ public class App extends Application {
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
-
         m_singleton = this;
         //MultiDex.install(this);
 

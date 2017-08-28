@@ -273,9 +273,11 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
         InputFilter[] fArray = new InputFilter[1];
 
         if (position == NUMERO_TARJETA.getId()) {
-            maxLength = comercioItem.getIdComercio() == 814 ? 15 : 19;
-            cardNumber.setHint(getString(R.string.card_number));
-            NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber);
+            maxLength = comercioItem.getIdComercio() == 814 ? 17 : 19;
+            cardNumber.setHint(getString(R.string.card_number, String.valueOf(
+                    comercioItem.getIdComercio() == 814 ? 15 : 16
+                    )));
+            NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
             if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
                 numberCardTextWatcher.setOnITextChangeListener(this);
             }

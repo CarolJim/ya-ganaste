@@ -364,7 +364,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                     @Override
                     public void action(Context context, Object... params) {
                         INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(EVENT_GO_GET_SIGNATURE, App.getContext().getString(R.string.execution_success));
+                        viewInterface.nextScreen(EVENT_GO_GET_SIGNATURE, null);
                     }
                 });
                 pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
@@ -454,7 +454,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                      */
                     NumberCalcTextWatcher.cleanData();
 
-                    viewInterface.nextScreen(EVENT_GO_LOGIN_FRAGMENT, context.getString(R.string.execution_success));
+                    viewInterface.nextScreen(EVENT_GO_LOGIN_FRAGMENT, null);
                 }
             });
 

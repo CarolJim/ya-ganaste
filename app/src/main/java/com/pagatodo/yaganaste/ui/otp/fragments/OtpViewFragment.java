@@ -92,7 +92,7 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
         progressView.setTimeAnimation(90000);
         progressView.updateStatus(100,0);
 
-        timer = new CountDownTimer(90 * 1000, 1000) {
+        timer = new CountDownTimer(60 * 1000, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 if (Build.VERSION.SDK_INT >= 24) {
