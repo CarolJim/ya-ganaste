@@ -288,6 +288,7 @@
             style="@style/GenericCustomValidationEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            app:defaultIcon="@null"
             android:layout_marginTop="@dimen/margin_medium"
             android:gravity="center"
             app:formato="email"

@@ -182,7 +182,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
         String text = String.format("%.2f", pago.getMonto());
         text = text.replace(",", ".");
         importe.setText(text);
-        editMail.setDrawableImage(R.drawable.mail_canvas);
+        //editMail.setDrawableImage(R.drawable.mail_canvas);
 
         /*
         Bloqur para poner el formato de telefono o otros ejemplos
