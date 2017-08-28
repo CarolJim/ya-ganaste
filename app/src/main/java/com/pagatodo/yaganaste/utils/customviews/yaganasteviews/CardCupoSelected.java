@@ -62,34 +62,35 @@ public class CardCupoSelected extends TabViewElement {
     @Override
     public void updateData() {
         DatosCupo datosCupo = SingletonUser.getInstance().getDatosCupo();
-        double totalDepositar = Double.parseDouble(datosCupo.getTotalADepositar());
-        double lineaCredito = Double.parseDouble(datosCupo.getLimiteDeCredito());
-        double saldoDisp = Double.parseDouble(datosCupo.getSaldoDisponible());
+        double totalDepositar = StringUtils.getDoubleValue(datosCupo.getTotalADepositar());
+        double lineaCredito = StringUtils.getDoubleValue(datosCupo.getLimiteDeCredito());
+        double saldoDisp = StringUtils.getDoubleValue(datosCupo.getSaldoDisponible());
+        double totalReembolsar = StringUtils.getDoubleValue(datosCupo.getTotalAReembolsar());
         int progress;
-        if (totalDepositar > 0) {
-            if (lineaCredito > 0) {
-                progress = (int) ((totalDepositar * 100) / lineaCredito);
+
+        if (lineaCredito > 0) {
+            if (totalDepositar > totalReembolsar) {
+                int color = ContextCompat.getColor(getContext(), R.color.yellow);
+                totalDepositar = Math.abs(totalDepositar);
+                titleTotalDepositar.setText(getContext().getString(R.string.total_reembolsar));
+                titleTotalDepositar.setTextColor(color);
+                LayerDrawable ld = (LayerDrawable) seekLineaCredito.getProgressDrawable();
+                ClipDrawable d1 = (ClipDrawable) ld.findDrawableByLayerId(R.id.progress);
+                d1.setColorFilter(color, PorterDuff.Mode.SRC_IN);
+
+                progress = totalDepositar <= 0 ? 0 : (int) ((totalDepositar * 100) / lineaCredito);
             } else {
-                progress = 100;
+                if (totalReembolsar > lineaCredito) {
+                    progress = 100;
+                } else {
+                    progress = totalReembolsar <= 0 ? 0 : (int) ((totalReembolsar * 100) / lineaCredito);
+                }
             }
-        } else {
-            int color = ContextCompat.getColor(getContext(), R.color.yellow);
-            totalDepositar = Math.abs(totalDepositar);
-            titleTotalDepositar.setText(getContext().getString(R.string.total_reembolsar));
-            titleTotalDepositar.setTextColor(color);
-            LayerDrawable ld = (LayerDrawable) seekLineaCredito.getProgressDrawable();
-            ClipDrawable d1 = (ClipDrawable) ld.findDrawableByLayerId(R.id.progress);
-            d1.setColorFilter(color, PorterDuff.Mode.SRC_IN);
-
-            progress = (int) ((totalDepositar * 100) / saldoDisp);
+            seekLineaCredito.setProgress(progress);
         }
-
-        seekLineaCredito.setProgress(progress);
-
         saldoDisponible.setText(StringUtils.getCurrencyValue(saldoDisp));
         montoTotalDepositar.setText(StringUtils.getCurrencyValue(totalDepositar));
         montoLineaCredito.setText(StringUtils.getCurrencyValue(lineaCredito));
-
 
     }
 }
