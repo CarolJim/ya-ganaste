@@ -378,7 +378,7 @@
     <string name="datos_telefono_incorrecto">Ingrese un Teléfono Válido</string>
     <string name="datos_negocio_preguntas">Debes Contestar Todas las Preguntas.</string>
     <!--Server problem-->
-    <string name="message_generic_ws">Ocurrió un Problema. Intente Más Tarde.</string>
+    <string name="message_generic_ws">Ocurrió un Error de Conexión.</string>
 
     <!-- Strings Menu Principal-->
     <string name="main_tab_inicio">Inicio</string>
@@ -387,7 +387,7 @@
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
     <string name="no_movimientos">No Tienes Movimientos Para Este Mes</string>
-    <string name="error_respuesta">Ocurrió un Error con la Respuesta del Servidor, Intenta de Nuevo</string>
+    <string name="error_respuesta">Ocurrió un Error de Conexión</string>
 
     <!-- Strings Adq-->
     <string name="skipButton">Más Tarde</string>

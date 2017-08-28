@@ -70,7 +70,7 @@ public enum  Errors {
     E35(1034, false, "Key renewal) Making this call is not allowed since key renewal is not required."),
     E36(1035, false, "Key renewal) Making this call is not allowed, key renewal is required."),
     E37(1042, false, "Invalid PIN. The most likely cause is that the PIN length does not match the PIN policy set on MASS."),
-    UNEXPECTED(-100, true, "Ocurrió un Error, Por Favor Intenta Más Tarde");
+    UNEXPECTED(-100, true, "Ocurrió un Error de Conexión");
 
 
     private int errorCode;
