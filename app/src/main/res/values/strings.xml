@@ -218,6 +218,7 @@
     <string name="txt_concepto">Concepto:</string>
     <string name="txt_clave_rastreo">Clave Rastreo:</string>
     <string name="txt_numero_referencia">Número de Referencia:</string>
+    <string name="txt_referencia_num">Referencia Numérica:</string>
     <string name="inserta_el_lector_para_ncontinuar">Inserta Tu Lector de Tarjetas\nYa Ganaste</string>
     <!--<string name="text_slide_or_insert">Inserta o Desliza la Tarjeta Para Continuar.</string>-->
     <string name="text_slide_or_insert">Inserta la Tarjeta Con Chip</string>

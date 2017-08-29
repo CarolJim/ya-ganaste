@@ -4,7 +4,6 @@ package com.pagatodo.yaganaste.ui.account.login;
 import android.app.Activity;
 import android.content.Context;
 import android.os.Bundle;
-import android.os.Handler;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
@@ -14,6 +13,7 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.RecoveryPasswordView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -34,7 +34,6 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 
 
@@ -169,12 +168,10 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void nextScreen(String event, Object data) {
-        //onEventListener.onEvent(event, data);
     }
 
     @Override
     public void backScreen(String event, Object data) {
-        //onEventListener.onEvent(event, data);
         ((LoginManagerContainerFragment) getParentFragment()).onBackActions();
     }
 
@@ -278,13 +275,17 @@ public class RecoveryFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void recoveryPasswordSuccess(String message) {
-        //UI.showToastShort(message, getActivity());
-        new Handler().postDelayed(new Runnable() {
-            public void run() {
+        UI.createSimpleCustomDialog("", message, getFragmentManager(), new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
                 backScreen(null, null);
             }
-        }, DELAY_MESSAGE_PROGRESS);
-        setEnableViews(true);
+
+            @Override
+            public void actionCancel(Object... params) {
+
+            }
+        }, true, false);
     }
 
     @Override

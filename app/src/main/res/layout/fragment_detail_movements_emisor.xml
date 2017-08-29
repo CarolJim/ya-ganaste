@@ -326,7 +326,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:text="@string/txt_numero_referencia" />
+                        android:text="@string/txt_referencia_num" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtNumeroReferencia"

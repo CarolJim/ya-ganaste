@@ -36,7 +36,7 @@ import com.pagatodo.yaganaste.utils.ValidateForm;
 
 public class CustomValidationEditText extends LinearLayout implements View.OnTouchListener, View.OnLongClickListener {
     //@BindView(R.id.editTextCustom)
-    EditText editText;
+    StyleEdittext editText;
     //@BindView(R.id.imageViewValidation)
     AppCompatImageView imageView;
     Boolean isValid = false;
@@ -73,7 +73,7 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
     private void init(Context context, AttributeSet attrs) {
         View.inflate(context, R.layout.edittext_layout, this);
         //ButterKnife.bind(context, this);
-        editText = (EditText) findViewById(R.id.editTextCustom);
+        editText = (StyleEdittext) findViewById(R.id.editTextCustom);
         imageView = (AppCompatImageView) findViewById(R.id.imageViewValidation);
 
         //imageView.setBackgroundResource(R.drawable.validation_fail);
@@ -443,6 +443,5 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
     public boolean onLongClick(View v) {
         return true;
     }
-
 
 }
