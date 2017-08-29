@@ -5,6 +5,7 @@ package com.pagatodo.yaganaste.data.model;
  */
 
 public class Referencias {
+
     private static Referencias referencias;
 
     // Refrencia Familiar
@@ -15,6 +16,8 @@ public class Referencias {
     private String familiarTelefono = "";
     private String familiarRelacion = "";
     private int    familiarIdRelacion;
+    private Boolean familiarActualizado = false;
+
 
     // Refrencia Personal
 
@@ -24,6 +27,7 @@ public class Referencias {
     private String personalTelefono = "";
     private String personalRelacion = "";
     private int    personalIdRelacion;
+    private Boolean personaActualizado = false;
 
     // Refrencia Proveedor
 
@@ -32,6 +36,7 @@ public class Referencias {
     private String proveedorApellidoMaterno = "";
     private String proveedorTelefono = "";
     private String proveedorProductoServicio = "";
+    private Boolean proveedorActualizado = false;
 
     private Referencias() {
 
@@ -148,6 +153,14 @@ public class Referencias {
         this.personalIdRelacion = personalIdRelacion;
     }
 
+    public Boolean getPersonaActualizado() {
+        return personaActualizado;
+    }
+
+    public void setPersonaActualizado(Boolean personaActualizado) {
+        this.personaActualizado = personaActualizado;
+    }
+
     public String getProveedorNombre() {
         return proveedorNombre;
     }
@@ -186,5 +199,22 @@ public class Referencias {
 
     public void setProveedorProductoServicio(String proveedorProductoServicio) {
         this.proveedorProductoServicio = proveedorProductoServicio;
+    }
+
+    public Boolean getFamiliarActualizado() {
+        return familiarActualizado;
+    }
+
+    public void setFamiliarActualizado(Boolean familiarActualizado) {
+        this.familiarActualizado = familiarActualizado;
+    }
+
+
+    public Boolean getProveedorActualizado() {
+        return proveedorActualizado;
+    }
+
+    public void setProveedorActualizado(Boolean proveedorActualizado) {
+        this.proveedorActualizado = proveedorActualizado;
     }
 }

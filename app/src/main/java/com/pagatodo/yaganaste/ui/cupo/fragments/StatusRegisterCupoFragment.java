@@ -16,6 +16,7 @@ import android.widget.Button;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.model.Referencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoSolicitud;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -107,7 +108,6 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
         return rootview;
     }
 
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -134,9 +134,6 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
         span3.setSpan(new AbsoluteSizeSpan(getResources().getDimensionPixelSize(R.dimen.text_size_normal)), 0, txt1.length(), SPAN_INCLUSIVE_INCLUSIVE);
 
         CharSequence finalText = TextUtils.concat(span1, " ", span2," ",span3);
-
-
-
         statusText.setText(finalText);
 
         mButtonContinue.setVisibility(View.VISIBLE);

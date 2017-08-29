@@ -150,7 +150,6 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     public void onEvent(String event, Object data) {
         switch (event) {
             case EVENT_GO_CM_DOCUMENTOS:
-                Log.e("Test", "A la nueva venta");
                 finish();
                 break;
             default:

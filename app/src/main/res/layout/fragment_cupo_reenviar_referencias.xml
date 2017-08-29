@@ -185,7 +185,7 @@
                 android:layout_height="match_parent" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnWeNeedSmFilesNext"
+                android:id="@+id/btnActualizarReferencias"
                 style="@style/buttonDirecctionNext"
                 android:gravity="center"
                 android:text="@string/nextButton" />

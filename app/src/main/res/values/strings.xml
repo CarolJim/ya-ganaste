@@ -770,6 +770,12 @@
     <string name="txt_limit_credit">\n\nEs tu Linea de\nCrédito Aprobada</string>
     <string name="txt_mount_credit">$%1$s</string>
 
+    <string name="actualiza_familiar">Actualiza Referencia Familiar</string>
+    <string name="actualiza_personal">Actualiza Referencia Personal</string>
+    <string name="actualiza_proveedor">Actualiza Referencia de Proveedor</string>
+
+
+
     <string name="sigue_siendo_tu_domicilio">¿Sigue Siendo Este tu Domicilio?</string>
     <string name="cuentanos_mas_de_ti">Cuéntanos Más de ti</string>
     <string name="en_los_ultimos_anios">En Los Últimos Seis Años:</string>

@@ -167,7 +167,6 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
                 cupoActivityManager.onBtnBackPress();
                 break;
             case R.id.btnNext:
-                //cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PROVEEDOR, null);
                 validateForm();
                 break;
             case R.id.imgContact:
@@ -335,10 +334,22 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
     @Override
     public void onResume() {
         String a = RegisterCupo.getInstance().getPersonalNombre();
-        if (!a.equals("")) {
+        if (reenviar  && !Referencias.getInstance().getFamiliarNombre().equals("") ) {
+            cargaDatosReenviar();
+        } else if (!a.equals("")  &&  !reenviar ) {
             cargarDatos();
         }
         super.onResume();
+    }
+
+    // Metodo para cargar datos del singleton obtenido del servicio de consulta de estado de registro cupo para actualizar las referencias
+    private void cargaDatosReenviar() {
+        Referencias referencias = Referencias.getInstance();
+        editNameReferenciaCupo.setText(referencias.getPersonalNombre());
+        editFirstLastNameReferencuaCupo.setText(referencias.getPersonalApellidoPaterno());
+        editSecoundLastNameReferenciaCupo.setText(referencias.getPersonalApellidoMaterno());
+        editPhoneReferenciaCupo.setText(referencias.getPersonalTelefono().replace("-", ""));
+        spRelationshipCupo.setSelection(referencias.getPersonalIdRelacion());
     }
 
     private void cargarDatos() {
@@ -396,11 +407,16 @@ public class CupoReferenciaPersonalFragment extends GenericFragment implements V
     public void onValidationSuccess() {
 
         if (reenviar) {
-            Log.e("Test", "Reenviar personal");
-
             Referencias sigletonReferencia = Referencias.getInstance();
 
-
+            sigletonReferencia.setPersonalNombre(nombre);
+            sigletonReferencia.setPersonalApellidoPaterno(primerApellido);
+            sigletonReferencia.setPersonalApellidoMaterno(segundoApellido);
+            sigletonReferencia.setPersonalTelefono(telefono);
+            sigletonReferencia.setPersonalRelacion(relacion);
+            sigletonReferencia.setPersonalIdRelacion(idRelacion);
+            sigletonReferencia.setPersonaActualizado(true);
+            cupoActivityManager.onBtnBackPress();
 
         } else {
             /*Guardamos datos en Singleton de registro.*/

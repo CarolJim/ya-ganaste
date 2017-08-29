@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.Referencias;
 import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.CupoSpinnerTypes;
@@ -164,19 +165,32 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
     @Override
     public void onResume() {
         String a = RegisterCupo.getInstance().getPersonalNombre();
-        if (!a.equals("")) {
+        if (reenviar  && !Referencias.getInstance().getFamiliarNombre().equals("") ) {
+            cargaDatosReenviar();
+        } else if (!a.equals("")  &&  !reenviar ) {
             cargarDatos();
         }
         super.onResume();
     }
 
+    // Metodo para cargar datos del singleton obtenido del servicio de consulta de estado de registro cupo para actualizar las referencias
+    private void cargaDatosReenviar() {
+        Referencias referencias = Referencias.getInstance();
+        editNameReferenciaCupo.setText(referencias.getFamiliarNombre());
+        editFirstLastNameReferencuaCupo.setText(referencias.getFamiliarApellidoPaterno());
+        editSecoundLastNameReferenciaCupo.setText(referencias.getFamiliarApellidoMaterno());
+        editPhoneReferenciaCupo.setText(referencias.getFamiliarTelefono().replace("-", ""));
+        spRelationshipCupo.setSelection(referencias.getFamiliarIdRelacion());
+        Log.e("Test", referencias.getFamiliarRelacion());
+    }
+
 
     private void cargarDatos() {
         RegisterCupo registerCupo = RegisterCupo.getInstance();
-        editNameReferenciaCupo.setText(registerCupo.getPersonalNombre());
-        editFirstLastNameReferencuaCupo.setText(registerCupo.getPersonalApellidoPaterno());
-        editSecoundLastNameReferenciaCupo.setText(registerCupo.getPersonalApellidoMaterno());
-        editPhoneReferenciaCupo.setText(registerCupo.getPersonalTelefono());
+        editNameReferenciaCupo.setText(registerCupo.getFamiliarNombre());
+        editFirstLastNameReferencuaCupo.setText(registerCupo.getFamiliarApellidoPaterno());
+        editSecoundLastNameReferenciaCupo.setText(registerCupo.getFamiliarApellidoMaterno());
+        editPhoneReferenciaCupo.setText(registerCupo.getFamiliarTelefono());
     }
 
 
@@ -404,6 +418,18 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
 
         if (reenviar) {
             Log.e("Test", "Entre a reenviar");
+
+            Referencias sigletonReferencia = Referencias.getInstance();
+
+            sigletonReferencia.setFamiliarNombre(nombre);
+            sigletonReferencia.setFamiliarApellidoPaterno(primerApellido);
+            sigletonReferencia.setFamiliarApellidoMaterno(segundoApellido);
+            sigletonReferencia.setFamiliarTelefono(telefono);
+            sigletonReferencia.setFamiliarRelacion(relacion);
+            sigletonReferencia.setFamiliarIdRelacion(idRelacion);
+            sigletonReferencia.setFamiliarActualizado(true);
+            cupoActivityManager.onBtnBackPress();
+
         } else {
             /*Guardamos datos en Singleton de registro.*/
             errorNameReferenciaCupo.setVisibilityImageError(false);

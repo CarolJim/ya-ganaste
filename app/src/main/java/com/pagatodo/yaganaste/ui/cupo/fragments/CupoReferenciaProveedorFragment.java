@@ -14,6 +14,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.Referencias;
 import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
@@ -104,11 +105,25 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
     @Override
     public void onResume() {
         String a = RegisterCupo.getInstance().getProveedorNombre();
-        if (!a.equals("")) {
+        if (reenviar  && !Referencias.getInstance().getFamiliarNombre().equals("") ) {
+            cargaDatosReenviar();
+        } else if (!a.equals("")  &&  !reenviar ) {
             cargarDatos();
         }
         super.onResume();
     }
+
+
+    // Metodo para cargar datos del singleton obtenido del servicio de consulta de estado de registro cupo para actualizar las referencias
+    private void cargaDatosReenviar() {
+        Referencias referencias = Referencias.getInstance();
+        editNameReferenciaCupo.setText(referencias.getProveedorNombre());
+        editFirstLastNameReferencuaCupo.setText(referencias.getProveedorApellidoPaterno());
+        editSecoundLastNameReferenciaCupo.setText(referencias.getProveedorApellidoMaterno());
+        editPhoneReferenciaCupoProveedor.setText(referencias.getProveedorTelefono().replace("-", ""));
+        editProductCupo.setText(referencias.getProveedorProductoServicio());
+    }
+
 
     @Nullable
     @Override

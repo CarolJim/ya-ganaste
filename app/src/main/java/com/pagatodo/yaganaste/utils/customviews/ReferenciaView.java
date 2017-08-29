@@ -9,6 +9,7 @@ import android.widget.RelativeLayout;
 import com.pagatodo.yaganaste.R;
 
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * Created by Tato on 28/08/17.
@@ -17,6 +18,7 @@ import butterknife.ButterKnife;
 public class ReferenciaView extends RelativeLayout {
 
     private ImageView imagenStatus;
+    private CircleImageView imgEstadoActual;
 
     public static final int ESTADO_REVISION  = 0;
     public static final int ESTADO_APROVADO  = 1;
@@ -43,12 +45,7 @@ public class ReferenciaView extends RelativeLayout {
         li.inflate(R.layout.referencia_view, this, true);
 
         imagenStatus = ButterKnife.findById(this, R.id.imgStatus);
-
-        /*
-        circleImageView = ButterKnife.findById(this, R.id.imgItemGalleryMark); // Icono total
-        circleImageStatus = ButterKnife.findById(this, R.id.imgItemGalleryStatus); // Icono Status
-        imgCamera = ButterKnife.findById(this, R.id.imgItemGalleryPay); // Icono central
-        */
+        imgEstadoActual = ButterKnife.findById(this, R.id.imgEstadoActual);
     }
 
 
@@ -64,7 +61,10 @@ public class ReferenciaView extends RelativeLayout {
                 imagenStatus.setBackgroundResource(R.drawable.ic_usuario_rojo);
                 break;
         }
-
     }
 
+    public void setCargaLista() {
+        imgEstadoActual.setVisibility(VISIBLE);
+        imgEstadoActual.setImageResource(R.drawable.ic_status_upload);
+    }
 }
