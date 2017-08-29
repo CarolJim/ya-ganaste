@@ -15,14 +15,19 @@ public class ValidateForm {
 
     private final static Pattern ptVisa = Pattern.compile("^4[0-9]{6,}$");
     private final static Pattern ptMasterCard = Pattern.compile("^5[1-5][0-9]{5,}$");
-    private final static Pattern ptAmeExp = Pattern.compile("^3[47][0-9]{5,}$");
+    private final static Pattern ptAmeExp = Pattern.compile("^3[37][0-9]{5,}$");
     private final static Pattern ptDinClb = Pattern.compile("^3(?:0[0-5]|[68][0-9])[0-9]{4,}$");
     private final static Pattern ptDiscover = Pattern.compile("^6(?:011|5[0-9]{2})[0-9]{3,}$");
     private final static Pattern ptJcb = Pattern.compile("^(?:2131|1800|35[0-9]{3})[0-9]{3,}$");
     private final static Pattern genericCreditCard = Pattern.compile("^[0-9]{16}$");
+    private final static Pattern americanExpress = Pattern.compile("^[0-9]{15}$");
     private final static Pattern cablePtrn = Pattern.compile("^[0-9]{18}$");
     private final static Pattern phonePattern = Pattern.compile("^[0-9]{8}|[0-9]{10}$");
     private final static Pattern cellPhonePattern = Pattern.compile("^[0-9]{10}$");
+
+    public static final int GENERIC = 1;
+    public static final int AMEX = 2;
+
     /**
      * ^           # Assert position at the beginning of the string.
      * [0-9]{5}    # Match a digit, exactly five times.
@@ -86,10 +91,12 @@ public class ValidateForm {
         return zipCodePattern.matcher(zipCode).matches();
     }
 
-    public static boolean isValidCreditCard(String card) {
-
-
-        return genericCreditCard.matcher(card).matches();
+    public static boolean isValidCreditCard(String card, int type) {
+        if (type == GENERIC) {
+            return genericCreditCard.matcher(card).matches();
+        } else {
+            return americanExpress.matcher(card).matches();
+        }
     }
 
     public static boolean isValidCABLE(String cable) {

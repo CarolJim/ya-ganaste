@@ -55,6 +55,8 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
+import static com.pagatodo.yaganaste.utils.ValidateForm.AMEX;
+import static com.pagatodo.yaganaste.utils.ValidateForm.GENERIC;
 
 /**
  * Created by Jordan on 12/04/2017.
@@ -250,11 +252,13 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
     public void onStartTrackingTouch(SeekBar seekBar) {
         referencia = cardNumber.getText().toString().trim();
         referencia = referencia.replaceAll(" ", "");
+
         concepto = concept.getText().toString().trim();
         nombreDestinatario = receiverName.getText().toString().trim();
         referenciaNumber = numberReference.getText().toString().trim();
 
         enviosPresenter.validateForms(selectedType, referencia,
+                maxLength == 19 ? GENERIC : AMEX,
                 amountToSend.getText().toString().trim(),
                 nombreDestinatario,
                 concepto,

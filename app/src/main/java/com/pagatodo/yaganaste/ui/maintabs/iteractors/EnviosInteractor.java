@@ -27,7 +27,7 @@ public class EnviosInteractor implements IEnviosInteractor {
     }
 
     @Override
-    public void validateForms(TransferType type, String number, String importe,
+    public void validateForms(TransferType type, String number, int typeCard, String importe,
                               String name, String concept, String reference) {
 
         if (type != null) {
@@ -55,7 +55,7 @@ public class EnviosInteractor implements IEnviosInteractor {
                     }
                     break;
                 case NUMERO_TARJETA:
-                    if (!ValidateForm.isValidCreditCard(number)) {
+                    if (!ValidateForm.isValidCreditCard(number, typeCard)) {
                         listener.onNumberErrorCreditCard();
                         return;
                     }
