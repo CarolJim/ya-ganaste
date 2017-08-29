@@ -75,7 +75,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     private String TAG = getClass().getSimpleName();
     private Preferencias pref;
     private LoginManagerContainerFragment loginContainerFragment;
-    private AccountPresenterNew presenterAccount;
+    private static AccountPresenterNew presenterAccount;
 
     private String action = "";
 
@@ -115,7 +115,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     }
 
     public AccountPresenterNew getPresenter() {
-
         return this.presenterAccount;
     }
 
