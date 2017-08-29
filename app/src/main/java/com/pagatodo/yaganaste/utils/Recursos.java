@@ -27,6 +27,9 @@ public class Recursos {
 
     public static final boolean DEBUG = false;
 
+    /*Freja*/
+    public static final String PT_CLIENT_CODE;
+
     //URL DE WS
     static {
         if (BuildConfig.DEBUG) {
@@ -41,6 +44,7 @@ public class Recursos {
             PIN_ADVO = "7efe5f94dd626075a09f49503b0403c2db388f7c";
             PIN_TRANS = "7efe5f94dd626075a09f49503b0403c2db388f7c";
             PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
+            PT_CLIENT_CODE = "775363";
 
         } else {
 
@@ -55,6 +59,7 @@ public class Recursos {
                 PIN_ADVO = "7efe5f94dd626075a09f49503b0403c2db388f7c";
                 PIN_TRANS = "7efe5f94dd626075a09f49503b0403c2db388f7c";
                 PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
+                PT_CLIENT_CODE = "775363";
             } else {
                 URL_SERVER_ADTVO = "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
                 URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
@@ -65,6 +70,7 @@ public class Recursos {
                 PIN_ADVO = "7efe5f94dd626075a09f49503b0403c2db388f7c";
                 PIN_TRANS = "7efe5f94dd626075a09f49503b0403c2db388f7c";
                 PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
+                PT_CLIENT_CODE = null;
             }
 
         }
@@ -223,8 +229,6 @@ public class Recursos {
     public static final String MESSAGE_OPEN_SESSION2 = "Por favor inicia sesión";
 
 
-    /*Freja*/
-    public static final String PT_CLIENT_CODE = "775363";
 
     /**
      * EstatusCuenta
