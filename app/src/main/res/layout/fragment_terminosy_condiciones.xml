@@ -112,7 +112,7 @@
                 android:layout_marginBottom="10dp"
                 android:orientation="horizontal"
                 android:paddingTop="10dp"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/styleTextView5"
@@ -136,7 +136,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/whiteColor"
-                android:visibility="visible" />
+                android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

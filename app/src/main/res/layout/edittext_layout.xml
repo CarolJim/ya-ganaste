@@ -10,7 +10,6 @@
         android:orientation="horizontal">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
-            android:id="@+id/editTextCustom"
             style="@style/GenericStyleEditText"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
