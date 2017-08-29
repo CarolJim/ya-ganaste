@@ -20,6 +20,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -73,7 +74,8 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
     private void init(Context context, AttributeSet attrs) {
         View.inflate(context, R.layout.edittext_layout, this);
         //ButterKnife.bind(context, this);
-        editText = (EditText) findViewById(R.id.editTextCustom);
+        editText = findRecursiveEditText(this);
+        editText.setId(getId());
         imageView = (AppCompatImageView) findViewById(R.id.imageViewValidation);
 
         //imageView.setBackgroundResource(R.drawable.validation_fail);
@@ -149,6 +151,21 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
         editText.setTypeface(customFont);
         editText.setOnLongClickListener(this);
         //editText.setFilters(new InputFilter[] { filter });
+    }
+
+    private StyleEdittext findRecursiveEditText(ViewGroup parent) {
+        int childCount = parent.getChildCount();
+        View child;
+        StyleEdittext found = null;
+        for (int n = 0 ; n < childCount ; n++) {
+            child = parent.getChildAt(n);
+            if (child instanceof ViewGroup) {
+                found =  findRecursiveEditText((ViewGroup) child);
+            } else if (child instanceof StyleEdittext) {
+                return (StyleEdittext) child;
+            }
+        }
+        return found;
     }
 
     /*private InputFilter filter = new InputFilter() {
