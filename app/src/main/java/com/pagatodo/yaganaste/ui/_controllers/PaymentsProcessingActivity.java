@@ -43,8 +43,7 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 
 public class PaymentsProcessingActivity extends LoaderActivity implements PaymentsProcessingManager, ISessionExpired {
 
-    public static final String NUMERO_TARJETA = "NUMERO_TARJETA";
-    public static final String YA_GANASTE = "Ya Ganaste";
+    public static final int IDCOMERCIO_YA_GANASTE = 8609;
     @BindView(R.id.container)
     FrameLayout container;
 
@@ -91,7 +90,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
                     if (data instanceof Envios){
                        // if (!nombreComercio.equals(YA_GANASTE)) {
                         int idComercio = ((Envios)data).getComercio().getIdComercio();
-                        if (!(idComercio == 8609)) {
+                        if (!(idComercio == IDCOMERCIO_YA_GANASTE)) {
                             mensajeLoader = getString(R.string.envio_interbancario, mensajeLoader);
                             showLoader(getString(R.string.procesando_envios_inter_loader));
                         }
