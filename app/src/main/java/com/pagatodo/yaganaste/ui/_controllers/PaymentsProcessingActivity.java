@@ -89,8 +89,9 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
                 try {
 
                     if (data instanceof Envios){
-                        String nombreComercio = ((Envios) data).getComercio().getNombreComercio();
-                        if (!nombreComercio.equals(YA_GANASTE)) {
+                       // if (!nombreComercio.equals(YA_GANASTE)) {
+                        int idComercio = ((Envios)data).getComercio().getIdComercio();
+                        if (!(idComercio == 8609)) {
                             mensajeLoader = getString(R.string.envio_interbancario, mensajeLoader);
                             showLoader(getString(R.string.procesando_envios_inter_loader));
                         }
