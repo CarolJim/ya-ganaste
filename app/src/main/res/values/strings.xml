@@ -635,6 +635,7 @@
     <string name="procesando_envios_loader">Realizando Envío</string>
     <string name="procesando_envios_inter_loader">Realizando Envío Interbancario</string>
     <string name="procesando_enviando_email_loader">Enviando Correo Electrónico</string>
+    <string name="envio_interbancario">%1$s Interbancario</string>
 
 
     <string name="favor_selecciona_importe">Por Favor Selecciona un Importe</string>

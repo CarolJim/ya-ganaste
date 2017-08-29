@@ -87,15 +87,15 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         switch (event) {
             case EVENT_SEND_PAYMENT:
                 try {
-                    // Cambiamos a Envio Interbancario solo si el nombre de comercio es diferente
-                    // de YA Ganaste
-                    String tipoEnvio = String.valueOf(((Envios) data).getTipoEnvio());
-                    String nombreComercio = ((Envios) data).getComercio().getNombreComercio();
-                    if (nombreComercio.equals(YA_GANASTE)) {
-                        showLoader(mensajeLoader);
-                    } else {
-                        showLoader(getString(R.string.procesando_envios_inter_loader));
+
+                    if (data instanceof Envios){
+                        String nombreComercio = ((Envios) data).getComercio().getNombreComercio();
+                        if (!nombreComercio.equals(YA_GANASTE)) {
+                            mensajeLoader = getString(R.string.envio_interbancario, mensajeLoader);
+                            showLoader(getString(R.string.procesando_envios_inter_loader));
+                        }
                     }
+                    showLoader(mensajeLoader);
                     presenter.sendPayment(tab, data);
                 } catch (OfflineException e) {
                     e.printStackTrace();
