@@ -140,7 +140,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         String[] fecha = dataMovimientoAdq.getFecha().split(" ");
         txtHoraDescripcion.setText(fecha[1] + " hrs");
 
-        txtAutorizacionDescripcion.setText(dataMovimientoAdq.getNoAutorizacion().trim().toString());
+        txtAutorizacionDescripcion.setText(dataMovimientoAdq.getNoAutorizacion().trim());
 
         if (dataMovimientoAdq.getEstatus().equals(EstatusMovimientoAdquirente.POR_REEMBOLSAR.getId())) {
             btnCancel.setVisibility(View.VISIBLE);
