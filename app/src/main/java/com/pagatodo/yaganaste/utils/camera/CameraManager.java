@@ -16,6 +16,8 @@ import android.support.v4.content.FileProvider;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.Window;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
@@ -81,6 +83,7 @@ public class CameraManager {
     private Drawable mDrawable = null;
     private Preferencias pref;
     private Boolean mExisteDocs = false;
+
     public CameraManager() {
     }
 
@@ -126,7 +129,11 @@ public class CameraManager {
                 mContext.getString(R.string.action_select_picture_cancel)};
         LayoutInflater inflater = mContext.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_camera, null);
+        LayoutInflater titleInflater = mContext.getLayoutInflater();
+        View dialogTittle = titleInflater.inflate(R.layout.tittle_dialog, null);
+
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
+        dialogBuilder.setCustomTitle(dialogTittle);
         dialogBuilder.setView(dialogView);
         dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
@@ -146,12 +153,13 @@ public class CameraManager {
             }
         });
         AlertDialog alertDialog = dialogBuilder.create();
-        alertDialog.setTitle("Seleccionar Fotografia");
-        LayoutInflater titleInflater = mContext.getLayoutInflater();
-        View dialogTittle = titleInflater.inflate(R.layout.tittle_dialog, null);
-        alertDialog.setCustomTitle(dialogTittle);
         alertDialog.setCancelable(false);
+        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         alertDialog.show();
+//        AlertDialog alertDialog = dialogBuilder.create();
+//        alertDialog.setTitle("Seleccionar Fotografia");
+//        alertDialog.setCancelable(false);
+//        alertDialog.show();
     }
 
     private void takeGallery(int document) {
