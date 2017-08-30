@@ -201,8 +201,11 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
         } else if (pago instanceof Servicios) {
             formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
         } else if (pago instanceof Envios) {
-            // Log.d("PaymentSuccessFragment", "Punto de Debug");
-            formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+            if (formatoPago.length() == 16 || formatoPago.length() == 15) {
+                formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4,4,4,4), '*', formatoPago.length() -12);
+            } else {
+                formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+            }
         }
 
 

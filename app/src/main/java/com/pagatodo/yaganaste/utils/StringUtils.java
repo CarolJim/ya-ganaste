@@ -256,6 +256,20 @@ public class StringUtils {
     }
 
 
+    public static String maskReference(String original, char markerChar, int leftVisible) {
+        int toMask = original.replace(" ", "").length() - leftVisible;
+        StringBuilder newFormat = new StringBuilder();
+        for (char current : original.toCharArray()) {
+            if (Character.isDigit(current) && toMask-- > 0) {
+                newFormat.append(markerChar);
+            } else {
+                newFormat.append(current);
+            }
+        }
+        return newFormat.toString();
+    }
+
+
     /**
      * Metodo que da formato generico en 4 4 4 4 4 4 4 de derecha a izquierda, ejemplo:
      * <p>
