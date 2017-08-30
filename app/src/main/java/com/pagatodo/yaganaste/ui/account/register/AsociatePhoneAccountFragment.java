@@ -153,11 +153,11 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
 
     public void finishAssociation() {
-        if (SingletonUser.getInstance().needsReset()) {
+        /*if (SingletonUser.getInstance().needsReset()) {
             accountPresenter.doReseting(preferencias.loadData(SHA_256_FREJA));
-        } else {
+        } else {*/
             nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
-        }
+        //}
     }
 
     @Override
