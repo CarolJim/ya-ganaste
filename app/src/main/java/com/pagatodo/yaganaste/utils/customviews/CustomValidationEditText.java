@@ -17,12 +17,14 @@ import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
 import android.util.Log;
+import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -49,9 +51,9 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
     boolean isSingleLine = false;
     boolean isTextEnabled = true;
     private int pinnedIcon;
-    private String blockCharacterSetEmail = "|°¬!\"\\#$%&/()=?¡¿'¨´+*{}[],;:€£+÷<>~`¥§µ";
-    private String blockCharacterName = "|°¬!\"#$%&/()='?¿¡'¨´+*{[}],;.:\\@€£U+÷x_-.<>~`¥§";
-
+    //private String blockCharacterSetEmail = "|°¬!\"\\#$%&/()=?¡¿'¨´+*{}[],;:€£+÷<>~`¥§µ";
+    private String blockCharacterSetEmail = "._%-+@";
+    private String blockCharacterName = " ";
     private OnClickListener externalListener;
 
     public CustomValidationEditText(Context context, @Nullable AttributeSet attrs) {
@@ -142,57 +144,61 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
 
             setSingleLine(isSingleLine);
             setIconPinned(pinnedIcon);
-
         }
 
         Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
         editText.setTypeface(customFont);
         editText.setOnLongClickListener(this);
-        //editText.setFilters(new InputFilter[] { filter });
+
+        // Hacemos SET del Filtro de caracteres de acuerdo al valor type de los Attrs.xml
+        if (type.equals("0")) {
+
+            /**
+             * Filtro para correo electronico
+             */
+            editText.setKeyListener(DigitsKeyListener.getInstance("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@.-_0123456789"));
+            editText.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        } else if (type.equals("4")) {
+            /**
+             * Filtro para Nombre o texto normal
+             */
+            editText.setKeyListener(DigitsKeyListener.getInstance("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "));
+            editText.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+        }
     }
 
-    /*private InputFilter filter = new InputFilter() {
+    private InputFilter filter = new InputFilter() {
+        public CharSequence filter(CharSequence source, int start, int end,
+                                   Spanned dest, int dstart, int dend) {
 
-        @Override
-        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
-            if(type.equals("0")){
-                if (source != null && blockCharacterSetEmail.contains(("" + source))) {
-                    return "";
-                }
-            }else if(type.equals("1")){
-                if (source != null && blockCharacterName.contains(("" + source))) {
-                    return "";
-                }
-            }
-            return null;
-        }
-    };*/
-
-/*    private InputFilter filter = new InputFilter() {
-
-        @Override
-        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
             if (type.equals("0")) {
                 if (!source.equals("")) {
-                    if (source != null && blockCharacterSetEmail.contains(
-                            ("" + source.subSequence(source.length() - 1, source.length())
-                            ))) {
-                        return source;
-                    } else {
-                        return source.subSequence(0, source.length() - 1);
+                    for (int i = start; i < end; i++) {
+                        if (!Character.isLetterOrDigit(source.charAt(i)) &&
+                                !blockCharacterSetEmail.contains(("" + source))) {
+                            return "";
+                        }
                     }
                 } else {
                     return "";
                 }
-            } else if (type.equals("1")) {
-                if (source != null && blockCharacterName.contains(("" + source))) {
+            } else if (type.equals("4")) {
+                if (!source.equals("")) {
+                    for (int i = start; i < end; i++) {
+                        if (!Character.isLetter(source.charAt(i)) &&
+                                !blockCharacterName.contains(("" + source))) {
+                            return "";
+                        }
+                    }
+                } else {
                     return "";
                 }
             }
+
+
             return null;
         }
-    };*/
-
+    };
 
     public void setHintText(String txt) {
         editText.setHint(txt);
@@ -427,13 +433,13 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
         editText.requestFocus();
     }
 
-    public void setEnabled(boolean isEnabled){
+    public void setEnabled(boolean isEnabled) {
         editText.setEnabled(isEnabled);
     }
 
     @Override
     public boolean onTouch(View v, MotionEvent event) {
-        if(event.getAction() == MotionEvent.ACTION_UP && externalListener != null) {
+        if (event.getAction() == MotionEvent.ACTION_UP && externalListener != null) {
             externalListener.onClick(v);
         }
         return false;
