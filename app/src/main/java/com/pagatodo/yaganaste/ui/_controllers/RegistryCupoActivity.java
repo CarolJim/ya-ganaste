@@ -135,12 +135,23 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
 
     private void initViews() {
         changeToolbarVisibility(false);
-        loadFragment(CupoInicioFragment.newInstance(), Direction.FORDWARD, false);
+        if (App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_DOCUMENTOS_ENVIADOS)) {
+            loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, false);
+        } else {
+            loadFragment(CupoInicioFragment.newInstance(), Direction.FORDWARD, false);
+        }
     }
 
     @Override
     public void onBackPressed() {
         Fragment currentFragment = getCurrentFragment();
+
+        /*
+        if (App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_DOCUMENTOS_ENVIADOS) && currentFragment instanceof   ) {
+
+        }
+        */
+
         if (!(currentFragment instanceof RegisterCompleteFragment) ) {
             super.onBackPressed();
         }
@@ -170,12 +181,12 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 break;
             case EVENT_GO_CUPO_CUENTAME_MAS:
                 if (App.getInstance().getPrefs().loadData(CUPO_PASO).equals("")) {
-                    //loadFragment(CupoCuentanosMasFragment.newInstance(), Direction.FORDWARD, true);
-                    loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, true);
+                    //loadFragment(CupoCuentanosMasFragment.newInstance(), Direction.FORDWARD, true); TODO Revisar el login y cambiar estas banderas
+                    loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, false);
                 } else if ( App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_REGISTRO_ENVIADO) ) {
                     loadFragment(CupoComprobantesFragment.newInstance(ESTADO_ENVIO_DOCUMENTOS), Direction.FORDWARD, true);
                 } else if ( App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_DOCUMENTOS_ENVIADOS) ) {
-                    loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, true);
+                    loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, false);
                 }
                 //loadFragment(CupoDomicilioPersonalFragment.newInstance(), Direction.FORDWARD, true);
                 break;
@@ -204,7 +215,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 loadFragment(CupoInicioFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CUPO_ESTATUS_REGISTRO:
-                loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, true);
+                loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_CUPO_REFERENCIA_FAMILIAR_REENVIAR:
                 loadFragment(CupoReferenciaFamiliarFragment.newInstance(true), Direction.FORDWARD, true);

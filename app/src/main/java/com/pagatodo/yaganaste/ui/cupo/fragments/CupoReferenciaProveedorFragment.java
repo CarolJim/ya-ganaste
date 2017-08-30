@@ -421,8 +421,14 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
     public void onValidationSuccess() {
 
         if (reenviar) {
-            Log.e("Test", "Reenviar proveedor");
-
+            Referencias sigletonReferencia = Referencias.getInstance();
+            sigletonReferencia.setProveedorNombre(nombre);
+            sigletonReferencia.setProveedorApellidoPaterno(primerApellido);
+            sigletonReferencia.setProveedorApellidoMaterno(segundoApellido);
+            sigletonReferencia.setProveedorTelefono(telefono);
+            sigletonReferencia.setProveedorProductoServicio(productoServicio);
+            sigletonReferencia.setProveedorActualizado(true);
+            cupoActivityManager.onBtnBackPress();
         } else {
             /*Guardamos datos en Singleton de registro.*/
             errorNameReferenciaCupo.setVisibilityImageError(false);

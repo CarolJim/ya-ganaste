@@ -26,4 +26,5 @@ public interface IViewDomicilioPersonalPresenter {
 
         void getEstadoSolicitudCupo();
 
+        void actualizarReferencias();
 }

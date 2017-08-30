@@ -86,6 +86,7 @@
     <string name="cupoObtenerSolicitudCupo">/ObtenerSolicitudCupo</string>
     <string name="cupoObtenerEstadoDeDocumentos">/ObtenerDocumentosCupo</string>
     <string name="cupoActualizaDocumentosCupo">/ActualizaDocumentosCupo</string>
+    <string name="cupoActualizaReferenciasCupo">/ActualizarReferenciaCupo</string>
 
     <!-- <string name="adqSendTicket">/agMov/sendTicket</string> -->
     <string name="adqSendTicket">/agMov/sendTicketADQ</string>
@@ -773,6 +774,7 @@
     <string name="actualiza_familiar">Actualiza Referencia Familiar</string>
     <string name="actualiza_personal">Actualiza Referencia Personal</string>
     <string name="actualiza_proveedor">Actualiza Referencia de Proveedor</string>
+    <string name="referencias_actualizadas">Referecias Actualizadas con Éxito</string>
 
 
 

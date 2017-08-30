@@ -417,7 +417,6 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
     public void onValidationSuccess() {
 
         if (reenviar) {
-            Log.e("Test", "Entre a reenviar");
 
             Referencias sigletonReferencia = Referencias.getInstance();
 

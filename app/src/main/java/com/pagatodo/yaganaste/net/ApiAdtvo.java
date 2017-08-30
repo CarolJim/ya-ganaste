@@ -4,6 +4,7 @@ import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionAprovSofttokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionServicioMovilRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
@@ -31,6 +32,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarDatosPe
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarFormatoContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.VerificarActivacionAprovSofttokenRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.cupo.ActualizarReferenciasCupoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.cupo.CrearCupoSolicitudRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActivacionServicioMovilResponse;
@@ -65,12 +67,17 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatu
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarFormatoContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionAprovSofttokenResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.VerificarActivacionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.ActualizaReferenciasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.CrearCupoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.ui.cupo.interactores.CupoInteractor;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
+import com.pagatodo.yaganaste.utils.JsonManager;
+
+import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -82,6 +89,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_AVAT
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZA_DOCUMENTOS_CUPO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZA_REFERENCIAS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.BLOQUEAR_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CAMBIAR_CONTRASENIA;
@@ -791,4 +799,17 @@ public class ApiAdtvo extends Api {
 
 
 
+    public static void actualizarReferenciasCupo(ActualizarReferenciasCupoRequest request , IRequestResult result) throws  OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
+        NetFacade.consumeWS(
+                ACTUALIZA_REFERENCIAS,
+                METHOD_POST,
+                URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/  + App.getContext().getString(R.string.cupoActualizaReferenciasCupo),
+                headers,
+                request,
+                ActualizaReferenciasResponse.class,
+                result);
+    }
 }

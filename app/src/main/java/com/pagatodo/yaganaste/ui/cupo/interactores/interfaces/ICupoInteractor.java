@@ -23,4 +23,6 @@ public interface ICupoInteractor {
     void createSolicitudCupo();
 
     void getEstadoSolicitudCupo();
+
+    void actualizarReferencias();
 }

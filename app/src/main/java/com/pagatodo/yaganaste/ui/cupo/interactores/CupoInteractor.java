@@ -6,6 +6,7 @@ import android.util.Log;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.model.Referencias;
 import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequest;
@@ -13,6 +14,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CargaDocumento
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ValidarEstatusUsuarioRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.cupo.ActualizarReferenciasCupoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.cupo.CrearCupoSolicitudRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.cupo.CupoReferencia;
 import com.pagatodo.yaganaste.data.model.webservice.request.cupo.Domicilio;
@@ -23,6 +25,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDo
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ValidarEstatusUsuarioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.cupo.ActualizaReferenciasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.CrearCupoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoDocumentos;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoSolicitud;
@@ -44,6 +47,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZA_DOCUMENTOS_CUPO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZA_REFERENCIAS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
@@ -140,6 +144,60 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
             ApiAdtvo.consultaStatusRegistroCupo(this);
         } catch (OfflineException e) {
             accountManager.onError(CONSULTA_STATUS_REGISTRO_CUPO, App.getInstance().getString(R.string.no_internet_access));
+        }
+    }
+
+    @Override
+    public void actualizarReferencias() {
+        ActualizarReferenciasCupoRequest request = new ActualizarReferenciasCupoRequest();
+
+        Referencias referencias = Referencias.getInstance();
+
+        List<CupoReferencia> lista = new ArrayList<>();
+
+        if (referencias.getFamiliarActualizado()) {
+            CupoReferencia referencia = new CupoReferencia();
+            referencia.setNombre(referencias.getFamiliarNombre());
+            referencia.setPrimerApellido(referencias.getFamiliarApellidoPaterno());
+            referencia.setSegundoApellido(referencias.getFamiliarApellidoMaterno());
+            referencia.setTelefono(referencias.getFamiliarTelefono().replace("-", ""));
+            referencia.setIdRelacion(referencias.getFamiliarIdRelacion());
+            referencia.setIdTipoReferencia(1);
+
+            lista.add(referencia);
+        }
+
+
+        if (referencias.getPersonaActualizado()) {
+            CupoReferencia referencia = new CupoReferencia();
+            referencia.setNombre(referencias.getPersonalNombre());
+            referencia.setPrimerApellido(referencias.getPersonalApellidoPaterno());
+            referencia.setSegundoApellido(referencias.getPersonalApellidoMaterno());
+            referencia.setTelefono(referencias.getPersonalTelefono().replace("-", ""));
+            referencia.setIdRelacion(referencias.getPersonalIdRelacion());
+            referencia.setIdTipoReferencia(2);
+            lista.add(referencia);
+        }
+
+
+        if (referencias.getProveedorActualizado()) {
+            CupoReferencia referencia = new CupoReferencia();
+            referencia.setNombre(referencias.getProveedorNombre());
+            referencia.setPrimerApellido(referencias.getProveedorApellidoPaterno());
+            referencia.setSegundoApellido(referencias.getProveedorApellidoMaterno());
+            referencia.setTelefono(referencias.getProveedorTelefono().replace("-", ""));
+            referencia.setIdRelacion(VALOR_DEFAULT_ID_RELACION_PROVEEDOR);
+            referencia.setProductoServicioProveedor(referencias.getProveedorProductoServicio());
+            referencia.setIdTipoReferencia(3);
+            lista.add(referencia);
+        }
+
+        request.setListaReferencias(lista);
+
+        try {
+            ApiAdtvo.actualizarReferenciasCupo(request, this);
+        } catch (OfflineException e) {
+            accountManager.onError(ACTUALIZA_REFERENCIAS, App.getInstance().getString(R.string.no_internet_access));
         }
     }
 
@@ -257,8 +315,21 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
                     break;
                 case ACTUALIZA_DOCUMENTOS_CUPO:
                     processActualizaDocumentos(dataSourceResult);
+                case ACTUALIZA_REFERENCIAS:
+                    processActualizaReferencias(dataSourceResult);
                     break;
             }
+        }
+    }
+
+    private void processActualizaReferencias(DataSourceResult response) {
+        ActualizaReferenciasResponse data = (ActualizaReferenciasResponse) response.getData();
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            accountManager.onSucces(ACTUALIZA_REFERENCIAS, "Se Actualizaron las Referencias");
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            iNavigationView.errorSessionExpired(response);
+        } else {
+            accountManager.onError(ACTUALIZA_REFERENCIAS, data.getMensaje());
         }
     }
 
@@ -323,7 +394,7 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
         }
     }
 
-    // TODO: Probar
+
     private void processSendDocumentsCupo(DataSourceResult response) {
         CargaDocumentosResponse data = (CargaDocumentosResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
@@ -414,9 +485,6 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
         }
 
     }
-
-
-
 
 
 

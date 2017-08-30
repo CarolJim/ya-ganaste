@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;
 import com.pagatodo.yaganaste.ui.cupo.interactores.CupoInteractor;
 import com.pagatodo.yaganaste.ui.cupo.interactores.interfaces.ICupoInteractor;
 import com.pagatodo.yaganaste.ui.cupo.presenters.interfaces.IViewDomicilioPersonalPresenter;
+import com.pagatodo.yaganaste.ui.cupo.presenters.interfaces.IViewReenviarReferencias;
 import com.pagatodo.yaganaste.ui.cupo.view.IViewCupoComprobantes;
 import com.pagatodo.yaganaste.ui.cupo.view.IViewDomicilioPersonal;
 import com.pagatodo.yaganaste.ui.cupo.view.IViewStatusRegisterCupo;
@@ -30,6 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZA_DOCUMENTOS_CUPO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZA_REFERENCIAS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREA_SOLICITUD_CUPO;
@@ -62,7 +64,6 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
 
     @Override
     public void getNeighborhoods(String zipCode) {
-        Log.d(TAG, "getNeighborhoods zip code: " + zipCode);
         iNavigationView.showLoader(context.getString(R.string.obteniendo_colonias));
         iteractor.getNeighborhoodByZipCode(zipCode);
     }
@@ -84,6 +85,8 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
             ((IViewCupoComprobantes) iNavigationView).setResponseEstadoDocumentos((List<DataEstadoDocumentos>) msgSuccess );
         } else if (ws == ACTUALIZA_DOCUMENTOS_CUPO) {
             ((IViewCupoComprobantes) iNavigationView).setResponseActualizaDocumentos();
+        } else if (ws == ACTUALIZA_REFERENCIAS) {
+            ((IViewReenviarReferencias) iNavigationView).setResponseActualizarReferencias();
         }
     }
 
@@ -153,6 +156,12 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
     public void getEstadoSolicitudCupo() {
         iNavigationView.showLoader(context.getString(R.string.obteniendo_domicilio));
         iteractor.getEstadoSolicitudCupo();
+    }
+
+    @Override
+    public void actualizarReferencias() {
+        iNavigationView.showLoader(App.getContext().getResources().getString(R.string.adq_upload_documents));
+        iteractor.actualizarReferencias();
     }
 
 

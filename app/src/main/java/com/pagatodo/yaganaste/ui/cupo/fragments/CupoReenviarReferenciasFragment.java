@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Referencias;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoSolicitud;
@@ -18,6 +19,8 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.cupo.managers.CupoActivityManager;
+import com.pagatodo.yaganaste.ui.cupo.presenters.CupoDomicilioPersonalPresenter;
+import com.pagatodo.yaganaste.ui.cupo.presenters.interfaces.IViewReenviarReferencias;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ReferenciaView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -27,6 +30,11 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.CUPO_PASO;
+import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.CUPO_PASO_DOCUMENTOS_ENVIADOS;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.customviews.ReferenciaView.ESTADO_APROVADO;
 import static com.pagatodo.yaganaste.utils.customviews.ReferenciaView.ESTADO_RECHAZADO;
 import static com.pagatodo.yaganaste.utils.customviews.ReferenciaView.ESTADO_REVISION;
@@ -34,10 +42,11 @@ import static com.pagatodo.yaganaste.utils.customviews.ReferenciaView.ESTADO_REV
 /**
  * A simple {@link Fragment} subclass.
  */
-public class CupoReenviarReferenciasFragment extends GenericFragment implements View.OnClickListener {
+public class CupoReenviarReferenciasFragment extends GenericFragment implements View.OnClickListener , IViewReenviarReferencias {
 
     public static final String referencias = "referencias";
     private DataEstadoSolicitud dataEstadoSolicitud;
+    private CupoDomicilioPersonalPresenter presenter;
 
     protected View rootview;
     @BindView(R.id.familiarStatus)
@@ -70,6 +79,7 @@ public class CupoReenviarReferenciasFragment extends GenericFragment implements 
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         cupoActivityManager = ((RegistryCupoActivity) getActivity()).getCupoActivityManager();
+        presenter = new CupoDomicilioPersonalPresenter(this, getContext());
     }
 
     @Override
@@ -101,73 +111,83 @@ public class CupoReenviarReferenciasFragment extends GenericFragment implements 
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnActualizarReferencias.setOnClickListener(this);
-        referecias = dataEstadoSolicitud.getReferencias();
-        for (RefereciasResponse referencia : referecias) {
-            int tipoReferenica = referencia.getIdTipoReferencia();
-            int idEstatusReferencia = referencia.getIdEstatusReferencia();
-            int estadoActual = 0;
-            switch (idEstatusReferencia) {
-                case 1:
-                    estadoActual = ESTADO_APROVADO;
-                    break;
-                case 3:
-                case 4:
-                case 5:
-                case 6:
-                case 7:
-                    estadoActual = ESTADO_RECHAZADO;
-                    break;
-                case 8:
-                    estadoActual = ESTADO_REVISION;
-                    break;
+            referecias = dataEstadoSolicitud.getReferencias();
+            for (RefereciasResponse referencia : referecias) {
+                int tipoReferenica = referencia.getIdTipoReferencia();
+                int idEstatusReferencia = referencia.getIdEstatusReferencia();
+                int estadoActual = 0;
+                switch (idEstatusReferencia) {
+                    case 1:
+                        estadoActual = ESTADO_APROVADO;
+                        break;
+                    case 3:
+                    case 4:
+                    case 5:
+                    case 6:
+                    case 7:
+                        estadoActual = ESTADO_RECHAZADO;
+                        break;
+                    case 8:
+                        estadoActual = ESTADO_REVISION;
+                        break;
+                }
+
+                Referencias sigletonReferencias = Referencias.getInstance();
+                switch (tipoReferenica) {
+                    case 1: // Familiar
+                        familiarStatus.setStatus(estadoActual);
+                        if (estadoActual == ESTADO_RECHAZADO) {
+                            familiarStatus.setOnClickListener(this);
+                            if (!sigletonReferencias.getFamiliarActualizado()) {
+                                sigletonReferencias.setFamiliarNombre(referencia.getNombre());
+                                sigletonReferencias.setFamiliarApellidoPaterno(referencia.getPrimerApellido());
+                                sigletonReferencias.setFamiliarApellidoMaterno(referencia.getSegundoApellido());
+                                sigletonReferencias.setFamiliarTelefono(referencia.getTelefono());
+                                sigletonReferencias.setFamiliarIdRelacion(referencia.getIdRelacion());
+                            }
+                            actualizarFamiliar = true;
+                        } else {
+                            familiarStatus.setOnClickListener(null);
+                        }
+                        break;
+                    case 2: // Personal
+                        personalStatus.setStatus(estadoActual);
+                        if (estadoActual == ESTADO_RECHAZADO) {
+                            personalStatus.setOnClickListener(this);
+                            if (!sigletonReferencias.getPersonaActualizado()) {
+                                sigletonReferencias.setPersonalNombre(referencia.getNombre());
+                                sigletonReferencias.setPersonalApellidoPaterno(referencia.getPrimerApellido());
+                                sigletonReferencias.setPersonalApellidoMaterno(referencia.getSegundoApellido());
+                                sigletonReferencias.setPersonalTelefono(referencia.getTelefono());
+                                sigletonReferencias.setPersonalIdRelacion(referencia.getIdRelacion());
+                            }
+
+                            actualizarPersonal = true;
+                        } else {
+                            personalStatus.setOnClickListener(null);
+                        }
+                        break;
+                    case 3: // Proveedor
+                        prooveedorStatus.setStatus(estadoActual);
+                        if (estadoActual == ESTADO_RECHAZADO) {
+                            prooveedorStatus.setOnClickListener(this);
+                            if (!sigletonReferencias.getProveedorActualizado()) {
+                                sigletonReferencias.setProveedorNombre(referencia.getNombre());
+                                sigletonReferencias.setProveedorApellidoPaterno(referencia.getPrimerApellido());
+                                sigletonReferencias.setProveedorApellidoMaterno(referencia.getSegundoApellido());
+                                sigletonReferencias.setProveedorTelefono(referencia.getTelefono());
+                                sigletonReferencias.setProveedorProductoServicio(referencia.getProductoServicioProveedor());
+                            }
+                            actualizarProveedor = true;
+                        } else {
+                            prooveedorStatus.setOnClickListener(null);
+                        }
+                        break;
+                }
             }
 
-            Referencias sigletonReferencias = Referencias.getInstance();
-            switch (tipoReferenica) {
-                case 1: // Familiar
-                    familiarStatus.setStatus(estadoActual);
-                    if (estadoActual == ESTADO_RECHAZADO) {
-                        familiarStatus.setOnClickListener(this);
-                        sigletonReferencias.setFamiliarNombre(referencia.getNombre());
-                        sigletonReferencias.setFamiliarApellidoPaterno(referencia.getPrimerApellido());
-                        sigletonReferencias.setFamiliarApellidoMaterno(referencia.getSegundoApellido());
-                        sigletonReferencias.setFamiliarTelefono(referencia.getTelefono());
-                        sigletonReferencias.setFamiliarIdRelacion(referencia.getIdRelacion());
-                        actualizarFamiliar = true;
-                    } else {
-                        familiarStatus.setOnClickListener(null);
-                    }
-                    break;
-                case 2: // Personal
-                    personalStatus.setStatus(estadoActual);
-                    if (estadoActual == ESTADO_RECHAZADO) {
-                        personalStatus.setOnClickListener(this);
-                        sigletonReferencias.setPersonalNombre(referencia.getNombre());
-                        sigletonReferencias.setPersonalApellidoPaterno(referencia.getPrimerApellido());
-                        sigletonReferencias.setPersonalApellidoMaterno(referencia.getSegundoApellido());
-                        sigletonReferencias.setPersonalTelefono(referencia.getTelefono());
-                        sigletonReferencias.setPersonalIdRelacion(referencia.getIdRelacion());
-                        actualizarPersonal = true;
-                    } else {
-                        personalStatus.setOnClickListener(null);
-                    }
-                    break;
-                case 3: // Proveedor
-                    prooveedorStatus.setStatus(estadoActual);
-                    if (estadoActual == ESTADO_RECHAZADO) {
-                        prooveedorStatus.setOnClickListener(this);
-                        sigletonReferencias.setProveedorNombre(referencia.getNombre());
-                        sigletonReferencias.setProveedorApellidoPaterno(referencia.getPrimerApellido());
-                        sigletonReferencias.setProveedorApellidoMaterno(referencia.getSegundoApellido());
-                        sigletonReferencias.setProveedorTelefono(referencia.getTelefono());
-                        sigletonReferencias.setProveedorProductoServicio(referencia.getProductoServicioProveedor());
-                        actualizarProveedor = true;
-                    } else {
-                        prooveedorStatus.setOnClickListener(null);
-                    }
-                    break;
-            }
-        }
+
+
 
     }
 
@@ -185,23 +205,18 @@ public class CupoReenviarReferenciasFragment extends GenericFragment implements 
                 cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REFERENCIA_PROVEEDOR_REENVIAR, null);
                 break;
             case R.id.btnActualizarReferencias:
-                Log.e("Test", "Click en next");
-
                 Referencias referencias = Referencias.getInstance();
-
                 if (actualizarFamiliar && !referencias.getFamiliarActualizado()) {
                     creaMensajeError(getString(R.string.actualiza_familiar));
                     return;
                 } else if (actualizarPersonal && !referencias.getPersonaActualizado()) {
-
                     creaMensajeError(getString(R.string.actualiza_personal));
                     return;
                 } else if (actualizarProveedor && !referencias.getProveedorActualizado()) {
-
                     creaMensajeError(getString(R.string.actualiza_proveedor));
                     return;
                 } else {
-                    Log.e("Test", "Cargar los datos");
+                    presenter.actualizarReferencias();
                 }
 
                 break;
@@ -215,6 +230,51 @@ public class CupoReenviarReferenciasFragment extends GenericFragment implements 
                     @Override
                     public void actionConfirm(Object... params) {
 
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
+    }
+
+    @Override
+    public void nextScreen(String event, Object data) {
+
+    }
+
+
+
+    @Override
+    public void backScreen(String event, Object data) {
+        Log.e("Test", "Pagina Atras");
+    }
+
+    @Override
+    public void showLoader(String message) {
+        onEventListener.onEvent(EVENT_SHOW_LOADER, message);
+    }
+
+    @Override
+    public void hideLoader() {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, null);
+    }
+
+    @Override
+    public void showError(Object error) {
+        onEventListener.onEvent(EVENT_SHOW_ERROR, error);
+    }
+
+    @Override
+    public void setResponseActualizarReferencias() {
+        UI.createSimpleCustomDialog("", "Referecias Actualizadas con Éxito", getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        App.getInstance().getPrefs().saveData( CUPO_PASO , CUPO_PASO_DOCUMENTOS_ENVIADOS);
+                        cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_CUENTAME_MAS, null);
                     }
 
                     @Override

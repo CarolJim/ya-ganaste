@@ -233,6 +233,8 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
         }
     }
 
+
+
     @Override
     public void nextScreen(String event, Object data) {
 
@@ -268,6 +270,11 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
                     cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REENVIAR_COMPROBANTES, null);
                     break;
                 case ESTADO_RENEENVIA_REFERENCIAS:
+                    Referencias sigletonReferencia = Referencias.getInstance();
+                    // Se limpia primero las referncias por si fueron rechazadas y actaulzadas mas de una ves.
+                    sigletonReferencia.setFamiliarActualizado(false);
+                    sigletonReferencia.setPersonaActualizado(false);
+                    sigletonReferencia.setProveedorActualizado(false);
                     cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REENVIAR_REFERENCIAS, respuesta);
                 break;
             }
