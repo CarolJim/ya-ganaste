@@ -129,12 +129,15 @@ public class CameraManager {
                 mContext.getString(R.string.action_select_picture_cancel)};
         LayoutInflater inflater = mContext.getLayoutInflater();
         View dialogView = inflater.inflate(R.layout.dialog_camera, null);
+
         LayoutInflater titleInflater = mContext.getLayoutInflater();
         View dialogTittle = titleInflater.inflate(R.layout.tittle_dialog, null);
+        dialogTittle.setLayoutParams(new LinearLayout.LayoutParams(
+                LinearLayout.LayoutParams.WRAP_CONTENT,
+                LinearLayout.LayoutParams.WRAP_CONTENT));
 
         AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(mContext);
         dialogBuilder.setCustomTitle(dialogTittle);
-        dialogBuilder.setView(dialogView);
         dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int item) {
