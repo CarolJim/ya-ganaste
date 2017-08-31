@@ -18,7 +18,7 @@ public class DatosCuentaResponse implements Serializable {
     private int IdCuenta;
     private String Marca = "";
     private String Modelo = "";
-    private int Saldo;
+    private Double Saldo;
     private String SistemaOperativo = "";
     private String Tarjeta = "";
     private String Telefono = "";
@@ -89,11 +89,11 @@ public class DatosCuentaResponse implements Serializable {
         Modelo = modelo;
     }
 
-    public int getSaldo() {
+    public Double getSaldo() {
         return Saldo;
     }
 
-    public void setSaldo(int saldo) {
+    public void setSaldo(Double saldo) {
         Saldo = saldo;
     }
 

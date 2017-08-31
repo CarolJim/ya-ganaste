@@ -39,6 +39,7 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.EVENT_SEND_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * Created by Jordan on 02/05/2017.
@@ -106,16 +107,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_payment_success, container, false);
@@ -143,15 +134,16 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
         importe.setText(StringUtils.getCurrencyValue(envio.getMonto()));
         String ref = envio.getReferencia();
+
         switch (envio.getTipoEnvio()) {
             case CLABE:
-                txtReferencia.setText(ref);
+                txtReferencia.setText(StringUtils.format(ref, SPACE, 3,3,4,4,4));
                 break;
             case NUMERO_TARJETA:
-                txtReferencia.setText("**** **** **** " + ref.substring(12, ref.length()));
+                txtReferencia.setText(StringUtils.maskReference(StringUtils.format(ref, SPACE, 4,4,4,4), '*', ref.length() - 12));
                 break;
             case NUMERO_TELEFONO:
-                txtReferencia.setText(ref);
+                txtReferencia.setText(StringUtils.format(ref, SPACE, 2,4,4));
                 break;
             default:
                 break;

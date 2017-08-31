@@ -51,11 +51,13 @@ public class NumberCardTextWatcher implements TextWatcher {
     public void afterTextChanged(Editable s) {
         cardNumber.removeTextChangedListener(this);
         String newS;
-        if (maxLength == 19) {//Formato 4 4 4 4
+        newS = StringUtils.format(s.toString().replace(" ",""), SPACE, 4,4,4,4);
+        /*if (maxLength == 19) {//Formato 4 4 4 4
             newS = StringUtils.format(s.toString().replace(" ",""), SPACE, 4,4,4,4);
         } else { //Formato Amex: 4 6 5
-            newS = StringUtils.format(s.toString().replace(" ",""), SPACE, 4,6,5);
-        }
+            //newS = StringUtils.format(s.toString().replace(" ",""), SPACE, 4,6,5);
+            newS = StringUtils.format(s.toString().replace(" ",""), SPACE, 4,4,4,3);
+        }*/
         cardNumber.setText(newS);
         cardNumber.setSelection(newS.length());
         cardNumber.addTextChangedListener(this);

@@ -162,11 +162,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     @Override
     public void finishAssociation() {
-        if (SingletonUser.getInstance().needsReset()) {
+        /*if (SingletonUser.getInstance().needsReset()) {
             resetPinPresenter.doReseting(pref.loadData(SHA_256_FREJA));
-        } else {
+        } else {*/
             hideLoader();
-        }
+        //}
 
     }
 
@@ -179,6 +179,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     public void onResetingFailed() {
         hideLoader();
+        tabPresenter.doProvisioning();
     }
 
     @Override

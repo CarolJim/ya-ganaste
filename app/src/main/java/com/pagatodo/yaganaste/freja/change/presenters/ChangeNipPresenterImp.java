@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.freja.change.presenters;
 
+import android.os.Handler;
 import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
@@ -49,7 +50,7 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
     }
 
     //Debe recibir los nips en sha256
-    public void doChangeNip(String oldOne, String newOne){
+    public void doChangeNip(String oldOne, String newOne) {
         App.getInstance().getPrefs().saveData(SHA_256_FREJA, newOne);
         reset();
         mIChangeNipView.showLoader("");
@@ -80,12 +81,12 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
      */
     @Override
     public void setChangePinPolicy(int min, int max) {
-        Log.e(TAG, "Change NIP");
         individualReintent = 0;
         callChangeNip(min, max);
     }
 
-    public void callChangeNip(int min, int max){
+    public void callChangeNip(int min, int max) {
+        Log.e(TAG, "Change NIP");
         individualReintent++;
         this.currentMethod = new Object(){}.getClass().getEnclosingMethod();
         this.currentMethodParams = new Object[]{min, max};
@@ -105,7 +106,7 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
     @Override
     public void onError(final Errors error) {
         Log.e(TAG, "onError: " + error.getMessage() + "\n Code: " + String.valueOf(error.getErrorCode()));
-        mIChangeNipView.hideLoader();
+
         if (individualReintent < 3 && error.allowsReintent()) { //Si el reintento individual aun no excede el maximo
             handleError(error);
             return;
@@ -120,6 +121,7 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
             handleError(error);
             return;
         }
+        mIChangeNipView.hideLoader();
         mIChangeNipView.onFrejaNipFailed();
     }
 
@@ -128,11 +130,17 @@ public class ChangeNipPresenterImp extends ChangePinPresenterAbs {
         //e implementar el resto del codigo
 
         currentMethod.setAccessible(true);
-        try {
-            currentMethod.invoke(ChangeNipPresenterImp.this, currentMethodParams);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+
+            new Handler().postDelayed(new Runnable() {
+                @Override
+                public void run() {
+                    try {
+                        currentMethod.invoke(ChangeNipPresenterImp.this, currentMethodParams);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+            }, 6000);
 
 
         /*DialogDoubleActions actions = new DialogDoubleActions() {
