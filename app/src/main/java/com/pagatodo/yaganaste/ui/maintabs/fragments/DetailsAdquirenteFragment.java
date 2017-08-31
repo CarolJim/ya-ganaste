@@ -28,6 +28,9 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
+
+import static android.view.View.GONE;
 
 /**
  * @author Juan Guerra on 12/04/2017.
@@ -82,6 +85,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     Button btnVolver;
     private View rootView;
     private DataMovimientoAdq dataMovimientoAdq;
+    CircleImageView imageView;
 
     public static DetailsAdquirenteFragment newInstance(@NonNull DataMovimientoAdq dataMovimientoAdq) {
         DetailsAdquirenteFragment fragment = new DetailsAdquirenteFragment();
@@ -95,6 +99,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
+        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         if (args != null) {
             dataMovimientoAdq = (DataMovimientoAdq) args.getSerializable(DetailsActivity.DATA);
         } else {
@@ -107,18 +112,28 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_detail_movements_adquirente, container, false);
     }
-
+    public void setVisibilityPrefer(Boolean mBoolean){
+        if(mBoolean){
+            imageView.setVisibility(View.VISIBLE);
+        }else{
+            imageView.setVisibility(View.GONE);
+        }
+    }
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
         initViews();
+    }
+    @Override
+    public void onResume() {
+        super.onResume();
+        setVisibilityPrefer(false);
     }
 
 
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-
         int color = EstatusMovimientoAdquirente.getEstatusById(dataMovimientoAdq.getEstatus()).getColor();
         layoutMovementTypeColor.setBackgroundColor(ContextCompat.getColor(getContext(), color));
 

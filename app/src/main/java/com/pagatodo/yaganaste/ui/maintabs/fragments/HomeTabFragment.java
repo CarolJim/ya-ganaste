@@ -23,6 +23,8 @@ import com.pagatodo.yaganaste.utils.customviews.yaganasteviews.TabLayoutEmAd;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 
 /**
  * @author Juan Guerra on 10/11/2016.
@@ -36,7 +38,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     private HomeFragmentPresenter homeFragmentPresenter;
     private TabLayoutEmAd tabLayoutEmAd;
     private GenericPagerAdapter pagerAdapter;
-
+    CircleImageView imageView;
     public static HomeTabFragment newInstance() {
         HomeTabFragment homeTabFragment = new HomeTabFragment();
         Bundle args = new Bundle();
@@ -47,6 +49,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         this.homeFragmentPresenter = new HomeFragmentPresenter(this);
     }
 
@@ -77,6 +80,9 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         pagerAdquirente.setIsSwipeable(SingletonUser.getInstance().getDataUser().isEsAgente() &&
                 SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == Recursos.CRM_DOCTO_APROBADO);
     }
+
+
+
 
     @Override
     public void onInviteAdquirente() {

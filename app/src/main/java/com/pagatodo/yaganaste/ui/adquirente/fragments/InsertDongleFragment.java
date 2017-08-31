@@ -302,14 +302,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         getActivity().registerReceiver(headPhonesReceiver, filter);
         handlerSwipe = new Handler();
-
         App.getInstance().initEMVListener();// Inicializamos el listener
-
         adqPresenter = new AdqPresenter(this);
         adqPresenter.setIView(this);
-
         //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
     }
 
     @Override

@@ -8,9 +8,11 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.LocationManager;
+import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -32,6 +34,7 @@ import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 
@@ -52,10 +55,12 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     @BindView(R.id.btnDepositar)
     Button btnDepositar;
     private View rootView;
-
+    String mensaje;
+    ImageView imageshae;
     boolean onlineGPS;
     boolean isBackAvailable = false;
-
+    CircleImageView imageView;
+    int a;
     public static DepositsDataFragment newInstance() {
         DepositsDataFragment depositsDataFragment = new DepositsDataFragment();
         Bundle args = new Bundle();
@@ -67,6 +72,9 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         depositsManager = ((DepositsFragment) getParentFragment()).getDepositManager();
+        imageshae=(ImageView) getActivity().findViewById(R.id.deposito_Share);
+        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+
     }
 
     @Nullable
@@ -76,11 +84,6 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         return inflater.inflate(R.layout.fragment_deposito_datos, container, false);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        getStatusGPS();
-    }
 
     private void getStatusGPS() {
         final LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
@@ -107,12 +110,17 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             txtNumberCard.setText(cardNumber);
         }
         printCard(cardNumber);
+        mensaje="Titular: "+(usuario.getNombre() + " " + usuario.getPrimerApellido() + " " + usuario.getSegundoApellido())+"\n"+"No de Tarjeta: "+cardNumber+"\n"+"CLABE: "+ StringUtils.formatoPagoMedios(
+                cuenta.getCLABE()
+        );
+
     }
 
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
         btnDepositar.setOnClickListener(this);
+        imageshae.setOnClickListener(this);
 
     }
 
@@ -126,6 +134,24 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             } else {
                 showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
             }
+        }
+        if (v.getId() == R.id.deposito_Share) {
+            a=100;
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+
+            intent.putExtra(Intent.EXTRA_TEXT,mensaje);
+            startActivity(Intent.createChooser(intent, "Compartir con.."));
+        }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Log.e("Tetst","Entre on resumen ");
+        if (a==100) {
+            imageView.setVisibility(View.GONE);
+            a=0;
         }
     }
 

@@ -27,6 +27,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -123,6 +124,9 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     Button btnVolver;
     private View rootView;
     private MovimientosResponse movimientosResponse;
+    CircleImageView imageView;
+
+
 
 
     public static DetailsEmisorFragment newInstance(@NonNull MovimientosResponse movimientosResponse) {
@@ -137,6 +141,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
+        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         if (args != null) {
             movimientosResponse = (MovimientosResponse) args.getSerializable(DetailsActivity.DATA);
         } else {
@@ -144,10 +149,23 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         }
 
     }
+    public void setVisibilityPrefer(Boolean mBoolean){
+        if(mBoolean){
+            imageView.setVisibility(View.VISIBLE);
+        }else{
+            imageView.setVisibility(View.GONE);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_detail_movements_emisor, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setVisibilityPrefer(false);
     }
 
     @Override
@@ -163,7 +181,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         ButterKnife.bind(this, rootView);
         initFieldsViews();
         //layoutRecibo.setVisibility(View.GONE);
-
         String[] date = movimientosResponse.getFechaMovimiento().split(" ");
         ItemMovements item = new ItemMovements<>(movimientosResponse.getDescripcion(), movimientosResponse.getDetalle(),
                 movimientosResponse.getTotal(), date[0], date[1],
@@ -204,6 +221,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
 
 
     private void initFieldsViews() {
+
         layoutFechaDescripcion.setVisibility(VISIBLE);
         txtFechaDescripcion.setText(movimientosResponse.getFechaMovimiento());
         layoutHora.setVisibility(VISIBLE);
@@ -308,6 +326,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
             default:
                 break;
         }
+
     }
 
     private String getReferencuaTitleType(String ref) {
