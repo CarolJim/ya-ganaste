@@ -25,7 +25,7 @@ public class DataEstadoSolicitud  implements Serializable{
     private int IdEstadoCivil;
     private int IdEstatusPaso;
     private int IdPaso;
-    private int LineaCredito;
+    private Float LineaCredito;
     private String NumeroCliente;
     private int NumeroHijos;
     private String Paso;
@@ -115,11 +115,11 @@ public class DataEstadoSolicitud  implements Serializable{
         IdPaso = idPaso;
     }
 
-    public int getLineaCredito() {
+    public Float getLineaCredito() {
         return LineaCredito;
     }
 
-    public void setLineaCredito(int lineaCredito) {
+    public void setLineaCredito(Float lineaCredito) {
         LineaCredito = lineaCredito;
     }
 

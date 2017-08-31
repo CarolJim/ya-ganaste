@@ -23,7 +23,7 @@ android:layout_height="match_parent">
     android:layout_height="wrap_content" />
 <RelativeLayout
     android:id="@+id/content_progress"
-    android:layout_marginTop="100dp"
+    android:layout_marginTop="80dp"
     android:layout_alignParentTop="true"
     android:layout_centerHorizontal="true"
     android:layout_width="wrap_content"
@@ -32,8 +32,8 @@ android:layout_height="match_parent">
     <com.pagatodo.yaganaste.utils.customviews.StatusViewCupo
         xmlns:custom="http://schemas.android.com/apk/res/com.pagatodo.yaganaste"
         android:id="@+id/status_view"
-        android:layout_width="200dp"
-        android:layout_height="200dp"
+        android:layout_width="280dp"
+        android:layout_height="280dp"
         app:bgColor="#e1e1e1"
         app:firstColor="@color/progreso_cupo_first"
         app:secondColor="@color/progreso_cupo_second"
@@ -43,16 +43,21 @@ android:layout_height="match_parent">
         app:strokeWidth="15dp"
         />
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-        style="@style/generic_text_style_2"
-        android:id="@+id/txt_status2"
-        android:layout_margin="60dp"
-        android:text=""
-        android:textColor="@android:color/white"
+
+    <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+        android:visibility="gone"
+        android:id="@+id/txt_importe"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_centerHorizontal="true" />
+        android:gravity="center_horizontal"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:text="00"
+        android:textAlignment="center"
+        android:textSize="22sp"
+        app:dotBottom="false"
+        app:symbolSmaller="true" />
+
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         style="@style/generic_text_style_2"

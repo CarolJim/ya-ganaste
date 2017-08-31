@@ -30,6 +30,8 @@ import com.pagatodo.yaganaste.ui.cupo.presenters.CupoDomicilioPersonalPresenter;
 import com.pagatodo.yaganaste.ui.cupo.presenters.StatusRegisterCupoPresenter;
 import com.pagatodo.yaganaste.ui.cupo.view.IViewStatusRegisterCupo;
 import com.pagatodo.yaganaste.utils.JsonManager;
+import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StatusViewCupo;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -73,6 +75,7 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
     @BindView(R.id.txt_status_info)StyleTextView statusTextInfo;
     @BindView(R.id.txt_contactanos)StyleTextView mTextContact;
     @BindView(R.id.btnNextScreen)Button mButtonContinue;
+    @BindView(R.id.txt_importe) MontoTextView importe;
 
     private View rootview;
 
@@ -144,6 +147,7 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
     public void initViews() {
         ButterKnife.bind(this, rootview);
         statusTextInfo.setText(getText(R.string.txt_validate_info));
+        importe.setVisibility(View.GONE);
     }
 
     @Override
@@ -159,17 +163,40 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
     public void setResponseEstadoCupo(DataEstadoSolicitud dataEstadoSolicitud) {
         int pasoActual = dataEstadoSolicitud.getIdPaso();
         int idEstado   = dataEstadoSolicitud.getIdEstatusPaso();
+        Float lineaCredito = dataEstadoSolicitud.getLineaCredito();
+
         respuesta = dataEstadoSolicitud;
         switch (pasoActual) {
             case PASO_CUPO_DOCUMENTACION_INCOMPLETA:
-
                 break;
             case PASO_CUPO_VALIDACION_DE_DOCUMENTOS:
                 setValidandoDocumentos(idEstado);
                 break;
             case PASO_CUPO_VALIDACION_DE_REFERENCIAS:
                 setValidandoReferecias(idEstado);
+                break;
+            case PASO_CUPO_VALIDACION_DE_LINEA_DE_CREDITO:
+                setValidandoCredito(idEstado, lineaCredito );
+                break;
 
+        }
+    }
+
+    private void setValidandoCredito (int idEstado, Float lineaCredito) {
+        switch (idEstado) {
+            case ID_ESTATUS_PASO_EN_VALIDACION:
+                statusTextInfo.setText(getText(R.string.txt_validate_info));
+                statusText.setText("Asignando\nLínea de Crédito\n3/3");
+                statusViewCupo.updateStatus(100,66);
+                break;
+            case ID_ESTATUS_PASO_APROVADO:
+                statusTextInfo.setText(getText(R.string.txt_cupo_exitoso));
+                statusText.setText("¡Felicidades!\n\n\n\nEs tu Línea de \nCrédito Aprovada");
+                importe.setVisibility(View.VISIBLE);
+                importe.setText(StringUtils.getCurrencyValue(lineaCredito));
+                statusViewCupo.updateStatus(100,100);
+                mTextContact.setVisibility(View.GONE);
+                break;
         }
     }
 
@@ -200,7 +227,6 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
                 statusTextInfo.setText(getText(R.string.txt_solicitud_no_completada));
                 statusText.setText("Solicitud\nInterrumpida");
                 mTextContact.setText(getText(R.string.txt_solicitud_definitivo_rechazo));
-                //statusViewCupo.updateError(66,33);
                 break;
         }
     }
