@@ -732,7 +732,8 @@
     <string name="correo_enviado">El Mensaje Fué Enviado</string>
     <string name="enviar_email">Enviar Mail</string>
     <string name="como_ayudarte">¿Cómo Podemos Ayudarte?</string>
-    <string name="comunicate_con_nosotros">Comunícate Con Nosotros \n\n 01-800-500-1000\ninformes@yaganste.com</string>
+    <string name="comunicate_con_nosotros">Comunícate Con Nosotros\n\n01-800-500-1000\ninformes@yaganaste.com</string>
+    <string name="comunicate_reporta">Comunícate Con Nosotros Para\nAyudarte Con la Reposición de tu Tarjeta\n\n01-800-500-1000\ninformes@yaganaste.com</string>
     <string name="acerca_de_app">Acerca de la App</string>
     <string name="ayuda">Ayuda</string>
     <string name="enviando_mensaje">Enviando Mensaje</string>

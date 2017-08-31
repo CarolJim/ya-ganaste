@@ -24,6 +24,8 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselAdapter;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -153,6 +155,13 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         layoutCarouselMain.setVisibility(View.VISIBLE);
         txtLoadingServices.setVisibility(View.GONE);
         if (isFromClick) {
+            response.remove(0);
+            Collections.sort(response, new Comparator<CarouselItem>() {
+                @Override
+                public int compare(CarouselItem o1, CarouselItem o2) {
+                    return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
+                }
+            });
             dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
             dialog.show();
             isFromClick = false;
