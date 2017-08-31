@@ -144,7 +144,10 @@ public class ApiTrans extends Api {
      */
     public static void consultarSaldo(IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+
+        if (!RequestHeaders.getTokensesion().isEmpty()) {
+            headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        }
         headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
         NetFacade.consumeWS(CONSULTAR_SALDO,
                 METHOD_GET, URL_SERVER_TRANS + App.getContext().getString(R.string.getBalanceUrl),
