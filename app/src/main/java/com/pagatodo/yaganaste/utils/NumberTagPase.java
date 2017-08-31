@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.utils;
 
 import android.text.Editable;
+import android.text.InputFilter;
 import android.text.TextWatcher;
 import android.widget.EditText;
 
@@ -13,10 +14,11 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 public class NumberTagPase implements TextWatcher {
 
     protected EditText editText;
-    private int lengthAnterior;
+    private int maxLength;
 
-    public NumberTagPase(EditText e) {
+    public NumberTagPase(EditText e, int maxLength) {
         editText = e;
+        this.maxLength = maxLength;
     }
     @Override
     public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
@@ -31,10 +33,15 @@ public class NumberTagPase implements TextWatcher {
     @Override
     public void afterTextChanged(Editable s) {
         editText.removeTextChangedListener(this);
-        String response = StringUtils.genericFormat(s.toString().replaceAll(" ", ""), SPACE);
-        editText.setText(response);
-        editText.setSelection(response.length());
-        lengthAnterior = s.length();
+        String text = s.toString();
+        String response = StringUtils.genericFormat(text.replaceAll(" ", ""), SPACE);
+
+        if (response.length() > maxLength) {
+            editText.setText(response.substring(response.length() - maxLength, response.length()));
+        } else {
+            editText.setText(response);
+        }
+        editText.setSelection(Math.min(maxLength, editText.getText().length()));
         editText.addTextChangedListener(this);
     }
 }
