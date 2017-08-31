@@ -256,13 +256,14 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
             } else if (currentFragment instanceof DomicilioActualFragment) {
                 onEvent(EVENT_PERSONAL_DATA_BACK, null);
             } else if (currentFragment instanceof TienesTarjetaFragment) {
-
-                if (((TienesTarjetaFragment) currentFragment).isCustomKeyboardVisible()) {
+                resetRegisterData();// Eliminamos la información de registro almacenada.
+                showDialogOut();
+                /*if (((TienesTarjetaFragment) currentFragment).isCustomKeyboardVisible()) {
                     ((TienesTarjetaFragment) currentFragment).hideKeyboard();
                 } else {
                     resetRegisterData();// Eliminamos la información de registro almacenada.
                     showDialogOut();
-                }
+                }*/
             } else if (currentFragment instanceof AsignarNIPFragment) {
                 if (((AsignarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
                     ((AsignarNIPFragment) currentFragment).hideKeyboard();

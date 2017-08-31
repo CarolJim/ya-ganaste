@@ -209,16 +209,16 @@
     <string name="hint_importe">Importe</string>
     <string name="hint_importe_envio">Importe a Enviar</string>
     <string name="hint_name_destinatario">Nombre Del Destinatario</string>
-    <string name="txt_fecha">Fecha</string>
-    <string name="txt_hora">Hora</string>
+    <string name="txt_fecha">Fecha:</string>
+    <string name="txt_hora">Hora:</string>
     <string name="beneficiario">A:</string>
     <string name="txt_enter_password">Ingresa tu Contraseña Para \nAutorizar Este Movimiento</string>
     <string name="txt_fecha_hora">Fecha y Hora:</string>
     <string name="hint_concepto">Concepto</string>
-    <string name="txt_concepto">Concepto</string>
-    <string name="txt_clave_rastreo">Clave Rastreo</string>
+    <string name="txt_concepto">Concepto:</string>
+    <string name="txt_clave_rastreo">Clave Rastreo:</string>
     <string name="txt_numero_referencia">Número de Referencia:</string>
-    <string name="txt_referencia_num">Referencia Numérica</string>
+    <string name="txt_referencia_num">Referencia Numérica:</string>
     <string name="inserta_el_lector_para_ncontinuar">Inserta Tu Lector de Tarjetas\nYa Ganaste</string>
     <!--<string name="text_slide_or_insert">Inserta o Desliza la Tarjeta Para Continuar.</string>-->
     <string name="text_slide_or_insert">Inserta la Tarjeta Con Chip</string>
@@ -229,7 +229,7 @@
     <string name="no_internet_access">No Cuentas Con Conexión a Internet</string>
     <string name="something_is_wrong_try_again">Algo Salio mal, Intenta de Nuevo</string>
     <string name="tag_number">Número de TAG</string>
-    <string name="txt_tag">Tag</string>
+
     <string name="phone_number_hint">Teléfono (10 Dígitos)</string>
     <string name="card_number_hint">Número de Tarjeta (16 Dígitos)</string>
     <string name="msgJsonObj">Mensaje</string>
@@ -430,7 +430,7 @@
 
     <string name="transfer_phone">Número de Teléfono</string>
     <string name="transfer_phone_cellphone">Número de Celular</string>
-    <string name="transfer_cable">Cuenta CABLE</string>
+    <string name="transfer_cable">Cuenta CLABE</string>
     <string name="saldo_pendiente">Saldo Por\nReembolsar</string>
     <string name="saldo_reembolso">Saldo a Reembolsar</string>
     <string name="saldo_en_cuenta">Saldo en Cuenta</string>
@@ -457,22 +457,21 @@
     <string name="error_cuenta_no_valida">%1$s no Valido,\nPor Favor Verifica la Información</string>
 
     <string name="cancelar_operacion">Cancelar Cobro</string>
-    <string name="txt_monto">Monto</string>
+    <string name="txt_monto">Monto:</string>
     <string name="txt_compra">Compra:</string>
-    <string name="txt_importe">Importe</string>
+    <string name="txt_importe">Importe:</string>
     <string name="txt_monto_total">Monto Total:</string>
-    <string name="txt_monto_compra">Monto Compra</string>
-    <string name="txt_monto_retiro">Monto Retiro</string>
-    <string name="txt_recibo">Recibo</string>
-    <string name="txt_iva">IVA</string>
-    <string name="txt_cargo_servicio">Cargo Por Servicio</string>
-    <string name="txt_cuenta">Cuenta</string>
-    <string name="txt_cable">CABLE</string>
-
-    <string name="autorizacion">Autorización</string>
-    <string name="tarjeta">Tarjeta</string>
-    <string name="ferencia_txt">Referencia</string>
-    <string name="emisor">Emisor</string>
+    <string name="txt_monto_compra">Monto Compra:</string>
+    <string name="txt_monto_retiro">Monto Retiro:</string>
+    <string name="txt_recibo">Recibo:</string>
+    <string name="txt_iva">IVA:</string>
+    <string name="txt_cargo_servicio">Cargo Por Servicio:</string>
+    <string name="txt_cuenta">Cuenta:</string>
+    <string name="txt_cable">CLABE:</string>
+    <string name="autorizacion">Autorización:</string>
+    <string name="tarjeta">Tarjeta:</string>
+    <string name="ferencia_txt">Referencia:</string>
+    <string name="emisor">Emisor:</string>
 
     <!-- Autorizaciones Online -->
     <string name="este_movimiento">Este Movimiento se Está Realizando\nen tu Sitio Web Ya Ganaste</string>
@@ -581,7 +580,7 @@
     <string name="btn_send">Enviar</string>
     <string name="no_services_msg">Cargando Servicios...(*)</string>
     <string name="recharge_success_title">¡Recarga Exitosa!</string>
-    <string name="txt_comision">Comisión</string>
+    <string name="txt_comision">Comisión:</string>
     <string name="txt_phone_b">Teléfono: </string>
     <string name="add_favorites">Agregar a Favoritos</string>
     <string name="email_send_ticket">¿A Qué Correo Electrónico \nEnvíamos tu Recibo?</string>
@@ -664,7 +663,7 @@
 
     <string name="perm_read">Ability to read files from this app</string>
     <string name="perm_read_label">Read Files</string>
-    <string name="iave_pase">IAVE/Pase Urbano</string>
+    <string name="iave_pase">IAVE/Pase Urbano:</string>
     <string name="cuenta">A la Cuenta:</string>
     <string name="mask_card">**** **** **** </string>
 
@@ -739,8 +738,6 @@
     <string name="ayuda">Ayuda</string>
     <string name="enviando_mensaje">Enviando Mensaje</string>
     <string name="reporta_tu_tarjeta">Reporta tu Tarjeta</string>
-
-
 
 
     <string name="Tutoriales">Tutoriales</string>
@@ -822,6 +819,29 @@
 
     <string name="input_letters">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\u0020</string>
 
+
+    <string name="details_monto">Monto</string>
+    <string name="details_comision">Comisión</string>
+    <string name="details_iva">IVA</string>
+    <string name="details_tarjeta">Tarjeta</string>
+    <string name="details_concepto">Concepto</string>
+    <string name="details_fecha">Fecha</string>
+    <string name="details_hora">Hora</string>
+    <string name="details_autorizacion">Autorización</string>
+    <string name="details_recibo">Recibo</string>
+    <string name="details_monto_compra">Monto Compra</string>
+    <string name="details_importe">Importe</string>
+    <string name="details_ferencia">Referencia</string>
+    <string name="details_clave_rastreo">Clave Rastreo</string>
+    <string name="detals_referencia_num">Referencia Numérica</string>
+    <string name="details_iave_pase">IAVE/Pase Urbano</string>
+    <string name="details_cargo_servicio">Cargo Por Servicio</string>
+    <string name="details_monto_retiro">Monto Retiro</string>
+    <string name="details_cuenta">Cuenta</string>
+    <string name="details_cable">CLABE</string>
+    <string name="txt_tag">Tag</string>
+
+    <string name="datos_depsito_numero_celular">N° Celular:</string>
 </resources>
 
 

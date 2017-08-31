@@ -33,7 +33,7 @@ public class EnviosInteractor implements IEnviosInteractor {
         if (type != null) {
             if (number == null || number.isEmpty()) {
                 switch (type) {
-                    case CABLE:
+                    case CLABE:
                         listener.onNumberCABLEEmpty();
                         return;
                     case NUMERO_TARJETA:
@@ -48,7 +48,7 @@ public class EnviosInteractor implements IEnviosInteractor {
             }
 
             switch (type) {
-                case CABLE:
+                case CLABE:
                     if (!ValidateForm.isValidCABLE(number)) {
                         listener.onNumberErrorCABLE();
                         return;

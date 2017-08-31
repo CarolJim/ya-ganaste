@@ -265,6 +265,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                 editNumber.setEnabled(true);
                 editNumber.setCursorVisible(false);
                 editNumber.requestFocus();
+                btnNextTienesTarjeta.setVisibility(View.VISIBLE);
                 keyboardView.showCustomKeyboard(editNumber);
                 txtMessageCard.setText(getString(R.string.si_tiene_tarjeta));
                 resetCardNumberDefault();
@@ -274,8 +275,6 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                 generateCardNumberRamdon();
                 keyboardView.hideCustomKeyboard();
                 btnNextTienesTarjeta.setVisibility(View.VISIBLE);
-
-
                 // Reiniciamos al TDC vacia
                 editNumber.setText("");
                 break;

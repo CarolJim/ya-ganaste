@@ -194,7 +194,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
 
         if (tipoTransaccion == RECARGA) {
             txtReferenciaTitle.setText(movimientosResponse.getIdComercio() == 7 ?
-                    getString(R.string.iave_pase) : getString(R.string.txt_phone));
+                    getString(R.string.details_iave_pase) : getString(R.string.txt_phone));
 
             txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
             layoutConcepto.setVisibility(GONE);
@@ -229,7 +229,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 break;
             case PAGO_DE_SERVICIO://2
                 layoutComision.setVisibility(VISIBLE);
-                titleComisionDescripcion.setText(getString(R.string.txt_cargo_servicio));
+                titleComisionDescripcion.setText(getString(R.string.details_cargo_servicio));
                 txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
                 layoutIVA.setVisibility(VISIBLE);
                 txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
@@ -279,7 +279,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 break;
             case RETIRO_DE_DINERO_ATM://9
                 layoutMontoTotal.setVisibility(VISIBLE);
-                titleMontoTotal.setText(getString(R.string.txt_monto_retiro));
+                titleMontoTotal.setText(getString(R.string.details_monto_retiro));
                 txtMontoTotal.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
                 layoutComision.setVisibility(VISIBLE);
                 txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
@@ -293,7 +293,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 layoutMontoCompra.setVisibility(VISIBLE);
                 txtMontoCompra.setText(StringUtils.getCurrencyValue(movimientosResponse.getCompra()));
                 layoutMontoTotal.setVisibility(VISIBLE);
-                titleMontoTotal.setText(getString(R.string.txt_monto_retiro));
+                titleMontoTotal.setText(getString(R.string.details_monto_retiro));
                 txtMontoTotal.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
                 break;
             case COMISION://12
@@ -317,13 +317,13 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         if (longitud == 10) {
             return getString(R.string.txt_phone);
         } else if (longitud == 16) {
-            return getString(R.string.tarjeta);
+            return getString(R.string.details_tarjeta);
         } else if (longitud == 11) {
-            return getString(R.string.txt_cuenta);
+            return getString(R.string.details_cuenta);
         } else if (longitud == 18) {
-            return getString(R.string.txt_cable);
+            return getString(R.string.details_cable);
         } else {
-            return getString(R.string.ferencia_txt);
+            return getString(R.string.details_ferencia);
         }
     }
 

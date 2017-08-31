@@ -144,7 +144,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         importe.setText(StringUtils.getCurrencyValue(envio.getMonto()));
         String ref = envio.getReferencia();
         switch (envio.getTipoEnvio()) {
-            case CABLE:
+            case CLABE:
                 txtReferencia.setText(ref);
                 break;
             case NUMERO_TARJETA:

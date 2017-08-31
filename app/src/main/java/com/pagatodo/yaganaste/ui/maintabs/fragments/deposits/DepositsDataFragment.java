@@ -92,7 +92,8 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         this.rootView = view;
         initViews();
         UsuarioClienteResponse usuario = SingletonUser.getInstance().getDataUser().getUsuario();
-        txtNameTitular.setText(usuario.getNombre() + " " + usuario.getPrimerApellido() + " " + usuario.getSegundoApellido());
+        //txtNameTitular.setText(usuario.getNombre() + " " + usuario.getPrimerApellido() + " " + usuario.getSegundoApellido());
+        txtNameTitular.setText(SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTelefono());
         CuentaResponse cuenta = null;
         String cardNumber = "";
         if (usuario.getCuentas() != null && usuario.getCuentas().size() >= 1) {
@@ -120,7 +121,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     public void onClick(View v) {
         getStatusGPS();
         if (v.getId() == R.id.btnDepositar) {
-             if (onlineGPS) {
+            if (onlineGPS) {
                 depositsManager.onTapButton();
             } else {
                 showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));

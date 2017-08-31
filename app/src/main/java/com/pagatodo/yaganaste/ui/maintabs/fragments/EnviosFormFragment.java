@@ -48,7 +48,7 @@ import static android.view.View.GONE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_NEXT;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
-import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CABLE;
+import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
@@ -149,7 +149,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             concept.setImeOptions(IME_ACTION_DONE);
 
         } else {
-            tipoPago.add(CABLE.getId(), CABLE.getName(getContext()));
+            tipoPago.add(CLABE.getId(), CLABE.getName(getContext()));
             receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
             concept.setImeOptions(IME_ACTION_NEXT);
         }
@@ -300,13 +300,13 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             }
             cardNumber.addTextChangedListener(phoneTextWatcher);
             selectedType = NUMERO_TELEFONO;
-        } else if (position == CABLE.getId()) {
+        } else if (position == CLABE.getId()) {
             maxLength = 22;
             cardNumber.setHint(getString(R.string.transfer_cable));
             cardNumber.addTextChangedListener(new NumberClabeTextWatcher(cardNumber));
             layoutImageContact.setVisibility(View.GONE);
             layoutImageContact.setOnClickListener(null);
-            selectedType = CABLE;
+            selectedType = CLABE;
         } else {
             maxLength = 2;
             cardNumber.setHint("");
