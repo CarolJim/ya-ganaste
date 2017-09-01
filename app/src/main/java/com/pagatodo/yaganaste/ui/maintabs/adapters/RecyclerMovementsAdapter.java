@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.ui._adapters.OnRecyclerItemClickListener;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -27,23 +28,33 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
 
     private List<ItemMovements<T>> itemMovementses;
     private OnRecyclerItemClickListener listener;
+    private boolean isEmpty = true;
 
     public RecyclerMovementsAdapter(@NonNull List<ItemMovements<T>> itemMovementses, @Nullable OnRecyclerItemClickListener listener) {
-        this.itemMovementses = itemMovementses;
+        if (itemMovementses.size() > 0) {
+            this.itemMovementses = itemMovementses;
+            isEmpty = false;
+        } else {
+            this.itemMovementses = new ArrayList<>();
+            this.itemMovementses.add(new ItemMovements<T>(App.getContext().getString(R.string.no_movimientos), "", 0, "", "", R.color.transparent));
+        }
+
         this.listener = listener;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         LayoutInflater inflater = LayoutInflater.from(parent.getContext());
-        return new RecyclerViewHolderMovements(inflater.inflate(R.layout.item_movement, parent, false));
+        return isEmpty ? new RecyclerViewHolderMovementsEmpty(inflater.inflate(R.layout.item_movements_empty, parent, false))
+                : new RecyclerViewHolderMovements(inflater.inflate(R.layout.item_movement, parent, false));
     }
 
     @Override
     public void onBindViewHolder(final RecyclerView.ViewHolder holder, int position) {
-        ((RecyclerViewHolderMovements) holder).bindData(itemMovementses.get(position), position, this);
+        if (!isEmpty) {
+            ((RecyclerViewHolderMovements) holder).bindData(itemMovementses.get(position), position, this);
+        }
     }
-
 
     @Override
     public int getItemCount() {
@@ -54,6 +65,13 @@ public class RecyclerMovementsAdapter<T> extends RecyclerView.Adapter<RecyclerVi
     public void onClick(View v) {
         if (listener != null) {
             listener.onRecyclerItemClick(v, Integer.valueOf(v.getTag().toString()));
+        }
+    }
+
+    static class RecyclerViewHolderMovementsEmpty extends RecyclerView.ViewHolder {
+
+        public RecyclerViewHolderMovementsEmpty(View itemView) {
+            super(itemView);
         }
     }
 

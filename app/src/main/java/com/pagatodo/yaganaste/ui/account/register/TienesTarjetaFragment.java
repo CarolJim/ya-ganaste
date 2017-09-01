@@ -235,7 +235,6 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             }
         });
 
-
         editNumber.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
