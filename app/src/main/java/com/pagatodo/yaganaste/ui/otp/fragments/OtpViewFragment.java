@@ -52,6 +52,8 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
     private CountDownTimer timer;
     private OtpPResenter otpPResenter;
 
+    private final int DELAY_TIME_MILISECONDS = 60000;//1 segundo
+
 
     public static OtpViewFragment newInstance(String shaPass) {
         OtpViewFragment otpViewFragment = new OtpViewFragment();
@@ -89,10 +91,10 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
     private void reload(String otpCode) {
         txtCode.setText(StringUtils.formatWithSpace(otpCode, 4,4));
 
-        progressView.setTimeAnimation(90000);
+        progressView.setTimeAnimation(DELAY_TIME_MILISECONDS);
         progressView.updateStatus(100,0);
 
-        timer = new CountDownTimer(60 * 1000, 1000) {
+        timer = new CountDownTimer(DELAY_TIME_MILISECONDS, 1000) {
             @Override
             public void onTick(long millisUntilFinished) {
                 if (Build.VERSION.SDK_INT >= 24) {

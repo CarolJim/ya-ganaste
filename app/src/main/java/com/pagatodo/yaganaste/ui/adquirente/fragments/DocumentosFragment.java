@@ -483,7 +483,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
     /*Agregamos selección de carrete*/
     private void selectImageSource(final int documentId) {
-
         final CharSequence[] items = {getString(R.string.action_take_picture), getString(R.string.action_select_picture), getString(R.string.action_select_picture_cancel)};
 
         LayoutInflater inflater = getActivity().getLayoutInflater();

@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -21,6 +22,7 @@ import android.util.Patterns;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -38,7 +40,7 @@ import com.pagatodo.yaganaste.utils.ValidateForm;
 
 public class CustomValidationEditText extends LinearLayout implements View.OnTouchListener, View.OnLongClickListener {
     //@BindView(R.id.editTextCustom)
-    EditText editText;
+    StyleEdittext editText;
     //@BindView(R.id.imageViewValidation)
     AppCompatImageView imageView;
     Boolean isValid = false;
@@ -75,7 +77,8 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
     private void init(Context context, AttributeSet attrs) {
         View.inflate(context, R.layout.edittext_layout, this);
         //ButterKnife.bind(context, this);
-        editText = (EditText) findViewById(R.id.editTextCustom);
+        editText = findRecursiveEditText(this);
+        editText.setId(getId());
         imageView = (AppCompatImageView) findViewById(R.id.imageViewValidation);
 
         //imageView.setBackgroundResource(R.drawable.validation_fail);
@@ -144,11 +147,13 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
 
             setSingleLine(isSingleLine);
             setIconPinned(pinnedIcon);
+
         }
 
         Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
         editText.setTypeface(customFont);
         editText.setOnLongClickListener(this);
+        //editText.setFilters(new InputFilter[] { filter });
 
         // Hacemos SET del Filtro de caracteres de acuerdo al valor type de los Attrs.xml
         if (type.equals("0")) {
@@ -167,38 +172,20 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
         }
     }
 
-    private InputFilter filter = new InputFilter() {
-        public CharSequence filter(CharSequence source, int start, int end,
-                                   Spanned dest, int dstart, int dend) {
-
-            if (type.equals("0")) {
-                if (!source.equals("")) {
-                    for (int i = start; i < end; i++) {
-                        if (!Character.isLetterOrDigit(source.charAt(i)) &&
-                                !blockCharacterSetEmail.contains(("" + source))) {
-                            return "";
-                        }
-                    }
-                } else {
-                    return "";
-                }
-            } else if (type.equals("4")) {
-                if (!source.equals("")) {
-                    for (int i = start; i < end; i++) {
-                        if (!Character.isLetter(source.charAt(i)) &&
-                                !blockCharacterName.contains(("" + source))) {
-                            return "";
-                        }
-                    }
-                } else {
-                    return "";
-                }
+    private StyleEdittext findRecursiveEditText(ViewGroup parent) {
+        int childCount = parent.getChildCount();
+        View child;
+        StyleEdittext found = null;
+        for (int n = 0 ; n < childCount ; n++) {
+            child = parent.getChildAt(n);
+            if (child instanceof ViewGroup) {
+                found =  findRecursiveEditText((ViewGroup) child);
+            } else if (child instanceof StyleEdittext) {
+                return (StyleEdittext) child;
             }
-
-
-            return null;
         }
-    };
+        return found;
+    }
 
     public void setHintText(String txt) {
         editText.setHint(txt);
@@ -450,5 +437,8 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
         return true;
     }
 
-
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        super.onRestoreInstanceState(null);
+    }
 }

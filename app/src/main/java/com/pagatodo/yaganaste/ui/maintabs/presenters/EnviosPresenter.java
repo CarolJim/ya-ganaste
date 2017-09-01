@@ -28,9 +28,9 @@ public class EnviosPresenter implements IEnviosPresenter, IEnviosInteractor.OnVa
 
 
     @Override
-    public void validateForms(TransferType type, String number, String importe, String name,
+    public void validateForms(TransferType type, String number, int typeCard, String importe, String name,
                               String concept, String reference) {
-        enviosInteractor.validateForms(type, number, importe, name, concept, reference);
+        enviosInteractor.validateForms(type, number, typeCard, importe, name, concept, reference);
     }
 
     @Override

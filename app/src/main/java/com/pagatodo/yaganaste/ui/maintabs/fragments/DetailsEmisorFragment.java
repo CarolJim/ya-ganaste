@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
-import android.graphics.Color;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -28,6 +27,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -124,6 +124,9 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     Button btnVolver;
     private View rootView;
     private MovimientosResponse movimientosResponse;
+    CircleImageView imageView;
+
+
 
 
     public static DetailsEmisorFragment newInstance(@NonNull MovimientosResponse movimientosResponse) {
@@ -138,6 +141,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
+        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         if (args != null) {
             movimientosResponse = (MovimientosResponse) args.getSerializable(DetailsActivity.DATA);
         } else {
@@ -145,10 +149,23 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         }
 
     }
+    public void setVisibilityPrefer(Boolean mBoolean){
+        if(mBoolean){
+            imageView.setVisibility(View.VISIBLE);
+        }else{
+            imageView.setVisibility(View.GONE);
+        }
+    }
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_detail_movements_emisor, container, false);
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setVisibilityPrefer(false);
     }
 
     @Override
@@ -164,7 +181,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         ButterKnife.bind(this, rootView);
         initFieldsViews();
         //layoutRecibo.setVisibility(View.GONE);
-
         String[] date = movimientosResponse.getFechaMovimiento().split(" ");
         ItemMovements item = new ItemMovements<>(movimientosResponse.getDescripcion(), movimientosResponse.getDetalle(),
                 movimientosResponse.getTotal(), date[0], date[1],
@@ -176,8 +192,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         if (item.getColor() == android.R.color.transparent) {
             txtMonto.setTextColor(ContextCompat.getColor(getContext(), R.color.colorAccent));
         }
-
-
 
 
         //layoutMovementTypeColor.setBackgroundColor(item.getColor());
@@ -197,7 +211,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
 
         if (tipoTransaccion == RECARGA) {
             txtReferenciaTitle.setText(movimientosResponse.getIdComercio() == 7 ?
-                    getString(R.string.iave_pase) : getString(R.string.txt_phone_b));
+                    getString(R.string.details_iave_pase) : getString(R.string.txt_phone));
 
             txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
             layoutConcepto.setVisibility(GONE);
@@ -207,6 +221,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
 
 
     private void initFieldsViews() {
+
         layoutFechaDescripcion.setVisibility(VISIBLE);
         txtFechaDescripcion.setText(movimientosResponse.getFechaMovimiento());
         layoutHora.setVisibility(VISIBLE);
@@ -232,7 +247,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 break;
             case PAGO_DE_SERVICIO://2
                 layoutComision.setVisibility(VISIBLE);
-                titleComisionDescripcion.setText(getString(R.string.txt_cargo_servicio));
+                titleComisionDescripcion.setText(getString(R.string.details_cargo_servicio));
                 txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
                 layoutIVA.setVisibility(VISIBLE);
                 txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
@@ -282,7 +297,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 break;
             case RETIRO_DE_DINERO_ATM://9
                 layoutMontoTotal.setVisibility(VISIBLE);
-                titleMontoTotal.setText(getString(R.string.txt_monto_retiro));
+                titleMontoTotal.setText(getString(R.string.details_monto_retiro));
                 txtMontoTotal.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
                 layoutComision.setVisibility(VISIBLE);
                 txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
@@ -296,7 +311,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 layoutMontoCompra.setVisibility(VISIBLE);
                 txtMontoCompra.setText(StringUtils.getCurrencyValue(movimientosResponse.getCompra()));
                 layoutMontoTotal.setVisibility(VISIBLE);
-                titleMontoTotal.setText(getString(R.string.txt_monto_retiro));
+                titleMontoTotal.setText(getString(R.string.details_monto_retiro));
                 txtMontoTotal.setText(StringUtils.getCurrencyValue(movimientosResponse.getImporte()));
                 break;
             case COMISION://12
@@ -311,6 +326,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
             default:
                 break;
         }
+
     }
 
     private String getReferencuaTitleType(String ref) {
@@ -320,13 +336,13 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         if (longitud == 10) {
             return getString(R.string.txt_phone);
         } else if (longitud == 16) {
-            return getString(R.string.tarjeta);
+            return getString(R.string.details_tarjeta);
         } else if (longitud == 11) {
-            return getString(R.string.txt_cuenta);
+            return getString(R.string.details_cuenta);
         } else if (longitud == 18) {
-            return getString(R.string.txt_cable);
+            return getString(R.string.details_cable);
         } else {
-            return getString(R.string.ferencia_txt);
+            return getString(R.string.details_ferencia);
         }
     }
 

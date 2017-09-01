@@ -422,8 +422,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
      * Methodo delegado de {@link ResetPinPresenterImp}
      * @param newNip
      */
-    public void doReseting(String newNip) {
+    /*public void doReseting(String newNip) {
         resetPinPresenter.doReseting(newNip);
-    }
+    }*/
 
 }

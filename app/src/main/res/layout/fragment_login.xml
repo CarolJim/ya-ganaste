@@ -1,155 +1,108 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/activity_lets_start"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:orientation="vertical"
     tools:context=".ui._controllers.AccountActivity">
 
- >
-    <RelativeLayout
+    <ScrollView
+        android:id="@+id/scrollView"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_alignParentTop="true"
-        android:layout_toRightOf="@+id/progressIndicator"
-        android:layout_toEndOf="@+id/progressIndicator">
-
-        <ScrollView
-            android:layout_width="match_parent"
-            android:layout_height="fill_parent"
-            android:id="@+id/scrollView"
-            android:layout_alignParentTop="true"
-            android:layout_alignParentLeft="true"
-            android:layout_alignParentStart="true">
-            <LinearLayout
-                android:orientation="vertical"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_alignTop="@+id/scrollView">
-
-        <RelativeLayout
-            android:id="@+id/layoutImagenLogin"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/activity_horizontal_margin"
-            android:padding="@dimen/generic_padig">
-
-            <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/imgLoginExistProfile"
-                android:layout_width="140dp"
-                android:layout_height="140dp"
-                android:layout_gravity="center_horizontal"
-                android:src="@mipmap/icon_user"
-                app:civ_border_color="@color/colorAccent"
-                app:civ_border_width="2dp"
-                android:layout_centerVertical="true"
-                android:layout_centerHorizontal="true" />
-        </RelativeLayout>
+        android:layout_height="0dp"
+        android:layout_weight="1">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_below="@+id/layoutImagenLogin"
-            android:layout_marginTop="20dp"
-            android:layout_margin="@dimen/activity_vertical_margin"
-            android:layout_marginLeft="@dimen/activity_vertical_margin"
-            android:layout_marginRight="@dimen/activity_vertical_margin"
-            android:gravity="center"
             android:orientation="vertical">
 
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/textNameUser"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/edtxtUserPass"
-                android:textColor="@color/colorAccent"
-                android:textSize="16sp"
-                app:tipo="Titulo" />
-
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/edtxtUserName"
-                style="@style/GenericInputTextForms"
+            <RelativeLayout
+                android:id="@+id/layoutImagenLogin"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_above="@+id/edtxtUserPass"
-                android:clickable="true"
-                android:hint="@string/txt_escribe_tu_correo"
-                app:formato="email"
-                app:hintText="@string/txt_escribe_tu_correo"
-                app:isTextEnabled="true" />
+                android:layout_marginTop="@dimen/activity_horizontal_margin"
+                android:padding="@dimen/generic_padig">
 
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/edtxtUserPass"
-                style="@style/GenericInputTextForms"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_above="@+id/btnLoginExistUser"
-                android:clickable="true"
-                android:hint="@string/txt_escribe_tu_pass"
-                app:formato="password"
-                app:hintText="@string/txt_escribe_tu_pass"
-                app:isTextEnabled="true">
-
-            </com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText>
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/txtLoginExistUserRecoverPass"
-                style="@style/textDescInputs"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_below="@+id/edtxtLetsStartMail"
-                android:layout_marginTop="@dimen/margin_small"
-                android:padding="@dimen/margin_medium"
-                android:text="@string/recover_pass" />
-
-
-        </LinearLayout>
-////////////
-            </LinearLayout>
-        </ScrollView>
-        <LinearLayout
-            android:id="@+id/layoutBtns"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_alignParentBottom="true"
-            android:layout_marginBottom="@dimen/btn_navigation_bottom"
-            android:clickable="true"
-            android:inputType="textPassword">
-
+                <de.hdodenhof.circleimageview.CircleImageView
+                    android:id="@+id/imgLoginExistProfile"
+                    android:layout_width="140dp"
+                    android:layout_height="140dp"
+                    android:layout_centerHorizontal="true"
+                    android:layout_centerVertical="true"
+                    android:layout_gravity="center_horizontal"
+                    android:src="@mipmap/icon_user"
+                    app:civ_border_color="@color/colorAccent"
+                    app:civ_border_width="2dp" />
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_weight="1.5">
-
-            </LinearLayout>
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btnLoginExistUser"
-                style="@style/buttonDirecctionNext"
+                android:layout_margin="@dimen/activity_vertical_margin"
+                android:layout_marginLeft="@dimen/activity_vertical_margin"
+                android:layout_marginRight="@dimen/activity_vertical_margin"
+                android:layout_marginTop="20dp"
                 android:gravity="center"
-                android:text="@string/nextButton" />
+                android:orientation="vertical">
 
-            <LinearLayout
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_weight="1.5">
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/textNameUser"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:textColor="@color/colorAccent"
+                    android:textSize="16sp"
+                    app:tipo="Titulo" />
 
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/editUserName"
+                    style="@style/GenericInputTextForms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    app:formato="email"
+                    app:hintText="@string/txt_escribe_tu_correo"
+                    app:isTextEnabled="true" />
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/editUserPassword"
+                    style="@style/GenericInputTextForms"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:clickable="true"
+                    app:formato="password"
+                    app:hintText="@string/txt_escribe_tu_pass"
+                    app:isTextEnabled="true" />
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/txtLoginExistUserRecoverPass"
+                    style="@style/textDescInputs"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_small"
+                    android:padding="@dimen/margin_medium"
+                    android:text="@string/recover_pass" />
             </LinearLayout>
         </LinearLayout>
+    </ScrollView>
 
-
-    </RelativeLayout>
-    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
-        android:id="@+id/progressIndicator"
+    <LinearLayout
+        android:id="@+id/layoutBtns"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:visibility="gone" />
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:layout_marginBottom="@dimen/btn_navigation_bottom"
+        android:clickable="true"
+        android:gravity="center">
 
-</RelativeLayout>
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:id="@+id/btnLoginExistUser"
+            style="@style/buttonDirecctionNext"
+            android:text="@string/nextButton" />
+    </LinearLayout>
+</LinearLayout>
 
 

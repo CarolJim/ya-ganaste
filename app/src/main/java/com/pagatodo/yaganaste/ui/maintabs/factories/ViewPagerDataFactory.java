@@ -8,6 +8,7 @@ import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
+import com.pagatodo.yaganaste.interfaces.View;
 import com.pagatodo.yaganaste.interfaces.enums.AdqEmTab;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;

@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 
+import com.google.gson.annotations.SerializedName;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +20,8 @@ public class CuentaResponse implements Serializable {
     private String Tarjeta = "";
     private String BIN7 = "";
     private double Saldo;
+    @SerializedName("Telefono")
+    private String telefono;
     private List<MovimientosResponse> ListaMovimientos;
     private List<FavoritosResponse> ListaFavoritos;
 
@@ -107,6 +111,14 @@ public class CuentaResponse implements Serializable {
 
     public void setListaFavoritos(List<FavoritosResponse> listaFavoritos) {
         ListaFavoritos = listaFavoritos;
+    }
+
+    public String getTelefono() {
+        return telefono;
+    }
+
+    public void setTelefono(String telefono) {
+        this.telefono = telefono;
     }
 }
 

@@ -48,13 +48,15 @@ import static android.view.View.GONE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_NEXT;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
-import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CABLE;
+import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
+import static com.pagatodo.yaganaste.utils.ValidateForm.AMEX;
+import static com.pagatodo.yaganaste.utils.ValidateForm.GENERIC;
 
 /**
  * Created by Jordan on 12/04/2017.
@@ -147,7 +149,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             concept.setImeOptions(IME_ACTION_DONE);
 
         } else {
-            tipoPago.add(CABLE.getId(), CABLE.getName(getContext()));
+            tipoPago.add(CLABE.getId(), CLABE.getName(getContext()));
             receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
             concept.setImeOptions(IME_ACTION_NEXT);
         }
@@ -250,11 +252,13 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
     public void onStartTrackingTouch(SeekBar seekBar) {
         referencia = cardNumber.getText().toString().trim();
         referencia = referencia.replaceAll(" ", "");
+
         concepto = concept.getText().toString().trim();
         nombreDestinatario = receiverName.getText().toString().trim();
         referenciaNumber = numberReference.getText().toString().trim();
 
         enviosPresenter.validateForms(selectedType, referencia,
+                maxLength == 19 ? GENERIC : AMEX,
                 amountToSend.getText().toString().trim(),
                 nombreDestinatario,
                 concepto,
@@ -273,7 +277,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
         InputFilter[] fArray = new InputFilter[1];
 
         if (position == NUMERO_TARJETA.getId()) {
-            maxLength = comercioItem.getIdComercio() == 814 ? 17 : 19;
+            maxLength = comercioItem.getIdComercio() == 814 ? 18 : 19;
             cardNumber.setHint(getString(R.string.card_number, String.valueOf(
                     comercioItem.getIdComercio() == 814 ? 15 : 16
                     )));
@@ -296,13 +300,13 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             }
             cardNumber.addTextChangedListener(phoneTextWatcher);
             selectedType = NUMERO_TELEFONO;
-        } else if (position == CABLE.getId()) {
+        } else if (position == CLABE.getId()) {
             maxLength = 22;
             cardNumber.setHint(getString(R.string.transfer_cable));
             cardNumber.addTextChangedListener(new NumberClabeTextWatcher(cardNumber));
             layoutImageContact.setVisibility(View.GONE);
             layoutImageContact.setOnClickListener(null);
-            selectedType = CABLE;
+            selectedType = CLABE;
         } else {
             maxLength = 2;
             cardNumber.setHint("");

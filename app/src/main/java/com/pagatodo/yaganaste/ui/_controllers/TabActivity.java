@@ -11,7 +11,9 @@ import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.view.View;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -47,6 +49,8 @@ import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.List;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.PANTALLA_COBROS;
 import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.PANTALLA_PRINCIPAL_EMISOR;
@@ -84,7 +88,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
     private ProgressLayout progressGIF;
     private ResetPinPresenter resetPinPresenter;
-
+    CircleImageView imageView;
+    ImageView imageshare;
 
     public static Intent createIntent(Context from) {
         return new Intent(from, TabActivity.class);
@@ -95,7 +100,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tab);
         load();
-
+        imageView = (CircleImageView) findViewById(R.id.imgToRight_prefe);
+        imageshare= (ImageView) findViewById(R.id.deposito_Share);
         if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             startActivityForResult(LandingActivity.createIntent(this, PANTALLA_PRINCIPAL_EMISOR), ACTIVITY_LANDING);
@@ -134,6 +140,26 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         mainTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0) {
+                    ///Toast.makeText(TabActivity.this, "Tab 3", Toast.LENGTH_SHORT).show();
+                    imageView.setVisibility(View.VISIBLE);
+                    imageshare.setVisibility(View.GONE);
+                }
+                if (tab.getPosition() == 1) {
+                    ///Toast.makeText(TabActivity.this, "Tab 3", Toast.LENGTH_SHORT).show();
+                    imageView.setVisibility(View.VISIBLE);
+                    imageshare.setVisibility(View.GONE);
+                }
+                if (tab.getPosition() == 2) {
+                    ///Toast.makeText(TabActivity.this, "Tab 3", Toast.LENGTH_SHORT).show();
+                    imageView.setVisibility(View.GONE);
+                    imageshare.setVisibility(View.VISIBLE);
+                }
+                if (tab.getPosition() == 3) {
+                    ///Toast.makeText(TabActivity.this, "Tab 3", Toast.LENGTH_SHORT).show();
+                    imageView.setVisibility(View.VISIBLE);
+                    imageshare.setVisibility(View.GONE);
+                }
                 /*if (tab.getPosition() == 3) {
                     hideMainTab();
                 } else {
@@ -162,11 +188,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     @Override
     public void finishAssociation() {
-        if (SingletonUser.getInstance().needsReset()) {
+        /*if (SingletonUser.getInstance().needsReset()) {
             resetPinPresenter.doReseting(pref.loadData(SHA_256_FREJA));
-        } else {
+        } else {*/
             hideLoader();
-        }
+        //}
 
     }
 
@@ -179,6 +205,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     public void onResetingFailed() {
         hideLoader();
+        tabPresenter.doProvisioning();
     }
 
     @Override
@@ -248,6 +275,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         }
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -296,6 +324,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (requestCode == REGISTER_ADQUIRENTE_CODE && resultCode == RESULT_ADQUIRENTE_SUCCESS) {
             showMainTab();
             tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
+
         } else if (requestCode == CODE_CANCEL && resultCode == RESULT_CANCEL_OK) {
             getFragment(TYPE_DETAILS).onActivityResult(requestCode, resultCode, data);
         } else if (requestCode == Constants.ACTIVITY_LANDING) {

@@ -52,6 +52,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -196,11 +197,12 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
 
     @Override
     public void sendSuccessDatosCuentaToView(ActualizarDatosCuentaResponse response) {
-        mTDC = response.getData().get(0).getCuenta();
+        mTDC = response.getData().get(0).getTarjeta();
         mLastTime = response.getData().get(0).getUltimoInicioSesion();
 
         mNameTV.setText(mName);
-        mCuentaTV.setText(getResources().getString(R.string.tarjeta) + ": " + StringUtils.ocultarCardNumberFormat(mTDC));
+        mCuentaTV.setText(getResources().getString(R.string.tarjeta) + ": " +
+                        StringUtils.maskReference(StringUtils.format(mTDC, SPACE, 4,4,4,4), '*', 4));
         mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n" + mLastTime);
 
         printCard(mTDC);
@@ -315,9 +317,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         float width = canvas.getWidth();
         textPaint.setTextSize(heigth * 0.115f);
 
-        //canvas.drawText(StringUtils.formatoPagoMedios(cardNumber), width * 0.07f, heigth * 0.6f, textPaint);
-        canvas.drawText(cardNumber, width * 0.07f, heigth * 0.6f, textPaint);
-
+        canvas.drawText(StringUtils.format(cardNumber, SPACE, 4,4,4,4), width * 0.07f, heigth * 0.6f, textPaint);
 
         imgYaGanasteCard.setImageBitmap(bitmap);
     }

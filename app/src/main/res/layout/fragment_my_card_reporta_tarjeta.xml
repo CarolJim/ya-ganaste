@@ -54,7 +54,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/comunicate_con_nosotros" />
+                    android:text="@string/comunicate_reporta" />
 
                 <LinearLayout
                     android:layout_width="match_parent"

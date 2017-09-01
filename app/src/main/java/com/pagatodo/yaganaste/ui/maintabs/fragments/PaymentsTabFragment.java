@@ -27,6 +27,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -88,6 +89,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public static PaymentsTabFragment newInstance() {
         PaymentsTabFragment paymentsTabFragment = new PaymentsTabFragment();
+
         Bundle args = new Bundle();
         paymentsTabFragment.setArguments(args);
         return paymentsTabFragment;

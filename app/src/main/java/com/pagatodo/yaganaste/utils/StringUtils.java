@@ -256,6 +256,20 @@ public class StringUtils {
     }
 
 
+    public static String maskReference(String original, char markerChar, int leftVisible) {
+        int toMask = original.replace(" ", "").length() - leftVisible;
+        StringBuilder newFormat = new StringBuilder();
+        for (char current : original.toCharArray()) {
+            if (Character.isDigit(current) && toMask-- > 0) {
+                newFormat.append(markerChar);
+            } else {
+                newFormat.append(current);
+            }
+        }
+        return newFormat.toString();
+    }
+
+
     /**
      * Metodo que da formato generico en 4 4 4 4 4 4 4 de derecha a izquierda, ejemplo:
      * <p>
@@ -278,26 +292,26 @@ public class StringUtils {
         for (int current : formatPattern) {
             size+= current;
         }
-        if (text != null && text.length() <= size) {
 
-            int currentGroup = formatPattern.length - 1;
-            int currentSize = formatPattern[currentGroup];
-            for (int n = text.length()-1 ; n >= 0 ; n--){
-                format.insert(0, text.charAt(n));
-                currentSize--;
-                if (currentSize == 0){
-                    currentGroup--;
-                    if (n != 0){
-                        currentSize = formatPattern[currentGroup];
-                        format.insert(0, separator);
-                        //format.append(separator);
-                    }
+        if (text.length() > size) {
+            return text;
+        }
+
+        int currentGroup = formatPattern.length - 1;
+        int currentSize = formatPattern[currentGroup];
+        for (int n = text.length()-1 ; n >= 0 ; n--){
+            format.insert(0, text.charAt(n));
+            currentSize--;
+            if (currentSize == 0){
+                currentGroup--;
+                if (n != 0){
+                    currentSize = formatPattern[currentGroup];
+                    format.insert(0, separator);
                 }
             }
-
         }
-        return format.toString();
 
+        return format.toString();
     }
 
     public static String formatWithSpace(@Nullable String text,@NonNull int... formatPattern) {

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
@@ -83,6 +84,9 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
 
         List<ItemMovements<MovimientosResponse>> actualList = null;
         int tabPosition = tabMonths.getSelectedTabPosition();
+
+
+
         try {
             actualList = this.movementsList.get(tabPosition);
         } catch (Exception ex) {

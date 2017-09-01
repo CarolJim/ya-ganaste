@@ -57,7 +57,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:text="@string/txt_monto" />
+                        android:text="@string/details_monto" />
 
                     <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                         android:id="@+id/txtMontoDescripcion"
@@ -98,7 +98,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="start"
-                            android:text="@string/txt_comision" />
+                            android:text="@string/details_comision" />
 
                         <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                             android:id="@+id/txtComisionDescripcion"
@@ -136,7 +136,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="start"
-                            android:text="@string/txt_iva" />
+                            android:text="@string/details_iva" />
 
                         <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                             android:id="@+id/txtIVADescripcion"
@@ -170,7 +170,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:text="@string/tarjeta" />
+                        android:text="@string/details_tarjeta" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtRefernciaDescripcion"
@@ -206,7 +206,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="start"
-                            android:text="@string/txt_concepto" />
+                            android:text="@string/details_concepto" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             android:id="@+id/txtConceptoDescripcion"
@@ -236,7 +236,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:text="@string/txt_fecha" />
+                        android:text="@string/details_fecha" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtFechaDescripcion"
@@ -264,7 +264,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:text="@string/txt_hora" />
+                        android:text="@string/details_hora" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtHoraDescripcion"
@@ -292,7 +292,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:text="@string/autorizacion" />
+                        android:text="@string/details_autorizacion" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtAutorizacionDescripcion"
@@ -327,7 +327,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="start"
-                            android:text="@string/txt_recibo" />
+                            android:text="@string/details_recibo" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             android:id="@+id/txtReciboDescripcion"
