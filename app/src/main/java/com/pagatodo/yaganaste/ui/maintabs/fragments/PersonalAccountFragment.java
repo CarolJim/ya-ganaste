@@ -73,7 +73,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
             }
             movementsPresenter.getRemoteMovementsData(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()), direction, itemId);
         } else {
-            showLoader("");
+            //showLoader("");
             getDataForTab(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()));
         }
 
@@ -111,7 +111,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
 
     @Override
     protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemMovements<MovimientosResponse>> movements) {
-        txtInfoMovements.setVisibility(movements.isEmpty() ? View.VISIBLE : View.GONE);
+        //txtInfoMovements.setVisibility(movements.isEmpty() ? View.VISIBLE : View.GONE);
         updateRecyclerData(adapter);
     }
 

@@ -15,6 +15,7 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -191,7 +192,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         /*if (SingletonUser.getInstance().needsReset()) {
             resetPinPresenter.doReseting(pref.loadData(SHA_256_FREJA));
         } else {*/
-            hideLoader();
+        hideLoader();
         //}
 
     }
@@ -345,7 +346,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             if (fragment instanceof HomeTabFragment) {
                 goHome();
                 ((HomeTabFragment) fragment).setCurrentItem(1);
-                ((HomeTabFragment) fragment).getPaymentsFragment().onRefresh(null);
+                ((HomeTabFragment) fragment).getPaymentsFragment().onRefresh(SwipyRefreshLayoutDirection.TOP);
                 ((HomeTabFragment) fragment).getPaymentsFragment().showLoader("");
             }
         }

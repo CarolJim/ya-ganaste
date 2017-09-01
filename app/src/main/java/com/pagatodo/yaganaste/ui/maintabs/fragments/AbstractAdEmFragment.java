@@ -58,8 +58,8 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @BindView(R.id.recycler_movements)
     RecyclerView recyclerMovements;
-    @BindView(R.id.txt_info_movements)
-    TextView txtInfoMovements;
+    //@BindView(R.id.txt_info_movements)
+    //TextView txtInfoMovements;
     @BindView(R.id.swipe_container)
     SwipyRefreshLayout swipeContainer;
     @BindView(R.id.progress_emisor)
@@ -109,9 +109,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-        txtInfoMovements.setVisibility(View.GONE);
+        //txtInfoMovements.setVisibility(View.GONE);
+        //txtInfoMovements.setOnClickListener(this);
         progress_emisor.setVisibility(View.VISIBLE);
-        progress_emisor.setBackgroundColor(R.color.transparent);
+        progress_emisor.setBackgroundColor(R.color.colorLoaderAlpha);
         swipeContainer.setDirection(type == MOVEMENTS ? SwipyRefreshLayoutDirection.BOTH : SwipyRefreshLayoutDirection.TOP);
         swipeContainer.setOnRefreshListener(this);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());
@@ -137,11 +138,14 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void onRefresh(SwipyRefreshLayoutDirection direction) {
-        if (movementsList.get(tabMonths.getSelectedTabPosition()) == null) {
+        /*if (movementsList.get(tabMonths.getSelectedTabPosition()) == null) {
             showLoader("");
-        }
+        }*/
+        //txtInfoMovements.setVisibility(View.GONE);
+        swipeContainer.setRefreshing(false);
+        showLoader("");
         movementsPresenter.updateBalance();
-        progress_emisor.setVisivilityImage(View.GONE);
+        progress_emisor.setVisivilityImage(View.VISIBLE);
         progress_emisor.setVisibility(View.VISIBLE);
     }
 
@@ -154,11 +158,12 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         movementsPresenter.updateBalance();
         recyclerMovements.setVisibility(View.GONE);
         if (movementsList.get(tab.getPosition()) != null) {
-            if (movementsList.get(tab.getPosition()).size() > 0) {
+            /*if (movementsList.get(tab.getPosition()).size() > 0) {
                 updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
             } else {
-                txtInfoMovements.setVisibility(View.VISIBLE);
-            }
+                //txtInfoMovements.setVisibility(View.VISIBLE);
+            }*/
+            updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
         } else {
             showLoader("");
             getDataForTab(tabMonths.getCurrentData(tab.getPosition()));
@@ -166,18 +171,24 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     }
 
     protected void getDataForTab(T dataToRequest) {
-        txtInfoMovements.setVisibility(View.GONE);
+        //txtInfoMovements.setVisibility(View.GONE);
         movementsPresenter.getRemoteMovementsData(dataToRequest);
     }
 
     public void updateRecyclerData(RecyclerView.Adapter adapter) {
+        /*if (adapter.getItemCount() < 1) {
+            //txtInfoMovements.setVisibility(View.VISIBLE);
+        } else {
+            //txtInfoMovements.setVisibility(View.GONE);
+        }*/
         recyclerMovements.setAdapter(adapter);
         recyclerMovements.setVisibility(View.VISIBLE);
+
     }
 
     protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemRecycler> movements) {
         movementsList.set(tabMonths.getSelectedTabPosition(), movements);
-        txtInfoMovements.setVisibility(movements.isEmpty() ? View.VISIBLE : View.GONE);
+        //txtInfoMovements.setVisibility(movements.isEmpty() ? View.VISIBLE : View.GONE);
         updateRecyclerData(adapter);
     }
 
@@ -196,7 +207,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     @Override
     public void showError(String error) {
         UI.showToastShort(error, getActivity());
-        //hideLoader();
+        hideLoader();
     }
 
     @Override
@@ -227,4 +238,10 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         void onUpdateBalance();
     }
 
+    /*@Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.txt_info_movements) {
+            onRefresh(SwipyRefreshLayoutDirection.TOP);
+        }
+    }*/
 }
