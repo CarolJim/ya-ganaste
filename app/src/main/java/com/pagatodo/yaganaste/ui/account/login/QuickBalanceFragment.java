@@ -122,7 +122,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
             String cardNumber = preferencias.loadData(CARD_NUMBER);
 //                    Utils.getCurrencyValue(cardNumber))
             cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
-            cardSaldo.setCardDate("02/21");
+            //cardSaldo.setCardDate("02/21");
             if (Build.VERSION.SDK_INT >= 24) {
                 txtNameUser.setText(Html.fromHtml(getString(R.string.bienvenido_usuario,
                         preferencias.loadData(NAME_USER)),

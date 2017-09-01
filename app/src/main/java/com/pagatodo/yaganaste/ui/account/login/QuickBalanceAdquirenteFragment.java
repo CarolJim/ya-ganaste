@@ -119,7 +119,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
             String cardNumber = prefs.loadData(CARD_NUMBER);
 
             cardBalanceAdq.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
-            cardBalanceAdq.setCardDate("03/21");
+          //  cardBalanceAdq.setCardDate("03/21");
 
             if (Build.VERSION.SDK_INT >= 24) {
                 txtUserName.setText(Html.fromHtml(getString(R.string.bienvenido_usuario,
