@@ -23,6 +23,7 @@ public class TabPresenterImpl implements TabPresenter, TabMenuManager {
         this.tabMenuIteractor = new TabMenuIteractorImpl(this);
     }
 
+
     public TabPresenterImpl() {
         this.tabMenuIteractor = new TabMenuIteractorImpl(this);
     }
@@ -36,6 +37,7 @@ public class TabPresenterImpl implements TabPresenter, TabMenuManager {
         if (tab != null) {
             tabMenuIteractor.getpagerData(tab);
         }
+
     }
 
     @Override
