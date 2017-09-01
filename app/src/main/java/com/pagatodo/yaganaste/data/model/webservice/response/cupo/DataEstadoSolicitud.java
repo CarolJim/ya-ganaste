@@ -24,6 +24,7 @@ public class DataEstadoSolicitud  implements Serializable{
     private String FolioAfiliacion;
     private int IdEstadoCivil;
     private int IdEstatusPaso;
+    private int IdEstatusGeneral;
     private int IdPaso;
     private Float LineaCredito;
     private String NumeroCliente;
@@ -63,6 +64,14 @@ public class DataEstadoSolicitud  implements Serializable{
 
     public void setComentarioRechazo(String comentarioRechazo) {
         ComentarioRechazo = comentarioRechazo;
+    }
+
+    public int getIdEstatusGeneral() {
+        return IdEstatusGeneral;
+    }
+
+    public void setIdEstatusGeneral(int idEstatusGeneral) {
+        IdEstatusGeneral = idEstatusGeneral;
     }
 
     /*

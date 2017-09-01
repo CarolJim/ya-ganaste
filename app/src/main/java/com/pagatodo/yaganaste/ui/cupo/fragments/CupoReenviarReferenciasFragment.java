@@ -8,6 +8,7 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
@@ -59,6 +60,7 @@ public class CupoReenviarReferenciasFragment extends GenericFragment implements 
     LinearLayout containerFamiliar;
     @BindView(R.id.btnActualizarReferencias)
     StyleButton btnActualizarReferencias;
+    @BindView(R.id.btnRegresar) StyleButton btnRegresar;
 
     private List<RefereciasResponse> referecias;
 
@@ -111,80 +113,81 @@ public class CupoReenviarReferenciasFragment extends GenericFragment implements 
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnActualizarReferencias.setOnClickListener(this);
-            referecias = dataEstadoSolicitud.getReferencias();
-            for (RefereciasResponse referencia : referecias) {
-                int tipoReferenica = referencia.getIdTipoReferencia();
-                int idEstatusReferencia = referencia.getIdEstatusReferencia();
-                int estadoActual = 0;
-                switch (idEstatusReferencia) {
-                    case 1:
-                        estadoActual = ESTADO_APROVADO;
-                        break;
-                    case 3:
-                    case 4:
-                    case 5:
-                    case 6:
-                    case 7:
-                        estadoActual = ESTADO_RECHAZADO;
-                        break;
-                    case 8:
-                        estadoActual = ESTADO_REVISION;
-                        break;
-                }
-
-                Referencias sigletonReferencias = Referencias.getInstance();
-                switch (tipoReferenica) {
-                    case 1: // Familiar
-                        familiarStatus.setStatus(estadoActual);
-                        if (estadoActual == ESTADO_RECHAZADO) {
-                            familiarStatus.setOnClickListener(this);
-                            if (!sigletonReferencias.getFamiliarActualizado()) {
-                                sigletonReferencias.setFamiliarNombre(referencia.getNombre());
-                                sigletonReferencias.setFamiliarApellidoPaterno(referencia.getPrimerApellido());
-                                sigletonReferencias.setFamiliarApellidoMaterno(referencia.getSegundoApellido());
-                                sigletonReferencias.setFamiliarTelefono(referencia.getTelefono());
-                                sigletonReferencias.setFamiliarIdRelacion(referencia.getIdRelacion());
-                            }
-                            actualizarFamiliar = true;
-                        } else {
-                            familiarStatus.setOnClickListener(null);
-                        }
-                        break;
-                    case 2: // Personal
-                        personalStatus.setStatus(estadoActual);
-                        if (estadoActual == ESTADO_RECHAZADO) {
-                            personalStatus.setOnClickListener(this);
-                            if (!sigletonReferencias.getPersonaActualizado()) {
-                                sigletonReferencias.setPersonalNombre(referencia.getNombre());
-                                sigletonReferencias.setPersonalApellidoPaterno(referencia.getPrimerApellido());
-                                sigletonReferencias.setPersonalApellidoMaterno(referencia.getSegundoApellido());
-                                sigletonReferencias.setPersonalTelefono(referencia.getTelefono());
-                                sigletonReferencias.setPersonalIdRelacion(referencia.getIdRelacion());
-                            }
-
-                            actualizarPersonal = true;
-                        } else {
-                            personalStatus.setOnClickListener(null);
-                        }
-                        break;
-                    case 3: // Proveedor
-                        prooveedorStatus.setStatus(estadoActual);
-                        if (estadoActual == ESTADO_RECHAZADO) {
-                            prooveedorStatus.setOnClickListener(this);
-                            if (!sigletonReferencias.getProveedorActualizado()) {
-                                sigletonReferencias.setProveedorNombre(referencia.getNombre());
-                                sigletonReferencias.setProveedorApellidoPaterno(referencia.getPrimerApellido());
-                                sigletonReferencias.setProveedorApellidoMaterno(referencia.getSegundoApellido());
-                                sigletonReferencias.setProveedorTelefono(referencia.getTelefono());
-                                sigletonReferencias.setProveedorProductoServicio(referencia.getProductoServicioProveedor());
-                            }
-                            actualizarProveedor = true;
-                        } else {
-                            prooveedorStatus.setOnClickListener(null);
-                        }
-                        break;
-                }
+        btnRegresar.setOnClickListener(this);
+        referecias = dataEstadoSolicitud.getReferencias();
+        for (RefereciasResponse referencia : referecias) {
+            int tipoReferenica = referencia.getIdTipoReferencia();
+            int idEstatusReferencia = referencia.getIdEstatusReferencia();
+            int estadoActual = 0;
+            switch (idEstatusReferencia) {
+                case 1:
+                    estadoActual = ESTADO_APROVADO;
+                    break;
+                case 3:
+                case 4:
+                case 5:
+                case 6:
+                case 7:
+                    estadoActual = ESTADO_RECHAZADO;
+                    break;
+                case 8:
+                    estadoActual = ESTADO_REVISION;
+                    break;
             }
+
+            Referencias sigletonReferencias = Referencias.getInstance();
+            switch (tipoReferenica) {
+                case 1: // Familiar
+                    familiarStatus.setStatus(estadoActual);
+                    if (estadoActual == ESTADO_RECHAZADO) {
+                        familiarStatus.setOnClickListener(this);
+                        if (!sigletonReferencias.getFamiliarActualizado()) {
+                            sigletonReferencias.setFamiliarNombre(referencia.getNombre());
+                            sigletonReferencias.setFamiliarApellidoPaterno(referencia.getPrimerApellido());
+                            sigletonReferencias.setFamiliarApellidoMaterno(referencia.getSegundoApellido());
+                            sigletonReferencias.setFamiliarTelefono(referencia.getTelefono());
+                            sigletonReferencias.setFamiliarIdRelacion(referencia.getIdRelacion());
+                        }
+                        actualizarFamiliar = true;
+                    } else {
+                        familiarStatus.setOnClickListener(null);
+                    }
+                    break;
+                case 2: // Personal
+                    personalStatus.setStatus(estadoActual);
+                    if (estadoActual == ESTADO_RECHAZADO) {
+                        personalStatus.setOnClickListener(this);
+                        if (!sigletonReferencias.getPersonaActualizado()) {
+                            sigletonReferencias.setPersonalNombre(referencia.getNombre());
+                            sigletonReferencias.setPersonalApellidoPaterno(referencia.getPrimerApellido());
+                            sigletonReferencias.setPersonalApellidoMaterno(referencia.getSegundoApellido());
+                            sigletonReferencias.setPersonalTelefono(referencia.getTelefono());
+                            sigletonReferencias.setPersonalIdRelacion(referencia.getIdRelacion());
+                        }
+
+                        actualizarPersonal = true;
+                    } else {
+                        personalStatus.setOnClickListener(null);
+                    }
+                    break;
+                case 3: // Proveedor
+                    prooveedorStatus.setStatus(estadoActual);
+                    if (estadoActual == ESTADO_RECHAZADO) {
+                        prooveedorStatus.setOnClickListener(this);
+                        if (!sigletonReferencias.getProveedorActualizado()) {
+                            sigletonReferencias.setProveedorNombre(referencia.getNombre());
+                            sigletonReferencias.setProveedorApellidoPaterno(referencia.getPrimerApellido());
+                            sigletonReferencias.setProveedorApellidoMaterno(referencia.getSegundoApellido());
+                            sigletonReferencias.setProveedorTelefono(referencia.getTelefono());
+                            sigletonReferencias.setProveedorProductoServicio(referencia.getProductoServicioProveedor());
+                        }
+                        actualizarProveedor = true;
+                    } else {
+                        prooveedorStatus.setOnClickListener(null);
+                    }
+                    break;
+            }
+        }
 
 
 
@@ -219,6 +222,9 @@ public class CupoReenviarReferenciasFragment extends GenericFragment implements 
                     presenter.actualizarReferencias();
                 }
 
+                break;
+            case R.id.btnRegresar:
+                cupoActivityManager.onBtnBackPress();
                 break;
 
         }
@@ -274,7 +280,8 @@ public class CupoReenviarReferenciasFragment extends GenericFragment implements 
                     @Override
                     public void actionConfirm(Object... params) {
                         App.getInstance().getPrefs().saveData( CUPO_PASO , CUPO_PASO_DOCUMENTOS_ENVIADOS);
-                        cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_CUENTAME_MAS, null);
+                        //cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_CUENTAME_MAS, null);
+                        cupoActivityManager.onBtnBackPress();
                     }
 
                     @Override

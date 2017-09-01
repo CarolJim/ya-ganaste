@@ -209,11 +209,17 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
 
         CrearCupoSolicitudRequest request = new CrearCupoSolicitudRequest();
         request.setIdEstadoCivil(registerCupo.getIdEstadoCivil());
-        request.setNumeroHijos(registerCupo.getHijos());
+        request.setNumeroHijos("1");
         request.setTieneCreditoBancario(registerCupo.getCreditoBancario());
         request.setTieneCreditoAuto(registerCupo.getCreditoAutomotriz());
         request.setTieneTarjetaCredito(registerCupo.getTarjetaCreditoBancario());
-        request.setNumeroTarjeta(registerCupo.getNumeroTarjeta());
+
+
+        if (registerCupo.getNumeroTarjeta() != null && !registerCupo.getNumeroTarjeta().equals("") ) {
+            request.setNumeroTarjeta(registerCupo.getNumeroTarjeta());
+        } else {
+            request.setNumeroTarjeta("0000");
+        }
 
         List<CupoReferencia> referencias = new ArrayList<>();
 
@@ -315,6 +321,7 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
                     break;
                 case ACTUALIZA_DOCUMENTOS_CUPO:
                     processActualizaDocumentos(dataSourceResult);
+                    break;
                 case ACTUALIZA_REFERENCIAS:
                     processActualizaReferencias(dataSourceResult);
                     break;

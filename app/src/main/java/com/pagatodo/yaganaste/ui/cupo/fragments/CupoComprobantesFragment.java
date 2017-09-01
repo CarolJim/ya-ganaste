@@ -186,8 +186,8 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnRegresar:
-                //cupoActivityManager.onBtnBackPress();
-                cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_INICIO, null);
+                cupoActivityManager.onBtnBackPress();
+                //cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_INICIO, null);
                 break;
             /*
             case R.id.btnWeNeedSmFilesNext:
@@ -522,7 +522,6 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
 
     @Override
     public void setResponseEstadoDocumentos(List<DataEstadoDocumentos> datos) {
-        Log.e("Test", "Respuesta de estado de documentos");
         for (int i=0; i<datos.size(); i++) {
 
             DataEstadoDocumentos actual = datos.get(i);
@@ -574,6 +573,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
 
     @Override
     public void setResponseActualizaDocumentos() {
+        App.getInstance().getPrefs().saveData( CUPO_PASO , CUPO_PASO_DOCUMENTOS_ENVIADOS);
         cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_ESTATUS_REGISTRO, null);
     }
 

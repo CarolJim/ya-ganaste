@@ -68,6 +68,17 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
     public static final int ESTADO_RENEENVIA_DOCUMENTOS = 0;
     public static final int ESTADO_RENEENVIA_REFERENCIAS = 1;
 
+
+    public static final int ESTATUS_GENERAL_DATOS_CAP = 1;  // Datos Capturados
+    public static final int ESTATUS_GENERAL_PENDIENTE_DOC= 2;  // Documentos en validación
+    public static final int ESTATUS_GENERAL_RECHAZADO_DOC = 3;  // Documentos rechazados (parcial o total)
+    public static final int ESTATUS_GENERAL_PENDIENTE_REF = 4;  // Referencias en validación
+    public static final int ESTATUS_GENERAL_RECHAZADO_REF = 5;  // Referencias rechazadas (parcial o total)
+    public static final int ESTATUS_GENERAL_PENDIENTE_LINEA = 6;  // Validando línea de crédito
+    public static final int ESTATUS_GENERAL_SUCCESS = 7;  // Línea de crédito aprobada
+    public static final int ESTATUS_GENERAL_ABORTED = 8;  // Rechazo definitivo
+
+
     private int ESTADO_ACTUAL = 0;
 
     @BindView(R.id.status_view)StatusViewCupo statusViewCupo;
@@ -161,11 +172,61 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
 
     @Override
     public void setResponseEstadoCupo(DataEstadoSolicitud dataEstadoSolicitud) {
-        int pasoActual = dataEstadoSolicitud.getIdPaso();
-        int idEstado   = dataEstadoSolicitud.getIdEstatusPaso();
-        Float lineaCredito = dataEstadoSolicitud.getLineaCredito();
+        int estatusGeneral = dataEstadoSolicitud.getIdEstatusGeneral();
 
+        Log.e("general", ""+ estatusGeneral);
+        ESTADO_ACTUAL = dataEstadoSolicitud.getIdEstatusGeneral();
+        Float lineaCredito = dataEstadoSolicitud.getLineaCredito();
         respuesta = dataEstadoSolicitud;
+        switch (ESTADO_ACTUAL) {
+            case ESTATUS_GENERAL_DATOS_CAP:
+                break;
+            case ESTATUS_GENERAL_PENDIENTE_DOC:
+                statusTextInfo.setText(getText(R.string.txt_validate_info));
+                statusText.setText("Validando\nDocumentos\n1/3");
+                statusViewCupo.updateStatus(33,0);
+                mButtonContinue.setVisibility(View.GONE);
+                break;
+            case ESTATUS_GENERAL_RECHAZADO_DOC:
+                statusTextInfo.setText("Ocurrió un Error\nCon Tu Documentación");
+                statusText.setText("Reenvía Tus\nDocumentos\n1/3");
+                statusViewCupo.updateError(33,0);
+                mTextContact.setVisibility(View.GONE);
+                mButtonContinue.setVisibility(View.VISIBLE);
+                break;
+            case ESTATUS_GENERAL_PENDIENTE_REF:
+                statusTextInfo.setText(getText(R.string.txt_validate_info));
+                statusText.setText("Validando\nReferencias\n2/3");
+                statusViewCupo.updateStatus(66,33);
+                break;
+            case ESTATUS_GENERAL_RECHAZADO_REF:
+                statusTextInfo.setText("Ocurrió un Error\nCon Tus Referencias");
+                statusText.setText("Envia Nuevas\nReferencias\n2/3");
+                statusViewCupo.updateError(66,33);
+                mButtonContinue.setVisibility(View.VISIBLE);
+                break;
+            case ESTATUS_GENERAL_PENDIENTE_LINEA:
+                statusTextInfo.setText(getText(R.string.txt_validate_info));
+                statusText.setText("Asignando\nLínea de Crédito\n3/3");
+                statusViewCupo.updateStatus(100,66);
+                break;
+            case ESTATUS_GENERAL_SUCCESS:
+                statusTextInfo.setText(getText(R.string.txt_cupo_exitoso));
+                statusText.setText("¡Felicidades!\n\n\n\nEs tu Línea de \nCrédito Aprovada");
+                importe.setVisibility(View.VISIBLE);
+                importe.setText(StringUtils.getCurrencyValue(lineaCredito));
+                statusViewCupo.updateStatus(100,100);
+                mTextContact.setVisibility(View.GONE);
+                break;
+            case ESTATUS_GENERAL_ABORTED:
+                statusTextInfo.setText(getText(R.string.txt_solicitud_no_completada));
+                statusText.setText("Solicitud\nInterrumpida");
+                mTextContact.setText(getText(R.string.txt_solicitud_definitivo_rechazo));
+                break;
+        }
+
+
+        /*
         switch (pasoActual) {
             case PASO_CUPO_DOCUMENTACION_INCOMPLETA:
                 break;
@@ -178,8 +239,8 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
             case PASO_CUPO_VALIDACION_DE_LINEA_DE_CREDITO:
                 setValidandoCredito(idEstado, lineaCredito );
                 break;
-
         }
+        */
     }
 
     private void setValidandoCredito (int idEstado, Float lineaCredito) {
@@ -292,10 +353,10 @@ public class StatusRegisterCupoFragment extends GenericFragment  implements IVie
         int id = view.getId();
         if (id == R.id.btnNextScreen) {
             switch (ESTADO_ACTUAL) {
-                case ESTADO_RENEENVIA_DOCUMENTOS:
+                case ESTATUS_GENERAL_RECHAZADO_DOC: // ESTADO_RENEENVIA_DOCUMENTOS
                     cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_REENVIAR_COMPROBANTES, null);
                     break;
-                case ESTADO_RENEENVIA_REFERENCIAS:
+                case ESTATUS_GENERAL_RECHAZADO_REF: // ESTADO_RENEENVIA_REFERENCIAS
                     Referencias sigletonReferencia = Referencias.getInstance();
                     // Se limpia primero las referncias por si fueron rechazadas y actaulzadas mas de una ves.
                     sigletonReferencia.setFamiliarActualizado(false);
