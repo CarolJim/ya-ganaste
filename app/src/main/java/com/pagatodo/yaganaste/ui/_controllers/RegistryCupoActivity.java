@@ -139,9 +139,8 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     private void initViews() {
         changeToolbarVisibility(false);
 
-        loadFragment(RegisterCompleteFragment.newInstance(CUPO_REVISION), Direction.FORDWARD, false);
 
-        /*
+
         if (App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_DOCUMENTOS_ENVIADOS) || App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_REGISTRO_ENVIADO))  {
             if (App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_DOCUMENTOS_ENVIADOS)) {
                 loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, false);
@@ -160,7 +159,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 loadFragment(CupoInicioFragment.newInstance(), Direction.FORDWARD, false);
             }
         }
-        */
+
 
     }
 
