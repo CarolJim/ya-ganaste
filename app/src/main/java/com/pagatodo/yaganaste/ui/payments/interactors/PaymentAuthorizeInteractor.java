@@ -31,7 +31,7 @@ public class PaymentAuthorizeInteractor implements IPaymentAuthorizeInteractor {
             ApiAdtvo.validarFormatoContrasenia(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
-            presenter.onError(VALIDAR_FORMATO_CONTRASENIA, App.getContext().getString(R.string.no_internet_access));
+            presenter.onConexionError(App.getContext().getString(R.string.no_internet_access));
         }
     }
 

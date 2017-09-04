@@ -13,4 +13,6 @@ public interface IPaymentAuthorizePresenter extends OtpPResenter {
     void onSuccess(WebService ws, Object success);
 
     void onError(WebService ws, Object error);
+
+    void onConexionError(String message);
 }
