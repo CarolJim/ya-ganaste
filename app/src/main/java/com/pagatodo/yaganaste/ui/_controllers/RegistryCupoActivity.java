@@ -45,6 +45,7 @@ import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT_PERSONAL;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT_PROVEEDOR;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.CUPO_PROCESS;
+import static com.pagatodo.yaganaste.utils.Recursos.INCORRECT_FORMAT;
 
 /**
  * Created by Jordan on 25/07/2017.
@@ -138,6 +139,9 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     private void initViews() {
         changeToolbarVisibility(false);
 
+        loadFragment(RegisterCompleteFragment.newInstance(CUPO_REVISION), Direction.FORDWARD, false);
+
+        /*
         if (App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_DOCUMENTOS_ENVIADOS) || App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_REGISTRO_ENVIADO))  {
             if (App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_DOCUMENTOS_ENVIADOS)) {
                 loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, false);
@@ -156,6 +160,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 loadFragment(CupoInicioFragment.newInstance(), Direction.FORDWARD, false);
             }
         }
+        */
 
     }
 
@@ -172,6 +177,9 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
         switch (event) {
             case EVENT_GO_CM_DOCUMENTOS:
                 finish();
+                Intent intent = new Intent(this, TabActivity.class);
+                startActivity(intent);
+
                 break;
             default:
                 super.onEvent(event, data);

@@ -102,6 +102,7 @@ public class Recursos {
     public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
     public static final String ADQ_PROCESS = "FLAG_PROCESS";
     public static final String CUPO_PROCESS = "FLAG_PROCESS_CUPO";
+    public static String CUPO_COMPLETE = "CUPO_COMPLETE";
 
     // Preferencias para Foto de Usuario. URL
     public static final String URL_PHOTO_USER = "URL_PHOTO_USER";
