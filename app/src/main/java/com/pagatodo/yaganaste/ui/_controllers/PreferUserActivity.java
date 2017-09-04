@@ -87,6 +87,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_PASS = "PREFER_USER_PASS";
     public static String PREFER_USER_CHANGE_NIP = "PREFER_USER_CHANGE_NIP";
     public static String PREFER_USER_CHANGE_NIP_BACK = "PREFER_USER_CHANGE_NIP_BACK";
+
+
     /**
      * Acciones para dialogo de confirmacion en cerrar session
      */
@@ -152,18 +154,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
          * Hacemos la consulta del servio ObtenerEstatusTarjeta que se encarga de darnos el estado de la Card.
          * Ya que obtenemos el estado tenemos que hacer Set en el Switch dependiendo del resultado
          */
-        boolean isOnline = Utils.isDeviceOnline();
-        if (isOnline) {
-            // Creamos el objeto ActualizarAvatarRequest
-            mPreferPresenter.toPresenterEstatusCuenta(mTDC);
-        } else {
-            showDialogMesage(getResources().getString(R.string.no_internet_access));
-           /* mTDC = getArguments().getString(M_TDC);
-            mCuentaTV.setText("Tarjeta: " + StringUtils.ocultarCardNumberFormat(mTDC));
 
-            mLastTimeTV.setText("Utilizada Por Ultima Vez: \n" + "");
-            printCard(mTDC);*/
-        }
     }
 
     public AccountPresenterNew getPresenterAccount() {
@@ -179,6 +170,27 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         super.onResume();
         // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
         setVisibilityPrefer(false);
+        checareStatusTarjeta();
+    }
+
+    public void checareStatusTarjeta(){
+        boolean isOnline = Utils.isDeviceOnline();
+        if (isOnline) {
+            // Creamos el objeto ActualizarAvatarRequest
+                   String f = SingletonUser.getInstance().getCardStatusId();
+            String statusId = SingletonUser.getInstance().getCardStatusId();
+            if (f ==null ||f.isEmpty()||f.equals("0")) {
+                mPreferPresenter.toPresenterEstatusCuenta(mTDC);
+            }
+
+        } else {
+            showDialogMesage(getResources().getString(R.string.no_internet_access));
+           /* mTDC = getArguments().getString(M_TDC);
+            mCuentaTV.setText("Tarjeta: " + StringUtils.ocultarCardNumberFormat(mTDC));
+
+            mLastTimeTV.setText("Utilizada Por Ultima Vez: \n" + "");
+            printCard(mTDC);*/
+        }
     }
 
     /**
@@ -361,8 +373,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 loadFragment(MyPassFragment.newInstance(), Direction.FORDWARD, false);
                 break;
 
-
-
             /** Eventos BACK **/
             case "PREFER_USER_LISTA":
                 loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage), Direction.BACK, false);
@@ -472,6 +482,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public void sendSuccessEstatusCuentaToView(EstatusCuentaResponse response) {
         String statusId = response.getData().getStatusId();
         SingletonUser.getInstance().setCardStatusId(statusId);
+
     }
 
     public void sendErrorEstatusCuentaToView(String mensaje) {

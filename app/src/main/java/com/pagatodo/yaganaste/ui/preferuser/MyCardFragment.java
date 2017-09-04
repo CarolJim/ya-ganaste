@@ -168,10 +168,10 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         // Hacemos Set en el estado del switch desde el Singleton, antes del listener
 
         String statusId = SingletonUser.getInstance().getCardStatusId();
-        if (statusId != null && statusId.equals(Recursos.ESTATUS_CUENTA_BLOQUEADA)) {
-            mycard_switch.setChecked(true);
-        } else {
+        if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
             mycard_switch.setChecked(false);
+        } else {
+            mycard_switch.setChecked(true);
         }
 
         //Agregamos un Listener al Switch
@@ -237,10 +237,11 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         String messageStatus = "";
         if (statusBloqueo == BLOQUEO) {
             messageStatus = getResources().getString(R.string.card_locked_success);
-            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
+            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
         } else if (statusBloqueo == DESBLOQUEO) {
             messageStatus = getResources().getString(R.string.card_unlocked_success);
-            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
+            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
+
         }
 
         showDialogCustom(messageStatus +
