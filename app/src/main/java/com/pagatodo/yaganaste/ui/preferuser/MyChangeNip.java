@@ -18,8 +18,10 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -470,6 +472,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
     @Override
     public void nextScreen(String event, Object data) {
+        showErrorsucces(event,data);
 
     }
 
@@ -510,4 +513,25 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                     true, false);
         }
     }
+    public void showErrorsucces(final String event , final Object error) {
+        if (!error.toString().isEmpty())
+            //  UI.showToastShort(error.toString(), getActivity());
+            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+                    new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+                            onEventListener.onEvent(event, error );
+                        }
+
+                        @Override
+                        public void actionCancel(Object... params) {
+
+                        }
+                    },
+                    true, false);
+    }
+
+
+
+
 }

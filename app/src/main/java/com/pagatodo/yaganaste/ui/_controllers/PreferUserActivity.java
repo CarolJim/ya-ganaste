@@ -222,6 +222,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_USER_REPORTA_TARJETA_BACK":
                 loadFragment(MyCardFragment.newInstance(mName, mTDC, mLastTime), Direction.BACK, false);
                 break;
+            case "EVENT_GO_CHANGE_NIP_SUCCESS":
+                loadFragment(MyCardFragment.newInstance(mName, mTDC, mLastTime), Direction.BACK, false);
+                break;
             case "PREFER_USER_HELP_CORREO_REPORTA_TARJETA":
                 loadFragment(MyHelpContactanosCorreo.newInstance(), Direction.FORDWARD, false);
                 break;
