@@ -25,7 +25,7 @@ public class MontoTextView extends StyleTextView {
     private boolean symbolSmaller = false;
     private boolean DotBottom = true;
     private String value = "";
-    boolean isCustom = true;
+    private boolean isCustom = true;
 
     public MontoTextView(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -61,7 +61,7 @@ public class MontoTextView extends StyleTextView {
     public void onDraw(Canvas canvas) {
         super.onDraw(canvas);
         if (isCustom) {
-            if (!getText().toString().startsWith("$"))
+            if (!getText().toString().contains("$"))
                 setText(String.format("$%s", getText())); // Agregamos símbolo $
 
             if (!getText().toString().contains(".")) {
@@ -84,7 +84,6 @@ public class MontoTextView extends StyleTextView {
                     index = value.indexOf(".");
                     lenght = value.length();
                 }
-
 
              /*Cambiamos tamaño del símbolo $*/
                 if (symbolSmaller) {
@@ -167,5 +166,4 @@ public class MontoTextView extends StyleTextView {
     public void setDotBottom(boolean dotBottom) {
         DotBottom = dotBottom;
     }
-
 }

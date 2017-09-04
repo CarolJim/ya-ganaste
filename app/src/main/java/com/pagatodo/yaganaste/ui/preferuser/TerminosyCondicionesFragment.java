@@ -11,7 +11,6 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
-import com.pagatodo.yaganaste.interfaces.enums.States;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 
 import butterknife.BindView;
@@ -31,45 +30,36 @@ public class TerminosyCondicionesFragment extends GenericFragment implements Vie
     @BindView(R.id.fragment_terminos_cuenta_ya_ganaste_Terminos)
     LinearLayout ll_cuenta_ya_terminos;
 
-    @BindView(R.id.fragment_terminos_linea_credito_terminos)
-    LinearLayout ll_linea_terminos;
-
     @BindView(R.id.fragment_contrato_terminos)
     LinearLayout ll_contrato_terminos;
-
 
     @BindView(R.id.lineacontrato)
     View lcontrato;
 
-    @BindView(R.id.lineancredito)
-    View lcredito;
-
-    @BindView(R.id.lineacuenta)
-    View lcuenta;
-
-
-
-
-
+    @BindView(R.id.fragment_terminos_lcredito_view)
+    View view_lcredito;
+    @BindView(R.id.fragment_terminos_lcredito_linearlayout)
+    LinearLayout ll_lcredito;
 
     public TerminosyCondicionesFragment() {
         // Required empty public constructor
     }
 
-    public  static TerminosyCondicionesFragment newInstance() {
-        TerminosyCondicionesFragment  fragmentterminosycondiciones = new TerminosyCondicionesFragment();
+    public static TerminosyCondicionesFragment newInstance() {
+        TerminosyCondicionesFragment fragmentterminosycondiciones = new TerminosyCondicionesFragment();
         return fragmentterminosycondiciones;
 
     }
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
 
 
-        Idestatus= SingletonUser.getInstance().getDataUser().getIdEstatus();
+        Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
         res = Idestatus;
-        rootview=inflater.inflate(R.layout.fragment_terminosy_condiciones, container, false);
+        rootview = inflater.inflate(R.layout.fragment_terminosy_condiciones, container, false);
         initViews();
         return rootview;
     }
@@ -77,12 +67,12 @@ public class TerminosyCondicionesFragment extends GenericFragment implements Vie
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()){
+        switch (view.getId()) {
 
             case R.id.fragment_terminos_cuenta_ya_ganaste_Terminos:
                 onEventListener.onEvent(PREFER_USER_TERMINOS_CUENTA_YA, 1);
                 break;
-            case R.id.fragment_terminos_linea_credito_terminos:
+            case R.id.fragment_terminos_lcredito_linearlayout:
                 onEventListener.onEvent(PREFER_USER_TERMINOS_LINEA_CREDITO, 1);
                 break;
         }
@@ -93,14 +83,15 @@ public class TerminosyCondicionesFragment extends GenericFragment implements Vie
     public void initViews() {
         ButterKnife.bind(this, rootview);
         ll_cuenta_ya_terminos.setOnClickListener(this);
-        ll_linea_terminos.setOnClickListener(this);
         ll_contrato_terminos.setOnClickListener(this);
 
-        if (Idestatus == IdEstatus.I16.getId()){
-            ll_contrato_terminos.setVisibility(View.VISIBLE);
-            lcontrato.setVisibility(View.VISIBLE);
-            ll_linea_terminos.setVisibility(View.VISIBLE);
-            lcredito.setVisibility(View.VISIBLE);
+        if (Idestatus == IdEstatus.I16.getId()) {
+//            ll_contrato_terminos.setVisibility(View.VISIBLE);
+//            lcontrato.setVisibility(View.VISIBLE);
+
+            view_lcredito.setVisibility(View.VISIBLE);
+            ll_lcredito.setVisibility(View.VISIBLE);
+            ll_lcredito.setOnClickListener(this);
         }
 
 

@@ -45,6 +45,11 @@ public class AccountMovementsIteractorImp implements MovementsIteractor<Consulta
     }
 
     @Override
+    public void getDatosCupo() {
+
+    }
+
+    @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
         switch (dataSourceResult.getWebService()) {
 

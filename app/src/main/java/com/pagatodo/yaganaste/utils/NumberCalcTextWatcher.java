@@ -198,8 +198,7 @@ public class NumberCalcTextWatcher implements TextWatcher {
                     Selection.setSelection(etMonto.getText(), Utils.getCurrencyValue(tmp).toString().length());
 
                     // Guardamos la cantidad en el modelo para recuperar en caso de perdida
-                    TransactionAdqData.getCurrentTransaction()
-                            .setAmount(Utils.getCurrencyValue(strAmountEditText));
+                    //TransactionAdqData.getCurrentTransaction().setAmount(Utils.getCurrencyValue(strAmountEditText));
 
                     // Hacemos un set vacio en el concepto al reiniciarse la cantidad
                     if(tmp.equals("0.00")){

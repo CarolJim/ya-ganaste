@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.freja.general;
 
 import android.content.Context;
 
+import com.pagatodo.yaganaste.App;
 import com.verisec.freja.mobile.core.FmcLogManager;
 import com.verisec.freja.mobile.core.FmcManager;
 import com.verisec.freja.mobile.core.configuration.FmcConfiguration;
@@ -13,14 +14,16 @@ import com.verisec.freja.mobile.core.configuration.FmcConfiguration;
 
 public abstract class FmcIteractorImp implements FmcIteractor {
 
-    protected FmcManager fmcManager;
+    protected static FmcManager fmcManager;
 
     @Override
     public void init(Context context) {
         try {
-            FmcLogManager.enableLoggingAll(true);
-            FmcManager.setContext(context);
-            this.fmcManager = FmcManager.getFmcManager();
+            if (fmcManager == null) {
+                FmcLogManager.enableLoggingAll(true);
+                FmcManager.setContext(App.getInstance());
+                this.fmcManager = FmcManager.getFmcManager();
+            }
         } catch (Exception e) {
             throwInitException(e);
         }
@@ -29,9 +32,10 @@ public abstract class FmcIteractorImp implements FmcIteractor {
     @Override
     public void init(Context context, long connectionTimeout, long readTimeout) {
         try {
-            FmcManager.setContext(context);
-            fmcManager = FmcManager.getFmcManager();
-
+            if (fmcManager == null) {
+                FmcManager.setContext(App.getInstance());
+                this.fmcManager = FmcManager.getFmcManager();
+            }
             FmcConfiguration fmcConfiguration = fmcManager.getFmcConfiguration();
             fmcConfiguration.setConnectionTimeout(connectionTimeout);
             fmcConfiguration.setReadTimeout(readTimeout);

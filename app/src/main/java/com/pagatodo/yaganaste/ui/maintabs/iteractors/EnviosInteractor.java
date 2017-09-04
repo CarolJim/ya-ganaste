@@ -27,13 +27,13 @@ public class EnviosInteractor implements IEnviosInteractor {
     }
 
     @Override
-    public void validateForms(TransferType type, String number, String importe,
+    public void validateForms(TransferType type, String number, int typeCard, String importe,
                               String name, String concept, String reference) {
 
         if (type != null) {
             if (number == null || number.isEmpty()) {
                 switch (type) {
-                    case CABLE:
+                    case CLABE:
                         listener.onNumberCABLEEmpty();
                         return;
                     case NUMERO_TARJETA:
@@ -48,14 +48,14 @@ public class EnviosInteractor implements IEnviosInteractor {
             }
 
             switch (type) {
-                case CABLE:
+                case CLABE:
                     if (!ValidateForm.isValidCABLE(number)) {
                         listener.onNumberErrorCABLE();
                         return;
                     }
                     break;
                 case NUMERO_TARJETA:
-                    if (!ValidateForm.isValidCreditCard(number)) {
+                    if (!ValidateForm.isValidCreditCard(number, typeCard)) {
                         listener.onNumberErrorCreditCard();
                         return;
                     }

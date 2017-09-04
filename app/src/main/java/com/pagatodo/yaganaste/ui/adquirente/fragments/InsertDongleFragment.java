@@ -39,6 +39,7 @@ import java.util.Calendar;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 import pl.droidsonroids.gif.GifDrawable;
 import pl.droidsonroids.gif.GifImageView;
 
@@ -49,6 +50,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.adquirente.utils.UtilsAdquirente.getImplicitData;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
+import static com.pagatodo.yaganaste.utils.Constants.TIPO_TRANSACCION_CHIP;
 import static com.pagatodo.yaganaste.utils.Recursos.ENCENDIDO;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR;
 import static com.pagatodo.yaganaste.utils.Recursos.ERROR_LECTOR;
@@ -97,6 +99,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private AdqPresenter adqPresenter;
     private boolean isWaitingCard = false;
     private boolean isCancelation = false;
+    CircleImageView imageView;
     private Runnable starReaderEmvSwipe = new Runnable() {
         @Override
         public void run() {
@@ -290,6 +293,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         isCancelation = getArguments().getBoolean(DATA_KEY);
+        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         dataMovimientoAdq = getArguments().getSerializable(DATA_MOVEMENTS) != null ? (DataMovimientoAdq) getArguments().getSerializable(DATA_MOVEMENTS) : null;
         prefs = App.getInstance().getPrefs();
         audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
@@ -298,14 +302,10 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         getActivity().registerReceiver(headPhonesReceiver, filter);
         handlerSwipe = new Handler();
-
         App.getInstance().initEMVListener();// Inicializamos el listener
-
         adqPresenter = new AdqPresenter(this);
         adqPresenter.setIView(this);
-
         //getActivity().setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
-
     }
 
     @Override
@@ -382,10 +382,18 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
+        setVisibilityPrefer(false);
 
         App.getInstance().pos.openAudio();
         maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
+    }
+    public void setVisibilityPrefer(Boolean mBoolean){
+        if(mBoolean){
+            imageView.setVisibility(View.VISIBLE);
+        }else{
+            imageView.setVisibility(View.GONE);
+        }
     }
 
     @Override
@@ -440,13 +448,26 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void showInsertCard() {
         imgInsertDongle.setVisibility(View.INVISIBLE);
+        String message;
+
+        if (isCancelation) {
+            if (dataMovimientoAdq.getTipoTrans().equals(TIPO_TRANSACCION_CHIP)) {
+                message = getString(R.string.text_insert_cancelation);
+            } else {
+                message = getString(R.string.text_slide_cancelation);
+                imgInsertCard.setImageResource(R.mipmap.dongle_swipe_card);
+            }
+        } else {
+            message = getString(R.string.text_slide_or_insert);
+        }
         imgInsertCard.setVisibility(VISIBLE);
+
         try {
             ((GifDrawable) imgInsertCard.getDrawable()).setLoopCount(0);
         } catch (Exception e) {
-
+            e.printStackTrace();
         }
-        String message = isCancelation ? getString(R.string.text_slide_or_insert_cancelation) : getString(R.string.text_slide_or_insert);
+
         tv_lector.setText(message);
         tv_lector.setVisibility(View.VISIBLE);
     }

@@ -43,6 +43,7 @@ public enum WebService {
     OBTENER_DOMICILIO_PRINCIPAL,
     OBTENER_DOMICILIO,
     GENERAR_CODIGO_RECUPERACION,
+    ENVIARCORREO_CONTACTANOS,
     /**
      * WS Transaccional
      **/
@@ -61,6 +62,7 @@ public enum WebService {
     OBTENER_ESTATUS_TARJETA,
     CONSULTAR_SALDO_ADQ,
     ENVIAR_TICKET_TAEPDS,
+    ENVIAR_TICKET,
     /**
      * WS Adquiriente
      **/
@@ -79,6 +81,7 @@ public enum WebService {
     CONSULTA_MOVIMIENTOS_MES_ADQ,
     CONSULTA_SALDO_CUPO,
     CANCELA_TRANSACTION_EMV_DEPOSIT,
+    OBTIENE_DATOS_CUPO,
     /**
      * Servicio para crer usuario
      **/
@@ -92,10 +95,13 @@ public enum WebService {
      **/
     UPDATE_DATOS_CUENTA,
     /**
-     * Servicio para Bloquear la TDC de la cuenta.
+     * Servicio para Bloquear y Desbloquear la TDC de la cuenta.
      **/
     BLOQUEAR_CUENTA,
-
+    /**
+     * Servicio para ESTATUS la TDC de la cuenta.
+     **/
+    ESTATUS_CUENTA,
     /**
      * Servicios CUPO
      * */

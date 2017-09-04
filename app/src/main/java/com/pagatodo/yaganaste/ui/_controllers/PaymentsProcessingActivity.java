@@ -9,13 +9,16 @@ import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentSuccessFragment;
@@ -40,6 +43,7 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 
 public class PaymentsProcessingActivity extends LoaderActivity implements PaymentsProcessingManager, ISessionExpired {
 
+    public static final int IDCOMERCIO_YA_GANASTE = 8609;
     @BindView(R.id.container)
     FrameLayout container;
 
@@ -71,6 +75,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         } else {
             hideLoader();
             isAvailableToBack = true;
+            llMain.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
             loadFragment(PaymentAuthorizeFragment.newInstance((Payments) pago), FORDWARD, true);
         }
     }
@@ -81,6 +86,15 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         switch (event) {
             case EVENT_SEND_PAYMENT:
                 try {
+
+                    if (data instanceof Envios){
+                       // if (!nombreComercio.equals(YA_GANASTE)) {
+                        int idComercio = ((Envios)data).getComercio().getIdComercio();
+                        if (!(idComercio == IDCOMERCIO_YA_GANASTE)) {
+                            mensajeLoader = getString(R.string.envio_interbancario, mensajeLoader);
+                            showLoader(getString(R.string.procesando_envios_inter_loader));
+                        }
+                    }
                     showLoader(mensajeLoader);
                     presenter.sendPayment(tab, data);
                 } catch (OfflineException e) {

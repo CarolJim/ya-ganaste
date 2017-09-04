@@ -96,8 +96,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_name_destinatario"
-                android:inputType="textCapSentences"
-                android:maxLines="1" />
+                android:inputType="textCapWords|textNoSuggestions"
+                android:maxLines="1"
+                android:digits="@string/input_letters"/>
 
         </LinearLayout>
 
@@ -115,8 +116,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:hint="@string/hint_concepto"
-                android:inputType="textCapSentences"
-                android:maxLength="40" />
+                android:inputType="textCapWords|textNoSuggestions"
+                android:maxLength="40"
+                android:digits="@string/input_letters"/>
 
         </LinearLayout>
 

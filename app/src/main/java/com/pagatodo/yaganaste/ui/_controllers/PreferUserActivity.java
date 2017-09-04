@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarDatosCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
@@ -25,6 +26,7 @@ import com.pagatodo.yaganaste.ui.preferuser.DesasociarPhoneFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaLegalesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyAccountFragment;
+import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.MyEmailFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpAcercaApp;
@@ -69,6 +71,13 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_HELP_CONTACT_BACK = "PREFER_USER_HELP_CONTACT_BACK";
     public static String PREFER_USER_HELP_ABOUT = "PREFER_USER_HELP_ABOUT";
     public static String PREFER_USER_HELP_CORREO = "PREFER_USER_HELP_CORREO";
+    public static String PREFER_USER_HELP_CORREO_REPORTA_TARJETA = "PREFER_USER_HELP_CORREO_REPORTA_TARJETA";
+    public static String PREFER_USER_HELP_CORREO_REPORTA_TARJETA_BACK = "PREFER_USER_HELP_CORREO_REPORTA_TARJETA_BACK";
+    public static String PREFER_USER_REPORTA_TARJETA = "PREFER_USER_REPORTA_TARJETA";
+    public static String PREFER_USER_REPORTA_TARJETA_BACK = "PREFER_USER_REPORTA_TARJETA_BACK";
+
+
+
     public static String PREFER_USER_HELP = "PREFER_USER_HELP";
     public static String PREFER_USER_HELP_BACK = "PREFER_USER_HELP_BACK";
     public static String PREFER_USER_MY_ACCOUNT = "PREFER_USER_MY_ACCOUNT";
@@ -138,6 +147,23 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         mContext = this;
 
         System.gc();
+
+        /**
+         * Hacemos la consulta del servio ObtenerEstatusTarjeta que se encarga de darnos el estado de la Card.
+         * Ya que obtenemos el estado tenemos que hacer Set en el Switch dependiendo del resultado
+         */
+        boolean isOnline = Utils.isDeviceOnline();
+        if (isOnline) {
+            // Creamos el objeto ActualizarAvatarRequest
+            mPreferPresenter.toPresenterEstatusCuenta(mTDC);
+        } else {
+            showDialogMesage(getResources().getString(R.string.no_internet_access));
+           /* mTDC = getArguments().getString(M_TDC);
+            mCuentaTV.setText("Tarjeta: " + StringUtils.ocultarCardNumberFormat(mTDC));
+
+            mLastTimeTV.setText("Utilizada Por Ultima Vez: \n" + "");
+            printCard(mTDC);*/
+        }
     }
 
     public AccountPresenterNew getPresenterAccount() {
@@ -177,6 +203,16 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
         switch (event) {
 
+
+            case "PREFER_USER_REPORTA_TARJETA":
+                loadFragment(MyCardReportaTarjetaFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+            case "PREFER_USER_REPORTA_TARJETA_BACK":
+                loadFragment(MyCardFragment.newInstance(mName, mTDC, mLastTime), Direction.BACK, false);
+                break;
+            case "PREFER_USER_HELP_CORREO_REPORTA_TARJETA":
+                loadFragment(MyHelpContactanosCorreo.newInstance(), Direction.FORDWARD, false);
+                break;
             case "PREFER_USER_HELP_CORREO":
                 loadFragment(MyHelpContactanosCorreo.newInstance(), Direction.FORDWARD, false);
                 break;
@@ -306,7 +342,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 loadFragment(MyChangeNip.newInstance(), Direction.FORDWARD, false);
                 break;
-
+            case "PREFER_USER_HELP_CORREO_REPORTA_TARJETA_BACK":
+                //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                loadFragment(MyCardReportaTarjetaFragment.newInstance(), Direction.BACK, false);
+                break;
             case "PREFER_USER_CHANGE_NIP_BACK":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 loadFragment(MyCardFragment.newInstance(mName, mTDC, mLastTime), Direction.BACK, false);
@@ -321,6 +360,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 loadFragment(MyPassFragment.newInstance(), Direction.FORDWARD, false);
                 break;
+
+
 
             /** Eventos BACK **/
             case "PREFER_USER_LISTA":
@@ -362,13 +403,16 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_MY_USER_BACK, null);
             } else if (currentFragment instanceof MyPassFragment) {
                 onEvent(PREFER_USER_MY_USER_BACK, null);
-
             } else if (currentFragment instanceof MyHelpFragment) {
                 onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof MyTutorialFragment) {
                 onEvent(PREFER_USER_HELP_BACK, null);
             } else if (currentFragment instanceof MyHelpContactanos) {
                 onEvent(PREFER_USER_HELP_BACK, null);
+            } else if (currentFragment instanceof MyCardReportaTarjetaFragment) {
+                onEvent(PREFER_USER_REPORTA_TARJETA_BACK, null);
+            } else if (currentFragment instanceof MyHelpContactanosCorreo) {
+                onEvent(PREFER_USER_HELP_CORREO_REPORTA_TARJETA_BACK, null);
             } else if (currentFragment instanceof MyHelpAcercaApp) {
                 onEvent(PREFER_USER_HELP_BACK, null);
             } else if (currentFragment instanceof MyHelpContactanosCorreo) {
@@ -384,6 +428,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             }
         }
     }
+
 
     /**
      * Resultado de tomar una foto o escoger una de galeria, se envia el resultado al CameraManager
@@ -417,5 +462,20 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                     }
                 },
                 true, false);
+    }
+
+    /**
+     * Se encarga de actualizar el campo de cardStatusId del SingletonUser con el statusId
+     * de servicio
+     * @param response
+     */
+    public void sendSuccessEstatusCuentaToView(EstatusCuentaResponse response) {
+        String statusId = response.getData().getStatusId();
+        SingletonUser.getInstance().setCardStatusId(statusId);
+    }
+
+    public void sendErrorEstatusCuentaToView(String mensaje) {
+        showDialogMesage(mensaje);
+        //onEventListener.onEvent("DISABLE_BACK", false);
     }
 }

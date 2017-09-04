@@ -11,17 +11,22 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.BloquearCuenta
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarCorreoContactanosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContraseniaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDispositivoResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoContactanosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyEmailView;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyHelpMensajeContactanos;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferDesasociarView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
@@ -44,6 +49,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
     IPreferUserIteractor iPreferUserIteractor;
     IPreferDesasociarView iPreferDesasociarView;
     IListaOpcionesView iListaOpcionesView;
+    IMyHelpMensajeContactanos iMyHelpMensajeContactanos;
     IMyEmailView iMyEmailView;
     IMyPassView iMyPassView;
     IMyCardView iMyCardView;
@@ -90,6 +96,12 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         if (iPreferUserGeneric instanceof IMyCardView) {
             this.iMyCardView = (IMyCardView) iPreferUserGeneric;
         }
+
+        // Set de instancia de IMyHelpMensajeContactanos
+        if (iPreferUserGeneric instanceof IMyHelpMensajeContactanos) {
+            this.iMyHelpMensajeContactanos = (IMyHelpMensajeContactanos) iPreferUserGeneric;
+        }
+
     }
 
     /**
@@ -153,6 +165,16 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         // Creamos el objeto BloquearCuentaRequest 1= Bloquear 2= Desbloquear
         BloquearCuentaRequest bloquearCuentaRequest = new BloquearCuentaRequest("" + operation);
         iPreferUserIteractor.toIteractorBloquearCuenta(bloquearCuentaRequest);
+    }
+
+    /**
+     * Enviamos al Iteractor la operacion para obtener el estatus de la TDC,
+     * @param mTDC
+     */
+    public void toPresenterEstatusCuenta(String mTDC) {
+        mView.showLoader("Obteniendo Estatus de Tarjeta");
+        EstatusCuentaRequest estatusCuentaRequest = new EstatusCuentaRequest(mTDC);
+        iPreferUserIteractor.toIteractorEstatusCuenta(estatusCuentaRequest);
     }
 
     @Override
@@ -219,6 +241,12 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         /**
          * Instancia de peticion exitosa y operacion exitosa de ActualizarAvatarResponse
          */
+        if (dataSourceResult.getData() instanceof EnviarCorreoContactanosResponse) {
+            EnviarCorreoContactanosResponse response = (EnviarCorreoContactanosResponse) dataSourceResult.getData();
+            iMyHelpMensajeContactanos.sendSuccessMensaje(App.getContext().getString(R.string.correo_enviado));
+        }/**
+         * Instancia de peticion exitosa y operacion exitosa de ActualizarAvatarResponse
+         */
         if (dataSourceResult.getData() instanceof ActualizarAvatarResponse) {
             ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
             String mUserImage = response.getData().getImagenAvatarURL();
@@ -270,6 +298,15 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
             BloquearCuentaResponse response = (BloquearCuentaResponse) dataSourceResult.getData();
             iMyCardView.sendSuccessBloquearCuentaToView(response);
         }
+
+        /**
+         * Instancia de peticion exitosa y operacion exitosa de BloquearCuentaResponse
+         */
+        if (dataSourceResult.getData() instanceof EstatusCuentaResponse) {
+            mView.hideLoader();
+            EstatusCuentaResponse response = (EstatusCuentaResponse) dataSourceResult.getData();
+            mView.sendSuccessEstatusCuentaToView(response);
+        }
     }
 
     @Override
@@ -277,6 +314,11 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         /**
          * Instancia de peticion exitosa y operacion exitosa de ActualizarAvatarResponse
          */
+        if (dataSourceResult.getData() instanceof EnviarCorreoContactanosResponse) {
+            EnviarCorreoContactanosResponse response = (EnviarCorreoContactanosResponse) dataSourceResult.getData();
+            iMyHelpMensajeContactanos.sendErrorEnvioCorreoContactanos(response.getMensaje());
+        }
+
         if (dataSourceResult.getData() instanceof ActualizarAvatarResponse) {
             ActualizarAvatarResponse response = (ActualizarAvatarResponse) dataSourceResult.getData();
             iListaOpcionesView.sendErrorAvatarToView(response.getMensaje());
@@ -321,6 +363,15 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
             iMyCardView.hideLoader();
             BloquearCuentaResponse response = (BloquearCuentaResponse) dataSourceResult.getData();
             iMyCardView.sendErrorBloquearCuentaToView(response.getMensaje());
+        }
+
+        /**
+         * Instancia de peticion exitosa y operacion exitosa de BloquearCuentaResponse
+         */
+        if (dataSourceResult.getData() instanceof EstatusCuentaResponse) {
+            mView.hideLoader();
+            EstatusCuentaResponse response = (EstatusCuentaResponse) dataSourceResult.getData();
+            mView.sendErrorEstatusCuentaToView(response.getMensaje());
         }
     }
 
@@ -396,4 +447,28 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
         iMyCardView.hideLoader();
         iMyCardView.sendErrorBloquearCuentaToView(mensaje);
     }
+
+    @Override
+    public void sendErrorServerEstatusCuentaToPresenter(String mensaje) {
+        mView.hideLoader();
+        mView.sendErrorEstatusCuentaToView(mensaje);
+    }
+    @Override
+    public void enviarCorreoContactanosPresenter(EnviarCorreoContactanosRequest request) {
+        iPreferUserIteractor.enviarCorreoContactanos(request);
+    }
+
+    @Override
+    public void showExceptionCorreoContactanosPresenter(String mMesage) {
+        iMyHelpMensajeContactanos.hideLoader();
+        iMyHelpMensajeContactanos.sendErrorEnvioCorreoContactanos(mMesage);
+    }
+
+    @Override
+    public void sendErrorServerCorreoContactanosPresenter(String s) {
+        iMyHelpMensajeContactanos.hideLoader();
+        iMyHelpMensajeContactanos.sendErrorEnvioCorreoContactanos(s);
+    }
+
+
 }

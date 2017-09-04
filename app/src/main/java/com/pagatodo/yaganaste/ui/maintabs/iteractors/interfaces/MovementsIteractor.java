@@ -12,4 +12,6 @@ public interface MovementsIteractor<T> extends IRequestResult<DataSourceResult> 
     void getMovements(T request);
 
     void getBalance();
+
+    void getDatosCupo();
 }

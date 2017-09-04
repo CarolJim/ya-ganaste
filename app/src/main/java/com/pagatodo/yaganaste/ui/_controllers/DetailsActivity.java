@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Menu;
+import android.view.View;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
@@ -24,6 +25,8 @@ import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
 
 import java.io.Serializable;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 
@@ -37,7 +40,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     public static final String TYPE = "type";
     public final static String EVENT_GO_TO_FINALIZE_SUCCESS = "FINALIZAR_CANCELACION_SUCCESS";
     public final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
-
+    CircleImageView imageView;
     public static Intent createIntent(@NonNull Context from, MovimientosResponse data) {
         return createIntent(from, TYPES.EMISOR, data);
     }
@@ -80,6 +83,8 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_em_adq);
         Bundle extras = getIntent().getExtras();
+        imageView = (CircleImageView)findViewById(R.id.imgToRight_prefe);
+        imageView.setVisibility(View.GONE);
         if (extras != null && extras.getSerializable(DATA) != null
                 && extras.getString(TYPE) != null) {
             Serializable serializable = extras.getSerializable(DATA);

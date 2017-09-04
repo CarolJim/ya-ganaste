@@ -4,6 +4,7 @@ import android.content.Context;
 import android.content.res.TypedArray;
 import android.graphics.Typeface;
 import android.os.Build;
+import android.os.Parcelable;
 import android.support.annotation.DrawableRes;
 import android.support.annotation.Nullable;
 import android.support.annotation.RequiresApi;
@@ -12,6 +13,7 @@ import android.support.v7.widget.AppCompatImageView;
 import android.text.Editable;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextWatcher;
 import android.text.method.DigitsKeyListener;
 import android.util.AttributeSet;
@@ -19,6 +21,7 @@ import android.util.Log;
 import android.util.TypedValue;
 import android.view.MotionEvent;
 import android.view.View;
+import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -35,7 +38,7 @@ import com.pagatodo.yaganaste.utils.ValidateForm;
 
 public class CustomValidationEditText extends LinearLayout implements View.OnTouchListener, View.OnLongClickListener {
     //@BindView(R.id.editTextCustom)
-    EditText editText;
+    StyleEdittext editText;
     //@BindView(R.id.imageViewValidation)
     AppCompatImageView imageView;
     Boolean isValid = false;
@@ -48,6 +51,8 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
     boolean isSingleLine = false;
     boolean isTextEnabled = true;
     private int pinnedIcon;
+    private String blockCharacterSetEmail = "|°¬!\"\\#$%&/()=?¡¿'¨´+*{}[],;:€£+÷<>~`¥§µ";
+    private String blockCharacterName = "|°¬!\"#$%&/()='?¿¡'¨´+*{[}],;.:\\@€£U+÷x_-.<>~`¥§";
 
     private OnClickListener externalListener;
 
@@ -70,7 +75,8 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
     private void init(Context context, AttributeSet attrs) {
         View.inflate(context, R.layout.edittext_layout, this);
         //ButterKnife.bind(context, this);
-        editText = (EditText) findViewById(R.id.editTextCustom);
+        editText = findRecursiveEditText(this);
+        editText.setId(getId());
         imageView = (AppCompatImageView) findViewById(R.id.imageViewValidation);
 
         //imageView.setBackgroundResource(R.drawable.validation_fail);
@@ -145,7 +151,65 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
         Typeface customFont = FontCache.getTypeface("fonts/roboto/Roboto-Light.ttf", context);
         editText.setTypeface(customFont);
         editText.setOnLongClickListener(this);
+        //editText.setFilters(new InputFilter[] { filter });
     }
+
+    private StyleEdittext findRecursiveEditText(ViewGroup parent) {
+        int childCount = parent.getChildCount();
+        View child;
+        StyleEdittext found = null;
+        for (int n = 0 ; n < childCount ; n++) {
+            child = parent.getChildAt(n);
+            if (child instanceof ViewGroup) {
+                found =  findRecursiveEditText((ViewGroup) child);
+            } else if (child instanceof StyleEdittext) {
+                return (StyleEdittext) child;
+            }
+        }
+        return found;
+    }
+
+    /*private InputFilter filter = new InputFilter() {
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            if(type.equals("0")){
+                if (source != null && blockCharacterSetEmail.contains(("" + source))) {
+                    return "";
+                }
+            }else if(type.equals("1")){
+                if (source != null && blockCharacterName.contains(("" + source))) {
+                    return "";
+                }
+            }
+            return null;
+        }
+    };*/
+
+/*    private InputFilter filter = new InputFilter() {
+
+        @Override
+        public CharSequence filter(CharSequence source, int start, int end, Spanned dest, int dstart, int dend) {
+            if (type.equals("0")) {
+                if (!source.equals("")) {
+                    if (source != null && blockCharacterSetEmail.contains(
+                            ("" + source.subSequence(source.length() - 1, source.length())
+                            ))) {
+                        return source;
+                    } else {
+                        return source.subSequence(0, source.length() - 1);
+                    }
+                } else {
+                    return "";
+                }
+            } else if (type.equals("1")) {
+                if (source != null && blockCharacterName.contains(("" + source))) {
+                    return "";
+                }
+            }
+            return null;
+        }
+    };*/
 
 
     public void setHintText(String txt) {
@@ -190,8 +254,6 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
                     setValidationListener(txt);
                     break;
             }
-
-
         }
     }
 
@@ -400,5 +462,8 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
         return true;
     }
 
-
+    @Override
+    protected void onRestoreInstanceState(Parcelable state) {
+        super.onRestoreInstanceState(null);
+    }
 }

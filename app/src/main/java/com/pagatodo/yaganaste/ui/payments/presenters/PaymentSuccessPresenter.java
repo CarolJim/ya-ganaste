@@ -1,12 +1,13 @@
 package com.pagatodo.yaganaste.ui.payments.presenters;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarTicketTAEPDSResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenericEnviarTicketResponse;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.payments.interactors.PaymentsSuccessInteractor;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentSuccessManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsSuccessPresenter;
 
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_TAEPDS;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 
@@ -30,9 +31,14 @@ public class PaymentSuccessPresenter implements IPaymentsSuccessPresenter {
     }
 
     @Override
+    public void sendTicketEnvio(String mail, String idMovimiento) {
+        interactor.sendTicketEnvio(mail, idMovimiento);
+    }
+
+    @Override
     public void onSuccess(WebService ws, Object success) {
         successManager.hideLoader();
-        if (ws == ENVIAR_TICKET_TAEPDS) {
+        if (ws == ENVIAR_TICKET_TAEPDS || ws == ENVIAR_TICKET) {
             processSendEmailTAEPDS((DataSourceResult) success);
         }
     }
@@ -40,13 +46,13 @@ public class PaymentSuccessPresenter implements IPaymentsSuccessPresenter {
     @Override
     public void onError(WebService ws, Object error) {
         successManager.hideLoader();
-        if (ws == ENVIAR_TICKET_TAEPDS) {
+        if (ws == ENVIAR_TICKET_TAEPDS || ws == ENVIAR_TICKET) {
             successManager.onErrorSendMail(error.toString());
         }
     }
 
     private void processSendEmailTAEPDS(DataSourceResult response) {
-        EnviarTicketTAEPDSResponse data = (EnviarTicketTAEPDSResponse) response.getData();
+        GenericEnviarTicketResponse data = (GenericEnviarTicketResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
             successManager.onSuccessSendMail(data.getMensaje());
         } else {

@@ -43,4 +43,6 @@ public class Constants {
     public static final int IAVE_ID = 7;
     //endregion
 
+    public static final String TIPO_TRANSACCION_CHIP = "1";
+    public static final String TIPO_TRANSACCION_BANDA = "2";
 }

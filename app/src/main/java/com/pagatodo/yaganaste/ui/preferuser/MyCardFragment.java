@@ -20,9 +20,12 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarDatosCuentaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -30,6 +33,7 @@ import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.FontCache;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -44,9 +48,11 @@ import butterknife.OnCheckedChanged;
 
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CHANGE_NIP;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_REPORTA_TARJETA;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,8 +62,6 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
 
     public static final int BLOQUEO = 1;
     public static final int DESBLOQUEO = 2;
-    @BindView(R.id.fragment_my_card_change_nip)
-    StyleTextView changeNip;
     @BindView(R.id.my_card_name_user)
     TextView mNameTV;
     @BindView(R.id.my_card_num_cuenta)
@@ -68,6 +72,11 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     ImageView imgYaGanasteCard;
     @BindView(R.id.mycard_switch)
     SwitchCompat mycard_switch;
+    @BindView(R.id.fragment_my_card_reporta_tarjeta_text)
+    StyleTextView mycard_reporta_tarjeta;
+
+    @BindView(R.id.fragment_my_card_change_nip)
+    StyleTextView mycard_change_nip;
 
     private CardEmisorSelected cardEmisorSelected;
     private MaterialLinearLayout llMaterialEmisorContainer;
@@ -121,6 +130,29 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         mName = getArguments().getString(M_NAME);
         mNameTV.setText(mName);
 
+        /**
+         * Mostramos la uinformacion disponible de la Card que tenemos desde el Singleton
+         */
+        mTDC = getArguments().getString(M_TDC);
+        mCuentaTV.setText(getResources().getString(R.string.tarjeta) + ": " + StringUtils.ocultarCardNumberFormat(mTDC));
+
+        // Hacemos Set de la ultima Transaccion
+        String ultimaTransaccionSingleton = SingletonUser.getInstance().getUltimaTransaccion();
+        String ultimaTransaccion = "";
+
+        if (ultimaTransaccionSingleton != null && ultimaTransaccionSingleton.isEmpty()) {
+            ultimaTransaccion =
+                    SingletonUser.getInstance().getDataUser().getUsuario().getFechaUltimoAcceso();
+        } else {
+            ultimaTransaccion = ultimaTransaccionSingleton;
+        }
+        mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n" + ultimaTransaccion);
+        printCard(mTDC);
+
+        /**
+         * Si tenemos Internet consumos el servicio para actualizar la informacion de la ceunta,
+         * else mostramos la unformacion que traemos desde sl Singleton
+         */
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
             // Creamos el objeto ActualizarAvatarRequest
@@ -128,26 +160,26 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
             mPreferPresenter.sendPresenterUpdateDatosCuenta(datosCuentaRequest);
         } else {
             showDialogCustom(getResources().getString(R.string.no_internet_access));
-            mTDC = getArguments().getString(M_TDC);
-            mCuentaTV.setText("Tarjeta: " + StringUtils.ocultarCardNumberFormat(mTDC));
-
-            mLastTimeTV.setText("Utilizada Por Ultima Vez: \n" + "");
-            printCard(mTDC);
         }
-
-        /*mTDC = getArguments().getString(M_TDC);
-        mLastTime = getArguments().getString(M_LASTTIME);
-
-        mCuentaTV.setText("Tarjeta: " + StringUtils.ocultarCardNumberFormat(mTDC));
-        mLastTimeTV.setText("Utilizada Por Ultima Vez: " + mLastTime);*/
 
         cardEmisorSelected = new CardEmisorSelected(getContext());
         llMaterialEmisorContainer = (MaterialLinearLayout) rootview.findViewById(R.id.ll_material_emisor_container);
 
-        changeNip.setOnClickListener(this);
+        // Hacemos Set en el estado del switch desde el Singleton, antes del listener
+
+        String statusId = SingletonUser.getInstance().getCardStatusId();
+        if (statusId != null && statusId.equals(Recursos.ESTATUS_CUENTA_BLOQUEADA)) {
+            mycard_switch.setChecked(true);
+        } else {
+            mycard_switch.setChecked(false);
+        }
 
         //Agregamos un Listener al Switch
         mycard_switch.setOnCheckedChangeListener(this);
+
+        // Agregamos el Listener para abrir seccion de cambio de Nip
+        mycard_change_nip.setOnClickListener(this);
+        mycard_reporta_tarjeta.setOnClickListener(this);
     }
 
     @Override
@@ -156,29 +188,25 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
             case R.id.fragment_my_card_change_nip:
                 onEventListener.onEvent(PREFER_USER_CHANGE_NIP, 1);
                 break;
-          /*  case R.id.fragment_lista_opciones_account:
-                //Toast.makeText(getContext(), "Click Cuenta", Toast.LENGTH_SHORT).show();
-                onEventListener.onEvent(PREFER_USER_MY_ACCOUNT, 1);
+            case R.id.fragment_my_card_reporta_tarjeta_text:
+                onEventListener.onEvent(PREFER_USER_REPORTA_TARJETA, 1);
                 break;
-            case R.id.fragment_lista_opciones_card:
-                //Toast.makeText(getContext(), "Click Card", Toast.LENGTH_SHORT).show();
-                onEventListener.onEvent(PREFER_USER_MY_CARD, 1);
-                break;*/
+
         }
     }
 
     @Override
     public void sendSuccessDatosCuentaToView(ActualizarDatosCuentaResponse response) {
-        mTDC = response.getData().get(0).getCuenta();
+        mTDC = response.getData().get(0).getTarjeta();
         mLastTime = response.getData().get(0).getUltimoInicioSesion();
 
         mNameTV.setText(mName);
-        mCuentaTV.setText("Tarjeta: " + StringUtils.ocultarCardNumberFormat(mTDC));
-        mLastTimeTV.setText("Utilizada Por Ultima Vez: \n" + mLastTime);
+        mCuentaTV.setText(getResources().getString(R.string.tarjeta) + ": " +
+                        StringUtils.maskReference(StringUtils.format(mTDC, SPACE, 4,4,4,4), '*', 4));
+        mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n" + mLastTime);
 
         printCard(mTDC);
-
-        Toast.makeText(getContext(), "MyCard Update", Toast.LENGTH_SHORT).show();
+        SingletonUser.getInstance().setUltimaTransaccion(mLastTime);
     }
 
     @Override
@@ -206,13 +234,19 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     @Override
     public void sendSuccessBloquearCuentaToView(BloquearCuentaResponse response) {
         statusOperation = true;
+        String messageStatus = "";
         if (statusBloqueo == BLOQUEO) {
-            showDialogCustom("La Tarjeta Fue Bloqueada Con Éxito. \nNum. Autorización: "
-                    + response.getData().getNumeroAutorizacion());
+            messageStatus = getResources().getString(R.string.card_locked_success);
+            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
         } else if (statusBloqueo == DESBLOQUEO) {
-            showDialogCustom("La Tarjeta Fue Desbloqueada Con Éxito. \nNum. Autorización: "
-                    + response.getData().getNumeroAutorizacion());
+            messageStatus = getResources().getString(R.string.card_unlocked_success);
+            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
         }
+
+        showDialogCustom(messageStatus +
+                "\n" +
+                getResources().getString(R.string.card_num_autorization) + ": "
+                + response.getData().getNumeroAutorizacion());
     }
 
     /**
@@ -283,9 +317,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         float width = canvas.getWidth();
         textPaint.setTextSize(heigth * 0.115f);
 
-        //canvas.drawText(StringUtils.formatoPagoMedios(cardNumber), width * 0.07f, heigth * 0.6f, textPaint);
-        canvas.drawText(cardNumber, width * 0.07f, heigth * 0.6f, textPaint);
-
+        canvas.drawText(StringUtils.format(cardNumber, SPACE, 4,4,4,4), width * 0.07f, heigth * 0.6f, textPaint);
 
         imgYaGanasteCard.setImageBitmap(bitmap);
     }

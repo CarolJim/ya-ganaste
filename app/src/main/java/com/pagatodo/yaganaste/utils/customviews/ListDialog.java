@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomAdapterPagos;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 
 /**
  * Created by Jordan on 17/04/2017.
@@ -38,11 +39,7 @@ public class ListDialog extends Dialog implements View.OnClickListener, AdapterV
     private TextWatcher filterTextWatcher = new TextWatcher() {
 
         public void afterTextChanged(Editable s) {
-//            if(adapter.getCount() == 0){
-//                Toast.makeText(getContext(), "No existen resultados", Toast.LENGTH_SHORT).show();
-//            }else{
-//                Toast.makeText(getContext(), "Tenemos nuevos resultados", Toast.LENGTH_SHORT).show();
-//            }
+//
         }
 
         public void beforeTextChanged(CharSequence s, int start, int count,
@@ -61,7 +58,7 @@ public class ListDialog extends Dialog implements View.OnClickListener, AdapterV
         context = c;
         presenter = paymentsTabPresenter;
         parentFragment = fragment;
-        list.remove(0);
+
         listCarousel = list;
         for (CarouselItem item : list) {
             mList.add(item.getComercio().getNombreComercio().trim());

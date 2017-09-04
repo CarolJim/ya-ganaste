@@ -33,6 +33,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     private View toolbarLayout;
     public String mUserImage;
     CircleImageView imageView;
+    static CircleImageView imageViewdes;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -43,6 +44,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     public void setUpActionBar() {
         toolbarLayout = findViewById(R.id.toolbarLy);
         imageView = (CircleImageView) findViewById(R.id.imgToRight_prefe);
+        imageViewdes= (CircleImageView) findViewById(R.id.imgToRight_prefe);
         if (imageView != null) {
             imageView.setOnClickListener(this);
         }
@@ -65,6 +67,12 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
             imageView.setVisibility(View.GONE);
         }
     }
+
+    public static void setVisibleshare(){
+        imageViewdes.setVisibility(View.GONE);
+    }
+
+
     /**
      * Codigo para hacer Set en la imagen de preferencias con la foto actual
      */

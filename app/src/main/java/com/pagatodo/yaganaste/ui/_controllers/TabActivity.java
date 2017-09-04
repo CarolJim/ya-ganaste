@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.drawable.GradientDrawable;
@@ -11,10 +12,11 @@ import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 import android.util.Log;
 import android.view.View;
-import android.view.animation.Animation;
-import android.view.animation.AnimationUtils;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -50,6 +52,8 @@ import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.List;
 
+import de.hdodenhof.circleimageview.CircleImageView;
+
 import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.PANTALLA_COBROS;
 import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.PANTALLA_PRINCIPAL_EMISOR;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
@@ -71,7 +75,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
 
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
-        IAprovView<ErrorObject>,IResetNIPView<ErrorObject> {
+        IAprovView<ErrorObject>, IResetNIPView<ErrorObject> {
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
     public static final String EVENT_DOCUMENT_APPROVED = "EVENT_DOCUMENT_APPROVED";
     public static final String EVENT_GO_HOME = "2";
@@ -87,8 +91,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private GenericPagerAdapter<IEnumTab> mainViewPagerAdapter;
     private ProgressLayout progressGIF;
     private ResetPinPresenter resetPinPresenter;
-
-
+    CircleImageView imageView;
+    ImageView imageshare;
 
     public static Intent createIntent(Context from) {
         return new Intent(from, TabActivity.class);
@@ -99,7 +103,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tab);
         load();
-
+        imageView = (CircleImageView) findViewById(R.id.imgToRight_prefe);
+        imageshare= (ImageView) findViewById(R.id.deposito_Share);
         if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             startActivityForResult(LandingActivity.createIntent(this, PANTALLA_PRINCIPAL_EMISOR), ACTIVITY_LANDING);
@@ -113,17 +118,16 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         mainTab = (TabLayout) findViewById(R.id.main_tab);
         progressGIF = (ProgressLayout) findViewById(R.id.progressGIF);
         progressGIF.setVisibility(View.GONE);
-
-        tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
         resetPinPresenter = new ResetPinPresenterImp(false);
         resetPinPresenter.setResetNIPView(this);
+        tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
+
     }
 
     @Override
     public void loadViewPager(ViewPagerData viewPagerData) {
         mainViewPagerAdapter = new GenericPagerAdapter<>(this, getSupportFragmentManager(),
                 viewPagerData.getFragmentList(), viewPagerData.getTabData());
-
         mainViewPager.setAdapter(mainViewPagerAdapter);
         mainViewPager.setOffscreenPageLimit(viewPagerData.getTabData().length - 1);
         mainTab.setupWithViewPager(mainViewPager);
@@ -139,6 +143,26 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         mainTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
+                if (tab.getPosition() == 0) {
+                    ///Toast.makeText(TabActivity.this, "Tab 3", Toast.LENGTH_SHORT).show();
+                    imageView.setVisibility(View.VISIBLE);
+                    imageshare.setVisibility(View.GONE);
+                }
+                if (tab.getPosition() == 1) {
+                    ///Toast.makeText(TabActivity.this, "Tab 3", Toast.LENGTH_SHORT).show();
+                    imageView.setVisibility(View.VISIBLE);
+                    imageshare.setVisibility(View.GONE);
+                }
+                if (tab.getPosition() == 2) {
+                    ///Toast.makeText(TabActivity.this, "Tab 3", Toast.LENGTH_SHORT).show();
+                    imageView.setVisibility(View.GONE);
+                    imageshare.setVisibility(View.VISIBLE);
+                }
+                if (tab.getPosition() == 3) {
+                    ///Toast.makeText(TabActivity.this, "Tab 3", Toast.LENGTH_SHORT).show();
+                    imageView.setVisibility(View.VISIBLE);
+                    imageshare.setVisibility(View.GONE);
+                }
                 /*if (tab.getPosition() == 3) {
                     hideMainTab();
                 } else {
@@ -157,7 +181,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             }
         });
 
-        if (tabPresenter.needsProvisioning() || tabPresenter.needsPush()){
+        if (tabPresenter.needsProvisioning() || tabPresenter.needsPush()) {
             tabPresenter.doProvisioning();
         } else if (SingletonUser.getInstance().needsReset()) {
             resetPinPresenter.doReseting(pref.loadData(SHA_256_FREJA));
@@ -167,11 +191,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
     @Override
     public void finishAssociation() {
-        if (SingletonUser.getInstance().needsReset()){
+        /*if (SingletonUser.getInstance().needsReset()) {
             resetPinPresenter.doReseting(pref.loadData(SHA_256_FREJA));
-        } else {
-            hideLoader();
-        }
+        } else {*/
+        hideLoader();
+        //}
 
     }
 
@@ -184,6 +208,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     public void onResetingFailed() {
         hideLoader();
+        tabPresenter.doProvisioning();
     }
 
 
@@ -266,6 +291,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         }
     }
 
+
     @Override
     protected void onActivityResult(int requestCode, int resultCode, final Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -285,7 +311,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
                     clearSeekBar(childFragment);
 
-                    UI.createSimpleCustomDialog("Error!", data.getStringExtra(MESSAGE), getSupportFragmentManager(),
+                    UI.createSimpleCustomDialog("Error", data.getStringExtra(MESSAGE), getSupportFragmentManager(),
                             new DialogDoubleActions() {
                                 @Override
                                 public void actionConfirm(Object... params) {
@@ -314,6 +340,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (requestCode == REGISTER_ADQUIRENTE_CODE && resultCode == RESULT_ADQUIRENTE_SUCCESS) {
             showMainTab();
             tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
+
         } else if (requestCode == CODE_CANCEL && resultCode == RESULT_CANCEL_OK) {
             getFragment(TYPE_DETAILS).onActivityResult(requestCode, resultCode, data);
         } else if (requestCode == Constants.ACTIVITY_LANDING) {
@@ -322,6 +349,20 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                     !pref.containsData(COUCHMARK_ADQ)) {
                 pref.saveDataBool(COUCHMARK_ADQ, true);
                 startActivity(LandingActivity.createIntent(this, PANTALLA_COBROS));
+            }
+        } else if (requestCode == Constants.PAYMENTS_ADQUIRENTE && resultCode == Activity.RESULT_OK) {
+            refreshAdquirenteMovements();
+        }
+    }
+
+    protected void refreshAdquirenteMovements() {
+        List<Fragment> fragmentList = getSupportFragmentManager().getFragments();
+        for (Fragment fragment : fragmentList) {
+            if (fragment instanceof HomeTabFragment) {
+                goHome();
+                ((HomeTabFragment) fragment).setCurrentItem(1);
+                ((HomeTabFragment) fragment).getPaymentsFragment().onRefresh(SwipyRefreshLayoutDirection.TOP);
+                ((HomeTabFragment) fragment).getPaymentsFragment().showLoader("");
             }
         }
     }
@@ -418,11 +459,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public void showErrorAprov(ErrorObject error) {
 
     }
+
     @Override
     public void showErrorReset(ErrorObject error) {
 
     }
-
 
 
 }

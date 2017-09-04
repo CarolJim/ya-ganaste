@@ -31,7 +31,7 @@ public class ResetPinRequest extends AsyncTask<Void, Void, Exception> {
     protected Exception doInBackground(Void... params) {
         try {
             fmcManager.getFmcWSHandler().resetPin(rpcCode, newPin);
-            cleanPins();
+            //cleanPins();
             return null;
         } catch (Exception e) {
             return e;

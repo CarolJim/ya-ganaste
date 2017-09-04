@@ -10,6 +10,8 @@ import android.text.style.TextAppearanceSpan;
 import android.util.Log;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.data.model.Envios;
+
 import java.math.RoundingMode;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
@@ -167,14 +169,20 @@ public class StringUtils {
             }
         } else if (mFormatoPago.length() == 16) {
             try {
+                /**
+                 * Cambiamos el codigo que separa, por el metodo ocultarCardNumberFormat que
+                 * separa y ofusca
+
                 String formatoTDC1 = mFormatoPago.substring(0, 4);
                 String formatoTDC2 = mFormatoPago.substring(4, 8);
                 String formatoTDC3 = mFormatoPago.substring(8, 12);
                 String formatoTDC4 = mFormatoPago.substring(12, 16);
                 formatoPago = formatoTDC1 + comodin + formatoTDC2 + comodin + formatoTDC3 + comodin + formatoTDC4;
+                 */
+                formatoPago = ocultarCardNumberFormat(mFormatoPago);
             } catch (Exception e) {
                 Log.d("StringUtils", "Exception tipo" + e);
-                formatoPago = mFormatoPago;
+                formatoPago = ocultarCardNumberFormat(mFormatoPago);
             }
         } else if (mFormatoPago.length() == 18) {
             try {
@@ -248,6 +256,20 @@ public class StringUtils {
     }
 
 
+    public static String maskReference(String original, char markerChar, int leftVisible) {
+        int toMask = original.replace(" ", "").length() - leftVisible;
+        StringBuilder newFormat = new StringBuilder();
+        for (char current : original.toCharArray()) {
+            if (Character.isDigit(current) && toMask-- > 0) {
+                newFormat.append(markerChar);
+            } else {
+                newFormat.append(current);
+            }
+        }
+        return newFormat.toString();
+    }
+
+
     /**
      * Metodo que da formato generico en 4 4 4 4 4 4 4 de derecha a izquierda, ejemplo:
      * <p>
@@ -270,26 +292,26 @@ public class StringUtils {
         for (int current : formatPattern) {
             size+= current;
         }
-        if (text != null && text.length() <= size) {
 
-            int currentGroup = formatPattern.length - 1;
-            int currentSize = formatPattern[currentGroup];
-            for (int n = text.length()-1 ; n >= 0 ; n--){
-                format.insert(0, text.charAt(n));
-                currentSize--;
-                if (currentSize == 0){
-                    currentGroup--;
-                    if (n != 0){
-                        currentSize = formatPattern[currentGroup];
-                        format.insert(0, separator);
-                        //format.append(separator);
-                    }
+        if (text.length() > size) {
+            return text;
+        }
+
+        int currentGroup = formatPattern.length - 1;
+        int currentSize = formatPattern[currentGroup];
+        for (int n = text.length()-1 ; n >= 0 ; n--){
+            format.insert(0, text.charAt(n));
+            currentSize--;
+            if (currentSize == 0){
+                currentGroup--;
+                if (n != 0){
+                    currentSize = formatPattern[currentGroup];
+                    format.insert(0, separator);
                 }
             }
-
         }
-        return format.toString();
 
+        return format.toString();
     }
 
     public static String formatWithSpace(@Nullable String text,@NonNull int... formatPattern) {
@@ -354,5 +376,17 @@ public class StringUtils {
                 break;
         }
         return mTitleStatus;
+    }
+
+    public static String formatAutorization(String numAut) {
+        String fullFormat = "";
+        fullFormat = numAut.substring(0, 3) + " " + numAut.substring(3);
+
+        return fullFormat;
+    }
+
+    public static String formatSingleName(String mFullName) {
+        String[] fullName = mFullName.split(" ");
+        return fullName[0];
     }
 }

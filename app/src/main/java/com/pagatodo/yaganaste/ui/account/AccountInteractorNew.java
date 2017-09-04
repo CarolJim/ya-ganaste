@@ -93,8 +93,12 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GE
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
+import static com.pagatodo.yaganaste.utils.StringConstants.OLD_NIP;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_PROVISIONED;
 
 /**
  * Created by flima on 22/03/2017.
@@ -120,7 +124,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         try {
             ApiAdtvo.validarEstatusUsuario(request, this);
         } catch (OfflineException e) {
-         //   e.printStackTrace();
+            //   e.printStackTrace();
             accountManager.onError(VALIDAR_ESTATUS_USUARIO, App.getContext().getString(R.string.no_internet_access));
         }
     }
@@ -221,7 +225,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiTrans.asignarCuentaDisponible(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
-            accountManager.onError(ASIGNAR_CUENTA_DISPONIBLE, "");
+            accountManager.onError(ASIGNAR_CUENTA_DISPONIBLE, App.getContext().getString(R.string.no_internet_access));
         }
     }
 
@@ -232,7 +236,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.validarFormatoContrasenia(request, this);
         } catch (OfflineException e) {
             e.printStackTrace();
-            accountManager.onError(VALIDAR_FORMATO_CONTRASENIA, "");
+            accountManager.onError(VALIDAR_FORMATO_CONTRASENIA, App.getContext().getString(R.string.no_internet_access));
         }
     }
 
@@ -306,7 +310,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiTrans.asignarNip(request, this, webService);
         } catch (OfflineException e) {
             e.printStackTrace();
-            accountManager.onError(ASIGNAR_NIP, "");
+            accountManager.onError(ASIGNAR_NIP,App.getContext().getString(R.string.no_internet_access));
         }
     }
 
@@ -326,7 +330,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.verificarActivacion(this);
         } catch (OfflineException e) {
             e.printStackTrace();
-            accountManager.onError(VERIFICAR_ACTIVACION, "");
+            accountManager.onError(VERIFICAR_ACTIVACION,App.getContext().getString(R.string.no_internet_access));
         }
     }
 
@@ -337,9 +341,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.obtenerColoniasPorCP(request, this);
 
         } catch (OfflineException e) {
-            e.printStackTrace();
-            accountManager.onError(OBTENER_COLONIAS_CP, "");
-
+           // e.printStackTrace();
+            accountManager.onError(OBTENER_COLONIAS_CP, App.getContext().getString(R.string.no_internet_access));
         }
     }
 
@@ -489,6 +492,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
     @Override
     public void onFailed(DataSourceResult error) {
+
+        if (error != null && error.getWebService() == ASIGNAR_NIP) {
+            checkAfterLogin();
+        }
         if (error != null && error.getWebService() == LOGIN_ADQ) {
             checkAfterLogin();
         } else {
@@ -510,11 +517,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response) {
-        if(response.getResult().getId().equals(Recursos.ADQ_CODE_OK)) {
+        if (response.getResult().getId().equals(Recursos.ADQ_CODE_OK)) {
             prefs.saveData(StringConstants.ADQUIRENTE_BALANCE, response.getSaldo());
             prefs.saveData(UPDATE_DATE_BALANCE_ADQ, DateUtil.getTodayCompleteDateFormat());
             accountManager.onSuccesBalanceAdq();
-        }else {
+        } else {
             accountManager.onError(CONSULTAR_SALDO_ADQ, null);
         }
     }
@@ -626,13 +633,26 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         if (!dataUser.isRequiereActivacionSMS()) {// No Requiere Activacion de SMS
             //if(true){// No Requiere Activacion de SMS
                             /*TODO Aqui se debe de manejar el caso en el que el usuario no haya realizado el aprovisionamiento*/
+
+
+            String old = prefs.loadData(OLD_NIP);
+            SingletonUser.getInstance().setNeedsReset(!needsProvisioning() && ( !old.equals(prefs.loadData(SHA_256_FREJA)) && !old.isEmpty()));
+            if (!SingletonUser.getInstance().needsReset()) {
+                prefs.saveData(OLD_NIP, prefs.loadData(SHA_256_FREJA));
+            }
+
             user.setDatosSaldo(new DatosSaldo(String.format("%s", dataUser.getUsuario().getCuentas().get(0).getSaldo())));
             stepByUserStatus = EVENT_GO_MAINTAB; // Vamos al TabActiviy
-        } else { // Requiere Activacion SMS
+        } else { // Requiere Activacion SMS, es obligatorio hacer aprovisionamiento
             stepByUserStatus = EVENT_GO_ASOCIATE_PHONE;
         }
         accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
     }
+
+    public boolean needsProvisioning() {
+        return  (!prefs.containsData(HAS_PROVISIONING) || !prefs.loadData(USER_PROVISIONED).equals(RequestHeaders.getUsername()));
+    }
+
 
     /**
      * Método para seleccionar la pantalla que se debe mostrar dependiendo de la validación de la tarjeta.

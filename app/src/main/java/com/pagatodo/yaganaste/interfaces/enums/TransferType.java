@@ -12,7 +12,7 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
 public enum TransferType implements IEnumTab {
     NUMERO_TELEFONO(R.string.transfer_phone_cellphone, 1),
     NUMERO_TARJETA(R.string.debit_card_number, 2),
-    CABLE(R.string.transfer_cable, 3);
+    CLABE(R.string.transfer_cable, 3);
 
     private int name;
     private int id;

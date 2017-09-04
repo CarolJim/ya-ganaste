@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 
 import android.content.Intent;
-import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +9,7 @@ import android.view.ViewGroup;
 
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -50,14 +50,19 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @BindView(R.id.imgLoginExistProfile)
     CircleImageView imgLoginExistProfile;
+
     @BindView(R.id.textNameUser)
     StyleTextView textNameUser;
-    @BindView(R.id.edtxtUserName)
+
+    @BindView(R.id.editUserName)
     CustomValidationEditText edtUserName;
-    @BindView(R.id.edtxtUserPass)
+
+    @BindView(R.id.editUserPassword)
     CustomValidationEditText edtUserPass;
+
     @BindView(R.id.btnLoginExistUser)
     StyleButton btnLogin;
+
     @BindView(R.id.txtLoginExistUserRecoverPass)
     StyleTextView txtLoginExistUserRecoverPass;
     private View rootview;
@@ -104,7 +109,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         return rootview;
     }
 
-
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
@@ -118,14 +122,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             edtUserName.setText(RequestHeaders.getUsername());
             edtUserName.setVisibility(GONE);
 
-            textNameUser.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View v) {
-                    textNameUser.setVisibility(GONE);
-                    edtUserName.setText(RequestHeaders.getUsername());//(textNameUser.getText().toString());
-                    edtUserName.setVisibility(VISIBLE);
-                }
-            });
+            textNameUser.setOnClickListener(this);
         } else {
             edtUserName.setText(RequestHeaders.getUsername());
             edtUserName.setVisibility(VISIBLE);
@@ -138,19 +135,17 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void onClick(View view) {
         switch (view.getId()) {
             case R.id.btnLoginExistUser:
-                /*final int[] drawables = {R.drawable.img_couch_em_1, R.drawable.img_couch_em_2,
-                        R.drawable.img_couch_em_3, R.drawable.img_couch_em_4, R.drawable.img_couch_em_5};
-                Intent intent = new Intent(getActivity(), LandingActivity.class);
-                intent.putExtra(LandingActivity.LANDING_EXTRAS_ARRAY_DRAWABLE, drawables);
-                startActivity(intent);*/
-
-                //Intent intent = new Intent(getActivity(), RegistryCupoActivity.class);
-                //startActivity(intent);
                 actionBtnLogin();
                 break;
             case R.id.txtLoginExistUserRecoverPass:
-                //  startActivity(new Intent(getActivity(), TabActivity.class));
-                nextScreen(EVENT_RECOVERY_PASS, username);
+                nextScreen(EVENT_RECOVERY_PASS, null);
+                break;
+            case R.id.textNameUser:
+                if (BuildConfig.DEBUG) {
+                    textNameUser.setVisibility(GONE);
+                    edtUserName.setText(RequestHeaders.getUsername());
+                    edtUserName.setVisibility(VISIBLE);
+                }
                 break;
             default:
                 break;
@@ -158,7 +153,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     }
 
     private void actionBtnLogin() {
-
         if (UtilsNet.isOnline(getActivity())) {
             validateForm();
         } else {
@@ -188,7 +182,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void showError(Object error) {
-        //UI.showToastShort(error.toString(), getActivity());
         UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error),
                 error.toString(), getFragmentManager(), new DialogDoubleActions() {
                     @Override
@@ -299,7 +292,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void onValidationSuccess() {
-
         setEnableViews(false);
         accountPresenter.login(username, password); // Realizamos el  Login
     }
@@ -330,6 +322,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         if (!RequestHeaders.getTokenauth().isEmpty()) {
             edtUserName.setText(RequestHeaders.getUsername());
         }
+
         if (preferencias.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
             updatePhoto();
         }
@@ -343,8 +336,6 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         Glide.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
                 .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
                 .dontAnimate().into(imgLoginExistProfile);
-
     }
-
 }
 

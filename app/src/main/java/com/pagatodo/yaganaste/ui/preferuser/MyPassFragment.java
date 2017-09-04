@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -40,6 +41,8 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PUSH;
 
 /**
  * Encargada de gestionar el cambio de contraseña, los elementos graficos de la vista y enviar al MVP
@@ -414,13 +417,13 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     @Override
 
     public void sendSuccessPassToView(String mensaje) {
+        App.getInstance().getPrefs().saveData(SHA_256_FREJA, Utils.getSHA256(editPassword.getText()));
         if (SingletonUser.getInstance().needsReset()) {
             resetPinPresenter.doReseting(Utils.getSHA256(editPassword.getText()));
         } else {
             changeNipPresenterImp.doChangeNip(Utils.getSHA256(editOldPassword.getText()),
                     Utils.getSHA256(editPassword.getText()));
         }
-
     }
 
     /**
@@ -528,6 +531,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
 
     @Override
     public void onResetingFailed() {
+        App.getInstance().getPrefs().saveDataBool(HAS_PUSH, false);
         endAndBack();
     }
 

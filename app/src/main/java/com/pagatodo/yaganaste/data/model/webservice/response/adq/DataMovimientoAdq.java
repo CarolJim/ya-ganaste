@@ -45,6 +45,12 @@ public class DataMovimientoAdq implements Serializable {
     @SerializedName("TipoTarjetaBancaria")
     private String tipoTarjetaBancaria;
     private boolean esReversada;
+    @SerializedName("TipoTrans")
+    private String tipoTrans;
+    @SerializedName("Estatus")
+    private String estatus;
+    @SerializedName("Concepto")
+    private String concepto;
 
 
     public DataMovimientoAdq() {
@@ -264,5 +270,29 @@ public class DataMovimientoAdq implements Serializable {
 
     public void setEsReversada(boolean esReversada) {
         this.esReversada = esReversada;
+    }
+
+    public String getTipoTrans() {
+        return tipoTrans;
+    }
+
+    public void setTipoTrans(String tipoTrans) {
+        this.tipoTrans = tipoTrans;
+    }
+
+    public String getEstatus() {
+        return estatus;
+    }
+
+    public void setEstatus(String estatus) {
+        this.estatus = estatus;
+    }
+
+    public String getConcepto() {
+        return concepto;
+    }
+
+    public void setConcepto(String concepto) {
+        this.concepto = concepto;
     }
 }

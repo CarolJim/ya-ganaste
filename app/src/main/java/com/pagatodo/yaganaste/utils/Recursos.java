@@ -25,7 +25,10 @@ public class Recursos {
     public static final int IDCOMERCIO_YA_GANASTE = 8609;
     public static final int GROUP_FORMAT = 4;
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
+
+    /*Freja*/
+    public static final String PT_CLIENT_CODE;
 
     //URL DE WS
     static {
@@ -41,6 +44,7 @@ public class Recursos {
             PIN_ADVO = "7efe5f94dd626075a09f49503b0403c2db388f7c";
             PIN_TRANS = "7efe5f94dd626075a09f49503b0403c2db388f7c";
             PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
+            PT_CLIENT_CODE = "775363";
 
         } else {
 
@@ -55,16 +59,18 @@ public class Recursos {
                 PIN_ADVO = "7efe5f94dd626075a09f49503b0403c2db388f7c";
                 PIN_TRANS = "7efe5f94dd626075a09f49503b0403c2db388f7c";
                 PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
+                PT_CLIENT_CODE = "775363";
             } else {
                 URL_SERVER_ADTVO = "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
                 URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
-                URL_SERVER_ADQ = "https://agentemovil.pagatodo.com/AgenteMovil.svc";
+                URL_SERVER_ADQ = "https://agentemovil.pagatodo.com:19443/Middleware.svc";
 
                 PUBLIC_KEY_RSA = "pIznw1pWFzzOVI+Shkg56ujssxRhQv1DTHeU5LMtgSNCOY3iw1TacI6+Db/YUQsexjvfEcjQsg9QOJp3Q1maI5hEMiWG84tsKBpgBckZoDKcaoN7JtGo3p2BIG/eCm1yLmxSrDpcnNZ6Z8GnUGaQPWxy75E8/U57XrpAyURFNTbbeq0uSxkcoB/5xmyjoECTKpWfD+M8PpAnisBLd0oSYTZ+tmBdgLPQJOe794ZyV+DoX5eU9G7hKx1onCHpuPb/xtx3rnMUIR2qB0sD0hKAjXsyvEiNrrihfxLa3IdcEnWn5CcxcsYiaSJqLlDKlkr+07ji/CqYm5hcvr2CbhhUfw==";
 
                 PIN_ADVO = "7efe5f94dd626075a09f49503b0403c2db388f7c";
                 PIN_TRANS = "7efe5f94dd626075a09f49503b0403c2db388f7c";
                 PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
+                PT_CLIENT_CODE = null;
             }
 
         }
@@ -230,7 +236,12 @@ public class Recursos {
     public static final String MESSAGE_OPEN_SESSION2 = "Por favor inicia sesión";
 
 
-    /*Freja*/
-    public static final String PT_CLIENT_CODE = "775363";
 
+    /**
+     * EstatusCuenta
+     */
+    public static final String ESTATUS_CUENTA_BLOQUEADA = "0";
+    public static final String ESTATUS_CUENTA_DESBLOQUEADA = "1";
+    public static final String FLAG_BLOQUEAR_CUENTA = "1";
+    public static final String FLAG_DESBLOQUEAR_CUENTA = "2";
 }

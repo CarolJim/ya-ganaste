@@ -26,6 +26,9 @@ import java.util.Locale;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.interfaces.enums.CreditCardsTypes.MASTER_CARD;
+import static com.pagatodo.yaganaste.interfaces.enums.CreditCardsTypes.VISA;
+
 /**
  * Created by Jordan on 19/06/2017.
  */
@@ -86,10 +89,10 @@ public class DetailTransactionAdqCancel extends GenericFragment implements View.
 
         txtMontoCobroCancel.setText(dataMovimientoAdq.getMonto());
         txtReferenciaCobroCancel.setText(dataMovimientoAdq.getReferencia());
-        if (dataMovimientoAdq.getMarcaTarjetaBancaria().equals("Visa")) {
-            imgTypeCard.setImageResource(R.drawable.visa);
-        } else if (dataMovimientoAdq.getMarcaTarjetaBancaria().equals("Master Card")) {
-            imgTypeCard.setImageResource(R.drawable.mastercard_canvas);
+        if (dataMovimientoAdq.getMarcaTarjetaBancaria().equals(VISA.getDescription())) {
+            imgTypeCard.setImageResource(VISA.getImage());
+        } else if (dataMovimientoAdq.getMarcaTarjetaBancaria().equals(MASTER_CARD.getDescription())) {
+            imgTypeCard.setImageResource(MASTER_CARD.getImage());
         }
 
         txtConceptoCobroCancel.setText(dataMovimientoAdq.getOperacion());

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
@@ -72,7 +73,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
             }
             movementsPresenter.getRemoteMovementsData(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()), direction, itemId);
         } else {
-            showLoader("");
+            //showLoader("");
             getDataForTab(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()));
         }
 
@@ -83,6 +84,9 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
 
         List<ItemMovements<MovimientosResponse>> actualList = null;
         int tabPosition = tabMonths.getSelectedTabPosition();
+
+
+
         try {
             actualList = this.movementsList.get(tabPosition);
         } catch (Exception ex) {
@@ -107,7 +111,7 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
 
     @Override
     protected void updateRecyclerData(RecyclerView.Adapter adapter, List<ItemMovements<MovimientosResponse>> movements) {
-        txtInfoMovements.setVisibility(movements.isEmpty() ? View.VISIBLE : View.GONE);
+        //txtInfoMovements.setVisibility(movements.isEmpty() ? View.VISIBLE : View.GONE);
         updateRecyclerData(adapter);
     }
 

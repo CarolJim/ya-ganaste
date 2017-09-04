@@ -12,7 +12,7 @@
         app:tabIndicatorHeight="0dp" />
 
 
-    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+    <!--com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txt_info_movements"
         style="@style/generic_text_style_3"
         android:layout_width="match_parent"
@@ -23,7 +23,7 @@
         android:gravity="center_horizontal"
         android:text="@string/no_movimientos"
         android:textSize="@dimen/frag_inicio_tab_no_movements_text_size"
-        android:visibility="visible" />
+        android:visibility="visible" /-->
 
     <com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout
         android:id="@+id/swipe_container"
@@ -33,8 +33,8 @@
 
         <android.support.v7.widget.RecyclerView
             android:id="@+id/recycler_movements"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
             android:scrollbars="vertical"
             android:visibility="visible" />
 

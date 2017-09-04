@@ -221,7 +221,7 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
             iSessionExpired.errorSessionExpired(response);
         } else {
-            accountManager.onError(ACTUALIZAR_DOCUMENTOS, "error" + data.getMensaje());
+            accountManager.onError(ACTUALIZAR_DOCUMENTOS, data.getMensaje());
         }
     }
 

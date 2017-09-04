@@ -16,7 +16,7 @@
     <color name="margin_lines">#AFAFAF</color>
     <color name="inputTextColorHint">#A2AEB6</color>
     <color name="lightGrayColor">#beb8b8</color>
-
+    <color name="colorLoaderAlpha">#71393943</color>
     <!--<color name="backgroundEditText">#4D5C6B</color>-->
 
     <color name="circlecarousel6">#d40655</color>
@@ -58,6 +58,8 @@
 
     <color name="inputTextColor123">#FFF</color>
     <color name="borderColor123">#FFF</color>
+
+    <color name="yellow">#ECDF00</color>
 
     <!--Colores Barra de progreso cupo-->
     <color name="progreso_cupo_first">#00A1E1</color>

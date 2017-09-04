@@ -4,6 +4,7 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.BloquearCuentaRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsociarTarjetaCuentaRequest;
@@ -16,6 +17,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.trans.FondearCUPOReq
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ObtenerEstatusTarjetaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ValidarTransaccionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarNIPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsociarTarjetaCuentaResponse;
@@ -52,6 +54,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_TITUL
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_STATUS_REGISTRO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.EJECUTAR_TRANSACCION;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FONDEAR_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTATUS_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_TRANSACCION;
@@ -141,7 +144,10 @@ public class ApiTrans extends Api {
      */
     public static void consultarSaldo(IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+
+        if (!RequestHeaders.getTokensesion().isEmpty()) {
+            headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        }
         headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
         NetFacade.consumeWS(CONSULTAR_SALDO,
                 METHOD_GET, URL_SERVER_TRANS + App.getContext().getString(R.string.getBalanceUrl),
@@ -298,7 +304,7 @@ public class ApiTrans extends Api {
      * @throws OfflineException
      */
     public static void bloquearCuenta(BloquearCuentaRequest request,
-                                      PreferUserIteractor result) throws OfflineException  {
+                                      PreferUserIteractor result) throws OfflineException {
 
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
@@ -311,5 +317,26 @@ public class ApiTrans extends Api {
         NetFacade.consumeWS(BLOQUEAR_CUENTA,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.bloquearDatosCuenta),
                 headers, request, true, BloquearCuentaResponse.class, result);
+    }
+
+    /**
+     * Servicio que se encarga de enviar la peticion para obtener el Estatus de la Card
+     * @param request
+     * @param result
+     */
+    public static void estatusCuenta(EstatusCuentaRequest request,
+                                     PreferUserIteractor result) throws OfflineException  {
+
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+
+        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+                .getCuentas().get(0).getIdCuenta();
+        headers.put("IdCuenta", "" + idCuenta);
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(ESTATUS_CUENTA,
+                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.estatusDatosCuenta),
+                headers, request, true, EstatusCuentaResponse.class, result);
     }
 }

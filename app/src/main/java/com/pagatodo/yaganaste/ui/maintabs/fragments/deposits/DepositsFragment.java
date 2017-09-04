@@ -13,6 +13,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
 import com.pagatodo.yaganaste.utils.UI;
 
@@ -32,6 +33,7 @@ public class DepositsFragment extends SupportFragment implements DepositsManager
     public static DepositsFragment newInstance() {
         DepositsFragment depositsFragment = new DepositsFragment();
         Bundle args = new Bundle();
+
         depositsFragment.setArguments(args);
         return depositsFragment;
     }

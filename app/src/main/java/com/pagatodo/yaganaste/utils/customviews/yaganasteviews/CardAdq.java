@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.utils.customviews.yaganasteviews;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -51,7 +52,11 @@ public class CardAdq extends TabViewElement {
         if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
             txtInvite.setVisibility(GONE);
             saldoAdq.setVisibility(VISIBLE);
-            saldoAdq.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoAdq()));
+            double saldo = StringUtils.getDoubleValue(SingletonUser.getInstance().getDatosSaldo().getSaldoAdq());
+            if (Math.abs(saldo) >= 1000000) {
+                saldoAdq.setTextSize(TypedValue.COMPLEX_UNIT_SP, 6);
+            }
+            saldoAdq.setText(StringUtils.getCurrencyValue(saldo));
         }
     }
 

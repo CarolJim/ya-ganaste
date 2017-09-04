@@ -8,6 +8,7 @@ import android.support.annotation.IdRes;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
@@ -79,6 +80,13 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     private View rootview;
     private AccountPresenterNew accountPresenter;
     private char mask_number_card = 'X';
+    public static int LONG_PRESS_TIME = 500;
+    private final Handler handler = new Handler();
+    private final Runnable longPressed = new Runnable() {
+        public void run() {
+            Log.i(getTag(), "LongPress");
+        }
+    };
 
     public TienesTarjetaFragment() {
     }
@@ -137,7 +145,6 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         String mUserName = singletonUser.getNombre()
                 + " " + singletonUser.getPrimerApellido();*/
 
-
         dateTDC.setText("02/22");
         RegisterUser registerUser = RegisterUser.getInstance();
         String name;
@@ -164,6 +171,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                 editNumber.setTextSize(TypedValue.COMPLEX_UNIT_SP, sp);
             }
         });
+
         editNumber.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -230,18 +238,35 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         editNumber.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
-                EditText edittext = (EditText) v;
-                int inType = edittext.getInputType();       // Backup the input type
-                edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
-                edittext.onTouchEvent(event);               // Call native handler
-                keyboardView.showCustomKeyboard(v);
-                edittext.setInputType(inType);              // Restore input type
+                switch (event.getAction()) {
+                    case MotionEvent.ACTION_DOWN:
+                        handler.postDelayed(longPressed, LONG_PRESS_TIME);
+                        break;
+                    case MotionEvent.ACTION_MOVE:
+                        handler.removeCallbacks(longPressed);
+                        onTouchEvent(v, event);
+                        break;
+                    case MotionEvent.ACTION_UP:
+                        handler.removeCallbacks(longPressed);
+                        onTouchEvent(v, event);
+                        break;
+                }
                 return true; // Consume touch event
             }
         });
 
         // Iniciamos al TDC vacia
         editNumber.setText("");
+        editNumber.cancelLongPress();
+    }
+
+    private void onTouchEvent(View v, MotionEvent event) {
+        EditText edittext = (EditText) v;
+        int inType = edittext.getInputType();       // Backup the input type
+        edittext.setInputType(InputType.TYPE_NULL); // Disable standard keyboard
+        edittext.onTouchEvent(event);               // Call native handler
+        keyboardView.showCustomKeyboard(v);
+        edittext.setInputType(inType);// Restore input type
     }
 
     @Override
@@ -265,6 +290,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                 editNumber.setEnabled(true);
                 editNumber.setCursorVisible(false);
                 editNumber.requestFocus();
+                btnNextTienesTarjeta.setVisibility(View.VISIBLE);
                 keyboardView.showCustomKeyboard(editNumber);
                 txtMessageCard.setText(getString(R.string.si_tiene_tarjeta));
                 resetCardNumberDefault();
@@ -274,8 +300,6 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
                 generateCardNumberRamdon();
                 keyboardView.hideCustomKeyboard();
                 btnNextTienesTarjeta.setVisibility(View.VISIBLE);
-
-
                 // Reiniciamos al TDC vacia
                 editNumber.setText("");
                 break;

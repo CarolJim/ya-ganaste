@@ -49,6 +49,7 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
     EditText serviceConcept;
     @BindView(R.id.comisionText)
     TextView comisionText;
+    int maxLength;
 
     private boolean isValid = false;
     private IServiciosPresenter serviciosPresenter;
@@ -89,14 +90,15 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
         serviceImport.addTextChangedListener(new NumberTextWatcher(serviceImport));
         if (comercioItem.getLongitudReferencia() > 0) {
             InputFilter[] fArray = new InputFilter[1];
-            fArray[0] = new InputFilter.LengthFilter(Utils.calculateFilterLength(comercioItem.getLongitudReferencia()));
+            maxLength = Utils.calculateFilterLength(comercioItem.getLongitudReferencia());
+            fArray[0] = new InputFilter.LengthFilter(maxLength);
             referenceNumber.setFilters(fArray);
         }
 
         if (comercioItem.getFormato().equals("AN")) {
             referenceNumber.setInputType(InputType.TYPE_CLASS_TEXT);
         }
-        referenceNumber.addTextChangedListener(new NumberTagPase(referenceNumber));
+        referenceNumber.addTextChangedListener(new NumberTagPase(referenceNumber, maxLength));
         comisionText.setText(String.format(getString(R.string.comision_service_payment), StringUtils.getCurrencyValue(comercioItem.getSobrecargo())));
 
     }

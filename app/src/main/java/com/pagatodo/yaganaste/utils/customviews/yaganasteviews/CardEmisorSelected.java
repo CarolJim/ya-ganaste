@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.utils.customviews.yaganasteviews;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -52,7 +53,13 @@ public class CardEmisorSelected extends TabViewElement {
         UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
         txtNombre.setText(StringUtils.getFirstName(userData.getNombre())
                 .concat(SPACE).concat(userData.getPrimerApellido()));
-        txtSaldo.setText(StringUtils.getCurrencyValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor()));
+
+        double saldo = StringUtils.getDoubleValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor());
+        if (Math.abs(saldo) >= 99999) {
+            txtSaldo.setTextSize(TypedValue.COMPLEX_UNIT_SP, 10);
+        }
+
+        txtSaldo.setText(StringUtils.getCurrencyValue(saldo));
     }
 
 }

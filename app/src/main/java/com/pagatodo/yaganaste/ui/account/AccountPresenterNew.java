@@ -68,7 +68,10 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui.preferuser.MyChangeNip.EVENT_GO_CHANGE_NIP_SUCCESS;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
+import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
+import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PUSH;
 import static com.pagatodo.yaganaste.utils.StringConstants.OLD_NIP;
+import static com.pagatodo.yaganaste.utils.StringConstants.USER_PROVISIONED;
 
 /**
  * Created by flima on 22/03/2017.
@@ -211,6 +214,10 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void doPullActivationSMS(String message) {
         accountView.showLoader(message);
+        prefs.clearPreference(HAS_PROVISIONING);
+        prefs.clearPreference(HAS_PUSH);
+        prefs.clearPreference(USER_PROVISIONED);
+        SingletonUser.getInstance().setNeedsReset(false);
         accountIteractor.verifyActivationSMS();
     }
 
@@ -234,6 +241,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 ((IAccountRegisterView) accountView).clientCreateFailed(error.toString());
             } else if (ws == OBTENER_COLONIAS_CP) {
                 ((IAccountRegisterView) accountView).zipCodeInvalid(error.toString());
+                accountView.showError(error.toString());
             }
         } else if (accountView instanceof IUserDataRegisterView) {
             if (ws == VALIDAR_ESTATUS_USUARIO) {
@@ -407,11 +415,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
     @Override
     public void doProvisioning() {
-        String old = prefs.loadData(OLD_NIP);
-        SingletonUser.getInstance().setNeedsReset(!needsProvisioning() && ( !old.equals(prefs.loadData(SHA_256_FREJA)) && !old.isEmpty()));
-        if (!SingletonUser.getInstance().needsReset()) {
-            prefs.saveData(OLD_NIP, prefs.loadData(SHA_256_FREJA));
-        }
         super.doProvisioning();
     }
 
@@ -419,8 +422,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
      * Methodo delegado de {@link ResetPinPresenterImp}
      * @param newNip
      */
-    public void doReseting(String newNip) {
+    /*public void doReseting(String newNip) {
         resetPinPresenter.doReseting(newNip);
-    }
+    }*/
 
 }

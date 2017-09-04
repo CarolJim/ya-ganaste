@@ -4,7 +4,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.text.InputType;
 import android.text.Selection;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.MotionEvent;
@@ -31,6 +30,8 @@ import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
+
+import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 
 public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener {
 
@@ -175,17 +176,15 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                 if (current_mount >= MIN_AMOUNT) {
                     TransactionAdqData.getCurrentTransaction().setAmount(valueAmount);
                     TransactionAdqData.getCurrentTransaction().setDescription(current_concept);
-                    setData("", "");
+                    //setData("", "");
+                    NumberCalcTextWatcher.cleanData();
+                    et_amount.setText("0");
+                    edtConcept.setText(null);
                     mySeekBar.setProgress(0);
                     NumberCalcTextWatcher.cleanData();
 
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
-                    if (getActivity() instanceof AccountActivity) {
-                        getActivity().startActivityForResult(intent, Constants.PAYMENTS_ADQUIRENTE);
-                    } else {
-                        startActivity(intent);
-                    }
-
+                    getActivity().startActivityForResult(intent, PAYMENTS_ADQUIRENTE);
                 } else showValidationError(getString(R.string.mount_be_higer));
             } catch (NumberFormatException e) {
                 showValidationError(getString(R.string.mount_valid));
@@ -205,22 +204,16 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     }
 
     private void setData(String amount, String concept) {
-    //    Log.d("GetMount", "setData After Amount " + amount);
+        //    Log.d("GetMount", "setData After Amount " + amount);
         et_amount.setText(amount);
         Selection.setSelection(et_amount.getText(), et_amount.getText().toString().length());
-        if (!concept.equals("")) {
-            edtConcept.setText(concept);
-        }else{
-            edtConcept.setText("");
-        }
+        edtConcept.setText(concept);
         //    Log.d("GetMount", "setData Before Amount " + amount);
     }
 
     @Override
     public void onResume() {
         super.onResume();
-      //  Log.d("GetMount", "Resume Amount " + TransactionAdqData.getCurrentTransaction().getAmount());
-        setData(TransactionAdqData.getCurrentTransaction().getAmount(), TransactionAdqData.getCurrentTransaction().getDescription());
     }
 
     public boolean isCustomKeyboardVisible() {
@@ -242,9 +235,10 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         super.setMenuVisibility(menuVisible);
         if (menuVisible) {
             et_amount.requestFocus();
-        } else if (et_amount != null){
+        } else if (et_amount != null) {
             NumberCalcTextWatcher.cleanData();
             et_amount.setText("0");
+            edtConcept.setText(null);
         }
     }
 }

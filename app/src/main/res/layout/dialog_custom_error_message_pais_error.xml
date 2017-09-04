@@ -73,19 +73,18 @@
             android:weightSum="2.3">
 
 
-
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnCancelDialogh"
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="30dp"
-                android:visibility="invisible"
                 android:background="@drawable/button_rounded_blue"
                 android:gravity="center"
                 android:text="@string/title_aceptar"
                 android:textAllCaps="false"
                 android:textColor="@color/whiteColor"
                 android:textSize="@dimen/size_text_style_2_value"
+                android:visibility="invisible"
                 app:cornerRadius="@dimen/btn_corner_radius"
                 app:intercepterOnclick="true" />
 
@@ -99,14 +98,14 @@
                 style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dimen_margin_pinpad"
-                android:tint="@color/colorAccent"
                 android:layout_weight="0.25"
                 android:background="@drawable/ic_phone_white_24dp"
                 android:gravity="center"
-
                 android:textAllCaps="false"
+
                 android:textColor="@color/whiteColor"
                 android:textSize="@dimen/size_text_style_2_value"
+                android:tint="@color/colorAccent"
                 app:cornerRadius="@dimen/btn_corner_radius"
                 app:intercepterOnclick="true" />
 
@@ -118,6 +117,7 @@
         </LinearLayout>
 
     </LinearLayout>
+
     <LinearLayout
         android:id="@+id/buttons_containerllamr"
         android:layout_width="match_parent"

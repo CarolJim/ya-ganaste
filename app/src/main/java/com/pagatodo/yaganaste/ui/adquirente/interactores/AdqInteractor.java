@@ -364,7 +364,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                     @Override
                     public void action(Context context, Object... params) {
                         INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(EVENT_GO_GET_SIGNATURE, App.getContext().getString(R.string.execution_success));
+                        viewInterface.nextScreen(EVENT_GO_GET_SIGNATURE, null);
                     }
                 });
                 pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
@@ -379,13 +379,13 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
              */
             default:
                 result.setStatusTransaction(ADQ_TRANSACTION_ERROR);
-                PageResult pageResultError = new PageResult(R.drawable.ic_cancel,
+                PageResult pageResultError = new PageResult(R.drawable.ic_triangle_error,
                         context.getString(R.string.title_error),
                         data.getError().getMessage(),
                         true);
 
-                pageResultError.setNamerBtnPrimary(App.getInstance().getString(R.string.title_cancelar));
-                pageResultError.setNamerBtnSecondary(App.getInstance().getString(R.string.title_reintentar));
+                pageResultError.setNamerBtnPrimary(App.getInstance().getString(R.string.title_aceptar));
+                //pageResultError.setNamerBtnSecondary(App.getInstance().getString(R.string.title_reintentar));
                 pageResultError.setActionBtnPrimary(new Command() {
                     @Override
                     public void action(Context context, Object... params) {
@@ -454,7 +454,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                      */
                     NumberCalcTextWatcher.cleanData();
 
-                    viewInterface.nextScreen(EVENT_GO_LOGIN_FRAGMENT, context.getString(R.string.execution_success));
+                    viewInterface.nextScreen(EVENT_GO_LOGIN_FRAGMENT, null);
                 }
             });
 

@@ -6,6 +6,7 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.ResumenMovimientosMesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataResultAdq;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ResumenMovimientosAdqResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdq;
@@ -45,6 +46,15 @@ public class AdqPayMovementsIteractorImp implements MovementsIteractor<ResumenMo
     }
 
     @Override
+    public void getDatosCupo() {
+        try {
+            ApiAdq.obtieneDatosCupo(this);
+        } catch (OfflineException e) {
+            //No-op
+        }
+    }
+
+    @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
 
         switch (dataSourceResult.getWebService()) {
@@ -56,6 +66,18 @@ public class AdqPayMovementsIteractorImp implements MovementsIteractor<ResumenMo
             case CONSULTAR_SALDO_ADQ:
                 validateBalanceResponse((ConsultaSaldoCupoResponse) dataSourceResult.getData());
                 break;
+
+            case OBTIENE_DATOS_CUPO:
+                validateDataCupo((ObtieneDatosCupoResponse) dataSourceResult.getData());
+                break;
+        }
+    }
+
+    private void validateDataCupo(ObtieneDatosCupoResponse response) {
+        if (response.getResult().getId().equals(Recursos.CODE_ADQ_OK)) {
+            movementsManager.onSuccessDataCupo(response);
+        } else {
+            movementsManager.onFailed(0, Recursos.NO_ACTION, response.getResult().getMessage());
         }
     }
 

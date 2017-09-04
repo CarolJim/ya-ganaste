@@ -54,11 +54,11 @@
 
                 <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                     android:id="@+id/txt_saldo"
-                    style="@style/generic_text_style_2"
+                    style="@style/generic_text_style_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:layout_weight="8"
-                    android:gravity="top"
+                    android:gravity="center|left"
                     android:maxLines="1"
                     android:text="$4,200.00"
                     app:dotBottom="false"

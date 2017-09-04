@@ -28,8 +28,6 @@ public class DateUtil {
     public static String simpleDateFormatFirstYear = "yyyy-MM-dd";
 
 
-
-
     public static String renameDateMonth(String fullDateName) {
         char[] chars = fullDateName.toCharArray();
         for (int x = 0; x < chars.length; x++) {
@@ -51,15 +49,16 @@ public class DateUtil {
     /**
      * Encargado de hacer un formato especial de nombres a 3 letras, para evitar cambios de idiomas o
      * configuraciones adicionales
+     *
      * @param year
      * @param moth
      * @param day
      * @return
      */
-    public static String getBirthDateSpecialCustom( int year, int moth, int day){
+    public static String getBirthDateSpecialCustom(int year, int moth, int day) {
         String myMonth = "";
 
-        switch (moth){
+        switch (moth) {
             case 0:
                 myMonth = App.getContext().getResources().getString(R.string.lista_meses_enero);
                 break;
@@ -100,6 +99,94 @@ public class DateUtil {
         return day + " " + myMonth + " " + year;
     }
 
+    /**
+     * Se encarga de entregar el formato especifico de tipo 25 / Ago / 2017. Se usa usualmente en
+     * PaymentSuccessFragment
+     *
+     * @param date Funciona con una instancia del calendario actual,
+     * @return
+     */
+    public static String getPaymentDateSpecialCustom(Calendar date) {
+        // Codigo para hacer pruebas de fecha
+//       Calendar date2 = Calendar.getInstance();
+//        date2.set(2017, 7, 1);
+
+        String dateYear = String.valueOf(date.get(Calendar.YEAR));
+        int dateMonth = date.get(Calendar.MONTH);
+        String dateDay = String.valueOf(date.get(Calendar.DAY_OF_MONTH));
+
+        String stringMonth = "";
+        switch (dateMonth) {
+            case 0:
+                stringMonth = App.getContext().getResources().getString(R.string.lista_meses_enero);
+                break;
+            case 1:
+                stringMonth = App.getContext().getResources().getString(R.string.lista_meses_febrero);
+                break;
+            case 2:
+                stringMonth = App.getContext().getResources().getString(R.string.lista_meses_marzo);
+                break;
+            case 3:
+                stringMonth = App.getContext().getResources().getString(R.string.lista_meses_abril);
+                break;
+            case 4:
+                stringMonth = App.getContext().getResources().getString(R.string.lista_meses_mayo);
+                break;
+            case 5:
+                stringMonth = App.getContext().getResources().getString(R.string.lista_meses_junio);
+                break;
+            case 6:
+                stringMonth = App.getContext().getResources().getString(R.string.lista_meses_julio);
+                break;
+            case 7:
+                stringMonth = App.getContext().getResources().getString(R.string.lista_meses_agosto);
+                break;
+            case 8:
+                stringMonth = App.getContext().getResources().getString(R.string.lista_meses_septiembre);
+                break;
+            case 9:
+                stringMonth = App.getContext().getResources().getString(R.string.lista_meses_octubre);
+                break;
+            case 10:
+                stringMonth = App.getContext().getResources().getString(R.string.lista_meses_noviembre);
+                break;
+            case 11:
+                stringMonth = App.getContext().getResources().getString(R.string.lista_meses_diciembre);
+                break;
+        }
+
+        switch (dateDay) {
+            case "1":
+                dateDay = "01";
+                break;
+            case "2":
+                dateDay = "02";
+                break;
+            case "3":
+                dateDay = "03";
+                break;
+            case "4":
+                dateDay = "04";
+                break;
+            case "5":
+                dateDay = "05";
+                break;
+            case "6":
+                dateDay = "06";
+                break;
+            case "7":
+                dateDay = "07";
+                break;
+            case "8":
+                dateDay = "08";
+                break;
+            case "9":
+                dateDay = "09";
+                break;
+
+        }
+        return dateDay + " " + stringMonth + " " + dateYear;
+    }
 
     public static String getTodayCompleteDateFormat() {
         return getCompleteDateFormat(Calendar.getInstance());

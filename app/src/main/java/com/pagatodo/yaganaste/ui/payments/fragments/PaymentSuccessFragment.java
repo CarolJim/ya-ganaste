@@ -54,8 +54,6 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 public class PaymentSuccessFragment extends GenericFragment implements PaymentSuccessManager, View.OnClickListener {
 
 
-
-
     @BindView(R.id.txt_paymentTitle)
     TextView title;
     @BindView(R.id.txt_importe)
@@ -136,7 +134,6 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
         ButterKnife.bind(this, rootview);
 
 
-
         if (pago instanceof Recarga) {
             title.setText(R.string.title_recarga_success);
             Double comision = result.getData().getComision();
@@ -174,14 +171,18 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
             titleReferencia.setText(((Envios) pago).getNombreDestinatario());
             layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
-            //titleMail.setText(R.string.envia_comprobante_a + ((Envios) pago).getNombreDestinatario() + " " + R.string.envia_comprobante_opcional);
+            String fullName = ((Envios) pago).getNombreDestinatario();
+            titleMail.setText(
+                    getContext().getResources().getString(R.string.envia_comprobante_a)
+                            + " " + StringUtils.formatSingleName(fullName)
+                            + " " + getContext().getResources().getString(R.string.envia_comprobante_opcional));
             isMailAviable = true;
         }
 
         String text = String.format("%.2f", pago.getMonto());
         text = text.replace(",", ".");
         importe.setText(text);
-        editMail.setDrawableImage(R.drawable.mail_canvas);
+        //editMail.setDrawableImage(R.drawable.mail_canvas);
 
         /*
         Bloqur para poner el formato de telefono o otros ejemplos
@@ -200,8 +201,11 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
         } else if (pago instanceof Servicios) {
             formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
         } else if (pago instanceof Envios) {
-            // Log.d("PaymentSuccessFragment", "Punto de Debug");
-            formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+            if (formatoPago.length() == 16 || formatoPago.length() == 15) {
+                formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4,4,4,4), '*', formatoPago.length() -12);
+            } else {
+                formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+            }
         }
 
 
@@ -211,10 +215,11 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
                 .error(R.mipmap.icon_tab_promos)
                 .dontAnimate().into(imgLogoPago);
 
-        autorizacion.setText(result.getData().getNumeroAutorizacion());
+        autorizacion.setText(StringUtils.formatAutorization(result.getData().getNumeroAutorizacion()));
         SimpleDateFormat dateFormatH = new SimpleDateFormat("HH:mm:ss");
 
-        fecha.setText(DateUtil.getBirthDateCustomString(Calendar.getInstance()));
+       // fecha.setText(DateUtil.getBirthDateCustomString(Calendar.getInstance()));
+        fecha.setText(DateUtil.getPaymentDateSpecialCustom(Calendar.getInstance()));
         hora.setText(dateFormatH.format(new Date()) + " hrs");
 
         btnContinueEnvio.setOnClickListener(this);
@@ -227,7 +232,11 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
         if (!TextUtils.isEmpty(mail)) {
             if (ValidateForm.isValidEmailAddress(mail)) {
                 showLoader(getString(R.string.procesando_enviando_email_loader));
-                presenter.sendTicket(mail, result.getData().getIdTransaccion());
+                if(pago instanceof Envios){
+                    presenter.sendTicketEnvio(mail, result.getData().getIdTransaccion());
+                }else {
+                    presenter.sendTicket(mail, result.getData().getIdTransaccion());
+                }
             } else {
                 showSimpleDialog(getString(R.string.title_error), getString(R.string.datos_usuario_correo_formato));
             }

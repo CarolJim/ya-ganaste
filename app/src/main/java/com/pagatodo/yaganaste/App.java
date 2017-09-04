@@ -2,7 +2,10 @@ package com.pagatodo.yaganaste;
 
 import android.app.Activity;
 import android.app.Application;
+import android.content.BroadcastReceiver;
 import android.content.Context;
+import android.content.Intent;
+import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
@@ -19,6 +22,7 @@ import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.adquirente.readers.IposListener;
 import com.pagatodo.yaganaste.utils.ApplicationLifecycleHandler;
+import com.pagatodo.yaganaste.utils.ScreenReceiver;
 
 import java.util.Locale;
 
@@ -56,7 +60,6 @@ public class App extends Application {
         config.locale = locale;
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
-
         m_singleton = this;
         //MultiDex.install(this);
 
@@ -68,6 +71,8 @@ public class App extends Application {
         ApplicationLifecycleHandler lifecycleHandler = new ApplicationLifecycleHandler();
         registerActivityLifecycleCallbacks(lifecycleHandler);
         registerComponentCallbacks(lifecycleHandler);
+
+        new ScreenReceiver(getContext(), lifecycleHandler);
     }
 
     // Called by the system when the device configuration changes while your component is running.

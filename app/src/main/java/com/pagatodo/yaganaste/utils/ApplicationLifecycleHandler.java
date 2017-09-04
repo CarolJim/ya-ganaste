@@ -7,12 +7,13 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
-import android.util.Log;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.IRequestResult;
+import com.pagatodo.yaganaste.net.VolleySingleton;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.LandingActivity;
 import com.pagatodo.yaganaste.ui._controllers.LandingApprovedActivity;
@@ -21,7 +22,6 @@ import com.pagatodo.yaganaste.ui._controllers.OnlineTxActivity;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
-import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
@@ -34,7 +34,6 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
         ComponentCallbacks2, IRequestResult {
 
     private boolean isInBackground = false;
-    private AccountPresenterNew presenterAccount;
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
@@ -56,12 +55,15 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
             } else if (!((SupportFragmentActivity) activity).isFromActivityForResult()) {
                 goToLoginScreen(activity);
             } else if ((activity instanceof LandingApprovedActivity)) {
+
             }
         }
         isInBackground = false;
     }
 
     private void goToLoginScreen(Activity activity) {
+        VolleySingleton.getInstance(App.getContext()).deleteQueue();
+
         try {
             ApiAdtvo.cerrarSesion(this);// Se envia null ya que el Body no aplica.
         } catch (OfflineException e) {
@@ -124,5 +126,13 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
 
     @Override
     public void onFailed(DataSourceResult error) {
+    }
+
+    public boolean isInBackground() {
+        return isInBackground;
+    }
+
+    public void setInBackground(boolean inBackground) {
+        isInBackground = inBackground;
     }
 }
