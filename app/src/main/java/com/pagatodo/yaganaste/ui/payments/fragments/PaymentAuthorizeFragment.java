@@ -137,13 +137,13 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
         switch (envio.getTipoEnvio()) {
             case CLABE:
-                txtReferencia.setText(StringUtils.format(ref, SPACE, 3,3,4,4,4));
+                txtReferencia.setText(StringUtils.format(ref, SPACE, 3, 3, 4, 4, 4));
                 break;
             case NUMERO_TARJETA:
-                txtReferencia.setText(StringUtils.maskReference(StringUtils.format(ref, SPACE, 4,4,4,4), '*', ref.length() - 12));
+                txtReferencia.setText(StringUtils.maskReference(StringUtils.format(ref, SPACE, 4, 4, 4, 4), '*', ref.length() - 12));
                 break;
             case NUMERO_TELEFONO:
-                txtReferencia.setText(StringUtils.format(ref, SPACE, 2,4,4));
+                txtReferencia.setText(StringUtils.format(ref, SPACE, 2, 4, 4));
                 break;
             default:
                 break;
@@ -215,6 +215,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     @Override
     public void showError(Object error) {
+        hideLoader();
         if (!TextUtils.isEmpty(error.toString())) {
             UI.createSimpleCustomDialog("Error", error.toString(), getActivity().getSupportFragmentManager(), getFragmentTag());
         }
