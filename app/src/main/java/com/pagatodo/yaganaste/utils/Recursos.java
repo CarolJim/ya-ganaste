@@ -233,8 +233,9 @@ public class Recursos {
     /**
      * EstatusCuenta
      */
-    public static final String ESTATUS_CUENTA_BLOQUEADA = "0";
-    public static final String ESTATUS_CUENTA_DESBLOQUEADA = "1";
+    public static final String ESTATUS_DE_NO_BLOQUEADA = "1";
+    public static final String ESTATUS_CUENTA_BLOQUEADA = "1";
+    public static final String ESTATUS_CUENTA_DESBLOQUEADA = "2";
     public static final String FLAG_BLOQUEAR_CUENTA = "1";
     public static final String FLAG_DESBLOQUEAR_CUENTA = "2";
 }

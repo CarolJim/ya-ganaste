@@ -253,7 +253,16 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
                 preferUserPresenter.errorGenericToPresenter(dataSourceResult);
             }
         }
+        /*
+        if (dataSourceResult.getData() instanceof EstatusCuentaResponse ) {
+            EstatusCuentaResponse response = (EstatusCuentaResponse) dataSourceResult.getData();
+            if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+                //Log.d("PreferUserIteractor", "DataSource Sucess " + response.getMensaje());
+                preferUserPresenter.successGenericToPresenter(dataSourceResult);
+            }
 
+        }
+        */
 
         /**
          * Instancia de peticion exitosa de ActualizarAvatarResponse
