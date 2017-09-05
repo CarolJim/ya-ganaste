@@ -38,6 +38,7 @@ import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui.adquirente.interfases.IDocumentApproved;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
+import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
 import com.pagatodo.yaganaste.utils.StringConstants;
@@ -83,6 +84,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     private INavigationView accountView;
     private Preferencias prefs = App.getInstance().getPrefs();
     private Context context;
+    private MyChangeNip mensajesucces;
 
     private ResetPinPresenter resetPinPresenter;
 
@@ -375,6 +377,9 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         } else if (accountView instanceof IChangeNIPView) {
             if (ws == ASIGNAR_NEW_NIP) {
                 accountView.nextScreen(EVENT_GO_CHANGE_NIP_SUCCESS, data);
+                //accountView.showError(data.toString());
+               // mensajesucces.showError(data.toString());
+
             }
         } else if (accountView instanceof IVerificationSMSView) {
             if (ws == OBTENER_NUMERO_SMS) {

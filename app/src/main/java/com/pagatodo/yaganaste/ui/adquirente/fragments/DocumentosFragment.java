@@ -516,6 +516,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
      */
     @Override
     public void documentsUploaded(String message) {
+        dataDocumnets.clear();
         nextScreen(EVENT_GO_BUSSINES_COMPLETE, null);
     }
 
@@ -525,6 +526,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
      */
     @Override
     public void documentosActualizados(String s) {
+        dataDocumnets.clear();
         refreshContent();
     }
 
@@ -763,6 +765,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
      * dataDocumnets que es un Map<K,V> asi evitamos problemas de cambiar constantemente imagenes
      */
     private void updateListFromMapHash() {
+        dataDocumnetsServer.clear();
+
         if (dataDocumnets.get(IFE_FRONT) != null && !dataDocumnets.get(IFE_FRONT).equals("")) {
             dataDocumnetsServer.add(dataDocumnets.get(IFE_FRONT));
         }

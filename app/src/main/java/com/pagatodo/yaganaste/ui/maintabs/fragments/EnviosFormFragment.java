@@ -145,13 +145,12 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             //cardNumber.setOnFocusChangeListener(this);
             amountToSend.setImeOptions(EditorInfo.IME_ACTION_NEXT);
             amountToSend.setOnEditorActionListener(this);
-
             concept.setImeOptions(IME_ACTION_DONE);
 
         } else {
-            tipoPago.add(CLABE.getId(), CLABE.getName(getContext()));
             receiverName.setFilters(new InputFilter[]{new InputFilter.LengthFilter(40)});
             concept.setImeOptions(IME_ACTION_NEXT);
+            tipoPago.add(CLABE.getId(), CLABE.getName(getContext()));
         }
 
         concept.setSingleLine(true);
@@ -280,7 +279,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             maxLength = comercioItem.getIdComercio() == 814 ? 18 : 19;
             cardNumber.setHint(getString(R.string.card_number, String.valueOf(
                     comercioItem.getIdComercio() == 814 ? 15 : 16
-                    )));
+            )));
             NumberCardTextWatcher numberCardTextWatcher = new NumberCardTextWatcher(cardNumber, maxLength);
             if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
                 numberCardTextWatcher.setOnITextChangeListener(this);

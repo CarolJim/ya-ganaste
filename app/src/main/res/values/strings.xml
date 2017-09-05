@@ -195,7 +195,7 @@
 
 
     <string name="txt_referencia_envio">Referencia de Envío</string>
-    <string name="hint_referencia_numerica">Referencia Numérica</string>
+    <string name="hint_referencia_numerica">Referencia Numérica (6 Dígitos)</string>
     <string name="txt_referencia_servicio">Referencia</string>
     <string name="title_aviso">Aviso</string>
     <string name="txt_validacion_docs">La Validación de Documentos\nPodría Tomar Hasta 24 Horas.</string>
