@@ -15,8 +15,8 @@ public class CrearCupoSolicitudRequest extends Request implements Serializable {
 
     // Datos Cuentanos Mas Fragment
 
-    private int     IdEstadoCivil = 0;
-    private String  NumeroHijos = "";
+    //private int     IdEstadoCivil = 0;
+    //private String  NumeroHijos = "";
     private boolean TieneCreditoBancario = false;
     private boolean TieneCreditoAuto = false;
     private boolean TieneTarjetaCredito = false;
@@ -33,20 +33,12 @@ public class CrearCupoSolicitudRequest extends Request implements Serializable {
         Referencias = new ArrayList<CupoReferencia>();
     }
 
-    public int getIdEstadoCivil() {
-        return IdEstadoCivil;
-    }
-
     public void setIdEstadoCivil(int idEstadoCivil) {
-        IdEstadoCivil = idEstadoCivil;
-    }
-
-    public String getNumeroHijos() {
-        return NumeroHijos;
+        //IdEstadoCivil = idEstadoCivil;
     }
 
     public void setNumeroHijos(String numeroHijos) {
-        NumeroHijos = numeroHijos;
+        //NumeroHijos = numeroHijos;
     }
 
     public boolean isTieneCreditoBancario() {

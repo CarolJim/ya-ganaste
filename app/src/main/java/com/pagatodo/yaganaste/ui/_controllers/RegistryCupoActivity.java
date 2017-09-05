@@ -152,7 +152,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
             if (sesionStatus == IdEstatus.I14.getId()) {
                 App.getInstance().getPrefs().saveData( CUPO_PASO , CUPO_PASO_REGISTRO_ENVIADO);
                 loadFragment(CupoComprobantesFragment.newInstance(ESTADO_ENVIO_DOCUMENTOS), Direction.FORDWARD, false);
-            } else if (sesionStatus == IdEstatus.I15.getId()|| sesionStatus == IdEstatus.I16.getId() ||  sesionStatus == IdEstatus.I17.getId()) {
+            } else if (sesionStatus >= IdEstatus.I15.getId()) {
                 App.getInstance().getPrefs().saveData( CUPO_PASO , CUPO_PASO_DOCUMENTOS_ENVIADOS);
                 loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, false);
             } else {
@@ -169,6 +169,12 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
         if (!(currentFragment instanceof RegisterCompleteFragment) ) {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setVisibilityPrefer(false);
     }
 
     @Override

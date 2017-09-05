@@ -56,10 +56,9 @@ public class BitmapLoader extends AsyncTask {
         super.onPostExecute(o);
         Bitmap bm = ((Bitmap) o);
         listener.OnBitmap64Listener(bm, imgBase64);
-        if (bm.isRecycled()) {
+        if (!bm.isRecycled()) {
             bm.recycle();
         }
-        bm = null;
     }
 
     public String bitmapToBase64(Bitmap bitmap) {
