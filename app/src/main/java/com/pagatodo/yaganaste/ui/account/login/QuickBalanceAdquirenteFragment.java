@@ -178,6 +178,11 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     }
 
     @Override
+    public void updateBalanceCupo() {
+
+    }
+
+    @Override
     public void showLoader(String message) {
         onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }

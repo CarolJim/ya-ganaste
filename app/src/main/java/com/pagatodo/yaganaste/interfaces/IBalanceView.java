@@ -8,4 +8,6 @@ public interface IBalanceView extends View, INavigationView {
     void updateBalance();
 
     void updateBalanceAdq();
+
+    void updateBalanceCupo();
 }

@@ -29,6 +29,7 @@ import java.util.Calendar;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
+import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_CUPO;
 
 /**
  * @author Juan Guerra on 28/03/2017.
@@ -153,7 +154,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void updateBalance() {
-        if (SingletonUser.getInstance().getDataUser().getIdEstatus() == IdEstatus.I16.getId()) {
+        if (SingletonUser.getInstance().getDataUser().getIdEstatus() == IdEstatus.CUPO.getId()) {
             movementsIteractor.getDatosCupo();
         } else {
             movementsIteractor.getBalance();
@@ -210,7 +211,9 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
 
     @Override
     public void onSuccessDataCupo(ObtieneDatosCupoResponse response) {
-        SingletonUser.getInstance().setDatosCupo(new DatosCupo(response.getLimiteDeCredito(), response.getSaldoDisponible(), response.getTotalADepositar()));
+        SingletonUser.getInstance().setDatosCupo(new DatosCupo(response.getLimiteDeCredito(), response.getSaldoDisponible(), response.getTotalADepositar(), response.getTotalAReembolsar()));
+        App.getInstance().getPrefs().saveData(StringConstants.CUPO_BALANCE, response.getSaldoDisponible());
+        App.getInstance().getPrefs().saveData(UPDATE_DATE_BALANCE_CUPO, DateUtil.getTodayCompleteDateFormat());
         movementsView.updateBalance();
     }
 

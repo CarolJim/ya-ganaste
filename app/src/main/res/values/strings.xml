@@ -442,13 +442,13 @@
     <string name="transfer_cable">Cuenta CLABE</string>
     <string name="saldo_pendiente">Saldo Por\nReembolsar</string>
     <string name="saldo_reembolso">Saldo a Reembolsar</string>
+    <string name="saldo_disponible">Saldo Disponible</string>
     <string name="saldo_en_cuenta">Saldo en Cuenta</string>
     <string name="saldo_personal">Saldo Personal:</string>
 
     <string name="linea_credito">Línea de Crédito*</string>
     <string name="linea_credito_cupo">Línea de Crédito:</string>
     <string name="monto_depositar">Monto a Depositar:</string>
-    <string name="saldo_disponible">Saldo Disponible</string>
     <string name="total_reembolsar">Total a Reembolsar:</string>
     <string name="total_depositar">Total a Depositar:</string>
     <string name="cobros_tarjeta">Cobros Con\nTarjeta</string>

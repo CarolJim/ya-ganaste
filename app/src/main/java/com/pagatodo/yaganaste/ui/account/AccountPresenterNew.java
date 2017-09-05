@@ -56,6 +56,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CERRAR_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
@@ -289,6 +290,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 onSuccesBalance();
             } else if (ws == CONSULTAR_SALDO_ADQ) {
                 onSuccesBalanceAdq();
+            } else if (ws == CONSULTA_SALDO_CUPO) {
+                onSuccesBalanceCupo();
             } else {
                 accountView.showError(error);
             }
@@ -318,6 +321,12 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     public void updateBalanceAdq() {
         this.accountView.showLoader(context.getString(R.string.actualizando_saldo));
         accountIteractor.getBalanceAdq();
+    }
+
+    @Override
+    public void updateBalanceCupo() {
+        this.accountView.showLoader(context.getString(R.string.actualizando_saldo));
+        accountIteractor.getBalanceCupo();
     }
 
     @Override
@@ -416,6 +425,11 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void onSuccesBalanceAdq() {
         ((IBalanceView) this.accountView).updateBalanceAdq();
+    }
+
+    @Override
+    public void onSuccesBalanceCupo() {
+        ((IBalanceView) this.accountView).updateBalanceCupo();
     }
 
     @Override

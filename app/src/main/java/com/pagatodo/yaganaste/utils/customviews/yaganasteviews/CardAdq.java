@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
@@ -52,7 +53,13 @@ public class CardAdq extends TabViewElement {
         if (SingletonUser.getInstance().getDataUser().isEsAgente() && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
             txtInvite.setVisibility(GONE);
             saldoAdq.setVisibility(VISIBLE);
-            double saldo = StringUtils.getDoubleValue(SingletonUser.getInstance().getDatosSaldo().getSaldoAdq());
+            double saldo;
+            if (SingletonUser.getInstance().getDataUser().getIdEstatus() == IdEstatus.CUPO.getId()) {
+                saldo = StringUtils.getDoubleValue(SingletonUser.getInstance().getDatosCupo().getSaldoDisponible());
+            } else {
+                saldo = StringUtils.getDoubleValue(SingletonUser.getInstance().getDatosSaldo().getSaldoAdq());
+            }
+
             if (Math.abs(saldo) >= 1000000) {
                 saldoAdq.setTextSize(TypedValue.COMPLEX_UNIT_SP, 6);
             }
