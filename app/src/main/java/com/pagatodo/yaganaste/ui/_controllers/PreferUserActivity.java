@@ -39,6 +39,7 @@ import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.ui.preferuser.TerminosyCondicionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
@@ -47,6 +48,7 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PR
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDADLC;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSLC;
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 public class PreferUserActivity extends LoaderActivity implements OnEventListener {
 
@@ -75,9 +77,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_HELP_CORREO_REPORTA_TARJETA_BACK = "PREFER_USER_HELP_CORREO_REPORTA_TARJETA_BACK";
     public static String PREFER_USER_REPORTA_TARJETA = "PREFER_USER_REPORTA_TARJETA";
     public static String PREFER_USER_REPORTA_TARJETA_BACK = "PREFER_USER_REPORTA_TARJETA_BACK";
-
-
-
     public static String PREFER_USER_HELP = "PREFER_USER_HELP";
     public static String PREFER_USER_HELP_BACK = "PREFER_USER_HELP_BACK";
     public static String PREFER_USER_MY_ACCOUNT = "PREFER_USER_MY_ACCOUNT";
@@ -87,7 +86,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_PASS = "PREFER_USER_PASS";
     public static String PREFER_USER_CHANGE_NIP = "PREFER_USER_CHANGE_NIP";
     public static String PREFER_USER_CHANGE_NIP_BACK = "PREFER_USER_CHANGE_NIP_BACK";
-
 
     /**
      * Acciones para dialogo de confirmacion en cerrar session
@@ -149,12 +147,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         mContext = this;
 
         System.gc();
-
-        /**
-         * Hacemos la consulta del servio ObtenerEstatusTarjeta que se encarga de darnos el estado de la Card.
-         * Ya que obtenemos el estado tenemos que hacer Set en el Switch dependiendo del resultado
-         */
-
     }
 
     public AccountPresenterNew getPresenterAccount() {
@@ -170,26 +162,30 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         super.onResume();
         // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
         setVisibilityPrefer(false);
-        checareStatusTarjeta();
+        checkDataCard();
     }
 
-    public void checareStatusTarjeta(){
+    private void checkDataCard() {
+        /**
+         * Si tenemos Internet consumos el servicio para actualizar la informacion de la ceunta,
+         * consulamos el estado de bloquero y la informacion de ultimo acceso
+         * else mostramos la unformacion que traemos desde sl Singleton
+         */
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
-            // Creamos el objeto ActualizarAvatarRequest
-                   String f = SingletonUser.getInstance().getCardStatusId();
+            // Verificamos el estado de bloqueo de la Card
+            String f = SingletonUser.getInstance().getCardStatusId();
             String statusId = SingletonUser.getInstance().getCardStatusId();
-            if (f ==null ||f.isEmpty()||f.equals("0")) {
+            if (f == null || f.isEmpty() || f.equals("0")) {
                 mPreferPresenter.toPresenterEstatusCuenta(mTDC);
             }
 
+            // Obtenemos el estado de la Card actual
+            // Creamos el objeto ActualizarAvatarRequest
+            ActualizarDatosCuentaRequest datosCuentaRequest = new ActualizarDatosCuentaRequest();
+            mPreferPresenter.sendPresenterUpdateDatosCuenta(datosCuentaRequest);
         } else {
             showDialogMesage(getResources().getString(R.string.no_internet_access));
-           /* mTDC = getArguments().getString(M_TDC);
-            mCuentaTV.setText("Tarjeta: " + StringUtils.ocultarCardNumberFormat(mTDC));
-
-            mLastTimeTV.setText("Utilizada Por Ultima Vez: \n" + "");
-            printCard(mTDC);*/
         }
     }
 
@@ -480,6 +476,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     /**
      * Se encarga de actualizar el campo de cardStatusId del SingletonUser con el statusId
      * de servicio
+     *
      * @param response
      */
     public void sendSuccessEstatusCuentaToView(EstatusCuentaResponse response) {
@@ -491,5 +488,31 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public void sendErrorEstatusCuentaToView(String mensaje) {
         showDialogMesage(mensaje);
         //onEventListener.onEvent("DISABLE_BACK", false);
+    }
+
+    public void sendSuccessDatosCuentaToView(ActualizarDatosCuentaResponse response) {
+        // mName
+        // mTDC
+        // mLastTime
+        mTDC = response.getData().get(0).getTarjeta();
+        mLastTime = response.getData().get(0).getUltimoInicioSesion();
+        SingletonUser.getInstance().setUltimaTransaccion(mLastTime);
+
+        // Eliminar despues de pruebas
+        //        mTDC = response.getData().get(0).getTarjeta();
+//        mLastTime = response.getData().get(0).getUltimoInicioSesion();
+//
+//        mNameTV.setText(mName);
+//        mCuentaTV.setText(getResources().getString(R.string.tarjeta) + ": " +
+//                        StringUtils.maskReference(StringUtils.format(mTDC, SPACE, 4,4,4,4), '*', 4));
+//        mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n" + mLastTime);
+//
+//        printCard(mTDC);
+//        SingletonUser.getInstance().setUltimaTransaccion(mLastTime);
+    }
+
+    public void sendErrorDatosCuentaToView(String mensaje) {
+        showDialogMesage(mensaje);
+        // onEventListener.onEvent("DISABLE_BACK", false);
     }
 }

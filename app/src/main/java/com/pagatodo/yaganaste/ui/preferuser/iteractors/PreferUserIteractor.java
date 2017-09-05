@@ -405,9 +405,6 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             //Log.d("PreferUserIteractor", "DesasociarDispositivoResponse ErrorServer " + error.toString());
             preferUserPresenter.sendErrorServerDesasociarToPresenter(error.getData().toString());
         } else if (error.getWebService().equals(UPDATE_DATOS_CUENTA)) {
-            Log.d("PreferUserIteractor", "ActualizarDatosCuentaResponse ErrorServer " + error.toString());
-            // preferUserPresenter.sendErrorServerDesasociarToPresenter(error.getData().toString());
-        } else if (error.getWebService().equals(UPDATE_DATOS_CUENTA)) {
             //Log.d("PreferUserIteractor", "DesasociarDispositivoResponse ErrorServer " + error.toString());
             preferUserPresenter.sendErrorServerDatosCuentaToPresenter(error.getData().toString());
         } else if (error.getWebService().equals(BLOQUEAR_CUENTA)) {

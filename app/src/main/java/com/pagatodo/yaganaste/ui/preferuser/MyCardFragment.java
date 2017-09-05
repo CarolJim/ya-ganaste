@@ -91,6 +91,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     int statusBloqueo;
     boolean statusOperation = true;
     boolean statusInternetOperation = true;
+    String ultimaTransaccionSingleton;
 
     public MyCardFragment() {
         // Required empty public constructor
@@ -136,31 +137,22 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         mTDC = getArguments().getString(M_TDC);
         mCuentaTV.setText(getResources().getString(R.string.tarjeta) + ": " + StringUtils.ocultarCardNumberFormat(mTDC));
 
+        // Obtenemos la ultima transaccion consultada desde  PreferUSerActivity
+        mLastTime = getArguments().getString(M_LASTTIME);
         // Hacemos Set de la ultima Transaccion
-        String ultimaTransaccionSingleton = SingletonUser.getInstance().getUltimaTransaccion();
+        // ultimaTransaccionSingleton = SingletonUser.getInstance().getUltimaTransaccion();
         String ultimaTransaccion = "";
 
-        if (ultimaTransaccionSingleton != null && ultimaTransaccionSingleton.isEmpty()) {
+        if (mLastTime != null && !mLastTime.isEmpty()) {
+            mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n"
+                    + mLastTime);
+        } else {
             ultimaTransaccion =
                     SingletonUser.getInstance().getDataUser().getUsuario().getFechaUltimoAcceso();
-        } else {
-            ultimaTransaccion = ultimaTransaccionSingleton;
+            mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n"
+                    + ultimaTransaccion);
         }
-        mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n" + ultimaTransaccion);
         printCard(mTDC);
-
-        /**
-         * Si tenemos Internet consumos el servicio para actualizar la informacion de la ceunta,
-         * else mostramos la unformacion que traemos desde sl Singleton
-         */
-        boolean isOnline = Utils.isDeviceOnline();
-        if (isOnline) {
-            // Creamos el objeto ActualizarAvatarRequest
-            ActualizarDatosCuentaRequest datosCuentaRequest = new ActualizarDatosCuentaRequest();
-            mPreferPresenter.sendPresenterUpdateDatosCuenta(datosCuentaRequest);
-        } else {
-            showDialogCustom(getResources().getString(R.string.no_internet_access));
-        }
 
         cardEmisorSelected = new CardEmisorSelected(getContext());
         llMaterialEmisorContainer = (MaterialLinearLayout) rootview.findViewById(R.id.ll_material_emisor_container);
@@ -196,20 +188,6 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     }
 
     @Override
-    public void sendSuccessDatosCuentaToView(ActualizarDatosCuentaResponse response) {
-        mTDC = response.getData().get(0).getTarjeta();
-        mLastTime = response.getData().get(0).getUltimoInicioSesion();
-
-        mNameTV.setText(mName);
-        mCuentaTV.setText(getResources().getString(R.string.tarjeta) + ": " +
-                        StringUtils.maskReference(StringUtils.format(mTDC, SPACE, 4,4,4,4), '*', 4));
-        mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n" + mLastTime);
-
-        printCard(mTDC);
-        SingletonUser.getInstance().setUltimaTransaccion(mLastTime);
-    }
-
-    @Override
     public void showLoader(String title) {
         onEventListener.onEvent(EVENT_SHOW_LOADER, title);
     }
@@ -217,12 +195,6 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     @Override
     public void hideLoader() {
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
-    }
-
-    @Override
-    public void sendErrorDatosCuentaToView(String mensaje) {
-        showDialogCustom(mensaje);
-        onEventListener.onEvent("DISABLE_BACK", false);
     }
 
     /**
@@ -318,7 +290,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         float width = canvas.getWidth();
         textPaint.setTextSize(heigth * 0.115f);
 
-        canvas.drawText(StringUtils.format(cardNumber, SPACE, 4,4,4,4), width * 0.07f, heigth * 0.6f, textPaint);
+        canvas.drawText(StringUtils.format(cardNumber, SPACE, 4, 4, 4, 4), width * 0.07f, heigth * 0.6f, textPaint);
 
         imgYaGanasteCard.setImageBitmap(bitmap);
     }
