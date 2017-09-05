@@ -51,8 +51,16 @@ public class CardEmisorSelected extends TabViewElement {
     @Override
     public void updateData() {
         UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
-        txtNombre.setText(StringUtils.getFirstName(userData.getNombre())
-                .concat(SPACE).concat(userData.getPrimerApellido()));
+        txtNombre.setText(
+               userData.getNombre() + " " +
+               userData.getPrimerApellido() + "\n" +
+                       userData.getSegundoApellido()
+        );
+//        txtNombre.setText(
+//                StringUtils.getFirstName(userData.getNombre())
+//                        .concat(SPACE).concat(userData.getSegundoApellido() +
+//                        "\n" + userData.getSegundoApellido())
+//        );
 
         double saldo = StringUtils.getDoubleValue(SingletonUser.getInstance().getDatosSaldo().getSaldoEmisor());
         if (Math.abs(saldo) >= 99999) {

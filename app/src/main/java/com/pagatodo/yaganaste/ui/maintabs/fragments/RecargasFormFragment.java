@@ -79,7 +79,6 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     }
 
 
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -109,7 +108,8 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     public void initViews() {
         super.initViews();
         if (comercioItem.getFormato().equals("N")) {
-            recargaNumber.setInputType(InputType.TYPE_CLASS_NUMBER);recargaNumber.setSingleLine();
+            recargaNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
+            recargaNumber.setSingleLine();
         }
 
         int longitudReferencia = comercioItem.getLongitudReferencia();
@@ -235,7 +235,6 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
         monto = (Double) spinnerMontoRecarga.getSelectedItem();
         recargasPresenter.validateFields(referencia, monto, comercioItem.getLongitudReferencia(), isIAVE);
     }
-
 
 
 }
