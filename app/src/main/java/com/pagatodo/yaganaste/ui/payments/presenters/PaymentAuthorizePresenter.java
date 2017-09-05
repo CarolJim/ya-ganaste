@@ -52,4 +52,9 @@ public class PaymentAuthorizePresenter extends OtpPresenterImp implements IPayme
             manager.validationPasswordFailed(error.toString());
         }
     }
+
+    @Override
+    public void onConexionError(String message) {
+        manager.showError(message);
+    }
 }

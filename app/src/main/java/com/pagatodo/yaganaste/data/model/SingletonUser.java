@@ -34,7 +34,7 @@ public class SingletonUser {
     private String pathPictureTemp = "";
     private String activacionCodeFreja = "";
     private boolean needsReset;
-    private String cardStatusId = Recursos.ESTATUS_CUENTA_DESBLOQUEADA;
+    private String cardStatusId =null;
     private String UltimaTransaccion = "";
 
     private SingletonUser() {

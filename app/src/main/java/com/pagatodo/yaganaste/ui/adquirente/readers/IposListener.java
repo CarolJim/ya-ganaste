@@ -48,7 +48,7 @@ public class IposListener implements QPOSServiceListener {
             cardData.setSwipeData(new SwipeData());
             //cardData.noSerie=prefs.loadData("SerialNumber");
             cardData.setIsEMVTransaction(false);
-            cardData.cardHolderName = (decodeData.get("cardHolderName"));
+            cardData.cardHolderName = (decodeData.get("cardholderName"));
             cardData.maskedPAN = (decodeData.get("maskedPAN"));
             cardData.getSwipeData().setEncCardData(decodeData.get("encTrack1") + "|" + decodeData.get("encTrack2"));
             cardData.getSwipeData().setKsn(decodeData.get("trackksn"));
