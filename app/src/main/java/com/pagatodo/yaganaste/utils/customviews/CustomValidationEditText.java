@@ -156,20 +156,23 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
         //editText.setFilters(new InputFilter[] { filter });
 
         // Hacemos SET del Filtro de caracteres de acuerdo al valor type de los Attrs.xml
-        if (type.equals("0")) {
-
-            /**
-             * Filtro para correo electronico
-             */
-            editText.setKeyListener(DigitsKeyListener.getInstance("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@.-_0123456789"));
-            editText.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        } else if (type.equals("4")) {
-            /**
-             * Filtro para Nombre o texto normal
-             */
-            editText.setKeyListener(DigitsKeyListener.getInstance("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "));
-            editText.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
-        }
+        /** TODO Hacer pruebas con el filtro de caracteres, cuando no se tienen un tipo carna nulos
+         *
+         */
+//        if (type.equals("0")) {
+//
+//            /**
+//             * Filtro para correo electronico
+//             */
+//            editText.setKeyListener(DigitsKeyListener.getInstance("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz@.-_0123456789"));
+//            editText.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+//        } else if (type.equals("4")) {
+//            /**
+//             * Filtro para Nombre o texto normal
+//             */
+//            editText.setKeyListener(DigitsKeyListener.getInstance("ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz "));
+//            editText.setRawInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_FLAG_NO_SUGGESTIONS);
+//        }
     }
 
     private StyleEdittext findRecursiveEditText(ViewGroup parent) {
