@@ -150,7 +150,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
     }
 
     public void sendPresenterUpdateDatosCuenta(ActualizarDatosCuentaRequest datosCuentaRequest) {
-        iMyCardView.showLoader("Actualizando Datos");
+        mView.showLoader("Actualizando Datos");
         iPreferUserIteractor.sendIteractorDatosCuenta(datosCuentaRequest);
     }
 
@@ -285,9 +285,9 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
          * Instancia de peticion exitosa y operacion exitosa de ActualizarDatosCuentaResponse
          */
         if (dataSourceResult.getData() instanceof ActualizarDatosCuentaResponse) {
-            iMyCardView.hideLoader();
+            mView.hideLoader();
             ActualizarDatosCuentaResponse response = (ActualizarDatosCuentaResponse) dataSourceResult.getData();
-            iMyCardView.sendSuccessDatosCuentaToView(response);
+            mView.sendSuccessDatosCuentaToView(response);
         }
 
         /**
@@ -352,9 +352,9 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
          * Instancia de peticion exitosa y operacion exitosa de ActualizarDatosCuentaResponse
          */
         if (dataSourceResult.getData() instanceof ActualizarDatosCuentaResponse) {
-            iMyCardView.hideLoader();
+            mView.hideLoader();
             ActualizarDatosCuentaResponse response = (ActualizarDatosCuentaResponse) dataSourceResult.getData();
-            iMyCardView.sendErrorDatosCuentaToView(response.getMensaje());
+            mView.sendErrorDatosCuentaToView(response.getMensaje());
         }
         /**
          * Instancia de peticion exitosa y operacion exitosa de BloquearCuentaResponse
@@ -407,8 +407,8 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
      * @param mensaje
      */
     public void sendErrorServerDatosCuentaToPresenter(String mensaje) {
-        iMyCardView.hideLoader();
-        iMyCardView.sendErrorDatosCuentaToView(mensaje);
+        mView.hideLoader();
+        mView.sendErrorDatosCuentaToView(mensaje);
     }
 
     /**

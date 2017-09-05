@@ -9,13 +9,10 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuenta
  */
 
 public interface IMyCardView extends IPreferUserGeneric {
-    void sendSuccessDatosCuentaToView(ActualizarDatosCuentaResponse response);
 
     void showLoader(String s);
 
     void hideLoader();
-
-    void sendErrorDatosCuentaToView(String mensaje);
 
     void sendSuccessBloquearCuentaToView(BloquearCuentaResponse response);
 
