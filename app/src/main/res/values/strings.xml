@@ -817,7 +817,7 @@
     <string name="card_num_autorization">Num. Autorización:</string>
 
     <string name="input_letters">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\u0020</string>
-
+    <string name="input_letters_concepto">ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz\u0020</string>
 
     <string name="details_monto">Monto</string>
     <string name="details_comision">Comisión</string>
