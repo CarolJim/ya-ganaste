@@ -4,13 +4,11 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoSolicitud;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
@@ -26,11 +24,7 @@ import com.pagatodo.yaganaste.ui.cupo.fragments.CupoReferenciaPersonalFragment;
 import com.pagatodo.yaganaste.ui.cupo.fragments.CupoReferenciaProveedorFragment;
 import com.pagatodo.yaganaste.ui.cupo.fragments.StatusRegisterCupoFragment;
 import com.pagatodo.yaganaste.ui.cupo.managers.CupoActivityManager;
-import com.pagatodo.yaganaste.ui.cupo.presenters.CupoDomicilioPersonalPresenter;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.RecargasFormFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.ServiciosFormFragment;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_COMPLETE;
@@ -137,7 +131,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     }
 
     private void initViews() {
-        changeToolbarVisibility(false);
+        changeToolbarVisibility(true);
 
 
 
@@ -156,6 +150,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 App.getInstance().getPrefs().saveData( CUPO_PASO , CUPO_PASO_DOCUMENTOS_ENVIADOS);
                 loadFragment(StatusRegisterCupoFragment.newInstance(), Direction.FORDWARD, false);
             } else {
+                changeToolbarVisibility(false);
                 loadFragment(CupoInicioFragment.newInstance(), Direction.FORDWARD, false);
             }
         }
@@ -203,7 +198,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 loadFragment(CupoDomicilioPersonalFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_CUENTAME_MAS:
-                if (App.getInstance().getPrefs().loadData(CUPO_PASO).equals("")) {
+                if (!App.getInstance().getPrefs().loadData(CUPO_PASO).isEmpty()) {
                     loadFragment(CupoCuentanosMasFragment.newInstance(), Direction.FORDWARD, true);
                 } else if ( App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_REGISTRO_ENVIADO) ) {
                     loadFragment(CupoComprobantesFragment.newInstance(ESTADO_ENVIO_DOCUMENTOS), Direction.FORDWARD, true);
