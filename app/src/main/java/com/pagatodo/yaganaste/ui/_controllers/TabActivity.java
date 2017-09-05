@@ -10,6 +10,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
+import android.util.Log;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -68,6 +69,7 @@ import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
+import static com.pagatodo.yaganaste.utils.Recursos.CUPO_COMPLETE;
 import static com.pagatodo.yaganaste.utils.Recursos.PTH_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
@@ -207,6 +209,19 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public void onResetingFailed() {
         hideLoader();
         tabPresenter.doProvisioning();
+    }
+
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (pref.containsData(CUPO_COMPLETE) &&  pref.loadDataBoolean(CUPO_COMPLETE) ) {
+            pref.saveDataBool(CUPO_COMPLETE, false);
+            Log.e("Test" , "Mostrar Ventana Tutorial");
+        }
+
+
     }
 
     @Override

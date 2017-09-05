@@ -143,7 +143,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         ll_usuario.setOnClickListener(this);
 
         int idEstatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
-        if (idEstatus == IdEstatus.I16.getId()) {
+        if (idEstatus >= IdEstatus.ADQUIRENTE.getId()) {
             ll_cuenta.setVisibility(View.VISIBLE);
             View view_cuenta = rootview.findViewById(R.id.content_prefer_view_acount);
             view_cuenta.setVisibility(View.VISIBLE);

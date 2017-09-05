@@ -17,6 +17,10 @@ public class Constants {
 
     //region requests codes
     public static final int CONTACTS_CONTRACT = 50;
+    public static final int CONTACTS_CONTRACT_FAMILIAR  = 51;
+    public static final int CONTACTS_CONTRACT_PERSONAL  = 52;
+    public static final int CONTACTS_CONTRACT_PROVEEDOR = 53;
+
     public static final int BARCODE_READER_REQUEST_CODE = 60;
     public static final int BACK_FROM_PAYMENTS = 190;
     public static final int REGISTER_ADQUIRENTE_CODE = 840;

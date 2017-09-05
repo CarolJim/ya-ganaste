@@ -328,8 +328,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     cursor.close();
                 }
             }
-        } else {
-            //UI.createSimpleCustomDialog("", "Error al Cargar Imagen", getActivity().getSupportFragmentManager(), null, true, false);
         }
     }
 
@@ -447,12 +445,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             // Continue only if the File was successfully created
             if (photoFile != null) {
                 Uri photoURI;
-                /*try {
-
-                } catch (Exception ex) {
-                    ex.printStackTrace();
-                    photoURI = Uri.parse(photoFile.getAbsolutePath());
-                }*/
                 photoURI = FileProvider.getUriForFile(getActivity(),
                         "com.pagatodo.yaganaste.fileprovider",
                         photoFile);
@@ -469,7 +461,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 getActivity().startActivityForResult(takePictureIntent, REQUEST_TAKE_PHOTO);
             }
         }
-        // enableItems(false);
 
     }
 

@@ -18,11 +18,12 @@ public enum IdEstatus {
     I9(9, "Usuario Profesionista con documentación rechazada (aún podría subir el o los documentos rechazados) (EstatusDocumentacion y EstatusAgente)"),
     I10(10, "Usuario Profesionista cancelado (rechazo definitivo del trámite adquirente en SAV, el usuario deberá prevalecer solo como Emisor) (EstatusAgente)"),
     I11(11, "Usuario Profesionista con su Id Agente en trámite (el trámite ha pasado hacia el CRM) (EstatusAgente)"),
-    I12(12, "Usuario Profesionista con su Id Agente autorizado (significa que puede vender TAE y PDS) (EstatusAgente)"),
+    ADQUIRENTE(12, "Usuario Profesionista con su Id Agente autorizado (significa que puede vender TAE y PDS) (EstatusAgente)"),
     I13(13, "Usuario Profesionista rechazado (rechazo definitivo del trámite adquirente en CRM, el usuario deberá prevalecer solo como Emisor) (EstatusAgente)"),
     I14(14, "Usuario Comercio con datos capturados"),
-    I15(15, "Usuario Comercio rechazado (rechazo definitivo del trámite CUPO, el usuario deberá prevalecer solo como Profesionista)"),
-    I16(16, "Usuario Comercio autorizado, con límite de crédito");
+    I15(15, "Usuario Comercio con Documentos Capturados"),
+    I16(16, "Usuario Comercio rechazado (rechazo definitivo del trámite CUPO, el usuario deberá prevalecer solo como Profesionista)"),
+    I17(17, "Usuario Comercio autorizado, con límite de crédito");
 
     private String descripcion;
     private int id;

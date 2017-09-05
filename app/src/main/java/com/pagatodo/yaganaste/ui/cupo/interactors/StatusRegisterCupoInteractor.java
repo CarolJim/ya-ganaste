@@ -5,6 +5,7 @@ import android.os.CountDownTimer;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.ui.cupo.presenters.interfaces.IStatusRegisterCupo;
@@ -13,13 +14,14 @@ import com.pagatodo.yaganaste.ui.cupo.presenters.interfaces.IStatusRegisterCupo;
  * Created by Dell on 26/07/2017.
  */
 
-public class StatusRegisterCupoInteractor {
+public class StatusRegisterCupoInteractor implements IRequestResult {
+
 
     public void requestStatusRegister(final IStatusRegisterCupo callBack)  {
 
         //// TODO modificar  la consulta al ws
         try {
-            ApiTrans.consultaStatusRegistroCupo(new IRequestResult() {
+            ApiAdtvo.consultaStatusRegistroCupo(new IRequestResult() {
                 @Override
                 public void onSuccess(DataSourceResult dataSourceResult) {
                     callBack.onObtainStatusSuccess(dataSourceResult);
@@ -39,6 +41,21 @@ public class StatusRegisterCupoInteractor {
             callBack.onObtainStatusSuccess(data);
         }
 
+
+    }
+
+
+
+
+
+
+    @Override
+    public void onSuccess(DataSourceResult dataSourceResult) {
+
+    }
+
+    @Override
+    public void onFailed(DataSourceResult error) {
 
     }
 }

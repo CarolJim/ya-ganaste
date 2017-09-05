@@ -107,6 +107,8 @@ public class Recursos {
     public static String SHA_256_FREJA = "SHA_256_FREJA";
     public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
     public static final String ADQ_PROCESS = "FLAG_PROCESS";
+    public static final String CUPO_PROCESS = "FLAG_PROCESS_CUPO";
+    public static String CUPO_COMPLETE = "CUPO_COMPLETE";
 
     // Preferencias para Foto de Usuario. URL
     public static final String URL_PHOTO_USER = "URL_PHOTO_USER";
@@ -133,6 +135,11 @@ public class Recursos {
     public static final int DOC_ID_BACK = 6;
     public static final int DOC_DOM_FRONT = 7;
     public static final int DOC_DOM_BACK = 30;
+
+    // Documentos Cupo
+
+    public static final int DOC_CUPO_FRONT = 3;
+    public static final int DOC_CUPO_BACK  = 29;
 
 
     public static final int STATUS_DOCTO_ACTUALIZADO = 5;

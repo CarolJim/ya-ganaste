@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import com.jude.rollviewpager.RollPagerView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
+import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.CustomTypefaceSpan;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;

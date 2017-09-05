@@ -1,0 +1,205 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_we_need_some_files"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    tools:context=".ui._controllers.BussinesActivity">
+
+    <!--
+    <android.support.v4.widget.SwipeRefreshLayout
+        android:id="@+id/swiperefresh"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+        -->
+
+
+        <ScrollView
+            android:id="@+id/scrollView"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            >
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="16dp"
+                android:paddingRight="16dp"
+                android:paddingTop="16dp">
+
+                <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+                    android:id="@+id/first_cube"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:title="@string/cupo_referencias">
+
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:layout_margin="@dimen/activity_vertical_margin"
+                        android:orientation="vertical"
+                        android:paddingTop="@dimen/activity_horizontal_margin">
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            style="@style/generic_text_style_3"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:layout_marginBottom="10dp"
+                            android:text="@string/cupo_referencias" />
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:id="@+id/containerFamiliar"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <com.pagatodo.yaganaste.utils.customviews.ReferenciaView
+                                    android:id="@+id/familiarStatus"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    />
+
+                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                    style="@style/generic_text_style_3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/space_between_forms"
+                                    android:gravity="center"
+                                    android:text="@string/referencias_familiar" />
+
+
+                            </LinearLayout>
+
+                            <LinearLayout
+                                android:id="@+id/lyWeNeedSmFilesIFEBack"
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toRightOf="@+id/lyWeNeedSmFilesIFEfront"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <LinearLayout
+                                    android:layout_width="match_parent"
+                                    android:layout_height="wrap_content"
+                                    android:layout_toRightOf="@+id/lyWeNeedSmFilesIFEfront"
+                                    android:layout_weight="2"
+                                    android:gravity="center"
+                                    android:orientation="vertical">
+
+                                    <com.pagatodo.yaganaste.utils.customviews.ReferenciaView
+                                        android:id="@+id/personalStatus"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        />
+
+                                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                        style="@style/generic_text_style_3"
+                                        android:layout_width="wrap_content"
+                                        android:layout_height="wrap_content"
+                                        android:layout_margin="@dimen/space_between_forms"
+                                        android:gravity="center"
+                                        android:text="@string/referencias_personal" />
+
+                                </LinearLayout>
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:orientation="horizontal">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_toRightOf="@+id/lyWeNeedSmFilesIFEfront"
+                                android:layout_weight="2"
+                                android:gravity="center"
+                                android:orientation="vertical">
+
+                                <com.pagatodo.yaganaste.utils.customviews.ReferenciaView
+                                    android:id="@+id/proveedorStatus"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    />
+
+                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                    style="@style/generic_text_style_3"
+                                    android:layout_width="wrap_content"
+                                    android:layout_height="wrap_content"
+                                    android:layout_margin="@dimen/space_between_forms"
+                                    android:gravity="center"
+                                    android:text="@string/referencias_proveedor" />
+
+                            </LinearLayout>
+                        </LinearLayout>
+
+                    </LinearLayout>
+
+
+                </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+
+            </LinearLayout>
+
+        </ScrollView>
+    <!--
+    </android.support.v4.widget.SwipeRefreshLayout>
+    -->
+
+    <LinearLayout
+        android:id="@+id/lnr_buttons"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_marginTop="@dimen/margin_medium"
+        android:orientation="vertical">
+
+        <LinearLayout
+            android:id="@+id/layoutBtns"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnRegresar"
+                style="@style/buttonDirecctionBackSmall"
+                android:text="@string/backButton" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="@dimen/btns_separation"
+                android:layout_height="match_parent" />
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnActualizarReferencias"
+                style="@style/buttonDirecctionNext"
+                android:gravity="center"
+                android:text="@string/nextButton" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+
+
+</LinearLayout>
+

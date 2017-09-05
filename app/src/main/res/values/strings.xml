@@ -81,6 +81,15 @@
     <string name="adqTransactionCard">/agMov/transactionEMVSwipe</string>
     <string name="adqSignatureVaucher">/agMov/signBankTransaction</string>
     <string name="adqConsultTransaction">/agMov/getStatusTransactionEMVSwipe</string>
+
+    <!--Métodos de WS CUPO-->
+    <string name="cupoCrearSolicitudCupo">/CrearSolicitudCupo</string>
+    <string name="cupoCargaDocumentos">/CargaDocumentosCupo</string>
+    <string name="cupoObtenerSolicitudCupo">/ObtenerSolicitudCupo</string>
+    <string name="cupoObtenerEstadoDeDocumentos">/ObtenerDocumentosCupo</string>
+    <string name="cupoActualizaDocumentosCupo">/ActualizaDocumentosCupo</string>
+    <string name="cupoActualizaReferenciasCupo">/ActualizarReferenciaCupo</string>
+
     <!-- <string name="adqSendTicket">/agMov/sendTicket</string> -->
     <string name="adqSendTicket">/agMov/sendTicketADQ</string>
     <string name="adqResumeDay">/agMov/getResumenYG?fecha=</string>
@@ -308,6 +317,7 @@
     <string name="county">País de Nacimiento</string>
     <string name="datos_personal_nombre">Nombre Requerido, Verifique su Información.</string>
     <string name="datos_personal_paterno">Primer Apellido Requerido, Verifique su Información.</string>
+    <string name="datos_personal_materno">Segundo Apellido Requerido, Verifique su Información.</string>
     <string name="datos_personal_fecha">Fecha de Nacimiento Requerida, Verifique su Información.</string>
     <string name="datos_personal_estado">Lugar de Nacimiento Requerido, Verifique su Información.</string>
     <string name="datos_personal_nacionalidad">Nacionalidad Requerida, Verifique su Información.</string>
@@ -763,11 +773,22 @@
 
     <string name="txt_contacto">¿Tienes Dudas? Contáctanos\n01-800-500-1000\ncontacto@yaganaste.com</string>
     <string name="txt_validate_info">Estamos Revisando\nTu Información </string>
+    <string name="txt_cupo_exitoso">Solicitud Exitosa</string>
+    <string name="txt_solicitud_no_completada">Tu Solicitud no\nPudo Ser Completada</string>
+    <string name="txt_solicitud_definitivo_rechazo">Comunicate Con Nosotros Para\nConocer Más Detalles de tu Solicitud\n\n
+    01-800-500-1000\ncontacto@yaganaste.com</string>
     <string name="txt_validate_success_info">Solicitud Exitosa </string>
     <string name="txt_validate_fail_info">Solicitud Rechazada </string>
     <string name="txt_congratulations">¡Felicidades!\n\n</string>
     <string name="txt_limit_credit">\n\nEs tu Línea de\nCrédito Aprobada</string>
     <string name="txt_mount_credit">$%1$s</string>
+
+    <string name="actualiza_familiar">Actualiza Referencia Familiar</string>
+    <string name="actualiza_personal">Actualiza Referencia Personal</string>
+    <string name="actualiza_proveedor">Actualiza Referencia de Proveedor</string>
+    <string name="referencias_actualizadas">Referecias Actualizadas con Éxito</string>
+
+
 
     <string name="sigue_siendo_tu_domicilio">¿Sigue Siendo Este tu Domicilio?</string>
     <string name="cuentanos_mas_de_ti">Cuéntanos Más de ti</string>
@@ -783,6 +804,32 @@
     <string name="cual_estado_civil">¿Cuál es tu Estado Civil?</string>
     <string name="cuantos_hijos">¿Cuántos Hijos Tienes?</string>
     <string name="relacion">Relación</string>
+
+    <string name="relacion_requerida">Relación Requerida, Verifique su Información.</string>
+    <string name="producto_servicio_requerido">Producto/Servicio Requerido, Verifique su Información.</string>
+    <string name="estado_civil_requerido">Estado Civil Requerido, Verifique su Información.</string>
+    <string name="numero_hijos_requerido">Cantidad de Hijos Requerida, Verifique su Información.</string>
+    <string name="opcion_requerido">Seleccione una Opción, Verifique su Información.</string>
+    <string name="cupo_domicilio">¿Sigue Siendo Este tu Domicilio?</string>
+
+
+    <string name="cupo_title_thanks">¡Gracias!</string>
+    <string name="cupo_subtitle_thanks">Tu Solicitud Está\n Siendo Evaluada</string>
+    <string name="cupo_title_thanks_msg">Este Proceso Puede Tardar Hasta\n 24 Horas Habiles</string>
+    <string name="cupo_numero">Últimos 4 Digitos</string>
+    <string name="numero_tarjeta_vacio">Numero requerido</string>
+    <string name="numero_tarjeta_invalido">Numero Invalido</string>
+
+    <string name="titulo_referencia_familiar">Referencia Familiar</string>
+    <string name="cupo_referencias">Referencias</string>
+    <string name="reenviar_referencias">Vuelve a Enviar Las Referecnias Indicadas</string>
+    <string name="referencias_familiar">Familiar</string>
+    <string name="referencias_personal">Personal</string>
+    <string name="referencias_proveedor">Proveedor</string>
+    <string name="titulo_referencia_personal">Referencia Personal</string>
+    <string name="titulo_referencia_proveedor">Referencia Proveedor </string>
+    <string name="solicitud_cupo">Estamos Enviando tu Información \nNos Tomará Sólo Unos Segundos</string>
+
     <string name="access_code_text">Ingresa tu Contraseña Para \nGenerar un Código de Seguridad</string>
     <string name="verificando_sms_espera">Estamos Verificando tu SMS, \nNos Tomará Sólo Unos Segundos</string>
     <string name="change_your_pass">Cambia tu Contraseña</string>
@@ -817,7 +864,7 @@
     <string name="card_num_autorization">Num. Autorización:</string>
 
     <string name="input_letters">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\u0020</string>
-
+    <string name="input_letters_concepto">ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz\u0020</string>
 
     <string name="details_monto">Monto</string>
     <string name="details_comision">Comisión</string>

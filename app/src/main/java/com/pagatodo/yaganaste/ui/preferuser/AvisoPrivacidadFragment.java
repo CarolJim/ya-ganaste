@@ -85,9 +85,10 @@ public class AvisoPrivacidadFragment extends GenericFragment implements View.OnC
         ll_cuenta_ganaste.setOnClickListener(this);
         ll_lcredito.setOnClickListener(this);
 
-        if (Idestatus== IdEstatus.I16.getId()){
+        if (Idestatus== IdEstatus.I17.getId()){
             ll_lcredito.setVisibility(View.VISIBLE);
             view_lcredito.setVisibility(View.VISIBLE);
+
         }
 
     }

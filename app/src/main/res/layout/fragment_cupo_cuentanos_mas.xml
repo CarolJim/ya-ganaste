@@ -37,6 +37,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_xsmall"
+                        android:visibility="gone"
                         android:background="@null"
                         android:backgroundTint="@color/transparent" />
 
@@ -47,6 +48,7 @@
                         android:layout_height="wrap_content" />
 
                     <Spinner
+                        android:visibility="gone"
                         android:id="@+id/spHijos"
                         style="@style/SpinnerNoArrow"
                         android:layout_width="match_parent"
@@ -81,6 +83,12 @@
                         android:text="@string/has_tenido_credito"
                         android:textColor="@color/whiteColor"
                         app:tipo="Descripcion" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorCreditoBancario"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
 
                     <RadioGroup
                         android:id="@+id/radioGroupHasCreditBank"
@@ -125,6 +133,8 @@
                             android:layout_weight="1" />
                     </RadioGroup>
 
+
+
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtCreditoAuto"
                         style="@style/generic_text_style_3"
@@ -137,6 +147,12 @@
                         android:text="@string/obtuviste_credito_auto"
                         android:textColor="@color/whiteColor"
                         app:tipo="Descripcion" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorCreditoAutomotriz"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
 
                     <RadioGroup
                         android:id="@+id/radioGroupHasCreditCar"
@@ -194,6 +210,12 @@
                         android:textColor="@color/whiteColor"
                         app:tipo="Descripcion" />
 
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorTarjetaCredito"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:visibility="visible" />
+
                     <RadioGroup
                         android:id="@+id/radioGroupHasCreditCard"
                         android:layout_width="match_parent"
@@ -236,6 +258,28 @@
                             android:layout_height="0dp"
                             android:layout_weight="1" />
                     </RadioGroup>
+
+
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/editNumTarjeta"
+                        style="@style/GenericCustomValidationEditText"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:inputType="number"
+                        android:visibility="gone"
+                        app:formato="number"
+                        app:hintText="@string/cupo_numero"
+                        app:isSingleLine="true"
+                        app:maxLength="4" />
+
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorNumTarjeta"
+                        style="@style/generic_text_style_2"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content" />
+
+
                 </LinearLayout>
             </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
         </LinearLayout>
