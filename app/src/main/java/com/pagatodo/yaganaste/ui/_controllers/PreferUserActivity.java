@@ -147,6 +147,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         mContext = this;
 
         System.gc();
+
+        // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
+        setVisibilityPrefer(false);
+        checkDataCard();
     }
 
     public AccountPresenterNew getPresenterAccount() {
@@ -160,9 +164,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     @Override
     protected void onResume() {
         super.onResume();
-        // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
-        setVisibilityPrefer(false);
-        checkDataCard();
     }
 
     private void checkDataCard() {

@@ -51,7 +51,8 @@ import static com.pagatodo.yaganaste.utils.Utils.getCardNumberRamdon;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class TienesTarjetaFragment extends GenericFragment implements View.OnClickListener, RadioGroup.OnCheckedChangeListener, IAccountCardView {
+public class TienesTarjetaFragment extends GenericFragment implements View.OnClickListener,
+        RadioGroup.OnCheckedChangeListener, IAccountCardView {
 
     private static int LEGTH_CARD_NUMBER_FORMAT = 19;
     @BindView(R.id.radioHasCard)
@@ -145,7 +146,8 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         String mUserName = singletonUser.getNombre()
                 + " " + singletonUser.getPrimerApellido();*/
 
-        dateTDC.setText("02/22");
+        // Asignamos el fecha de la TDC cuando tengamos el dato
+        //dateTDC.setText("02/22");
         RegisterUser registerUser = RegisterUser.getInstance();
         String name;
         String lastame;
