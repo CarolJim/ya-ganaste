@@ -28,4 +28,5 @@ public interface IAccountManager<T> {
     void onSuccessDataPerson();
 
 
+    void sessionExpiredToPresenter(DataSourceResult response);
 }

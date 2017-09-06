@@ -95,6 +95,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
@@ -702,11 +703,13 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 SingletonUser user = SingletonUser.getInstance();
                 user.getDataExtraUser().setNeedSetPin(true);//TODO Validar esta bandera
                 accountManager.onSucces(response.getWebService(), App.getContext().getString(R.string.emisor_validate_card));
-            } else {
+            }else {
                 /*TODO enviar mensaje a vista*/
                 accountManager.onError(response.getWebService(), App.getContext().getString(R.string.emisor_validate_card_fail));
             }
-        } else {
+        }else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            accountManager.sessionExpiredToPresenter(response);
+        }else {
             accountManager.onError(response.getWebService(), data.getMensaje());
         }
 
@@ -802,6 +805,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             Card.getInstance().setIdAccount(cuenta.getIdCuenta());
             accountManager.onSucces(response.getWebService(), data.getMensaje());
 
+        }else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            accountManager.sessionExpiredToPresenter(response);
         } else {
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
