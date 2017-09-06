@@ -500,7 +500,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         registerUser.setEstadoDomicilio(estado);
         registerUser.setColonia(colonia);
         registerUser.setIdColonia(Idcolonia);
-        editZipCode.removeCustomTextWatcher(textWatcherZipCode);
+       // editZipCode.removeCustomTextWatcher(textWatcherZipCode);
         //TODO Creamos usuario Implementando la secuencia necesaria de métodos.
         accountPresenter.createUser();
     }
