@@ -85,6 +85,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     private RecyclerSucursalesAdapter adapter;
     private List<DataLocalizaSucursal> sucursales;
     private List<Marker> markers;
+    boolean onlineNetWork;
     boolean onlineGPS;
     public static final String TAG = DepositsMapFragment.class.getClass().getSimpleName();
 
@@ -171,8 +172,9 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         // Verificamos que el GPS este encendido
         final LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
         onlineGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
+        onlineNetWork = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
 
-        if (onlineGPS) {
+        if (onlineNetWork || onlineGPS) {
             if (actualLocation != null) {
                 getSucursales();
             }
@@ -184,7 +186,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
     @Override
     public void onRefresh() {
         ((TabActivity) getActivity()).showProgressLayout("Cargando");
-        if (onlineGPS) {
+        if (onlineNetWork || onlineGPS) {
             if (actualLocation != null) {
                 getSucursales();
             }
@@ -324,7 +326,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
             getSucursales();
         } else {
             parentActivity.hideProgresLayout();
-            if (!onlineGPS) {
+            if (!onlineNetWork || !onlineGPS) {
                 //  Toast.makeText(getActivity(), "GPS apagado", Toast.LENGTH_SHORT).show();
                 //   showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
             }

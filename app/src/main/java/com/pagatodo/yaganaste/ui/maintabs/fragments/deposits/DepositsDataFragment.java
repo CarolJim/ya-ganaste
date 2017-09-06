@@ -57,6 +57,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     private View rootView;
     String mensaje;
     ImageView imageshae;
+    boolean onlineNetWork;
     boolean onlineGPS;
     boolean isBackAvailable = false;
     CircleImageView imageView;
@@ -87,6 +88,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
 
     private void getStatusGPS() {
         final LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        onlineNetWork = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         onlineGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
@@ -129,7 +131,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     public void onClick(View v) {
         getStatusGPS();
         if (v.getId() == R.id.btnDepositar) {
-            if (onlineGPS) {
+            if (onlineNetWork || onlineGPS) {
                 depositsManager.onTapButton();
             } else {
                 showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));

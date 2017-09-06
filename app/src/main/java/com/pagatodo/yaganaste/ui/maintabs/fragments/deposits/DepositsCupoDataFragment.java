@@ -47,6 +47,7 @@ public class DepositsCupoDataFragment extends SupportFragment implements View.On
     private TextView txtNumberAgent;
     private TextView txtNumAfil;
     private Button btnDepositar;
+    boolean onlineNetWork;
     boolean onlineGPS;
     boolean isBackAvailable = false;
     private View rootView;
@@ -64,6 +65,7 @@ public class DepositsCupoDataFragment extends SupportFragment implements View.On
         depositsManager = ((DepositsFragment) getParentFragment()).getDepositManager();
 
         final LocationManager manager = (LocationManager) getActivity().getSystemService(Context.LOCATION_SERVICE);
+        onlineNetWork = manager.isProviderEnabled(LocationManager.NETWORK_PROVIDER);
         onlineGPS = manager.isProviderEnabled(LocationManager.GPS_PROVIDER);
     }
 
@@ -98,7 +100,7 @@ public class DepositsCupoDataFragment extends SupportFragment implements View.On
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.btnDepositar) {
-            if (onlineGPS) {
+            if (onlineNetWork || onlineGPS) {
                 //getSucursales();
                 depositsManager.onTapButton();
             } else {
