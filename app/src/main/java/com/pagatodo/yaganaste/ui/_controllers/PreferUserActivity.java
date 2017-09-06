@@ -175,7 +175,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         if (isOnline) {
             // Verificamos el estado de bloqueo de la Card
             String f = SingletonUser.getInstance().getCardStatusId();
-            String statusId = SingletonUser.getInstance().getCardStatusId();
             if (f == null || f.isEmpty() || f.equals("0")) {
                 mPreferPresenter.toPresenterEstatusCuenta(mTDC);
             }

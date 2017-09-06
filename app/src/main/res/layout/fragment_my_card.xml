@@ -49,15 +49,15 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     android:layout_marginBottom="30dp"
+                    android:layout_marginTop="30dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_weight="1"
                         android:layout_width="150dp"
-                        android:layout_height="75dp" >
+                        android:layout_height="75dp"
+                        android:layout_weight="1">
 
                         <ImageView
                             android:id="@+id/imgYaGanasteCard"
@@ -69,9 +69,9 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:orientation="vertical">
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -97,9 +97,9 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
@@ -111,8 +111,8 @@
                         <android.support.v7.widget.SwitchCompat
                             android:id="@+id/mycard_switch"
                             android:layout_width="wrap_content"
-                            android:theme="@style/SCBSwitch"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:theme="@style/SCBSwitch" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -196,7 +196,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
                     android:background="@color/whiteColor"
-                    android:visibility="gone"/>
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/fragment_my_card_reporta_tarjetad"

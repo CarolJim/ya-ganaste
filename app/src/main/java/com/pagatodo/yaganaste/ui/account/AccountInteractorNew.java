@@ -137,6 +137,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     public void login(IniciarSesionRequest request) {
         try {
             ApiAdtvo.iniciarSesionSimple(request, this);
+            SingletonUser.getInstance().setCardStatusId(null);
         } catch (OfflineException e) {
 
             accountManager.onError(INICIAR_SESION_SIMPLE, App.getContext().getString(R.string.no_internet_access));
