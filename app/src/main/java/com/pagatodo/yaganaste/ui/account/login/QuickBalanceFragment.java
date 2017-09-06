@@ -14,13 +14,16 @@ import android.widget.Button;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
+import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -160,8 +163,25 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
     @Override
     public void onRefresh() {
-        swipeContainer.setRefreshing(false);
-        accountPresenter.updateBalance();
+        if (!UtilsNet.isOnline(getActivity())){
+            swipeContainer.setRefreshing(false);
+            UI.createSimpleCustomDialog("", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
+                @Override
+                public void actionConfirm(Object... params) {
+                    // Toast.makeText(getContext(), "Click CERRAR SESSION", Toast.LENGTH_SHORT).show();
+
+                }
+
+                @Override
+                public void actionCancel(Object... params) {
+
+                }
+            }, true, false);
+
+        }else {
+            swipeContainer.setRefreshing(false);
+            accountPresenter.updateBalance();
+        }
     }
 
     @Override
