@@ -111,6 +111,11 @@ public class CupoDomicilioPersonalPresenter extends GenericPresenterMain<IPrefer
 
     }
 
+    @Override
+    public void onSuccesBalanceCupo() {
+
+    }
+
 
     @Override
     public void getClientAddress() {

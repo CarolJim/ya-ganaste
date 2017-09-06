@@ -39,6 +39,11 @@ public class MainMenuPresenterImp extends AprovPresenter {
     }
 
     @Override
+    public void onSuccesBalanceCupo() {
+
+    }
+
+    @Override
     public void onSuccessDataPerson() {
 
     }

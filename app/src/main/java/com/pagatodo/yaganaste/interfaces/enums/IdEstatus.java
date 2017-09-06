@@ -23,7 +23,7 @@ public enum IdEstatus {
     I14(14, "Usuario Comercio con datos capturados"),
     I15(15, "Usuario Comercio con Documentos Capturados"),
     I16(16, "Usuario Comercio rechazado (rechazo definitivo del trámite CUPO, el usuario deberá prevalecer solo como Profesionista)"),
-    I17(17, "Usuario Comercio autorizado, con límite de crédito");
+    CUPO(17, "Usuario Comercio autorizado, con límite de crédito");
 
     private String descripcion;
     private int id;

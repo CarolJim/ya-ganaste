@@ -123,6 +123,11 @@ public class AccountAdqPresenter extends DocumentsPresenter implements IAdqAccou
     }
 
     @Override
+    public void onSuccesBalanceCupo() {
+
+    }
+
+    @Override
     public void onSuccessDataPerson() {
 
     }

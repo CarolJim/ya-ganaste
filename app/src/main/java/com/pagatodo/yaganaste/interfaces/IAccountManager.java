@@ -23,6 +23,8 @@ public interface IAccountManager<T> {
 
     void onSuccesBalanceAdq();
 
+    void onSuccesBalanceCupo();
+
     void onSuccessDataPerson();
 
 

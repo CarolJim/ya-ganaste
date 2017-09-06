@@ -69,7 +69,7 @@ public class CardCupoSelected extends TabViewElement {
         int progress;
 
         if (lineaCredito > 0) {
-            if (totalDepositar > totalReembolsar) {
+            if (totalDepositar < totalReembolsar) {
                 int color = ContextCompat.getColor(getContext(), R.color.yellow);
                 totalDepositar = Math.abs(totalDepositar);
                 titleTotalDepositar.setText(getContext().getString(R.string.total_reembolsar));
@@ -89,7 +89,7 @@ public class CardCupoSelected extends TabViewElement {
             seekLineaCredito.setProgress(progress);
         }
         saldoDisponible.setText(StringUtils.getCurrencyValue(saldoDisp));
-        montoTotalDepositar.setText(StringUtils.getCurrencyValue(totalDepositar));
+        montoTotalDepositar.setText(StringUtils.getCurrencyValue(Math.max(totalDepositar, totalReembolsar)));
         montoLineaCredito.setText(StringUtils.getCurrencyValue(lineaCredito));
 
     }

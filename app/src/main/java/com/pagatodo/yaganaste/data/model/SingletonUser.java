@@ -3,8 +3,10 @@ package com.pagatodo.yaganaste.data.model;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
@@ -89,6 +91,10 @@ public class SingletonUser {
                 prefs.saveData(URL_PHOTO_USER, dataUser.getUsuario().getImagenAvatarURL());
             }
 
+        }
+
+        if (dataUser.getIdEstatus() == IdEstatus.CUPO.getId()) {
+            prefs.saveDataBool(StringConstants.IS_CUPO, true);
         }
     }
 

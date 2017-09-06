@@ -10,14 +10,17 @@ public class StringConstants {
 
     public static final String SPACE = " ";
     public static final String HAS_SESSION = "HAS_SESSION";
+    public static final String IS_CUPO = "IS_CUPO";
     public static final String NAME_USER = "NAME_USER";
     public static final String FULL_NAME_USER = "FULL_NAME_USER";
     public static final String CARD_NUMBER = "CARD_NUMBER";
     public static final String USER_BALANCE = "USER_BALANCE";
     public static final String UPDATE_DATE = "UPDATE_DATE";
     public static final String UPDATE_DATE_BALANCE_ADQ = "UPDATE_DATE_BALANCE_ADQ";
+    public static final String UPDATE_DATE_BALANCE_CUPO = "UPDATE_DATE_BALANCE_CUPO";
     public static final String ID_CUENTA = "ID_CUENTA";
     public static final String ADQUIRENTE_BALANCE = "ADQUIRENTE_BALANCE";
+    public static final String CUPO_BALANCE = "CUPO_BALANCE";
     public static final String ADQUIRENTE_APPROVED = "ADQUIRENTE_APPROVED";
     public static final String CATALOG_VERSION = "CATALOG_VERSION";
     public static final String SIMPLE_NAME = "SIMPLE_NAME";

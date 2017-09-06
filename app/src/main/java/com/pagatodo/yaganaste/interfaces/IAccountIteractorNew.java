@@ -53,6 +53,8 @@ public interface IAccountIteractorNew<T> {
 
     void getBalanceAdq();
 
+    void getBalanceCupo();
+
     ArrayList<Countries> getPaisesList();
 
     void logoutSinRespuesta();

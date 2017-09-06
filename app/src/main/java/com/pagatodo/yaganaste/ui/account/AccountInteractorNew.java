@@ -28,6 +28,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequ
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultaAsignacionTarjetaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.LoginAdqResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.ObtieneDatosCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarInformacionSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioClienteResponse;
@@ -77,11 +78,13 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_ASIGNACION_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGIN_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTIENE_DATOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
@@ -98,6 +101,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.StringConstants.OLD_NIP;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
+import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_CUPO;
 import static com.pagatodo.yaganaste.utils.StringConstants.USER_PROVISIONED;
 
 /**
@@ -375,6 +379,16 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
     }
 
+
+    @Override
+    public void getBalanceCupo() {
+        try {
+            ApiAdq.obtieneDatosCupo(this);
+        } catch (OfflineException e) {
+            accountManager.onError(OBTIENE_DATOS_CUPO, null);
+        }
+    }
+
     @Override
     public ArrayList<Countries> getPaisesList() {
         CatalogsDbApi api = new CatalogsDbApi(App.getContext());
@@ -474,6 +488,10 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 validateBalanceAdqResponse((ConsultaSaldoCupoResponse) dataSourceResult.getData());
                 break;
 
+            case OBTIENE_DATOS_CUPO:
+                validateDataCupo((ObtieneDatosCupoResponse) dataSourceResult.getData());
+                break;
+
             case LOGIN_ADQ:
                 processLoginAdq(dataSourceResult);
                 break;
@@ -523,6 +541,16 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onSuccesBalanceAdq();
         } else {
             accountManager.onError(CONSULTAR_SALDO_ADQ, null);
+        }
+    }
+
+    private void validateDataCupo(ObtieneDatosCupoResponse response) {
+        if (response.getResult().getId().equals(Recursos.CODE_ADQ_OK)) {
+            prefs.saveData(StringConstants.CUPO_BALANCE, response.getSaldoDisponible());
+            prefs.saveData(UPDATE_DATE_BALANCE_CUPO, DateUtil.getTodayCompleteDateFormat());
+            accountManager.onSuccesBalanceCupo();
+        } else {
+            accountManager.onError(CONSULTA_SALDO_CUPO, null);
         }
     }
 

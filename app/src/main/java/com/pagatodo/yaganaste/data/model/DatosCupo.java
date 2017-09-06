@@ -29,10 +29,11 @@ public class DatosCupo implements Serializable {
 
     }
 
-    public DatosCupo(String limiteCredito, String saldoDisponible, String totalDepositar) {
+    public DatosCupo(String limiteCredito, String saldoDisponible, String totalDepositar, String totalAReembolsar) {
         this.limiteDeCredito = limiteCredito;
         this.saldoDisponible = saldoDisponible;
         this.totalADepositar = totalDepositar;
+        this.totalAReembolsar = totalAReembolsar;
     }
 
     public String getLimiteDeCredito() {

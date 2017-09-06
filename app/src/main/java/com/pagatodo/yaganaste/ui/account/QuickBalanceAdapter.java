@@ -4,10 +4,13 @@ import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.ui.account.login.OtpContainerFratgment;
 import com.pagatodo.yaganaste.ui.account.login.QuickBalanceAdquirenteFragment;
+import com.pagatodo.yaganaste.ui.account.login.QuickBalanceCupoFragment;
 import com.pagatodo.yaganaste.ui.account.login.QuickBalanceFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
+import com.pagatodo.yaganaste.utils.StringConstants;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +31,12 @@ public class QuickBalanceAdapter extends FragmentPagerAdapter {
 
         fragmentList.add(OtpContainerFratgment.newInstance());
         if (isAdquirente) {
-            fragmentList.add(QuickBalanceAdquirenteFragment.newInstance());
+            if (!App.getInstance().getPrefs().loadDataBoolean(StringConstants.IS_CUPO)) {
+                fragmentList.add(QuickBalanceAdquirenteFragment.newInstance());
+            } else {
+                fragmentList.add(QuickBalanceCupoFragment.newInstance());
+            }
+
             fragmentList.add(GetMountFragment.newInstance());
         } else {
             fragmentList.add(QuickBalanceFragment.newInstance());
