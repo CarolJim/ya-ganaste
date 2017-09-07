@@ -152,15 +152,13 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         String ultimaTransaccion = "";
 
         if (mLastTime != null && !mLastTime.isEmpty()) {
-            mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n"
-                    + mLastTime);
+       //     mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n"+ mLastTime);
         } else {
             ultimaTransaccion =
                     SingletonUser.getInstance().getDataUser().getUsuario().getFechaUltimoAcceso();
-            mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n"
-                    + ultimaTransaccion);
+            //mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n" + ultimaTransaccion);
         }
-        printCard(textodata,mName);
+       // printCard(mTDC,mName);
 
         cardEmisorSelected = new CardEmisorSelected(getContext());
         llMaterialEmisorContainer = (MaterialLinearLayout) rootview.findViewById(R.id.ll_material_emisor_container);
@@ -329,10 +327,9 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         float heigth = canvas.getHeight();
         float width = canvas.getWidth();
         textPaint.setTextSize(heigth * 0.115f);
-        String cardNumbertext = preferencias.loadData(CARD_NUMBER);
-        String nameusertext = preferencias.loadData(FULL_NAME_USER);
-        canvas.drawText(nameusertext,width * 0.07f, heigth * 0.9f, textPaint);
-        canvas.drawText(StringUtils.format(cardNumbertext, SPACE, 4, 4, 4, 4), width * 0.07f, heigth * 0.6f, textPaint);
+
+        //canvas.drawText(usernombre,width * 0.07f, heigth * 0.9f, textPaint);
+        //canvas.drawText(StringUtils.format(cardNumber, SPACE, 4, 4, 4, 4), width * 0.07f, heigth * 0.6f, textPaint);
 
         imgYaGanasteCard.setImageBitmap(bitmap);
     }

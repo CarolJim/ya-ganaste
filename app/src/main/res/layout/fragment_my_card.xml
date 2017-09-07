@@ -44,7 +44,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor" />
+                    android:background="@color/borderLayoutColor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -72,6 +72,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -85,6 +86,7 @@
                             android:id="@+id/my_card_num_cuenta"
                             style="@style/generic_text_style_4"
                             android:layout_width="wrap_content"
+                            android:layout_marginTop="3dp"
                             android:layout_height="wrap_content"
                             tools:text="Tarjeta: **** **** **** 5678" />
 
@@ -92,6 +94,7 @@
                             android:id="@+id/my_card_last_time"
                             style="@style/generic_text_style_4"
                             android:layout_width="wrap_content"
+                            android:visibility="gone"
                             android:layout_height="wrap_content"
                             tools:text="Utilizada Por Ultima Vez: 23/Mar/17" />
                     </LinearLayout>
@@ -121,7 +124,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor" />
+                    android:background="@color/borderLayoutColor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -158,7 +161,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor" />
+                    android:background="@color/borderLayoutColor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -196,7 +199,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor"
+                    android:background="@color/borderLayoutColor"
                     android:visibility="gone" />
 
                 <LinearLayout

@@ -96,7 +96,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor" />
+                android:background="@color/borderLayoutColor" />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_user"
@@ -126,7 +126,7 @@
                         android:layout_width="17dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        app:srcCompat="@drawable/edit_canvas_blue" />
+                        app:srcCompat="@drawable/arrow_canvas_blue" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -134,7 +134,7 @@
                 android:id="@+id/content_prefer_view_acount"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor"
+                android:background="@color/borderLayoutColor"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -144,9 +144,9 @@
                 android:layout_gravity="center"
                 android:layout_marginBottom="10dp"
                 android:layout_marginTop="10dp"
-                android:visibility="gone"
                 android:gravity="center"
-                android:orientation="vertical">
+                android:orientation="vertical"
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -166,7 +166,7 @@
                         android:layout_width="17dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        app:srcCompat="@drawable/edit_canvas_blue" />
+                        app:srcCompat="@drawable/arrow_canvas_blue" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -174,7 +174,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor"
+                android:background="@color/borderLayoutColor"
                 android:visibility="visible" />
 
             <LinearLayout
@@ -206,7 +206,7 @@
                         android:layout_width="17dp"
                         android:layout_height="wrap_content"
                         android:layout_marginRight="20dp"
-                        app:srcCompat="@drawable/edit_canvas_blue" />
+                        app:srcCompat="@drawable/arrow_canvas_blue" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -214,7 +214,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor"
+                android:background="@color/borderLayoutColor"
                 android:visibility="visible" />
 
             <LinearLayout
@@ -253,7 +253,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor" />
+                android:background="@color/borderLayoutColor" />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_legal"
@@ -290,7 +290,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor" />
+                android:background="@color/borderLayoutColor" />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_close"
