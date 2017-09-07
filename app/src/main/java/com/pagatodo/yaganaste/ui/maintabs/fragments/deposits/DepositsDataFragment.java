@@ -29,6 +29,8 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
 import com.pagatodo.yaganaste.utils.FontCache;
+import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 
@@ -97,8 +99,8 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         this.rootView = view;
         initViews();
         UsuarioClienteResponse usuario = SingletonUser.getInstance().getDataUser().getUsuario();
-        //txtNameTitular.setText(usuario.getNombre() + " " + usuario.getPrimerApellido() + " " + usuario.getSegundoApellido());
-        txtNameTitular.setText(SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTelefono());
+        txtNameTitular.setText(usuario.getNombre().concat(StringConstants.SPACE).concat(usuario.getPrimerApellido()).concat(StringConstants.SPACE).concat(usuario.getSegundoApellido()));
+        //txtNameTitular.setText(SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTelefono());
         CuentaResponse cuenta = null;
         String cardNumber = "";
         if (usuario.getCuentas() != null && usuario.getCuentas().size() >= 1) {

@@ -65,6 +65,7 @@ public class StyleButton extends AppCompatButton implements View.OnClickListener
         setBackground(configurationParams.getDrawable(R.styleable.StyleButton_android_background));
         setTextColor(configurationParams.getColor(R.styleable.StyleButton_android_textColor,
                 ContextCompat.getColor(getContext(), R.color.black)));
+        selectTypeface(context, configurationParams.getInt(R.styleable.StyleButton_textStyle, 1));
 
         this.type = configurationParams.getInt(R.styleable.StyleButton_typeButton, TYPE_NONE);
     }
@@ -80,13 +81,13 @@ public class StyleButton extends AppCompatButton implements View.OnClickListener
     private Typeface selectTypeface(Context context, int textStyle) {
 
         switch (textStyle) {
-            case 1: // bold
+            case 2: // bold
                 return FontCache.getTypeface("fonts/Roboto-Bold.ttf", context);
-
-            case 2: // italic
+            case 3:
+                return FontCache.getTypeface("fonts/Roboto-Light.ttf", context);
+            case 4: // italic
                 return FontCache.getTypeface("fonts/Roboto-Italic.ttf", context);
-
-            case 0: // regular
+            case 1: // regular
             default:
                 return FontCache.getTypeface("fonts/Roboto-Regular.ttf", context);
         }

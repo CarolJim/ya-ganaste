@@ -339,6 +339,7 @@
     <style name="ButtonTabs" parent="Base.Widget.AppCompat.Button">
         <item name="android:textColor">@color/colorAccent</item>
         <item name="android:textAllCaps">false</item>
+        <item name="android:textStyle">normal</item>
         <item name="android:textSize">@dimen/size_text_style_3_value</item>
     </style>
 

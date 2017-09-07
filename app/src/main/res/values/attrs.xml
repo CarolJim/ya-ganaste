@@ -54,6 +54,12 @@
         <attr name="android:layout_width" />
         <attr name="android:layout_height" />
         <attr name="android:textColor" />
+        <attr name="textStyle" format="enum">
+            <enum name="Regular" value ="1"/>
+            <enum name="Bold" value="2"/>
+            <enum name="Light" value ="3"/>
+            <enum name="Italic" value ="4"/>
+            </attr>
     </declare-styleable>
 
 
