@@ -132,7 +132,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             textNameUser.setVisibility(GONE);
         }
         setValidationRules();
-        edtUserPass.setText("1Azbxcwa");
+
     }
 
     @Override
