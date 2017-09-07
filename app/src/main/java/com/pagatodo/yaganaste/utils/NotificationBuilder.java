@@ -28,6 +28,14 @@ public class NotificationBuilder {
     }
 
 
+    public static void createCloseSessionNotification(Context context, Intent toLaunch, String title, String body) {
+
+        PendingIntent pendingIntent = PendingIntent.getActivity(context, 0 /* Request code */, toLaunch,
+                PendingIntent.FLAG_ONE_SHOT);
+        sendNotification(context, pendingIntent, 0, title, body);
+    }
+
+
     private static void sendNotification(Context context, PendingIntent pendingIntent, int idNotification, String title, String message) {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)

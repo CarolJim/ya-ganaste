@@ -94,7 +94,7 @@ public class ToolBarPositionActivity extends LoaderActivity implements OnEventLi
     }
 
     @Override
-    protected void onStop() {
+    public void onStop() {
         mGoogleApiClient.disconnect();
         super.onStop();
     }

@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
@@ -79,6 +80,8 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     SwitchCompat mycard_switch;
     @BindView(R.id.fragment_my_card_reporta_tarjeta_text)
     StyleTextView mycard_reporta_tarjeta;
+    @BindView(R.id.img_status)
+    AppCompatImageView imgStatus;
 
     @BindView(R.id.fragment_my_card_change_nip)
     StyleTextView mycard_change_nip;
@@ -167,9 +170,10 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         String statusId = SingletonUser.getInstance().getCardStatusId();
         if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
             mycard_switch.setChecked(false);
-
+            imgStatus.setImageResource(R.drawable.ic_candado_open);
         } else {
             mycard_switch.setChecked(true);
+            imgStatus.setImageResource(R.drawable.ic_candado_closed);
         }
 
         //Agregamos un Listener al Switch
@@ -342,6 +346,8 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
          * regresarlos se actuva de nuevo el onCheckedChanged, con False evitamos un doble proceso
          * 3 - If isChecked operaciones para realizar el Bloqueo, else operaciones de Desbloqueo
          */
+
+        imgStatus.setImageResource(isChecked ? R.drawable.ic_candado_closed : R.drawable.ic_candado_open);
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
             if (statusOperation) {

@@ -103,10 +103,11 @@
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/img_status"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@mipmap/arrow_up" />
+                            app:srcCompat="@drawable/ic_candado_open" />
 
                         <android.support.v7.widget.SwitchCompat
                             android:id="@+id/mycard_switch"
