@@ -19,7 +19,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarDatosCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
@@ -52,6 +54,9 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
+import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.StringConstants.FULL_NAME_USER;
+import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
@@ -86,13 +91,14 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     public String mName;
     public String mTDC;
     public String mLastTime;
+    private  String textodata;
     PreferUserPresenter mPreferPresenter;
     View rootview;
     int statusBloqueo;
     boolean statusOperation = true;
     boolean statusInternetOperation = true;
     String ultimaTransaccionSingleton;
-
+    private static Preferencias preferencias = App.getInstance().getPrefs();
     public MyCardFragment() {
         // Required empty public constructor
     }
@@ -127,10 +133,9 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-
         mName = getArguments().getString(M_NAME);
         mNameTV.setText(mName);
-
+        textodata= getArguments().getString(M_TDC);
         /**
          * Mostramos la uinformacion disponible de la Card que tenemos desde el Singleton
          */
@@ -152,7 +157,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
             mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n"
                     + ultimaTransaccion);
         }
-        printCard(mTDC);
+        printCard(textodata,mName);
 
         cardEmisorSelected = new CardEmisorSelected(getContext());
         llMaterialEmisorContainer = (MaterialLinearLayout) rootview.findViewById(R.id.ll_material_emisor_container);
@@ -162,6 +167,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         String statusId = SingletonUser.getInstance().getCardStatusId();
         if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
             mycard_switch.setChecked(false);
+
         } else {
             mycard_switch.setChecked(true);
         }
@@ -295,6 +301,37 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         imgYaGanasteCard.setImageBitmap(bitmap);
     }
 
+
+    private void printCard(String cardNumber, String usernombre) {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.main_card_zoom_blue);
+        android.graphics.Bitmap.Config bitmapConfig =
+                bitmap.getConfig();
+        // set default bitmap config if none
+        if (bitmapConfig == null) {
+            //bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
+            bitmapConfig = Bitmap.Config.ARGB_4444;
+        }
+        // resource bitmaps are imutable,
+        // so we need to convert it to mutable one
+        bitmap = bitmap.copy(bitmapConfig, true);
+
+        Canvas canvas = new Canvas(bitmap);
+        // new antialised Paint
+        TextPaint textPaint = new TextPaint();
+        Typeface typeface = FontCache.getTypeface("fonts/roboto/Roboto-Regular.ttf", getContext());
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTypeface(typeface);
+
+        float heigth = canvas.getHeight();
+        float width = canvas.getWidth();
+        textPaint.setTextSize(heigth * 0.115f);
+        String cardNumbertext = preferencias.loadData(CARD_NUMBER);
+        String nameusertext = preferencias.loadData(FULL_NAME_USER);
+        canvas.drawText(nameusertext,width * 0.07f, heigth * 0.9f, textPaint);
+        canvas.drawText(StringUtils.format(cardNumbertext, SPACE, 4, 4, 4, 4), width * 0.07f, heigth * 0.6f, textPaint);
+
+        imgYaGanasteCard.setImageBitmap(bitmap);
+    }
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         /**
