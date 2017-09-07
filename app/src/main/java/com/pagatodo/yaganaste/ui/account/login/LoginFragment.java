@@ -132,6 +132,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             textNameUser.setVisibility(GONE);
         }
         setValidationRules();
+
     }
 
     @Override
@@ -307,6 +308,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void loginSucced() {
+        SingletonUser.getInstance().setCardStatusId(null);
         Intent intentLogin = new Intent(getActivity(), TabActivity.class);
         startActivity(intentLogin);
         getActivity().finish();

@@ -43,7 +43,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor" />
+                android:background="@color/borderLayoutColor" />
 
 
             <LinearLayout
@@ -73,7 +73,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor" />
+                android:background="@color/borderLayoutColor" />
 
             <LinearLayout
                 android:id="@+id/fragment_aviso_linea_credito_linearlayout"
@@ -105,7 +105,7 @@
                 android:layout_height="1dp"
                 android:id="@+id/fragment_aviso_linea_credito_view"
                 android:visibility="gone"
-                android:background="@color/whiteColor" />
+                android:background="@color/borderLayoutColor" />
 
         </LinearLayout>
     </LinearLayout>

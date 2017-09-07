@@ -44,7 +44,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor" />
+                    android:background="@color/borderLayoutColor" />
 
                 <LinearLayout
                     android:id="@+id/fragment_my_account_reembolso"
@@ -83,7 +83,7 @@
                     android:id="@+id/lineareebolso"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor"
+                    android:background="@color/borderLayoutColor"
                     android:visibility="visible" />
 
                 <LinearLayout
@@ -124,7 +124,7 @@
                     android:id="@+id/llcredito"
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor"
+                    android:background="@color/borderLayoutColor"
                     android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>

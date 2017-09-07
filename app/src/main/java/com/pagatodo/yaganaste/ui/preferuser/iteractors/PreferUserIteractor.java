@@ -280,6 +280,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
             } else if (((GenericResponse) dataSourceResult.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
                 preferUserPresenter.sessionExpiredToPresenter(dataSourceResult);
             } else {
+
                 //Log.d("ListaOpcionesIteractor", "DataSource Sucess with Error " + response.getMensaje());
                 preferUserPresenter.errorGenericToPresenter(dataSourceResult);
             }

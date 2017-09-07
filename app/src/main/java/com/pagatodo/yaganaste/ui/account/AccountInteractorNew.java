@@ -95,6 +95,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_AS
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GET_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
@@ -315,7 +316,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiTrans.asignarNip(request, this, webService);
         } catch (OfflineException e) {
             e.printStackTrace();
-            accountManager.onError(ASIGNAR_NIP,App.getContext().getString(R.string.no_internet_access));
+            accountManager.onError(ASIGNAR_NIP, App.getContext().getString(R.string.no_internet_access));
         }
     }
 
@@ -335,7 +336,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.verificarActivacion(this);
         } catch (OfflineException e) {
             e.printStackTrace();
-            accountManager.onError(VERIFICAR_ACTIVACION,App.getContext().getString(R.string.no_internet_access));
+            accountManager.onError(VERIFICAR_ACTIVACION, App.getContext().getString(R.string.no_internet_access));
         }
     }
 
@@ -346,7 +347,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.obtenerColoniasPorCP(request, this);
 
         } catch (OfflineException e) {
-           // e.printStackTrace();
+            // e.printStackTrace();
             accountManager.onError(OBTENER_COLONIAS_CP, App.getContext().getString(R.string.no_internet_access));
         }
     }
@@ -665,7 +666,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
 
             String old = prefs.loadData(OLD_NIP);
-            SingletonUser.getInstance().setNeedsReset(!needsProvisioning() && ( !old.equals(prefs.loadData(SHA_256_FREJA)) && !old.isEmpty()));
+            SingletonUser.getInstance().setNeedsReset(!needsProvisioning() && (!old.equals(prefs.loadData(SHA_256_FREJA)) && !old.isEmpty()));
             if (!SingletonUser.getInstance().needsReset()) {
                 prefs.saveData(OLD_NIP, prefs.loadData(SHA_256_FREJA));
             }
@@ -679,7 +680,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     public boolean needsProvisioning() {
-        return  (!prefs.containsData(HAS_PROVISIONING) || !prefs.loadData(USER_PROVISIONED).equals(RequestHeaders.getUsername()));
+        return (!prefs.containsData(HAS_PROVISIONING) || !prefs.loadData(USER_PROVISIONED).equals(RequestHeaders.getUsername()));
     }
 
 
@@ -707,6 +708,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 /*TODO enviar mensaje a vista*/
                 accountManager.onError(response.getWebService(), App.getContext().getString(R.string.emisor_validate_card_fail));
             }
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            accountManager.sessionExpiredToPresenter(response);
         } else {
             accountManager.onError(response.getWebService(), data.getMensaje());
         }
@@ -803,6 +806,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             Card.getInstance().setIdAccount(cuenta.getIdCuenta());
             accountManager.onSucces(response.getWebService(), data.getMensaje());
 
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            accountManager.sessionExpiredToPresenter(response);
         } else {
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
@@ -818,6 +823,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         AsignarNIPResponse data = (AsignarNIPResponse) response.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
             accountManager.onSucces(response.getWebService(), data.getMensaje());
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            accountManager.sessionExpiredToPresenter(response);
         } else {
             accountManager.onError(response.getWebService(), data.getMensaje());
         }
@@ -843,6 +850,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
             MessageValidation messageValidation = new MessageValidation(phone, message);
             accountManager.onSucces(response.getWebService(), messageValidation);
+        } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            accountManager.sessionExpiredToPresenter(response);
         } else {
             //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
             accountManager.onError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.

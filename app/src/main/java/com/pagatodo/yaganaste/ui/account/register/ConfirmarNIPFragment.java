@@ -41,7 +41,8 @@ import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class ConfirmarNIPFragment extends GenericFragment implements View.OnClickListener, ValidationForms, IAccountCardNIPView {
+public class ConfirmarNIPFragment extends GenericFragment implements View.OnClickListener,
+        ValidationForms, IAccountCardNIPView {
 
     public static String PIN_TO_CONFIRM = "PIN_TO_CONFIRM";
     private static int PIN_LENGHT = 4;

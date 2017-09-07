@@ -40,7 +40,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor" />
+                android:background="@color/borderLayoutColor" />
 
             <LinearLayout
                 android:id="@+id/fragment_terminos_cuenta_ya_ganaste_Terminos"
@@ -70,7 +70,7 @@
                 android:id="@+id/fragment_terminos_lcredito_view"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor"
+                android:background="@color/borderLayoutColor"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -102,7 +102,7 @@
                 android:id="@+id/lineancredito"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor"
+                android:background="@color/borderLayoutColor"
                 android:visibility="visible" />
 
             <LinearLayout
@@ -135,7 +135,7 @@
                 android:id="@+id/lineacontrato"
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor"
+                android:background="@color/borderLayoutColor"
                 android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>

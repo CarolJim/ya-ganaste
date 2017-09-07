@@ -90,6 +90,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     private ResetPinPresenter resetPinPresenter;
 
     public void setIView(View accountView) {
+        super.setIView(accountView);
+
         this.accountView = (INavigationView) accountView;
         if (accountView instanceof TabsView) {
             setTabsView((TabsView) accountView);

@@ -187,6 +187,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         } else {     // si no se han enviado los documentos
             initSetClickableDocs();
         }
+        if (mExisteDocs){
+            btnRegresar.setVisibility(View.GONE);
+        }
     }
 
     @Override

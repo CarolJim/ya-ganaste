@@ -40,7 +40,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor" />
+                android:background="@color/borderLayoutColor" />
 
             <LinearLayout
                 android:id="@+id/fragment_ayuda_tutoriales_inicio_sesion"
@@ -77,7 +77,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor" />
+                    android:background="@color/borderLayoutColor" />
             </LinearLayout>
 
             <LinearLayout
@@ -115,7 +115,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor" />
+                    android:background="@color/borderLayoutColor" />
             </LinearLayout>
 
             <LinearLayout
@@ -152,7 +152,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor" />
+                    android:background="@color/borderLayoutColor" />
             </LinearLayout>
 
             <LinearLayout
@@ -190,7 +190,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor" />
+                    android:background="@color/borderLayoutColor" />
             </LinearLayout>
 
             <LinearLayout
@@ -228,7 +228,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor" />
+                    android:background="@color/borderLayoutColor" />
 
             </LinearLayout>
         </LinearLayout>

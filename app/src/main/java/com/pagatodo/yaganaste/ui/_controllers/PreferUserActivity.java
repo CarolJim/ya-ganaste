@@ -147,6 +147,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         mContext = this;
 
         System.gc();
+
+        // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
+        setVisibilityPrefer(false);
+        checkDataCard();
     }
 
     public AccountPresenterNew getPresenterAccount() {
@@ -160,9 +164,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     @Override
     protected void onResume() {
         super.onResume();
-        // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
-        setVisibilityPrefer(false);
-        checkDataCard();
     }
 
     private void checkDataCard() {
@@ -181,8 +182,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
             // Obtenemos el estado de la Card actual
             // Creamos el objeto ActualizarAvatarRequest
-            ActualizarDatosCuentaRequest datosCuentaRequest = new ActualizarDatosCuentaRequest();
-            mPreferPresenter.sendPresenterUpdateDatosCuenta(datosCuentaRequest);
+            // TODO Frank se comento este metodo debido a cambios, borrar en versiones posteriores
+            /*ActualizarDatosCuentaRequest datosCuentaRequest = new ActualizarDatosCuentaRequest();
+            mPreferPresenter.sendPresenterUpdateDatosCuenta(datosCuentaRequest);*/
         } else {
             showDialogMesage(getResources().getString(R.string.no_internet_access));
         }
