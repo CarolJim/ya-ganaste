@@ -77,6 +77,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         LoginAdqRequest request = new LoginAdqRequest(
                 singletonUser.getDataUser().getUsuario().getPetroNumero(),
                 singletonUser.getDataUser().getUsuario().getClaveAgente());
+
         try {
             ApiAdq.loginAdq(request, this);
         } catch (OfflineException e) {

@@ -130,7 +130,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
     @Override
     public void createUser() {
-        accountView.showLoader(context.getString(R.string.verificando_sms_espera));
+        accountView.showLoader(context.getString(R.string.msg_register));
         RegisterUser registerUser = RegisterUser.getInstance();
         prefs.saveData(SHA_256_FREJA, Utils.getSHA256(registerUser.getContrasenia()));//Freja
         accountIteractor.createUser();

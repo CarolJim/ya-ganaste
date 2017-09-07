@@ -44,20 +44,20 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor" />
+                    android:background="@color/borderLayoutColor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="30dp"
                     android:layout_marginBottom="30dp"
+                    android:layout_marginTop="30dp"
                     android:gravity="center"
                     android:orientation="horizontal">
 
                     <LinearLayout
-                        android:layout_weight="1"
                         android:layout_width="150dp"
-                        android:layout_height="75dp" >
+                        android:layout_height="75dp"
+                        android:layout_weight="1">
 
                         <ImageView
                             android:id="@+id/imgYaGanasteCard"
@@ -69,9 +69,10 @@
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="center"
                         android:orientation="vertical">
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -85,6 +86,7 @@
                             android:id="@+id/my_card_num_cuenta"
                             style="@style/generic_text_style_4"
                             android:layout_width="wrap_content"
+                            android:layout_marginTop="3dp"
                             android:layout_height="wrap_content"
                             tools:text="Tarjeta: **** **** **** 5678" />
 
@@ -92,27 +94,29 @@
                             android:id="@+id/my_card_last_time"
                             style="@style/generic_text_style_4"
                             android:layout_width="wrap_content"
+                            android:visibility="gone"
                             android:layout_height="wrap_content"
                             tools:text="Utilizada Por Ultima Vez: 23/Mar/17" />
                     </LinearLayout>
 
                     <LinearLayout
-                        android:layout_weight="1"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_weight="1"
                         android:gravity="center"
                         android:orientation="vertical">
 
-                        <ImageView
+                        <android.support.v7.widget.AppCompatImageView
+                            android:id="@+id/img_status"
                             android:layout_width="20dp"
                             android:layout_height="20dp"
-                            android:src="@mipmap/arrow_up" />
+                            app:srcCompat="@drawable/ic_candado_open" />
 
                         <android.support.v7.widget.SwitchCompat
                             android:id="@+id/mycard_switch"
                             android:layout_width="wrap_content"
-                            android:theme="@style/SCBSwitch"
-                            android:layout_height="wrap_content" />
+                            android:layout_height="wrap_content"
+                            android:theme="@style/SCBSwitch" />
 
                     </LinearLayout>
                 </LinearLayout>
@@ -120,7 +124,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor" />
+                    android:background="@color/borderLayoutColor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -157,7 +161,7 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor" />
+                    android:background="@color/borderLayoutColor" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -195,8 +199,8 @@
                 <View
                     android:layout_width="match_parent"
                     android:layout_height="1dp"
-                    android:background="@color/whiteColor"
-                    android:visibility="gone"/>
+                    android:background="@color/borderLayoutColor"
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/fragment_my_card_reporta_tarjetad"

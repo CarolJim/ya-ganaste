@@ -72,7 +72,7 @@ public class ScannVisionActivity extends AppCompatActivity implements BarcodeTra
 
     @Override
     public void onDetectedQrCode(Barcode barcode) {
-        if (barcode != null) {
+        if (barcode != null && barcode.format != Barcode.QR_CODE) {
             Intent intent = new Intent();
             intent.putExtra(BarcodeObject, barcode);
             setResult(CommonStatusCodes.SUCCESS, intent);
@@ -157,6 +157,8 @@ public class ScannVisionActivity extends AppCompatActivity implements BarcodeTra
                 .setFlashMode(false ? Camera.Parameters.FLASH_MODE_TORCH : null)
                 .build();
     }
+
+
 
     @Override
     protected void onResume() {

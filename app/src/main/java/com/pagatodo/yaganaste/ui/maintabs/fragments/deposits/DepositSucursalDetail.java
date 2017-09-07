@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments.deposits;
 
+import android.Manifest;
 import android.content.Intent;
 import android.location.Location;
 import android.net.Uri;
@@ -19,9 +20,12 @@ import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.utils.UtilsLocation;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+
+import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 /**
  * Created by Jordan on 24/05/2017.
@@ -32,6 +36,10 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
     private static String SUCURSAL_OBJECT = "SucursalObject";
     @BindView(R.id.imgSucursal)
     ImageView imgSucursal;
+
+    @BindView(R.id.sucursaltelefono)
+    ImageView imgtelefonosucursal;
+
     @BindView(R.id.txtSucursalTitle)
     TextView title;
     @BindView(R.id.txtSucursalAddress)
@@ -49,6 +57,7 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
     private View rootView;
     private DataLocalizaSucursal sucursal;
     private Location myLocation;
+    private String number;
 
 
     public static DepositSucursalDetail newInstance(DataLocalizaSucursal sucursal) {
@@ -91,7 +100,7 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
         date.setText(" / ");
         hour.setText(sucursal.getHorario());
         phone.setText(sucursal.getNumTelefonico());
-
+        imgtelefonosucursal.setOnClickListener(this);
         btnRoute.setOnClickListener(this);
         btnShare.setOnClickListener(this);
     }
@@ -99,6 +108,20 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
+            case R.id.sucursaltelefono:
+                number=sucursal.getNumTelefonico();
+                Intent callIntent = new Intent(Intent.ACTION_CALL);
+                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                callIntent.setData(Uri.parse("tel:" + number));
+
+                if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
+                    ValidatePermissions.checkPermissions(getActivity(), new String[]{
+                            Manifest.permission.CALL_PHONE},PERMISSION_GENERAL);
+                } else {
+                    getActivity().startActivity(callIntent);
+                }
+                break;
+
             case R.id.btnRoute:
 
                 Intent intent = new Intent(android.content.Intent.ACTION_VIEW,

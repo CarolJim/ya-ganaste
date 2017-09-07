@@ -9,6 +9,7 @@ import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextPaint;
 import android.view.LayoutInflater;
@@ -19,7 +20,9 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarDatosCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
@@ -52,6 +55,9 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
+import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
+import static com.pagatodo.yaganaste.utils.StringConstants.FULL_NAME_USER;
+import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
@@ -74,6 +80,8 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     SwitchCompat mycard_switch;
     @BindView(R.id.fragment_my_card_reporta_tarjeta_text)
     StyleTextView mycard_reporta_tarjeta;
+    @BindView(R.id.img_status)
+    AppCompatImageView imgStatus;
 
     @BindView(R.id.fragment_my_card_change_nip)
     StyleTextView mycard_change_nip;
@@ -86,13 +94,14 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     public String mName;
     public String mTDC;
     public String mLastTime;
+    private  String textodata;
     PreferUserPresenter mPreferPresenter;
     View rootview;
     int statusBloqueo;
     boolean statusOperation = true;
     boolean statusInternetOperation = true;
     String ultimaTransaccionSingleton;
-
+    private static Preferencias preferencias = App.getInstance().getPrefs();
     public MyCardFragment() {
         // Required empty public constructor
     }
@@ -127,10 +136,9 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-
         mName = getArguments().getString(M_NAME);
         mNameTV.setText(mName);
-
+        textodata= getArguments().getString(M_TDC);
         /**
          * Mostramos la uinformacion disponible de la Card que tenemos desde el Singleton
          */
@@ -144,15 +152,13 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         String ultimaTransaccion = "";
 
         if (mLastTime != null && !mLastTime.isEmpty()) {
-            mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n"
-                    + mLastTime);
+       //     mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n"+ mLastTime);
         } else {
             ultimaTransaccion =
                     SingletonUser.getInstance().getDataUser().getUsuario().getFechaUltimoAcceso();
-            mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n"
-                    + ultimaTransaccion);
+            //mLastTimeTV.setText(getResources().getString(R.string.used_card_last_time) + ": \n" + ultimaTransaccion);
         }
-        printCard(mTDC);
+       // printCard(mTDC,mName);
 
         cardEmisorSelected = new CardEmisorSelected(getContext());
         llMaterialEmisorContainer = (MaterialLinearLayout) rootview.findViewById(R.id.ll_material_emisor_container);
@@ -162,8 +168,10 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         String statusId = SingletonUser.getInstance().getCardStatusId();
         if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
             mycard_switch.setChecked(false);
+            imgStatus.setImageResource(R.drawable.ic_candado_open);
         } else {
             mycard_switch.setChecked(true);
+            imgStatus.setImageResource(R.drawable.ic_candado_closed);
         }
 
         //Agregamos un Listener al Switch
@@ -295,6 +303,36 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         imgYaGanasteCard.setImageBitmap(bitmap);
     }
 
+
+    private void printCard(String cardNumber, String usernombre) {
+        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.main_card_zoom_blue);
+        android.graphics.Bitmap.Config bitmapConfig =
+                bitmap.getConfig();
+        // set default bitmap config if none
+        if (bitmapConfig == null) {
+            //bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
+            bitmapConfig = Bitmap.Config.ARGB_4444;
+        }
+        // resource bitmaps are imutable,
+        // so we need to convert it to mutable one
+        bitmap = bitmap.copy(bitmapConfig, true);
+
+        Canvas canvas = new Canvas(bitmap);
+        // new antialised Paint
+        TextPaint textPaint = new TextPaint();
+        Typeface typeface = FontCache.getTypeface("fonts/roboto/Roboto-Regular.ttf", getContext());
+        textPaint.setColor(Color.WHITE);
+        textPaint.setTypeface(typeface);
+
+        float heigth = canvas.getHeight();
+        float width = canvas.getWidth();
+        textPaint.setTextSize(heigth * 0.115f);
+
+        //canvas.drawText(usernombre,width * 0.07f, heigth * 0.9f, textPaint);
+        //canvas.drawText(StringUtils.format(cardNumber, SPACE, 4, 4, 4, 4), width * 0.07f, heigth * 0.6f, textPaint);
+
+        imgYaGanasteCard.setImageBitmap(bitmap);
+    }
     @Override
     public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
         /**
@@ -305,6 +343,8 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
          * regresarlos se actuva de nuevo el onCheckedChanged, con False evitamos un doble proceso
          * 3 - If isChecked operaciones para realizar el Bloqueo, else operaciones de Desbloqueo
          */
+
+        imgStatus.setImageResource(isChecked ? R.drawable.ic_candado_closed : R.drawable.ic_candado_open);
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
             if (statusOperation) {

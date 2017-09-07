@@ -89,6 +89,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             isIAVE = comercioItem.getIdComercio() == IAVE_ID;
             recargasPresenter = new RecargasPresenter(this, isIAVE);
             List<Double> montos = comercioItem.getListaMontos();
+            montos.add(0, 0D);
             dataAdapter = new SpinnerArrayAdapter(getContext(), TAB1, montos);
         } catch (Exception e) {
             e.printStackTrace();
@@ -123,11 +124,13 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
 
         if (isIAVE) {
             recargaNumber.addTextChangedListener(new NumberTagPase(recargaNumber, maxLength));
-            recargaNumber.setHint(getString(R.string.tag_number));
+            recargaNumber.setHint(getString(R.string.tag_number)+" ("+longitudReferencia+" Dígitos)");
+            recargaNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
             layoutImageContact.setVisibility(View.GONE);
         } else {
             recargaNumber.addTextChangedListener(new PhoneTextWatcher(recargaNumber));
             recargaNumber.setHint(getString(R.string.phone_number_hint));
+
             layoutImageContact.setOnClickListener(this);
         }
 

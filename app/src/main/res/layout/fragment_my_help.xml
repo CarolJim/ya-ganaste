@@ -40,7 +40,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor" />
+                android:background="@color/borderLayoutColor" />
 
 
             <LinearLayout
@@ -70,7 +70,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor" />
+                android:background="@color/borderLayoutColor" />
 
 
             <LinearLayout
@@ -99,7 +99,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor" />
+                android:background="@color/borderLayoutColor" />
 
             <LinearLayout
                 android:id="@+id/fragment_lista_ayuda_acerca_app"
@@ -127,7 +127,7 @@
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
-                android:background="@color/whiteColor" />
+                android:background="@color/borderLayoutColor" />
 
         </LinearLayout>
     </LinearLayout>

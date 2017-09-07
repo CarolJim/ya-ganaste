@@ -14,7 +14,7 @@
         android:layout_height="40dp"
         android:clipToPadding="false">
 
-        <Button
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/tab_recargas"
             style="@style/ButtonTabs"
             android:layout_width="wrap_content"
@@ -22,9 +22,10 @@
             android:layout_alignParentLeft="true"
             android:layout_marginRight="-1dp"
             android:background="@drawable/tab_selected"
-            android:text="@string/tab_recargas" />
+            android:text="@string/tab_recargas"
+            app:textStyle="Light"/>
 
-        <Button
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/tab_servicios"
             style="@style/ButtonTabs"
             android:layout_width="wrap_content"
@@ -33,9 +34,10 @@
             android:layout_toLeftOf="@+id/tab_envios"
             android:layout_toRightOf="@+id/tab_recargas"
             android:background="@drawable/right_tab"
-            android:text="@string/tab_servicios" />
+            android:text="@string/tab_servicios"
+            app:textStyle="Light"/>
 
-        <Button
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/tab_envios"
             style="@style/ButtonTabs"
             android:layout_width="wrap_content"
@@ -43,7 +45,8 @@
             android:layout_alignParentRight="true"
             android:layout_marginLeft="-1dp"
             android:background="@drawable/tab_unselected"
-            android:text="@string/tab_envios" />
+            android:text="@string/tab_envios"
+            app:textStyle="Light"/>
 
 
     </RelativeLayout>

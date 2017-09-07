@@ -25,10 +25,13 @@ public class Recursos {
     public static final int IDCOMERCIO_YA_GANASTE = 8609;
     public static final int GROUP_FORMAT = 4;
 
-    public static final boolean DEBUG = true;
+    public static final boolean DEBUG = false;
 
     /*Freja*/
     public static final String PT_CLIENT_CODE;
+
+
+    public static final long DISCONNECT_TIMEOUT = 60000;
 
     //URL DE WS
     static {

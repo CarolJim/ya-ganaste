@@ -236,7 +236,7 @@
     <string name="insert_slide_card">Inserta o Desliza la tarjeta</string>
     <string name="no_internet_access">No Cuentas Con Conexión a Internet</string>
     <string name="something_is_wrong_try_again">Algo Salió Mal, Intenta de Nuevo</string>
-    <string name="tag_number">Número de TAG</string>
+    <string name="tag_number">Número de TAG </string>
 
     <string name="phone_number_hint">Teléfono (10 Dígitos)</string>
     <string name="card_number_hint">Número de Tarjeta (16 Dígitos)</string>
@@ -649,7 +649,7 @@
 
     <string name="favor_selecciona_importe">Por Favor Selecciona un Importe</string>
     <string name="numero_iave_vacio">Número de IAVE Vacío</string>
-    <string name="numero_telefono_paises">7225499673</string>
+    <string name="numero_telefono_paises">0180050010000</string>
     <string name="numero_telefono_contactanos">0180050010000</string>
 
 
@@ -692,6 +692,7 @@
 
     <!-- Depositos -->
     <string name="datos_deposito">Tus Datos Para Depósitos</string>
+    <string name="datos_depsito_numero_celular">N° Celular:</string>
     <string name="datos_deposito_titular">Titular:</string>
     <string name="datos_deposito_num_card">N° Tarjeta:</string>
     <string name="datos_deposito_clabe">CLABE:</string>
@@ -742,8 +743,8 @@
     <string name="correo_enviado">El Mensaje Fué Enviado</string>
     <string name="enviar_email">Enviar Mail</string>
     <string name="como_ayudarte">¿Cómo Podemos Ayudarte?</string>
-    <string name="comunicate_con_nosotros">Comunícate Con Nosotros\n\n01-800-500-1000\ninformes@yaganaste.com</string>
-    <string name="comunicate_reporta">Comunícate Con Nosotros Para\nAyudarte Con la Reposición de tu Tarjeta\n\n01-800-500-1000\ninformes@yaganaste.com</string>
+    <string name="comunicate_con_nosotros">Comunícate Con Nosotros\n\n01-800-500-1000\ncontacto@yaganaste.com</string>
+    <string name="comunicate_reporta">Comunícate Con Nosotros Para\nAyudarte Con la Reposición de tu Tarjeta\n\n01-800-500-1000\ncontacto@yaganaste.com</string>
     <string name="acerca_de_app">Acerca de la App</string>
     <string name="ayuda">Ayuda</string>
     <string name="enviando_mensaje">Enviando Mensaje</string>
@@ -887,5 +888,5 @@
     <string name="details_cable">CLABE</string>
     <string name="txt_tag">Tag</string>
 
-    <string name="datos_depsito_numero_celular">N° Celular:</string>
+    <string name="close_sesion_body">Se ha Cerrado la Sesión Por Inactividad</string>
 </resources>

@@ -99,7 +99,11 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
             referenceNumber.setInputType(InputType.TYPE_CLASS_TEXT);
         }
         referenceNumber.addTextChangedListener(new NumberTagPase(referenceNumber, maxLength));
-        comisionText.setText(String.format(getString(R.string.comision_service_payment), StringUtils.getCurrencyValue(comercioItem.getSobrecargo())));
+        if(comercioItem.getSobrecargo()>0) {
+            comisionText.setText(String.format(getString(R.string.comision_service_payment), StringUtils.getCurrencyValue(comercioItem.getSobrecargo())));
+        } else {
+            comisionText.setVisibility(View.INVISIBLE);
+        }
 
     }
 

@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
@@ -131,6 +132,7 @@ public class DesasociarPhoneFragment extends GenericFragment implements View.OnC
     @Override
     public void sendSuccessDesasociarToView(String mensaje) {
         //showDialogCustom(mensaje);
+        SingletonUser.getInstance().setCardStatusId(null);
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 closeSession, true, false);
         App.getInstance().getPrefs().clearPreferences();

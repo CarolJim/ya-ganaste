@@ -29,7 +29,7 @@ public class RecargasInteractor implements IRecargasInteractor {
         }
 
 
-        if (monto == null || monto == 0.0) {
+        if (monto == null || monto <= 0.0) {
             listener.onMontoError();
             return;
         }

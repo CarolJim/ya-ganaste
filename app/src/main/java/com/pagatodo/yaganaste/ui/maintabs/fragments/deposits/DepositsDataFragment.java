@@ -8,7 +8,6 @@ import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
 import android.location.LocationManager;
-import android.nfc.Tag;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
@@ -29,13 +28,13 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
 import com.pagatodo.yaganaste.utils.FontCache;
-import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 
 /**
@@ -54,6 +53,9 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     TextView txtCableNumber;
     @BindView(R.id.btnDepositar)
     Button btnDepositar;
+    @BindView(R.id.txtNumberTitle)
+    TextView txtNumberTitle;
+
     private View rootView;
     String mensaje;
     ImageView imageshae;
@@ -62,6 +64,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     boolean isBackAvailable = false;
     CircleImageView imageView;
     int a;
+
     public static DepositsDataFragment newInstance() {
         DepositsDataFragment depositsDataFragment = new DepositsDataFragment();
         Bundle args = new Bundle();
@@ -73,7 +76,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         depositsManager = ((DepositsFragment) getParentFragment()).getDepositManager();
-        imageshae=(ImageView) getActivity().findViewById(R.id.deposito_Share);
+        imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
         imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
 
     }
@@ -96,25 +99,29 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
         initViews();
+
         UsuarioClienteResponse usuario = SingletonUser.getInstance().getDataUser().getUsuario();
-        //txtNameTitular.setText(usuario.getNombre() + " " + usuario.getPrimerApellido() + " " + usuario.getSegundoApellido());
-        txtNameTitular.setText(SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTelefono());
-        CuentaResponse cuenta = null;
+        String name = usuario.getNombre().concat(SPACE).concat(usuario.getPrimerApellido()).concat(SPACE).concat(usuario.getSegundoApellido());
+
+        txtNameTitular.setText(name);
+        txtNumberTitle.setText(getString(R.string.datos_depsito_numero_celular));
+
+        String celPhone = "";
+        String clabe = "";
         String cardNumber = "";
         if (usuario.getCuentas() != null && usuario.getCuentas().size() >= 1) {
-            cuenta = usuario.getCuentas().get(0);
+            CuentaResponse cuenta = usuario.getCuentas().get(0);
+            celPhone = usuario.getCuentas().get(0).getTelefono();
             cardNumber = getCreditCardFormat(cuenta.getTarjeta());
-            txtCableNumber.setText(
-                    StringUtils.formatoPagoMedios(
-                            cuenta.getCLABE()
-                    )
-            );
-            txtNumberCard.setText(cardNumber);
+            clabe = cuenta.getCLABE();
         }
+        txtCableNumber.setText(clabe);
+        txtNumberCard.setText(celPhone);
         printCard(cardNumber);
-        mensaje="Titular: "+(usuario.getNombre() + " " + usuario.getPrimerApellido() + " " + usuario.getSegundoApellido())+"\n"+"No de Tarjeta: "+cardNumber+"\n"+"CLABE: "+ StringUtils.formatoPagoMedios(
-                cuenta.getCLABE()
-        );
+        mensaje = getString(R.string.datos_deposito_titular).concat(SPACE).concat(name)
+                .concat("\n").concat(getString(R.string.datos_depsito_numero_celular)).concat(SPACE).concat(celPhone)
+                .concat("\n").concat(getString(R.string.datos_deposito_num_card)).concat(SPACE).concat(cardNumber)
+                .concat("\n").concat(getString(R.string.datos_deposito_clabe)).concat(SPACE).concat(clabe);
 
     }
 
@@ -138,11 +145,11 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             }
         }
         if (v.getId() == R.id.deposito_Share) {
-            a=100;
+            a = 100;
             Intent intent = new Intent(Intent.ACTION_SEND);
             intent.setType("text/plain");
 
-            intent.putExtra(Intent.EXTRA_TEXT,mensaje);
+            intent.putExtra(Intent.EXTRA_TEXT, mensaje);
             startActivity(Intent.createChooser(intent, "Compartir con.."));
         }
     }
@@ -150,10 +157,10 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("Tetst","Entre on resumen ");
-        if (a==100) {
+        Log.e("Tetst", "Entre on resumen ");
+        if (a == 100) {
             imageView.setVisibility(View.GONE);
-            a=0;
+            a = 0;
         }
     }
 
