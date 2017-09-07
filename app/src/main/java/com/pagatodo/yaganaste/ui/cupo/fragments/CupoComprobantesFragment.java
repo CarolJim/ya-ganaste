@@ -49,9 +49,11 @@ import java.io.IOException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Locale;
+import java.util.Map;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -93,7 +95,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
 
     private Boolean mExisteDocs = false;
 
-    private ArrayList<DataDocuments> dataDocuments;
+    private Map<Integer, DataDocuments> dataDocuments;
 
     private String imgs[] = new String[2];
 
@@ -162,7 +164,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
         ButterKnife.bind(this, rootview);
         //swipeRefreshLayout.setOnRefreshListener(this);
         swipeRefreshLayout.setEnabled(false);
-        dataDocuments = new ArrayList<>();
+        dataDocuments = new HashMap<>();
         layoutIdentificacion.setVisibility(View.GONE);
         layoutHelp.setVisibility(View.GONE);
 
@@ -205,10 +207,14 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
                 break;
 
             case R.id.btnWeNeedSmFilesNext:
+                ArrayList<DataDocuments> toSend = new ArrayList<>();
+                for (Map.Entry<Integer, DataDocuments> currentEntry : dataDocuments.entrySet()) {
+                    toSend.add(currentEntry.getValue());
+                }
                 if (reenviarFront || reenviarBack) {
-                    reenviaDocumentos();
+                    reenviaDocumentos(toSend);
                 } else {
-                    sendDocuments();
+                    sendDocuments(toSend);
                 }
                 break;
 
@@ -419,7 +425,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
                     dataDoc.setExtension("jpg");
                     break;
             }
-            dataDocuments.add(dataDoc);
+            dataDocuments.put(dataDoc.getTipoDocumento(), dataDoc);
             if (bitmap.isRecycled()) {
                 bitmap.recycle();
             }
@@ -431,17 +437,17 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     /**
      * Enviamos los documentos cuando se esta registrando el adquirente
      */
-    private void sendDocuments() {
+    private void sendDocuments(ArrayList<DataDocuments> toSend) {
         for (String s : imgs)
             if (s == null || s.isEmpty()) {
                 showError(App.getContext().getResources().getString(R.string.adq_must_upload_documents));
                 return;
             }
-        presenter.sendDocumentos(dataDocuments);
+        presenter.sendDocumentos(toSend);
     }
 
 
-    private void reenviaDocumentos() {
+    private void reenviaDocumentos(ArrayList<DataDocuments> toSend) {
         if (reenviarFront && ( imgs[0] == null || imgs[0].isEmpty())) {
             showError(App.getContext().getResources().getString(R.string.adq_must_upload_documents));
             return;
@@ -449,7 +455,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
             showError(App.getContext().getResources().getString(R.string.adq_must_upload_documents));
             return;
         }
-        presenter.reenviaDocumentos(dataDocuments);
+        presenter.reenviaDocumentos(toSend);
     }
 
     /**

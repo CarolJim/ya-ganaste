@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste;
 
 import android.app.Activity;
 import android.app.Application;
+import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
@@ -19,12 +20,24 @@ import android.widget.Toast;
 import com.dspread.xpos.QPOSService;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonSession;
+import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.net.VolleySingleton;
+import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui.adquirente.readers.IposListener;
 import com.pagatodo.yaganaste.utils.ApplicationLifecycleHandler;
+import com.pagatodo.yaganaste.utils.NotificationBuilder;
 import com.pagatodo.yaganaste.utils.ScreenReceiver;
 
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Locale;
+import java.util.Map;
+
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 
 /**
  * Created by flima on 17/03/17.
@@ -40,6 +53,10 @@ public class App extends Application {
     public QPOSService pos;
     public IposListener emvListener;
     private Preferencias prefs;
+
+    private ApplicationLifecycleHandler lifecycleHandler;
+
+    private Map<String, Activity> quoeeuActivites;
 
     public static App getInstance() {
         return m_singleton;
@@ -68,11 +85,20 @@ public class App extends Application {
         initEMVListener();
         RequestHeaders.initHeaders(this);
 
-        ApplicationLifecycleHandler lifecycleHandler = new ApplicationLifecycleHandler();
+        lifecycleHandler = new ApplicationLifecycleHandler();
         registerActivityLifecycleCallbacks(lifecycleHandler);
         registerComponentCallbacks(lifecycleHandler);
 
         new ScreenReceiver(getContext(), lifecycleHandler);
+        quoeeuActivites = new HashMap<>();
+    }
+
+    public void addToQuee(Activity activity) {
+        quoeeuActivites.put(activity.getClass().getSimpleName(), activity);
+    }
+
+    public void removeFromQuee(Activity activity) {
+        quoeeuActivites.remove(activity.getClass().getSimpleName());
     }
 
     // Called by the system when the device configuration changes while your component is running.
@@ -112,6 +138,37 @@ public class App extends Application {
     public Preferencias getPrefs() {
         return this.prefs;
     }
+
+    public void cerrarApp() {
+        VolleySingleton.getInstance(App.getContext()).deleteQueue();
+
+        try {
+            ApiAdtvo.cerrarSesion();// Se envia null ya que el Body no aplica.
+        } catch (OfflineException e) {
+            e.printStackTrace();
+        }
+
+        Intent intent = new Intent(this, MainActivity.class);
+        intent.putExtra(SELECTION, MAIN_SCREEN);
+        intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
+
+
+        if (lifecycleHandler.isInBackground()) {
+            NotificationBuilder.createCloseSessionNotification(this, intent, "Titulo", getString(R.string.close_sesion_body));
+            List<Activity> toClose = new ArrayList<>();
+            for (Map.Entry<String, Activity> current : quoeeuActivites.entrySet()) {
+                toClose.add(current.getValue());
+            }
+            for (Activity current : toClose) {
+                current.finish();
+            }
+        } else {
+            startActivity(intent);
+        }
+
+    }
+
+
 
 
 }

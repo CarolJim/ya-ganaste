@@ -198,7 +198,7 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
                 loadFragment(CupoDomicilioPersonalFragment.newInstance(), Direction.FORDWARD, true);
                 break;
             case EVENT_GO_CUPO_CUENTAME_MAS:
-                if (!App.getInstance().getPrefs().loadData(CUPO_PASO).isEmpty()) {
+                if (App.getInstance().getPrefs().loadData(CUPO_PASO).isEmpty()) {
                     loadFragment(CupoCuentanosMasFragment.newInstance(), Direction.FORDWARD, true);
                 } else if ( App.getInstance().getPrefs().loadData(CUPO_PASO).equals(CUPO_PASO_REGISTRO_ENVIADO) ) {
                     loadFragment(CupoComprobantesFragment.newInstance(ESTADO_ENVIO_DOCUMENTOS), Direction.FORDWARD, true);
