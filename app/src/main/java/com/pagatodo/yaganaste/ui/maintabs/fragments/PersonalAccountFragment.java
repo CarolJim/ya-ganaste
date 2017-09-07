@@ -3,8 +3,6 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.RecyclerView;
-import android.view.View;
-import android.widget.Toast;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
@@ -86,7 +84,6 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
         int tabPosition = tabMonths.getSelectedTabPosition();
 
 
-
         try {
             actualList = this.movementsList.get(tabPosition);
         } catch (Exception ex) {
@@ -101,6 +98,11 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
                     this.movementsList.get(tabPosition).addAll(actualList.size(), movementsList);
                 }
                 currentAdapter.notifyDataSetChanged();
+            } else {
+                if (direction.equals(SwipyRefreshLayoutDirection.BOTTOM)) {
+                    swipeContainer.setDirection(SwipyRefreshLayoutDirection.TOP);
+                    doubleSwipePosition.put(tabPosition, false);
+                }
             }
         } else {
             this.movementsList.set(tabPosition, movementsList);

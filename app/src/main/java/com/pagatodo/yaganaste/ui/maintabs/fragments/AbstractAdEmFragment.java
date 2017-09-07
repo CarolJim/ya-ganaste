@@ -9,8 +9,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayout;
 import com.omadahealth.github.swipyrefreshlayout.library.SwipyRefreshLayoutDirection;
@@ -28,6 +26,7 @@ import com.pagatodo.yaganaste.utils.customviews.GenericTabLayout;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 import butterknife.BindView;
@@ -55,6 +54,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
     public List<List<ItemRecycler>> movementsList;
     private View rootView;
     private int type;
+    public HashMap<Integer, Boolean> doubleSwipePosition;
 
     @BindView(R.id.recycler_movements)
     RecyclerView recyclerMovements;
@@ -92,6 +92,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         if (args != null) {
             type = args.getInt(TYPE);
         }
+        doubleSwipePosition = new HashMap<>();
     }
 
     @Override
@@ -155,14 +156,15 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void onTabSelected(TabLayout.Tab tab) {
+        if (!doubleSwipePosition.containsKey(tab.getPosition())) {
+            swipeContainer.setDirection(SwipyRefreshLayoutDirection.BOTH);
+        } else {
+            swipeContainer.setDirection(SwipyRefreshLayoutDirection.TOP);
+        }
         movementsPresenter.updateBalance();
         recyclerMovements.setVisibility(View.GONE);
+
         if (movementsList.get(tab.getPosition()) != null) {
-            /*if (movementsList.get(tab.getPosition()).size() > 0) {
-                updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
-            } else {
-                //txtInfoMovements.setVisibility(View.VISIBLE);
-            }*/
             updateRecyclerData(createAdapter(movementsList.get(tab.getPosition())));
         } else {
             showLoader("");
