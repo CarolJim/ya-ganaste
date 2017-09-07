@@ -389,4 +389,8 @@ public class StringUtils {
         String[] fullName = mFullName.split(" ");
         return fullName[0];
     }
+
+    public static String formatCardToService(String mFullName) {
+        return mFullName.replace(" ", "");
+    }
 }
