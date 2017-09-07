@@ -624,7 +624,7 @@
     <string name="txt_referencia_envio_error_clabe">Número de CLABE Incorrecta</string>
     <string name="txt_referencia_number_error">Error al Introducir el Campo Referencia Numérica.</string>
     <string name="txt_referencia_number_empty">El Campo Referencia Numérica Está Vacío.</string>
-    <string name="txt_referencia_number_short">El Campo Referencia Numérica Debe Ser de 6 Dígitos.</string>
+    <string name="txt_referencia_number_short">El Campo Referencia Numérica Debe Ser de 1 a 6 Dígitos.</string>
     <string name="title_activity_prefer_user">PreferUserActivity</string>
     <string name="recuperando_docs_estatus"></string>
     <string name="desea_cacelar">¿Deseas Salir y Cancelar la Operación Actual?</string>

@@ -107,7 +107,7 @@ public class EnviosInteractor implements IEnviosInteractor {
             return;
         }
 
-        if (reference.length() < 6) {
+        if (reference.length() < 1) {
             listener.onReferenceShort();
             return;
         }
