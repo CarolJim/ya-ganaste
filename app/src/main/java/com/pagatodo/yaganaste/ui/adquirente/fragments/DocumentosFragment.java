@@ -103,6 +103,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     LinearLayout lnr_help;
     @BindView(R.id.swiperefresh)
     SwipeRefreshLayout swipeRefreshLayout;
+
+
     private View rootview;
     private int documentProcessed = 0;
     private int documentPendientes = 0;
@@ -188,7 +190,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             initSetClickableDocs();
         }
         if (mExisteDocs){
+
             btnRegresar.setVisibility(View.GONE);
+            lnr_buttons.setVisibility(View.GONE);
         }
     }
 

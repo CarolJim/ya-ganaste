@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,6 +25,7 @@ import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
@@ -58,7 +60,8 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
     private DataLocalizaSucursal sucursal;
     private Location myLocation;
     private String number;
-
+    CircleImageView imageView;
+    int a;
 
     public static DepositSucursalDetail newInstance(DataLocalizaSucursal sucursal) {
         DepositSucursalDetail depositSucursalDetail = new DepositSucursalDetail();
@@ -71,6 +74,7 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
     }
 
     @Nullable
@@ -87,7 +91,14 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
         this.rootView = view;
         initViews();
     }
+    public void onResume() {
+        super.onResume();
 
+        if (a == 100) {
+            imageView.setVisibility(View.GONE);
+            a = 0;
+        }
+    }
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
@@ -109,6 +120,7 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sucursaltelefono:
+                a = 100;
                 number=sucursal.getNumTelefonico();
                 Intent callIntent = new Intent(Intent.ACTION_CALL);
                 callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
