@@ -31,7 +31,7 @@ public class Recursos {
     public static final String PT_CLIENT_CODE;
 
 
-    public static final long DISCONNECT_TIMEOUT = 10000;
+    public static final long DISCONNECT_TIMEOUT = 120000;
 
     //URL DE WS
     static {

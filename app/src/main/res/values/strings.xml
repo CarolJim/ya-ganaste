@@ -888,5 +888,5 @@
     <string name="details_cable">CLABE</string>
     <string name="txt_tag">Tag</string>
 
-    <string name="close_sesion_body">Se ha Cerrado la Sesión Por Inactividad</string>
+    <string name="close_sesion_body">Por tu Seguridad, Hemos Cerrado la Sesión Por Falta de Actividad</string>
 </resources>

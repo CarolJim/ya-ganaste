@@ -8,6 +8,8 @@ import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.view.ActionMode;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
@@ -18,6 +20,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.ApplicationLifecycleHandler;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -169,7 +172,15 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
 
     @Override
     public void onUserInteraction(){
+        Log.e(SupportFragmentActivity.class.getSimpleName(), "Reset From: " + getClass().getSimpleName());
         App.getInstance().resetTimer();
     }
 
+    @Override
+    public void finish() {
+        Log.e(SupportFragmentActivity.class.getSimpleName(), "Stop From: " + getClass().getSimpleName());
+        App.getInstance().stopTimer();
+        App.getInstance().removeFromQuee(this);
+        super.finish();
+    }
 }

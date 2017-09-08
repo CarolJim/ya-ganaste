@@ -40,7 +40,7 @@ public class NotificationBuilder {
         Uri defaultSoundUri = RingtoneManager.getDefaultUri(RingtoneManager.TYPE_NOTIFICATION);
         NotificationCompat.Builder notificationBuilder = new NotificationCompat.Builder(context)
                 .setContentTitle(title)
-                .setContentText(message)
+                .setStyle(new NotificationCompat.BigTextStyle().bigText(message))
                 .setAutoCancel(true)
                 .setSmallIcon(R.mipmap.ic_launcher)
                 .setSound(defaultSoundUri)

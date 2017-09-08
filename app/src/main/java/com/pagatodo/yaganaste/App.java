@@ -139,9 +139,10 @@ public class App extends Application {
         intent.putExtra(SELECTION, MAIN_SCREEN);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
 
+        Log.e("APP", "Close From: " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
         if (lifecycleHandler.isInBackground()) {
-            NotificationBuilder.createCloseSessionNotification(this, intent, "Titulo", getString(R.string.close_sesion_body));
+            NotificationBuilder.createCloseSessionNotification(this, intent, getString(R.string.app_name), getString(R.string.close_sesion_body));
             List<Activity> toClose = new ArrayList<>();
             for (Map.Entry<String, Activity> current : quoeeuActivites.entrySet()) {
                 toClose.add(current.getValue());
