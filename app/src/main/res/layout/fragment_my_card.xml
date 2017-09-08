@@ -154,7 +154,7 @@
                             android:layout_width="17dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="20dp"
-                            app:srcCompat="@drawable/edit_canvas_blue" />
+                            app:srcCompat="@drawable/arrow_canvas_blue" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -192,7 +192,7 @@
                             android:layout_width="17dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="20dp"
-                            app:srcCompat="@drawable/edit_canvas_blue" />
+                            app:srcCompat="@drawable/arrow_canvas_blue" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -231,7 +231,7 @@
                             android:layout_width="17dp"
                             android:layout_height="wrap_content"
                             android:layout_marginRight="20dp"
-                            app:srcCompat="@drawable/edit_canvas_blue" />
+                            app:srcCompat="@drawable/arrow_canvas_blue" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
