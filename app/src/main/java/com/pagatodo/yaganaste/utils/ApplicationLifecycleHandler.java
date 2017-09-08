@@ -38,16 +38,14 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        App.getInstance().addToQuee(activity);
     }
 
-    @Override
-    public void onActivityStarted(Activity activity) {
 
-    }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        if (isInBackground &&
+        /*if (isInBackground &&
                 !(activity instanceof MainActivity || activity instanceof AccountActivity
                         || activity instanceof SplashActivity || activity instanceof LandingApprovedActivity || activity instanceof OnlineTxActivity)) {
             if ((activity instanceof LandingActivity || activity instanceof ScannVisionActivity)) {
@@ -57,7 +55,9 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
             } else if ((activity instanceof LandingApprovedActivity)) {
 
             }
-        }
+        }*/
+
+        App.getInstance().resetTimer();
         isInBackground = false;
     }
 
@@ -76,28 +76,29 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
         activity.startActivity(intent);
     }
 
-    @Override
-    public void onActivityPaused(Activity activity) {
-    }
+
 
     @Override
     public void onActivityStopped(Activity activity) {
+        App.getInstance().stopTimer();
     }
 
-    @Override
-    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
 
-    }
+
 
     @Override
     public void onActivityDestroyed(Activity activity) {
-
+        App.getInstance().removeFromQuee(activity);
+        App.getInstance().stopTimer();
     }
+
+
 
     @Override
     public void onTrimMemory(int level) {
         if (level == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN || level == ComponentCallbacks2.TRIM_MEMORY_COMPLETE || level == ComponentCallbacks2.TRIM_MEMORY_MODERATE) {
             isInBackground = true;
+            App.getInstance().resetTimer();
          /*   if (isInBackground && !(activity instanceof MainActivity || activity instanceof AccountActivity || activity instanceof SplashActivity)
                     && !((SupportFragmentActivity) activity).isFromActivityForResult()) {
                 // Consumimos de manera directa el servicio de cerrar session
@@ -108,6 +109,20 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
                 }
             }*/
         }
+    }
+
+    @Override
+    public void onActivityStarted(Activity activity) {
+
+    }
+
+    @Override
+    public void onActivityPaused(Activity activity) {
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
     }
 
     @Override

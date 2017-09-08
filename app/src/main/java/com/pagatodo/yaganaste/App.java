@@ -10,6 +10,7 @@ import android.content.IntentFilter;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.multidex.MultiDex;
@@ -38,6 +39,7 @@ import java.util.Map;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
+import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
 
 /**
  * Created by flima on 17/03/17.
@@ -45,6 +47,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 
 public class App extends Application {
     private static App m_singleton;
+    private CountDownTimer countDownTimer;
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -101,20 +104,6 @@ public class App extends Application {
         quoeeuActivites.remove(activity.getClass().getSimpleName());
     }
 
-    // Called by the system when the device configuration changes while your component is running.
-    // Overriding this method is totally optional!
-    @Override
-    public void onConfigurationChanged(Configuration newConfig) {
-        super.onConfigurationChanged(newConfig);
-    }
-
-    // This is called when the overall system is running low on memory,
-    // and would like actively running processes to tighten their belts.
-    // Overriding this method is totally optional!
-    @Override
-    public void onLowMemory() {
-        super.onLowMemory();
-    }
 
     @Override
     protected void attachBaseContext(Context base) {
@@ -130,8 +119,6 @@ public class App extends Application {
         pos.setVolumeFlag(false);
         Handler handler = new Handler(Looper.myLooper());
         pos.initListener(handler, emvListener);
-        Log.i("=====", "===========>>>");
-        Log.i("=====", "===========>>> initEMVListener");
     }
 
 
@@ -166,6 +153,31 @@ public class App extends Application {
             startActivity(intent);
         }
 
+    }
+
+    public void resetTimer() {
+        stopTimer();
+        startCounter();
+    }
+
+    public void stopTimer() {
+        if(countDownTimer != null) {
+            countDownTimer.cancel();
+        }
+    }
+
+    private void startCounter() {
+        countDownTimer = new CountDownTimer(DISCONNECT_TIMEOUT, DISCONNECT_TIMEOUT) {
+            @Override
+            public void onTick(long millisUntilFinished) {
+
+            }
+            @Override
+            public void onFinish() {
+                cerrarApp();
+            }
+        };
+        countDownTimer.start();
     }
 
 

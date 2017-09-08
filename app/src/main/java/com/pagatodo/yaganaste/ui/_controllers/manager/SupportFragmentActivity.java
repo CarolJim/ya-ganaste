@@ -2,15 +2,12 @@ package com.pagatodo.yaganaste.ui._controllers.manager;
 
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Handler;
 import android.support.annotation.CallSuper;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.view.ActionMode;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
@@ -27,7 +24,6 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
-import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
 
 
 /**
@@ -40,7 +36,6 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
     public static final String EVENT_SESSION_EXPIRED = "EVENT_SESSION_EXPIRED";
     private SupportComponent mSupportComponent;
     private boolean isFromActivityForResult = false;
-    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +44,6 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         setTitle("");
         /*Validamos Permisos*/
         checkPermissions();
-        App.getInstance().addToQuee(this);
     }
 
     protected void loadFragment(@NonNull GenericFragment fragment) {
@@ -170,49 +164,12 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
     protected void onResume() {
         super.onResume();
         isFromActivityForResult = false;
-        stopDisconnectTimer();
-        startCounter();
     }
 
-    public void stopDisconnectTimer(){
-        if(countDownTimer != null) {
-            countDownTimer.cancel();
-        }
-    }
-
-    private void startCounter() {
-        /*if (!isFinishing()) {
-            countDownTimer = new CountDownTimer(DISCONNECT_TIMEOUT, DISCONNECT_TIMEOUT) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-
-                }
-
-                @Override
-                public void onFinish() {
-                    App.getInstance().cerrarApp();
-                }
-            };
-            countDownTimer.start();
-        }*/
-    }
 
     @Override
     public void onUserInteraction(){
-        stopDisconnectTimer();
-        startCounter();
+        App.getInstance().resetTimer();
     }
 
-    @Override
-    public void onStop() {
-        super.onStop();
-        stopDisconnectTimer();
-    }
-
-    @Override
-    public void finish() {
-        super.finish();
-        App.getInstance().removeFromQuee(this);
-        stopDisconnectTimer();
-    }
 }
