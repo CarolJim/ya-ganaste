@@ -14,7 +14,9 @@ import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
@@ -66,47 +68,24 @@ public class MyHelpContactanos extends GenericFragment implements View.OnClickLi
     }
 
     @Override
+    public void initViews() {
+        ButterKnife.bind(this, rootview);
+        ll_llamar1.setOnClickListener(this);
+        ll_correo.setOnClickListener(this);
+    }
+
+    @Override
     public void onClick(View view) {
 
         switch (view.getId()){
             case (R.id.btnllamar):
-                String number = getString(R.string.numero_telefono_contactanos);
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                callIntent.setData(Uri.parse("tel:" + number));
-
-                if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
-                    ValidatePermissions.checkPermissions(getActivity(), new String[]{
-                            Manifest.permission.CALL_PHONE},PERMISSION_GENERAL);
-                } else {
-                    getActivity().startActivity(callIntent);
-                }
+                showDialogCallIntent();
                 break;
             case (R.id.ll_contactanos_llamasr):
-                number = getString(R.string.numero_telefono_contactanos);
-                callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                callIntent.setData(Uri.parse("tel:" + number));
-
-                if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
-                    ValidatePermissions.checkPermissions(getActivity(), new String[]{
-                            Manifest.permission.CALL_PHONE},PERMISSION_GENERAL);
-                } else {
-                    getActivity().startActivity(callIntent);
-                }
+                showDialogCallIntent();
                 break;
             case (R.id.imgtelefonocontactanos):
-                number = getString(R.string.numero_telefono_contactanos);
-                callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                callIntent.setData(Uri.parse("tel:" + number));
-
-                if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
-                    ValidatePermissions.checkPermissions(getActivity(), new String[]{
-                            Manifest.permission.CALL_PHONE},PERMISSION_GENERAL);
-                } else {
-                    getActivity().startActivity(callIntent);
-                }
+                showDialogCallIntent();
                 break;
             case (R.id.ll_contactanos_correo):
                 onEventListener.onEvent(PREFER_USER_HELP_CORREO, 1);
@@ -118,12 +97,37 @@ public class MyHelpContactanos extends GenericFragment implements View.OnClickLi
 
     }
 
-    @Override
-    public void initViews() {
-        ButterKnife.bind(this, rootview);
-        ll_llamar1.setOnClickListener(this);
-        ll_correo.setOnClickListener(this);
-
-
+    private void showDialogCallIntent() {
+        UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaRealizarLlamada), getFragmentManager(),
+                doubleActions, true, true);
     }
+
+    private void createCallIntent() {
+        String number = getString(R.string.numero_telefono_contactanos);
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        callIntent.setData(Uri.parse("tel:" + number));
+
+        if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
+            ValidatePermissions.checkPermissions(getActivity(), new String[]{
+                    Manifest.permission.CALL_PHONE},PERMISSION_GENERAL);
+        } else {
+            getActivity().startActivity(callIntent);
+        }
+    }
+
+    /**
+     * Acciones para controlar el Dialog de OnClick, al aceptar inciamos el proceso
+     */
+    DialogDoubleActions doubleActions = new DialogDoubleActions() {
+        @Override
+        public void actionConfirm(Object... params) {
+            createCallIntent();
+        }
+
+        @Override
+        public void actionCancel(Object... params) {
+
+        }
+    };
 }

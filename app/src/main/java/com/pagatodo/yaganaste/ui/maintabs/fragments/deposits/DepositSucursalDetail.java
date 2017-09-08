@@ -16,9 +16,11 @@ import android.widget.TextView;
 import com.google.android.gms.maps.model.LatLng;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataLocalizaSucursal;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.UtilsLocation;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
@@ -109,17 +111,7 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.sucursaltelefono:
-                number=sucursal.getNumTelefonico();
-                Intent callIntent = new Intent(Intent.ACTION_CALL);
-                callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-                callIntent.setData(Uri.parse("tel:" + number));
-
-                if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
-                    ValidatePermissions.checkPermissions(getActivity(), new String[]{
-                            Manifest.permission.CALL_PHONE},PERMISSION_GENERAL);
-                } else {
-                    getActivity().startActivity(callIntent);
-                }
+                showDialogCallIntent();
                 break;
 
             case R.id.btnRoute:
@@ -143,4 +135,38 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
                 break;
         }
     }
+
+    private void showDialogCallIntent() {
+        UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaRealizarLlamada), getFragmentManager(),
+                doubleActions, true, true);
+    }
+
+    private void createCallIntent() {
+        number=sucursal.getNumTelefonico();
+        Intent callIntent = new Intent(Intent.ACTION_CALL);
+        callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+        callIntent.setData(Uri.parse("tel:" + number));
+
+        if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
+            ValidatePermissions.checkPermissions(getActivity(), new String[]{
+                    Manifest.permission.CALL_PHONE},PERMISSION_GENERAL);
+        } else {
+            getActivity().startActivity(callIntent);
+        }
+    }
+
+    /**
+     * Acciones para controlar el Dialog de OnClick, al aceptar inciamos el proceso
+     */
+    DialogDoubleActions doubleActions = new DialogDoubleActions() {
+        @Override
+        public void actionConfirm(Object... params) {
+            createCallIntent();
+        }
+
+        @Override
+        public void actionCancel(Object... params) {
+
+        }
+    };
 }

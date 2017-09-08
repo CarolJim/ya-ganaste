@@ -66,6 +66,7 @@
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
     <string name="desvincula_dispositivo_texto">Al Desvincular tu Dispositivo ya no Estará Ligado a tu Cuenta Ya Ganaste. Si Quieres Volver a Usarlo, Deberás Enviar Nuevamente el SMS de Vinculación</string>
     <string name="deseaDesasociarDispositivo">¿Desea Desasociar el Dispositivo?</string>
+    <string name="deseaRealizarLlamada">¿Desea Llamar Ahora?</string>
     <string name="sel_fotografia">Seleccionar Fotografía</string>
     <string name="myUserText">Mi Usuario</string>
 
@@ -536,7 +537,7 @@
 
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
     <string name="tienes_cuenta2">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
-    <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01-800-500-1000\n contacto@yaganaste.com</string>
+    <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01 800 500 1000\n contacto@yaganaste.com</string>
     <string name="documents_comprobantes">CFE, Teléfono, Agua (No Mayor a 3 Meses)</string>
     <string name="documents_vigentes">Credencial de Elector o Pasaporte</string>
 
@@ -743,8 +744,8 @@
     <string name="correo_enviado">El Mensaje Fué Enviado</string>
     <string name="enviar_email">Enviar Mail</string>
     <string name="como_ayudarte">¿Cómo Podemos Ayudarte?</string>
-    <string name="comunicate_con_nosotros">Comunícate Con Nosotros\n\n01-800-500-1000\ncontacto@yaganaste.com</string>
-    <string name="comunicate_reporta">Comunícate Con Nosotros Para\nAyudarte Con la Reposición de tu Tarjeta\n\n01-800-500-1000\ncontacto@yaganaste.com</string>
+    <string name="comunicate_con_nosotros">Comunícate Con Nosotros\n\n01 800 500 1000\ncontacto@yaganaste.com</string>
+    <string name="comunicate_reporta">Comunícate Con Nosotros Para\nAyudarte Con la Reposición de tu Tarjeta\n\n01 800 500 1000\ncontacto@yaganaste.com</string>
     <string name="acerca_de_app">Acerca de la App</string>
     <string name="ayuda">Ayuda</string>
     <string name="enviando_mensaje">Enviando Mensaje</string>
