@@ -149,7 +149,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         System.gc();
 
         // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
-        setVisibilityPrefer(false);
         checkDataCard();
     }
 
@@ -164,6 +163,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     @Override
     protected void onResume() {
         super.onResume();
+        setVisibilityPrefer(false);
     }
 
     private void checkDataCard() {
