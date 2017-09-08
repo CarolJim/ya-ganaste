@@ -53,6 +53,7 @@
                 android:gravity="center"
                 android:text="@string/como_ayudarte" />
 
+
             <!-- ValidatedEdittext-->
             <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                 android:id="@+id/edtxtUserName"
@@ -61,14 +62,17 @@
                 android:layout_height="wrap_content"
                 android:clickable="true"
                 android:gravity="start"
+                android:background="@drawable/rounded_border_edittext"
                 android:hint=""
+                android:focusable="true"
                 android:paddingLeft="@dimen/margin_error"
                 android:paddingTop="@dimen/margin_error"
                 android:visibility="visible"
                 app:formato="text"
                 app:hintText=""
-                app:isTextEnabled="true" />
-
+                app:isTextEnabled="true"
+                />
+            <requestFocus />
         </LinearLayout>
 
     </LinearLayout>
