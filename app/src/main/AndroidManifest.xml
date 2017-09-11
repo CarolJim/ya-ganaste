@@ -65,7 +65,7 @@
         <activity
             android:name=".ui._controllers.CupoStatusActivity"
             android:screenOrientation="portrait"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity
             android:name=".ui._controllers.MainActivity"
             android:screenOrientation="portrait"
@@ -104,7 +104,6 @@
             android:name=".ui._controllers.LandingActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
-
         <activity android:name=".ui._controllers.DetailsActivity" />
         <activity android:name=".ui._controllers.OnlineTxActivity" />
         <activity android:name=".ui.otp.activities.OtpCodeActivity" />
@@ -170,7 +169,10 @@
         <activity
             android:name=".ui._controllers.LandingApprovedActivity"
             android:label="@string/title_activity_landing_approved"
-            android:theme="@style/AppTheme"></activity>
+            android:theme="@style/AppTheme" />
+        <activity
+            android:name=".ui._controllers.SIMActivity"
+            android:launchMode="singleInstance" />
     </application>
 
 </manifest>

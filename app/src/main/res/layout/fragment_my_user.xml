@@ -113,12 +113,12 @@
                 android:orientation="vertical">
 
                 <LinearLayout
+                    android:id="@+id/fragment_my_account_desvincula"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:orientation="horizontal">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        android:id="@+id/fragment_my_account_desvincula"
                         style="@style/generic_text_style_2"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
