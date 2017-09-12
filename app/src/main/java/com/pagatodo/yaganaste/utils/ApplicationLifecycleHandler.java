@@ -19,8 +19,10 @@ import com.pagatodo.yaganaste.ui._controllers.LandingActivity;
 import com.pagatodo.yaganaste.ui._controllers.LandingApprovedActivity;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.OnlineTxActivity;
+import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui._controllers.SplashActivity;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
@@ -55,6 +57,10 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
             } else if (!((SupportFragmentActivity) activity).isFromActivityForResult()) {
                 goToLoginScreen(activity);
             } else if ((activity instanceof LandingApprovedActivity)) {
+
+            }else if ((activity instanceof TabActivity)) {
+
+            }else if ((activity instanceof PreferUserActivity)) {
 
             }
         }

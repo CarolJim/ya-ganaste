@@ -10,6 +10,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
@@ -112,6 +114,8 @@ public class CarouselItem extends FrameLayout
         View itemTemplate = inflater.inflate(R.layout.item_gallery, this, true);
         mImage = (ImageView) itemTemplate.findViewById(R.id.imgItemGalleryPay);
         mImageCiruclar = (CircleImageView) itemTemplate.findViewById(R.id.imgItemGalleryMark);
+
+
 //        View itemTemplate = inflater.inflate(R.layout.carrousel_item, this, true);
 //        mImage = (ImageView) itemTemplate.findViewById(R.id.statusIv);
 
@@ -129,6 +133,7 @@ public class CarouselItem extends FrameLayout
         mImage = (ImageView) itemTemplate.findViewById(R.id.imgItemGalleryPay);
         mImageCiruclar = (CircleImageView) itemTemplate.findViewById(R.id.imgItemGalleryMark);
         mImageCiruclar.setBorderColor(Color.parseColor(color));
+
 //        View itemTemplate = inflater.inflate(R.layout.carrousel_item, this, true);
 //        mImage = (ImageView) itemTemplate.findViewById(R.id.statusIv);
 
@@ -265,5 +270,12 @@ public class CarouselItem extends FrameLayout
 
     public String getColor() {
         return this.color;
+    }
+
+    public void setSearchImageViewMargin() {
+        MarginLayoutParams marginParams = new MarginLayoutParams(mImage.getLayoutParams());
+        marginParams.setMargins(15, 15, 15, 15);
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(marginParams);
+        mImage.setLayoutParams(layoutParams);
     }
 }
