@@ -377,7 +377,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
                 }
             }
         } else {
-            UI.createSimpleCustomDialog("", "Error al Cargar Imagen", getActivity().getSupportFragmentManager(), null, true, false);
+         //   UI.createSimpleCustomDialog("", "Error al Cargar Imagen", getActivity().getSupportFragmentManager(), null, true, false);
         }
 
     }
