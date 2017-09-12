@@ -1,6 +1,8 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
 import android.content.Context;
+import android.view.ViewGroup;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -107,7 +109,12 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
     private ArrayList<CarouselItem> getCarouselItems(List<ComercioResponse> comercios) {
         ArrayList<CarouselItem> carouselItems = new ArrayList<>();
-        carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
+
+        CarouselItem carouselItemSearch = new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null);
+        carouselItemSearch.setSearchImageViewMargin();
+
+        //carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
+        carouselItems.add(0, carouselItemSearch);
         for (ComercioResponse comercio : comercios) {
             if (comercio.getIdTipoComercio() == current_tab.getId()) {
                 if (comercio.getIdComercio() != 0) {
@@ -117,7 +124,10 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
                         carouselItems.add(new CarouselItem(App.getContext(), comercio.getLogoURL(), comercio.getColorMarca().toUpperCase(), CarouselItem.DRAG, comercio));
                     }
                 } else {
-                    carouselItems.add(new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio));
+                    //carouselItems.add(new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio));
+                    CarouselItem carouselItemSearch2 = new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio);
+                    carouselItemSearch2.setSearchImageViewMargin();
+                    carouselItems.add(carouselItemSearch2);
                 }
             }
         }
