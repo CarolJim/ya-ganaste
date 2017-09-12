@@ -444,7 +444,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         registerCupo.setColonia(colonia);
         registerCupo.setIdColonia(Idcolonia);
         registerCupo.setIdEstadoNacimineto(idEstado);
-        editBussinesZipCode.removeCustomTextWatcher(textWatcherZipCode);
+       // editBussinesZipCode.removeCustomTextWatcher(textWatcherZipCode);
 
         Log.e("Calle",        registerCupo.getCalle() );
         Log.e("numExt", ""  + registerCupo.getNumExterior());
@@ -453,7 +453,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         Log.e("Estado", "" + registerCupo.getEstadoDomicilio());
         Log.e("Colonia",""+ registerCupo.getColonia());
         Log.e("Id Colonia",""+ registerCupo.getIdColonia());
-        //cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
+       // cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
         presenter.createCupoSolicitud();
 
 
@@ -527,6 +527,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
     }
 
     private void cleanFields() {
+
         errorStreet.setVisibilityImageError(false);
         errorNumberAddress.setVisibilityImageError(false);
         errorZipCode.setVisibilityImageError(false);
@@ -570,7 +571,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
             radioIsBussinesAddress.check(R.id.radioBtnIsBussinesAddressNo);
         }
 
-        editBussinesZipCode.setText("");
+       // editBussinesZipCode.setText("");
         error.setHasConfirm(true);
         error.setHasCancel(false);
         onEventListener.onEvent(EVENT_SHOW_ERROR, error);
