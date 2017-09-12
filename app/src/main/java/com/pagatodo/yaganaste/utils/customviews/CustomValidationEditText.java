@@ -20,12 +20,14 @@ import android.util.AttributeSet;
 import android.util.Log;
 import android.util.Patterns;
 import android.util.TypedValue;
+import android.view.KeyEvent;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
@@ -391,6 +393,15 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
         editText.removeTextChangedListener(watcher);
     }
 
+    /**
+     * Asignamos el onEditorActionListener al EditText que lo solicite por emdio de este metodo
+     * Es necesario recibir una clase internar que reaccionara a las pulsaciones
+     * @param onEditorActionListener
+     */
+    public void addCustomEditorActionListener(TextView.OnEditorActionListener onEditorActionListener) {
+        editText.setOnEditorActionListener(onEditorActionListener);
+    }
+
     public void setOnFocusChangeListener(OnFocusChangeListener onFocusChangeListener) {
         editText.setOnFocusChangeListener(onFocusChangeListener);
     }
@@ -444,4 +455,5 @@ public class CustomValidationEditText extends LinearLayout implements View.OnTou
     protected void onRestoreInstanceState(Parcelable state) {
         super.onRestoreInstanceState(null);
     }
+
 }

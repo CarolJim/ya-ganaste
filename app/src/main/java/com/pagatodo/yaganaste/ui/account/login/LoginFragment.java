@@ -4,9 +4,12 @@ package com.pagatodo.yaganaste.ui.account.login;
 import android.content.Intent;
 import android.os.Bundle;
 import android.util.Log;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
@@ -248,6 +251,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 edtUserPass.imageViewIsGone(true);
             }
         });
+
+        // Asignamos el OnEditorActionListener a este CustomEditext para el efecto de consumir el servicio
+        edtUserPass.addCustomEditorActionListener(new DoneOnEditorActionListener());
     }
 
     @Override
@@ -341,6 +347,20 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         Glide.with(getContext()).load(StringUtils.procesarURLString(mUserImage))
                 .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
                 .dontAnimate().into(imgLoginExistProfile);
+    }
+
+    /**
+     * Encargada de reaccionar al codigo de pusacion KEYCODE_ENDCALL=6 para consumir el servicio
+     */
+    private class DoneOnEditorActionListener implements TextView.OnEditorActionListener {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            if (actionId == KeyEvent.KEYCODE_ENDCALL) {
+                // Toast.makeText(getContext(), "Click Enter", Toast.LENGTH_SHORT).show();
+                actionBtnLogin();
+            }
+            return false;
+        }
     }
 }
 
