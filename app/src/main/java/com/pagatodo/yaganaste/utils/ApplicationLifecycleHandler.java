@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
 import android.os.Bundle;
+import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -35,21 +36,20 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 public class ApplicationLifecycleHandler implements Application.ActivityLifecycleCallbacks,
         ComponentCallbacks2, IRequestResult {
 
+    private final String TAG = ApplicationLifecycleHandler.class.getSimpleName();
     private boolean isInBackground = false;
 
     @Override
     public void onActivityCreated(Activity activity, Bundle savedInstanceState) {
         activity.setRequestedOrientation(ActivityInfo.SCREEN_ORIENTATION_PORTRAIT);
+        App.getInstance().addToQuee(activity);
     }
 
-    @Override
-    public void onActivityStarted(Activity activity) {
 
-    }
 
     @Override
     public void onActivityResumed(Activity activity) {
-        if (isInBackground &&
+        /*if (isInBackground &&
                 !(activity instanceof MainActivity || activity instanceof AccountActivity
                         || activity instanceof SplashActivity || activity instanceof LandingApprovedActivity || activity instanceof OnlineTxActivity)) {
             if ((activity instanceof LandingActivity || activity instanceof ScannVisionActivity)) {
@@ -63,7 +63,10 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
             }else if ((activity instanceof PreferUserActivity)) {
 
             }
-        }
+        }*/
+
+        App.getInstance().resetTimer();
+        Log.e(TAG, "Reset From: " + activity.getClass().getSimpleName());
         isInBackground = false;
     }
 
@@ -82,28 +85,29 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
         activity.startActivity(intent);
     }
 
-    @Override
-    public void onActivityPaused(Activity activity) {
-    }
+
 
     @Override
     public void onActivityStopped(Activity activity) {
-    }
-
-    @Override
-    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
 
     }
+
+
+
 
     @Override
     public void onActivityDestroyed(Activity activity) {
 
     }
 
+
+
     @Override
     public void onTrimMemory(int level) {
         if (level == ComponentCallbacks2.TRIM_MEMORY_UI_HIDDEN || level == ComponentCallbacks2.TRIM_MEMORY_COMPLETE || level == ComponentCallbacks2.TRIM_MEMORY_MODERATE) {
             isInBackground = true;
+            App.getInstance().resetTimer();
+            Log.e(TAG, "Reset From: " + "Back");
          /*   if (isInBackground && !(activity instanceof MainActivity || activity instanceof AccountActivity || activity instanceof SplashActivity)
                     && !((SupportFragmentActivity) activity).isFromActivityForResult()) {
                 // Consumimos de manera directa el servicio de cerrar session
@@ -114,6 +118,20 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
                 }
             }*/
         }
+    }
+
+    @Override
+    public void onActivityStarted(Activity activity) {
+
+    }
+
+    @Override
+    public void onActivityPaused(Activity activity) {
+    }
+
+    @Override
+    public void onActivitySaveInstanceState(Activity activity, Bundle outState) {
+
     }
 
     @Override

@@ -95,7 +95,7 @@
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnConfirmDialog"
                 style="@style/buttonSquareRoundedBlue"
-                android:layout_width="0dp"
+                android:layout_width="80dp"
                 android:layout_height="@dimen/dimen_margin_pinpad"
                 android:layout_weight="1"
                 android:gravity="center"

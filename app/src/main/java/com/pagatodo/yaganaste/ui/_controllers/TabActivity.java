@@ -408,6 +408,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 goHome();
             }
         } else if (actualFragment instanceof DepositsFragment) {
+            imageView.setVisibility(View.GONE);
+            imageshare.setVisibility(View.VISIBLE);
             ((DepositsFragment) actualFragment).getDepositManager().onBtnBackPress();
         } else if (actualFragment instanceof GetMountFragment) {
             goHome();

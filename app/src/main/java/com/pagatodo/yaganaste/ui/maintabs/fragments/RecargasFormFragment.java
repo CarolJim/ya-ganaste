@@ -125,7 +125,6 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
         if (isIAVE) {
             recargaNumber.addTextChangedListener(new NumberTagPase(recargaNumber, maxLength));
             recargaNumber.setHint(getString(R.string.tag_number)+" ("+longitudReferencia+" Dígitos)");
-            recargaNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
             layoutImageContact.setVisibility(View.GONE);
         } else {
             recargaNumber.addTextChangedListener(new PhoneTextWatcher(recargaNumber));

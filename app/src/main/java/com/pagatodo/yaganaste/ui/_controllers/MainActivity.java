@@ -28,9 +28,7 @@ public class MainActivity extends ToolBarActivity {
         setContentView(R.layout.activity_fragment_conainer);
         initViews();
         String action = getIntent().getExtras().getString(SELECTION);
-        if (action.equals(NO_SIM_CARD)) {
-            loadFragment(TransactionResultFragment.newInstance(getPageResultNiSIM()));
-        } else if (action.equals(MAIN_SCREEN)) {
+        if (action.equals(MAIN_SCREEN)) {
             Preferencias prefs = App.getInstance().getPrefs();
             if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
                 Intent intent = new Intent(this, AccountActivity.class);
@@ -51,26 +49,6 @@ public class MainActivity extends ToolBarActivity {
     @Override
     public void onBackPressed() {
         finish();
-    }
-
-    /**
-     * Construimos el PageResult a mostrar en caso de no tener tarjeta SIM
-     */
-    private PageResult getPageResultNiSIM() {
-        PageResult pageResult = new PageResult();
-        pageResult.setIdResurceIcon(R.drawable.warning_canvas);
-        pageResult.setTitle(getString(R.string.no_sim_titulo));
-        pageResult.setMessage(getString(R.string.no_sim_mensaje));
-        pageResult.setDescription(getString(R.string.no_sim_desc));
-        pageResult.setNamerBtnPrimary(getString(R.string.entendido_titulo));
-        pageResult.setActionBtnPrimary(new Command() {
-            @Override
-            public void action(Context context, Object[] params) {
-                finish();
-            }
-        });
-
-        return pageResult;
     }
 
 }

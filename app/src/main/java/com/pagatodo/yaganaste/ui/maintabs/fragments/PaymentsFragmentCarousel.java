@@ -130,14 +130,14 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
 
     @Override
     public void showError() {
-        Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(getContext(), "Error", Toast.LENGTH_SHORT).show();
         layoutCarouselMain.setVisibility(View.GONE);
         txtLoadingServices.setVisibility(View.VISIBLE);
     }
 
     @Override
     public void showErrorService() {
-        UI.createSimpleCustomDialog("Error", getString(R.string.error_respuesta), getActivity().getSupportFragmentManager(), getFragmentTag());
+        UI.createSimpleCustomDialog("", getString(R.string.error_respuesta), getActivity().getSupportFragmentManager(), getFragmentTag());
     }
 
     @Override

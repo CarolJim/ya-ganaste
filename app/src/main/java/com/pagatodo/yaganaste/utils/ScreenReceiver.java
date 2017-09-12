@@ -5,6 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 
+import com.pagatodo.yaganaste.App;
+
 /**
  * Created by Jordan on 28/08/2017.
  */
@@ -25,5 +27,6 @@ public class ScreenReceiver extends BroadcastReceiver {
     @Override
     public void onReceive(Context context, Intent intent) {
         lifecycleHandler.setInBackground(true);
+        App.getInstance().resetTimer();
     }
 }

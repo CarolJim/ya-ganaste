@@ -9,6 +9,10 @@
     android:focusableInTouchMode="true"
     tools:context=".ui._controllers.AccountActivity">
 
+    <include
+        android:id="@+id/toolbarLy"
+        layout="@layout/toolbar" />
+
     <RelativeLayout
         android:id="@+id/layoutImageResult"
         android:layout_width="match_parent"
@@ -25,7 +29,7 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"
-            app:srcCompat="@drawable/ic_done" />
+            app:srcCompat="@drawable/warning_canvas" />
     </RelativeLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -36,7 +40,7 @@
         android:layout_below="@+id/layoutImageResult"
         android:layout_marginTop="@dimen/margin_medium"
         android:gravity="center"
-        android:text="@string/txt_felicidades"
+        android:text="@string/no_sim_titulo"
         app:tipo="Titulo" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -48,6 +52,7 @@
         android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:layout_marginTop="@dimen/margin_small"
         android:gravity="center"
+        android:text="@string/no_sim_mensaje"
         app:tipo="Subtitulo" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -58,6 +63,7 @@
         android:layout_below="@+id/txtSubtitleResult"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:gravity="center"
+        android:text="@string/no_sim_desc"
         app:tipo="Subtitulo" />
 
     <LinearLayout
@@ -75,7 +81,6 @@
             android:layout_height="match_parent"
             android:gravity="center_horizontal"
             android:orientation="horizontal"
-            android:visibility="gone"
             android:weightSum="100">
 
             <android.support.v4.widget.Space
@@ -85,9 +90,10 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btn_continueEnvio"
-                style="@style/buttonDirecctionBack"
+                style="@style/buttonSquareRoundedBlue"
                 android:gravity="center"
-                android:text="Terminar"
+                android:text="@string/entendido_titulo"
+                android:onClick="onClick"
                 android:textAllCaps="false" />
 
             <android.support.v4.widget.Space
@@ -95,28 +101,6 @@
                 android:layout_height="match_parent"
                 android:layout_weight="30" />
         </LinearLayout>
-
-        <!--<com.pagatodo.yaganaste.utils.customviews.StyleButton-->
-        <!--style="@style/buttonDirecctionBack"-->
-        <!--android:id="@+id/btnNextResult"-->
-        <!--android:layout_weight="1"-->
-        <!--android:layout_margin="@dimen/margin_medium"-->
-        <!--android:text="@string/next"-->
-        <!--android:visibility="visible"-->
-        <!--android:textAllCaps="false"-->
-        <!--app:protectOnclick="true"/>-->
-
-        <!--<com.pagatodo.yaganaste.utils.customviews.StyleButton-->
-        <!--android:id="@+id/btnErrorResult"-->
-        <!--android:layout_margin="@dimen/margin_medium"-->
-        <!--android:layout_weight="1"-->
-        <!--android:visibility="visible"-->
-        <!--android:textAllCaps="false"-->
-        <!--android:text="@string/title_reintentar"-->
-        <!--style="@style/buttonDirecctionNext"-->
-        <!--app:protectOnclick="true"-->
-        <!--/>-->
-
 
     </LinearLayout>
 

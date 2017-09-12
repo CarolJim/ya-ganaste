@@ -31,7 +31,7 @@ public class MyUserFragment extends GenericFragment implements View.OnClickListe
     @BindView(R.id.fragment_myuser_pass)
     LinearLayout myPass;
     @BindView(R.id.fragment_my_account_desvincula)
-    StyleTextView txtDesvincula;
+    LinearLayout txtDesvincula;
 
     View rootview;
 

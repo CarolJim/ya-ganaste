@@ -1,9 +1,8 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
-import android.os.CountDownTimer;
-import android.os.Handler;
 import android.support.annotation.CallSuper;
 import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
@@ -11,23 +10,31 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.view.ActionMode;
+import android.util.Log;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.model.PageResult;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
+import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.ui._controllers.MainActivity;
+import com.pagatodo.yaganaste.ui._controllers.SIMActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
+import com.pagatodo.yaganaste.utils.ApplicationLifecycleHandler;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
-import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
 
 
 /**
@@ -40,7 +47,6 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
     public static final String EVENT_SESSION_EXPIRED = "EVENT_SESSION_EXPIRED";
     private SupportComponent mSupportComponent;
     private boolean isFromActivityForResult = false;
-    private CountDownTimer countDownTimer;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -49,7 +55,6 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         setTitle("");
         /*Validamos Permisos*/
         checkPermissions();
-        App.getInstance().addToQuee(this);
     }
 
     protected void loadFragment(@NonNull GenericFragment fragment) {
@@ -170,49 +175,25 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
     protected void onResume() {
         super.onResume();
         isFromActivityForResult = false;
-        stopDisconnectTimer();
-        startCounter();
-    }
-
-    public void stopDisconnectTimer(){
-        if(countDownTimer != null) {
-            countDownTimer.cancel();
+         /* Validar que el celular cuente con SIM */
+        if (!ValidatePermissions.validateSIMCard(this)) {
+            startActivity(new Intent(this, SIMActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK));
+            finish();
         }
     }
 
-    private void startCounter() {
-        /*if (!isFinishing()) {
-            countDownTimer = new CountDownTimer(DISCONNECT_TIMEOUT, DISCONNECT_TIMEOUT) {
-                @Override
-                public void onTick(long millisUntilFinished) {
-
-                }
-
-                @Override
-                public void onFinish() {
-                    App.getInstance().cerrarApp();
-                }
-            };
-            countDownTimer.start();
-        }*/
-    }
 
     @Override
     public void onUserInteraction(){
-        stopDisconnectTimer();
-        startCounter();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-        stopDisconnectTimer();
+        Log.e(SupportFragmentActivity.class.getSimpleName(), "Reset From: " + getClass().getSimpleName());
+        App.getInstance().resetTimer();
     }
 
     @Override
     public void finish() {
-        super.finish();
+        Log.e(SupportFragmentActivity.class.getSimpleName(), "Stop From: " + getClass().getSimpleName());
+        App.getInstance().stopTimer();
         App.getInstance().removeFromQuee(this);
-        stopDisconnectTimer();
+        super.finish();
     }
 }
