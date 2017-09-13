@@ -43,6 +43,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB1;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB2;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_HIDE_MANIN_TAB;
+import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_SHOW_MAIN_TAB;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 
@@ -199,7 +201,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         container.setVisibility(View.GONE);
         payment_view_pager.setCurrentItem(TAB.getId() - 1);
         removeLastFragment();
-        onEventListener.onEvent(TabActivity.EVENT_CHANGE_MAIN_TAB_VISIBILITY, true);
+        onEventListener.onEvent(EVENT_SHOW_MAIN_TAB, true);
         imgPagosServiceToPayRound.setBorderColor(Color.BLACK);
         imgPagosServiceToPay.setImageResource(R.mipmap.circulo_add_servicio);
     }
@@ -274,6 +276,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
                 loadFragment(EnviosFormFragment.newInstance(), Direction.NONE, false);
                 break;
         }
+        onEventListener.onEvent(EVENT_HIDE_MANIN_TAB, null);
     }
 
     @Override

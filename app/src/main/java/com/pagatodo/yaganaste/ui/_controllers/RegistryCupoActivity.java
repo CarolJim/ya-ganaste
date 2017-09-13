@@ -83,9 +83,9 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
 
 
     @Override
-    protected void onPause() {
+    public void finish() {
         clearSingletonCupo();
-        super.onPause();
+        super.finish();
     }
 
     public static void clearSingletonCupo () {
