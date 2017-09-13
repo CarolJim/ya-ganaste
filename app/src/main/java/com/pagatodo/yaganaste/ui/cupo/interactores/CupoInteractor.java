@@ -265,14 +265,14 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
         request.setDomicilioPersonal(domicilioPersonal);
         Log.d("Cupo JSON", createParams(false, request ).toString()  );
 
-
+/*
         try {
           ApiAdtvo.CrearSolicitudCupo(request, this);
         } catch (OfflineException e) {
             accountManager.onError(CREA_SOLICITUD_CUPO, App.getInstance().getString(R.string.no_internet_access));
         }
 
-
+*/
     }
 
     private static JSONObject createParams(boolean envolve, Object oRequest) {

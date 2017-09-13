@@ -45,13 +45,12 @@
                         android:layout_height="wrap_content"
                         android:background="@drawable/rounded_border_edittext"
                         android:orientation="horizontal"
-                        android:weightSum="100">
+                       >
 
                         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                             android:id="@+id/editNameReferenciaCupo"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
-                            android:layout_weight="20"
                             app:formato="text"
                             app:hintText="@string/nameHint"
                             android:longClickable="false"
