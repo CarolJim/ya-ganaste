@@ -180,6 +180,11 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     }
 
     @Override
+    public boolean requiresTimer() {
+        return true;
+    }
+
+    @Override
     public void onEvent(String event, Object data) {
         switch (event) {
             case EVENT_GO_CM_DOCUMENTOS:

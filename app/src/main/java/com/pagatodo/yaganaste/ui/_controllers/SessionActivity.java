@@ -113,6 +113,11 @@ public class SessionActivity extends ToolBarActivity implements TabsView, OnEven
     }
 
     @Override
+    public boolean requiresTimer() {
+        return false;
+    }
+
+    @Override
     public void onEvent(String event, Object data) {
         super.onEvent(event, data);
         switch (event) {

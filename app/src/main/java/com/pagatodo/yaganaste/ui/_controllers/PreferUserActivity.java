@@ -166,6 +166,11 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         setVisibilityPrefer(false);
     }
 
+    @Override
+    public boolean requiresTimer() {
+        return true;
+    }
+
     private void checkDataCard() {
         /**
          * Si tenemos Internet consumos el servicio para actualizar la informacion de la ceunta,

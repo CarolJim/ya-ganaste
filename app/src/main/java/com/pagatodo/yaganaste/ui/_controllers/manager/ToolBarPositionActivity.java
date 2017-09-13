@@ -23,7 +23,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.interfase.ILocationChanged
  * Created by Jordan on 19/05/2017.
  */
 
-public class ToolBarPositionActivity extends LoaderActivity implements OnEventListener,
+public abstract class ToolBarPositionActivity extends LoaderActivity implements OnEventListener,
         GoogleApiClient.ConnectionCallbacks, GoogleApiClient.OnConnectionFailedListener,
         LocationListener, ILocationChanged {
 

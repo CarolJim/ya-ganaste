@@ -11,11 +11,12 @@ import android.view.View;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
 import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
 
-public class LandingApprovedActivity extends AppCompatActivity {
+public class LandingApprovedActivity extends SupportFragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -27,6 +28,11 @@ public class LandingApprovedActivity extends AppCompatActivity {
         // Guardamos en las preferencias el exitod e ser adquirente
         Preferencias prefs = App.getInstance().getPrefs();
         prefs.saveDataBool(ADQUIRENTE_APPROVED, true);
+    }
+
+    @Override
+    public boolean requiresTimer() {
+        return false;
     }
 
     public void openTabActivity(View view){

@@ -80,6 +80,11 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
     }
 
     @Override
+    public boolean requiresTimer() {
+        return false;
+    }
+
+    @Override
     public void onSuccess(DataSourceResult result) {
         switch (result.getWebService()) {
             case OBTENER_CATALOGOS:

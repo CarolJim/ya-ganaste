@@ -739,7 +739,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         CrearUsuarioClienteResponse data = (CrearUsuarioClienteResponse) response.getData();
         DataUsuarioCliente dataUser = data.getData();
         if (data.getCodigoRespuesta() == CODE_OK) {
-            RequestHeaders.setUsername(RegisterUser.getInstance().getEmail());
+            //RequestHeaders.setUsername(RegisterUser.getInstance().getEmail());
             RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion()); // Guardamos el Token de Sesión
             //Seteamos los datos del usuario en el SingletonUser.
             SingletonUser user = SingletonUser.getInstance();

@@ -13,8 +13,11 @@ import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.login.MainFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
+import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
@@ -33,10 +36,15 @@ public class MainActivity extends ToolBarActivity {
             if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
                 Intent intent = new Intent(this, AccountActivity.class);
                 intent.putExtra(SELECTION, GO_TO_LOGIN);
+                intent.putExtra(IS_FROM_TIMER, getIntent().getExtras().getBoolean(IS_FROM_TIMER, false));
                 startActivity(intent);
                 finish();
             } else {
                 loadFragment(MainFragment.newInstance(), true);
+                if (getIntent().getExtras().getBoolean(IS_FROM_TIMER, false)) {
+                    UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_body),
+                            this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
+                }
             }
         }
 
@@ -51,5 +59,9 @@ public class MainActivity extends ToolBarActivity {
         finish();
     }
 
+    @Override
+    public boolean requiresTimer() {
+        return false;
+    }
 }
 

@@ -35,6 +35,11 @@ public class OtpCodeActivity extends SupportFragmentActivity {
     }
 
     @Override
+    public boolean requiresTimer() {
+        return false;
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return false;
     }

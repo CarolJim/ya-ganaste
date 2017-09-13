@@ -68,12 +68,12 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
         iAdqView.showLoader(msg);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(DateUtil.getAdquirenteMovementDate(dataMovimientoAdq.getFecha()));
-        java.text.DateFormat dateFormat = new SimpleDateFormat("dd/MM/yyyy", Locale.US);
+        java.text.DateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd", Locale.US);
         java.text.DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
 
 
         CancellationData cancellationData = new CancellationData();
-        cancellationData.setDatelOriginalTransaction(dateFormat.format(calendar.getTime()).replace("/", ""));
+        cancellationData.setDatelOriginalTransaction(dateFormat.format(calendar.getTime()).replace("/", ""));//aaaammdd
         cancellationData.setIdOriginalTransaction(dataMovimientoAdq.getIdTransaction());
         cancellationData.setNoauthorizationOriginalTransaction(dataMovimientoAdq.getNoAutorizacion());
         cancellationData.setTicketOriginalTransaction(dataMovimientoAdq.getNoTicket());

@@ -37,12 +37,14 @@ import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_FAILED;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_SUCCES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NEW_NIP;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
@@ -96,6 +98,10 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
 
         container = (FrameLayout) findViewById(R.id.container);
 
+        if (getIntent().getExtras().getBoolean(IS_FROM_TIMER, false)) {
+            UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_body),
+                    this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
+        }
         switch (action) {
             case GO_TO_LOGIN:
                 loadFragment(loginContainerFragment, Direction.FORDWARD, false);
@@ -125,6 +131,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     protected void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
+    }
+
+    @Override
+    public boolean requiresTimer() {
+        return false;
     }
 
     @Override

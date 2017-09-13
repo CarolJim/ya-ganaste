@@ -34,6 +34,7 @@ import butterknife.ButterKnife;
 public class MainFragment extends GenericFragment implements View.OnClickListener {
 
     public final static String SELECTION = "SELECTION";
+    public final static String IS_FROM_TIMER = "IS_FROM_TIMER";
     public final static String GO_TO_LOGIN = "GO_TO_LOGIN";
     public final static String GO_TO_REGISTER = "GO_TO_REGISTER";
     public final static String NO_SIM_CARD = "NO_SIM_CARD";

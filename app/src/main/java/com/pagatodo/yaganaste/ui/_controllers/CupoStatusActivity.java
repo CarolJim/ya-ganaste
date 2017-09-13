@@ -53,4 +53,9 @@ public class CupoStatusActivity extends LoaderActivity {
 
         }
     }
+
+    @Override
+    public boolean requiresTimer() {
+        return false;
+    }
 }

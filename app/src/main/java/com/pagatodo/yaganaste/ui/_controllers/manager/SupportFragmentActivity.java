@@ -186,7 +186,7 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
     @Override
     public void onUserInteraction(){
         Log.e(SupportFragmentActivity.class.getSimpleName(), "Reset From: " + getClass().getSimpleName());
-        App.getInstance().resetTimer();
+        App.getInstance().resetTimer(this);
     }
 
     @Override
@@ -196,4 +196,6 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         App.getInstance().removeFromQuee(this);
         super.finish();
     }
+
+    public abstract boolean requiresTimer();
 }

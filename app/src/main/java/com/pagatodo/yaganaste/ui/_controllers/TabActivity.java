@@ -225,6 +225,11 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
     @Override
+    public boolean requiresTimer() {
+        return true;
+    }
+
+    @Override
     protected void onStart() {
         super.onStart();
         if (!pref.containsData(COUCHMARK_EMISOR)) {

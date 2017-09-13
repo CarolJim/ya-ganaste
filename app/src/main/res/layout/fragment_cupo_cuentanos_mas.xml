@@ -45,7 +45,8 @@
                         android:id="@+id/errorEstadoCivil"
                         style="@style/generic_text_style_2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
 
                     <Spinner
                         android:visibility="gone"
@@ -61,7 +62,8 @@
                         android:id="@+id/errorHijos"
                         style="@style/generic_text_style_2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"
+                        android:visibility="gone"/>
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         style="@style/generic_text_style_3"
@@ -94,7 +96,6 @@
                         android:id="@+id/radioGroupHasCreditBank"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_between_elements"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:theme="@style/RadioButtonTheme">
@@ -158,7 +159,6 @@
                         android:id="@+id/radioGroupHasCreditCar"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_between_elements"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:theme="@style/RadioButtonTheme">
@@ -220,7 +220,6 @@
                         android:id="@+id/radioGroupHasCreditCard"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_marginTop="@dimen/space_between_elements"
                         android:gravity="center"
                         android:orientation="horizontal"
                         android:theme="@style/RadioButtonTheme">
@@ -266,11 +265,12 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:visibility="gone"
                         app:formato="number"
                         app:hintText="@string/cupo_numero"
                         app:isSingleLine="true"
-                        app:maxLength="4" />
+                        app:maxLength="4"
+                        android:visibility="gone"
+                        android:layout_marginTop="@dimen/space_between_elements"/>
 
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
