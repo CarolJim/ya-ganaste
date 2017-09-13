@@ -8,7 +8,6 @@ import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 
 public enum Parentescos implements IEnumSpinner{
     PARENTESCO(0, "Parentesco"),
-
     PADRE(1	, "Padre"),
     MADRE(2	, "Madre"),
     HERMANO(3	, "Hermano(a)"),
@@ -42,6 +41,11 @@ public enum Parentescos implements IEnumSpinner{
             }
         }
         return PARENTESCO;
+    }
+
+    @Override
+    public String toString() {
+        return this.name;
     }
 
     @Override

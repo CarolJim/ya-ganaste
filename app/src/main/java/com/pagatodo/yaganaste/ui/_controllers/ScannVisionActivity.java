@@ -28,6 +28,7 @@ import com.google.android.gms.vision.MultiProcessor;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.google.android.gms.vision.barcode.BarcodeDetector;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.utils.barcode.BarcodeTracker;
 import com.pagatodo.yaganaste.utils.barcode.BarcodeTrackerFactory;
 import com.pagatodo.yaganaste.utils.camera.CameraSource;
@@ -39,7 +40,7 @@ import java.io.IOException;
  * Created by Jordan on 19/04/2017.
  */
 
-public class ScannVisionActivity extends AppCompatActivity implements BarcodeTracker.BarcodeGraphicTrackerCallback {
+public class ScannVisionActivity extends SupportFragmentActivity implements BarcodeTracker.BarcodeGraphicTrackerCallback {
     // Constants used to pass extra data in the intent
     public static final String BarcodeObject = "Barcode";
     // Intent request code to handle updating play services if needed.
@@ -164,6 +165,11 @@ public class ScannVisionActivity extends AppCompatActivity implements BarcodeTra
     protected void onResume() {
         super.onResume();
         startCameraSource();
+    }
+
+    @Override
+    public boolean requiresTimer() {
+        return true;
     }
 
     @Override

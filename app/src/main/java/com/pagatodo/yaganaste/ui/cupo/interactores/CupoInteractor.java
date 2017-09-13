@@ -263,14 +263,14 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
         domicilioPersonal.setIdEstado(registerCupo.getIdEstadoNacimineto());
         domicilioPersonal.setIdColonia(registerCupo.getIdColonia());
         request.setDomicilioPersonal(domicilioPersonal);
-        Log.e("Cupo JSON", createParams(false, request ).toString()  );
+        Log.d("Cupo JSON", createParams(false, request ).toString()  );
+
 
         try {
-            ApiAdtvo.CrearSolicitudCupo(request, this);
+          ApiAdtvo.CrearSolicitudCupo(request, this);
         } catch (OfflineException e) {
             accountManager.onError(CREA_SOLICITUD_CUPO, App.getInstance().getString(R.string.no_internet_access));
         }
-
 
 
     }

@@ -176,5 +176,10 @@ public class BussinesActivity extends LoaderActivity {
         super.onResume();
         setVisibilityPrefer(false);
     }
+
+    @Override
+    public boolean requiresTimer() {
+        return true;
+    }
 }
 

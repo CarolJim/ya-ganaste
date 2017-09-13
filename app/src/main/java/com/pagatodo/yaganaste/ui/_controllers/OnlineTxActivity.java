@@ -72,6 +72,11 @@ public class OnlineTxActivity extends LoaderActivity implements OnEventListener,
     }
 
     @Override
+    public boolean requiresTimer() {
+        return false;
+    }
+
+    @Override
     public void onEvent(String event, Object data) {
         super.onEvent(event, data);
         switch (event) {

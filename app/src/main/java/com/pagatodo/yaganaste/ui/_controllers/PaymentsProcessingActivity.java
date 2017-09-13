@@ -111,6 +111,11 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         setVisibilityPrefer(false);
     }
 
+    @Override
+    public boolean requiresTimer() {
+        return true;
+    }
+
 
     private void initViews() {
         ButterKnife.bind(this);

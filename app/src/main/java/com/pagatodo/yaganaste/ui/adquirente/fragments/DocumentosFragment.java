@@ -509,7 +509,6 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             }
         });
         AlertDialog alertDialog = dialogBuilder.create();
-
         alertDialog.setCancelable(false);
         alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
         alertDialog.show();

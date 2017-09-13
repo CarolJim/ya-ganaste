@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.net.VolleySingleton;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
 import com.pagatodo.yaganaste.ui.adquirente.readers.IposListener;
 import com.pagatodo.yaganaste.utils.ApplicationLifecycleHandler;
 import com.pagatodo.yaganaste.utils.NotificationBuilder;
@@ -33,10 +34,13 @@ import com.pagatodo.yaganaste.utils.ScreenReceiver;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
 import java.util.Map;
+import java.util.Set;
 
+import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
@@ -48,6 +52,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
 public class App extends Application {
     private static App m_singleton;
     private CountDownTimer countDownTimer;
+    private SupportFragmentActivity currentActivity;
 
     static {
         AppCompatDelegate.setCompatVectorFromResourcesEnabled(true);
@@ -93,15 +98,29 @@ public class App extends Application {
         registerComponentCallbacks(lifecycleHandler);
 
         new ScreenReceiver(getContext(), lifecycleHandler);
-        quoeeuActivites = new HashMap<>();
+        quoeeuActivites = new LinkedHashMap<>();
     }
 
     public void addToQuee(Activity activity) {
         quoeeuActivites.put(activity.getClass().getSimpleName(), activity);
+        if (activity instanceof SupportFragmentActivity) {
+            currentActivity = (SupportFragmentActivity) activity;
+        }
     }
 
     public void removeFromQuee(Activity activity) {
         quoeeuActivites.remove(activity.getClass().getSimpleName());
+
+        Set<Map.Entry<String, Activity>> mapValues = quoeeuActivites.entrySet();
+        int maplength = mapValues.size();
+
+        final Map.Entry<String,Activity>[] test = new Map.Entry[maplength];
+        mapValues.toArray(test);
+
+        if (test.length > 0 && test[maplength-1].getValue() instanceof SupportFragmentActivity) {
+            this.currentActivity = (SupportFragmentActivity) test[maplength-1].getValue();
+        }
+
     }
 
 
@@ -151,14 +170,24 @@ public class App extends Application {
                 current.finish();
             }
         } else {
+            intent.putExtra(IS_FROM_TIMER, true);
             startActivity(intent);
         }
 
     }
 
+    public void resetTimer(SupportFragmentActivity from) {
+        stopTimer();
+        if (from.requiresTimer()) {
+            startCounter();
+        }
+    }
+
     public void resetTimer() {
         stopTimer();
-        startCounter();
+        if (currentActivity != null && currentActivity.requiresTimer()) {
+            startCounter();
+        }
     }
 
     public void stopTimer() {

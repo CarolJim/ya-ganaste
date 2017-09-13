@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.data.model.Referencias;
 import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.CupoSpinnerTypes;
+import com.pagatodo.yaganaste.interfaces.enums.ParentescoCUPO;
 import com.pagatodo.yaganaste.interfaces.enums.Relaciones;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -131,7 +132,7 @@ public class CupoReferenciaFamiliarFragment extends GenericFragment implements V
         ButterKnife.bind(this, rootview);
 
         borderTitleLayout.setTitle(getResources().getString(R.string.titulo_referencia_familiar));
-        relacionAdapter = new CupoSpinnerArrayAdapter(getContext(), Relaciones.values(), CupoSpinnerTypes.RELACION);
+        relacionAdapter = new CupoSpinnerArrayAdapter(getContext(), ParentescoCUPO.values(), CupoSpinnerTypes.RELACION);
         spRelationshipCupo.setAdapter(relacionAdapter);
         spRelationshipCupo.setOnItemSelectedListener(this);
 

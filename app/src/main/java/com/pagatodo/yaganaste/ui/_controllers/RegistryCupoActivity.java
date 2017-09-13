@@ -24,6 +24,8 @@ import com.pagatodo.yaganaste.ui.cupo.fragments.CupoReferenciaPersonalFragment;
 import com.pagatodo.yaganaste.ui.cupo.fragments.CupoReferenciaProveedorFragment;
 import com.pagatodo.yaganaste.ui.cupo.fragments.StatusRegisterCupoFragment;
 import com.pagatodo.yaganaste.ui.cupo.managers.CupoActivityManager;
+import com.pagatodo.yaganaste.ui.preferuser.MyAccountFragment;
+import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 
 import java.util.List;
 
@@ -161,7 +163,12 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     @Override
     public void onBackPressed() {
         Fragment currentFragment = getCurrentFragment();
-        if (!(currentFragment instanceof RegisterCompleteFragment) ) {
+
+
+        if (currentFragment instanceof CupoComprobantesFragment){
+            this.finish();
+            loadFragment(CupoInicioFragment.newInstance(), Direction.BACK, false);
+        }else if (!(currentFragment instanceof RegisterCompleteFragment) ) {
             super.onBackPressed();
         }
     }
@@ -170,6 +177,11 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     protected void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
+    }
+
+    @Override
+    public boolean requiresTimer() {
+        return true;
     }
 
     @Override
@@ -189,6 +201,8 @@ public class RegistryCupoActivity extends LoaderActivity implements CupoActivity
     @Override
     public void onBtnBackPress() {
         onBackPressed();
+
+
     }
 
     @Override

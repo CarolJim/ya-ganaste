@@ -65,7 +65,7 @@ public class ApplicationLifecycleHandler implements Application.ActivityLifecycl
             }
         }*/
 
-        App.getInstance().resetTimer();
+        App.getInstance().resetTimer((SupportFragmentActivity)activity);
         Log.e(TAG, "Reset From: " + activity.getClass().getSimpleName());
         isInBackground = false;
     }

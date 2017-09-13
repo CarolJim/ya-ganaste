@@ -76,6 +76,11 @@ public class LandingActivity extends SupportFragmentActivity implements Animatio
     }
 
     @Override
+    public boolean requiresTimer() {
+        return false;
+    }
+
+    @Override
     public void onAnimationStart(Animation animation) {
         if (animation == animFadeOut) {
             animaationEnd = false;
