@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.maintabs.presenters;
 import android.content.Context;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -16,6 +17,7 @@ import com.pagatodo.yaganaste.ui.maintabs.iteractors.interfaces.IPaymentsCarouse
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.utils.StringConstants;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.ArrayList;
@@ -50,19 +52,29 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     @Override
     public ArrayList<CarouselItem> getCarouselArray() {
         ArrayList<CarouselItem> carouselItems = new ArrayList<>();
-        carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
+        CarouselItem ite = new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null);
+        ite.setSearchImageViewMargin();
+        carouselItems.add(0, ite);
         List<ComercioResponse> comercios = paymentsTabIteractor.getCatalogos().getData().getComercios();
         for (int i = 0; i < comercios.size(); i++) {
             ComercioResponse comercio = comercios.get(i);
             if (comercio.getIdTipoComercio() == current_tab.getId()) {
                 if (comercio.getIdComercio() != 0) {
+                    CarouselItem item;
                     if (comercio.getColorMarca().isEmpty()) {
-                        carouselItems.add(new CarouselItem(App.getContext(), comercio.getLogoURL(), "#10B2E6", CarouselItem.DRAG, comercio));
+                        item = new CarouselItem(App.getContext(), comercio.getLogoURL(), "#10B2E6", CarouselItem.DRAG, comercio);
+                        item.getmImage().setPadding(0,0,0,0);
+                        carouselItems.add(item);
                     } else {
-                        carouselItems.add(new CarouselItem(App.getContext(), comercio.getLogoURL(), comercio.getColorMarca().toUpperCase(), CarouselItem.DRAG, comercio));
+                        item = new CarouselItem(App.getContext(), comercio.getLogoURL(), comercio.getColorMarca().toUpperCase(), CarouselItem.DRAG, comercio);
+                        item.getmImage().setPadding(0,0,0,0);
+                        carouselItems.add(item);
                     }
                 } else {
-                    carouselItems.add(new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio));
+                    CarouselItem item = new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio);
+                    item.setSearchImageViewMargin();
+                    carouselItems.add(item);
+
                 }
             }
         }

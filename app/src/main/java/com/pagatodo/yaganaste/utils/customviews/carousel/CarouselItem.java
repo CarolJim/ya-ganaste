@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -274,8 +275,9 @@ public class CarouselItem extends FrameLayout
 
     public void setSearchImageViewMargin() {
         MarginLayoutParams marginParams = new MarginLayoutParams(mImage.getLayoutParams());
-        marginParams.setMargins(15, 15, 15, 15);
+        marginParams.setMargins(Utils.convertDpToPixels(15), Utils.convertDpToPixels(15), Utils.convertDpToPixels(15), Utils.convertDpToPixels(15));
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(marginParams);
         mImage.setLayoutParams(layoutParams);
+        mImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
     }
 }

@@ -146,7 +146,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         mPreferPresenter = new PreferUserPresenter(this);
 
         mContext = this;
-        
+
         // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
         checkDataCard();
     }
