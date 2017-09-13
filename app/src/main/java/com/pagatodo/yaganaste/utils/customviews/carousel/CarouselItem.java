@@ -274,7 +274,7 @@ public class CarouselItem extends FrameLayout
 
     public void setSearchImageViewMargin() {
         MarginLayoutParams marginParams = new MarginLayoutParams(mImage.getLayoutParams());
-        marginParams.setMargins(15, 15, 15, 15);
+        marginParams.setMargins(60, 60, 60, 60);
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(marginParams);
         mImage.setLayoutParams(layoutParams);
     }
