@@ -810,7 +810,7 @@
     <string name="producto_servicio_requerido">Producto/Servicio Requerido, Verifique su Información.</string>
     <string name="estado_civil_requerido">Estado Civil Requerido, Verifique su Información.</string>
     <string name="numero_hijos_requerido">Cantidad de Hijos Requerida, Verifique su Información.</string>
-    <string name="opcion_requerido">Seleccione una Opción, Verifique su Información.</string>
+    <string name="opcion_requerido">Seleccione Una Opción, Verifique su Información.</string>
     <string name="cupo_domicilio">¿Sigue Siendo Este tu Domicilio?</string>
 
 
@@ -818,8 +818,8 @@
     <string name="cupo_subtitle_thanks">Tu Solicitud Está\n Siendo Evaluada</string>
     <string name="cupo_title_thanks_msg">Este Proceso Puede Tardar Hasta\n 24 Horas Habiles</string>
     <string name="cupo_numero">Últimos 4 Digitos</string>
-    <string name="numero_tarjeta_vacio">Numero requerido</string>
-    <string name="numero_tarjeta_invalido">Numero Invalido</string>
+    <string name="numero_tarjeta_vacio">Número Requerido.</string>
+    <string name="numero_tarjeta_invalido">Número Invalido.</string>
 
     <string name="titulo_referencia_familiar">Referencia Familiar</string>
     <string name="cupo_referencias">Referencias</string>
