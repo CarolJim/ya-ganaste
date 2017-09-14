@@ -140,7 +140,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.iniciarSesionSimple(request, this);
             SingletonUser.getInstance().setCardStatusId(null);
         } catch (OfflineException e) {
-
             accountManager.onError(INICIAR_SESION_SIMPLE, App.getContext().getString(R.string.no_internet_access));
         }
     }
@@ -412,6 +411,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
             case CERRAR_SESION:
                 RequestHeaders.setTokensesion("");//Reseteamos el token de sesión
+                prefs.saveDataBool(App.getContext().getString(R.string.shared_preference_favorits), false); //Limpiamos bandera de descarga favoritos
                 if (logOutBefore) {
                     logOutBefore = false;
                     switch (this.operationAccount) {

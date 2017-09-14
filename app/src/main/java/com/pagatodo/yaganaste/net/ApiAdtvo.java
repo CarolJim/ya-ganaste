@@ -4,7 +4,6 @@ import android.util.Log;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.request.adq.AdqRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionAprovSofttokenRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionServicioMovilRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
@@ -45,6 +44,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContra
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CargaDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CerrarSesionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarFavoritosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioClienteResponse;
@@ -74,11 +74,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoDocument
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
-import com.pagatodo.yaganaste.ui.cupo.interactores.CupoInteractor;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
-import com.pagatodo.yaganaste.utils.JsonManager;
-
-import org.json.JSONObject;
 
 import java.util.Map;
 
@@ -119,6 +115,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIA
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTADO_DOCUMENTOS_CUPO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_FAVORITOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_SUBGIROS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
@@ -388,6 +385,7 @@ public class ApiAdtvo extends Api {
      * @param result  {@link IRequestResult} listener del resultado de la petición.
      */
     public static void iniciarSesion(IniciarSesionRequest request, IRequestResult result) throws OfflineException {
+        App.getInstance().getPrefs().saveDataBool(App.getContext().getString(R.string.shared_preference_favorits), false);
         Map<String, String> headers = getHeadersYaGanaste();
         //headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
         headers.put(RequestHeaders.TokenDispositivo, "dasdasd");
@@ -406,6 +404,7 @@ public class ApiAdtvo extends Api {
      * @param result  {@link IRequestResult} listener del resultado de la petición.
      */
     public static void iniciarSesionSimple(IniciarSesionRequest request, IRequestResult result) throws OfflineException {
+        App.getInstance().getPrefs().saveDataBool(App.getContext().getString(R.string.shared_preference_favorits), false);
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
         if (!RequestHeaders.getTokenauth().isEmpty())//Si ya se almaceno el tokenAuth, se envia en el login
@@ -713,7 +712,6 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put("Content-Type", "application/json");
-
         NetFacade.consumeWS(DESASOCIAR_DISPOSITIVO,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.desasociarDispositivo),
                 headers, request, true, DesasociarDispositivoResponse.class, result);
@@ -724,7 +722,6 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put("Content-Type", "application/json");
-
         NetFacade.consumeWS(DESASOCIAR_DISPOSITIVO,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.changePasswordUrl),
                 headers, request, true, CambiarEmailResponse.class, result);
@@ -736,7 +733,6 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put("IdOperacion", "0");
         headers.put("Content-Type", "application/json");
-
         NetFacade.consumeWS(UPDATE_DATOS_CUENTA,
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerDatosCuenta),
                 headers, request, true, ActualizarDatosCuentaResponse.class, result);
@@ -747,19 +743,15 @@ public class ApiAdtvo extends Api {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put("Content-Type", "application/json");
-
-
-
         NetFacade.consumeWS(CREA_SOLICITUD_CUPO,
                 METHOD_POST,
-                URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/  +  App.getContext().getString(R.string.cupoCrearSolicitudCupo),
+                URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/ + App.getContext().getString(R.string.cupoCrearSolicitudCupo),
                 headers,
                 request,
                 CrearCupoSolicitudResponse.class,
                 result
         );
     }
-
 
     /**
      * Método para realizar la Carga de los documentos para cupo.
@@ -768,27 +760,24 @@ public class ApiAdtvo extends Api {
      * @param result  {@link IRequestResult} listener del resultado de la petición.
      */
     public static void cargaDocumentosCupo(CargaDocumentosRequest request, IRequestResult result) throws OfflineException {
-
-
         // TODO: Cambiar a url de desarollo
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(CARGA_DOCUMENTOS_CUPO,
                 METHOD_POST,
-                URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/  + App.getContext().getString(R.string.cupoCargaDocumentos),
+                URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/ + App.getContext().getString(R.string.cupoCargaDocumentos),
                 headers,
                 request,
                 CargaDocumentosResponse.class,
                 result);
     }
 
-
     public static void actualizaDocumentosCupo(CargaDocumentosRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(ACTUALIZA_DOCUMENTOS_CUPO,
                 METHOD_POST,
-                URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/  + App.getContext().getString(R.string.cupoActualizaDocumentosCupo),
+                URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/ + App.getContext().getString(R.string.cupoActualizaDocumentosCupo),
                 headers,
                 request,
                 CargaDocumentosResponse.class,
@@ -807,42 +796,50 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         NetFacade.consumeWS(OBTENER_ESTADO_DOCUMENTOS_CUPO,
                 METHOD_GET,
-                 URL_SERVER_ADTVO  /*"http://10.140.140.247:9000"*/ + App.getContext().getString(R.string.cupoObtenerEstadoDeDocumentos),
+                URL_SERVER_ADTVO  /*"http://10.140.140.247:9000"*/ + App.getContext().getString(R.string.cupoObtenerEstadoDeDocumentos),
                 headers,
                 null,
                 EstadoDocumentosResponse.class,
                 result);
     }
 
-
-
-    public static void consultaStatusRegistroCupo(IRequestResult result) throws OfflineException{
+    public static void consultaStatusRegistroCupo(IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         NetFacade.consumeWS(
                 CONSULTA_STATUS_REGISTRO_CUPO,
                 METHOD_GET,
-                URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/  + App.getContext().getString(R.string.cupoObtenerSolicitudCupo),
+                URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/ + App.getContext().getString(R.string.cupoObtenerSolicitudCupo),
                 headers,
                 null,
                 EstadoSolicitudResponse.class,
                 result);
     }
 
-
-
-    public static void actualizarReferenciasCupo(ActualizarReferenciasCupoRequest request , IRequestResult result) throws  OfflineException {
+    public static void actualizarReferenciasCupo(ActualizarReferenciasCupoRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         NetFacade.consumeWS(
                 ACTUALIZA_REFERENCIAS,
                 METHOD_POST,
-                URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/  + App.getContext().getString(R.string.cupoActualizaReferenciasCupo),
+                URL_SERVER_ADTVO /*"http://10.140.140.247:9000"*/ + App.getContext().getString(R.string.cupoActualizaReferenciasCupo),
                 headers,
                 request,
                 ActualizaReferenciasResponse.class,
                 result);
+    }
+
+    /** Método que se emplea para consultar los datos favoritos para realizar un pago
+     *  @param result  {@link IRequestResult} listener del resultado de la petición.
+     * */
+    public static void consultarFavoritos(IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
+        NetFacade.consumeWS(OBTENER_FAVORITOS, METHOD_GET,
+                URL_SERVER_ADTVO + App.getContext().getString(R.string.consultarFavorito),
+                headers, null, ConsultarFavoritosResponse.class, result);
     }
 }

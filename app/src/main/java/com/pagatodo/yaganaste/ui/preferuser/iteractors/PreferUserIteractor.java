@@ -236,6 +236,7 @@ public class PreferUserIteractor implements IPreferUserIteractor, IRequestResult
     public void onSuccess(DataSourceResult dataSourceResult) {
         if (dataSourceResult.getData() instanceof CerrarSesionRequest) {
             //Log.d("PreferUserIteractor", "DataSource Sucess Server Error CerrarSesion");
+            App.getInstance().getPrefs().saveDataBool(App.getContext().getString(R.string.shared_preference_favorits), false);
         }
 
         /**

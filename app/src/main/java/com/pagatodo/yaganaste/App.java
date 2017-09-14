@@ -13,6 +13,7 @@ import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
 
 import com.dspread.xpos.QPOSService;
+import com.facebook.stetho.Stetho;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
@@ -79,6 +80,7 @@ public class App extends Application {
                 getBaseContext().getResources().getDisplayMetrics());
         m_singleton = this;
         //MultiDex.install(this);
+        Stetho.initializeWithDefaults(this);
 
         this.prefs = new Preferencias(this);
         System.loadLibrary("a01jni");
@@ -139,6 +141,7 @@ public class App extends Application {
 
     public void cerrarApp() {
         VolleySingleton.getInstance(App.getContext()).deleteQueue();
+        prefs.saveDataBool(App.getContext().getString(R.string.shared_preference_favorits), false);
 
         try {
             ApiAdtvo.cerrarSesion();// Se envia null ya que el Body no aplica.
