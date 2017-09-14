@@ -126,6 +126,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION_APROV_SOFTTOKEN;
+import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
 
 /**
@@ -385,7 +386,7 @@ public class ApiAdtvo extends Api {
      * @param result  {@link IRequestResult} listener del resultado de la petición.
      */
     public static void iniciarSesion(IniciarSesionRequest request, IRequestResult result) throws OfflineException {
-        App.getInstance().getPrefs().saveDataBool(App.getContext().getString(R.string.shared_preference_favorits), false);
+        App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, false);
         Map<String, String> headers = getHeadersYaGanaste();
         //headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
         headers.put(RequestHeaders.TokenDispositivo, "dasdasd");
@@ -404,7 +405,7 @@ public class ApiAdtvo extends Api {
      * @param result  {@link IRequestResult} listener del resultado de la petición.
      */
     public static void iniciarSesionSimple(IniciarSesionRequest request, IRequestResult result) throws OfflineException {
-        App.getInstance().getPrefs().saveDataBool(App.getContext().getString(R.string.shared_preference_favorits), false);
+        App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, false);
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
         if (!RequestHeaders.getTokenauth().isEmpty())//Si ya se almaceno el tokenAuth, se envia en el login

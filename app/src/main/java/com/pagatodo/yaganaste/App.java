@@ -36,6 +36,7 @@ import java.util.Set;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
+import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
 
 /**
@@ -141,7 +142,7 @@ public class App extends Application {
 
     public void cerrarApp() {
         VolleySingleton.getInstance(App.getContext()).deleteQueue();
-        prefs.saveDataBool(App.getContext().getString(R.string.shared_preference_favorits), false);
+        prefs.saveDataBool(CONSULT_FAVORITE, false);
 
         try {
             ApiAdtvo.cerrarSesion();// Se envia null ya que el Body no aplica.

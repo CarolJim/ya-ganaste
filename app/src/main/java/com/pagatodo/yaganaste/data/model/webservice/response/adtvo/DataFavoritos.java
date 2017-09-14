@@ -3,22 +3,60 @@ package com.pagatodo.yaganaste.data.model.webservice.response.adtvo;
 import android.os.Parcel;
 import android.os.Parcelable;
 
+import com.pagatodo.yaganaste.data.local.persistence.db.AbstractEntity;
+import com.pagatodo.yaganaste.data.local.persistence.db.utils.FieldName;
+import com.pagatodo.yaganaste.data.local.persistence.db.utils.TableName;
+
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.COLOR_MARCA;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.ID_COMERCIO;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.ID_CUENTA;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.ID_FAVORITO;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.ID_TIPO_COMERCIO;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.IMAGEN_URL;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.IMAGEN_URL_COMERCIO;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.IMAGEN_URL_COMERCIO_COLOR;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.NOMBRE;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.NOMBRE_COMERIO;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.REFERENCIA;
+import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.TABLE;
+
 /**
  * Created by Omar on 13/09/2017.
  */
+@TableName(TABLE)
+public class DataFavoritos extends AbstractEntity implements Parcelable {
 
-public class DataFavoritos implements Parcelable {
-
-    private String ColorMarca;
-    private long IdComercio;
-    private long IdCuenta;
+    @FieldName(value=ID_FAVORITO, primaryKey = true)
     private long IdFavorito;
+
+    @FieldName(COLOR_MARCA)
+    private String ColorMarca;
+
+    @FieldName(ID_COMERCIO)
+    private long IdComercio;
+
+    @FieldName(ID_CUENTA)
+    private long IdCuenta;
+
+    @FieldName(ID_TIPO_COMERCIO)
     private int IdTipoComercio;
+
+    @FieldName(IMAGEN_URL)
     private String ImagenURL;
+
+    @FieldName(IMAGEN_URL_COMERCIO)
     private String ImagenURLComercio;
+
+    @FieldName(IMAGEN_URL_COMERCIO_COLOR)
     private String ImagenURLComercioColor;
+
+    @FieldName(NOMBRE)
     private String Nombre;
+
+    @FieldName(NOMBRE_COMERIO)
     private String NombreComercio;
+
+    @FieldName(REFERENCIA)
     private String Referencia;
 
     public String getColorMarca() {

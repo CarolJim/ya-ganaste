@@ -115,6 +115,8 @@ public class Recursos {
 
     // Preferencias para Foto de Usuario. URL
     public static final String URL_PHOTO_USER = "URL_PHOTO_USER";
+    public static final String CONSULT_FAVORITE = "CONSULT_FAVORITE";
+
 
     /**
      * Catálogos
