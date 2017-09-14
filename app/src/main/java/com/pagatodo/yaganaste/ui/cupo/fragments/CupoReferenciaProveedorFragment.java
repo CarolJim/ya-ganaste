@@ -154,7 +154,7 @@ public class CupoReferenciaProveedorFragment extends GenericFragment implements 
         RegisterCupo registerCupo = RegisterCupo.getInstance();
         editNameReferenciaCupo.setText(registerCupo.getProveedorNombre());
         editFirstLastNameReferencuaCupo.setText(registerCupo.getProveedorApellidoPaterno());
-        editSecoundLastNameReferenciaCupo.setText(registerCupo.getPersonalApellidoMaterno());
+        editSecoundLastNameReferenciaCupo.setText(registerCupo.getProveedorApellidoMaterno());
         editPhoneReferenciaCupoProveedor.setText(registerCupo.getProveedorTelefono());
         editProductCupo.setText(registerCupo.getProveedorProductoServicio());
     }

@@ -265,7 +265,6 @@ public class CupoInteractor implements ICupoInteractor, IRequestResult {
         request.setDomicilioPersonal(domicilioPersonal);
         Log.d("Cupo JSON", createParams(false, request ).toString()  );
 
-
         try {
           ApiAdtvo.CrearSolicitudCupo(request, this);
         } catch (OfflineException e) {
