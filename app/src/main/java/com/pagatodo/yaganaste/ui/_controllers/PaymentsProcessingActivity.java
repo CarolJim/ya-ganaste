@@ -14,11 +14,13 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
+import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
+import com.pagatodo.yaganaste.ui._controllers.manager.AddFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentSuccessFragment;
@@ -54,6 +56,11 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     private boolean isAvailableToBack = false;
     private MovementsTab tab;
     private String mensajeLoader = "";
+    EjecutarTransaccionResponse response;
+    private String nombreComercio = "";
+    private int idComercio = 0;
+    private int idTipoComercio = 0;
+    private String referencia = "";
 
     public static final String EVENT_SEND_PAYMENT = "EVENT_SEND_PAYMENT";
 
@@ -87,9 +94,9 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             case EVENT_SEND_PAYMENT:
                 try {
 
-                    if (data instanceof Envios){
-                       // if (!nombreComercio.equals(YA_GANASTE)) {
-                        int idComercio = ((Envios)data).getComercio().getIdComercio();
+                    if (data instanceof Envios) {
+                        // if (!nombreComercio.equals(YA_GANASTE)) {
+                        int idComercio = ((Envios) data).getComercio().getIdComercio();
                         if (!(idComercio == IDCOMERCIO_YA_GANASTE)) {
                             mensajeLoader = getString(R.string.envio_interbancario, mensajeLoader);
                             showLoader(getString(R.string.procesando_envios_inter_loader));
@@ -158,7 +165,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     @Override
     public void onSuccessPaymentRespone(DataSourceResult result) {
         isAvailableToBack = true;
-        EjecutarTransaccionResponse response = (EjecutarTransaccionResponse) result.getData();
+        response = (EjecutarTransaccionResponse) result.getData();
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             hideLoader();
             changeToolbarVisibility(true);
@@ -168,6 +175,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         } else {
             onFailPaimentResponse(result);
         }
+        saveDataResponse();
     }
 
     @Override
@@ -198,5 +206,21 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return false;
+    }
+
+    private void saveDataResponse() {
+        nombreComercio = ((Servicios) pago).getComercio().getNombreComercio();
+        idComercio = ((Servicios) pago).getComercio().getIdComercio();
+        idTipoComercio = ((Servicios) pago).getComercio().getIdTipoComercio();
+        referencia = ((Servicios) pago).getReferencia();
+    }
+
+    public void openAddFavoritos(View view) {
+        Intent intent = new Intent(this, AddFavoritesActivity.class);
+        intent.putExtra("nombreComercio", nombreComercio);
+        intent.putExtra("idComercio", idComercio);
+        intent.putExtra("idTipoComercio", idTipoComercio);
+        intent.putExtra("referencia", referencia);
+        startActivity(intent);
     }
 }

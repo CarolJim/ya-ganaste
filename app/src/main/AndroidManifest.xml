@@ -173,6 +173,7 @@
         <activity
             android:name=".ui._controllers.SIMActivity"
             android:launchMode="singleInstance" />
+        <activity android:name=".ui._controllers.manager.AddFavoritesActivity"></activity>
     </application>
 
 </manifest>

@@ -336,6 +336,21 @@
             android:layout_marginTop="@dimen/margin_xsmall" />
     </LinearLayout>
 
+    <LinearLayout android:id="@+id/layout_addfavorites" android:visibility="gone"
+        android:layout_width="match_parent" android:orientation="vertical" android:gravity="center"
+        android:layout_height="wrap_content">
+    <Button android:onClick="openAddFavoritos"
+        android:layout_width="wrap_content" android:text="Click ME" android:gravity="center"
+        android:layout_height="wrap_content" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            style="@style/generic_text_style_3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="Agregar a Favoritos" />
+    </LinearLayout>
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="0dp"

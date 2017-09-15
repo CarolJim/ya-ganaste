@@ -6,6 +6,7 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -86,6 +87,8 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     StyleButton btnContinueEnvio;
     @BindView(R.id.layoutFavoritos)
     LinearLayout layoutFavoritos;
+    @BindView(R.id.layout_addfavorites)
+    LinearLayout addFavorites;
     Payments pago;
     EjecutarTransaccionResponse result;
     /****/
@@ -133,6 +136,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
+        addFavorites.setVisibility(View.VISIBLE);
 
         if (pago instanceof Recarga) {
             title.setText(R.string.title_recarga_success);
