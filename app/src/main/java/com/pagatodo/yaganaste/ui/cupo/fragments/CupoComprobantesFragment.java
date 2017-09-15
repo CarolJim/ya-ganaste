@@ -125,7 +125,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
 
     private Boolean reenviarFront = false;
     private Boolean reenviarBack  = false;
-
+    ArrayList<DataEstadoDocumentos> dataStatusDocuments;
 
 
     private CupoDomicilioPersonalPresenter presenter;
@@ -142,6 +142,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         contador = new ArrayList<>();
+        dataStatusDocuments = new ArrayList<>();
         cupoActivityManager = ((RegistryCupoActivity) getActivity()).getCupoActivityManager();
         presenter = new CupoDomicilioPersonalPresenter(this, getContext());
         presenter.setIView(this);
@@ -186,24 +187,26 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
 
     @Override
     public void onClick(View v) {
+
         switch (v.getId()) {
             case R.id.btnRegresar:
                 cupoActivityManager.onBtnBackPress();
                 //cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_INICIO, null);
                 break;
-            /*
-            case R.id.btnWeNeedSmFilesNext:
-                cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPLETE, null);
-                //getActivity().finish();
-                break;
-            */
-
             case R.id.itemWeNeedSmFilesAddressFront:
-                selectImageSource(COMPROBANTE_FRONT);
+                if (dataStatusDocuments.size() > 0 && dataStatusDocuments.get(0).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
+                    showDocumentRejected(dataStatusDocuments.get(0), 2);
+                } else {
+                    selectImageSource(COMPROBANTE_FRONT);
+                }
                 break;
 
             case R.id.itemWeNeedSmFilesAddressBack:
-                selectImageSource(COMPROBANTE_BACK);
+                if (dataStatusDocuments.size() > 0 && dataStatusDocuments.get(1).getIdEstatus() == STATUS_DOCTO_RECHAZADO) {
+                    showDocumentRejected(dataStatusDocuments.get(1), 3);
+                } else {
+                    selectImageSource(COMPROBANTE_BACK);
+                }
                 break;
 
             case R.id.btnWeNeedSmFilesNext:
@@ -529,6 +532,12 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     @Override
     public void setResponseEstadoDocumentos(List<DataEstadoDocumentos> datos) {
         int idDrawableStatus;
+        if (datos != null && datos.size() > 0) {
+            // Borramos los elementos de nuestro array de apoyo
+            dataStatusDocuments.clear();
+            dataStatusDocuments = (ArrayList<DataEstadoDocumentos>) datos;
+
+        }
         for (int i=0; i<datos.size(); i++) {
 
             DataEstadoDocumentos actual = datos.get(i);
@@ -591,7 +600,28 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
         }
 
     }
+    public void showDocumentRejected(DataEstadoDocumentos mData, final int mPosition) {
+        UI.createSimpleCustomDialogError(mData.getMotivo(), mData.getComentario(), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
+                switch (mPosition) {
+                    case 2:
+                        selectImageSource(COMPROBANTE_FRONT);
+                        break;
+                    case 3:
+                        selectImageSource(COMPROBANTE_BACK);
+                        break;
+                    default:
+                        break;
+                }
+            }
 
+            @Override
+            public void actionCancel(Object... params) {
+
+            }
+        }, true, false, getString(R.string.adq_upload_again));
+    }
     @Override
     public void setResponseActualizaDocumentos() {
         App.getInstance().getPrefs().saveData( CUPO_PASO , CUPO_PASO_DOCUMENTOS_ENVIADOS);
