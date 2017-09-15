@@ -1417,8 +1417,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
                 mImages.get(i).setIndex(i);
             }
-
-
         }
 
 

@@ -59,7 +59,7 @@
             android:layout_marginBottom="8dp"
             android:padding="4dp"
             android:src="@mipmap/circulo_favorito"
-            android:visibility="gone"
+            android:visibility="visible"
             tools:ignore="ContentDescription" />
 
     </RelativeLayout>

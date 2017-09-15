@@ -6,8 +6,8 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
@@ -43,6 +43,8 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     LinearLayout layoutCarouselMain;
     @BindView(R.id.txtLoadingServices)
     StyleTextView txtLoadingServices;
+    @BindView(R.id.imgPagosFavs)
+    ImageView imgPagosFavs;
     View rootView;
     Carousel.ImageAdapter mainImageAdapter = null;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
@@ -72,7 +74,6 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         carouselMain.setSelection(2, false);
     }
 
-
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
@@ -96,6 +97,12 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
             @Override
             public void onClick(View v) {
                 paymentsCarouselPresenter.getCarouselItems();
+            }
+        });
+        imgPagosFavs.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                paymentsCarouselPresenter.getFavoriteCarouselItems();
             }
         });
         //setCarouselAdapter(this.paymentsCarouselPresenter.getCarouselArray());
@@ -147,7 +154,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
 
     @Override
     public void onError(String error) {
-
+        UI.createSimpleCustomDialog("", error, getActivity().getSupportFragmentManager(), getFragmentTag());
     }
 
     @Override
@@ -159,7 +166,11 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
             Collections.sort(response, new Comparator<CarouselItem>() {
                 @Override
                 public int compare(CarouselItem o1, CarouselItem o2) {
-                    return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
+                    if(o1.getComercio() != null) {
+                        return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
+                    } else {
+                        return o1.getFavoritos().getNombreComercio().compareToIgnoreCase(o2.getFavoritos().getNombreComercio());
+                    }
                 }
             });
             dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
@@ -173,6 +184,5 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
                 setCarouselAdapter(response);
             }
         }
-
     }
 }

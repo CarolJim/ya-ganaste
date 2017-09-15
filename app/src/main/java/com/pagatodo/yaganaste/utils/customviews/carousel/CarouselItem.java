@@ -16,6 +16,7 @@ import android.widget.RelativeLayout;
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.utils.Utils;
 
 import de.hdodenhof.circleimageview.CircleImageView;
@@ -43,6 +44,7 @@ public class CarouselItem extends FrameLayout
     private Matrix mCIMatrix;
     private int gestureType;
     private ComercioResponse comercio;
+    private DataFavoritos favoritos;
 
     public CarouselItem(Context context) {
         super(context);
@@ -57,6 +59,13 @@ public class CarouselItem extends FrameLayout
         inflateLayout();
     }
 
+    public CarouselItem(Context context, DataFavoritos favoritos) {
+        super(context);
+        this.context = context;
+        this.favoritos = favoritos;
+        inflateLayout();
+    }
+
     public CarouselItem(Context context, int resource, int gestureType, ComercioResponse comercio) {
         super(context);
         this.context = context;
@@ -64,6 +73,17 @@ public class CarouselItem extends FrameLayout
         inflateLayout();
         this.drawable = resource;
         this.comercio = comercio;
+        mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
+
+    }
+
+    public CarouselItem(Context context, int resource, int gestureType, DataFavoritos favoritos) {
+        super(context);
+        this.context = context;
+        this.gestureType = gestureType;
+        inflateLayout();
+        this.drawable = resource;
+        this.favoritos = favoritos;
         mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
 
     }
@@ -79,7 +99,18 @@ public class CarouselItem extends FrameLayout
 
     }
 
-    public CarouselItem(Context context, int resource, String color, int gestureType, ComercioResponse comercio) {
+    public CarouselItem(Context context, String imageUrl, int gestureType, DataFavoritos favoritos) {
+        super(context);
+        this.context = context;
+        this.gestureType = gestureType;
+        this.imageUrl = imageUrl;
+        this.favoritos = favoritos;
+        inflateLayout();
+        Glide.with(getContext()).load(imageUrl).crossFade(0).into(mImage);
+
+    }
+
+    public CarouselItem(Context context, int resource, String color, int gestureType, ComercioResponse comercio, DataFavoritos favoritos) {
         super(context);
         this.context = context;
         this.gestureType = gestureType;
@@ -97,6 +128,18 @@ public class CarouselItem extends FrameLayout
         this.gestureType = gestureType;
         this.imageUrl = imageUrl;
         this.comercio = comercio;
+        this.color = color;
+        inflateLayout(color);
+        Glide.with(context).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
+
+    }
+
+    public CarouselItem(Context context, String imageUrl, String color, int gestureType, DataFavoritos favoritos) {
+        super(context);
+        this.context = context;
+        this.gestureType = gestureType;
+        this.imageUrl = imageUrl;
+        this.favoritos = favoritos;
         this.color = color;
         inflateLayout(color);
         Glide.with(context).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
@@ -268,6 +311,8 @@ public class CarouselItem extends FrameLayout
     public ComercioResponse getComercio() {
         return this.comercio;
     }
+
+    public DataFavoritos getFavoritos() { return this.favoritos; }
 
     public String getColor() {
         return this.color;
