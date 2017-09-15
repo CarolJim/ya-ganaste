@@ -528,27 +528,36 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
 
     @Override
     public void setResponseEstadoDocumentos(List<DataEstadoDocumentos> datos) {
+        int idDrawableStatus;
         for (int i=0; i<datos.size(); i++) {
 
             DataEstadoDocumentos actual = datos.get(i);
             int estado = actual.getIdEstatus();
 
             if (actual.getTipoDocumento() == DOC_CUPO_FRONT  ) {
+
+
                 switch (estado) {
                     case STATUS_DOCTO_PENDIENTE:
-                        itemWeNeedSmFilesAddressFront.setCenterDrawable(R.drawable.ic_status_pending);
+                        idDrawableStatus = R.drawable.ic_wait;
+                        //itemWeNeedSmFilesAddressFront.setCenterDrawable(R.drawable.ic_status_pending);
                         itemWeNeedSmFilesAddressFront.setVisibilityStatus(false);
                         itemWeNeedSmFilesAddressFront.setOnClickListener(null);
+                        itemWeNeedSmFilesAddressFront.setBackgroundResource(idDrawableStatus);
                         break;
                     case STATUS_DOCTO_APROBADO:
-                        itemWeNeedSmFilesAddressFront.setCenterDrawable(R.drawable.ic_status_ok);
+                        idDrawableStatus = R.drawable.ic_document_done;
+                        //itemWeNeedSmFilesAddressFront.setCenterDrawable(R.drawable.ic_status_ok);
                         itemWeNeedSmFilesAddressFront.setVisibilityStatus(false);
                         itemWeNeedSmFilesAddressFront.setOnClickListener(null);
+                        itemWeNeedSmFilesAddressFront.setBackgroundResource(idDrawableStatus);
                         break;
                     case STATUS_DOCTO_RECHAZADO:
-                        itemWeNeedSmFilesAddressFront.setCenterDrawable(R.drawable.warning_1_canvas);
+                        idDrawableStatus = R.drawable.ic_alerta;
+                        //itemWeNeedSmFilesAddressFront.setCenterDrawable(R.drawable.warning_1_canvas);
                         itemWeNeedSmFilesAddressFront.setVisibilityStatus(false);
                         itemWeNeedSmFilesAddressFront.setOnClickListener(this);
+                        itemWeNeedSmFilesAddressFront.setBackgroundResource(idDrawableStatus);
                         reenviarFront = true;
                         break;
                 }
@@ -556,20 +565,26 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
             } else if (actual.getTipoDocumento() == DOC_CUPO_BACK) {
                 switch (estado) {
                     case STATUS_DOCTO_PENDIENTE:
-                        itemWeNeedSmFilesAddressBack.setCenterDrawable(R.drawable.ic_status_pending);
+                        idDrawableStatus = R.drawable.ic_wait;
+                        //itemWeNeedSmFilesAddressBack.setCenterDrawable(R.drawable.ic_status_pending);
                         itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
                         itemWeNeedSmFilesAddressBack.setOnClickListener(null);
+                        itemWeNeedSmFilesAddressBack.setBackgroundResource(idDrawableStatus);
                         break;
                     case STATUS_DOCTO_APROBADO:
-                        itemWeNeedSmFilesAddressBack.setCenterDrawable(R.drawable.ic_status_ok);
+                        idDrawableStatus = R.drawable.ic_document_done;
+                        //itemWeNeedSmFilesAddressBack.setCenterDrawable(R.drawable.ic_status_ok);
                         itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
                         itemWeNeedSmFilesAddressBack.setOnClickListener(null);
+                        itemWeNeedSmFilesAddressBack.setBackgroundResource(idDrawableStatus);
                         break;
                     case STATUS_DOCTO_RECHAZADO:
-                        itemWeNeedSmFilesAddressBack.setCenterDrawable(R.drawable.warning_1_canvas);
+                        idDrawableStatus = R.drawable.ic_alerta;
+                        //itemWeNeedSmFilesAddressBack.setCenterDrawable(R.drawable.warning_1_canvas);
                         itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
                         itemWeNeedSmFilesAddressBack.setOnClickListener(this);
                         reenviarBack = true;
+                        itemWeNeedSmFilesAddressBack.setBackgroundResource(idDrawableStatus);
                         break;
                 }
             }
