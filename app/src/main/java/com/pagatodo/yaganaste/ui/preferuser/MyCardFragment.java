@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaR
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -137,7 +138,24 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
     public void initViews() {
         ButterKnife.bind(this, rootview);
         mName = getArguments().getString(M_NAME);
-        mNameTV.setText(mName);
+        UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
+
+        String nombreprimerUser;
+        String apellidoMostrarUser;
+        if (userData.getPrimerApellido().isEmpty()){
+            apellidoMostrarUser=userData.getSegundoApellido();
+        }else {
+            apellidoMostrarUser=userData.getPrimerApellido();
+        }
+        nombreprimerUser= StringUtils.getFirstName(userData.getNombre());
+        if (nombreprimerUser.isEmpty()){
+            nombreprimerUser=userData.getNombre();
+        }
+
+        //tv_name.setText(mName);
+         mNameTV.setText(nombreprimerUser+" "+apellidoMostrarUser);
+        //mNameTV.setText(mName);
+
         textodata= getArguments().getString(M_TDC);
         /**
          * Mostramos la uinformacion disponible de la Card que tenemos desde el Singleton

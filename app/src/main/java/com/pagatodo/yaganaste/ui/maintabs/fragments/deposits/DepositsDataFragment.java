@@ -28,6 +28,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
 import com.pagatodo.yaganaste.utils.FontCache;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
@@ -99,10 +100,25 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
         initViews();
+        UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
+
+        String nombreprimerUser;
+        String apellidoMostrarUser;
+        if (userData.getPrimerApellido().isEmpty()){
+            apellidoMostrarUser=userData.getSegundoApellido();
+        }else {
+            apellidoMostrarUser=userData.getPrimerApellido();
+        }
+        nombreprimerUser= StringUtils.getFirstName(userData.getNombre());
+        if (nombreprimerUser.isEmpty()){
+            nombreprimerUser=userData.getNombre();
+        }
 
         UsuarioClienteResponse usuario = SingletonUser.getInstance().getDataUser().getUsuario();
-        String name = usuario.getNombre().concat(SPACE).concat(usuario.getPrimerApellido()).concat(SPACE).concat(usuario.getSegundoApellido());
+        //String name = usuario.getNombre().concat(SPACE).concat(usuario.getPrimerApellido()).concat(SPACE).concat(usuario.getSegundoApellido());
 
+        //txtNameTitular.setText(name);
+        String name=nombreprimerUser+" "+apellidoMostrarUser;
         txtNameTitular.setText(name);
         txtNumberTitle.setText(getString(R.string.datos_depsito_numero_celular));
 

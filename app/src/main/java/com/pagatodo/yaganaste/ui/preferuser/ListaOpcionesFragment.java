@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
@@ -30,6 +31,7 @@ import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
@@ -161,7 +163,23 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
         // Hacemos SET de la infromacion del user
         // mName = "Mi Nombre";
         // mEmail = "mimail@micorreo.com";
-        tv_name.setText(mName);
+
+        UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
+
+        String nombreprimerUser;
+        String apellidoMostrarUser;
+        if (userData.getPrimerApellido().isEmpty()){
+            apellidoMostrarUser=userData.getSegundoApellido();
+        }else {
+            apellidoMostrarUser=userData.getPrimerApellido();
+        }
+        nombreprimerUser= StringUtils.getFirstName(userData.getNombre());
+        if (nombreprimerUser.isEmpty()){
+            nombreprimerUser=userData.getNombre();
+        }
+
+        //tv_name.setText(mName);
+        tv_name.setText(nombreprimerUser+" "+apellidoMostrarUser);
         tv_email.setText(mEmail);
 
         // Hacemos Set de la version de codigo

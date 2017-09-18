@@ -23,6 +23,7 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
@@ -135,7 +136,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
-
+        UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
         payment_view_pager.setAdapter(viewPAgerAdapter);
         payment_view_pager.setCurrentItem(0);
         bringViewToFront((RelativeLayout) botonRecargas.getParent(), botonRecargas.getId());
@@ -154,7 +155,8 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         botonEnvios.setOnClickListener(this);
 
         rlimgPagosServiceToPay.setOnDragListener(this);
-        txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre()));
+       // txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre()));
+        txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre())+" "+ userData.getPrimerApellido());
         txtBalance.setText(getString(R.string.your_balance).concat(StringUtils.getCurrencyValue(singletonUser.getDatosSaldo().getSaldoEmisor())));
     }
 
