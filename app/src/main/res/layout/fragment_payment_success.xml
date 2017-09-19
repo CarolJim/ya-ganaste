@@ -6,9 +6,9 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:background="#000000"
     android:orientation="vertical"
     android:weightSum="90"
+    tools:background="#000000"
     tools:context=".ui._controllers.PaymentsProcessingActivity">
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -288,9 +288,9 @@
             style="@style/GenericCustomValidationEditText"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            app:defaultIcon="@null"
             android:layout_marginTop="@dimen/margin_medium"
             android:gravity="center"
+            app:defaultIcon="@null"
             app:formato="email"
             app:hintText="@string/txt_mail" />
 
@@ -334,6 +334,35 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/margin_xsmall" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_addfavorites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal|bottom"
+            android:padding="4dp"
+            android:src="@mipmap/circulo_favorito"
+            android:onClick="openAddFavoritos"
+            android:visibility="visible"
+            tools:ignore="ContentDescription" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            style="@style/generic_text_style_3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="Agregar a Favoritos" />
     </LinearLayout>
 
     <LinearLayout
