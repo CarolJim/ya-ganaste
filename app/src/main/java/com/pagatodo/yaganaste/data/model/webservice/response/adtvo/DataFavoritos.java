@@ -167,7 +167,20 @@ public class DataFavoritos extends AbstractEntity implements Parcelable {
         dest.writeString(this.Referencia);
     }
 
-    public DataFavoritos() {
+    public DataFavoritos(String colorMarca, int idComercio, int idCuenta, int idFavorito, int idTipoComercio,
+                         String imagenURL, String imagenURLComercio, String imagenURLComercioColor,
+                         String nombre, String nombreComercio, String referencia) {
+        this.ColorMarca = colorMarca;
+        this.IdComercio = idComercio;
+        this.IdCuenta = idCuenta;
+        this.IdFavorito = idFavorito;
+        this.IdTipoComercio = idTipoComercio;
+        this.ImagenURL = imagenURL;
+        this.ImagenURLComercio = imagenURLComercio;
+        this.ImagenURLComercioColor = imagenURLComercioColor;
+        this.Nombre = nombre;
+        this.NombreComercio = nombreComercio;
+        this.Referencia = referencia;
     }
 
     protected DataFavoritos(Parcel in) {

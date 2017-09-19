@@ -63,6 +63,8 @@
     <string name="generate_rpc">/GenerarCodigoRecuperacionSoftToken</string>
     <string name="enviarCorreo">/EnviarCorreoContactanos</string>
     <string name="consultarFavorito">/ConsultarFavorito</string>
+    <string name="addFavoritos">/AgregarFavorito</string>
+
 
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
     <string name="desvincula_dispositivo_texto">Al Desvincular tu Dispositivo ya no Estará Ligado a tu Cuenta Ya Ganaste. Si Quieres Volver a Usarlo, Deberás Enviar Nuevamente el SMS de Vinculación</string>
@@ -891,4 +893,9 @@
     <string name="txt_tag">Tag</string>
 
     <string name="close_sesion_body">Por tu Seguridad, Hemos Cerrado la Sesión Por Falta de Actividad</string>
+    <string name="addFavorites">Agregar a Favoritos</string>
+    <string name="addFavoritesAlias">Alias</string>
+    <string name="addFavoritesServicio">Servicio</string>
+    <string name="addFavoritesReferencia">Referencia</string>
+    <string name="addFavoritesErrorAlias">Es necesario un alias para proceder</string>
 </resources>

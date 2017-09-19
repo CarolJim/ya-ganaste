@@ -103,6 +103,10 @@ public enum WebService {
      **/
     ESTATUS_CUENTA,
     /**
+     * Servicio para Add Favorites de pagos.
+     **/
+    ADD_FAVORITES,
+    /**
      * Servicios CUPO
      * */
     CONSULTA_STATUS_REGISTRO_CUPO,
