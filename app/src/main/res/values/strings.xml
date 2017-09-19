@@ -306,7 +306,7 @@
     <string name="user_change_password">Asignando Nueva Contraseña</string>
     <string name="user_change_email">Asignando Nuevo Correo</string>
     <string name="user_change_desasociar">En Proceso</string>
-    <string name="yaganaste_version">Ya Ganaste Versión:</string>
+    <string name="yaganaste_version">Ya Ganaste Versión: </string>
     <string name="confrimacion">Confirmar</string>
     <string name="formato_password">Tu Contraseña Debe Tener Mínimo 8\nCaracteres, Incluyendo al Menos Una Letra\nMayúscula, Una Minúscula y un Número</string>
 
@@ -799,7 +799,7 @@
     <string name="en_los_ultimos_anios">En Los Últimos Seis Años:</string>
     <string name="has_tenido_credito">¿Has Tenido Algún Crédito Bancario?</string>
     <string name="obtuviste_credito_auto">¿Obtuviste Algún Crédito Automotriz?</string>
-    <string name="has_tenido_tarjeta_credito">Has Tenido Una Tarjeta de\nCrédito Bancaria?</string>
+    <string name="has_tenido_tarjeta_credito">¿Has Tenido Una Tarjeta de\nCrédito Bancaria?</string>
     <string name="produto_servicio_hint">Producto/Servicio</string>
     <string name="name_cupo_hint">Nombre</string>
     <string name="telefono_cupo_hint">Teléfono</string>
@@ -820,7 +820,7 @@
     <string name="cupo_title_thanks">¡Gracias!</string>
     <string name="cupo_subtitle_thanks">Tu Solicitud Está\n Siendo Evaluada</string>
     <string name="cupo_title_thanks_msg">Este Proceso Puede Tardar Hasta\n 24 Horas Habiles</string>
-    <string name="cupo_numero">Últimos 4 Digitos</string>
+    <string name="cupo_numero">Últimos 4 Dígitos</string>
     <string name="numero_tarjeta_vacio">Número Requerido.</string>
     <string name="numero_tarjeta_invalido">Número Invalido.</string>
 

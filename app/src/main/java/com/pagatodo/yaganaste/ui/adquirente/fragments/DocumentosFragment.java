@@ -185,12 +185,12 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             lnr_help.setVisibility(VISIBLE);
             initSetClickableStatusDocs();
             btnWeNeedSmFilesNext.setVisibility(View.INVISIBLE);
+
             refreshContent();
         } else {     // si no se han enviado los documentos
             initSetClickableDocs();
         }
         if (mExisteDocs){
-
             btnRegresar.setVisibility(View.GONE);
             lnr_buttons.setVisibility(View.GONE);
         }
@@ -420,6 +420,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             }
             bitmap = null;
             btnWeNeedSmFilesNext.setVisibility(VISIBLE);
+            btnRegresar.setVisibility(VISIBLE);
+            lnr_buttons.setVisibility(VISIBLE);
+            swipeRefreshLayout.setEnabled(false);
         }
     }
 
@@ -800,6 +803,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             swipeRefreshLayout.setRefreshing(true);
         }
         adqPresenter.getEstatusDocs();
+        lnr_buttons.setVisibility(GONE);
+        swipeRefreshLayout.setEnabled(true);
     }
 
 }

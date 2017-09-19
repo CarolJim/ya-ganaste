@@ -51,11 +51,28 @@ public class CardEmisorSelected extends TabViewElement {
     @Override
     public void updateData() {
         UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
+
+        String nombreprimerUser;
+        String apellidoMostrarUser;
+        if (userData.getPrimerApellido().isEmpty()){
+        apellidoMostrarUser=userData.getSegundoApellido();
+        }else {
+            apellidoMostrarUser=userData.getPrimerApellido();
+        }
+        nombreprimerUser= StringUtils.getFirstName(userData.getNombre());
+        if (nombreprimerUser.isEmpty()){
+            nombreprimerUser=userData.getNombre();
+        }
+
+        txtNombre.setText(nombreprimerUser+" \n"+apellidoMostrarUser);
+       /*
         txtNombre.setText(
                userData.getNombre() + " " +
                userData.getPrimerApellido() + "\n" +
                        userData.getSegundoApellido()
         );
+
+        */
 //        txtNombre.setText(
 //                StringUtils.getFirstName(userData.getNombre())
 //                        .concat(SPACE).concat(userData.getSegundoApellido() +
