@@ -55,7 +55,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     PaymentsTabFragment fragment;
     ListDialog dialog;
     MovementsTab current_tab;
-    boolean isFromClick = false, showFavorites=false;
+    boolean isFromClick = false, showFavorites = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,7 +74,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         txtLoadingServices.setVisibility(View.GONE);
         mainImageAdapter = new Carousel.ImageAdapter(getContext(), items);
         carouselMain.setAdapter(mainImageAdapter);
-        carouselMain.setSelection(2, false);
+        carouselMain.setSelection(items.size() > 4 ? 2 : 0, false);
     }
 
     @Nullable
@@ -106,11 +106,11 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
             @Override
             public void onClick(View v) {
                 if (!showFavorites) {
-                    showFavorites=true;
+                    showFavorites = true;
                     onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
                     paymentsCarouselPresenter.getFavoriteCarouselItems();
                 } else {
-                    showFavorites=false;
+                    showFavorites = false;
                     paymentsCarouselPresenter.getCarouselItems();
                 }
             }

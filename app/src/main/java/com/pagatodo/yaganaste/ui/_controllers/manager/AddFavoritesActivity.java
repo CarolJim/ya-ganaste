@@ -272,7 +272,6 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         String mAlias = editTextAlias.getText().toString();
         AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idComercio,
                 mAlias, mReferencia);
-
         favoritesPresenter.toPresenterAddFavorites(addFavoritesRequest);
     }
 
