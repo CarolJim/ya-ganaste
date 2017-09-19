@@ -36,6 +36,9 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
 
+/**
+ * Encargada de dar de alta Favoritos, primero en el servicio y luego en la base local
+ */
 public class AddFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
         IListaOpcionesView, ValidationForms {
 
@@ -75,14 +78,16 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         textViewServ.setText(nombreComercio);
         textViewRef.setText(mReferencia);
 
-        // Deshabilitamos la edicion de los CustomEditTExt
+        // Deshabilitamos la edicion de los CustomEditTExt para no modificarlos
         textViewServ.setFocusable(false);
         textViewRef.setFocusable(false);
 
         errorAliasMessage.setVisibilityImageError(false);
 
+        // Agregar el escuchardor DoneOnEditor para procesar el clic de teclas
         editTextAlias.addCustomEditorActionListener(new DoneOnEditorActionListener());
 
+        // Iniciamos la funcionalidad e la camara
         cameraManager = new CameraManager();
         cameraManager.initCameraUploadDocument(this, imageViewCamera, this);
 
@@ -99,6 +104,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         setVisibilityPrefer(false);
     }
 
+    // Disparamos el evento de Camara
     @OnClick(R.id.add_favorites_camera)
     public void openCamera() {
         //Toast.makeText(this, "Open Camera", Toast.LENGTH_SHORT).show();
@@ -110,11 +116,13 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         }
     }
 
+    // Cerramos esta actividad de favoritos
     @OnClick(R.id.btnCloseAddFavorites)
     public void closeAddFavoritos() {
         finish();
     }
 
+    //Disparamos la validacion, si es exitosa, entnces iniciamos el proceso de favoritos
     @OnClick(R.id.btnSendAddFavoritos)
     public void sendAddFavoritos() {
         // Toast.makeText(this, "Open Presenter", Toast.LENGTH_SHORT).show();
@@ -127,16 +135,19 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         }
     }
 
-    @Override
-    public void toViewResult() {
-        Toast.makeText(this, "VMP Exitoso", Toast.LENGTH_SHORT).show();
-    }
-
+    /**
+     * Error de algun tipo, ya sea de proceso de servidor o de conexion
+     * @param mMensaje
+     */
     @Override
     public void toViewErrorServer(String mMensaje) {
         showDialogMesage(mMensaje);
     }
 
+    /**
+     * Exito en agregar a Favoritos
+     * @param mMensaje
+     */
     @Override
     public void toViewSuccessAdd(String mMensaje) {
         showDialogMesage(mMensaje);
@@ -147,6 +158,10 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
+                        /**
+                         * Regresamos el exito como un OK a nuestra actividad anterior para
+                         * ocultar el icono de agregar
+                         */
                         Intent returnIntent = new Intent();
                         setResult(Activity.RESULT_OK,returnIntent);
                         finish();
@@ -173,6 +188,11 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         cameraManager.setOnActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * Resultado de procesar la imagen de la camara, aqui ya tenemos el Bitmap, y el codigo siguoente
+     * es la BETA para poder darlo de alta en el servicio
+     * @param bitmap
+     */
     @Override
     public void setPhotoToService(Bitmap bitmap) {
        // Log.d("TAG", "setPhotoToService ");
@@ -197,31 +217,6 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
         // Enviamos al presenter
         mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);*/
-    }
-
-    @Override
-    public void showProgress(String mMensaje) {
-        //Log.d("TAG", "showProgress ");
-    }
-
-    @Override
-    public void showExceptionToView(String mMesage) {
-        //Log.d("TAG", "showExceptionToView ");
-    }
-
-    @Override
-    public void sendSuccessAvatarToView(String mensaje) {
-        //Log.d("TAG", "sendSuccessAvatarToView ");
-    }
-
-    @Override
-    public void sendErrorAvatarToView(String mensaje) {
-        //Log.d("TAG", "sendErrorAvatarToView ");
-    }
-
-    @Override
-    public void setValidationRules() {
-
     }
 
     @Override
@@ -297,5 +292,31 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             }
             return false;
         }
+    }
+
+
+    @Override
+    public void showProgress(String mMensaje) {
+        //Log.d("TAG", "showProgress ");
+    }
+
+    @Override
+    public void showExceptionToView(String mMesage) {
+        //Log.d("TAG", "showExceptionToView ");
+    }
+
+    @Override
+    public void sendSuccessAvatarToView(String mensaje) {
+        //Log.d("TAG", "sendSuccessAvatarToView ");
+    }
+
+    @Override
+    public void sendErrorAvatarToView(String mensaje) {
+        //Log.d("TAG", "sendErrorAvatarToView ");
+    }
+
+    @Override
+    public void setValidationRules() {
+
     }
 }

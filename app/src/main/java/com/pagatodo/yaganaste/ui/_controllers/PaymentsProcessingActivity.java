@@ -137,7 +137,6 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         return true;
     }
 
-
     private void initViews() {
         ButterKnife.bind(this);
         switch (tab) {
@@ -160,7 +159,6 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     public IPaymentsProcessingPresenter getPresenter() {
         return presenter;
     }
-
 
     @Override
     public void onBackPressed() {
@@ -222,6 +220,10 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         return false;
     }
 
+    /**
+     * Guardamos la informacion en variables que enviaremos a AddFavoritesActivity para procesar
+     * los favoritos
+     */
     private void saveDataResponse() {
         /**
          * Hacemos el Cast dependiendo de la Tab que estamos usando
@@ -244,6 +246,10 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         }
     }
 
+    /**
+     * Se encarga de enviar la informacion a AddFavoritesActivity en una actividad por resultado
+     * @param view
+     */
     public void openAddFavoritos(View view) {
         boolean isOnline2 = Utils.isDeviceOnline();
         if(isOnline2) {
@@ -274,6 +280,13 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
                 true, false);
     }
 
+    /**
+     * Procesa el resultado de AddFavoritesActivity, localiza el fragmento en pantalla (PaymentSuccess)
+     * y esconde el boton de agregar a favoritos porque el proccedimiento fue exitoso
+     * @param requestCode
+     * @param resultCode
+     * @param data
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);

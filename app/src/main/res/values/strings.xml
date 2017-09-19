@@ -898,4 +898,5 @@
     <string name="addFavoritesServicio">Servicio</string>
     <string name="addFavoritesReferencia">Referencia</string>
     <string name="addFavoritesErrorAlias">Es necesario un alias para proceder</string>
+    <string name="addFavoritesMsnAlta">Agregando a Favoritos</string>
 </resources>

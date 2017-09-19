@@ -28,6 +28,10 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
         this.favoritesPresenter = favoritesPresenter;
     }
 
+    /**
+     * Enviamos el Request al ApiAdtvo para su proceso
+     * @param addFavoritesRequest
+     */
     @Override
     public void toIteractorAddFavorites(AddFavoritesRequest addFavoritesRequest) {
         try {
@@ -57,6 +61,10 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
         }
     }
 
+    /**
+     * Manejo del fallo en el servidor al realizar la conexion
+     * @param error
+     */
     @Override
     public void onFailed(DataSourceResult error) {
         if (error.getWebService().equals(ADD_FAVORITES)) {

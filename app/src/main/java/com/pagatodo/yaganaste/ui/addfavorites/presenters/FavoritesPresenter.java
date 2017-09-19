@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.addfavorites.presenters;
 
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
@@ -18,6 +20,9 @@ import java.util.List;
 
 /**
  * Created by Francisco Manzo on 14/09/2017.
+ * Presenter para dar de alta un Favorito, se puede usar para otras operaciones como un presentes
+ * general.
+ * Pendiente el asignar el cerrar session de manera automatica
  */
 
 public class FavoritesPresenter implements IFavoritesPresenter {
@@ -31,17 +36,21 @@ public class FavoritesPresenter implements IFavoritesPresenter {
         this.api = new CatalogsDbApi(mView);
     }
 
+    /**
+     * Recibimos la informacion del View y lo encuamos al Iteractor, mostrando un mensaje de precarga
+     * @param addFavoritesRequest
+     */
     @Override
     public void toPresenterAddFavorites(AddFavoritesRequest addFavoritesRequest) {
-        mView.showLoader("Procesando Datos");
+        mView.showLoader(App.getContext().getResources().getString(R.string.addFavoritesMsnAlta));
         favoritesIteractor.toIteractorAddFavorites(addFavoritesRequest);
     }
 
-    @Override
-    public void toPresenterTestResult() {
-        mView.toViewResult();
-    }
-
+    /**
+     * Procesamos el exito del servidor que viene del Iteractor, para dar de alta el registro en la
+     * DB
+     * @param dataSourceResult
+     */
     @Override
     public void toPresenterGenericSuccess(DataSourceResult dataSourceResult) {
 
@@ -65,15 +74,19 @@ public class FavoritesPresenter implements IFavoritesPresenter {
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getReferencia()
             ));
 
+            // Insertamos la informacion en la DB local
             api.insertFavorites(dataFavoritos);
 
             mView.hideLoader();
             FavoritosDatosResponse response = (FavoritosDatosResponse) dataSourceResult.getData();
             mView.toViewSuccessAdd(response.getMensaje());
         }
-
     }
 
+    /**
+     * Manejo de error de servidor pero conexion exitosa, enviamos el mensaje al View
+     * @param dataSourceResult
+     */
     @Override
     public void toPresenterGenericError(DataSourceResult dataSourceResult) {
 
@@ -89,6 +102,16 @@ public class FavoritesPresenter implements IFavoritesPresenter {
 
     }
 
+    /**
+     * Error de conexion con el Server o otros problema
+     * @param mMensaje
+     */
+    @Override
+    public void toPresenterErrorServer(String mMensaje) {
+        mView.hideLoader();
+        mView.toViewErrorServer(mMensaje);
+    }
+
     @Override
     public void openMenuPhoto(int i, CameraManager cameraManager) {
         try {
@@ -97,11 +120,5 @@ public class FavoritesPresenter implements IFavoritesPresenter {
             //Toast.makeText(App.getContext(), "Exception " + e, Toast.LENGTH_SHORT).show();
             mView.showExceptionToView(e.toString());
         }
-    }
-
-    @Override
-    public void toPresenterErrorServer(String mMensaje) {
-        mView.hideLoader();
-        mView.toViewErrorServer(mMensaje);
     }
 }
