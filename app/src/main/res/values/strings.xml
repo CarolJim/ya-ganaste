@@ -438,6 +438,7 @@
     <string name="title_recarga_success">¡Recarga Exitosa!</string>
     <string name="title_servicio_success">¡Pago Exitoso!</string>
     <string name="title_envio_success">¡Envío Exitoso!</string>
+    <string name="synch_favorites">Obteniendo Favoritos</string>
     <string name="empty_list_favorites">No Cuenta Con Favoritos</string>
 
     <string name="transfer_phone">Número de Teléfono</string>

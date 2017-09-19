@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 
