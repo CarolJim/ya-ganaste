@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
 import android.content.Context;
+import android.support.v4.content.ContextCompat;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
@@ -116,7 +117,34 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
     @Override
     public void onSuccesDBObtenerCatalogos(List<ComercioResponse> comercios) {
-        paymentsManager.setCarouselData(getCarouselItems(comercios));
+        ArrayList<CarouselItem> items = getCarouselItems(comercios);
+        switch (items.size()) {
+            case 1:
+                items.add(0,createEmptyItem());
+                items.add(0,createEmptyItem());
+                items.add(createEmptyItem());
+                items.add(createEmptyItem());
+                break;
+            case 2:
+                items.add(0,createEmptyItem());
+                items.add(2,createEmptyItem());
+                items.add(createEmptyItem());
+                break;
+            case 3:
+                items.add(1,createEmptyItem());
+                items.add(3,createEmptyItem());
+                break;
+            case 4:
+                items.add(2,createEmptyItem());
+                break;
+        }
+
+
+        paymentsManager.setCarouselData(items);
+    }
+
+    private CarouselItem createEmptyItem() {
+        return new CarouselItem(App.getContext(), 0, "#00FFFFFF", CarouselItem.CLICK, new ComercioResponse());
     }
 
     private ArrayList<CarouselItem> getCarouselItems(List<ComercioResponse> comercios) {
