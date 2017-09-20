@@ -101,7 +101,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        paymentsTabPresenter = new PaymentsTabPresenter();
+        paymentsTabPresenter = new PaymentsTabPresenter(getActivity());
         viewPAgerAdapter = new FragmentPagerAdapter(getChildFragmentManager());
         /*animIn = AnimationUtils.loadAnimation(getContext(), R.anim.slide_from_left);
         animOut = AnimationUtils.loadAnimation(getContext(), R.anim.slide_to_right);

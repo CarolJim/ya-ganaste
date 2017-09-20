@@ -42,14 +42,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
      */
     private static final boolean localLOGV = false;
     /**
-     * Default min quantity of images
-     */
-    private static final int MIN_QUANTITY = 2;
-    /**
-     * Default max quantity of images
-     */
-    private static final int MAX_QUANTITY = 12;
-    /**
      * Max theta
      */
     private static final float MAX_THETA = 25.0f;
@@ -106,14 +98,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
      * drag sends many onScrolls).
      */
     private boolean mIsFirstScroll;
-    /**
-     * Set max qantity of images
-     */
-    private int mMaxQuantity = MAX_QUANTITY;
-    /**
-     * Set min quantity of images
-     */
-    private int mMinQuantity = MIN_QUANTITY;
     /**
      * If true, we have received the "invoke" (center or enter buttons) key
      * down. This is checked before we action on the "invoke" key up, and is
