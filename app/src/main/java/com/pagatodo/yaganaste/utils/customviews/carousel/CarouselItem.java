@@ -4,6 +4,7 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
+import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
@@ -73,7 +74,12 @@ public class CarouselItem extends FrameLayout
         inflateLayout();
         this.drawable = resource;
         this.comercio = comercio;
-        mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
+        if (drawable == 0) {
+            mImage.setVisibility(INVISIBLE);
+            mImageCiruclar.setVisibility(INVISIBLE);
+        } else {
+            mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
+        }
 
     }
 
@@ -118,8 +124,12 @@ public class CarouselItem extends FrameLayout
         this.comercio = comercio;
         this.color = color;
         inflateLayout(color);
-        mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
-
+        if (drawable == 0) {
+            mImage.setVisibility(INVISIBLE);
+            mImageCiruclar.setVisibility(INVISIBLE);
+        } else {
+            mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
+        }
     }
 
     public CarouselItem(Context context, String imageUrl, String color, int gestureType, ComercioResponse comercio) {
