@@ -9,4 +9,10 @@ public interface IAddFavoritesActivity {
     void toViewErrorServer(String mMensaje);
 
     void toViewSuccessAdd(String mensaje);
+
+    void showLoader(String s);
+
+    void hideLoader();
+
+    void showExceptionToView(String s);
 }

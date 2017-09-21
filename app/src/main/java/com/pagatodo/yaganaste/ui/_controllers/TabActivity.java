@@ -31,6 +31,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.ui._controllers.manager.AddNewFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarPositionActivity;
 import com.pagatodo.yaganaste.ui.account.AprovPresenter;
@@ -473,4 +474,9 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     }
 
 
+    public void addNewFavoritos(View view) {
+       // Toast.makeText(this, "Click Add New Favoritos", Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(this, AddNewFavoritesActivity.class);
+        startActivity(intent);
+    }
 }

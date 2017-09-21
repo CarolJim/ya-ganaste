@@ -44,6 +44,19 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
     }
 
     @Override
+    public void toIteractorGetServiceList() {
+        favoritesPresenter.toPresenterListSuccess();
+    }
+
+    /**
+     * RESPUESTAS DE APIS
+     */
+
+    /**
+     *
+     * @param dataSourceResult
+     */
+    @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
         /**
          * Instancia de peticion exitosa de AddFavorites
