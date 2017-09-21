@@ -58,6 +58,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     public static final String NOMBRE_COMERCIO = "nombreComercio";
     public static final String ID_COMERCIO = "idComercio";
     public static final String ID_TIPO_COMERCIO = "idTipoComercio";
+    public static final String ID_TIPO_ENVIO = "idTipoEnvio";
     public static final String REFERENCIA = "referencia";
     public static final int REQUEST_CODE_FAVORITES = 1;
     public static final String EVENT_SEND_PAYMENT = "EVENT_SEND_PAYMENT";
@@ -76,6 +77,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     private int idComercio = 0;
     private int idTipoComercio = 0;
     private String referencia = "";
+    private int idTipoEnvio = 0;
 
 
     @Override
@@ -184,10 +186,11 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             setVisibilityPrefer(false);
             llMain.setBackground(ContextCompat.getDrawable(this, R.drawable.bg_gradient_bottom));
             loadFragment(PaymentSuccessFragment.newInstance((Payments) pago, response), FORDWARD, true);
+
+            saveDataResponse();
         } else {
             onFailPaimentResponse(result);
         }
-        saveDataResponse();
     }
 
     @Override
@@ -233,33 +236,38 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             idComercio = ((Recarga) pago).getComercio().getIdComercio();
             idTipoComercio = ((Recarga) pago).getComercio().getIdTipoComercio();
             referencia = ((Recarga) pago).getReferencia();
+            idTipoEnvio = 0;
         } else if (pago instanceof Servicios) {
             nombreComercio = ((Servicios) pago).getComercio().getNombreComercio();
             idComercio = ((Servicios) pago).getComercio().getIdComercio();
             idTipoComercio = ((Servicios) pago).getComercio().getIdTipoComercio();
             referencia = ((Servicios) pago).getReferencia();
+            idTipoEnvio = 0;
         } else if (pago instanceof Envios) {
             nombreComercio = ((Envios) pago).getComercio().getNombreComercio();
             idComercio = ((Envios) pago).getComercio().getIdComercio();
             idTipoComercio = ((Envios) pago).getComercio().getIdTipoComercio();
             referencia = ((Envios) pago).getReferencia();
+            idTipoEnvio = ((Envios) pago).getTipoEnvio().getId();
         }
     }
 
     /**
      * Se encarga de enviar la informacion a AddFavoritesActivity en una actividad por resultado
+     *
      * @param view
      */
     public void openAddFavoritos(View view) {
         boolean isOnline2 = Utils.isDeviceOnline();
-        if(isOnline2) {
+        if (isOnline2) {
             Intent intent = new Intent(this, AddFavoritesActivity.class);
             intent.putExtra(NOMBRE_COMERCIO, nombreComercio);
             intent.putExtra(ID_COMERCIO, idComercio);
             intent.putExtra(ID_TIPO_COMERCIO, idTipoComercio);
+            intent.putExtra(ID_TIPO_ENVIO, idTipoEnvio);
             intent.putExtra(REFERENCIA, referencia);
             startActivityForResult(intent, REQUEST_CODE_FAVORITES);
-        }else{
+        } else {
             showDialogMesage(getResources().getString(R.string.no_internet_access));
         }
 
@@ -283,6 +291,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     /**
      * Procesa el resultado de AddFavoritesActivity, localiza el fragmento en pantalla (PaymentSuccess)
      * y esconde el boton de agregar a favoritos porque el proccedimiento fue exitoso
+     *
      * @param requestCode
      * @param resultCode
      * @param data
@@ -291,14 +300,14 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == 1) {
-            if(resultCode == Activity.RESULT_OK){
-               // Toast.makeText(this, data.getStringExtra("result"), Toast.LENGTH_SHORT).show();
+            if (resultCode == Activity.RESULT_OK) {
+                // Toast.makeText(this, data.getStringExtra("result"), Toast.LENGTH_SHORT).show();
                 PaymentSuccessFragment fragment = (PaymentSuccessFragment)
                         getSupportFragmentManager().findFragmentById(R.id.container);
                 fragment.hideAddFavorites();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
-               // Toast.makeText(this, "Fail Epic Fail", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(this, "Fail Epic Fail", Toast.LENGTH_SHORT).show();
             }
         }
 

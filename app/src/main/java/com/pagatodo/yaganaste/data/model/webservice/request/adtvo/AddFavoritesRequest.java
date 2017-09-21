@@ -9,17 +9,16 @@ import java.io.Serializable;
 public class AddFavoritesRequest implements Serializable {
 
     private int IdTipoComercio = 0;
+    private int idTipoEnvio = 0;
     private int IdComercio = 0;
     private String Nombre = "";
     private String Referencia = "";
 
-    public AddFavoritesRequest() {
-    }
-
-    public AddFavoritesRequest(int mIdTipoComercio, int mIdComercio, String mNombre, String mReferencia) {
-        this.IdTipoComercio = mIdTipoComercio;
-        this.IdComercio = mIdComercio;
-        this.Nombre = mNombre;
+    public AddFavoritesRequest(int idTipoComercio, int idTipoEnvio, int idComercio, String mAlias, String mReferencia) {
+        this.IdTipoComercio = idTipoComercio;
+        this.idTipoEnvio = idTipoEnvio;
+        this.IdComercio = idComercio;
+        this.Nombre = mAlias;
         this.Referencia = mReferencia;
     }
 
@@ -53,5 +52,13 @@ public class AddFavoritesRequest implements Serializable {
 
     public void setReferencia(String referencia) {
         Referencia = referencia;
+    }
+
+    public int getIdTipoEnvio() {
+        return idTipoEnvio;
+    }
+
+    public void setIdTipoEnvio(int idTipoEnvio) {
+        this.idTipoEnvio = idTipoEnvio;
     }
 }

@@ -21,7 +21,7 @@
             android:id="@+id/layoutBorder"
             style="@style/BorderTitleStyle"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             app:title="@string/addFavorites">
 
 
@@ -36,7 +36,7 @@
                     android:id="@+id/lyWeNeedSmFilesIFEfront"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginBottom="50dp"
+                    android:layout_marginBottom="10dp"
                     android:gravity="center">
 
                     <com.pagatodo.yaganaste.utils.customviews.UploadDocumentView
@@ -73,10 +73,32 @@
                     app:maxLength="50" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorConfirmaMailMessage"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:visibility="invisible" />
+
+                <LinearLayout
+                    android:id="@+id/add_favorites_linear_tipo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/add_favorites_tipo"
+                        style="@style/FragmentElementWithValidation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintText="Tipo Servicio"
+                        app:isSingleLine="true"
+                        app:maxLength="50" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorConfirmaMailMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="invisible" />
+                </LinearLayout>
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/add_favorites_referencia"
@@ -113,11 +135,11 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:visibility="invisible"
             android:gravity="center_horizontal"
             android:text="@string/formato_password"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/size_text_style_2_value" />
+            android:textSize="@dimen/size_text_style_2_value"
+            android:visibility="invisible" />
 
         <LinearLayout
             android:layout_width="match_parent"
