@@ -144,7 +144,15 @@ public class App extends Application {
     public Preferencias getPrefs() {
         return this.prefs;
     }
+    public void cerrarAppsms() {
+        VolleySingleton.getInstance(App.getContext()).deleteQueue();
 
+        try {
+            ApiAdtvo.cerrarSesion();// Se envia null ya que el Body no aplica.
+        } catch (OfflineException e) {
+            e.printStackTrace();
+        }
+    }
     public void cerrarApp() {
         VolleySingleton.getInstance(App.getContext()).deleteQueue();
 
