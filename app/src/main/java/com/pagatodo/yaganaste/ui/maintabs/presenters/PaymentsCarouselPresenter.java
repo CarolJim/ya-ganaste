@@ -1,10 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -182,7 +178,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     }
 
     private CarouselItem createEmptyItem() {
-        return new CarouselItem(App.getContext(), 0, "#00FFFFFF", CarouselItem.CLICK, new ComercioResponse());
+        return new CarouselItem(App.getContext(), 0, "#00FFFFFF", CarouselItem.CLICK, new ComercioResponse(),null);
     }
 
     @Override

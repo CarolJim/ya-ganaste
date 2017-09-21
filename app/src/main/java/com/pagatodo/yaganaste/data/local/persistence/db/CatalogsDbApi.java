@@ -127,6 +127,7 @@ public class CatalogsDbApi {
 
     public static List<DataFavoritos> getFavoritesList(int comercioType) {
         genericDao.open();
+        List<DataFavoritos> dataFavorites= new ArrayList<>();
         List<DataFavoritos> favorites = genericDao.getListByQueryOrderBy(DataFavoritos.class,
                 DBContract.Favoritos.ID_TIPO_COMERCIO + " = " + comercioType, DBContract.Favoritos.ID_FAVORITO);
         for (DataFavoritos dataFav : favorites) {
@@ -138,7 +139,7 @@ public class CatalogsDbApi {
                 montos.add(montoComercio.getMonto());
             }
             dataFav.setListaMontos(montos);
-            favorites.add(dataFav);
+            dataFavorites.add(dataFav);
         }
         genericDao.close();
         return favorites;

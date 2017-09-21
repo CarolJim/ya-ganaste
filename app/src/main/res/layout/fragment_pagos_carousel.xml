@@ -32,11 +32,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp" />
 
-                <com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
+                <!--<com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
                     android:id="@+id/carouselFavorite"
                     android:layout_width="match_parent"
                     android:layout_height="200dp"
-                    android:visibility="gone" />
+                    android:visibility="gone" />-->
 
             </LinearLayout>
 

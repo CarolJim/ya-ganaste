@@ -235,7 +235,6 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
                 break;
             }
         }
-
         parent.getChildAt(childPosition).bringToFront();
     }
 

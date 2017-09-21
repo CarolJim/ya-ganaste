@@ -42,8 +42,8 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     private static int MAX_CAROUSEL_ITEMS = 12;
     @BindView(R.id.carouselMain)
     Carousel carouselMain;
-    @BindView(R.id.carouselFavorite)
-    Carousel carouselFavorite;
+   /* @BindView(R.id.carouselFavorite)
+    Carousel carouselFavorite;*/
     @BindView(R.id.layoutCarouselMain)
     LinearLayout layoutCarouselMain;
     @BindView(R.id.txtLoadingServices)
@@ -58,7 +58,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     ListDialog dialog;
     MovementsTab current_tab;
     boolean isFromClick = false, showFavorites = false;
-    private int itemsMain = 0, itemsFav = 0;
+    //private int itemsMain = 0, itemsFav = 0;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -76,21 +76,21 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     public void setCarouselAdapter(ArrayList<CarouselItem> items) {
         txtLoadingServices.setVisibility(View.GONE);
         if (!showFavorites) {
-            if (itemsMain != items.size()) {
-                itemsMain = items.size();
+            /*if (itemsMain != items.size()) {
+                itemsMain = items.size();*/
                 mainImageAdapter = new Carousel.ImageAdapter(getContext(), items);
                 carouselMain.setAdapter(mainImageAdapter);
                 carouselMain.setSelection(items.size() > 4 ? 2 : 0, false);
-            }
+            //}
         } else {
-            if (itemsFav != items.size()) {
-                itemsFav = items.size();
+            /*if (itemsFav != items.size()) {
+                itemsFav = items.size();*/
                 favoriteImageAdapter = new Carousel.ImageAdapter(getContext(), items);
-                carouselFavorite.setAdapter(favoriteImageAdapter);
-                carouselFavorite.setSelection(items.size() > 4 ? 2 : 0, false);
-                carouselMain.setVisibility(View.GONE);
+                carouselMain.setAdapter(favoriteImageAdapter);
+                carouselMain.setSelection(items.size() > 4 ? 2 : 0, false);
+                /*carouselMain.setVisibility(View.GONE);
                 carouselFavorite.setVisibility(View.VISIBLE);
-            }
+            }*/
         }
     }
 
@@ -98,7 +98,6 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_pagos_carousel, container, false);
-
     }
 
 
@@ -129,8 +128,8 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
                 } else {
                     showFavorites = false;
                     paymentsCarouselPresenter.getCarouselItems();
-                    carouselMain.setVisibility(View.VISIBLE);
-                    carouselFavorite.setVisibility(View.GONE);
+                    /*carouselMain.setVisibility(View.VISIBLE);
+                    carouselFavorite.setVisibility(View.GONE);*/
                 }
             }
         });
@@ -146,29 +145,40 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
                 paymentsTabPresenter.setCarouselItem(item);
             }
         });
-        carouselFavorite.setOnDragCarouselListener(new CarouselAdapter.OnDragCarouselListener() {
+        /*carouselFavorite.setOnDragCarouselListener(new CarouselAdapter.OnDragCarouselListener() {
             @Override
             public void onStarDrag(CarouselItem item) {
                 Log.e(getTag(), "onStarDrag: " + item.getIndex() + ", ItemId: " + item.getFavoritos().getIdComercio());
                 paymentsTabPresenter.setCarouselItem(item);
             }
-        });
+        });*/
 
         carouselMain.setOnItemClickListener(new CarouselAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CarouselAdapter<?> parent, CarouselItem view, int position, long id) {
-                if (((CarouselItem)mainImageAdapter.getItem(position)).getComercio() == null) {
-                    //ListDialog dialog = new ListDialog(getContext(), paymentsCarouselPresenter.getCarouselArray(), paymentsTabPresenter, fragment);
-                    isFromClick = true;
-                    paymentsCarouselPresenter.getCarouselItems();
-                } else if (((CarouselItem)mainImageAdapter.getItem(position)).getComercio().getIdComercio() != 0) {
-                    paymentsTabPresenter.setCarouselItem((CarouselItem) mainImageAdapter.getItem(position));
-                    fragment.onItemSelected();
+                if(!showFavorites) {
+                    if (((CarouselItem) mainImageAdapter.getItem(position)).getComercio() == null) {
+                        //ListDialog dialog = new ListDialog(getContext(), paymentsCarouselPresenter.getCarouselArray(), paymentsTabPresenter, fragment);
+                        isFromClick = true;
+                        paymentsCarouselPresenter.getCarouselItems();
+                    } else if (((CarouselItem) mainImageAdapter.getItem(position)).getComercio().getIdComercio() != 0) {
+                        paymentsTabPresenter.setCarouselItem((CarouselItem) mainImageAdapter.getItem(position));
+                        fragment.onItemSelected();
+                    }
+                } else {
+                    if (((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos() == null) {
+                        //ListDialog dialog = new ListDialog(getContext(), paymentsCarouselPresenter.getCarouselArray(), paymentsTabPresenter, fragment);
+                        isFromClick = true;
+                        paymentsCarouselPresenter.getFavoriteCarouselItems();
+                    } else if (((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getIdComercio() != 0) {
+                        paymentsTabPresenter.setCarouselItem((CarouselItem) favoriteImageAdapter.getItem(position));
+                        fragment.onItemSelected();
+                    }
                 }
             }
         });
 
-        carouselFavorite.setOnItemClickListener(new CarouselAdapter.OnItemClickListener() {
+       /* carouselFavorite.setOnItemClickListener(new CarouselAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CarouselAdapter<?> parent, CarouselItem view, int position, long id) {
                 if (position == 0) {
@@ -180,7 +190,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
                     fragment.onItemSelected();
                 }
             }
-        });
+        });*/
     }
 
     @Override
