@@ -2,11 +2,15 @@ package com.pagatodo.yaganaste.utils;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.Rect;
 import android.os.AsyncTask;
 import android.util.Base64;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
+import java.io.FileInputStream;
+import java.text.Format;
 
 import id.zelory.compressor.Compressor;
 
@@ -38,10 +42,23 @@ public class BitmapLoader extends AsyncTask {
     protected Bitmap doInBackground(Object... params) {
         try {
             if (bitmap != null) {
+
                 imgBase64 = bitmapToBase64(bitmap);
                 return bitmap;
             } else {
-                Bitmap btm = Compressor.getDefault(context).compressToBitmap(new File(filePath));
+               // Bitmap btm = Compressor.getDefault(context).compressToBitmap(new File(filePath));
+                ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+                Bitmap btm = BitmapFactory.decodeFile(filePath);
+                int anchooriginal = btm.getWidth();
+                int altooriginal  =btm.getHeight();
+
+                if (altooriginal>anchooriginal){
+                    btm = btm.createScaledBitmap(btm, 500, 888, false);
+                }else {
+                    btm = btm.createScaledBitmap(btm, 888, 500, false);
+                }
+
                 imgBase64 = bitmapToBase64(btm);
                 return btm;
             }
@@ -62,7 +79,8 @@ public class BitmapLoader extends AsyncTask {
     }
 
     public String bitmapToBase64(Bitmap bitmap) {
-        ByteArrayOutputStream outputStream = new ByteArrayOutputStream();
+
+        ByteArrayOutputStream outputStream = new ByteArrayOutputStream(filePath.getBytes().length);
         bitmap.compress(Bitmap.CompressFormat.JPEG, 100, outputStream);
         byte[] bytes = outputStream.toByteArray();
         return Base64.encodeToString(bytes, Base64.DEFAULT);
