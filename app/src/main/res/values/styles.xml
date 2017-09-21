@@ -423,6 +423,11 @@
 
         <item name="tipo">Text</item>
     </style>
+    <style name="generic_text_style_2_conoce">
+        <item name="android:textColor">@color/whiteColor</item>
+        <item name="android:textSize">@dimen/size_text_style_3_value</item>
+        <item name="tipo">Text</item>
+    </style>
     <style name="generic_text_style_2.5">
         <item name="android:textColor">@color/whiteColor</item>
         <item name="android:textSize">@dimen/size_text_style_2_value</item>

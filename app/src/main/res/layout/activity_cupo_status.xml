@@ -89,17 +89,30 @@ android:layout_height="match_parent">
 
 
 
-
-    <com.pagatodo.yaganaste.utils.customviews.StyleButton
-        android:visibility="visible"
-        android:id="@+id/btnNextScreen"
-        style="@style/buttonDirecctionNext"
+    <LinearLayout
+        android:id="@+id/layoutBtns"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_gravity="bottom"
+        android:clickable="true"
         android:gravity="center"
-        android:text="@string/nextButton"
-        android:textSize="@dimen/text_size_normal"
-        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="@dimen/btn_navigation_bottom"
         android:layout_alignParentBottom="true"
-        android:layout_margin="50dp"
-        />
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleButton
+            android:visibility="visible"
+            android:id="@+id/btnNextScreen"
+            style="@style/buttonDirecctionNext"
+            android:gravity="center"
+            android:text="@string/nextButton"
+            android:layout_centerHorizontal="true"
+            android:layout_alignParentBottom="true"
+
+            />
+    </LinearLayout>
+
 
 </RelativeLayout>

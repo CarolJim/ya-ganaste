@@ -30,6 +30,9 @@ import java.util.Comparator;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+
 /**
  * Created by Jordan on 06/04/2017.
  */
@@ -52,7 +55,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     PaymentsTabFragment fragment;
     ListDialog dialog;
     MovementsTab current_tab;
-    boolean isFromClick = false;
+    boolean isFromClick = false, showFavorites = false;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -71,7 +74,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         txtLoadingServices.setVisibility(View.GONE);
         mainImageAdapter = new Carousel.ImageAdapter(getContext(), items);
         carouselMain.setAdapter(mainImageAdapter);
-        carouselMain.setSelection(2, false);
+        carouselMain.setSelection(items.size() > 4 ? 2 : 0, false);
     }
 
     @Nullable
@@ -102,11 +105,16 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         imgPagosFavs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                paymentsCarouselPresenter.getFavoriteCarouselItems();
+                if (!showFavorites) {
+                    showFavorites = true;
+                    onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+                    paymentsCarouselPresenter.getFavoriteCarouselItems();
+                } else {
+                    showFavorites = false;
+                    paymentsCarouselPresenter.getCarouselItems();
+                }
             }
         });
-        //setCarouselAdapter(this.paymentsCarouselPresenter.getCarouselArray());
-
     }
 
     @Override
@@ -154,11 +162,13 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
 
     @Override
     public void onError(String error) {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
         UI.createSimpleCustomDialog("", error, getActivity().getSupportFragmentManager(), getFragmentTag());
     }
 
     @Override
     public void setCarouselData(ArrayList<CarouselItem> response) {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
         layoutCarouselMain.setVisibility(View.VISIBLE);
         txtLoadingServices.setVisibility(View.GONE);
         if (isFromClick) {
@@ -166,7 +176,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
             Collections.sort(response, new Comparator<CarouselItem>() {
                 @Override
                 public int compare(CarouselItem o1, CarouselItem o2) {
-                    if(o1.getComercio() != null) {
+                    if (o1.getComercio() != null) {
                         return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
                     } else {
                         return o1.getFavoritos().getNombreComercio().compareToIgnoreCase(o2.getFavoritos().getNombreComercio());
@@ -185,4 +195,11 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
             }
         }
     }
+
+    /*@Override
+    public void onStop() {
+        super.onStop();
+        showFavorites=false;
+        paymentsCarouselPresenter.getCarouselItems();
+    }*/
 }

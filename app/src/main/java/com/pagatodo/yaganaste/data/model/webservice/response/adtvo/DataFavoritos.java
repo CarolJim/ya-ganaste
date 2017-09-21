@@ -26,7 +26,7 @@ import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContra
 @TableName(TABLE)
 public class DataFavoritos extends AbstractEntity implements Parcelable {
 
-    @FieldName(value=ID_FAVORITO, primaryKey = true)
+    @FieldName(value = ID_FAVORITO, primaryKey = true)
     private long IdFavorito;
 
     @FieldName(COLOR_MARCA)
@@ -165,6 +165,9 @@ public class DataFavoritos extends AbstractEntity implements Parcelable {
         dest.writeString(this.Nombre);
         dest.writeString(this.NombreComercio);
         dest.writeString(this.Referencia);
+    }
+
+    public DataFavoritos() {
     }
 
     public DataFavoritos(String colorMarca, int idComercio, int idCuenta, int idFavorito, int idTipoComercio,

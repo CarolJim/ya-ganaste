@@ -78,6 +78,12 @@ public class CatalogsDbApi {
         genericDao.close();
     }
 
+    public static void insertFavorite(DataFavoritos favorite) {
+        genericDao.open();
+        genericDao.insert(favorite);
+        genericDao.close();
+    }
+
     public static List<ComercioResponse> getComerciosList(int comercioType) {
         genericDao.open();
         List<ComercioResponse> comerciosRespose = new ArrayList<>();

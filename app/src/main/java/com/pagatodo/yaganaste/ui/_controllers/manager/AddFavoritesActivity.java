@@ -237,6 +237,31 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     }
 
     @Override
+    public void showProgress(String mMensaje) {
+        //Log.d("TAG", "showProgress ");
+    }
+
+    @Override
+    public void showExceptionToView(String mMesage) {
+        //Log.d("TAG", "showExceptionToView ");
+    }
+
+    @Override
+    public void sendSuccessAvatarToView(String mensaje) {
+        //Log.d("TAG", "sendSuccessAvatarToView ");
+    }
+
+    @Override
+    public void sendErrorAvatarToView(String mensaje) {
+        //Log.d("TAG", "sendErrorAvatarToView ");
+    }
+
+    @Override
+    public void setValidationRules() {
+
+    }
+
+    @Override
     public void validateForm() {
         getDataForm();
         boolean isValid = true;
@@ -249,6 +274,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             //return;
         }
 
+        //onValidationSuccess();
         if (isValid) {
             boolean isOnline = Utils.isDeviceOnline();
             if (isOnline) {
