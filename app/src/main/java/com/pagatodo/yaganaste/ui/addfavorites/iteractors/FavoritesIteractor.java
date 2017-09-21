@@ -48,10 +48,8 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
             FavoritosDatosResponse response = (FavoritosDatosResponse) dataSourceResult.getData();
 
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
                 favoritesPresenter.toPresenterGenericSuccess(dataSourceResult);
             } else {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess with Error " + response.getMensaje());
                 favoritesPresenter.toPresenterGenericError(dataSourceResult);
             }
         }

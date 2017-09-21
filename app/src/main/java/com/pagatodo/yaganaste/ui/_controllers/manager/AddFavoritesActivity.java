@@ -117,12 +117,10 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
     @OnClick(R.id.btnSendAddFavoritos)
     public void sendAddFavoritos() {
-        // Toast.makeText(this, "Open Presenter", Toast.LENGTH_SHORT).show();
-
         boolean isOnline = Utils.isDeviceOnline();
         if(isOnline) {
             validateForm();
-        }else{
+        } else {
             showDialogMesage(getResources().getString(R.string.no_internet_access));
         }
     }
@@ -269,7 +267,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     @Override
     public void onValidationSuccess() {
         errorAliasMessage.setVisibilityImageError(false);
-        String mAlias = editTextAlias.getText().toString();
+        String mAlias = editTextAlias.getText();
         AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idComercio,
                 mAlias, mReferencia);
         favoritesPresenter.toPresenterAddFavorites(addFavoritesRequest);

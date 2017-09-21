@@ -138,6 +138,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         ButterKnife.bind(this, rootView);
         UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
         payment_view_pager.setAdapter(viewPAgerAdapter);
+        payment_view_pager.setOffscreenPageLimit(3);
         payment_view_pager.setCurrentItem(0);
         bringViewToFront((RelativeLayout) botonRecargas.getParent(), botonRecargas.getId());
 
