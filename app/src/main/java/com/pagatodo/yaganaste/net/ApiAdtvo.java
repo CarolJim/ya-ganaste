@@ -848,7 +848,12 @@ public class ApiAdtvo extends Api {
                 headers, null, ConsultarFavoritosResponse.class, result);
     }
 
-
+    /**
+     * Armamos la peticion final para el servicio, para dar de alta un favorito en el servicio
+     * @param request
+     * @param result
+     * @throws OfflineException
+     */
     public static void addFavorites(AddFavoritesRequest request, IRequestResult result)
             throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();

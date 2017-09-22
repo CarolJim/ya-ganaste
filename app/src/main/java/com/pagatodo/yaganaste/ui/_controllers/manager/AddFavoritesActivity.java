@@ -7,7 +7,9 @@ import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.KeyEvent;
+import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -33,9 +35,13 @@ import butterknife.OnClick;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_COMERCIO;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_ENVIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
 
+/**
+ * Encargada de dar de alta Favoritos, primero en el servicio y luego en la base local
+ */
 public class AddFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
         IListaOpcionesView, ValidationForms {
 
@@ -45,10 +51,14 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     CustomValidationEditText textViewServ;
     @BindView(R.id.add_favorites_referencia)
     CustomValidationEditText textViewRef;
+    @BindView(R.id.add_favorites_tipo)
+    CustomValidationEditText textViewTipo;
     @BindView(R.id.add_favorites_camera)
     UploadDocumentView imageViewCamera;
     @BindView(R.id.errorAliasMessage)
     ErrorMessage errorAliasMessage;
+    @BindView(R.id.add_favorites_linear_tipo)
+    LinearLayout linearTipo;
     IFavoritesPresenter favoritesPresenter;
     int idTipoComercio;
     int idComercio;
@@ -56,6 +66,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     String mReferencia;
     CameraManager cameraManager;
     private boolean errorIsShowed = false;
+    private int idTipoEnvio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -67,6 +78,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         Intent intent = getIntent();
         idComercio = intent.getIntExtra(ID_COMERCIO, 99);
         idTipoComercio = intent.getIntExtra(ID_TIPO_COMERCIO, 98);
+        idTipoEnvio = intent.getIntExtra(ID_TIPO_ENVIO, 97);
         nombreComercio = intent.getStringExtra(NOMBRE_COMERCIO);
         mReferencia = intent.getStringExtra(REFERENCIA);
 
@@ -75,14 +87,25 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         textViewServ.setText(nombreComercio);
         textViewRef.setText(mReferencia);
 
-        // Deshabilitamos la edicion de los CustomEditTExt
+        if (idTipoEnvio == 1) {
+            linearTipo.setVisibility(View.VISIBLE);
+            textViewTipo.setText(App.getContext().getResources().getString(R.string.transfer_phone_cellphone));
+        } else if (idTipoEnvio == 2) {
+            linearTipo.setVisibility(View.VISIBLE);
+            textViewTipo.setText(App.getContext().getResources().getString(R.string.debit_card_number));
+        }
+
+        // Deshabilitamos la edicion de los CustomEditTExt para no modificarlos
         textViewServ.setFocusable(false);
         textViewRef.setFocusable(false);
+        textViewTipo.setFocusable(false);
 
         errorAliasMessage.setVisibilityImageError(false);
 
+        // Agregar el escuchardor DoneOnEditor para procesar el clic de teclas
         editTextAlias.addCustomEditorActionListener(new DoneOnEditorActionListener());
 
+        // Iniciamos la funcionalidad e la camara
         cameraManager = new CameraManager();
         cameraManager.initCameraUploadDocument(this, imageViewCamera, this);
 
@@ -99,57 +122,65 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         setVisibilityPrefer(false);
     }
 
+    // Disparamos el evento de Camara
     @OnClick(R.id.add_favorites_camera)
     public void openCamera() {
         //Toast.makeText(this, "Open Camera", Toast.LENGTH_SHORT).show();
         boolean isOnline = Utils.isDeviceOnline();
-        if(isOnline) {
+        if (isOnline) {
             favoritesPresenter.openMenuPhoto(1, cameraManager);
-        }else{
-            showDialogMesage(getResources().getString(R.string.no_internet_access));
+        } else {
+            showDialogMesage(getResources().getString(R.string.no_internet_access), 0);
         }
     }
 
+    // Cerramos esta actividad de favoritos
     @OnClick(R.id.btnCloseAddFavorites)
     public void closeAddFavoritos() {
         finish();
     }
 
+    //Disparamos la validacion, si es exitosa, entnces iniciamos el proceso de favoritos
     @OnClick(R.id.btnSendAddFavoritos)
     public void sendAddFavoritos() {
         // Toast.makeText(this, "Open Presenter", Toast.LENGTH_SHORT).show();
-
-        boolean isOnline = Utils.isDeviceOnline();
-        if(isOnline) {
-            validateForm();
-        }else{
-            showDialogMesage(getResources().getString(R.string.no_internet_access));
-        }
+        validateForm();
     }
 
-    @Override
-    public void toViewResult() {
-        Toast.makeText(this, "VMP Exitoso", Toast.LENGTH_SHORT).show();
-    }
-
+    /**
+     * Error de algun tipo, ya sea de proceso de servidor o de conexion
+     *
+     * @param mMensaje
+     */
     @Override
     public void toViewErrorServer(String mMensaje) {
-        showDialogMesage(mMensaje);
+        showDialogMesage(mMensaje, 0);
     }
 
+    /**
+     * Exito en agregar a Favoritos
+     *
+     * @param mMensaje
+     */
     @Override
     public void toViewSuccessAdd(String mMensaje) {
-        showDialogMesage(mMensaje);
+        showDialogMesage(mMensaje, 1);
     }
 
-    private void showDialogMesage(final String mensaje) {
+    private void showDialogMesage(final String mensaje, final int closeAct) {
         UI.createSimpleCustomDialog("", mensaje, getSupportFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
-                        Intent returnIntent = new Intent();
-                        setResult(Activity.RESULT_OK,returnIntent);
-                        finish();
+                        if (closeAct == 1) {
+                            /**
+                             * Regresamos el exito como un OK a nuestra actividad anterior para
+                             * ocultar el icono de agregar
+                             */
+                            Intent returnIntent = new Intent();
+                            setResult(Activity.RESULT_OK, returnIntent);
+                            finish();
+                        }
                     }
 
                     @Override
@@ -173,9 +204,15 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         cameraManager.setOnActivityResult(requestCode, resultCode, data);
     }
 
+    /**
+     * Resultado de procesar la imagen de la camara, aqui ya tenemos el Bitmap, y el codigo siguoente
+     * es la BETA para poder darlo de alta en el servicio
+     *
+     * @param bitmap
+     */
     @Override
     public void setPhotoToService(Bitmap bitmap) {
-       // Log.d("TAG", "setPhotoToService ");
+        // Log.d("TAG", "setPhotoToService ");
 
         imageViewCamera.setImageBitmap(bitmap);
        /*
@@ -200,31 +237,6 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     }
 
     @Override
-    public void showProgress(String mMensaje) {
-        //Log.d("TAG", "showProgress ");
-    }
-
-    @Override
-    public void showExceptionToView(String mMesage) {
-        //Log.d("TAG", "showExceptionToView ");
-    }
-
-    @Override
-    public void sendSuccessAvatarToView(String mensaje) {
-        //Log.d("TAG", "sendSuccessAvatarToView ");
-    }
-
-    @Override
-    public void sendErrorAvatarToView(String mensaje) {
-        //Log.d("TAG", "sendErrorAvatarToView ");
-    }
-
-    @Override
-    public void setValidationRules() {
-
-    }
-
-    @Override
     public void validateForm() {
         getDataForm();
         boolean isValid = true;
@@ -239,7 +251,12 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
         //onValidationSuccess();
         if (isValid) {
-            onValidationSuccess();
+            boolean isOnline = Utils.isDeviceOnline();
+            if (isOnline) {
+                onValidationSuccess();
+            } else {
+                showDialogMesage(getResources().getString(R.string.no_internet_access), 0);
+            }
         }
     }
 
@@ -270,8 +287,9 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     public void onValidationSuccess() {
         errorAliasMessage.setVisibilityImageError(false);
         String mAlias = editTextAlias.getText().toString();
-        AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idComercio,
-                mAlias, mReferencia);
+        AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
+                idComercio, mAlias, mReferencia);
+
         favoritesPresenter.toPresenterAddFavorites(addFavoritesRequest);
     }
 
@@ -286,9 +304,9 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     private class DoneOnEditorActionListener implements TextView.OnEditorActionListener {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
-           // Toast.makeText(App.getContext(), "Click Code: " + actionId, Toast.LENGTH_SHORT).show();
+            // Toast.makeText(App.getContext(), "Click Code: " + actionId, Toast.LENGTH_SHORT).show();
             if (actionId == KeyEvent.KEYCODE_CALL) {
-                InputMethodManager imm = (InputMethodManager)getSystemService(Context.INPUT_METHOD_SERVICE);
+                InputMethodManager imm = (InputMethodManager) getSystemService(Context.INPUT_METHOD_SERVICE);
                 imm.hideSoftInputFromWindow(editTextAlias.getWindowToken(),
                         InputMethodManager.RESULT_UNCHANGED_SHOWN);
                 return true;
@@ -296,5 +314,31 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             }
             return false;
         }
+    }
+
+
+    @Override
+    public void showProgress(String mMensaje) {
+        //Log.d("TAG", "showProgress ");
+    }
+
+    @Override
+    public void showExceptionToView(String mMesage) {
+        //Log.d("TAG", "showExceptionToView ");
+    }
+
+    @Override
+    public void sendSuccessAvatarToView(String mensaje) {
+        //Log.d("TAG", "sendSuccessAvatarToView ");
+    }
+
+    @Override
+    public void sendErrorAvatarToView(String mensaje) {
+        //Log.d("TAG", "sendErrorAvatarToView ");
+    }
+
+    @Override
+    public void setValidationRules() {
+
     }
 }
