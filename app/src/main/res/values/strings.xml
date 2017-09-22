@@ -301,7 +301,7 @@
     <string name="datos_usuario_pass_confirm">Debes Confirmar la Nueva Contraseña.</string>
     <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide.</string>
     <string name="datos_usuario_pass_formato">Verifica tu Contraseña.</string>
-    <string name="bienvenido_usuario"><![CDATA[¡<b>Bienvenido</b> %1$s!]]></string>
+    <string name="bienvenido_usuario"><![CDATA[¡Bienvenido <b>%1$s</b>!]]></string>
     <string name="user_change_password">Asignando Nueva Contraseña</string>
     <string name="user_change_email">Asignando Nuevo Correo</string>
     <string name="user_change_desasociar">En Proceso</string>
@@ -512,7 +512,7 @@
     <string name="generando_token">Generando Código</string>
 
     <string name="tu_codigo">Tu Código de Seguridad es:</string>
-    <string name="caduca_en"><![CDATA[Caduca en <b><font color="#10B2E6">%1$s</font></b> Minutos]]></string>
+    <string name="caduca_en"><![CDATA[Caduca en <b><font color="#10B2E6">%1$s</font></b> Segundos]]></string>
 
     <string name="codigo_expirado">Tú Código de Acceso ha Expirado, Puedes Volver a Generar Otro</string>
 
@@ -831,6 +831,7 @@
     <string name="titulo_referencia_proveedor">Referencia Proveedor </string>
     <string name="solicitud_cupo">Estamos Enviando tu Información \nNos Tomará Sólo Unos Segundos</string>
 
+    <string name="security_code">Código de Seguridad</string>
     <string name="access_code_text">Ingresa tu Contraseña Para \nGenerar un Código de Seguridad</string>
     <string name="verificando_sms_espera">Estamos Verificando tu SMS, \nNos Tomará Sólo Unos Segundos</string>
     <string name="change_your_pass">Cambia tu Contraseña</string>
@@ -887,6 +888,9 @@
     <string name="details_cuenta">Cuenta</string>
     <string name="details_cable">CLABE</string>
     <string name="txt_tag">Tag</string>
+    <string name="details_compania">Compañía</string>
+    <string name="details_enviado_a">Enviado a</string>
+    <string name="details_telefono">Teléfono</string>
 
     <string name="close_sesion_body">Por tu Seguridad, Hemos Cerrado la Sesión Por Falta de Actividad</string>
 </resources>

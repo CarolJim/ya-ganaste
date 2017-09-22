@@ -99,10 +99,11 @@ public class OtpViewFragment extends GenericFragment implements View.OnClickList
             public void onTick(long millisUntilFinished) {
                 if (Build.VERSION.SDK_INT >= 24) {
                     txtTime.setText(Html.fromHtml(getString(R.string.caduca_en,
-                            DateUtils.formatElapsedTime(millisUntilFinished / 1000)),
+                            /*DateUtils.formatElapsedTime(*/String.valueOf(millisUntilFinished / 1000)),
                             Html.FROM_HTML_MODE_LEGACY, null, null));
                 } else {
-                    txtTime.setText(Html.fromHtml(getString(R.string.caduca_en, DateUtils.formatElapsedTime(millisUntilFinished / 1000))));
+                    txtTime.setText(Html.fromHtml(getString(R.string.caduca_en, /*DateUtils.formatElapsedTime*/
+                    String.valueOf(millisUntilFinished / 1000))));
                 }
             }
 
