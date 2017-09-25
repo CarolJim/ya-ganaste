@@ -43,10 +43,6 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
         //favoritesPresenter.toPresenterTestResult();
     }
 
-    @Override
-    public void toIteractorGetServiceList() {
-        favoritesPresenter.toPresenterListSuccess();
-    }
 
     /**
      * RESPUESTAS DE APIS

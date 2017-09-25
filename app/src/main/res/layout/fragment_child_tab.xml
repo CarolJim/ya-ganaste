@@ -176,11 +176,6 @@
                             android:adjustViewBounds="true"
                             android:scaleType="centerInside"
                             android:src="@mipmap/circulo_add_servicio" />
-
-                        <Button
-                            android:layout_width="wrap_content" android:text="Click Me!!"
-                            android:onClick="addNewFavoritos"
-                            android:layout_height="wrap_content" />
                     </RelativeLayout>
                 </FrameLayout>
 

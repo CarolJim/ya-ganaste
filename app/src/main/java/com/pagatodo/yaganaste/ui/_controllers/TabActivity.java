@@ -472,11 +472,4 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     public void showErrorReset(ErrorObject error) {
 
     }
-
-
-    public void addNewFavoritos(View view) {
-       // Toast.makeText(this, "Click Add New Favoritos", Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(this, AddNewFavoritesActivity.class);
-        startActivity(intent);
-    }
 }

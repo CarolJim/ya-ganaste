@@ -42,16 +42,6 @@ public class FavoritesPresenter implements IFavoritesPresenter {
         favoritesIteractor.toIteractorAddFavorites(addFavoritesRequest);
     }
 
-    @Override
-    public void toPresenterGetServiceList() {
-        favoritesIteractor.toIteractorGetServiceList();
-    }
-
-    @Override
-    public void toPresenterListSuccess() {
-
-    }
-
     /**
      * RESPUESTAS DE ITERACTOR
      */

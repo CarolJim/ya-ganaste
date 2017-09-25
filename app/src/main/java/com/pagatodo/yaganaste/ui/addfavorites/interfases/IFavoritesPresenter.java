@@ -18,8 +18,4 @@ public interface IFavoritesPresenter {
     void toPresenterGenericError(DataSourceResult dataSourceResult);
 
     void openMenuPhoto(int i, CameraManager cameraManager);
-
-    void toPresenterGetServiceList();
-
-    void toPresenterListSuccess();
 }

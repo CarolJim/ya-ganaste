@@ -58,29 +58,14 @@
                     app:maxLength="30" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorAliasMessage"
+                    android:id="@+id/add_favorites_alias_error"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:visibility="visible" />
 
-                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/add_favorites_servicio"
-                    style="@style/FragmentElementWithValidation"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone"
-                    app:hintText="@string/addFavoritesServicio"
-                    app:isSingleLine="true"
-                    app:maxLength="50" />
-
-                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:visibility="gone" />
-
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                    android:id="@+id/editCountry"
+                    android:id="@+id/add_favorites_list_serv"
                     style="@style/FragmentElementWithValidation"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
@@ -92,7 +77,7 @@
                     app:isTextEnabled="false" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorCountryMessage"
+                    android:id="@+id/add_favorites_list_serv_error"
                     style="@style/generic_text_style_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
@@ -115,7 +100,7 @@
                         app:maxLength="50" />
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                        android:id="@+id/errorConfirmaMailMessage"
+                        android:id="@+id/add_favorites_tipo_error"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:visibility="invisible" />
@@ -131,7 +116,7 @@
                     app:maxLength="16" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/errorPasswordMessage"
+                    android:id="@+id/add_favorites_referencia_error"
                     style="@style/generic_text_style_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"

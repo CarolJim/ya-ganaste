@@ -9,5 +9,4 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRe
 public interface IFavoritesIteractor {
     void toIteractorAddFavorites(AddFavoritesRequest addFavoritesRequest);
 
-    void toIteractorGetServiceList();
 }
