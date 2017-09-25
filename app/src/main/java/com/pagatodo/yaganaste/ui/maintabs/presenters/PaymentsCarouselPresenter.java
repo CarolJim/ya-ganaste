@@ -136,7 +136,8 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
                 App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, true);
                 if (response.getData().size() > 0) {
                     api.insertFavorites(response.getData());
-                    paymentsManager.setCarouselData(getCarouselItemsFavoritos(response.getData()));
+                    paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
+                    //paymentsManager.setCarouselData(getCarouselItemsFavoritos(response.getData()));
                 } else {
                     onEmptyListFavorites();
                 }
@@ -183,6 +184,27 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
     @Override
     public void onSuccessDBFavorites(List<DataFavoritos> favoritos) {
+        ArrayList<CarouselItem> items = getCarouselItemsFavoritos(favoritos);
+        switch (items.size()) {
+            case 1:
+                items.add(0, createEmptyItem());
+                items.add(0, createEmptyItem());
+                items.add(createEmptyItem());
+                items.add(createEmptyItem());
+                break;
+            case 2:
+                items.add(0, createEmptyItem());
+                items.add(2, createEmptyItem());
+                items.add(createEmptyItem());
+                break;
+            case 3:
+                items.add(1, createEmptyItem());
+                items.add(3, createEmptyItem());
+                break;
+            case 4:
+                items.add(2, createEmptyItem());
+                break;
+        }
         paymentsManager.setCarouselData(getCarouselItemsFavoritos(favoritos));
     }
 

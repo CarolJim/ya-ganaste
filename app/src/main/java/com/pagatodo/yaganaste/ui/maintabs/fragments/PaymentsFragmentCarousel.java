@@ -17,6 +17,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.ListDialog;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.Carousel;
@@ -42,8 +43,8 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     private static int MAX_CAROUSEL_ITEMS = 12;
     @BindView(R.id.carouselMain)
     Carousel carouselMain;
-   /* @BindView(R.id.carouselFavorite)
-    Carousel carouselFavorite;*/
+    /* @BindView(R.id.carouselFavorite)
+     Carousel carouselFavorite;*/
     @BindView(R.id.layoutCarouselMain)
     LinearLayout layoutCarouselMain;
     @BindView(R.id.txtLoadingServices)
@@ -78,16 +79,16 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         if (!showFavorites) {
             /*if (itemsMain != items.size()) {
                 itemsMain = items.size();*/
-                mainImageAdapter = new Carousel.ImageAdapter(getContext(), items);
-                carouselMain.setAdapter(mainImageAdapter);
-                carouselMain.setSelection(items.size() > 4 ? 2 : 0, false);
+            mainImageAdapter = new Carousel.ImageAdapter(getContext(), items);
+            carouselMain.setAdapter(mainImageAdapter);
+            carouselMain.setSelection(items.size() > 4 ? 2 : 0, false);
             //}
         } else {
             /*if (itemsFav != items.size()) {
                 itemsFav = items.size();*/
-                favoriteImageAdapter = new Carousel.ImageAdapter(getContext(), items);
-                carouselMain.setAdapter(favoriteImageAdapter);
-                carouselMain.setSelection(items.size() > 4 ? 2 : 0, false);
+            favoriteImageAdapter = new Carousel.ImageAdapter(getContext(), items);
+            carouselMain.setAdapter(favoriteImageAdapter);
+            carouselMain.setSelection(items.size() > 4 ? 2 : 0, false);
                 /*carouselMain.setVisibility(View.GONE);
                 carouselFavorite.setVisibility(View.VISIBLE);
             }*/
@@ -124,7 +125,11 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
                 if (!showFavorites) {
                     showFavorites = true;
                     onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
-                    paymentsCarouselPresenter.getFavoriteCarouselItems();
+                    if (Utils.isDeviceOnline()) {
+                        paymentsCarouselPresenter.getFavoriteCarouselItems();
+                    } else {
+                        showErrorService();
+                    }
                 } else {
                     showFavorites = false;
                     paymentsCarouselPresenter.getCarouselItems();
@@ -141,7 +146,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         carouselMain.setOnDragCarouselListener(new CarouselAdapter.OnDragCarouselListener() {
             @Override
             public void onStarDrag(CarouselItem item) {
-                Log.e(getTag(), "onStarDrag: " + item.getIndex() + ", ItemId: " + item.getComercio().getIdComercio());
+                //Log.e(getTag(), "onStarDrag: " + item.getIndex() + ", ItemId: " + item.getComercio().getIdComercio());
                 paymentsTabPresenter.setCarouselItem(item);
             }
         });
@@ -156,7 +161,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         carouselMain.setOnItemClickListener(new CarouselAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CarouselAdapter<?> parent, CarouselItem view, int position, long id) {
-                if(!showFavorites) {
+                if (!showFavorites) {
                     if (((CarouselItem) mainImageAdapter.getItem(position)).getComercio() == null) {
                         //ListDialog dialog = new ListDialog(getContext(), paymentsCarouselPresenter.getCarouselArray(), paymentsTabPresenter, fragment);
                         isFromClick = true;
@@ -202,6 +207,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
 
     @Override
     public void showErrorService() {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
         UI.createSimpleCustomDialog("", getString(R.string.error_respuesta), getActivity().getSupportFragmentManager(), getFragmentTag());
     }
 
@@ -212,6 +218,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
 
     @Override
     public void onError(String error) {
+        showFavorites = false;
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
         UI.createSimpleCustomDialog("", error, getActivity().getSupportFragmentManager(), getFragmentTag());
     }
@@ -223,9 +230,11 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         txtLoadingServices.setVisibility(View.GONE);
         if (isFromClick) {
             CarouselItem currentItem;
-            for (int pos = response.size() - 1 ; pos > 0 ; pos--) {
+            for (int pos = response.size() - 1; pos > -1; pos--) {
                 currentItem = response.get(pos);
-                if (currentItem.getComercio() == null || currentItem.getComercio().getIdComercio() == 0) {
+                if (!showFavorites && (currentItem.getComercio() == null || currentItem.getComercio().getIdComercio() == 0)) {
+                    response.remove(pos);
+                } else if (showFavorites && (currentItem.getFavoritos() == null || currentItem.getFavoritos().getIdComercio() == 0)) {
                     response.remove(pos);
                 }
             }

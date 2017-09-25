@@ -1386,23 +1386,18 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
     }
 
     public static class ImageAdapter extends BaseAdapter {
-
         private Context mContext;
         private ArrayList<CarouselItem> mImages;
 
-
         public ImageAdapter(Context c, ArrayList<CarouselItem> _mImages) {
-
             OriginalmImages = _mImages;
             mImages = _mImages;
-
             mContext = c;
             for (int i = 0; i < _mImages.size(); i++) {
 
                 mImages.get(i).setIndex(i);
             }
         }
-
 
         public int getCount() {
             if (mImages == null)
@@ -1533,10 +1528,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
                 mLastFlingAngle = 0.0f;
                 endFling(true);
             }
-
         }
-
     }
-
-
 }
