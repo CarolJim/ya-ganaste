@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.addfavorites.presenters;
 
+import android.content.Context;
+
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -9,6 +11,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AddFavoritosR
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddFavoritesActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.AddNewFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesIteractor;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
@@ -23,14 +26,14 @@ import java.util.List;
  */
 
 public class FavoritesPresenter implements IFavoritesPresenter {
-    AddFavoritesActivity mView;
+    IAddFavoritesActivity mView;
     IFavoritesIteractor favoritesIteractor;
     private CatalogsDbApi api;
 
-    public FavoritesPresenter(AddFavoritesActivity mView) {
+    public FavoritesPresenter(IAddFavoritesActivity mView) {
         this.mView = mView;
         favoritesIteractor = new FavoritesIteractor(this);
-        this.api = new CatalogsDbApi(mView);
+        this.api = new CatalogsDbApi(App.getContext());
     }
 
     @Override
@@ -39,6 +42,14 @@ public class FavoritesPresenter implements IFavoritesPresenter {
         favoritesIteractor.toIteractorAddFavorites(addFavoritesRequest);
     }
 
+    /**
+     * RESPUESTAS DE ITERACTOR
+     */
+
+    /**
+     *
+     * @param dataSourceResult
+     */
     @Override
     public void toPresenterGenericSuccess(DataSourceResult dataSourceResult) {
 
@@ -92,7 +103,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
             cameraManager.createPhoto(1);
         } catch (Exception e) {
             //Toast.makeText(App.getContext(), "Exception " + e, Toast.LENGTH_SHORT).show();
-           // mView.showExceptionToView(e.toString());
+            mView.showExceptionToView(e.toString());
         }
     }
 

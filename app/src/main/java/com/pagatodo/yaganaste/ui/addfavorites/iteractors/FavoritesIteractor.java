@@ -43,6 +43,15 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
         //favoritesPresenter.toPresenterTestResult();
     }
 
+
+    /**
+     * RESPUESTAS DE APIS
+     */
+
+    /**
+     *
+     * @param dataSourceResult
+     */
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
         /**
