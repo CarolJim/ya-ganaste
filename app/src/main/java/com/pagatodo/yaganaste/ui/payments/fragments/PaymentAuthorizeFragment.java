@@ -55,14 +55,12 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     MontoTextView importe;
     @BindView(R.id.layoutComision)
     LinearLayout layoutComision;
-    @BindView(R.id.comisionReferenciaText)
+    //@BindView(R.id.comisionReferenciaText)
     TextView comisionReferenciaText;
     @BindView(R.id.titleReferencia)
     TextView titleReferencia;
     @BindView(R.id.txtReferencia)
     TextView txtReferencia;
-    @BindView(R.id.imgLogoPago)
-    ImageView imgLogoPago;
 
     @BindView(R.id.layoutMail)
     LinearLayout layoutMail;
@@ -75,7 +73,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     StyleTextView nombreEnvio;
     @BindView(R.id.layoutAutorizacon)
     LinearLayout layoutAutorizacon;
-    @BindView(R.id.layoutFecha)
+    //@BindView(R.id.layoutFecha)
     LinearLayout layoutFecha;
     @BindView(R.id.layoutHora)
     LinearLayout layoutHora;
@@ -148,8 +146,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
             default:
                 break;
         }
-
-        Glide.with(getContext()).load(envio.getComercio().getLogoURL()).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).dontAnimate().into(imgLogoPago);
         setValidationRules();
         btnContinueEnvio.setOnClickListener(this);
     }

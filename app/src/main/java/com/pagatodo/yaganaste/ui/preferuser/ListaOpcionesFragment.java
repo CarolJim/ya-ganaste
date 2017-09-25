@@ -293,7 +293,8 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     @Override
     public void sendSuccessAvatarToView(String mMesage) {
         showDialogMesage(mMesage);
-        iv_photo_item.setImageBitmap(CameraManager.getBitmap());
+        mUserImage = SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL();
+        updatePhoto();
         CameraManager.cleanBitmap();
         hideLoader();
         onEventListener.onEvent("DISABLE_BACK", false);
