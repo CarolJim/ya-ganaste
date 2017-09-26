@@ -31,12 +31,16 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ITextChangeListener;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
 import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritesPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
+import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
@@ -52,6 +56,7 @@ import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
+import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
 
 import java.io.ByteArrayOutputStream;
@@ -81,10 +86,11 @@ import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
  */
 public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
         IListaOpcionesView, ValidationForms, View.OnClickListener, OnListServiceListener,
-        AdapterView.OnItemSelectedListener, ITextChangeListener {
+        AdapterView.OnItemSelectedListener, ITextChangeListener, PaymentsCarrouselManager {
 
     public static final String TAG = AddNewFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
+    private static int MAX_CAROUSEL_ITEMS = 12;
 
     @BindView(R.id.add_favorites_alias)
     CustomValidationEditText editAlias;
@@ -147,6 +153,8 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     private int maxLength;
     int keyIdComercio;
     TransferType selectedType;
+   MovementsTab current_tab2;
+    IPaymentsCarouselPresenter paymentsCarouselPresenter;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -157,7 +165,14 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
         Intent intent = getIntent();
         current_tab = intent.getIntExtra(CURRENT_TAB, 99);
-        backUpResponse = intent.getExtras().getParcelableArrayList(BACK_UP_RESPONSE);
+      //  backUpResponse = intent.getExtras().getParcelableArrayList(BACK_UP_RESPONSE);
+
+        // Iniciamos el presentes del carrousel
+       // this.current_tab = MovementsTab.valueOf(getArguments().getString("TAB"));
+        this.current_tab2 = MovementsTab.valueOf("TAB1");
+        backUpResponse = new ArrayList<>();
+        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this);
+        paymentsCarouselPresenter.getCarouselItems();
 
         ButterKnife.bind(this);
         imageViewCamera.setVisibilityStatus(false);
@@ -993,6 +1008,52 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
     @Override
     public void onTextComplete() {
+
+    }
+
+    @Override
+    public void showError() {
+
+    }
+
+    @Override
+    public void onError(String error) {
+
+    }
+
+    @Override
+    public void onSuccess(Double importe) {
+
+    }
+
+    @Override
+    public void setCarouselData(ArrayList<CarouselItem> response) {
+        if (response.size() > MAX_CAROUSEL_ITEMS) {
+            ArrayList<CarouselItem> subList = new ArrayList<>(response.subList(0, MAX_CAROUSEL_ITEMS));
+            setBackUpResponse(subList);
+            //setCarouselAdapter(subList);
+        } else {
+            setBackUpResponse(response);
+            //setCarouselAdapter(response);
+        }
+    }
+
+    private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
+        for (CarouselItem carouselItem : mResponse) {
+            if (carouselItem.getComercio() != null) {
+                backUpResponse.add(new CustomCarouselItem(
+                        carouselItem.getComercio().getIdComercio(),
+                        carouselItem.getComercio().getIdTipoComercio(),
+                        carouselItem.getComercio().getNombreComercio(),
+                        carouselItem.getComercio().getFormato(),
+                        carouselItem.getComercio().getLongitudReferencia()
+                ));
+            }
+        }
+    }
+
+    @Override
+    public void showErrorService() {
 
     }
 }

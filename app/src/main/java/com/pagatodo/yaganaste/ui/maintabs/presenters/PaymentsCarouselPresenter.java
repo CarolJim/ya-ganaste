@@ -35,7 +35,8 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     Context mContext;
     private CatalogsDbApi api;
 
-    public PaymentsCarouselPresenter(MovementsTab current_tab, PaymentsCarrouselManager paymentsManager, Context context) {
+    public PaymentsCarouselPresenter(MovementsTab current_tab,
+                                     PaymentsCarrouselManager paymentsManager, Context context) {
         this.current_tab = current_tab;
         this.paymentsManager = paymentsManager;
         this.mContext = context;
