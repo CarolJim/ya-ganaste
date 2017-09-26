@@ -25,6 +25,7 @@
                 android:layout_centerInParent="true"
                 android:layout_gravity="center_vertical"
                 android:gravity="center_vertical"
+                android:orientation="vertical"
                 android:visibility="visible">
 
                 <com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
@@ -32,17 +33,24 @@
                     android:layout_width="match_parent"
                     android:layout_height="200dp" />
 
+                <!--<com.pagatodo.yaganaste.utils.customviews.carousel.Carousel
+                    android:id="@+id/carouselFavorite"
+                    android:layout_width="match_parent"
+                    android:layout_height="200dp"
+                    android:visibility="gone" />-->
+
             </LinearLayout>
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtLoadingServices"
-                style="@style/generic_text_style_2" android:visibility="gone"
+                style="@style/generic_text_style_2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:minHeight="250dp"
                 android:text="@string/no_services_msg"
                 android:textSize="20sp"
+                android:visibility="gone"
                 app:tipo="Titulo" />
 
 

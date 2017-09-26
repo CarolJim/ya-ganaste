@@ -227,7 +227,6 @@ public class CarouselItem extends FrameLayout
 
     public void setImageUrl(String imageUrl) {
         this.imageUrl = imageUrl;
-
     }
 
     public boolean isEmpty() {

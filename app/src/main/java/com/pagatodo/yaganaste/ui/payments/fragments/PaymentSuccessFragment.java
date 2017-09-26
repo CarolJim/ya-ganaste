@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -91,6 +90,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     @BindView(R.id.layout_compania)
     LinearLayout layoutCompania;
 
+
     @BindView(R.id.layout_addfavorites)
     LinearLayout addFavorites;
 
@@ -131,7 +131,6 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
-        addFavorites.setVisibility(View.VISIBLE);
 
         if (pago instanceof Recarga) {
             layoutEnviado.setVisibility(View.GONE);
@@ -329,10 +328,5 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
                 finalizePayment();
             }
         }
-    }
-
-    public void hideAddFavorites() {
-        LinearLayout linearLayout = (LinearLayout) rootview.findViewById(R.id.layout_addfavorites);
-        linearLayout.setVisibility(View.INVISIBLE);
     }
 }
