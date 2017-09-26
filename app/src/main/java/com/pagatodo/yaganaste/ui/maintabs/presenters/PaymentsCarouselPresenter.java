@@ -38,13 +38,15 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     PaymentsCarrouselManager paymentsManager;
     Context mContext;
     private CatalogsDbApi api;
+    boolean showFavorite; //Sirve para saber si el presenter se manda a llamar desde el carrusel de Favoritos
 
-    public PaymentsCarouselPresenter(MovementsTab current_tab, PaymentsCarrouselManager paymentsManager, Context context) {
+    public PaymentsCarouselPresenter(MovementsTab current_tab, PaymentsCarrouselManager paymentsManager, Context context, boolean showFavorite) {
         this.current_tab = current_tab;
         this.paymentsManager = paymentsManager;
         this.mContext = context;
         this.api = new CatalogsDbApi(context);
         this.paymentsTabIteractor = new PaymentsCarouselIteractor(this, api);
+        this.showFavorite = showFavorite;
     }
 
     @Override
@@ -161,13 +163,16 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     }
 
     private CarouselItem createEmptyItem() {
-        return new CarouselItem(App.getInstance(), 0, "#00FFFFFF" , CarouselItem.CLICK, new ComercioResponse());
         return new CarouselItem(App.getContext(), 0, "#00FFFFFF", CarouselItem.CLICK, new ComercioResponse(),null);
     }
 
     @Override
     public void onSuccessDBFavorites(List<DataFavoritos> favoritos) {
-       paymentsManager.setCarouselData(getCarouselItemsFavoritos(favoritos));
+        if(showFavorite){
+            paymentsManager.setCarouselData(getCarouselItemsFavoritos(favoritos));
+        } else {
+            paymentsManager.showFavorites();
+        }
     }
 
     private ArrayList<CarouselItem> getCarouselItems(List<ComercioResponse> comercios) {

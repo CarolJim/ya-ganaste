@@ -26,9 +26,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
-import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -93,7 +91,6 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public static PaymentsTabFragment newInstance() {
         PaymentsTabFragment paymentsTabFragment = new PaymentsTabFragment();
-
         Bundle args = new Bundle();
         paymentsTabFragment.setArguments(args);
         return paymentsTabFragment;
@@ -157,8 +154,8 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         botonEnvios.setOnClickListener(this);
 
         rlimgPagosServiceToPay.setOnDragListener(this);
-       // txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre()));
-        txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre())+" "+ userData.getPrimerApellido());
+        // txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre()));
+        txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre()) + " " + userData.getPrimerApellido());
         txtBalance.setText(StringUtils.getCurrencyValue(singletonUser.getDatosSaldo().getSaldoEmisor()));
     }
 
@@ -313,6 +310,20 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public MovementsTab getCurrenTab() {
         return currentTab;
+    }
+
+    public void showFavorites() {
+        payment_view_pager.setVisibility(View.GONE);
+        container.setVisibility(View.VISIBLE);
+        FavoritesFragmentCarousel favoritesFragmentCarousel = new FavoritesFragmentCarousel();
+        Bundle args = new Bundle();
+        args.putInt("TAB", currentTab.getId());
+        favoritesFragmentCarousel.setArguments(args);
+        getChildFragmentManager().beginTransaction().replace(R.id.container, favoritesFragmentCarousel).commit();
+    }
+
+    public void hideFavorites() {
+        setTab(currentTab);
     }
 
     @Override

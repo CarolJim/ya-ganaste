@@ -304,7 +304,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
                 // Toast.makeText(this, data.getStringExtra("result"), Toast.LENGTH_SHORT).show();
                 PaymentSuccessFragment fragment = (PaymentSuccessFragment)
                         getSupportFragmentManager().findFragmentById(R.id.container);
-                fragment.hideAddFavorites();
+                //fragment.hideAddFavorites();
             }
             if (resultCode == Activity.RESULT_CANCELED) {
                 // Toast.makeText(this, "Fail Epic Fail", Toast.LENGTH_SHORT).show();

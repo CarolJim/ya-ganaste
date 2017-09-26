@@ -1053,8 +1053,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
             setSelectedPositionInt(position);
             onFinishedMovement();
         }
-
-
     }
 
     public void scrollToChild(int i) {
@@ -1192,8 +1190,7 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         if (deltaAngle > 10) {
             deltaAngle = 10;
         }
-
-        int count = getAdapter().getCount();
+        Log.i("Ya Ganaste", "@deltaAngle 1: "+deltaAngle);
 
         if (deltaAngle < -10) {
             deltaAngle = -10;
@@ -1209,7 +1206,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
             CarouselItem child = (CarouselItem) getAdapter().getView(i, null, null);
 
-            float OriginalAngle = child.getCurrentAngle();
             float angle = child.getCurrentAngle();
             angle += deltaAngle;
 
@@ -1220,8 +1216,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
                 angle += 360.0f;
 
             child.setCurrentAngle(angle);
-
-
         }
 
         boolean setted = false;
@@ -1229,16 +1223,12 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
             CarouselItem child = (CarouselItem) getAdapter().getView(i, null, null);
 
             if (child.getCurrentAngle() > 49 && child.getCurrentAngle() < 309) {
-
                 child.setEmpty(true);
                 child.setVisible(false);
-
                 float alpha = child.getAlpha();
-
 
                 if (alpha == 1.0) {
                     if (deltaAngle < 0) {
-
                         if (!setted) {
                             int nextItem = i - 5;
 
@@ -1261,12 +1251,10 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
                             int nextItem = i + 5;
 
-
                             if (nextItem >= getAdapter().getCount())
                                 nextItem = nextItem - getAdapter().getCount();
-
+                            Log.i("Ya Ganaste", "@nextItem 1: "+nextItem);
                             int nextItemAngle = nextItem - 1;
-
                             if (nextItemAngle < 0) {
                                 nextItemAngle = getAdapter().getCount() - 1;
                             }
@@ -1283,15 +1271,9 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
             } else {
 
-
                 float alpha = child.getAlpha();
-
-
                 if (alpha < 1.0) {
-
-
                     /*
-
                     if(deltaAngle >= 0&&child.isEmpty())
                     {
                         if (lastIndexVisible + 1 >= OriginalmImages.size()) {
@@ -1306,16 +1288,11 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
                             firstIndexVisible+= 1;
                             int drawable = OriginalmImages.get(lastIndexVisible).getDrawable();
                             child.setImageDrawable(drawable);
-
-
-
-
                         }
 
                     }
                     else  if(deltaAngle <= -1 &&child.isEmpty())
                     {
-
                         if(firstIndexVisible -1 < 0)
                         {
                             firstIndexVisible = OriginalmImages.size()-1;
@@ -1335,10 +1312,8 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
                     }
                 */
-
                     child.setEmpty(false);
                 }
-
                 child.setVisible(true);
                 child.setAlpha(1.0f);
             }
@@ -1351,7 +1326,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
         // Clear unused views
         mRecycler.clear();
-
         invalidate();
     }
 
@@ -1394,7 +1368,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
             mImages = _mImages;
             mContext = c;
             for (int i = 0; i < _mImages.size(); i++) {
-
                 mImages.get(i).setIndex(i);
             }
         }
