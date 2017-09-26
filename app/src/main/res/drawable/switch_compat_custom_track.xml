@@ -1,0 +1,7 @@
+<?xml version="1.0" encoding="utf-8"?>
+<shape xmlns:android="http://schemas.android.com/apk/res/android"
+    android:shape="rectangle">
+    <corners android:radius="10dp"/>
+    <solid android:color="@color/switch_track_color" />
+    <size android:height="@dimen/switch_card_thumb_size" />
+</shape>

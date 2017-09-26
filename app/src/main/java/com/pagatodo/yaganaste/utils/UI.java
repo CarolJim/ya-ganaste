@@ -168,7 +168,17 @@ public class UI {
 
         customErrorDialog.setTitleBtnAcept(btnAceptar);
         customErrorDialog.setTitleBtnCancel(btnCancelar);
+        customErrorDialog.setDialogActions(actions);
+        customErrorDialog.show(fragmentManager, tag);
+    }
+    public static void createCustomDialogSMS(String title, String message, FragmentManager fragmentManager, String tag,
+                                          DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_error_message,
+                title, message, true, true);
 
+        customErrorDialog.setTitleBtnAcept(btnAceptar);
+        customErrorDialog.setTitleBtnCancel(btnCancelar);
+        customErrorDialog.setCancelable(false);
         customErrorDialog.setDialogActions(actions);
         customErrorDialog.show(fragmentManager, tag);
     }

@@ -580,9 +580,12 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             } else {
                 idDrawableStatus = R.drawable.ic_wait;
             }
-
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inScaled = false;
+            options.inSampleSize = 1; // make sure pixels are 1:1
+            options.inPreferQualityOverSpeed = true;
             bitmap = BitmapFactory.decodeResource(App.getContext().getResources(),
-                    idDrawableStatus);
+                    idDrawableStatus,options);
 
             switch (tipoDoc) {
                 case DOC_ID_FRONT:

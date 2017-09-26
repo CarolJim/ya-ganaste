@@ -36,6 +36,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
+import com.pagatodo.yaganaste.utils.CustomDatePicker;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
@@ -141,7 +142,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
                 day = newCalendar.get(Calendar.DAY_OF_MONTH);
             }
 
-            DatePickerDialog datePickerDialog = new DatePickerDialog(getActivity(), new DatePickerDialog.OnDateSetListener() {
+            CustomDatePicker datePickerDialog = new CustomDatePicker(getActivity(), new DatePickerDialog.OnDateSetListener() {
                 @Override
                 public void onDateSet(DatePicker view, int year, int month, int date) {
                     newDate = Calendar.getInstance(new Locale("es"));
@@ -691,4 +692,5 @@ public class DatosPersonalesFragment extends GenericFragment implements
             }
         }
     }
+
 }

@@ -152,11 +152,11 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         carouselMain.setOnItemClickListener(new CarouselAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CarouselAdapter<?> parent, CarouselItem view, int position, long id) {
-                if (position == 0) {
+                if (((CarouselItem)mainImageAdapter.getItem(position)).getComercio() == null) {
                     //ListDialog dialog = new ListDialog(getContext(), paymentsCarouselPresenter.getCarouselArray(), paymentsTabPresenter, fragment);
                     isFromClick = true;
                     paymentsCarouselPresenter.getCarouselItems();
-                } else {
+                } else if (((CarouselItem)mainImageAdapter.getItem(position)).getComercio().getIdComercio() != 0) {
                     paymentsTabPresenter.setCarouselItem((CarouselItem) mainImageAdapter.getItem(position));
                     fragment.onItemSelected();
                 }
@@ -193,7 +193,13 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         layoutCarouselMain.setVisibility(View.VISIBLE);
         txtLoadingServices.setVisibility(View.GONE);
         if (isFromClick) {
-            response.remove(0);
+            CarouselItem currentItem;
+            for (int pos = response.size() - 1 ; pos > 0 ; pos--) {
+                currentItem = response.get(pos);
+                if (currentItem.getComercio() == null || currentItem.getComercio().getIdComercio() == 0) {
+                    response.remove(pos);
+                }
+            }
             Collections.sort(response, new Comparator<CarouselItem>() {
                 @Override
                 public int compare(CarouselItem o1, CarouselItem o2) {
