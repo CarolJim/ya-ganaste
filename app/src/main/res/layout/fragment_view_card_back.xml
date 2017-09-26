@@ -18,7 +18,7 @@
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
-        <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
+        <com.pagatodo.yaganaste.utils.customviews.YaGanasteCardBack
             android:id="@+id/cardSaldo"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
