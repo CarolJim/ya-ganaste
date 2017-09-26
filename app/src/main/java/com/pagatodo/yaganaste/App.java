@@ -2,25 +2,19 @@ package com.pagatodo.yaganaste;
 
 import android.app.Activity;
 import android.app.Application;
-import android.app.PendingIntent;
-import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
-import android.content.IntentFilter;
-import android.content.pm.ActivityInfo;
 import android.content.res.Configuration;
-import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.os.Handler;
 import android.os.Looper;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
-import android.widget.Toast;
 
 import com.dspread.xpos.QPOSService;
+import com.facebook.stetho.Stetho;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.data.model.SingletonSession;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.RequestHeaders;
@@ -33,7 +27,6 @@ import com.pagatodo.yaganaste.utils.NotificationBuilder;
 import com.pagatodo.yaganaste.utils.ScreenReceiver;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Locale;
@@ -43,6 +36,7 @@ import java.util.Set;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
+import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
 
 /**
@@ -87,6 +81,7 @@ public class App extends Application {
                 getBaseContext().getResources().getDisplayMetrics());
         m_singleton = this;
         //MultiDex.install(this);
+        Stetho.initializeWithDefaults(this);
 
         this.prefs = new Preferencias(this);
         System.loadLibrary("a01jni");
@@ -114,11 +109,11 @@ public class App extends Application {
         Set<Map.Entry<String, Activity>> mapValues = quoeeuActivites.entrySet();
         int maplength = mapValues.size();
 
-        final Map.Entry<String,Activity>[] test = new Map.Entry[maplength];
+        final Map.Entry<String, Activity>[] test = new Map.Entry[maplength];
         mapValues.toArray(test);
 
-        if (test.length > 0 && test[maplength-1].getValue() instanceof SupportFragmentActivity) {
-            this.currentActivity = (SupportFragmentActivity) test[maplength-1].getValue();
+        if (test.length > 0 && test[maplength - 1].getValue() instanceof SupportFragmentActivity) {
+            this.currentActivity = (SupportFragmentActivity) test[maplength - 1].getValue();
         }
 
     }
@@ -155,6 +150,7 @@ public class App extends Application {
     }
     public void cerrarApp() {
         VolleySingleton.getInstance(App.getContext()).deleteQueue();
+        prefs.saveDataBool(CONSULT_FAVORITE, false);
 
         try {
             ApiAdtvo.cerrarSesion();// Se envia null ya que el Body no aplica.
@@ -199,7 +195,7 @@ public class App extends Application {
     }
 
     public void stopTimer() {
-        if(countDownTimer != null) {
+        if (countDownTimer != null) {
             countDownTimer.cancel();
         }
     }
@@ -210,6 +206,7 @@ public class App extends Application {
             public void onTick(long millisUntilFinished) {
 
             }
+
             @Override
             public void onFinish() {
                 cerrarApp();
@@ -217,8 +214,6 @@ public class App extends Application {
         };
         countDownTimer.start();
     }
-
-
 
 
 }

@@ -44,7 +44,7 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
     /**
      * Default min quantity of images
      */
-    private static final int MIN_QUANTITY = 3;
+    private static final int MIN_QUANTITY = 2;
     /**
      * Default max quantity of images
      */
@@ -1417,8 +1417,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
 
                 mImages.get(i).setIndex(i);
             }
-
-
         }
 
 

@@ -62,6 +62,9 @@
     <string name="estatusDatosCuenta">/ObtenerEstatusTarjeta</string>
     <string name="generate_rpc">/GenerarCodigoRecuperacionSoftToken</string>
     <string name="enviarCorreo">/EnviarCorreoContactanos</string>
+    <string name="consultarFavorito">/ConsultarFavorito</string>
+    <string name="addFavoritos">/AgregarFavorito</string>
+
 
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
     <string name="desvincula_dispositivo_texto">Al Desvincular tu Dispositivo ya no Estará Ligado a tu Cuenta Ya Ganaste. Si Quieres Volver a Usarlo, Deberás Enviar Nuevamente el SMS de Vinculación</string>
@@ -439,6 +442,8 @@
     <string name="title_recarga_success">¡Recarga Exitosa!</string>
     <string name="title_servicio_success">¡Pago Exitoso!</string>
     <string name="title_envio_success">¡Envío Exitoso!</string>
+    <string name="synch_favorites">Obteniendo Favoritos</string>
+    <string name="empty_list_favorites">No Cuenta Con Favoritos</string>
 
     <string name="transfer_phone">Número de Teléfono</string>
     <string name="transfer_phone_cellphone">Número de Celular</string>
@@ -596,7 +601,7 @@
     <string name="txt_comision">Comisión:</string>
     <string name="txt_phone_b">Teléfono: </string>
     <string name="add_favorites">Agregar a Favoritos</string>
-    <string name="email_send_ticket">¿A Qué Correo Electrónico \nEnviamos tu Recibo?</string>
+    <string name="email_send_ticket">Envíar Comprobante (Opcional):</string>
     <string name="envia_comprobante_a">Envía Este Comprobante a </string>
     <string name="envia_comprobante_opcional"> (Opcional)</string>
     <string name="envia_email">Enviando Email</string>
@@ -900,4 +905,10 @@
     <string name="details_telefono">Teléfono</string>
 
     <string name="close_sesion_body">Por tu Seguridad, Hemos Cerrado la Sesión Por Falta de Actividad</string>
+    <string name="addFavorites">Agregar a Favoritos</string>
+    <string name="addFavoritesAlias">Alias</string>
+    <string name="addFavoritesServicio">Servicio</string>
+    <string name="addFavoritesReferencia">Referencia</string>
+    <string name="addFavoritesErrorAlias">Es necesario un alias para proceder</string>
+    <string name="addFavoritesMsnAlta">Agregando a Favoritos</string>
 </resources>

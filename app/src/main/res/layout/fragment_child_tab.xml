@@ -194,7 +194,6 @@
                             android:scaleType="centerInside"
                             android:src="@mipmap/circulo_add_servicio" />
                     </RelativeLayout>
-
                 </FrameLayout>
 
 

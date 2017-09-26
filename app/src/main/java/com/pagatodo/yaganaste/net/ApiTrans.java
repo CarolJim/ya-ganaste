@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.net;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.BloquearCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest;
@@ -16,8 +17,10 @@ import com.pagatodo.yaganaste.data.model.webservice.request.trans.EjecutarTransa
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.FondearCUPORequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ObtenerEstatusTarjetaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ValidarTransaccionRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AddFavoritosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarNIPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsociarTarjetaCuentaResponse;
@@ -35,6 +38,7 @@ import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.account.AccountInteractorNew;
+import com.pagatodo.yaganaste.ui.addfavorites.iteractors.FavoritesIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 
 import java.util.Map;
@@ -42,6 +46,7 @@ import java.util.Objects;
 
 import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_GET;
 import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_POST;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_FAVORITES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASOCIAR_TARJETA_CUENTA;
@@ -58,6 +63,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FONDEAR_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTATUS_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_TRANSACCION;
+import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_TRANS;
 
 /**

@@ -117,4 +117,9 @@ public class UploadDocumentView extends RelativeLayout {
     public void setIsStatus(int isStatus) {
         this.isStatus = isStatus;
     }
+
+    public CircleImageView getCircleImageView() {
+        return circleImageView;
+    }
+
 }

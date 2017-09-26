@@ -31,7 +31,7 @@ public class Recursos {
     public static final String PT_CLIENT_CODE;
 
 
-    public static final long DISCONNECT_TIMEOUT = 420000;
+    public static final long DISCONNECT_TIMEOUT = 1200000;
 
     //URL DE WS
     static {
@@ -115,6 +115,8 @@ public class Recursos {
 
     // Preferencias para Foto de Usuario. URL
     public static final String URL_PHOTO_USER = "URL_PHOTO_USER";
+    public static final String CONSULT_FAVORITE = "CONSULT_FAVORITE";
+
 
     /**
      * Catálogos

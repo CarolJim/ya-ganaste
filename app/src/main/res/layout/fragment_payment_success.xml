@@ -7,8 +7,11 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:paddingTop="30dp"
+    android:paddingTop="20dp"
     tools:context=".ui._controllers.PaymentsProcessingActivity">
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -22,7 +25,7 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/recharge_success_title" />
-        
+
         <android.support.v4.widget.Space
             android:layout_width="match_parent"
             android:layout_height="30dp" />
@@ -340,7 +343,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/email_send_ticket"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/whiteColor" />
 
             <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                 android:id="@+id/editMail"
@@ -355,47 +358,37 @@
 
         </LinearLayout>
 
-
-        <LinearLayout
-            android:id="@+id/layoutPass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_doble"
-            android:layout_marginRight="@dimen/margin_doble"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/margin_medium"
-            android:paddingRight="@dimen/margin_medium"
-            android:visibility="gone">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/titlePass"
-                style="@style/generic_text_style_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/txt_enter_password"
-                android:textColor="@color/colorAccent" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/editPassword"
-                style="@style/GenericCustomValidationEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:gravity="center"
-                app:defaultIcon="@null"
-                app:formato="password"
-                app:hintText="@string/password" />
-
-            <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                android:id="@+id/errorPasswordMessage"
-                style="@style/generic_text_style_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_xsmall" />
-        </LinearLayout>
-
     </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_addfavorites"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="vertical"
+        android:visibility="visible">
+
+        <ImageView
+            android:layout_width="45dp"
+            android:layout_height="45dp"
+            android:layout_alignParentBottom="true"
+            android:layout_centerHorizontal="true"
+            android:layout_centerVertical="true"
+            android:layout_gravity="center_horizontal|bottom"
+            android:padding="4dp"
+            android:src="@mipmap/circulo_favorito"
+            android:onClick="openAddFavoritos"
+            android:visibility="visible"
+            tools:ignore="ContentDescription" />
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            style="@style/generic_text_style_3"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:gravity="end"
+            android:text="Agregar a Favoritos" />
+    </LinearLayout>
+
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
