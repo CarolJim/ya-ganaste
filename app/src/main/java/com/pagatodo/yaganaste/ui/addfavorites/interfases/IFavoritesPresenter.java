@@ -11,8 +11,6 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 public interface IFavoritesPresenter {
     void toPresenterAddFavorites(AddFavoritesRequest addFavoritesRequest);
 
-    void toPresenterTestResult();
-
     void toPresenterErrorServer(String mMensaje);
 
     void toPresenterGenericSuccess(DataSourceResult dataSourceResult);

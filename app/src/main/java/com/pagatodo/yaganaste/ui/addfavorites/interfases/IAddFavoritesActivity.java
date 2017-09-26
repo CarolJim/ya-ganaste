@@ -5,9 +5,14 @@ package com.pagatodo.yaganaste.ui.addfavorites.interfases;
  */
 
 public interface IAddFavoritesActivity {
-    void toViewResult();
 
     void toViewErrorServer(String mMensaje);
 
     void toViewSuccessAdd(String mensaje);
+
+    void showLoader(String s);
+
+    void hideLoader();
+
+    void showExceptionToView(String s);
 }

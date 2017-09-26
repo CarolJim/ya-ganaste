@@ -5,11 +5,13 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
+import android.support.v7.widget.AppCompatSpinner;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
+import android.widget.ArrayAdapter;
 import android.widget.LinearLayout;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -17,7 +19,10 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.States;
+import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
 import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritesPresenter;
@@ -27,7 +32,12 @@ import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
+import com.pagatodo.yaganaste.utils.customviews.ListServDialogFragment;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
+import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
+import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
+
+import java.util.ArrayList;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -40,53 +50,58 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
 
 /**
- * Encargada de dar de alta Favoritos, primero en el servicio y luego en la base local
+ * Encargada de dar de alta Favoritos, pero capturando todos sus datos. primero en el servicio y luego en la base local
  */
-public class AddFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
-        IListaOpcionesView, ValidationForms {
+public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
+        IListaOpcionesView, ValidationForms, View.OnClickListener, OnListServiceListener {
 
     @BindView(R.id.add_favorites_alias)
-    CustomValidationEditText editTextAlias;
-    @BindView(R.id.add_favorites_servicio)
-    CustomValidationEditText textViewServ;
-    @BindView(R.id.add_favorites_referencia)
-    CustomValidationEditText textViewRef;
-    @BindView(R.id.add_favorites_tipo)
-    CustomValidationEditText textViewTipo;
-    @BindView(R.id.add_favorites_camera)
-    UploadDocumentView imageViewCamera;
-    @BindView(R.id.errorAliasMessage)
-    ErrorMessage errorAliasMessage;
+    CustomValidationEditText editAlias;
+    @BindView(R.id.add_favorites_alias_error)
+    ErrorMessage editAliasError;
+    @BindView(R.id.add_favorites_list_serv)
+    CustomValidationEditText editListServ;
+    @BindView(R.id.add_favorites_list_serv_error)
+    ErrorMessage editListServError;
     @BindView(R.id.add_favorites_linear_tipo)
     LinearLayout linearTipo;
+    @BindView(R.id.add_favorites_tipo)
+    CustomValidationEditText editTipo;
+    @BindView(R.id.add_favorites_tipo_error)
+    ErrorMessage editTipoError;
+    @BindView(R.id.add_favorites_referencia)
+    CustomValidationEditText editRefer;
+    @BindView(R.id.add_favorites_referencia_error)
+    ErrorMessage editReferError;
+    @BindView(R.id.add_favorites_camera)
+    UploadDocumentView imageViewCamera;
+
     IFavoritesPresenter favoritesPresenter;
     int idTipoComercio;
     int idComercio;
+    int idTipoEnvio;
     String nombreComercio;
     String mReferencia;
     CameraManager cameraManager;
     private boolean errorIsShowed = false;
-    private int idTipoEnvio;
+    ArrayList<CustomCarouselItem> backUpResponse;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_favorites);
+        setContentView(R.layout.activity_add_new_favorites);
 
         favoritesPresenter = new FavoritesPresenter(this);
 
         Intent intent = getIntent();
-        idComercio = intent.getIntExtra(ID_COMERCIO, 99);
-        idTipoComercio = intent.getIntExtra(ID_TIPO_COMERCIO, 98);
-        idTipoEnvio = intent.getIntExtra(ID_TIPO_ENVIO, 97);
-        nombreComercio = intent.getStringExtra(NOMBRE_COMERCIO);
-        mReferencia = intent.getStringExtra(REFERENCIA);
+        int current_tab = intent.getIntExtra("currentTab", 99);
+        backUpResponse = intent.getExtras().getParcelableArrayList("backUpResponse");
 
         ButterKnife.bind(this);
         imageViewCamera.setVisibilityStatus(false);
-        textViewServ.setText(nombreComercio);
-        textViewRef.setText(mReferencia);
 
+        /*textViewServ.setText(nombreComercio);
+        textViewRef.setText(mReferencia);
         if (idTipoEnvio == 1) {
             linearTipo.setVisibility(View.VISIBLE);
             textViewTipo.setText(App.getContext().getResources().getString(R.string.transfer_phone_cellphone));
@@ -94,21 +109,21 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             linearTipo.setVisibility(View.VISIBLE);
             textViewTipo.setText(App.getContext().getResources().getString(R.string.debit_card_number));
         }
-
-        // Deshabilitamos la edicion de los CustomEditTExt para no modificarlos
-        textViewServ.setFocusable(false);
-        textViewRef.setFocusable(false);
-        textViewTipo.setFocusable(false);
-
         errorAliasMessage.setVisibilityImageError(false);
 
         // Agregar el escuchardor DoneOnEditor para procesar el clic de teclas
-        editTextAlias.addCustomEditorActionListener(new DoneOnEditorActionListener());
+        editTextAlias.addCustomEditorActionListener(new DoneOnEditorActionListener());*/
+
+
+
+        // Funcionalidad para agregar el Spinner
+        editListServ.imageViewIsGone(false);
+        editListServ.setEnabled(false);
+        editListServ.setFullOnClickListener(this);
 
         // Iniciamos la funcionalidad e la camara
         cameraManager = new CameraManager();
         cameraManager.initCameraUploadDocument(this, imageViewCamera, this);
-
     }
 
     @Override
@@ -145,6 +160,25 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     public void sendAddFavoritos() {
         // Toast.makeText(this, "Open Presenter", Toast.LENGTH_SHORT).show();
         validateForm();
+    }
+
+    @Override
+    public void onClick(View view) {
+        switch (view.getId()) {
+            case R.id.add_favorites_list_serv:
+                /**
+                 * 1 - Creamos nuestro Dialog Fragment Custom que mostrar la lista de Servicios
+                 * 2 - HAcemos SET de la interfase OnListServiceListener, con e metodo setOnList...
+                 * asi al hacer clic en algun elemento nos dara la respuesta
+                 * 3 - Mostramos el dialogo
+                 */
+                ListServDialogFragment dialogFragment = ListServDialogFragment.newInstance(backUpResponse);
+                dialogFragment.setOnListServiceListener(this);
+                dialogFragment.show(getSupportFragmentManager(), "FragmentDialog");
+                break;
+            default:
+                break;
+        }
     }
 
     /**
@@ -238,7 +272,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
     @Override
     public void validateForm() {
-        getDataForm();
+        /*getDataForm();
         boolean isValid = true;
 
         //Validate format Email
@@ -257,7 +291,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             } else {
                 showDialogMesage(getResources().getString(R.string.no_internet_access), 0);
             }
-        }
+        }*/
     }
 
     @Override
@@ -265,7 +299,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
         switch (id) {
             case R.id.add_favorites_alias:
-                errorAliasMessage.setMessageText(error.toString());
+              //  errorAliasMessage.setMessageText(error.toString());
                 break;
         }
 
@@ -276,7 +310,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     public void hideValidationError(int id) {
         switch (id) {
             case R.id.add_favorites_alias:
-                errorAliasMessage.setVisibilityImageError(false);
+              //  errorAliasMessage.setVisibilityImageError(false);
                 break;
         }
         //errorMessageView.setVisibilityImageError(false);
@@ -285,15 +319,12 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
     @Override
     public void onValidationSuccess() {
-        errorAliasMessage.setVisibilityImageError(false);
-        String mAlias = editTextAlias.getText();
-        AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idComercio,
-                mAlias, mReferencia);
+       /* errorAliasMessage.setVisibilityImageError(false);
         String mAlias = editTextAlias.getText().toString();
         AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
                 idComercio, mAlias, mReferencia);
 
-        favoritesPresenter.toPresenterAddFavorites(addFavoritesRequest);
+        favoritesPresenter.toPresenterAddFavorites(addFavoritesRequest);*/
     }
 
     @Override
@@ -303,7 +334,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
     /**
      * Encargada de reaccionar al codigo de pusacion KEYCODE_CALL=5 para cerrar el teclado
-     */
+     *//*
     private class DoneOnEditorActionListener implements TextView.OnEditorActionListener {
         @Override
         public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
@@ -317,7 +348,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             }
             return false;
         }
-    }
+    }*/
 
 
     @Override
@@ -343,5 +374,10 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     @Override
     public void setValidationRules() {
 
+    }
+
+    @Override
+    public void onListServiceListener(CustomCarouselItem item) {
+        Toast.makeText(this, "Item " + item.getNombreComercio(), Toast.LENGTH_SHORT).show();
     }
 }
