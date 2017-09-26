@@ -94,6 +94,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private ResetPinPresenter resetPinPresenter;
     CircleImageView imageView;
     ImageView imageshare;
+    App aplicacion;
 
     public static Intent createIntent(Context from) {
         return new Intent(from, TabActivity.class);
@@ -103,6 +104,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tab);
+        aplicacion = new App();
         load();
         imageView = (CircleImageView) findViewById(R.id.imgToRight_prefe);
         imageshare= (ImageView) findViewById(R.id.deposito_Share);
@@ -432,6 +434,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                     @Override
                     public void actionConfirm(Object... params) {
                         SingletonSession.getInstance().setFinish(true);//Terminamos CupoStatusFragment si va a background
+                        aplicacion.cerrarAppsms();
                         Intent intent = new Intent(TabActivity.this, MainActivity.class);
                         intent.putExtra(SELECTION, MAIN_SCREEN);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
