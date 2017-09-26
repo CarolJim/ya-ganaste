@@ -56,20 +56,22 @@
             android:layout_centerInParent="true"
             android:orientation="vertical">
 <LinearLayout
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:id="@+id/llsaldocontenedor"
-    android:layout_height="wrap_content">
+    android:orientation="vertical"
+    android:layout_height="310dp">
             <LinearLayout
                 android:layout_width="match_parent"
                 android:id="@+id/llsaldo"
                 android:orientation="vertical"
-                android:layout_height="wrap_content">
+                android:layout_height="320dp">
 
             </LinearLayout>
             <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
                 android:id="@+id/cardSaldo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
+
                 android:layout_marginRight="65dp"
                 android:visibility="gone"
                 android:layout_marginLeft="65dp"
