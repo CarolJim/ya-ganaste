@@ -156,7 +156,8 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     }
 
     private CarouselItem createItemToAddFav() {
-        return new CarouselItem(App.getInstance(), R.drawable.ic_plus_2, "#747E84" , CarouselItem.DRAG, new ComercioResponse());
+        //Se agrega un id en -1 en el constructor para hacer referencia a que el item responde a la accion de agregar favorito desde 0
+        return new CarouselItem(App.getInstance(), R.drawable.ic_plus_2, "#747E84" , CarouselItem.DRAG, new ComercioResponse(-1));
     }
 
     @Override

@@ -21,6 +21,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
@@ -30,6 +31,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
@@ -250,8 +252,14 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     }
 
     public void onItemSelected() {
-        changeImgageToPay();
-        openPaymentFragment();
+        CarouselItem item = paymentsTabPresenter.getCarouselItem();
+        if (item.getComercio() == null && item.getComercio().getIdComercio() != -1) {
+            changeImgageToPay();
+            openPaymentFragment();
+        } else {
+            UI.showToast("Agregar Nuevo Favorito", App.getInstance());
+        }
+
     }
 
     public void changeImgageToPay() {

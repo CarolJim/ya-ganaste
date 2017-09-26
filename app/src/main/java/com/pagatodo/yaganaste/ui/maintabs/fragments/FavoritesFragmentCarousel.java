@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ListDialog;
 import com.pagatodo.yaganaste.utils.customviews.carousel.Carousel;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselAdapter;
@@ -109,10 +110,14 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
         carouselFav.setOnItemClickListener(new CarouselAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CarouselAdapter<?> parent, CarouselItem view, int position, long id) {
-                if (((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos() == null) {
-                    //ListDialog dialog = new ListDialog(getContext(), paymentsCarouselPresenter.getCarouselArray(), paymentsTabPresenter, fragment);
+
+                if (position == 0) {
                     isFromClick = true;
                     paymentsCarouselPresenter.getFavoriteCarouselItems();
+                } else if (((CarouselItem) favoriteImageAdapter.getItem(position)).getComercio() != null &&
+                        ((CarouselItem) favoriteImageAdapter.getItem(position)).getComercio().getIdComercio() == -1) {
+                    paymentsTabPresenter.setCarouselItem((CarouselItem) favoriteImageAdapter.getItem(position));
+                    fragment.onItemSelected();
                 } else if (((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getIdComercio() != 0) {
                     paymentsTabPresenter.setCarouselItem((CarouselItem) favoriteImageAdapter.getItem(position));
                     fragment.onItemSelected();
