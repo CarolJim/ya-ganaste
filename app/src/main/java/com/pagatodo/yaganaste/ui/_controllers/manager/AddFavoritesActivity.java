@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -28,6 +29,8 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
+
+import java.io.ByteArrayOutputStream;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,11 +62,19 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     ErrorMessage errorAliasMessage;
     @BindView(R.id.add_favorites_linear_tipo)
     LinearLayout linearTipo;
+    @BindView(R.id.add_favorites_foto_et)
+    CustomValidationEditText editFoto;
+    @BindView(R.id.add_favorites_foto_error)
+    ErrorMessage editFotoError;
+
     IFavoritesPresenter favoritesPresenter;
     int idTipoComercio;
     int idComercio;
     String nombreComercio;
     String mReferencia;
+    String formatoComercio;
+    String stringFoto;
+    int longitudRefer;
     CameraManager cameraManager;
     private boolean errorIsShowed = false;
     private int idTipoEnvio;
@@ -81,6 +92,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         idTipoEnvio = intent.getIntExtra(ID_TIPO_ENVIO, 97);
         nombreComercio = intent.getStringExtra(NOMBRE_COMERCIO);
         mReferencia = intent.getStringExtra(REFERENCIA);
+        formatoComercio = intent.getStringExtra(REFERENCIA);
 
         ButterKnife.bind(this);
         imageViewCamera.setVisibilityStatus(false);
@@ -215,6 +227,19 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         // Log.d("TAG", "setPhotoToService ");
 
         imageViewCamera.setImageBitmap(bitmap);
+        cameraManager.setBitmap(bitmap);
+
+        // Procesamos el Bitmap a Base64
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+        stringFoto = encoded;
+        editFoto.setText(stringFoto);
+
+        // Ocultamos el mensaje de error de foto
+        editFotoError.setVisibilityImageError(false);
        /*
         cameraManager.setBitmap(bitmap);
 
@@ -249,6 +274,14 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             //return;
         }
 
+        //Validate format Tipo Envio
+        if (!editFoto.isValidText()) {
+            showValidationError(editFoto.getId(), getString(R.string.addFavoritesErrorFoto));
+            editFoto.setIsInvalid();
+            isValid = false;
+            //return;
+        }
+
         //onValidationSuccess();
         if (isValid) {
             boolean isOnline = Utils.isDeviceOnline();
@@ -267,6 +300,9 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             case R.id.add_favorites_alias:
                 errorAliasMessage.setMessageText(error.toString());
                 break;
+            case R.id.add_favorites_foto_et:
+                editFotoError.setMessageText(error.toString());
+                break;
         }
 
         errorIsShowed = true;
@@ -278,6 +314,9 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             case R.id.add_favorites_alias:
                 errorAliasMessage.setVisibilityImageError(false);
                 break;
+            case R.id.add_favorites_foto_et:
+                editFotoError.setVisibilityImageError(false);
+                break;
         }
         //errorMessageView.setVisibilityImageError(false);
         errorIsShowed = false;
@@ -288,7 +327,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         errorAliasMessage.setVisibilityImageError(false);
         String mAlias = editTextAlias.getText().toString();
         AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
-                idComercio, mAlias, mReferencia);
+                idComercio, mAlias, mReferencia, "");
 
         favoritesPresenter.toPresenterAddFavorites(addFavoritesRequest);
     }

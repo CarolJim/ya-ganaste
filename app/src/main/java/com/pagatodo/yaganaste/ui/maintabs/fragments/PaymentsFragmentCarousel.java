@@ -44,6 +44,8 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 
 public abstract class PaymentsFragmentCarousel extends GenericFragment implements PaymentsCarrouselManager {
 
+    public static final String BACK_UP_RESPONSE = "backUpResponse";
+    public static final String CURRENT_TAB = "currentTab";
     private static int MAX_CAROUSEL_ITEMS = 12;
     @BindView(R.id.carouselMain)
     Carousel carouselMain;
@@ -133,8 +135,8 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     public void addNewFavorite() {
         //   Toast.makeText(getContext(), "Tab " + current_tab, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
-        intent.putExtra("backUpResponse", backUpResponse);
-        intent.putExtra("currentTab", current_tab);
+        intent.putExtra(BACK_UP_RESPONSE, backUpResponse);
+        intent.putExtra(CURRENT_TAB, current_tab.getId());
         startActivity(intent);
     }
 
@@ -230,7 +232,9 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
                 backUpResponse.add(new CustomCarouselItem(
                         carouselItem.getComercio().getIdComercio(),
                         carouselItem.getComercio().getIdTipoComercio(),
-                        carouselItem.getComercio().getNombreComercio()
+                        carouselItem.getComercio().getNombreComercio(),
+                        carouselItem.getComercio().getFormato(),
+                        carouselItem.getComercio().getLongitudReferencia()
                 ));
             }
         }

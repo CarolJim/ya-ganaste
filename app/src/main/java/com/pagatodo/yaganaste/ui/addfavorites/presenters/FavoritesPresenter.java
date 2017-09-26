@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRe
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AddFavoritosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddNewFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
@@ -40,6 +41,13 @@ public class FavoritesPresenter implements IFavoritesPresenter {
     public void toPresenterAddFavorites(AddFavoritesRequest addFavoritesRequest) {
         mView.showLoader("Procesando Datos");
         favoritesIteractor.toIteractorAddFavorites(addFavoritesRequest);
+    }
+
+
+    @Override
+    public void toPresenterAddNewFavorites(AddFavoritesRequest addFavoritesRequest) {
+        mView.showLoader("Procesando Datos");
+        favoritesIteractor.toIteractorAddNewFavorites(addFavoritesRequest);
     }
 
     /**
@@ -80,6 +88,33 @@ public class FavoritesPresenter implements IFavoritesPresenter {
             mView.toViewSuccessAdd(response.getMensaje());
         }
 
+        /**
+         * Instancia de peticion exitosa y operacion exitosa de FavoritosNewDatosResponse
+         */
+        if (dataSourceResult.getData() instanceof FavoritosNewDatosResponse) {
+            // Damos de alta el Dato en la DB
+            List<DataFavoritos> dataFavoritos = new ArrayList<>();
+            dataFavoritos.add(new DataFavoritos(
+                    ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getColorMarca(),
+                    ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getIdComercio(),
+                    ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getIdCuenta(),
+                    ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getIdFavorito(),
+                    ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getIdTipoComercio(),
+                    ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getImagenURL(),
+                    ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getImagenURLComercio(),
+                    ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getImagenURLComercioColor(),
+                    ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getNombre(),
+                    ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getNombreComercio(),
+                    ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getReferencia()
+            ));
+
+            api.insertFavorites(dataFavoritos);
+
+            mView.hideLoader();
+            FavoritosNewDatosResponse response = (FavoritosNewDatosResponse) dataSourceResult.getData();
+            mView.toViewSuccessAdd(response.getMensaje());
+        }
+
     }
 
     @Override
@@ -92,6 +127,16 @@ public class FavoritesPresenter implements IFavoritesPresenter {
             //mView.hideLoader();
             mView.hideLoader();
             FavoritosDatosResponse response = (FavoritosDatosResponse) dataSourceResult.getData();
+            mView.toViewErrorServer(response.getMensaje());
+        }
+
+        /**
+         * Instancia de peticion exitosa y operacion exitosa de FavoritosNewDatosResponse
+         */
+        if (dataSourceResult.getData() instanceof FavoritosNewDatosResponse) {
+            //mView.hideLoader();
+            mView.hideLoader();
+            FavoritosNewDatosResponse response = (FavoritosNewDatosResponse) dataSourceResult.getData();
             mView.toViewErrorServer(response.getMensaje());
         }
 
