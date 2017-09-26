@@ -162,6 +162,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     @Override
     public void onClick(View v) {
+        showBack(false);
         switch (v.getId()) {
             case R.id.tab_recargas:
                 changeTab(v, TAB1);

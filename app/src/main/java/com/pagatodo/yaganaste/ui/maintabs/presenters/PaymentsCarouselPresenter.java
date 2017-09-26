@@ -1,10 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -142,11 +138,8 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
                 App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, true);
                 if (response.getData().size() > 0) {
                     api.insertFavorites(response.getData());
-                    paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
-                    //paymentsManager.setCarouselData(getCarouselItemsFavoritos(response.getData()));
-                } else {
-                    onEmptyListFavorites();
                 }
+                paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
             } catch (Exception e) {
                 e.printStackTrace();
                 paymentsManager.showError();
@@ -162,8 +155,8 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         paymentsManager.setCarouselData(items);
     }
 
-    private CarouselItem createEmptyItem() {
-        return new CarouselItem(App.getContext(), 0, "#00FFFFFF", CarouselItem.CLICK, new ComercioResponse(),null);
+    private CarouselItem createItemToAddFav() {
+        return new CarouselItem(App.getInstance(), R.drawable.ic_add_new_favorite, "#747E84" , CarouselItem.DRAG, new ComercioResponse());
     }
 
     @Override
@@ -209,6 +202,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
         //carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
         carouselItems.add(0, carouselItemSearch);
+        carouselItems.add(1, createItemToAddFav());
 
         for (DataFavoritos favorito : favoritos) {
             if (favorito.getIdTipoComercio() == current_tab.getId()) {
@@ -237,7 +231,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
         int toAdd = 5 - carouselItems.size();
         for (int n = 0 ; n < toAdd ; n++ ) {
-            carouselItems.add(createEmptyItem());
+            carouselItems.add(createItemToAddFav());
         }
 
         return carouselItems;

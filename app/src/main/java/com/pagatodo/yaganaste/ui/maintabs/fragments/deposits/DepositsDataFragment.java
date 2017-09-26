@@ -50,12 +50,12 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     TextView txtNameTitular;
     @BindView(R.id.txtNumberCard)
     TextView txtNumberCard;
+    @BindView(R.id.txtCellPhone)
+    TextView txtCellPhone;
     @BindView(R.id.txtCableNumber)
     TextView txtCableNumber;
     @BindView(R.id.btnDepositar)
     Button btnDepositar;
-    @BindView(R.id.txtNumberTitle)
-    TextView txtNumberTitle;
 
     private View rootView;
     String mensaje;
@@ -120,7 +120,6 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         //txtNameTitular.setText(name);
         String name=nombreprimerUser+" "+apellidoMostrarUser;
         txtNameTitular.setText(name);
-        txtNumberTitle.setText(getString(R.string.datos_depsito_numero_celular));
 
         String celPhone = "";
         String clabe = "";
@@ -132,7 +131,8 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             clabe = cuenta.getCLABE();
         }
         txtCableNumber.setText(clabe);
-        txtNumberCard.setText(celPhone);
+        txtCellPhone.setText(celPhone);
+        txtNumberCard.setText(cardNumber);
         printCard(cardNumber);
 
         mensaje = getString(R.string.string_share_deposits, name, celPhone, clabe, cardNumber);
@@ -171,7 +171,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("Tetst", "Entre on resumen ");
+        ((ToolBarActivity)getActivity()).setVisibilityPrefer(false);
         if (a == 100) {
             imageView.setVisibility(View.GONE);
             a = 0;
