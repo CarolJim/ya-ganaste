@@ -49,40 +49,25 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     IPaymentAuthorizePresenter paymentAuthorizePresenter;
 
-    @BindView(R.id.txt_paymentTitle)
-    TextView title;
     @BindView(R.id.txt_importe)
     MontoTextView importe;
-    @BindView(R.id.layoutComision)
-    LinearLayout layoutComision;
-    //@BindView(R.id.comisionReferenciaText)
-    TextView comisionReferenciaText;
-    @BindView(R.id.titleReferencia)
-    TextView titleReferencia;
-    @BindView(R.id.txtReferencia)
-    TextView txtReferencia;
-
-    @BindView(R.id.layoutMail)
-    LinearLayout layoutMail;
-
     @BindView(R.id.btn_continueEnvio)
     StyleButton btnContinueEnvio;
-    @BindView(R.id.layoutFavoritos)
-    LinearLayout layoutFavoritos;
     @BindView(R.id.nombreEnvio)
     StyleTextView nombreEnvio;
-    @BindView(R.id.layoutAutorizacon)
-    LinearLayout layoutAutorizacon;
-    //@BindView(R.id.layoutFecha)
-    LinearLayout layoutFecha;
-    @BindView(R.id.layoutHora)
-    LinearLayout layoutHora;
-    @BindView(R.id.layoutPass)
-    LinearLayout layoutPass;
+    @BindView(R.id.titleReferencia)
+    StyleTextView titleReferencia;
+
+    @BindView(R.id.txtReferencia)
+    StyleTextView txtReferencia;
+
+
     @BindView(R.id.editPassword)
     CustomValidationEditText editPassword;
     @BindView(R.id.errorPasswordMessage)
     ErrorMessage errorPasswordMessage;
+
+
 
     String password;
     Envios envio;
@@ -107,7 +92,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-        rootview = inflater.inflate(R.layout.fragment_payment_success, container, false);
+        rootview = inflater.inflate(R.layout.fragment_authorize_payment, container, false);
         initViews();
         return rootview;
     }
@@ -115,22 +100,11 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        title.setText(getString(R.string.authorize_payment_title));
-        layoutComision.setVisibility(GONE);
-        titleReferencia.setText("A:");
         nombreEnvio.setVisibility(VISIBLE);
         nombreEnvio.setText(envio.getNombreDestinatario());
 
-        layoutMail.setVisibility(GONE);
-        layoutFavoritos.setVisibility(GONE);
-
-        layoutAutorizacon.setVisibility(INVISIBLE);
-        layoutFecha.setVisibility(INVISIBLE);
-        layoutHora.setVisibility(INVISIBLE);
-
-        layoutPass.setVisibility(VISIBLE);
-
         importe.setText(StringUtils.getCurrencyValue(envio.getMonto()));
+        titleReferencia.setText(envio.getTipoEnvio().getShortName());
         String ref = envio.getReferencia();
 
         switch (envio.getTipoEnvio()) {

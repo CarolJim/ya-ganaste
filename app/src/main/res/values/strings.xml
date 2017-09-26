@@ -69,6 +69,7 @@
     <string name="deseaRealizarLlamada">¿Desea Llamar Ahora?</string>
     <string name="sel_fotografia">Seleccionar Fotografía</string>
     <string name="myUserText">Mi Usuario</string>
+    <string name="desvincular">Desvincular</string>
 
     <!--Métodos de WS Adquiriente-->
     <string name="adqLogin">/agMov/login</string>
@@ -105,6 +106,7 @@
     <string name="lets_start_basic_info">Vamos a Comenzar tu Registro en Ya Ganaste</string>
     <string name="ingress_your_mail">Ingresa tu Correo Electrónico</string>
     <string name="next">Continuar</string>
+    <string name="generate">Generar</string>
     <string name="back">Regresar</string>
     <string name="txt_cancel_lowcase">Cancelar</string>
     <string name="txt_reintent_lowcase">Reintentar</string>
@@ -397,7 +399,7 @@
     <string name="main_tab_depositos">Depósitos</string>
     <string name="main_tab_adquiriente">Adquirente</string>
     <string name="main_tab_cobros">Cobros</string>
-    <string name="no_movimientos">No Tienes Movimientos Para Este Mes</string>
+    <string name="no_movimientos">No Hay Movimientos Registrados</string>
     <string name="error_respuesta">Ocurrió un Error de Conexión</string>
 
     <!-- Strings Adq-->
@@ -536,6 +538,7 @@
 
 
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
+    <string name="inicia_sesion">Inicia Sesión</string>
     <string name="tienes_cuenta2">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
     <string name="documents_help">¿Tienes Dudas? Contáctanos\n 01 800 500 1000\n contacto@yaganaste.com</string>
     <string name="documents_comprobantes">CFE, Teléfono, Agua (No Mayor a 3 Meses)</string>
@@ -651,7 +654,7 @@
     <string name="favor_selecciona_importe">Por Favor Selecciona un Importe</string>
     <string name="numero_iave_vacio">Número de IAVE Vacío</string>
     <string name="numero_telefono_paises">0180050010000</string>
-    <string name="numero_telefono_contactanos">0180050010000</string>
+    <string name="numero_telefono_contactanos">018005001000</string>
 
 
     <string name="numero_telefono_vacio">Número de Teléfono Vacío</string>
@@ -700,6 +703,10 @@
     <string name="datos_deposito_donde_depos">¿Dónde Depositar?</string>
     <string name="datos_deposito_num_agent">N° de Agente: </string>
     <string name="datos_deposito_num_afil">N° de Afiliación: </string>
+
+    <string name="string_share_deposits">¡Hola! Estos Son Mis Datos de Depósito Ya Ganaste
+        \nTitular: %1$s\nN° Celular: %2$s\nCLABE: %3$s\nN° Tarjeta: %4$s</string>
+
 
     <!-- Landing -->
     <string name="landing_emisor_saldo_disponible">Tu Saldo Disponible</string>

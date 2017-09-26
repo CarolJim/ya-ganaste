@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
+import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
@@ -34,6 +35,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     public String mUserImage;
     CircleImageView imageView;
     static CircleImageView imageViewdes;
+    private AppCompatImageView btnBack;
 
     @Override
     public void setContentView(@LayoutRes int layoutResID) {
@@ -45,14 +47,23 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         toolbarLayout = findViewById(R.id.toolbarLy);
         imageView = (CircleImageView) findViewById(R.id.imgToRight_prefe);
         imageViewdes= (CircleImageView) findViewById(R.id.imgToRight_prefe);
+        btnBack = (AppCompatImageView) findViewById(R.id.btn_back);
         if (imageView != null) {
             imageView.setOnClickListener(this);
+        }
+
+        if (btnBack != null) {
+            btnBack.setOnClickListener(this);
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbarTest);
         if (toolbar != null) {
             setSupportActionBar(toolbar);
         }
+    }
+
+    public void showBack(boolean isBackShowing) {
+        this.btnBack.setVisibility(isBackShowing ? View.VISIBLE : View.GONE);
     }
 
     /**
@@ -146,7 +157,15 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
      */
     @Override
     public void onClick(View v) {
-        Intent intent = new Intent(this, PreferUserActivity.class);
-        startActivityForResult(intent, CODE_LOG_OUT);
+        switch (v.getId()) {
+            case R.id.btn_back:
+                onBackPressed();
+                break;
+
+            default:
+                Intent intent = new Intent(this, PreferUserActivity.class);
+                startActivityForResult(intent, CODE_LOG_OUT);
+                break;
+        }
     }
 }

@@ -6,14 +6,13 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
-    tools:background="#000000"
     android:orientation="vertical"
+    android:paddingTop="30dp"
     tools:context=".ui._controllers.PaymentsProcessingActivity">
 
     <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:orientation="vertical">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -23,6 +22,10 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:text="@string/recharge_success_title" />
+        
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@+id/textView"
@@ -44,6 +47,10 @@
             app:dotBottom="false"
             app:symbolSmaller="true" />
 
+
+        <android.support.v4.widget.Space
+            android:layout_width="match_parent"
+            android:layout_height="30dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -76,17 +83,13 @@
                         android:gravity="start"
                         android:text="@string/details_enviado_a" />
 
-                    <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/nombreEnvio"
                         style="@style/generic_text_style_2.1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end"
-                        android:textSize="8sp"
-                        app:decimalLenght="2"
-                        app:dotBottom="false"
-                        app:symbolSmaller="true" />
+                        android:gravity="end" />
                 </LinearLayout>
 
                 <View
@@ -154,14 +157,13 @@
                         android:gravity="start"
                         android:text="@string/details_compania" />
 
-                    <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtCompania"
                         style="@style/generic_text_style_2.1"
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end"
-                        android:textSize="8sp" />
+                        android:gravity="end" />
                 </LinearLayout>
 
                 <View
@@ -288,7 +290,7 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:orientation="vertical"
-            android:visibility="invisible"
+            android:visibility="gone"
             android:weightSum="100">
 
             <android.support.v4.widget.Space
@@ -325,10 +327,11 @@
             android:layout_height="wrap_content"
             android:layout_marginLeft="@dimen/margin_doble"
             android:layout_marginRight="@dimen/margin_doble"
+            android:paddingTop="30dp"
             android:orientation="vertical"
             android:paddingLeft="@dimen/margin_medium"
             android:paddingRight="@dimen/margin_medium"
-            android:visibility="gone">
+            android:visibility="visible">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/titleMail"
@@ -393,6 +396,11 @@
         </LinearLayout>
 
     </LinearLayout>
+
+    <android.support.v4.widget.Space
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1"/>
 
     <LinearLayout
         android:layout_width="match_parent"

@@ -65,19 +65,23 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
         Preferencias prefs = App.getInstance().getPrefs();
         if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
             loadFragment(QuickBalanceContainerFragment.newInstance(), Direction.FORDWARD, true);
+            showBack(false);
         } else {
             loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, false);
+            showBack(true);
         }
     }
 
     @Override
     public void loadLoginFragment() {
         loadFragment(LoginFragment.newInstance(), Direction.FORDWARD, true);
+        showBack(true);
     }
 
     @Override
     public void loadRecoveryFragment() {
         loadFragment(RecoveryFragment.newInstance(), Direction.FORDWARD, true);
+        showBack(false);
     }
 
     @Override

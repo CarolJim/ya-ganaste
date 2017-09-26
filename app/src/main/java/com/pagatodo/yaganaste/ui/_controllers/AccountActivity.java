@@ -309,7 +309,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
-                        aplicacion.cerrarAppsms();
+                        //aplicacion.cerrarAppsms();
                         finish();
 
                     }

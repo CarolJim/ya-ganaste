@@ -14,6 +14,7 @@ import android.widget.Button;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.net.UtilsNet;
@@ -32,11 +33,14 @@ import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.R.id.txtPagosUserName;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.StringConstants.LAST_NAME;
 import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
@@ -126,12 +130,17 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 //                    Utils.getCurrencyValue(cardNumber))
             cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
             //cardSaldo.setCardDate("02/21");
+
+
+            String name = StringUtils.getFirstName(preferencias.loadData(NAME_USER)) + SPACE
+                    + StringUtils.getFirstName(preferencias.loadData(LAST_NAME));
+
             if (Build.VERSION.SDK_INT >= 24) {
                 txtNameUser.setText(Html.fromHtml(getString(R.string.bienvenido_usuario,
-                        preferencias.loadData(NAME_USER)),
+                        name),
                         Html.FROM_HTML_MODE_LEGACY, null, null));
             } else {
-                txtNameUser.setText(Html.fromHtml(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER))));
+                txtNameUser.setText(Html.fromHtml(getString(R.string.bienvenido_usuario, name)));
             }
 
             //onRefresh();

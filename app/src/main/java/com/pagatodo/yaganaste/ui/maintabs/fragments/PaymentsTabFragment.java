@@ -32,6 +32,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
@@ -76,7 +77,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     @BindView(R.id.txtPagosUserName)
     TextView txtPagosUserName;
     @BindView(R.id.txtPagosYourBalance)
-    TextView txtBalance;
+    MontoTextView txtBalance;
     @BindView(R.id.imgPagosUserProfile)
     ImageView imgPagosUserProfile;
 
@@ -157,7 +158,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         rlimgPagosServiceToPay.setOnDragListener(this);
        // txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre()));
         txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre())+" "+ userData.getPrimerApellido());
-        txtBalance.setText(getString(R.string.your_balance).concat(StringUtils.getCurrencyValue(singletonUser.getDatosSaldo().getSaldoEmisor())));
+        txtBalance.setText(StringUtils.getCurrencyValue(singletonUser.getDatosSaldo().getSaldoEmisor()));
     }
 
 
@@ -193,6 +194,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public void onBackPresed(MovementsTab TAB) {
         if (isOnForm) {
+            showBack(false);
             setTab(TAB);
             isOnForm = false;
         }
@@ -262,6 +264,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     }
 
     public void openPaymentFragment() {
+        showBack(true);
         //payment_view_pager.startAnimation(animOut);
         payment_view_pager.setVisibility(View.GONE);
         container.setVisibility(View.VISIBLE);
@@ -322,7 +325,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
             } else {
                 saldo = Double.parseDouble(singletonUser.getDatosSaldo().getSaldoEmisor());
             }*/
-            txtBalance.setText(getString(R.string.your_balance) + StringUtils.getCurrencyValue(saldo));
+            txtBalance.setText(StringUtils.getCurrencyValue(saldo));
         }
     }
 }

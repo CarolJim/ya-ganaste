@@ -645,7 +645,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 }
                 accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
             } else { // No es usuario
-                RequestHeaders.setUsername("");
+                if (RequestHeaders.getTokenauth().isEmpty()) {
+                    RequestHeaders.setUsername("");
+                }
                 accountManager.onError(response.getWebService(), App.getContext().getString(R.string.usuario_no_existe));
             }
         } else {
