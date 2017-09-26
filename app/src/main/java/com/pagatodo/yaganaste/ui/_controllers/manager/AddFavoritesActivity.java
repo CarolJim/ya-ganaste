@@ -286,10 +286,9 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     @Override
     public void onValidationSuccess() {
         errorAliasMessage.setVisibilityImageError(false);
-        String mAlias = editTextAlias.getText().toString();
+        String mAlias = editTextAlias.getText();
         AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
                 idComercio, mAlias, mReferencia);
-
         favoritesPresenter.toPresenterAddFavorites(addFavoritesRequest);
     }
 

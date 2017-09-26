@@ -17,6 +17,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.FULL_NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.StringConstants.ID_CUENTA;
+import static com.pagatodo.yaganaste.utils.StringConstants.LAST_NAME;
 import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.SIMPLE_NAME;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
@@ -72,6 +73,7 @@ public class SingletonUser {
             prefs.saveData(FULL_NAME_USER, dataUser.getUsuario().getNombre().concat(SPACE).
                     concat(dataUser.getUsuario().getPrimerApellido().concat(SPACE).
                             concat(dataUser.getUsuario().getSegundoApellido())));
+            prefs.saveData(LAST_NAME, dataUser.getUsuario().getPrimerApellido().concat(SPACE));
             dataUser.getUsuario().getCuentas().get(0).setTarjeta(dataUser.getUsuario().getCuentas().get(0).getTarjeta().replaceAll(" ",""));
             prefs.saveData(CARD_NUMBER, dataUser.getUsuario().getCuentas().get(0).getTarjeta());
             prefs.saveData(ID_CUENTA, String.valueOf(dataUser.getUsuario().getCuentas().get(0).getIdCuenta()));

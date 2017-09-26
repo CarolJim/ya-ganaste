@@ -64,7 +64,7 @@ public class CardEmisorSelected extends TabViewElement {
             nombreprimerUser=userData.getNombre();
         }
 
-        txtNombre.setText(nombreprimerUser+" \n"+apellidoMostrarUser);
+        txtNombre.setText(nombreprimerUser.concat(SPACE.concat(apellidoMostrarUser)));
        /*
         txtNombre.setText(
                userData.getNombre() + " " +

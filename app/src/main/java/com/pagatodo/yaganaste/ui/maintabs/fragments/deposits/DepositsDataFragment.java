@@ -134,10 +134,8 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         txtCableNumber.setText(clabe);
         txtNumberCard.setText(celPhone);
         printCard(cardNumber);
-        mensaje = getString(R.string.datos_deposito_titular).concat(SPACE).concat(name)
-                .concat("\n").concat(getString(R.string.datos_depsito_numero_celular)).concat(SPACE).concat(celPhone)
-                .concat("\n").concat(getString(R.string.datos_deposito_num_card)).concat(SPACE).concat(cardNumber)
-                .concat("\n").concat(getString(R.string.datos_deposito_clabe)).concat(SPACE).concat(clabe);
+
+        mensaje = getString(R.string.string_share_deposits, name, celPhone, clabe, cardNumber);
 
     }
 

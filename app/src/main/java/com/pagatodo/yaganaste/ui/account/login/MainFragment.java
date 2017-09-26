@@ -4,6 +4,7 @@ package com.pagatodo.yaganaste.ui.account.login;
 import android.content.Intent;
 import android.graphics.Typeface;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatButton;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.Spanned;
@@ -40,9 +41,11 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     public final static String NO_SIM_CARD = "NO_SIM_CARD";
     public final static String MAIN_SCREEN = "MAIN_SCREEN";
     @BindView(R.id.btnMainCreateAccount)
-    StyleButton btnMainCreateAccount;
-    @BindView(R.id.txtMainLogin)
-    StyleTextView txtMainLogin;
+    AppCompatButton btnMainCreateAccount;
+
+    @BindView(R.id.btnLogin)
+    AppCompatButton btnLogin;
+
     //    @BindView(R.id.viewpager)
 //    AutoScrollViewPager pager;
     @BindView(R.id.rollPager)
@@ -69,26 +72,7 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnMainCreateAccount.setOnClickListener(this);
-
-        String textLogin = getString(R.string.tienes_cuenta);
-        SpannableString ss = new SpannableString(textLogin);
-
-        ss.setSpan(new ClickableSpanLogin(), 22, textLogin.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.whiteColor)), 22, textLogin.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-
-        Typeface font = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Light.ttf");
-        Typeface fontBold = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Bold.ttf");
-
-        ss.setSpan(new CustomTypefaceSpan("", font), 0, 22, Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-        ss.setSpan(new CustomTypefaceSpan("", fontBold), 22, textLogin.length(), Spanned.SPAN_EXCLUSIVE_INCLUSIVE);
-
-        //ss.setSpan(new StyleSpan(Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Light.ttf").getStyle()), 0, 22, Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-        //ss.setSpan(new StyleSpan(Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Bold.ttf").getStyle()), 22, textLogin.length(), Spannable.SPAN_EXCLUSIVE_INCLUSIVE);
-
-
-        txtMainLogin.setText(ss);
-        txtMainLogin.setMovementMethod(LinkMovementMethod.getInstance());
+        btnLogin.setOnClickListener(this);
 
         // Se encarga de hacer Set en el Adapter
         rollPagerView.setAdapter(new AdapterRollPager(rollPagerView, getActivity()));
@@ -105,24 +89,15 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
                 startActivity(intent);
                 //getActivity().finish();
                 break;
+
+            case R.id.btnLogin:
+                intent = new Intent(getActivity(), AccountActivity.class);
+                intent.putExtra(SELECTION, GO_TO_LOGIN);
+                startActivity(intent);
+                break;
         }
     }
 
-    class ClickableSpanLogin extends ClickableSpan {
 
-        public ClickableSpanLogin() {
-            super();
-        }
-
-        public void onClick(View tv) {
-            Intent intent = new Intent(getActivity(), AccountActivity.class);
-            intent.putExtra(SELECTION, GO_TO_LOGIN);
-            startActivity(intent);
-        }
-
-        public void updateDrawState(TextPaint ds) {// override updateDrawState
-            ds.setUnderlineText(false);
-        }
-    }
 }
 

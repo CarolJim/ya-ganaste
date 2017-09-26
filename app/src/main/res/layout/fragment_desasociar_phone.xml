@@ -45,7 +45,7 @@
             style="@style/buttonSquareRoundedBlue"
             android:layout_marginBottom="@dimen/btn_navigation_bottom"
             android:gravity="center"
-            android:text="Desasociar" />
+            android:text="@string/desvincular" />
     </LinearLayout>
 
 </FrameLayout>

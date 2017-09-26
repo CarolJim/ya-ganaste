@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClient
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
@@ -56,7 +57,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class ListaOpcionesFragment extends GenericFragment implements View.OnClickListener,
+public class ListaOpcionesFragment extends SupportFragment implements View.OnClickListener,
         IListaOpcionesView {
 
     private static final String TAG = DocumentosFragment.class.getSimpleName();
@@ -115,6 +116,7 @@ public class ListaOpcionesFragment extends GenericFragment implements View.OnCli
     public void onAttach(Context context) {
         mPreferPresenter = ((PreferUserActivity) getActivity()).getPreferPresenter();
         mPreferPresenter.setIView(this);
+        showBack(true);
         super.onAttach(context);
     }
 

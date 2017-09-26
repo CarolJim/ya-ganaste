@@ -78,6 +78,11 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     StyleButton btnContinueEnvio;
     @BindView(R.id.layoutFavoritos)
     LinearLayout layoutFavoritos;
+    @BindView(R.id.txtCompania)
+    TextView txtCompania;
+    @BindView(R.id.nombreEnvio)
+    TextView nombreEnvio;
+
 
     @BindView(R.id.layout_enviado)
     LinearLayout layoutEnviado;
@@ -85,6 +90,9 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     @BindView(R.id.layout_compania)
     LinearLayout layoutCompania;
 
+
+    @BindView(R.id.layout_addfavorites)
+    LinearLayout addFavorites;
 
     Payments pago;
     EjecutarTransaccionResponse result;
@@ -144,6 +152,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
             layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             isMailAviable = true;
+            txtCompania.setText(pago.getComercio().getNombreComercio());
         } else if (pago instanceof Servicios) {
             layoutEnviado.setVisibility(View.GONE);
             title.setText(R.string.title_servicio_success);
@@ -156,13 +165,13 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
             layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             isMailAviable = true;
+            txtCompania.setText(pago.getComercio().getNombreComercio());
         } else if (pago instanceof Envios) {
             layoutCompania.setVisibility(View.GONE);
             title.setText(R.string.title_envio_success);
             //txtComision.setVisibility(View.GONE);
             //comisionReferenciaText.setText("A:");
-            titleReferencia.setText(R.string.details_enviado_a);
-            titleReferencia.setText(((Envios) pago).getNombreDestinatario());
+            nombreEnvio.setText(((Envios) pago).getNombreDestinatario());
             layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             String fullName = ((Envios) pago).getNombreDestinatario();
@@ -171,6 +180,8 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
                             + " " + StringUtils.formatSingleName(fullName)
                             + " " + getContext().getResources().getString(R.string.envia_comprobante_opcional));
             isMailAviable = true;
+
+            titleReferencia.setText(((Envios)pago).getTipoEnvio().getShortName());
         }
 
         String text = String.format("%.2f", pago.getMonto());
@@ -217,7 +228,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
 
     @Override
     public void validateMail() {
-        String mail = editMail.getText().toString().trim();
+        String mail = editMail.getText().trim();
 
         if (!TextUtils.isEmpty(mail)) {
             if (ValidateForm.isValidEmailAddress(mail)) {

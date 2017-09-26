@@ -68,7 +68,7 @@
                 android:id="@+id/btnGenerateCode"
                 style="@style/buttonSquareRoundedBlue"
                 android:gravity="center"
-                android:text="@string/continuar" />
+                android:text="@string/generate" />
         </LinearLayout>
 
 
