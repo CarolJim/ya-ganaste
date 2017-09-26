@@ -1,10 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
 import android.content.Context;
-import android.support.v4.content.ContextCompat;
-import android.view.ViewGroup;
-import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -142,7 +138,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
                     api.insertFavorites(response.getData());
                     paymentsManager.setCarouselData(getCarouselItemsFavoritos(response.getData()));
                 } else {
-                    onEmptyListFavorites();
+                    paymentsManager.setCarouselData(new ArrayList<CarouselItem>());
                 }
             } catch (Exception e) {
                 e.printStackTrace();
@@ -159,8 +155,8 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         paymentsManager.setCarouselData(items);
     }
 
-    private CarouselItem createEmptyItem() {
-        return new CarouselItem(App.getInstance(), 0, "#00FFFFFF" , CarouselItem.CLICK, new ComercioResponse());
+    private CarouselItem createItemToAddFav() {
+        return new CarouselItem(App.getInstance(), R.drawable.ic_add_new_favorite, "#747E84" , CarouselItem.CLICK, new ComercioResponse());
     }
 
     @Override
@@ -230,7 +226,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
         int toAdd = 5 - carouselItems.size();
         for (int n = 0 ; n < toAdd ; n++ ) {
-            carouselItems.add(createEmptyItem());
+            carouselItems.add(createItemToAddFav());
         }
 
         return carouselItems;

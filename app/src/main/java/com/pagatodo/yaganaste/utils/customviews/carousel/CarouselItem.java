@@ -132,6 +132,14 @@ public class CarouselItem extends FrameLayout
         }
     }
 
+    /**
+     * Metodo usado solamente para crear item de nuevo favorito
+     * @param context
+     * @param resource
+     * @param color
+     * @param gestureType
+     * @param comercio
+     */
     public CarouselItem(Context context, int resource, String color, int gestureType, ComercioResponse comercio) {
         super(context);
         this.context = context;
@@ -140,13 +148,9 @@ public class CarouselItem extends FrameLayout
         this.comercio = comercio;
         this.color = color;
         inflateLayout(color);
-        if (drawable == 0) {
-            mImage.setVisibility(INVISIBLE);
-            mImageCiruclar.setVisibility(INVISIBLE);
-        } else {
-            mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
-        }
+        mImage.setBackground(ContextCompat.getDrawable(context, drawable));
     }
+
 
     public CarouselItem(Context context, String imageUrl, String color, int gestureType, ComercioResponse comercio) {
         super(context);
