@@ -132,6 +132,22 @@ public class CarouselItem extends FrameLayout
         }
     }
 
+    public CarouselItem(Context context, int resource, String color, int gestureType, ComercioResponse comercio) {
+        super(context);
+        this.context = context;
+        this.gestureType = gestureType;
+        this.drawable = resource;
+        this.comercio = comercio;
+        this.color = color;
+        inflateLayout(color);
+        if (drawable == 0) {
+            mImage.setVisibility(INVISIBLE);
+            mImageCiruclar.setVisibility(INVISIBLE);
+        } else {
+            mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
+        }
+    }
+
     public CarouselItem(Context context, String imageUrl, String color, int gestureType, ComercioResponse comercio) {
         super(context);
         this.context = context;

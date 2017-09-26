@@ -7,8 +7,12 @@
     android:focusable="true"
     android:focusableInTouchMode="true"
     android:orientation="vertical"
-    android:paddingTop="30dp"
+    android:background="@color/black"
+    android:paddingTop="20dp"
     tools:context=".ui._controllers.PaymentsProcessingActivity">
+
+
+
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -340,7 +344,7 @@
                 android:layout_height="wrap_content"
                 android:gravity="center"
                 android:text="@string/email_send_ticket"
-                android:textColor="@color/colorAccent" />
+                android:textColor="@color/whiteColor" />
 
             <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                 android:id="@+id/editMail"
@@ -355,51 +359,6 @@
 
         </LinearLayout>
 
-
-        <LinearLayout
-            android:id="@+id/layoutPass"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/margin_doble"
-            android:layout_marginRight="@dimen/margin_doble"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/margin_medium"
-            android:paddingRight="@dimen/margin_medium"
-            android:visibility="gone">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/titlePass"
-                style="@style/generic_text_style_3"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="@string/txt_enter_password"
-                android:textColor="@color/colorAccent" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/editPassword"
-                style="@style/GenericCustomValidationEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:gravity="center"
-                app:defaultIcon="@null"
-                app:formato="password"
-                app:hintText="@string/password" />
-
-            <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                android:id="@+id/errorPasswordMessage"
-                style="@style/generic_text_style_2"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_xsmall" />
-        </LinearLayout>
-        <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-            android:id="@+id/errorPasswordMessage"
-            style="@style/generic_text_style_2"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/margin_xsmall" />
     </LinearLayout>
 
     <LinearLayout
@@ -408,7 +367,7 @@
         android:layout_height="wrap_content"
         android:gravity="center"
         android:orientation="vertical"
-        android:visibility="invisible">
+        android:visibility="visible">
 
         <ImageView
             android:layout_width="45dp"
@@ -431,7 +390,6 @@
             android:text="Agregar a Favoritos" />
     </LinearLayout>
 
-    </LinearLayout>
 
     <android.support.v4.widget.Space
         android:layout_width="match_parent"
