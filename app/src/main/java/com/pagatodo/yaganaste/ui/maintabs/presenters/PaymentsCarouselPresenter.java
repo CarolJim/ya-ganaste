@@ -202,6 +202,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
         //carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
         carouselItems.add(0, carouselItemSearch);
+        carouselItems.add(1, createItemToAddFav());
 
         for (DataFavoritos favorito : favoritos) {
             if (favorito.getIdTipoComercio() == current_tab.getId()) {
