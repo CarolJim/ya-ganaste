@@ -74,7 +74,8 @@
             android:id="@+id/paymentTabBtn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="Click Me!!" />
+            android:text="Click Me!!"
+            android:visibility="gone"/>
     </RelativeLayout>
 
 </LinearLayout>
