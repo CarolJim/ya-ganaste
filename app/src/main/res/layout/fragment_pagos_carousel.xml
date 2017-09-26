@@ -66,14 +66,15 @@
             android:layout_gravity="center_horizontal|bottom"
             android:layout_marginBottom="8dp"
             android:padding="4dp"
-            android:src="@mipmap/circulo_favorito"
             android:visibility="visible"
+            app:srcCompat="@drawable/ic_nofav"
             tools:ignore="ContentDescription" />
 
         <Button
             android:id="@+id/paymentTabBtn"
-            android:layout_width="wrap_content" android:text="Click Me!!"
-            android:layout_height="wrap_content" />
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Click Me!!" />
     </RelativeLayout>
 
 </LinearLayout>
