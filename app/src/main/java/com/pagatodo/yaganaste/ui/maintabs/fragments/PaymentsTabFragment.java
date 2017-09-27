@@ -26,12 +26,12 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
-import com.pagatodo.yaganaste.ui._controllers.TabActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.AddNewFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
@@ -46,8 +46,10 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB2;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_HIDE_MANIN_TAB;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_SHOW_MAIN_TAB;
+import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
 
 /**
  * Created by Jordan on 06/04/2017.
@@ -76,7 +78,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     @BindView(R.id.txtPagosUserName)
     TextView txtPagosUserName;
     @BindView(R.id.txtPagosYourBalance)
-    TextView txtBalance;
+    MontoTextView txtBalance;
     @BindView(R.id.imgPagosUserProfile)
     ImageView imgPagosUserProfile;
 
@@ -92,7 +94,6 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public static PaymentsTabFragment newInstance() {
         PaymentsTabFragment paymentsTabFragment = new PaymentsTabFragment();
-
         Bundle args = new Bundle();
         paymentsTabFragment.setArguments(args);
         return paymentsTabFragment;
@@ -101,7 +102,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        paymentsTabPresenter = new PaymentsTabPresenter();
+        paymentsTabPresenter = new PaymentsTabPresenter(getActivity());
         viewPAgerAdapter = new FragmentPagerAdapter(getChildFragmentManager());
         /*animIn = AnimationUtils.loadAnimation(getContext(), R.anim.slide_from_left);
         animOut = AnimationUtils.loadAnimation(getContext(), R.anim.slide_to_right);
@@ -138,6 +139,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         ButterKnife.bind(this, rootView);
         UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
         payment_view_pager.setAdapter(viewPAgerAdapter);
+        payment_view_pager.setOffscreenPageLimit(3);
         payment_view_pager.setCurrentItem(0);
         bringViewToFront((RelativeLayout) botonRecargas.getParent(), botonRecargas.getId());
 
@@ -155,14 +157,15 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         botonEnvios.setOnClickListener(this);
 
         rlimgPagosServiceToPay.setOnDragListener(this);
-       // txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre()));
-        txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre())+" "+ userData.getPrimerApellido());
-        txtBalance.setText(getString(R.string.your_balance).concat(StringUtils.getCurrencyValue(singletonUser.getDatosSaldo().getSaldoEmisor())));
+        // txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre()));
+        txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre()) + " " + userData.getPrimerApellido());
+        txtBalance.setText(StringUtils.getCurrencyValue(singletonUser.getDatosSaldo().getSaldoEmisor()));
     }
 
 
     @Override
     public void onClick(View v) {
+        showBack(false);
         switch (v.getId()) {
             case R.id.tab_recargas:
                 changeTab(v, TAB1);
@@ -193,6 +196,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public void onBackPresed(MovementsTab TAB) {
         if (isOnForm) {
+            showBack(false);
             setTab(TAB);
             isOnForm = false;
         }
@@ -235,7 +239,6 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
                 break;
             }
         }
-
         parent.getChildAt(childPosition).bringToFront();
     }
 
@@ -250,8 +253,25 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     }
 
     public void onItemSelected() {
-        changeImgageToPay();
-        openPaymentFragment();
+        CarouselItem item = paymentsTabPresenter.getCarouselItem();
+        if (item.getComercio()!= null && item.getComercio().getIdComercio() == -1) {
+            addNewFavorite();
+        } else {
+            changeImgageToPay();
+            openPaymentFragment();
+        }
+    }
+
+
+    /**
+     * Mandamos a AddNewFavoritesActivity un ArrayList<CustomCarouselItem>, el objeto es un Parceable
+     * para que pueda viajar sin problemas entre actividades. Enviamos tambien el Tab que estamos
+     * visualizando para mostrar o no algunos campos
+     */
+    public void addNewFavorite() {
+        Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
+        intent.putExtra(CURRENT_TAB_ID, currentTab.getId());
+        getActivity().startActivityForResult(intent, NEW_FAVORITE);
     }
 
     public void changeImgageToPay() {
@@ -262,6 +282,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     }
 
     public void openPaymentFragment() {
+        showBack(true);
         //payment_view_pager.startAnimation(animOut);
         payment_view_pager.setVisibility(View.GONE);
         container.setVisibility(View.VISIBLE);
@@ -287,7 +308,13 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         List<Fragment> fragmentList = getChildFragmentManager().getFragments();
 
         if (fragmentList != null) {
-            if (requestCode == CONTACTS_CONTRACT) {
+            if (requestCode == NEW_FAVORITE) {
+                for(Fragment fragment : fragmentList){
+                    if(fragment instanceof  FavoritesFragmentCarousel){
+                        fragment.onActivityResult(requestCode, resultCode, data);
+                    }
+                }
+            } else if (requestCode == CONTACTS_CONTRACT) {
                 for (Fragment fragment : fragmentList) {
                     if (fragment instanceof RecargasFormFragment
                             || fragment instanceof EnviosFormFragment) {
@@ -312,6 +339,20 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         return currentTab;
     }
 
+    public void showFavorites() {
+        payment_view_pager.setVisibility(View.GONE);
+        container.setVisibility(View.VISIBLE);
+        FavoritesFragmentCarousel favoritesFragmentCarousel = new FavoritesFragmentCarousel();
+        Bundle args = new Bundle();
+        args.putInt("TAB", currentTab.getId());
+        favoritesFragmentCarousel.setArguments(args);
+        getChildFragmentManager().beginTransaction().replace(R.id.container, favoritesFragmentCarousel).commit();
+    }
+
+    public void hideFavorites() {
+        setTab(currentTab);
+    }
+
     @Override
     public void setMenuVisibility(boolean menuVisible) {
         super.setMenuVisibility(menuVisible);
@@ -322,7 +363,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
             } else {
                 saldo = Double.parseDouble(singletonUser.getDatosSaldo().getSaldoEmisor());
             }*/
-            txtBalance.setText(getString(R.string.your_balance) + StringUtils.getCurrencyValue(saldo));
+            txtBalance.setText(StringUtils.getCurrencyValue(saldo));
         }
     }
 }

@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
@@ -69,7 +70,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB_ID;
-import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB_NAME;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
@@ -77,17 +77,9 @@ import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 
 /**
  * Encargada de dar de alta Favoritos, pero capturando todos sus datos. primero en el servicio y luego en la base local
- * PAra inicializar, debemos de recibir variables de:
- * currentTabName con valores de String: "TAB1", "TAB2", "TAB3"
- * currentTabId con valores de int: 1, 2, 3
- *
- * Ejemplo
- * Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
- * intent.putExtra(CURRENT_TAB_NAME, "TAB1");
- * intent.putExtra(CURRENT_TAB_ID, 1);
- * startActivity(intent);
- *
- * Estos datos pueden sacarse del MovementsTab, pero deben enviarse de manera individual
+ * Es necesario recibir lo siguiente en el Int
+ * nameTab = intent.getStringExtra(CURRENT_TAB_NAME); Que puede ser String:  "TAB1", "TAB2", "TAB3"
+ * current_tab = intent.getIntExtra(CURRENT_TAB_ID, 99); Que puede ser un int: 1, 2 o 3
  */
 public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
         IListaOpcionesView, ValidationForms, View.OnClickListener, OnListServiceListener,
@@ -95,7 +87,6 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
     public static final String TAG = AddNewFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
-    private static int MAX_CAROUSEL_ITEMS = 12;
 
     @BindView(R.id.add_favorites_alias)
     CustomValidationEditText editAlias;
@@ -161,6 +152,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     TransferType selectedType;
     MovementsTab current_tab2;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
+    private TextWatcher currentTextWatcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -170,15 +162,14 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         favoritesPresenter = new FavoritesPresenter(this);
 
         Intent intent = getIntent();
-        tabName = intent.getStringExtra(CURRENT_TAB_NAME);
-        current_tab = intent.getIntExtra(CURRENT_TAB_ID, 99);
         //  backUpResponse = intent.getExtras().getParcelableArrayList(BACK_UP_RESPONSE);
 
+        current_tab = intent.getIntExtra(CURRENT_TAB_ID, 99);
+
         // Iniciamos el presentes del carrousel
-        // this.current_tab = MovementsTab.valueOf(getArguments().getString("TAB"));
-        this.current_tab2 = MovementsTab.valueOf(tabName);
+        this.current_tab2 = MovementsTab.getMovementById(current_tab);
         backUpResponse = new ArrayList<>();
-        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this);
+        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this, false);
         paymentsCarouselPresenter.getCarouselItems();
 
         ButterKnife.bind(this);
@@ -843,16 +834,21 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
             recargaNumber.setFilters(fArray);
         }
 
+        if (currentTextWatcher != null) {
+            recargaNumber.removeTextChangedListener(currentTextWatcher);
+        }
+
         if (isIAVE) {
-            recargaNumber.addTextChangedListener(new NumberTagPase(recargaNumber, maxLength));
+            currentTextWatcher = new NumberTagPase(recargaNumber, maxLength);
             recargaNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
             layoutImageContact.setVisibility(View.GONE);
         } else {
-            recargaNumber.addTextChangedListener(new PhoneTextWatcher(recargaNumber));
+            currentTextWatcher = new PhoneTextWatcher(recargaNumber);
             recargaNumber.setHint(getString(R.string.phone_number_hint));
 
             layoutImageContact.setOnClickListener(this);
         }
+        recargaNumber.addTextChangedListener(currentTextWatcher);
 
         recargaNumber.setSingleLine(true);
         recargaNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -1037,14 +1033,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
     @Override
     public void setCarouselData(ArrayList<CarouselItem> response) {
-        if (response.size() > MAX_CAROUSEL_ITEMS) {
-            ArrayList<CarouselItem> subList = new ArrayList<>(response.subList(0, MAX_CAROUSEL_ITEMS));
-            setBackUpResponse(subList);
-            //setCarouselAdapter(subList);
-        } else {
-            setBackUpResponse(response);
-            //setCarouselAdapter(response);
-        }
+        setBackUpResponse(response);
     }
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
@@ -1063,6 +1052,11 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
     @Override
     public void showErrorService() {
+
+    }
+
+    @Override
+    public void showFavorites() {
 
     }
 }

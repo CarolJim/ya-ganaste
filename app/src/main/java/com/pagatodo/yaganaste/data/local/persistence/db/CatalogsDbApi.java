@@ -119,10 +119,36 @@ public class CatalogsDbApi {
         return comerciosRespose;
     }
 
+    public static ComercioResponse getComercioById(long comercioType) {
+        genericDao.open();
+        ComercioResponse comerciosRespose = genericDao.getByQuery(ComercioResponse.class, DBContract.Comercios.ID_COMERCIO + " = " + comercioType);
+        List<MontoComercio> montosComercio = genericDao.getListByQuery(MontoComercio.class,
+                DBContract.MontosComercio.ID_COMERCIO + " = '" + comerciosRespose.getIdComercio() + "'");
+        List<Double> montos = new ArrayList<>();
+        for (MontoComercio montoComercio : montosComercio) {
+            montos.add(montoComercio.getMonto());
+        }
+        comerciosRespose.setListaMontos(montos);
+        genericDao.close();
+        return comerciosRespose;
+    }
+
     public static List<DataFavoritos> getFavoritesList(int comercioType) {
         genericDao.open();
+        List<DataFavoritos> dataFavorites= new ArrayList<>();
         List<DataFavoritos> favorites = genericDao.getListByQueryOrderBy(DataFavoritos.class,
                 DBContract.Favoritos.ID_TIPO_COMERCIO + " = " + comercioType, DBContract.Favoritos.ID_FAVORITO);
+        for (DataFavoritos dataFav : favorites) {
+            List<MontoComercio> montosComercio = genericDao.getListByQuery(MontoComercio.class,
+                    DBContract.MontosComercio.ID_COMERCIO + " = '" +
+                            dataFav.getIdComercio() + "'");
+            List<Double> montos = new ArrayList<>();
+            for (MontoComercio montoComercio : montosComercio) {
+                montos.add(montoComercio.getMonto());
+            }
+            dataFav.setListaMontos(montos);
+            dataFavorites.add(dataFav);
+        }
         genericDao.close();
         return favorites;
     }

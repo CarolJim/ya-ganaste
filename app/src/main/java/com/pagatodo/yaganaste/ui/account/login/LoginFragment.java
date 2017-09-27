@@ -74,8 +74,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     private View rootview;
     private AccountPresenterNew accountPresenter;
 
-    private String username = "";
-    private String password = "";
+    private String username;
+    private String password;
     private Preferencias preferencias;
 
 

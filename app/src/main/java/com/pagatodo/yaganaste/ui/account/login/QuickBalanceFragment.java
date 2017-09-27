@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
+import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -7,19 +8,26 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.Html;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
+import com.pagatodo.yaganaste.interfaces.IPurseView;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.CardBack;
+import com.pagatodo.yaganaste.ui.account.CardCover;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -32,11 +40,14 @@ import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.R.id.txtPagosUserName;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
+import static com.pagatodo.yaganaste.utils.StringConstants.LAST_NAME;
 import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
@@ -45,8 +56,9 @@ import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
  */
 
 public class QuickBalanceFragment extends GenericFragment implements IBalanceView,
-        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
-
+        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, IPurseView{
+    private View transparentBG;
+    private AlphaAnimation fading;
     @BindView(R.id.cardSaldo)
     YaGanasteCard cardSaldo;
     @BindView(R.id.txt_name_user)
@@ -66,6 +78,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     private ILoginContainerManager loginContainerManager;
     private IQuickBalanceManager quickBalanceManager;
     private static Preferencias preferencias = App.getInstance().getPrefs();
+    View rootView;
 
     public static QuickBalanceFragment newInstance() {
 
@@ -79,7 +92,8 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_quick_balance, container, false);
+        rootView = inflater.inflate(R.layout.fragment_quick_balance, container, false);
+        return rootView;
     }
 
     @Override
@@ -88,6 +102,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         loginContainerManager = ((QuickBalanceContainerFragment) getParentFragment()).getLoginContainerManager();
         quickBalanceManager = ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager();
+        accountPresenter.setPurseReference(this);
         // quickBalanceManager Obtenemos la referencia a la interfase desde  QuickBalanceContainerFragment
     }
 
@@ -101,7 +116,6 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         }
     }
 
-
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
@@ -110,6 +124,27 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
             accountPresenter.setIView(this);
         }
         initViews();
+
+        //final View couchMark = view.findViewById(R.id.purse_fragment_ll_couch_mark);
+        final View couchMark = view.findViewById(R.id.llsaldocontenedor);
+
+
+        couchMark.setVisibility(View.VISIBLE);
+        couchMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                accountPresenter.flipCard(R.id.llsaldo, CardBack.newInstance(accountPresenter));
+
+            }
+        });
+        /*
+        couchMark.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                accountPresenter.flipCard(R.id.llsaldo, CardBack.newInstance(accountPresenter));
+                return true;
+            }
+        });*/
     }
 
     @Override
@@ -126,12 +161,17 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 //                    Utils.getCurrencyValue(cardNumber))
             cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
             //cardSaldo.setCardDate("02/21");
+
+
+            String name = StringUtils.getFirstName(preferencias.loadData(NAME_USER)) + SPACE
+                    + StringUtils.getFirstName(preferencias.loadData(LAST_NAME));
+
             if (Build.VERSION.SDK_INT >= 24) {
                 txtNameUser.setText(Html.fromHtml(getString(R.string.bienvenido_usuario,
-                        preferencias.loadData(NAME_USER)),
+                        name),
                         Html.FROM_HTML_MODE_LEGACY, null, null));
             } else {
-                txtNameUser.setText(Html.fromHtml(getString(R.string.bienvenido_usuario, preferencias.loadData(NAME_USER))));
+                txtNameUser.setText(Html.fromHtml(getString(R.string.bienvenido_usuario, name)));
             }
 
             //onRefresh();
@@ -217,7 +257,94 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     }
 
     @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter));
+        String cardNumber = preferencias.loadData(CARD_NUMBER);
+//                    Utils.getCurrencyValue(cardNumber))
+        cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
+    }
+
+    @Override
     public void backScreen(String event, Object data) {
         quickBalanceManager.backPage();
+    }
+
+    @Override
+    public void flipCard(int container, Fragment fragment, boolean isBackShown) {
+        if(isBackShown)
+        {
+            getActivity().getFragmentManager().popBackStack();
+            return;
+        }
+        getActivity().getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+                        R.animator.card_flip_right_in,
+                        R.animator.card_flip_right_out,
+                        R.animator.card_flip_left_in,
+                        R.animator.card_flip_left_out)
+                .replace(container, fragment)
+                .addToBackStack(null)
+                .commit();
+       // TrackingUtils.doAnalyticsTracking(MONEDERO_PAGAR_LBL);
+    }
+
+    @Override
+    public void loadCardCover(int container, Fragment fragment) {
+        getActivity().getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+                        R.animator.card_flip_right_in,
+                        R.animator.card_flip_right_out,
+                        R.animator.card_flip_left_in,
+                        R.animator.card_flip_left_out)
+                .replace(container, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void changeBGVisibility(final boolean isVisible) {
+        float start = isVisible ? 1.0f : 0.0f;
+        float end = isVisible ? 0.0f : 1.0f;
+
+        fading = new AlphaAnimation(start, end);
+        fading.setDuration(getResources().getInteger(R.integer.card_flip_time_full));
+        fading.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                if(!isVisible)
+                    transparentBG.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if(isVisible)
+                    transparentBG.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+//       transparentBG.startAnimation(fading);
+    }
+
+    @Override
+    public boolean isAnimationAble() {
+        if(fading == null)
+            return true;
+
+        if(fading.hasStarted())
+        {
+            if(fading.hasEnded())
+                return true;
+            else
+                return false;
+        }
+        else
+            return true;
     }
 }

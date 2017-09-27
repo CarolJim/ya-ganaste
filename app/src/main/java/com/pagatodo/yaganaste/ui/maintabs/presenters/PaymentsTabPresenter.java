@@ -1,5 +1,9 @@
 package com.pagatodo.yaganaste.ui.maintabs.presenters;
 
+import android.content.Context;
+
+import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
@@ -9,15 +13,20 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 public class PaymentsTabPresenter implements IPaymentsTabPresenter {
     private CarouselItem carouselItem;
+    private CatalogsDbApi catalogsDbApi;
 
-    public PaymentsTabPresenter() {
-
+    public PaymentsTabPresenter(Context context) {
+        catalogsDbApi = new CatalogsDbApi(context);
     }
-
 
     @Override
     public CarouselItem getCarouselItem() {
         return carouselItem;
+    }
+
+    @Override
+    public ComercioResponse getComercioById(long idComercio) {
+        return catalogsDbApi.getComercioById(idComercio);
     }
 
     @Override

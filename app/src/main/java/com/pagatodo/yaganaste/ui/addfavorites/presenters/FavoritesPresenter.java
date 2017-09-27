@@ -1,26 +1,17 @@
 package com.pagatodo.yaganaste.ui.addfavorites.presenters;
 
-import android.content.Context;
-
 import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AddFavoritosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
-import com.pagatodo.yaganaste.ui._controllers.manager.AddFavoritesActivity;
-import com.pagatodo.yaganaste.ui._controllers.manager.AddNewFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesIteractor;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
 import com.pagatodo.yaganaste.ui.addfavorites.iteractors.FavoritesIteractor;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
-
-import java.util.ArrayList;
-import java.util.List;
 
 /**
  * Created by Francisco Manzo on 14/09/2017.
@@ -55,20 +46,17 @@ public class FavoritesPresenter implements IFavoritesPresenter {
      */
 
     /**
-     *
      * @param dataSourceResult
      */
     @Override
     public void toPresenterGenericSuccess(DataSourceResult dataSourceResult) {
 
-        /**
+        /*
          * Instancia de peticion exitosa y operacion exitosa de CambiarEmailResponse
          */
         if (dataSourceResult.getData() instanceof FavoritosDatosResponse) {
             // Damos de alta el Dato en la DB
-            List<DataFavoritos> dataFavoritos = new ArrayList<>();
-            dataFavoritos.add(new DataFavoritos(
-                    ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getColorMarca(),
+            DataFavoritos dataFavoritos = new DataFavoritos(((FavoritosDatosResponse) dataSourceResult.getData()).getData().getColorMarca(),
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getIdComercio(),
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getIdCuenta(),
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getIdFavorito(),
@@ -78,10 +66,9 @@ public class FavoritesPresenter implements IFavoritesPresenter {
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getImagenURLComercioColor(),
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getNombre(),
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getNombreComercio(),
-                    ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getReferencia()
-            ));
+                    ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getReferencia());
 
-            api.insertFavorites(dataFavoritos);
+            api.insertFavorite(dataFavoritos);
 
             mView.hideLoader();
             FavoritosDatosResponse response = (FavoritosDatosResponse) dataSourceResult.getData();
@@ -93,8 +80,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
          */
         if (dataSourceResult.getData() instanceof FavoritosNewDatosResponse) {
             // Damos de alta el Dato en la DB
-            List<DataFavoritos> dataFavoritos = new ArrayList<>();
-            dataFavoritos.add(new DataFavoritos(
+            DataFavoritos dataFavoritos = new DataFavoritos(
                     ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getColorMarca(),
                     ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getIdComercio(),
                     ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getIdCuenta(),
@@ -105,10 +91,9 @@ public class FavoritesPresenter implements IFavoritesPresenter {
                     ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getImagenURLComercioColor(),
                     ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getNombre(),
                     ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getNombreComercio(),
-                    ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getReferencia()
-            ));
+                    ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getReferencia());
 
-            api.insertNewFavorites(dataFavoritos);
+            api.insertFavorite(dataFavoritos);
 
             mView.hideLoader();
             FavoritosNewDatosResponse response = (FavoritosNewDatosResponse) dataSourceResult.getData();
@@ -124,7 +109,6 @@ public class FavoritesPresenter implements IFavoritesPresenter {
          * Instancia de peticion exitosa y operacion exitosa de BloquearCuentaResponse
          */
         if (dataSourceResult.getData() instanceof FavoritosDatosResponse) {
-            //mView.hideLoader();
             mView.hideLoader();
             FavoritosDatosResponse response = (FavoritosDatosResponse) dataSourceResult.getData();
             mView.toViewErrorServer(response.getMensaje());

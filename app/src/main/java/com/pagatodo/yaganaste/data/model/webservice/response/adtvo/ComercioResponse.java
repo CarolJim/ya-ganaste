@@ -87,6 +87,32 @@ public class ComercioResponse extends AbstractEntity implements Serializable {
     public ComercioResponse() {
 
         listaMontos = new ArrayList<Double>();
+
+        this.idComercio = 0;
+        this.idTipoComercio = 0;
+        this.nombreComercio = "";
+        this.logoURL = "";
+        this.imagenURL = "";
+        this.colorMarca = "#00FFFFFF";
+        this.longitudReferencia = 10;
+        this.formato = "";
+        this.mensaje = "";
+        this.sobrecargo = 0.0;
+    }
+
+    public ComercioResponse(int idComercio) {
+
+        listaMontos = new ArrayList<Double>();
+        this.idComercio = idComercio;
+        this.idTipoComercio = 0;
+        this.nombreComercio = "";
+        this.logoURL = "";
+        this.imagenURL = "";
+        this.colorMarca = "#00FFFFFF";
+        this.longitudReferencia = 10;
+        this.formato = "";
+        this.mensaje = "";
+        this.sobrecargo = 0.0;
     }
 
     public int getIdComercio() {

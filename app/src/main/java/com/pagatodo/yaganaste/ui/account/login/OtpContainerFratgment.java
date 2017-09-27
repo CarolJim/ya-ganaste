@@ -59,10 +59,10 @@ public class OtpContainerFratgment  extends SupportFragment implements
         if (getCurrentFragment() instanceof AccessCodeGenerateFragment) {
             return false;
         } else {
-            loadFragment(AccessCodeGenerateFragment.newInstance(), Direction.BACK);
+            loadFragment(AccessCodeGenerateFragment.newInstance());//, Direction.BACK);
             quickBalanceManager.setViewPagerSwipeable(true);
             imgArrowNext.setVisibility(View.VISIBLE);
-            return true;
+            return false;
         }
     }
 

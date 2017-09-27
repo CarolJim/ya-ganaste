@@ -176,7 +176,7 @@ public abstract class SupportFragmentActivity extends AppCompatActivity implemen
         super.onResume();
         isFromActivityForResult = false;
          /* Validar que el celular cuente con SIM */
-        if (!ValidatePermissions.validateSIMCard(this)) {
+        if ( (!(this instanceof SIMActivity)) && !ValidatePermissions.validateSIMCard(this)) {
             startActivity(new Intent(this, SIMActivity.class).setFlags(Intent.FLAG_ACTIVITY_CLEAR_TOP|Intent.FLAG_ACTIVITY_CLEAR_TASK));
             finish();
         }

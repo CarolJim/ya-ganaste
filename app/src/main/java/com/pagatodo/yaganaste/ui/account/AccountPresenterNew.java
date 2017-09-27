@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.account;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.util.Log;
 
@@ -29,6 +30,8 @@ import com.pagatodo.yaganaste.interfaces.IAprovView;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
+import com.pagatodo.yaganaste.interfaces.IPursePresenter;
+import com.pagatodo.yaganaste.interfaces.IPurseView;
 import com.pagatodo.yaganaste.interfaces.IRenapoView;
 import com.pagatodo.yaganaste.interfaces.IUserDataRegisterView;
 import com.pagatodo.yaganaste.interfaces.IVerificationSMSView;
@@ -36,6 +39,7 @@ import com.pagatodo.yaganaste.interfaces.RecoveryPasswordView;
 import com.pagatodo.yaganaste.interfaces.View;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.ui.account.login.QuickBalanceFragment;
 import com.pagatodo.yaganaste.ui.adquirente.interfases.IDocumentApproved;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
@@ -47,6 +51,7 @@ import com.pagatodo.yaganaste.utils.Utils;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.R.id.view;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTIVACION_APROV_SOFTTOKEN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO_SESION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
@@ -79,15 +84,16 @@ import static com.pagatodo.yaganaste.utils.StringConstants.USER_PROVISIONED;
  * Created by flima on 22/03/2017.
  */
 
-public class AccountPresenterNew extends AprovPresenter implements IAccountPresenterNew, IAccountManager {
+public class AccountPresenterNew extends AprovPresenter implements IAccountPresenterNew, IAccountManager, IPursePresenter {
     private static final String TAG = AccountPresenterNew.class.getName();
     private IAccountIteractorNew accountIteractor;
     private INavigationView accountView;
     private Preferencias prefs = App.getInstance().getPrefs();
     private Context context;
     private MyChangeNip mensajesucces;
-
+    private boolean isBackShown;
     private ResetPinPresenter resetPinPresenter;
+    private IPurseView view;
 
     public void setIView(View accountView) {
         super.setIView(accountView);
@@ -437,6 +443,28 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void doProvisioning() {
         super.doProvisioning();
+    }
+
+    @Override
+    public void flipCard(int container, Fragment fragment) {
+
+        if(view.isAnimationAble())
+        {
+            view.flipCard(container,fragment,isBackShown);
+            view.changeBGVisibility(isBackShown);
+            isBackShown = !isBackShown;
+        }
+    }
+
+    @Override
+    public void loadCardCover(int container, Fragment fragment) {
+        isBackShown = false;
+        view.loadCardCover(container,fragment);
+    }
+
+    @Override
+    public void setPurseReference(IPurseView view) {
+        this.view = view;
     }
 
     /**

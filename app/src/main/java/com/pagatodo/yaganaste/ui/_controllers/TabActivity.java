@@ -64,6 +64,7 @@ import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESU
 import static com.pagatodo.yaganaste.utils.Constants.ACTIVITY_LANDING;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
@@ -94,6 +95,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     private ResetPinPresenter resetPinPresenter;
     CircleImageView imageView;
     ImageView imageshare;
+    App aplicacion;
 
     public static Intent createIntent(Context from) {
         return new Intent(from, TabActivity.class);
@@ -103,6 +105,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main_tab);
+        aplicacion = new App();
         load();
         imageView = (CircleImageView) findViewById(R.id.imgToRight_prefe);
         imageshare= (ImageView) findViewById(R.id.deposito_Share);
@@ -303,7 +306,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.CONTACTS_CONTRACT
                 || requestCode == Constants.BARCODE_READER_REQUEST_CODE
-                || requestCode == BACK_FROM_PAYMENTS) {
+                || requestCode == BACK_FROM_PAYMENTS
+                || requestCode == Constants.NEW_FAVORITE) {
 
             Fragment childFragment = getFragment(0);
             if (childFragment != null && requestCode != BACK_FROM_PAYMENTS) {
@@ -432,6 +436,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                     @Override
                     public void actionConfirm(Object... params) {
                         SingletonSession.getInstance().setFinish(true);//Terminamos CupoStatusFragment si va a background
+                        aplicacion.cerrarAppsms();
                         Intent intent = new Intent(TabActivity.this, MainActivity.class);
                         intent.putExtra(SELECTION, MAIN_SCREEN);
                         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);

@@ -68,6 +68,10 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
             tab = TAB2;
             paymentsTabPresenter = ((PaymentsTabFragment) getParentFragment()).getPresenter();
             comercioItem = paymentsTabPresenter.getCarouselItem().getComercio();
+            favoriteItem = paymentsTabPresenter.getCarouselItem().getFavoritos();
+            if (comercioItem == null && favoriteItem != null) {
+                comercioItem = paymentsTabPresenter.getComercioById(favoriteItem.getIdComercio());
+            }
             serviciosPresenter = new ServiciosPresenter(this);
         } catch (Exception e) {
             e.printStackTrace();
@@ -99,12 +103,14 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
             referenceNumber.setInputType(InputType.TYPE_CLASS_TEXT);
         }
         referenceNumber.addTextChangedListener(new NumberTagPase(referenceNumber, maxLength));
-        if(comercioItem.getSobrecargo()>0) {
+        if (comercioItem.getSobrecargo() > 0) {
             comisionText.setText(String.format(getString(R.string.comision_service_payment), StringUtils.getCurrencyValue(comercioItem.getSobrecargo())));
         } else {
             comisionText.setVisibility(View.INVISIBLE);
         }
-
+        if (favoriteItem != null) {
+            referenceNumber.setText(favoriteItem.getReferencia());
+        }
     }
 
     @Override

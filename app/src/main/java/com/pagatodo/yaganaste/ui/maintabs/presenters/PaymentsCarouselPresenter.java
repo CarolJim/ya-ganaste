@@ -34,14 +34,16 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     PaymentsCarrouselManager paymentsManager;
     Context mContext;
     private CatalogsDbApi api;
+    boolean showFavorite; //Sirve para saber si el presenter se manda a llamar desde el carrusel de Favoritos
 
     public PaymentsCarouselPresenter(MovementsTab current_tab,
-                                     PaymentsCarrouselManager paymentsManager, Context context) {
+                                     PaymentsCarrouselManager paymentsManager, Context context, boolean showFavorite) {
         this.current_tab = current_tab;
         this.paymentsManager = paymentsManager;
         this.mContext = context;
         this.api = new CatalogsDbApi(context);
         this.paymentsTabIteractor = new PaymentsCarouselIteractor(this, api);
+        this.showFavorite = showFavorite;
     }
 
     @Override
@@ -137,10 +139,8 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
                 App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, true);
                 if (response.getData().size() > 0) {
                     api.insertFavorites(response.getData());
-                    paymentsManager.setCarouselData(getCarouselItemsFavoritos(response.getData()));
-                } else {
-                    onEmptyListFavorites();
                 }
+                paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
             } catch (Exception e) {
                 e.printStackTrace();
                 paymentsManager.showError();
@@ -152,12 +152,22 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
     @Override
     public void onSuccesDBObtenerCatalogos(List<ComercioResponse> comercios) {
-        paymentsManager.setCarouselData(getCarouselItems(comercios));
+        ArrayList<CarouselItem> items = getCarouselItems(comercios);
+        paymentsManager.setCarouselData(items);
+    }
+
+    private CarouselItem createItemToAddFav() {
+        //Se agrega un id en -1 en el constructor para hacer referencia a que el item responde a la accion de agregar favorito desde 0
+        return new CarouselItem(App.getInstance(), R.drawable.ic_plus_2, "#747E84" , CarouselItem.DRAG, new ComercioResponse(-1));
     }
 
     @Override
     public void onSuccessDBFavorites(List<DataFavoritos> favoritos) {
-        paymentsManager.setCarouselData(getCarouselItemsFavoritos(favoritos));
+        if(showFavorite){
+            paymentsManager.setCarouselData(getCarouselItemsFavoritos(favoritos));
+        } else {
+            paymentsManager.showFavorites();
+        }
     }
 
     private ArrayList<CarouselItem> getCarouselItems(List<ComercioResponse> comercios) {
@@ -194,6 +204,8 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
         //carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
         carouselItems.add(0, carouselItemSearch);
+        carouselItems.add(1, createItemToAddFav());
+
         for (DataFavoritos favorito : favoritos) {
             if (favorito.getIdTipoComercio() == current_tab.getId()) {
                 if (favorito.getIdComercio() != 0) {
@@ -218,6 +230,12 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
                 }
             }
         }
+
+        int toAdd = 5 - carouselItems.size();
+        for (int n = 0 ; n < toAdd ; n++ ) {
+            carouselItems.add(createItemToAddFav());
+        }
+
         return carouselItems;
     }
 }

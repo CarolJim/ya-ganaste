@@ -81,6 +81,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     private Preferencias pref;
     private LoginManagerContainerFragment loginContainerFragment;
     private static AccountPresenterNew presenterAccount;
+    App aplicacion;
 
     private String action = "";
 
@@ -93,6 +94,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
         pref = App.getInstance().getPrefs();
         resetRegisterData();
         setUpActionBar();
+        App aplicacion = new App();
         presenterAccount = new AccountPresenterNew(this);
         loginContainerFragment = LoginManagerContainerFragment.newInstance();
 
@@ -307,7 +309,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
+                        //aplicacion.cerrarAppsms();
                         finish();
+
                     }
 
                     @Override

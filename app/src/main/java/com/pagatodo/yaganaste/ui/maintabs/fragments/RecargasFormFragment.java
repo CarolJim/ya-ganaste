@@ -77,6 +77,10 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             tab = TAB1;
             paymentsTabPresenter = ((PaymentsTabFragment) getParentFragment()).getPresenter();
             comercioItem = paymentsTabPresenter.getCarouselItem().getComercio();
+            favoriteItem = paymentsTabPresenter.getCarouselItem().getFavoritos();
+            if (comercioItem == null && favoriteItem != null) {
+                comercioItem = paymentsTabPresenter.getComercioById(favoriteItem.getIdComercio());
+            }
             isIAVE = comercioItem.getIdComercio() == IAVE_ID;
             recargasPresenter = new RecargasPresenter(this, isIAVE);
             List<Double> montos = comercioItem.getListaMontos();
@@ -112,7 +116,6 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             recargaNumber.setFilters(fArray);
         }
 
-
         if (isIAVE) {
             recargaNumber.addTextChangedListener(new NumberTagPase(recargaNumber, maxLength));
             recargaNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
@@ -141,6 +144,10 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             comisionText.setVisibility(View.GONE);
         }
         spinnerMontoRecarga.setAdapter(dataAdapter);
+
+        if (favoriteItem != null) {
+            recargaNumber.setText(favoriteItem.getReferencia());
+        }
     }
 
 

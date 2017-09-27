@@ -29,7 +29,8 @@ public class FragmentPagerAdapter extends android.support.v4.app.FragmentPagerAd
             case 2:
                 return EnviosCarouselFragment.newInstance();
             default:
-                return RecargasCarouselFragment.newInstance();
+                //return RecargasCarouselFragment.newInstance();
+                return null;
         }
     }
 

@@ -5,7 +5,11 @@ import android.os.Parcelable;
 
 import com.pagatodo.yaganaste.data.local.persistence.db.AbstractEntity;
 import com.pagatodo.yaganaste.data.local.persistence.db.utils.FieldName;
+import com.pagatodo.yaganaste.data.local.persistence.db.utils.Ignore;
 import com.pagatodo.yaganaste.data.local.persistence.db.utils.TableName;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.COLOR_MARCA;
 import static com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract.Favoritos.ID_COMERCIO;
@@ -58,6 +62,9 @@ public class DataFavoritos extends AbstractEntity implements Parcelable {
 
     @FieldName(REFERENCIA)
     private String Referencia;
+
+    @Ignore
+    private List<Double> listaMontos;
 
     public String getColorMarca() {
         return ColorMarca;
@@ -147,24 +154,12 @@ public class DataFavoritos extends AbstractEntity implements Parcelable {
         Referencia = referencia;
     }
 
-    @Override
-    public int describeContents() {
-        return 0;
+    public List<Double> getListaMontos() {
+        return listaMontos;
     }
 
-    @Override
-    public void writeToParcel(Parcel dest, int flags) {
-        dest.writeString(this.ColorMarca);
-        dest.writeLong(this.IdComercio);
-        dest.writeLong(this.IdCuenta);
-        dest.writeLong(this.IdFavorito);
-        dest.writeInt(this.IdTipoComercio);
-        dest.writeString(this.ImagenURL);
-        dest.writeString(this.ImagenURLComercio);
-        dest.writeString(this.ImagenURLComercioColor);
-        dest.writeString(this.Nombre);
-        dest.writeString(this.NombreComercio);
-        dest.writeString(this.Referencia);
+    public void setListaMontos(List<Double> listaMontos) {
+        this.listaMontos = listaMontos;
     }
 
     public DataFavoritos() {
@@ -186,11 +181,42 @@ public class DataFavoritos extends AbstractEntity implements Parcelable {
         this.Referencia = referencia;
     }
 
+    public DataFavoritos(int idComercio) {
+        listaMontos = new ArrayList<Double>();
+        this.IdComercio = idComercio;
+        this.IdTipoComercio = 0;
+        this.NombreComercio = "";
+        this.ImagenURLComercio = "";
+        this.ImagenURL = "";
+        this.ColorMarca = "#00FFFFFF";
+    }
+
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.IdFavorito);
+        dest.writeString(this.ColorMarca);
+        dest.writeLong(this.IdComercio);
+        dest.writeLong(this.IdCuenta);
+        dest.writeInt(this.IdTipoComercio);
+        dest.writeString(this.ImagenURL);
+        dest.writeString(this.ImagenURLComercio);
+        dest.writeString(this.ImagenURLComercioColor);
+        dest.writeString(this.Nombre);
+        dest.writeString(this.NombreComercio);
+        dest.writeString(this.Referencia);
+        dest.writeList(this.listaMontos);
+    }
+
     protected DataFavoritos(Parcel in) {
+        this.IdFavorito = in.readLong();
         this.ColorMarca = in.readString();
         this.IdComercio = in.readLong();
         this.IdCuenta = in.readLong();
-        this.IdFavorito = in.readLong();
         this.IdTipoComercio = in.readInt();
         this.ImagenURL = in.readString();
         this.ImagenURLComercio = in.readString();
@@ -198,9 +224,11 @@ public class DataFavoritos extends AbstractEntity implements Parcelable {
         this.Nombre = in.readString();
         this.NombreComercio = in.readString();
         this.Referencia = in.readString();
+        this.listaMontos = new ArrayList<Double>();
+        in.readList(this.listaMontos, Double.class.getClassLoader());
     }
 
-    public static final Parcelable.Creator<DataFavoritos> CREATOR = new Parcelable.Creator<DataFavoritos>() {
+    public static final Creator<DataFavoritos> CREATOR = new Creator<DataFavoritos>() {
         @Override
         public DataFavoritos createFromParcel(Parcel source) {
             return new DataFavoritos(source);
