@@ -109,6 +109,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         load();
         imageView = (CircleImageView) findViewById(R.id.imgToRight_prefe);
         imageshare= (ImageView) findViewById(R.id.deposito_Share);
+        showBack(false);
         if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             startActivityForResult(LandingActivity.createIntent(this, PANTALLA_PRINCIPAL_EMISOR), ACTIVITY_LANDING);
