@@ -23,6 +23,7 @@ import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
 import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritesPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
@@ -41,6 +42,8 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_ENVIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.TIPO_TAB;
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * Encargada de dar de alta Favoritos, primero en el servicio y luego en la base local
@@ -75,6 +78,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     String formatoComercio;
     String stringFoto;
     int longitudRefer;
+    int tipoTab;
     CameraManager cameraManager;
     private boolean errorIsShowed = false;
     private int idTipoEnvio;
@@ -93,11 +97,32 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         nombreComercio = intent.getStringExtra(NOMBRE_COMERCIO);
         mReferencia = intent.getStringExtra(REFERENCIA);
         formatoComercio = intent.getStringExtra(REFERENCIA);
+        tipoTab = intent.getIntExtra(TIPO_TAB, 96);
 
         ButterKnife.bind(this);
         imageViewCamera.setVisibilityStatus(false);
         textViewServ.setText(nombreComercio);
-        textViewRef.setText(mReferencia);
+
+        String formatoPago = mReferencia;
+
+        if (tipoTab == 1) {
+            if (idComercio != 7) {
+                formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+            }
+            if (idComercio == 7) {
+                formatoPago = StringUtils.formatoPagoMediostag(formatoPago);
+            }
+        } else if (tipoTab == 2) {
+            formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
+        } else if (tipoTab == 3) {
+            if (formatoPago.length() == 16 || formatoPago.length() == 15) {
+                formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4,4,4,4), '*', formatoPago.length() -12);
+            } else {
+                formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+            }
+        }
+
+        textViewRef.setText(formatoPago);
 
         if (idTipoEnvio == 1) {
             linearTipo.setVisibility(View.VISIBLE);
@@ -137,13 +162,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     // Disparamos el evento de Camara
     @OnClick(R.id.add_favorites_camera)
     public void openCamera() {
-        //Toast.makeText(this, "Open Camera", Toast.LENGTH_SHORT).show();
-        boolean isOnline = Utils.isDeviceOnline();
-        if (isOnline) {
-            favoritesPresenter.openMenuPhoto(1, cameraManager);
-        } else {
-            showDialogMesage(getResources().getString(R.string.no_internet_access), 0);
-        }
+        favoritesPresenter.openMenuPhoto(1, cameraManager);
     }
 
     // Cerramos esta actividad de favoritos
