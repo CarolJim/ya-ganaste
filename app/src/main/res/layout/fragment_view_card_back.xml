@@ -2,22 +2,21 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragment_purse_ll_card_view"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="wrap_content"
+    android:layout_width="match_parent"
     android:orientation="vertical"
-    android:layout_marginTop="70dp"
-    android:layout_height="wrap_content"
-    >
+    android:layout_height="wrap_content">
 
 <LinearLayout
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:id="@+id/llcardsaldo"
     android:gravity="center"
-    android:orientation="vertical"
-    >
+    android:orientation="vertical">
+
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">
+
         <com.pagatodo.yaganaste.utils.customviews.YaGanasteCardBack
             android:id="@+id/cardSaldo"
             android:layout_width="wrap_content"
@@ -25,16 +24,19 @@
             android:layout_marginRight="65dp"
             android:layout_marginLeft="65dp"
             android:layout_gravity="center" />
+
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtMessageCard"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginBottom="27dp"
         android:layout_marginTop="@dimen/margin_medium"
-        android:gravity="center" android:layout_gravity="center"
+        android:gravity="center"
+            android:layout_gravity="center"
         android:visibility="visible"
         android:text="@string/saldo_personal"
         android:textSize="@dimen/text_screen_size_normal" />
+
         <com.pagatodo.yaganaste.utils.customviews.MontoTextView
             android:id="@+id/txt_saldo"
             android:layout_width="match_parent"
@@ -51,6 +53,7 @@
 
 
     </FrameLayout>
+
 </LinearLayout>
 
 </LinearLayout>

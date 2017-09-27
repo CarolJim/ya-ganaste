@@ -254,7 +254,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public void onItemSelected() {
         CarouselItem item = paymentsTabPresenter.getCarouselItem();
-        if (item.getComercio() == null && item.getComercio().getIdComercio() != -1) {
+        if (item.getComercio() != null && item.getComercio().getIdComercio() != -1) {
             changeImgageToPay();
             openPaymentFragment();
         } else {
