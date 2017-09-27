@@ -181,6 +181,16 @@ public class DataFavoritos extends AbstractEntity implements Parcelable {
         this.Referencia = referencia;
     }
 
+    public DataFavoritos(int idComercio) {
+        listaMontos = new ArrayList<Double>();
+        this.IdComercio = idComercio;
+        this.IdTipoComercio = 0;
+        this.NombreComercio = "";
+        this.ImagenURLComercio = "";
+        this.ImagenURL = "";
+        this.ColorMarca = "#00FFFFFF";
+    }
+
     @Override
     public int describeContents() {
         return 0;

@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -30,6 +32,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
 
 /**
  * Created by Jordan on 06/04/2017.
@@ -110,7 +113,6 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
         carouselFav.setOnItemClickListener(new CarouselAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CarouselAdapter<?> parent, CarouselItem view, int position, long id) {
-
                 if (position == 0) {
                     isFromClick = true;
                     paymentsCarouselPresenter.getFavoriteCarouselItems();
@@ -181,6 +183,16 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
                 setCarouselAdapter(subList);
             } else {
                 setCarouselAdapter(response);
+            }
+        }
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+        if (resultCode == Activity.RESULT_OK) {
+            if (requestCode == NEW_FAVORITE) {
+                paymentsCarouselPresenter.getFavoriteCarouselItems();
             }
         }
     }

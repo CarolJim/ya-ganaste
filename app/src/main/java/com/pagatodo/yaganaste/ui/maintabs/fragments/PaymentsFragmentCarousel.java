@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -36,6 +37,8 @@ import butterknife.OnClick;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
 
 /**
  * Created by Jordan on 06/04/2017.
