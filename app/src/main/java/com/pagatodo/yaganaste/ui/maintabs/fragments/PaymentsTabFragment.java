@@ -311,7 +311,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
             if (requestCode == NEW_FAVORITE) {
                 for(Fragment fragment : fragmentList){
                     if(fragment instanceof  FavoritesFragmentCarousel){
-                        fragment.onActivityResult(requestCode, resultCode, data);
+                        hideFavorites();
                     }
                 }
             } else if (requestCode == CONTACTS_CONTRACT) {
