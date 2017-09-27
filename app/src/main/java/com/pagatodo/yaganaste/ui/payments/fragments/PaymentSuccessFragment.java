@@ -341,4 +341,9 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
             startActivity(Intent.createChooser(intent, "Compartir con.."));
         }
     }
+
+    public void hideAddFavorites() {
+        LinearLayout ll_favorites = (LinearLayout) rootview.findViewById(R.id.layout_addfavorites);
+        ll_favorites.setVisibility(View.GONE);
+    }
 }
