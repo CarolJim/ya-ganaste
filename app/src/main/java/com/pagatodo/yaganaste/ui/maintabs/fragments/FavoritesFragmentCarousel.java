@@ -171,7 +171,7 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
             Collections.sort(response, new Comparator<CarouselItem>() {
                 @Override
                 public int compare(CarouselItem o1, CarouselItem o2) {
-                    return o1.getFavoritos().getNombreComercio().compareToIgnoreCase(o2.getFavoritos().getNombreComercio());
+                    return o1.getFavoritos().getNombreComercio().compareToIgnoreCase(o2.getFavoritos().getNombre());
                 }
             });
             dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
