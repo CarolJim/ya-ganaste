@@ -146,7 +146,8 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
             if (pago.getComercio().getIdComercio() == 7) {
                 titleReferencia.setText(getString(R.string.tag_number));
             } else {
-                titleReferencia.setText(R.string.details_telefono);
+               // titleReferencia.setText(R.string.details_telefono);
+                titleReferencia.setText("Teléfono");
 
             }
             layoutMail.setVisibility(View.VISIBLE);
