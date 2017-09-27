@@ -176,6 +176,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
         amountToSend.addTextChangedListener(new NumberTextWatcher(amountToSend));
         receiverName.setSingleLine();
         if (favoriteItem != null) {
+            receiverName.setText(favoriteItem.getNombre());
             switch (favoriteItem.getReferencia().length()) {
                 case 10:
                     tipoEnvio.setSelection(NUMERO_TELEFONO.getId());

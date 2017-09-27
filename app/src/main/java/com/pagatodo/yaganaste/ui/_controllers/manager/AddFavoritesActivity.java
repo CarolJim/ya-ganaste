@@ -5,13 +5,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
-import android.util.Log;
+import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -22,6 +21,7 @@ import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
 import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritesPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
@@ -29,15 +29,20 @@ import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
+import java.io.ByteArrayOutputStream;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.DESTINATARIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_ENVIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.TIPO_TAB;
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * Encargada de dar de alta Favoritos, primero en el servicio y luego en la base local
@@ -59,11 +64,20 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     ErrorMessage errorAliasMessage;
     @BindView(R.id.add_favorites_linear_tipo)
     LinearLayout linearTipo;
+    @BindView(R.id.add_favorites_foto_et)
+    CustomValidationEditText editFoto;
+    @BindView(R.id.add_favorites_foto_error)
+    ErrorMessage editFotoError;
+
     IFavoritesPresenter favoritesPresenter;
     int idTipoComercio;
     int idComercio;
     String nombreComercio;
     String mReferencia;
+    String formatoComercio;
+    String stringFoto, nombreDest;
+    int longitudRefer;
+    int tipoTab;
     CameraManager cameraManager;
     private boolean errorIsShowed = false;
     private int idTipoEnvio;
@@ -81,11 +95,34 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         idTipoEnvio = intent.getIntExtra(ID_TIPO_ENVIO, 97);
         nombreComercio = intent.getStringExtra(NOMBRE_COMERCIO);
         mReferencia = intent.getStringExtra(REFERENCIA);
+        formatoComercio = intent.getStringExtra(REFERENCIA);
+        tipoTab = intent.getIntExtra(TIPO_TAB, 96);
+        nombreDest = intent.getStringExtra(DESTINATARIO);
 
         ButterKnife.bind(this);
         imageViewCamera.setVisibilityStatus(false);
         textViewServ.setText(nombreComercio);
-        textViewRef.setText(mReferencia);
+
+        String formatoPago = mReferencia;
+
+        if (tipoTab == 1) {
+            if (idComercio != 7) {
+                formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+            }
+            if (idComercio == 7) {
+                formatoPago = StringUtils.formatoPagoMediostag(formatoPago);
+            }
+        } else if (tipoTab == 2) {
+            formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
+        } else if (tipoTab == 3) {
+            if (formatoPago.length() == 16 || formatoPago.length() == 15) {
+                formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4, 4, 4, 4), '*', formatoPago.length() - 12);
+            } else {
+                formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+            }
+        }
+
+        textViewRef.setText(formatoPago);
 
         if (idTipoEnvio == 1) {
             linearTipo.setVisibility(View.VISIBLE);
@@ -104,6 +141,9 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
         // Agregar el escuchardor DoneOnEditor para procesar el clic de teclas
         editTextAlias.addCustomEditorActionListener(new DoneOnEditorActionListener());
+        if (nombreDest != null) {
+            editTextAlias.setText(nombreDest);
+        }
 
         // Iniciamos la funcionalidad e la camara
         cameraManager = new CameraManager();
@@ -125,13 +165,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     // Disparamos el evento de Camara
     @OnClick(R.id.add_favorites_camera)
     public void openCamera() {
-        //Toast.makeText(this, "Open Camera", Toast.LENGTH_SHORT).show();
-        boolean isOnline = Utils.isDeviceOnline();
-        if (isOnline) {
-            favoritesPresenter.openMenuPhoto(1, cameraManager);
-        } else {
-            showDialogMesage(getResources().getString(R.string.no_internet_access), 0);
-        }
+        favoritesPresenter.openMenuPhoto(1, cameraManager);
     }
 
     // Cerramos esta actividad de favoritos
@@ -215,6 +249,19 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         // Log.d("TAG", "setPhotoToService ");
 
         imageViewCamera.setImageBitmap(bitmap);
+        cameraManager.setBitmap(bitmap);
+
+        // Procesamos el Bitmap a Base64
+        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+        byte[] byteArray = byteArrayOutputStream.toByteArray();
+        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+
+        stringFoto = encoded;
+        editFoto.setText(stringFoto);
+
+        // Ocultamos el mensaje de error de foto
+        editFotoError.setVisibilityImageError(false);
        /*
         cameraManager.setBitmap(bitmap);
 
@@ -249,6 +296,14 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             //return;
         }
 
+        //Validate format Tipo Envio
+        if (!editFoto.isValidText()) {
+            showValidationError(editFoto.getId(), getString(R.string.addFavoritesErrorFoto));
+            editFoto.setIsInvalid();
+            isValid = false;
+            //return;
+        }
+
         //onValidationSuccess();
         if (isValid) {
             boolean isOnline = Utils.isDeviceOnline();
@@ -267,6 +322,9 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             case R.id.add_favorites_alias:
                 errorAliasMessage.setMessageText(error.toString());
                 break;
+            case R.id.add_favorites_foto_et:
+                editFotoError.setMessageText(error.toString());
+                break;
         }
 
         errorIsShowed = true;
@@ -278,6 +336,9 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             case R.id.add_favorites_alias:
                 errorAliasMessage.setVisibilityImageError(false);
                 break;
+            case R.id.add_favorites_foto_et:
+                editFotoError.setVisibilityImageError(false);
+                break;
         }
         //errorMessageView.setVisibilityImageError(false);
         errorIsShowed = false;
@@ -288,7 +349,8 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         errorAliasMessage.setVisibilityImageError(false);
         String mAlias = editTextAlias.getText();
         AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
-                idComercio, mAlias, mReferencia);
+                idComercio, mAlias, mReferencia, "");
+
         favoritesPresenter.toPresenterAddFavorites(addFavoritesRequest);
     }
 

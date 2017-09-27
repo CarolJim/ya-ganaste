@@ -21,7 +21,6 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
@@ -32,7 +31,6 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.StringUtils;
-import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
@@ -48,8 +46,10 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB2;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_HIDE_MANIN_TAB;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_SHOW_MAIN_TAB;
+import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
 
 /**
  * Created by Jordan on 06/04/2017.
@@ -254,11 +254,11 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public void onItemSelected() {
         CarouselItem item = paymentsTabPresenter.getCarouselItem();
-        if (item.getComercio() != null && item.getComercio().getIdComercio() != -1) {
+        if (item.getComercio()!= null && item.getComercio().getIdComercio() == -1) {
+            addNewFavorite();
+        } else {
             changeImgageToPay();
             openPaymentFragment();
-        } else {
-            addNewFavorite();
         }
     }
 
@@ -270,8 +270,8 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
      */
     public void addNewFavorite() {
         Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
-        intent.putExtra("currentTab", currentTab.getId());
-        startActivity(intent);
+        intent.putExtra(CURRENT_TAB_ID, currentTab.getId());
+        getActivity().startActivityForResult(intent, NEW_FAVORITE);
     }
 
     public void changeImgageToPay() {
@@ -308,7 +308,13 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         List<Fragment> fragmentList = getChildFragmentManager().getFragments();
 
         if (fragmentList != null) {
-            if (requestCode == CONTACTS_CONTRACT) {
+            if (requestCode == NEW_FAVORITE) {
+                for(Fragment fragment : fragmentList){
+                    if(fragment instanceof  FavoritesFragmentCarousel){
+                        hideFavorites();
+                    }
+                }
+            } else if (requestCode == CONTACTS_CONTRACT) {
                 for (Fragment fragment : fragmentList) {
                     if (fragment instanceof RecargasFormFragment
                             || fragment instanceof EnviosFormFragment) {

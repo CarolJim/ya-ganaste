@@ -11,17 +11,24 @@ public class CustomCarouselItem implements Parcelable{
     private int idComercio;
     private int idTipoComercio;
     private String nombreComercio;
+    private String formatoComercio;
+    private int longitudRefer;
 
-    public CustomCarouselItem (int idComercio, int idTipoComercio, String nombreComercio){
+    public CustomCarouselItem(int idComercio, int idTipoComercio, String nombreComercio,
+                              String formatoComercio, int longitudRefer){
         this.idComercio = idComercio;
         this.idTipoComercio = idTipoComercio;
         this.nombreComercio = nombreComercio;
+        this.formatoComercio = formatoComercio;
+        this.longitudRefer = longitudRefer;
     }
 
     protected CustomCarouselItem(Parcel in) {
         idComercio = in.readInt();
         idTipoComercio = in.readInt();
         nombreComercio = in.readString();
+        formatoComercio = in.readString();
+        longitudRefer = in.readInt();
     }
 
     public static final Creator<CustomCarouselItem> CREATOR = new Creator<CustomCarouselItem>() {
@@ -46,6 +53,8 @@ public class CustomCarouselItem implements Parcelable{
         dest.writeInt(idComercio);
         dest.writeInt(idTipoComercio);
         dest.writeString(nombreComercio);
+        dest.writeString(formatoComercio);
+        dest.writeInt(longitudRefer);
     }
 
     public int getIdComercio() {
@@ -70,5 +79,21 @@ public class CustomCarouselItem implements Parcelable{
 
     public void setNombreComercio(String nombreComercio) {
         this.nombreComercio = nombreComercio;
+    }
+
+    public String getFormatoComercio() {
+        return formatoComercio;
+    }
+
+    public void setFormatoComercio(String formatoComercio) {
+        this.formatoComercio = formatoComercio;
+    }
+
+    public int getLongitudRefer() {
+        return longitudRefer;
+    }
+
+    public void setLongitudRefer(int longitudRefer) {
+        this.longitudRefer = longitudRefer;
     }
 }

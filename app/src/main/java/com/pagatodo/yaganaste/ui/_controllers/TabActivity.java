@@ -64,6 +64,7 @@ import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESU
 import static com.pagatodo.yaganaste.utils.Constants.ACTIVITY_LANDING;
 import static com.pagatodo.yaganaste.utils.Constants.BACK_FROM_PAYMENTS;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Constants.REGISTER_ADQUIRENTE_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
@@ -108,6 +109,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         load();
         imageView = (CircleImageView) findViewById(R.id.imgToRight_prefe);
         imageshare= (ImageView) findViewById(R.id.deposito_Share);
+        showBack(false);
         if (!pref.containsData(COUCHMARK_EMISOR)) {
             pref.saveDataBool(COUCHMARK_EMISOR, true);
             startActivityForResult(LandingActivity.createIntent(this, PANTALLA_PRINCIPAL_EMISOR), ACTIVITY_LANDING);
@@ -305,7 +307,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         super.onActivityResult(requestCode, resultCode, data);
         if (requestCode == Constants.CONTACTS_CONTRACT
                 || requestCode == Constants.BARCODE_READER_REQUEST_CODE
-                || requestCode == BACK_FROM_PAYMENTS) {
+                || requestCode == BACK_FROM_PAYMENTS
+                || requestCode == Constants.NEW_FAVORITE) {
 
             Fragment childFragment = getFragment(0);
             if (childFragment != null && requestCode != BACK_FROM_PAYMENTS) {

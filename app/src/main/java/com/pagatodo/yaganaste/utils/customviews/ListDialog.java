@@ -62,7 +62,7 @@ public class ListDialog extends Dialog implements View.OnClickListener, AdapterV
             if(item.getComercio()!=null) {
                 mList.add(item.getComercio().getNombreComercio().trim());
             }else if (item.getFavoritos()!=null){
-                mList.add(item.getFavoritos().getNombreComercio().trim());
+                mList.add(item.getFavoritos().getNombre().trim());
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -36,6 +37,8 @@ import butterknife.OnClick;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
+import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
 
 /**
  * Created by Jordan on 06/04/2017.
@@ -43,6 +46,9 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 
 public abstract class PaymentsFragmentCarousel extends GenericFragment implements PaymentsCarrouselManager {
 
+    public static final String BACK_UP_RESPONSE = "backUpResponse";
+    public static final String CURRENT_TAB_NAME = "currentTabName";
+    public static final String CURRENT_TAB_ID = "currentTabId";
     private static int MAX_CAROUSEL_ITEMS = 12;
     @BindView(R.id.carouselMain)
     Carousel carouselMain;
@@ -226,9 +232,18 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
                 backUpResponse.add(new CustomCarouselItem(
                         carouselItem.getComercio().getIdComercio(),
                         carouselItem.getComercio().getIdTipoComercio(),
-                        carouselItem.getComercio().getNombreComercio()
+                        carouselItem.getComercio().getNombreComercio(),
+                        carouselItem.getComercio().getFormato(),
+                        carouselItem.getComercio().getLongitudReferencia()
                 ));
             }
         }
     }
+
+    /*@Override
+    public void onStop() {
+        super.onStop();
+        showFavorites=false;
+        paymentsCarouselPresenter.getCarouselItems();
+    }*/
 }

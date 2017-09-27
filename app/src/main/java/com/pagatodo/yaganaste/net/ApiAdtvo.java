@@ -55,6 +55,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDis
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EliminarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoContactanosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenerarCodigoRecuperacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenericEnviarTicketResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GetJsonWebTokenResponse;
@@ -77,6 +78,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoDocument
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.ui.addfavorites.iteractors.FavoritesIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 
 import java.util.Map;
@@ -91,6 +93,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZAR_INFO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZA_DOCUMENTOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZA_REFERENCIAS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_FAVORITES;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_NEW_FAVORITES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CAMBIAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
@@ -866,5 +869,19 @@ public class ApiAdtvo extends Api {
         NetFacade.consumeWS(ADD_FAVORITES,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.addFavoritos),
                 headers, request, FavoritosDatosResponse.class, result);
+    }
+
+    public static void addNewFavorites(AddFavoritesRequest request, IRequestResult result)
+            throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+                .getCuentas().get(0).getIdCuenta();
+        headers.put("IdCuenta", "" + idCuenta);
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(ADD_NEW_FAVORITES,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.addFavoritos),
+                headers, request, FavoritosNewDatosResponse.class, result);
     }
 }
