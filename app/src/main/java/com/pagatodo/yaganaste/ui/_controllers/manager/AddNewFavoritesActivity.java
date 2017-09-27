@@ -74,8 +74,8 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
-import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.BACK_UP_RESPONSE;
-import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB;
+import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB_ID;
+import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB_NAME;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
@@ -83,6 +83,10 @@ import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 
 /**
  * Encargada de dar de alta Favoritos, pero capturando todos sus datos. primero en el servicio y luego en la base local
+ * Es necesario recibir lo siguiente en el Int
+ *  nameTab = intent.getStringExtra(CURRENT_TAB_NAME); Que puede ser String:  "TAB1", "TAB2", "TAB3"
+    current_tab = intent.getIntExtra(CURRENT_TAB_ID, 99); Que puede ser un int: 1, 2 o 3
+ *
  */
 public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
         IListaOpcionesView, ValidationForms, View.OnClickListener, OnListServiceListener,
@@ -143,6 +147,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     int idTipoEnvio;
     String stringFoto;
     String mReferencia;
+    String nameTab;
     private String formatoComercio;
     private int longitudRefer;
     CameraManager cameraManager;
@@ -164,12 +169,14 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         favoritesPresenter = new FavoritesPresenter(this);
 
         Intent intent = getIntent();
-        current_tab = intent.getIntExtra(CURRENT_TAB, 99);
       //  backUpResponse = intent.getExtras().getParcelableArrayList(BACK_UP_RESPONSE);
+
+        nameTab = intent.getStringExtra(CURRENT_TAB_NAME);
+        current_tab = intent.getIntExtra(CURRENT_TAB_ID, 99);
 
         // Iniciamos el presentes del carrousel
        // this.current_tab = MovementsTab.valueOf(getArguments().getString("TAB"));
-        this.current_tab2 = MovementsTab.valueOf("TAB1");
+        this.current_tab2 = MovementsTab.valueOf(nameTab);
         backUpResponse = new ArrayList<>();
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this);
         paymentsCarouselPresenter.getCarouselItems();
