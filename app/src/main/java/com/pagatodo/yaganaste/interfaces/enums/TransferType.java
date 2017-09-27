@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.interfaces.enums;
 
 import android.content.Context;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.IEnumTab;
 
@@ -10,16 +11,18 @@ import com.pagatodo.yaganaste.interfaces.IEnumTab;
  */
 
 public enum TransferType implements IEnumTab {
-    NUMERO_TELEFONO(R.string.transfer_phone_cellphone, 1),
-    NUMERO_TARJETA(R.string.debit_card_number, 2),
-    CLABE(R.string.transfer_cable, 3);
+    NUMERO_TELEFONO(R.string.transfer_phone_cellphone, 1, R.string.details_telefono),
+    NUMERO_TARJETA(R.string.debit_card_number, 2, R.string.details_tarjeta),
+    CLABE(R.string.transfer_cable, 3, R.string.details_cable);
 
     private int name;
+    private int shortName;
     private int id;
 
-    TransferType(int name, int id) {
+    TransferType(int name, int id, int shortName) {
         this.name = name;
         this.id = id;
+        this.shortName = shortName;
     }
 
     @Override
@@ -35,5 +38,11 @@ public enum TransferType implements IEnumTab {
     public int getIconRes() {
         return NO_ICON;
     }
+
+    public String getShortName() {
+        return App.getInstance().getString(shortName);
+    }
+
+
 
 }

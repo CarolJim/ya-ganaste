@@ -51,38 +51,42 @@
 
         <LinearLayout
             android:layout_width="match_parent"
+
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:orientation="vertical">
+<LinearLayout
+    android:layout_width="wrap_content"
+    android:id="@+id/llsaldocontenedor"
+    android:layout_height="wrap_content">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:id="@+id/llsaldo"
+                android:orientation="vertical"
+                android:layout_height="wrap_content">
 
+            </LinearLayout>
             <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
                 android:id="@+id/cardSaldo"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginRight="65dp"
+                android:visibility="gone"
                 android:layout_marginLeft="65dp"
                 android:layout_gravity="center" />
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/txtMessageCard"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginBottom="@dimen/margin_small"
-                android:layout_marginTop="@dimen/margin_medium"
-                android:gravity="center"
-                android:text="@string/saldo_personal"
-                android:textSize="@dimen/text_screen_size_normal" />
-
-            <com.pagatodo.yaganaste.utils.customviews.MontoTextView
-                android:id="@+id/txt_saldo"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:gravity="center"
-                android:text="00"
-                android:textAlignment="center"
-                android:textSize="16sp"
-                app:dotBottom="false"
-                app:symbolSmaller="true" />
+    <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+        android:id="@+id/txt_saldo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:layout_marginTop="20dp"
+        android:layout_gravity="center"
+        android:text="00"
+        android:visibility="gone"
+        android:textAlignment="center"
+        android:textSize="16sp"
+        app:dotBottom="false"
+        app:symbolSmaller="true" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txt_date_updated"
@@ -95,7 +99,7 @@
                 android:text="Actualizado el 15/Jun/2017 24:24:59"
                 android:textSize="@dimen/text_screen_size_normal" />
         </LinearLayout>
-
+        </LinearLayout>
         <LinearLayout
             android:id="@+id/layoutBtns"
             android:layout_width="match_parent"

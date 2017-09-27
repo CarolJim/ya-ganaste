@@ -67,11 +67,7 @@ public class PaymentsCarouselIteractor implements IPaymentsCarouselIteractor, IR
     @Override
     public void getFavoritesFromDB(int tabID) {
         List<DataFavoritos> catalogos = catalogsDbApi.getFavoritesList(tabID);
-        if (catalogos.size() > 0) {
-            carouselPresenter.onSuccessDBFavorites(catalogos);
-        } else {
-            carouselPresenter.onEmptyListFavorites();
-        }
+        carouselPresenter.onSuccessDBFavorites(catalogos);
     }
 
     @Override

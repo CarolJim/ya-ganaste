@@ -63,6 +63,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     private WebService failed;
     private AccountPresenterNew accountPresenter;
     private Preferencias preferencias;
+    App aplicacion;
     /**
      * BroadcastReceiver para realizar el envío del SMS
      **/
@@ -114,6 +115,8 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        aplicacion = new App();
         rootview = inflater.inflate(R.layout.fragment_associate_sms, container, false);
         initViews();
         return rootview;
@@ -300,7 +303,9 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
     private void goLoginAlert(String message) {
         hideLoader();
-        UI.createCustomDialog("", message, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+        if (!message.toString().isEmpty())
+
+        UI.createCustomDialogSMS("", message, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
             @Override
             public void actionConfirm(Object... params) {
                 counterRetry = 1;
@@ -310,7 +315,10 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
             @Override
             public void actionCancel(Object... params) {
                 //No-Op
+                aplicacion.cerrarAppsms();
                 goToLogin();
+
+
             }
         }, "Reintentar", "Cancelar");
 

@@ -95,17 +95,14 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnConfirmDialog"
-                style="?android:attr/borderlessButtonStyle"
                 android:layout_width="0dp"
                 android:layout_height="@dimen/dimen_margin_pinpad"
                 android:layout_weight="0.25"
+                android:foreground="?attr/selectableItemBackground"
                 android:background="@drawable/ic_phone_white_24dp"
                 android:gravity="center"
                 android:textAllCaps="false"
-
-                android:textColor="@color/whiteColor"
-                android:textSize="@dimen/size_text_style_2_value"
-                android:tint="@color/colorAccent"
+                app:backgroundTint="@color/colorAccent"
                 app:cornerRadius="@dimen/btn_corner_radius"
                 app:intercepterOnclick="true" />
 

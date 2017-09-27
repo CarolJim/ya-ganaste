@@ -61,7 +61,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
     @Override
     public void toPresenterGenericSuccess(DataSourceResult dataSourceResult) {
 
-        /**
+        /*
          * Instancia de peticion exitosa y operacion exitosa de CambiarEmailResponse
          */
         if (dataSourceResult.getData() instanceof FavoritosDatosResponse) {
@@ -124,7 +124,6 @@ public class FavoritesPresenter implements IFavoritesPresenter {
          * Instancia de peticion exitosa y operacion exitosa de BloquearCuentaResponse
          */
         if (dataSourceResult.getData() instanceof FavoritosDatosResponse) {
-            //mView.hideLoader();
             mView.hideLoader();
             FavoritosDatosResponse response = (FavoritosDatosResponse) dataSourceResult.getData();
             mView.toViewErrorServer(response.getMensaje());

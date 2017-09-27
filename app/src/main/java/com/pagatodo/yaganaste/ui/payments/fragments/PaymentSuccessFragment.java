@@ -6,7 +6,6 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -59,18 +58,10 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     TextView title;
     @BindView(R.id.txt_importe)
     MontoTextView importe;
-    @BindView(R.id.layoutComision)
-    LinearLayout layoutComision;
-    @BindView(R.id.txtComision)
-    MontoTextView txtComision;
-    @BindView(R.id.comisionReferenciaText)
-    TextView comisionReferenciaText;
     @BindView(R.id.titleReferencia)
     TextView titleReferencia;
     @BindView(R.id.txtReferencia)
     TextView txtReferencia;
-    @BindView(R.id.imgLogoPago)
-    ImageView imgLogoPago;
     @BindView(R.id.txtAutorizacion)
     TextView autorizacion;
     @BindView(R.id.txtFecha)
@@ -87,8 +78,22 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     StyleButton btnContinueEnvio;
     @BindView(R.id.layoutFavoritos)
     LinearLayout layoutFavoritos;
+    @BindView(R.id.txtCompania)
+    TextView txtCompania;
+    @BindView(R.id.nombreEnvio)
+    TextView nombreEnvio;
+
+
+    @BindView(R.id.layout_enviado)
+    LinearLayout layoutEnviado;
+
+    @BindView(R.id.layout_compania)
+    LinearLayout layoutCompania;
+
+
     @BindView(R.id.layout_addfavorites)
     LinearLayout addFavorites;
+
     Payments pago;
     EjecutarTransaccionResponse result;
     /****/
@@ -115,16 +120,6 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     }
 
     @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
-    }
-
-    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_payment_success, container, false);
@@ -136,43 +131,47 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
-        addFavorites.setVisibility(View.VISIBLE);
 
         if (pago instanceof Recarga) {
+            layoutEnviado.setVisibility(View.GONE);
             title.setText(R.string.title_recarga_success);
             Double comision = result.getData().getComision();
-            if (comision > 0) {
+            /*if (comision > 0) {
                 layoutComision.setVisibility(View.VISIBLE);
                 txtComision.setText(Utils.getCurrencyValue(comision));
             } else {
                 layoutComision.setVisibility(View.INVISIBLE);
-            }
+            }*/
 
             if (pago.getComercio().getIdComercio() == 7) {
-                titleReferencia.setText(getString(R.string.tag_number) + ":");
+                titleReferencia.setText(getString(R.string.tag_number));
             } else {
-                titleReferencia.setText(R.string.txt_phone);
+                titleReferencia.setText(R.string.details_telefono);
 
             }
             layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             isMailAviable = true;
+            txtCompania.setText(pago.getComercio().getNombreComercio());
         } else if (pago instanceof Servicios) {
+            layoutEnviado.setVisibility(View.GONE);
             title.setText(R.string.title_servicio_success);
-            layoutComision.setVisibility(View.VISIBLE);
-            titleReferencia.setText(R.string.ferencia_txt);
+            //layoutComision.setVisibility(View.VISIBLE);
+            titleReferencia.setText(R.string.txt_referencia_servicio);
             Double comision = result.getData().getComision();
             String textComision = String.format("%.2f", comision);
             textComision = textComision.replace(",", ".");
-            txtComision.setText(textComision);
+            //txtComision.setText(textComision);
             layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             isMailAviable = true;
+            txtCompania.setText(pago.getComercio().getNombreComercio());
         } else if (pago instanceof Envios) {
+            layoutCompania.setVisibility(View.GONE);
             title.setText(R.string.title_envio_success);
-            txtComision.setVisibility(View.GONE);
-            comisionReferenciaText.setText("A:");
-            titleReferencia.setText(((Envios) pago).getNombreDestinatario());
+            //txtComision.setVisibility(View.GONE);
+            //comisionReferenciaText.setText("A:");
+            nombreEnvio.setText(((Envios) pago).getNombreDestinatario());
             layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             String fullName = ((Envios) pago).getNombreDestinatario();
@@ -181,6 +180,8 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
                             + " " + StringUtils.formatSingleName(fullName)
                             + " " + getContext().getResources().getString(R.string.envia_comprobante_opcional));
             isMailAviable = true;
+
+            titleReferencia.setText(((Envios)pago).getTipoEnvio().getShortName());
         }
 
         String text = String.format("%.2f", pago.getMonto());
@@ -214,15 +215,11 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
 
 
         txtReferencia.setText(formatoPago);
-        Glide.with(getContext()).load(pago.getComercio().getLogoURL())
-                .placeholder(R.mipmap.logo_ya_ganaste)
-                .error(R.mipmap.icon_tab_promos)
-                .dontAnimate().into(imgLogoPago);
 
         autorizacion.setText(StringUtils.formatAutorization(result.getData().getNumeroAutorizacion()));
         SimpleDateFormat dateFormatH = new SimpleDateFormat("HH:mm:ss");
 
-       // fecha.setText(DateUtil.getBirthDateCustomString(Calendar.getInstance()));
+        // fecha.setText(DateUtil.getBirthDateCustomString(Calendar.getInstance()));
         fecha.setText(DateUtil.getPaymentDateSpecialCustom(Calendar.getInstance()));
         hora.setText(dateFormatH.format(new Date()) + " hrs");
 
@@ -231,7 +228,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
 
     @Override
     public void validateMail() {
-        String mail = editMail.getText().toString().trim();
+        String mail = editMail.getText().trim();
 
         if (!TextUtils.isEmpty(mail)) {
             if (ValidateForm.isValidEmailAddress(mail)) {
@@ -331,10 +328,5 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
                 finalizePayment();
             }
         }
-    }
-
-    public void hideAddFavorites() {
-        LinearLayout linearLayout = (LinearLayout) rootview.findViewById(R.id.layout_addfavorites);
-        linearLayout.setVisibility(View.INVISIBLE);
     }
 }

@@ -12,4 +12,6 @@ public interface PaymentsCarrouselManager extends PaymentsManager {
     void setCarouselData(ArrayList<CarouselItem> response);
 
     void showErrorService();
+
+    void showFavorites();
 }
