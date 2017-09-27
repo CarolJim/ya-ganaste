@@ -9,7 +9,10 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.Spanned;
 import android.text.TextWatcher;
+import android.text.method.DigitsKeyListener;
+import android.text.method.TextKeyListener;
 import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
@@ -818,15 +821,17 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         if (formatoComercio.equals("N")) {
             recargaNumber.setInputType(InputType.TYPE_CLASS_NUMBER);
             recargaNumber.setSingleLine();
+        } else {
+            recargaNumber.setInputType(InputType.TYPE_TEXT_VARIATION_VISIBLE_PASSWORD);
+            recargaNumber.setSingleLine();
         }
 
-        int longitudReferencia = longitudRefer;
-        if (longitudReferencia > 0 && longitudReferencia != 10) {
-            InputFilter[] fArray = new InputFilter[1];
-            maxLength = Utils.calculateFilterLength(longitudReferencia);
-            fArray[0] = new InputFilter.LengthFilter(maxLength);
-            recargaNumber.setFilters(fArray);
-        }
+        int longitudReferencia = longitudRefer != 0 ? longitudRefer : 10;
+
+        InputFilter[] fArray = new InputFilter[2];
+        maxLength = Utils.calculateFilterLength(longitudReferencia);
+        fArray[0] = new InputFilter.LengthFilter(maxLength);
+
 
         if (currentTextWatcher != null) {
             recargaNumber.removeTextChangedListener(currentTextWatcher);
@@ -842,6 +847,19 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
             layoutImageContact.setOnClickListener(this);
         }
+
+
+        fArray[1] = new InputFilter() {
+            public CharSequence filter(CharSequence src, int start,
+                                       int end, Spanned dst, int dstart, int dend) {
+                if (src.toString().matches("[a-zA-Z0-9 ]+")) {
+                    return src;
+                }
+                return "";
+            }
+        };
+        recargaNumber.setFilters(fArray);
+
         recargaNumber.addTextChangedListener(currentTextWatcher);
 
         recargaNumber.setSingleLine(true);
