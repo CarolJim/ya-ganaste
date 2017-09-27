@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
+import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -17,6 +20,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
+import com.pagatodo.yaganaste.interfaces.IPurseView;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -48,8 +52,9 @@ import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
  */
 
 public class QuickBalanceAdquirenteFragment extends GenericFragment implements IBalanceView,
-        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
-
+        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener , IPurseView {
+    private View transparentBG;
+    private AlphaAnimation fading;
     View rootView;
 
     @BindView(R.id.txtUserName)
@@ -229,5 +234,83 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     @Override
     public void backScreen(String event, Object data) {
         quickBalanceManager.backPage();
+    }
+
+    @Override
+    public void flipCard(int container, Fragment fragment, boolean isBackShown) {
+        if(isBackShown)
+        {
+            getActivity().getFragmentManager().popBackStack();
+            return;
+        }
+        getActivity().getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+                        R.animator.card_flip_right_in,
+                        R.animator.card_flip_right_out,
+                        R.animator.card_flip_left_in,
+                        R.animator.card_flip_left_out)
+                .replace(container, fragment)
+                .addToBackStack(null)
+                .commit();
+        // TrackingUtils.doAnalyticsTracking(MONEDERO_PAGAR_LBL);
+    }
+
+    @Override
+    public void loadCardCover(int container, Fragment fragment) {
+        getActivity().getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+                        R.animator.card_flip_right_in,
+                        R.animator.card_flip_right_out,
+                        R.animator.card_flip_left_in,
+                        R.animator.card_flip_left_out)
+                .replace(container, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void changeBGVisibility(final boolean  isVisible) {
+        float start = isVisible ? 1.0f : 0.0f;
+        float end = isVisible ? 0.0f : 1.0f;
+
+        fading = new AlphaAnimation(start, end);
+        fading.setDuration(getResources().getInteger(R.integer.card_flip_time_full));
+        fading.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                if(!isVisible)
+                    transparentBG.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if(isVisible)
+                    transparentBG.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+//       transparentBG.startAnimation(fading);
+    }
+
+    @Override
+    public boolean isAnimationAble() {
+        if(fading == null)
+            return true;
+
+        if(fading.hasStarted())
+        {
+            if(fading.hasEnded())
+                return true;
+            else
+                return false;
+        }
+        else
+            return true;
     }
 }
