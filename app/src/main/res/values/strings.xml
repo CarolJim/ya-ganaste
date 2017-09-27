@@ -916,4 +916,10 @@
     <string name="addFavoritesErrorFoto">Es Necesario Enviar Una Foto</string>
     <string name="addFavoritesErrorRefer">Es Necesario Una Referencia Para Proceder</string>
     <string name="addFavoritesMsnAlta">Agregando a Favoritos</string>
+
+
+    <string name="share_recargas">Importe: %1$s\nTeléfono: %2$s\nCompañia: %3$s\nFecha: %4$s\nHora: %5$s\nAutorización: %6$s</string>
+    <string name="share_pds">Monto: %1$s\nReferencia: %2$s\nCompañia: %3$s\nFecha: %4$s\nHora: %5$s\nAutorización: %6$s</string>
+    <string name="share_envios">Importe: %1$s\nEnviado a: %2$s\n%3$s: %4$s\nFecha: %5$s\nHora: %6$s\nAutorización: %7$s</string>
+    <string name="clave_rastreo">\nClave de Rastreo: %1$s</string>
 </resources>

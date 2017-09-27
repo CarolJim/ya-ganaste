@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentSuccessManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentSuccessPresenter;
@@ -41,17 +42,19 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.R.attr.data;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * Created by Jordan on 27/04/2017.
  */
 
-public class PaymentSuccessFragment extends GenericFragment implements PaymentSuccessManager,
+public class PaymentSuccessFragment extends SupportFragment implements PaymentSuccessManager,
         View.OnClickListener {
 
 
@@ -118,7 +121,6 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
         pago = (Payments) getArguments().getSerializable("pago");
         result = (EjecutarTransaccionResponse) getArguments().getSerializable("result");
         presenter = new PaymentSuccessPresenter(this);
-        imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
     }
 
     @Override
@@ -133,7 +135,6 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
-        imageshae.setOnClickListener(this);
 
         if (pago instanceof Recarga) {
             layoutEnviado.setVisibility(View.GONE);
@@ -228,6 +229,10 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
         hora.setText(dateFormatH.format(new Date()) + " hrs");
 
         btnContinueEnvio.setOnClickListener(this);
+        imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
+        imageshae.setVisibility(View.VISIBLE);
+        imageshae.setOnClickListener(this);
+        showBack(false);
     }
 
     @Override
@@ -331,15 +336,33 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
             } else {
                 finalizePayment();
             }
+        } else if (v.getId() == R.id.deposito_Share) {
+            shareContent();
         }
+    }
 
-        if (v.getId() == R.id.deposito_Share) {
-            Intent intent = new Intent(Intent.ACTION_SEND);
-            intent.setType("text/plain");
+    private void shareContent() {
 
-            intent.putExtra(Intent.EXTRA_TEXT, pago.getReferencia());
-            startActivity(Intent.createChooser(intent, "Compartir con.."));
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        String toShare = "";
+        if (pago instanceof Recarga) {
+            toShare = getString(R.string.share_recargas, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
+                    pago.getComercio().getNombreComercio(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString());
+        } else if (pago instanceof Servicios) {
+            toShare = getString(R.string.share_pds, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
+                    pago.getComercio().getNombreComercio(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString());
+        } else if (pago instanceof Envios) {
+            toShare = getString(R.string.share_envios, Utils.getCurrencyValue(pago.getMonto()), nombreEnvio.getText().toString(),
+                    titleReferencia.getText().toString(), txtReferencia.getText().toString(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString())
+            .concat(pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE ? "" : getString(R.string.clave_rastreo, result.getData().getClaveRastreo()));
         }
+        intent.putExtra(Intent.EXTRA_TEXT, toShare);
+        startActivity(Intent.createChooser(intent, "Compartir Con: "));
+
+
+
+
     }
 
     public void hideAddFavorites() {
