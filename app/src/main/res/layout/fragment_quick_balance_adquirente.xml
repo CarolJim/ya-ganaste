@@ -45,11 +45,26 @@
                     android:orientation="vertical">
 
 
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/llsaldocontenedor"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/llsaldo"
+                            android:orientation="vertical"
+                            android:layout_height="wrap_content">
+
+                        </LinearLayout>
+
+
                     <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
                         android:id="@+id/cardBalanceAdq"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_gravity="center"
+                        android:visibility="gone"
                         android:layout_marginLeft="65dp"
                         android:layout_marginRight="65dp" />
 
@@ -59,6 +74,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_medium"
                         android:gravity="center"
+                        android:visibility="gone"
                         android:text="@string/saldo_personal"
                         android:textSize="@dimen/text_screen_size_normal" />
 
@@ -68,6 +84,7 @@
                         android:layout_height="wrap_content"
                         android:gravity="center"
                         android:text="0"
+                        android:visibility="gone"
                         android:textAlignment="center"
                         android:textSize="16sp"
                         app:dotBottom="false"
@@ -83,16 +100,28 @@
                         android:text="Actualizado el 15/Jun/2017 24:24:59"
                         android:textSize="@dimen/text_screen_size_normal"
                         android:visibility="gone" />
-
+                        </LinearLayout>
                     <android.support.v4.widget.Space
                         android:layout_width="match_parent"
-                        android:layout_height="10dp" />
+                        android:layout_height="20dp" />
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:id="@+id/llsaldocontenedordongle"
+                        android:orientation="vertical"
+                        android:layout_height="wrap_content">
+                        <LinearLayout
+                            android:layout_width="match_parent"
+                            android:id="@+id/llsaldodongle"
+                            android:orientation="vertical"
+                            android:layout_height="wrap_content">
 
+                        </LinearLayout>
                     <ImageView
                         android:layout_width="wrap_content"
                         android:layout_height="120dp"
                         android:layout_gravity="center"
                         android:adjustViewBounds="true"
+                        android:visibility="gone"
                         android:scaleType="centerInside"
                         android:src="@mipmap/dongle_alone" />
 
@@ -102,6 +131,7 @@
                         android:layout_height="wrap_content"
                         android:layout_marginTop="@dimen/margin_medium"
                         android:gravity="center"
+                        android:visibility="gone"
                         android:text="@string/saldo_reembolso"
                         android:textSize="@dimen/text_screen_size_normal" />
 
@@ -110,12 +140,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:gravity="center"
+                        android:visibility="gone"
                         android:text="0"
                         android:textAlignment="center"
                         android:textSize="16sp"
                         app:dotBottom="false"
                         app:symbolSmaller="true" />
-
+                    </LinearLayout>
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtDateAdqLastUpdate"
                         android:layout_width="match_parent"

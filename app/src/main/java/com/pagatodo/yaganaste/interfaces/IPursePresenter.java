@@ -10,6 +10,7 @@ import android.graphics.Bitmap;
 public interface IPursePresenter {
     void flipCard(int container, Fragment fragment);
     void loadCardCover(int container, Fragment fragment);
+
     void setPurseReference(IPurseView view);
 
 }

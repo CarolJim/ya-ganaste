@@ -25,6 +25,10 @@ import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.CardBackAdquiriente;
+import com.pagatodo.yaganaste.ui.account.CardBackAdquirienteDongle;
+import com.pagatodo.yaganaste.ui.account.CardCoverAdquiriente;
+import com.pagatodo.yaganaste.ui.account.CardCoverAdquirienteDongle;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -56,6 +60,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     private View transparentBG;
     private AlphaAnimation fading;
     View rootView;
+    View rootViewfragment;
 
     @BindView(R.id.txtUserName)
     StyleTextView txtUserName;
@@ -79,6 +84,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     AppCompatImageView imgArrowBack;
 
     private AccountPresenterNew accountPresenter;
+    private AccountPresenterNew accountPresenterdongle;
     private ILoginContainerManager loginContainerManager;
     private IQuickBalanceManager quickBalanceManager;
     private Preferencias prefs = App.getInstance().getPrefs();
@@ -94,14 +100,22 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
+        accountPresenterdongle = ((AccountActivity) getActivity()).getPresenter();
+
+
         loginContainerManager = ((QuickBalanceContainerFragment) getParentFragment()).getLoginContainerManager();
         quickBalanceManager = ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager();
+        accountPresenter.setPurseReference(this);
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_quick_balance_adquirente, container, false);
+
+                rootViewfragment = inflater.inflate(R.layout.fragment_quick_balance_adquirente, container, false);
+
+        return rootViewfragment;
     }
 
     @Override
@@ -111,6 +125,23 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
             accountPresenter.setIView(this);
         }
         initViews();
+        final View couchMark = view.findViewById(R.id.llsaldocontenedor);
+        couchMark.setVisibility(View.VISIBLE);
+        couchMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                accountPresenter.flipCard(R.id.llsaldo, CardBackAdquiriente.newInstance(accountPresenter));
+            }
+        });
+
+        final View couchMarkdongle = view.findViewById(R.id.llsaldocontenedordongle);
+        couchMarkdongle.setVisibility(View.VISIBLE);
+        couchMarkdongle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                accountPresenter.flipCard(R.id.llsaldodongle, CardBackAdquirienteDongle.newInstance(accountPresenter));
+            }
+        });
     }
 
     @Override
@@ -151,7 +182,13 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         txtDateAdqLastUpdate.setText(String.format(getString(R.string.last_date_update), dateLastUpdateAdq));
         txtBalanceReembolsar.setText(Utils.getCurrencyValue(balaceAdq));
     }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter));
+        accountPresenter.loadCardCover(R.id.llsaldodongle, CardCoverAdquirienteDongle.newInstance(accountPresenter));
 
+    }
     @Override
     public void onRefresh() {
 

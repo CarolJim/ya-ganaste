@@ -13,4 +13,6 @@ public interface IPurseView {
     void loadCardCover(int container, Fragment fragment);
     void changeBGVisibility(boolean isBackShown);
     boolean isAnimationAble();
+
+
 }

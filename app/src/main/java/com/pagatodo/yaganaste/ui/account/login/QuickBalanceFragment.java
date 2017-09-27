@@ -350,4 +350,5 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         else
             return true;
     }
+
 }
