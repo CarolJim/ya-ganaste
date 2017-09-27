@@ -10,21 +10,17 @@ import android.provider.ContactsContract;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Base64;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -45,7 +41,6 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTagPase;
-import com.pagatodo.yaganaste.utils.NumberTextWatcher;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
@@ -69,13 +64,11 @@ import butterknife.OnClick;
 
 import static android.view.View.GONE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
-import static android.view.inputmethod.EditorInfo.IME_ACTION_NEXT;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB_ID;
-import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB_NAME;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
@@ -84,9 +77,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 /**
  * Encargada de dar de alta Favoritos, pero capturando todos sus datos. primero en el servicio y luego en la base local
  * Es necesario recibir lo siguiente en el Int
- *  nameTab = intent.getStringExtra(CURRENT_TAB_NAME); Que puede ser String:  "TAB1", "TAB2", "TAB3"
-    current_tab = intent.getIntExtra(CURRENT_TAB_ID, 99); Que puede ser un int: 1, 2 o 3
- *
+ * nameTab = intent.getStringExtra(CURRENT_TAB_NAME); Que puede ser String:  "TAB1", "TAB2", "TAB3"
+ * current_tab = intent.getIntExtra(CURRENT_TAB_ID, 99); Que puede ser un int: 1, 2 o 3
  */
 public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
         IListaOpcionesView, ValidationForms, View.OnClickListener, OnListServiceListener,
@@ -94,7 +86,6 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
     public static final String TAG = AddNewFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
-    private static int MAX_CAROUSEL_ITEMS = 12;
 
     @BindView(R.id.add_favorites_alias)
     CustomValidationEditText editAlias;
@@ -147,7 +138,6 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     int idTipoEnvio;
     String stringFoto;
     String mReferencia;
-    String nameTab;
     private String formatoComercio;
     private int longitudRefer;
     CameraManager cameraManager;
@@ -158,7 +148,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     private int maxLength;
     int keyIdComercio;
     TransferType selectedType;
-   MovementsTab current_tab2;
+    MovementsTab current_tab2;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
 
     @Override
@@ -169,16 +159,14 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         favoritesPresenter = new FavoritesPresenter(this);
 
         Intent intent = getIntent();
-      //  backUpResponse = intent.getExtras().getParcelableArrayList(BACK_UP_RESPONSE);
+        //  backUpResponse = intent.getExtras().getParcelableArrayList(BACK_UP_RESPONSE);
 
-        nameTab = intent.getStringExtra(CURRENT_TAB_NAME);
         current_tab = intent.getIntExtra(CURRENT_TAB_ID, 99);
 
         // Iniciamos el presentes del carrousel
-       // this.current_tab = MovementsTab.valueOf(getArguments().getString("TAB"));
-        this.current_tab2 = MovementsTab.valueOf(nameTab);
+        this.current_tab2 = MovementsTab.getMovementById(current_tab);
         backUpResponse = new ArrayList<>();
-        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this);
+        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this, false);
         paymentsCarouselPresenter.getCarouselItems();
 
         ButterKnife.bind(this);
@@ -771,6 +759,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     /**
      * Listener que efectua varias tareas cuando se selecciona un servicio de la lista, dependiendo
      * del TAB realiza diversas funciones
+     *
      * @param item
      */
     @Override
@@ -929,6 +918,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     /**
      * Evento que sucede cuando escogemos un Item del Spinner. Recuerda que al iniciar la actividad
      * para por default una vez en este onItemSelected
+     *
      * @param parent
      * @param view
      * @param position
@@ -1035,14 +1025,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
     @Override
     public void setCarouselData(ArrayList<CarouselItem> response) {
-        if (response.size() > MAX_CAROUSEL_ITEMS) {
-            ArrayList<CarouselItem> subList = new ArrayList<>(response.subList(0, MAX_CAROUSEL_ITEMS));
-            setBackUpResponse(subList);
-            //setCarouselAdapter(subList);
-        } else {
-            setBackUpResponse(response);
-            //setCarouselAdapter(response);
-        }
+        setBackUpResponse(response);
     }
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
@@ -1061,6 +1044,11 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
     @Override
     public void showErrorService() {
+
+    }
+
+    @Override
+    public void showFavorites() {
 
     }
 }

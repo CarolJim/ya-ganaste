@@ -37,7 +37,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     boolean showFavorite; //Sirve para saber si el presenter se manda a llamar desde el carrusel de Favoritos
 
     public PaymentsCarouselPresenter(MovementsTab current_tab,
-                                     PaymentsCarrouselManager paymentsManager, Context context) {
+                                     PaymentsCarrouselManager paymentsManager, Context context, boolean showFavorite) {
         this.current_tab = current_tab;
         this.paymentsManager = paymentsManager;
         this.mContext = context;

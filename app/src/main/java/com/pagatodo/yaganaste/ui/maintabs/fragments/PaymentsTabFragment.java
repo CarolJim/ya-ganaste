@@ -46,6 +46,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB2;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_HIDE_MANIN_TAB;
 import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_SHOW_MAIN_TAB;
+import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
@@ -253,7 +254,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public void onItemSelected() {
         CarouselItem item = paymentsTabPresenter.getCarouselItem();
-        if (item.getFavoritos() != null && item.getComercio()!= null && item.getComercio().getIdComercio() == -1) {
+        if (item.getComercio()!= null && item.getComercio().getIdComercio() == -1) {
             addNewFavorite();
         } else {
             changeImgageToPay();
@@ -269,7 +270,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
      */
     public void addNewFavorite() {
         Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
-        intent.putExtra("currentTab", currentTab.getId());
+        intent.putExtra(CURRENT_TAB_ID, currentTab.getId());
         getActivity().startActivityForResult(intent, NEW_FAVORITE);
     }
 
