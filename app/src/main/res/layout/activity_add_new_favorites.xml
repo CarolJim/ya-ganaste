@@ -163,7 +163,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_weight="20"
-                        android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
+                        android:digits="@string/input_alphanumeric_reference"
                         android:imeOptions="actionDone"
                         android:inputType="text"
                         android:longClickable="false"

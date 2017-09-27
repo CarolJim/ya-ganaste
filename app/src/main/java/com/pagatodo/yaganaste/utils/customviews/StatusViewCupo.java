@@ -19,6 +19,8 @@ import com.pagatodo.yaganaste.R;
 
 import java.lang.reflect.Field;
 
+import static com.pagatodo.yaganaste.utils.Utils.setDurationScale;
+
 /**
  * Created by Dell on 25/07/2017.
  */
@@ -277,16 +279,6 @@ public class StatusViewCupo extends View {
         setDurationScale(scaleDuration);
     }
 
-    private void setDurationScale(float durationScale) {
-        try {
-            Field scale = ValueAnimator.class.getDeclaredField("sDurationScale");
-            scale.setAccessible(true);
-            scale.set(null, durationScale);
-        } catch (NoSuchFieldException e) {
-            e.printStackTrace();
-        } catch (IllegalAccessException e) {
-            e.printStackTrace();
-        }
-    }
+
 
 }

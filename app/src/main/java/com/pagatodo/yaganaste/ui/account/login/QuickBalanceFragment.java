@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
+import android.animation.ObjectAnimator;
 import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
@@ -50,6 +51,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.NAME_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
+import static com.pagatodo.yaganaste.utils.Utils.setDurationScale;
 
 /**
  * @author Juan Guerra on 15/06/2017.
@@ -272,11 +274,12 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
     @Override
     public void flipCard(int container, Fragment fragment, boolean isBackShown) {
-        if(isBackShown)
-        {
+        setDurationScale(1);
+        if(isBackShown) {
             getActivity().getFragmentManager().popBackStack();
             return;
         }
+
         getActivity().getFragmentManager()
                 .beginTransaction()
                 .setCustomAnimations(

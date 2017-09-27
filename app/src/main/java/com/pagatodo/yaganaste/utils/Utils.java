@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.utils;
 
+import android.animation.ValueAnimator;
 import android.annotation.SuppressLint;
 import android.app.Activity;
 import android.content.Context;
@@ -46,6 +47,7 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.io.OutputStream;
 import java.io.Serializable;
+import java.lang.reflect.Field;
 import java.lang.reflect.Type;
 import java.math.BigInteger;
 import java.math.RoundingMode;
@@ -1322,5 +1324,17 @@ public class Utils {
         return returnString;
     }
 
+
+    public static void setDurationScale(float durationScale) {
+        try {
+            Field scale = ValueAnimator.class.getDeclaredField("sDurationScale");
+            scale.setAccessible(true);
+            scale.set(null, durationScale);
+        } catch (NoSuchFieldException e) {
+            e.printStackTrace();
+        } catch (IllegalAccessException e) {
+            e.printStackTrace();
+        }
+    }
 
 }

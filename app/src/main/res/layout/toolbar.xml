@@ -15,7 +15,7 @@
     <ImageView
         android:id="@+id/imgToolbar"
         android:layout_width="wrap_content"
-        android:layout_height="20dp"
+        android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:src="@drawable/logo_header"
         tools:ignore="ContentDescription" />
@@ -30,12 +30,12 @@
         android:adjustViewBounds="false"
         android:scaleType="center"
         android:layout_gravity="center_vertical|left"
-        android:paddingLeft="35dp"
-        android:paddingStart="35dp"
-        android:paddingRight="35dp"
-        android:paddingEnd="35dp"
+        android:paddingLeft="15dp"
+        android:paddingStart="15dp"
+        android:paddingRight="15dp"
+        android:paddingEnd="15dp"
         android:foreground="?attr/selectableItemBackground"
-        android:visibility="gone"/>
+        android:visibility="visible"/>
 
     <ImageView
         android:id="@+id/imgToRight"
@@ -62,7 +62,7 @@
         android:layout_width="24dp"
         android:layout_height="24dp"
         android:layout_gravity="center_vertical|end"
-        android:layout_marginRight="30dp"
+        android:layout_marginRight="15dp"
         android:visibility="gone"
         app:srcCompat="@drawable/profile_1_canvas"
         tools:ignore="ContentDescription"
@@ -73,7 +73,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center_vertical|end"
-        android:layout_marginRight="35dp"
+        android:layout_marginRight="15dp"
         android:src="@drawable/icon_preferuser"
         android:visibility="gone"
         app:civ_border_color="@color/colorAccent"
@@ -85,7 +85,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:layout_gravity="center_vertical|end"
-        android:layout_marginRight="35dp"
+        android:layout_marginRight="15dp"
         android:visibility="gone"
         app:srcCompat="@drawable/share_canvas_blue" />
 
