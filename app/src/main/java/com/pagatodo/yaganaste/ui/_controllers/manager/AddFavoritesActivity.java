@@ -162,13 +162,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     // Disparamos el evento de Camara
     @OnClick(R.id.add_favorites_camera)
     public void openCamera() {
-        //Toast.makeText(this, "Open Camera", Toast.LENGTH_SHORT).show();
-        boolean isOnline = Utils.isDeviceOnline();
-        if (isOnline) {
-            favoritesPresenter.openMenuPhoto(1, cameraManager);
-        } else {
-            showDialogMesage(getResources().getString(R.string.no_internet_access), 0);
-        }
+        favoritesPresenter.openMenuPhoto(1, cameraManager);
     }
 
     // Cerramos esta actividad de favoritos
