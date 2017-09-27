@@ -180,6 +180,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     public void onSuccessPaymentRespone(DataSourceResult result) {
         isAvailableToBack = true;
         response = (EjecutarTransaccionResponse) result.getData();
+
         if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
             hideLoader();
             changeToolbarVisibility(true);
@@ -258,19 +259,13 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
      * @param view
      */
     public void openAddFavoritos(View view) {
-        boolean isOnline2 = Utils.isDeviceOnline();
-        if (isOnline2) {
-            Intent intent = new Intent(this, AddFavoritesActivity.class);
-            intent.putExtra(NOMBRE_COMERCIO, nombreComercio);
-            intent.putExtra(ID_COMERCIO, idComercio);
-            intent.putExtra(ID_TIPO_COMERCIO, idTipoComercio);
-            intent.putExtra(ID_TIPO_ENVIO, idTipoEnvio);
-            intent.putExtra(REFERENCIA, referencia);
-            startActivityForResult(intent, REQUEST_CODE_FAVORITES);
-        } else {
-            showDialogMesage(getResources().getString(R.string.no_internet_access));
-        }
-
+        Intent intent = new Intent(this, AddFavoritesActivity.class);
+        intent.putExtra(NOMBRE_COMERCIO, nombreComercio);
+        intent.putExtra(ID_COMERCIO, idComercio);
+        intent.putExtra(ID_TIPO_COMERCIO, idTipoComercio);
+        intent.putExtra(ID_TIPO_ENVIO, idTipoEnvio);
+        intent.putExtra(REFERENCIA, referencia);
+        startActivityForResult(intent, REQUEST_CODE_FAVORITES);
     }
 
     private void showDialogMesage(final String mensaje) {

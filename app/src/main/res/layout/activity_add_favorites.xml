@@ -46,6 +46,24 @@
                 </LinearLayout>
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/add_favorites_foto_et"
+                    style="@style/FragmentElementWithValidation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:formato="text"
+                    app:hintText="@string/addFavoritesReferencia"
+                    app:isSingleLine="true"
+                    app:maxLength="16" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/add_favorites_foto_error"
+                    style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible" />
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/add_favorites_alias"
                     style="@style/FragmentElement"
                     android:layout_width="match_parent"

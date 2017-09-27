@@ -107,6 +107,10 @@ public enum WebService {
      **/
     ADD_FAVORITES,
     /**
+     * Servicio para Add New Favorites de pagos.
+     **/
+    ADD_NEW_FAVORITES,
+    /**
      * Servicios CUPO
      * */
     CONSULTA_STATUS_REGISTRO_CUPO,

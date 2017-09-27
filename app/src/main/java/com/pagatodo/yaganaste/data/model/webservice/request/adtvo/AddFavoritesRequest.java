@@ -13,13 +13,16 @@ public class AddFavoritesRequest implements Serializable {
     private int IdComercio = 0;
     private String Nombre = "";
     private String Referencia = "";
+    private String FotoEncode = "";
 
-    public AddFavoritesRequest(int idTipoComercio, int idTipoEnvio, int idComercio, String mAlias, String mReferencia) {
+    public AddFavoritesRequest(int idTipoComercio, int idTipoEnvio, int idComercio, String mAlias,
+                               String mReferencia, String FotoEncode) {
         this.IdTipoComercio = idTipoComercio;
         this.idTipoEnvio = idTipoEnvio;
         this.IdComercio = idComercio;
         this.Nombre = mAlias;
         this.Referencia = mReferencia;
+        this.FotoEncode = FotoEncode;
     }
 
     public int getIdTipoComercio() {
@@ -60,5 +63,13 @@ public class AddFavoritesRequest implements Serializable {
 
     public void setIdTipoEnvio(int idTipoEnvio) {
         this.idTipoEnvio = idTipoEnvio;
+    }
+
+    public String getFotoEncode() {
+        return FotoEncode;
+    }
+
+    public void setFotoEncode(String fotoEncode) {
+        FotoEncode = fotoEncode;
     }
 }

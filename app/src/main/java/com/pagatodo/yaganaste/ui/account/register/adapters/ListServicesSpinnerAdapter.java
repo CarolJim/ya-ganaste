@@ -19,7 +19,6 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
 
 import java.text.Normalizer;
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 import java.util.Locale;
 
@@ -139,8 +138,9 @@ public class ListServicesSpinnerAdapter extends ArrayAdapter<CustomCarouselItem>
                     nCountriesList.add(new CustomCarouselItem(
                                     999,
                                     999,
-                                    noExisten
-                            )
+                                    noExisten,
+                            "Nada",
+                            999)
                     );
                     results.count = nCountriesList.size();
                     results.values = nCountriesList;

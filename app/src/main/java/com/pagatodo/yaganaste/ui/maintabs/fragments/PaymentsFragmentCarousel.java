@@ -46,6 +46,9 @@ import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
 
 public abstract class PaymentsFragmentCarousel extends GenericFragment implements PaymentsCarrouselManager {
 
+    public static final String BACK_UP_RESPONSE = "backUpResponse";
+    public static final String CURRENT_TAB_NAME = "currentTabName";
+    public static final String CURRENT_TAB_ID = "currentTabId";
     private static int MAX_CAROUSEL_ITEMS = 12;
     @BindView(R.id.carouselMain)
     Carousel carouselMain;
@@ -124,6 +127,20 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
                 }
             }
         });
+    }
+
+    /**
+     * Mandamos a AddNewFavoritesActivity un ArrayList<CustomCarouselItem>, el objeto es un Parceable
+     * para que pueda viajar sin problemas entre actividades. Enviamos tambien el Tab que estamos
+     * visualizando para mostrar o no algunos campos
+     */
+    @OnClick(R.id.paymentTabBtn)
+    public void addNewFavorite() {
+        //   Toast.makeText(getContext(), "Tab " + current_tab, Toast.LENGTH_SHORT).show();
+        Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
+         intent.putExtra(CURRENT_TAB_NAME, "TAB1");
+        intent.putExtra(CURRENT_TAB_ID, 1);
+        startActivity(intent);
     }
 
     @Override
@@ -229,9 +246,18 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
                 backUpResponse.add(new CustomCarouselItem(
                         carouselItem.getComercio().getIdComercio(),
                         carouselItem.getComercio().getIdTipoComercio(),
-                        carouselItem.getComercio().getNombreComercio()
+                        carouselItem.getComercio().getNombreComercio(),
+                        carouselItem.getComercio().getFormato(),
+                        carouselItem.getComercio().getLongitudReferencia()
                 ));
             }
         }
     }
+
+    /*@Override
+    public void onStop() {
+        super.onStop();
+        showFavorites=false;
+        paymentsCarouselPresenter.getCarouselItems();
+    }*/
 }
