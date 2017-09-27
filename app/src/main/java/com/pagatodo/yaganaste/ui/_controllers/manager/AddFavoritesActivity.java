@@ -6,13 +6,11 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.util.Base64;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -37,6 +35,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.DESTINATARIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_ENVIO;
@@ -76,7 +75,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     String nombreComercio;
     String mReferencia;
     String formatoComercio;
-    String stringFoto;
+    String stringFoto, nombreDest;
     int longitudRefer;
     int tipoTab;
     CameraManager cameraManager;
@@ -98,6 +97,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         mReferencia = intent.getStringExtra(REFERENCIA);
         formatoComercio = intent.getStringExtra(REFERENCIA);
         tipoTab = intent.getIntExtra(TIPO_TAB, 96);
+        nombreDest = intent.getStringExtra(DESTINATARIO);
 
         ButterKnife.bind(this);
         imageViewCamera.setVisibilityStatus(false);
@@ -116,7 +116,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
         } else if (tipoTab == 3) {
             if (formatoPago.length() == 16 || formatoPago.length() == 15) {
-                formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4,4,4,4), '*', formatoPago.length() -12);
+                formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4, 4, 4, 4), '*', formatoPago.length() - 12);
             } else {
                 formatoPago = StringUtils.formatoPagoMedios(formatoPago);
             }
@@ -141,6 +141,9 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
         // Agregar el escuchardor DoneOnEditor para procesar el clic de teclas
         editTextAlias.addCustomEditorActionListener(new DoneOnEditorActionListener());
+        if (nombreDest != null) {
+            editTextAlias.setText(nombreDest);
+        }
 
         // Iniciamos la funcionalidad e la camara
         cameraManager = new CameraManager();

@@ -62,6 +62,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     public static final String ID_TIPO_ENVIO = "idTipoEnvio";
     public static final String REFERENCIA = "referencia";
     public static final String TIPO_TAB = "tipoTab";
+    public static final String DESTINATARIO = "destinatario";
     public static final int REQUEST_CODE_FAVORITES = 1;
     public static final String EVENT_SEND_PAYMENT = "EVENT_SEND_PAYMENT";
     @BindView(R.id.container)
@@ -78,7 +79,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     private String nombreComercio = "";
     private int idComercio = 0;
     private int idTipoComercio = 0;
-    private String referencia = "";
+    private String referencia = "", nombreDest = "";
     private int idTipoEnvio = 0;
     private int tipoTab = 0;
     ImageView imageshare;
@@ -258,6 +259,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             idTipoComercio = ((Envios) pago).getComercio().getIdTipoComercio();
             referencia = ((Envios) pago).getReferencia();
             idTipoEnvio = ((Envios) pago).getTipoEnvio().getId();
+            nombreDest = ((Envios)pago).getNombreDestinatario();
             tipoTab = 3;
         }
     }
@@ -275,6 +277,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         intent.putExtra(ID_TIPO_ENVIO, idTipoEnvio);
         intent.putExtra(REFERENCIA, referencia);
         intent.putExtra(TIPO_TAB, tipoTab);
+        intent.putExtra(DESTINATARIO, nombreDest);
         startActivityForResult(intent, REQUEST_CODE_FAVORITES);
     }
 
