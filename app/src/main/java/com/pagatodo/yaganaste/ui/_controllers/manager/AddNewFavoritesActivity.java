@@ -9,6 +9,7 @@ import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.text.InputFilter;
 import android.text.InputType;
+import android.text.TextWatcher;
 import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
@@ -150,6 +151,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     TransferType selectedType;
     MovementsTab current_tab2;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
+    private TextWatcher currentTextWatcher;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -831,16 +833,21 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
             recargaNumber.setFilters(fArray);
         }
 
+        if (currentTextWatcher != null) {
+            recargaNumber.removeTextChangedListener(currentTextWatcher);
+        }
+
         if (isIAVE) {
-            recargaNumber.addTextChangedListener(new NumberTagPase(recargaNumber, maxLength));
+            currentTextWatcher = new NumberTagPase(recargaNumber, maxLength);
             recargaNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
             layoutImageContact.setVisibility(View.GONE);
         } else {
-            recargaNumber.addTextChangedListener(new PhoneTextWatcher(recargaNumber));
+            currentTextWatcher = new PhoneTextWatcher(recargaNumber);
             recargaNumber.setHint(getString(R.string.phone_number_hint));
 
             layoutImageContact.setOnClickListener(this);
         }
+        recargaNumber.addTextChangedListener(currentTextWatcher);
 
         recargaNumber.setSingleLine(true);
         recargaNumber.setOnEditorActionListener(new TextView.OnEditorActionListener() {
