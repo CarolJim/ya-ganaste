@@ -60,6 +60,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     public static final String ID_TIPO_COMERCIO = "idTipoComercio";
     public static final String ID_TIPO_ENVIO = "idTipoEnvio";
     public static final String REFERENCIA = "referencia";
+    public static final String TIPO_TAB = "tipoTab";
     public static final int REQUEST_CODE_FAVORITES = 1;
     public static final String EVENT_SEND_PAYMENT = "EVENT_SEND_PAYMENT";
     @BindView(R.id.container)
@@ -78,6 +79,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     private int idTipoComercio = 0;
     private String referencia = "";
     private int idTipoEnvio = 0;
+    private int tipoTab = 0;
 
 
     @Override
@@ -238,18 +240,21 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             idTipoComercio = ((Recarga) pago).getComercio().getIdTipoComercio();
             referencia = ((Recarga) pago).getReferencia();
             idTipoEnvio = 0;
+            tipoTab = 1;
         } else if (pago instanceof Servicios) {
             nombreComercio = ((Servicios) pago).getComercio().getNombreComercio();
             idComercio = ((Servicios) pago).getComercio().getIdComercio();
             idTipoComercio = ((Servicios) pago).getComercio().getIdTipoComercio();
             referencia = ((Servicios) pago).getReferencia();
             idTipoEnvio = 0;
+            tipoTab = 2;
         } else if (pago instanceof Envios) {
             nombreComercio = ((Envios) pago).getComercio().getNombreComercio();
             idComercio = ((Envios) pago).getComercio().getIdComercio();
             idTipoComercio = ((Envios) pago).getComercio().getIdTipoComercio();
             referencia = ((Envios) pago).getReferencia();
             idTipoEnvio = ((Envios) pago).getTipoEnvio().getId();
+            tipoTab = 3;
         }
     }
 
@@ -265,6 +270,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         intent.putExtra(ID_TIPO_COMERCIO, idTipoComercio);
         intent.putExtra(ID_TIPO_ENVIO, idTipoEnvio);
         intent.putExtra(REFERENCIA, referencia);
+        intent.putExtra(TIPO_TAB, tipoTab);
         startActivityForResult(intent, REQUEST_CODE_FAVORITES);
     }
 

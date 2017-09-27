@@ -78,6 +78,14 @@ public class CatalogsDbApi {
         genericDao.close();
     }
 
+    public static void insertNewFavorites(List<DataFavoritos> favorites) {
+        genericDao.open();
+        for (DataFavoritos favorite : favorites) {
+            genericDao.insert(favorite);
+        }
+        genericDao.close();
+    }
+
     public static void insertFavorite(DataFavoritos favorite) {
         genericDao.open();
         genericDao.insert(favorite);

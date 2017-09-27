@@ -108,7 +108,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
                     ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getReferencia()
             ));
 
-            api.insertFavorites(dataFavoritos);
+            api.insertNewFavorites(dataFavoritos);
 
             mView.hideLoader();
             FavoritosNewDatosResponse response = (FavoritosNewDatosResponse) dataSourceResult.getData();
