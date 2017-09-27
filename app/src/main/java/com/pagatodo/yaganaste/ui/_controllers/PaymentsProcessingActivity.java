@@ -9,6 +9,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
@@ -80,6 +81,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     private String referencia = "";
     private int idTipoEnvio = 0;
     private int tipoTab = 0;
+    ImageView imageshare;
 
 
     @Override
@@ -91,6 +93,8 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
         pago = getIntent().getExtras().get("pagoItem");
         tab = (MovementsTab) getIntent().getExtras().get("TAB");
         llMain = findViewById(R.id.ll_main);
+        imageshare= (ImageView) findViewById(R.id.deposito_Share);
+        imageshare.setVisibility(View.VISIBLE);
 
         initViews();
 

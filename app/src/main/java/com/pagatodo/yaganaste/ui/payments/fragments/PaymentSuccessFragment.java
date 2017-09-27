@@ -51,7 +51,8 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
  * Created by Jordan on 27/04/2017.
  */
 
-public class PaymentSuccessFragment extends GenericFragment implements PaymentSuccessManager, View.OnClickListener {
+public class PaymentSuccessFragment extends GenericFragment implements PaymentSuccessManager,
+        View.OnClickListener {
 
 
     @BindView(R.id.txt_paymentTitle)
@@ -100,6 +101,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     IPaymentsSuccessPresenter presenter;
     private View rootview;
     private boolean isMailAviable = false;
+    ImageView imageshae;
 
     public static PaymentSuccessFragment newInstance(Payments pago, EjecutarTransaccionResponse result) {
         PaymentSuccessFragment fragment = new PaymentSuccessFragment();
@@ -116,7 +118,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
         pago = (Payments) getArguments().getSerializable("pago");
         result = (EjecutarTransaccionResponse) getArguments().getSerializable("result");
         presenter = new PaymentSuccessPresenter(this);
-
+        imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
     }
 
     @Override
@@ -131,6 +133,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     public void initViews() {
         ButterKnife.bind(this, rootview);
 
+        imageshae.setOnClickListener(this);
 
         if (pago instanceof Recarga) {
             layoutEnviado.setVisibility(View.GONE);
@@ -146,7 +149,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
             if (pago.getComercio().getIdComercio() == 7) {
                 titleReferencia.setText(getString(R.string.tag_number));
             } else {
-               // titleReferencia.setText(R.string.details_telefono);
+                // titleReferencia.setText(R.string.details_telefono);
                 titleReferencia.setText("Teléfono");
 
             }
@@ -182,7 +185,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
                             + " " + getContext().getResources().getString(R.string.envia_comprobante_opcional));
             isMailAviable = true;
 
-            titleReferencia.setText(((Envios)pago).getTipoEnvio().getShortName());
+            titleReferencia.setText(((Envios) pago).getTipoEnvio().getShortName());
         }
 
         String text = String.format("%.2f", pago.getMonto());
@@ -208,7 +211,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
             formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
         } else if (pago instanceof Envios) {
             if (formatoPago.length() == 16 || formatoPago.length() == 15) {
-                formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4,4,4,4), '*', formatoPago.length() -12);
+                formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4, 4, 4, 4), '*', formatoPago.length() - 12);
             } else {
                 formatoPago = StringUtils.formatoPagoMedios(formatoPago);
             }
@@ -234,9 +237,9 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
         if (!TextUtils.isEmpty(mail)) {
             if (ValidateForm.isValidEmailAddress(mail)) {
                 showLoader(getString(R.string.procesando_enviando_email_loader));
-                if(pago instanceof Envios){
+                if (pago instanceof Envios) {
                     presenter.sendTicketEnvio(mail, result.getData().getIdTransaccion());
-                }else {
+                } else {
                     presenter.sendTicket(mail, result.getData().getIdTransaccion());
                 }
             } else {
@@ -328,6 +331,14 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
             } else {
                 finalizePayment();
             }
+        }
+
+        if (v.getId() == R.id.deposito_Share) {
+            Intent intent = new Intent(Intent.ACTION_SEND);
+            intent.setType("text/plain");
+
+            intent.putExtra(Intent.EXTRA_TEXT, pago.getReferencia());
+            startActivity(Intent.createChooser(intent, "Compartir con.."));
         }
     }
 }
