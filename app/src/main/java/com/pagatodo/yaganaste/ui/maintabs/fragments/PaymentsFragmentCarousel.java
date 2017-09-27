@@ -123,20 +123,6 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         });
     }
 
-    /**
-     * Mandamos a AddNewFavoritesActivity un ArrayList<CustomCarouselItem>, el objeto es un Parceable
-     * para que pueda viajar sin problemas entre actividades. Enviamos tambien el Tab que estamos
-     * visualizando para mostrar o no algunos campos
-     */
-    @OnClick(R.id.paymentTabBtn)
-    public void addNewFavorite() {
-        //   Toast.makeText(getContext(), "Tab " + current_tab, Toast.LENGTH_SHORT).show();
-        Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
-        intent.putExtra("backUpResponse", backUpResponse);
-        intent.putExtra("currentTab", current_tab);
-        startActivity(intent);
-    }
-
     @Override
     public void onResume() {
         super.onResume();

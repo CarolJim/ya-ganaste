@@ -27,6 +27,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.ui._controllers.manager.AddNewFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
@@ -257,9 +258,20 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
             changeImgageToPay();
             openPaymentFragment();
         } else {
-            UI.showToast("Agregar Nuevo Favorito", App.getInstance());
+            addNewFavorite();
         }
+    }
 
+
+    /**
+     * Mandamos a AddNewFavoritesActivity un ArrayList<CustomCarouselItem>, el objeto es un Parceable
+     * para que pueda viajar sin problemas entre actividades. Enviamos tambien el Tab que estamos
+     * visualizando para mostrar o no algunos campos
+     */
+    public void addNewFavorite() {
+        Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
+        intent.putExtra("currentTab", currentTab.getId());
+        startActivity(intent);
     }
 
     public void changeImgageToPay() {
