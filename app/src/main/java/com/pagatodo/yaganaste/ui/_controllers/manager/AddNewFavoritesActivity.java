@@ -10,21 +10,17 @@ import android.provider.ContactsContract;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.util.Base64;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.EditorInfo;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -45,7 +41,6 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTagPase;
-import com.pagatodo.yaganaste.utils.NumberTextWatcher;
 import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
@@ -69,13 +64,12 @@ import butterknife.OnClick;
 
 import static android.view.View.GONE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
-import static android.view.inputmethod.EditorInfo.IME_ACTION_NEXT;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
-import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.BACK_UP_RESPONSE;
-import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB;
+import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB_ID;
+import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB_NAME;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
@@ -83,6 +77,17 @@ import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 
 /**
  * Encargada de dar de alta Favoritos, pero capturando todos sus datos. primero en el servicio y luego en la base local
+ * PAra inicializar, debemos de recibir variables de:
+ * currentTabName con valores de String: "TAB1", "TAB2", "TAB3"
+ * currentTabId con valores de int: 1, 2, 3
+ *
+ * Ejemplo
+ * Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
+ * intent.putExtra(CURRENT_TAB_NAME, "TAB1");
+ * intent.putExtra(CURRENT_TAB_ID, 1);
+ * startActivity(intent);
+ *
+ * Estos datos pueden sacarse del MovementsTab, pero deben enviarse de manera individual
  */
 public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
         IListaOpcionesView, ValidationForms, View.OnClickListener, OnListServiceListener,
@@ -143,6 +148,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     int idTipoEnvio;
     String stringFoto;
     String mReferencia;
+    String tabName;
     private String formatoComercio;
     private int longitudRefer;
     CameraManager cameraManager;
@@ -153,7 +159,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     private int maxLength;
     int keyIdComercio;
     TransferType selectedType;
-   MovementsTab current_tab2;
+    MovementsTab current_tab2;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
 
     @Override
@@ -164,12 +170,13 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         favoritesPresenter = new FavoritesPresenter(this);
 
         Intent intent = getIntent();
-        current_tab = intent.getIntExtra(CURRENT_TAB, 99);
-      //  backUpResponse = intent.getExtras().getParcelableArrayList(BACK_UP_RESPONSE);
+        tabName = intent.getStringExtra(CURRENT_TAB_NAME);
+        current_tab = intent.getIntExtra(CURRENT_TAB_ID, 99);
+        //  backUpResponse = intent.getExtras().getParcelableArrayList(BACK_UP_RESPONSE);
 
         // Iniciamos el presentes del carrousel
-       // this.current_tab = MovementsTab.valueOf(getArguments().getString("TAB"));
-        this.current_tab2 = MovementsTab.valueOf("TAB1");
+        // this.current_tab = MovementsTab.valueOf(getArguments().getString("TAB"));
+        this.current_tab2 = MovementsTab.valueOf(tabName);
         backUpResponse = new ArrayList<>();
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this);
         paymentsCarouselPresenter.getCarouselItems();
@@ -764,6 +771,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     /**
      * Listener que efectua varias tareas cuando se selecciona un servicio de la lista, dependiendo
      * del TAB realiza diversas funciones
+     *
      * @param item
      */
     @Override
@@ -922,6 +930,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     /**
      * Evento que sucede cuando escogemos un Item del Spinner. Recuerda que al iniciar la actividad
      * para por default una vez en este onItemSelected
+     *
      * @param parent
      * @param view
      * @param position

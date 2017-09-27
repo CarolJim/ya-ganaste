@@ -9,7 +9,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
@@ -45,7 +44,8 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 public abstract class PaymentsFragmentCarousel extends GenericFragment implements PaymentsCarrouselManager {
 
     public static final String BACK_UP_RESPONSE = "backUpResponse";
-    public static final String CURRENT_TAB = "currentTab";
+    public static final String CURRENT_TAB_NAME = "currentTabName";
+    public static final String CURRENT_TAB_ID = "currentTabId";
     private static int MAX_CAROUSEL_ITEMS = 12;
     @BindView(R.id.carouselMain)
     Carousel carouselMain;
@@ -135,8 +135,8 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     public void addNewFavorite() {
         //   Toast.makeText(getContext(), "Tab " + current_tab, Toast.LENGTH_SHORT).show();
         Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
-        intent.putExtra(BACK_UP_RESPONSE, backUpResponse);
-        intent.putExtra(CURRENT_TAB, current_tab.getId());
+        intent.putExtra(CURRENT_TAB_NAME, "TAB1");
+        intent.putExtra(CURRENT_TAB_ID, current_tab.getId());
         startActivity(intent);
     }
 
