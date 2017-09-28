@@ -154,7 +154,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
                 titleReferencia.setText("Teléfono");
 
             }
-            layoutMail.setVisibility(View.VISIBLE);
+            //layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             isMailAviable = true;
             txtCompania.setText(pago.getComercio().getNombreComercio());
@@ -167,7 +167,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             String textComision = String.format("%.2f", comision);
             textComision = textComision.replace(",", ".");
             //txtComision.setText(textComision);
-            layoutMail.setVisibility(View.VISIBLE);
+            //layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             isMailAviable = true;
             txtCompania.setText(pago.getComercio().getNombreComercio());
@@ -177,7 +177,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             //txtComision.setVisibility(View.GONE);
             //comisionReferenciaText.setText("A:");
             nombreEnvio.setText(((Envios) pago).getNombreDestinatario());
-            layoutMail.setVisibility(View.VISIBLE);
+            //layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             String fullName = ((Envios) pago).getNombreDestinatario();
             titleMail.setText(

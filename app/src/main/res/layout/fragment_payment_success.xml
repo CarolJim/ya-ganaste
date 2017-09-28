@@ -336,7 +336,7 @@
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/margin_medium"
                 android:paddingRight="@dimen/margin_medium"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/titleMail"

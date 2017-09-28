@@ -119,14 +119,17 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             if (idComercio == 7) {
                 formatoPago = StringUtils.formatoPagoMediostag(formatoPago);
             }
+            textViewServ.setHintText(getString(R.string.details_compania));
         } else if (tipoTab == 2) {
             formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
+            textViewServ.setHintText(getString(R.string.details_compania));
         } else if (tipoTab == 3) {
             if (formatoPago.length() == 16 || formatoPago.length() == 15) {
                 formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4, 4, 4, 4), '*', formatoPago.length() - 12);
             } else {
                 formatoPago = StringUtils.formatoPagoMedios(formatoPago);
             }
+            textViewServ.setHintText(getString(R.string.details_bank));
         }
 
         textViewRef.setText(formatoPago);

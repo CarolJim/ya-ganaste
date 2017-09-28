@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
-import android.animation.ObjectAnimator;
 import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
@@ -9,7 +8,6 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.Html;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.animation.AlphaAnimation;
@@ -19,7 +17,6 @@ import android.widget.Button;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.interfaces.IPurseView;
@@ -38,10 +35,13 @@ import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 
+import java.util.Timer;
+import java.util.TimerTask;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.R.id.txtPagosUserName;
+import static com.google.android.gms.internal.zzagz.runOnUiThread;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
@@ -58,7 +58,7 @@ import static com.pagatodo.yaganaste.utils.Utils.setDurationScale;
  */
 
 public class QuickBalanceFragment extends GenericFragment implements IBalanceView,
-        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, IPurseView{
+        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener, IPurseView {
     private View transparentBG;
     private AlphaAnimation fading;
     @BindView(R.id.cardSaldo)
@@ -81,6 +81,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     private IQuickBalanceManager quickBalanceManager;
     private static Preferencias preferencias = App.getInstance().getPrefs();
     View rootView;
+    boolean clickFlip = false;
 
     public static QuickBalanceFragment newInstance() {
 
@@ -129,14 +130,29 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
         //final View couchMark = view.findViewById(R.id.purse_fragment_ll_couch_mark);
         final View couchMark = view.findViewById(R.id.llsaldocontenedor);
-
+        final Timer t = new Timer();
+        final TimerTask task = new TimerTask() {
+            @Override
+            public void run() {
+                runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        /*accountPresenter.flipCard(R.id.llsaldo, CardCover.newInstance(accountPresenter));
+                        clickFlip = false;*/
+                    }
+                });
+            }
+        };
 
         couchMark.setVisibility(View.VISIBLE);
         couchMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                accountPresenter.flipCard(R.id.llsaldo, CardBack.newInstance(accountPresenter));
-
+                /*if (!clickFlip) {
+                    clickFlip = true;*/
+                    //t.schedule(task, 1000, 5000);
+                    accountPresenter.flipCard(R.id.llsaldo, CardBack.newInstance(accountPresenter));
+                //}
             }
         });
         /*
@@ -205,7 +221,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
     @Override
     public void onRefresh() {
-        if (!UtilsNet.isOnline(getActivity())){
+        if (!UtilsNet.isOnline(getActivity())) {
             swipeContainer.setRefreshing(false);
             UI.createSimpleCustomDialog("", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
                 @Override
@@ -220,7 +236,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
                 }
             }, true, false);
 
-        }else {
+        } else {
             swipeContainer.setRefreshing(false);
             accountPresenter.updateBalance();
         }
@@ -275,7 +291,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     @Override
     public void flipCard(int container, Fragment fragment, boolean isBackShown) {
         setDurationScale(1);
-        if(isBackShown) {
+        if (isBackShown) {
             getActivity().getFragmentManager().popBackStack();
             return;
         }
@@ -290,7 +306,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
                 .replace(container, fragment)
                 .addToBackStack(null)
                 .commit();
-       // TrackingUtils.doAnalyticsTracking(MONEDERO_PAGAR_LBL);
+        // TrackingUtils.doAnalyticsTracking(MONEDERO_PAGAR_LBL);
     }
 
     @Override
@@ -317,13 +333,13 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         fading.setAnimationListener(new Animation.AnimationListener() {
             @Override
             public void onAnimationStart(Animation animation) {
-                if(!isVisible)
+                if (!isVisible)
                     transparentBG.setVisibility(View.VISIBLE);
             }
 
             @Override
             public void onAnimationEnd(Animation animation) {
-                if(isVisible)
+                if (isVisible)
                     transparentBG.setVisibility(View.GONE);
             }
 
@@ -337,17 +353,15 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
     @Override
     public boolean isAnimationAble() {
-        if(fading == null)
+        if (fading == null)
             return true;
 
-        if(fading.hasStarted())
-        {
-            if(fading.hasEnded())
+        if (fading.hasStarted()) {
+            if (fading.hasEnded())
                 return true;
             else
                 return false;
-        }
-        else
+        } else
             return true;
     }
 
