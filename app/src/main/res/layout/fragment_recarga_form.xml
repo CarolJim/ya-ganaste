@@ -39,12 +39,14 @@
                 android:id="@+id/layoutImageContact"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
+                android:layout_marginLeft="22dp"
                 android:layout_weight="80">
 
                 <ImageView
                     android:id="@+id/imgMakePaymentContact"
                     android:layout_width="25dp"
                     android:layout_height="25dp"
+
                     android:layout_centerInParent="true"
                     android:layout_margin="5dp"
                     android:src="@drawable/icono_agenda" />
