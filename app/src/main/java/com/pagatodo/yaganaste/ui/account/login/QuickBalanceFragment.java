@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.account.login;
 import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
@@ -44,6 +45,7 @@ import butterknife.ButterKnife;
 import static com.google.android.gms.internal.zzagz.runOnUiThread;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.FLIP_TIMER;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 import static com.pagatodo.yaganaste.utils.StringConstants.LAST_NAME;
@@ -82,6 +84,8 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     private static Preferencias preferencias = App.getInstance().getPrefs();
     View rootView;
     boolean clickFlip = false;
+    private Handler flipTimmer;
+    private Runnable runnableTimmer;
 
     public static QuickBalanceFragment newInstance() {
 
@@ -130,39 +134,53 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
         //final View couchMark = view.findViewById(R.id.purse_fragment_ll_couch_mark);
         final View couchMark = view.findViewById(R.id.llsaldocontenedor);
-        final Timer t = new Timer();
-        final TimerTask task = new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        /*accountPresenter.flipCard(R.id.llsaldo, CardCover.newInstance(accountPresenter));
-                        clickFlip = false;*/
-                    }
-                });
-            }
-        };
+
 
         couchMark.setVisibility(View.VISIBLE);
-        couchMark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                /*if (!clickFlip) {
-                    clickFlip = true;*/
-                    //t.schedule(task, 1000, 5000);
-                    accountPresenter.flipCard(R.id.llsaldo, CardBack.newInstance(accountPresenter));
-                //}
-            }
-        });
-        /*
-        couchMark.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                accountPresenter.flipCard(R.id.llsaldo, CardBack.newInstance(accountPresenter));
-                return true;
-            }
-        });*/
+        couchMark.setOnClickListener(this);
+
+    }
+
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.btnGoToLogin:
+                loginContainerManager.loadLoginFragment();
+                break;
+            case R.id.imgArrowBack:
+                backScreen(null, null);
+                break;
+
+            case R.id.llsaldocontenedor:
+                doFlip();
+                break;
+        }
+    }
+
+    public void onClick(int id) {
+        if (id == R.id.llsaldocontenedor) {
+                doFlip();
+        }
+    }
+
+    private void doFlip() {
+        accountPresenter.flipCard(R.id.llsaldo, CardBack.newInstance(accountPresenter));
+
+        if (flipTimmer != null) {
+            flipTimmer.removeCallbacks(runnableTimmer);
+            flipTimmer = null;
+        }
+        if (accountPresenter.isBackShown()) {
+
+            flipTimmer = new Handler();
+            runnableTimmer = new Runnable() {
+                @Override
+                public void run() {
+                    onClick(R.id.llsaldocontenedor);
+                }
+            };
+            flipTimmer.postDelayed(runnableTimmer, FLIP_TIMER);
+        }
     }
 
     @Override
@@ -255,18 +273,6 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     @Override
     public void showError(Object error) {
         //throw new IllegalCallException("this method is not implemented yet");
-    }
-
-    @Override
-    public void onClick(View v) {
-        switch (v.getId()) {
-            case R.id.btnGoToLogin:
-                loginContainerManager.loadLoginFragment();
-                break;
-            case R.id.imgArrowBack:
-                backScreen(null, null);
-                break;
-        }
     }
 
     @Override

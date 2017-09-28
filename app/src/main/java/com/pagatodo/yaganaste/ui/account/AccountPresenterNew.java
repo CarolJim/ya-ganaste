@@ -462,6 +462,10 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         view.loadCardCover(container,fragment);
     }
 
+    public boolean isBackShown() {
+        return this.isBackShown;
+    }
+
     @Override
     public void setPurseReference(IPurseView view) {
         this.view = view;

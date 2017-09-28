@@ -32,6 +32,7 @@ public class Recursos {
 
 
     public static final long DISCONNECT_TIMEOUT = 1200000;
+    public static final long FLIP_TIMER = 5000;
 
     //URL DE WS
     static {

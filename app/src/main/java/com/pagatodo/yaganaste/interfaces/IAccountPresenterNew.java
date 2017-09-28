@@ -41,4 +41,6 @@ public interface IAccountPresenterNew {
     void updateBalanceCupo();
 
     void getPaisesList();
+
+    boolean isBackShown();
 }
