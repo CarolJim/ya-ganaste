@@ -12,10 +12,11 @@ public class Servicios extends Payments {
         super();
     }
 
-    public Servicios(String referencia, Double monto, String concepto, ComercioResponse comercio) {
+    public Servicios(String referencia, Double monto, String concepto, ComercioResponse comercio, boolean isFavorite) {
         this.referencia = referencia;
         this.monto = monto;
         this.concepto = concepto;
         this.comercio = comercio;
+        this.isFavorite = isFavorite;
     }
 }

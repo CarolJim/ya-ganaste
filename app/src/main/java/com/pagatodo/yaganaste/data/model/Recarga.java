@@ -12,10 +12,11 @@ public class Recarga extends Payments {
         super();
     }
 
-    public Recarga(String numero, Double importe, ComercioResponse comercio) {
+    public Recarga(String numero, Double importe, ComercioResponse comercio, boolean isFavorite) {
         this.referencia = numero;
         this.monto = importe;
         this.comercio = comercio;
+        this.isFavorite = isFavorite;
     }
 
     @Override

@@ -14,6 +14,15 @@ public class Payments implements Serializable {
     protected Double monto;
     protected String concepto;
     protected ComercioResponse comercio;
+    protected boolean isFavorite;
+
+    public boolean isFavorite() {
+        return isFavorite;
+    }
+
+    public void setFavorite(boolean favorite) {
+        isFavorite = favorite;
+    }
 
     public String getReferencia() {
         return referencia;

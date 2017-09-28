@@ -332,10 +332,10 @@
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="@dimen/margin_doble"
                 android:layout_marginRight="@dimen/margin_doble"
-                android:paddingTop="30dp"
                 android:orientation="vertical"
                 android:paddingLeft="@dimen/margin_medium"
                 android:paddingRight="@dimen/margin_medium"
+                android:paddingTop="30dp"
                 android:visibility="gone">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -352,9 +352,9 @@
                     style="@style/GenericCustomValidationEditText"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    app:defaultIcon="@null"
                     android:layout_marginTop="@dimen/margin_medium"
                     android:gravity="center"
+                    app:defaultIcon="@null"
                     app:formato="email"
                     app:hintText="@string/txt_mail" />
 
@@ -368,23 +368,25 @@
             android:layout_height="wrap_content"
             android:gravity="center"
             android:orientation="vertical"
-            android:visibility="visible"
-            android:paddingTop="30dp">
+            android:paddingTop="30dp"
+            android:visibility="visible">
 
             <ImageView
+                android:id="@+id/imgAddFavorite"
                 android:layout_width="45dp"
                 android:layout_height="45dp"
                 android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:layout_centerVertical="true"
                 android:layout_gravity="center_horizontal|bottom"
+                android:onClick="openAddFavoritos"
                 android:padding="4dp"
                 android:src="@mipmap/circulo_favorito"
-                android:onClick="openAddFavoritos"
                 android:visibility="visible"
                 tools:ignore="ContentDescription" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:id="@+id/txtHintFavorite"
                 style="@style/generic_text_style_3"
                 android:layout_width="wrap_content"
                 android:layout_height="match_parent"
@@ -438,7 +440,7 @@
             android:layout_width="match_parent"
             android:layout_height="0dp"
             android:layout_weight="1"
-            android:minHeight="20dp"/>
+            android:minHeight="20dp" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -455,9 +457,6 @@
         </LinearLayout>
 
     </LinearLayout>
-
-
-
 
 
 </ScrollView>
