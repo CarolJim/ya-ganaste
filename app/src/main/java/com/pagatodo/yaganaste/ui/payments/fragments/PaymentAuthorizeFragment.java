@@ -57,6 +57,8 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     StyleTextView nombreEnvio;
     @BindView(R.id.titleReferencia)
     StyleTextView titleReferencia;
+    @BindView(R.id.txtBanco)
+    StyleTextView txtBanco;
 
     @BindView(R.id.txtReferencia)
     StyleTextView txtReferencia;
@@ -105,6 +107,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
         importe.setText(StringUtils.getCurrencyValue(envio.getMonto()));
         titleReferencia.setText(envio.getTipoEnvio().getShortName());
+        txtBanco.setText(envio.getComercio().getNombreComercio());
         String ref = envio.getReferencia();
 
         switch (envio.getTipoEnvio()) {
