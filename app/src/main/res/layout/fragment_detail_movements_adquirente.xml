@@ -98,6 +98,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="start"
+                            android:textColor="@color/whiteColor"
                             android:text="@string/details_comision" />
 
                         <com.pagatodo.yaganaste.utils.customviews.MontoTextView
@@ -136,6 +137,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="start"
+                            android:textColor="@color/whiteColor"
                             android:text="@string/details_iva" />
 
                         <com.pagatodo.yaganaste.utils.customviews.MontoTextView
@@ -170,6 +172,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
+                        android:textColor="@color/whiteColor"
                         android:text="@string/details_tarjeta" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -206,6 +209,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="start"
+                            android:textColor="@color/whiteColor"
                             android:text="@string/details_concepto" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -236,6 +240,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
+                        android:textColor="@color/whiteColor"
                         android:text="@string/details_fecha" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -264,6 +269,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
+                        android:textColor="@color/whiteColor"
                         android:text="@string/details_hora" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -292,6 +298,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
+                        android:textColor="@color/whiteColor"
                         android:text="@string/details_autorizacion" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -327,6 +334,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:gravity="start"
+                            android:textColor="@color/whiteColor"
                             android:text="@string/details_recibo" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
