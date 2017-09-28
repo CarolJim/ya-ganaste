@@ -34,6 +34,7 @@ import com.pagatodo.yaganaste.utils.ValidateForm;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -86,6 +87,10 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     TextView txtCompania;
     @BindView(R.id.nombreEnvio)
     TextView nombreEnvio;
+    @BindView(R.id.imgAddFavorite)
+    ImageView imgAddFavorite;
+    @BindView(R.id.txtHintFavorite)
+    StyleTextView txtHintFavorite;
 
 
     @BindView(R.id.layout_enviado)
@@ -134,7 +139,10 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-
+        if(pago.isFavorite()){
+            imgAddFavorite.setImageResource(R.drawable.ic_fav);
+            txtHintFavorite.setText(getString(R.string.is_favorite));
+        }
 
         if (pago instanceof Recarga) {
             layoutEnviado.setVisibility(View.GONE);
@@ -342,7 +350,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     }
 
     private void shareContent() {
-
         Intent intent = new Intent(Intent.ACTION_SEND);
         intent.setType("text/plain");
         String toShare = "";
@@ -359,14 +366,13 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         }
         intent.putExtra(Intent.EXTRA_TEXT, toShare);
         startActivity(Intent.createChooser(intent, "Compartir Con: "));
-
-
-
-
     }
 
     public void hideAddFavorites() {
-        LinearLayout ll_favorites = (LinearLayout) rootview.findViewById(R.id.layout_addfavorites);
-        ll_favorites.setVisibility(View.GONE);
+        if(!pago.isFavorite()){
+            imgAddFavorite.setImageResource(R.drawable.ic_fav);
+            imgAddFavorite.setEnabled(false);
+            txtHintFavorite.setText(getString(R.string.is_favorite));
+        }
     }
 }

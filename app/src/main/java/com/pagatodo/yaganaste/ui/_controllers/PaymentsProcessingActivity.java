@@ -9,10 +9,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
-import android.widget.Toast;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.Envios;
@@ -24,7 +21,6 @@ import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
-import com.pagatodo.yaganaste.interfaces.enums.TransferType;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
@@ -34,20 +30,16 @@ import com.pagatodo.yaganaste.ui.payments.presenters.PaymentsProcessingPresenter
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcessingPresenter;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.Recursos;
-import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
-import com.pagatodo.yaganaste.utils.Utils;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.interfaces.enums.Direction.FORDWARD;
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CLOSE;
 import static com.pagatodo.yaganaste.utils.Constants.MESSAGE;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_BACK_PRESS;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_FAIL;
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * Created by Jordan on 25/04/2017.
@@ -82,7 +74,6 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     private String referencia = "", nombreDest = "";
     private int idTipoEnvio = 0;
     private int tipoTab = 0;
-
 
 
     @Override
@@ -257,7 +248,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             idTipoComercio = ((Envios) pago).getComercio().getIdTipoComercio();
             referencia = ((Envios) pago).getReferencia();
             idTipoEnvio = ((Envios) pago).getTipoEnvio().getId();
-            nombreDest = ((Envios)pago).getNombreDestinatario();
+            nombreDest = ((Envios) pago).getNombreDestinatario();
             tipoTab = 3;
         }
     }
@@ -268,15 +259,17 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
      * @param view
      */
     public void openAddFavoritos(View view) {
-        Intent intent = new Intent(this, AddFavoritesActivity.class);
-        intent.putExtra(NOMBRE_COMERCIO, nombreComercio);
-        intent.putExtra(ID_COMERCIO, idComercio);
-        intent.putExtra(ID_TIPO_COMERCIO, idTipoComercio);
-        intent.putExtra(ID_TIPO_ENVIO, idTipoEnvio);
-        intent.putExtra(REFERENCIA, referencia);
-        intent.putExtra(TIPO_TAB, tipoTab);
-        intent.putExtra(DESTINATARIO, nombreDest);
-        startActivityForResult(intent, REQUEST_CODE_FAVORITES);
+        if (!((Payments) pago).isFavorite()) {
+            Intent intent = new Intent(this, AddFavoritesActivity.class);
+            intent.putExtra(NOMBRE_COMERCIO, nombreComercio);
+            intent.putExtra(ID_COMERCIO, idComercio);
+            intent.putExtra(ID_TIPO_COMERCIO, idTipoComercio);
+            intent.putExtra(ID_TIPO_ENVIO, idTipoEnvio);
+            intent.putExtra(REFERENCIA, referencia);
+            intent.putExtra(TIPO_TAB, tipoTab);
+            intent.putExtra(DESTINATARIO, nombreDest);
+            startActivityForResult(intent, REQUEST_CODE_FAVORITES);
+        }
     }
 
     private void showDialogMesage(final String mensaje) {

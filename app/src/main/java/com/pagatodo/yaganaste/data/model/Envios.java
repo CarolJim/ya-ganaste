@@ -17,7 +17,7 @@ public class Envios extends Payments {
     }
 
     public Envios(TransferType tipo, String destino, Double importe, String nombreDestinatario,
-                  String concepto, String referenceNumber, ComercioResponse comercio) {
+                  String concepto, String referenceNumber, ComercioResponse comercio, boolean isFavorite) {
         this.tipoEnvio = tipo;
         this.referencia = destino;
         this.setMonto(importe);
@@ -25,6 +25,7 @@ public class Envios extends Payments {
         this.concepto = concepto;
         this.referenciaNumerica = referenceNumber;
         this.comercio = comercio;
+        this.isFavorite = isFavorite;
     }
 
     public TransferType getTipoEnvio() {

@@ -160,7 +160,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
         } else {
             //Se debe crear un objeto que se envía a la activity que realizará el pago
             //Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
-            payment = new Recarga(referencia, monto, comercioItem);
+            payment = new Recarga(referencia, monto, comercioItem, favoriteItem!=null);
             sendPayment();
         }
     }

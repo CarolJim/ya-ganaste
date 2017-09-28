@@ -602,6 +602,7 @@
     <string name="txt_comision">Comisión:</string>
     <string name="txt_phone_b">Teléfono: </string>
     <string name="add_favorites">Agregar a Favoritos</string>
+    <string name="is_favorite">Ya es Favorito</string>
     <string name="email_send_ticket">Envíar Comprobante (Opcional):</string>
     <string name="envia_comprobante_a">Envía Este Comprobante a </string>
     <string name="envia_comprobante_opcional"> (Opcional)</string>

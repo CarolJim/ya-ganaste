@@ -105,6 +105,7 @@ public class Recursos {
     public static String COUCHMARK_ADQ = "COUCHMARKADQ";
 
     public static String CO_QUICK_EM = "CO_QUICK_EM";
+    public static String CO_QUICK_EM_2 = "CO_QUICK_EM_2";
     public static String CO_QUICK_ADQ = "CO_QUICK_ADQ";
 
     public static String SHA_256_FREJA = "SHA_256_FREJA";
