@@ -2,25 +2,26 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:id="@+id/fragment_purse_ll_card_view"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:layout_width="match_parent"
+    android:layout_width="wrap_content"
     android:orientation="vertical"
+    android:layout_marginTop="90dp"
+    android:layout_marginBottom="90dp"
+    android:layout_gravity="center|top"
     android:layout_height="wrap_content">
 
     <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
         android:id="@+id/llcardsaldo"
-        android:gravity="center"
         android:orientation="vertical"
         >
 
         <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
             android:id="@+id/cardSaldocover"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginRight="65dp"
-            android:layout_marginLeft="65dp"
-            android:layout_gravity="center" />
+             />
 
     </LinearLayout>
 

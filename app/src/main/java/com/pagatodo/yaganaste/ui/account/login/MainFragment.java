@@ -46,8 +46,8 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     @BindView(R.id.btnLogin)
     AppCompatButton btnLogin;
 
-    //    @BindView(R.id.viewpager)
-//    AutoScrollViewPager pager;
+    //@BindView(R.id.viewpager)
+    //AutoScrollViewPager pager;
     @BindView(R.id.rollPager)
     RollPagerView rollPagerView;
     private View rootview;

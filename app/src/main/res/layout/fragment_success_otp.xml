@@ -27,7 +27,7 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             app:firstColor="@color/colorAccent"
-            app:bgColor="@color/bgColor"
+            app:bgColor="@color/bg_card_confirmation"
             app:percent="100"
             app:strokeWidth="15dp"/>
 
