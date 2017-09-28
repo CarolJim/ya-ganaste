@@ -1,11 +1,13 @@
 package com.pagatodo.yaganaste.data.local.persistence.db.manager;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.os.Environment;
 import android.util.Log;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.data.local.persistence.db.AbstractEntity;
 import com.pagatodo.yaganaste.data.local.persistence.db.contract.DBContract;
 import com.pagatodo.yaganaste.data.local.persistence.db.exceptions.NoMappedClassException;
@@ -29,6 +31,7 @@ import static com.pagatodo.yaganaste.data.local.persistence.db.utils.ReflectionU
 import static com.pagatodo.yaganaste.data.local.persistence.db.utils.ReflectionUtils.DB.COMA;
 import static com.pagatodo.yaganaste.data.local.persistence.db.utils.ReflectionUtils.DB.CREAR_TABLA;
 import static com.pagatodo.yaganaste.data.local.persistence.db.utils.ReflectionUtils.DB.ESPACIO;
+import static com.pagatodo.yaganaste.utils.StringConstants.CATALOG_VERSION;
 
 /**
  * Created by Jordan on 21/04/2017.
@@ -127,6 +130,7 @@ public class SQLiteHelper extends SQLiteOpenHelper {
             }
         }
         onCreate(db);
+        App.getInstance().getPrefs().clearPreference(CATALOG_VERSION);
     }
 
 

@@ -126,7 +126,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         resetPinPresenter = new ResetPinPresenterImp(false);
         resetPinPresenter.setResetNIPView(this);
         tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
-
     }
 
     @Override
@@ -191,7 +190,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         } else if (SingletonUser.getInstance().needsReset()) {
             resetPinPresenter.doReseting(pref.loadData(SHA_256_FREJA));
         }
-
     }
 
     @Override

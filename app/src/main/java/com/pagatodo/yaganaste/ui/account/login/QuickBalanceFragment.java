@@ -36,13 +36,9 @@ import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 
-import java.util.Timer;
-import java.util.TimerTask;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.google.android.gms.internal.zzagz.runOnUiThread;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.FLIP_TIMER;
@@ -134,8 +130,6 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
         //final View couchMark = view.findViewById(R.id.purse_fragment_ll_couch_mark);
         final View couchMark = view.findViewById(R.id.llsaldocontenedor);
-
-
         couchMark.setVisibility(View.VISIBLE);
         couchMark.setOnClickListener(this);
 
@@ -145,6 +139,10 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnGoToLogin:
+                if (flipTimmer != null) {
+                    flipTimmer.removeCallbacks(runnableTimmer);
+                    flipTimmer = null;
+                }
                 loginContainerManager.loadLoginFragment();
                 break;
             case R.id.imgArrowBack:
@@ -159,7 +157,11 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
     public void onClick(int id) {
         if (id == R.id.llsaldocontenedor) {
+            try {
                 doFlip();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
         }
     }
 
@@ -171,7 +173,6 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
             flipTimmer = null;
         }
         if (accountPresenter.isBackShown()) {
-
             flipTimmer = new Handler();
             runnableTimmer = new Runnable() {
                 @Override
@@ -283,7 +284,11 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter));
+        try {
+            accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
         String cardNumber = preferencias.loadData(CARD_NUMBER);
 //                    Utils.getCurrencyValue(cardNumber))
         cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
@@ -298,7 +303,11 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     public void flipCard(int container, Fragment fragment, boolean isBackShown) {
         setDurationScale(1);
         if (isBackShown) {
-            getActivity().getFragmentManager().popBackStack();
+            try {
+                getActivity().getFragmentManager().popBackStack();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
             return;
         }
 
@@ -317,16 +326,20 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
     @Override
     public void loadCardCover(int container, Fragment fragment) {
-        getActivity().getFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(
-                        R.animator.card_flip_right_in,
-                        R.animator.card_flip_right_out,
-                        R.animator.card_flip_left_in,
-                        R.animator.card_flip_left_out)
-                .replace(container, fragment)
-                .addToBackStack(null)
-                .commit();
+        try {
+            getActivity().getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(
+                            R.animator.card_flip_right_in,
+                            R.animator.card_flip_right_out,
+                            R.animator.card_flip_left_in,
+                            R.animator.card_flip_left_out)
+                    .replace(container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
