@@ -273,6 +273,12 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
         intent.putExtra(CURRENT_TAB_ID, currentTab.getId());
         getActivity().startActivityForResult(intent, NEW_FAVORITE);
+        //startActivity(intent);
+    }
+
+    @Override
+    public void onSaveInstanceState(Bundle outState) {
+        //super.onSaveInstanceState(outState);
     }
 
     public void changeImgageToPay() {
@@ -312,7 +318,11 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
             if (requestCode == NEW_FAVORITE) {
                 for(Fragment fragment : fragmentList){
                     if(fragment instanceof  FavoritesFragmentCarousel && resultCode == RESULT_OK){
-                        hideFavorites();
+                        try {
+                            hideFavorites();
+                        } catch (Exception e){
+                            e.printStackTrace();
+                        }
                     }
                 }
             } else if (requestCode == CONTACTS_CONTRACT) {

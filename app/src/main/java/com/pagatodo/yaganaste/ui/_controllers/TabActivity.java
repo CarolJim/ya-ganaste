@@ -397,6 +397,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     @Override
     protected void onSaveInstanceState(Bundle outState) {
         //No call for super(). Bug on API Level > 11.
+        //outState.putString("WORKAROUND_FOR_BUG_19917_KEY", "WORKAROUND_FOR_BUG_19917_VALUE");
+        //super.onSaveInstanceState(outState);
     }
 
     protected Fragment getFragment(int fragmentType) {
