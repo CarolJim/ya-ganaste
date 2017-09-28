@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.addfavorites.interfases;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 /**
@@ -20,4 +21,6 @@ public interface IFavoritesPresenter {
     void openMenuPhoto(int i, CameraManager cameraManager);
 
     void toPresenterAddNewFavorites(AddFavoritesRequest addFavoritesRequest);
+
+    void toPresenterAddFotoFavorites(AddFotoFavoritesRequest addFotoFavoritesRequest, int idFavorito);
 }

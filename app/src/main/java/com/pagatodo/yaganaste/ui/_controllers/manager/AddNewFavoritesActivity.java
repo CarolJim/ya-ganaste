@@ -11,8 +11,6 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextWatcher;
-import android.text.method.DigitsKeyListener;
-import android.text.method.TextKeyListener;
 import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
@@ -27,6 +25,9 @@ import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ITextChangeListener;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
@@ -420,11 +421,30 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     /**
      * Exito en agregar a Favoritos
      *
-     * @param mMensaje
+     * @param mResponse
      */
     @Override
-    public void toViewSuccessAdd(String mMensaje) {
+    public void toViewSuccessAdd(FavoritosNewDatosResponse mResponse) {
+       // showDialogMesage(mMensaje, 1);
+
+        int idFavorito = mResponse.getData().getIdFavorito();
+        /**
+         * Camino para enviar la foto al servicio
+         */
+        AddFotoFavoritesRequest addFotoFavoritesRequest =
+                new AddFotoFavoritesRequest(stringFoto, "png");
+
+        favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
+    }
+
+    @Override
+    public void toViewSuccessAddFoto(String mMensaje) {
         showDialogMesage(mMensaje, 1);
+    }
+
+    @Override
+    public void toViewSuccessAdd(FavoritosDatosResponse response) {
+
     }
 
     private void showDialogMesage(final String mensaje, final int closeAct) {

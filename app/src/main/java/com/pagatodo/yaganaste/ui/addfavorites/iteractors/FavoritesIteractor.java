@@ -4,13 +4,12 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AddFavoritosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewFotoDatosResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
-import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
-import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesIteractor;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
@@ -18,6 +17,7 @@ import com.pagatodo.yaganaste.utils.Recursos;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_FAVORITES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_NEW_FAVORITES;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_NEW_FOTO_FAVORITES;
 
 /**
  * Created by Francisco Manzo on 14/09/2017.
@@ -49,6 +49,16 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
     public void toIteractorAddNewFavorites(AddFavoritesRequest addFavoritesRequest) {
         try {
             ApiAdtvo.addNewFavorites(addFavoritesRequest, this);
+        } catch (OfflineException e) {
+            favoritesPresenter.toPresenterErrorServer(
+                    App.getContext().getResources().getString(R.string.no_internet_access));
+        }
+    }
+
+    @Override
+    public void toIteractorAddFotoNewFavorites(AddFotoFavoritesRequest addFotoFavoritesRequest, int idFavorito) {
+        try {
+            ApiAdtvo.addNewFotoFavorites(addFotoFavoritesRequest, idFavorito, this);
         } catch (OfflineException e) {
             favoritesPresenter.toPresenterErrorServer(
                     App.getContext().getResources().getString(R.string.no_internet_access));
@@ -93,6 +103,21 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
                 favoritesPresenter.toPresenterGenericError(dataSourceResult);
             }
         }
+
+        /**
+         * Instancia de peticion exitosa de FavoritosNewFotoDatosResponse
+         */
+        if (dataSourceResult.getData() instanceof FavoritosNewFotoDatosResponse) {
+            FavoritosNewFotoDatosResponse response = (FavoritosNewFotoDatosResponse) dataSourceResult.getData();
+
+            if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
+                favoritesPresenter.toPresenterGenericSuccess(dataSourceResult);
+            } else {
+                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess with Error " + response.getMensaje());
+                favoritesPresenter.toPresenterGenericError(dataSourceResult);
+            }
+        }
     }
 
     /**
@@ -105,6 +130,9 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
             favoritesPresenter.toPresenterErrorServer(error.getData().toString());
         }
         if (error.getWebService().equals(ADD_NEW_FAVORITES)) {
+            favoritesPresenter.toPresenterErrorServer(error.getData().toString());
+        }
+        if (error.getWebService().equals(ADD_NEW_FOTO_FAVORITES)) {
             favoritesPresenter.toPresenterErrorServer(error.getData().toString());
         }
     }

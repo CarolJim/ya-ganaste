@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActivacionServ
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarDatosCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AsignarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
@@ -56,6 +57,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EliminarAvata
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoContactanosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewFotoDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenerarCodigoRecuperacionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenericEnviarTicketResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GetJsonWebTokenResponse;
@@ -94,6 +96,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZA_DOCUM
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ACTUALIZA_REFERENCIAS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_FAVORITES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_NEW_FAVORITES;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_NEW_FOTO_FAVORITES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CAMBIAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CARGA_DOCUMENTOS;
@@ -883,5 +886,20 @@ public class ApiAdtvo extends Api {
         NetFacade.consumeWS(ADD_NEW_FAVORITES,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.addFavoritos),
                 headers, request, FavoritosNewDatosResponse.class, result);
+    }
+
+    public static void addNewFotoFavorites(AddFotoFavoritesRequest request,
+                                           int idFavorito, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+                .getCuentas().get(0).getIdCuenta();
+        headers.put("IdCuenta", "" + idCuenta);
+        headers.put("IdFavorito", "" + idFavorito);
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(ADD_NEW_FOTO_FAVORITES,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.addFotoFavoritos),
+                headers, request, FavoritosNewFotoDatosResponse.class, result);
     }
 }

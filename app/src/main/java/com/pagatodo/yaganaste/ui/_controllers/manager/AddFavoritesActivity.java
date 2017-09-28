@@ -15,6 +15,9 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
@@ -194,11 +197,29 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     /**
      * Exito en agregar a Favoritos
      *
-     * @param mMensaje
+     * @param mResponse
      */
     @Override
-    public void toViewSuccessAdd(String mMensaje) {
+    public void toViewSuccessAdd(FavoritosNewDatosResponse mResponse) {
+
+    }
+
+    @Override
+    public void toViewSuccessAddFoto(String mMensaje) {
         showDialogMesage(mMensaje, 1);
+    }
+
+    @Override
+    public void toViewSuccessAdd(FavoritosDatosResponse mResponse) {
+        //  showDialogMesage(mMensaje, 1);
+        int idFavorito = mResponse.getData().getIdFavorito();
+        /**
+         * Camino para enviar la foto al servicio
+         */
+        AddFotoFavoritesRequest addFotoFavoritesRequest =
+                new AddFotoFavoritesRequest(stringFoto, "png");
+
+        favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
     }
 
     private void showDialogMesage(final String mensaje, final int closeAct) {

@@ -92,6 +92,12 @@ public class CatalogsDbApi {
         genericDao.close();
     }
 
+    public void deleteFavorite(int favorite) {
+        genericDao.open();
+        genericDao.delete(DBContract.Favoritos.TABLE, DBContract.Favoritos.ID_FAVORITO + "=" + favorite);
+        genericDao.close();
+    }
+
     public static List<ComercioResponse> getComerciosList(int comercioType) {
         genericDao.open();
         List<ComercioResponse> comerciosRespose = new ArrayList<>();

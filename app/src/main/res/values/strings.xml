@@ -64,6 +64,7 @@
     <string name="enviarCorreo">/EnviarCorreoContactanos</string>
     <string name="consultarFavorito">/ConsultarFavorito</string>
     <string name="addFavoritos">/AgregarFavorito</string>
+    <string name="addFotoFavoritos">/ActualizarImagenFavorito</string>
 
 
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>

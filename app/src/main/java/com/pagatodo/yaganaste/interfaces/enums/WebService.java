@@ -111,6 +111,10 @@ public enum WebService {
      **/
     ADD_NEW_FAVORITES,
     /**
+     * Servicio para Add New Foto Favorites de pagos.
+     **/
+    ADD_NEW_FOTO_FAVORITES,
+    /**
      * Servicios CUPO
      * */
     CONSULTA_STATUS_REGISTRO_CUPO,
