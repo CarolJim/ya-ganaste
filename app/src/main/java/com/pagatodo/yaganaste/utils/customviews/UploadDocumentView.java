@@ -122,4 +122,11 @@ public class UploadDocumentView extends RelativeLayout {
         return circleImageView;
     }
 
+    public void setNewHW(int mWidth, int mHeight) {
+        RelativeLayout relativeLayout = (RelativeLayout) findViewById(R.id.layoutImg);
+        LayoutParams params = (LayoutParams) relativeLayout.getLayoutParams();
+        params.width = mWidth;
+        params.height = mHeight;
+        relativeLayout.setLayoutParams(params);
+    }
 }

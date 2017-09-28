@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
@@ -103,7 +104,10 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         nombreDest = intent.getStringExtra(DESTINATARIO);
 
         ButterKnife.bind(this);
-        imageViewCamera.setVisibilityStatus(false);
+        imageViewCamera.setVisibilityStatus(true);
+        imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.ic_status_upload));
+        //imageViewCamera.setNewHW(300, 300);
+
         textViewServ.setText(nombreComercio);
 
         String formatoPago = mReferencia;

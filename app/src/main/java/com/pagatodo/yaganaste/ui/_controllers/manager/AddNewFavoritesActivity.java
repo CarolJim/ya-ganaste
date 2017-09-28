@@ -7,6 +7,7 @@ import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.support.v4.content.ContextCompat;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
@@ -177,7 +178,9 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         paymentsCarouselPresenter.getCarouselItems();
 
         ButterKnife.bind(this);
-        imageViewCamera.setVisibilityStatus(false);
+        imageViewCamera.setVisibilityStatus(true);
+        imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.ic_status_upload));
+        //imageViewCamera.setNewHW(300, 300);
 
         // Funcionalidad para agregar el Spinner
         editListServ.imageViewIsGone(false);
