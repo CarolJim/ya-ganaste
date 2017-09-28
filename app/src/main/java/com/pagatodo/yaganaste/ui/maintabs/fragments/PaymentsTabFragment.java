@@ -291,17 +291,16 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public void changeImgageToPay() {
         CarouselItem item = paymentsTabPresenter.getCarouselItem();
-        // Glide.with(getContext()).load(item.getImageUrl()).dontAnimate().into(imgPagosServiceToPay);
-        if (idComercioKey > 0) {
-           // imgPagosServiceToPay.setVisibility(View.VISIBLE);
-        }else{
-           // imgPagosServiceToPay.setVisibility(View.INVISIBLE);
+        if (item.getFavoritos() == null) {
+            imgPagosServiceToPay.setVisibility(View.VISIBLE);
+            imgPagosServiceToPayRound.setImageResource(R.mipmap.blacksquare);
+            Glide.with(getContext()).load(item.getImageUrl()).dontAnimate().into(imgPagosServiceToPay);
+        } else {
+            imgPagosServiceToPay.setVisibility(View.INVISIBLE);
+            Glide.with(getContext()).load(item.getImageUrl()).dontAnimate().into(imgPagosServiceToPayRound);
         }
 
-        imgPagosServiceToPay.setVisibility(View.INVISIBLE);
-
-        Glide.with(getContext()).load(item.getImageUrl()).dontAnimate().into(imgPagosServiceToPayRound);
-
+        //imgPagosServiceToPay.setVisibility(View.INVISIBLE);
         imgPagosServiceToPayRound.setBorderColor(Color.parseColor(item.getColor()));
         //onEventListener.onEvent(TabActivity.EVENT_CHANGE_MAIN_TAB_VISIBILITY, false);
     }

@@ -711,7 +711,7 @@
     <string name="datos_deposito_num_agent">N° de Agente: </string>
     <string name="datos_deposito_num_afil">N° de Afiliación: </string>
 
-    <string name="string_share_deposits">¡Hola! Estos Son Mis Datos de Depósito Ya Ganaste
+    <string name="string_share_deposits">¡Hola! Estos Son Mis Datos de Depósito de mi Cuenta Ya Ganaste
         \nTitular: %1$s\nN° Celular: %2$s\nCLABE: %3$s\nN° Tarjeta: %4$s</string>
 
 
