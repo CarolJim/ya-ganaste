@@ -26,8 +26,8 @@ android {
         applicationId "com.pagatodo.yaganaste"
         minSdkVersion 16
         targetSdkVersion 25
-        versionCode 1
-        versionName "1.6.6 DES"
+        versionCode 3
+        versionName "1.6.6"
         vectorDrawables.useSupportLibrary = true
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
         multiDexEnabled true

@@ -216,6 +216,8 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     }
 
     private void changeBackTabs(View v, MovementsTab TAB) {
+        imgPagosServiceToPay.setVisibility(View.VISIBLE);
+        imgPagosServiceToPayRound.setImageResource(R.mipmap.blacksquare);
         botonRecargas.setBackground(ContextCompat.getDrawable(getContext(),
                 TAB == TAB1 ? R.drawable.tab_selected
                         : TAB == TAB2 ? R.drawable.left_tab
