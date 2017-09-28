@@ -354,13 +354,13 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         intent.setType("text/plain");
         String toShare = "";
         if (pago instanceof Recarga) {
-            toShare = "Hola Haz Realizado Una Recarga En Ya Ganaste \n"+getString(R.string.share_recargas, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
+            toShare = "¡Hola!\nSe Ha Realizado una Recarga en Ya Ganaste \n"+getString(R.string.share_recargas, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
                     pago.getComercio().getNombreComercio(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString());
         } else if (pago instanceof Servicios) {
-            toShare ="Hola Haz Pagado En Ya Ganaste \n"+getString(R.string.share_pds, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
+            toShare ="¡Hola!\nSe Ha Realizado un Pago de Servicio Desde Ya Ganaste \n"+getString(R.string.share_pds, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
                     pago.getComercio().getNombreComercio(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString());
         } else if (pago instanceof Envios) {
-            toShare ="Hola Haz Enviado Dinero En Ya Ganaste \n"+getString(R.string.share_envios, Utils.getCurrencyValue(pago.getMonto()), nombreEnvio.getText().toString(),
+            toShare ="¡Hola!\nSe Ha Realizado un Envío de Dinero Desde Ya Ganaste \n"+getString(R.string.share_envios, Utils.getCurrencyValue(pago.getMonto()), nombreEnvio.getText().toString(),
                     titleReferencia.getText().toString(), txtReferencia.getText().toString(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString())
             .concat(pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE ? "" : getString(R.string.clave_rastreo, result.getData().getClaveRastreo()));
         }
