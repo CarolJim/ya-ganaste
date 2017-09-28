@@ -134,6 +134,36 @@
                     android:layout_width="fill_parent"
                     android:layout_height="0.5px"
                     android:background="@color/margin_lines" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/detail_movements_row_height"
+                    android:layout_gravity="center"
+                    android:gravity="center"
+                    android:orientation="horizontal">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/titleBanco"
+                        style="@style/generic_text_style_2.1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="start"
+                        android:text="@string/details_bank" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txtBanco"
+                        style="@style/generic_text_style_2.1"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_weight="1"
+                        android:gravity="end"
+                        android:maxLines="1" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="fill_parent"
+                    android:layout_height="0.5px"
+                    android:background="@color/margin_lines" />
             </LinearLayout>
 
         </LinearLayout>
