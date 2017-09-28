@@ -11,7 +11,6 @@ import java.util.List;
  */
 
 public class ActualizarDatosCuentaResponse extends GenericResponse implements Serializable {
-
     private List<DatosCuentaResponse> Data;
 
     public List<DatosCuentaResponse> getData() {

@@ -6,6 +6,7 @@ import com.pagatodo.yaganaste.data.local.persistence.db.utils.MappedFrom;
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.db.MontoComercio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 
 /**
  * Created by Jordan on 21/04/2017.
@@ -51,11 +52,28 @@ public class DBContract {
     }
 
     @MappedFrom(Countries.class)
-    public static final class Paises extends DBTable{
+    public static final class Paises extends DBTable {
         public static final String TABLE = "tbl_Paises";
 
         public static final String ID = "ID";
         public static final String ID_PAIS = "ID_Pais";
         public static final String PAIS = "Pais";
+    }
+
+    @MappedFrom(DataFavoritos.class)
+    public static final class Favoritos extends DBTable {
+        public static final String TABLE = "tbl_Favoritos";
+
+        public static final String ID_FAVORITO = "ID_Favorito";
+        public static final String ID_COMERCIO = "ID_Comercio";
+        public static final String ID_CUENTA = "ID_Cuenta";
+        public static final String ID_TIPO_COMERCIO = "ID_Tipo_Comercio";
+        public static final String COLOR_MARCA = "ColorMarca";
+        public static final String IMAGEN_URL = "ImagenURL";
+        public static final String IMAGEN_URL_COMERCIO = "ImagenURLComercio";
+        public static final String IMAGEN_URL_COMERCIO_COLOR = "ImagenURLComercioColor";
+        public static final String NOMBRE = "Nombre";
+        public static final String NOMBRE_COMERIO = "NombreComercio";
+        public static final String REFERENCIA = "Referencia";
     }
 }

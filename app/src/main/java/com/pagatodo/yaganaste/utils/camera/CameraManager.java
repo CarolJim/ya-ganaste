@@ -23,12 +23,15 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
+import com.pagatodo.yaganaste.ui._controllers.manager.AddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
+import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
 import java.io.File;
 import java.io.IOException;
@@ -110,6 +113,16 @@ public class CameraManager {
         contador = new ArrayList<>();
         dataDocumnets = new ArrayList<>();
         this.iv_photo_item = iv_photo_item;
+        this.mView = mView;
+    }
+
+
+    public void initCameraUploadDocument(Activity mContext, UploadDocumentView imageViewCamera,
+                                         IListaOpcionesView mView) {
+        this.mContext = mContext;
+        contador = new ArrayList<>();
+        dataDocumnets = new ArrayList<>();
+        this.iv_photo_item = imageViewCamera.getCircleImageView();
         this.mView = mView;
     }
 

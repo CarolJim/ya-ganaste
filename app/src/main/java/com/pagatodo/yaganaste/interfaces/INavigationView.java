@@ -9,4 +9,5 @@ public interface INavigationView<T, E> extends IProgressView<E>, View {
 
     void backScreen(String event, T data);
 
+
 }

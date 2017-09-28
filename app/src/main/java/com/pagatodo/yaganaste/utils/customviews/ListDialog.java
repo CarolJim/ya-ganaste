@@ -10,7 +10,6 @@ import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsTabFragment;
@@ -19,7 +18,6 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomAdapterPagos;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 
 /**
  * Created by Jordan on 17/04/2017.
@@ -61,7 +59,11 @@ public class ListDialog extends Dialog implements View.OnClickListener, AdapterV
 
         listCarousel = list;
         for (CarouselItem item : list) {
-            mList.add(item.getComercio().getNombreComercio().trim());
+            if(item.getComercio()!=null) {
+                mList.add(item.getComercio().getNombreComercio().trim());
+            }else if (item.getFavoritos()!=null){
+                mList.add(item.getFavoritos().getNombre().trim());
+            }
         }
     }
 

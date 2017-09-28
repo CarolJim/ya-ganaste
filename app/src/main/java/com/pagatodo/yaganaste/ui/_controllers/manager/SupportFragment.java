@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.view.View;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
@@ -78,6 +79,12 @@ public abstract class SupportFragment extends GenericFragment {
     protected List<Fragment> getFragments() {
         return mSupportComponent.getFragments();
 
+    }
+
+    protected void showBack(boolean isBackShowing) {
+        if (getActivity() instanceof ToolBarActivity) {
+            ((ToolBarActivity)getActivity()).showBack(isBackShowing);
+        }
     }
 
 }

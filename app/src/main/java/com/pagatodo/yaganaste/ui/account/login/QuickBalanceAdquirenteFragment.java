@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
+import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -9,6 +10,8 @@ import android.text.Html;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.animation.AlphaAnimation;
+import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
 
@@ -17,10 +20,15 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
+import com.pagatodo.yaganaste.interfaces.IPurseView;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.CardBackAdquiriente;
+import com.pagatodo.yaganaste.ui.account.CardBackAdquirienteDongle;
+import com.pagatodo.yaganaste.ui.account.CardCoverAdquiriente;
+import com.pagatodo.yaganaste.ui.account.CardCoverAdquirienteDongle;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -48,9 +56,11 @@ import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
  */
 
 public class QuickBalanceAdquirenteFragment extends GenericFragment implements IBalanceView,
-        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener {
-
+        SwipeRefreshLayout.OnRefreshListener, View.OnClickListener , IPurseView {
+    private View transparentBG;
+    private AlphaAnimation fading;
     View rootView;
+    View rootViewfragment;
 
     @BindView(R.id.txtUserName)
     StyleTextView txtUserName;
@@ -74,6 +84,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     AppCompatImageView imgArrowBack;
 
     private AccountPresenterNew accountPresenter;
+    private AccountPresenterNew accountPresenterdongle;
     private ILoginContainerManager loginContainerManager;
     private IQuickBalanceManager quickBalanceManager;
     private Preferencias prefs = App.getInstance().getPrefs();
@@ -89,14 +100,22 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
+        accountPresenterdongle = ((AccountActivity) getActivity()).getPresenter();
+
+
         loginContainerManager = ((QuickBalanceContainerFragment) getParentFragment()).getLoginContainerManager();
         quickBalanceManager = ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager();
+        accountPresenter.setPurseReference(this);
+
     }
 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_quick_balance_adquirente, container, false);
+
+                rootViewfragment = inflater.inflate(R.layout.fragment_quick_balance_adquirente, container, false);
+
+        return rootViewfragment;
     }
 
     @Override
@@ -106,6 +125,23 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
             accountPresenter.setIView(this);
         }
         initViews();
+        final View couchMark = view.findViewById(R.id.llsaldocontenedor);
+        couchMark.setVisibility(View.VISIBLE);
+        couchMark.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                accountPresenter.flipCard(R.id.llsaldo, CardBackAdquiriente.newInstance(accountPresenter));
+            }
+        });
+
+        final View couchMarkdongle = view.findViewById(R.id.llsaldocontenedordongle);
+        couchMarkdongle.setVisibility(View.VISIBLE);
+        couchMarkdongle.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                accountPresenter.flipCard(R.id.llsaldodongle, CardBackAdquirienteDongle.newInstance(accountPresenter));
+            }
+        });
     }
 
     @Override
@@ -146,7 +182,13 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         txtDateAdqLastUpdate.setText(String.format(getString(R.string.last_date_update), dateLastUpdateAdq));
         txtBalanceReembolsar.setText(Utils.getCurrencyValue(balaceAdq));
     }
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter));
+        accountPresenter.loadCardCover(R.id.llsaldodongle, CardCoverAdquirienteDongle.newInstance(accountPresenter));
 
+    }
     @Override
     public void onRefresh() {
 
@@ -229,5 +271,83 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     @Override
     public void backScreen(String event, Object data) {
         quickBalanceManager.backPage();
+    }
+
+    @Override
+    public void flipCard(int container, Fragment fragment, boolean isBackShown) {
+        if(isBackShown)
+        {
+            getActivity().getFragmentManager().popBackStack();
+            return;
+        }
+        getActivity().getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+                        R.animator.card_flip_right_in,
+                        R.animator.card_flip_right_out,
+                        R.animator.card_flip_left_in,
+                        R.animator.card_flip_left_out)
+                .replace(container, fragment)
+                .addToBackStack(null)
+                .commit();
+        // TrackingUtils.doAnalyticsTracking(MONEDERO_PAGAR_LBL);
+    }
+
+    @Override
+    public void loadCardCover(int container, Fragment fragment) {
+        getActivity().getFragmentManager()
+                .beginTransaction()
+                .setCustomAnimations(
+                        R.animator.card_flip_right_in,
+                        R.animator.card_flip_right_out,
+                        R.animator.card_flip_left_in,
+                        R.animator.card_flip_left_out)
+                .replace(container, fragment)
+                .addToBackStack(null)
+                .commit();
+    }
+
+    @Override
+    public void changeBGVisibility(final boolean  isVisible) {
+        float start = isVisible ? 1.0f : 0.0f;
+        float end = isVisible ? 0.0f : 1.0f;
+
+        fading = new AlphaAnimation(start, end);
+        fading.setDuration(getResources().getInteger(R.integer.card_flip_time_full));
+        fading.setAnimationListener(new Animation.AnimationListener() {
+            @Override
+            public void onAnimationStart(Animation animation) {
+                if(!isVisible)
+                    transparentBG.setVisibility(View.VISIBLE);
+            }
+
+            @Override
+            public void onAnimationEnd(Animation animation) {
+                if(isVisible)
+                    transparentBG.setVisibility(View.GONE);
+            }
+
+            @Override
+            public void onAnimationRepeat(Animation animation) {
+
+            }
+        });
+//       transparentBG.startAnimation(fading);
+    }
+
+    @Override
+    public boolean isAnimationAble() {
+        if(fading == null)
+            return true;
+
+        if(fading.hasStarted())
+        {
+            if(fading.hasEnded())
+                return true;
+            else
+                return false;
+        }
+        else
+            return true;
     }
 }

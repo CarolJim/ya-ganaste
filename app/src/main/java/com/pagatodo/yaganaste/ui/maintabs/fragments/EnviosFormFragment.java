@@ -90,7 +90,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
     TransferType selectedType;
     IEnviosPresenter enviosPresenter;
     private String nombreDestinatario;
-    private String referenciaNumber;
+    private String referenciaNumber, referenceFavorite;
     int keyIdComercio;
     int maxLength;
     private boolean isCuentaValida = true;
@@ -109,6 +109,10 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             tab = TAB3;
             paymentsTabPresenter = ((PaymentsTabFragment) getParentFragment()).getPresenter();
             comercioItem = paymentsTabPresenter.getCarouselItem().getComercio();
+            favoriteItem = paymentsTabPresenter.getCarouselItem().getFavoritos();
+            if (comercioItem == null && favoriteItem != null) {
+                comercioItem = paymentsTabPresenter.getComercioById(favoriteItem.getIdComercio());
+            }
             keyIdComercio = comercioItem.getIdComercio();
             enviosPresenter = new EnviosPresenter(this);
         } catch (Exception e) {
@@ -171,7 +175,20 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
         tipoEnvio.setOnItemSelectedListener(this);
         amountToSend.addTextChangedListener(new NumberTextWatcher(amountToSend));
         receiverName.setSingleLine();
-
+        if (favoriteItem != null) {
+            receiverName.setText(favoriteItem.getNombre());
+            switch (favoriteItem.getReferencia().length()) {
+                case 10:
+                    tipoEnvio.setSelection(NUMERO_TELEFONO.getId());
+                    break;
+                case 16:
+                    tipoEnvio.setSelection(NUMERO_TARJETA.getId());
+                    break;
+                case 18:
+                    tipoEnvio.setSelection(CLABE.getId());
+                    break;
+            }
+        }
     }
 
     @Override
@@ -267,12 +284,9 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
 
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-
         layout_cardNumber.setVisibility(View.VISIBLE);
         cardNumber.setText("");
         cardNumber.removeTextChangedListener();
-
-
         InputFilter[] fArray = new InputFilter[1];
 
         if (position == NUMERO_TARJETA.getId()) {
@@ -288,6 +302,9 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             layoutImageContact.setVisibility(View.GONE);
             layoutImageContact.setOnClickListener(null);
             selectedType = NUMERO_TARJETA;
+            if (favoriteItem != null && favoriteItem.getReferencia().length() == 16) {
+                referenceFavorite = favoriteItem.getReferencia();
+            }
         } else if (position == NUMERO_TELEFONO.getId()) {
             maxLength = 12;
             cardNumber.setHint(getString(R.string.transfer_phone_cellphone));
@@ -299,13 +316,20 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             }
             cardNumber.addTextChangedListener(phoneTextWatcher);
             selectedType = NUMERO_TELEFONO;
+            if (favoriteItem != null && favoriteItem.getReferencia().length() == 10) {
+                referenceFavorite = favoriteItem.getReferencia();
+            }
         } else if (position == CLABE.getId()) {
             maxLength = 22;
             cardNumber.setHint(getString(R.string.transfer_cable));
-            cardNumber.addTextChangedListener(new NumberClabeTextWatcher(cardNumber));
+            NumberClabeTextWatcher textWatcher = new NumberClabeTextWatcher(cardNumber);
+            cardNumber.addTextChangedListener(textWatcher);
             layoutImageContact.setVisibility(View.GONE);
             layoutImageContact.setOnClickListener(null);
             selectedType = CLABE;
+            if (favoriteItem != null && favoriteItem.getReferencia().length() == 18) {
+                referenceFavorite = favoriteItem.getReferencia();
+            }
         } else {
             maxLength = 2;
             cardNumber.setHint("");
@@ -313,10 +337,14 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             layoutImageContact.setVisibility(View.GONE);
             layoutImageContact.setOnClickListener(null);
             selectedType = null;
+            referenceFavorite = null;
         }
 
         fArray[0] = new InputFilter.LengthFilter(maxLength);
         cardNumber.setFilters(fArray);
+        if (referenceFavorite != null) {
+            cardNumber.setText(referenceFavorite);
+        }
     }
 
     @Override

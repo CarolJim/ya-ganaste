@@ -28,6 +28,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
 import com.pagatodo.yaganaste.utils.FontCache;
+import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
@@ -49,12 +50,12 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     TextView txtNameTitular;
     @BindView(R.id.txtNumberCard)
     TextView txtNumberCard;
+    @BindView(R.id.txtCellPhone)
+    TextView txtCellPhone;
     @BindView(R.id.txtCableNumber)
     TextView txtCableNumber;
     @BindView(R.id.btnDepositar)
     Button btnDepositar;
-    @BindView(R.id.txtNumberTitle)
-    TextView txtNumberTitle;
 
     private View rootView;
     String mensaje;
@@ -99,12 +100,26 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
         initViews();
+        UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
+
+        String nombreprimerUser;
+        String apellidoMostrarUser;
+        if (userData.getPrimerApellido().isEmpty()){
+            apellidoMostrarUser=userData.getSegundoApellido();
+        }else {
+            apellidoMostrarUser=userData.getPrimerApellido();
+        }
+        nombreprimerUser= StringUtils.getFirstName(userData.getNombre());
+        if (nombreprimerUser.isEmpty()){
+            nombreprimerUser=userData.getNombre();
+        }
 
         UsuarioClienteResponse usuario = SingletonUser.getInstance().getDataUser().getUsuario();
-        String name = usuario.getNombre().concat(SPACE).concat(usuario.getPrimerApellido()).concat(SPACE).concat(usuario.getSegundoApellido());
+        //String name = usuario.getNombre().concat(SPACE).concat(usuario.getPrimerApellido()).concat(SPACE).concat(usuario.getSegundoApellido());
 
+        //txtNameTitular.setText(name);
+        String name=nombreprimerUser+" "+apellidoMostrarUser;
         txtNameTitular.setText(name);
-        txtNumberTitle.setText(getString(R.string.datos_depsito_numero_celular));
 
         String celPhone = "";
         String clabe = "";
@@ -116,12 +131,11 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             clabe = cuenta.getCLABE();
         }
         txtCableNumber.setText(clabe);
-        txtNumberCard.setText(celPhone);
+        txtCellPhone.setText(celPhone);
+        txtNumberCard.setText(cardNumber);
         printCard(cardNumber);
-        mensaje = getString(R.string.datos_deposito_titular).concat(SPACE).concat(name)
-                .concat("\n").concat(getString(R.string.datos_depsito_numero_celular)).concat(SPACE).concat(celPhone)
-                .concat("\n").concat(getString(R.string.datos_deposito_num_card)).concat(SPACE).concat(cardNumber)
-                .concat("\n").concat(getString(R.string.datos_deposito_clabe)).concat(SPACE).concat(clabe);
+
+        mensaje = getString(R.string.string_share_deposits, name, celPhone, clabe, cardNumber);
 
     }
 
@@ -157,7 +171,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     @Override
     public void onResume() {
         super.onResume();
-        Log.e("Tetst", "Entre on resumen ");
+        ((ToolBarActivity)getActivity()).setVisibilityPrefer(false);
         if (a == 100) {
             imageView.setVisibility(View.GONE);
             a = 0;

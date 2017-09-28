@@ -201,7 +201,7 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:focusableInTouchMode="false"
-                            android:visibility="gone"
+                            android:visibility="visible"
                             app:formato="text"
                             app:hintText="@string/county"
                             app:imageIsGone="false"

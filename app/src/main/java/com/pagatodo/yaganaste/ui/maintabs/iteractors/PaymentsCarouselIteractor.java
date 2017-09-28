@@ -7,6 +7,7 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.net.ApiAdtvo;
@@ -46,13 +47,27 @@ public class PaymentsCarouselIteractor implements IPaymentsCarouselIteractor, IR
 
     @Override
     public void getCatalogosFromDB(int tab_id) {
-
         List<ComercioResponse> catalogos = catalogsDbApi.getComerciosList(tab_id);
         if (catalogos.size() > 0) {
             carouselPresenter.onSuccesDBObtenerCatalogos(catalogos);
         } else {
             carouselPresenter.onErrorService();
         }
+    }
+
+    @Override
+    public void getFavoritesFromService() {
+        try {
+            ApiAdtvo.consultarFavoritos(this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void getFavoritesFromDB(int tabID) {
+        List<DataFavoritos> catalogos = catalogsDbApi.getFavoritesList(tabID);
+        carouselPresenter.onSuccessDBFavorites(catalogos);
     }
 
     @Override
@@ -67,6 +82,9 @@ public class PaymentsCarouselIteractor implements IPaymentsCarouselIteractor, IR
         switch (dataSourceResult.getWebService()) {
             case OBTENER_CATALOGOS:
                 carouselPresenter.onSuccessWSObtenerCatalogos(dataSourceResult);
+                break;
+            case OBTENER_FAVORITOS:
+                carouselPresenter.onSuccessWSFavorites(dataSourceResult);
                 break;
             default:
                 break;

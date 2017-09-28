@@ -200,6 +200,8 @@ public class ReflectionUtils {
             return cursor.getFloat(cursor.getColumnIndex(currentColumn));
         } else if (name.equals(double.class.getSimpleName()) || name.equals(Double.class.getSimpleName())) {
             return Double.valueOf(cursor.getString(cursor.getColumnIndex(currentColumn)));
+        } else if (name.equals(long.class.getSimpleName()) || name.equals(Long.class.getSimpleName())) {
+            return Long.valueOf(cursor.getLong(cursor.getColumnIndex(currentColumn)));
         } else {
             return cursor.getString(cursor.getColumnIndex(currentColumn));
         }

@@ -96,6 +96,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GE
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_SESSION_EXPIRED;
+import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
@@ -140,7 +141,6 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiAdtvo.iniciarSesionSimple(request, this);
             SingletonUser.getInstance().setCardStatusId(null);
         } catch (OfflineException e) {
-
             accountManager.onError(INICIAR_SESION_SIMPLE, App.getContext().getString(R.string.no_internet_access));
         }
     }
@@ -412,6 +412,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
 
             case CERRAR_SESION:
                 RequestHeaders.setTokensesion("");//Reseteamos el token de sesión
+                prefs.saveDataBool(CONSULT_FAVORITE, false); //Limpiamos bandera de descarga favoritos
                 if (logOutBefore) {
                     logOutBefore = false;
                     switch (this.operationAccount) {
@@ -645,7 +646,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 }
                 accountManager.goToNextStepAccount(stepByUserStatus, null); // Enviamos al usuario a la pantalla correspondiente.
             } else { // No es usuario
-                RequestHeaders.setUsername("");
+                if (RequestHeaders.getTokenauth().isEmpty()) {
+                    RequestHeaders.setUsername("");
+                }
                 accountManager.onError(response.getWebService(), App.getContext().getString(R.string.usuario_no_existe));
             }
         } else {

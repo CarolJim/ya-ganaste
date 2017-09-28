@@ -7,6 +7,7 @@ import com.pagatodo.yaganaste.data.local.persistence.db.dao.GenericDao;
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.db.MontoComercio;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -68,6 +69,29 @@ public class CatalogsDbApi {
         genericDao.close();
     }
 
+    public static void insertFavorites(List<DataFavoritos> favorites) {
+        genericDao.open();
+        genericDao.deleteAll(DataFavoritos.class);
+        for (DataFavoritos favorite : favorites) {
+            genericDao.insert(favorite);
+        }
+        genericDao.close();
+    }
+
+    public static void insertNewFavorites(List<DataFavoritos> favorites) {
+        genericDao.open();
+        for (DataFavoritos favorite : favorites) {
+            genericDao.insert(favorite);
+        }
+        genericDao.close();
+    }
+
+    public static void insertFavorite(DataFavoritos favorite) {
+        genericDao.open();
+        genericDao.insert(favorite);
+        genericDao.close();
+    }
+
     public static List<ComercioResponse> getComerciosList(int comercioType) {
         genericDao.open();
         List<ComercioResponse> comerciosRespose = new ArrayList<>();
@@ -95,7 +119,41 @@ public class CatalogsDbApi {
         return comerciosRespose;
     }
 
-    public static ArrayList<Countries> getPaisesList(){
+    public static ComercioResponse getComercioById(long comercioType) {
+        genericDao.open();
+        ComercioResponse comerciosRespose = genericDao.getByQuery(ComercioResponse.class, DBContract.Comercios.ID_COMERCIO + " = " + comercioType);
+        List<MontoComercio> montosComercio = genericDao.getListByQuery(MontoComercio.class,
+                DBContract.MontosComercio.ID_COMERCIO + " = '" + comerciosRespose.getIdComercio() + "'");
+        List<Double> montos = new ArrayList<>();
+        for (MontoComercio montoComercio : montosComercio) {
+            montos.add(montoComercio.getMonto());
+        }
+        comerciosRespose.setListaMontos(montos);
+        genericDao.close();
+        return comerciosRespose;
+    }
+
+    public static List<DataFavoritos> getFavoritesList(int comercioType) {
+        genericDao.open();
+        List<DataFavoritos> dataFavorites= new ArrayList<>();
+        List<DataFavoritos> favorites = genericDao.getListByQueryOrderBy(DataFavoritos.class,
+                DBContract.Favoritos.ID_TIPO_COMERCIO + " = " + comercioType, DBContract.Favoritos.ID_FAVORITO);
+        for (DataFavoritos dataFav : favorites) {
+            List<MontoComercio> montosComercio = genericDao.getListByQuery(MontoComercio.class,
+                    DBContract.MontosComercio.ID_COMERCIO + " = '" +
+                            dataFav.getIdComercio() + "'");
+            List<Double> montos = new ArrayList<>();
+            for (MontoComercio montoComercio : montosComercio) {
+                montos.add(montoComercio.getMonto());
+            }
+            dataFav.setListaMontos(montos);
+            dataFavorites.add(dataFav);
+        }
+        genericDao.close();
+        return favorites;
+    }
+
+    public static ArrayList<Countries> getPaisesList() {
         genericDao.open();
         ArrayList<Countries> paises = genericDao.getArrayListByQueryOrderBy(Countries.class, DBContract.Paises.ID, null);
         genericDao.close();

@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClient
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -146,8 +147,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
         mContext = this;
 
-        System.gc();
-
         // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
         checkDataCard();
     }
@@ -164,6 +163,12 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     protected void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
+    }
+
+    @Override
+    public void onAttachFragment(Fragment fragment) {
+        super.onAttachFragment(fragment);
+        showBack(!(fragment instanceof ListaOpcionesFragment));
     }
 
     @Override

@@ -103,6 +103,14 @@ public enum WebService {
      **/
     ESTATUS_CUENTA,
     /**
+     * Servicio para Add Favorites de pagos.
+     **/
+    ADD_FAVORITES,
+    /**
+     * Servicio para Add New Favorites de pagos.
+     **/
+    ADD_NEW_FAVORITES,
+    /**
      * Servicios CUPO
      * */
     CONSULTA_STATUS_REGISTRO_CUPO,
@@ -110,10 +118,8 @@ public enum WebService {
     CARGA_DOCUMENTOS_CUPO,
     OBTENER_ESTADO_DOCUMENTOS_CUPO,
     ACTUALIZA_DOCUMENTOS_CUPO,
-    ACTUALIZA_REFERENCIAS
-
-
-
-
+    ACTUALIZA_REFERENCIAS,
+    /** Servicios para DataFavoritos */
+    OBTENER_FAVORITOS
 }
 

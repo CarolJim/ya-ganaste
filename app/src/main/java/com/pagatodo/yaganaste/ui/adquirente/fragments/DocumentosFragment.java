@@ -185,12 +185,12 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             lnr_help.setVisibility(VISIBLE);
             initSetClickableStatusDocs();
             btnWeNeedSmFilesNext.setVisibility(View.INVISIBLE);
+
             refreshContent();
         } else {     // si no se han enviado los documentos
             initSetClickableDocs();
         }
         if (mExisteDocs){
-
             btnRegresar.setVisibility(View.GONE);
             lnr_buttons.setVisibility(View.GONE);
         }
@@ -420,6 +420,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             }
             bitmap = null;
             btnWeNeedSmFilesNext.setVisibility(VISIBLE);
+            btnRegresar.setVisibility(VISIBLE);
+            lnr_buttons.setVisibility(VISIBLE);
+            swipeRefreshLayout.setEnabled(false);
         }
     }
 
@@ -577,9 +580,12 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             } else {
                 idDrawableStatus = R.drawable.ic_wait;
             }
-
+            BitmapFactory.Options options = new BitmapFactory.Options();
+            options.inScaled = false;
+            options.inSampleSize = 1; // make sure pixels are 1:1
+            options.inPreferQualityOverSpeed = true;
             bitmap = BitmapFactory.decodeResource(App.getContext().getResources(),
-                    idDrawableStatus);
+                    idDrawableStatus,options);
 
             switch (tipoDoc) {
                 case DOC_ID_FRONT:
@@ -800,6 +806,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             swipeRefreshLayout.setRefreshing(true);
         }
         adqPresenter.getEstatusDocs();
+        lnr_buttons.setVisibility(GONE);
+        swipeRefreshLayout.setEnabled(true);
     }
 
 }

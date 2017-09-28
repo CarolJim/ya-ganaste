@@ -20,6 +20,7 @@ import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentSuccessManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentSuccessPresenter;
@@ -41,35 +42,30 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.R.attr.data;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
  * Created by Jordan on 27/04/2017.
  */
 
-public class PaymentSuccessFragment extends GenericFragment implements PaymentSuccessManager, View.OnClickListener {
+public class PaymentSuccessFragment extends SupportFragment implements PaymentSuccessManager,
+        View.OnClickListener {
 
 
     @BindView(R.id.txt_paymentTitle)
     TextView title;
     @BindView(R.id.txt_importe)
     MontoTextView importe;
-    @BindView(R.id.layoutComision)
-    LinearLayout layoutComision;
-    @BindView(R.id.txtComision)
-    MontoTextView txtComision;
-    @BindView(R.id.comisionReferenciaText)
-    TextView comisionReferenciaText;
     @BindView(R.id.titleReferencia)
     TextView titleReferencia;
     @BindView(R.id.txtReferencia)
     TextView txtReferencia;
-    @BindView(R.id.imgLogoPago)
-    ImageView imgLogoPago;
     @BindView(R.id.txtAutorizacion)
     TextView autorizacion;
     @BindView(R.id.txtFecha)
@@ -86,12 +82,29 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
     StyleButton btnContinueEnvio;
     @BindView(R.id.layoutFavoritos)
     LinearLayout layoutFavoritos;
+    @BindView(R.id.txtCompania)
+    TextView txtCompania;
+    @BindView(R.id.nombreEnvio)
+    TextView nombreEnvio;
+
+
+    @BindView(R.id.layout_enviado)
+    LinearLayout layoutEnviado;
+
+    @BindView(R.id.layout_compania)
+    LinearLayout layoutCompania;
+
+
+    @BindView(R.id.layout_addfavorites)
+    LinearLayout addFavorites;
+
     Payments pago;
     EjecutarTransaccionResponse result;
     /****/
     IPaymentsSuccessPresenter presenter;
     private View rootview;
     private boolean isMailAviable = false;
+    ImageView imageshae;
 
     public static PaymentSuccessFragment newInstance(Payments pago, EjecutarTransaccionResponse result) {
         PaymentSuccessFragment fragment = new PaymentSuccessFragment();
@@ -108,17 +121,6 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
         pago = (Payments) getArguments().getSerializable("pago");
         result = (EjecutarTransaccionResponse) getArguments().getSerializable("result");
         presenter = new PaymentSuccessPresenter(this);
-
-    }
-
-    @Override
-    public void onStart() {
-        super.onStart();
-    }
-
-    @Override
-    public void onStop() {
-        super.onStop();
     }
 
     @Override
@@ -135,40 +137,46 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
 
 
         if (pago instanceof Recarga) {
+            layoutEnviado.setVisibility(View.GONE);
             title.setText(R.string.title_recarga_success);
             Double comision = result.getData().getComision();
-            if (comision > 0) {
+            /*if (comision > 0) {
                 layoutComision.setVisibility(View.VISIBLE);
                 txtComision.setText(Utils.getCurrencyValue(comision));
             } else {
                 layoutComision.setVisibility(View.INVISIBLE);
-            }
+            }*/
 
             if (pago.getComercio().getIdComercio() == 7) {
-                titleReferencia.setText(getString(R.string.tag_number) + ":");
+                titleReferencia.setText(getString(R.string.tag_number));
             } else {
-                titleReferencia.setText(R.string.txt_phone);
+                // titleReferencia.setText(R.string.details_telefono);
+                titleReferencia.setText("Teléfono");
 
             }
             layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             isMailAviable = true;
+            txtCompania.setText(pago.getComercio().getNombreComercio());
         } else if (pago instanceof Servicios) {
+            layoutEnviado.setVisibility(View.GONE);
             title.setText(R.string.title_servicio_success);
-            layoutComision.setVisibility(View.VISIBLE);
-            titleReferencia.setText(R.string.ferencia_txt);
+            //layoutComision.setVisibility(View.VISIBLE);
+            titleReferencia.setText(R.string.txt_referencia_servicio);
             Double comision = result.getData().getComision();
             String textComision = String.format("%.2f", comision);
             textComision = textComision.replace(",", ".");
-            txtComision.setText(textComision);
+            //txtComision.setText(textComision);
             layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             isMailAviable = true;
+            txtCompania.setText(pago.getComercio().getNombreComercio());
         } else if (pago instanceof Envios) {
+            layoutCompania.setVisibility(View.GONE);
             title.setText(R.string.title_envio_success);
-            txtComision.setVisibility(View.GONE);
-            comisionReferenciaText.setText("A:");
-            titleReferencia.setText(((Envios) pago).getNombreDestinatario());
+            //txtComision.setVisibility(View.GONE);
+            //comisionReferenciaText.setText("A:");
+            nombreEnvio.setText(((Envios) pago).getNombreDestinatario());
             layoutMail.setVisibility(View.VISIBLE);
             layoutFavoritos.setVisibility(View.GONE);
             String fullName = ((Envios) pago).getNombreDestinatario();
@@ -177,6 +185,8 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
                             + " " + StringUtils.formatSingleName(fullName)
                             + " " + getContext().getResources().getString(R.string.envia_comprobante_opcional));
             isMailAviable = true;
+
+            titleReferencia.setText(((Envios) pago).getTipoEnvio().getShortName());
         }
 
         String text = String.format("%.2f", pago.getMonto());
@@ -202,7 +212,7 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
             formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
         } else if (pago instanceof Envios) {
             if (formatoPago.length() == 16 || formatoPago.length() == 15) {
-                formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4,4,4,4), '*', formatoPago.length() -12);
+                formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4, 4, 4, 4), '*', formatoPago.length() - 12);
             } else {
                 formatoPago = StringUtils.formatoPagoMedios(formatoPago);
             }
@@ -210,31 +220,31 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
 
 
         txtReferencia.setText(formatoPago);
-        Glide.with(getContext()).load(pago.getComercio().getLogoURL())
-                .placeholder(R.mipmap.logo_ya_ganaste)
-                .error(R.mipmap.icon_tab_promos)
-                .dontAnimate().into(imgLogoPago);
 
         autorizacion.setText(StringUtils.formatAutorization(result.getData().getNumeroAutorizacion()));
         SimpleDateFormat dateFormatH = new SimpleDateFormat("HH:mm:ss");
 
-       // fecha.setText(DateUtil.getBirthDateCustomString(Calendar.getInstance()));
+        // fecha.setText(DateUtil.getBirthDateCustomString(Calendar.getInstance()));
         fecha.setText(DateUtil.getPaymentDateSpecialCustom(Calendar.getInstance()));
         hora.setText(dateFormatH.format(new Date()) + " hrs");
 
         btnContinueEnvio.setOnClickListener(this);
+        imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
+        imageshae.setVisibility(View.VISIBLE);
+        imageshae.setOnClickListener(this);
+        showBack(false);
     }
 
     @Override
     public void validateMail() {
-        String mail = editMail.getText().toString().trim();
+        String mail = editMail.getText().trim();
 
         if (!TextUtils.isEmpty(mail)) {
             if (ValidateForm.isValidEmailAddress(mail)) {
                 showLoader(getString(R.string.procesando_enviando_email_loader));
-                if(pago instanceof Envios){
+                if (pago instanceof Envios) {
                     presenter.sendTicketEnvio(mail, result.getData().getIdTransaccion());
-                }else {
+                } else {
                     presenter.sendTicket(mail, result.getData().getIdTransaccion());
                 }
             } else {
@@ -326,6 +336,37 @@ public class PaymentSuccessFragment extends GenericFragment implements PaymentSu
             } else {
                 finalizePayment();
             }
+        } else if (v.getId() == R.id.deposito_Share) {
+            shareContent();
         }
+    }
+
+    private void shareContent() {
+
+        Intent intent = new Intent(Intent.ACTION_SEND);
+        intent.setType("text/plain");
+        String toShare = "";
+        if (pago instanceof Recarga) {
+            toShare = getString(R.string.share_recargas, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
+                    pago.getComercio().getNombreComercio(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString());
+        } else if (pago instanceof Servicios) {
+            toShare = getString(R.string.share_pds, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
+                    pago.getComercio().getNombreComercio(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString());
+        } else if (pago instanceof Envios) {
+            toShare = getString(R.string.share_envios, Utils.getCurrencyValue(pago.getMonto()), nombreEnvio.getText().toString(),
+                    titleReferencia.getText().toString(), txtReferencia.getText().toString(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString())
+            .concat(pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE ? "" : getString(R.string.clave_rastreo, result.getData().getClaveRastreo()));
+        }
+        intent.putExtra(Intent.EXTRA_TEXT, toShare);
+        startActivity(Intent.createChooser(intent, "Compartir Con: "));
+
+
+
+
+    }
+
+    public void hideAddFavorites() {
+        LinearLayout ll_favorites = (LinearLayout) rootview.findViewById(R.id.layout_addfavorites);
+        ll_favorites.setVisibility(View.GONE);
     }
 }

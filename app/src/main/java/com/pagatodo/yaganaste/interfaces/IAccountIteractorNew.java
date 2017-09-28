@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.interfaces;
 
+import android.app.Fragment;
+
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
@@ -9,6 +11,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequ
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 
 import java.util.ArrayList;
+import java.util.List;
 
 /**
  * Created by flima on 22/03/2017.
@@ -58,5 +61,6 @@ public interface IAccountIteractorNew<T> {
     ArrayList<Countries> getPaisesList();
 
     void logoutSinRespuesta();
+
 }
 

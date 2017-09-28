@@ -5,17 +5,14 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
 import android.os.Bundle;
-import android.os.Environment;
 import android.provider.ContactsContract;
 import android.support.annotation.Nullable;
 import android.text.InputFilter;
 import android.text.InputType;
-import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.inputmethod.EditorInfo;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -35,12 +32,6 @@ import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
-import java.io.File;
-import java.io.FileInputStream;
-import java.io.FileOutputStream;
-import java.io.IOException;
-import java.io.InputStream;
-import java.io.OutputStream;
 import java.util.List;
 
 import butterknife.BindView;
@@ -86,6 +77,10 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             tab = TAB1;
             paymentsTabPresenter = ((PaymentsTabFragment) getParentFragment()).getPresenter();
             comercioItem = paymentsTabPresenter.getCarouselItem().getComercio();
+            favoriteItem = paymentsTabPresenter.getCarouselItem().getFavoritos();
+            if (comercioItem == null && favoriteItem != null) {
+                comercioItem = paymentsTabPresenter.getComercioById(favoriteItem.getIdComercio());
+            }
             isIAVE = comercioItem.getIdComercio() == IAVE_ID;
             recargasPresenter = new RecargasPresenter(this, isIAVE);
             List<Double> montos = comercioItem.getListaMontos();
@@ -121,10 +116,9 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             recargaNumber.setFilters(fArray);
         }
 
-
         if (isIAVE) {
             recargaNumber.addTextChangedListener(new NumberTagPase(recargaNumber, maxLength));
-            recargaNumber.setHint(getString(R.string.tag_number)+" ("+longitudReferencia+" Dígitos)");
+            recargaNumber.setHint(getString(R.string.tag_number) + " (" + longitudReferencia + " Dígitos)");
             layoutImageContact.setVisibility(View.GONE);
         } else {
             recargaNumber.addTextChangedListener(new PhoneTextWatcher(recargaNumber));
@@ -150,6 +144,10 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             comisionText.setVisibility(View.GONE);
         }
         spinnerMontoRecarga.setAdapter(dataAdapter);
+
+        if (favoriteItem != null) {
+            recargaNumber.setText(favoriteItem.getReferencia());
+        }
     }
 
 

@@ -160,7 +160,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
                         android:text="Mi Cuenta"
-                        android:textSize="18sp" />
+                        />
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="17dp"
@@ -200,7 +200,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
                         android:text="Mi Tarjeta"
-                        android:textSize="18sp" />
+                         />
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="17dp"
@@ -240,7 +240,7 @@
                         android:layout_marginLeft="10dp"
                         android:layout_weight="2"
                         android:text="Ayuda"
-                        android:textSize="18sp" />
+                        />
 
                     <android.support.v7.widget.AppCompatImageView
                         android:layout_width="17dp"
