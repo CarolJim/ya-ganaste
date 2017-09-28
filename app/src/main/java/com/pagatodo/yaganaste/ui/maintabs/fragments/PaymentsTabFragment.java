@@ -92,6 +92,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     //private Animation animIn, animOut;
     private PaymentsTabPresenter paymentsTabPresenter;
     private FragmentPagerAdapter viewPAgerAdapter;
+    int idComercioKey = 0;
 
     public static PaymentsTabFragment newInstance() {
         PaymentsTabFragment paymentsTabFragment = new PaymentsTabFragment();
@@ -196,6 +197,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     }
 
     public void onBackPresed(MovementsTab TAB) {
+        imgPagosServiceToPay.setVisibility(View.VISIBLE);
         if (isOnForm) {
             showBack(false);
             setTab(TAB);
@@ -255,7 +257,13 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public void onItemSelected() {
         CarouselItem item = paymentsTabPresenter.getCarouselItem();
-        if (item.getComercio()!= null && item.getComercio().getIdComercio() == -1) {
+        if (item.getComercio() != null) {
+            idComercioKey = item.getComercio().getIdComercio();
+        } else {
+            idComercioKey = 0;
+        }
+
+        if (item.getComercio() != null && item.getComercio().getIdComercio() == -1) {
             addNewFavorite();
         } else {
             changeImgageToPay();
@@ -283,7 +291,17 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public void changeImgageToPay() {
         CarouselItem item = paymentsTabPresenter.getCarouselItem();
-        Glide.with(getContext()).load(item.getImageUrl()).dontAnimate().into(imgPagosServiceToPay);
+        // Glide.with(getContext()).load(item.getImageUrl()).dontAnimate().into(imgPagosServiceToPay);
+        if (idComercioKey > 0) {
+           // imgPagosServiceToPay.setVisibility(View.VISIBLE);
+        }else{
+           // imgPagosServiceToPay.setVisibility(View.INVISIBLE);
+        }
+
+        imgPagosServiceToPay.setVisibility(View.INVISIBLE);
+
+        Glide.with(getContext()).load(item.getImageUrl()).dontAnimate().into(imgPagosServiceToPayRound);
+
         imgPagosServiceToPayRound.setBorderColor(Color.parseColor(item.getColor()));
         //onEventListener.onEvent(TabActivity.EVENT_CHANGE_MAIN_TAB_VISIBILITY, false);
     }
@@ -316,11 +334,11 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
         if (fragmentList != null) {
             if (requestCode == NEW_FAVORITE) {
-                for(Fragment fragment : fragmentList){
-                    if(fragment instanceof  FavoritesFragmentCarousel && resultCode == RESULT_OK){
+                for (Fragment fragment : fragmentList) {
+                    if (fragment instanceof FavoritesFragmentCarousel && resultCode == RESULT_OK) {
                         try {
                             hideFavorites();
-                        } catch (Exception e){
+                        } catch (Exception e) {
                             e.printStackTrace();
                         }
                     }
