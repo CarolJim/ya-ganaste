@@ -182,6 +182,13 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         editListServ.imageViewIsGone(false);
         editListServ.setEnabled(false);
         editListServ.setFullOnClickListener(this);
+        if(current_tab2.getId()==1){
+            editListServ.setHintText(getString(R.string.details_compania));
+        } else if (current_tab2.getId() ==2){
+            editListServ.setHintText(getString(R.string.details_compania));
+        } else if (current_tab2.getId() == 3){
+            editListServ.setHintText(getString(R.string.details_bank));
+        }
 
         // Iniciamos la funcionalidad e la camara
         cameraManager = new CameraManager();

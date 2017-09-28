@@ -41,6 +41,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.app.Activity.RESULT_OK;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB1;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB2;
 import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
@@ -158,7 +159,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
         rlimgPagosServiceToPay.setOnDragListener(this);
         // txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre()));
-        txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre()) + " " + userData.getPrimerApellido());
+        txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre())/* + " " + userData.getPrimerApellido()*/);
         txtBalance.setText(StringUtils.getCurrencyValue(singletonUser.getDatosSaldo().getSaldoEmisor()));
     }
 
@@ -310,7 +311,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         if (fragmentList != null) {
             if (requestCode == NEW_FAVORITE) {
                 for(Fragment fragment : fragmentList){
-                    if(fragment instanceof  FavoritesFragmentCarousel){
+                    if(fragment instanceof  FavoritesFragmentCarousel && resultCode == RESULT_OK){
                         hideFavorites();
                     }
                 }
@@ -320,7 +321,6 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
                             || fragment instanceof EnviosFormFragment) {
                         fragment.onActivityResult(requestCode, resultCode, data);
                         break;
-
                     }
                 }
             } else if (requestCode == BARCODE_READER_REQUEST_CODE) {
@@ -332,7 +332,6 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
                 }
             }
         }
-
     }
 
     public MovementsTab getCurrenTab() {

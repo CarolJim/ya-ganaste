@@ -902,12 +902,13 @@
     <string name="details_cable">CLABE</string>
     <string name="txt_tag">Tag</string>
     <string name="details_compania">Compañía</string>
+    <string name="details_bank">Banco</string>
     <string name="details_enviado_a">Enviado a</string>
     <string name="details_telefono">Teléfono</string>
 
     <string name="close_sesion_body">Por tu Seguridad, Hemos Cerrado la Sesión Por Falta de Actividad</string>
     <string name="addFavorites">Agregar a Favoritos</string>
-    <string name="addFavoritesAlias">Alias</string>
+    <string name="addFavoritesAlias">Nombre</string>
     <string name="addFavoritesServicio">Servicio</string>
     <string name="addFavoritesReferencia">Referencia</string>
     <string name="addFavoritesErrorAlias">Es Necesario un Alias Para Proceder</string>
