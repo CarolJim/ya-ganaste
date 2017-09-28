@@ -18,10 +18,12 @@ public enum LandingActivitiesEnum {
             R.drawable.img_couch_quick_adq_1, R.drawable.img_couch_quick_adq_2),
 
     INICIO_SESION_EMISOR(3, R.drawable.img_couch_qem_back,
-            R.drawable.img_couch_quick_em_1, R.drawable.img_couch_quick_em_2),
+            R.drawable.img_couch_quick_em_1, R.drawable.img_couch_quick_em_2, R.drawable.img_couch_quick_em_3),
 
     PANTALLA_COBROS(4, 0, R.drawable.coachmark_adquirente_1,
-            R.drawable.coachmark_adquirente_2);
+            R.drawable.coachmark_adquirente_2),
+
+    INICIO_SESION_EMISOR_2(5, R.drawable.img_couch_qem_back, R.drawable.img_couch_quick_em_3);
 
     private int id;
     private int backImage;
