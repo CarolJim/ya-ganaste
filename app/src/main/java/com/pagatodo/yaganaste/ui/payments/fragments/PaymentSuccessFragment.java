@@ -6,13 +6,10 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
-import android.widget.RelativeLayout;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
@@ -21,7 +18,6 @@ import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentSuccessManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentSuccessPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsSuccessPresenter;
@@ -43,7 +39,6 @@ import java.util.Date;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.R.attr.data;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.RESULT;
@@ -139,9 +134,10 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        if(pago.isFavorite()){
+        if (pago.isFavorite()) {
             imgAddFavorite.setImageResource(R.drawable.ic_fav);
-            txtHintFavorite.setText(getString(R.string.is_favorite));
+            //txtHintFavorite.setText(getString(R.string.is_favorite));
+            txtHintFavorite.setVisibility(View.INVISIBLE);
         }
 
         if (pago instanceof Recarga) {
@@ -354,22 +350,22 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         intent.setType("text/plain");
         String toShare = "";
         if (pago instanceof Recarga) {
-            toShare = "¡Hola!\nSe Ha Realizado una Recarga en Ya Ganaste \n"+getString(R.string.share_recargas, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
+            toShare = "¡Hola!\nSe Ha Realizado una Recarga en Ya Ganaste \n" + getString(R.string.share_recargas, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
                     pago.getComercio().getNombreComercio(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString());
         } else if (pago instanceof Servicios) {
-            toShare ="¡Hola!\nSe Ha Realizado un Pago de Servicio Desde Ya Ganaste \n"+getString(R.string.share_pds, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
+            toShare = "¡Hola!\nSe Ha Realizado un Pago de Servicio Desde Ya Ganaste \n" + getString(R.string.share_pds, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
                     pago.getComercio().getNombreComercio(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString());
         } else if (pago instanceof Envios) {
-            toShare ="¡Hola!\nSe Ha Realizado un Envío de Dinero Desde Ya Ganaste \n"+getString(R.string.share_envios, Utils.getCurrencyValue(pago.getMonto()), nombreEnvio.getText().toString(),
+            toShare = "¡Hola!\nSe Ha Realizado un Envío de Dinero Desde Ya Ganaste \n" + getString(R.string.share_envios, Utils.getCurrencyValue(pago.getMonto()), nombreEnvio.getText().toString(),
                     titleReferencia.getText().toString(), txtReferencia.getText().toString(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString())
-            .concat(pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE ? "" : getString(R.string.clave_rastreo, result.getData().getClaveRastreo()));
+                    .concat(pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE ? "" : getString(R.string.clave_rastreo, result.getData().getClaveRastreo()));
         }
         intent.putExtra(Intent.EXTRA_TEXT, toShare);
         startActivity(Intent.createChooser(intent, "Compartir Con: "));
     }
 
     public void hideAddFavorites() {
-        if(!pago.isFavorite()){
+        if (!pago.isFavorite()) {
             imgAddFavorite.setImageResource(R.drawable.ic_fav);
             imgAddFavorite.setEnabled(false);
             txtHintFavorite.setText(getString(R.string.is_favorite));
