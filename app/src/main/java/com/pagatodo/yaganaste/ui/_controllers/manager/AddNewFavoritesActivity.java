@@ -216,6 +216,11 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         // editListServ.setText("TelMex");
         editTipo.setText("Envio por CLABE");
         // editRefer.setText("5534812287");
+
+        // Agregamos Flecha de Shebrom
+        editListServ.setEnabled(false);
+        editListServ.setFullOnClickListener(this);
+        editListServ.setDrawableImage(R.drawable.menu_canvas);
     }
 
     /**
