@@ -115,7 +115,7 @@ public class CarouselItem extends FrameLayout
         Glide.with(getContext()).load(imageUrl).crossFade(0).into(mImage);
 
     }
-
+//
     public CarouselItem(Context context, int resource, String color, int gestureType, ComercioResponse comercio, DataFavoritos favoritos) {
         super(context);
         this.context = context;
@@ -131,7 +131,7 @@ public class CarouselItem extends FrameLayout
             mImage.setImageDrawable(ContextCompat.getDrawable(context, drawable));
         }
     }
-
+//
     /**
      * Metodo usado solamente para crear item de nuevo favorito
      * @param context
@@ -151,7 +151,7 @@ public class CarouselItem extends FrameLayout
         mImage.setBackground(ContextCompat.getDrawable(context, drawable));
     }
 
-
+//
     public CarouselItem(Context context, String imageUrl, String color, int gestureType, ComercioResponse comercio) {
         super(context);
         this.context = context;
@@ -163,7 +163,7 @@ public class CarouselItem extends FrameLayout
         Glide.with(context).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
 
     }
-
+//*
     public CarouselItem(Context context, String imageUrl, String color, int gestureType, DataFavoritos favoritos) {
         super(context);
         this.context = context;
@@ -172,8 +172,9 @@ public class CarouselItem extends FrameLayout
         this.favoritos = favoritos;
         this.color = color;
         inflateLayout(color);
-        Glide.with(context).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
-
+        //Glide.with(context).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
+        Glide.with(getContext()).load(imageUrl).placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+                .dontAnimate().into(mImageCiruclar);
     }
 
 
