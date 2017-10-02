@@ -1,0 +1,203 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    tools:context="com.pagatodo.yaganaste.ui._controllers.manager.AddFavoritesActivity">
+
+    <include
+        android:id="@+id/toolbarLy"
+        layout="@layout/toolbar" />
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <LinearLayout
+            android:layout_width="match_parent" android:orientation="vertical"
+            android:id="@+id/layoutBorder"
+            android:layout_height="wrap_content">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center_horizontal"
+                android:text="@string/addFavorites"
+                android:textColor="@color/whiteColor"
+                android:textSize="@dimen/size_text_style_2_value"
+                android:visibility="visible" />
+
+            <LinearLayout
+                android:layout_marginTop="15dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:layout_marginBottom="25dp"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:gravity="center"
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:id="@+id/lyWeNeedSmFilesIFEfront"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:gravity="center">
+
+                    <com.pagatodo.yaganaste.utils.customviews.UploadDocumentView
+                        android:id="@+id/add_favorites_camera"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content" />
+                </LinearLayout>
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/add_favorites_foto_et"
+                    style="@style/FragmentElementWithValidation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="gone"
+                    app:formato="text"
+                    app:hintText="@string/addFavoritesReferencia"
+                    app:isSingleLine="true"
+                    app:maxLength="16" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/add_favorites_foto_error"
+                    style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible" />
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/add_favorites_alias"
+                    style="@style/FragmentElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_xsmall"
+                    app:formato="text"
+                    app:hintText="@string/addFavoritesAlias"
+                    app:imageIsGone="true"
+                    app:isSingleLine="true"
+                    app:maxLength="30" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorAliasMessage"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:visibility="visible" />
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/add_favorites_servicio"
+                    style="@style/FragmentElementWithValidation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:hintText="@string/addFavoritesServicio"
+                    app:isSingleLine="true"
+                    app:maxLength="50" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible" />
+
+                <LinearLayout
+                    android:id="@+id/add_favorites_linear_tipo"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="gone">
+
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/add_favorites_tipo"
+                        style="@style/FragmentElementWithValidation"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        app:hintText="Tipo Servicio"
+                        app:isSingleLine="true"
+                        app:maxLength="50" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                        android:id="@+id/errorConfirmaMailMessage"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:visibility="invisible" />
+                </LinearLayout>
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/add_favorites_referencia"
+                    style="@style/FragmentElementWithValidation"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:hintText="@string/addFavoritesReferencia"
+                    app:isSingleLine="true"
+                    app:maxLength="50" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorPasswordMessage"
+                    style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="invisible" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+
+    <LinearLayout
+        android:id="@+id/layoutBottom"
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_marginTop="45dp"
+        android:layout_weight="1"
+        android:gravity="center_horizontal"
+        android:orientation="vertical"
+        android:paddingBottom="@dimen/btn_navigation_bottom">
+
+
+        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            android:layout_weight="1"
+            android:gravity="center_horizontal"
+            android:text="@string/formato_password"
+            android:textColor="@color/colorAccent"
+            android:textSize="@dimen/size_text_style_2_value"
+            android:visibility="invisible" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_horizontal"
+            android:orientation="horizontal">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnCloseAddFavorites"
+                style="@style/buttonDirecctionBackSmall"
+                android:gravity="center"
+                android:text="@string/backButton" />
+
+            <android.support.v4.widget.Space
+                android:layout_width="@dimen/btns_separation"
+                android:layout_height="match_parent" />
+
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnSendAddFavoritos"
+                style="@style/buttonDirecctionNext"
+                android:gravity="center"
+                android:text="@string/nextButton" />
+
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <!--<com.pagatodo.yaganaste.utils.customviews.ProgressLayout-->
+    <!--android:id="@id/progressLayout"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:visibility="gone" />-->
+</LinearLayout>

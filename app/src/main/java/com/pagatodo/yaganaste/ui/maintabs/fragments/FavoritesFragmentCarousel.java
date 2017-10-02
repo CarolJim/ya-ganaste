@@ -5,10 +5,12 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
@@ -124,6 +126,15 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
                     paymentsTabPresenter.setCarouselItem((CarouselItem) favoriteImageAdapter.getItem(position));
                     fragment.onItemSelected();
                 }
+            }
+        });
+
+
+        carouselFav.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                Toast.makeText(getContext(), "setOnTouchListener", Toast.LENGTH_SHORT).show();
+                return false;
             }
         });
     }
