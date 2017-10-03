@@ -103,6 +103,8 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
         });
     }
 
+    boolean longClicked;
+
     @Override
     public void onResume() {
         super.onResume();
@@ -129,14 +131,35 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
             }
         });
 
+        carouselFav.setOnItemLongClickListener(new CarouselAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position, long id) {
+                Toast.makeText(getContext(), "setOnLongClickListener", Toast.LENGTH_SHORT).show();
+                longClicked = true;
+                return false;
+            }
+        });
 
         carouselFav.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
                 Toast.makeText(getContext(), "setOnTouchListener", Toast.LENGTH_SHORT).show();
+                if(longClicked){
+                    //Do whatever you want here!!
+                    longClicked = false;
+                }
                 return false;
             }
         });
+
+//        carouselFav.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                Toast.makeText(getContext(), "setOnTouchListener", Toast.LENGTH_SHORT).show();
+//
+//                return false;
+//            }
+//        });
     }
 
     @Override

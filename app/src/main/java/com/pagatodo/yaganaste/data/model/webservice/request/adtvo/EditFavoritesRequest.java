@@ -6,7 +6,7 @@ import java.io.Serializable;
  * Created by Francisco Manzo on 25/09/2017.
  */
 
-public class AddFavoritesRequest implements Serializable {
+public class EditFavoritesRequest implements Serializable {
 
     private int IdTipoComercio = 0;
     private int idTipoEnvio = 0;
@@ -15,8 +15,8 @@ public class AddFavoritesRequest implements Serializable {
     private String Referencia = "";
     private String FotoEncode = "";
 
-    public AddFavoritesRequest(int idTipoComercio, int idTipoEnvio, int idComercio, String mAlias,
-                               String mReferencia, String FotoEncode) {
+    public EditFavoritesRequest(int idTipoComercio, int idTipoEnvio, int idComercio, String mAlias,
+                                String mReferencia, String FotoEncode) {
         this.IdTipoComercio = idTipoComercio;
         this.idTipoEnvio = idTipoEnvio;
         this.IdComercio = idComercio;

@@ -179,7 +179,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
         ButterKnife.bind(this);
         imageViewCamera.setVisibilityStatus(true);
-        imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.ic_status_upload));
+        imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
         //imageViewCamera.setNewHW(300, 300);
 
         // Funcionalidad para agregar el Spinner
