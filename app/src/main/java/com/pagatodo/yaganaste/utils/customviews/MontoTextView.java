@@ -96,11 +96,11 @@ public class MontoTextView extends StyleTextView {
                             DotBottom ? index + 1 : index, lenght,
                             SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
             /*Seteamos escala de font de decimales*/
-                    text.setSpan(new RelativeSizeSpan(0.8f),
+                    text.setSpan(new RelativeSizeSpan(0.9f),
                             DotBottom ? index + 1 : index, lenght,
                             SpannableString.SPAN_EXCLUSIVE_EXCLUSIVE);
             /*Seteamos escala de font de enteros*/
-                    text.setSpan(new RelativeSizeSpan(2f),
+                    text.setSpan(new RelativeSizeSpan(1.5f),
                             0,
                             lenght - (decimalsLenght + 1)/*omitimos el punto decimal*/,
                             0); // aumentamos el tamaño

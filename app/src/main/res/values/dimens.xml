@@ -150,7 +150,7 @@
 
     <dimen name="text_custom_validation_editext_size">15px</dimen>
     <dimen name="text_custom_validation_spinner_size">15sp</dimen>
-    <dimen name="text_size_cardEmisorSelected">12sp</dimen>
+    <dimen name="text_size_cardEmisorSelected">10sp</dimen>
 
 
     <!-- Medidas de TDC home_main_tab_fragment -->
