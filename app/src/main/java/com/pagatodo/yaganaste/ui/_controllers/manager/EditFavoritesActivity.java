@@ -179,6 +179,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     private TextWatcher currentTextWatcher;
     private TextWatcher currentTextWatcherPDS;
     private TextWatcher currentWatcherEnvios;
+    int longRefer;
+    private boolean showRefEnvio;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -224,7 +226,10 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         String formatoPago = mReferencia;
 
         // Sacamos la logintud de la referencia antes del formato
-        int longRefer = mReferencia.length();
+        longRefer = mReferencia.length();
+
+        // Boolean para mostrar la referencia por 1era vez en Envio
+        showRefEnvio = true;
 
         if (current_tab == 1) {
             if (idComercio != 7) {
@@ -281,7 +286,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             }
 
             initEnviosPrefer();
-
 
             tipoEnvio.setSelection(idTipoEnvio);
             cardNumber.setText(formatoPago);
@@ -943,6 +947,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         } else if (current_tab == 3) {
             //  LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_envio_ll);
             //   taeLL.setVisibility(View.VISIBLE);
+            initEnviosPrefer();
         }
     }
 
@@ -1109,8 +1114,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     @Override
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         layout_cardNumber.setVisibility(View.VISIBLE);
-        // cardNumber.setText("");
-        // currentWatcherEnvios
+        cardNumber.removeTextChangedListener();
 
         // Hacemos el Set de la informacion del Spinner en un campo que servira como validador
         if (position == 0) {
@@ -1119,8 +1123,18 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         } else {
             editSpinner.setText("" + position);
 
+            /*
+             Si showRefEnvio es true mostramos una vez la referencia original, en elecciones
+             posterioes, cambiamos a false y siempre borramos el campo de referencia            // despues en
+            */
+            if(showRefEnvio == true){
+                showRefEnvio = false;
+            }else{
+                cardNumber.setText("");
+            }
+
             // Ocultamos el mensaje de error si ya escogimos un vaor de Envio
-            //editSpinnerError.setVisibilityImageError(false);
+            editSpinnerError.setVisibilityImageError(false);
 
             // Mostramos el error de referencia para notificarle al usuario
             editReferError.setVisibility(View.VISIBLE);
