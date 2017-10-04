@@ -191,26 +191,28 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this, false);
         paymentsCarouselPresenter.getCarouselItems();
 
-
-        ButterKnife.bind(this);
-        imageViewCamera.setVisibilityStatus(true);
-        imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
-        circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
-        RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        paramsc.setMargins(300, 30, 0, 0);
-
-
-
-        paramsc.width=100;
-        paramsc.height=100;
-        circuloimageupload.setLayoutParams(paramsc);
-
-
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int widthp = metrics.widthPixels; // ancho absoluto en pixels
 
         int paramentroT=widthp/3;
+        ButterKnife.bind(this);
+        int paramentroimgc=paramentroT/4;
+
+        int distancia=paramentroT-paramentroimgc;
+
+
+        imageViewCamera.setVisibilityStatus(true);
+        imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
+        circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
+        RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsc.setMargins(distancia, 30, 0, 0);
+        paramsc.width=paramentroimgc;
+        paramsc.height=paramentroimgc;
+        circuloimageupload.setLayoutParams(paramsc);
+
+
+
 
 
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
