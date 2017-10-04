@@ -107,6 +107,9 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
             ((QuickBalanceContainerFragment) getChildFragmentManager().findFragmentById(R.id.container)).onBackPress();
         } else {
             if (getChildFragmentManager().getBackStackEntryCount() > 0) {
+                if (getChildFragmentManager().findFragmentById(R.id.container) instanceof LoginFragment) {
+                    showBack(false);
+                }
                 popBackStack();
             } else {
                 getActivity().finish();

@@ -184,7 +184,7 @@
             android:thumb="@drawable/thumb_size"
             android:thumbOffset="15dp"
             app:text="@string/btn_send"
-            app:textSize="@dimen/size_text_style_2_value" />
+             />
     </RelativeLayout>
 
 </LinearLayout>

@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
@@ -67,6 +68,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
@@ -115,6 +117,16 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     UploadDocumentView imageViewCamera;
     @BindView(R.id.recargaNumber)
     EditText recargaNumber;
+    @BindView(R.id.layoutImg)
+    RelativeLayout relativefav;
+
+    @BindView(R.id.imgItemGalleryMark)
+    CircleImageView circuloimage;
+
+
+    @BindView(R.id.imgItemGalleryStatus)
+    CircleImageView circuloimageupload;
+
     @BindView(R.id.layoutImageContact)
     RelativeLayout layoutImageContact;
     @BindView(R.id.layoutImageContact2)
@@ -158,7 +170,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     MovementsTab current_tab2;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     private TextWatcher currentTextWatcher;
-
+    AppCompatImageView btn_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,16 +182,29 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         //  backUpResponse = intent.getExtras().getParcelableArrayList(BACK_UP_RESPONSE);
 
         current_tab = intent.getIntExtra(CURRENT_TAB_ID, 99);
-
+        btn_back= (AppCompatImageView) findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(this);
         // Iniciamos el presentes del carrousel
         this.current_tab2 = MovementsTab.getMovementById(current_tab);
         backUpResponse = new ArrayList<>();
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this, false);
         paymentsCarouselPresenter.getCarouselItems();
 
+
         ButterKnife.bind(this);
         imageViewCamera.setVisibilityStatus(true);
         imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
+        circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
+        RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsc.setMargins(300, 30, 0, 0);
+        paramsc.width=100;
+        paramsc.height=100;
+        circuloimageupload.setLayoutParams(paramsc);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.width =400;
+        params.height =400;
+        relativefav.setLayoutParams(params);
         //imageViewCamera.setNewHW(300, 300);
 
         // Funcionalidad para agregar el Spinner
@@ -380,6 +405,9 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
             case R.id.layoutImageReference:
                 Intent intent = new Intent(this, ScannVisionActivity.class);
                 this.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
+                break;
+            case R.id.btn_back:
+                finish();
                 break;
 
             default:

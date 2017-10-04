@@ -2,11 +2,15 @@ package com.pagatodo.yaganaste.ui._controllers;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.Menu;
 import android.view.View;
+import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
@@ -23,7 +27,10 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.io.Serializable;
+import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -41,6 +48,8 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     public final static String EVENT_GO_TO_FINALIZE_SUCCESS = "FINALIZAR_CANCELACION_SUCCESS";
     public final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
     CircleImageView imageView;
+    ImageView imageshare;
+
     public static Intent createIntent(@NonNull Context from, MovimientosResponse data) {
         return createIntent(from, TYPES.EMISOR, data);
     }
@@ -88,8 +97,10 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_details_em_adq);
         Bundle extras = getIntent().getExtras();
-        imageView = (CircleImageView)findViewById(R.id.imgToRight_prefe);
+        imageView = (CircleImageView) findViewById(R.id.imgToRight_prefe);
         imageView.setVisibility(View.GONE);
+        imageshare = (ImageView) findViewById(R.id.deposito_Share);
+        imageshare.setVisibility(View.VISIBLE);
         if (extras != null && extras.getSerializable(DATA) != null
                 && extras.getString(TYPE) != null) {
             Serializable serializable = extras.getSerializable(DATA);
@@ -99,6 +110,12 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                     " you should pass as extra's parameters type and DataMovimientoAdq or " +
                     "ResumenMovimientosAdqResponse");
         }
+        imageshare.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                takeScreenshot();
+            }
+        });
     }
 
     protected void loadFragment(TYPES type, Serializable data) {
@@ -114,6 +131,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     }
 
     public void loadCancelFragment(DataMovimientoAdq data) {
+        imageshare.setVisibility(View.GONE);
         loadFragment(DetailTransactionAdqCancel.newInstance(data), Direction.FORDWARD, true);
     }
 
@@ -136,5 +154,34 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         return false;
+    }
+
+    private void takeScreenshot() {
+        try {
+            View v1 = getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+            File carpeta = new File(Environment.getExternalStorageDirectory()+ getString(R.string.path_image));
+            if(!carpeta.exists()){ carpeta.mkdir(); }
+            File imageFile = new File(Environment.getExternalStorageDirectory()+ getString(R.string.path_image)+"/", System.currentTimeMillis()+".jpg");
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+            sendScreenshot(imageFile);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendScreenshot(File imageFile) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("image/jpeg");
+        Uri uri = Uri.fromFile(imageFile);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(Intent.createChooser(intent, "Compartir Con..."));
     }
 }

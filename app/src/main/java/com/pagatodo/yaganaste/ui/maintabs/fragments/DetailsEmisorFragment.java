@@ -126,9 +126,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     private MovimientosResponse movimientosResponse;
     CircleImageView imageView;
 
-
-
-
     public static DetailsEmisorFragment newInstance(@NonNull MovimientosResponse movimientosResponse) {
         DetailsEmisorFragment detailsEmisorFragment = new DetailsEmisorFragment();
         Bundle args = new Bundle();
@@ -149,10 +146,11 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         }
 
     }
-    public void setVisibilityPrefer(Boolean mBoolean){
-        if(mBoolean){
+
+    public void setVisibilityPrefer(Boolean mBoolean) {
+        if (mBoolean) {
             imageView.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             imageView.setVisibility(View.GONE);
         }
     }
@@ -214,6 +212,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                     getString(R.string.details_iave_pase) : getString(R.string.txt_phone));
 
             txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+            txtRefernciaDescripcion.setSelected(true);
             layoutConcepto.setVisibility(GONE);
         }
         btnVolver.setOnClickListener(this);
@@ -233,6 +232,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
             case RECARGA://1
                 layoutReferencia.setVisibility(VISIBLE);
                 txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+                txtRefernciaDescripcion.setSelected(true);
 
                 if (movimientosResponse.getIdComercio() == 7) {
                     txtReferenciaTitle.setText(getString(R.string.txt_tag));
@@ -253,11 +253,13 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
                 layoutReferencia.setVisibility(VISIBLE);
                 txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+                txtRefernciaDescripcion.setSelected(true);
                 break;
             case TRASPASO_MISMO_BANCO_CARGO://3
                 layoutReferencia.setVisibility(VISIBLE);
                 txtReferenciaTitle.setText(getReferencuaTitleType(movimientosResponse.getReferencia()));
                 txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+                txtRefernciaDescripcion.setSelected(true);
                 layoutConcepto.setVisibility(VISIBLE);
                 txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
                 break;
@@ -269,6 +271,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 layoutReferencia.setVisibility(VISIBLE);
                 txtReferenciaTitle.setText(getReferencuaTitleType(movimientosResponse.getReferencia()));
                 txtRefernciaDescripcion.setText(movimientosResponse.getReferencia());
+                txtRefernciaDescripcion.setSelected(true);
                 layoutConcepto.setVisibility(VISIBLE);
                 txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
                 layoutClaveRastreo.setVisibility(VISIBLE);

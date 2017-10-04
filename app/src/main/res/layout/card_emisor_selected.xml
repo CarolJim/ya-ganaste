@@ -10,6 +10,7 @@
 
     <FrameLayout
         android:layout_width="wrap_content"
+
         android:layout_height="wrap_content">
 
         <ImageView
@@ -23,8 +24,8 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:paddingLeft="4dp"
             android:orientation="horizontal"
+            android:paddingLeft="7dp"
             android:weightSum="10">
 
             <LinearLayout
@@ -36,19 +37,18 @@
 
                 <android.support.v4.widget.Space
                     android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="3" />
+                    android:layout_height="17dp"
+                    android:layout_weight="4" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/styleTextView"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2.5"
                     android:gravity="center_vertical"
                     android:maxLines="1"
                     android:text="@string/saldo_en_cuenta"
                     android:textColor="@color/whiteColor"
-                    android:textSize="@dimen/text_size_cardEmisorSelected"
+                    android:textSize="12dp"
                     app:tipo="Subtitulo" />
 
 
@@ -57,8 +57,8 @@
                     style="@style/generic_text_style_3"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_weight="6"
-                    android:gravity="center|left"
+                    android:layout_weight="2"
+                    android:gravity="top|left"
                     android:maxLines="1"
                     android:text="$4,200.00"
                     app:dotBottom="false"
@@ -73,11 +73,11 @@
                     android:id="@+id/txt_nombre"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_weight="2.5"
-                    android:gravity="center_vertical"
-                    tools:text="Frank Manzo Nava"
+                    android:layout_weight="6"
+                    android:gravity="left|bottom"
                     android:textColor="@color/whiteColor"
-                    android:textSize="@dimen/text_size_cardEmisorSelected" />
+                    android:textSize="@dimen/text_size_cardEmisorSelected"
+                    tools:text="Frank Manzo Nava" />
 
             </LinearLayout>
 

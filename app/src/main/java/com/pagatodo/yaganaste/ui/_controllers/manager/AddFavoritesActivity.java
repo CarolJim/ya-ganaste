@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.Base64;
 import android.view.KeyEvent;
 import android.view.View;
@@ -72,6 +73,8 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     CustomValidationEditText editFoto;
     @BindView(R.id.add_favorites_foto_error)
     ErrorMessage editFotoError;
+    @BindView(R.id.btn_back)
+    AppCompatImageView btnBack;
 
     IFavoritesPresenter favoritesPresenter;
     int idTipoComercio;
@@ -85,6 +88,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     CameraManager cameraManager;
     private boolean errorIsShowed = false;
     private int idTipoEnvio;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,6 +106,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         formatoComercio = intent.getStringExtra(REFERENCIA);
         tipoTab = intent.getIntExtra(TIPO_TAB, 96);
         nombreDest = intent.getStringExtra(DESTINATARIO);
+
 
         ButterKnife.bind(this);
         imageViewCamera.setVisibilityStatus(true);
@@ -159,6 +164,12 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         cameraManager = new CameraManager();
         cameraManager.initCameraUploadDocument(this, imageViewCamera, this);
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // Agregamos Flecha de Shebrom
         textViewServ.setEnabled(false);

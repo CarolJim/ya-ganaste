@@ -143,7 +143,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         backgroundRed = getContext().getResources()
                 .getDrawable(R.drawable.rounded_border_red_edittext);
 
-        keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
+        keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip_tarjeta);
         keyboardView.setPreviewEnabled(false);
 
         layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_nip1_contol);
