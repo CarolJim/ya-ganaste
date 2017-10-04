@@ -14,6 +14,7 @@ import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -197,13 +198,24 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
         RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         paramsc.setMargins(300, 30, 0, 0);
+
+
+
         paramsc.width=100;
         paramsc.height=100;
         circuloimageupload.setLayoutParams(paramsc);
 
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int widthp = metrics.widthPixels; // ancho absoluto en pixels
+
+        int paramentroT=widthp/3;
+
+
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.width =400;
-        params.height =400;
+        params.width =paramentroT;
+        params.height =paramentroT;
         relativefav.setLayoutParams(params);
         //imageViewCamera.setNewHW(300, 300);
 
