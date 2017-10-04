@@ -102,7 +102,6 @@
             android:background="@drawable/seek_background"
             android:clickable="false"
             android:max="100"
-
             android:progressDrawable="@android:color/transparent"
             android:thumb="@drawable/thumb_size"
             android:thumbOffset="15dp"

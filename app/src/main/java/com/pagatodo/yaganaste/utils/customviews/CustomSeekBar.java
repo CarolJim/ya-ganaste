@@ -69,7 +69,7 @@ public class CustomSeekBar extends android.support.v7.widget.AppCompatSeekBar {
         float progressRatio = (float) getProgress() / getMax();
         float thumbOffset = mThumbSize * (.45f - progressRatio);
         float thumbX = progressRatio * width + thumbOffset;//+ leftPadding
-        float thumbY = (getHeight() + bounds.height() + ((mTextPaint.ascent() + mTextPaint.descent()) / 2)) * 0.4f;//;//(getHeight() / 2) + (((bounds.height() + boundsLowerCase.height()) / 2) / 2); //(getHeight() / 2f) + (bounds.height() * 0.4f);
+        float thumbY = (getHeight() + bounds.height() + ((mTextPaint.ascent() + mTextPaint.descent()) / 2)) * 0.50f;//;//(getHeight() / 2) + (((bounds.height() + boundsLowerCase.height()) / 2) / 2); //(getHeight() / 2f) + (bounds.height() * 0.4f);
         canvas.drawText(titleText, thumbX, thumbY, mTextPaint);
     }
 }

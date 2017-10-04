@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
@@ -67,6 +68,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
@@ -115,6 +117,16 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     UploadDocumentView imageViewCamera;
     @BindView(R.id.recargaNumber)
     EditText recargaNumber;
+    @BindView(R.id.layoutImg)
+    RelativeLayout relativefav;
+
+    @BindView(R.id.imgItemGalleryMark)
+    CircleImageView circuloimage;
+
+
+    @BindView(R.id.imgItemGalleryStatus)
+    CircleImageView circuloimageupload;
+
     @BindView(R.id.layoutImageContact)
     RelativeLayout layoutImageContact;
     @BindView(R.id.layoutImageContact2)
@@ -137,6 +149,8 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     CustomValidationEditText editFoto;
     @BindView(R.id.add_favorites_foto_error)
     ErrorMessage editFotoError;
+
+
 
     IFavoritesPresenter favoritesPresenter;
     int idTipoComercio;
@@ -177,9 +191,21 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this, false);
         paymentsCarouselPresenter.getCarouselItems();
 
+
         ButterKnife.bind(this);
         imageViewCamera.setVisibilityStatus(true);
-        imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.ic_status_upload));
+        imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
+        circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
+        RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsc.setMargins(300, 30, 0, 0);
+        paramsc.width=100;
+        paramsc.height=100;
+        circuloimageupload.setLayoutParams(paramsc);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.width =400;
+        params.height =400;
+        relativefav.setLayoutParams(params);
         //imageViewCamera.setNewHW(300, 300);
 
         // Funcionalidad para agregar el Spinner
