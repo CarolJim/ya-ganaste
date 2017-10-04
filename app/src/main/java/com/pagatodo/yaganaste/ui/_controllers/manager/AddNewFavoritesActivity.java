@@ -253,7 +253,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         // Test de SET de todos los EditTExt, eliminar cuando tengamos servicios funcional
         // editAlias.setText("MiReferencia");
         // editListServ.setText("TelMex");
-        editTipo.setText("Envio por CLABE");
+        //editTipo.setText("Envio por CLABE");
         // editRefer.setText("5534812287");
 
         // Agregamos Flecha de Shebrom

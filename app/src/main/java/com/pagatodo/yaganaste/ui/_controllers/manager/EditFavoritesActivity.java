@@ -73,6 +73,7 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
 import static android.view.inputmethod.EditorInfo.IME_ACTION_DONE;
@@ -152,6 +153,12 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     CustomValidationEditText editFoto;
     @BindView(R.id.add_favorites_foto_error)
     ErrorMessage editFotoError;
+    @BindView(R.id.imgItemGalleryMark)
+    CircleImageView circuloimage;
+    @BindView(R.id.imgItemGalleryStatus)
+    CircleImageView circuloimageupload;
+    @BindView(R.id.layoutImg)
+    RelativeLayout relativefav;
 
     IFavoritesPresenter favoritesPresenter;
     int idTipoComercio;
@@ -212,6 +219,19 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         ButterKnife.bind(this);
         imageViewCamera.setVisibilityStatus(true);
         imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
+     /*
+        circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
+        RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsc.setMargins(300, 30, 0, 0);
+        paramsc.width=100;
+        paramsc.height=100;
+        circuloimageupload.setLayoutParams(paramsc);
+
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.width =400;
+        params.height =400;
+        relativefav.setLayoutParams(params);*/
+
         //imageViewCamera.setNewHW(300, 300);
 
         /**
@@ -846,7 +866,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         EditFavoritesRequest addFavoritesRequest = new EditFavoritesRequest(idTipoComercio, idTipoEnvio,
                 idComercio, mAlias, referService, "");
 
-        //  favoritesPresenter.toPresenterEditNewFavorites(addFavoritesRequest, 1);
+        favoritesPresenter.toPresenterEditNewFavorites(addFavoritesRequest, idFavorito);
 
         // Codigo para mostrar el llenado de la peticion
         Toast.makeText(this, "Validacion exitosa, ver log para datos", Toast.LENGTH_SHORT).show();

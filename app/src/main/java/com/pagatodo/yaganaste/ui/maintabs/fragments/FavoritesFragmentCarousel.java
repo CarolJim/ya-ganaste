@@ -149,6 +149,11 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
             public boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position, long id) {
                 // Toast.makeText(getContext(), "setOnLongClickListener pos " + position, Toast.LENGTH_SHORT).show();
 
+                /**
+                 *  long idComercio = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos()
+                 *
+                 *
+                 */
                 long idComercio = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getIdComercio();
                 String nombreComercio = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getNombreComercio();
                 int idTipoComercio = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getIdTipoComercio();
