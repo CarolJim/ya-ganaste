@@ -115,8 +115,13 @@ public class CustomKeyboardView extends KeyboardView {
         if (Build.VERSION.SDK_INT >= 23) {
             List<Keyboard.Key> keys = getKeyboard().getKeys();
             for (Keyboard.Key key : keys) {
+                if (key.codes[0] == 1021) {
+                    //Drawable dr = ContextCompat.getDrawable(getContext(), R.drawable.custom_key_point_selector); //new ColorDrawable(ContextCompat.getColor(getContext(), R.color.grayColor));
+                    //dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
+                    //dr.setState(key.getCurrentDrawableState());
+                    //dr.draw(canvas);
+                }
                 if (key.codes[0] == 29) {
-
                     Drawable dr = ContextCompat.getDrawable(getContext(), R.drawable.custom_key_point_selector); //new ColorDrawable(ContextCompat.getColor(getContext(), R.color.grayColor));
                     dr.setBounds(key.x, key.y, key.x + key.width, key.y + key.height);
                     dr.setState(key.getCurrentDrawableState());

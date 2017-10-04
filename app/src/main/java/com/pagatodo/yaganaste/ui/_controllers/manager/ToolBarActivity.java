@@ -79,6 +79,17 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         }
     }
 
+    public void setVisibilityBack(boolean mBoolean){
+        if (mBoolean) {
+            btnBack.setVisibility(View.VISIBLE);
+        }else {
+            btnBack.setVisibility(View.GONE);
+        }
+    }
+
+
+
+
     public static void setVisibleshare(){
         imageViewdes.setVisibility(View.GONE);
     }

@@ -5,6 +5,7 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -77,6 +78,9 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     StyleTextView dateTDC;
     @BindView(R.id.txt_tarjeta_user_name)
     StyleTextView userName;
+
+
+
     String a;
     private View rootview;
     private AccountPresenterNew accountPresenter;
@@ -105,6 +109,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_ADJUST_RESIZE);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
+
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
 
@@ -116,6 +121,12 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     @Override
     public void onStop() {
         super.onStop();
+
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
 
     }
 
@@ -132,8 +143,9 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
+        keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip_tarjeta);
         keyboardView.setPreviewEnabled(false);
+
         btnNextTienesTarjeta.setOnClickListener(this);
         final Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Regular.ttf");
         radioHasCard.setOnCheckedChangeListener(this);
@@ -208,9 +220,10 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
 
                         } else {
                             char lastChar = (char) event.getUnicodeChar();
-                            if (lastSharpIndex != -1 && keyCode != 29 && keyCode != 4) {
+                            if (lastSharpIndex != -1 && keyCode != 29 && keyCode != 1021 && keyCode != 4) {
                                 cardNumber.setCharAt(lastSharpIndex, lastChar);
                             }
+
                         }
                         editNumber.setText(cardNumber);
                         if (cardNumber.indexOf("X") == -1) {

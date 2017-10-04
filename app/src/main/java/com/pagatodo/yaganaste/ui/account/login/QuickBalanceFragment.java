@@ -82,6 +82,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     boolean clickFlip = false;
     private Handler flipTimmer;
     private Runnable runnableTimmer;
+    boolean pauseback;
 
     public static QuickBalanceFragment newInstance() {
 
@@ -162,6 +163,14 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
             } catch (Exception e) {
                 e.printStackTrace();
             }
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        if (accountPresenter.isBackShown()) {
+            accountPresenter.flipCard(R.id.llsaldo, CardBack.newInstance(accountPresenter));
         }
     }
 

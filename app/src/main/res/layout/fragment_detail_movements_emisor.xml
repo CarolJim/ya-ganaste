@@ -482,7 +482,7 @@
             android:id="@+id/btn_volver"
             style="@style/buttonDirecctionBackSmall"
             android:text="@string/volver"
-            android:visibility="visible" />
+            android:visibility="gone" />
 
         <View
             android:id="@+id/view"
