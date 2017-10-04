@@ -56,8 +56,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:textColor="@color/whiteColor"
-                        android:text="@string/details_monto_compra" />
+                        android:text="@string/details_monto_compra"
+                        android:textColor="@color/whiteColor" />
 
                     <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                         android:id="@+id/txtMontoCompra"
@@ -66,7 +66,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:textSize="8sp"
+                        android:textSize="9dp"
                         app:decimalLenght="2"
                         app:dotBottom="false"
                         app:symbolSmaller="true" />
@@ -99,8 +99,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:textColor="@color/whiteColor"
-                        android:text="@string/details_importe" />
+                        android:text="@string/details_importe"
+                        android:textColor="@color/whiteColor" />
 
                     <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                         android:id="@+id/txtMontoTotal"
@@ -109,7 +109,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:textSize="8sp"
+                        android:textSize="9dp"
                         app:decimalLenght="2"
                         app:dotBottom="false"
                         app:symbolSmaller="true" />
@@ -141,8 +141,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:textColor="@color/whiteColor"
-                        android:text="@string/details_comision" />
+                        android:text="@string/details_comision"
+                        android:textColor="@color/whiteColor" />
 
                     <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                         android:id="@+id/txtComisionDescripcion"
@@ -151,7 +151,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:textSize="8sp" />
+                        android:textSize="9dp" />
                 </LinearLayout>
 
                 <View
@@ -179,8 +179,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:textColor="@color/whiteColor"
-                        android:text="@string/details_iva" />
+                        android:text="@string/details_iva"
+                        android:textColor="@color/whiteColor" />
 
                     <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                         android:id="@+id/txtIVA"
@@ -189,7 +189,7 @@
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
                         android:gravity="end"
-                        android:textSize="8sp" />
+                        android:textSize="9dp" />
                 </LinearLayout>
 
                 <View
@@ -218,8 +218,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:textColor="@color/whiteColor"
-                        android:text="@string/details_ferencia" />
+                        android:text="@string/details_ferencia"
+                        android:textColor="@color/whiteColor" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtRefernciaDescripcion"
@@ -227,8 +227,16 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
+                        android:ellipsize="marquee"
+                        android:focusable="true"
+                        android:focusableInTouchMode="true"
+                        android:freezesText="true"
                         android:gravity="end"
-                        android:maxLines="1" />
+                        android:marqueeRepeatLimit="marquee_forever"
+                        android:maxLines="1"
+                        android:paddingLeft="10dp"
+                        android:scrollHorizontally="true"
+                        android:singleLine="true" />
                 </LinearLayout>
 
                 <View
@@ -256,8 +264,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:textColor="@color/whiteColor"
-                        android:text="@string/details_concepto" />
+                        android:text="@string/details_concepto"
+                        android:textColor="@color/whiteColor" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtConceptoDescripcion"
@@ -295,8 +303,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:textColor="@color/whiteColor"
-                        android:text="@string/details_clave_rastreo" />
+                        android:text="@string/details_clave_rastreo"
+                        android:textColor="@color/whiteColor" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtClaveRastreo"
@@ -333,8 +341,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:textColor="@color/whiteColor"
-                        android:text="@string/detals_referencia_num" />
+                        android:text="@string/detals_referencia_num"
+                        android:textColor="@color/whiteColor" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtNumeroReferencia"
@@ -371,8 +379,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:textColor="@color/whiteColor"
-                        android:text="@string/details_fecha" />
+                        android:text="@string/details_fecha"
+                        android:textColor="@color/whiteColor" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtFechaDescripcion"
@@ -409,8 +417,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:textColor="@color/whiteColor"
-                        android:text="@string/details_hora" />
+                        android:text="@string/details_hora"
+                        android:textColor="@color/whiteColor" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtHoraDescripcion"
@@ -447,8 +455,8 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:gravity="start"
-                        android:textColor="@color/whiteColor"
-                        android:text="@string/details_autorizacion" />
+                        android:text="@string/details_autorizacion"
+                        android:textColor="@color/whiteColor" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtAutorizacionDescripcion"
@@ -494,8 +502,8 @@
             android:id="@+id/btn_cancel"
             style="@style/buttonDirecctionNext"
             android:gravity="center"
-            android:textColor="@color/whiteColor"
             android:text="@string/cancelar_operacion"
+            android:textColor="@color/whiteColor"
             android:visibility="gone" />
 
     </RelativeLayout>

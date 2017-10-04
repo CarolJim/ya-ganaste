@@ -927,4 +927,5 @@
     <string name="clave_rastreo">\nClave de Rastreo: %1$s</string>
 
     <string name="favoritos_tag">Favoritos</string>
+    <string name="path_image">/YaGanaste</string>
 </resources>
