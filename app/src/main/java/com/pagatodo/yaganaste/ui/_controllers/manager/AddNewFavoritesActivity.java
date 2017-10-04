@@ -172,7 +172,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     MovementsTab current_tab2;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     private TextWatcher currentTextWatcher;
-
+    AppCompatImageView btn_back;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -184,7 +184,8 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         //  backUpResponse = intent.getExtras().getParcelableArrayList(BACK_UP_RESPONSE);
 
         current_tab = intent.getIntExtra(CURRENT_TAB_ID, 99);
-
+        btn_back= (AppCompatImageView) findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(this);
         // Iniciamos el presentes del carrousel
         this.current_tab2 = MovementsTab.getMovementById(current_tab);
         backUpResponse = new ArrayList<>();
@@ -406,6 +407,9 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
             case R.id.layoutImageReference:
                 Intent intent = new Intent(this, ScannVisionActivity.class);
                 this.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
+                break;
+            case R.id.btn_back:
+                finish();
                 break;
 
             default:
