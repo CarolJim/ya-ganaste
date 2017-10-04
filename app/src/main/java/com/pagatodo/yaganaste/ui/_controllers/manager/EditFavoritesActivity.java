@@ -1,7 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -17,7 +16,6 @@ import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
@@ -28,9 +26,7 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
@@ -81,14 +77,11 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.DESTINATARIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_ENVIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.TIPO_TAB;
-import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
@@ -280,13 +273,14 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             taeLL.setVisibility(View.VISIBLE);
 
             recargaNumber.setText(formatoPago);
+            initFormatoLogitud();
             initTAERefer();
         } else if (current_tab == 2) {
             LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_serv_ll);
             taeLL.setVisibility(View.VISIBLE);
 
             referenceNumber.setText(formatoPago);
-            initPDSReferInicial();
+            initFormatoLogitud();
             initPDSRefer();
         } else if (current_tab == 3) {
             //  LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_envio_ll);
@@ -1065,9 +1059,9 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     }
 
     /**
-     * Procedimientos especificos para la referencia por via PDS
+     * Procedimientos para inicializar el FormatoComercio y logitudRefer
      */
-    private void initPDSReferInicial() {
+    private void initFormatoLogitud() {
 
         // backUpResponse
         for (CustomCarouselItem customCarouselItem : backUpResponse) {
@@ -1245,7 +1239,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
         // Actualizamos el formato de la referencia solo si es el TAB de PDS
         if (current_tab == 2) {
-            //  initPDSReferInicial();
+            //  initFormatoLogitud();
         }
     }
 
