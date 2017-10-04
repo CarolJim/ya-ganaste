@@ -162,7 +162,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     int tipoTab;
     String mReferencia;
     String tabName;
-    private String formatoComercio;
+    private String formatoComercio = "";
     private int longitudRefer;
     CameraManager cameraManager;
     private boolean errorIsShowed = false;
@@ -177,6 +177,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     MovementsTab current_tab2;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     private TextWatcher currentTextWatcher;
+    private TextWatcher currentTextWatcherPDS;
+    private TextWatcher currentWatcherEnvios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -192,8 +194,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         idTipoEnvio = intent.getIntExtra(ID_TIPO_ENVIO, 97);
         nombreComercio = intent.getStringExtra(NOMBRE_COMERCIO);
         mReferencia = intent.getStringExtra(REFERENCIA);
-        formatoComercio = intent.getStringExtra(REFERENCIA);
-       // tipoTab = intent.getIntExtra(TIPO_TAB, 96);
+        // formatoComercio = intent.getStringExtra(REFERENCIA);
+        // tipoTab = intent.getIntExtra(TIPO_TAB, 96);
         nombreDest = intent.getStringExtra(NOMBRE_ALIAS);
         current_tab = intent.getIntExtra(CURRENT_TAB, 96);
         idFavorito = (int) intent.getLongExtra(ID_FAVORITO, 95);
@@ -220,6 +222,9 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
          * Le damos formato al tipo de pago
          */
         String formatoPago = mReferencia;
+
+        // Sacamos la logintud de la referencia antes del formato
+        int longRefer = mReferencia.length();
 
         if (current_tab == 1) {
             if (idComercio != 7) {
@@ -256,12 +261,28 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             taeLL.setVisibility(View.VISIBLE);
 
             referenceNumber.setText(formatoPago);
+            initPDSReferInicial();
             initPDSRefer();
         } else if (current_tab == 3) {
             //  LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_envio_ll);
             //   taeLL.setVisibility(View.VISIBLE);
 
+            //longRefer
+            switch (longRefer) {
+                case 10:
+                    idTipoEnvio = 1;
+                    break;
+                case 16:
+                    idTipoEnvio = 2;
+                    break;
+                case 18:
+                    idTipoEnvio = 3;
+                    break;
+            }
+
             initEnviosPrefer();
+
+
             tipoEnvio.setSelection(idTipoEnvio);
             cardNumber.setText(formatoPago);
         }
@@ -821,7 +842,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         EditFavoritesRequest addFavoritesRequest = new EditFavoritesRequest(idTipoComercio, idTipoEnvio,
                 idComercio, mAlias, referService, "");
 
-      //  favoritesPresenter.toPresenterEditNewFavorites(addFavoritesRequest, 1);
+        //  favoritesPresenter.toPresenterEditNewFavorites(addFavoritesRequest, 1);
 
         // Codigo para mostrar el llenado de la peticion
         Toast.makeText(this, "Validacion exitosa, ver log para datos", Toast.LENGTH_SHORT).show();
@@ -945,7 +966,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         maxLength = Utils.calculateFilterLength(longitudReferencia);
         fArray[0] = new InputFilter.LengthFilter(maxLength);
 
-
         if (currentTextWatcher != null) {
             recargaNumber.removeTextChangedListener(currentTextWatcher);
         }
@@ -991,6 +1011,14 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
      * Procedimientos especificos para la referencia por via PDS
      */
     private void initPDSRefer() {
+
+        /**
+         * Eliminamos el TExt Watcher de PDS si es diferente de null
+         */
+        if (currentTextWatcherPDS != null) {
+            referenceNumber.removeTextChangedListener(currentTextWatcherPDS);
+        }
+
         layoutImageReference.setOnClickListener(this);
         if (longitudRefer > 0) {
             InputFilter[] fArray = new InputFilter[1];
@@ -1002,7 +1030,42 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         if (formatoComercio.equals("AN")) {
             referenceNumber.setInputType(InputType.TYPE_CLASS_TEXT);
         }
-        referenceNumber.addTextChangedListener(new NumberTagPase(referenceNumber, maxLength));
+
+        /**
+         * Creamos el nuevo TextWatcher de currentTextWatcherPDS y lo agregamos
+         * a referenceNumber
+         */
+        currentTextWatcherPDS = new NumberTagPase(referenceNumber, maxLength);
+        referenceNumber.addTextChangedListener(currentTextWatcherPDS);
+    }
+
+    /**
+     * Procedimientos especificos para la referencia por via PDS
+     */
+    private void initPDSReferInicial() {
+
+        // backUpResponse
+        for (CustomCarouselItem customCarouselItem : backUpResponse) {
+            if (customCarouselItem.getNombreComercio().equals(nombreComercio)) {
+                formatoComercio = customCarouselItem.getFormatoComercio();
+                longitudRefer = customCarouselItem.getLongitudRefer();
+            }
+        }
+        Log.d(TAG, "Log");
+
+
+       /* layoutImageReference.setOnClickListener(this);
+        if (longitudRefer > 0) {
+            InputFilter[] fArray = new InputFilter[1];
+            maxLength = Utils.calculateFilterLength(longitudRefer);
+            fArray[0] = new InputFilter.LengthFilter(maxLength);
+            referenceNumber.setFilters(fArray);
+        }
+
+        if (formatoComercio.equals("AN")) {
+            referenceNumber.setInputType(InputType.TYPE_CLASS_TEXT);
+        }
+        referenceNumber.addTextChangedListener(new NumberTagPase(referenceNumber, maxLength));*/
     }
 
     /**
@@ -1047,7 +1110,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
         layout_cardNumber.setVisibility(View.VISIBLE);
         // cardNumber.setText("");
-        cardNumber.removeTextChangedListener();
+        // currentWatcherEnvios
 
         // Hacemos el Set de la informacion del Spinner en un campo que servira como validador
         if (position == 0) {
@@ -1145,6 +1208,11 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     @Override
     public void setCarouselData(ArrayList<CarouselItem> response) {
         setBackUpResponse(response);
+
+        // Actualizamos el formato de la referencia solo si es el TAB de PDS
+        if (current_tab == 2) {
+            //  initPDSReferInicial();
+        }
     }
 
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {

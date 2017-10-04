@@ -911,7 +911,7 @@
 
     <string name="close_sesion_body">Por tu Seguridad, Hemos Cerrado la Sesión Por Falta de Actividad</string>
     <string name="addFavorites">Agregar a Favoritos</string>
-    <string name="editarFavorites">Editar a Favoritos</string>
+    <string name="editarFavorites">Editar Favoritos</string>
     <string name="addFavoritesAlias">Nombre</string>
     <string name="addFavoritesServicio">Servicio</string>
     <string name="addFavoritesReferencia">Referencia</string>

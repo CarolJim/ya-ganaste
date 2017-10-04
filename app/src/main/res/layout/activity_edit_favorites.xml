@@ -27,7 +27,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_horizontal"
-                android:text="@string/addFavorites"
+                android:text="@string/editarFavorites"
                 android:textColor="@color/whiteColor"
                 android:textSize="@dimen/size_text_style_2_value"
                 android:visibility="visible" />
