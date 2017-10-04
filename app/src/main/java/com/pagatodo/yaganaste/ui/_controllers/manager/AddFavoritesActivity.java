@@ -380,9 +380,13 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     @Override
     public void onValidationSuccess() {
         errorAliasMessage.setVisibilityImageError(false);
+
         String mAlias = editTextAlias.getText();
+        mReferencia = textViewRef.getText().toString();
+        String referService = StringUtils.formatCardToService(mReferencia);
+
         AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
-                idComercio, mAlias, mReferencia, "");
+                idComercio, mAlias, referService, "");
 
         favoritesPresenter.toPresenterAddFavorites(addFavoritesRequest);
     }

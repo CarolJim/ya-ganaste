@@ -12,8 +12,11 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
@@ -35,6 +38,16 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
+import static com.pagatodo.yaganaste.utils.Recursos.CURRENT_TAB;
+import static com.pagatodo.yaganaste.utils.Recursos.DESTINATARIO;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_COMERCIO;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_FAVORITO;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_TIPO_COMERCIO;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_TIPO_ENVIO;
+import static com.pagatodo.yaganaste.utils.Recursos.IMAGE_URL;
+import static com.pagatodo.yaganaste.utils.Recursos.NOMBRE_ALIAS;
+import static com.pagatodo.yaganaste.utils.Recursos.NOMBRE_COMERCIO;
+import static com.pagatodo.yaganaste.utils.Recursos.REFERENCIA;
 
 /**
  * Created by Jordan on 06/04/2017.
@@ -134,23 +147,46 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
         carouselFav.setOnItemLongClickListener(new CarouselAdapter.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position, long id) {
-                Toast.makeText(getContext(), "setOnLongClickListener", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getContext(), "setOnLongClickListener pos " + position, Toast.LENGTH_SHORT).show();
+
+                long idComercio = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getIdComercio();
+                String nombreComercio = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getNombreComercio();
+                int idTipoComercio = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getIdTipoComercio();
+                //int idTipoEnvio = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getIdTipoComercio();
+                int idTipoEnvio = 0;
+                String referencia = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getReferencia();
+                String alias = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getNombre();
+                String imagenURL = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getImagenURL();
+                long idFavorito = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getIdFavorito();
+
+                Intent intent = new Intent(App.getContext(), EditFavoritesActivity.class);
+                intent.putExtra(NOMBRE_COMERCIO, nombreComercio);
+                intent.putExtra(ID_COMERCIO, idComercio);
+                intent.putExtra(ID_TIPO_COMERCIO, idTipoComercio);
+                intent.putExtra(ID_TIPO_ENVIO, idTipoEnvio);
+                intent.putExtra(REFERENCIA, referencia);
+                intent.putExtra(CURRENT_TAB, current_tab.getId());
+                intent.putExtra(NOMBRE_ALIAS, alias);
+                intent.putExtra(ID_FAVORITO, idFavorito);
+                intent.putExtra(IMAGE_URL, imagenURL);
+                startActivity(intent);
+
                 longClicked = true;
                 return false;
             }
         });
 
-        carouselFav.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                Toast.makeText(getContext(), "setOnTouchListener", Toast.LENGTH_SHORT).show();
-                if(longClicked){
-                    //Do whatever you want here!!
-                    longClicked = false;
-                }
-                return false;
-            }
-        });
+//        carouselFav.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                Toast.makeText(getContext(), "setOnTouchListener", Toast.LENGTH_SHORT).show();
+//                if(longClicked){
+//                    //Do whatever you want here!!
+//                    longClicked = false;
+//                }
+//                return false;
+//            }
+//        });
 
 //        carouselFav.setOnTouchListener(new View.OnTouchListener() {
 //            @Override

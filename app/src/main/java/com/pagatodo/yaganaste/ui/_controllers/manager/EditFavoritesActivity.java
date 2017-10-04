@@ -14,6 +14,7 @@ import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
@@ -23,6 +24,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -89,7 +91,11 @@ import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarou
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
+import static com.pagatodo.yaganaste.utils.Recursos.CURRENT_TAB;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
+import static com.pagatodo.yaganaste.utils.Recursos.ID_FAVORITO;
+import static com.pagatodo.yaganaste.utils.Recursos.IMAGE_URL;
+import static com.pagatodo.yaganaste.utils.Recursos.NOMBRE_ALIAS;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
@@ -140,7 +146,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     LinearLayout layout_cardNumber;
     @BindView(R.id.add_favorites_spinner_et)
     CustomValidationEditText editSpinner;
-    @BindView(R.id.add_favorites_error)
+    @BindView(R.id.tipo_envio_error)
     ErrorMessage editSpinnerError;
     @BindView(R.id.add_favorites_foto_et)
     CustomValidationEditText editFoto;
@@ -150,6 +156,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     IFavoritesPresenter favoritesPresenter;
     int idTipoComercio;
     int idComercio;
+    int idFavorito;
     int idTipoEnvio;
     String stringFoto, nombreDest;
     int tipoTab;
@@ -165,6 +172,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     private int maxLength;
     int keyIdComercio;
     String nombreComercio;
+    String imageUrl;
     TransferType selectedType;
     MovementsTab current_tab2;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
@@ -173,27 +181,29 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_favorites);
+        setContentView(R.layout.activity_edit_favorites);
+
 
         favoritesPresenter = new FavoritesPresenter(this);
 
         Intent intent = getIntent();
-        idComercio = intent.getIntExtra(ID_COMERCIO, 99);
+        idComercio = (int) intent.getLongExtra(ID_COMERCIO, 99);
         idTipoComercio = intent.getIntExtra(ID_TIPO_COMERCIO, 98);
         idTipoEnvio = intent.getIntExtra(ID_TIPO_ENVIO, 97);
         nombreComercio = intent.getStringExtra(NOMBRE_COMERCIO);
         mReferencia = intent.getStringExtra(REFERENCIA);
         formatoComercio = intent.getStringExtra(REFERENCIA);
-        tipoTab = intent.getIntExtra(TIPO_TAB, 96);
-        nombreDest = intent.getStringExtra(DESTINATARIO);
-
-        current_tab = intent.getIntExtra(CURRENT_TAB_ID, 99);
+       // tipoTab = intent.getIntExtra(TIPO_TAB, 96);
+        nombreDest = intent.getStringExtra(NOMBRE_ALIAS);
+        current_tab = intent.getIntExtra(CURRENT_TAB, 96);
+        idFavorito = (int) intent.getLongExtra(ID_FAVORITO, 95);
+        imageUrl = intent.getStringExtra(IMAGE_URL);
 
         // Iniciamos el presentes del carrousel
-//        this.current_tab2 = MovementsTab.getMovementById(current_tab);
-//        backUpResponse = new ArrayList<>();
-//        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this, false);
-//        paymentsCarouselPresenter.getCarouselItems();
+        this.current_tab2 = MovementsTab.getMovementById(current_tab);
+        backUpResponse = new ArrayList<>();
+        paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this, false);
+        paymentsCarouselPresenter.getCarouselItems();
 
         ButterKnife.bind(this);
         imageViewCamera.setVisibilityStatus(true);
@@ -277,7 +287,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
         //Bloqueamos la edicion de referencia hasta que tengamos ya un servicio de la lista
         editRefer.setVisibility(View.GONE);
-        editReferError.setVisibility(View.GONE);
+        editReferError.setVisibility(View.VISIBLE);
         layout_cardNumber.setVisibility(GONE);
         //editSpinnerError.setVisibility(View.GONE);
 
@@ -645,7 +655,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
      */
     @Override
     public void validateForm() {
-        // onValidationSuccess();
         getDataForm();
         boolean isValid = true;
 
@@ -720,8 +729,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             //return;
         }
 
-
-        //onValidationSuccess();
         if (isValid) {
             boolean isOnline = Utils.isDeviceOnline();
             if (isOnline) {
@@ -814,16 +821,16 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         EditFavoritesRequest addFavoritesRequest = new EditFavoritesRequest(idTipoComercio, idTipoEnvio,
                 idComercio, mAlias, referService, "");
 
-        favoritesPresenter.toPresenterEditNewFavorites(addFavoritesRequest, 1);
+      //  favoritesPresenter.toPresenterEditNewFavorites(addFavoritesRequest, 1);
 
         // Codigo para mostrar el llenado de la peticion
-      /*  Toast.makeText(this, "Validacion exitosa, ver log para datos", Toast.LENGTH_SHORT).show();
+        Toast.makeText(this, "Validacion exitosa, ver log para datos", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Alias " + mAlias
                 + " idTipoComercio " + idTipoComercio
                 + " idComercio " + idComercio
                 + " idTipoEnvio " + idTipoEnvio
-                + " mReferencia " + mReferencia
-                + " stringFoto " + stringFoto);*/
+                + " mReferencia " + referService
+                + " stringFoto " + stringFoto);
     }
 
     @Override

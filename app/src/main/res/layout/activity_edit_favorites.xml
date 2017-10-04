@@ -18,9 +18,10 @@
         android:layout_height="wrap_content">
 
         <LinearLayout
-            android:layout_width="match_parent" android:orientation="vertical"
             android:id="@+id/layoutBorder"
-            android:layout_height="wrap_content">
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:layout_width="match_parent"
@@ -32,12 +33,12 @@
                 android:visibility="visible" />
 
             <LinearLayout
-                android:layout_marginTop="15dp"
-                android:layout_marginLeft="23dp"
-                android:layout_marginRight="23dp"
-                android:layout_marginBottom="25dp"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:layout_marginBottom="25dp"
+                android:layout_marginLeft="23dp"
+                android:layout_marginRight="23dp"
+                android:layout_marginTop="15dp"
                 android:gravity="center"
                 android:orientation="vertical">
 
@@ -110,6 +111,7 @@
                     android:layout_height="match_parent"
                     android:visibility="visible" />
 
+                <!-- Tipo de Servicio -->
                 <LinearLayout
                     android:id="@+id/add_favorites_linear_tipo"
                     android:layout_width="wrap_content"
@@ -134,6 +136,7 @@
                         android:visibility="visible" />
                 </LinearLayout>
 
+                <!-- Es el comodin que usamos para verifiar que el campo de referencia este operacional -->
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/add_favorites_referencia"
                     style="@style/FragmentElementWithValidation"
@@ -245,11 +248,11 @@
                     android:backgroundTint="@color/transparent" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                    android:id="@+id/add_favorites_error"
+                    android:id="@+id/tipo_envio_error"
                     style="@style/generic_text_style_2"
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:visibility="visible" />
+                    android:visibility="gone" />
 
                 <LinearLayout
                     android:id="@+id/layout_cardNumber"
@@ -276,7 +279,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:layout_weight="80"
-                        android:visibility="gone">
+                        android:visibility="visible">
 
                         <ImageView
                             android:id="@+id/imgMakePaymentContact2"
@@ -286,7 +289,6 @@
                             android:layout_margin="5dp"
                             android:src="@drawable/icono_agenda" />
                     </RelativeLayout>
-
                 </LinearLayout>
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage

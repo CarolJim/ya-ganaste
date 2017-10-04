@@ -242,8 +242,6 @@ public class Recursos {
     public static final String MESSAGE_CHANGE_PASS = "Ejecución Exitosa";
     public static final String MESSAGE_OPEN_SESSION2 = "Por favor inicia sesión";
 
-
-
     /**
      * EstatusCuenta
      */
@@ -252,4 +250,27 @@ public class Recursos {
     public static final String ESTATUS_CUENTA_DESBLOQUEADA = "2";
     public static final String FLAG_BLOQUEAR_CUENTA = "1";
     public static final String FLAG_DESBLOQUEAR_CUENTA = "2";
+
+    /**
+     * Favoritos
+     */
+    public static final String NOMBRE_COMERCIO = "nombreComercio";
+    public static final String ID_COMERCIO = "idComercio";
+    public static final String ID_TIPO_COMERCIO = "idTipoComercio";
+    public static final String ID_TIPO_ENVIO = "idTipoEnvio";
+    public static final String REFERENCIA = "referencia";
+    public static final String CURRENT_TAB = "current_tab";
+    public static final String DESTINATARIO = "destinatario";
+    public static final String NOMBRE_ALIAS = "nombreAlias";
+    public static final String ID_FAVORITO = "idFavorito";
+    public static final String IMAGE_URL = "imagenURL";
+
+//     intent.putExtra(NOMBRE_COMERCIO, nombreComercio);
+//                intent.putExtra(ID_COMERCIO, idComercio);
+//                intent.putExtra(ID_TIPO_COMERCIO, idTipoComercio);
+//                intent.putExtra(ID_TIPO_ENVIO, idTipoEnvio);
+//                intent.putExtra(REFERENCIA, referencia);
+//                intent.putExtra(TIPO_TAB, tipoTab);
+//                intent.putExtra(DESTINATARIO, nombreDest);
+//
 }
