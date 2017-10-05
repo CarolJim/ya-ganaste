@@ -1,8 +1,12 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +16,7 @@ import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -282,8 +287,11 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     public void addNewFavorite() {
         Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
         intent.putExtra(CURRENT_TAB_ID, currentTab.getId());
-        getActivity().startActivityForResult(intent, NEW_FAVORITE);
-        //startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getActivity().startActivityForResult(intent, NEW_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+        } else {
+            getActivity().startActivityForResult(intent, NEW_FAVORITE);
+        }
     }
 
     @Override

@@ -29,6 +29,7 @@ import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -77,19 +78,11 @@ import static com.pagatodo.yaganaste.interfaces.enums.MovementsTab.TAB3;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.CLABE;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.TransferType.NUMERO_TELEFONO;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_COMERCIO;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_COMERCIO;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_ENVIO;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 import static com.pagatodo.yaganaste.utils.Recursos.CURRENT_TAB;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
-import static com.pagatodo.yaganaste.utils.Recursos.ID_FAVORITO;
-import static com.pagatodo.yaganaste.utils.Recursos.IMAGE_URL;
-import static com.pagatodo.yaganaste.utils.Recursos.NOMBRE_ALIAS;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
@@ -154,54 +147,32 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     RelativeLayout relativefav;
 
     IFavoritesPresenter favoritesPresenter;
-    int idTipoComercio;
-    int idComercio;
-    int idFavorito;
-    int idTipoEnvio;
-    String stringFoto, nombreDest;
-    int tipoTab;
-    String mReferencia;
-    String tabName;
-    private String formatoComercio = "";
-    private int longitudRefer;
+    DataFavoritos dataFavoritos;
+    int idTipoComercio, idComercio, idFavorito, idTipoEnvio, tipoTab, longitudRefer, keyIdComercio,
+            maxLength, current_tab, longRefer;
+    String stringFoto, nombreDest, mReferencia, tabName, formatoComercio = "", nombreComercio;
     CameraManager cameraManager;
-    private boolean errorIsShowed = false;
+    private boolean errorIsShowed = false, showRefEnvio, isIAVE;
     ArrayList<CustomCarouselItem> backUpResponse;
-    int current_tab;
-    boolean isIAVE;
-    private int maxLength;
-    int keyIdComercio;
-    String nombreComercio;
-    String imageUrl;
     TransferType selectedType;
     MovementsTab current_tab2;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
-    private TextWatcher currentTextWatcher;
-    private TextWatcher currentTextWatcherPDS;
-    private TextWatcher currentWatcherEnvios;
-    int longRefer;
-    private boolean showRefEnvio;
+    private TextWatcher currentTextWatcher, currentTextWatcherPDS, currentWatcherEnvios;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_edit_favorites);
 
-
         favoritesPresenter = new FavoritesPresenter(this);
-
-        Intent intent = getIntent();
-        idComercio = (int) intent.getLongExtra(ID_COMERCIO, 99);
-        idTipoComercio = intent.getIntExtra(ID_TIPO_COMERCIO, 98);
-        idTipoEnvio = intent.getIntExtra(ID_TIPO_ENVIO, 97);
-        nombreComercio = intent.getStringExtra(NOMBRE_COMERCIO);
-        mReferencia = intent.getStringExtra(REFERENCIA);
-        // formatoComercio = intent.getStringExtra(REFERENCIA);
-        // tipoTab = intent.getIntExtra(TIPO_TAB, 96);
-        nombreDest = intent.getStringExtra(NOMBRE_ALIAS);
-        current_tab = intent.getIntExtra(CURRENT_TAB, 96);
-        idFavorito = (int) intent.getLongExtra(ID_FAVORITO, 95);
-        imageUrl = intent.getStringExtra(IMAGE_URL);
+        dataFavoritos = (DataFavoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
+        idComercio = (int) dataFavoritos.getIdComercio();
+        idTipoComercio = dataFavoritos.getIdTipoComercio();
+        nombreComercio = dataFavoritos.getNombreComercio();
+        mReferencia = dataFavoritos.getReferencia();
+        nombreDest = dataFavoritos.getNombre();
+        current_tab = getIntent().getIntExtra(CURRENT_TAB, 96);
+        idFavorito = (int) dataFavoritos.getIdFavorito();
 
         // Iniciamos el presentes del carrousel
         this.current_tab2 = MovementsTab.getMovementById(current_tab);
@@ -1141,9 +1112,9 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
              Si showRefEnvio es true mostramos una vez la referencia original, en elecciones
              posterioes, cambiamos a false y siempre borramos el campo de referencia            // despues en
             */
-            if(showRefEnvio == true){
+            if (showRefEnvio == true) {
                 showRefEnvio = false;
-            }else{
+            } else {
                 cardNumber.setText("");
             }
 

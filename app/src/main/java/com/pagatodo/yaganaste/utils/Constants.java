@@ -29,6 +29,7 @@ public class Constants {
     public static final int ACTIVITY_LANDING = 181;
 
     public static final int NEW_FAVORITE = 1001;
+    public static final int EDIT_FAVORITE = 1002;
 
     public static final String RESULT = "Resultado";
     public static final String MESSAGE = "Mensaje";
