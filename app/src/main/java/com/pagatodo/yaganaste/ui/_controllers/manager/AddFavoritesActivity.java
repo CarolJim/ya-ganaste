@@ -8,10 +8,12 @@ import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
@@ -39,6 +41,7 @@ import java.io.ByteArrayOutputStream;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.DESTINATARIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_COMERCIO;
@@ -75,7 +78,13 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     ErrorMessage editFotoError;
     @BindView(R.id.btn_back)
     AppCompatImageView btnBack;
+    @BindView(R.id.imgItemGalleryMark)
+    CircleImageView circuloimage;
+    @BindView(R.id.layoutImg)
+    RelativeLayout relativefav;
 
+    @BindView(R.id.imgItemGalleryStatus)
+    CircleImageView circuloimageupload;
     IFavoritesPresenter favoritesPresenter;
     int idTipoComercio;
     int idComercio;
@@ -106,11 +115,27 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         formatoComercio = intent.getStringExtra(REFERENCIA);
         tipoTab = intent.getIntExtra(TIPO_TAB, 96);
         nombreDest = intent.getStringExtra(DESTINATARIO);
-
-
         ButterKnife.bind(this);
+
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int widthp = metrics.widthPixels; // ancho absoluto en pixels
+        int paramentroT=widthp/3;
+        int paramentroimgc=paramentroT/4;
+        int distancia=paramentroT-paramentroimgc;
         imageViewCamera.setVisibilityStatus(true);
-        imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.ic_status_upload));
+        imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
+        circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
+        RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsc.setMargins(distancia, 30, 0, 0);
+        paramsc.width=paramentroimgc;
+        paramsc.height=paramentroimgc;
+        circuloimageupload.setLayoutParams(paramsc);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.width =paramentroT;
+        params.height =paramentroT;
+        relativefav.setLayoutParams(params);
         //imageViewCamera.setNewHW(300, 300);
 
         textViewServ.setText(nombreComercio);
