@@ -22,4 +22,6 @@ public interface IAddFavoritesActivity {
     void toViewSuccessAddFoto(String mensaje);
 
     void toViewSuccessAdd(FavoritosDatosResponse response);
+
+    void toViewSuccessDeleteFavorite(String mensaje);
 }

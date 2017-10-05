@@ -119,6 +119,10 @@ public enum WebService {
      **/
     EDIT_FAVORITES,
     /**
+     * Servicio para Borrar Favorites de pagos.
+     **/
+    DELETE_FAVORITE,
+    /**
      * Servicios CUPO
      * */
     CONSULTA_STATUS_REGISTRO_CUPO,
