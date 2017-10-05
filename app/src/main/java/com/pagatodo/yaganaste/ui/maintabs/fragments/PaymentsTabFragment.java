@@ -38,6 +38,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.List;
@@ -87,6 +88,10 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     MontoTextView txtBalance;
     @BindView(R.id.imgPagosUserProfile)
     ImageView imgPagosUserProfile;
+    @BindView(R.id.txtAliasName)
+    StyleTextView txtAliasName;
+    @BindView(R.id.txtCompanyName)
+    StyleTextView txtCompanyName;
 
     //@BindView(R.id.txtPagosYourBalanceNumber)
     //MontoTextView txtBalance;
@@ -203,6 +208,10 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public void onBackPresed(MovementsTab TAB) {
         imgPagosServiceToPay.setVisibility(View.VISIBLE);
+
+        // Ocultamos el nombre y compañia del favorito
+        txtAliasName.setVisibility(View.INVISIBLE);
+        txtCompanyName.setVisibility(View.INVISIBLE);
         if (isOnForm) {
             showBack(false);
             setTab(TAB);
@@ -268,6 +277,10 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
             idComercioKey = item.getComercio().getIdComercio();
         } else {
             idComercioKey = 0;
+            txtAliasName.setText(item.getFavoritos().getNombre());
+            txtAliasName.setVisibility(View.VISIBLE);
+            txtCompanyName.setText(item.getFavoritos().getNombreComercio());
+            txtCompanyName.setVisibility(View.INVISIBLE);
         }
 
         if (item.getComercio() != null && item.getComercio().getIdComercio() == -1) {
