@@ -65,6 +65,8 @@ import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
 
 import java.io.ByteArrayOutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -1121,6 +1123,12 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
                 ));
             }
         }
+        Collections.sort(backUpResponse, new Comparator<CustomCarouselItem>() {
+            @Override
+            public int compare(CustomCarouselItem o1, CustomCarouselItem o2) {
+                return o1.getNombreComercio().compareToIgnoreCase(o2.getNombreComercio());
+            }
+        });
     }
 
     @Override

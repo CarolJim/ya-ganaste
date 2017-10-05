@@ -199,7 +199,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
         // Agregamos Flecha de Shebrom
         textViewServ.setEnabled(false);
-        textViewServ.setFullOnClickListener(this);
+        //textViewServ.setFullOnClickListener(this);
         textViewServ.setDrawableImage(R.drawable.menu_canvas);
     }
 

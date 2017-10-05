@@ -59,9 +59,9 @@ public class ListDialog extends Dialog implements View.OnClickListener, AdapterV
 
         listCarousel = list;
         for (CarouselItem item : list) {
-            if(item.getComercio()!=null) {
+            if (item.getComercio() != null) {
                 mList.add(item.getComercio().getNombreComercio().trim());
-            }else if (item.getFavoritos()!=null){
+            } else if (item.getFavoritos() != null) {
                 mList.add(item.getFavoritos().getNombre().trim());
             }
         }
@@ -78,7 +78,8 @@ public class ListDialog extends Dialog implements View.OnClickListener, AdapterV
 //        adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, mList);
 //        list.setAdapter(adapter);
 
-        adapter2 = new CustomAdapterPagos(getContext(), R.layout.item_pagos_textview, mList);
+        adapter2 = new CustomAdapterPagos(getContext(), R.layout.item_pagos_textview, mList,
+                (listCarousel.get(0) != null && listCarousel.get(0).getFavoritos() != null));
         list.setAdapter(adapter2);
         list.setOnItemClickListener(this);
     }

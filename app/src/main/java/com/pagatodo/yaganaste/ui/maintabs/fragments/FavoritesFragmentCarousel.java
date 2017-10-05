@@ -13,6 +13,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -226,8 +227,12 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
                     return o1.getFavoritos().getNombreComercio().compareToIgnoreCase(o2.getFavoritos().getNombre());
                 }
             });
-            dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
-            dialog.show();
+            if (response.size() > 0) {
+                dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
+                dialog.show();
+            } else {
+                Toast.makeText(getActivity(),getString(R.string.empty_list_favorites), Toast.LENGTH_SHORT).show();
+            }
             isFromClick = false;
         } else {
             if (response.size() > MAX_CAROUSEL_ITEMS) {
