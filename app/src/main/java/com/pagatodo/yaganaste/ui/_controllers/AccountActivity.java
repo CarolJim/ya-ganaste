@@ -88,7 +88,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     private LoginManagerContainerFragment loginContainerFragment;
     private static AccountPresenterNew presenterAccount;
     App aplicacion;
-    Boolean back=true;
+    Boolean back=false;
 
     private String action = "";
 
