@@ -332,6 +332,7 @@
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnCloseAddFavorites"
                 style="@style/buttonDirecctionBackSmall"
+                android:visibility="gone"
                 android:gravity="center"
                 android:text="@string/backButton" />
 

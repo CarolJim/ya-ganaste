@@ -188,13 +188,9 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int widthp = metrics.widthPixels; // ancho absoluto en pixels
-
         int paramentroT=widthp/3;
         int paramentroimgc=paramentroT/4;
-
         int distancia=paramentroT-paramentroimgc;
-
-
         imageViewCamera.setVisibilityStatus(true);
         imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
         circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
@@ -203,11 +199,6 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         paramsc.width=paramentroimgc;
         paramsc.height=paramentroimgc;
         circuloimageupload.setLayoutParams(paramsc);
-
-
-
-
-
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         params.width =paramentroT;
         params.height =paramentroT;

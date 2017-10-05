@@ -2,9 +2,11 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.app.Activity;
 import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -137,6 +139,9 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
             @Override
             public boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position, long id) {
                 // Toast.makeText(getContext(), "setOnLongClickListener pos " + position, Toast.LENGTH_SHORT).show();
+                Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                // Vibrate for 500 milliseconds
+                v.vibrate(100);
                 Intent intent = new Intent(App.getContext(), EditFavoritesActivity.class);
                 intent.putExtra(getString(R.string.favoritos_tag), ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos());
                 intent.putExtra(CURRENT_TAB, current_tab.getId());

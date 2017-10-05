@@ -8,11 +8,13 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
@@ -145,7 +147,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     CircleImageView circuloimageupload;
     @BindView(R.id.layoutImg)
     RelativeLayout relativefav;
-
+    AppCompatImageView btn_back;
     IFavoritesPresenter favoritesPresenter;
     DataFavoritos dataFavoritos;
     int idTipoComercio, idComercio, idFavorito, idTipoEnvio, tipoTab, longitudRefer, keyIdComercio,
@@ -165,7 +167,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         setContentView(R.layout.activity_edit_favorites);
 
         favoritesPresenter = new FavoritesPresenter(this);
-
+        btn_back= (AppCompatImageView) findViewById(R.id.btn_back);
+        btn_back.setOnClickListener(this);
         dataFavoritos = (DataFavoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
         idComercio = (int) dataFavoritos.getIdComercio();
         idTipoComercio = dataFavoritos.getIdTipoComercio();
@@ -180,10 +183,32 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         backUpResponse = new ArrayList<>();
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this, false);
         paymentsCarouselPresenter.getCarouselItems();
-
         ButterKnife.bind(this);
+      //  imageViewCamera.setVisibilityStatus(true);
+       // imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int widthp = metrics.widthPixels; // ancho absoluto en pixels
+        int paramentroT=widthp/3;
+        int paramentroimgc=paramentroT/4;
+        int distancia=paramentroT-paramentroimgc;
         imageViewCamera.setVisibilityStatus(true);
         imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
+        circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
+        RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsc.setMargins(distancia, 30, 0, 0);
+        paramsc.width=paramentroimgc;
+        paramsc.height=paramentroimgc;
+        circuloimageupload.setLayoutParams(paramsc);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.width =paramentroT;
+        params.height =paramentroT;
+        relativefav.setLayoutParams(params);
+
+
+
+
      /*
         circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
         RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
@@ -479,7 +504,9 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                 Intent intent = new Intent(this, ScannVisionActivity.class);
                 this.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
                 break;
-
+            case R.id.btn_back:
+                finish();
+                break;
             default:
                 break;
         }
