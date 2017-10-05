@@ -66,6 +66,7 @@
     <string name="addFavoritos">/AgregarFavorito</string>
     <string name="addFotoFavoritos">/ActualizarImagenFavorito</string>
     <string name="updateFavoritos">/ActualizarFavorito</string>
+    <string name="deleteFavorito">/EliminarFavorito</string>
 
 
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>

@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.addfavorites.interfases;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
@@ -26,4 +27,6 @@ public interface IFavoritesPresenter {
     void toPresenterAddFotoFavorites(AddFotoFavoritesRequest addFotoFavoritesRequest, int idFavorito);
 
     void toPresenterEditNewFavorites(EditFavoritesRequest editFavoritesRequest, int idFavorito);
+
+    void toPresenterDeleteFavorite(DeleteFavoriteRequest deleteFavoriteRequest, int idFavorito);
 }

@@ -32,8 +32,10 @@ import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
@@ -163,7 +165,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     TransferType selectedType;
     MovementsTab current_tab2;
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
-    private TextWatcher currentTextWatcher, currentTextWatcherPDS, currentWatcherEnvios;
+    private TextWatcher currentTextWatcher, currentTextWatcherPDS;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -202,9 +204,11 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         int paramentroT=widthp/3;
         int paramentroimgc=paramentroT/4;
         int distancia=paramentroT-paramentroimgc;
+
         ImageView deleteFav = (ImageView) findViewById(R.id.delete_fav);
         deleteFav.setVisibility(View.VISIBLE);
         deleteFav.setOnClickListener(this);
+
         imageViewCamera.setVisibilityStatus(true);
         imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
         circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
@@ -217,24 +221,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         params.width =paramentroT;
         params.height =paramentroT;
         relativefav.setLayoutParams(params);
-
-
-
-
-     /*
-        circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
-        RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        paramsc.setMargins(300, 30, 0, 0);
-        paramsc.width=100;
-        paramsc.height=100;
-        circuloimageupload.setLayoutParams(paramsc);
-
-        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.width =400;
-        params.height =400;
-        relativefav.setLayoutParams(params);*/
-
-        //imageViewCamera.setNewHW(300, 300);
 
         /**
          * Iniciamos los cambos de EditTExt Sencillos
@@ -519,7 +505,9 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                         getSupportFragmentManager(), new DialogDoubleActions() {
                             @Override
                             public void actionConfirm(Object... params) {
-                                Log.e("Ya Ganaste", "Borar Favorito");
+                               // Log.e("Ya Ganaste", "Borar Favorito");
+                                DeleteFavoriteRequest deleteFavoriteRequest = new DeleteFavoriteRequest();
+                                favoritesPresenter.toPresenterDeleteFavorite(deleteFavoriteRequest, idFavorito);
                             }
 
                             @Override
@@ -608,6 +596,11 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     @Override
     public void toViewSuccessAdd(FavoritosDatosResponse response) {
 
+    }
+
+    @Override
+    public void toViewSuccessDeleteFavorite(String mMensaje) {
+        showDialogMesage(mMensaje, 1);
     }
 
     private void showDialogMesage(final String mensaje, final int closeAct) {
@@ -885,13 +878,13 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         favoritesPresenter.toPresenterEditNewFavorites(addFavoritesRequest, idFavorito);
 
         // Codigo para mostrar el llenado de la peticion
-        Toast.makeText(this, "Validacion exitosa, ver log para datos", Toast.LENGTH_SHORT).show();
+    /*    Toast.makeText(this, "Validacion exitosa, ver log para datos", Toast.LENGTH_SHORT).show();
         Log.d(TAG, "Alias " + mAlias
                 + " idTipoComercio " + idTipoComercio
                 + " idComercio " + idComercio
                 + " idTipoEnvio " + idTipoEnvio
                 + " mReferencia " + referService
-                + " stringFoto " + stringFoto);
+                + " stringFoto " + stringFoto);*/
     }
 
     @Override

@@ -5,8 +5,10 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDeleteDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
@@ -25,6 +27,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
     IAddFavoritesActivity mView;
     IFavoritesIteractor favoritesIteractor;
     private CatalogsDbApi api;
+    int idFavorito;
 
     public FavoritesPresenter(IAddFavoritesActivity mView) {
         this.mView = mView;
@@ -55,6 +58,13 @@ public class FavoritesPresenter implements IFavoritesPresenter {
     public void toPresenterEditNewFavorites(EditFavoritesRequest editFavoritesRequest, int idFavorito) {
         mView.showLoader("Procesando Foto");
         favoritesIteractor.toIteractorEditFavorites(editFavoritesRequest, idFavorito);
+    }
+
+    @Override
+    public void toPresenterDeleteFavorite(DeleteFavoriteRequest deleteFavoriteRequest, int idFavorito) {
+        mView.showLoader("Procesando Peticion");
+        this.idFavorito = idFavorito;
+        favoritesIteractor.toIteractorDeleteFavorite(deleteFavoriteRequest, idFavorito);
     }
 
     /**
@@ -155,6 +165,18 @@ public class FavoritesPresenter implements IFavoritesPresenter {
             FavoritosEditDatosResponse response = (FavoritosEditDatosResponse) dataSourceResult.getData();
             mView.toViewSuccessAddFoto(response.getMensaje());
         }
+
+
+        /**
+         * Instancia de peticion exitosa y operacion exitosa de FavoritosNewDatosResponse
+         */
+        if (dataSourceResult.getData() instanceof FavoritosDeleteDatosResponse) {
+            mView.hideLoader();
+            api.deleteFavorite(idFavorito);
+            idFavorito = 0;
+            FavoritosDeleteDatosResponse response = (FavoritosDeleteDatosResponse) dataSourceResult.getData();
+            mView.toViewSuccessDeleteFavorite(response.getMensaje());
+        }
     }
 
     @Override
@@ -196,6 +218,16 @@ public class FavoritesPresenter implements IFavoritesPresenter {
             //mView.hideLoader();
             mView.hideLoader();
             FavoritosEditDatosResponse response = (FavoritosEditDatosResponse) dataSourceResult.getData();
+            mView.toViewErrorServer(response.getMensaje());
+        }
+
+        /**
+         * Instancia de peticion exitosa y operacion exitosa de FavoritosDeleteDatosResponse
+         */
+        if (dataSourceResult.getData() instanceof FavoritosDeleteDatosResponse) {
+            //mView.hideLoader();
+            mView.hideLoader();
+            FavoritosDeleteDatosResponse response = (FavoritosDeleteDatosResponse) dataSourceResult.getData();
             mView.toViewErrorServer(response.getMensaje());
         }
 

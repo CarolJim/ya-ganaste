@@ -488,6 +488,11 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
     }
 
+    @Override
+    public void toViewSuccessDeleteFavorite(String mensaje) {
+
+    }
+
     private void showDialogMesage(final String mensaje, final int closeAct) {
         UI.createSimpleCustomDialog("", mensaje, getSupportFragmentManager(),
                 new DialogDoubleActions() {
