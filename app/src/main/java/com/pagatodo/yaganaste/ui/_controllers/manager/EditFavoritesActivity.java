@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.support.v4.content.ContextCompat;
@@ -12,12 +13,15 @@ import android.text.InputFilter;
 import android.text.InputType;
 import android.text.Spanned;
 import android.text.TextWatcher;
+import android.transition.Slide;
 import android.util.Base64;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
@@ -162,6 +166,11 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        getWindow().requestFeature(Window.FEATURE_CONTENT_TRANSITIONS);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getWindow().setEnterTransition(new Slide());
+            getWindow().setExitTransition(new Slide());
+        }
         setContentView(R.layout.activity_edit_favorites);
 
         favoritesPresenter = new FavoritesPresenter(this);
@@ -182,6 +191,9 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         paymentsCarouselPresenter.getCarouselItems();
 
         ButterKnife.bind(this);
+        ImageView deleteFav = (ImageView) findViewById(R.id.delete_fav);
+        deleteFav.setVisibility(View.VISIBLE);
+        deleteFav.setOnClickListener(this);
         imageViewCamera.setVisibilityStatus(true);
         imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
      /*
@@ -458,7 +470,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                 dialogFragment.setOnListServiceListener(this);
                 dialogFragment.show(getSupportFragmentManager(), "FragmentDialog");
                 break;
-
             /**
              * Tomamos el telefono de la agenda para TAE
              */
@@ -466,7 +477,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                 Intent contactPickerIntent = new Intent(Intent.ACTION_PICK, ContactsContract.CommonDataKinds.Phone.CONTENT_URI);
                 this.startActivityForResult(contactPickerIntent, CONTACTS_CONTRACT);
                 break;
-
             /**
              * Tomamos el telefono de la agenda para Envios
              */
@@ -479,7 +489,19 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                 Intent intent = new Intent(this, ScannVisionActivity.class);
                 this.startActivityForResult(intent, BARCODE_READER_REQUEST_CODE);
                 break;
+            case R.id.delete_fav:
+                UI.createSimpleCustomDialog(getString(R.string.delete_fav_title), getString(R.string.delete_fav_text),
+                        getSupportFragmentManager(), new DialogDoubleActions() {
+                            @Override
+                            public void actionConfirm(Object... params) {
+                                Log.e("Ya Ganaste", "Borar Favorito");
+                            }
 
+                            @Override
+                            public void actionCancel(Object... params) {
+                            }
+                        }, true, true);
+                break;
             default:
                 break;
         }
