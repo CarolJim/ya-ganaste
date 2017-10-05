@@ -104,12 +104,6 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     CustomValidationEditText editListServ;
     @BindView(R.id.add_favorites_list_serv_error)
     ErrorMessage editListServError;
-    @BindView(R.id.add_favorites_linear_tipo)
-    LinearLayout linearTipo;
-    @BindView(R.id.add_favorites_tipo)
-    CustomValidationEditText editTipo;
-    @BindView(R.id.add_favorites_tipo_error)
-    ErrorMessage editTipoError;
     @BindView(R.id.add_favorites_referencia)
     CustomValidationEditText editRefer;
     @BindView(R.id.add_favorites_referencia_error)
@@ -176,7 +170,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_favorites);
-
+        ButterKnife.bind(this);
         favoritesPresenter = new FavoritesPresenter(this);
 
         Intent intent = getIntent();
@@ -196,7 +190,6 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         int widthp = metrics.widthPixels; // ancho absoluto en pixels
 
         int paramentroT=widthp/3;
-        ButterKnife.bind(this);
         int paramentroimgc=paramentroT/4;
 
         int distancia=paramentroT-paramentroimgc;
@@ -630,14 +623,6 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
             //return;
         }
 
-        //Validate format Tipo Envio
-        if (!editTipo.isValidText()) {
-            showValidationError(editTipo.getId(), getString(R.string.addFavoritesErrorEnvio));
-            editTipo.setIsInvalid();
-            isValid = false;
-            //return;
-        }
-
         /** Hacemos set de la validacion de referencia dependiendo del tipo de TAB */
 
         if (current_tab == 1) {
@@ -713,9 +698,6 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
             case R.id.add_favorites_list_serv:
                 editListServError.setMessageText(error.toString());
                 break;
-            case R.id.add_favorites_tipo:
-                editTipoError.setMessageText(error.toString());
-                break;
             case R.id.add_favorites_referencia:
                 editReferError.setMessageText(error.toString());
                 break;
@@ -744,9 +726,9 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
             case R.id.add_favorites_servicio:
                 editListServError.setVisibilityImageError(false);
                 break;
-            case R.id.add_favorites_tipo:
+            /*case R.id.add_favorites_tipo:
                 editTipoError.setVisibilityImageError(false);
-                break;
+                break;*/
             case R.id.add_favorites_referencia:
                 editReferError.setVisibilityImageError(false);
                 break;
@@ -768,7 +750,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     public void onValidationSuccess() {
         editAliasError.setVisibilityImageError(false);
         editListServError.setVisibilityImageError(false);
-        editTipoError.setVisibilityImageError(false);
+        //editTipoError.setVisibilityImageError(false);
         editReferError.setVisibilityImageError(false);
 
         String mAlias = editAlias.getText().toString();

@@ -165,6 +165,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         setContentView(R.layout.activity_edit_favorites);
 
         favoritesPresenter = new FavoritesPresenter(this);
+
         dataFavoritos = (DataFavoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
         idComercio = (int) dataFavoritos.getIdComercio();
         idTipoComercio = dataFavoritos.getIdTipoComercio();
