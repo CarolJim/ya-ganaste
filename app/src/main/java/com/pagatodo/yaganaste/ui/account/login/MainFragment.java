@@ -13,6 +13,7 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -79,9 +80,11 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
         // Se encarga de hacer Set en el Adapter
         rollPagerView.setAdapter(new AdapterRollPager(rollPagerView, getActivity()));
         ColorPointHintView ss= new ColorPointHintView(getActivity(),Color.WHITE, Color.parseColor("#7fffffff") );
-
         rollPagerView.setHintView(ss);
-        rollPagerView.setHintPadding(0,0,0,90);
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int height = metrics.heightPixels; // alto absoluto en pixels
+        rollPagerView.setHintPadding(0,0,0,height/7);
     }
 
     @Override
