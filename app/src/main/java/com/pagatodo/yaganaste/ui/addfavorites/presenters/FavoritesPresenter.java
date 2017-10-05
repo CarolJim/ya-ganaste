@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.addfavorites.presenters;
 
 import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
@@ -50,13 +51,13 @@ public class FavoritesPresenter implements IFavoritesPresenter {
 
     @Override
     public void toPresenterAddFotoFavorites(AddFotoFavoritesRequest addFotoFavoritesRequest, int idFavorito) {
-        mView.showLoader("Procesando Foto");
+        mView.showLoader(App.getContext().getString(R.string.fav_photo_request));
         favoritesIteractor.toIteractorAddFotoNewFavorites(addFotoFavoritesRequest, idFavorito);
     }
 
     @Override
     public void toPresenterEditNewFavorites(EditFavoritesRequest editFavoritesRequest, int idFavorito) {
-        mView.showLoader("Procesando Foto");
+        mView.showLoader(App.getContext().getString(R.string.update_fav_request));
         favoritesIteractor.toIteractorEditFavorites(editFavoritesRequest, idFavorito);
     }
 
@@ -65,6 +66,13 @@ public class FavoritesPresenter implements IFavoritesPresenter {
         mView.showLoader("Procesando Peticion");
         this.idFavorito = idFavorito;
         favoritesIteractor.toIteractorDeleteFavorite(deleteFavoriteRequest, idFavorito);
+    }
+
+    @Override
+    public void updateLocalFavorite(DataFavoritos dataFavoritos){
+        api.deleteFavorite((int)dataFavoritos.getIdFavorito());
+        api.insertFavorite(dataFavoritos);
+        mView.hideLoader();
     }
 
     /**
@@ -161,9 +169,9 @@ public class FavoritesPresenter implements IFavoritesPresenter {
          * Instancia de peticion exitosa y operacion exitosa de FavoritosNewDatosResponse
          */
         if (dataSourceResult.getData() instanceof FavoritosEditDatosResponse) {
-            mView.hideLoader();
+            //mView.hideLoader();
             FavoritosEditDatosResponse response = (FavoritosEditDatosResponse) dataSourceResult.getData();
-            mView.toViewSuccessAddFoto(response.getMensaje());
+            mView.toViewSuccessEdit(response);
         }
 
 

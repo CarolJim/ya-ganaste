@@ -363,6 +363,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             refreshAdquirenteMovements();
         } else if (requestCode == Constants.EDIT_FAVORITE && resultCode == Activity.RESULT_OK) {
             showMainTab();
+            tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
         }
     }
 

@@ -39,6 +39,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavorite
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ITextChangeListener;
@@ -444,10 +445,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         setVisibilityPrefer(false);
     }
 
-    /**
-     * EVENTOS OnClick de Butter Knife o Listener
-     */
-
     // Disparamos el evento de Camara solo si tenemos intrnet
     @OnClick(R.id.add_favorites_camera)
     public void openCamera() {
@@ -460,7 +457,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         finish();
     }
 
-    //Disparamos la validacion, si es exitosa, entnces iniciamos el proceso de favoritos
+    //Disparamos la validacion, si es exitosa, entonces iniciamos el proceso de actualizar favoritos
     @OnClick(R.id.btnSendAddFavoritos)
     public void sendAddFavoritos() {
         // Toast.makeText(this, "Open Presenter", Toast.LENGTH_SHORT).show();
@@ -505,7 +502,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                         getSupportFragmentManager(), new DialogDoubleActions() {
                             @Override
                             public void actionConfirm(Object... params) {
-                               // Log.e("Ya Ganaste", "Borar Favorito");
                                 DeleteFavoriteRequest deleteFavoriteRequest = new DeleteFavoriteRequest();
                                 favoritesPresenter.toPresenterDeleteFavorite(deleteFavoriteRequest, idFavorito);
                             }
@@ -575,18 +571,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
      * @param mResponse
      */
     @Override
-    public void toViewSuccessAdd(FavoritosNewDatosResponse mResponse) {
-        // showDialogMesage(mMensaje, 1);
-
-        int idFavorito = mResponse.getData().getIdFavorito();
-        /**
-         * Camino para enviar la foto al servicio
-         */
-        AddFotoFavoritesRequest addFotoFavoritesRequest =
-                new AddFotoFavoritesRequest(stringFoto, "png");
-
-        favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
-    }
+    public void toViewSuccessAdd(FavoritosNewDatosResponse mResponse) {   }
 
     @Override
     public void toViewSuccessAddFoto(String mMensaje) {
@@ -594,13 +579,24 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     }
 
     @Override
-    public void toViewSuccessAdd(FavoritosDatosResponse response) {
-
-    }
+    public void toViewSuccessAdd(FavoritosDatosResponse response) {  }
 
     @Override
     public void toViewSuccessDeleteFavorite(String mMensaje) {
         showDialogMesage(mMensaje, 1);
+    }
+
+    @Override
+    public void toViewSuccessEdit(FavoritosEditDatosResponse response) {
+        // showDialogMesage(mMensaje, 1);
+        if(stringFoto!=null){
+            AddFotoFavoritesRequest addFotoFavoritesRequest =
+                    new AddFotoFavoritesRequest(stringFoto, "png");
+            favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
+        } else {
+            favoritesPresenter.updateLocalFavorite(dataFavoritos);
+            showDialogMesage(response.getMensaje(), 1);
+        }
     }
 
     private void showDialogMesage(final String mensaje, final int closeAct) {
@@ -697,7 +693,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         // Creamos el objeto ActualizarAvatarRequest
         // ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
 
-
         // onEventListener.onEvent("DISABLE_BACK", true);
 
         // Enviamos al presenter
@@ -709,7 +704,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
      */
     @Override
     public void validateForm() {
-        getDataForm();
         boolean isValid = true;
 
         //Validate format Email
@@ -774,14 +768,14 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                 //return;
             }
         }
-
+/*
         //Validate format Tipo Envio
         if (!editFoto.isValidText()) {
             showValidationError(editFoto.getId(), getString(R.string.addFavoritesErrorFoto));
             editFoto.setIsInvalid();
             isValid = false;
             //return;
-        }
+        }*/
 
         if (isValid) {
             boolean isOnline = Utils.isDeviceOnline();
@@ -874,7 +868,10 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         // stringFoto Poner el String de foto cuando el servicio no se muera
         EditFavoritesRequest addFavoritesRequest = new EditFavoritesRequest(idTipoComercio, idTipoEnvio,
                 idComercio, mAlias, referService, "");
-
+        dataFavoritos.setIdTipoComercio(idTipoComercio);
+        dataFavoritos.setIdComercio(idComercio);
+        dataFavoritos.setNombre(mAlias);
+        dataFavoritos.setReferencia(referService);
         favoritesPresenter.toPresenterEditNewFavorites(addFavoritesRequest, idFavorito);
 
         // Codigo para mostrar el llenado de la peticion
@@ -888,9 +885,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     }
 
     @Override
-    public void getDataForm() {
-
-    }
+    public void getDataForm() { }
 
     /**
      * Encargada de reaccionar al codigo de pusacion KEYCODE_CALL=5 para cerrar el teclado
@@ -910,24 +905,16 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         }
     }*/
     @Override
-    public void showProgress(String mMensaje) {
-        //Log.d("TAG", "showProgress ");
-    }
+    public void showProgress(String mMensaje) {   }
 
     @Override
-    public void showExceptionToView(String mMesage) {
-        //Log.d("TAG", "showExceptionToView ");
-    }
+    public void showExceptionToView(String mMesage) {  }
 
     @Override
-    public void sendSuccessAvatarToView(String mensaje) {
-        //Log.d("TAG", "sendSuccessAvatarToView ");
-    }
+    public void sendSuccessAvatarToView(String mensaje) {  }
 
     @Override
-    public void sendErrorAvatarToView(String mensaje) {
-        //Log.d("TAG", "sendErrorAvatarToView ");
-    }
+    public void sendErrorAvatarToView(String mensaje) {  }
 
     /**
      * Listener que efectua varias tareas cuando se selecciona un servicio de la lista, dependiendo

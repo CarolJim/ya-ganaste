@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.addfavorites.interfases;
 
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
 
 /**
@@ -24,4 +25,6 @@ public interface IAddFavoritesActivity {
     void toViewSuccessAdd(FavoritosDatosResponse response);
 
     void toViewSuccessDeleteFavorite(String mensaje);
+
+    void toViewSuccessEdit(FavoritosEditDatosResponse response);
 }

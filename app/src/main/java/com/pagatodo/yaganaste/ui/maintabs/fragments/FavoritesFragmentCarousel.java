@@ -16,6 +16,7 @@ import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -138,19 +139,21 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
         carouselFav.setOnItemLongClickListener(new CarouselAdapter.OnItemLongClickListener() {
             @Override
             public boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position, long id) {
-                // Toast.makeText(getContext(), "setOnLongClickListener pos " + position, Toast.LENGTH_SHORT).show();
-                Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-                // Vibrate for 500 milliseconds
-                v.vibrate(100);
-                Intent intent = new Intent(App.getContext(), EditFavoritesActivity.class);
-                intent.putExtra(getString(R.string.favoritos_tag), ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos());
-                intent.putExtra(CURRENT_TAB, current_tab.getId());
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-                    getActivity().startActivityForResult(intent, EDIT_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
-                } else {
-                    getActivity().startActivityForResult(intent, EDIT_FAVORITE);
+                DataFavoritos dataFavoritos = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos();
+                if (dataFavoritos != null) {
+                    Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                    // Vibrate for 500 milliseconds
+                    v.vibrate(100);
+                    Intent intent = new Intent(App.getContext(), EditFavoritesActivity.class);
+                    intent.putExtra(getString(R.string.favoritos_tag), dataFavoritos);
+                    intent.putExtra(CURRENT_TAB, current_tab.getId());
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        getActivity().startActivityForResult(intent, EDIT_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                    } else {
+                        getActivity().startActivityForResult(intent, EDIT_FAVORITE);
+                    }
+                    longClicked = true;
                 }
-                longClicked = true;
                 return false;
             }
         });

@@ -933,5 +933,7 @@
     <string name="delete_fav_title">Borrar Favorito</string>
     <string name="delete_fav_text">¿Desea Eliminar Éste Favorito de Manera Permanente?</string>
     <string name="delete_fav_button">Eliminar</string>
+    <string name="update_fav_request">Actualizando Favorito</string>
+    <string name="fav_photo_request">Procesando Foto</string>
     <string name="path_image">/YaGanaste</string>
 </resources>

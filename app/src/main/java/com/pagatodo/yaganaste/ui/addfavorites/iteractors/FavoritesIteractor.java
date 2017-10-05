@@ -150,7 +150,6 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
          */
         if (dataSourceResult.getData() instanceof FavoritosEditDatosResponse) {
             FavoritosEditDatosResponse response = (FavoritosEditDatosResponse) dataSourceResult.getData();
-
             if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
                 //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
                 favoritesPresenter.toPresenterGenericSuccess(dataSourceResult);
