@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.support.annotation.CallSuper;
 import android.support.annotation.LayoutRes;
 import android.support.v7.widget.AppCompatImageView;
@@ -45,7 +46,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     public void setUpActionBar() {
         toolbarLayout = findViewById(R.id.toolbarLy);
         imageView = (CircleImageView) findViewById(R.id.imgToRight_prefe);
-        imageViewdes = (CircleImageView) findViewById(R.id.imgToRight_prefe);
+        imageViewdes= (CircleImageView) findViewById(R.id.imgToRight_prefe);
         btnBack = (AppCompatImageView) findViewById(R.id.btn_back);
         if (imageView != null) {
             imageView.setOnClickListener(this);
@@ -68,27 +69,28 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     /**
      * Metodo que heredamos, controla el que se muestre el icono con la foto como visible o no, en
      * todos sus descendientes
-     *
      * @param mBoolean
      */
-    public void setVisibilityPrefer(Boolean mBoolean) {
-        if (mBoolean) {
+    public void setVisibilityPrefer(Boolean mBoolean){
+        if(mBoolean){
             imageView.setVisibility(View.VISIBLE);
-        } else {
+        }else{
             imageView.setVisibility(View.GONE);
         }
     }
 
-    public void setVisibilityBack(boolean mBoolean) {
+    public void setVisibilityBack(boolean mBoolean){
         if (mBoolean) {
             btnBack.setVisibility(View.VISIBLE);
-        } else {
+        }else {
             btnBack.setVisibility(View.GONE);
         }
     }
 
 
-    public static void setVisibleshare() {
+
+
+    public static void setVisibleshare(){
         imageViewdes.setVisibility(View.GONE);
     }
 
@@ -105,7 +107,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
         }
     }
 
-    public void changeToolbarVisibility(boolean visibility) {
+ public void changeToolbarVisibility(boolean visibility) {
         if (toolbarLayout != null) {
             if (visibility) {
                 toolbarLayout.setVisibility(View.VISIBLE);
@@ -118,7 +120,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
-        //   getMenuInflater().inflate(R.menu.my_account_menu, menu);
+     //   getMenuInflater().inflate(R.menu.my_account_menu, menu);
         return true;
     }
 
@@ -162,7 +164,6 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
 
     /**
      * Abrimos la actividad de las preferencias
-     *
      * @param v
      */
     @Override

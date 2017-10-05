@@ -929,5 +929,8 @@
     <string name="clave_rastreo">\nClave de Rastreo: %1$s</string>
 
     <string name="favoritos_tag">Favoritos</string>
+    <string name="delete_fav_title">Borrar Favorito</string>
+    <string name="delete_fav_text">¿Desea Eliminar Éste Favorito de Manera Permanente?</string>
+    <string name="delete_fav_button">Eliminar</string>
     <string name="path_image">/YaGanaste</string>
 </resources>

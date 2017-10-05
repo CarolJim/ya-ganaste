@@ -89,5 +89,14 @@
         android:visibility="gone"
         app:srcCompat="@drawable/share_canvas_blue" />
 
+    <ImageView
+        android:id="@+id/delete_fav"
+        android:layout_width="30dp"
+        android:layout_height="30dp"
+        android:layout_gravity="center_vertical|end"
+        android:layout_marginRight="15dp"
+        android:visibility="gone"
+        app:srcCompat="@drawable/ic_icono_basura" />
+
 
 </FrameLayout>
