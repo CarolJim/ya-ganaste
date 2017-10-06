@@ -17,8 +17,10 @@
     <color name="inputTextColorHint">#A2AEB6</color>
     <color name="lightGrayColor">#beb8b8</color>
     <color name="colorLoaderAlpha">#71393943</color>
+    <color name="tab_select_color">#263640</color>
     <!--<color name="backgroundEditText">#4D5C6B</color>-->
 
+    <color name="circlecarouferfewsel6">#7fffffff</color>
     <color name="circlecarousel6">#d40655</color>
     <color name="circlecarousel5">#da01de</color>
     <color name="purpura">#d907f1</color>

@@ -6,11 +6,14 @@ import android.content.Intent;
 import android.graphics.Bitmap;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.Base64;
+import android.util.DisplayMetrics;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
@@ -18,6 +21,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -38,6 +42,7 @@ import java.io.ByteArrayOutputStream;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.DESTINATARIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_COMERCIO;
@@ -72,7 +77,15 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     CustomValidationEditText editFoto;
     @BindView(R.id.add_favorites_foto_error)
     ErrorMessage editFotoError;
+    @BindView(R.id.btn_back)
+    AppCompatImageView btnBack;
+    @BindView(R.id.imgItemGalleryMark)
+    CircleImageView circuloimage;
+    @BindView(R.id.layoutImg)
+    RelativeLayout relativefav;
 
+    @BindView(R.id.imgItemGalleryStatus)
+    CircleImageView circuloimageupload;
     IFavoritesPresenter favoritesPresenter;
     int idTipoComercio;
     int idComercio;
@@ -85,6 +98,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     CameraManager cameraManager;
     private boolean errorIsShowed = false;
     private int idTipoEnvio;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -102,10 +116,27 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         formatoComercio = intent.getStringExtra(REFERENCIA);
         tipoTab = intent.getIntExtra(TIPO_TAB, 96);
         nombreDest = intent.getStringExtra(DESTINATARIO);
-
         ButterKnife.bind(this);
+
+
+        DisplayMetrics metrics = new DisplayMetrics();
+        getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int widthp = metrics.widthPixels; // ancho absoluto en pixels
+        int paramentroT=widthp/3;
+        int paramentroimgc=paramentroT/4;
+        int distancia=paramentroT-paramentroimgc;
         imageViewCamera.setVisibilityStatus(true);
-        imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.ic_status_upload));
+        imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
+        circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
+        RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        paramsc.setMargins(distancia, 30, 0, 0);
+        paramsc.width=paramentroimgc;
+        paramsc.height=paramentroimgc;
+        circuloimageupload.setLayoutParams(paramsc);
+        RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
+        params.width =paramentroT;
+        params.height =paramentroT;
+        relativefav.setLayoutParams(params);
         //imageViewCamera.setNewHW(300, 300);
 
         textViewServ.setText(nombreComercio);
@@ -159,10 +190,16 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         cameraManager = new CameraManager();
         cameraManager.initCameraUploadDocument(this, imageViewCamera, this);
 
+        btnBack.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                finish();
+            }
+        });
 
         // Agregamos Flecha de Shebrom
         textViewServ.setEnabled(false);
-        textViewServ.setFullOnClickListener(this);
+        //textViewServ.setFullOnClickListener(this);
         textViewServ.setDrawableImage(R.drawable.menu_canvas);
     }
 
@@ -232,6 +269,16 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
                 new AddFotoFavoritesRequest(stringFoto, "png");
 
         favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
+    }
+
+    @Override
+    public void toViewSuccessDeleteFavorite(String mensaje) {
+
+    }
+
+    @Override
+    public void toViewSuccessEdit(FavoritosEditDatosResponse response) {
+
     }
 
     private void showDialogMesage(final String mensaje, final int closeAct) {
@@ -380,11 +427,22 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     @Override
     public void onValidationSuccess() {
         errorAliasMessage.setVisibilityImageError(false);
-        String mAlias = editTextAlias.getText();
-        AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
-                idComercio, mAlias, mReferencia, "");
 
-        favoritesPresenter.toPresenterAddFavorites(addFavoritesRequest);
+        String mAlias = editTextAlias.getText();
+        mReferencia = textViewRef.getText().toString();
+        String referService = StringUtils.formatCardToService(mReferencia);
+
+        AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
+                idComercio, mAlias, referService, "");
+
+        /* Si no tiene un favorito guardado con la misma referencia entonces se permite subirlo*/
+        if (!favoritesPresenter.alreadyExistFavorite(referService)) {
+            favoritesPresenter.toPresenterAddFavorites(addFavoritesRequest);
+        } else {
+        /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
+            UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(),
+                    "");
+        }
     }
 
     @Override

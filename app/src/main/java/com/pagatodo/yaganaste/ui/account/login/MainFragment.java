@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.support.v7.widget.AppCompatButton;
@@ -12,11 +13,13 @@ import android.text.TextPaint;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ClickableSpan;
 import android.text.style.ForegroundColorSpan;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.jude.rollviewpager.RollPagerView;
+import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
@@ -76,8 +79,12 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
 
         // Se encarga de hacer Set en el Adapter
         rollPagerView.setAdapter(new AdapterRollPager(rollPagerView, getActivity()));
-        rollPagerView.setHintView(null);
-
+        ColorPointHintView ss= new ColorPointHintView(getActivity(),Color.WHITE, Color.parseColor("#7fffffff") );
+        rollPagerView.setHintView(ss);
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int height = metrics.heightPixels; // alto absoluto en pixels
+        rollPagerView.setHintPadding(0,0,0,height/7);
     }
 
     @Override

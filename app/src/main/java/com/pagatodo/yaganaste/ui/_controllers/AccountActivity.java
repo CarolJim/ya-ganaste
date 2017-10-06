@@ -2,10 +2,14 @@ package com.pagatodo.yaganaste.ui._controllers;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatImageView;
+import android.transition.Explode;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
 
@@ -38,6 +42,8 @@ import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
+
+import butterknife.BindView;
 
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_FAILED;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_SUCCES;
@@ -82,6 +88,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     private LoginManagerContainerFragment loginContainerFragment;
     private static AccountPresenterNew presenterAccount;
     App aplicacion;
+    Boolean back=false;
 
     private String action = "";
 
@@ -133,6 +140,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     protected void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
+        setVisibilityBack(back);
     }
 
     @Override
@@ -197,7 +205,10 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 loadFragment(DomicilioActualFragment.newInstance(), Direction.BACK, false);
                 break;
             case EVENT_GO_GET_CARD:
+                back=false;
+                setVisibilityBack(back);
                 loadFragment(TienesTarjetaFragment.newInstance(), Direction.FORDWARD, true);
+
                 break;
             case EVENT_GO_ASSIGN_PIN:
                 loadFragment(AsignarNIPFragment.newInstance(), Direction.FORDWARD, false);

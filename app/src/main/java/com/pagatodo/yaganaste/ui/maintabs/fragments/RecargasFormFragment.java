@@ -147,6 +147,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
 
         if (favoriteItem != null) {
             recargaNumber.setText(favoriteItem.getReferencia());
+            //recargaNumber.setEnabled(false);
         }
     }
 

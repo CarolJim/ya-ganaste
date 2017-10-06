@@ -13,12 +13,13 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/imgItemGalleryMark"
             android:layout_width="match_parent"
+            android:background="@drawable/foto_canvas"
             android:layout_height="match_parent"
             android:layout_centerHorizontal="true"
             android:layout_centerVertical="true"
-            android:background="@drawable/foto_canvas"
+
             app:civ_border_color="@color/colorAccent"
-            app:civ_border_width="0dp" />
+            app:civ_border_width="2dp" />
 
         <ImageView
             android:id="@+id/imgItemGalleryPay"
@@ -30,15 +31,18 @@
             android:padding="10dp"
             tools:ignore="ContentDescription" />
 
+
     </RelativeLayout>
 
     <de.hdodenhof.circleimageview.CircleImageView
         android:id="@+id/imgItemGalleryStatus"
         android:layout_width="24dp"
         android:layout_height="24dp"
-        android:layout_alignRight="@+id/layoutImg"
         android:src="@color/bgColor"
         app:civ_border_color="@color/colorAccent"
-        app:civ_border_width="2dp" />
+        app:civ_border_width="2dp"
+        android:layout_alignRight="@+id/layoutImg"
+       />
+
 
 </RelativeLayout>

@@ -165,7 +165,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     @Override
     public void showErrorService() {
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
-        UI.createSimpleCustomDialog("", getString(R.string.error_respuesta), getActivity().getSupportFragmentManager(), getFragmentTag());
+        UI.createSimpleCustomDialog("", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), getFragmentTag());
     }
 
     @Override

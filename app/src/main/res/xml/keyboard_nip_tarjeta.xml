@@ -39,10 +39,8 @@
     </Row>
     <Row>
         <Key
-            android:codes="29"
-            android:keyEdgeFlags="left"
-            android:keyIcon="@drawable/keyboard_blue_circle"
-
+            android:codes="1021"
+            android:keyLabel=""
             />
         <Key
             android:codes="7"

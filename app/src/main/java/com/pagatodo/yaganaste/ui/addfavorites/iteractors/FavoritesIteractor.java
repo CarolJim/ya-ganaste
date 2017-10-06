@@ -5,7 +5,11 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDeleteDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewFotoDatosResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
@@ -18,6 +22,8 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_FAVORITES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_NEW_FAVORITES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_NEW_FOTO_FAVORITES;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.DELETE_FAVORITE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.EDIT_FAVORITES;
 
 /**
  * Created by Francisco Manzo on 14/09/2017.
@@ -59,6 +65,26 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
     public void toIteractorAddFotoNewFavorites(AddFotoFavoritesRequest addFotoFavoritesRequest, int idFavorito) {
         try {
             ApiAdtvo.addNewFotoFavorites(addFotoFavoritesRequest, idFavorito, this);
+        } catch (OfflineException e) {
+            favoritesPresenter.toPresenterErrorServer(
+                    App.getContext().getResources().getString(R.string.no_internet_access));
+        }
+    }
+
+    @Override
+    public void toIteractorEditFavorites(EditFavoritesRequest editFavoritesRequest, int idFavorito) {
+        try {
+            ApiAdtvo.addEditFavorites(editFavoritesRequest, idFavorito, this);
+        } catch (OfflineException e) {
+            favoritesPresenter.toPresenterErrorServer(
+                    App.getContext().getResources().getString(R.string.no_internet_access));
+        }
+    }
+
+    @Override
+    public void toIteractorDeleteFavorite(DeleteFavoriteRequest deleteFavoriteRequest, int idFavorito) {
+        try {
+            ApiAdtvo.addDeleteFavorite(deleteFavoriteRequest, idFavorito, this);
         } catch (OfflineException e) {
             favoritesPresenter.toPresenterErrorServer(
                     App.getContext().getResources().getString(R.string.no_internet_access));
@@ -118,6 +144,35 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
                 favoritesPresenter.toPresenterGenericError(dataSourceResult);
             }
         }
+
+        /**
+         * Instancia de peticion exitosa de FavoritosEditDatosResponse
+         */
+        if (dataSourceResult.getData() instanceof FavoritosEditDatosResponse) {
+            FavoritosEditDatosResponse response = (FavoritosEditDatosResponse) dataSourceResult.getData();
+            if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
+                favoritesPresenter.toPresenterGenericSuccess(dataSourceResult);
+            } else {
+                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess with Error " + response.getMensaje());
+                favoritesPresenter.toPresenterGenericError(dataSourceResult);
+            }
+        }
+
+        /**
+         * Instancia de peticion exitosa de FavoritosDeleteDatosResponse
+         */
+        if (dataSourceResult.getData() instanceof FavoritosDeleteDatosResponse) {
+            FavoritosDeleteDatosResponse response = (FavoritosDeleteDatosResponse) dataSourceResult.getData();
+
+            if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
+                favoritesPresenter.toPresenterGenericSuccess(dataSourceResult);
+            } else {
+                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess with Error " + response.getMensaje());
+                favoritesPresenter.toPresenterGenericError(dataSourceResult);
+            }
+        }
     }
 
     /**
@@ -133,6 +188,12 @@ public class FavoritesIteractor implements IFavoritesIteractor, IRequestResult {
             favoritesPresenter.toPresenterErrorServer(error.getData().toString());
         }
         if (error.getWebService().equals(ADD_NEW_FOTO_FAVORITES)) {
+            favoritesPresenter.toPresenterErrorServer(error.getData().toString());
+        }
+        if (error.getWebService().equals(EDIT_FAVORITES)) {
+            favoritesPresenter.toPresenterErrorServer(error.getData().toString());
+        }
+        if (error.getWebService().equals(DELETE_FAVORITE)) {
             favoritesPresenter.toPresenterErrorServer(error.getData().toString());
         }
     }

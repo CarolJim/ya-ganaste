@@ -1,28 +1,34 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.app.Activity;
+import android.app.ActivityOptions;
+import android.content.Context;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.ui._controllers.manager.EditFavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
-import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ListDialog;
 import com.pagatodo.yaganaste.utils.customviews.carousel.Carousel;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselAdapter;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
-import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -32,7 +38,9 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.utils.Constants.EDIT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
+import static com.pagatodo.yaganaste.utils.Recursos.CURRENT_TAB;
 
 /**
  * Created by Jordan on 06/04/2017.
@@ -101,6 +109,8 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
         });
     }
 
+    boolean longClicked;
+
     @Override
     public void onResume() {
         super.onResume();
@@ -126,6 +136,49 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
                 }
             }
         });
+
+        carouselFav.setOnItemLongClickListener(new CarouselAdapter.OnItemLongClickListener() {
+            @Override
+            public boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position, long id) {
+                DataFavoritos dataFavoritos = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos();
+                if (dataFavoritos != null) {
+                    Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                    // Vibrate for 500 milliseconds
+                    v.vibrate(100);
+                    Intent intent = new Intent(App.getContext(), EditFavoritesActivity.class);
+                    intent.putExtra(getString(R.string.favoritos_tag), dataFavoritos);
+                    intent.putExtra(CURRENT_TAB, current_tab.getId());
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        getActivity().startActivityForResult(intent, EDIT_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+                    } else {
+                        getActivity().startActivityForResult(intent, EDIT_FAVORITE);
+                    }
+                    longClicked = true;
+                }
+                return false;
+            }
+        });
+
+//        carouselFav.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                Toast.makeText(getContext(), "setOnTouchListener", Toast.LENGTH_SHORT).show();
+//                if(longClicked){
+//                    //Do whatever you want here!!
+//                    longClicked = false;
+//                }
+//                return false;
+//            }
+//        });
+
+//        carouselFav.setOnTouchListener(new View.OnTouchListener() {
+//            @Override
+//            public boolean onTouch(View v, MotionEvent event) {
+//                Toast.makeText(getContext(), "setOnTouchListener", Toast.LENGTH_SHORT).show();
+//
+//                return false;
+//            }
+//        });
     }
 
     @Override
@@ -174,8 +227,12 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
                     return o1.getFavoritos().getNombreComercio().compareToIgnoreCase(o2.getFavoritos().getNombre());
                 }
             });
-            dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
-            dialog.show();
+            if (response.size() > 0) {
+                dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
+                dialog.show();
+            } else {
+                Toast.makeText(getActivity(),getString(R.string.empty_list_favorites), Toast.LENGTH_SHORT).show();
+            }
             isFromClick = false;
         } else {
             if (response.size() > MAX_CAROUSEL_ITEMS) {

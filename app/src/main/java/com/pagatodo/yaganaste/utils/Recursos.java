@@ -242,8 +242,6 @@ public class Recursos {
     public static final String MESSAGE_CHANGE_PASS = "Ejecución Exitosa";
     public static final String MESSAGE_OPEN_SESSION2 = "Por favor inicia sesión";
 
-
-
     /**
      * EstatusCuenta
      */
@@ -252,4 +250,15 @@ public class Recursos {
     public static final String ESTATUS_CUENTA_DESBLOQUEADA = "2";
     public static final String FLAG_BLOQUEAR_CUENTA = "1";
     public static final String FLAG_DESBLOQUEAR_CUENTA = "2";
+
+    public static final String CURRENT_TAB = "current_tab";
+
+//     intent.putExtra(NOMBRE_COMERCIO, nombreComercio);
+//                intent.putExtra(ID_COMERCIO, idComercio);
+//                intent.putExtra(ID_TIPO_COMERCIO, idTipoComercio);
+//                intent.putExtra(ID_TIPO_ENVIO, idTipoEnvio);
+//                intent.putExtra(REFERENCIA, referencia);
+//                intent.putExtra(TIPO_TAB, tipoTab);
+//                intent.putExtra(DESTINATARIO, nombreDest);
+//
 }

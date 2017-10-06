@@ -82,6 +82,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     boolean clickFlip = false;
     private Handler flipTimmer;
     private Runnable runnableTimmer;
+    boolean pauseback=true;
 
     public static QuickBalanceFragment newInstance() {
 
@@ -142,6 +143,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
                 if (flipTimmer != null) {
                     flipTimmer.removeCallbacks(runnableTimmer);
                     flipTimmer = null;
+                    pauseback=false;
                 }
                 loginContainerManager.loadLoginFragment();
                 break;
@@ -163,6 +165,16 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
                 e.printStackTrace();
             }
         }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        try {
+            if (accountPresenter.isBackShown() && pauseback==true){
+                accountPresenter.flipCard(R.id.llsaldo, CardBack.newInstance(accountPresenter));
+            }
+        }catch (Exception e ){}
     }
 
     private void doFlip() {

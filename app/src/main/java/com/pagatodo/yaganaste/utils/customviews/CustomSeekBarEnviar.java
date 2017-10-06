@@ -17,21 +17,21 @@ import com.pagatodo.yaganaste.utils.FontCache;
  * Created by Jordan on 10/05/2017.
  */
 
-public class CustomSeekBar extends android.support.v7.widget.AppCompatSeekBar {
+public class CustomSeekBarEnviar extends android.support.v7.widget.AppCompatSeekBar {
     private int mThumbSize;
     private TextPaint mTextPaint;
     private String titleText;
     private Rect bounds;
 
-    public CustomSeekBar(Context context) {
+    public CustomSeekBarEnviar(Context context) {
         super(context);
     }
 
-    public CustomSeekBar(Context context, AttributeSet attrs) {
+    public CustomSeekBarEnviar(Context context, AttributeSet attrs) {
         this(context, attrs, android.R.attr.seekBarStyle);
     }
 
-    public CustomSeekBar(Context context, AttributeSet attrs, int defStyleAttr) {
+    public CustomSeekBarEnviar(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
         init(context, attrs);
     }
@@ -69,7 +69,7 @@ public class CustomSeekBar extends android.support.v7.widget.AppCompatSeekBar {
         float progressRatio = (float) getProgress() / getMax();
         float thumbOffset = mThumbSize * (.45f - progressRatio);
         float thumbX = progressRatio * width + thumbOffset;//+ leftPadding
-        float thumbY = (getHeight() + bounds.height() + ((mTextPaint.ascent() + mTextPaint.descent()) / 2)) * 0.50f;//;//(getHeight() / 2) + (((bounds.height() + boundsLowerCase.height()) / 2) / 2); //(getHeight() / 2f) + (bounds.height() * 0.4f);
+        float thumbY = (getHeight() + bounds.height() + ((mTextPaint.ascent() + mTextPaint.descent()) / 2)) * 0.55f;//;//(getHeight() / 2) + (((bounds.height() + boundsLowerCase.height()) / 2) / 2); //(getHeight() / 2f) + (bounds.height() * 0.4f);
         canvas.drawText(titleText, thumbX, thumbY, mTextPaint);
     }
 }

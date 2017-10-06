@@ -1,8 +1,12 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.animation.Animator;
+import android.animation.AnimatorListenerAdapter;
+import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Color;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -12,6 +16,7 @@ import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -33,6 +38,7 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 
 import java.util.List;
@@ -82,6 +88,10 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     MontoTextView txtBalance;
     @BindView(R.id.imgPagosUserProfile)
     ImageView imgPagosUserProfile;
+    @BindView(R.id.txtAliasName)
+    StyleTextView txtAliasName;
+    @BindView(R.id.txtCompanyName)
+    StyleTextView txtCompanyName;
 
     //@BindView(R.id.txtPagosYourBalanceNumber)
     //MontoTextView txtBalance;
@@ -194,10 +204,15 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         currentTab = TAB;
         changeBackTabs(v, TAB);
         setTab(TAB);
+        txtAliasName.setVisibility(View.INVISIBLE);
     }
 
     public void onBackPresed(MovementsTab TAB) {
         imgPagosServiceToPay.setVisibility(View.VISIBLE);
+
+        // Ocultamos el nombre y compañia del favorito
+        txtAliasName.setVisibility(View.INVISIBLE);
+        txtCompanyName.setVisibility(View.INVISIBLE);
         if (isOnForm) {
             showBack(false);
             setTab(TAB);
@@ -216,6 +231,8 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     }
 
     private void changeBackTabs(View v, MovementsTab TAB) {
+        imgPagosServiceToPay.setVisibility(View.VISIBLE);
+        imgPagosServiceToPayRound.setImageResource(R.mipmap.blacksquare);
         botonRecargas.setBackground(ContextCompat.getDrawable(getContext(),
                 TAB == TAB1 ? R.drawable.tab_selected
                         : TAB == TAB2 ? R.drawable.left_tab
@@ -261,6 +278,10 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
             idComercioKey = item.getComercio().getIdComercio();
         } else {
             idComercioKey = 0;
+            txtAliasName.setText(item.getFavoritos().getNombre());
+            txtAliasName.setVisibility(View.VISIBLE);
+            txtCompanyName.setText(item.getFavoritos().getNombreComercio());
+            txtCompanyName.setVisibility(View.INVISIBLE);
         }
 
         if (item.getComercio() != null && item.getComercio().getIdComercio() == -1) {
@@ -280,8 +301,11 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     public void addNewFavorite() {
         Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
         intent.putExtra(CURRENT_TAB_ID, currentTab.getId());
-        getActivity().startActivityForResult(intent, NEW_FAVORITE);
-        //startActivity(intent);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            getActivity().startActivityForResult(intent, NEW_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
+        } else {
+            getActivity().startActivityForResult(intent, NEW_FAVORITE);
+        }
     }
 
     @Override

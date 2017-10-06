@@ -1,8 +1,6 @@
 package com.pagatodo.yaganaste.utils.customviews.carousel;
 
-import android.app.Activity;
 import android.content.Context;
-import android.support.annotation.LayoutRes;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
@@ -15,7 +13,6 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.R;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
 
 /**
@@ -29,13 +26,15 @@ public class CustomAdapterPagos extends ArrayAdapter<String> {
     ArrayList<String> mListFiltered = new ArrayList<>();
     Context mContext;
     int layoutResourceId;
+    boolean isFavorite;
 
-    public CustomAdapterPagos(Context context, int layoutResourceId, ArrayList<String> mList) {
+    public CustomAdapterPagos(Context context, int layoutResourceId, ArrayList<String> mList, boolean isFavorite) {
         super(context, layoutResourceId, mList);
         this.mContext = context;
         this.layoutResourceId = layoutResourceId;
         this.mList = mList;
         this.mListFiltered = mList;
+        this.isFavorite = isFavorite;
     }
 
     @NonNull
@@ -103,7 +102,8 @@ public class CustomAdapterPagos extends ArrayAdapter<String> {
                      * Si no tenenmos resultados, agregamos al leyenda de No existen Resultados
                      */
                     if (results.count == 0) {
-                        resultsData.add(mContext.getResources().getString(R.string.no_companias_busqueda));
+                        resultsData.add(!isFavorite ? mContext.getResources().getString(R.string.no_companias_busqueda) :
+                                mContext.getResources().getString(R.string.no_favoritos_busqueda));
                         results.count = resultsData.size();
                         results.values = resultsData;
                     }

@@ -344,6 +344,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
         fArray[0] = new InputFilter.LengthFilter(maxLength);
         cardNumber.setFilters(fArray);
         if (referenceFavorite != null) {
+            //cardNumber.setEnabled(false);
             cardNumber.setText(referenceFavorite);
         }
     }

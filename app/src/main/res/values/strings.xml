@@ -65,6 +65,8 @@
     <string name="consultarFavorito">/ConsultarFavorito</string>
     <string name="addFavoritos">/AgregarFavorito</string>
     <string name="addFotoFavoritos">/ActualizarImagenFavorito</string>
+    <string name="updateFavoritos">/ActualizarFavorito</string>
+    <string name="deleteFavorito">/EliminarFavorito</string>
 
 
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
@@ -72,6 +74,7 @@
     <string name="deseaDesasociarDispositivo">¿Desea Desasociar el Dispositivo?</string>
     <string name="deseaRealizarLlamada">¿Desea Llamar Ahora?</string>
     <string name="sel_fotografia">Seleccionar Fotografía</string>
+    <string name="error_take_photo">Imagen Duplicada, Seleccione Una Diferente</string>
     <string name="myUserText">Mi Usuario</string>
     <string name="desvincular">Desvincular</string>
 
@@ -209,6 +212,7 @@
     <string name="txt_validacion_docs_2">No te Preocupes, Puedes Seguir Usando tu App Para Realizar Recargas y Pagos de Servicios Personales</string>
     <string name="backButton">Volver</string>
     <string name="nextButton">Continuar</string>
+    <string name="recoveryButton">Recuperar</string>
     <string name="imagen_duplicada">Imagen Duplicada , Seleccione Una Imagen Diferente</string>
     <string name="txt_dialogo_subir_documentos_marcados">Debes de Subir Los Documentos Marcados Con el Signo de Admiración</string>
     <string name="txt_selecciona_archivo">Selecciona Archivo</string>
@@ -353,7 +357,7 @@
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
     <!--tienes_tarjeta-->
     <string name="tienes_tarjeta_numero">Verifica el Número de Tu Tarjeta.</string>
-    <string name="tienes_tarjeta_asignando">Asignando Cuenta.</string>
+    <string name="tienes_tarjeta_asignando">Asignando Tarjeta.</string>
     <string name="tienes_tarjeta_validando_tarjeta">Validando Tarjeta.</string>
     <string name="tienes_tarjeta_no">No te Preocupes ¡Ya te Asignamos Una!\nTu Número de Tarjeta es:</string>
     <string name="tienes_tarjeta_asignando_nip">Asignando NIP.</string>
@@ -538,10 +542,10 @@
     <string name="tarjeta_lista">Tu Tarjeta Esta Lista</string>
     <string name="title_aceptar">Aceptar</string>
     <string name="title_cancelar">Cancelar</string>
+    <string name="title_guardar">Guardar</string>
     <string name="title_reintentar">Reintentar</string>
     <string name="title_llamar">Llamar</string>
     <string name="title_error">Ocurrió un Error</string>
-
 
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
     <string name="inicia_sesion">Inicia Sesión</string>
@@ -602,7 +606,7 @@
     <string name="txt_comision">Comisión:</string>
     <string name="txt_phone_b">Teléfono: </string>
     <string name="add_favorites">Agregar a Favoritos</string>
-    <string name="is_favorite">¡Encuentra Ésta Operación En Tus Favoritos!</string>
+    <string name="is_favorite">¡Encuentra Ésta Operación en Tus Favoritos!</string>
     <string name="email_send_ticket">Envíar Comprobante (Opcional):</string>
     <string name="envia_comprobante_a">Envía Este Comprobante a </string>
     <string name="envia_comprobante_opcional"> (Opcional)</string>
@@ -852,6 +856,7 @@
     <string name="unlike_your_device">Desvincula tu Dispositivo</string>
     <string name="no_existen_resultados">No Existen Resultados</string>
     <string name="no_companias_busqueda">No Hay Compañías Para la Búsqueda</string>
+    <string name="no_favoritos_busqueda">Sin Resultados</string>
     <string name="title_activity_landing_approved">LandingApprovedActivity</string>
 
     <!-- Lista de meses para calendarios -->
@@ -910,6 +915,7 @@
 
     <string name="close_sesion_body">Por tu Seguridad, Hemos Cerrado la Sesión Por Falta de Actividad</string>
     <string name="addFavorites">Agregar a Favoritos</string>
+    <string name="editarFavorites">Editar Favorito</string>
     <string name="addFavoritesAlias">Nombre</string>
     <string name="addFavoritesServicio">Servicio</string>
     <string name="addFavoritesReferencia">Referencia</string>
@@ -919,7 +925,7 @@
     <string name="addFavoritesErrorFoto">Es Necesario Enviar Una Foto</string>
     <string name="addFavoritesErrorRefer">Es Necesario Una Referencia Para Proceder</string>
     <string name="addFavoritesMsnAlta">Agregando a Favoritos</string>
-
+    <string name="error_favorite_exist">Ya Existe un Favorito Guardado Con la Misma Referencia</string>
 
     <string name="share_recargas">Importe: %1$s\nTeléfono: %2$s\nCompañia: %3$s\nFecha: %4$s\nHora: %5$s\nAutorización: %6$s</string>
     <string name="share_pds">Monto: %1$s\nReferencia: %2$s\nCompañia: %3$s\nFecha: %4$s\nHora: %5$s\nAutorización: %6$s</string>
@@ -928,4 +934,12 @@
 
     <string name="favoritos_tag">Favoritos</string>
     <string name="mi_done">Done</string>
+
+    <string name="delete_fav_title">Borrar Favorito</string>
+    <string name="delete_fav_text">¿Desea Eliminar Éste Favorito de Manera Permanente?</string>
+    <string name="delete_fav_button">Eliminar</string>
+    <string name="update_fav_request">Actualizando Favorito</string>
+    <string name="fav_photo_request">Procesando Foto</string>
+    <string name="path_image">/YaGanaste</string>
+
 </resources>

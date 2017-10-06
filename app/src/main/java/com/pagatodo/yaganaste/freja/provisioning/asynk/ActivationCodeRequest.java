@@ -1,7 +1,9 @@
 package com.pagatodo.yaganaste.freja.provisioning.asynk;
 
 import android.os.AsyncTask;
+import android.util.Log;
 
+import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.freja.provisioning.manager.ExceptionCallback;
 import com.verisec.freja.mobile.core.FmcManager;

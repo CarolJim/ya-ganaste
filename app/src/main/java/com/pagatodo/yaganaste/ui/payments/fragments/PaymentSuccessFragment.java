@@ -1,7 +1,10 @@
 package com.pagatodo.yaganaste.ui.payments.fragments;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +35,8 @@ import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
+import java.io.File;
+import java.io.FileOutputStream;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -224,6 +229,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
 
 
         txtReferencia.setText(formatoPago);
+        txtReferencia.setSelected(true);
 
         autorizacion.setText(StringUtils.formatAutorization(result.getData().getNumeroAutorizacion()));
         SimpleDateFormat dateFormatH = new SimpleDateFormat("HH:mm:ss");
@@ -341,7 +347,8 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
                 finalizePayment();
             }
         } else if (v.getId() == R.id.deposito_Share) {
-            shareContent();
+            takeScreenshot();
+            //shareContent();
         }
     }
 
@@ -370,5 +377,36 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             imgAddFavorite.setEnabled(false);
             txtHintFavorite.setText(getString(R.string.is_favorite));
         }
+    }
+
+    private void takeScreenshot() {
+        try {
+            View v1 = getActivity().getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+            File carpeta = new File(Environment.getExternalStorageDirectory() + getString(R.string.path_image));
+            if (!carpeta.exists()) {
+                carpeta.mkdir();
+            }
+            File imageFile = new File(Environment.getExternalStorageDirectory() + getString(R.string.path_image) + "/", System.currentTimeMillis() + ".jpg");
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+            sendScreenshot(imageFile);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendScreenshot(File imageFile) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("image/jpeg");
+        Uri uri = Uri.fromFile(imageFile);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(Intent.createChooser(intent, "Compartir Con..."));
     }
 }

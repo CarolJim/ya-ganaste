@@ -6,8 +6,10 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.res.Configuration;
 import android.os.CountDownTimer;
+import android.os.Environment;
 import android.os.Handler;
 import android.os.Looper;
+import android.os.StrictMode;
 import android.support.multidex.MultiDex;
 import android.support.v7.app.AppCompatDelegate;
 import android.util.Log;
@@ -26,6 +28,7 @@ import com.pagatodo.yaganaste.utils.ApplicationLifecycleHandler;
 import com.pagatodo.yaganaste.utils.NotificationBuilder;
 import com.pagatodo.yaganaste.utils.ScreenReceiver;
 
+import java.io.File;
 import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
@@ -81,7 +84,7 @@ public class App extends Application {
                 getBaseContext().getResources().getDisplayMetrics());
         m_singleton = this;
         //MultiDex.install(this);
-        //Stetho.initializeWithDefaults(this);
+        Stetho.initializeWithDefaults(this);
 
         this.prefs = new Preferencias(this);
         System.loadLibrary("a01jni");
@@ -94,6 +97,14 @@ public class App extends Application {
 
         new ScreenReceiver(getContext(), lifecycleHandler);
         quoeeuActivites = new LinkedHashMap<>();
+
+        StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
+        StrictMode.setVmPolicy(builder.build());
+        // Se crea la carpeta donde almacenar los Screenshot para compartir.
+        File f = new File(Environment.getExternalStorageDirectory()+getString(R.string.path_image));
+        if(!f.exists()){
+            f.mkdir();
+        }
     }
 
     public void addToQuee(Activity activity) {

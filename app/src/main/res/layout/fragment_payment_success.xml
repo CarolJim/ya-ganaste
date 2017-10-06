@@ -131,8 +131,16 @@
                             android:layout_width="0dp"
                             android:layout_height="wrap_content"
                             android:layout_weight="1"
+                            android:ellipsize="marquee"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:freezesText="true"
                             android:gravity="end"
-                            android:maxLines="1" />
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:maxLines="1"
+                            android:paddingLeft="10dp"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true" />
                     </LinearLayout>
 
                     <View
@@ -381,7 +389,7 @@
                 android:layout_gravity="center_horizontal|bottom"
                 android:onClick="openAddFavoritos"
                 android:padding="4dp"
-                android:src="@mipmap/circulo_favorito"
+                app:srcCompat="@drawable/ic_nofav"
                 android:visibility="visible"
                 tools:ignore="ContentDescription" />
 

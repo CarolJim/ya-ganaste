@@ -13,7 +13,7 @@
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
 
-    <ScrollView
+    <ScrollView android:layout_weight="7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -68,8 +68,10 @@
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/add_favorites_foto_error"
                     style="@style/generic_text_style_2"
-                    android:layout_width="match_parent"
+                    android:layout_width="180dp"
                     android:layout_height="match_parent"
+                    android:layout_marginLeft="3dp"
+                    android:textAlignment="center"
                     android:visibility="visible" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
@@ -150,13 +152,10 @@
     <LinearLayout
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="45dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingBottom="@dimen/btn_navigation_bottom">
-
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:layout_width="match_parent"
@@ -178,6 +177,7 @@
                 android:id="@+id/btnCloseAddFavorites"
                 style="@style/buttonDirecctionBackSmall"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="@string/backButton" />
 
             <android.support.v4.widget.Space
@@ -189,7 +189,7 @@
                 android:id="@+id/btnSendAddFavoritos"
                 style="@style/buttonDirecctionNext"
                 android:gravity="center"
-                android:text="@string/nextButton" />
+                android:text="@string/title_guardar" />
 
         </LinearLayout>
 

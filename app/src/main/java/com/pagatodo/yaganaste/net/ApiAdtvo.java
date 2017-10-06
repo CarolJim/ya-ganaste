@@ -19,7 +19,9 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ConsultarMovim
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearAgenteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioFWSRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarCorreoContactanosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarTicketRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarTicketTAEPDSRequest;
@@ -52,10 +54,12 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovi
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearUsuarioFWSResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDeleteDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDispositivoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EliminarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoContactanosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewFotoDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.GenerarCodigoRecuperacionResponse;
@@ -80,7 +84,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoDocument
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
-import com.pagatodo.yaganaste.ui.addfavorites.iteractors.FavoritesIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 
 import java.util.Map;
@@ -109,7 +112,9 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_C
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_FWS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_FWS_LOGIN;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREA_SOLICITUD_CUPO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.DELETE_FAVORITE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.DESASOCIAR_DISPOSITIVO;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.EDIT_FAVORITES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ELIMINAR_AVATAR;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIARCORREO_CONTACTANOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET;
@@ -901,5 +906,33 @@ public class ApiAdtvo extends Api {
         NetFacade.consumeWS(ADD_NEW_FOTO_FAVORITES,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.addFotoFavoritos),
                 headers, request, FavoritosNewFotoDatosResponse.class, result);
+    }
+
+    public static void addEditFavorites(EditFavoritesRequest request, int idFavorito, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+                .getCuentas().get(0).getIdCuenta();
+        headers.put("IdCuenta", "" + idCuenta);
+        headers.put("IdFavorito", "" + idFavorito);
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(EDIT_FAVORITES,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.updateFavoritos),
+                headers, request, FavoritosEditDatosResponse.class, result);
+    }
+
+    public static void addDeleteFavorite(DeleteFavoriteRequest request, int idFavorito, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+                .getCuentas().get(0).getIdCuenta();
+        headers.put("IdCuenta", "" + idCuenta);
+        headers.put("IdFavorito", "" + idFavorito);
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(DELETE_FAVORITE,
+                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.deleteFavorito),
+                headers, request, FavoritosDeleteDatosResponse.class, result);
     }
 }
