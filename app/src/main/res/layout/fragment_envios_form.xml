@@ -173,7 +173,7 @@
         android:layout_marginRight="@dimen/seekbar_margin"
         android:layout_marginTop="@dimen/margin_big">
 
-        <com.pagatodo.yaganaste.utils.customviews.CustomSeekBar
+        <com.pagatodo.yaganaste.utils.customviews.CustomSeekBarEnviar
             android:id="@+id/myseek"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
