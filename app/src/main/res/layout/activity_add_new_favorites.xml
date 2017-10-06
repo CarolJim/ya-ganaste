@@ -13,7 +13,7 @@
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
 
-    <ScrollView
+    <ScrollView android:layout_weight="7"
         android:layout_width="match_parent"
         android:layout_height="wrap_content">
 
@@ -306,13 +306,10 @@
     <LinearLayout
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
-        android:layout_height="0dp"
-        android:layout_marginTop="45dp"
-        android:layout_weight="1"
+        android:layout_height="wrap_content"
         android:gravity="center_horizontal"
         android:orientation="vertical"
         android:paddingBottom="@dimen/btn_navigation_bottom">
-
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:layout_width="match_parent"
@@ -346,7 +343,7 @@
                 android:id="@+id/btnSendAddFavoritos"
                 style="@style/buttonDirecctionNext"
                 android:gravity="center"
-                android:text="@string/nextButton" />
+                android:text="@string/title_guardar" />
 
         </LinearLayout>
 
