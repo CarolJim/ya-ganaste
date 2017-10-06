@@ -159,6 +159,26 @@ public class CatalogsDbApi {
         return favorites;
     }
 
+    public static boolean favoriteExists(String preference) {
+        genericDao.open();
+        List<DataFavoritos> dataFavorites= new ArrayList<>();
+        List<DataFavoritos> favorites = genericDao.getListByQueryOrderBy(DataFavoritos.class,
+                DBContract.Favoritos.REFERENCIA + " = " + preference, DBContract.Favoritos.ID_FAVORITO);
+        for (DataFavoritos dataFav : favorites) {
+            List<MontoComercio> montosComercio = genericDao.getListByQuery(MontoComercio.class,
+                    DBContract.MontosComercio.ID_COMERCIO + " = '" +
+                            dataFav.getIdComercio() + "'");
+            List<Double> montos = new ArrayList<>();
+            for (MontoComercio montoComercio : montosComercio) {
+                montos.add(montoComercio.getMonto());
+            }
+            dataFav.setListaMontos(montos);
+            dataFavorites.add(dataFav);
+        }
+        genericDao.close();
+        return favorites.size()>0;
+    }
+
     public static ArrayList<Countries> getPaisesList() {
         genericDao.open();
         ArrayList<Countries> paises = genericDao.getArrayListByQueryOrderBy(Countries.class, DBContract.Paises.ID, null);

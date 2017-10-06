@@ -435,7 +435,14 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
                 idComercio, mAlias, referService, "");
 
-        favoritesPresenter.toPresenterAddFavorites(addFavoritesRequest);
+        /* Si no tiene un favorito guardado con la misma referencia entonces se permite subirlo*/
+        if (!favoritesPresenter.alreadyExistFavorite(referService)) {
+            favoritesPresenter.toPresenterAddFavorites(addFavoritesRequest);
+        } else {
+        /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
+            UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(),
+                    "");
+        }
     }
 
     @Override

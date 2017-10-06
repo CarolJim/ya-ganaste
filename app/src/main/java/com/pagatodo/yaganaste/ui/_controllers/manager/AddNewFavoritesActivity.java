@@ -169,6 +169,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     private TextWatcher currentTextWatcher;
     AppCompatImageView btn_back;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -180,7 +181,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         //  backUpResponse = intent.getExtras().getParcelableArrayList(BACK_UP_RESPONSE);
 
         current_tab = intent.getIntExtra(CURRENT_TAB_ID, 99);
-        btn_back= (AppCompatImageView) findViewById(R.id.btn_back);
+        btn_back = (AppCompatImageView) findViewById(R.id.btn_back);
         btn_back.setOnClickListener(this);
         // Iniciamos el presentes del carrousel
         this.current_tab2 = MovementsTab.getMovementById(current_tab);
@@ -191,20 +192,20 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int widthp = metrics.widthPixels; // ancho absoluto en pixels
-        int paramentroT=widthp/3;
-        int paramentroimgc=paramentroT/4;
-        int distancia=paramentroT-paramentroimgc;
+        int paramentroT = widthp / 3;
+        int paramentroimgc = paramentroT / 4;
+        int distancia = paramentroT - paramentroimgc;
         imageViewCamera.setVisibilityStatus(true);
         imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
         circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
         RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         paramsc.setMargins(distancia, 30, 0, 0);
-        paramsc.width=paramentroimgc;
-        paramsc.height=paramentroimgc;
+        paramsc.width = paramentroimgc;
+        paramsc.height = paramentroimgc;
         circuloimageupload.setLayoutParams(paramsc);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.width =paramentroT;
-        params.height =paramentroT;
+        params.width = paramentroT;
+        params.height = paramentroT;
         relativefav.setLayoutParams(params);
         //imageViewCamera.setNewHW(300, 300);
 
@@ -212,11 +213,11 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         editListServ.imageViewIsGone(false);
         editListServ.setEnabled(false);
         editListServ.setFullOnClickListener(this);
-        if(current_tab2.getId()==1){
+        if (current_tab2.getId() == 1) {
             editListServ.setHintText(getString(R.string.details_compania));
-        } else if (current_tab2.getId() ==2){
+        } else if (current_tab2.getId() == 2) {
             editListServ.setHintText(getString(R.string.details_compania));
-        } else if (current_tab2.getId() == 3){
+        } else if (current_tab2.getId() == 3) {
             editListServ.setHintText(getString(R.string.details_bank));
         }
 
@@ -469,7 +470,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
      */
     @Override
     public void toViewSuccessAdd(FavoritosNewDatosResponse mResponse) {
-       // showDialogMesage(mMensaje, 1);
+        // showDialogMesage(mMensaje, 1);
 
         int idFavorito = mResponse.getData().getIdFavorito();
         /**
@@ -765,7 +766,14 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
                 idComercio, mAlias, referService, "");
 
-        favoritesPresenter.toPresenterAddNewFavorites(addFavoritesRequest);
+        /* Si no tiene un favorito guardado con la misma referencia entonces se permite subirlo*/
+        if (!favoritesPresenter.alreadyExistFavorite(referService)) {
+            favoritesPresenter.toPresenterAddNewFavorites(addFavoritesRequest);
+        } else {
+        /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
+            UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(),
+                    "");
+        }
 
         // Codigo para mostrar el llenado de la peticion
       /*  Toast.makeText(this, "Validacion exitosa, ver log para datos", Toast.LENGTH_SHORT).show();

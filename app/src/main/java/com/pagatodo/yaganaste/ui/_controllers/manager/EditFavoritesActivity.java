@@ -873,6 +873,14 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         dataFavoritos.setNombre(mAlias);
         dataFavoritos.setReferencia(referService);
         favoritesPresenter.toPresenterEditNewFavorites(addFavoritesRequest, idFavorito);
+        /* Si no tiene un favorito guardado con la misma referencia entonces se permite editarlo
+        if (!favoritesPresenter.alreadyExistFavorite(referService)) {
+
+        //} else {
+        /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo
+            UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(),
+                    "");
+        }/*
 
         // Codigo para mostrar el llenado de la peticion
     /*    Toast.makeText(this, "Validacion exitosa, ver log para datos", Toast.LENGTH_SHORT).show();

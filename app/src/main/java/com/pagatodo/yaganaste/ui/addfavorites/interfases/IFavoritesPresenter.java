@@ -32,4 +32,6 @@ public interface IFavoritesPresenter {
     void toPresenterDeleteFavorite(DeleteFavoriteRequest deleteFavoriteRequest, int idFavorito);
 
     void updateLocalFavorite(DataFavoritos dataFavoritos);
+
+    boolean alreadyExistFavorite(String reference);
 }

@@ -9,8 +9,8 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavorit
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDeleteDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDeleteDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewFotoDatosResponse;
@@ -69,10 +69,15 @@ public class FavoritesPresenter implements IFavoritesPresenter {
     }
 
     @Override
-    public void updateLocalFavorite(DataFavoritos dataFavoritos){
-        api.deleteFavorite((int)dataFavoritos.getIdFavorito());
+    public void updateLocalFavorite(DataFavoritos dataFavoritos) {
+        api.deleteFavorite((int) dataFavoritos.getIdFavorito());
         api.insertFavorite(dataFavoritos);
         mView.hideLoader();
+    }
+
+    @Override
+    public boolean alreadyExistFavorite(String reference) {
+        return api.favoriteExists(reference);
     }
 
     /**
@@ -102,7 +107,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getNombreComercio(),
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getReferencia());
 
-           // api.insertFavorite(dataFavoritos);
+            // api.insertFavorite(dataFavoritos);
 
             mView.hideLoader();
             FavoritosDatosResponse response = (FavoritosDatosResponse) dataSourceResult.getData();
@@ -138,7 +143,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
          * Instancia de peticion exitosa y operacion exitosa de FavoritosNewDatosResponse
          */
         if (dataSourceResult.getData() instanceof FavoritosNewFotoDatosResponse) {
-           // mView.hideLoader();
+            // mView.hideLoader();
 
             // Eliminamos el Favorito con el ID que obtenemos
             int idFavoritoOld = ((FavoritosNewFotoDatosResponse) dataSourceResult.getData()).getData().getIdFavorito();

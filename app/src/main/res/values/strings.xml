@@ -547,7 +547,6 @@
     <string name="title_llamar">Llamar</string>
     <string name="title_error">Ocurrió un Error</string>
 
-
     <string name="tienes_cuenta">¿Ya Tienes Una Cuenta? <b>Inicia Sesión</b></string>
     <string name="inicia_sesion">Inicia Sesión</string>
     <string name="tienes_cuenta2">¿Ya Tienes Una Cuenta? Inicia Sesión</string>
@@ -926,7 +925,7 @@
     <string name="addFavoritesErrorFoto">Es Necesario Enviar Una Foto</string>
     <string name="addFavoritesErrorRefer">Es Necesario Una Referencia Para Proceder</string>
     <string name="addFavoritesMsnAlta">Agregando a Favoritos</string>
-
+    <string name="error_favorite_exist">Ya Existe un Favorito Guardado Con la Misma Referencia</string>
 
     <string name="share_recargas">Importe: %1$s\nTeléfono: %2$s\nCompañia: %3$s\nFecha: %4$s\nHora: %5$s\nAutorización: %6$s</string>
     <string name="share_pds">Monto: %1$s\nReferencia: %2$s\nCompañia: %3$s\nFecha: %4$s\nHora: %5$s\nAutorización: %6$s</string>
