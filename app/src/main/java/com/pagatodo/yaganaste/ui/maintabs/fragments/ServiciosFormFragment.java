@@ -110,6 +110,7 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
         }
         if (favoriteItem != null) {
             referenceNumber.setText(favoriteItem.getReferencia());
+            referenceNumber.setEnabled(false);
         }
     }
 
@@ -121,7 +122,7 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
         } else {
             //Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
             //Se debe crear un objeto que se envía a la activity que realizará el pago
-            payment = new Servicios(referencia, monto, concepto, comercioItem, favoriteItem!=null);
+            payment = new Servicios(referencia, monto, concepto, comercioItem, favoriteItem != null);
             sendPayment();
         }
     }

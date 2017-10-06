@@ -19,13 +19,12 @@ import android.view.View;
 import android.view.Window;
 import android.widget.LinearLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
-import com.pagatodo.yaganaste.ui._controllers.manager.AddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
-import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
@@ -251,7 +250,7 @@ public class CameraManager {
         DataDocuments dataDoc = new DataDocuments();
         if (!validateDuplicado) {
             contador.remove(imgBase64);
-            UI.showToast("Imagen duplicada , seleccione una imagen diferente ", getContext());
+            UI.showToast(App.getContext().getString(R.string.error_take_photo), getContext());
         } else {
             switch (documentProcessed) {
                 case USER_PHOTO:

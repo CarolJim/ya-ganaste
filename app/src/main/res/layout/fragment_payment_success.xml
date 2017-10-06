@@ -389,7 +389,7 @@
                 android:layout_gravity="center_horizontal|bottom"
                 android:onClick="openAddFavoritos"
                 android:padding="4dp"
-                android:src="@mipmap/circulo_favorito"
+                app:srcCompat="@drawable/ic_nofav"
                 android:visibility="visible"
                 tools:ignore="ContentDescription" />
 

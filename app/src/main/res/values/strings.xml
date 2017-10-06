@@ -74,6 +74,7 @@
     <string name="deseaDesasociarDispositivo">¿Desea Desasociar el Dispositivo?</string>
     <string name="deseaRealizarLlamada">¿Desea Llamar Ahora?</string>
     <string name="sel_fotografia">Seleccionar Fotografía</string>
+    <string name="error_take_photo">Imagen Duplicada, Seleccione Una Diferente</string>
     <string name="myUserText">Mi Usuario</string>
     <string name="desvincular">Desvincular</string>
 

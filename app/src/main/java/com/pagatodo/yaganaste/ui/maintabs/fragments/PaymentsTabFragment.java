@@ -204,6 +204,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         currentTab = TAB;
         changeBackTabs(v, TAB);
         setTab(TAB);
+        txtAliasName.setVisibility(View.INVISIBLE);
     }
 
     public void onBackPresed(MovementsTab TAB) {
