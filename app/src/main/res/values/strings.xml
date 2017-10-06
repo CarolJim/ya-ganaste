@@ -212,6 +212,7 @@
     <string name="txt_validacion_docs_2">No te Preocupes, Puedes Seguir Usando tu App Para Realizar Recargas y Pagos de Servicios Personales</string>
     <string name="backButton">Volver</string>
     <string name="nextButton">Continuar</string>
+    <string name="recoveryButton">Recuperar</string>
     <string name="imagen_duplicada">Imagen Duplicada , Seleccione Una Imagen Diferente</string>
     <string name="txt_dialogo_subir_documentos_marcados">Debes de Subir Los Documentos Marcados Con el Signo de Admiración</string>
     <string name="txt_selecciona_archivo">Selecciona Archivo</string>
@@ -914,7 +915,7 @@
 
     <string name="close_sesion_body">Por tu Seguridad, Hemos Cerrado la Sesión Por Falta de Actividad</string>
     <string name="addFavorites">Agregar a Favoritos</string>
-    <string name="editarFavorites">Editar Favoritos</string>
+    <string name="editarFavorites">Editar Favorito</string>
     <string name="addFavoritesAlias">Nombre</string>
     <string name="addFavoritesServicio">Servicio</string>
     <string name="addFavoritesReferencia">Referencia</string>

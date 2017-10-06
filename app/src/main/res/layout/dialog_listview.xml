@@ -20,7 +20,7 @@
             android:layout_marginLeft="15dp"
             android:layout_weight="20"
             android:background="@null"
-            android:lines="1"
+            android:singleLine="true"
             android:backgroundTint="@color/transparent"
             android:paddingBottom="6dp"
             android:paddingTop="6dp"
