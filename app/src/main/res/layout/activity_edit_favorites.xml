@@ -274,12 +274,13 @@
                         android:longClickable="false"
                         android:maxLength="50" />
 
+
                     <RelativeLayout
                         android:id="@+id/layoutImageContact2"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:layout_gravity="right"
-                        android:visibility="visible">
+                        android:layout_marginLeft="22dp"
+                        android:layout_weight="80">
 
                         <ImageView
                             android:id="@+id/imgMakePaymentContact2"

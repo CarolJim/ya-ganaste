@@ -12,6 +12,7 @@
         style="@style/generic_text_style_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:digits="@string/input_alphanumeric_reference"
         android:layout_marginLeft="10dp"
         android:text="Tipo de texto" />
 </LinearLayout>
