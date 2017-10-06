@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -25,17 +26,21 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvat
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
+import com.pagatodo.yaganaste.ui._controllers.CropActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
+import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
+import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.ByteArrayOutputStream;
 
@@ -58,7 +63,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
  * A simple {@link Fragment} subclass.
  */
 public class ListaOpcionesFragment extends SupportFragment implements View.OnClickListener,
-        IListaOpcionesView {
+        IListaOpcionesView,ICropper,CropIwaResultReceiver.Listener {
 
     private static final String TAG = DocumentosFragment.class.getSimpleName();
     public static String IS_ES_AGENTE = "IS_ES_AGENTE";
@@ -95,6 +100,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
     CameraManager cameraManager;
     private boolean isEsAgente;
     private String mName, mEmail, mUserImage;
+    private CropIwaResultReceiver cropResultReceiver;
 
     public ListaOpcionesFragment() {
         // Required empty public constructor
@@ -134,8 +140,12 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
 
         initViews();
 
-        cameraManager = new CameraManager();
+        cameraManager = new CameraManager(this);
         cameraManager.initCamera(getActivity(), iv_photo_item, this);
+
+        cropResultReceiver = new CropIwaResultReceiver();
+        cropResultReceiver.setListener(this);
+        cropResultReceiver.register(getContext());
 
         return rootview;
     }
@@ -196,13 +206,40 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
     }
 
     private void updatePhoto() {
-        /**
-         * Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
-         */
+
+        // Mostramos la imagen del usuario o la pedimos al servicio en caso de que no exista
         if (mUserImage != null && !mUserImage.isEmpty()) {
-            Glide.with(getContext()).load(mUserImage).placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
+            Glide.with(getContext())
+                    .load(mUserImage)
+                    .placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
                     .dontAnimate().into(iv_photo_item);
         }
+
+    }
+
+    @Override
+    public void onCropper(Uri uri,String path) {
+        startActivity(CropActivity.callingIntent(getContext(), uri,path));
+    }
+
+    @Override
+    public void onCropSuccess(Uri croppedUri) {
+        cameraManager.setCropImage(croppedUri);
+
+        //updatePhoto();
+        //ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
+
+
+       /* Glide.with(this)
+                .load(croppedUri)
+                .into(iv_photo_item);*/
+
+    }
+
+    @Override
+    public void onCropFailed(Throwable e) {
+        e.printStackTrace();
+        Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
     }
 
     @Override
@@ -244,6 +281,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
                 boolean isOnline = Utils.isDeviceOnline();
                 if(isOnline) {
                     mPreferPresenter.openMenuPhoto(1, cameraManager);
+
                 }else{
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }

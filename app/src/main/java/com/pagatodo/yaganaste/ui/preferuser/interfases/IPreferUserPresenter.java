@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.preferuser.interfases;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.pagatodo.yaganaste.data.DataSourceResult;

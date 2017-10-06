@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.preferuser.presenters;
 
+import android.app.Activity;
+import android.content.Context;
 import android.graphics.Bitmap;
 
 import com.pagatodo.yaganaste.App;
@@ -23,6 +25,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoC
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyEmailView;
@@ -143,6 +146,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
             iListaOpcionesView.showExceptionToView(e.toString());
         }
     }
+
 
     @Override
     public void sendPresenterActualizarAvatar(ActualizarAvatarRequest avatarRequest) {

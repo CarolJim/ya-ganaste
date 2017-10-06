@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.utils.camera;
 
 import android.app.Activity;
 import android.app.AlertDialog;
+import android.content.ActivityNotFoundException;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -23,15 +25,18 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
+import com.pagatodo.yaganaste.ui._controllers.CropActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
+
 
 import java.io.File;
 import java.io.IOException;
@@ -86,10 +91,15 @@ public class CameraManager {
     private Drawable mDrawable = null;
     private Preferencias pref;
     private Boolean mExisteDocs = false;
+    private ICropper listener;
+    private String path;
 
     public CameraManager() {
     }
 
+    public CameraManager(ICropper listener){
+        this.listener = listener;
+    }
     public static Bitmap getBitmap() {
         return bitmapValue;
     }
@@ -134,6 +144,7 @@ public class CameraManager {
     public void createPhoto(int intIntent) {
         selectImageSource(intIntent);
     }
+
 
     /*Agregamos selección de carrete*/
     private void selectImageSource(final int documentId) {
@@ -180,11 +191,34 @@ public class CameraManager {
 
     private void takeGallery(int document) {
         documentProcessed = document;
-        Intent intentGallery = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
+        /*Intent intentGallery = new Intent(Intent.ACTION_PICK, android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI);
         intentGallery.setType("image/*");
         mContext.startActivityForResult(Intent.createChooser(intentGallery, "Selecciona Archivo"), SELECT_FILE_PHOTO);
+        */
         //enableItems(false);
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        intent = Intent.createChooser(intent, "open");
+        //startActivityForResult(intent, 1101);
+        mContext.startActivityForResult(Intent.createChooser(intent, "Selecciona Archivo"), SELECT_FILE_PHOTO);
     }
+
+   /* private void takeDocumentPicture(int document){
+        documentProcessed = document;
+        CamIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        file = new File(Environment.getExternalStorageDirectory() + "/" + Environment.DIRECTORY_DCIM + "/" + "Camera/"+
+                "file"+String.valueOf(System.currentTimeMillis())+".jpg");
+        //uri = Uri.fromFile(file);
+        uri = FileProvider.getUriForFile(MainActivity.this,
+                BuildConfig.APPLICATION_ID + ".provider",
+                file);
+
+        CamIntent.putExtra(MediaStore.EXTRA_OUTPUT,uri);
+        CamIntent.putExtra("return-data",true);
+        startActivityForResult(CamIntent,0);
+    }*/
 
     private void takeDocumentPicture(int document) {
         documentProcessed = document;
@@ -218,8 +252,8 @@ public class CameraManager {
             }
         }
         // enableItems(false);
-
     }
+
 
     private File createImageFile() throws IOException {
         String timeStamp = new SimpleDateFormat("yyyyMMdd_HHmmss", Locale.US).format(new Date());
@@ -235,6 +269,7 @@ public class CameraManager {
         return image;
     }
 
+
     private void galleryAddPic() {
         Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
         String path = SingletonUser.getInstance().getPathPictureTemp();
@@ -242,6 +277,18 @@ public class CameraManager {
         Uri contentUri = Uri.fromFile(f);
         mediaScanIntent.setData(contentUri);
         mContext.sendBroadcast(mediaScanIntent);
+    }
+
+
+    public void setCropImage(Uri uriimage){
+        bitmapLoader = new BitmapLoader(mContext, uriimage.getPath(), new BitmapBase64Listener() {
+                    @Override
+                    public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
+                        saveBmpImgUser(bitmap, imgbase64);
+                    }
+                });
+                bitmapLoader.execute();
+
     }
 
     private void saveBmpImgUser(Bitmap bitmap, String imgBase64) {
@@ -286,10 +333,18 @@ public class CameraManager {
      * @param data
      */
     public void setOnActivityResult(int requestCode, int resultCode, Intent data) {
+
+
         if (requestCode == REQUEST_TAKE_PHOTO && resultCode == RESULT_OK) {
 
-            galleryAddPic();
-            String path = SingletonUser.getInstance().getPathPictureTemp();
+            Intent mediaScanIntent = new Intent(Intent.ACTION_MEDIA_SCANNER_SCAN_FILE);
+            path = SingletonUser.getInstance().getPathPictureTemp();
+            File f = new File(path);
+            Uri contentUri = Uri.fromFile(f);
+            mediaScanIntent.setData(contentUri);
+            mContext.sendBroadcast(mediaScanIntent);
+
+           // String path = SingletonUser.getInstance().getPathPictureTemp();
             bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {
                 @Override
                 public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
@@ -298,7 +353,9 @@ public class CameraManager {
                     //  hideLoader();
                 }
             });
-            bitmapLoader.execute();
+
+            //mView.showProgress("Cargando Imagen. Por favor, espere . . .");
+            this.listener.onCropper(contentUri,path);
         } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode != RESULT_OK) {
             // enableItems(true);
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode == RESULT_OK && null != data) {
@@ -306,7 +363,7 @@ public class CameraManager {
             Uri selectedImage = data.getData();
             String[] filePathColumn = {MediaStore.Images.Media.DATA};
             try {
-                String path;
+
                 if (new File(selectedImage.getPath()).exists()) {
                     path = selectedImage.getPath();
                 } else {
@@ -316,15 +373,20 @@ public class CameraManager {
                     int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
                     path = cursor.getString(columnIndex);
                 }
-                // Proceso para obtener la imagen por medio de un contentResolver
 
-                bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {
+                //startCropActivity(data.getData());
+
+                //Proceso para obtener la imagen por medio de un contentResolver
+                /*bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {
                     @Override
                     public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
                         saveBmpImgUser(bitmap, imgbase64);
                     }
                 });
-                bitmapLoader.execute();
+                bitmapLoader.execute();*/
+
+                this.listener.onCropper(selectedImage,path);
+
             } catch (Exception e) {
                 //e.printStackTrace();
                 mView.showExceptionToView(e.toString());
@@ -337,4 +399,7 @@ public class CameraManager {
 
         }
     }
+
+
+
 }

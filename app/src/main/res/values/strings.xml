@@ -880,7 +880,7 @@
     <string name="card_num_autorization">Num. Autorización:</string>
 
     <string name="input_letters">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz\u0020</string>
-    <string name="input_alphanumeric_reference">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz123456789</string>
+    <string name="input_alphanumeric_reference">ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz1234567890</string>
     <string name="input_letters_concepto">ABCDEFGHIJKLMNÑOPQRSTUVWXYZabcdefghijklmnñopqrstuvwxyz\u0020</string>
 
     <string name="details_monto">Monto</string>
@@ -927,4 +927,5 @@
     <string name="clave_rastreo">\nClave de Rastreo: %1$s</string>
 
     <string name="favoritos_tag">Favoritos</string>
+    <string name="mi_done">Done</string>
 </resources>

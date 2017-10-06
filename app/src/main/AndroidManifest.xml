@@ -17,6 +17,7 @@
     <uses-permission android:name="android.permission.MODIFY_AUDIO_SETTINGS" />
     <uses-permission android:name="android.permission.RECORD_AUDIO" />
     <uses-permission android:name="com.pagatodo.yaganaste.fileprovider.READ" />
+
     <!-- PERMISOS DEL GPS -->
     <uses-permission android:name="android.hadware.location.gps" />
     <!-- FIN DE LOS PERMISOS DEL GPS -->
@@ -62,6 +63,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name="com.theartofdev.edmodo.cropper.CropImageActivity" />
         <activity
             android:name=".ui._controllers.CupoStatusActivity"
             android:screenOrientation="portrait"
@@ -173,8 +175,9 @@
         <activity
             android:name=".ui._controllers.SIMActivity"
             android:launchMode="singleInstance" />
-        <activity android:name=".ui._controllers.manager.AddFavoritesActivity"></activity>
-        <activity android:name=".ui._controllers.manager.AddNewFavoritesActivity"></activity>
+        <activity android:name=".ui._controllers.manager.AddFavoritesActivity" />
+        <activity android:name=".ui._controllers.manager.AddNewFavoritesActivity" />
+        <activity android:name=".ui._controllers.CropActivity"></activity>
     </application>
 
 </manifest>

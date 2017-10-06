@@ -1,7 +1,10 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.app.Activity;
+import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
+import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
@@ -40,10 +43,12 @@ import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.ui.preferuser.TerminosyCondicionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
+import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
+import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDADLC;
@@ -51,7 +56,7 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TE
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSLC;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
-public class PreferUserActivity extends LoaderActivity implements OnEventListener {
+public class PreferUserActivity extends LoaderActivity implements OnEventListener,CropIwaResultReceiver.Listener {
 
     public static String PREFER_USER_LISTA = "PREFER_USER_LISTA";
     public static String PREFER_USER_LEGALES = "PREFER_USER_LEGALES";
@@ -146,6 +151,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         mPreferPresenter = new PreferUserPresenter(this);
 
         mContext = this;
+
 
         // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
         checkDataCard();
@@ -466,8 +472,18 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         CameraManager cameraManager = mFragment.getCameraManager();
         // Enviamos datos recibidos al CameraManager
         cameraManager.setOnActivityResult(requestCode, resultCode, data);
+
     }
 
+    @Override
+    public void onCropSuccess(Uri croppedUri) {
+
+    }
+
+    @Override
+    public void onCropFailed(Throwable e) {
+
+    }
 
     private void showDialogMesage(final String mensaje) {
         UI.createSimpleCustomDialog("", mensaje, getSupportFragmentManager(),

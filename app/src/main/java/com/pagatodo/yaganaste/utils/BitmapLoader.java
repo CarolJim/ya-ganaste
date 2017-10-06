@@ -10,6 +10,7 @@ import android.util.Base64;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.Serializable;
 import java.text.Format;
 
 import id.zelory.compressor.Compressor;
@@ -18,7 +19,7 @@ import id.zelory.compressor.Compressor;
  * Created by Gorro on 20/11/16.
  */
 
-public class BitmapLoader extends AsyncTask {
+public class BitmapLoader extends AsyncTask{
 
     private static final String TAG = BitmapLoader.class.getSimpleName();
     private BitmapBase64Listener listener;
