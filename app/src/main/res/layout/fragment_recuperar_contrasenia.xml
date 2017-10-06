@@ -100,7 +100,7 @@
                 android:id="@+id/btnNextRecuperar"
                 style="@style/buttonDirecctionNext"
                 android:gravity="center"
-                android:text="@string/nextButton" />
+                android:text="@string/recoveryButton" />
         </LinearLayout>
     </LinearLayout>
 

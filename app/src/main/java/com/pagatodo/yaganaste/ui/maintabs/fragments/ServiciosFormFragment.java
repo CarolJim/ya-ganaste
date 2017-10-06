@@ -110,7 +110,7 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
         }
         if (favoriteItem != null) {
             referenceNumber.setText(favoriteItem.getReferencia());
-            referenceNumber.setEnabled(false);
+            //referenceNumber.setEnabled(false);
         }
     }
 

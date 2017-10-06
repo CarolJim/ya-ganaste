@@ -157,13 +157,12 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_border_edittext"
                     android:orientation="horizontal"
-                    android:visibility="gone"
-                    android:weightSum="100">
+                    android:visibility="gone" >
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                         android:id="@+id/recargaNumber"
                         style="@style/GenericStyleEditText"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="20"
                         android:digits="@string/input_alphanumeric_reference"
@@ -175,16 +174,15 @@
 
                     <RelativeLayout
                         android:id="@+id/layoutImageContact"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="80">
+                        android:layout_weight="3">
 
                         <ImageView
                             android:id="@+id/imgMakePaymentContact"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_centerInParent="true"
-                            android:layout_margin="5dp"
                             android:src="@drawable/icono_agenda" />
                     </RelativeLayout>
 
@@ -197,13 +195,12 @@
                     android:layout_height="wrap_content"
                     android:background="@drawable/rounded_border_edittext"
                     android:orientation="horizontal"
-                    android:visibility="gone"
-                    android:weightSum="100">
+                    android:visibility="gone">
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                         android:id="@+id/referenceNumber"
                         style="@style/GenericStyleEditText"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="20"
                         android:hint="@string/txt_referencia_servicio"
@@ -213,16 +210,15 @@
 
                     <RelativeLayout
                         android:id="@+id/layoutImageReference"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="80">
+                        android:layout_weight="3">
 
                         <ImageView
                             android:id="@+id/imgMakePaymentRef"
                             android:layout_width="25dp"
                             android:layout_height="25dp"
                             android:layout_centerInParent="true"
-                            android:layout_margin="5dp"
                             android:src="@drawable/icono_camara_servicios" />
                     </RelativeLayout>
 
@@ -266,7 +262,7 @@
                     <com.pagatodo.yaganaste.utils.customviews.StyleEdittext
                         android:id="@+id/cardNumber"
                         style="@style/GenericStyleEditText"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="20"
                         android:hint="@string/card_number_hint"
@@ -276,10 +272,9 @@
 
                     <RelativeLayout
                         android:id="@+id/layoutImageContact2"
-                        android:layout_width="match_parent"
+                        android:layout_width="0dp"
                         android:layout_height="match_parent"
-                        android:layout_weight="80"
-                        android:visibility="gone">
+                        android:layout_weight="3">
 
                         <ImageView
                             android:id="@+id/imgMakePaymentContact2"
