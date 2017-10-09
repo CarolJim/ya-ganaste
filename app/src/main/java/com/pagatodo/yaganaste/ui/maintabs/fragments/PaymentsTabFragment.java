@@ -1,7 +1,5 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
 import android.app.ActivityOptions;
 import android.content.Context;
 import android.content.Intent;
@@ -16,7 +14,6 @@ import android.util.Log;
 import android.view.DragEvent;
 import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewAnimationUtils;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.Button;
@@ -169,6 +166,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         botonEnvios.setOnClickListener(this);
 
         rlimgPagosServiceToPay.setOnDragListener(this);
+        rlimgPagosServiceToPay.setOnClickListener(this);
         // txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre()));
         txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre())/* + " " + userData.getPrimerApellido()*/);
         txtBalance.setText(StringUtils.getCurrencyValue(singletonUser.getDatosSaldo().getSaldoEmisor()));
@@ -187,6 +185,9 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
                 break;
             case R.id.tab_envios:
                 changeTab(v, TAB3);
+                break;
+            case R.id.rlimgPagosServiceToPay:
+                onBackPresed(currentTab);
                 break;
             default:
                 break;
