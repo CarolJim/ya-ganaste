@@ -13,12 +13,15 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Recarga;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
@@ -57,6 +60,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     @BindView(R.id.comisionText)
     StyleTextView comisionText;
     private int maxLength;
+    PaymentsTabFragment fragment;
 
     boolean isIAVE;
     private SpinnerArrayAdapter dataAdapter;
@@ -86,6 +90,9 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             List<Double> montos = comercioItem.getListaMontos();
             montos.add(0, 0D);
             dataAdapter = new SpinnerArrayAdapter(getContext(), TAB1, montos);
+
+            // Hacemos una referencia directa al Fragment Padre
+            fragment = (PaymentsTabFragment) getParentFragment();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -148,7 +155,28 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
         if (favoriteItem != null) {
             recargaNumber.setText(favoriteItem.getReferencia());
             //recargaNumber.setEnabled(false);
+            /**
+             *
+             */
+            spinnerMontoRecarga.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if(position != 0){
+                        monto = (Double) spinnerMontoRecarga.getSelectedItem();
+                        fragment.updateValueTabFrag(monto);
+                    }else{
+                        fragment.updateValueTabFrag(0.0);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
         }
+
+
     }
 
 
@@ -161,7 +189,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
         } else {
             //Se debe crear un objeto que se envía a la activity que realizará el pago
             //Toast.makeText(getContext(), "Realizar Pago", Toast.LENGTH_SHORT).show();
-            payment = new Recarga(referencia, monto, comercioItem, favoriteItem!=null);
+            payment = new Recarga(referencia, monto, comercioItem, favoriteItem != null);
             sendPayment();
         }
     }

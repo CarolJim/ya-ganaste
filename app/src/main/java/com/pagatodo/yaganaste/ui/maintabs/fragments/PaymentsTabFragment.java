@@ -91,7 +91,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     @BindView(R.id.txtAliasName)
     StyleTextView txtAliasName;
     @BindView(R.id.txtCompanyName)
-    StyleTextView txtCompanyName;
+    MontoTextView txtCompanyName;
 
     //@BindView(R.id.txtPagosYourBalanceNumber)
     //MontoTextView txtBalance;
@@ -209,6 +209,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         changeBackTabs(v, TAB);
         setTab(TAB);
         txtAliasName.setVisibility(View.INVISIBLE);
+        txtCompanyName.setVisibility(View.GONE);
     }
 
     public void onBackPresed(MovementsTab TAB) {
@@ -216,7 +217,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
         // Ocultamos el nombre y compañia del favorito
         txtAliasName.setVisibility(View.INVISIBLE);
-        txtCompanyName.setVisibility(View.INVISIBLE);
+        txtCompanyName.setVisibility(View.GONE);
         if (isOnForm) {
             showBack(false);
             setTab(TAB);
@@ -285,7 +286,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
             txtAliasName.setText(item.getFavoritos().getNombre());
             txtAliasName.setVisibility(View.VISIBLE);
             txtCompanyName.setText(item.getFavoritos().getNombreComercio());
-            txtCompanyName.setVisibility(View.INVISIBLE);
+            txtCompanyName.setVisibility(View.GONE);
         }
 
         if (item.getComercio() != null && item.getComercio().getIdComercio() == -1) {
@@ -419,5 +420,11 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
             }*/
             txtBalance.setText(StringUtils.getCurrencyValue(saldo));
         }
+    }
+
+    public void updateValueTabFrag(Double monto) {
+        //txtCompanyName.setText("" + monto);
+        txtCompanyName.setText("Monto: " + StringUtils.getCurrencyValue(monto));
+        txtCompanyName.setVisibility(View.VISIBLE);
     }
 }
