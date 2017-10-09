@@ -30,6 +30,7 @@ import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.login.BlockCardFragment;
 import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
+import com.pagatodo.yaganaste.ui.account.login.OtpContainerFratgment;
 import com.pagatodo.yaganaste.ui.account.login.RecoveryFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsociatePhoneAccountFragment;
@@ -87,6 +88,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     public final static String EVENT_RECOVERY_PASS_BACK = "EVENT_RECOVERY_PASS_BACK";
     public final static String EVENT_BLOCK_CARD = "EVENT_BLOCK_CARD";
     public final static String EVENT_BLOCK_CARD_BACK = "EVENT_BLOCK_CARD_BACK";
+    public final static String EVENT_SECURE_CODE = "EVENT_SECURE_CODE";
+    public final static String EVENT_SECURE_CODE_BACK = "EVENT_SECURE_CODE_BACK";
     FrameLayout container;
     private String TAG = getClass().getSimpleName();
     private Preferencias pref;
@@ -241,11 +244,21 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 break;
 
             case EVENT_BLOCK_CARD:
-                loadFragment(BlockCardFragment.newInstance(), Direction.FORDWARD, false);
+                //loadFragment(BlockCardFragment.newInstance(), Direction.FORDWARD, false);
+                loginContainerFragment.loadBlockFragment();
                 break;
 
             case EVENT_BLOCK_CARD_BACK:
-                loadFragment(loginContainerFragment.newInstance(), Direction.BACK, false);
+               // loadFragment(loginContainerFragment.newInstance(), Direction.BACK, false);
+                loginContainerFragment.loadLoginBackFragment();
+                break;
+
+            case EVENT_SECURE_CODE:
+                loadFragment(OtpContainerFratgment.newInstance(), Direction.FORDWARD, false);
+                break;
+
+            case EVENT_SECURE_CODE_BACK:
+                loadFragment(loginContainerFragment, Direction.BACK, false);
                 break;
 
             case EVENT_GO_MAINTAB:

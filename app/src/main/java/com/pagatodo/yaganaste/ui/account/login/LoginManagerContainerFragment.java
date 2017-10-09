@@ -84,6 +84,16 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
         showBack(false);
     }
 
+    public void loadBlockFragment() {
+        loadFragment(BlockCardFragment.newInstance(), Direction.FORDWARD, true);
+        showBack(true);
+    }
+
+    public void loadLoginBackFragment() {
+        loadFragment(LoginFragment.newInstance(), Direction.BACK, true);
+        showBack(true);
+    }
+
     @Override
     public void popBackStack() {
         getChildFragmentManager().popBackStack();

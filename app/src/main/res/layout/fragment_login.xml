@@ -134,7 +134,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:layout_marginTop="@dimen/margin_small"
-                            android:text="@string/cobroRapido" />
+                            android:text="@string/codigoAcceso" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -155,7 +155,7 @@
                             android:layout_height="wrap_content"
                             android:gravity="center"
                             android:layout_marginTop="@dimen/margin_small"
-                            android:text="@string/codigoAcceso" />
+                            android:text="@string/cobroRapido" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>

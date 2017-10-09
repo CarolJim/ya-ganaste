@@ -51,6 +51,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SECURE_CODE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
@@ -136,6 +137,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         ButterKnife.bind(this, rootview);
         btnLogin.setOnClickListener(this);
         blockCard.setOnClickListener(this);
+       // accessCode.setOnClickListener(this);
         txtLoginExistUserRecoverPass.setOnClickListener(this);
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
@@ -173,6 +175,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 break;
             case R.id.blockCard:
                 nextScreen(EVENT_BLOCK_CARD, null);
+                break;
+            case R.id.accessCode:
+                nextScreen(EVENT_SECURE_CODE, null);
                 break;
             default:
                 break;
