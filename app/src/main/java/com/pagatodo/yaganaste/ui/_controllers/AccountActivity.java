@@ -12,6 +12,7 @@ import android.view.Menu;
 import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -26,6 +27,8 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.account.login.BlockCardFragment;
+import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
 import com.pagatodo.yaganaste.ui.account.login.RecoveryFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
@@ -82,6 +85,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     public final static String EVENT_GO_MAINTAB = "EVENT_GO_MAINTAB";
     public final static String EVENT_RECOVERY_PASS = "EVENT_RECOVERY_PASS";
     public final static String EVENT_RECOVERY_PASS_BACK = "EVENT_RECOVERY_PASS_BACK";
+    public final static String EVENT_BLOCK_CARD = "EVENT_BLOCK_CARD";
+    public final static String EVENT_BLOCK_CARD_BACK = "EVENT_BLOCK_CARD_BACK";
     FrameLayout container;
     private String TAG = getClass().getSimpleName();
     private Preferencias pref;
@@ -235,6 +240,14 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 loadFragment(Couchmark.newInstance(), Direction.FORDWARD, false);
                 break;
 
+            case EVENT_BLOCK_CARD:
+                loadFragment(BlockCardFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+
+            case EVENT_BLOCK_CARD_BACK:
+                loadFragment(loginContainerFragment.newInstance(), Direction.BACK, false);
+                break;
+
             case EVENT_GO_MAINTAB:
                 resetRegisterData();
 
@@ -308,6 +321,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 showDialogOut();
             } else if (currentFragment instanceof RecoveryFragment) {
                 onEvent(EVENT_RECOVERY_PASS_BACK, null);
+            } else if (currentFragment instanceof BlockCardFragment) {
+                //Toast.makeText(this, "Click Back. Main Responde", Toast.LENGTH_SHORT).show();
+               onEvent(EVENT_BLOCK_CARD_BACK, null);
             } else {
                 resetRegisterData();// Eliminamos la información de registro almacenada.
                 super.onBackPressed();

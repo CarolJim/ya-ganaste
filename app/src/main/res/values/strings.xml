@@ -193,6 +193,7 @@
     <string name="activate_now">¡ACTÍVALA YA SIN COSTO!</string>
     <string name="txt_escribe_tu_pass">Contraseña</string>
     <string name="txt_login">INGRESAR</string>
+    <string name="txt_ingresar">Ingresar</string>
     <string name="txt_iniciar_sesion">Iniciar Sesión</string>
     <string name="recover_pass">¿Olvidaste tu Contraseña?</string>
     <string name="ingress_mail_to_recover_pass">Ingresa el Correo Electrónico\nCon el Que Registraste tu\nCuenta Ya Ganaste</string>
@@ -776,6 +777,8 @@
     <string name="tu_pantalla_de_cobros">Tu Pantalla de Cobros</string>
     <string name="tu_línea_credito">Tu Línea de Crédito</string>
     <string name="bloquear_tarjeta">Bloquear Tarjeta</string>
+    <string name="codigoAcceso">Código de Acceso</string>
+    <string name="cobroRapido">Cobro Rápido</string>
 
     <string name="termin_condiciones">Términos y Condiciones</string>
     <string name="cuentaterminos">Cuenta Ya Ganaste</string>
