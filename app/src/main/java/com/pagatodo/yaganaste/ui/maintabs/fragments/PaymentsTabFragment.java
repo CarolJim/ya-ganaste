@@ -416,4 +416,9 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
             txtBalance.setText(StringUtils.getCurrencyValue(saldo));
         }
     }
+
+    public void updateValueTabFrag(Double monto) {
+        txtCompanyName.setText("" + monto);
+        txtCompanyName.setVisibility(View.VISIBLE);
+    }
 }
