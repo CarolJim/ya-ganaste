@@ -27,4 +27,6 @@ public interface IAddFavoritesActivity {
     void toViewSuccessDeleteFavorite(String mensaje);
 
     void toViewSuccessEdit(FavoritosEditDatosResponse response);
+
+
 }

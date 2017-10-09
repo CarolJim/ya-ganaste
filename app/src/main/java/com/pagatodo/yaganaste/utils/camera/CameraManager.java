@@ -93,6 +93,7 @@ public class CameraManager {
     private Boolean mExisteDocs = false;
     private ICropper listener;
     private String path;
+    private Uri uriImage;
 
     public CameraManager() {
     }
@@ -281,6 +282,7 @@ public class CameraManager {
 
 
     public void setCropImage(Uri uriimage){
+        this.uriImage = uriimage;
         bitmapLoader = new BitmapLoader(mContext, uriimage.getPath(), new BitmapBase64Listener() {
                     @Override
                     public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
@@ -355,7 +357,7 @@ public class CameraManager {
             });
 
             //mView.showProgress("Cargando Imagen. Por favor, espere . . .");
-            this.listener.onCropper(contentUri,path);
+            this.listener.onCropper(contentUri);
         } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode != RESULT_OK) {
             // enableItems(true);
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode == RESULT_OK && null != data) {
@@ -385,7 +387,7 @@ public class CameraManager {
                 });
                 bitmapLoader.execute();*/
 
-                this.listener.onCropper(selectedImage,path);
+                this.listener.onCropper(selectedImage);
 
             } catch (Exception e) {
                 //e.printStackTrace();
@@ -401,5 +403,7 @@ public class CameraManager {
     }
 
 
-
+    public Uri getUriImage(){
+        return this.uriImage;
+    }
 }

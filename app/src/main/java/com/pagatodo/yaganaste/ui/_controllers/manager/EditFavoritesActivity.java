@@ -8,6 +8,7 @@ import android.net.Uri;
 import android.os.Build;
 import android.os.Bundle;
 import android.provider.ContactsContract;
+import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.InputFilter;
@@ -30,6 +31,7 @@ import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
@@ -47,6 +49,7 @@ import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
+import com.pagatodo.yaganaste.ui._controllers.CropActivity;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
@@ -55,6 +58,7 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
@@ -71,8 +75,10 @@ import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
+import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -99,7 +105,8 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
  */
 public class EditFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
         IListaOpcionesView, ValidationForms, View.OnClickListener, OnListServiceListener,
-        AdapterView.OnItemSelectedListener, ITextChangeListener, PaymentsCarrouselManager {
+        AdapterView.OnItemSelectedListener, ITextChangeListener, PaymentsCarrouselManager,
+        ICropper, CropIwaResultReceiver.Listener{
 
     public static final String TAG = AddNewFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
@@ -317,7 +324,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         }*/
 
         // Iniciamos la funcionalidad e la camara
-        cameraManager = new CameraManager();
+        cameraManager = new CameraManager(this);
         cameraManager.initCameraUploadDocument(this, imageViewCamera, this);
 
         //Bloqueamos la edicion de referencia hasta que tengamos ya un servicio de la lista
@@ -343,6 +350,11 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         editListServ.setEnabled(false);
         editListServ.setFullOnClickListener(this);
         editListServ.setDrawableImage(R.drawable.menu_canvas);
+
+
+        CropIwaResultReceiver cropResultReceiver = new CropIwaResultReceiver();
+        cropResultReceiver.setListener(this);
+        cropResultReceiver.register(this);
     }
 
     /**
@@ -663,7 +675,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         }
     }
 
-
     /**
      * Resultado de procesar la imagen de la camara, aqui ya tenemos el Bitmap, y el codigo siguoente
      * es la BETA para poder darlo de alta en el servicio
@@ -673,30 +684,33 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     @Override
     public void setPhotoToService(Bitmap bitmap) {
         // Log.d("TAG", "setPhotoToService ");
+        try {
+            Glide.with(this)
+                    .load(cameraManager.getUriImage())
+                    .asBitmap()
+                    .into(imageViewCamera.getCircleImageView());
+            Bitmap bitmapAux = MediaStore.Images.Media.getBitmap(this.getContentResolver(), cameraManager.getUriImage());
+            // Procesamos el Bitmap a Base64
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmapAux.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            stringFoto = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            editFoto.setText(stringFoto);
 
-        imageViewCamera.setImageBitmap(bitmap);
-        cameraManager.setBitmap(bitmap);
+            // Ocultamos el mensaje de error de foto
+            editFotoError.setVisibilityImageError(false);
 
-        // Procesamos el Bitmap a Base64
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            //CODIGO ORIGINAL DE FOTO EN ListaOpcionesFRagment
+            // Creamos el objeto ActualizarAvatarRequest
+            // ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
 
-        stringFoto = encoded;
-        editFoto.setText(stringFoto);
+            // onEventListener.onEvent("DISABLE_BACK", true);
 
-        // Ocultamos el mensaje de error de foto
-        editFotoError.setVisibilityImageError(false);
-
-        //CODIGO ORIGINAL DE FOTO EN ListaOpcionesFRagment
-        // Creamos el objeto ActualizarAvatarRequest
-        // ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
-
-        // onEventListener.onEvent("DISABLE_BACK", true);
-
-        // Enviamos al presenter
-        // mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);
+            // Enviamos al presenter
+            // mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -1275,5 +1289,20 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     @Override
     public void showFavorites() {
 
+    }
+
+    @Override
+    public void onCropper(Uri uri) {
+        startActivity(CropActivity.callingIntent(this, uri));
+    }
+
+    @Override
+    public void onCropSuccess(Uri croppedUri) {
+        cameraManager.setCropImage(croppedUri);
+    }
+
+    @Override
+    public void onCropFailed(Throwable e) {
+        e.printStackTrace();
     }
 }
