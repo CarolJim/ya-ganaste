@@ -155,23 +155,29 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
         if (favoriteItem != null) {
             recargaNumber.setText(favoriteItem.getReferencia());
             //recargaNumber.setEnabled(false);
+
+            /**
+             *
+             */
+            spinnerMontoRecarga.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+                @Override
+                public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                    if(position != 0){
+                        monto = (Double) spinnerMontoRecarga.getSelectedItem();
+                        fragment.updateValueTabFrag(monto);
+                    }else{
+                        fragment.updateValueTabFrag(0.0);
+                    }
+                }
+
+                @Override
+                public void onNothingSelected(AdapterView<?> parent) {
+
+                }
+            });
         }
 
-        spinnerMontoRecarga.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            @Override
-            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                Toast.makeText(App.getContext(), "Item " + position, Toast.LENGTH_SHORT).show();
-                if(position != 0){
-                    monto = (Double) spinnerMontoRecarga.getSelectedItem();
-                    fragment.updateValueTabFrag(monto);
-                }
-            }
 
-            @Override
-            public void onNothingSelected(AdapterView<?> parent) {
-
-            }
-        });
     }
 
 

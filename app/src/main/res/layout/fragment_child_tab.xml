@@ -236,7 +236,7 @@
                                         android:layout_height="wrap_content"
                                         android:gravity="center">
 
-                                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                       <!-- <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                             android:id="@+id/txtCompanyName"
                                             style="@style/generic_text_style_3"
                                             android:layout_width="wrap_content"
@@ -247,7 +247,21 @@
                                             android:maxLines="1"
                                             android:text="@string/your_balance"
                                             app:dotBottom="false"
-                                            app:symbolSmaller="true" />
+                                            app:symbolSmaller="true" />-->
+
+                                        <com.pagatodo.yaganaste.utils.customviews.MontoTextView
+                                            android:id="@+id/txtCompanyName"
+                                            style="@style/generic_text_style_3"
+                                            android:layout_width="wrap_content"
+                                            android:layout_height="wrap_content"
+                                            android:layout_centerVertical="true"
+                                            android:gravity="center_horizontal"
+                                            android:maxLines="1"
+                                            android:visibility="gone"
+                                            android:text="$4,200.00"
+                                            android:textSize="@dimen/size_text_style_3_half_value"
+                                            app:dotBottom="false"
+                                            app:symbolSmaller="false" />
                                     </LinearLayout>
                                 </LinearLayout>
 
