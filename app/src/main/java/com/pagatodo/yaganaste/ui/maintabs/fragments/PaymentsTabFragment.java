@@ -169,6 +169,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         botonEnvios.setOnClickListener(this);
 
         rlimgPagosServiceToPay.setOnDragListener(this);
+        rlimgPagosServiceToPay.setOnClickListener(this);
         // txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre()));
         txtPagosUserName.setText(StringUtils.getFirstName(SingletonUser.getInstance().getDataUser().getUsuario().getNombre())/* + " " + userData.getPrimerApellido()*/);
         txtBalance.setText(StringUtils.getCurrencyValue(singletonUser.getDatosSaldo().getSaldoEmisor()));
@@ -187,6 +188,9 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
                 break;
             case R.id.tab_envios:
                 changeTab(v, TAB3);
+                break;
+            case R.id.rlimgPagosServiceToPay:
+                onBackPresed(currentTab);
                 break;
             default:
                 break;
