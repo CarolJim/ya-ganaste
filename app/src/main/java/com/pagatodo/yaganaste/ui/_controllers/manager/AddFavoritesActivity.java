@@ -4,7 +4,9 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.util.Base64;
@@ -16,6 +18,7 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
@@ -25,9 +28,11 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEdit
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.ui._controllers.CropActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
 import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritesPresenter;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
@@ -36,8 +41,10 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
+import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.ByteArrayOutputStream;
+import java.io.IOException;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -57,7 +64,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
  * Encargada de dar de alta Favoritos, primero en el servicio y luego en la base local
  */
 public class AddFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
-        IListaOpcionesView, ValidationForms {
+        IListaOpcionesView, ValidationForms,ICropper,CropIwaResultReceiver.Listener {
 
     @BindView(R.id.add_favorites_alias)
     CustomValidationEditText editTextAlias;
@@ -187,7 +194,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         }
 
         // Iniciamos la funcionalidad e la camara
-        cameraManager = new CameraManager();
+        cameraManager = new CameraManager(this);
         cameraManager.initCameraUploadDocument(this, imageViewCamera, this);
 
         btnBack.setOnClickListener(new View.OnClickListener() {
@@ -201,6 +208,10 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         textViewServ.setEnabled(false);
         //textViewServ.setFullOnClickListener(this);
         textViewServ.setDrawableImage(R.drawable.menu_canvas);
+
+        CropIwaResultReceiver cropResultReceiver = new CropIwaResultReceiver();
+        cropResultReceiver.setListener(this);
+        cropResultReceiver.register(this);
     }
 
     @Override
@@ -322,45 +333,53 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
      * Resultado de procesar la imagen de la camara, aqui ya tenemos el Bitmap, y el codigo siguoente
      * es la BETA para poder darlo de alta en el servicio
      *
-     * @param bitmap
+     * @param bitmapa
      */
     @Override
-    public void setPhotoToService(Bitmap bitmap) {
+    public void setPhotoToService(Bitmap bitmapa) {
         // Log.d("TAG", "setPhotoToService ");
+        try {
+        //imageViewCamera.setImageBitmap(bitmap);
+            Glide.with(this)
+                    .load(cameraManager.getUriImage())
+                    .asBitmap()
+                    .into(imageViewCamera.getCircleImageView());
+            Bitmap bitmapAux = MediaStore.Images.Media.getBitmap(this.getContentResolver(), cameraManager.getUriImage());
 
-        imageViewCamera.setImageBitmap(bitmap);
-        cameraManager.setBitmap(bitmap);
+            //cameraManager.setBitmap(bitmap);
 
-        // Procesamos el Bitmap a Base64
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            // Procesamos el Bitmap a Base64
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmapAux.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            stringFoto = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            editFoto.setText(stringFoto);
 
-        stringFoto = encoded;
-        editFoto.setText(stringFoto);
+            // Ocultamos el mensaje de error de foto
+            editFotoError.setVisibilityImageError(false);
+            /*
+            cameraManager.setBitmap(bitmap);
 
-        // Ocultamos el mensaje de error de foto
-        editFotoError.setVisibilityImageError(false);
-       /*
-        cameraManager.setBitmap(bitmap);
-
-        // Procesamos el Bitmap a Base64
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
-        bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            // Procesamos el Bitmap a Base64
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
 
 
-       CODIGO ORIGINAL DE FOTO EN ListaOpcionesFRagment
-       // Creamos el objeto ActualizarAvatarRequest
-        ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
+           CODIGO ORIGINAL DE FOTO EN ListaOpcionesFRagment
+           // Creamos el objeto ActualizarAvatarRequest
+            ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
 
 
-        onEventListener.onEvent("DISABLE_BACK", true);
+            onEventListener.onEvent("DISABLE_BACK", true);
 
-        // Enviamos al presenter
-        mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);*/
+            // Enviamos al presenter
+            mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);*/
+
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -492,5 +511,20 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     @Override
     public void setValidationRules() {
 
+    }
+
+    @Override
+    public void onCropper(Uri uri) {
+        startActivity(CropActivity.callingIntent(this, uri));
+    }
+
+    @Override
+    public void onCropSuccess(Uri croppedUri) {
+        cameraManager.setCropImage(croppedUri);
+    }
+
+    @Override
+    public void onCropFailed(Throwable e) {
+        e.printStackTrace();
     }
 }

@@ -34,11 +34,9 @@ public class CropActivity extends SupportFragmentActivity {
 
     private CropIwaSaveConfig saveConfig;
 
-    public static Intent callingIntent(Context context, Uri imageUri,String path) {
+    public static Intent callingIntent(Context context, Uri imageUri) {
         Intent intent = new Intent(context, CropActivity.class);
         intent.putExtra(EXTRA_URI, imageUri);
-        intent.putExtra(EXTRA_TASK,path);
-
         return intent;
     }
     @Override
@@ -50,9 +48,6 @@ public class CropActivity extends SupportFragmentActivity {
         setSupportActionBar(toolbar);
         Uri imageUri = getIntent().getParcelableExtra(EXTRA_URI);
         cropIwaView.setImageUri(imageUri);
-        String paht = getIntent().getStringExtra(EXTRA_TASK);
-
-
 
     }
 

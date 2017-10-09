@@ -56,7 +56,7 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TE
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSLC;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
-public class PreferUserActivity extends LoaderActivity implements OnEventListener,CropIwaResultReceiver.Listener {
+public class PreferUserActivity extends LoaderActivity implements OnEventListener {
 
     public static String PREFER_USER_LISTA = "PREFER_USER_LISTA";
     public static String PREFER_USER_LEGALES = "PREFER_USER_LEGALES";
@@ -472,16 +472,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         CameraManager cameraManager = mFragment.getCameraManager();
         // Enviamos datos recibidos al CameraManager
         cameraManager.setOnActivityResult(requestCode, resultCode, data);
-
-    }
-
-    @Override
-    public void onCropSuccess(Uri croppedUri) {
-
-    }
-
-    @Override
-    public void onCropFailed(Throwable e) {
 
     }
 
