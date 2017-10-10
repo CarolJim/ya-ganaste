@@ -12,9 +12,11 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
@@ -53,6 +55,7 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
 
     private boolean isValid = false;
     private IServiciosPresenter serviciosPresenter;
+    PaymentsTabFragment fragment;
 
     public static ServiciosFormFragment newInstance() {
         ServiciosFormFragment fragment = new ServiciosFormFragment();
@@ -73,6 +76,7 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
                 comercioItem = paymentsTabPresenter.getComercioById(favoriteItem.getIdComercio());
             }
             serviciosPresenter = new ServiciosPresenter(this);
+            fragment = (PaymentsTabFragment) getParentFragment();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -89,6 +93,8 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
 
     @Override
     public void initViews() {
+
+
         super.initViews();
         layoutImageReference.setOnClickListener(this);
         serviceImport.addTextChangedListener(new NumberTextWatcher(serviceImport));
@@ -112,6 +118,28 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
             referenceNumber.setText(favoriteItem.getReferencia());
             //referenceNumber.setEnabled(false);
         }
+
+        // Agregamos un setOnFocusChangeListener a nuestro campo de importe, solo si es un favorito
+        if(favoriteItem != null){
+            serviceImport.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                       // Toast.makeText(App.getContext(), "Tiene foco", Toast.LENGTH_SHORT).show();
+                    } else {
+                       // Toast.makeText(App.getContext(), "Foco fuera", Toast.LENGTH_SHORT).show();
+                        String serviceImportStr = serviceImport.getText().toString().substring(1).replace(",","");
+                        if(serviceImportStr != null && !serviceImportStr.isEmpty()){
+                            monto = Double.valueOf(serviceImportStr);
+                            fragment.updateValueTabFrag(monto);
+                        }else{
+                            fragment.updateValueTabFrag(0.0);
+                        }
+                    }
+                }
+            });
+        }
+
     }
 
     @Override

@@ -94,6 +94,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
     int keyIdComercio;
     int maxLength;
     private boolean isCuentaValida = true;
+    PaymentsTabFragment fragment;
 
     public static EnviosFormFragment newInstance() {
         EnviosFormFragment fragment = new EnviosFormFragment();
@@ -115,6 +116,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
             }
             keyIdComercio = comercioItem.getIdComercio();
             enviosPresenter = new EnviosPresenter(this);
+            fragment = (PaymentsTabFragment) getParentFragment();
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -188,6 +190,27 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
                     tipoEnvio.setSelection(CLABE.getId());
                     break;
             }
+        }
+
+        // Agregamos un setOnFocusChangeListener a nuestro campo de importe, solo si es un favorito
+        if(favoriteItem != null){
+            amountToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+                @Override
+                public void onFocusChange(View v, boolean hasFocus) {
+                    if (hasFocus) {
+                        // Toast.makeText(App.getContext(), "Tiene foco", Toast.LENGTH_SHORT).show();
+                    } else {
+                        // Toast.makeText(App.getContext(), "Foco fuera", Toast.LENGTH_SHORT).show();
+                        String serviceImportStr = amountToSend.getText().toString().substring(1).replace(",","");
+                        if(serviceImportStr != null && !serviceImportStr.isEmpty()){
+                            monto = Double.valueOf(serviceImportStr);
+                            fragment.updateValueTabFrag(monto);
+                        }else{
+                            fragment.updateValueTabFrag(0.0);
+                        }
+                    }
+                }
+            });
         }
     }
 
