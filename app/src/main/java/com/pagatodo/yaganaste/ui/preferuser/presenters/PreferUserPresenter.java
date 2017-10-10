@@ -24,6 +24,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDis
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoContactanosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
+import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
@@ -63,6 +64,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
 
         iPreferUserIteractor = new PreferUserIteractor(this);
     }
+
 
     /**
      * Se encarga de hacer SET del View que interactura con el Presenter. Esto funciona porque recibimos

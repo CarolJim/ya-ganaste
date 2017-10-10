@@ -87,6 +87,7 @@ dependencies {
     }
 
     compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.android.support:multidex:1.0.0'
     compile 'com.android.support:appcompat-v7:25.3.1'
     compile 'com.android.support:design:25.3.1'
@@ -106,7 +107,6 @@ dependencies {
     compile 'com.jakewharton:butterknife:8.4.+'
     compile 'pl.droidsonroids.gif:android-gif-drawable:1.2.2'
     compile 'id.zelory:compressor:1.0.4'
-    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile 'com.google.firebase:firebase-messaging:10.0.1'
     compile 'com.google.firebase:firebase-core:10.0.1'
     compile 'com.github.demoNo:AutoScrollViewPager:v1.0.2'

@@ -494,6 +494,7 @@
     <string name="tarjeta">Tarjeta:</string>
     <string name="ferencia_txt">Referencia:</string>
     <string name="emisor">Emisor:</string>
+    <string name="ultimoPago">Último Pago</string>
 
     <!-- Autorizaciones Online -->
     <string name="este_movimiento">Este Movimiento se Está Realizando\nen tu Sitio Web Ya Ganaste</string>
@@ -787,7 +788,7 @@
     <string name="micuenta">Mi Cuenta</string>
     <string name="cuentareebolso">Cuenta de Reembolso</string>
     <string name="solicitacredito">Solicita tu Línea de Crédito *</string>
-
+    <string name="datos_nombre_titular">Titular</string>
 
     <!--start Cupo Strings-->
 

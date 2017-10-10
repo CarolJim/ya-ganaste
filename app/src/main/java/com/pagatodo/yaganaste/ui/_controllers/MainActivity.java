@@ -3,6 +3,8 @@ package com.pagatodo.yaganaste.ui._controllers;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
+import android.view.View;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -24,12 +26,12 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 
 public class MainActivity extends ToolBarActivity {
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragment_conainer);
         initViews();
+
         String action = getIntent().getExtras().getString(SELECTION);
         if (action.equals(MAIN_SCREEN)) {
             Preferencias prefs = App.getInstance().getPrefs();

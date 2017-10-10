@@ -40,6 +40,7 @@ import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.account.AccountInteractorNew;
 import com.pagatodo.yaganaste.ui.addfavorites.iteractors.FavoritesIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
+import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserIteractor;
 
 import java.util.Map;
 import java.util.Objects;
@@ -310,7 +311,22 @@ public class ApiTrans extends Api {
      * @throws OfflineException
      */
     public static void bloquearCuenta(BloquearCuentaRequest request,
-                                      PreferUserIteractor result) throws OfflineException {
+                                       PreferUserIteractor result) throws OfflineException {
+
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+
+        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+                .getCuentas().get(0).getIdCuenta();
+        headers.put("IdCuenta", "" + idCuenta);
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(BLOQUEAR_CUENTA,
+                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.bloquearDatosCuenta),
+                headers, request, true, BloquearCuentaResponse.class, result);
+    }
+    public static void bloquearCuenta(BloquearCuentaRequest request,
+                                      TarjetaUserIteractor result) throws OfflineException {
 
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
@@ -332,6 +348,21 @@ public class ApiTrans extends Api {
      */
     public static void estatusCuenta(EstatusCuentaRequest request,
                                      PreferUserIteractor result) throws OfflineException  {
+
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+
+        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+                .getCuentas().get(0).getIdCuenta();
+        headers.put("IdCuenta", "" + idCuenta);
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(ESTATUS_CUENTA,
+                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.estatusDatosCuenta),
+                headers, request, true, EstatusCuentaResponse.class, result);
+    }
+    public static void estatusCuenta(EstatusCuentaRequest request,
+                                     TarjetaUserIteractor result) throws OfflineException  {
 
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());

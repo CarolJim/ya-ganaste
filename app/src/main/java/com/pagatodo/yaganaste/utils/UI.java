@@ -196,6 +196,19 @@ public class UI {
         customErrorDialog.show(fragmentManager, tag);
     }
 
+    public static void createCustomDialogCardHome(String title, String message,String nombre,String cuenta, FragmentManager fragmentManager, String tag,
+                                                    DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_block_card,
+                title, message, false, false);
+
+        customErrorDialog.myCardNameUser(nombre);
+        customErrorDialog.myCardNumberUser(cuenta);
+        customErrorDialog.setTitleBtnAcept(btnAceptar);
+        customErrorDialog.setTitleBtnCancel(btnCancelar);
+
+        customErrorDialog.setDialogActions(actions);
+        customErrorDialog.show(fragmentManager, tag);
+    }
     public static void createSimpleCustomDialogNoCancel(String title, String message,
                                                         FragmentManager fragmentManager, final DialogDoubleActions actions) {
         createSimpleCustomDialog(title, message, fragmentManager, actions, true, false);
