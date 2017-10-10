@@ -9,5 +9,5 @@ import com.pagatodo.yaganaste.utils.BitmapLoader;
  */
 
 public interface ICropper {
-    void onCropper(Uri uri,String path);
+    void onCropper(Uri uri);
 }

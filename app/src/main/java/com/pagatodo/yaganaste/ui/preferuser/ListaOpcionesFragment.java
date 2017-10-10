@@ -218,28 +218,19 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
     }
 
     @Override
-    public void onCropper(Uri uri,String path) {
-        startActivity(CropActivity.callingIntent(getContext(), uri,path));
+    public void onCropper(Uri uri) {
+        startActivity(CropActivity.callingIntent(getContext(), uri));
     }
 
     @Override
     public void onCropSuccess(Uri croppedUri) {
         cameraManager.setCropImage(croppedUri);
-
-        //updatePhoto();
-        //ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
-
-
-       /* Glide.with(this)
-                .load(croppedUri)
-                .into(iv_photo_item);*/
-
     }
 
     @Override
     public void onCropFailed(Throwable e) {
         e.printStackTrace();
-        Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

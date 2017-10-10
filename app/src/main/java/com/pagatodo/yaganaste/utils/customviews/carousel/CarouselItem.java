@@ -4,14 +4,12 @@ import android.content.Context;
 import android.graphics.Bitmap;
 import android.graphics.Color;
 import android.graphics.Matrix;
-import android.graphics.drawable.ColorDrawable;
 import android.support.v4.content.ContextCompat;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
-import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
@@ -115,7 +113,8 @@ public class CarouselItem extends FrameLayout
         Glide.with(getContext()).load(imageUrl).crossFade(0).into(mImage);
 
     }
-//
+
+    //
     public CarouselItem(Context context, int resource, String color, int gestureType, ComercioResponse comercio, DataFavoritos favoritos) {
         super(context);
         this.context = context;
@@ -132,8 +131,10 @@ public class CarouselItem extends FrameLayout
         }
     }
 //
+
     /**
      * Metodo usado solamente para crear item de nuevo favorito
+     *
      * @param context
      * @param resource
      * @param color
@@ -151,7 +152,7 @@ public class CarouselItem extends FrameLayout
         mImage.setBackground(ContextCompat.getDrawable(context, drawable));
     }
 
-//
+    //
     public CarouselItem(Context context, String imageUrl, String color, int gestureType, ComercioResponse comercio) {
         super(context);
         this.context = context;
@@ -163,7 +164,8 @@ public class CarouselItem extends FrameLayout
         Glide.with(context).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
 
     }
-//*
+
+    //*
     public CarouselItem(Context context, String imageUrl, String color, int gestureType, DataFavoritos favoritos) {
         super(context);
         this.context = context;
@@ -342,7 +344,9 @@ public class CarouselItem extends FrameLayout
         return this.comercio;
     }
 
-    public DataFavoritos getFavoritos() { return this.favoritos; }
+    public DataFavoritos getFavoritos() {
+        return this.favoritos;
+    }
 
     public String getColor() {
         return this.color;
@@ -351,6 +355,15 @@ public class CarouselItem extends FrameLayout
     public void setSearchImageViewMargin() {
         MarginLayoutParams marginParams = new MarginLayoutParams(mImage.getLayoutParams());
         marginParams.setMargins(60, 60, 60, 60);
+        marginParams.setMargins(Utils.convertDpToPixels(15), Utils.convertDpToPixels(15), Utils.convertDpToPixels(15), Utils.convertDpToPixels(15));
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(marginParams);
+        mImage.setLayoutParams(layoutParams);
+        mImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+    }
+
+    public void setAddImageViewMargin() {
+        MarginLayoutParams marginParams = new MarginLayoutParams(mImage.getLayoutParams());
+        marginParams.setMargins(10, 10, 10, 10);
         marginParams.setMargins(Utils.convertDpToPixels(15), Utils.convertDpToPixels(15), Utils.convertDpToPixels(15), Utils.convertDpToPixels(15));
         RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(marginParams);
         mImage.setLayoutParams(layoutParams);

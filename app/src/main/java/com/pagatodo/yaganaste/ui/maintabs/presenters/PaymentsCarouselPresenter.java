@@ -158,12 +158,14 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
     private CarouselItem createItemToAddFav() {
         //Se agrega un id en -1 en el constructor para hacer referencia a que el item responde a la accion de agregar favorito desde 0
-        return new CarouselItem(App.getInstance(), R.drawable.ic_plus_2, "#747E84" , CarouselItem.DRAG, new ComercioResponse(-1));
+        CarouselItem carouselItemAdd = new CarouselItem(App.getInstance(), R.mipmap.agregar_favorito, "#747E84", CarouselItem.DRAG, new ComercioResponse(-1), null);
+        carouselItemAdd.setAddImageViewMargin();
+        return carouselItemAdd;
     }
 
     @Override
     public void onSuccessDBFavorites(List<DataFavoritos> favoritos) {
-        if(showFavorite){
+        if (showFavorite) {
             paymentsManager.setCarouselData(getCarouselItemsFavoritos(favoritos));
         } else {
             paymentsManager.showFavorites();
@@ -232,7 +234,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         }
 
         int toAdd = 5 - carouselItems.size();
-        for (int n = 0 ; n < toAdd ; n++ ) {
+        for (int n = 0; n < toAdd; n++) {
             carouselItems.add(createItemToAddFav());
         }
 

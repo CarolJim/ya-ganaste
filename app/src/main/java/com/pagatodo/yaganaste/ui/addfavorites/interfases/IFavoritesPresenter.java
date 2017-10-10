@@ -13,6 +13,7 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
  */
 
 public interface IFavoritesPresenter {
+
     void toPresenterAddFavorites(AddFavoritesRequest addFavoritesRequest);
 
     void toPresenterErrorServer(String mMensaje);
@@ -34,4 +35,6 @@ public interface IFavoritesPresenter {
     void updateLocalFavorite(DataFavoritos dataFavoritos);
 
     boolean alreadyExistFavorite(String reference);
+
+
 }
