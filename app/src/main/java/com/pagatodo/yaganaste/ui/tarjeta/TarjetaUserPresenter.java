@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuenta
 import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserPresenter;
@@ -21,11 +22,11 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 public class TarjetaUserPresenter extends GenericPresenterMain<IPreferUserGeneric> implements IPreferUserPresenter {
 
-    IMyCardView mView;
+    IMyCardViewHome mView;
     TarjetaUserIteractor iPreferUserIteractor;
 
 
-    public TarjetaUserPresenter(IMyCardView mView) {
+    public TarjetaUserPresenter(IMyCardViewHome mView) {
         // super(mView); Esta linea hace funcionar el PResenterGeneric
         this.mView = mView;
 
@@ -92,7 +93,8 @@ public class TarjetaUserPresenter extends GenericPresenterMain<IPreferUserGeneri
         if (dataSourceResult.getData() instanceof EstatusCuentaResponse) {
             mView.hideLoader();
             EstatusCuentaResponse response = (EstatusCuentaResponse) dataSourceResult.getData();
-            //mView.sendSuccessEstatusCuentaToView(response);
+            mView.sendSuccessEstatusCuentaToView(response);
+
         }
 
         /**
