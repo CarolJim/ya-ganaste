@@ -11,6 +11,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
@@ -63,6 +64,8 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     ImageView imgTypeCard;
     @BindView(R.id.edtEmailSendticket)
     CustomValidationEditText edtEmailSendticket;
+    @BindView(R.id.layout_enviado)
+    LinearLayout lyt_concept;
     ImageView imageshae;
 
     private TransaccionEMVDepositResponse emvDepositResponse;
@@ -96,13 +99,14 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @Override
     public void initViews() {
         super.initViews();
-        showBack(false);
         txtAmountPayment.setText(String.format("$%s", TransactionAdqData.getCurrentTransaction().getAmount()));
 
         String mDescription = TransactionAdqData.getCurrentTransaction().getDescription();
         String mAuthorization = TransactionAdqData.getCurrentTransaction().getTransaccionResponse().getAutorizacion();
         if (mDescription != null && !mDescription.isEmpty()) {
             txtConceptMessage.setText(mDescription);
+        } else {
+            lyt_concept.setVisibility(View.INVISIBLE);
         }
         if (mAuthorization != null && !mAuthorization.isEmpty()) {
             txtAuthorization.setText(mAuthorization);

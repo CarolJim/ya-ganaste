@@ -110,6 +110,7 @@
                     android:visibility="visible">
 
                     <LinearLayout
+                        android:id="@+id/lyt_concept"
                         android:layout_width="match_parent"
                         android:layout_height="@dimen/detail_movements_row_height"
                         android:layout_gravity="center"
@@ -302,12 +303,6 @@
                     app:defaultIcon="email"
                     app:formato="email"
                     app:hintText="@string/txt_mail" />
-
-                <android.support.v4.widget.Space
-                    android:layout_width="match_parent"
-                    android:layout_height="0dp"
-                    android:layout_weight="1" />
-
 
             </LinearLayout>
         </LinearLayout>

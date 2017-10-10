@@ -75,12 +75,6 @@ public abstract class PaymentFormBaseFragment extends GenericFragment implements
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
-    protected void showBack(boolean isBackShowing) {
-        if (getActivity() instanceof ToolBarActivity) {
-            ((ToolBarActivity)getActivity()).showBack(isBackShowing);
-        }
-    }
-
     public void setSeekBarProgress(int progress) {
         mySeekBar.setProgress(progress);
     }

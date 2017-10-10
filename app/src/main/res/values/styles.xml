@@ -78,6 +78,13 @@
         <item name="tipo">Text</item>
     </style>
 
+    <style name="textDescInputs2">
+        <item name="android:layout_centerHorizontal">true</item>
+        <item name="android:textColor">@color/whiteColor_disable</item>
+        <item name="android:textSize">@dimen/size_text_style_2_value</item>
+        <item name="tipo">Text</item>
+    </style>
+
     <!-- Mo se usa -->
     <style name="buttonRoundedBlue">
         <item name="android:layout_marginEnd">60dp</item>
