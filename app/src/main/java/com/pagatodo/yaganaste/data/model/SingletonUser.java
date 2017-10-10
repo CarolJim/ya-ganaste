@@ -80,7 +80,7 @@ public class SingletonUser {
 
         }
 
-        dataUser.getUsuario().setTipoAgente(17);
+        dataUser.getUsuario().setTipoAgente(22);
         if (dataUser.isEsAgente() && dataUser.getEstatusAgente() != CRM_DOCTO_APROBADO
                 && dataUser.getEstatusDocumentacion() != STATUS_DOCTO_PENDIENTE) {
             App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
