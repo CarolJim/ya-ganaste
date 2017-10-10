@@ -77,10 +77,9 @@ public class SingletonUser {
             dataUser.getUsuario().getCuentas().get(0).setTarjeta(dataUser.getUsuario().getCuentas().get(0).getTarjeta().replaceAll(" ",""));
             prefs.saveData(CARD_NUMBER, dataUser.getUsuario().getCuentas().get(0).getTarjeta());
             prefs.saveData(ID_CUENTA, String.valueOf(dataUser.getUsuario().getCuentas().get(0).getIdCuenta()));
-
         }
 
-        dataUser.getUsuario().setTipoAgente(17);
+        dataUser.getUsuario().setTipoAgente(22);
         if (dataUser.isEsAgente() && dataUser.getEstatusAgente() != CRM_DOCTO_APROBADO
                 && dataUser.getEstatusDocumentacion() != STATUS_DOCTO_PENDIENTE) {
             App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);

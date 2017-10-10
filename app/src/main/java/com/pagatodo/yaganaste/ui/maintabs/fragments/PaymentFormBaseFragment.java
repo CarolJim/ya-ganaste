@@ -11,6 +11,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioRespo
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsTabPresenter;
 
@@ -72,6 +73,12 @@ public abstract class PaymentFormBaseFragment extends GenericFragment implements
         SingletonSession.getInstance().setFinish(false);//No cerramos la aplicación
         getActivity().startActivityForResult(intent, BACK_FROM_PAYMENTS);
         getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+    }
+
+    protected void showBack(boolean isBackShowing) {
+        if (getActivity() instanceof ToolBarActivity) {
+            ((ToolBarActivity)getActivity()).showBack(isBackShowing);
+        }
     }
 
     public void setSeekBarProgress(int progress) {

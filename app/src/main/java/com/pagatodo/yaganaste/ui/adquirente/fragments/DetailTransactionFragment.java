@@ -1,8 +1,12 @@
 package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 
+import android.content.Intent;
 import android.content.pm.ActivityInfo;
+import android.graphics.Bitmap;
+import android.net.Uri;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,10 +22,18 @@ import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
+import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+
+import java.io.File;
+import java.io.FileOutputStream;
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 
 import butterknife.BindView;
 
@@ -32,19 +44,26 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 /**
  * A simple {@link GenericFragment} subclass.
  */
-public class DetailTransactionFragment extends PaymentFormBaseFragment implements ValidationForms, INavigationView {
+public class DetailTransactionFragment extends PaymentFormBaseFragment implements ValidationForms, INavigationView,
+        View.OnClickListener {
 
     @BindView(R.id.txtAmountPayment)
-    StyleTextView txtAmountPayment;
+    MontoTextView txtAmountPayment;
     @BindView(R.id.txtNumberCard)
     StyleTextView txtMaskedPan;
     @BindView(R.id.txtConceptMessage)
     StyleTextView txtConceptMessage;
+    @BindView(R.id.txtHora)
+    StyleTextView txtHour;
+    @BindView(R.id.txtFecha)
+    StyleTextView txtDate;
+    @BindView(R.id.txtAutorizacion)
+    StyleTextView txtAuthorization;
     @BindView(R.id.imgTypeCard)
     ImageView imgTypeCard;
     @BindView(R.id.edtEmailSendticket)
     CustomValidationEditText edtEmailSendticket;
-
+    ImageView imageshae;
 
     private TransaccionEMVDepositResponse emvDepositResponse;
     private String emailToSend = "";
@@ -77,12 +96,25 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @Override
     public void initViews() {
         super.initViews();
+        showBack(false);
         txtAmountPayment.setText(String.format("$%s", TransactionAdqData.getCurrentTransaction().getAmount()));
 
         String mDescription = TransactionAdqData.getCurrentTransaction().getDescription();
+        String mAuthorization = TransactionAdqData.getCurrentTransaction().getTransaccionResponse().getAutorizacion();
         if (mDescription != null && !mDescription.isEmpty()) {
-            txtConceptMessage.setText("Concepto: " + mDescription);
+            txtConceptMessage.setText(mDescription);
         }
+        if (mAuthorization != null && !mAuthorization.isEmpty()) {
+            txtAuthorization.setText(mAuthorization);
+        }
+        SimpleDateFormat dateFormatH = new SimpleDateFormat("HH:mm:ss");
+
+        // fecha.setText(DateUtil.getBirthDateCustomString(Calendar.getInstance()));
+        txtDate.setText(DateUtil.getPaymentDateSpecialCustom(Calendar.getInstance()));
+        txtHour.setText(dateFormatH.format(new Date()) + " hrs");
+
+        txtConceptMessage.setSelected(true);
+        txtAuthorization.setSelected(true);
 
         String cardNumber = emvDepositResponse.getMaskedPan();
         String cardNumberFormat = StringUtils.ocultarCardNumberFormat(cardNumber);
@@ -92,6 +124,10 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
         if (imgTypeCard != null) {
             imgTypeCard.setImageResource(emvDepositResponse.getMarcaTarjetaBancaria().equals("Visa") ? R.drawable.visa : R.drawable.mastercard_canvas);
         }
+
+        /*imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
+        imageshae.setVisibility(View.VISIBLE);
+        imageshae.setOnClickListener(this);*/
     }
 
     @Override
@@ -177,6 +213,45 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @Override
     protected void continuePayment() {
         validateForm();
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.deposito_Share) {
+            takeScreenshot();
+            //shareContent();
+        }
+    }
+
+    private void takeScreenshot() {
+        try {
+            View v1 = getActivity().getWindow().getDecorView().getRootView();
+            v1.setDrawingCacheEnabled(true);
+            Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+            v1.setDrawingCacheEnabled(false);
+            File carpeta = new File(Environment.getExternalStorageDirectory() + getString(R.string.path_image));
+            if (!carpeta.exists()) {
+                carpeta.mkdir();
+            }
+            File imageFile = new File(Environment.getExternalStorageDirectory() + getString(R.string.path_image) + "/", System.currentTimeMillis() + ".jpg");
+            FileOutputStream outputStream = new FileOutputStream(imageFile);
+            int quality = 100;
+            bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+            outputStream.flush();
+            outputStream.close();
+            sendScreenshot(imageFile);
+        } catch (Throwable e) {
+            e.printStackTrace();
+        }
+    }
+
+    private void sendScreenshot(File imageFile) {
+        Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("image/jpeg");
+        Uri uri = Uri.fromFile(imageFile);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(Intent.createChooser(intent, "Compartir Con..."));
     }
 }
 

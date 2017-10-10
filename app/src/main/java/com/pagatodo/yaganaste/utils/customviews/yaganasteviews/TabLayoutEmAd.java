@@ -119,7 +119,6 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         } else if (inviteAdquirenteCallback != null) {
             inviteAdquirenteCallback.onInviteAdquirente();
         }
-
     }
 
     @Override

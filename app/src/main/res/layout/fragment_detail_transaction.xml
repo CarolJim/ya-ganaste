@@ -31,12 +31,12 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtThanksBuy"
-                style="@style/GenericStyleTextTittle"
+                style="@style/generic_text_style_1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_medium"
-                android:text="@string/gracias_por_compra"
-                app:tipo="Descripcion" />
+                android:gravity="center"
+                android:text="@string/gracias_por_compra" />
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtPaymentMessage1"
@@ -45,15 +45,14 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="@string/mensaje_pagaste1"
-                app:tipo="Descripcion" />
+                app:tipo="Text" />
 
             <com.pagatodo.yaganaste.utils.customviews.MontoTextView
                 android:id="@+id/txtAmountPayment"
-                style="@style/GenerictextDetailTransaction2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
                 android:text="70"
+                android:textAlignment="center"
                 android:textSize="@dimen/size_text_style_1_value"
                 app:dotBottom="false"
                 app:symbolSmaller="true" />
@@ -66,6 +65,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
                 android:text="@string/mensaje_pagaste2"
+                android:visibility="gone"
                 app:tipo="Descripcion" />
 
             <LinearLayout
@@ -73,7 +73,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="@dimen/margin_small"
                 android:gravity="center"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txtNumberCard"
@@ -91,60 +92,224 @@
 
             </LinearLayout>
 
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/txtConceptMessage"
-                style="@style/GenerictextDetailTransaction2"
+            <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:layout_marginTop="@dimen/margin_small"
-                tools:text="Concepto: Concepto capturado"
-                app:tipo="Descripcion" />
+                android:layout_marginEnd="@dimen/margin_doble"
+                android:layout_marginLeft="@dimen/margin_doble"
+                android:layout_marginRight="@dimen/margin_doble"
+                android:layout_marginStart="@dimen/margin_doble"
+                android:orientation="vertical">
 
-            <android.support.v4.widget.Space
+
+                <LinearLayout
+                    android:id="@+id/layout_enviado"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/detail_movements_row_height"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/titleConcept"
+                            style="@style/generic_text_style_2.1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="Concepto:" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/txtConceptMessage"
+                            style="@style/generic_text_style_2.1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="marquee"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:freezesText="true"
+                            android:gravity="end"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:maxLines="1"
+                            android:paddingLeft="10dp"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5px"
+                        android:background="@color/margin_lines" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_fecha"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/detail_movements_row_height"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            style="@style/generic_text_style_2.1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/details_fecha" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/txtFecha"
+                            style="@style/generic_text_style_2.1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:maxLines="1" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5px"
+                        android:background="@color/margin_lines" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_hora"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/detail_movements_row_height"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            style="@style/generic_text_style_2.1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/details_hora" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/txtHora"
+                            style="@style/generic_text_style_2.1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:gravity="end"
+                            android:maxLines="1" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5px"
+                        android:background="@color/margin_lines" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/layout_autorizacion"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:visibility="visible">
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/detail_movements_row_height"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal">
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            style="@style/generic_text_style_2.1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/details_autorizacion" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/txtAutorizacion"
+                            style="@style/generic_text_style_2.1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="marquee"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:freezesText="true"
+                            android:gravity="end"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:maxLines="1"
+                            android:paddingLeft="10dp"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true" />
+                    </LinearLayout>
+
+                    <View
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5px"
+                        android:background="@color/margin_lines" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutButtonsResult"
                 android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="0.7" />
-
-        </LinearLayout>
-
-        <LinearLayout
-            android:id="@+id/layoutButtonsResult"
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:layout_marginBottom="@dimen/margin_doble"
-            android:layout_marginLeft="@dimen/margin_medium"
-            android:layout_marginRight="@dimen/margin_medium"
-            android:layout_weight="2.3"
-            android:orientation="vertical"
-            android:paddingLeft="@dimen/margin_medium"
-            android:paddingRight="@dimen/margin_medium">
-
-            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                android:id="@+id/txtQuestionEmail"
-                style="@style/textTitleDetailTransaction"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="@string/correo_enviar_ticket"
-                android:textSize="@dimen/size_text_style_2_value"
-                app:tipo="Descripcion" />
-
-            <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                android:id="@+id/edtEmailSendticket"
-                style="@style/GenericCustomValidationEditText"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginBottom="@dimen/margin_doble"
+                android:layout_marginLeft="@dimen/margin_medium"
+                android:layout_marginRight="@dimen/margin_medium"
                 android:layout_marginTop="@dimen/margin_medium"
-                android:text="@string/txt_felicidades"
-                app:defaultIcon="email"
-                app:formato="email"
-                app:hintText="@string/txt_mail" />
+                android:layout_weight="2.3"
+                android:gravity="center"
+                android:orientation="vertical"
+                android:paddingLeft="@dimen/margin_medium"
+                android:paddingRight="@dimen/margin_medium">
 
-            <android.support.v4.widget.Space
-                android:layout_width="match_parent"
-                android:layout_height="0dp"
-                android:layout_weight="1" />
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/txtQuestionEmail"
+                    style="@style/textTitleDetailTransaction"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:text="@string/correo_enviar_ticket"
+                    android:textSize="@dimen/size_text_style_2_value"
+                    app:tipo="Descripcion" />
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/edtEmailSendticket"
+                    style="@style/GenericCustomValidationEditText"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="@dimen/margin_medium"
+                    android:text="@string/txt_felicidades"
+                    app:defaultIcon="email"
+                    app:formato="email"
+                    app:hintText="@string/txt_mail" />
+
+                <android.support.v4.widget.Space
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_weight="1" />
 
 
+            </LinearLayout>
         </LinearLayout>
     </LinearLayout>
 
