@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -88,6 +89,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.accessCode)
     LinearLayout accessCode;
 
+    @BindView(R.id.quickPayment)
+    LinearLayout quickPayment;
+
     private View rootview;
     private AccountPresenterNew accountPresenter;
 
@@ -137,7 +141,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         ButterKnife.bind(this, rootview);
         btnLogin.setOnClickListener(this);
         blockCard.setOnClickListener(this);
-       // accessCode.setOnClickListener(this);
+        accessCode.setOnClickListener(this);
         txtLoginExistUserRecoverPass.setOnClickListener(this);
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
@@ -155,6 +159,17 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         }
         setValidationRules();
 
+        // Mostramos los elementos de facil acceso, solo si tenemos session
+        Preferencias prefs = App.getInstance().getPrefs();
+        if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
+            blockCard.setVisibility(View.VISIBLE);
+            accessCode.setVisibility(View.VISIBLE);
+            quickPayment.setVisibility(View.VISIBLE);
+        } else {
+            blockCard.setVisibility(View.INVISIBLE);
+            accessCode.setVisibility(View.INVISIBLE);
+            quickPayment.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override

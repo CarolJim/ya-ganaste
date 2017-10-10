@@ -254,7 +254,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 break;
 
             case EVENT_SECURE_CODE:
-                loadFragment(OtpContainerFratgment.newInstance(), Direction.FORDWARD, false);
+                //loadFragment(OtpContainerFratgment.newInstance(), Direction.FORDWARD, false);
+                loginContainerFragment.loadSecureCodeContainer();
                 break;
 
             case EVENT_SECURE_CODE_BACK:

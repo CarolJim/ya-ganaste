@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoC
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;
+import com.pagatodo.yaganaste.ui.account.login.BlockCardFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
@@ -56,11 +57,17 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
     IMyEmailView iMyEmailView;
     IMyPassView iMyPassView;
     IMyCardView iMyCardView;
+    IMyCardView myCardView;
 
     public PreferUserPresenter(PreferUserActivity mView) {
         // super(mView); Esta linea hace funcionar el PResenterGeneric
         this.mView = mView;
 
+        iPreferUserIteractor = new PreferUserIteractor(this);
+    }
+
+    public PreferUserPresenter(IMyCardView myCardView) {
+        this.myCardView = myCardView;
         iPreferUserIteractor = new PreferUserIteractor(this);
     }
 
@@ -105,6 +112,10 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
             this.iMyHelpMensajeContactanos = (IMyHelpMensajeContactanos) iPreferUserGeneric;
         }
 
+        // Set de  instancia de IMyCardView para BlockCard
+        if (iPreferUserGeneric instanceof IMyCardView) {
+            this.iMyCardView = (IMyCardView) iPreferUserGeneric;
+        }
     }
 
     /**

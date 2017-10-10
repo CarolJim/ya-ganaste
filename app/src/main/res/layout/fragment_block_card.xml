@@ -1,4 +1,3 @@
-
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -20,77 +19,24 @@
         android:layout_alignParentStart="true"
         android:fillViewport="true">
 
-        <RelativeLayout
+        <LinearLayout android:orientation="vertical"
             android:id="@+id/layoutScrollCard"
             android:layout_width="match_parent"
             android:layout_height="wrap_content">
 
             <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
                 android:id="@+id/layoutContent"
-                style="@style/BorderTitleStyle"
+                style="@style/BorderTitleStyle" android:layout_weight="3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                app:title="@string/doYouHaveCardTitle">
+                app:title="@string/bloquear_tu_tarjeta">
 
                 <LinearLayout
                     style="@style/BorderLayoutContentCard"
                     android:layout_width="match_parent"
+                    android:layout_marginTop="60dp"
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
-
-                    <RadioGroup
-                        android:id="@+id/radioHasCard"
-                        style="@style/FragmentElementTop"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:gravity="center"
-                        android:orientation="horizontal"
-                        android:theme="@style/RadioButtonTheme">
-
-                        <android.support.v4.widget.Space
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                        <RadioButton
-                            android:id="@+id/radioBtnNo"
-                            style="@style/generic_text_style_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="@string/no" />
-
-
-                        <android.support.v4.widget.Space
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                        <RadioButton
-                            android:id="@+id/radioBtnYes"
-                            style="@style/generic_text_style_2"
-                            android:layout_width="wrap_content"
-                            android:layout_height="wrap_content"
-                            android:layout_gravity="center"
-                            android:gravity="center"
-                            android:text="@string/yes" />
-
-                        <android.support.v4.widget.Space
-                            android:layout_width="0dp"
-                            android:layout_height="0dp"
-                            android:layout_weight="1" />
-
-                    </RadioGroup>
-
-                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                        android:id="@+id/txtMessageCard"
-                        style="@style/generic_text_style_3"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="@dimen/margin_small"
-                        android:layout_marginTop="@dimen/margin_medium"
-                        android:gravity="center" />
 
                     <include
                         android:id="@+id/layoutCard"
@@ -100,12 +46,32 @@
                         android:layout_marginLeft="@dimen/margin_medium"
                         android:layout_marginRight="@dimen/margin_medium" />
 
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txtMessageCard"
+                        style="@style/generic_text_style_3"
+                        android:layout_marginTop="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:gravity="center"
+                        android:text="@string/ingresa_pass_block" />
 
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/editUserPassword"
+                        style="@style/GenericInputTextForms"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="40dp"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        app:formato="password"
+                        app:hintText="@string/txt_escribe_tu_pass"
+                        app:isTextEnabled="true" />
                 </LinearLayout>
 
             </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
 
             <LinearLayout
+                android:layout_weight="4"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
@@ -123,16 +89,16 @@
                     android:layout_weight="1.5" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                    android:id="@+id/btnNextTienesTarjeta"
+                    android:id="@+id/btnLoginExistUser"
                     style="@style/buttonDirecctionNext"
                     android:layout_width="match_parent"
                     android:layout_height="@dimen/height_btns"
                     android:layout_weight="1"
                     android:gravity="center"
                     android:text="@string/next"
-                    android:visibility="gone"
                     android:textAllCaps="false"
-                    android:textSize="@dimen/generic_button_normal_text_size" />
+                    android:textSize="@dimen/generic_button_normal_text_size"
+                    android:visibility="visible" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -140,9 +106,27 @@
                     android:layout_weight="1.5" />
             </LinearLayout>
 
-        </RelativeLayout>
+            <LinearLayout
+                android:id="@+id/layoutBtns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/btn_navigation_bottom"
+                android:clickable="true"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                    style="@style/buttonDirecctionNext"
+                    android:text="@string/txt_ingresar" />
+            </LinearLayout>
+
+        </LinearLayout>
 
     </ScrollView>
+
+
     <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
         android:id="@id/progressLayout"
         android:layout_width="match_parent"

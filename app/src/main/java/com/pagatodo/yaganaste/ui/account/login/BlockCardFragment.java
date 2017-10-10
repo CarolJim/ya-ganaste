@@ -3,20 +3,65 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
+import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.interfaces.ILoginView;
+import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.net.ApiAdtvo;
+import com.pagatodo.yaganaste.net.RequestHeaders;
+import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
+import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
+import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
+import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
+import com.pagatodo.yaganaste.utils.StringConstants;
+import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
+import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
+import butterknife.OnClick;
+
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
 /**
  */
-public class BlockCardFragment extends GenericFragment {
+public class BlockCardFragment extends GenericFragment implements ValidationForms,
+        ILoginView, IMyCardView {
+
+    public static final int BLOQUEO = 1;
+    public static final int DESBLOQUEO = 2;
+
+    @BindView(R.id.editUserPassword)
+    CustomValidationEditText edtUserPass;
+    @BindView(R.id.btnLoginExistUser)
+    StyleButton btnLogin;
+
+    private String password;
+    private View rootview;
+    private AccountPresenterNew accountPresenter;
+    private PreferUserPresenter mPreferPresenter;
+    boolean isChecked;
 
     public BlockCardFragment() {
         // Required empty public constructor
     }
+
     public static BlockCardFragment newInstance() {
         BlockCardFragment fragment = new BlockCardFragment();
         Bundle args = new Bundle();
@@ -28,6 +73,10 @@ public class BlockCardFragment extends GenericFragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
+            accountPresenter = ((AccountActivity) getActivity()).getPresenter();
+            accountPresenter.setIView(this);
+            mPreferPresenter = new PreferUserPresenter(this);
+            mPreferPresenter.setIView(this);
         }
     }
 
@@ -35,11 +84,185 @@ public class BlockCardFragment extends GenericFragment {
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_block_card, container, false);
+        rootview = inflater.inflate(R.layout.fragment_block_card, container, false);
+        initViews();
+        return rootview;
     }
 
     @Override
     public void initViews() {
+        ButterKnife.bind(this, rootview);
+    }
 
+    @OnClick(R.id.btnLoginExistUser)
+    public void validatePass() {
+        //  Toast.makeText(App.getContext(), "Click", Toast.LENGTH_SHORT).show();
+        validateForm();
+    }
+
+
+    @Override
+    public void setValidationRules() {
+        edtUserPass.setOnFocusChangeListener(new View.OnFocusChangeListener() {
+            @Override
+            public void onFocusChange(View v, boolean hasFocus) {
+                if (hasFocus) {
+                    edtUserPass.imageViewIsGone(true);
+                } else {
+                    if (edtUserPass.getText().isEmpty() || !edtUserPass.isValidText()) {
+                        edtUserPass.setIsInvalid();
+                    } else if (edtUserPass.isValidText()) {
+                        edtUserPass.setIsValid();
+                    }
+                }
+            }
+        });
+
+        edtUserPass.addCustomTextWatcher(new AbstractTextWatcher() {
+            @Override
+            public void afterTextChanged(String s) {
+                edtUserPass.imageViewIsGone(true);
+            }
+        });
+
+        // Asignamos el OnEditorActionListener a este CustomEditext para el efecto de consumir el servicio
+        edtUserPass.addCustomEditorActionListener(new DoneOnEditorActionListener());
+
+    }
+
+    @Override
+    public void validateForm() {
+        getDataForm();
+        boolean isValid = true;
+        String errorMsg = null;
+
+        if (password.isEmpty()) {
+            errorMsg = errorMsg == null || errorMsg.isEmpty() ? getString(R.string.password_required) : errorMsg;
+            edtUserPass.setIsInvalid();
+            isValid = false;
+        }
+
+        if (isValid) {
+            onValidationSuccess();
+        } else {
+            showDialogMesage(errorMsg);
+        }
+    }
+
+    @Override
+    public void showValidationError(int id, Object o) {
+
+    }
+
+    @Override
+    public void hideValidationError(int id) {
+
+    }
+
+    @Override
+    public void onValidationSuccess() {
+        Preferencias preferencias = App.getInstance().getPrefs();
+        //textNameUser.setText(preferencias.loadData(StringConstants.SIMPLE_NAME));
+        //edtUserName.setText(RequestHeaders.getUsername());
+        accountPresenter.login(RequestHeaders.getUsername(), password);
+        onEventListener.onEvent(EVENT_SHOW_LOADER, "Procesando");
+    }
+
+    @Override
+    public void getDataForm() {
+        password = edtUserPass.getText().trim();
+    }
+
+    @Override
+    public void nextScreen(String event, Object data) {
+        Toast.makeText(App.getContext(), "Session iniciada", Toast.LENGTH_SHORT).show();
+        if (isChecked) {
+            // Toast.makeText(getContext(), "checked 1", Toast.LENGTH_SHORT).show();
+            mPreferPresenter.toPresenterBloquearCuenta(DESBLOQUEO);
+            //mPreferPresenter.toPresenterBloquearCuenta(BLOQUEO);
+        } else {
+            // Toast.makeText(getContext(), "Deschecked 2", Toast.LENGTH_SHORT).show();
+            mPreferPresenter.toPresenterBloquearCuenta(BLOQUEO);
+            //mPreferPresenter.toPresenterBloquearCuenta(DESBLOQUEO);
+        }
+
+    }
+
+    @Override
+    public void backScreen(String event, Object data) {
+
+    }
+
+    @Override
+    public void showLoader(String message) {
+
+    }
+
+    @Override
+    public void hideLoader() {
+
+    }
+
+    @Override
+    public void sendSuccessBloquearCuentaToView(BloquearCuentaResponse response) {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+        Toast.makeText(App.getContext(), "SuccessBloquear " + response.getData().getNumeroAutorizacion(), Toast.LENGTH_SHORT).show();
+        try {
+            ApiAdtvo.cerrarSesion();
+            Toast.makeText(App.getContext(), "Close Session " + response.getData().getNumeroAutorizacion(), Toast.LENGTH_SHORT).show();
+        } catch (OfflineException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void sendErrorBloquearCuentaToView(String mensaje) {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
+        Toast.makeText(App.getContext(), "Error Vloquear", Toast.LENGTH_SHORT).show();
+        try {
+            ApiAdtvo.cerrarSesion();
+            Toast.makeText(App.getContext(), "Close Session ", Toast.LENGTH_SHORT).show();
+        } catch (OfflineException e) {
+            e.printStackTrace();
+        }
+    }
+
+    @Override
+    public void showError(Object error) {
+
+    }
+
+    @Override
+    public void loginSucced() {
+
+    }
+
+    /**
+     * Encargada de reaccionar al codigo de pusacion KEYCODE_ENDCALL=6 para consumir el servicio
+     */
+    private class DoneOnEditorActionListener implements TextView.OnEditorActionListener {
+        @Override
+        public boolean onEditorAction(TextView v, int actionId, KeyEvent event) {
+            if (actionId == KeyEvent.KEYCODE_ENDCALL) {
+                // Toast.makeText(getContext(), "Click Enter", Toast.LENGTH_SHORT).show();
+                // actionBtnLogin();
+            }
+            return false;
+        }
+    }
+
+    private void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
     }
 }
