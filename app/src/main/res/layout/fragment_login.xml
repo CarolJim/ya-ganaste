@@ -103,7 +103,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/camara_white_blue_canvas" />
+                            app:srcCompat="@mipmap/ic_block_card" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             style="@style/generic_text_style_4"
@@ -126,7 +126,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/camara_white_blue_canvas" />
+                            app:srcCompat="@mipmap/ic_access_token" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             style="@style/generic_text_style_4"
@@ -148,7 +148,7 @@
                         <ImageView
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            app:srcCompat="@drawable/camara_white_blue_canvas" />
+                            app:srcCompat="@mipmap/ic_quick_payment" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             style="@style/generic_text_style_4"
