@@ -91,6 +91,9 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
             // Consultamos el estado del Singleton, que tiene el estado de nuestra tarjeta
             cardStatusId = SingletonUser.getInstance().getCardStatusId();
             // cardStatusId = "2"; // Linea de TEst, eliminamos cuando el anterior funcione en actualizar
+            if(cardStatusId == null){
+                cardStatusId = "1";
+            }
 
             if (cardStatusId.equals("1")) {
                 // Significa que la card esta bloqueada, despues de la operacion pasa a desbloqueada

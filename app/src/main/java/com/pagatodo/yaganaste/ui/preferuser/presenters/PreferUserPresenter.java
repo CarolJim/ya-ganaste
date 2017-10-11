@@ -186,7 +186,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
      * @param mTDC
      */
     public void toPresenterEstatusCuenta(String mTDC) {
-        mView.showLoader(App.getContext().getResources().getString(R.string.get_status_card));
+        mView.showLoader("Obteniendo Estatus de Tarjeta");
         EstatusCuentaRequest estatusCuentaRequest = new EstatusCuentaRequest(mTDC);
         iPreferUserIteractor.toIteractorEstatusCuenta(estatusCuentaRequest);
     }

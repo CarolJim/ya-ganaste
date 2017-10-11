@@ -108,6 +108,9 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         if (accountView instanceof IResetNIPView) {
             resetPinPresenter.setResetNIPView((IResetNIPView) accountView);
         }
+        if (accountView instanceof IMyCardView) {
+            resetPinPresenter.setResetNIPView((IResetNIPView) accountView);
+        }
     }
 
     public AccountPresenterNew(Context context) {
@@ -248,6 +251,11 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void onError(WebService ws, Object error) {
         accountView.hideLoader();
+
+        if (accountView instanceof IMyCardView) {
+            accountView.showError(error);
+        }
+
         if (accountView instanceof IAccountRegisterView) {
             if (ws == CREAR_USUARIO_CLIENTE) {
                 ((IAccountRegisterView) accountView).clientCreateFailed(error.toString());
@@ -315,8 +323,6 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             if (ws == VALIDAR_FORMATO_CONTRASENIA) {
                 ((IMyPassValidation) accountView).validationPasswordFailed(error.toString());
             }
-        } else if (accountView instanceof IMyCardView) {
-            accountView.showError(error);
         } else {
             accountView.showError(error);
         }
