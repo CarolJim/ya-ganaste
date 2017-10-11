@@ -54,7 +54,7 @@ public class UploadDocumentViewfavorito extends RelativeLayout {
          */
         // Check if we're running on Android 5.0 or higher
         if (Build.VERSION.SDK_INT >= 21) {
-            li.inflate(R.layout.item_filefavo, this, true);
+            li.inflate(R.layout.item_file, this, true);
         } else {
             // Layout alternativo para < Lolipop
             li.inflate(R.layout.item_file_4_4, this, true);

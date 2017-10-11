@@ -24,6 +24,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
 import com.pagatodo.yaganaste.utils.FontCache;
@@ -37,7 +38,7 @@ import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.BLOQUEO;
 import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.DESBLOQUEO;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
-public class TarjetaActivity extends LoaderActivity implements OnEventListener, IMyCardView {
+public class TarjetaActivity extends LoaderActivity implements OnEventListener, IMyCardViewHome {
 
     private String nombreCompleto,cuentaUsuario,ultimaTransaccion;
     private ImageView imgYaGanasteCard;
@@ -72,6 +73,12 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     @Override
     public void showLoader(String message) {
         super.showLoader(message);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setVisibilityPrefer(false);
     }
 
     private void estadotarjeta() {
@@ -258,6 +265,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
 
         imgYaGanasteCard.setImageBitmap(bitmap);
     }
+    @Override
     public void sendSuccessEstatusCuentaToView(EstatusCuentaResponse response) {
         String statusId = response.getData().getStatusId();
         SingletonUser.getInstance().setCardStatusId(statusId);
