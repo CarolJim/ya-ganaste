@@ -1,10 +1,7 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
-import android.app.Activity;
-import android.content.ActivityNotFoundException;
 import android.content.Context;
 import android.content.Intent;
-import android.net.Uri;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.Menu;
@@ -12,14 +9,12 @@ import android.view.Menu;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarDatosCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
-import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -27,7 +22,7 @@ import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.preferuser.AvisoPrivacidadFragment;
 import com.pagatodo.yaganaste.ui.preferuser.CuentaReembolsoFragment;
 import com.pagatodo.yaganaste.ui.preferuser.DesasociarPhoneFragment;
-import com.pagatodo.yaganaste.ui.preferuser.ListaLegalesFragment;
+import com.pagatodo.yaganaste.ui.preferuser.ListaAyudaLegalesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyAccountFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
@@ -36,25 +31,20 @@ import com.pagatodo.yaganaste.ui.preferuser.MyEmailFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpAcercaApp;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanos;
 import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanosCorreo;
-import com.pagatodo.yaganaste.ui.preferuser.MyHelpFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyPassFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyTutorialFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.ui.preferuser.TerminosyCondicionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
-import com.pagatodo.yaganaste.utils.BitmapLoader;
-import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
-import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDADLC;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSLC;
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 public class PreferUserActivity extends LoaderActivity implements OnEventListener {
 
@@ -253,11 +243,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 loadFragment(MyHelpContactanos.newInstance(), Direction.BACK, false);
                 break;
             case "PREFER_USER_HELP_LEGAL":
-                loadFragment(MyHelpFragment.newInstance(), Direction.FORDWARD, false);
-                loadFragment(ListaLegalesFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(ListaAyudaLegalesFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case "PREFER_USER_HELP_BACK":
-                loadFragment(MyHelpFragment.newInstance(), Direction.BACK, false);
+                loadFragment(ListaAyudaLegalesFragment.newInstance(), Direction.BACK, false);
                 break;
             case "PREFER_USER_DESASOCIAR":
                 loadFragment(DesasociarPhoneFragment.newInstance(), Direction.FORDWARD, false);
@@ -295,10 +284,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 loadFragment(TerminosyCondicionesFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case "PREFER_USER_PRIVACIDAD_BACK":
-                loadFragment(ListaLegalesFragment.newInstance(), Direction.BACK, false);
+                loadFragment(ListaAyudaLegalesFragment.newInstance(), Direction.BACK, false);
                 break;
             case "PREFER_USER_TERMINOS_BACK":
-                loadFragment(ListaLegalesFragment.newInstance(), Direction.BACK, false);
+                loadFragment(ListaAyudaLegalesFragment.newInstance(), Direction.BACK, false);
                 break;
             case "PREFER_USER_PRIVACIDAD_CUENTA_YA":
                 boolean isOnline = Utils.isDeviceOnline();
@@ -406,7 +395,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         // Si el boton no esta deshabilitado realizamos las operaciones de back
         if (!disableBackButton && !isLoaderShow) {
             Fragment currentFragment = getCurrentFragment();
-            if (currentFragment instanceof ListaLegalesFragment) {
+            if (currentFragment instanceof ListaAyudaLegalesFragment) {
                 onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof DesasociarPhoneFragment) {
                 onEvent(PREFER_USER_DESASOCIAR_BACK, null);
@@ -426,7 +415,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_MY_USER_BACK, null);
             } else if (currentFragment instanceof MyPassFragment) {
                 onEvent(PREFER_USER_MY_USER_BACK, null);
-            } else if (currentFragment instanceof MyHelpFragment) {
+            } else if (currentFragment instanceof ListaAyudaLegalesFragment) {
                 onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof MyTutorialFragment) {
                 onEvent(PREFER_USER_HELP_BACK, null);
