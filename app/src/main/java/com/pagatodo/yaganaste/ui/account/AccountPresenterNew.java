@@ -12,6 +12,7 @@ import com.pagatodo.yaganaste.data.model.MessageValidation;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
@@ -66,6 +67,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTATUS_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
@@ -100,6 +102,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         super.setIView(accountView);
 
         this.accountView = (INavigationView) accountView;
+
         if (accountView instanceof TabsView) {
             setTabsView((TabsView) accountView);
         } else if (accountView instanceof IAprovView) {
@@ -305,9 +308,13 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 onSuccesBalanceAdq();
             } else if (ws == CONSULTA_SALDO_CUPO) {
                 onSuccesBalanceCupo();
+            } else if (ws == OBTENER_ESTATUS_TARJETA){
+                onSuccesStateCuenta();
             } else {
                 accountView.showError(error);
             }
+
+
         } else if (accountView instanceof IDocumentApproved) {
             accountView.showError(error);
         } else if (accountView instanceof ILoginView) {
@@ -330,6 +337,13 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     public void updateBalance() {
         this.accountView.showLoader(context.getString(R.string.actualizando_saldo));
         accountIteractor.getBalance();
+    }
+
+    @Override
+    public void geEstatusCuenta(String numberCard) {
+        this.accountView.showLoader("");
+        EstatusCuentaRequest estatusCuentaRequest = new EstatusCuentaRequest(numberCard);
+        accountIteractor.onStatusCuenta(estatusCuentaRequest);
     }
 
     @Override
@@ -435,6 +449,11 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void onSuccesBalance() {
         ((IBalanceView) this.accountView).updateBalance();
+    }
+
+    @Override
+    public void onSuccesStateCuenta() {
+        ((IBalanceView) this.accountView).updateStatus();
     }
 
     @Override

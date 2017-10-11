@@ -7,11 +7,13 @@ import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
@@ -25,6 +27,7 @@ public class CardEmisorSelected extends TabViewElement {
 
     private MontoTextView txtSaldo;
     private TextView txtNombre;
+    private ImageView cardYaganaste;
 
     public CardEmisorSelected(Context context) {
         this(context, null);
@@ -45,6 +48,7 @@ public class CardEmisorSelected extends TabViewElement {
         addView(child, params);
         txtSaldo = (MontoTextView) findViewById(R.id.txt_saldo);
         txtNombre = (TextView) findViewById(R.id.txt_nombre);
+        cardYaganaste = (ImageView) findViewById(R.id.imgYaGanasteCard);
         updateData();
     }
 
@@ -85,6 +89,13 @@ public class CardEmisorSelected extends TabViewElement {
         }
 
         txtSaldo.setText(StringUtils.getCurrencyValue(saldo));
+
+        String statusId = SingletonUser.getInstance().getCardStatusId();
+        if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
+            cardYaganaste.setImageResource(R.mipmap.main_card_zoom_blue);
+        } else {
+            cardYaganaste.setImageResource(R.mipmap.logo_ya_ganaste);
+        }
     }
 
 }

@@ -32,6 +32,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.trans.ValidarEstatu
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
+import com.pagatodo.yaganaste.ui.account.AccountInteractorNew;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserIteractor;
 
@@ -345,6 +346,7 @@ public class ApiTrans extends Api {
      */
     public static void estatusCuenta(EstatusCuentaRequest request,
                                      TarjetaUserIteractor result) throws OfflineException {
+        //TarjetaUserIteractor
 
         Map<String, String> headers = getHeadersYaGanaste();
 
@@ -358,6 +360,35 @@ public class ApiTrans extends Api {
         /* En caso de que el Singleton arroje un objeto Cuenta vació significa que se encuentra
         * fuera de una Sesión */
         } else {
+
+            //headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());  // Traido del SharedPreference
+            headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta()); // Traido del SharedPreference
+            headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth()); // Traido del SharedPreference
+        }
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(ESTATUS_CUENTA,
+                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.estatusDatosCuenta),
+                headers, request, true, EstatusCuentaResponse.class, result);
+    }
+
+    public static void estatusCuenta(EstatusCuentaRequest request,
+                                     IRequestResult result) throws OfflineException {
+        //TarjetaUserIteractor
+
+        Map<String, String> headers = getHeadersYaGanaste();
+
+        /* Si el usuario ya inicio sesión el tamaño del objeto Cuenta debe ser mayor a 0 porque
+        se llena en el Singleton al iniciar sesión */
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().size() > 0) {
+            headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion()); // Si se inicia sesión mandar el Token Sesión
+            int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+                    .getCuentas().get(0).getIdCuenta();
+            headers.put(RequestHeaders.IdCuenta, "" + idCuenta);
+        /* En caso de que el Singleton arroje un objeto Cuenta vació significa que se encuentra
+        * fuera de una Sesión */
+        } else {
+            //headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());  // Traido del SharedPreference
             headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta()); // Traido del SharedPreference
             headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth()); // Traido del SharedPreference
         }

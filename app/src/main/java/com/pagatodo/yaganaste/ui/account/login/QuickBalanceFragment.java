@@ -8,6 +8,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,8 @@ import android.widget.Button;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.interfaces.IPurseView;
@@ -29,6 +32,7 @@ import com.pagatodo.yaganaste.ui.account.CardBack;
 import com.pagatodo.yaganaste.ui.account.CardCover;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -211,7 +215,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
             String cardNumber = preferencias.loadData(CARD_NUMBER);
 //                    Utils.getCurrencyValue(cardNumber))
             cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
-            //cardSaldo.setCardDate("02/21");
+            cardSaldo.setCardDate("02/21");
 
 
             String name = StringUtils.getFirstName(preferencias.loadData(NAME_USER)) + SPACE
@@ -232,7 +236,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     }
 
     private void setData(String balance, String updateDate) {
-        txtSaldo.setText(Utils.getCurrencyValue(balance));
+        //txtSaldo.setText(Utils.getCurrencyValue(balance));
         txtDateUpdated.setText(String.format(getString(R.string.last_date_update), updateDate));
     }
 
@@ -240,6 +244,28 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     public void updateBalance() {
         hideLoader();
         setData(preferencias.loadData(USER_BALANCE), preferencias.loadData(UPDATE_DATE));
+        //Consulta status de la tarjeta
+        String f = SingletonUser.getInstance().getCardStatusId();
+        if (f == null || f.isEmpty() || f.equals("0")) {
+            //UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
+            //String mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
+            String mTDC = preferencias.loadData(CARD_NUMBER);
+            accountPresenter.geEstatusCuenta(mTDC);
+        }
+    }
+
+    @Override
+    public void updateStatus() {
+        hideLoader();
+        String status = App.getInstance().getStatusId();
+        Log.d("ESTADO",status);
+        //cardSaldo.setVisibility(View.VISIBLE);
+        accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter,status));
+        if (status.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)){
+            //cardSaldo.setImageResource(R.mipmap.logo_ya_ganaste);
+        } else {
+           // cardSaldo.setImageResource(R.mipmap.main_card_zoom_blue);
+        }
     }
 
     @Override
@@ -299,13 +325,13 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         try {
-            accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter));
+            //accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter));
         } catch (Exception e) {
             e.printStackTrace();
         }
         String cardNumber = preferencias.loadData(CARD_NUMBER);
 //                    Utils.getCurrencyValue(cardNumber))
-        cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
+       //cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
     }
 
     @Override

@@ -58,6 +58,8 @@ public class App extends Application {
     public QPOSService pos;
     public IposListener emvListener;
     private Preferencias prefs;
+    //variable de status de cuenta
+    private String statusId;
 
     private ApplicationLifecycleHandler lifecycleHandler;
 
@@ -105,6 +107,19 @@ public class App extends Application {
         if(!f.exists()){
             f.mkdir();
         }
+        //
+        statusId = "";
+    }
+
+    //Get & Set Status
+
+
+    public String getStatusId() {
+        return statusId;
+    }
+
+    public void setStatusId(String statusId) {
+        this.statusId = statusId;
     }
 
     public void addToQuee(Activity activity) {
@@ -150,6 +165,8 @@ public class App extends Application {
     public Preferencias getPrefs() {
         return this.prefs;
     }
+
+
     public void cerrarAppsms() {
         VolleySingleton.getInstance(App.getContext()).deleteQueue();
 

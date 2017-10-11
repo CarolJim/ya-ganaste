@@ -36,6 +36,8 @@ public interface IAccountPresenterNew {
 
     void updateBalance();
 
+    void geEstatusCuenta(String numberCard);
+
     void updateBalanceAdq();
 
     void updateBalanceCupo();

@@ -197,6 +197,11 @@ public class QuickBalanceCupoFragment extends GenericFragment implements IBalanc
     }
 
     @Override
+    public void updateStatus() {
+
+    }
+
+    @Override
     public void showError(Object error) {
         //throw new IllegalCallException("this method is not implemented yet");
     }
