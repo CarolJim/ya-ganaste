@@ -13,14 +13,10 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.pagatodo.yaganaste.App;
-import com.pagatodo.yaganaste.BuildConfig;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
@@ -29,13 +25,10 @@ import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.ui._controllers.CropActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
-import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
-import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -49,15 +42,12 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_CLOSE;
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_HELP;
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_LEGALES;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_HELP_LEGAL;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_ACCOUNT;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
-import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -85,10 +75,8 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
     LinearLayout ll_cuenta;
     @BindView(R.id.fragment_lista_opciones_card)
     LinearLayout ll_card;
-    @BindView(R.id.fragment_lista_opciones_help)
-    LinearLayout ll_help;
-    @BindView(R.id.fragment_lista_opciones_legal)
-    LinearLayout ll_legal;
+    @BindView(R.id.fragment_lista_opciones_help_legal)
+    LinearLayout ll_help_legal;
     @BindView(R.id.fragment_lista_opciones_close)
     LinearLayout ll_close;
     @BindView(R.id.frag_lista_opciones_photo_item)
@@ -167,8 +155,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
 
         ll_cuenta.setOnClickListener(this);
         ll_card.setOnClickListener(this);
-        ll_help.setOnClickListener(this);
-        ll_legal.setOnClickListener(this);
+        ll_help_legal.setOnClickListener(this);
         ll_close.setOnClickListener(this);
         iv_photo_item.setOnClickListener(this);
 
@@ -218,28 +205,19 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
     }
 
     @Override
-    public void onCropper(Uri uri,String path) {
-        startActivity(CropActivity.callingIntent(getContext(), uri,path));
+    public void onCropper(Uri uri) {
+        startActivity(CropActivity.callingIntent(getContext(), uri));
     }
 
     @Override
     public void onCropSuccess(Uri croppedUri) {
         cameraManager.setCropImage(croppedUri);
-
-        //updatePhoto();
-        //ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
-
-
-       /* Glide.with(this)
-                .load(croppedUri)
-                .into(iv_photo_item);*/
-
     }
 
     @Override
     public void onCropFailed(Throwable e) {
         e.printStackTrace();
-        Toast.makeText(getContext(),"Error",Toast.LENGTH_SHORT).show();
+
     }
 
     @Override
@@ -257,12 +235,9 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
                 //Toast.makeText(getContext(), "Click Card", Toast.LENGTH_SHORT).show();
                 onEventListener.onEvent(PREFER_USER_MY_CARD, 1);
                 break;
-            case R.id.fragment_lista_opciones_help:
-                onEventListener.onEvent(PREFER_USER_HELP, 1);
+            case R.id.fragment_lista_opciones_help_legal:
+                onEventListener.onEvent(PREFER_USER_HELP_LEGAL, 1);
                // Toast.makeText(getContext(), "Click Help", Toast.LENGTH_SHORT).show();
-                break;
-            case R.id.fragment_lista_opciones_legal:
-                onEventListener.onEvent(PREFER_USER_LEGALES, 1);
                 break;
             case R.id.fragment_lista_opciones_close:
                 boolean isOnline2 = Utils.isDeviceOnline();

@@ -2,17 +2,21 @@ package com.pagatodo.yaganaste.utils.customviews.yaganasteviews;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
@@ -39,7 +43,10 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     private CardEmisor cardEmisor;
     private CardEmisorSelected cardEmisorSelected;
 
+    private Context contextcard;
+
     private InviteAdquirenteCallback inviteAdquirenteCallback;
+    private clikbloquear clickbloquear;
 
     public TabLayoutEmAd(Context context) {
         this(context, null);
@@ -51,6 +58,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
     public TabLayoutEmAd(Context context, @Nullable AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
+        this.contextcard=context;
         setView();
         init();
     }
@@ -68,6 +76,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         llMaterialAdquirenteContainer = (MaterialLinearLayout) findViewById(R.id.ll_material_adquirente_container);
         llMaterialEmisorContainer.setOnClickListener(this);
         llMaterialAdquirenteContainer.setOnClickListener(this);
+
     }
 
     private void init() {
@@ -86,6 +95,18 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
         }
         updateData();
+
+        cardEmisorSelected.setOnLongClickListener(new View.OnLongClickListener() {
+
+
+            @Override
+            public boolean onLongClick(View view) {
+                    clickbloquear.longclick();
+             //   Toast.makeText(getContext(), "fewfwefwef", Toast.LENGTH_SHORT).show();
+
+                return false;
+            }
+        });
     }
 
     public void setUpWithViewPager(NoSwipeViewPager viewPager) {
@@ -93,6 +114,10 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
             mViewPager = viewPager;
             viewPager.addOnPageChangeListener(this);
         }
+    }
+
+    public void setClickbloquear(clikbloquear clickbloquear) {
+        this.clickbloquear = clickbloquear;
     }
 
     @Override
@@ -119,7 +144,6 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         } else if (inviteAdquirenteCallback != null) {
             inviteAdquirenteCallback.onInviteAdquirente();
         }
-
     }
 
     @Override
@@ -208,6 +232,8 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         this.inviteAdquirenteCallback = inviteAdquirenteCallback;
     }
 
+
+
     /*Delegated Method*/
     public void updateData() {
         cardEmisor.updateData();
@@ -225,4 +251,9 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     public interface InviteAdquirenteCallback {
         void onInviteAdquirente();
     }
+    public  interface clikbloquear{
+        void longclick();
+
+    }
+
 }

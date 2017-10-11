@@ -230,6 +230,10 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
 
         txtReferencia.setText(formatoPago);
         txtReferencia.setSelected(true);
+        titleReferencia.setSelected(true);
+        autorizacion.setSelected(true);
+        titleMail.setSelected(true);
+        txtCompania.setSelected(true);
 
         autorizacion.setText(StringUtils.formatAutorization(result.getData().getNumeroAutorizacion()));
         SimpleDateFormat dateFormatH = new SimpleDateFormat("HH:mm:ss");

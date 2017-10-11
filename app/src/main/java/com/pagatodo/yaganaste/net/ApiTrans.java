@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.net;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.BloquearCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarCuentaDisponibleRequest;
@@ -15,12 +14,9 @@ import com.pagatodo.yaganaste.data.model.webservice.request.trans.ConsultarTitul
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.CrearClienteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.EjecutarTransaccionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.FondearCUPORequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.trans.ObtenerEstatusTarjetaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.ValidarTransaccionRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.AddFavoritosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarCuentaDisponibleResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsignarNIPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.AsociarTarjetaCuentaResponse;
@@ -32,23 +28,18 @@ import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarTitu
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.CrearClienteResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.EjecutarTransaccionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.FondearCupoResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.ObtenerEstatusTarjetaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.ValidarEstatusTransaccionResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
-import com.pagatodo.yaganaste.ui.account.AccountInteractorNew;
-import com.pagatodo.yaganaste.ui.addfavorites.iteractors.FavoritesIteractor;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
+import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserIteractor;
 
 import java.util.Map;
-import java.util.Objects;
 
 import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_GET;
 import static com.pagatodo.yaganaste.interfaces.enums.HttpMethods.METHOD_POST;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.ADD_FAVORITES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_CUENTA_DISPONIBLE;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASOCIAR_TARJETA_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.BLOQUEAR_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.BLOQUEAR_TEMPORALMENTE_TARJETA;
@@ -61,9 +52,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_CLIENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.EJECUTAR_TRANSACCION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FONDEAR_CUPO;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTATUS_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_TRANSACCION;
-import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_TRANS;
 
 /**
@@ -91,8 +80,9 @@ public class ApiTrans extends Api {
 
     /**
      * Método para Asignar/Cambiar NIP de la tarjeta Activa.
-     *  @param request {@link AsignarNIPRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     *
+     * @param request    {@link AsignarNIPRequest} body de la petición.
+     * @param result     {@link IRequestResult} listener del resultado de la petición.
      * @param webService
      */
     public static void asignarNip(AsignarNIPRequest request, IRequestResult result, WebService webService) throws OfflineException {
@@ -263,21 +253,6 @@ public class ApiTrans extends Api {
     }
 
     /**
-     * Este método obtiene el estatus en que se encuentra la tarjeta.
-     *
-     * @param request {@link ObtenerEstatusTarjetaRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void obtenerEstatusTarjeta(ObtenerEstatusTarjetaRequest request, IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
-        NetFacade.consumeWS(OBTENER_ESTATUS_TARJETA,
-                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.getStatusCard),
-                getHeadersYaGanaste(), request, ObtenerEstatusTarjetaResponse.class, result);
-    }
-
-    /**
      * Consulta el saldo de adquirente.
      *
      * @param result {@link IRequestResult} listener del resultado de la petición.
@@ -291,7 +266,7 @@ public class ApiTrans extends Api {
                 headers, null, ConsultarSaldoADQResponse.class, result);
     }
 
-    public static void consultaStatusRegistroCupo(IRequestResult result) throws OfflineException{
+    public static void consultaStatusRegistroCupo(IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
@@ -300,11 +275,12 @@ public class ApiTrans extends Api {
         String URL = "";
         Class classResponse = Object.class;
 
-        NetFacade.consumeWS(CONSULTA_STATUS_REGISTRO_CUPO,METHOD_GET,URL,headers,null, classResponse,result);
+        NetFacade.consumeWS(CONSULTA_STATUS_REGISTRO_CUPO, METHOD_GET, URL, headers, null, classResponse, result);
     }
 
     /**
      * Servicio que se encarga de enviar la peticion para Bloquear o Desbloquear la Card
+     *
      * @param request
      * @param result
      * @throws OfflineException
@@ -325,13 +301,8 @@ public class ApiTrans extends Api {
                 headers, request, true, BloquearCuentaResponse.class, result);
     }
 
-    /**
-     * Servicio que se encarga de enviar la peticion para obtener el Estatus de la Card
-     * @param request
-     * @param result
-     */
-    public static void estatusCuenta(EstatusCuentaRequest request,
-                                     PreferUserIteractor result) throws OfflineException  {
+    public static void bloquearCuenta(BloquearCuentaRequest request,
+                                      TarjetaUserIteractor result) throws OfflineException {
 
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
@@ -339,6 +310,57 @@ public class ApiTrans extends Api {
         int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
                 .getCuentas().get(0).getIdCuenta();
         headers.put("IdCuenta", "" + idCuenta);
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(BLOQUEAR_CUENTA,
+                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.bloquearDatosCuenta),
+                headers, request, true, BloquearCuentaResponse.class, result);
+    }
+
+    /**
+     * Servicio que se encarga de enviar la peticion para obtener el Estatus de la Card dentro de Preferencias
+     *
+     * @param request
+     * @param result
+     */
+    public static void estatusCuenta(EstatusCuentaRequest request,
+                                     PreferUserIteractor result) throws OfflineException {
+
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+
+        int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+                .getCuentas().get(0).getIdCuenta();
+        headers.put("IdCuenta", "" + idCuenta);
+        headers.put("Content-Type", "application/json");
+
+        NetFacade.consumeWS(ESTATUS_CUENTA,
+                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.estatusDatosCuenta),
+                headers, request, true, EstatusCuentaResponse.class, result);
+    }
+
+    /**
+     * Obtener estatus de la tarjeta desde TarjetaActivity
+     * {@link com.pagatodo.yaganaste.ui._controllers.TarjetaActivity}
+     */
+    public static void estatusCuenta(EstatusCuentaRequest request,
+                                     TarjetaUserIteractor result) throws OfflineException {
+
+        Map<String, String> headers = getHeadersYaGanaste();
+
+        /* Si el usuario ya inicio sesión el tamaño del objeto Cuenta debe ser mayor a 0 porque
+        se llena en el Singleton al iniciar sesión */
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().size() > 0) {
+            headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion()); // Si se inicia sesión mandar el Token Sesión
+            int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
+                    .getCuentas().get(0).getIdCuenta();
+            headers.put(RequestHeaders.IdCuenta, "" + idCuenta);
+        /* En caso de que el Singleton arroje un objeto Cuenta vació significa que se encuentra
+        * fuera de una Sesión */
+        } else {
+            headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta()); // Traido del SharedPreferene
+            headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth()); // Traido del SharedPreference
+        }
         headers.put("Content-Type", "application/json");
 
         NetFacade.consumeWS(ESTATUS_CUENTA,

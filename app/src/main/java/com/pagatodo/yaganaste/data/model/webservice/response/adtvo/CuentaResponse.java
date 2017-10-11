@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CuentaResponse implements Serializable {
 
-    private int IdCuenta;
+    private int IdCuenta=0;
     private boolean AsignoNip; // TODO validar, ya que no se encuentra en la documentacion
     private String Cuenta = "";
     private String Descripcion = "";

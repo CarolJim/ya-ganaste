@@ -215,6 +215,8 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
             txtRefernciaDescripcion.setSelected(true);
             layoutConcepto.setVisibility(GONE);
         }
+        txtConceptoDescripcion.setSelected(true);
+        txtClaveRastreo.setSelected(true);
         btnVolver.setOnClickListener(this);
     }
 

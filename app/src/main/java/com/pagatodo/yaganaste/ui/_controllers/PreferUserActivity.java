@@ -56,10 +56,9 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TE
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSLC;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
-public class PreferUserActivity extends LoaderActivity implements OnEventListener,CropIwaResultReceiver.Listener {
+public class PreferUserActivity extends LoaderActivity implements OnEventListener {
 
     public static String PREFER_USER_LISTA = "PREFER_USER_LISTA";
-    public static String PREFER_USER_LEGALES = "PREFER_USER_LEGALES";
     public static String PREFER_USER_CLOSE = "PREFER_USER_CLOSE";
     public static String PREFER_USER_PRIVACIDAD = "PREFER_USER_PRIVACIDAD";
     public static String PREFER_USER_TERMINOS = "PREFER_USER_TERMINOS";
@@ -83,7 +82,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_HELP_CORREO_REPORTA_TARJETA_BACK = "PREFER_USER_HELP_CORREO_REPORTA_TARJETA_BACK";
     public static String PREFER_USER_REPORTA_TARJETA = "PREFER_USER_REPORTA_TARJETA";
     public static String PREFER_USER_REPORTA_TARJETA_BACK = "PREFER_USER_REPORTA_TARJETA_BACK";
-    public static String PREFER_USER_HELP = "PREFER_USER_HELP";
+    public static String PREFER_USER_HELP_LEGAL = "PREFER_USER_HELP_LEGAL";
     public static String PREFER_USER_HELP_BACK = "PREFER_USER_HELP_BACK";
     public static String PREFER_USER_MY_ACCOUNT = "PREFER_USER_MY_ACCOUNT";
     public static String PREFER_USER_MY_CARD = "PREFER_USER_MY_CARD";
@@ -253,14 +252,12 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_USER_HELP_CONTACT_BACK":
                 loadFragment(MyHelpContactanos.newInstance(), Direction.BACK, false);
                 break;
-            case "PREFER_USER_HELP":
+            case "PREFER_USER_HELP_LEGAL":
                 loadFragment(MyHelpFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(ListaLegalesFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case "PREFER_USER_HELP_BACK":
                 loadFragment(MyHelpFragment.newInstance(), Direction.BACK, false);
-                break;
-            case "PREFER_USER_LEGALES":
-                loadFragment(ListaLegalesFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case "PREFER_USER_DESASOCIAR":
                 loadFragment(DesasociarPhoneFragment.newInstance(), Direction.FORDWARD, false);
@@ -472,16 +469,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         CameraManager cameraManager = mFragment.getCameraManager();
         // Enviamos datos recibidos al CameraManager
         cameraManager.setOnActivityResult(requestCode, resultCode, data);
-
-    }
-
-    @Override
-    public void onCropSuccess(Uri croppedUri) {
-
-    }
-
-    @Override
-    public void onCropFailed(Throwable e) {
 
     }
 

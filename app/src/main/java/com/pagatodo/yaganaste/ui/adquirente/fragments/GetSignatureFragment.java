@@ -7,6 +7,7 @@ import android.content.pm.ActivityInfo;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.content.ContextCompat;
+import android.util.DisplayMetrics;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -57,6 +58,8 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
     StyleTextView firma_aqui;
     @BindView(R.id.layout_content_firma)
     FrameLayout layout_content_firma;
+    @BindView(R.id.sign_line)
+    View signLine;
     private View rootview;
     private SigningViewYaGanaste signingView;
     private TransaccionEMVDepositResponse emvDepositResponse;
@@ -142,6 +145,12 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
         if (imgTypeCard != null) {
             imgTypeCard.setImageDrawable(setDrawable());
         }
+        DisplayMetrics metrics = new DisplayMetrics();
+        getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
+        int widthp = metrics.widthPixels; // ancho absoluto en pixels
+        LinearLayout.LayoutParams paramsc = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 2);
+        paramsc.setMargins(widthp / 7, 0, widthp / 7, 0);
+        signLine.setLayoutParams(paramsc);
     }
 
     /**

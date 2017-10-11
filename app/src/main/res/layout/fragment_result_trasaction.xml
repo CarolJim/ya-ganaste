@@ -41,24 +41,24 @@
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtSubtitleResult"
-        style="@style/textDescInputs"
+        style="@style/textDescInputs2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtTitleResult"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:layout_marginTop="@dimen/margin_small"
         android:gravity="center"
-        app:tipo="Subtitulo" />
+        app:tipo="Text" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
         android:id="@+id/txtDescriptionResult"
-        style="@style/textDescInputs"
+        style="@style/textDescInputs2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_below="@+id/txtSubtitleResult"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:gravity="center"
-        app:tipo="Subtitulo" />
+        app:tipo="Text" />
 
     <LinearLayout
         android:id="@+id/layoutButtonsResult"

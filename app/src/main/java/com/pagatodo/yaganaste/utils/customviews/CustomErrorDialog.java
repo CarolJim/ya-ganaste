@@ -29,6 +29,8 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
     public static final String KEY_LAYOUT_NOTIFICATION = "KEY_LAYOUT_NOTIFICATION";
     public static final String KEY_CONFIRM_TITLE = "KEY_CONFIRM_TITLE";
     public static final String KEY_MESSAGE_NOTIFICATION = "KEY_MESSAGE_NOTIFICATION";
+    public static final String KEY_MESSAGE_NOMBRE = "KEY_MESSAGE_NOMBRE";
+    public static final String KEY_MESSAGE_NUMBER = "KEY_MESSAGE_NUMBER";
     public static final String KEY_SHOW_BTN_CONFIRM = "KEY_SHOW_BTN_CONFIRM";
     public static final String KEY_SHOW_BTN_CANCEL = "KEY_SHOW_BTN_CANCEL";
 
@@ -37,6 +39,10 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
     private String messageNotification = "";
     private String titleBtnAcept = "";
     private String titleBtnCancel = "";
+    private String my_card_name_user = "";
+    private String my_card_number_user = "";
+
+
     private DialogDoubleActions dialogActions;
 
 
@@ -55,6 +61,23 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
      * @return {@link DialogDoubleActions} instancia del dialog
      */
     public static CustomErrorDialog getInstance(@LayoutRes int idLayout, String titleNotification, String messageNotification,
+                                                boolean hasConfirmBtn,String nombre,String number, boolean hasCancelBtn) {
+
+        CustomErrorDialog actionsDialog = new CustomErrorDialog();
+        Bundle args = new Bundle();
+        args.putInt(CustomErrorDialog.KEY_LAYOUT_NOTIFICATION, idLayout);
+        args.putString(CustomErrorDialog.KEY_CONFIRM_TITLE, titleNotification);
+        args.putString(CustomErrorDialog.KEY_MESSAGE_NOTIFICATION, messageNotification);
+        args.putBoolean(CustomErrorDialog.KEY_SHOW_BTN_CONFIRM, hasConfirmBtn);
+        args.putBoolean(CustomErrorDialog.KEY_SHOW_BTN_CANCEL, hasCancelBtn);
+        args.putString(CustomErrorDialog.KEY_MESSAGE_NOMBRE, nombre);
+        args.putString(CustomErrorDialog.KEY_MESSAGE_NUMBER, number);
+        actionsDialog.setArguments(args);
+
+        return actionsDialog;
+    }
+
+    public static CustomErrorDialog getInstance(@LayoutRes int idLayout, String titleNotification, String messageNotification,
                                                 boolean hasConfirmBtn, boolean hasCancelBtn) {
 
         CustomErrorDialog actionsDialog = new CustomErrorDialog();
@@ -68,7 +91,6 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
 
         return actionsDialog;
     }
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View rootView = inflater.inflate(idLayoutDialog, container, false);
@@ -95,6 +117,17 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
             StyleTextView txtTitleNotification = (StyleTextView) rootView.findViewById(R.id.txtTitleNotification);
             txtTitleNotification.setText(titleMessage);
         }
+
+        if (!my_card_name_user.isEmpty()) {
+            StyleTextView txtTitleNotification = (StyleTextView) rootView.findViewById(R.id.my_card_name_user);
+            txtTitleNotification.setText(my_card_name_user);
+        }
+        if (!my_card_number_user.isEmpty()) {
+            StyleTextView txtTitleNotification = (StyleTextView) rootView.findViewById(R.id.my_card_num_cuenta);
+            txtTitleNotification.setText(my_card_number_user);
+        }
+
+
 
         /**Creamos el {@link StyleTextView} para el mensaje si existe mensaje dinámico.*/
         if (!messageNotification.isEmpty()) {
@@ -188,6 +221,14 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
     public void setTitleBtnAcept(String titleBtnAcept) {
         this.titleBtnAcept = titleBtnAcept;
     }
+
+    public void myCardNameUser(String nombreusuario) {
+        this.my_card_name_user = nombreusuario;
+    }
+    public void myCardNumberUser(String numero) {
+        this.my_card_number_user = numero;
+    }
+
 
     public void setTitleBtnCancel(String titleBtnCancel) {
         this.titleBtnCancel = titleBtnCancel;
