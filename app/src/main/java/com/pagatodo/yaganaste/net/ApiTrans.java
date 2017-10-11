@@ -358,7 +358,6 @@ public class ApiTrans extends Api {
         /* En caso de que el Singleton arroje un objeto Cuenta vació significa que se encuentra
         * fuera de una Sesión */
         } else {
-            headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());  // Traido del SharedPreference
             headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta()); // Traido del SharedPreference
             headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth()); // Traido del SharedPreference
         }
