@@ -202,6 +202,8 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
         swipeContainer.setOnRefreshListener(this);
         goToLogin.setOnClickListener(this);
+        // Se oculta el Shebron
+        imgArrowBack.setVisibility(View.GONE);
         imgArrowBack.setOnClickListener(this);
         txtSaldo.setText(Utils.getCurrencyValue(preferencias.loadData(USER_BALANCE)));
 

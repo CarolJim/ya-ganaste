@@ -38,7 +38,7 @@ public class OtpContainerFratgment  extends SupportFragment implements
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        quickBalanceManager = ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager();
+      //  quickBalanceManager = ((LoginManagerContainerFragment) getParentFragment()).getQuickBalanceManager();
         loadFragment(AccessCodeGenerateFragment.newInstance());
     }
 
@@ -60,8 +60,8 @@ public class OtpContainerFratgment  extends SupportFragment implements
             return false;
         } else {
             loadFragment(AccessCodeGenerateFragment.newInstance());//, Direction.BACK);
-            quickBalanceManager.setViewPagerSwipeable(true);
-            imgArrowNext.setVisibility(View.VISIBLE);
+            //quickBalanceManager.setViewPagerSwipeable(true);
+            imgArrowNext.setVisibility(View.GONE);
             return false;
         }
     }
@@ -87,14 +87,14 @@ public class OtpContainerFratgment  extends SupportFragment implements
     public void loadCode(String code) {
         imgArrowNext.setVisibility(View.GONE);
         loadFragment(OtpViewFragment.newInstance(code), Direction.FORDWARD);
-        quickBalanceManager.setViewPagerSwipeable(false);
+        //quickBalanceManager.setViewPagerSwipeable(false);
     }
 
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.imgArrowNext:
-                quickBalanceManager.nextPage();
+               // quickBalanceManager.nextPage();
                 break;
 
         }
