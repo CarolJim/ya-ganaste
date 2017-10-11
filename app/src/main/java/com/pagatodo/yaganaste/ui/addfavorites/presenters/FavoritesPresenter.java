@@ -107,8 +107,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getNombreComercio(),
                     ((FavoritosDatosResponse) dataSourceResult.getData()).getData().getReferencia());
 
-            // api.insertFavorite(dataFavoritos);
-
+            api.insertFavorite(dataFavoritos);
             mView.hideLoader();
             FavoritosDatosResponse response = (FavoritosDatosResponse) dataSourceResult.getData();
             mView.toViewSuccessAdd(response);
@@ -132,8 +131,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
                     ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getNombreComercio(),
                     ((FavoritosNewDatosResponse) dataSourceResult.getData()).getData().getReferencia());
 
-            //  api.insertFavorite(dataFavoritos);
-
+            api.insertFavorite(dataFavoritos);
             mView.hideLoader();
             FavoritosNewDatosResponse response = (FavoritosNewDatosResponse) dataSourceResult.getData();
             mView.toViewSuccessAdd(response);

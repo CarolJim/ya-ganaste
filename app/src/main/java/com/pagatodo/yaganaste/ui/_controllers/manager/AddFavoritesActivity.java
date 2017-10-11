@@ -22,7 +22,6 @@ import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
@@ -64,7 +63,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
  * Encargada de dar de alta Favoritos, primero en el servicio y luego en la base local
  */
 public class AddFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
-        IListaOpcionesView, ValidationForms,ICropper,CropIwaResultReceiver.Listener {
+        IListaOpcionesView, ValidationForms, ICropper, CropIwaResultReceiver.Listener {
 
     @BindView(R.id.add_favorites_alias)
     CustomValidationEditText editTextAlias;
@@ -129,20 +128,20 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int widthp = metrics.widthPixels; // ancho absoluto en pixels
-        int paramentroT=widthp/3;
-        int paramentroimgc=paramentroT/4;
-        int distancia=paramentroT-paramentroimgc;
+        int paramentroT = widthp / 3;
+        int paramentroimgc = paramentroT / 4;
+        int distancia = paramentroT - paramentroimgc;
         imageViewCamera.setVisibilityStatus(true);
         imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
         circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
         RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         paramsc.setMargins(distancia, 30, 0, 0);
-        paramsc.width=paramentroimgc;
-        paramsc.height=paramentroimgc;
+        paramsc.width = paramentroimgc;
+        paramsc.height = paramentroimgc;
         circuloimageupload.setLayoutParams(paramsc);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.width =paramentroT;
-        params.height =paramentroT;
+        params.width = paramentroT;
+        params.height = paramentroT;
         relativefav.setLayoutParams(params);
         //imageViewCamera.setNewHW(300, 300);
 
@@ -271,15 +270,15 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
     @Override
     public void toViewSuccessAdd(FavoritosDatosResponse mResponse) {
-        //  showDialogMesage(mMensaje, 1);
-        int idFavorito = mResponse.getData().getIdFavorito();
-        /**
+        showDialogMesage(mResponse.getMensaje(), 1);
+        /*int idFavorito = mResponse.getData().getIdFavorito();
+        *//**
          * Camino para enviar la foto al servicio
-         */
+         *//*
         AddFotoFavoritesRequest addFotoFavoritesRequest =
                 new AddFotoFavoritesRequest(stringFoto, "png");
 
-        favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
+        favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);*/
     }
 
     @Override
@@ -339,7 +338,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     public void setPhotoToService(Bitmap bitmapa) {
         // Log.d("TAG", "setPhotoToService ");
         try {
-        //imageViewCamera.setImageBitmap(bitmap);
+            //imageViewCamera.setImageBitmap(bitmap);
             Glide.with(this)
                     .load(cameraManager.getUriImage())
                     .asBitmap()
@@ -452,7 +451,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         String referService = StringUtils.formatCardToService(mReferencia);
 
         AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
-                idComercio, mAlias, referService, "");
+                idComercio, mAlias, referService, stringFoto, "png");
 
         /* Si no tiene un favorito guardado con la misma referencia entonces se permite subirlo*/
         if (!favoritesPresenter.alreadyExistFavorite(referService)) {
