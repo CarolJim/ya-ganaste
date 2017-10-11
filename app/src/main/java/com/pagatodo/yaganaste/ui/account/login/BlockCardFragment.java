@@ -90,7 +90,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
             // Consultamos el estado del Singleton, que tiene el estado de nuestra tarjeta
             cardStatusId = SingletonUser.getInstance().getCardStatusId();
-            // cardStatusId = "2"; // Linea de TEst, eliminamos cuando el anterior funcione en actualizar
+             cardStatusId = "2"; // Linea de TEst, eliminamos cuando el anterior funcione en actualizar
             if(cardStatusId == null){
                 cardStatusId = "1";
             }
@@ -264,6 +264,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
     @Override
     public void showError(Object error) {
+        onEventListener.onEvent(EVENT_HIDE_LOADER, "");
         showDialogMesage(error.toString(), 0);
     }
 
