@@ -503,6 +503,7 @@
     <string name="a_la_cuenta">A la Cuenta:</string>
     <string name="ingresa_tu_contrasenia">Ingresa tu Contraseña Para Autorizarlo</string>
     <string name="ingresa_pass_block">Ingresa tu Contraseña Para \nBloquear Temporalmente tu Tarjeta</string>
+    <string name="ingresa_pass_desblock">Ingresa tu Contraseña Para \nDesbloquear tu Tarjeta</string>
     <string name="envio_dinero"><b>Envío de Dinero</b></string>
 
     <string name="autorizacion_completa">¡Autorización Exitosa!</string>
@@ -779,7 +780,8 @@
     <string name="tu_pantalla_de_cobros">Tu Pantalla de Cobros</string>
     <string name="tu_línea_credito">Tu Línea de Crédito</string>
     <string name="bloquear_tarjeta">Bloquear Tarjeta</string>
-    <string name="bloquear_tu_tarjeta">Bloquear tu Tarjeta</string>
+    <string name="bloquear_tu_tarjeta">Bloqueo de Tarjeta</string>
+    <string name="desbloquear_tu_tarjeta">Desbloqueo de Tarjeta</string>
     <string name="codigoAcceso">Código de Acceso</string>
     <string name="cobroRapido">Cobro Rápido</string>
 

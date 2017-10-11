@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -31,8 +32,11 @@ import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -59,6 +63,14 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     CustomValidationEditText edtUserPass;
     @BindView(R.id.btnLoginExistUser)
     StyleButton btnLogin;
+    @BindView(R.id.cardBlue)
+    ImageView cardBlue;
+    @BindView(R.id.cardGray)
+    ImageView cardGray;
+    @BindView(R.id.layoutContent)
+    BorderTitleLayout tittleBorder;
+    @BindView(R.id.txtMessageCard)
+    StyleTextView txtMessageCard;
 
     private String password;
     private View rootview;
@@ -89,9 +101,9 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
             mPreferPresenter.setIView(this);
 
             // Consultamos el estado del Singleton, que tiene el estado de nuestra tarjeta
-            cardStatusId = SingletonUser.getInstance().getCardStatusId();
-             cardStatusId = "2"; // Linea de TEst, eliminamos cuando el anterior funcione en actualizar
-            if(cardStatusId == null){
+            cardStatusId = App.getInstance().getStatusId();
+            // cardStatusId = "1"; // Linea de TEst, eliminamos cuando el anterior funcione en actualizar
+            if (cardStatusId == null) {
                 cardStatusId = "1";
             }
 
@@ -102,6 +114,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
                 // Significa que la card esta desbloqueada, despues de la operacion pasa a bloqueada
                 statusBloqueo = DESBLOQUEO;
             }
+
         }
     }
 
@@ -117,6 +130,23 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        if (cardStatusId.equals("1")) {
+            // La tarjeta esta DESBLOQUEADA, mostramos la cCard Azul
+            cardBlue.setVisibility(View.VISIBLE);
+            cardGray.setVisibility(View.GONE);
+
+            // Cambiamos las palabras a Bloquear
+            tittleBorder.setTitle(App.getContext().getResources().getString(R.string.bloquear_tu_tarjeta));
+            txtMessageCard.setText(App.getContext().getResources().getString(R.string.ingresa_pass_block));
+        } else {
+            // La tarjeta esta BLOQUEADA, mostramos la cCard Gray
+            cardBlue.setVisibility(View.GONE);
+            cardGray.setVisibility(View.VISIBLE);
+
+            // Cambiamos las palabras a Desboquear
+            tittleBorder.setTitle(App.getContext().getResources().getString(R.string.desbloquear_tu_tarjeta));
+            txtMessageCard.setText(App.getContext().getResources().getString(R.string.ingresa_pass_desblock));
+        }
     }
 
     @OnClick(R.id.btnLoginExistUser)
@@ -230,10 +260,10 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
         String messageStatus = "";
         if (statusBloqueo == BLOQUEO) {
             messageStatus = getResources().getString(R.string.card_locked_success);
-            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
+            App.getInstance().setStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
         } else if (statusBloqueo == DESBLOQUEO) {
             messageStatus = getResources().getString(R.string.card_unlocked_success);
-            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
+            App.getInstance().setStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
         }
 
         // Armamos
@@ -246,6 +276,24 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
             // Toast.makeText(App.getContext(), "Close Session " + response.getData().getNumeroAutorizacion(), Toast.LENGTH_SHORT).show();
         } catch (OfflineException e) {
             e.printStackTrace();
+        }
+
+        // update de datos de Card instantaneos
+        cardStatusId = App.getInstance().getStatusId();
+        if (cardStatusId.equals("1")) {
+            // La tarjeta esta DESBLOQUEADA, mostramos la cCard Azul
+            cardBlue.setVisibility(View.VISIBLE);
+            cardGray.setVisibility(View.GONE);
+
+            // Cambiamos las palabras a Bloquear
+            tittleBorder.setTitle(App.getContext().getResources().getString(R.string.bloquear_tu_tarjeta));
+        } else {
+            // La tarjeta esta BLOQUEADA, mostramos la cCard Gray
+            cardBlue.setVisibility(View.GONE);
+            cardGray.setVisibility(View.VISIBLE);
+
+            // Cambiamos las palabras a Desboquear
+            tittleBorder.setTitle(App.getContext().getResources().getString(R.string.desbloquear_tu_tarjeta));
         }
     }
 

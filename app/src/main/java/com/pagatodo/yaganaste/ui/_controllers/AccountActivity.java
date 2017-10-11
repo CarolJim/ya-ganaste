@@ -250,7 +250,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
 
             case EVENT_BLOCK_CARD_BACK:
                // loadFragment(loginContainerFragment.newInstance(), Direction.BACK, false);
-                loginContainerFragment.loadLoginBackFragment();
+                //loginContainerFragment.loadLoginBackFragment();
+                onBackPressed();
                 break;
 
             case EVENT_SECURE_CODE:
@@ -338,6 +339,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
             } else if (currentFragment instanceof BlockCardFragment) {
                 //Toast.makeText(this, "Click Back. Main Responde", Toast.LENGTH_SHORT).show();
                onEvent(EVENT_BLOCK_CARD_BACK, null);
+
             } else {
                 resetRegisterData();// Eliminamos la información de registro almacenada.
                 super.onBackPressed();

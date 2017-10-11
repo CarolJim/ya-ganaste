@@ -38,13 +38,14 @@
                     android:layout_height="wrap_content"
                     android:orientation="vertical">
 
-                    <include
-                        android:id="@+id/layoutCard"
-                        layout="@layout/layout_ya_card"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        android:layout_marginLeft="@dimen/margin_medium"
-                        android:layout_marginRight="@dimen/margin_medium" />
+                   <ImageView
+                       android:id="@+id/cardBlue" android:layout_gravity="center"
+                       android:layout_width="wrap_content" android:src="@mipmap/main_card_zoom_blue"
+                       android:layout_height="wrap_content" />
+                   <ImageView
+                       android:id="@+id/cardGray" android:visibility="gone"
+                       android:layout_width="wrap_content" android:src="@mipmap/main_card_zoom_gray"
+                       android:layout_height="wrap_content" />
 
                     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                         android:id="@+id/txtMessageCard"
