@@ -32,12 +32,26 @@ public class CardCover extends Fragment {
         this.presenter = presenter;
     }
 
-    public static CardCover newInstance(AccountPresenterNew presenter)
+    private static final String STATUS = "STATUS";
+    private String status;
+
+    public static CardCover newInstance(AccountPresenterNew presenter,String status)
     {
         CardCover fragment = new CardCover();
+        Bundle bundle = new Bundle();
+        bundle.putString(STATUS,status);
+        fragment.setArguments(bundle);
         //Note : I tried using bundle.setSerializable but Presenter has too many non Serializable objects.
         fragment.setPresenter(presenter);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        if(getArguments() != null){
+            status = getArguments().getString(STATUS);
+        }
     }
 
     @Nullable

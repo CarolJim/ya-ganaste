@@ -257,11 +257,12 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         hideLoader();
         String status = App.getInstance().getStatusId();
         Log.d("ESTADO",status);
-        cardSaldo.setVisibility(View.VISIBLE);
+        //cardSaldo.setVisibility(View.VISIBLE);
+        accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter,status));
         if (status.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)){
-            cardSaldo.setImageResource(R.mipmap.logo_ya_ganaste);
+            //cardSaldo.setImageResource(R.mipmap.logo_ya_ganaste);
         } else {
-            cardSaldo.setImageResource(R.mipmap.main_card_zoom_blue);
+           // cardSaldo.setImageResource(R.mipmap.main_card_zoom_blue);
         }
     }
 
@@ -328,7 +329,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         }
         String cardNumber = preferencias.loadData(CARD_NUMBER);
 //                    Utils.getCurrencyValue(cardNumber))
-       cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
+       //cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
     }
 
     @Override
