@@ -47,4 +47,9 @@ public class MainMenuPresenterImp extends AprovPresenter {
     public void onSuccessDataPerson() {
 
     }
+
+    @Override
+    public void onSuccesStateCuenta() {
+
+    }
 }
