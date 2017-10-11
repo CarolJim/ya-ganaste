@@ -26,11 +26,103 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="Legales" />
+                android:text="Ayuda y Legales" />
 
         </LinearLayout>
 
         <!-- Contenedor que tiene todas las opciones -->
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/borderLayoutColor" />
+
+        <LinearLayout
+            android:id="@+id/fragment_lista_ayuda_tutoriales"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                style="@style/generic_text_style_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="2"
+                android:text="@string/Tutoriales" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="17dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                app:srcCompat="@drawable/arrow_canvas_blue" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/borderLayoutColor" />
+
+        <LinearLayout
+            android:id="@+id/fragment_lista_ayuda_contactanos"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                style="@style/generic_text_style_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="2"
+                android:text="@string/contactanos" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="17dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                app:srcCompat="@drawable/arrow_canvas_blue" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/borderLayoutColor" />
+
+        <LinearLayout
+            android:id="@+id/fragment_lista_ayuda_acerca_app"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginBottom="10dp"
+            android:orientation="horizontal"
+            android:paddingTop="10dp">
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                style="@style/generic_text_style_2"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:layout_marginLeft="10dp"
+                android:layout_weight="2"
+                android:text="@string/acerca_de_app" />
+
+            <android.support.v7.widget.AppCompatImageView
+                android:layout_width="17dp"
+                android:layout_height="wrap_content"
+                android:layout_marginRight="20dp"
+                app:srcCompat="@drawable/arrow_canvas_blue" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="1dp"
+            android:background="@color/borderLayoutColor" />
+
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -40,7 +132,6 @@
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
                 android:background="@color/borderLayoutColor" />
-
 
             <LinearLayout
                 android:id="@+id/fragment_lista_legales_aviso"
@@ -71,7 +162,6 @@
                 android:layout_height="1dp"
                 android:background="@color/borderLayoutColor" />
 
-
             <LinearLayout
                 android:id="@+id/fragment_lista_legales_terminos"
                 android:layout_width="match_parent"
@@ -95,6 +185,7 @@
                     android:layout_marginRight="20dp"
                     app:srcCompat="@drawable/arrow_canvas_blue" />
             </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"
