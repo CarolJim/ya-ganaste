@@ -946,5 +946,7 @@
     <string name="update_fav_request">Actualizando Favorito</string>
     <string name="fav_photo_request">Procesando Foto</string>
     <string name="path_image">/YaGanaste</string>
+    <string name="update_data">Actualizando Datos</string>
+    <string name="get_status_card">Obteniendo Estatus de Tarjeta</string>
 
 </resources>

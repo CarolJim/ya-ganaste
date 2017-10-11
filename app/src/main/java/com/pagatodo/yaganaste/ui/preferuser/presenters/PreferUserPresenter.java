@@ -165,7 +165,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
     }
 
     public void sendPresenterUpdateDatosCuenta(ActualizarDatosCuentaRequest datosCuentaRequest) {
-        mView.showLoader("Actualizando Datos");
+        mView.showLoader(App.getContext().getResources().getString(R.string.update_data));
         iPreferUserIteractor.sendIteractorDatosCuenta(datosCuentaRequest);
     }
 
@@ -176,7 +176,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
      */
     @Override
     public void toPresenterBloquearCuenta(int operation) {
-        iMyCardView.showLoader("Actualizando Datos");
+        iMyCardView.showLoader(App.getContext().getResources().getString(R.string.update_data));
         // Creamos el objeto BloquearCuentaRequest 1= Bloquear 2= Desbloquear
         BloquearCuentaRequest bloquearCuentaRequest = new BloquearCuentaRequest("" + operation);
         iPreferUserIteractor.toIteractorBloquearCuenta(bloquearCuentaRequest);
@@ -187,7 +187,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
      * @param mTDC
      */
     public void toPresenterEstatusCuenta(String mTDC) {
-        mView.showLoader("Obteniendo Estatus de Tarjeta");
+        mView.showLoader(App.getContext().getResources().getString(R.string.get_status_card));
         EstatusCuentaRequest estatusCuentaRequest = new EstatusCuentaRequest(mTDC);
         iPreferUserIteractor.toIteractorEstatusCuenta(estatusCuentaRequest);
     }

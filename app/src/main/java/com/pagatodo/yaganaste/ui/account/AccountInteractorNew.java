@@ -517,6 +517,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         if (error != null && error.getWebService() == ASIGNAR_NIP) {
             checkAfterLogin();
         }
+        if (error != null && error.getWebService() == INICIAR_SESION_SIMPLE) {
+            accountManager.onError(error.getWebService(), error.getData().toString());
+        }
         if (error != null && error.getWebService() == LOGIN_ADQ) {
             checkAfterLogin();
         } else {
