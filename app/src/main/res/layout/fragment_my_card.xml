@@ -66,6 +66,8 @@
                             android:adjustViewBounds="true"
                             android:scaleType="centerInside"
                             android:src="@mipmap/main_card_zoom_blue" />
+
+
                     </LinearLayout>
 
                     <LinearLayout

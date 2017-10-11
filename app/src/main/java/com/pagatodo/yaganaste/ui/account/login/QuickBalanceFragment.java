@@ -208,7 +208,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         if (preferencias.containsData(HAS_SESSION)) {
             String cardNumber = preferencias.loadData(CARD_NUMBER);
 //                    Utils.getCurrencyValue(cardNumber))
-            cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
+            //cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
             //cardSaldo.setCardDate("02/21");
 
 
@@ -230,7 +230,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     }
 
     private void setData(String balance, String updateDate) {
-        txtSaldo.setText(Utils.getCurrencyValue(balance));
+        //txtSaldo.setText(Utils.getCurrencyValue(balance));
         txtDateUpdated.setText(String.format(getString(R.string.last_date_update), updateDate));
     }
 
@@ -303,7 +303,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         }
         String cardNumber = preferencias.loadData(CARD_NUMBER);
 //                    Utils.getCurrencyValue(cardNumber))
-        cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
+        //cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
     }
 
     @Override

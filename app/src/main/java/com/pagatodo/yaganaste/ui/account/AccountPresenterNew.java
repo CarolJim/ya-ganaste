@@ -99,6 +99,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         super.setIView(accountView);
 
         this.accountView = (INavigationView) accountView;
+
         if (accountView instanceof TabsView) {
             setTabsView((TabsView) accountView);
         } else if (accountView instanceof IAprovView) {

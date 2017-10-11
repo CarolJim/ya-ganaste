@@ -28,6 +28,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui._controllers.manager.ToolBarActivity;
 import com.pagatodo.yaganaste.ui.maintabs.managers.DepositsManager;
 import com.pagatodo.yaganaste.utils.FontCache;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 
@@ -65,6 +66,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     boolean isBackAvailable = false;
     CircleImageView imageView;
     int a;
+    String cardNumber;
 
     public static DepositsDataFragment newInstance() {
         DepositsDataFragment depositsDataFragment = new DepositsDataFragment();
@@ -123,7 +125,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
 
         String celPhone = "";
         String clabe = "";
-        String cardNumber = "";
+        cardNumber = "";
         if (usuario.getCuentas() != null && usuario.getCuentas().size() >= 1) {
             CuentaResponse cuenta = usuario.getCuentas().get(0);
             celPhone = usuario.getCuentas().get(0).getTelefono();
@@ -133,11 +135,15 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         txtCableNumber.setText(clabe);
         txtCellPhone.setText(celPhone);
         txtNumberCard.setText(cardNumber);
-        printCard(cardNumber);
+
+
+
 
         mensaje = getString(R.string.string_share_deposits, name, celPhone, clabe, cardNumber);
 
     }
+
+
 
     @Override
     public void initViews() {
@@ -178,6 +184,22 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             imageView.setVisibility(View.GONE);
             a = 0;
         }
+        String statusId = SingletonUser.getInstance().getCardStatusId();
+        if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
+            //imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
+            printCard(cardNumber);
+        } else {
+            imgYaGanasteCard.setImageResource(R.mipmap.logo_ya_ganaste);
+        }
+
+
+        /*if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
+
+            printCard(cardNumber);
+        } else {
+
+            imgYaGanasteCard.setImageResource(R.mipmap.logo_ya_ganaste);
+        }*/
     }
 
     private void showDialogMesage(final String mensaje) {
