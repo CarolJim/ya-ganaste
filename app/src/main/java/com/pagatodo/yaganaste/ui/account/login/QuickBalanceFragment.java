@@ -337,6 +337,11 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     }
 
     @Override
+    public void flipCarddongle(int container, Fragment fragment, boolean isBackShown) {
+
+    }
+
+    @Override
     public void loadCardCover(int container, Fragment fragment) {
         try {
             getActivity().getFragmentManager()
