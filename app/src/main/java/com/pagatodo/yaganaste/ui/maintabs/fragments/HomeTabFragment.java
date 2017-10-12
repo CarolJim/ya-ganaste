@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,6 @@ import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
@@ -26,7 +24,6 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.StringUtils;
-import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
@@ -44,7 +41,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class HomeTabFragment extends SupportFragment implements TabsView, TabLayoutEmAd.InviteAdquirenteCallback,
-        AbstractAdEmFragment.UpdateBalanceCallback,TabLayoutEmAd.clikbloquear {
+        AbstractAdEmFragment.UpdateBalanceCallback,TabLayoutEmAd.onBlockCard {
 
     @BindView(R.id.my_card_name_user)
     TextView mNameTV;
@@ -75,8 +72,6 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
-
-
         this.homeFragmentPresenter = new HomeFragmentPresenter(this);
     }
 
@@ -106,7 +101,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         pagerAdquirente = (NoSwipeViewPager) rootView.findViewById(R.id.pager_adquirente);
         homeFragmentPresenter.getPagerData(ViewPagerDataFactory.TABS.HOME_FRAGMENT);
         tabLayoutEmAd.setInviteAdquirenteCallback(this);
-        tabLayoutEmAd.setClickbloquear(this);
+        tabLayoutEmAd.setOnBlockCard(this);
         tabLayoutEmAd.setUpWithViewPager(pagerAdquirente);
         cardEmisorSelected = new CardEmisorSelected(getContext());
         cardEmisorSelected.setOnLongClickListener(new View.OnLongClickListener() {
@@ -200,13 +195,11 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
 
 
     @Override
-    public void longclick() {
-
+    public void onLongClickBlockCard() {
         String nombre = nombre();
         String cuenta= cuenta();
         Intent intent = new Intent(getContext(),TarjetaActivity.class);
         startActivity(intent);
-
     }
 
     private Boolean estadoTarejta() {
@@ -230,43 +223,5 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         cuentaUsuario=(getResources().getString(R.string.tarjeta) + ": " + StringUtils.ocultarCardNumberFormat(mTDC));
         //mCuentaTV.setText(getResources().getString(R.string.tarjeta) + ": " + StringUtils.ocultarCardNumberFormat(mTDC));
         return cuentaUsuario;
-    }
-
-    private void checkDataCard() {
-        /**
-         * Si tenemos Internet consumos el servicio para actualizar la informacion de la ceunta,
-         * consulamos el estado de bloquero y la informacion de ultimo acceso
-         * else mostramos la unformacion que traemos desde sl Singleton
-         */
-        boolean isOnline = Utils.isDeviceOnline();
-        if (isOnline) {
-            // Verificamos el estado de bloqueo de la Card
-            String f = SingletonUser.getInstance().getCardStatusId();
-            if (f == null || f.isEmpty() || f.equals("0")) {
-                mPreferPresenter.toPresenterEstatusCuenta(mTDC);
-            }
-
-            // Obtenemos el estado de la Card actual
-            // Creamos el objeto ActualizarAvatarRequest
-            // TODO Frank se comento este metodo debido a cambios, borrar en versiones posteriores
-            /*ActualizarDatosCuentaRequest datosCuentaRequest = new ActualizarDatosCuentaRequest();
-            mPreferPresenter.sendPresenterUpdateDatosCuenta(datosCuentaRequest);*/
-        } else {
-            showDialogMesage(getResources().getString(R.string.no_internet_access));
-        }
-    }
-    private void showDialogMesage(final String mensaje) {
-        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                    }
-
-                    @Override
-                    public void actionCancel(Object... params) {
-
-                    }
-                },
-                true, false);
     }
 }
