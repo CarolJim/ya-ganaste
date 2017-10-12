@@ -10,11 +10,13 @@ import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextPaint;
+import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
@@ -83,12 +85,10 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
 
     private void estadotarjeta() {
         String statusId = SingletonUser.getInstance().getCardStatusId();
-        if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
-            mycard_switch.setChecked(false);
-            imgStatus.setImageResource(R.drawable.ic_candado_open);
+        if (statusId != null && !statusId.isEmpty()) {
+            checkState(statusId);
         } else {
-            mycard_switch.setChecked(true);
-            imgStatus.setImageResource(R.drawable.ic_candado_closed);
+            checkState(App.getInstance().getStatusId());
         }
 
         //Agregamos un Listener al Switch
@@ -105,6 +105,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                  */
 
                 imgStatus.setImageResource(isChecked ? R.drawable.ic_candado_closed : R.drawable.ic_candado_open);
+
                 boolean isOnline = Utils.isDeviceOnline();
                 if (isOnline) {
                     if (statusOperation) {
@@ -135,7 +136,26 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
             }
         });
 
+    }
 
+    private void checkState(String state){
+        switch (state){
+            case Recursos.ESTATUS_CUENTA_BLOQUEADA:
+                mycard_switch.setChecked(true);
+                imgStatus.setImageResource(R.drawable.ic_candado_closed);
+                imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_gray);
+                break;
+            case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
+                mycard_switch.setChecked(false);
+                imgStatus.setImageResource(R.drawable.ic_candado_open);
+                imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
+                break;
+            default:
+                mycard_switch.setChecked(false);
+                imgStatus.setImageResource(R.drawable.ic_candado_open);
+                imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
+                break;
+        }
     }
     /**
      * Adminsitrador de mensaje que no tienen acciones, solo informativos, usados comunmente en errores
@@ -265,10 +285,16 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
 
         imgYaGanasteCard.setImageBitmap(bitmap);
     }
+
     @Override
     public void sendSuccessEstatusCuentaToView(EstatusCuentaResponse response) {
         String statusId = response.getData().getStatusId();
         SingletonUser.getInstance().setCardStatusId(statusId);
+        if (statusId != null && !statusId.isEmpty()) {
+            checkState(statusId);
+        } else {
+            checkState(App.getInstance().getStatusId());
+        }
     }
     public void sendErrorEstatusCuentaToView(String mensaje) {
         showDialogMesage(mensaje);

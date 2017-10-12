@@ -67,10 +67,10 @@ public class CardBackAdquiriente extends Fragment {
 
         switch (status){
             case Recursos.ESTATUS_CUENTA_BLOQUEADA:
-                cardSaldo.setImageResource(R.mipmap.card_back_backmara_2);
+                cardSaldo.setImageResource(R.mipmap.card_back_backmara);
                 break;
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
-                cardSaldo.setImageResource(R.mipmap.card_back_backmara);
+                cardSaldo.setImageResource(R.mipmap.card_back_backmara_2);
                 break;
         }
 

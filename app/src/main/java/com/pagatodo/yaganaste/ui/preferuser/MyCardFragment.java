@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextPaint;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -183,15 +184,14 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
 
         // Hacemos Set en el estado del switch desde el Singleton, antes del listener
 
+
         String statusId = SingletonUser.getInstance().getCardStatusId();
-        if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
-            mycard_switch.setChecked(false);
-            imgStatus.setImageResource(R.drawable.ic_candado_open);
-            imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
+        if (statusId != null && !statusId.isEmpty()) {
+            // && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)
+            checkState(statusId);
+
         } else {
-            mycard_switch.setChecked(true);
-            imgStatus.setImageResource(R.drawable.ic_candado_closed);
-            imgYaGanasteCard.setImageResource(R.mipmap.logo_ya_ganaste);
+            checkState(App.getInstance().getStatusId());
         }
 
         //Agregamos un Listener al Switch
@@ -202,6 +202,23 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         mycard_reporta_tarjeta.setOnClickListener(this);
     }
 
+    private void checkState(String state){
+        switch (state){
+            case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
+                mycard_switch.setChecked(false);
+                imgStatus.setImageResource(R.drawable.ic_candado_open);
+                imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
+                break;
+            case Recursos.ESTATUS_CUENTA_BLOQUEADA:
+                mycard_switch.setChecked(true);
+                imgStatus.setImageResource(R.drawable.ic_candado_closed);
+                imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_gray);
+                break;
+            default:
+                Log.d("ESTAUS",state);
+                break;
+        }
+    }
     @Override
     public void onClick(View v) {
         switch (v.getId()) {
@@ -365,7 +382,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
          */
 
         imgStatus.setImageResource(isChecked ? R.drawable.ic_candado_closed : R.drawable.ic_candado_open);
-        imgYaGanasteCard.setImageResource(isChecked ? R.mipmap.logo_ya_ganaste  : R.mipmap.main_card_zoom_blue );
+        imgYaGanasteCard.setImageResource(isChecked ? R.mipmap.main_card_zoom_gray  : R.mipmap.main_card_zoom_blue );
 
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {

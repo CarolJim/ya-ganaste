@@ -19,6 +19,7 @@ import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaResponse;
@@ -185,23 +186,33 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             a = 0;
         }
         String statusId = SingletonUser.getInstance().getCardStatusId();
-        if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
-            //imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
-            printCard(cardNumber);
+        if (statusId != null && !statusId.isEmpty()) {
+            // && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)
+            checkState(statusId);
+
         } else {
-            imgYaGanasteCard.setImageResource(R.mipmap.logo_ya_ganaste);
+            checkState(App.getInstance().getStatusId());
         }
 
 
-        /*if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
 
-            printCard(cardNumber);
-        } else {
-
-            imgYaGanasteCard.setImageResource(R.mipmap.logo_ya_ganaste);
-        }*/
     }
 
+    private void checkState(String state){
+        switch (state){
+            case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
+                //imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
+                printCard(cardNumber);
+                break;
+            case Recursos.ESTATUS_CUENTA_BLOQUEADA:
+                imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_gray);
+                break;
+            default:
+                //imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
+                printCard(cardNumber);
+                break;
+        }
+    }
     private void showDialogMesage(final String mensaje) {
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 new DialogDoubleActions() {

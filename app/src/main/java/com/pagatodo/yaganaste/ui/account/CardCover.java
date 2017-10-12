@@ -51,7 +51,7 @@ public class CardCover extends Fragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //status = "1";
+        status = "2";
         if(getArguments() != null){
             status = (getArguments().getString(STATUS));
         }
@@ -68,6 +68,9 @@ public class CardCover extends Fragment {
                 cardSaldo.setImageResource(R.mipmap.main_card_zoom_gray);
                 break;
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
+                cardSaldo.setImageResource(R.mipmap.main_card_zoom_blue);
+                break;
+            default:
                 cardSaldo.setImageResource(R.mipmap.main_card_zoom_blue);
                 break;
 

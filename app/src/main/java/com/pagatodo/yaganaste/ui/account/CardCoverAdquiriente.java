@@ -62,7 +62,6 @@ public class CardCoverAdquiriente extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         rootView = inflater.inflate(R.layout.fragment_view_card_cover_adquiriente, container, false);
         cardSaldo = (YaGanasteCard) rootView.findViewById(R.id.cardBalanceAdq);
-
         switch (status){
             case Recursos.ESTATUS_CUENTA_BLOQUEADA:
                 cardSaldo.setImageResource(R.mipmap.main_card_zoom_gray);

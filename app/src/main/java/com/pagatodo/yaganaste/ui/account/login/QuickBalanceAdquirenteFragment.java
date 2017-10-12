@@ -194,11 +194,17 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
 
-        //accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter,Status));
-        accountPresenter.loadCardCover(R.id.llsaldodongle, CardCoverAdquirienteDongle.newInstance(accountPresenter));
-
 
     }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        Status = "2";
+        accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter,Status));
+        accountPresenter.loadCardCover(R.id.llsaldodongle, CardCoverAdquirienteDongle.newInstance(accountPresenter));
+    }
+
     @Override
     public void onRefresh() {
 
