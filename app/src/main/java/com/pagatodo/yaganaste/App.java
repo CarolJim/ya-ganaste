@@ -108,7 +108,7 @@ public class App extends Application {
             f.mkdir();
         }
         //
-        statusId = "";
+        statusId = "0";
     }
 
     //Get & Set Status

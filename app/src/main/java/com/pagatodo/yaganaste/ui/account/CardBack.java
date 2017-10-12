@@ -13,9 +13,11 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
+import com.pagatodo.yaganaste.utils.customviews.YaGanasteCardBack;
 
 import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
 
@@ -28,18 +30,35 @@ public class CardBack extends Fragment {
 
     private AccountPresenterNew presenter;
     private View rootView;
+    private YaGanasteCardBack cardSaldo;
     MontoTextView txtSaldo;
     private static Preferencias preferencias = App.getInstance().getPrefs();
+
+    private static final String STATUS = "STATUS";
+    private String status;
+
     public void setPresenter(AccountPresenterNew presenter) {
         this.presenter = presenter;
     }
 
-    public static CardBack newInstance(AccountPresenterNew presenter)
+    public static CardBack newInstance(AccountPresenterNew presenter, String status)
     {
         CardBack fragment = new CardBack();
+        Bundle bundle = new Bundle();
+        bundle.putString(STATUS,status);
+        fragment.setArguments(bundle);
         //Note : I tried using bundle.setSerializable but Presenter has too many non Serializable objects.
         fragment.setPresenter(presenter);
         return fragment;
+    }
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        //status = "1";
+        if(getArguments() != null){
+            status = (getArguments().getString(STATUS));
+        }
     }
 
     @Nullable
@@ -47,6 +66,17 @@ public class CardBack extends Fragment {
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
         rootView  = inflater.inflate(R.layout.fragment_view_card_back, container, false);
         txtSaldo =(MontoTextView)rootView.findViewById(R.id.txt_saldo);
+        cardSaldo = (YaGanasteCardBack) rootView.findViewById(R.id.cardSaldo);
+
+        switch (status){
+            case Recursos.ESTATUS_CUENTA_BLOQUEADA:
+                cardSaldo.setImageResource(R.mipmap.card_back_backmara_2);
+                break;
+            case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
+                cardSaldo.setImageResource(R.mipmap.card_back_backmara);
+                break;
+
+        }
 
         return rootView;
     }

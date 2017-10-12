@@ -496,7 +496,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             case CONSULTAR_SALDO:
                 validateBalanceResponse((ConsultarSaldoResponse) dataSourceResult.getData());
                 break;
-            case  ESTATUS_CUENTA:
+            case ESTATUS_CUENTA:
                 validateStatusRespond((EstatusCuentaResponse) dataSourceResult.getData());
                 break;
 

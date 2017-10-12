@@ -65,6 +65,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTATUS_TARJETA;
@@ -309,7 +310,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
                 onSuccesBalanceAdq();
             } else if (ws == CONSULTA_SALDO_CUPO) {
                 onSuccesBalanceCupo();
-            } else if (ws == OBTENER_ESTATUS_TARJETA){
+            } else if (ws == ESTATUS_CUENTA){
                 onSuccesStateCuenta();
             } else {
                 accountView.showError(error);
@@ -474,16 +475,16 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
     @Override
     public void flipCard(int container, Fragment fragment) {
-try {
-    if (view.isAnimationAble()) {
-        view.flipCard(container, fragment, isBackShown);
-        view.changeBGVisibility(isBackShown);
-       // isBackShown = !isBackShown;
-    }
-}catch (Exception e){
 
-
-}
+        try {
+            if (view.isAnimationAble()) {
+                view.flipCard(container, fragment, isBackShown);
+                view.changeBGVisibility(isBackShown);
+               // isBackShown = !isBackShown;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
+        }
     }
 
     @Override
@@ -495,8 +496,7 @@ try {
             //    isBackShowndongle = !isBackShowndongle;
             }
         }catch (Exception e){
-
-
+            e.printStackTrace();
         }
     }
 
@@ -504,7 +504,6 @@ try {
     public void loadCardCover(int container, Fragment fragment) {
         this.isBackShown = false;
         view.loadCardCover(container,fragment);
-
     }
 
     @Override

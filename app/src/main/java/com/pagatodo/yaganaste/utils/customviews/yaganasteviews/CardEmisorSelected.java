@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.utils.customviews.yaganasteviews;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
+import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
@@ -91,11 +93,27 @@ public class CardEmisorSelected extends TabViewElement {
         txtSaldo.setText(StringUtils.getCurrencyValue(saldo));
 
         String statusId = SingletonUser.getInstance().getCardStatusId();
-        if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
-            cardYaganaste.setImageResource(R.mipmap.main_card_zoom_blue);
+
+        if (statusId != null && !statusId.isEmpty()) {
+            // && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)
+            checkState(statusId);
+
         } else {
-            cardYaganaste.setImageResource(R.mipmap.logo_ya_ganaste);
+            checkState(App.getInstance().getStatusId());
         }
     }
 
+    private void checkState(String state){
+        switch (state){
+            case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
+                cardYaganaste.setImageResource(R.mipmap.main_card_zoom_blue);
+                break;
+            case Recursos.ESTATUS_CUENTA_BLOQUEADA:
+                cardYaganaste.setImageResource(R.mipmap.main_card_zoom_gray);
+                break;
+            default:
+                cardYaganaste.setImageResource(R.mipmap.main_card_zoom_blue);
+                break;
+        }
+    }
 }
