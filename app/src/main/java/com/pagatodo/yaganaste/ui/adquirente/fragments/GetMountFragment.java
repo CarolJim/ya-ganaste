@@ -88,6 +88,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
 
+/*      Se comenta este codigo para quitar el Shebron y la funcionalidad, se deja por si se retoma el disenio
         if (getActivity() instanceof AccountActivity) {
             imgArrowPrev.setVisibility(View.VISIBLE);
             imgArrowPrev.setOnClickListener(new View.OnClickListener() {
@@ -96,7 +97,7 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                     ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager().onBackPress();
                 }
             });
-        }
+        }*/
 
         // Make the custom keyboard appear
         et_amount.setOnFocusChangeListener(new View.OnFocusChangeListener() {
