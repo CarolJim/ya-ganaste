@@ -337,7 +337,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
                 .replace(container, fragment)
                 .addToBackStack(null)
                 .commit();
-        AccountPresenterNew.isBackShowndongle=true;
+
     }
 
     @Override

@@ -509,9 +509,9 @@ try {
 
     @Override
     public void loadCardCoverdongle(int container, Fragment fragment) {
-
+        this.isBackShowndongle = false;
         view.loadCardCover(container,fragment);
-        isBackShowndongle = false;
+
     }
 
     public boolean isBackShown() {
