@@ -60,7 +60,6 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     PaymentsTabPresenter paymentsTabPresenter;
     PaymentsTabFragment fragment;
-    ListDialog dialog;
     MovementsTab current_tab;
     boolean isFromClick = false;
 
@@ -228,7 +227,7 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
                 }
             });
             if (response.size() > 0) {
-                dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
+                ListDialog dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
                 dialog.show();
             } else {
                 Toast.makeText(getActivity(),getString(R.string.empty_list_favorites), Toast.LENGTH_SHORT).show();
