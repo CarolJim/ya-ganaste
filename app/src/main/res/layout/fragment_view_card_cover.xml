@@ -18,7 +18,6 @@
 
         <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
             android:id="@+id/cardSaldocover"
-
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
              />

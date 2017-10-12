@@ -18,6 +18,7 @@ import android.widget.ImageView;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.interfaces.IPurseView;
@@ -27,6 +28,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.CardBackAdquiriente;
 import com.pagatodo.yaganaste.ui.account.CardBackAdquirienteDongle;
+import com.pagatodo.yaganaste.ui.account.CardCover;
 import com.pagatodo.yaganaste.ui.account.CardCoverAdquiriente;
 import com.pagatodo.yaganaste.ui.account.CardCoverAdquirienteDongle;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
@@ -88,6 +90,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     private ILoginContainerManager loginContainerManager;
     private IQuickBalanceManager quickBalanceManager;
     private Preferencias prefs = App.getInstance().getPrefs();
+    private String Status;
 
     public static QuickBalanceAdquirenteFragment newInstance() {
         QuickBalanceAdquirenteFragment fragment = new QuickBalanceAdquirenteFragment();
@@ -106,6 +109,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         loginContainerManager = ((QuickBalanceContainerFragment) getParentFragment()).getLoginContainerManager();
         quickBalanceManager = ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager();
         accountPresenter.setPurseReference(this);
+        Status = App.getInstance().getStatusId();
 
     }
 
@@ -185,7 +189,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter));
+        accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter,Status));
         accountPresenter.loadCardCover(R.id.llsaldodongle, CardCoverAdquirienteDongle.newInstance(accountPresenter));
 
     }
@@ -238,6 +242,11 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     public void updateBalanceAdq() {
         setDataAdq(prefs.loadData(ADQUIRENTE_BALANCE), prefs.loadData(UPDATE_DATE_BALANCE_ADQ));
         hideLoader();
+        String f = SingletonUser.getInstance().getCardStatusId();
+        if (f == null || f.isEmpty() || f.equals("0")) {
+            String mTDC = prefs.loadData(CARD_NUMBER);
+            accountPresenter.geEstatusCuenta(mTDC);
+        }
     }
 
     @Override
@@ -247,7 +256,9 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
 
     @Override
     public void updateStatus() {
-
+        hideLoader();
+        Status = App.getInstance().getStatusId();
+        accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter,Status));
     }
 
     @Override

@@ -87,6 +87,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     private Handler flipTimmer;
     private Runnable runnableTimmer;
     boolean pauseback=true;
+    private String Status;
 
     public static QuickBalanceFragment newInstance() {
 
@@ -112,6 +113,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         quickBalanceManager = ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager();
         accountPresenter.setPurseReference(this);
         // quickBalanceManager Obtenemos la referencia a la interfase desde  QuickBalanceContainerFragment
+        Status = App.getInstance().getStatusId();
     }
 
     @Override
@@ -176,13 +178,13 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         super.onPause();
         try {
             if (accountPresenter.isBackShown() && pauseback==true){
-                accountPresenter.flipCard(R.id.llsaldo, CardBack.newInstance(accountPresenter));
+                accountPresenter.flipCard(R.id.llsaldo, CardBack.newInstance(accountPresenter,Status));
             }
         }catch (Exception e ){}
     }
 
     private void doFlip() {
-        accountPresenter.flipCard(R.id.llsaldo, CardBack.newInstance(accountPresenter));
+        accountPresenter.flipCard(R.id.llsaldo, CardBack.newInstance(accountPresenter,Status));
 
         if (flipTimmer != null) {
             flipTimmer.removeCallbacks(runnableTimmer);
@@ -255,15 +257,8 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     @Override
     public void updateStatus() {
         hideLoader();
-        String status = App.getInstance().getStatusId();
-        Log.d("ESTADO",status);
-        //cardSaldo.setVisibility(View.VISIBLE);
-        accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter,status));
-        if (status.equalsIgnoreCase(Recursos.ESTATUS_CUENTA_BLOQUEADA)){
-            //cardSaldo.setImageResource(R.mipmap.logo_ya_ganaste);
-        } else {
-           // cardSaldo.setImageResource(R.mipmap.main_card_zoom_blue);
-        }
+        Status = App.getInstance().getStatusId();
+        accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter,Status));
     }
 
     @Override
@@ -312,6 +307,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     @Override
     public void showError(Object error) {
         //throw new IllegalCallException("this method is not implemented yet");
+        Log.d("Aqui","Hay Error");
     }
 
     @Override
@@ -323,7 +319,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
         try {
-            //accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter));
+            //accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter,Status));
         } catch (Exception e) {
             e.printStackTrace();
         }
