@@ -2,21 +2,17 @@ package com.pagatodo.yaganaste.utils.customviews.yaganasteviews;
 
 import android.content.Context;
 import android.support.annotation.Nullable;
-import android.support.v4.app.Fragment;
 import android.support.v4.view.ViewPager;
 import android.support.v7.widget.LinearLayoutCompat;
 import android.util.AttributeSet;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
-import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
-import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MaterialLinearLayout;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 
@@ -46,7 +42,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     private Context contextcard;
 
     private InviteAdquirenteCallback inviteAdquirenteCallback;
-    private clikbloquear clickbloquear;
+    private onBlockCard onBlockCard;
 
     public TabLayoutEmAd(Context context) {
         this(context, null);
@@ -101,9 +97,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
             @Override
             public boolean onLongClick(View view) {
-                    clickbloquear.longclick();
-             //   Toast.makeText(getContext(), "fewfwefwef", Toast.LENGTH_SHORT).show();
-
+                    onBlockCard.onLongClickBlockCard();
                 return false;
             }
         });
@@ -116,8 +110,8 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         }
     }
 
-    public void setClickbloquear(clikbloquear clickbloquear) {
-        this.clickbloquear = clickbloquear;
+    public void setOnBlockCard(onBlockCard onBlockCard) {
+        this.onBlockCard = onBlockCard;
     }
 
     @Override
@@ -251,9 +245,10 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     public interface InviteAdquirenteCallback {
         void onInviteAdquirente();
     }
-    public  interface clikbloquear{
-        void longclick();
 
+    /** Interfaz para bloquear abrir bloquear tarjeta desde el HomeTabFragment
+     * */
+    public  interface onBlockCard {
+        void onLongClickBlockCard();
     }
-
 }
