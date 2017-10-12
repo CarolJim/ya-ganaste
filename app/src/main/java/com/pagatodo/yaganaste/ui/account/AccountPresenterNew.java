@@ -94,7 +94,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     private Preferencias prefs = App.getInstance().getPrefs();
     private Context context;
     private MyChangeNip mensajesucces;
-    private boolean isBackShown;
+    public static boolean isBackShown;
+    public static boolean isBackShowndongle;
     private ResetPinPresenter resetPinPresenter;
     private IPurseView view;
 
@@ -477,7 +478,7 @@ try {
     if (view.isAnimationAble()) {
         view.flipCard(container, fragment, isBackShown);
         view.changeBGVisibility(isBackShown);
-        isBackShown = !isBackShown;
+       // isBackShown = !isBackShown;
     }
 }catch (Exception e){
 
@@ -486,9 +487,31 @@ try {
     }
 
     @Override
+    public void flipCarddongle(int container, Fragment fragment) {
+        try {
+            if (view.isAnimationAble()) {
+                view.flipCarddongle(container, fragment, isBackShowndongle);
+                view.changeBGVisibility(isBackShowndongle);
+            //    isBackShowndongle = !isBackShowndongle;
+            }
+        }catch (Exception e){
+
+
+        }
+    }
+
+    @Override
     public void loadCardCover(int container, Fragment fragment) {
-        isBackShown = false;
+        this.isBackShown = false;
         view.loadCardCover(container,fragment);
+
+    }
+
+    @Override
+    public void loadCardCoverdongle(int container, Fragment fragment) {
+        this.isBackShowndongle = false;
+        view.loadCardCover(container,fragment);
+
     }
 
     public boolean isBackShown() {

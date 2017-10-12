@@ -65,7 +65,6 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     PaymentsTabPresenter paymentsTabPresenter;
     PaymentsTabFragment fragment;
-    ListDialog dialog;
     MovementsTab current_tab;
     boolean isFromClick = false;
     ArrayList<CustomCarouselItem> backUpResponse;
@@ -205,7 +204,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
                     return o1.getComercio().getNombreComercio().compareToIgnoreCase(o2.getComercio().getNombreComercio());
                 }
             });
-            dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
+            ListDialog dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
             dialog.show();
             isFromClick = false;
         } else {

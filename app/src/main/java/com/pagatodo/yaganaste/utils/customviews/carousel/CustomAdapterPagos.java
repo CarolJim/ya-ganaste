@@ -46,7 +46,6 @@ public class CustomAdapterPagos extends ArrayAdapter<String> {
         if (convertView == null) {
 
             convertView = LayoutInflater.from(getContext()).inflate(R.layout.item_pagos_textview, parent, false);
-
             viewHolder = new ViewHolder();
             viewHolder.txtTypePagos = (TextView) convertView.findViewById(R.id.txtItemPagos);
 

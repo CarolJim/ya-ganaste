@@ -23,7 +23,7 @@ import java.util.ArrayList;
  * Created by Jordan on 17/04/2017.
  */
 
-public class ListDialog extends Dialog implements View.OnClickListener, AdapterView.OnItemClickListener {
+public class ListDialog extends Dialog implements AdapterView.OnItemClickListener {
 
     ArrayAdapter<String> adapter = null;
     CustomAdapterPagos adapter2 = null;
@@ -81,12 +81,8 @@ public class ListDialog extends Dialog implements View.OnClickListener, AdapterV
         adapter2 = new CustomAdapterPagos(getContext(), R.layout.item_pagos_textview, mList,
                 (listCarousel.get(0) != null && listCarousel.get(0).getFavoritos() != null));
         list.setAdapter(adapter2);
+        list.setItemsCanFocus(true);
         list.setOnItemClickListener(this);
-    }
-
-    @Override
-    public void onClick(View v) {
-
     }
 
     @Override
