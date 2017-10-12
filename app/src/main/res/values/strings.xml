@@ -779,7 +779,10 @@
     <string name="tu_pantalla_principal">Tu Pantalla Principal</string>
     <string name="tu_pantalla_de_cobros">Tu Pantalla de Cobros</string>
     <string name="tu_línea_credito">Tu Línea de Crédito</string>
+    <string name="txt_bloquear">Bloquear</string>
+    <string name="txt_desbloquear">Desbloquear</string>
     <string name="bloquear_tarjeta">Bloquear Tarjeta</string>
+    <string name="desbloquear_tarjeta">Desbloquear Tarjeta</string>
     <string name="bloquear_tu_tarjeta">Bloqueo de Tarjeta</string>
     <string name="desbloquear_tu_tarjeta">Desbloqueo de Tarjeta</string>
     <string name="codigoAcceso">Código de Acceso</string>

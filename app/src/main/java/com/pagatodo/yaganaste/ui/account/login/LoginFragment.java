@@ -71,6 +71,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.textNameUser)
     StyleTextView textNameUser;
 
+    @BindView(R.id.txtBlockCard)
+    StyleTextView txtBlockCard;
+
     @BindView(R.id.editUserName)
     CustomValidationEditText edtUserName;
 
@@ -377,6 +380,17 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         if (preferencias.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
             updatePhoto();
         }
+
+        // Cambiamos el estado de mostrar el bloqueo de tarjeta
+        // Consultamos el estado del Singleton, que tiene el estado de nuestra tarjeta
+        String cardStatusId = App.getInstance().getStatusId();
+        if (cardStatusId.equals("1")) {
+            // Significa que la card esta bloqueada, despues de la operacion pasa a desbloqueada
+            txtBlockCard.setText(getContext().getResources().getString(R.string.bloquear_tarjeta));
+        } else {
+            // Significa que la card esta desbloqueada, despues de la operacion pasa a bloqueada
+            txtBlockCard.setText(getContext().getResources().getString(R.string.desbloquear_tarjeta));
+        }
     }
 
     /**
@@ -402,5 +416,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             return false;
         }
     }
+
+
 }
 

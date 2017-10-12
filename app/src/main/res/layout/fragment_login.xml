@@ -106,6 +106,7 @@
                             app:srcCompat="@mipmap/ic_block_card" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/txtBlockCard"
                             style="@style/generic_text_style_4"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
