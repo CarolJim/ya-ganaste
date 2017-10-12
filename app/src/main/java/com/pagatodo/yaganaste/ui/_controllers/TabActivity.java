@@ -306,7 +306,8 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         if (requestCode == Constants.CONTACTS_CONTRACT
                 || requestCode == Constants.BARCODE_READER_REQUEST_CODE
                 || requestCode == BACK_FROM_PAYMENTS
-                || requestCode == Constants.NEW_FAVORITE) {
+                || requestCode == Constants.NEW_FAVORITE
+                || requestCode == Constants.EDIT_FAVORITE ) {
 
             Fragment childFragment = getFragment(0);
             if (childFragment != null && requestCode != BACK_FROM_PAYMENTS) {
@@ -361,9 +362,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             }
         } else if (requestCode == Constants.PAYMENTS_ADQUIRENTE && resultCode == Activity.RESULT_OK) {
             refreshAdquirenteMovements();
-        } else if (requestCode == Constants.EDIT_FAVORITE && resultCode == Activity.RESULT_OK) {
-            showMainTab();
-            tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
         }
     }
 

@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.graphics.Color;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.content.ContextCompat;
@@ -53,6 +54,7 @@ import static com.pagatodo.yaganaste.ui._controllers.TabActivity.EVENT_SHOW_MAIN
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
+import static com.pagatodo.yaganaste.utils.Constants.EDIT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
 
 /**
@@ -100,6 +102,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     private PaymentsTabPresenter paymentsTabPresenter;
     private FragmentPagerAdapter viewPAgerAdapter;
     int idComercioKey = 0;
+    boolean showFavorite = false;
 
     public static PaymentsTabFragment newInstance() {
         PaymentsTabFragment paymentsTabFragment = new PaymentsTabFragment();
@@ -187,7 +190,11 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
                 changeTab(v, TAB3);
                 break;
             case R.id.rlimgPagosServiceToPay:
+                Vibrator vib = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+                // Vibrate for 500 milliseconds
+                vib.vibrate(100);
                 onBackPresed(currentTab);
+                if (showFavorite) showFavorites();
                 break;
             default:
                 break;
@@ -196,6 +203,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
 
     public void changeTab(View v, MovementsTab TAB) {
         if (currentTab != TAB) {
+            showFavorite = false;
             tabSelector(v, TAB);
         }
     }
@@ -357,7 +365,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         List<Fragment> fragmentList = getChildFragmentManager().getFragments();
 
         if (fragmentList != null) {
-            if (requestCode == NEW_FAVORITE) {
+            if (requestCode == NEW_FAVORITE || requestCode == EDIT_FAVORITE) {
                 for (Fragment fragment : fragmentList) {
                     if (fragment instanceof FavoritesFragmentCarousel && resultCode == RESULT_OK) {
                         try {
@@ -391,6 +399,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     }
 
     public void showFavorites() {
+        showFavorite = true;
         payment_view_pager.setVisibility(View.GONE);
         container.setVisibility(View.VISIBLE);
         FavoritesFragmentCarousel favoritesFragmentCarousel = new FavoritesFragmentCarousel();
@@ -401,6 +410,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     }
 
     public void hideFavorites() {
+        showFavorite=false;
         setTab(currentTab);
     }
 

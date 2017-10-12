@@ -20,10 +20,11 @@
             android:layout_marginLeft="15dp"
             android:layout_weight="20"
             android:background="@null"
-            android:singleLine="true"
             android:backgroundTint="@color/transparent"
+            android:digits="@string/input_alphanumeric_reference"
             android:paddingBottom="6dp"
             android:paddingTop="6dp"
+            android:singleLine="true"
             android:textSize="@dimen/size_text_style_3_value" />
     </LinearLayout>
 
