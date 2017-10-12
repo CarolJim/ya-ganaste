@@ -17,6 +17,7 @@ import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.LoginAdqRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
@@ -36,6 +37,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CuentaRespons
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataEstatusUsuario;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataUsuarioCliente;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesionResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
@@ -80,9 +82,11 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SALDO_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_USUARIO_CLIENTE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGIN_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTATUS_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTIENE_DATOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
@@ -373,6 +377,16 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     @Override
+    public void onStatusCuenta(EstatusCuentaRequest request) {
+        try {
+            ApiTrans.estatusCuenta(request, this);
+        } catch (OfflineException e) {
+            // e.printStackTrace();
+            accountManager.onError(ESTATUS_CUENTA,null);
+        }
+    }
+
+    @Override
     public void getBalanceAdq() {
         try {
             ApiAdq.consultaSaldoCupo(this);
@@ -482,6 +496,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             case CONSULTAR_SALDO:
                 validateBalanceResponse((ConsultarSaldoResponse) dataSourceResult.getData());
                 break;
+            case  ESTATUS_CUENTA:
+                validateStatusRespond((EstatusCuentaResponse) dataSourceResult.getData());
+                break;
 
             case VALIDAR_DATOS_PERSONA:
                 validatePersonDataResponse((GenericResponse) dataSourceResult.getData());
@@ -517,6 +534,9 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         if (error != null && error.getWebService() == ASIGNAR_NIP) {
             checkAfterLogin();
         }
+        if (error != null && error.getWebService() == INICIAR_SESION_SIMPLE) {
+            accountManager.onError(error.getWebService(), error.getData().toString());
+        }
         if (error != null && error.getWebService() == LOGIN_ADQ) {
             checkAfterLogin();
         } else {
@@ -536,6 +556,26 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             accountManager.onError(CONSULTAR_SALDO, null);
         }
     }
+
+    private void validateStatusRespond(EstatusCuentaResponse dataSourceResult){
+
+
+
+            if (dataSourceResult.getCodigoRespuesta() == Recursos.CODE_OK) {
+                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
+                //tarjetaUserPresenter.successGenericToPresenter(dataSourceResult);
+                App.getInstance().setStatusId(dataSourceResult.getData().getStatusId());
+                accountManager.onSuccesStateCuenta();
+
+            } else {
+                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess with Error " + response.getMensaje());
+                //tarjetaUserPresenter.errorGenericToPresenter(dataSourceResult);
+                accountManager.onError(ESTATUS_CUENTA, null);
+            }
+
+    }
+
+
 
     private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response) {
         if (response.getResult().getId().equals(Recursos.ADQ_CODE_OK)) {

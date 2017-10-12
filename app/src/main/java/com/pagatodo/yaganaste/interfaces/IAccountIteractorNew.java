@@ -5,6 +5,7 @@ import android.app.Fragment;
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CrearUsuarioClienteRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.trans.AsignarNIPRequest;
@@ -61,6 +62,8 @@ public interface IAccountIteractorNew<T> {
     ArrayList<Countries> getPaisesList();
 
     void logoutSinRespuesta();
+
+    void onStatusCuenta(EstatusCuentaRequest estatusCuentaRequest);
 
 }
 

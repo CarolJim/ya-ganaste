@@ -52,6 +52,8 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     CustomValidationEditText editBussinesName;
     @BindView(R.id.spinnerBussineLine)
     Spinner spinnerBussineLine;
+    @BindView(R.id.spinnerSubBussineLine)
+    Spinner spinnerSubBussineLine;
     @BindView(R.id.editBussinesPhone)
     CustomValidationEditText editBussinesPhone;
     @BindView(R.id.btnBackBussinesInfo)
@@ -68,10 +70,10 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     private String nombre = "";
     private String telefono = "";
 
-    private List<SubGiro> girosComercio;
+    private List<SubGiro> girosComercio, subgirosComercio;
 
 
-    private BussinesLineSpinnerAdapter giroArrayAdapter;
+    private BussinesLineSpinnerAdapter giroArrayAdapter, subgirosArrayAdapter;
     private DatosNegocioPresenter datosNegocioPresenter;
 
 
@@ -116,7 +118,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
             SubGiro giroHint = new SubGiro();
             giroHint.setSubgiro(getString(R.string.giro_commerce_spinner));
-            giroHint.setIdSubgiro(-1);
             giroHint.setIdSubgiro(-1);
             girosComercio.add(giroHint);
         }

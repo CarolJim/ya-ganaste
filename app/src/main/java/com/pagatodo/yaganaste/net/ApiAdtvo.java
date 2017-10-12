@@ -871,6 +871,7 @@ public class ApiAdtvo extends Api {
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
                 .getCuentas().get(0).getIdCuenta();
+        //headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
         headers.put("IdCuenta", "" + idCuenta);
         headers.put("Content-Type", "application/json");
 
@@ -883,6 +884,7 @@ public class ApiAdtvo extends Api {
             throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
         headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        //headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
         int idCuenta = SingletonUser.getInstance().getDataUser().getUsuario()
                 .getCuentas().get(0).getIdCuenta();
         headers.put("IdCuenta", "" + idCuenta);

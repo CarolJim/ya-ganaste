@@ -244,6 +244,9 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         }
     }
 
+    public void updatestatusCard(){
+        cardEmisorSelected.updateData();
+    }
 
     public interface InviteAdquirenteCallback {
         void onInviteAdquirente();

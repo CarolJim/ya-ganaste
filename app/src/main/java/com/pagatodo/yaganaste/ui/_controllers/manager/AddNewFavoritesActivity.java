@@ -29,9 +29,7 @@ import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
@@ -52,7 +50,6 @@ import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
-import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTagPase;
@@ -103,7 +100,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
         IListaOpcionesView, ValidationForms, View.OnClickListener, OnListServiceListener,
         AdapterView.OnItemSelectedListener, ITextChangeListener, PaymentsCarrouselManager,
-        ICropper,CropIwaResultReceiver.Listener {
+        ICropper, CropIwaResultReceiver.Listener {
 
     public static final String TAG = AddNewFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
@@ -485,16 +482,16 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
      */
     @Override
     public void toViewSuccessAdd(FavoritosNewDatosResponse mResponse) {
-        // showDialogMesage(mMensaje, 1);
+        showDialogMesage(mResponse.getMensaje(), 1);
 
-        int idFavorito = mResponse.getData().getIdFavorito();
-        /**
+        /*int idFavorito = mResponse.getData().getIdFavorito();
+        *//**
          * Camino para enviar la foto al servicio
-         */
+         *//*
         AddFotoFavoritesRequest addFotoFavoritesRequest =
                 new AddFotoFavoritesRequest(stringFoto, "png");
 
-        favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
+        favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);*/
     }
 
     @Override
@@ -582,7 +579,6 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     }
 
 
-
     /**
      * Resultado de procesar la imagen de la camara, aqui ya tenemos el Bitmap, y el codigo siguoente
      * es la BETA para poder darlo de alta en el servicio
@@ -593,22 +589,23 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     public void setPhotoToService(Bitmap bitmap) {
         // Log.d("TAG", "setPhotoToService ");
         try {
-        //imageViewCamera.setImageBitmap(bitmap);
-        Glide.with(this)
-                .load(cameraManager.getUriImage())
-                .asBitmap()
-                .into(imageViewCamera.getCircleImageView());
-        Bitmap bitmapAux = MediaStore.Images.Media.getBitmap(this.getContentResolver(), cameraManager.getUriImage());
-        //cameraManager.setBitmap(bitmapAux);
-        // Procesamos el Bitmap a Base64
-        ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
+            //imageViewCamera.setImageBitmap(bitmap);
+            Glide.with(this)
+                    .load(cameraManager.getUriImage())
+                    .asBitmap()
+                    .into(imageViewCamera.getCircleImageView());
+            Bitmap bitmapAux = MediaStore.Images.Media.getBitmap(this.getContentResolver(), cameraManager.getUriImage());
+            //cameraManager.setBitmap(bitmapAux);
+            // Procesamos el Bitmap a Base64
+            ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmapAux.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
-        byte[] byteArray = byteArrayOutputStream.toByteArray();
-        stringFoto = Base64.encodeToString(byteArray, Base64.DEFAULT);;
-        editFoto.setText(stringFoto);
+            byte[] byteArray = byteArrayOutputStream.toByteArray();
+            stringFoto = Base64.encodeToString(byteArray, Base64.DEFAULT);
+            ;
+            editFoto.setText(stringFoto);
 
-        // Ocultamos el mensaje de error de foto
-        editFotoError.setVisibilityImageError(false);
+            // Ocultamos el mensaje de error de foto
+            editFotoError.setVisibilityImageError(false);
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -778,9 +775,8 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         mReferencia = editRefer.getText().toString();
         String referService = StringUtils.formatCardToService(mReferencia);
 
-        // stringFoto Poner el String de foto cuando el servicio no se muera
         AddFavoritesRequest addFavoritesRequest = new AddFavoritesRequest(idTipoComercio, idTipoEnvio,
-                idComercio, mAlias, referService, "");
+                idComercio, mAlias, referService, stringFoto, "png");
 
         /* Si no tiene un favorito guardado con la misma referencia entonces se permite subirlo*/
         if (!favoritesPresenter.alreadyExistFavorite(referService)) {
@@ -1164,6 +1160,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     public void showFavorites() {
 
     }
+
     /*
     // CROPPER
     */

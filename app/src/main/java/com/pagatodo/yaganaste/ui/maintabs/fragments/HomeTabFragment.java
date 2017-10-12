@@ -91,6 +91,15 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         initViews();
     }
 
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        if (tabLayoutEmAd != null){
+            tabLayoutEmAd.updatestatusCard();
+        }
+    }
+
     @Override
     public void initViews() {
         tabLayoutEmAd = (TabLayoutEmAd) rootView.findViewById(R.id.tab_em_adq);

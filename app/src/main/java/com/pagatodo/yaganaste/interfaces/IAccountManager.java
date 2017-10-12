@@ -21,6 +21,8 @@ public interface IAccountManager<T> {
 
     void onSuccesBalance();
 
+    void onSuccesStateCuenta();
+
     void onSuccesBalanceAdq();
 
     void onSuccesBalanceCupo();

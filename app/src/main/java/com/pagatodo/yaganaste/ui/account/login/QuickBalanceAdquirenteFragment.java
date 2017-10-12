@@ -151,6 +151,10 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         btnGoToLogin.setOnClickListener(this);
         imgArrowBack.setOnClickListener(this);
         imgArrowNext.setOnClickListener(this);
+
+        // Se ocultan los Shebrons por nueva version de Inicio de Session
+        imgArrowBack.setVisibility(View.GONE);
+        imgArrowNext.setVisibility(View.GONE);
         txtSaldoPersonal.setText(Utils.getCurrencyValue(prefs.loadData(USER_BALANCE)));
         txtBalanceReembolsar.setText(Utils.getCurrencyValue(prefs.loadData(ADQUIRENTE_BALANCE)));
 
@@ -242,6 +246,11 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
 
     @Override
     public void updateBalanceCupo() {
+
+    }
+
+    @Override
+    public void updateStatus() {
 
     }
 

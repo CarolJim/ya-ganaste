@@ -1,0 +1,137 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_lets_start"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusable="true"
+    android:focusableInTouchMode="true"
+    android:orientation="vertical"
+    tools:context=".ui._controllers.AccountActivity">
+
+
+    <ScrollView
+        android:id="@+id/scrollViewTarjeta"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:fillViewport="true">
+
+        <LinearLayout android:orientation="vertical"
+            android:id="@+id/layoutScrollCard"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+                android:id="@+id/layoutContent"
+                style="@style/BorderTitleStyle" android:layout_weight="3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                app:title="@string/bloquear_tu_tarjeta">
+
+                <LinearLayout
+                    style="@style/BorderLayoutContentCard"
+                    android:layout_width="match_parent"
+                    android:layout_marginTop="60dp"
+                    android:layout_height="wrap_content"
+                    android:orientation="vertical">
+
+                   <ImageView
+                       android:id="@+id/cardBlue" android:layout_gravity="center"
+                       android:layout_width="wrap_content" android:src="@mipmap/main_card_zoom_blue"
+                       android:layout_height="wrap_content" />
+                   <ImageView
+                       android:id="@+id/cardGray" android:visibility="gone"
+                       android:layout_width="wrap_content" android:src="@mipmap/main_card_zoom_gray"
+                       android:layout_height="wrap_content" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        android:id="@+id/txtMessageCard"
+                        style="@style/generic_text_style_3"
+                        android:layout_marginTop="40dp"
+                        android:layout_width="match_parent"
+                        android:layout_height="wrap_content"
+                        android:layout_marginBottom="@dimen/margin_small"
+                        android:gravity="center"
+                        android:text="@string/ingresa_pass_block" />
+
+                    <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                        android:id="@+id/editUserPassword"
+                        style="@style/GenericInputTextForms"
+                        android:layout_width="match_parent"
+                        android:layout_marginTop="40dp"
+                        android:layout_height="wrap_content"
+                        android:clickable="true"
+                        app:formato="password"
+                        app:hintText="@string/txt_escribe_tu_pass"
+                        app:isTextEnabled="true" />
+                </LinearLayout>
+
+            </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+
+            <LinearLayout
+                android:layout_weight="4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_below="@+id/layoutContent"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/margin_medium"
+                android:layout_marginLeft="@dimen/margin_big"
+                android:layout_marginRight="@dimen/margin_big"
+                android:gravity="bottom|center_horizontal"
+                android:orientation="horizontal">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5" />
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                    android:id="@+id/btnLoginExistUser"
+                    style="@style/buttonDirecctionNext"
+                    android:layout_width="match_parent"
+                    android:layout_height="@dimen/height_btns"
+                    android:layout_weight="1"
+                    android:gravity="center"
+                    android:text="@string/next"
+                    android:textAllCaps="false"
+                    android:textSize="@dimen/generic_button_normal_text_size"
+                    android:visibility="visible" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_weight="1.5" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/layoutBtns"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
+                android:layout_gravity="bottom"
+                android:layout_marginBottom="@dimen/btn_navigation_bottom"
+                android:clickable="true"
+                android:gravity="center"
+                android:visibility="gone">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                    style="@style/buttonDirecctionNext"
+                    android:text="@string/txt_ingresar" />
+            </LinearLayout>
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+        android:id="@id/progressLayout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone" />
+
+</RelativeLayout>

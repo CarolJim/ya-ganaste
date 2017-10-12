@@ -187,9 +187,11 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
             mycard_switch.setChecked(false);
             imgStatus.setImageResource(R.drawable.ic_candado_open);
+            imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
         } else {
             mycard_switch.setChecked(true);
             imgStatus.setImageResource(R.drawable.ic_candado_closed);
+            imgYaGanasteCard.setImageResource(R.mipmap.logo_ya_ganaste);
         }
 
         //Agregamos un Listener al Switch
@@ -363,6 +365,8 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
          */
 
         imgStatus.setImageResource(isChecked ? R.drawable.ic_candado_closed : R.drawable.ic_candado_open);
+        imgYaGanasteCard.setImageResource(isChecked ? R.mipmap.logo_ya_ganaste  : R.mipmap.main_card_zoom_blue );
+
         boolean isOnline = Utils.isDeviceOnline();
         if (isOnline) {
             if (statusOperation) {
