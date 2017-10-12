@@ -51,11 +51,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_QUICK_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SECURE_CODE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
+import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 
 
@@ -145,6 +147,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         btnLogin.setOnClickListener(this);
         blockCard.setOnClickListener(this);
         accessCode.setOnClickListener(this);
+        quickPayment.setOnClickListener(this);
         txtLoginExistUserRecoverPass.setOnClickListener(this);
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
@@ -167,7 +170,12 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
             blockCard.setVisibility(View.VISIBLE);
             accessCode.setVisibility(View.VISIBLE);
-            quickPayment.setVisibility(View.VISIBLE);
+            boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);
+            if (isAdquirente) {
+                quickPayment.setVisibility(View.VISIBLE);
+            }else{
+                quickPayment.setVisibility(View.GONE);
+            }
         } else {
             blockCard.setVisibility(View.INVISIBLE);
             accessCode.setVisibility(View.INVISIBLE);
@@ -196,6 +204,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 break;
             case R.id.accessCode:
                 nextScreen(EVENT_SECURE_CODE, null);
+                break;
+            case R.id.quickPayment:
+                nextScreen(EVENT_QUICK_PAYMENT, null);
                 break;
             default:
                 break;
