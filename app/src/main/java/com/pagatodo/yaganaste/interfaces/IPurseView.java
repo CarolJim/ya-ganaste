@@ -10,6 +10,7 @@ import java.util.List;
 
 public interface IPurseView {
     void flipCard(int container, Fragment fragment, boolean isBackShown);
+    void flipCarddongle(int container, Fragment fragment, boolean isBackShown);
     void loadCardCover(int container, Fragment fragment);
     void changeBGVisibility(boolean isBackShown);
     boolean isAnimationAble();

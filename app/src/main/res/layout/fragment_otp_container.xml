@@ -10,17 +10,12 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"/>
 
-
-
-
-
-
     <ImageView
         android:id="@+id/imgArrowNext"
         android:layout_width="@dimen/activity_horizontal_double_margin"
         android:layout_height="@dimen/activity_horizontal_double_margin"
         android:foreground="?attr/selectableItemBackground"
-        android:visibility="visible"
+        android:visibility="gone"
         android:layout_gravity="center_vertical|right"
         app:srcCompat="@drawable/arrow_canvas_blue" />
 

@@ -84,6 +84,28 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
         showBack(false);
     }
 
+    /**
+     * Se encarga de cargar BlockCardFragment a nivel correcto para las transiciones
+     */
+    public void loadBlockFragment() {
+        loadFragment(BlockCardFragment.newInstance(), Direction.FORDWARD, true);
+        showBack(true);
+    }
+
+    /**
+     * Se encarga de eliminar BlockCardFragment a nivel correcto para las transiciones. Se carga
+     * LoginFragment
+     */
+    public void loadLoginBackFragment() {
+        loadFragment(LoginFragment.newInstance(), Direction.BACK, true);
+        showBack(true);
+    }
+
+    public void loadSecureCodeContainer() {
+        loadFragment(OtpContainerFratgment.newInstance(), Direction.FORDWARD, true);
+        showBack(true);
+    }
+
     @Override
     public void popBackStack() {
         getChildFragmentManager().popBackStack();

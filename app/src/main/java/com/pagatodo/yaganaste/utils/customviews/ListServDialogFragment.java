@@ -80,7 +80,7 @@ public class ListServDialogFragment extends DialogFragment implements SearchView
          */
         arrayAdapter = new ListServicesSpinnerAdapter(getContext(), R.layout.spinner_layout, backUpResponse);
         listService.setAdapter(arrayAdapter);
-        searchView.setQueryHint(getString(R.string.buscar_pais));
+        //searchView.setQueryHint(getString(R.string.buscar_pais));
         searchView.setOnQueryTextListener(this);
         listService.setTextFilterEnabled(true);
         listService.setOnItemClickListener(this);

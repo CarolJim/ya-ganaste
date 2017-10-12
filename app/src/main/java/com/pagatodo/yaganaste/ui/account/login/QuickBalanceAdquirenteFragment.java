@@ -134,7 +134,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         couchMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                accountPresenter.flipCard(R.id.llsaldo, CardBackAdquiriente.newInstance(accountPresenter));
+                accountPresenter.flipCard(R.id.llsaldo, CardBackAdquiriente.newInstance(accountPresenter,Status));
             }
         });
 
@@ -143,7 +143,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         couchMarkdongle.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                accountPresenter.flipCard(R.id.llsaldodongle, CardBackAdquirienteDongle.newInstance(accountPresenter));
+                accountPresenter.flipCarddongle(R.id.llsaldodongle, CardBackAdquirienteDongle.newInstance(accountPresenter));
             }
         });
     }
@@ -155,6 +155,10 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         btnGoToLogin.setOnClickListener(this);
         imgArrowBack.setOnClickListener(this);
         imgArrowNext.setOnClickListener(this);
+
+        // Se ocultan los Shebrons por nueva version de Inicio de Session
+        imgArrowBack.setVisibility(View.GONE);
+        imgArrowNext.setVisibility(View.GONE);
         txtSaldoPersonal.setText(Utils.getCurrencyValue(prefs.loadData(USER_BALANCE)));
         txtBalanceReembolsar.setText(Utils.getCurrencyValue(prefs.loadData(ADQUIRENTE_BALANCE)));
 
@@ -189,8 +193,10 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter,Status));
+
+        //accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter,Status));
         accountPresenter.loadCardCover(R.id.llsaldodongle, CardCoverAdquirienteDongle.newInstance(accountPresenter));
+
 
     }
     @Override
@@ -291,21 +297,44 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
 
     @Override
     public void flipCard(int container, Fragment fragment, boolean isBackShown) {
+
         if(isBackShown)
         {
-            getActivity().getFragmentManager().popBackStack();
-            return;
+            accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter,Status));
+         return;
         }
-        getActivity().getFragmentManager()
-                .beginTransaction()
-                .setCustomAnimations(
-                        R.animator.card_flip_right_in,
-                        R.animator.card_flip_right_out,
-                        R.animator.card_flip_left_in,
-                        R.animator.card_flip_left_out)
-                .replace(container, fragment)
-                .addToBackStack(null)
-                .commit();
+            getActivity().getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(
+                            R.animator.card_flip_right_in,
+                            R.animator.card_flip_right_out,
+                            R.animator.card_flip_left_in,
+                            R.animator.card_flip_left_out)
+                    .replace(container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        AccountPresenterNew.isBackShown=true;
+            // TrackingUtils.doAnalyticsTracking(MONEDERO_PAGAR_LBL);
+    }
+
+    @Override
+    public void flipCarddongle(int container, Fragment fragment, boolean isBackShowndongle) {
+        if(isBackShowndongle)
+        {
+            accountPresenter.loadCardCoverdongle(R.id.llsaldodongle, CardCoverAdquirienteDongle.newInstance(accountPresenter));
+       return;
+        }
+            getActivity().getFragmentManager()
+                    .beginTransaction()
+                    .setCustomAnimations(
+                            R.animator.card_flip_right_in,
+                            R.animator.card_flip_right_out,
+                            R.animator.card_flip_left_in,
+                            R.animator.card_flip_left_out)
+                    .replace(container, fragment)
+                    .addToBackStack(null)
+                    .commit();
+        AccountPresenterNew.isBackShowndongle=true;
         // TrackingUtils.doAnalyticsTracking(MONEDERO_PAGAR_LBL);
     }
 
@@ -321,6 +350,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
                 .replace(container, fragment)
                 .addToBackStack(null)
                 .commit();
+
     }
 
     @Override

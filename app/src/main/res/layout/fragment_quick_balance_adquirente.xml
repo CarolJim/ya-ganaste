@@ -40,7 +40,7 @@
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dp"
+                    android:layout_marginTop="0dp"
                     android:gravity="center_vertical"
                     android:orientation="vertical">
 
@@ -50,7 +50,7 @@
                         android:id="@+id/llsaldocontenedor"
                         android:orientation="vertical"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="30dp"
+                        android:layout_marginBottom="0dp"
                         >
                         <LinearLayout
                             android:layout_width="match_parent"
@@ -103,15 +103,13 @@
                         android:textSize="@dimen/text_screen_size_normal"
                         android:visibility="gone" />
                         </LinearLayout>
-                    <android.support.v4.widget.Space
-                        android:layout_width="match_parent"
-                        android:layout_height="0dp" />
+
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:id="@+id/llsaldocontenedordongle"
                         android:orientation="vertical"
                         android:layout_height="wrap_content"
-                        android:layout_marginBottom="40dp"
+                        android:layout_marginBottom="7dp"
                         android:gravity="top">
                         <LinearLayout
                             android:layout_width="match_parent"

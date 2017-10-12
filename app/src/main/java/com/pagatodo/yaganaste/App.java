@@ -242,6 +242,4 @@ public class App extends Application {
         };
         countDownTimer.start();
     }
-
-
 }

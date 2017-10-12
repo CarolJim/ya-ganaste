@@ -45,6 +45,7 @@ import com.pagatodo.yaganaste.ui.adquirente.interfases.IDocumentApproved;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -94,7 +95,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     private Preferencias prefs = App.getInstance().getPrefs();
     private Context context;
     private MyChangeNip mensajesucces;
-    private boolean isBackShown;
+    public static boolean isBackShown;
+    public static boolean isBackShowndongle;
     private ResetPinPresenter resetPinPresenter;
     private IPurseView view;
 
@@ -110,6 +112,9 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         }
         if (accountView instanceof IResetNIPView) {
             resetPinPresenter.setResetNIPView((IResetNIPView) accountView);
+        }
+        if (accountView instanceof IMyCardView) {
+
         }
     }
 
@@ -251,6 +256,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void onError(WebService ws, Object error) {
         accountView.hideLoader();
+
         if (accountView instanceof IAccountRegisterView) {
             if (ws == CREAR_USUARIO_CLIENTE) {
                 ((IAccountRegisterView) accountView).clientCreateFailed(error.toString());
@@ -322,6 +328,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             if (ws == VALIDAR_FORMATO_CONTRASENIA) {
                 ((IMyPassValidation) accountView).validationPasswordFailed(error.toString());
             }
+        } else if (accountView instanceof IMyCardView) {
+            accountView.showError(error);
         } else {
             accountView.showError(error);
         }
@@ -467,22 +475,42 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
     @Override
     public void flipCard(int container, Fragment fragment) {
+
         try {
             if (view.isAnimationAble()) {
                 view.flipCard(container, fragment, isBackShown);
                 view.changeBGVisibility(isBackShown);
-                isBackShown = !isBackShown;
+               // isBackShown = !isBackShown;
             }
         }catch (Exception e){
+            e.printStackTrace();
+        }
+    }
 
-
+    @Override
+    public void flipCarddongle(int container, Fragment fragment) {
+        try {
+            if (view.isAnimationAble()) {
+                view.flipCarddongle(container, fragment, isBackShowndongle);
+                view.changeBGVisibility(isBackShowndongle);
+            //    isBackShowndongle = !isBackShowndongle;
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 
     @Override
     public void loadCardCover(int container, Fragment fragment) {
-        isBackShown = false;
+        this.isBackShown = false;
         view.loadCardCover(container,fragment);
+    }
+
+    @Override
+    public void loadCardCoverdongle(int container, Fragment fragment) {
+        this.isBackShowndongle = false;
+        view.loadCardCover(container,fragment);
+
     }
 
     public boolean isBackShown() {

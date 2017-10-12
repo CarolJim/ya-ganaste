@@ -208,6 +208,8 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
 
         swipeContainer.setOnRefreshListener(this);
         goToLogin.setOnClickListener(this);
+        // Se oculta el Shebron
+        imgArrowBack.setVisibility(View.GONE);
         imgArrowBack.setOnClickListener(this);
         txtSaldo.setText(Utils.getCurrencyValue(preferencias.loadData(USER_BALANCE)));
 
@@ -356,6 +358,11 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
                 .addToBackStack(null)
                 .commit();
         // TrackingUtils.doAnalyticsTracking(MONEDERO_PAGAR_LBL);
+    }
+
+    @Override
+    public void flipCarddongle(int container, Fragment fragment, boolean isBackShown) {
+
     }
 
     @Override

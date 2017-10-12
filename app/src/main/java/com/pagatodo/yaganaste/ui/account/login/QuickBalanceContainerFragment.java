@@ -72,7 +72,9 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
         ButterKnife.bind(this, rootView);
         viewPagerQuickBalance.setAdapter(quickBalanceAdapter);
         viewPagerQuickBalance.setCurrentItem(1);
-        viewPagerQuickBalance.setIsSwipeable(true);
+        //viewPagerQuickBalance.setIsSwipeable(true);
+        // Se deshabilita el Swipe para los nuevos cambios.
+        viewPagerQuickBalance.setIsSwipeable(false);
         pref = App.getInstance().getPrefs();
         if (RequestHeaders.getTokenAdq().isEmpty() && !pref.containsData(CO_QUICK_EM)) {
             pref.saveDataBool(CO_QUICK_EM, true);

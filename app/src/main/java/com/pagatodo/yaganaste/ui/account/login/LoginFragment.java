@@ -11,6 +11,8 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -23,6 +25,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ILoginView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
@@ -47,7 +50,9 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SECURE_CODE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
@@ -77,6 +82,16 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @BindView(R.id.txtLoginExistUserRecoverPass)
     StyleTextView txtLoginExistUserRecoverPass;
+
+    @BindView(R.id.blockCard)
+    LinearLayout blockCard;
+
+    @BindView(R.id.accessCode)
+    LinearLayout accessCode;
+
+    @BindView(R.id.quickPayment)
+    LinearLayout quickPayment;
+
     private View rootview;
     private AccountPresenterNew accountPresenter;
 
@@ -125,6 +140,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     public void initViews() {
         ButterKnife.bind(this, rootview);
         btnLogin.setOnClickListener(this);
+        blockCard.setOnClickListener(this);
+        accessCode.setOnClickListener(this);
         txtLoginExistUserRecoverPass.setOnClickListener(this);
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
@@ -142,6 +159,17 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         }
         setValidationRules();
 
+        // Mostramos los elementos de facil acceso, solo si tenemos session
+        Preferencias prefs = App.getInstance().getPrefs();
+        if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
+            blockCard.setVisibility(View.VISIBLE);
+            accessCode.setVisibility(View.VISIBLE);
+            quickPayment.setVisibility(View.VISIBLE);
+        } else {
+            blockCard.setVisibility(View.INVISIBLE);
+            accessCode.setVisibility(View.INVISIBLE);
+            quickPayment.setVisibility(View.INVISIBLE);
+        }
     }
 
     @Override
@@ -159,6 +187,12 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                     edtUserName.setText(RequestHeaders.getUsername());
                     edtUserName.setVisibility(VISIBLE);
                 }
+                break;
+            case R.id.blockCard:
+                nextScreen(EVENT_BLOCK_CARD, null);
+                break;
+            case R.id.accessCode:
+                nextScreen(EVENT_SECURE_CODE, null);
                 break;
             default:
                 break;
