@@ -51,11 +51,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_QUICK_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOVERY_PASS;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SECURE_CODE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
+import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 
 
@@ -70,6 +72,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @BindView(R.id.textNameUser)
     StyleTextView textNameUser;
+
+    @BindView(R.id.txtBlockCard)
+    StyleTextView txtBlockCard;
 
     @BindView(R.id.editUserName)
     CustomValidationEditText edtUserName;
@@ -142,6 +147,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         btnLogin.setOnClickListener(this);
         blockCard.setOnClickListener(this);
         accessCode.setOnClickListener(this);
+        quickPayment.setOnClickListener(this);
         txtLoginExistUserRecoverPass.setOnClickListener(this);
 
         if (!RequestHeaders.getTokenauth().isEmpty()) {
@@ -164,7 +170,12 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
             blockCard.setVisibility(View.VISIBLE);
             accessCode.setVisibility(View.VISIBLE);
-            quickPayment.setVisibility(View.VISIBLE);
+            boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);
+            if (isAdquirente) {
+                quickPayment.setVisibility(View.VISIBLE);
+            }else{
+                quickPayment.setVisibility(View.GONE);
+            }
         } else {
             blockCard.setVisibility(View.INVISIBLE);
             accessCode.setVisibility(View.INVISIBLE);
@@ -193,6 +204,9 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 break;
             case R.id.accessCode:
                 nextScreen(EVENT_SECURE_CODE, null);
+                break;
+            case R.id.quickPayment:
+                nextScreen(EVENT_QUICK_PAYMENT, null);
                 break;
             default:
                 break;
@@ -377,6 +391,17 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         if (preferencias.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
             updatePhoto();
         }
+
+        // Cambiamos el estado de mostrar el bloqueo de tarjeta
+        // Consultamos el estado del Singleton, que tiene el estado de nuestra tarjeta
+        String cardStatusId = App.getInstance().getStatusId();
+        if (cardStatusId.equals("1")) {
+            // Significa que la card esta bloqueada, despues de la operacion pasa a desbloqueada
+            txtBlockCard.setText(getContext().getResources().getString(R.string.bloquear_tarjeta));
+        } else {
+            // Significa que la card esta desbloqueada, despues de la operacion pasa a bloqueada
+            txtBlockCard.setText(getContext().getResources().getString(R.string.desbloquear_tarjeta));
+        }
     }
 
     /**
@@ -402,5 +427,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             return false;
         }
     }
+
+
 }
 

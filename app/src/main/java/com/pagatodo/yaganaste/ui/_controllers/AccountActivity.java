@@ -90,6 +90,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     public final static String EVENT_BLOCK_CARD_BACK = "EVENT_BLOCK_CARD_BACK";
     public final static String EVENT_SECURE_CODE = "EVENT_SECURE_CODE";
     public final static String EVENT_SECURE_CODE_BACK = "EVENT_SECURE_CODE_BACK";
+    public final static String EVENT_QUICK_PAYMENT = "EVENT_QUICK_PAYMENT";
+    public final static String EVENT_QUICK_PAYMENT_BACK = "EVENT_QUICK_PAYMENT_BACK";
     FrameLayout container;
     private String TAG = getClass().getSimpleName();
     private Preferencias pref;
@@ -257,6 +259,11 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
             case EVENT_SECURE_CODE:
                 //loadFragment(OtpContainerFratgment.newInstance(), Direction.FORDWARD, false);
                 loginContainerFragment.loadSecureCodeContainer();
+                break;
+
+            case EVENT_QUICK_PAYMENT:
+                //loadFragment(OtpContainerFratgment.newInstance(), Direction.FORDWARD, false);
+                loginContainerFragment.loadQuickPayment();
                 break;
 
             case EVENT_SECURE_CODE_BACK:

@@ -17,6 +17,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -103,6 +104,11 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
 
     public void loadSecureCodeContainer() {
         loadFragment(OtpContainerFratgment.newInstance(), Direction.FORDWARD, true);
+        showBack(true);
+    }
+
+    public void loadQuickPayment() {
+        loadFragment(GetMountFragment.newInstance(), Direction.FORDWARD, true);
         showBack(true);
     }
 

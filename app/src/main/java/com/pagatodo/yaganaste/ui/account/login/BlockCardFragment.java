@@ -136,16 +136,22 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
             cardGray.setVisibility(View.GONE);
 
             // Cambiamos las palabras a Bloquear
-            tittleBorder.setTitle(App.getContext().getResources().getString(R.string.bloquear_tu_tarjeta));
+            tittleBorder.setTitle(App.getContext().getResources().getString(R.string.bloquear_tarjeta));
             txtMessageCard.setText(App.getContext().getResources().getString(R.string.ingresa_pass_block));
+
+            // Cambiamos el texto del BTN
+            btnLogin.setText(App.getContext().getResources().getString(R.string.txt_bloquear));
         } else {
             // La tarjeta esta BLOQUEADA, mostramos la cCard Gray
             cardBlue.setVisibility(View.GONE);
             cardGray.setVisibility(View.VISIBLE);
 
             // Cambiamos las palabras a Desboquear
-            tittleBorder.setTitle(App.getContext().getResources().getString(R.string.desbloquear_tu_tarjeta));
+            tittleBorder.setTitle(App.getContext().getResources().getString(R.string.desbloquear_tarjeta));
             txtMessageCard.setText(App.getContext().getResources().getString(R.string.ingresa_pass_desblock));
+
+            // Cambiamos el texto del BTN
+            btnLogin.setText(App.getContext().getResources().getString(R.string.txt_desbloquear));
         }
     }
 
@@ -260,10 +266,10 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
         String messageStatus = "";
         if (statusBloqueo == BLOQUEO) {
             messageStatus = getResources().getString(R.string.card_locked_success);
-            App.getInstance().setStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
+            App.getInstance().setStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
         } else if (statusBloqueo == DESBLOQUEO) {
             messageStatus = getResources().getString(R.string.card_unlocked_success);
-            App.getInstance().setStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
+            App.getInstance().setStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
         }
 
         // Armamos
@@ -286,14 +292,14 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
             cardGray.setVisibility(View.GONE);
 
             // Cambiamos las palabras a Bloquear
-            tittleBorder.setTitle(App.getContext().getResources().getString(R.string.bloquear_tu_tarjeta));
+            tittleBorder.setTitle(App.getContext().getResources().getString(R.string.bloquear_tarjeta));
         } else {
             // La tarjeta esta BLOQUEADA, mostramos la cCard Gray
             cardBlue.setVisibility(View.GONE);
             cardGray.setVisibility(View.VISIBLE);
 
             // Cambiamos las palabras a Desboquear
-            tittleBorder.setTitle(App.getContext().getResources().getString(R.string.desbloquear_tu_tarjeta));
+            tittleBorder.setTitle(App.getContext().getResources().getString(R.string.desbloquear_tarjeta));
         }
     }
 
