@@ -9,10 +9,15 @@ import com.pagatodo.yaganaste.R;
 public enum LandingActivitiesEnum {
 
 
+//    PANTALLA_PRINCIPAL_EMISOR(1, R.drawable.img_couch_em_back,
+//            R.drawable.img_couch_em_1, R.drawable.img_couch_em_2,
+//            R.drawable.img_couch_em_3, R.drawable.img_couch_em_4,
+//            R.drawable.img_couch_em_5, R.drawable.img_couch_em_6),
+
     PANTALLA_PRINCIPAL_EMISOR(1, R.drawable.img_couch_em_back,
             R.drawable.img_couch_em_1, R.drawable.img_couch_em_2,
             R.drawable.img_couch_em_3, R.drawable.img_couch_em_4,
-            R.drawable.img_couch_em_5, R.drawable.img_couch_em_6),
+            R.drawable.img_couch_em_5),
 
     INICIO_SESION_ADQUIRENTE(2, R.drawable.img_couch_qadq_back,
             R.drawable.img_couch_quick_adq_1, R.drawable.img_couch_quick_adq_2),
