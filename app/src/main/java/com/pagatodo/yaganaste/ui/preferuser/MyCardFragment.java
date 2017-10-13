@@ -68,8 +68,8 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 public class MyCardFragment extends GenericFragment implements View.OnClickListener,
         IMyCardView, CompoundButton.OnCheckedChangeListener {
 
-    public static final int BLOQUEO = 2;
-    public static final int DESBLOQUEO = 1;
+    public static final int BLOQUEO = 1;
+    public static final int DESBLOQUEO = 2;
     @BindView(R.id.my_card_name_user)
     TextView mNameTV;
     @BindView(R.id.my_card_num_cuenta)
@@ -254,10 +254,10 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         String messageStatus = "";
         if (statusBloqueo == BLOQUEO) {
             messageStatus = getResources().getString(R.string.card_locked_success);
-            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
+            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
         } else if (statusBloqueo == DESBLOQUEO) {
             messageStatus = getResources().getString(R.string.card_unlocked_success);
-            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
+            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
 
         }
 

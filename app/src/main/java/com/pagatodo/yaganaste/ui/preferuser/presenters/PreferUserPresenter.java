@@ -1,9 +1,5 @@
 package com.pagatodo.yaganaste.ui.preferuser.presenters;
 
-import android.app.Activity;
-import android.content.Context;
-import android.graphics.Bitmap;
-
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -13,8 +9,8 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.BloquearCuenta
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarContraseniaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DesasociarDispositivoRequest;
-import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarCorreoContactanosRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarAvatarResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ActualizarDatosCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
@@ -24,10 +20,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DesasociarDis
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoContactanosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
-import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericPresenterMain;
-import com.pagatodo.yaganaste.ui.account.login.BlockCardFragment;
-import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyEmailView;

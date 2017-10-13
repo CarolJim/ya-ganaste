@@ -107,14 +107,13 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
                 cardStatusId = "1";
             }
 
-            if (cardStatusId.equals("1")) {
+            if (cardStatusId.equals("2")) {
                 // Significa que la card esta bloqueada, despues de la operacion pasa a desbloqueada
                 statusBloqueo = BLOQUEO;
             } else {
                 // Significa que la card esta desbloqueada, despues de la operacion pasa a bloqueada
                 statusBloqueo = DESBLOQUEO;
             }
-
         }
     }
 
@@ -130,7 +129,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        if (cardStatusId.equals("2")) {
+        if (cardStatusId.equals("1")) {
             // La tarjeta esta DESBLOQUEADA, mostramos la cCard Azul
             cardBlue.setVisibility(View.VISIBLE);
             cardGray.setVisibility(View.GONE);
@@ -238,9 +237,11 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
         if (cardStatusId.equals("1")) {
             // Operacion para Bloquear tarjeta
             mPreferPresenter.toPresenterBloquearCuenta(BLOQUEO);
+            statusBloqueo=BLOQUEO;
         } else {
             // Operacion para Desbloquear tarjeta
             mPreferPresenter.toPresenterBloquearCuenta(DESBLOQUEO);
+            statusBloqueo=DESBLOQUEO;
         }
 
     }
