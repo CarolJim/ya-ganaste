@@ -954,5 +954,6 @@
     <string name="path_image">/YaGanaste</string>
     <string name="update_data">Actualizando Datos</string>
     <string name="get_status_card">Obteniendo Estatus de Tarjeta</string>
+    <string name="myDongle">Mi Lector</string>
 
 </resources>
