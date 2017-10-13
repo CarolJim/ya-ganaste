@@ -266,10 +266,10 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
         String messageStatus = "";
         if (statusBloqueo == BLOQUEO) {
             messageStatus = getResources().getString(R.string.card_locked_success);
-            App.getInstance().setStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
+            App.getInstance().setStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
         } else if (statusBloqueo == DESBLOQUEO) {
             messageStatus = getResources().getString(R.string.card_unlocked_success);
-            App.getInstance().setStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
+            App.getInstance().setStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
         }
 
         // Armamos
