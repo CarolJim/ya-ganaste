@@ -68,8 +68,8 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 public class MyCardFragment extends GenericFragment implements View.OnClickListener,
         IMyCardView, CompoundButton.OnCheckedChangeListener {
 
-    public static final int BLOQUEO = 1;
-    public static final int DESBLOQUEO = 2;
+    public static final int BLOQUEO = 2;
+    public static final int DESBLOQUEO = 1;
     @BindView(R.id.my_card_name_user)
     TextView mNameTV;
     @BindView(R.id.my_card_num_cuenta)

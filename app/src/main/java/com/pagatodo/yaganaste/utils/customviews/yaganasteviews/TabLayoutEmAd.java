@@ -43,7 +43,6 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
     private InviteAdquirenteCallback inviteAdquirenteCallback;
     private onBlockCard onBlockCard;
-    private clikbloquear clickbloquear;
     private clikdongle clickdongle;
 
     public TabLayoutEmAd(Context context) {

@@ -20,7 +20,6 @@ import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IBalanceView;
 import com.pagatodo.yaganaste.interfaces.IPurseView;
@@ -32,7 +31,6 @@ import com.pagatodo.yaganaste.ui.account.CardBack;
 import com.pagatodo.yaganaste.ui.account.CardCover;
 import com.pagatodo.yaganaste.ui.account.ILoginContainerManager;
 import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
-import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -86,7 +84,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     boolean clickFlip = false;
     private Handler flipTimmer;
     private Runnable runnableTimmer;
-    boolean pauseback=true;
+    boolean pauseback = true;
     private String Status;
 
     public static QuickBalanceFragment newInstance() {
@@ -124,7 +122,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
             if (accountPresenter != null) {
                 accountPresenter.setIView(this);
             }
-            }
+        }
     }
 
     @Override
@@ -150,7 +148,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
                 if (flipTimmer != null) {
                     flipTimmer.removeCallbacks(runnableTimmer);
                     flipTimmer = null;
-                    pauseback=false;
+                    pauseback = false;
                 }
                 loginContainerManager.loadLoginFragment();
                 break;
@@ -178,17 +176,17 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     public void onPause() {
         super.onPause();
         try {
-            if (accountPresenter.isBackShown() && pauseback==true){
+            if (accountPresenter.isBackShown() && pauseback == true) {
 
-                accountPresenter.flipCardemisor(R.id.llsaldo, CardBack.newInstance(accountPresenter));
+                accountPresenter.flipCardemisor(R.id.llsaldo, CardBack.newInstance(accountPresenter, Status));
             }
-        }catch (Exception e ){
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     private void doFlip() {
-        accountPresenter.flipCardemisor(R.id.llsaldo, CardBack.newInstance(accountPresenter));
+        accountPresenter.flipCardemisor(R.id.llsaldo, CardBack.newInstance(accountPresenter, Status));
 
         if (flipTimmer != null) {
             flipTimmer.removeCallbacks(runnableTimmer);
@@ -236,13 +234,14 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
             }
 
             //onRefresh();
-            accountPresenter.updateBalance();
+            //accountPresenter.updateBalance();
             //setData(preferencias.loadData(StringConstants.USER_BALANCE), preferencias.loadData(UPDATE_DATE));
         }
     }
 
     @Override
     public void onResume() {
+        accountPresenter.updateBalance();
         super.onResume();
     }
 
@@ -269,7 +268,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     public void updateStatus() {
         hideLoader();
         Status = App.getInstance().getStatusId();
-        accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter,Status));
+        accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter, Status));
     }
 
     @Override
@@ -318,7 +317,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     @Override
     public void showError(Object error) {
         //throw new IllegalCallException("this method is not implemented yet");
-        Log.d("Aqui","Hay Error");
+        Log.d("Aqui", "Hay Error");
     }
 
     @Override
@@ -329,7 +328,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-        Status = "2";
+        //Status = "2";
         try {
             //accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter,Status));
         } catch (Exception e) {
@@ -337,7 +336,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         }
         String cardNumber = preferencias.loadData(CARD_NUMBER);
 //                    Utils.getCurrencyValue(cardNumber))
-       //cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
+        //cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
     }
 
     @Override

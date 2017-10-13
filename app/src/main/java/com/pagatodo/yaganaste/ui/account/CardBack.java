@@ -4,11 +4,8 @@ import android.app.Fragment;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -16,7 +13,6 @@ import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
-import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 import com.pagatodo.yaganaste.utils.customviews.YaGanasteCardBack;
 
 import static com.pagatodo.yaganaste.utils.StringConstants.USER_BALANCE;
@@ -41,7 +37,7 @@ public class CardBack extends Fragment {
         this.presenter = presenter;
     }
 
-    public static CardBack newInstance(AccountPresenterNew presenter)
+    /*public static CardBack newInstance(AccountPresenterNew presenter)
     {
         CardBack fragment = new CardBack();
         Bundle bundle = new Bundle();
@@ -50,30 +46,26 @@ public class CardBack extends Fragment {
         //Note : I tried using bundle.setSerializable but Presenter has too many non Serializable objects.
         fragment.setPresenter(presenter);
         return fragment;
+    }*/
+
+    public static CardBack newInstance(AccountPresenterNew presenter, String status) {
+        CardBack fragment = new CardBack();
+        Bundle bundle = new Bundle();
+        bundle.putString(STATUS, status);
+        fragment.setArguments(bundle);
+        //Note : I tried using bundle.setSerializable but Presenter has too many non Serializable objects.
+        fragment.setPresenter(presenter);
+        return fragment;
     }
-
-    /**
-     *  public static CardBack newInstance(AccountPresenterNew presenter, String status)
-     {
-     CardBack fragment = new CardBack();
-     Bundle bundle = new Bundle();
-     bundle.putString(STATUS,status);
-     fragment.setArguments(bundle);
-     //Note : I tried using bundle.setSerializable but Presenter has too many non Serializable objects.
-     fragment.setPresenter(presenter);
-     return fragment;
-     }
-     *
-     * @param savedInstanceState
-     */
-
+    /* *
+     * @param savedInstanceState*/
 
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         //status = "1";
-        if(getArguments() != null){
+        if (getArguments() != null) {
             status = (getArguments().getString(STATUS));
         }
     }
@@ -81,11 +73,11 @@ public class CardBack extends Fragment {
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, Bundle savedInstanceState) {
-        rootView  = inflater.inflate(R.layout.fragment_view_card_back, container, false);
-        txtSaldo =(MontoTextView)rootView.findViewById(R.id.txt_saldo);
+        rootView = inflater.inflate(R.layout.fragment_view_card_back, container, false);
+        txtSaldo = (MontoTextView) rootView.findViewById(R.id.txt_saldo);
         cardSaldo = (YaGanasteCardBack) rootView.findViewById(R.id.cardSaldo);
 
-        switch (status){
+        switch (status) {
             case Recursos.ESTATUS_CUENTA_BLOQUEADA:
                 cardSaldo.setImageResource(R.mipmap.card_back_backmara_2);
                 break;

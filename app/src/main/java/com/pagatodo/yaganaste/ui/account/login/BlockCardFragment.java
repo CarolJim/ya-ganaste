@@ -130,7 +130,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        if (cardStatusId.equals("1")) {
+        if (cardStatusId.equals("2")) {
             // La tarjeta esta DESBLOQUEADA, mostramos la cCard Azul
             cardBlue.setVisibility(View.VISIBLE);
             cardGray.setVisibility(View.GONE);
