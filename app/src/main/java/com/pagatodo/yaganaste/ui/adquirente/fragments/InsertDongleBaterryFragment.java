@@ -108,7 +108,7 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
                 Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
                 App.getInstance().pos.openAudio();
                 App.getInstance().pos.getQposInfo();
-                //App.getInstance().emvListener.onQposIdResult();
+               //App.getInstance().emvListener.onQposIdResult();
                 getKSN();
                 //App.getInstance().pos.getQposId();
                 App.getInstance().pos.getQposId();
