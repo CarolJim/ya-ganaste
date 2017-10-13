@@ -131,6 +131,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         initViews();
         final View couchMark = view.findViewById(R.id.llsaldocontenedor);
         couchMark.setVisibility(View.VISIBLE);
+
         couchMark.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -193,16 +194,15 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     @Override
     public void onActivityCreated(@Nullable Bundle savedInstanceState) {
         super.onActivityCreated(savedInstanceState);
-
-
+        accountPresenter.loadCardCover(R.id.llsaldodongle, CardCoverAdquirienteDongle.newInstance(accountPresenter));
     }
 
     @Override
     public void onResume() {
         super.onResume();
-        Status = "2";
-        accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter,Status));
-        accountPresenter.loadCardCover(R.id.llsaldodongle, CardCoverAdquirienteDongle.newInstance(accountPresenter));
+        accountPresenter.updateBalance();
+        //accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter,Status));
+
     }
 
     @Override
@@ -258,6 +258,10 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         if (f == null || f.isEmpty() || f.equals("0")) {
             String mTDC = prefs.loadData(CARD_NUMBER);
             accountPresenter.geEstatusCuenta(mTDC);
+        } else {
+            Status = f;
+            App.getInstance().setStatusId(f);
+            accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter, f));
         }
     }
 
