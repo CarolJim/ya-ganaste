@@ -16,14 +16,15 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClient
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.DongleBatteryHome;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.HomeFragmentPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.Recursos;
-import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
@@ -41,13 +42,13 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 
 public class HomeTabFragment extends SupportFragment implements TabsView, TabLayoutEmAd.InviteAdquirenteCallback,
-        AbstractAdEmFragment.UpdateBalanceCallback,TabLayoutEmAd.onBlockCard {
+        AbstractAdEmFragment.UpdateBalanceCallback, TabLayoutEmAd.onBlockCard, TabLayoutEmAd.clikdongle {
 
     @BindView(R.id.my_card_name_user)
     TextView mNameTV;
     @BindView(R.id.my_card_num_cuenta)
     TextView mCuentaTV;
-    private String  mTDC;
+    private String mTDC;
     PreferUserPresenter mPreferPresenter;
 
     private NoSwipeViewPager pagerAdquirente;
@@ -55,7 +56,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     private HomeFragmentPresenter homeFragmentPresenter;
     private TabLayoutEmAd tabLayoutEmAd;
     private GenericPagerAdapter pagerAdapter;
-    private String nombreCompleto,cuentaUsuario;
+    private String nombreCompleto, cuentaUsuario;
 
     CircleImageView imageView;
 
@@ -90,7 +91,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     @Override
     public void onResume() {
         super.onResume();
-        if (tabLayoutEmAd != null){
+        if (tabLayoutEmAd != null) {
             tabLayoutEmAd.updatestatusCard();
         }
     }
@@ -101,6 +102,8 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         pagerAdquirente = (NoSwipeViewPager) rootView.findViewById(R.id.pager_adquirente);
         homeFragmentPresenter.getPagerData(ViewPagerDataFactory.TABS.HOME_FRAGMENT);
         tabLayoutEmAd.setInviteAdquirenteCallback(this);
+        tabLayoutEmAd.setOnBlockCard(this);
+        tabLayoutEmAd.setClickdongle(this);
         tabLayoutEmAd.setOnBlockCard(this);
         tabLayoutEmAd.setUpWithViewPager(pagerAdquirente);
         cardEmisorSelected = new CardEmisorSelected(getContext());
@@ -134,8 +137,6 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     }
 
 
-
-
     @Override
     public void onInviteAdquirente() {
         if (onEventListener != null) {
@@ -159,36 +160,36 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     }
 
     public PaymentsFragment getPaymentsFragment() {
-        return (PaymentsFragment)pagerAdapter.getItem(1);
+        return (PaymentsFragment) pagerAdapter.getItem(1);
     }
 
-    public void setCurrentItem(int item){
+    public void setCurrentItem(int item) {
         pagerAdquirente.setCurrentItem(item);
 
 
     }
 
-    public String nombre(){
+    public String nombre() {
         UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
 
         String nombreprimerUser;
 
         String apellidoMostrarUser;
-        if (userData.getPrimerApellido().isEmpty()){
-            apellidoMostrarUser=userData.getSegundoApellido();
-        }else {
-            apellidoMostrarUser=userData.getPrimerApellido();
+        if (userData.getPrimerApellido().isEmpty()) {
+            apellidoMostrarUser = userData.getSegundoApellido();
+        } else {
+            apellidoMostrarUser = userData.getPrimerApellido();
         }
-        nombreprimerUser= StringUtils.getFirstName(userData.getNombre());
-        if (nombreprimerUser.isEmpty()){
-            nombreprimerUser=userData.getNombre();
+        nombreprimerUser = StringUtils.getFirstName(userData.getNombre());
+        if (nombreprimerUser.isEmpty()) {
+            nombreprimerUser = userData.getNombre();
 
         }
 
         //tv_name.setText(mName);
         //mNameTV.setText(nombreprimerUser+" "+apellidoMostrarUser);
 
-        nombreCompleto=nombreprimerUser+" "+apellidoMostrarUser;
+        nombreCompleto = nombreprimerUser + " " + apellidoMostrarUser;
 
         return nombreCompleto;
     }
@@ -197,10 +198,11 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     @Override
     public void onLongClickBlockCard() {
         String nombre = nombre();
-        String cuenta= cuenta();
-        Intent intent = new Intent(getContext(),TarjetaActivity.class);
+        String cuenta = cuenta();
+        Intent intent = new Intent(getContext(), TarjetaActivity.class);
         startActivity(intent);
     }
+
 
     private Boolean estadoTarejta() {
         String statusId = SingletonUser.getInstance().getCardStatusId();
@@ -208,11 +210,11 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
             //mycard_switch.setChecked(false);
             //imgStatus.setImageResource(R.drawable.ic_candado_open);
-            estado=true;
+            estado = true;
         } else {
             //mycard_switch.setChecked(true);
             //imgStatus.setImageResource(R.drawable.ic_candado_closed);
-            estado=false;
+            estado = false;
         }
         return estado;
     }
@@ -220,8 +222,53 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
     private String cuenta() {
         UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
         mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
-        cuentaUsuario=(getResources().getString(R.string.tarjeta) + ": " + StringUtils.ocultarCardNumberFormat(mTDC));
+        cuentaUsuario = (getResources().getString(R.string.tarjeta) + ": " + StringUtils.ocultarCardNumberFormat(mTDC));
         //mCuentaTV.setText(getResources().getString(R.string.tarjeta) + ": " + StringUtils.ocultarCardNumberFormat(mTDC));
         return cuentaUsuario;
+    }
+
+    private void checkDataCard() {
+        /**
+         * Si tenemos Internet consumos el servicio para actualizar la informacion de la ceunta,
+         * consulamos el estado de bloquero y la informacion de ultimo acceso
+         * else mostramos la unformacion que traemos desde sl Singleton
+         */
+        boolean isOnline = Utils.isDeviceOnline();
+        if (isOnline) {
+            // Verificamos el estado de bloqueo de la Card
+            String f = SingletonUser.getInstance().getCardStatusId();
+            if (f == null || f.isEmpty() || f.equals("0")) {
+                mPreferPresenter.toPresenterEstatusCuenta(mTDC);
+            }
+
+            // Obtenemos el estado de la Card actual
+            // Creamos el objeto ActualizarAvatarRequest
+            // TODO Frank se comento este metodo debido a cambios, borrar en versiones posteriores
+            /*ActualizarDatosCuentaRequest datosCuentaRequest = new ActualizarDatosCuentaRequest();
+            mPreferPresenter.sendPresenterUpdateDatosCuenta(datosCuentaRequest);*/
+        } else {
+            showDialogMesage(getResources().getString(R.string.no_internet_access));
+        }
+    }
+
+    private void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
+    }
+
+    @Override
+    public void longclickdongle() {
+        Intent intent = new Intent(getContext(), DongleBatteryHome.class);
+        startActivity(intent);
     }
 }

@@ -8,6 +8,7 @@ import android.graphics.Bitmap;
  */
 
 public interface IPursePresenter {
+    void flipCardemisor(int container, Fragment fragment);
     void flipCard(int container, Fragment fragment);
     void flipCarddongle(int container, Fragment fragment);
     void loadCardCover(int container, Fragment fragment);

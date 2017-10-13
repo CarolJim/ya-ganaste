@@ -307,11 +307,12 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         String messageStatus = "";
         if (statusBloqueo == BLOQUEO) {
             messageStatus = getResources().getString(R.string.card_locked_success);
-            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
+            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
+            checkState(Recursos.ESTATUS_CUENTA_BLOQUEADA);
         } else if (statusBloqueo == DESBLOQUEO) {
             messageStatus = getResources().getString(R.string.card_unlocked_success);
-            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
-
+            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
+            checkState(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
         }
 
         showDialogCustom(messageStatus +

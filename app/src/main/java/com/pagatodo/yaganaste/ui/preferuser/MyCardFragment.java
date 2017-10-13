@@ -254,10 +254,10 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
         String messageStatus = "";
         if (statusBloqueo == BLOQUEO) {
             messageStatus = getResources().getString(R.string.card_locked_success);
-            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
+            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
         } else if (statusBloqueo == DESBLOQUEO) {
             messageStatus = getResources().getString(R.string.card_unlocked_success);
-            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_BLOQUEADA);
+            SingletonUser.getInstance().setCardStatusId(Recursos.ESTATUS_CUENTA_DESBLOQUEADA);
 
         }
 

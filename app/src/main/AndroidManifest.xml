@@ -179,7 +179,8 @@
         <activity android:name=".ui._controllers.manager.AddNewFavoritesActivity" />
         <activity android:name=".ui._controllers.manager.EditFavoritesActivity" />
         <activity android:name=".ui._controllers.CropActivity" />
-        <activity android:name=".ui._controllers.TarjetaActivity"></activity>
+        <activity android:name=".ui._controllers.TarjetaActivity" />
+        <activity android:name=".ui._controllers.manager.DongleBatteryHome"></activity>
     </application>
 
 </manifest>

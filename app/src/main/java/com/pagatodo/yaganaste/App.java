@@ -47,6 +47,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
  */
 
 public class App extends Application {
+
     private static App m_singleton;
     private CountDownTimer countDownTimer;
     private SupportFragmentActivity currentActivity;
