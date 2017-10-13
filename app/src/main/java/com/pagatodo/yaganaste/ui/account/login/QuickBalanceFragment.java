@@ -261,6 +261,10 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
             //String mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
             String mTDC = preferencias.loadData(CARD_NUMBER);
             accountPresenter.geEstatusCuenta(mTDC);
+        } else {
+            Status = f;
+            App.getInstance().setStatusId(f);
+            accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter, f));
         }
     }
 
@@ -317,7 +321,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     @Override
     public void showError(Object error) {
         //throw new IllegalCallException("this method is not implemented yet");
-        Log.d("Aqui", "Hay Error");
+
     }
 
     @Override

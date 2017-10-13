@@ -133,11 +133,12 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         mClabe = usuarioClienteResponse.getCuentas().get(0).getCLABE();
         mLastTime = "";
 
+        presenterAccount = new AccountPresenterNew(this);
+        mPreferPresenter = new PreferUserPresenter(this);
 
         loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage));
 
-        presenterAccount = new AccountPresenterNew(this);
-        mPreferPresenter = new PreferUserPresenter(this);
+
 
         mContext = this;
 

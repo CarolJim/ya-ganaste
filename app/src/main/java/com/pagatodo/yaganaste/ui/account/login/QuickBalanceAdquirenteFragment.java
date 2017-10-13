@@ -258,6 +258,10 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         if (f == null || f.isEmpty() || f.equals("0")) {
             String mTDC = prefs.loadData(CARD_NUMBER);
             accountPresenter.geEstatusCuenta(mTDC);
+        } else {
+            Status = f;
+            App.getInstance().setStatusId(f);
+            accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter, f));
         }
     }
 
