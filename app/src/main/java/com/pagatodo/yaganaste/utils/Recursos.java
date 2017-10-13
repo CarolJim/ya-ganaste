@@ -41,12 +41,15 @@ public class Recursos {
             URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
             URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
             //URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc";
-            URL_SERVER_ADQ = "http://10.10.45.13:8041/Middleware.svc";
+            URL_SERVER_ADQ = "https://agentemovildes.pagatodo.com/AgenteMovil_YG/Middleware.svc";
+            //URL_SERVER_ADQ = "http://10.10.45.13:8041/Middleware.svc";
 
             PUBLIC_KEY_RSA = "rk2QHAmXByr9wIf6d1cgU+f9NtKvj2xWvRv2wUcZSMVvhfTkcoWLG/CxEK+weoS3QcxxEWKFrWgwhYABXpkGhlXiqH7GyRIhv2kQtuZlGJJSIExd2asJrtjDnfStu7ZKbdIpLzqFUfo8naDhCuQTzhyApyJQ9HDcOSTFuRhJ7Mz3gXwUXqr98i+he+iYCzyrMViP+o4UPUqfNcpSafUw4NYre9KEZoHMaKcPMR4bMjax3Payt9LDAU3KgBOnWS9Ga6WffE03tpAWqE3ape61CmPw5QKPgRNKSnV70wu7f02jmstEepM35aSf3gL9SKMUv3DkwYIpifhNYPbdKCh+BQ==";
 
-            PIN_ADVO = "7efe5f94dd626075a09f49503b0403c2db388f7c";
-            PIN_TRANS = "7efe5f94dd626075a09f49503b0403c2db388f7c";
+            //PIN_ADVO = "7efe5f94dd626075a09f49503b0403c2db388f7c";
+            PIN_ADVO = "275a28946f92da9acab52475df6ec73a10a40811";
+            //PIN_TRANS = "7efe5f94dd626075a09f49503b0403c2db388f7c";
+            PIN_TRANS = "275a28946f92da9acab52475df6ec73a10a40811";
             PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
             PT_CLIENT_CODE = "775363";
 
@@ -56,23 +59,29 @@ public class Recursos {
                 URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
                 URL_SERVER_TRANS = "http://189.201.137.21:8032/ServicioYaGanasteTrans.svc";
                 //URL_SERVER_ADQ = "http://agentemovildes.pagatodo.com/agentemovil.svc";
-                URL_SERVER_ADQ = "http://10.10.45.13:8041/Middleware.svc";
+                URL_SERVER_ADQ = "https://agentemovildes.pagatodo.com/AgenteMovil_YG/Middleware.svc";
+                //URL_SERVER_ADQ = "http://10.10.45.13:8041/Middleware.svc";
 
                 PUBLIC_KEY_RSA = "rk2QHAmXByr9wIf6d1cgU+f9NtKvj2xWvRv2wUcZSMVvhfTkcoWLG/CxEK+weoS3QcxxEWKFrWgwhYABXpkGhlXiqH7GyRIhv2kQtuZlGJJSIExd2asJrtjDnfStu7ZKbdIpLzqFUfo8naDhCuQTzhyApyJQ9HDcOSTFuRhJ7Mz3gXwUXqr98i+he+iYCzyrMViP+o4UPUqfNcpSafUw4NYre9KEZoHMaKcPMR4bMjax3Payt9LDAU3KgBOnWS9Ga6WffE03tpAWqE3ape61CmPw5QKPgRNKSnV70wu7f02jmstEepM35aSf3gL9SKMUv3DkwYIpifhNYPbdKCh+BQ==";
 
-                PIN_ADVO = "7efe5f94dd626075a09f49503b0403c2db388f7c";
-                PIN_TRANS = "7efe5f94dd626075a09f49503b0403c2db388f7c";
+                //PIN_ADVO = "7efe5f94dd626075a09f49503b0403c2db388f7c";
+                PIN_ADVO = "275a28946f92da9acab52475df6ec73a10a40811";
+                //PIN_TRANS = "7efe5f94dd626075a09f49503b0403c2db388f7c";
+                PIN_TRANS = "275a28946f92da9acab52475df6ec73a10a40811";
                 PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
                 PT_CLIENT_CODE = "775363";
             } else {
                 URL_SERVER_ADTVO = "https://wcf.yaganaste.com:8031/ServicioYaGanasteAdtvo.svc";
                 URL_SERVER_TRANS = "https://wcf.yaganaste.com:8032/ServicioYaGanasteTrans.svc";
                 URL_SERVER_ADQ = "https://agentemovil.pagatodo.com:19443/Middleware.svc";
+                //URL_SERVER_ADQ = "https://agentemovildes.pagatodo.com/AgenteMovil_YG/Middleware.svc";
 
                 PUBLIC_KEY_RSA = "pIznw1pWFzzOVI+Shkg56ujssxRhQv1DTHeU5LMtgSNCOY3iw1TacI6+Db/YUQsexjvfEcjQsg9QOJp3Q1maI5hEMiWG84tsKBpgBckZoDKcaoN7JtGo3p2BIG/eCm1yLmxSrDpcnNZ6Z8GnUGaQPWxy75E8/U57XrpAyURFNTbbeq0uSxkcoB/5xmyjoECTKpWfD+M8PpAnisBLd0oSYTZ+tmBdgLPQJOe794ZyV+DoX5eU9G7hKx1onCHpuPb/xtx3rnMUIR2qB0sD0hKAjXsyvEiNrrihfxLa3IdcEnWn5CcxcsYiaSJqLlDKlkr+07ji/CqYm5hcvr2CbhhUfw==";
 
-                PIN_ADVO = "7efe5f94dd626075a09f49503b0403c2db388f7c";
-                PIN_TRANS = "7efe5f94dd626075a09f49503b0403c2db388f7c";
+                //PIN_ADVO = "7efe5f94dd626075a09f49503b0403c2db388f7c";
+                PIN_ADVO = "275a28946f92da9acab52475df6ec73a10a40811";
+                //PIN_TRANS = "7efe5f94dd626075a09f49503b0403c2db388f7c";
+                PIN_TRANS = "275a28946f92da9acab52475df6ec73a10a40811";
                 PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
                 PT_CLIENT_CODE = null;
             }
