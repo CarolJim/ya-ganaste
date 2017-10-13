@@ -41,16 +41,33 @@ public class CardBack extends Fragment {
         this.presenter = presenter;
     }
 
-    public static CardBack newInstance(AccountPresenterNew presenter, String status)
+    public static CardBack newInstance(AccountPresenterNew presenter)
     {
         CardBack fragment = new CardBack();
         Bundle bundle = new Bundle();
-        bundle.putString(STATUS,status);
+
         fragment.setArguments(bundle);
         //Note : I tried using bundle.setSerializable but Presenter has too many non Serializable objects.
         fragment.setPresenter(presenter);
         return fragment;
     }
+
+    /**
+     *  public static CardBack newInstance(AccountPresenterNew presenter, String status)
+     {
+     CardBack fragment = new CardBack();
+     Bundle bundle = new Bundle();
+     bundle.putString(STATUS,status);
+     fragment.setArguments(bundle);
+     //Note : I tried using bundle.setSerializable but Presenter has too many non Serializable objects.
+     fragment.setPresenter(presenter);
+     return fragment;
+     }
+     *
+     * @param savedInstanceState
+     */
+
+
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {

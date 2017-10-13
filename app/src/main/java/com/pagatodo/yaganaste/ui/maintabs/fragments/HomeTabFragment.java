@@ -16,6 +16,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClient
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.DongleBatteryHome;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.controlles.TabsView;
 import com.pagatodo.yaganaste.ui.maintabs.factories.ViewPagerDataFactory;
@@ -42,6 +43,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeTabFragment extends SupportFragment implements TabsView, TabLayoutEmAd.InviteAdquirenteCallback,
         AbstractAdEmFragment.UpdateBalanceCallback,TabLayoutEmAd.onBlockCard {
+        AbstractAdEmFragment.UpdateBalanceCallback,TabLayoutEmAd.clikbloquear,TabLayoutEmAd.clikdongle {
 
     @BindView(R.id.my_card_name_user)
     TextView mNameTV;
@@ -101,6 +103,8 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         pagerAdquirente = (NoSwipeViewPager) rootView.findViewById(R.id.pager_adquirente);
         homeFragmentPresenter.getPagerData(ViewPagerDataFactory.TABS.HOME_FRAGMENT);
         tabLayoutEmAd.setInviteAdquirenteCallback(this);
+        tabLayoutEmAd.setClickbloquear(this);
+        tabLayoutEmAd.setClickdongle(this);
         tabLayoutEmAd.setOnBlockCard(this);
         tabLayoutEmAd.setUpWithViewPager(pagerAdquirente);
         cardEmisorSelected = new CardEmisorSelected(getContext());
@@ -202,6 +206,7 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         startActivity(intent);
     }
 
+
     private Boolean estadoTarejta() {
         String statusId = SingletonUser.getInstance().getCardStatusId();
         Boolean estado;
@@ -223,5 +228,49 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         cuentaUsuario=(getResources().getString(R.string.tarjeta) + ": " + StringUtils.ocultarCardNumberFormat(mTDC));
         //mCuentaTV.setText(getResources().getString(R.string.tarjeta) + ": " + StringUtils.ocultarCardNumberFormat(mTDC));
         return cuentaUsuario;
+    }
+
+    private void checkDataCard() {
+        /**
+         * Si tenemos Internet consumos el servicio para actualizar la informacion de la ceunta,
+         * consulamos el estado de bloquero y la informacion de ultimo acceso
+         * else mostramos la unformacion que traemos desde sl Singleton
+         */
+        boolean isOnline = Utils.isDeviceOnline();
+        if (isOnline) {
+            // Verificamos el estado de bloqueo de la Card
+            String f = SingletonUser.getInstance().getCardStatusId();
+            if (f == null || f.isEmpty() || f.equals("0")) {
+                mPreferPresenter.toPresenterEstatusCuenta(mTDC);
+            }
+
+            // Obtenemos el estado de la Card actual
+            // Creamos el objeto ActualizarAvatarRequest
+            // TODO Frank se comento este metodo debido a cambios, borrar en versiones posteriores
+            /*ActualizarDatosCuentaRequest datosCuentaRequest = new ActualizarDatosCuentaRequest();
+            mPreferPresenter.sendPresenterUpdateDatosCuenta(datosCuentaRequest);*/
+        } else {
+            showDialogMesage(getResources().getString(R.string.no_internet_access));
+        }
+    }
+    private void showDialogMesage(final String mensaje) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
+    }
+
+    @Override
+    public void longclickdongle() {
+        Intent intent = new Intent(getContext(),DongleBatteryHome.class);
+        startActivity(intent);
     }
 }

@@ -474,6 +474,20 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     }
 
     @Override
+    public void flipCardemisor(int container, Fragment fragment) {
+        try {
+            if (view.isAnimationAble()) {
+                view.flipCard(container, fragment, isBackShown);
+                view.changeBGVisibility(isBackShown);
+                isBackShown = !isBackShown;
+            }
+        }catch (Exception e){
+
+
+        }
+    }
+
+    @Override
     public void flipCard(int container, Fragment fragment) {
 
         try {

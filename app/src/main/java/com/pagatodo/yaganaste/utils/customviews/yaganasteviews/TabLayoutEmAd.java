@@ -43,6 +43,8 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
     private InviteAdquirenteCallback inviteAdquirenteCallback;
     private onBlockCard onBlockCard;
+    private clikbloquear clickbloquear;
+    private clikdongle clickdongle;
 
     public TabLayoutEmAd(Context context) {
         this(context, null);
@@ -92,6 +94,8 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         }
         updateData();
 
+
+
         cardEmisorSelected.setOnLongClickListener(new View.OnLongClickListener() {
 
 
@@ -101,6 +105,8 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
                 return false;
             }
         });
+
+
     }
 
     public void setUpWithViewPager(NoSwipeViewPager viewPager) {
@@ -112,6 +118,11 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
 
     public void setOnBlockCard(onBlockCard onBlockCard) {
         this.onBlockCard = onBlockCard;
+    }
+
+
+    public void setClickdongle(clikdongle clickdongle) {
+        this.clickdongle = clickdongle;
     }
 
     @Override
@@ -178,6 +189,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
             llMaterialEmisorContainer.removeAllViews();
             llMaterialEmisorContainer.addView(cardEmisor,
                     new LinearLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT));
+
         }
 
         LinearLayout.LayoutParams llAdquirenteBorderContainerParams = (LinearLayout.LayoutParams) llAdquirenteBorderContainer.getLayoutParams();
@@ -219,7 +231,15 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         llMaterialAdquirenteContainerParams.weight = 1.25f + 0.75f * offset;
         llMaterialAdquirenteContainerParams.leftMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * (1 - offset));
         llMaterialAdquirenteContainer.setLayoutParams(llMaterialAdquirenteContainerParams);
+        llMaterialAdquirenteContainer.setOnLongClickListener(new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View view) {
+                clickdongle.longclickdongle();
+                //Toast.makeText(getContext(), "fewfwefwef", Toast.LENGTH_SHORT).show();
 
+                return false;
+            }
+        });
     }
 
     public void setInviteAdquirenteCallback(InviteAdquirenteCallback inviteAdquirenteCallback) {
@@ -251,4 +271,8 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     public  interface onBlockCard {
         void onLongClickBlockCard();
     }
+    public  interface clikdongle{
+        void longclickdongle();
+    }
+
 }
