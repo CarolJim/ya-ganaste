@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.account.login;
 import android.app.Fragment;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
@@ -45,6 +46,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.FLIP_TIMER;
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
@@ -91,6 +93,9 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     private IQuickBalanceManager quickBalanceManager;
     private Preferencias prefs = App.getInstance().getPrefs();
     private String Status;
+    private Handler flipTimmer;
+    private Runnable runnableTimmer;
+    boolean pauseback = true;
 
     public static QuickBalanceAdquirenteFragment newInstance() {
         QuickBalanceAdquirenteFragment fragment = new QuickBalanceAdquirenteFragment();
@@ -131,13 +136,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         initViews();
         final View couchMark = view.findViewById(R.id.llsaldocontenedor);
         couchMark.setVisibility(View.VISIBLE);
-
-        couchMark.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                accountPresenter.flipCard(R.id.llsaldo, CardBackAdquiriente.newInstance(accountPresenter,Status));
-            }
-        });
+        couchMark.setOnClickListener(this);
 
         final View couchMarkdongle = view.findViewById(R.id.llsaldocontenedordongle);
         couchMarkdongle.setVisibility(View.VISIBLE);
@@ -233,6 +232,11 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnGoToLogin:
+                if (flipTimmer != null) {
+                    flipTimmer.removeCallbacks(runnableTimmer);
+                    flipTimmer = null;
+                    pauseback = false;
+                }
                 loginContainerManager.loadLoginFragment();
                 break;
             case R.id.imgArrowBack:
@@ -241,6 +245,52 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
             case R.id.imgArrowNext:
                 nextScreen(null, null);
                 break;
+            case R.id.llsaldocontenedor:
+                doFlip();
+
+                break;
+        }
+    }
+
+    private void doFlip() {
+        accountPresenter.flipCard(R.id.llsaldo, CardBackAdquiriente.newInstance(accountPresenter,Status));
+
+        if (flipTimmer != null) {
+            flipTimmer.removeCallbacks(runnableTimmer);
+            flipTimmer = null;
+        }
+
+        if (accountPresenter.isBackShown()) {
+            flipTimmer = new Handler();
+            runnableTimmer = new Runnable() {
+                @Override
+                public void run() {
+                    onClick(R.id.llsaldocontenedor);
+                }
+            };
+            flipTimmer.postDelayed(runnableTimmer, FLIP_TIMER);
+        }
+    }
+
+    public void onClick(int id) {
+        if (id == R.id.llsaldocontenedor) {
+            try {
+                doFlip();
+            } catch (Exception e) {
+                e.printStackTrace();
+            }
+        }
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+        try {
+            if (accountPresenter.isBackShown() && pauseback == true) {
+                accountPresenter.flipCard(R.id.llsaldo, CardBackAdquiriente.newInstance(accountPresenter, Status));
+            }
+        }catch (Exception e){
+            e.printStackTrace();
         }
     }
 

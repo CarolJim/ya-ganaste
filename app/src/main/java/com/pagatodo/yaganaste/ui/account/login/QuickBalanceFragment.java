@@ -177,7 +177,6 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         super.onPause();
         try {
             if (accountPresenter.isBackShown() && pauseback == true) {
-
                 accountPresenter.flipCardemisor(R.id.llsaldo, CardBack.newInstance(accountPresenter, Status));
             }
         } catch (Exception e) {
@@ -192,6 +191,7 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
             flipTimmer.removeCallbacks(runnableTimmer);
             flipTimmer = null;
         }
+
         if (accountPresenter.isBackShown()) {
             flipTimmer = new Handler();
             runnableTimmer = new Runnable() {
