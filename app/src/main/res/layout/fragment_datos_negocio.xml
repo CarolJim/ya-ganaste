@@ -104,29 +104,18 @@
         android:id="@+id/layoutBottom"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_gravity="center"
         android:layout_marginBottom="@dimen/btn_navigation_bottom"
         android:layout_marginLeft="@dimen/margin_big"
         android:layout_marginRight="@dimen/margin_big"
-        android:gravity="bottom"
+        android:gravity="center"
         android:orientation="horizontal"
         android:padding="2dp">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
-            android:id="@+id/btnBackBussinesInfo"
-            style="@style/buttonDirecctionBack"
-            android:layout_weight="1"
-            android:text="@string/backButton"
-            android:textAllCaps="false"
-            android:textSize="@dimen/generic_button_normal_text_size" />
-
-
-        <android.support.v4.widget.Space
-            android:layout_width="10dp"
-            android:layout_height="wrap_content" />
-
-        <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextBussinesInfo"
             style="@style/buttonDirecctionNext"
+            android:gravity="center"
             android:text="@string/nextButton"
             android:textAllCaps="false"
             android:textSize="@dimen/generic_button_normal_text_size" />

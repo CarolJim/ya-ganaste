@@ -19,13 +19,8 @@ import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
-import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
-import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
-import com.pagatodo.yaganaste.interfaces.IProgressView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
-import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
@@ -52,20 +47,17 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment.MIN_LENGHT_VALIDATION_CP;
-import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
-import static com.pagatodo.yaganaste.utils.Recursos.CUPO_PROCESS;
 
 /**
  * Created by Jordan on 25/07/2017.
  */
 
-public class CupoDomicilioPersonalFragment extends GenericFragment implements View.OnClickListener, ValidationForms, IViewDomicilioPersonal<ErrorObject> , IOnSpinnerClick, RadioGroup.OnCheckedChangeListener {
+public class CupoDomicilioPersonalFragment extends GenericFragment implements View.OnClickListener, ValidationForms, IViewDomicilioPersonal<ErrorObject>, IOnSpinnerClick, RadioGroup.OnCheckedChangeListener {
 
     protected View rootview;
     private CupoActivityManager cupoActivityManager;
 
     private String TAG = getClass().getSimpleName();
-
 
 
     // Campos de Vista
@@ -285,7 +277,6 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         });
 
 
-
         editBussinesZipCode.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
@@ -349,10 +340,9 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         }
 
 
-
     }
 
-    
+
     @Override
     public void validateForm() {
 
@@ -444,18 +434,17 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         registerCupo.setColonia(colonia);
         registerCupo.setIdColonia(Idcolonia);
         registerCupo.setIdEstadoNacimineto(idEstado);
-       // editBussinesZipCode.removeCustomTextWatcher(textWatcherZipCode);
+        // editBussinesZipCode.removeCustomTextWatcher(textWatcherZipCode);
 
-        Log.e("Calle",        registerCupo.getCalle() );
-        Log.e("numExt", ""  + registerCupo.getNumExterior());
-        Log.e("numInt", ""  + registerCupo.getNumInterior());
+        Log.e("Calle", registerCupo.getCalle());
+        Log.e("numExt", "" + registerCupo.getNumExterior());
+        Log.e("numInt", "" + registerCupo.getNumInterior());
         Log.e("Codigo Postal", "" + registerCupo.getCodigoPostal());
         Log.e("Estado", "" + registerCupo.getEstadoDomicilio());
-        Log.e("Colonia",""+ registerCupo.getColonia());
-        Log.e("Id Colonia",""+ registerCupo.getIdColonia());
+        Log.e("Colonia", "" + registerCupo.getColonia());
+        Log.e("Id Colonia", "" + registerCupo.getIdColonia());
         cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
         presenter.createCupoSolicitud();
-
 
 
     }
@@ -498,7 +487,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         }
     }
 
-    private void loadDataFromSigleton () {
+    private void loadDataFromSigleton() {
         onResume();
     }
 
@@ -572,12 +561,11 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
             radioIsBussinesAddress.check(R.id.radioBtnIsBussinesAddressNo);
         }
 
-       // editBussinesZipCode.setText("");
+        // editBussinesZipCode.setText("");
         error.setHasConfirm(true);
         error.setHasCancel(false);
         onEventListener.onEvent(EVENT_SHOW_ERROR, error);
     }
-
 
 
     @Override
@@ -601,9 +589,9 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         fillAdapter();
 
         if (colonyToLoad != null && !colonyToLoad.isEmpty()) {
-            for (int i = 0; i < listaColonias.size(); i ++ ) {
+            for (int i = 0; i < listaColonias.size(); i++) {
                 ColoniasResponse actual = listaColonias.get(i);
-                if (actual.getColoniaId().equals(colonyToLoad) ){
+                if (actual.getColoniaId().equals(colonyToLoad)) {
                     int spinnerPosition = adapterColonia.getPosition(actual.getColonia());
                     spBussinesColonia.setSelection(spinnerPosition);
                     break;
@@ -617,7 +605,7 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
 
     @Override
     public void setResponseCreaSolicitudCupo() {
-        App.getInstance().getPrefs().saveData( CUPO_PASO , CUPO_PASO_REGISTRO_ENVIADO);
+        App.getInstance().getPrefs().saveData(CUPO_PASO, CUPO_PASO_REGISTRO_ENVIADO);
         cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
     }
 
@@ -630,6 +618,11 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
     @Override
     public void onSpinnerClick() {
         hideValidationError(spBussinesColonia.getId());
+    }
+
+    @Override
+    public void onSubSpinnerClick() {
+
     }
 
 

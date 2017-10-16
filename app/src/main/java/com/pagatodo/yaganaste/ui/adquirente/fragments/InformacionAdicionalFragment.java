@@ -213,6 +213,11 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     }
 
     @Override
+    public void onSubSpinnerClick() {
+
+    }
+
+    @Override
     public void setValidationRules() {
         editCargo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override
