@@ -602,6 +602,11 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         hideValidationError(spBussinesColonia.getId());
     }
 
+    @Override
+    public void onSubSpinnerClick() {
+
+    }
+
     private void clearAllFocus() {
         editBussinesStreet.clearFocus();
         editBussinesExtNumber.clearFocus();

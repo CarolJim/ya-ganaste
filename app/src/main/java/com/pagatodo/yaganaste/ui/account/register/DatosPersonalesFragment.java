@@ -644,6 +644,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
     }
 
     @Override
+    public void onSubSpinnerClick() {
+
+    }
+
+    @Override
     public void onValidateUserDataSuccess() {
         onValidationSuccess();
     }

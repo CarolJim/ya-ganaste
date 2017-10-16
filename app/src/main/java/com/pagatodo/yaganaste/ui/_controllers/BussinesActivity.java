@@ -9,6 +9,7 @@ import android.view.Window;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.SubGiro;
@@ -49,7 +50,7 @@ public class BussinesActivity extends LoaderActivity {
 
 
     private DataObtenerDomicilio domicilio;
-    private List<SubGiro> girosComercio;
+    private List<Giros> girosComercio;
     private List<ColoniasResponse> listaColonias;
 
 
@@ -129,7 +130,7 @@ public class BussinesActivity extends LoaderActivity {
                 break;
 
             case EVENT_SET_BUSINESS_LIST:
-                this.girosComercio = (List<SubGiro>) o;
+                this.girosComercio = (List<Giros>) o;
                 break;
             case EVENT_SET_COLONIES_LIST:
                 this.listaColonias = (List<ColoniasResponse>) o;

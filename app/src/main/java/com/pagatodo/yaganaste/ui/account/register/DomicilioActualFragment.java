@@ -665,6 +665,11 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         hideValidationError(spColonia.getId());
     }
 
+    @Override
+    public void onSubSpinnerClick() {
+
+    }
+
 
     private void showDialogMesage(final String mensaje) {
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),

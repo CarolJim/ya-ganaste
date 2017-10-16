@@ -131,8 +131,9 @@ public class AccountAdqInteractor implements IAdqAccountIteractor, IRequestResul
         RegisterAgent registerAgent = RegisterAgent.getInstance();
         CrearAgenteRequest request = new CrearAgenteRequest();
         request.setNombreComercio(registerAgent.getNombre());
-        // TODO: 16/05/2017  
-        request.setSubGiro(registerAgent.getGiro().getIdSubgiro());
+        // TODO: 16/05/2017
+        request.setGiro(registerAgent.getGiro().getIdGiro());
+        request.setSubGiro(registerAgent.getSubGiros().getIdSubgiro());
         request.setNumeroTelefono(registerAgent.getTelefono());
         request.setTipoAgente(SingletonUser.getInstance().getDataUser().getUsuario().getTipoAgente());
         request.setCuestionario(registerAgent.getCuestionario());

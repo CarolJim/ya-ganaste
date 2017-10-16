@@ -14,26 +14,26 @@ import android.widget.EditText;
 import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.Giros;
+import com.pagatodo.yaganaste.data.model.SubGiro;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.List;
 
 /**
- * @author Jordan on 30/03/2017.
+ * @author omarz on 30/03/2017.
  */
 
-public class BussinesLineSpinnerAdapter extends ArrayAdapter<Giros> {
+public class SubBussinesLineSpinnerAdapter extends ArrayAdapter<SubGiro> {
 
     Context context;
     int mLayoutResourceId;
-    List<Giros> mList;
+    List<SubGiro> mList;
     IOnSpinnerClick spinnerClick;
 
 
-    public BussinesLineSpinnerAdapter(@NonNull Context con, @LayoutRes int resource,
-                                      @NonNull List<Giros> objects, IOnSpinnerClick iOnSpinnerClick) {
+    public SubBussinesLineSpinnerAdapter(@NonNull Context con, @LayoutRes int resource,
+                                         @NonNull List<SubGiro> objects, IOnSpinnerClick iOnSpinnerClick) {
         super(con, resource, objects);
         this.context = con;
         this.mLayoutResourceId = resource;
@@ -46,49 +46,49 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<Giros> {
         return mList.size();
     }
 
-    public Giros getItemSelected(int position) {
+    public SubGiro getItemSelected(int position) {
         return mList.get(position);
     }
 
-    public int getGiroId(int position) {
-        return mList.get(position).getIdGiro();
+    public int getSubGiroId(int position) {
+        return mList.get(position).getIdSubgiro();
     }
 
     @Override
     public View getDropDownView(int position, @Nullable View convertView, @NonNull ViewGroup parent) {
         View row = convertView;
-        BussinesLineSpinnerAdapter.DropDownHolder holder;
-        Giros item = mList.get(position);
+        SubBussinesLineSpinnerAdapter.DropDownHolder holder;
+        SubGiro item = mList.get(position);
 
         if (row == null) {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row = inflater.inflate(mLayoutResourceId, parent, false);
 
-            holder = new BussinesLineSpinnerAdapter.DropDownHolder();
+            holder = new SubBussinesLineSpinnerAdapter.DropDownHolder();
             holder.txtTitle = (StyleTextView) row.findViewById(R.id.textView_spinner);
             Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Regular.ttf");
             holder.txtTitle.setTypeface(typeface);
 
             row.setTag(holder);
         } else {
-            holder = (BussinesLineSpinnerAdapter.DropDownHolder) row.getTag();
+            holder = (SubBussinesLineSpinnerAdapter.DropDownHolder) row.getTag();
         }
 
         if (position == 0) {
             holder.txtTitle.setText("");
-            holder.txtTitle.setHint(item.getGiro());
+            holder.txtTitle.setHint(item.getSubgiro());
         } else {
-            holder.txtTitle.setText(item.getGiro());
+            holder.txtTitle.setText(item.getSubgiro());
         }
 
         return row;
     }
 
-    public int getItemPosition(@NonNull Giros giroComercio) {
-        Giros current;
+    public int getItemPosition(@NonNull SubGiro giroComercio) {
+        SubGiro current;
         for (int position = 0; position < mList.size(); position++) {
             current = mList.get(position);
-            if (giroComercio.getIdGiro() == current.getIdGiro()) {
+            if (giroComercio.getIdSubgiro() == current.getIdSubgiro()) {
                 return position;
             }
         }
@@ -99,8 +99,8 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<Giros> {
     @Override
     public View getView(int position, @Nullable View convertView, @NonNull final ViewGroup parent) {
         View row = convertView;
-        BussinesLineSpinnerAdapter.ViewHolder holder;
-        Giros item = mList.get(position);
+        SubBussinesLineSpinnerAdapter.ViewHolder holder;
+        SubGiro item = mList.get(position);
         Typeface typeface = Typeface.createFromAsset(getContext().getAssets(), "fonts/roboto/Roboto-Regular.ttf");
 
 
@@ -108,14 +108,14 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<Giros> {
             LayoutInflater inflater = ((Activity) context).getLayoutInflater();
             row = inflater.inflate(R.layout.spinner_custom_layout, parent, false);
 
-            holder = new BussinesLineSpinnerAdapter.ViewHolder();
+            holder = new SubBussinesLineSpinnerAdapter.ViewHolder();
             holder.editText = (EditText) row.findViewById(R.id.editTextCustomSpinner);
 
             holder.editText.setTypeface(typeface);
             holder.downArrow = (ImageView) row.findViewById(R.id.imageViewCustomSpinner);
             row.setTag(holder);
         } else {
-            holder = (BussinesLineSpinnerAdapter.ViewHolder) row.getTag();
+            holder = (SubBussinesLineSpinnerAdapter.ViewHolder) row.getTag();
         }
 
         View.OnClickListener onClick = new View.OnClickListener() {
@@ -136,10 +136,10 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<Giros> {
             }
         });
 
-        if (position == 0 && item.getIdGiro() == -1) {
-            holder.editText.setHint(item.getGiro());
+        if (position == 0 && item.getIdSubgiro() == -1) {
+            holder.editText.setHint(item.getSubgiro());
         } else {
-            holder.editText.setText(item.getGiro());
+            holder.editText.setText(item.getSubgiro());
         }
         holder.editText.setTypeface(typeface);
 

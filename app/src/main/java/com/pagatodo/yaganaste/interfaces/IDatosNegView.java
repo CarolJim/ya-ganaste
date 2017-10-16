@@ -1,6 +1,6 @@
 package com.pagatodo.yaganaste.interfaces;
 
-import com.pagatodo.yaganaste.data.model.SubGiro;
+import com.pagatodo.yaganaste.data.model.Giros;
 
 import java.util.List;
 
@@ -9,5 +9,5 @@ import java.util.List;
  */
 
 public interface IDatosNegView<E> extends IProgressView<E> {
-    void setGiros(List<SubGiro> giros);
+    void setGiros(List<Giros> giros);
 }

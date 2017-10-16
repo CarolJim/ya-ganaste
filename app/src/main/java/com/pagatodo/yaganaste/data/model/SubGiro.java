@@ -14,6 +14,11 @@ public class SubGiro implements Serializable {
     public SubGiro() {
     }
 
+    public SubGiro(int idSubgiro, String Subgiro) {
+        this.IdSubgiro = idSubgiro;
+        this.Subgiro = Subgiro;
+    }
+
     public int getIdSubgiro() {
         return IdSubgiro;
     }

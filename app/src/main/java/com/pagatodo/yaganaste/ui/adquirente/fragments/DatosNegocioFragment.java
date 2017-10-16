@@ -12,6 +12,7 @@ import android.widget.Spinner;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SubGiro;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -22,6 +23,7 @@ import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.DatosNegocioPresenter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
+import com.pagatodo.yaganaste.ui.account.register.adapters.SubBussinesLineSpinnerAdapter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
@@ -52,30 +54,34 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     CustomValidationEditText editBussinesName;
     @BindView(R.id.spinnerBussineLine)
     Spinner spinnerBussineLine;
+    @BindView(R.id.spinnerSubBussineLine)
+    Spinner spinnerSubBussineLine;
     @BindView(R.id.editBussinesPhone)
     CustomValidationEditText editBussinesPhone;
-    @BindView(R.id.btnBackBussinesInfo)
-    Button btnBackBussinesInfo;
+    /*@BindView(R.id.btnBackBussinesInfo)
+    Button btnBackBussinesInfo;*/
     @BindView(R.id.btnNextBussinesInfo)
     Button btnNextBussinesInfo;
     @BindView(R.id.errorBussinesNameMessage)
     ErrorMessage errorName;
     @BindView(R.id.errorBussineLineMessage)
     ErrorMessage errorBussineLine;
+    @BindView(R.id.errorSubBussineLineMessage)
+    ErrorMessage errorSubBussineLineMessage;
     @BindView(R.id.errorBussinesPhoneMessage)
     ErrorMessage errorPhone;
     private View rootview;
     private String nombre = "";
     private String telefono = "";
 
-    private List<SubGiro> girosComercio;
-
+    private List<Giros> girosComercio;
 
     private BussinesLineSpinnerAdapter giroArrayAdapter;
+    private SubBussinesLineSpinnerAdapter subgiroArrayAdapter;
     private DatosNegocioPresenter datosNegocioPresenter;
 
 
-    public static DatosNegocioFragment newInstance(List<SubGiro> girosComercio) {
+    public static DatosNegocioFragment newInstance(List<Giros> girosComercio) {
         DatosNegocioFragment fragmentRegister = new DatosNegocioFragment();
         Bundle args = new Bundle();
         args.putSerializable(GIROS, (Serializable) girosComercio);
@@ -91,7 +97,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         if (args != null) {
             Serializable subgiros = args.getSerializable(GIROS);
             if (subgiros != null) {
-                this.girosComercio = (List<SubGiro>) subgiros;
+                this.girosComercio = (List<Giros>) subgiros;
             }
 
         }
@@ -113,16 +119,16 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
         if (girosComercio == null) {
             girosComercio = new ArrayList<>();
-
-            SubGiro giroHint = new SubGiro();
-            giroHint.setSubgiro(getString(R.string.giro_commerce_spinner));
-            giroHint.setIdSubgiro(-1);
-            giroHint.setIdSubgiro(-1);
+            Giros giroHint = new Giros();
+            giroHint.setGiro(getString(R.string.giro_commerce_spinner));
+            giroHint.setIdGiro(-1);
+            List<SubGiro> subgiroHint = new ArrayList<SubGiro>();
+            subgiroHint.add(new SubGiro(-1, getString(R.string.subgiro_commerce)));
+            giroHint.setListaSubgiros(subgiroHint);
             girosComercio.add(giroHint);
         }
 
-
-        btnBackBussinesInfo.setOnClickListener(this);
+        /*btnBackBussinesInfo.setOnClickListener(this);*/
         btnNextBussinesInfo.setOnClickListener(this);
         giroArrayAdapter = new BussinesLineSpinnerAdapter(getActivity(),
                 R.layout.spinner_layout, girosComercio, this);
@@ -131,6 +137,15 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         spinnerBussineLine.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                List<SubGiro> list = girosComercio.get(position).getListaSubgiros();
+                if (list != null) {
+                    list.add(0, new SubGiro(-1, getString(R.string.subgiro_commerce)));
+                    subgiroArrayAdapter = new SubBussinesLineSpinnerAdapter(getActivity(),
+                            R.layout.spinner_layout, list, DatosNegocioFragment.this);
+                    spinnerSubBussineLine.setAdapter(subgiroArrayAdapter);
+                    spinnerSubBussineLine.setVisibility(View.VISIBLE);
+                    errorSubBussineLineMessage.setVisibility(View.VISIBLE);
+                }
                 onSpinnerClick();
             }
 
@@ -139,12 +154,22 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                 onSpinnerClick();
             }
         });
+        spinnerSubBussineLine.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
+                onSubSpinnerClick();
+            }
+
+            @Override
+            public void onNothingSelected(AdapterView<?> parent) {
+                onSubSpinnerClick();
+            }
+        });
 
         setValidationRules();
     }
 
     private void initValues() {
-
         if (girosComercio.size() == 1) {
             datosNegocioPresenter.getGiros();
         } else {
@@ -153,7 +178,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     }
 
     @Override
-    public void setGiros(List<SubGiro> giros) {
+    public void setGiros(List<Giros> giros) {
         girosComercio.addAll(giros);
         setCurrentData();// Seteamos datos si hay registro en proceso.
     }
@@ -161,10 +186,10 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     @Override
     public void onClick(View view) {
         switch (view.getId()) {
-            case R.id.btnBackBussinesInfo:
+           /* case R.id.btnBackBussinesInfo:
                 RegisterAgent.resetRegisterAgent();
                 getActivity().finish();
-                break;
+                break;*/
             case R.id.btnNextBussinesInfo:
                 validateForm();
                 break;
@@ -244,8 +269,13 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             isValid = false;
         }
 
-        if (giroArrayAdapter.getItem(spinnerBussineLine.getSelectedItemPosition()).getIdSubgiro() == -1) {
+        if (giroArrayAdapter.getItem(spinnerBussineLine.getSelectedItemPosition()).getIdGiro() == -1) {
             showValidationError(spinnerBussineLine.getId(), getString(R.string.datos_negocio_giro));
+            isValid = false;
+        }
+
+        if (subgiroArrayAdapter.getItem(spinnerSubBussineLine.getSelectedItemPosition()).getIdSubgiro() == -1) {
+            showValidationError(spinnerSubBussineLine.getId(), getString(R.string.datos_negocio_subgiro));
             isValid = false;
         }
 
@@ -277,6 +307,9 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             case R.id.spinnerBussineLine:
                 errorBussineLine.setMessageText(error.toString());
                 break;
+            case R.id.spinnerSubBussineLine:
+                errorSubBussineLineMessage.setMessageText(error.toString());
+                break;
             case R.id.editBussinesPhone:
                 errorPhone.setMessageText(error.toString());
                 break;
@@ -296,6 +329,9 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             case R.id.spinnerBussineLine:
                 errorBussineLine.setVisibilityImageError(false);
                 break;
+            case R.id.spinnerSubBussineLine:
+                errorSubBussineLineMessage.setVisibilityImageError(false);
+                break;
             case R.id.editBussinesPhone:
                 errorPhone.setVisibilityImageError(false);
                 break;
@@ -309,6 +345,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         registerAgent.setNombre(nombre);
         registerAgent.setTelefono(telefono);
         registerAgent.setGiro(giroArrayAdapter.getItem(spinnerBussineLine.getSelectedItemPosition()));
+        registerAgent.setSubGiros(subgiroArrayAdapter.getItemSelected(spinnerSubBussineLine.getSelectedItemPosition()));
 
         onEventListener.onEvent(EVENT_SET_BUSINESS_LIST, girosComercio);
 
@@ -332,7 +369,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         editBussinesName.setText(registerAgent.getNombre());
         editBussinesPhone.setText(registerAgent.getTelefono());
         spinnerBussineLine.setSelection(giroArrayAdapter.getItemPosition(registerAgent.getGiro()));
-
+        //spinnerSubBussineLine.setSelection(subgiroArrayAdapter.getItemPosition(registerAgent.getSubGiros()));
     }
 
     @Override
@@ -381,6 +418,14 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         editBussinesName.clearFocus();
         editBussinesPhone.clearFocus();
         spinnerBussineLine.requestFocus();
+    }
+
+    @Override
+    public void onSubSpinnerClick() {
+        hideValidationError(spinnerSubBussineLine.getId());
+        editBussinesName.clearFocus();
+        editBussinesPhone.clearFocus();
+        spinnerSubBussineLine.requestFocus();
     }
 }
 

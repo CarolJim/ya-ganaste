@@ -2,7 +2,6 @@ package com.pagatodo.yaganaste.data.model.webservice.request.adtvo;
 
 import com.google.gson.annotations.SerializedName;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
-import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 
 import java.io.Serializable;
@@ -23,7 +22,8 @@ public class CrearAgenteRequest implements Serializable {
     private String numeroTelefono = "";
     @SerializedName("RazonSocial")
     private String razonSocial = "";
-    //private int Giro;
+    @SerializedName("Giro")
+    private int giro;
     @SerializedName("SubGiro")
     private int subGiro;
     @SerializedName("RFC")
@@ -42,9 +42,10 @@ public class CrearAgenteRequest implements Serializable {
         cuestionario = new ArrayList<>();
     }
 
-    public CrearAgenteRequest(RegisterAgent registerAgent, int tipoAgente){
+    public CrearAgenteRequest(RegisterAgent registerAgent, int tipoAgente) {
         nombreComercio = registerAgent.getNombre();
-        subGiro = registerAgent.getGiro().getIdSubgiro();
+        giro = registerAgent.getGiro().getIdGiro();
+        subGiro = registerAgent.getSubGiros().getIdSubgiro();
         numeroTelefono = registerAgent.getTelefono();
         this.tipoAgente = tipoAgente;
         cuestionario = registerAgent.getCuestionario();
@@ -132,6 +133,14 @@ public class CrearAgenteRequest implements Serializable {
 
     public void setLongitud(int longitud) {
         this.longitud = longitud;
+    }
+
+    public int getGiro() {
+        return giro;
+    }
+
+    public void setGiro(int giro) {
+        this.giro = giro;
     }
 
     public List<CuestionarioEntity> getCuestionario() {

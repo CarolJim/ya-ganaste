@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.account;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
+import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.data.model.SubGiro;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerSubgirosResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
@@ -53,7 +54,7 @@ public class DatosNegocioInteractor implements IDatosNegocioIteractor, IRequestR
         ObtenerSubgirosResponse data = (ObtenerSubgirosResponse) result.getData();
 
         if (data.getCodigoRespuesta() == CODE_OK) {
-            List<SubGiro> subGiros = data.getData();
+            List<Giros> subGiros = data.getData();
             if (subGiros != null) {
                 iNegocioManager.onSucces(result.getWebService(), subGiros);
             } else {
