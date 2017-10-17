@@ -219,6 +219,7 @@ public class IposListener implements QPOSServiceListener {
         } else {
             enviaMensaje(Recursos.READ_KSN_ERROR, null, context.getString(R.string.input_invalid));
             enviaMensaje(Recursos.SW_ERROR, null, context.getString(R.string.input_invalid));
+
         }
 
     }
