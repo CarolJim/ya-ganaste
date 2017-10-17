@@ -45,6 +45,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/back_edittext_gray"
                 android:focusable="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:hint="Concepto (Opcional)"
                 android:inputType="text|textNoSuggestions|textCapSentences"
