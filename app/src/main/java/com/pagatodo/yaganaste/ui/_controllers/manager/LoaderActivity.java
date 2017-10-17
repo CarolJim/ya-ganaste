@@ -82,6 +82,7 @@ public abstract class LoaderActivity extends ToolBarActivity implements OnEventL
                 App.getContext().startActivity(intent);
                 break;*/
             default:
+
                 break;
         }
     }

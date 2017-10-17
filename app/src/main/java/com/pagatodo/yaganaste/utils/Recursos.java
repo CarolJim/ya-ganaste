@@ -233,6 +233,7 @@ public class Recursos {
     public static final String IDERROR = "IDERROR";
     public static final String BATTERY_LEVEL = "BATTERY_LEVEL";
     public static final String READER_IS_CHARGING = "READER_IS_CHARGING";
+    public static final String BATTERY_PORCENTAGE = "BATTERY_PORCENTAGE";
     public static final String KSN_LECTOR = "KSN_LECTOR";
 
     /*Url Legales*/

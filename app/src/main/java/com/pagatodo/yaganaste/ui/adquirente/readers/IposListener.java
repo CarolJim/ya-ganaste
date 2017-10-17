@@ -186,11 +186,19 @@ public class IposListener implements QPOSServiceListener {
     public void onQposInfoResult(Hashtable<String, String> posInfoData) {
         Log.i("IposListener: ", "------ onQposInfoResult");
         int batteryLevel = 0;
+        String batteryporcentage="0";
+
         if (posInfoData.get("batteryLevel") != null) {
             batteryLevel = Integer.parseInt(posInfoData.get("batteryLevel").split(" ")[0]);
         }
+        if (posInfoData.get("batteryPercentage") != null) {
+            batteryporcentage = posInfoData.get("batteryPercentage").split("%")[0];
+        }
+
+
         boolean isCharging = posInfoData.get("isCharging") == null ? false : Boolean.parseBoolean(posInfoData.get("isCharging"));
-        sendBateryLevel(Recursos.READ_BATTERY_LEVEL, batteryLevel, isCharging);
+        sendBateryLevel(Recursos.READ_BATTERY_LEVEL, batteryLevel, isCharging,batteryporcentage);
+        Log.i("IposListener: Bataca", "Bataca"+batteryLevel);
     }
 
     @Override
@@ -294,17 +302,20 @@ public class IposListener implements QPOSServiceListener {
     public void onUpdateMasterKeyResult(boolean arg0, Hashtable<String, String> arg1) {
     }
 
-    private void sendBateryLevel(int mensaje, int batery, boolean isCharging) {
+    private void sendBateryLevel(int mensaje, int batery, boolean isCharging,String batteryPorcentage) {
         Log.i("IposListener: ", "------ sendBateryLevel");
         Intent intent = new Intent(Recursos.IPOS_READER_STATES);
         intent.putExtra(Recursos.MSJ, mensaje);
         intent.putExtra(Recursos.BATTERY_LEVEL, batery);
         intent.putExtra(Recursos.READER_IS_CHARGING, isCharging);
+        intent.putExtra(Recursos.BATTERY_PORCENTAGE, batteryPorcentage);
+
         context.sendBroadcast(intent);
     }
 
     private void enviaMensaje(int mensaje) {
         enviaMensaje(mensaje, null, null);
+
     }
 
     private void enviaMensaje(int mensaje, TransaccionEMVDepositRequest transacion, String error) {

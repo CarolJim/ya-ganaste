@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleBaterryFragmen
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
+import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 
@@ -46,7 +47,7 @@ public class DongleBatteryHome extends LoaderActivity implements OnEventListener
         super.onEvent(event, data);
         switch (event) {
             case EVENT_GO_INSERT_DONGLE:
-                loadFragment(InsertDongleBaterryFragment.newInstance(), Direction.FORDWARD, false);
+                loadFragment(MyDongleFragment.newInstance(), Direction.FORDWARD, false);
                 break;
         }
     }

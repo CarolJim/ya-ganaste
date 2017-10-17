@@ -36,6 +36,7 @@ import com.pagatodo.yaganaste.ui.preferuser.MyTutorialFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.ui.preferuser.TerminosyCondicionesFragment;
+import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
@@ -81,6 +82,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     public static String PREFER_USER_PASS = "PREFER_USER_PASS";
     public static String PREFER_USER_CHANGE_NIP = "PREFER_USER_CHANGE_NIP";
     public static String PREFER_USER_CHANGE_NIP_BACK = "PREFER_USER_CHANGE_NIP_BACK";
+    public static String PREFER_USER_MY_DONGLE = "PREFER_USER_MY_DONGLE";
+    public static String PREFER_USER_MY_DONGLE_BACK = "PREFER_USER_MY_DONGLE_BACK";
 
     /**
      * Acciones para dialogo de confirmacion en cerrar session
@@ -218,7 +221,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
         switch (event) {
 
-
+            case "PREFER_USER_MY_DONGLE":
+                loadFragment(MyDongleFragment.newInstance(), Direction.FORDWARD, false);
+                break;
             case "PREFER_USER_REPORTA_TARJETA":
                 loadFragment(MyCardReportaTarjetaFragment.newInstance(), Direction.FORDWARD, false);
                 break;
@@ -265,6 +270,10 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
                 loadFragment(MyUserFragment.newInstance(), Direction.BACK, false);
                 break;
+            case "PREFER_USER_MY_DONGLE_BACK":
+                //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
+                loadFragment(MyUserFragment.newInstance(), Direction.BACK, false);
+                break;
 
             case "PREFER_USER_CLOSE":
                 //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
@@ -287,9 +296,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_USER_PRIVACIDAD_BACK":
                 loadFragment(ListaAyudaLegalesFragment.newInstance(), Direction.BACK, false);
                 break;
-            case "PREFER_USER_TERMINOS_BACK":
-                loadFragment(ListaAyudaLegalesFragment.newInstance(), Direction.BACK, false);
-                break;
+
             case "PREFER_USER_PRIVACIDAD_CUENTA_YA":
                 boolean isOnline = Utils.isDeviceOnline();
                 if (isOnline) {
@@ -432,7 +439,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_HELP_CONTACT_BACK, null);
             } else if (currentFragment instanceof AvisoPrivacidadFragment) {
                 onEvent(PREFER_USER_PRIVACIDAD_BACK, null);
-            } else if (currentFragment instanceof TerminosyCondicionesFragment) {
+            } else if (currentFragment instanceof MyDongleFragment) {
+                onEvent(PREFER_USER_LISTA, null);
+            }else if (currentFragment instanceof TerminosyCondicionesFragment) {
                 onEvent(PREFER_USER_TERMINOS_BACK, null);
             } else if (currentFragment instanceof CuentaReembolsoFragment) {
                 onEvent(PREFER_USER_CUENTA_REEMBOLSO_BACK, null);
