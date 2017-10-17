@@ -340,7 +340,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
             iconBattery.setVisibility(View.VISIBLE);
             iconBattery.setBackgroundResource(R.drawable.bateria100);
             // iconBattery.setBackgroundResource(App.getContext().getDrawable(R.mipmap.ic_launcher));
-        } else if(mPorcentaje == 0){
+        } else if(mPorcentaje <= 0){
             // Bateria 0 conectar
              iconBattery.setVisibility(View.VISIBLE);
              iconBattery.setBackgroundResource(R.drawable.bateria0);
