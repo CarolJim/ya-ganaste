@@ -131,7 +131,12 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
         // Creamos la variables que tendran los datos de Tarjeta y Clabe
         //mTDC = "1234567890123456";
-        mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
+        if (usuarioClienteResponse.getCuentas().get(0).getTarjeta() != null
+                && !usuarioClienteResponse.getCuentas().get(0).getTarjeta().isEmpty()) {
+            mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
+        }else{
+            mTDC = "Error Con Tarjeta";
+        }
         //mClabe = "123456789012345678";
         mClabe = usuarioClienteResponse.getCuentas().get(0).getCLABE();
         mLastTime = "";
@@ -140,7 +145,6 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         mPreferPresenter = new PreferUserPresenter(this);
 
         loadFragment(ListaOpcionesFragment.newInstance(isEsAgente, mName, mEmail, mUserImage));
-
 
 
         mContext = this;
@@ -441,7 +445,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
                 onEvent(PREFER_USER_PRIVACIDAD_BACK, null);
             } else if (currentFragment instanceof MyDongleFragment) {
                 onEvent(PREFER_USER_LISTA, null);
-            }else if (currentFragment instanceof TerminosyCondicionesFragment) {
+            } else if (currentFragment instanceof TerminosyCondicionesFragment) {
                 onEvent(PREFER_USER_TERMINOS_BACK, null);
             } else if (currentFragment instanceof CuentaReembolsoFragment) {
                 onEvent(PREFER_USER_CUENTA_REEMBOLSO_BACK, null);
