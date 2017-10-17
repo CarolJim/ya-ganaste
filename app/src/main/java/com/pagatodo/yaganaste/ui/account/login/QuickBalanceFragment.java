@@ -96,14 +96,6 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         return fragment;
     }
 
-    @Nullable
-    @Override
-    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_quick_balance, container, false);
-        preferencias = App.getInstance().getPrefs();
-        return rootView;
-    }
-
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +105,27 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
         accountPresenter.setPurseReference(this);
         // quickBalanceManager Obtenemos la referencia a la interfase desde  QuickBalanceContainerFragment
         Status = App.getInstance().getStatusId();
+    }
+
+    @Override
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        rootView = inflater.inflate(R.layout.fragment_quick_balance, container, false);
+        preferencias = App.getInstance().getPrefs();
+        return rootView;
+    }
+
+    @Override
+    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
+        super.onActivityCreated(savedInstanceState);
+        /*
+        try {
+            accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter,Status));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        String cardNumber = preferencias.loadData(CARD_NUMBER);
+        Utils.getCurrencyValue(cardNumber);
+        cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));*/
     }
 
     @Override
@@ -321,27 +334,10 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
     @Override
     public void showError(Object error) {
         //throw new IllegalCallException("this method is not implemented yet");
-
     }
 
     @Override
-    public void nextScreen(String event, Object data) {
-
-    }
-
-    @Override
-    public void onActivityCreated(@Nullable Bundle savedInstanceState) {
-        super.onActivityCreated(savedInstanceState);
-        //Status = "2";
-        try {
-            //accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter,Status));
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-        String cardNumber = preferencias.loadData(CARD_NUMBER);
-//                    Utils.getCurrencyValue(cardNumber))
-        //cardSaldo.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
-    }
+    public void nextScreen(String event, Object data) {}
 
     @Override
     public void backScreen(String event, Object data) {
