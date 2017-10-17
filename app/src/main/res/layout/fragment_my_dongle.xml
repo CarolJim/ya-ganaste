@@ -164,7 +164,7 @@
                                 android:layout_weight="1"
                                 android:ellipsize="marquee"
                                 android:focusable="true"
-                                android:layout_marginLeft="30dp"
+                                android:layout_marginLeft="5dp"
                                 android:focusableInTouchMode="true"
                                 android:marqueeRepeatLimit="marquee_forever"
                                 android:maxLines="1"

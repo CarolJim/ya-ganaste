@@ -188,9 +188,6 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                     Log.i("IposListener: ", "=====>>    SW_TIMEOUT");
                     break;
                 case SW_ERROR:
-                    txtNumberBattery.setGravity(Gravity.START);
-                    txtNumberBattery.setText("               Por Favor Conecta Nuevamente tu Lector Para Conocer su Nivel de Bateria");
-                    txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
 
                     break;
                 case ENCENDIDO:
@@ -198,9 +195,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                     App.getInstance().pos.getQposInfo();
                     break;
                 default:
-                    txtNumberBattery.setGravity(Gravity.START);
-                    txtNumberBattery.setText("               Por Favor Conecta tu Lector Para Conocer su Nivel de Bateria");
-                    txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
+
                     break;
             }
 
@@ -221,7 +216,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                         txtNumberBattery.setText(" ");
                         //validatingDng = false; // Cancelar Validacion
                         txtNumberBattery.setGravity(Gravity.START);
-                        txtNumberBattery.setText("               Por Favor Conecta tu Lector Para Conocer su Nivel de Bateria");
+                        txtNumberBattery.setText("Por Favor Conecta tu Lector Para Conocer su Nivel de Bateria");
                         txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
                         iconBattery.setVisibility(View.GONE);
                         txtNumberBattery.setSelected(true);
@@ -262,7 +257,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
         imageView.setVisibility(View.GONE);
         txtLastPayment.setVisibility(View.GONE);
         txtNumberBattery.setGravity(Gravity.START);
-        txtNumberBattery.setText("               Por Favor Conecta tu Lector Para Conocer su Nivel de Bateria");
+        txtNumberBattery.setText("Por Favor Conecta tu Lector Para Conocer su Nivel de Bateria");
         txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
         iconBattery.setVisibility(View.GONE);
         App.getInstance().pos.getQposInfo();
@@ -282,7 +277,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
         App.getInstance().initEMVListener();// Inicializamos el listener
         adqPresenter = new AdqPresenter(this);
         adqPresenter.setIView(this);
-        App.getInstance().pos.getQposInfo();
+
 
 
 
