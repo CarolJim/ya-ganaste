@@ -76,8 +76,8 @@ public class FavoritesPresenter implements IFavoritesPresenter {
     }
 
     @Override
-    public boolean alreadyExistFavorite(String reference) {
-        return api.favoriteExists(reference);
+    public boolean alreadyExistFavorite(String reference, int idComercio) {
+        return api.favoriteExists(reference, idComercio);
     }
 
     /**

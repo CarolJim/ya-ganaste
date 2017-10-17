@@ -141,7 +141,7 @@ public class CatalogsDbApi {
 
     public static List<DataFavoritos> getFavoritesList(int comercioType) {
         genericDao.open();
-        List<DataFavoritos> dataFavorites= new ArrayList<>();
+        List<DataFavoritos> dataFavorites = new ArrayList<>();
         List<DataFavoritos> favorites = genericDao.getListByQueryOrderBy(DataFavoritos.class,
                 DBContract.Favoritos.ID_TIPO_COMERCIO + " = " + comercioType, DBContract.Favoritos.ID_FAVORITO);
         for (DataFavoritos dataFav : favorites) {
@@ -159,11 +159,12 @@ public class CatalogsDbApi {
         return favorites;
     }
 
-    public static boolean favoriteExists(String preference) {
+    public static boolean favoriteExists(String preference, int idComercio) {
         genericDao.open();
-        List<DataFavoritos> dataFavorites= new ArrayList<>();
+        List<DataFavoritos> dataFavorites = new ArrayList<>();
         List<DataFavoritos> favorites = genericDao.getListByQueryOrderBy(DataFavoritos.class,
-                DBContract.Favoritos.REFERENCIA + " = " + preference, DBContract.Favoritos.ID_FAVORITO);
+                DBContract.Favoritos.REFERENCIA + " = " + preference + " AND " + DBContract.Favoritos.ID_COMERCIO + " = " + idComercio,
+                DBContract.Favoritos.ID_FAVORITO);
         for (DataFavoritos dataFav : favorites) {
             List<MontoComercio> montosComercio = genericDao.getListByQuery(MontoComercio.class,
                     DBContract.MontosComercio.ID_COMERCIO + " = '" +
@@ -176,7 +177,7 @@ public class CatalogsDbApi {
             dataFavorites.add(dataFav);
         }
         genericDao.close();
-        return favorites.size()>0;
+        return favorites.size() > 0;
     }
 
     public static ArrayList<Countries> getPaisesList() {

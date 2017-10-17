@@ -34,7 +34,7 @@ public interface IFavoritesPresenter {
 
     void updateLocalFavorite(DataFavoritos dataFavoritos);
 
-    boolean alreadyExistFavorite(String reference);
+    boolean alreadyExistFavorite(String reference, int idComercio);
 
 
 }

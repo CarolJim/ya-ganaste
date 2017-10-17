@@ -454,7 +454,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
                 idComercio, mAlias, referService, stringFoto, "png");
 
         /* Si no tiene un favorito guardado con la misma referencia entonces se permite subirlo*/
-        if (!favoritesPresenter.alreadyExistFavorite(referService)) {
+        if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
             favoritesPresenter.toPresenterAddFavorites(addFavoritesRequest);
         } else {
         /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
