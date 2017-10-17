@@ -17,7 +17,7 @@
             style="@style/buttonSquareRoundedBlue"
             android:layout_centerHorizontal="true"
             android:gravity="center"
-            android:text="@string/me_interesa"
+            android:text="@string/adq_invt_me_interesa"
             android:textAllCaps="false" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -31,7 +31,7 @@
             android:paddingLeft="@dimen/generic_padig"
             android:paddingRight="@dimen/generic_padig"
             android:paddingTop="@dimen/generic_padig"
-            android:text="@string/otro_momento"
+            android:text="@string/adq_invt_no_me_interesa"
             app:tipo="Descripcion" />
 
     </RelativeLayout>

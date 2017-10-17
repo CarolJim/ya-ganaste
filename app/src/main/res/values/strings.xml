@@ -829,8 +829,6 @@
     <string name="produto_servicio_hint">Producto/Servicio</string>
     <string name="name_cupo_hint">Nombre</string>
     <string name="telefono_cupo_hint">Teléfono</string>
-    <string name="me_interesa">¡Me interesa!</string>
-    <string name="otro_momento">En Otro Momento</string>
     <string name="cual_estado_civil">¿Cuál es tu Estado Civil?</string>
     <string name="cuantos_hijos">¿Cuántos Hijos Tienes?</string>
     <string name="relacion">Relación</string>
