@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
+import com.pagatodo.yaganaste.freja.provisioning.manager.ExceptionCallback;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAdqTransactionRegisterView;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -33,6 +34,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.Recursos;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
@@ -130,7 +132,6 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                     //Toast.makeText(context, "El porcentage de la bateria es: "+n, Toast.LENGTH_SHORT).show();
                     //App.getInstance().pos.getQposId();
                     setNumberBattery(n);
-                    Log.i("IposListener: ", "=====>>    Obteniendo ksn ");
                     break;
                 case ERROR_LECTOR:
                     Log.i("IposListener: ", "=====>>    ERROR_LECTOR");
@@ -215,25 +216,34 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                         isReaderConected = false;
                         txtNumberBattery.setText(" ");
                         //validatingDng = false; // Cancelar Validacion
-                        txtNumberBattery.setGravity(Gravity.START);
-                        txtNumberBattery.setText("Por Favor Conecta tu Lector Para Conocer su Nivel de Bateria");
-                        txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
-                        iconBattery.setVisibility(View.GONE);
-                        txtNumberBattery.setSelected(true);
-                        hideLoader();
-                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+                        try {
+                            txtNumberBattery.setGravity(Gravity.START);
+                            txtNumberBattery.setText("Por Favor Conecta tu Lector Para Conocer su Nivel de Bateria");
+                            txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
+                            iconBattery.setVisibility(View.GONE);
+                            txtNumberBattery.setSelected(true);
+                            hideLoader();
+                            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, 0, 0);
+                        }catch (Exception e){
+
+                        }
+
                        // showInsertDongle();
                         Log.i("IposListener: ", "isReaderConected  false");
                         break;
                     case 1:
-                        txtNumberBattery.setText("");
-                        isReaderConected = true;
-                        getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
-                        maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
-                        audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
-                         App.getInstance().pos.getQposInfo();
-                        Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
-                        App.getInstance().pos.getQposInfo();
+                        try {
+                            txtNumberBattery.setText("");
+                            isReaderConected = true;
+                            getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
+                            maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
+                            audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
+                            App.getInstance().pos.getQposInfo();
+                            Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
+                            App.getInstance().pos.getQposInfo();
+                        }catch (Exception e){
+                            getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
+                        }
                         break;
                     default:
 
@@ -274,7 +284,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
         broadcastEMVSwipe = new IntentFilter(Recursos.IPOS_READER_STATES);
         IntentFilter filter = new IntentFilter(Intent.ACTION_HEADSET_PLUG);
         getActivity().registerReceiver(headPhonesReceiver, filter);
-        App.getInstance().initEMVListener();// Inicializamos el listener
+       // App.getInstance().initEMVListener();// Inicializamos el listener
         adqPresenter = new AdqPresenter(this);
         adqPresenter.setIView(this);
 
