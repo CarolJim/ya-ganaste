@@ -15,6 +15,7 @@ import android.view.animation.AlphaAnimation;
 import android.view.animation.Animation;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -86,12 +87,16 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     ImageView imgArrowNext;
     @BindView(R.id.imgArrowBack)
     AppCompatImageView imgArrowBack;
+    @BindView(R.id.llsaldocontenedor)
+    LinearLayout couchMark;
+    @BindView(R.id.llsaldocontenedordongle)
+    LinearLayout couchMarkdongle;
 
     private AccountPresenterNew accountPresenter;
     private AccountPresenterNew accountPresenterdongle;
     private ILoginContainerManager loginContainerManager;
     private IQuickBalanceManager quickBalanceManager;
-    private Preferencias prefs = App.getInstance().getPrefs();
+    private Preferencias prefs;
     private String Status;
     private Handler flipTimmer;
     private Runnable runnableTimmer;
@@ -109,8 +114,6 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         super.onCreate(savedInstanceState);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenterdongle = ((AccountActivity) getActivity()).getPresenter();
-
-
         loginContainerManager = ((QuickBalanceContainerFragment) getParentFragment()).getLoginContainerManager();
         quickBalanceManager = ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager();
         accountPresenter.setPurseReference(this);
@@ -121,9 +124,8 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-
-                rootViewfragment = inflater.inflate(R.layout.fragment_quick_balance_adquirente, container, false);
-
+        rootViewfragment = inflater.inflate(R.layout.fragment_quick_balance_adquirente, container, false);
+        prefs = App.getInstance().getPrefs();
         return rootViewfragment;
     }
 
@@ -134,18 +136,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
             accountPresenter.setIView(this);
         }
         initViews();
-        final View couchMark = view.findViewById(R.id.llsaldocontenedor);
-        couchMark.setVisibility(View.VISIBLE);
-        couchMark.setOnClickListener(this);
-
-        final View couchMarkdongle = view.findViewById(R.id.llsaldocontenedordongle);
-        couchMarkdongle.setVisibility(View.VISIBLE);
-        couchMarkdongle.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                accountPresenter.flipCarddongle(R.id.llsaldodongle, CardBackAdquirienteDongle.newInstance(accountPresenter));
-            }
-        });
+        
     }
 
     @Override
@@ -179,6 +170,13 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
             //setData(preferencias.loadData(StringConstants.USER_BALANCE), preferencias.loadData(UPDATE_DATE));
             //setDataAdq(preferencias.loadData(ADQUIRENTE_BALANCE), preferencias.loadData(UPDATE_DATE_BALANCE_ADQ));
         }
+
+        couchMark.setVisibility(View.VISIBLE);
+        couchMark.setOnClickListener(this);
+
+        couchMarkdongle.setVisibility(View.VISIBLE);
+        couchMarkdongle.setOnClickListener(this);
+
     }
 
     private void setData(String balance, String updateDate) {
@@ -247,7 +245,9 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
                 break;
             case R.id.llsaldocontenedor:
                 doFlip();
-
+                break;
+            case R.id.llsaldocontenedordongle:
+                accountPresenter.flipCarddongle(R.id.llsaldodongle, CardBackAdquirienteDongle.newInstance(accountPresenter));
                 break;
         }
     }
