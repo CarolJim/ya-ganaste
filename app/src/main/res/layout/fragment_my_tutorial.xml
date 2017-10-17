@@ -231,6 +231,203 @@
                     android:background="@color/borderLayoutColor" />
 
             </LinearLayout>
+
+            <!--
+            <LinearLayout
+                android:id="@+id/test1"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        style="@style/generic_text_style_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="2"
+                        android:text="PANTALLA_PRINCIPAL_EMISOR" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/menu_canvas_blue" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/borderLayoutColor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/test2"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        style="@style/generic_text_style_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="2"
+                        android:text="INICIO_SESION_ADQUIRENTE" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/menu_canvas_blue" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/borderLayoutColor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/test3"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        style="@style/generic_text_style_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="2"
+                        android:text="INICIO_SESION_EMISOR" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/menu_canvas_blue" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/borderLayoutColor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/test4"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        style="@style/generic_text_style_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="2"
+                        android:text="PANTALLA_COBROS" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/menu_canvas_blue" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/borderLayoutColor" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/test5"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+
+                android:orientation="vertical">
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginBottom="10dp"
+                    android:orientation="horizontal"
+                    android:paddingTop="10dp">
+
+                    <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                        style="@style/generic_text_style_2"
+                        android:layout_width="0dp"
+                        android:layout_height="wrap_content"
+                        android:layout_gravity="center"
+                        android:layout_marginLeft="10dp"
+                        android:layout_marginStart="10dp"
+                        android:layout_weight="2"
+                        android:text="INICIO_EDITAR_FAVORITOS" />
+
+                    <android.support.v7.widget.AppCompatImageView
+                        android:layout_width="17dp"
+                        android:layout_height="wrap_content"
+                        android:layout_marginEnd="20dp"
+                        android:layout_marginRight="20dp"
+                        app:srcCompat="@drawable/menu_canvas_blue" />
+                </LinearLayout>
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="1dp"
+                    android:background="@color/borderLayoutColor" />
+
+            </LinearLayout>
+-->
         </LinearLayout>
     </LinearLayout>
 </RelativeLayout>

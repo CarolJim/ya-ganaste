@@ -113,6 +113,7 @@ public class Recursos {
     public static final String CODE_ACTIVATION_FREJA = "CODEACTIVATIONFREJA";
     public static String COUCHMARK_EMISOR = "COUCHMARKEMISOR";
     public static String COUCHMARK_ADQ = "COUCHMARKADQ";
+    public static String COUCHMARK_EDIT_FAV = "COUCHMARKEF";
 
     public static String CO_QUICK_EM = "CO_QUICK_EM";
     public static String CO_QUICK_EM_2 = "CO_QUICK_EM_2";

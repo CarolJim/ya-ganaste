@@ -10,8 +10,11 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
+import com.pagatodo.yaganaste.ui._controllers.LandingActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddNewFavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
@@ -35,10 +38,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
+import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.INICIO_EDITAR_FAVORITOS;
+import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.PANTALLA_COBROS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Constants.ACTIVITY_LANDING;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.NEW_FAVORITE;
+import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EDIT_FAV;
 
 /**
  * Created by Jordan on 06/04/2017.
@@ -183,6 +190,18 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         onEventListener.onEvent(EVENT_HIDE_LOADER, "");
         //carouselMain.setVisibility(View.GONE);
         fragment.showFavorites();
+
+
+        /**
+         * Cargamos la actividad de LandingActivity con la informacion de INICIO_EDITAR_FAVORITOS solo
+         * si su pref COUCHMARK_EDIT_FAV no se ha guardado
+         */
+        Preferencias pref = App.getInstance().getPrefs();
+        if (!pref.containsData(COUCHMARK_EDIT_FAV)) {
+            pref.saveDataBool(COUCHMARK_EDIT_FAV, true);
+            //startActivityForResult(LandingActivity.createIntent(App.getContext(), INICIO_EDITAR_FAVORITOS), ACTIVITY_LANDING);
+            startActivity(LandingActivity.createIntent(App.getContext(), INICIO_EDITAR_FAVORITOS));
+        }
     }
 
     @Override

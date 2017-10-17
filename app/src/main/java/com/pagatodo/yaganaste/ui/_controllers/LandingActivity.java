@@ -65,8 +65,14 @@ public class LandingActivity extends SupportFragmentActivity implements Animatio
         if (backImage != 0) {
             imageViewBack.setImageResource(backImage);
         }
-        imageView.setImageResource(drawable[0]);
 
+//        if (drawable.length == 0) {
+//            imageViewBack.setImageResource(backImage);
+//        } else {
+//            imageView.setImageResource(drawable[0]);
+//        }
+
+        imageView.setImageResource(drawable[0]);
         animFadeIn = AnimationUtils.loadAnimation(this, R.anim.fade_in);
         animFadeOut = AnimationUtils.loadAnimation(this, R.anim.fade_out);
         animFadeOut.setAnimationListener(this);
