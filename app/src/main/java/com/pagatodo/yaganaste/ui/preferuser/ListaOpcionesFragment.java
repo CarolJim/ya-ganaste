@@ -45,6 +45,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_HELP_LEGAL;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_ACCOUNT;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_CARD;
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_DONGLE;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -75,6 +76,8 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
     LinearLayout ll_cuenta;
     @BindView(R.id.fragment_lista_opciones_card)
     LinearLayout ll_card;
+    @BindView(R.id.fragment_lista_opciones_dongle)
+    LinearLayout ll_dongle;
     @BindView(R.id.fragment_lista_opciones_help_legal)
     LinearLayout ll_help_legal;
     @BindView(R.id.fragment_lista_opciones_close)
@@ -152,6 +155,14 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
 
             ll_cuenta.setOnClickListener(this);
         }
+        if (idEstatus >= IdEstatus.ADQUIRENTE.getId()) {
+            ll_dongle.setVisibility(View.VISIBLE);
+            View view_cuenta = rootview.findViewById(R.id.contenedordongle);
+            view_cuenta.setVisibility(View.VISIBLE);
+            ll_dongle.setOnClickListener(this);
+        }
+
+
 
         ll_cuenta.setOnClickListener(this);
         ll_card.setOnClickListener(this);
@@ -237,6 +248,10 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
                 break;
             case R.id.fragment_lista_opciones_help_legal:
                 onEventListener.onEvent(PREFER_USER_HELP_LEGAL, 1);
+                // Toast.makeText(getContext(), "Click Help", Toast.LENGTH_SHORT).show();
+                break;
+            case R.id.fragment_lista_opciones_dongle:
+                onEventListener.onEvent(PREFER_USER_MY_DONGLE, 1);
                // Toast.makeText(getContext(), "Click Help", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fragment_lista_opciones_close:

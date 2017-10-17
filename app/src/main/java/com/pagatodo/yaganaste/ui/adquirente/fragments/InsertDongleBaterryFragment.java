@@ -113,7 +113,7 @@ public class InsertDongleBaterryFragment extends GenericFragment implements View
                 //App.getInstance().pos.getQposId();
                 App.getInstance().pos.getQposId();
 
-
+                App.getInstance().pos.getQposInfo();
                 showLoader(getResources().getString(R.string.validatelector));
             }
         }

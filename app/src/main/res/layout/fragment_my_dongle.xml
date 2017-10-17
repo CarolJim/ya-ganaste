@@ -47,7 +47,7 @@
                     android:layout_gravity="center"
                     android:adjustViewBounds="true"
                     android:scaleType="centerInside"
-                    android:src="@mipmap/lector_front" />
+                    android:src="@mipmap/lector_frontbattery" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -96,6 +96,7 @@
                     <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
+                        android:visibility="gone"
                         android:layout_marginBottom="10dp"
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
@@ -153,21 +154,36 @@
                             android:gravity="right"
                             android:orientation="horizontal">
 
+
+
                             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
-                                style="@style/generic_text_style_2"
-                                android:layout_width="wrap_content"
-                                android:layout_height="wrap_content"
                                 android:id="@+id/txtNumberBattery"
-                                tools:text="1%" />
+                                style="@style/generic_text_style_2.1"
+                                android:layout_width="0dp"
+                                android:layout_height="wrap_content"
+                                android:layout_weight="1"
+                                android:ellipsize="marquee"
+                                android:focusable="true"
+                                android:layout_marginLeft="30dp"
+                                android:focusableInTouchMode="true"
+                                android:marqueeRepeatLimit="marquee_forever"
+                                android:maxLines="1"
+                                tools:text="1%"
+                                android:scrollHorizontally="true"
+                                android:singleLine="true" />
+
 
                             <ImageView
                                 android:layout_width="wrap_content"
                                 android:id="@+id/iconBattery"
+                                android:layout_marginTop="3dp"
+                                android:layout_marginLeft="5dp"
                                 android:layout_height="wrap_content"
-                                android:src="@mipmap/ic_launcher" />
+                                />
 
                         </LinearLayout>
                     </LinearLayout>
+
 
                     <View
                         android:layout_width="match_parent"
@@ -175,6 +191,7 @@
                         android:layout_marginLeft="20dp"
                         android:layout_marginRight="20dp"
                         android:background="@color/borderLayoutColor" />
+
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

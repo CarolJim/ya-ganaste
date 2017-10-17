@@ -270,6 +270,9 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
     public  interface onBlockCard {
         void onLongClickBlockCard();
     }
+    public  interface clikbloquear{
+        void longclick();
+    }
     public  interface clikdongle{
         void longclickdongle();
     }

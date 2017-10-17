@@ -215,6 +215,8 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     @Override
     public void onResume() {
         super.onResume();
+        et_amount.requestFocus();
+
     }
 
     public boolean isCustomKeyboardVisible() {
