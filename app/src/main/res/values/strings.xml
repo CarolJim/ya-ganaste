@@ -244,6 +244,7 @@
     <string name="text_slide_or_insert">Inserta la Tarjeta Con Chip</string>
     <string name="text_insert_cancelation">Inserta la Misma Tarjeta Con\nla Que se Hizo el Cobro</string>
     <string name="text_slide_cancelation">Desliza la Misma Tarjeta Con\nla Que se Hizo el Cobro</string>
+    <string name="text_insert_or_slide">Introduce o Desliza tu Tarjeta</string>
     <string name="finalizar">Finalizar</string>
     <string name="insert_slide_card">Inserta o Desliza la tarjeta</string>
     <string name="no_internet_access">No Cuentas Con Conexión a Internet</string>
