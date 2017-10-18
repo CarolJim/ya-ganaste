@@ -18,11 +18,13 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.db.CatalogsDbApi;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.enums.EstatusMovimientoAdquirente;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
 import java.util.Calendar;
@@ -92,7 +94,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     private View rootView;
     private DataMovimientoAdq dataMovimientoAdq;
     CircleImageView imageView;
-
+    ImageView imageViewshare;
     public static DetailsAdquirenteFragment newInstance(@NonNull DataMovimientoAdq dataMovimientoAdq) {
         DetailsAdquirenteFragment fragment = new DetailsAdquirenteFragment();
         Bundle args = new Bundle();
@@ -105,6 +107,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
+        imageViewshare= (ImageView) getActivity().findViewById(R.id.deposito_Share);
         imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         if (args != null) {
             dataMovimientoAdq = (DataMovimientoAdq) args.getSerializable(DetailsActivity.DATA);
@@ -134,8 +137,15 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
+        setVisibilityPrefershare(false);
     }
-
+    public void setVisibilityPrefershare(Boolean mBoolean){
+        if(mBoolean){
+            imageViewshare.setVisibility(View.VISIBLE);
+        }else{
+            imageViewshare.setVisibility(View.GONE);
+        }
+    }
 
     @Override
     public void initViews() {
@@ -205,7 +215,20 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
                 getActivity().onBackPressed();
                 break;
             case R.id.btn_cancel:
-                ((DetailsActivity) getActivity()).loadCancelFragment(dataMovimientoAdq);
+
+                UI.createCustomDialogCancelacionCobro("Cancelar Cobro", "Para Cancelar es Necesario Que tu Cliente \n Prensente la Tarjeta Con la Que se Realizó el Cobro", getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        ((DetailsActivity) getActivity()).loadInsertDongleFragment(dataMovimientoAdq);
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                }, "Entendido", "");
+
+
                 break;
         }
     }

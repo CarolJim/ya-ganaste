@@ -25,7 +25,9 @@ import java.util.Locale;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
+import static com.pagatodo.yaganaste.R.id.imageView;
 import static com.pagatodo.yaganaste.interfaces.enums.CreditCardsTypes.MASTER_CARD;
 import static com.pagatodo.yaganaste.interfaces.enums.CreditCardsTypes.VISA;
 
@@ -53,7 +55,7 @@ public class DetailTransactionAdqCancel extends GenericFragment implements View.
     Button btnCancel;
     private DataMovimientoAdq dataMovimientoAdq;
     private View rootView;
-
+    ImageView imageView;
     public static DetailTransactionAdqCancel newInstance(DataMovimientoAdq dataMovimientoAdq) {
         DetailTransactionAdqCancel fragment = new DetailTransactionAdqCancel();
         Bundle args = new Bundle();
@@ -63,9 +65,22 @@ public class DetailTransactionAdqCancel extends GenericFragment implements View.
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        setVisibilityPrefer(false);
+    }
+    public void setVisibilityPrefer(Boolean mBoolean){
+        if(mBoolean){
+            imageView.setVisibility(View.VISIBLE);
+        }else{
+            imageView.setVisibility(View.GONE);
+        }
+    }
+    @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
+        imageView= (ImageView) getActivity().findViewById(R.id.deposito_Share);
         if (args != null) {
             dataMovimientoAdq = (DataMovimientoAdq) args.getSerializable(DetailsActivity.DATA);
         } else {

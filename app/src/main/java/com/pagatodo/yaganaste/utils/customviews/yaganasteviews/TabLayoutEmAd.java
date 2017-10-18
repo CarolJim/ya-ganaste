@@ -230,15 +230,22 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         llMaterialAdquirenteContainerParams.weight = 1.25f + 0.75f * offset;
         llMaterialAdquirenteContainerParams.leftMargin = (int) (getContext().getResources().getDimension(R.dimen.size_margin_custom_tabs) * (1 - offset));
         llMaterialAdquirenteContainer.setLayoutParams(llMaterialAdquirenteContainerParams);
-        llMaterialAdquirenteContainer.setOnLongClickListener(new View.OnLongClickListener() {
-            @Override
-            public boolean onLongClick(View view) {
-                clickdongle.longclickdongle();
-                //Toast.makeText(getContext(), "fewfwefwef", Toast.LENGTH_SHORT).show();
+        ///checamos el id de usuario del singleton
+        int idEstatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
+        if(idEstatus >= IdEstatus.ADQUIRENTE.getId()) {
+            llMaterialAdquirenteContainer.setOnLongClickListener(new View.OnLongClickListener() {
+                @Override
+                public boolean onLongClick(View view) {
+                    clickdongle.longclickdongle();
+                    //Toast.makeText(getContext(), "fewfwefwef", Toast.LENGTH_SHORT).show();
 
-                return false;
-            }
-        });
+                    return false;
+                }
+            });
+        }
+
+
+
     }
 
     public void setInviteAdquirenteCallback(InviteAdquirenteCallback inviteAdquirenteCallback) {

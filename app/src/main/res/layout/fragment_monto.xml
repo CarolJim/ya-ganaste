@@ -45,6 +45,8 @@
                 android:layout_height="wrap_content"
                 android:background="@drawable/back_edittext_gray"
                 android:focusable="true"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
                 android:gravity="center"
                 android:hint="Concepto (Opcional)"
                 android:inputType="text|textNoSuggestions|textCapSentences"
@@ -86,7 +88,10 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <android.support.v7.widget.AppCompatImageView
             android:id="@+id/img_arrow_previous"

@@ -244,6 +244,7 @@
     <string name="text_slide_or_insert">Inserta la Tarjeta Con Chip</string>
     <string name="text_insert_cancelation">Inserta la Misma Tarjeta Con\nla Que se Hizo el Cobro</string>
     <string name="text_slide_cancelation">Desliza la Misma Tarjeta Con\nla Que se Hizo el Cobro</string>
+    <string name="text_insert_or_slide">Introduce o Desliza tu Tarjeta</string>
     <string name="finalizar">Finalizar</string>
     <string name="insert_slide_card">Inserta o Desliza la tarjeta</string>
     <string name="no_internet_access">No Cuentas Con Conexión a Internet</string>
@@ -418,6 +419,7 @@
     <string name="adq_title_hardsell">Cobra Con Tarjeta y</string>
     <string name="adq_subtitle_hardsell">¡Paga Menos Comisión!</string>
     <string name="adq_more_hardsell">Conoce Más</string>
+    <string name="adq_message_entendido">Entendido</string>
 
     <!-- Proceso de enviar documentos -->
     <string name="adq_must_upload_documents">Debes de Subir Todos Los Documentos.</string>
