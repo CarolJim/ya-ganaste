@@ -39,7 +39,6 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
     public void registrarAdquirente() {
         CrearAgenteRequest request = new CrearAgenteRequest(RegisterAgent.getInstance(),
                 SingletonUser.getInstance().getDataUser().getUsuario().getTipoAgente());
-
         try {
             ApiAdtvo.crearAgente(request, this);
         } catch (OfflineException e) {
