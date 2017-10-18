@@ -71,4 +71,14 @@ public class CuestionarioEntity implements Serializable {
     public void setTextoAbierto(String textoAbierto) {
         this.textoAbierto = textoAbierto;
     }
+
+    @Override
+    public String toString() {
+        return "CuestionarioEntity{" +
+                "preguntaId=" + preguntaId +
+                ", valor=" + valor +
+                ", idCatalogo=" + idCatalogo +
+                ", textoAbierto='" + textoAbierto + '\'' +
+                '}';
+    }
 }

@@ -95,14 +95,6 @@ public class CrearAgenteRequest implements Serializable {
         this.razonSocial = razonSocial;
     }
 
-    /*public int getGiro() {
-        return Giro;
-    }
-
-    public void setGiro(int giro) {
-        Giro = giro;
-    }*/
-
     public int getSubGiro() {
         return subGiro;
     }
@@ -157,5 +149,22 @@ public class CrearAgenteRequest implements Serializable {
 
     public void setDomicilioNegocio(DataObtenerDomicilio domicilioNegocio) {
         this.domicilioNegocio = domicilioNegocio;
+    }
+
+    @Override
+    public String toString() {
+        return "CrearAgenteRequest{" +
+                "tipoAgente=" + tipoAgente +
+                ", nombreComercio='" + nombreComercio + '\'' +
+                ", numeroTelefono='" + numeroTelefono + '\'' +
+                ", razonSocial='" + razonSocial + '\'' +
+                ", giro=" + giro +
+                ", subGiro=" + subGiro +
+                ", rfc='" + rfc + '\'' +
+                ", latitud=" + latitud +
+                ", longitud=" + longitud +
+                ", cuestionario=" + cuestionario +
+                ", domicilioNegocio=" + domicilioNegocio +
+                '}';
     }
 }
