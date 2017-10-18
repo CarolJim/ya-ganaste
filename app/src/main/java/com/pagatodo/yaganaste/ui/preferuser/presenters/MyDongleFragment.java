@@ -238,7 +238,6 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                             getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
                             maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
-                            App.getInstance().pos.getQposInfo();
                             Log.i("IposListener: ", "=====>>   starReaderEmvSwipe ");
                             App.getInstance().pos.getQposInfo();
                         }catch (Exception e){
@@ -270,7 +269,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
         txtNumberBattery.setText("Por Favor Conecta tu Lector Para Conocer su Nivel de Bateria");
         txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
         iconBattery.setVisibility(View.GONE);
-        App.getInstance().pos.getQposInfo();
+
         txtNumberBattery.setSelected(true);
     }
     @Override
@@ -308,7 +307,6 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
     public void initViews() {
         ButterKnife.bind(this, rootview);
         //  txtCompanyName txtLastPayment txtNumberBattery iconBattery
-        App.getInstance().pos.getQposInfo();
         setCompanyName("Floreria JessLou");
 
 

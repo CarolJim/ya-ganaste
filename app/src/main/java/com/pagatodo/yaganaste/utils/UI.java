@@ -196,6 +196,19 @@ public class UI {
         customErrorDialog.show(fragmentManager, tag);
     }
 
+    public static void createCustomDialogCancelacionCobro(String title, String message, FragmentManager fragmentManager, String tag,
+                                                    DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_cancelar_cobro_message,
+                title, message, true, false);
+
+
+        customErrorDialog.setTitleBtnAcept(btnAceptar);
+       // customErrorDialog.setTitleBtnCancel(btnCancelar);
+
+        customErrorDialog.setDialogActions(actions);
+        customErrorDialog.show(fragmentManager, tag);
+    }
+
     public static void createCustomDialogCardHome(String title, String message,String nombre,String cuenta, FragmentManager fragmentManager, String tag,
                                                     DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
         final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_block_card,

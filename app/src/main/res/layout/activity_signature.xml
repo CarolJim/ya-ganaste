@@ -44,7 +44,7 @@
                     android:text="780.23"
                     app:decimalLenght="1"
                     app:dotBottom="false"
-                    app:symbolSmaller="false" />
+                    app:symbolSmaller="true" />
 
             </LinearLayout>
 

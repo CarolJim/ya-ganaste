@@ -419,6 +419,7 @@
     <string name="adq_title_hardsell">Cobra Con Tarjeta y</string>
     <string name="adq_subtitle_hardsell">¡Paga Menos Comisión!</string>
     <string name="adq_more_hardsell">Conoce Más</string>
+    <string name="adq_message_entendido">Entendido</string>
 
     <!-- Proceso de enviar documentos -->
     <string name="adq_must_upload_documents">Debes de Subir Todos Los Documentos.</string>
