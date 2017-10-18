@@ -264,6 +264,14 @@ public class Recursos {
 
     public static final String CURRENT_TAB = "current_tab";
 
+    /**
+     * Estatus de movimiento
+     */
+
+    public static final String ESTATUS_CANCELADO = "1";
+    public static final String ESTATUS_POR_REMBOLSAR = "2";
+    public static final String ESTATUS_REMBOLSADO = "3";
+
 //     intent.putExtra(NOMBRE_COMERCIO, nombreComercio);
 //                intent.putExtra(ID_COMERCIO, idComercio);
 //                intent.putExtra(ID_TIPO_COMERCIO, idTipoComercio);

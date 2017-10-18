@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -31,6 +32,9 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CANCELADO;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
 
 /**
  * @author Juan Guerra on 12/04/2017.
@@ -69,14 +73,16 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     MontoTextView txtMontoDescripcion;*/
     @BindView(R.id.txtRefernciaDescripcion)
     TextView txtRefernciaDescripcion;
-    /*@BindView(R.id.txtConceptoDescripcion)
-    TextView txtConceptoDescripcion;*/
+    @BindView(R.id.txtConceptoDescripcion)
+    TextView txtConceptoDescripcion;
     @BindView(R.id.txtFechaDescripcion)
     TextView txtFechaDescripcion;
     @BindView(R.id.txtHoraDescripcion)
     TextView txtHoraDescripcion;
     @BindView(R.id.txtAutorizacionDescripcion)
     TextView txtAutorizacionDescripcion;
+    @BindView(R.id.txtEstatusDescripcion)
+    TextView txtEstatusDescripcion;
     //@BindView(R.id.txtReciboDescripcion)
     //TextView txtReciboDescripcion;
     @BindView(R.id.btn_cancel)
@@ -175,6 +181,19 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
                 .load(url)
                 .placeholder(R.mipmap.logo_ya_ganaste)
                 .into(imageDetail);
+        
+        switch (dataMovimientoAdq.getEstatus()){
+            case ESTATUS_CANCELADO:
+                txtEstatusDescripcion.setText(getString(R.string.status_cancelado));
+                break;
+            case ESTATUS_POR_REMBOLSAR:
+                txtEstatusDescripcion.setText(getString(R.string.status_por_rembolsar));
+                break;
+            case ESTATUS_REMBOLSADO:
+                txtEstatusDescripcion.setText(getString(R.string.status_rembolsado));
+                break;
+        }
+
     }
 
 
