@@ -172,7 +172,9 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                     break;
                 case SW_TIMEOUT:
                     //initListenerDongle();
-                    hideLoader();
+
+                    break;
+                case SW_ERROR:
                     showSimpleDialogError(getString(R.string.vuelve_conectar_lector),
                             new DialogDoubleActions() {
                                 @Override
@@ -186,10 +188,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                                 }
                             });
                     //Toast.makeText(getActivity(), getString(R.string.vuelve_conectar_lector), Toast.LENGTH_SHORT).show();
-                    Log.i("IposListener: ", "=====>>    SW_TIMEOUT");
-                    break;
-                case SW_ERROR:
-
+                    Log.i("IposListener: ", "=====>>    SW_Error");
                     break;
                 case ENCENDIDO:
                     Log.i("IposListener: ", "=====>>    ENCENDIDO");
@@ -235,6 +234,10 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                         try {
                             txtNumberBattery.setText("");
                             isReaderConected = true;
+                            txtNumberBattery.setGravity(Gravity.START);
+                            txtNumberBattery.setText("Estamos Obteniendo el Nivel de Bateria");
+                            txtNumberBattery.setTextColor(getResources().getColor(R.color.yellow));
+                            iconBattery.setVisibility(View.GONE);
                             getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
                             maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
                             audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
@@ -389,7 +392,8 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void showSimpleDialogError(String message, DialogDoubleActions actions) {
-
+        UI.createSimpleCustomDialogNoCancel(getString(R.string.title_error), message,
+                getFragmentManager(), actions);
     }
 
     @Override
@@ -414,6 +418,18 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void showError(Object error) {
+        //UI.showToast(error.toString(), getActivity());
+        DialogDoubleActions doubleActions = new DialogDoubleActions() {
+            @Override
+            public void actionConfirm(Object... params) {
 
+            }
+
+            @Override
+            public void actionCancel(Object... params) {
+
+            }
+        };
+        UI.createSimpleCustomDialog(getString(R.string.title_error), error.toString(), getFragmentManager(), doubleActions, true, false);
     }
 }

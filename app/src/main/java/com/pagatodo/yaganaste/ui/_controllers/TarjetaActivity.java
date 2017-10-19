@@ -81,6 +81,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     protected void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
+        printCard(cuenta());
     }
 
     private void estadotarjeta() {
@@ -144,16 +145,19 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                 mycard_switch.setChecked(true);
                 imgStatus.setImageResource(R.drawable.ic_candado_closed);
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_gray);
+                printCard(cuenta());
                 break;
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
                 mycard_switch.setChecked(false);
                 imgStatus.setImageResource(R.drawable.ic_candado_open);
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
+                printCard(cuenta());
                 break;
             default:
                 mycard_switch.setChecked(false);
                 imgStatus.setImageResource(R.drawable.ic_candado_open);
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
+                printCard(cuenta());
                 break;
         }
     }
@@ -178,7 +182,12 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     }
     private void ultimaTransaccion() {
         ultimaTransaccion = SingletonUser.getInstance().getUltimaTransaccion();
-        mLastTimeTV.setText(ultimaTransaccion);
+        if (ultimaTransaccion==null || ultimaTransaccion.isEmpty()){
+            mLastTimeTV.setText("   No Hay Fecha Del Ultimo Pago");
+            mLastTimeTV.setSelected(true);
+        }else {
+            mLastTimeTV.setText(ultimaTransaccion);
+        }
     }
    // public PreferUserPresenter getPreferPresenter() {
    //   return mPreferPresenter;

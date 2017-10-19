@@ -232,7 +232,7 @@ public class TabLayoutEmAd extends LinearLayoutCompat implements View.OnClickLis
         llMaterialAdquirenteContainer.setLayoutParams(llMaterialAdquirenteContainerParams);
         ///checamos el id de usuario del singleton
         int idEstatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
-        if(idEstatus >= IdEstatus.ADQUIRENTE.getId()) {
+        if(idEstatus <= IdEstatus.ADQUIRENTE.getId()) {
             llMaterialAdquirenteContainer.setOnLongClickListener(new View.OnLongClickListener() {
                 @Override
                 public boolean onLongClick(View view) {

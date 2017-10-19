@@ -87,16 +87,16 @@
                             android:id="@+id/my_card_num_cuenta"
                             style="@style/generic_text_style_4"
                             android:layout_width="wrap_content"
-                            android:layout_marginTop="3dp"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="3dp"
                             tools:text="Tarjeta: **** **** **** 5678" />
 
                         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                             android:id="@+id/my_card_last_time"
                             style="@style/generic_text_style_4"
                             android:layout_width="wrap_content"
-                            android:visibility="gone"
                             android:layout_height="wrap_content"
+                            android:visibility="gone"
                             tools:text="Utilizada Por Ultima Vez: 23/Mar/17" />
                     </LinearLayout>
 
@@ -115,9 +115,9 @@
 
                         <android.support.v7.widget.SwitchCompat
                             android:id="@+id/mycard_switch"
-                            android:layout_marginTop="5dp"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
+                            android:layout_marginTop="5dp"
                             android:theme="@style/SCBSwitch"
                             android:thumb="@drawable/block_card_switch"
                             app:track="@drawable/switch_compat_custom_track" />
