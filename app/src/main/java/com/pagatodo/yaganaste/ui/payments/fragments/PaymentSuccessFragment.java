@@ -335,11 +335,11 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
 
     @Override
     public void finalizePayment() {
-        Intent intent = new Intent();
+       /* Intent intent = new Intent();
         intent.putExtra(RESULT, Constants.RESULT_SUCCESS);
-        getActivity().setResult(RESULT_CODE_OK, intent);
+        getActivity().setResult(RESULT_CODE_OK, intent);*/
         getActivity().finish();
-        getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
+        //getActivity().overridePendingTransition(R.anim.fade_in, R.anim.fade_out);
     }
 
     @Override

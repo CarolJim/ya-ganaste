@@ -193,7 +193,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
         }
 
         // Agregamos un setOnFocusChangeListener a nuestro campo de importe, solo si es un favorito
-        if(favoriteItem != null){
+        if (favoriteItem != null) {
             amountToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
@@ -201,12 +201,16 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
                         // Toast.makeText(App.getContext(), "Tiene foco", Toast.LENGTH_SHORT).show();
                     } else {
                         // Toast.makeText(App.getContext(), "Foco fuera", Toast.LENGTH_SHORT).show();
-                        String serviceImportStr = amountToSend.getText().toString().substring(1).replace(",","");
-                        if(serviceImportStr != null && !serviceImportStr.isEmpty()){
-                            monto = Double.valueOf(serviceImportStr);
-                            fragment.updateValueTabFrag(monto);
-                        }else{
-                            fragment.updateValueTabFrag(0.0);
+                        try {
+                            String serviceImportStr = amountToSend.getText().toString().substring(1).replace(",", "");
+                            if (serviceImportStr != null && !serviceImportStr.isEmpty()) {
+                                monto = Double.valueOf(serviceImportStr);
+                                fragment.updateValueTabFrag(monto);
+                            } else {
+                                fragment.updateValueTabFrag(0.0);
+                            }
+                        } catch (Exception e) {
+                            e.printStackTrace();
                         }
                     }
                 }

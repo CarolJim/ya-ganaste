@@ -48,7 +48,6 @@
     <string name="initOnlineTransactionUrl">/IniciarTransaccionOnline</string>
     <string name="getJsonWebTokenUrlUrl">/GetJsonWebTokenUrl</string>
     <string name="fondearCupoUrl">/FondearCupo</string>
-    <string name="getStatusCard">/ObtenerEstatusTarjeta</string>
     <string name="getBalanceAdqUrl">/ConsultarSaldoADQ</string>
     <string name="getSucursales">/LocalizarSucursales</string>
     <string name="obtenerSubgiros">/ObtenerSubgiros</string>
@@ -388,7 +387,7 @@
     <string name="error_parentesco">Parentesco Requerido, Verifique su Información.</string>
     <string name="error_cargo">Cargo Requerido, Verifique su Información.</string>
     <string name="terminos_condiciones">Términos y Condiciones</string>
-    <string name="terms_and_conditions_aditional_info">Al Continuar Reconozco Ser Mayor de Edad, Así Como Haber Leído y Aceptado Los Términos y Condiciones</string>
+    <string name="terms_and_conditions_aditional_info">Al Continuar Haber Leído y Aceptado Los Términos y Condiciones</string>
 
     <!--felicidades-->
     <string name="congratulation_text1">Tu Cuenta Ya Ganaste Está Lista</string>

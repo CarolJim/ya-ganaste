@@ -163,7 +163,7 @@ public class CatalogsDbApi {
         genericDao.open();
         List<DataFavoritos> dataFavorites = new ArrayList<>();
         List<DataFavoritos> favorites = genericDao.getListByQueryOrderBy(DataFavoritos.class,
-                DBContract.Favoritos.REFERENCIA + " = " + preference + " AND " + DBContract.Favoritos.ID_COMERCIO + " = " + idComercio,
+                DBContract.Favoritos.REFERENCIA + " = '" + preference + "' AND " + DBContract.Favoritos.ID_COMERCIO + " = " + idComercio,
                 DBContract.Favoritos.ID_FAVORITO);
         for (DataFavoritos dataFav : favorites) {
             List<MontoComercio> montosComercio = genericDao.getListByQuery(MontoComercio.class,
