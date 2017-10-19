@@ -197,7 +197,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
                 break;
             case R.id.btn_cancel:
 
-                UI.createCustomDialogCancelacionCobro("Cancelar Cobro", "Para Cancelar es Necesario Que tu Cliente \n Prensente la Tarjeta Con la Que se Realizó el Cobro", getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                UI.createCustomDialogCancelacionCobro("Cancelar Cobro", "Para Cancelar es Necesario Que tu Cliente \n Presente la Tarjeta Con la Que se Realizó el Cobro", getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
                         ((DetailsActivity) getActivity()).loadInsertDongleFragment(dataMovimientoAdq);

@@ -590,8 +590,8 @@
     <string name="procesando_solicitud"> </string>
 
     <string name="listo">¡Listo!</string>
-    <string name="recibo_enviado">El Recibo Fue Enviado Con Éxito.</string>
-    <string name="recibo_enviado_line">El Recibo Fue Enviado \nCon Éxito.</string>
+    <string name="recibo_enviado">El Recibo Fue Enviado Con Éxito</string>
+    <string name="recibo_enviado_line">El Recibo Fue Enviado \nCon Éxito</string>
 
     <!-- Mensajes de error para registro SMS -->
     <string name="fallo_envio">Falla al Enviar el Mensaje</string>
