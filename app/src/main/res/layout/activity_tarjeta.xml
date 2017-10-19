@@ -148,12 +148,23 @@
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/txtultimopago"
+                                    android:gravity="end"
                                     style="@style/generic_text_style_2.1"
                                     android:layout_width="0dp"
                                     android:layout_height="wrap_content"
                                     android:layout_weight="1"
-                                    android:gravity="end"
-                                    android:maxLines="1" />
+                                    android:ellipsize="marquee"
+                                    android:focusable="true"
+                                    android:layout_marginLeft="25dp"
+                                    android:focusableInTouchMode="true"
+                                    android:marqueeRepeatLimit="marquee_forever"
+                                    android:maxLines="1"
+                                    tools:text="1%"
+                                    android:scrollHorizontally="true"
+                                    android:singleLine="true"
+
+
+                                    />
                             </LinearLayout>
 
                             <View
