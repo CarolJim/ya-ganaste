@@ -9,6 +9,7 @@ import android.content.IntentFilter;
 import android.media.AudioManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.v7.widget.AppCompatImageView;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -99,6 +100,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private AdqPresenter adqPresenter;
     private boolean isWaitingCard = false;
     private boolean isCancelation = false;
+    private AppCompatImageView btnBack;
+    private static boolean banderaCacelachevron = false;
     CircleImageView imageView;
     private Runnable starReaderEmvSwipe = new Runnable() {
         @Override
@@ -277,6 +280,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         args.putBoolean(DATA_KEY, isCancelation);
         args.putSerializable(DATA_MOVEMENTS, dataMovimientoAdq);
         fragment.setArguments(args);
+        banderaCacelachevron = true;
         return fragment;
     }
 
@@ -288,6 +292,13 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         fragment.setArguments(args);
         return fragment;
     }
+    public void setVisibilityBack(boolean mBoolean){
+        if (mBoolean) {
+            btnBack.setVisibility(View.VISIBLE);
+        }else {
+            btnBack.setVisibility(View.GONE);
+        }
+    }
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -296,6 +307,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         dataMovimientoAdq = getArguments().getSerializable(DATA_MOVEMENTS) != null ? (DataMovimientoAdq) getArguments().getSerializable(DATA_MOVEMENTS) : null;
         prefs = App.getInstance().getPrefs();
+        btnBack = (AppCompatImageView) getActivity().findViewById(R.id.btn_back);
         audioManager = (AudioManager) getActivity().getSystemService(AUDIO_SERVICE);
         currentVolumenDevice = audioManager.getStreamVolume(AudioManager.STREAM_MUSIC);
         broadcastEMVSwipe = new IntentFilter(Recursos.IPOS_READER_STATES);
@@ -383,7 +395,9 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
-
+        if (banderaCacelachevron=true) {
+            setVisibilityBack(false);
+        }
         App.getInstance().pos.openAudio();
         maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);

@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -26,6 +27,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.CompartirReciboFragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -34,6 +36,8 @@ import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.R.attr.data;
+import static android.R.attr.fragment;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 
@@ -47,6 +51,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     public static final String TYPE = "type";
     public final static String EVENT_GO_TO_FINALIZE_SUCCESS = "FINALIZAR_CANCELACION_SUCCESS";
     public final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
+    public final static String EVENT_GO_LOAD_SHARE_EMAIL = "EVENT_GO_LOAD_SHARE_EMAIL";
     CircleImageView imageView;
     ImageView imageshare;
 
@@ -83,6 +88,9 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                 setResult(-1);
                 this.finish();
                 break;
+            case EVENT_GO_LOAD_SHARE_EMAIL:
+              //  loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()), Direction.FORDWARD, true);
+             //   loadFragment(CompartirReciboFragment.newInstance());
         }
 
     }
@@ -110,10 +118,18 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                     " you should pass as extra's parameters type and DataMovimientoAdq or " +
                     "ResumenMovimientosAdqResponse");
         }
+
+        // Localizamos el tipo de fragmnto que tenemos cargado
+        //fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+
         imageshare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                takeScreenshot();
+                if(getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsEmisorFragment) {
+                    takeScreenshot();
+                }else if(getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsAdquirenteFragment){
+                    onEvent(EVENT_GO_LOAD_SHARE_EMAIL, "");
+                }
             }
         });
     }

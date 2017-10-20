@@ -1,0 +1,125 @@
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+xmlns:app="http://schemas.android.com/apk/res-auto"
+xmlns:tools="http://schemas.android.com/tools"
+android:id="@+id/activity_lets_start"
+android:layout_width="match_parent"
+android:layout_height="match_parent"
+android:focusable="true"
+android:focusableInTouchMode="true"
+android:orientation="vertical"
+tools:context="com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.CompartirReciboFragment">
+
+
+<ScrollView
+    android:id="@+id/scrollViewTarjeta"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:layout_alignParentBottom="true"
+    android:layout_alignParentLeft="true"
+    android:layout_alignParentStart="true"
+    android:fillViewport="true">
+
+    <LinearLayout
+        android:id="@+id/layoutScrollCard"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:orientation="vertical">
+
+        <com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout
+            android:id="@+id/layoutContent"
+            style="@style/BorderTitleStyle"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_weight="3"
+            app:title="@string/share_ticket_email">
+
+            <LinearLayout
+                style="@style/BorderLayoutContent"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:orientation="vertical">
+
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/txtHeaderRecovery"
+                    style="@style/FragmentElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="@string/share_ticket_email_text"
+                    android:textSize="@dimen/size_text_style_3_value" />
+
+                <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
+                    android:id="@+id/edtCorreoRegistrado"
+                    style="@style/FragmentElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    app:formato="email"
+                    app:hintText="@string/txt_mail"
+                    app:isSingleLine="true" />
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    android:id="@+id/tvCorreoRegistrado"
+                    style="@style/FragmentElement"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:gravity="center"
+                    android:text="dantestark@gmail.com"
+                    android:textColor="@color/colorAccent"
+                    android:visibility="gone" />
+
+                <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
+                    android:id="@+id/errorMessage"
+                    style="@style/generic_text_style_2"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:visibility="visible" />
+
+            </LinearLayout>
+
+        </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_weight="4"
+            android:layout_marginBottom="@dimen/btn_navigation_bottom"
+            android:clickable="true"
+            android:inputType="textPassword"
+            android:orientation="horizontal">
+
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5">
+
+            </LinearLayout>
+
+            <com.pagatodo.yaganaste.utils.customviews.StyleButton
+                android:id="@+id/btnLoginExistUser"
+                style="@style/buttonSquareRoundedBlue"
+                android:layout_gravity="bottom"
+                android:gravity="center"
+                android:text="@string/txt_iniciar_sesion" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_weight="1.5">
+
+            </LinearLayout>
+        </LinearLayout>
+    </LinearLayout>
+
+</ScrollView>
+
+
+<com.pagatodo.yaganaste.utils.customviews.ProgressLayout
+    android:id="@id/progressLayout"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:visibility="gone" />
+
+</RelativeLayout>

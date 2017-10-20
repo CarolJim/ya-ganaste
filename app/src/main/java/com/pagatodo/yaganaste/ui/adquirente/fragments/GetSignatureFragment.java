@@ -133,15 +133,39 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
 
 
         /*Seteamos los datos de la transacción*/
-        txtAmount.setText(String.format("$%s", currentTransaction.getAmount()));
+        txtAmount.setText(String.format("$%s", StringUtils.getCurrencyValue(currentTransaction.getAmount())));
         // txtNumberCard.setText(emvDepositResponse.getMaskedPan());
 
         String cardNumber = emvDepositResponse.getMaskedPan();
         String cardNumberFormat = StringUtils.ocultarCardNumberFormat(cardNumber);
         txtNumberCard.setText(cardNumberFormat);
 
+        String newName = "";
+        if (!emvDepositResponse.getName().isEmpty()) {
+            String nameOriginal = emvDepositResponse.getName().trim();
+            newName = nameOriginal.replace("/", " ").replace("\\", " ").replace("  ", "").replace("   ", "");
+            txtNameOwnerCard.setText(newName);
+        } else {
+            txtNameOwnerCard.setText("");
+        }
 
-        txtNameOwnerCard.setText(String.format("%s", emvDepositResponse.getName()));
+
+    /*  Codigo para mostrar el nombrfe ordenada
+      String newName = "";
+        if (!emvDepositResponse.getName().isEmpty()) {
+            String nameOriginal = emvDepositResponse.getName().trim();
+            String[] nameBlock = nameOriginal.split("/");
+            if (nameBlock.length > 1) {
+                newName = nameBlock[1] + " " + nameBlock[0];
+                txtNameOwnerCard.setText(newName);
+            } else {
+                txtNameOwnerCard.setText("");
+            }
+        } else {
+            txtNameOwnerCard.setText("");
+        }*/
+        // txtNameOwnerCard.setText(String.format("%s", emvDepositResponse.getName()));
+
         if (imgTypeCard != null) {
             imgTypeCard.setImageDrawable(setDrawable());
         }

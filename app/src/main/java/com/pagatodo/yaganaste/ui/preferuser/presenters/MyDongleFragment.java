@@ -217,7 +217,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                         //validatingDng = false; // Cancelar Validacion
                         try {
                             txtNumberBattery.setGravity(Gravity.START);
-                            txtNumberBattery.setText("Por Favor Conecta tu Lector Para Conocer su Nivel de Bateria");
+                            txtNumberBattery.setText("Por Favor Conecta tu Lector Para Conocer su Nivel de Batería");
                             txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
                             iconBattery.setVisibility(View.GONE);
                             txtNumberBattery.setSelected(true);
@@ -235,7 +235,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                             txtNumberBattery.setText("");
                             isReaderConected = true;
                             txtNumberBattery.setGravity(Gravity.START);
-                            txtNumberBattery.setText("Estamos Obteniendo el Nivel de Bateria");
+                            txtNumberBattery.setText("Obteniendo el Nivel de Batería");
                             txtNumberBattery.setTextColor(getResources().getColor(R.color.yellow));
                             iconBattery.setVisibility(View.GONE);
                             getActivity().registerReceiver(emvSwipeBroadcastReceiver, broadcastEMVSwipe);
@@ -269,7 +269,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
         imageView.setVisibility(View.GONE);
         txtLastPayment.setVisibility(View.GONE);
         txtNumberBattery.setGravity(Gravity.START);
-        txtNumberBattery.setText("Por Favor Conecta tu Lector Para Conocer su Nivel de Bateria");
+        txtNumberBattery.setText("Por Favor Conecta tu Lector Para Conocer su Nivel de Batería");
         txtNumberBattery.setTextColor(getResources().getColor(R.color.redcolor23));
         iconBattery.setVisibility(View.GONE);
 

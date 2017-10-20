@@ -34,6 +34,7 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
+import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.EVENT_GO_LOAD_SHARE_EMAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CANCELADO;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
 import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
@@ -137,7 +138,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
-        setVisibilityPrefershare(false);
+        setVisibilityPrefershare(true);
     }
     public void setVisibilityPrefershare(Boolean mBoolean){
         if(mBoolean){
@@ -162,7 +163,8 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         txtSubTituloDetalle.setText(dataMovimientoAdq.getBancoEmisor());
 
 
-        txtMonto.setText(dataMovimientoAdq.getMonto());
+        txtMonto.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMonto()));
+
         txtMonto.setTextColor(ContextCompat.getColor(getContext(), color));
         txtRefernciaDescripcion.setText(dataMovimientoAdq.getReferencia());
         txtConceptoDescripcion.setText(dataMovimientoAdq.getConcepto());

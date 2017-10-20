@@ -243,7 +243,7 @@
     <string name="text_slide_or_insert">Inserta la Tarjeta Con Chip</string>
     <string name="text_insert_cancelation">Inserta la Misma Tarjeta Con\nla Que se Hizo el Cobro</string>
     <string name="text_slide_cancelation">Desliza la Misma Tarjeta Con\nla Que se Hizo el Cobro</string>
-    <string name="text_insert_or_slide">Introduce o Desliza tu Tarjeta</string>
+    <string name="text_insert_or_slide">Inserta o Desliza tu Tarjeta</string>
     <string name="finalizar">Finalizar</string>
     <string name="insert_slide_card">Inserta o Desliza la tarjeta</string>
     <string name="no_internet_access">No Cuentas Con Conexión a Internet</string>
@@ -590,6 +590,8 @@
     <string name="procesando_solicitud"> </string>
 
     <string name="listo">¡Listo!</string>
+    <string name="share_ticket_email">Compartir Recibo</string>
+    <string name="share_ticket_email_text">Ingresa el Correo Electronico Que \nRecibira el Detalle Del Cobro</string>
     <string name="recibo_enviado">El Recibo Fue Enviado Con Éxito</string>
     <string name="recibo_enviado_line">El Recibo Fue Enviado \nCon Éxito</string>
 

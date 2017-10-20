@@ -260,6 +260,12 @@ public class DateUtil {
                         date = dateFormat.parse(movDate);
                     } catch (ParseException e3) {
                         e3.printStackTrace();
+                        dateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm", Locale.getDefault());
+                        try {
+                            date = dateFormat.parse(movDate);
+                        } catch (ParseException e4) {
+                            date = Calendar.getInstance().getTime();
+                        }
                     }
                 }
             }
