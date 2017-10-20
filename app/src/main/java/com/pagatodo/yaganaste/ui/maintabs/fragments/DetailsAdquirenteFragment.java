@@ -181,8 +181,8 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
             btnCancel.setOnClickListener(this);
         }
 
-        txtIVADescripcion.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMontoAdqComisionIva()));
-        txtComisionDescripcion.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMontoAdqComision()));
+        txtIVADescripcion.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMontoAdqComisionIva()).replace("$","$ "));
+        txtComisionDescripcion.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMontoAdqComision()).replace("$","$ "));
 
         btnVolver.setOnClickListener(this);
 
