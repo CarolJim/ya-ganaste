@@ -82,7 +82,7 @@ public class LoginManagerContainerFragment extends SupportFragment implements IL
     @Override
     public void loadRecoveryFragment() {
         loadFragment(RecoveryFragment.newInstance(), Direction.FORDWARD, true);
-        showBack(false);
+        showBack(true);
     }
 
     /**

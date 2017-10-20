@@ -33,10 +33,10 @@
                     android:id="@+id/txtHeaderRecovery"
                     style="@style/FragmentElement"
                     android:layout_width="match_parent"
-                    android:textSize="@dimen/size_text_style_3_value"
                     android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="@string/enviaremos_enlace_restablecer" />
+                    android:text="@string/enviaremos_enlace_restablecer"
+                    android:textSize="@dimen/size_text_style_3_value" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/edtCorreoRegistrado"
@@ -51,10 +51,11 @@
                     android:id="@+id/tvCorreoRegistrado"
                     style="@style/FragmentElement"
                     android:layout_width="match_parent"
-                    android:textColor="@color/colorAccent"
-                    android:layout_height="wrap_content" android:visibility="gone"
+                    android:layout_height="wrap_content"
                     android:gravity="center"
-                    android:text="dantestark@gmail.com" />
+                    android:text="dantestark@gmail.com"
+                    android:textColor="@color/colorAccent"
+                    android:visibility="gone" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorMessage"
@@ -89,7 +90,8 @@
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnBackRecuperar"
                 style="@style/buttonDirecctionBackSmall"
-                android:text="@string/backButton" />
+                android:text="@string/backButton"
+                android:visibility="gone" />
 
             <android.support.v4.widget.Space
                 android:layout_width="@dimen/btns_separation"
@@ -98,7 +100,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnNextRecuperar"
-                style="@style/buttonDirecctionNext"
+                style="@style/buttonSquareRoundedBlue"
                 android:gravity="center"
                 android:text="@string/recoveryButton" />
         </LinearLayout>

@@ -171,7 +171,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
     @Override
     public void onAttachFragment(Fragment fragment) {
         super.onAttachFragment(fragment);
-        showBack(!(fragment instanceof ListaOpcionesFragment));
+        //showBack(!(fragment instanceof ListaOpcionesFragment));
     }
 
     @Override
