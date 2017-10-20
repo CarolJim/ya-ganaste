@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.ui.account.DatosNegocioPresenter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.BussinesLineSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.SubBussinesLineSpinnerAdapter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
@@ -168,7 +169,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                 onSubSpinnerClick();
             }
         });
-
         setValidationRules();
     }
 
@@ -429,6 +429,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         editBussinesName.clearFocus();
         editBussinesPhone.clearFocus();
         spinnerSubBussineLine.requestFocus();
+        UI.hideKeyBoard(getActivity());
     }
 }
 

@@ -616,7 +616,7 @@
     <string name="envia_comprobante_a">Envía Este Comprobante a </string>
     <string name="envia_comprobante_opcional"> (Opcional)</string>
     <string name="envia_email">Enviando Email</string>
-    <string name="btn_recharge_txt">Recarga</string>
+    <string name="btn_recharge_txt">Recargar</string>
     <string name="btn_payment_txt">Pagar</string>
     <string name="txt_exito">Éxito</string>
     <string name="txt_cancelar">Cancelar</string>
@@ -786,7 +786,7 @@
     <string name="desbloquear_tarjeta">Desbloquear Tarjeta</string>
     <string name="bloquear_tu_tarjeta">Bloqueo de Tarjeta</string>
     <string name="desbloquear_tu_tarjeta">Desbloqueo de Tarjeta</string>
-    <string name="codigoAcceso">Código de Acceso</string>
+    <string name="codigoAcceso">Código de Seguridad</string>
     <string name="cobroRapido">Cobro Rápido</string>
 
     <string name="termin_condiciones">Términos y Condiciones</string>
