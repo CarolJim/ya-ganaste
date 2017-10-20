@@ -8,16 +8,24 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
+import com.pagatodo.yaganaste.exceptions.IllegalCallException;
+import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
+import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
 
-public class CompartirReciboFragment extends Fragment {
+public class CompartirReciboFragment extends GenericFragment {
+
+    private DataMovimientoAdq dataMovimientoAdq;
 
     public CompartirReciboFragment() {
         // Required empty public constructor
     }
 
-    public static CompartirReciboFragment newInstance() {
+    public static CompartirReciboFragment newInstance(DataMovimientoAdq dataMovimientoAdq) {
         CompartirReciboFragment fragment = new CompartirReciboFragment();
         Bundle args = new Bundle();
+        args.putSerializable(DetailsActivity.DATA, dataMovimientoAdq);
         fragment.setArguments(args);
         return fragment;
     }
@@ -25,7 +33,11 @@ public class CompartirReciboFragment extends Fragment {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if (getArguments() != null) {
+        Bundle args = getArguments();
+        if (args != null) {
+            dataMovimientoAdq = (DataMovimientoAdq) args.getSerializable(DetailsActivity.DATA);
+        } else {
+            throw new IllegalCallException(DetailsAdquirenteFragment.class.getSimpleName() + "must be called by newInstance factory method");
         }
     }
 
@@ -36,4 +48,8 @@ public class CompartirReciboFragment extends Fragment {
         return inflater.inflate(R.layout.fragment_compartir_recibo, container, false);
     }
 
+    @Override
+    public void initViews() {
+
+    }
 }

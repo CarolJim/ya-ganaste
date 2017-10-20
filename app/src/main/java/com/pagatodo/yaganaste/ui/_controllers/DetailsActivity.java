@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
+import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.CompartirReciboFragment;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -47,6 +48,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     public static final String TYPE = "type";
     public final static String EVENT_GO_TO_FINALIZE_SUCCESS = "FINALIZAR_CANCELACION_SUCCESS";
     public final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
+    public final static String EVENT_GO_LOAD_SHARE_EMAIL = "EVENT_GO_LOAD_SHARE_EMAIL";
     CircleImageView imageView;
     ImageView imageshare;
 
@@ -82,6 +84,10 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
             case EVENT_GO_TO_FINALIZE_ERROR:
                 setResult(-1);
                 this.finish();
+                break;
+            case EVENT_GO_LOAD_SHARE_EMAIL:
+              //  loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()), Direction.FORDWARD, true);
+                loadFragment(CompartirReciboFragment.newInstance((DataMovimientoAdq) data));
                 break;
         }
 
