@@ -590,6 +590,8 @@
     <string name="procesando_solicitud"> </string>
 
     <string name="listo">¡Listo!</string>
+    <string name="share_ticket_email">Compartir Recibo</string>
+    <string name="share_ticket_email_text">Ingresa el Correo Electronico Que \nRecibira el Detalle Del Cobro</string>
     <string name="recibo_enviado">El Recibo Fue Enviado Con Éxito</string>
     <string name="recibo_enviado_line">El Recibo Fue Enviado \nCon Éxito</string>
 
