@@ -140,6 +140,11 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     }
 
     @Override
+    public void onSaveInstanceState(Bundle outState) {
+        //super.onSaveInstanceState(outState);
+    }
+
+    @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
         swipeContainer.setOnRefreshListener(this);
@@ -196,8 +201,9 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
 
     @Override
     public void onResume() {
-        super.onResume();
+
         accountPresenter.updateBalance();
+        super.onResume();
         //accountPresenter.loadCardCover(R.id.llsaldo, CardCoverAdquiriente.newInstance(accountPresenter,Status));
 
     }
@@ -409,7 +415,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
                         R.animator.card_flip_left_out)
                 .replace(container, fragment)
                 .addToBackStack(null)
-                .commit();
+                .commitAllowingStateLoss();
 
     }
 
