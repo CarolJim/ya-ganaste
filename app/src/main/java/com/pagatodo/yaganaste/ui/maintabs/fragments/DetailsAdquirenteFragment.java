@@ -232,7 +232,6 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
                             }
                 }, getString(R.string.cancelacion_dialog_aceptar), "");
 
-
                 break;
         }
     }

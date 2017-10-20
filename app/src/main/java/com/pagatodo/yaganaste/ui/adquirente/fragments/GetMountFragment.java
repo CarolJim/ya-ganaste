@@ -18,11 +18,8 @@ import android.widget.TextView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
-import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
-import com.pagatodo.yaganaste.ui.account.login.QuickBalanceContainerFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
-import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
@@ -178,12 +175,12 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
                     TransactionAdqData.getCurrentTransaction().setAmount(valueAmount);
                     TransactionAdqData.getCurrentTransaction().setDescription(current_concept);
                     //setData("", "");
-                    NumberCalcTextWatcher.cleanData();
+                    /*NumberCalcTextWatcher.cleanData();
                     et_amount.setText("0");
                     edtConcept.setText(null);
                     mySeekBar.setProgress(0);
                     NumberCalcTextWatcher.cleanData();
-
+*/
                     Intent intent = new Intent(getActivity(), AdqActivity.class);
                     getActivity().startActivityForResult(intent, PAYMENTS_ADQUIRENTE);
                 } else showValidationError(getString(R.string.mount_be_higer));
@@ -215,6 +212,10 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
     @Override
     public void onResume() {
         super.onResume();
+        NumberCalcTextWatcher.cleanData();
+        et_amount.setText("0");
+        edtConcept.setText(null);
+        mySeekBar.setProgress(0);
         et_amount.requestFocus();
 
     }

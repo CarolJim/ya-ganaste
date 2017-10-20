@@ -15,6 +15,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.ui._controllers.MainActivity;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
+import com.pagatodo.yaganaste.utils.UI;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -170,6 +171,7 @@ public abstract class ToolBarActivity extends SupportFragmentActivity implements
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btn_back:
+                UI.hideKeyBoard(this);
                 onBackPressed();
                 break;
 
