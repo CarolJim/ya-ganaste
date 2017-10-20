@@ -190,7 +190,7 @@ public class AdqPaymentesPresenter<T extends IEnumTab> extends TabPresenterImpl 
             }*/
 
             movementsList.add(new ItemMovements<>(movimientoAdq.getOperacion(),
-                    movimientoAdq.getConcepto()
+                    movimientoAdq.getBancoEmisor()
                     /*movimientoAdq.getBancoEmisor().concat(SPACE).concat(
                             movimientoAdq.isEsReversada() ? "- " + App.getInstance().getString(R.string.cancelada) :
                                     movimientoAdq.isEsPendiente() ? "- " + App.getInstance().getString(R.string.pendiente) : SPACE)*/,
