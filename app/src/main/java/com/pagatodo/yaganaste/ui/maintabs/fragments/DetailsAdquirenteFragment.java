@@ -162,7 +162,8 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         txtSubTituloDetalle.setText(dataMovimientoAdq.getBancoEmisor());
 
 
-        txtMonto.setText(dataMovimientoAdq.getMonto());
+        txtMonto.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMonto()));
+
         txtMonto.setTextColor(ContextCompat.getColor(getContext(), color));
         txtRefernciaDescripcion.setText(dataMovimientoAdq.getReferencia());
         txtConceptoDescripcion.setText(dataMovimientoAdq.getConcepto());
