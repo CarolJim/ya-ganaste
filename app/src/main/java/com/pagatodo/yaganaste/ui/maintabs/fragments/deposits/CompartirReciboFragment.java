@@ -30,6 +30,10 @@ public class CompartirReciboFragment extends GenericFragment {
         return fragment;
     }
 
+    public static GenericFragment newInstance() {
+        return null;
+    }
+
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

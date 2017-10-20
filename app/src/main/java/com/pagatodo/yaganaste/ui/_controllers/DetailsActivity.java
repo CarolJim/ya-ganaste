@@ -8,6 +8,7 @@ import android.os.Bundle;
 import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -35,6 +36,8 @@ import java.util.Date;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
+import static android.R.attr.data;
+import static android.R.attr.fragment;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
 
@@ -87,8 +90,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                 break;
             case EVENT_GO_LOAD_SHARE_EMAIL:
               //  loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()), Direction.FORDWARD, true);
-                loadFragment(CompartirReciboFragment.newInstance((DataMovimientoAdq) data));
-                break;
+             //   loadFragment(CompartirReciboFragment.newInstance());
         }
 
     }
@@ -116,10 +118,18 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                     " you should pass as extra's parameters type and DataMovimientoAdq or " +
                     "ResumenMovimientosAdqResponse");
         }
+
+        // Localizamos el tipo de fragmnto que tenemos cargado
+        //fragment = getSupportFragmentManager().findFragmentById(R.id.container);
+
         imageshare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                takeScreenshot();
+                if(getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsEmisorFragment) {
+                    takeScreenshot();
+                }else if(getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsAdquirenteFragment){
+                    onEvent(EVENT_GO_LOAD_SHARE_EMAIL, "");
+                }
             }
         });
     }

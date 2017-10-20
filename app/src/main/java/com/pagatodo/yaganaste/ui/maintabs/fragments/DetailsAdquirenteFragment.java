@@ -216,9 +216,6 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
             case R.id.btn_volver:
                 getActivity().onBackPressed();
                 break;
-            case R.id.deposito_Share:
-                onEventListener.onEvent(EVENT_GO_LOAD_SHARE_EMAIL, "");
-                break;
             case R.id.btn_cancel:
 
                 UI.createCustomDialogCancelacionCobro(getString(R.string.cancelacion_dialog_title),
