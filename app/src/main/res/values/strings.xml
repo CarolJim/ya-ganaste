@@ -959,5 +959,12 @@
     <string name="update_data">Actualizando Datos</string>
     <string name="get_status_card">Obteniendo Estatus de Tarjeta</string>
     <string name="myDongle">Mi Lector</string>
+    
+    <!--Dialogo de cancelacion-->
+    <string name="cancelacion_dialog_title">Cancelar Cobro</string>
+    <string name="cancelacion_dialog_message">Parsa Cancelar es Necesario Que tu Cliente\nPresente la Tarjeta Con la Que se Realizó el Cobro</string>
+    <string name="cancelacion_dialog_aceptar">Entendido</string>
 
+    <!--Dialog de error-->
+    <string name="dialog_message_error">Mensaje de Error</string>
 </resources>

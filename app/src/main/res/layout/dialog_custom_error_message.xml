@@ -37,7 +37,7 @@
             android:layout_marginTop="15dp"
             android:gravity="center"
             android:padding="5dp"
-            android:text="Mensaje d error"
+            android:text="@string/dialog_message_error"
             android:textColor="@color/whiteColor"
             android:textSize="@dimen/size_text_style_3_value"
             android:visibility="visible"

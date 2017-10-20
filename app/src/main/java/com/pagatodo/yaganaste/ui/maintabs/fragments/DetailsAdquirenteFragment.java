@@ -159,13 +159,13 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         txtItemMovDate.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         txtItemMovMonth.setText(DateUtil.getMonthShortName(calendar));
         txtTituloDescripcion.setText(dataMovimientoAdq.getOperacion());
-        txtSubTituloDetalle.setText(dataMovimientoAdq.getConcepto());
+        txtSubTituloDetalle.setText(dataMovimientoAdq.getBancoEmisor());
 
 
         txtMonto.setText(dataMovimientoAdq.getMonto());
         txtMonto.setTextColor(ContextCompat.getColor(getContext(), color));
         txtRefernciaDescripcion.setText(dataMovimientoAdq.getReferencia());
-
+        txtConceptoDescripcion.setText(dataMovimientoAdq.getConcepto());
         txtFechaDescripcion.setText(DateUtil.getBirthDateCustomString(calendar));
         //DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
         String[] fecha = dataMovimientoAdq.getFecha().split(" ");
@@ -216,17 +216,21 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
                 break;
             case R.id.btn_cancel:
 
-                UI.createCustomDialogCancelacionCobro("Cancelar Cobro", "Para Cancelar es Necesario Que tu Cliente \n Prensente la Tarjeta Con la Que se Realizó el Cobro", getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        ((DetailsActivity) getActivity()).loadInsertDongleFragment(dataMovimientoAdq);
-                    }
+                UI.createCustomDialogCancelacionCobro(getString(R.string.cancelacion_dialog_title),
+                        getString(R.string.cancelacion_dialog_message),
+                        getFragmentManager(),
+                        getFragmentTag(),
+                        new DialogDoubleActions() {
+                            @Override
+                            public void actionConfirm(Object... params) {
+                                ((DetailsActivity) getActivity()).loadInsertDongleFragment(dataMovimientoAdq);
+                            }
 
-                    @Override
-                    public void actionCancel(Object... params) {
+                            @Override
+                            public void actionCancel(Object... params) {
 
-                    }
-                }, "Entendido", "");
+                            }
+                }, getString(R.string.cancelacion_dialog_aceptar), "");
 
 
                 break;
