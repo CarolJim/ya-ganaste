@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -33,6 +34,9 @@ import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_CANCELADO;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_POR_REMBOLSAR;
+import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
 
 /**
  * @author Juan Guerra on 12/04/2017.
@@ -71,14 +75,16 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     MontoTextView txtMontoDescripcion;*/
     @BindView(R.id.txtRefernciaDescripcion)
     TextView txtRefernciaDescripcion;
-    /*@BindView(R.id.txtConceptoDescripcion)
-    TextView txtConceptoDescripcion;*/
+    @BindView(R.id.txtConceptoDescripcion)
+    TextView txtConceptoDescripcion;
     @BindView(R.id.txtFechaDescripcion)
     TextView txtFechaDescripcion;
     @BindView(R.id.txtHoraDescripcion)
     TextView txtHoraDescripcion;
     @BindView(R.id.txtAutorizacionDescripcion)
     TextView txtAutorizacionDescripcion;
+    @BindView(R.id.txtEstatusDescripcion)
+    TextView txtEstatusDescripcion;
     //@BindView(R.id.txtReciboDescripcion)
     //TextView txtReciboDescripcion;
     @BindView(R.id.btn_cancel)
@@ -101,9 +107,8 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         imageViewshare= (ImageView) getActivity().findViewById(R.id.deposito_Share);
-        imageViewshare.setOnClickListener(this);
+        imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         if (args != null) {
             dataMovimientoAdq = (DataMovimientoAdq) args.getSerializable(DetailsActivity.DATA);
         } else {
@@ -132,7 +137,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
-        setVisibilityPrefershare(true);
+        setVisibilityPrefershare(false);
     }
     public void setVisibilityPrefershare(Boolean mBoolean){
         if(mBoolean){
@@ -154,13 +159,13 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         txtItemMovDate.setText(String.valueOf(calendar.get(Calendar.DAY_OF_MONTH)));
         txtItemMovMonth.setText(DateUtil.getMonthShortName(calendar));
         txtTituloDescripcion.setText(dataMovimientoAdq.getOperacion());
-        txtSubTituloDetalle.setText(dataMovimientoAdq.getConcepto());
+        txtSubTituloDetalle.setText(dataMovimientoAdq.getBancoEmisor());
 
 
         txtMonto.setText(dataMovimientoAdq.getMonto());
         txtMonto.setTextColor(ContextCompat.getColor(getContext(), color));
         txtRefernciaDescripcion.setText(dataMovimientoAdq.getReferencia());
-
+        txtConceptoDescripcion.setText(dataMovimientoAdq.getConcepto());
         txtFechaDescripcion.setText(DateUtil.getBirthDateCustomString(calendar));
         //DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
         String[] fecha = dataMovimientoAdq.getFecha().split(" ");
@@ -186,6 +191,19 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
                 .load(url)
                 .placeholder(R.mipmap.logo_ya_ganaste)
                 .into(imageDetail);
+        
+        switch (dataMovimientoAdq.getEstatus()){
+            case ESTATUS_CANCELADO:
+                txtEstatusDescripcion.setText(getString(R.string.status_cancelado));
+                break;
+            case ESTATUS_POR_REMBOLSAR:
+                txtEstatusDescripcion.setText(getString(R.string.status_por_rembolsar));
+                break;
+            case ESTATUS_REMBOLSADO:
+                txtEstatusDescripcion.setText(getString(R.string.status_rembolsado));
+                break;
+        }
+
     }
 
 
@@ -198,21 +216,22 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
                 break;
             case R.id.btn_cancel:
 
-                UI.createCustomDialogCancelacionCobro("Cancelar Cobro", "Para Cancelar es Necesario Que tu Cliente \n Presente la Tarjeta Con la Que se Realizó el Cobro", getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        ((DetailsActivity) getActivity()).loadInsertDongleFragment(dataMovimientoAdq);
-                    }
+                UI.createCustomDialogCancelacionCobro(getString(R.string.cancelacion_dialog_title),
+                        getString(R.string.cancelacion_dialog_message),
+                        getFragmentManager(),
+                        getFragmentTag(),
+                        new DialogDoubleActions() {
+                            @Override
+                            public void actionConfirm(Object... params) {
+                                ((DetailsActivity) getActivity()).loadInsertDongleFragment(dataMovimientoAdq);
+                            }
 
-                    @Override
-                    public void actionCancel(Object... params) {
+                            @Override
+                            public void actionCancel(Object... params) {
 
-                    }
-                }, "Entendido", "");
-                break;
+                            }
+                }, getString(R.string.cancelacion_dialog_aceptar), "");
 
-            case R.id.deposito_Share:
-                getActivity().onBackPressed();
                 break;
         }
     }

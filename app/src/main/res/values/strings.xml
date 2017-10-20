@@ -908,6 +908,7 @@
     <string name="details_fecha">Fecha</string>
     <string name="details_hora">Hora</string>
     <string name="details_autorizacion">Autorización</string>
+    <string name="details_status">Estatus</string>
     <string name="details_recibo">Recibo</string>
     <string name="details_monto_compra">Monto Compra</string>
     <string name="details_importe">Importe</string>
@@ -924,6 +925,10 @@
     <string name="details_bank">Banco</string>
     <string name="details_enviado_a">Enviado a</string>
     <string name="details_telefono">Teléfono</string>
+
+    <string name="status_cancelado">Cancelado</string>
+    <string name="status_por_rembolsar">Por Reembolsar</string>
+    <string name="status_rembolsado">Reembolsado</string>
 
     <string name="close_sesion_body">Por tu Seguridad, Hemos Cerrado la Sesión Por Falta de Actividad</string>
     <string name="addFavorites">Agregar a Favoritos</string>
@@ -956,5 +961,12 @@
     <string name="update_data">Actualizando Datos</string>
     <string name="get_status_card">Obteniendo Estatus de Tarjeta</string>
     <string name="myDongle">Mi Lector</string>
+    
+    <!--Dialogo de cancelacion-->
+    <string name="cancelacion_dialog_title">Cancelar Cobro</string>
+    <string name="cancelacion_dialog_message">Parsa Cancelar es Necesario Que tu Cliente\nPresente la Tarjeta Con la Que se Realizó el Cobro</string>
+    <string name="cancelacion_dialog_aceptar">Entendido</string>
 
+    <!--Dialog de error-->
+    <string name="dialog_message_error">Mensaje de Error</string>
 </resources>

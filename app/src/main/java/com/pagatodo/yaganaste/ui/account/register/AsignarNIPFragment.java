@@ -74,7 +74,6 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
         return fragmentRegister;
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
