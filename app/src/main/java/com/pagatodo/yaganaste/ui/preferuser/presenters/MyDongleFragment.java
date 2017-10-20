@@ -97,7 +97,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
     private boolean isWaitingCard = false;
     private boolean isCancelation = false;
 
-
+    private boolean mensajeuno = false;
 
 
 
@@ -175,18 +175,24 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
 
                     break;
                 case SW_ERROR:
-                    showSimpleDialogError(getString(R.string.vuelve_conectar_lector),
-                            new DialogDoubleActions() {
-                                @Override
-                                public void actionConfirm(Object... params) {
-                                    showInsertDongle();
-                                }
 
-                                @Override
-                                public void actionCancel(Object... params) {
+                     if (mensajeuno==false) {
+                         mensajeuno = true;
+                         showSimpleDialogError(getString(R.string.vuelve_conectar_lector),
+                                 new DialogDoubleActions() {
+                                     @Override
+                                     public void actionConfirm(Object... params) {
+                                         showInsertDongle();
+                                     }
 
-                                }
-                            });
+                                     @Override
+                                     public void actionCancel(Object... params) {
+
+                                     }
+                                 });
+
+                     }
+
                     //Toast.makeText(getActivity(), getString(R.string.vuelve_conectar_lector), Toast.LENGTH_SHORT).show();
                     Log.i("IposListener: ", "=====>>    SW_Error");
                     break;
@@ -215,6 +221,7 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
                         isReaderConected = false;
                         txtNumberBattery.setText(" ");
                         //validatingDng = false; // Cancelar Validacion
+                        mensajeuno = false;
                         try {
                             txtNumberBattery.setGravity(Gravity.START);
                             txtNumberBattery.setText("Por Favor Conecta tu Lector Para Conocer su Nivel de Batería");
@@ -317,7 +324,13 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
 
     private void setNumberBattery(int mPorcentaje) {
         // Procesimiento para cambiar la imagen de manera dinamica, dependiendo del rango de carga
+
+        int porcent=mPorcentaje;
+
         txtNumberBattery.setText(" "+mPorcentaje+"%");
+        mensajeuno=true;
+
+
         txtNumberBattery.setGravity(Gravity.END);
         txtNumberBattery.setTextColor(getResources().getColor(R.color.textColorAlternative));
         if(mPorcentaje >0 && mPorcentaje < 25){
@@ -418,18 +431,6 @@ public class MyDongleFragment extends GenericFragment implements View.OnClickLis
 
     @Override
     public void showError(Object error) {
-        //UI.showToast(error.toString(), getActivity());
-        DialogDoubleActions doubleActions = new DialogDoubleActions() {
-            @Override
-            public void actionConfirm(Object... params) {
 
-            }
-
-            @Override
-            public void actionCancel(Object... params) {
-
-            }
-        };
-        UI.createSimpleCustomDialog(getString(R.string.title_error), error.toString(), getFragmentManager(), doubleActions, true, false);
     }
 }

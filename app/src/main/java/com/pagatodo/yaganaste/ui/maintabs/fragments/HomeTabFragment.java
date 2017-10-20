@@ -1,7 +1,9 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
@@ -197,6 +199,9 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
 
     @Override
     public void onLongClickBlockCard() {
+        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(100);
         String nombre = nombre();
         String cuenta = cuenta();
         Intent intent = new Intent(getContext(), TarjetaActivity.class);
@@ -268,6 +273,9 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
 
     @Override
     public void longclickdongle() {
+        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(100);
         Intent intent = new Intent(getContext(), DongleBatteryHome.class);
         startActivity(intent);
     }
