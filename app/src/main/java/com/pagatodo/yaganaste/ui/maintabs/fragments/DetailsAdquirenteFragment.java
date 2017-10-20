@@ -101,8 +101,9 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        imageViewshare= (ImageView) getActivity().findViewById(R.id.deposito_Share);
         imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        imageViewshare= (ImageView) getActivity().findViewById(R.id.deposito_Share);
+        imageViewshare.setOnClickListener(this);
         if (args != null) {
             dataMovimientoAdq = (DataMovimientoAdq) args.getSerializable(DetailsActivity.DATA);
         } else {
@@ -131,7 +132,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
-        setVisibilityPrefershare(false);
+        setVisibilityPrefershare(true);
     }
     public void setVisibilityPrefershare(Boolean mBoolean){
         if(mBoolean){
@@ -208,8 +209,10 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
 
                     }
                 }, "Entendido", "");
+                break;
 
-
+            case R.id.deposito_Share:
+                getActivity().onBackPressed();
                 break;
         }
     }
