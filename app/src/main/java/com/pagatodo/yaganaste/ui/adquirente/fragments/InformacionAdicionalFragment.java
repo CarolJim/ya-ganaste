@@ -324,8 +324,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
         addNewCuestionarios(registerAgent);
 
-        //infoAdicionalPresenter.createUsuarioAdquirente();
-        onSuccessCreateAgente();
+        infoAdicionalPresenter.createUsuarioAdquirente();
     }
 
     private void addNewCuestionarios(RegisterAgent registerAgent) {

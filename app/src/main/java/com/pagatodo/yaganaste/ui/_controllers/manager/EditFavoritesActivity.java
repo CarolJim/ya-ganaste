@@ -275,16 +275,16 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_tae_ll);
             taeLL.setVisibility(View.VISIBLE);
 
-            recargaNumber.setText(formatoPago);
             initFormatoLogitud();
             initTAERefer();
+            recargaNumber.setText(formatoPago);
         } else if (current_tab == 2) {
             LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_serv_ll);
             taeLL.setVisibility(View.VISIBLE);
 
-            referenceNumber.setText(formatoPago);
             initFormatoLogitud();
             initPDSRefer();
+            referenceNumber.setText(formatoPago);
         } else if (current_tab == 3) {
             //  LinearLayout taeLL = (LinearLayout) findViewById(R.id.add_favorites_envio_ll);
             //   taeLL.setVisibility(View.VISIBLE);
