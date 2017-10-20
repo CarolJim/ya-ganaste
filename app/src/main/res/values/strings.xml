@@ -924,9 +924,9 @@
     <string name="details_enviado_a">Enviado a</string>
     <string name="details_telefono">Teléfono</string>
 
-    <string name="status_cancelado">Cancelado</string>
+    <string name="status_cancelado">Cancelada</string>
     <string name="status_por_rembolsar">Por Reembolsar</string>
-    <string name="status_rembolsado">Reembolsado</string>
+    <string name="status_rembolsado">Reembolsada</string>
 
     <string name="close_sesion_body">Por tu Seguridad, Hemos Cerrado la Sesión Por Falta de Actividad</string>
     <string name="addFavorites">Agregar a Favoritos</string>

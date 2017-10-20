@@ -112,7 +112,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end" />
+                        android:gravity="end"
+                        android:textSize="15sp"/>
                 </LinearLayout>
 
                 <View
@@ -150,7 +151,8 @@
                         android:layout_width="0dp"
                         android:layout_height="wrap_content"
                         android:layout_weight="1"
-                        android:gravity="end"/>
+                        android:gravity="end"
+                        android:textSize="15sp"/>
                 </LinearLayout>
 
                 <View
@@ -435,7 +437,7 @@
 
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
-                android:id="@+id/btn_cafncel"
+                android:id="@+id/btn_cancel"
                 style="@style/buttonSquareRoundedTransparent"
                 android:gravity="center"
                 android:text="@string/cancelar_operacion"
