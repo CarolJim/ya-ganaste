@@ -44,8 +44,8 @@
                     style="@style/generic_text_style_2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    tools:text="18"
-                    app:tipo="Text"/>
+                    app:tipo="Text"
+                    tools:text="18" />
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/txt_item_mov_month"
@@ -101,7 +101,7 @@
                     android:text="200.00"
                     android:textSize="9dp"
                     app:decimalLenght="2"
-                    app:dotBottom="false"
+                    app:dotBottom="true"
                     app:symbolSmaller="false"
                     app:tipo="Text" />
 

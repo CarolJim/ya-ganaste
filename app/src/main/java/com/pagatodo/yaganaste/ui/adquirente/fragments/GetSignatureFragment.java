@@ -133,7 +133,8 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
 
 
         /*Seteamos los datos de la transacción*/
-        txtAmount.setText(String.format("$%s", currentTransaction.getAmount()));
+        txtAmount.setText(String.format("$%s", StringUtils.getCurrencyValue(currentTransaction.getAmount())));
+
         // txtNumberCard.setText(emvDepositResponse.getMaskedPan());
 
         String cardNumber = emvDepositResponse.getMaskedPan();
