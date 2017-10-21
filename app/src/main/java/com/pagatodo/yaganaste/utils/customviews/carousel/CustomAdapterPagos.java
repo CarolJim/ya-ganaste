@@ -26,15 +26,13 @@ public class CustomAdapterPagos extends ArrayAdapter<String> {
     ArrayList<String> mListFiltered = new ArrayList<>();
     Context mContext;
     int layoutResourceId;
-    boolean isFavorite;
 
-    public CustomAdapterPagos(Context context, int layoutResourceId, ArrayList<String> mList, boolean isFavorite) {
+    public CustomAdapterPagos(Context context, int layoutResourceId, ArrayList<String> mList) {
         super(context, layoutResourceId, mList);
         this.mContext = context;
         this.layoutResourceId = layoutResourceId;
         this.mList = mList;
         this.mListFiltered = mList;
-        this.isFavorite = isFavorite;
     }
 
     @NonNull
@@ -101,8 +99,7 @@ public class CustomAdapterPagos extends ArrayAdapter<String> {
                      * Si no tenenmos resultados, agregamos al leyenda de No existen Resultados
                      */
                     if (results.count == 0) {
-                        resultsData.add(!isFavorite ? mContext.getResources().getString(R.string.no_companias_busqueda) :
-                                mContext.getResources().getString(R.string.no_favoritos_busqueda));
+                        resultsData.add(mContext.getResources().getString(R.string.without_items));
                         results.count = resultsData.size();
                         results.values = resultsData;
                     }

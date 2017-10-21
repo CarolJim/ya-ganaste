@@ -148,7 +148,7 @@ public class NacionalidadSpinnerAdapter extends ArrayAdapter<Countries> implemen
                  */
                 if (results.count == 0) {
                     String noExisten = mContext.getResources()
-                            .getString(R.string.no_existen_resultados);
+                            .getString(R.string.without_items);
                     nCountriesList.add(new Countries(
                                     999,
                                     noExisten,

@@ -78,8 +78,7 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
 //        adapter = new ArrayAdapter<>(context, android.R.layout.simple_list_item_1, mList);
 //        list.setAdapter(adapter);
 
-        adapter2 = new CustomAdapterPagos(getContext(), R.layout.item_pagos_textview, mList,
-                (listCarousel.get(0) != null && listCarousel.get(0).getFavoritos() != null));
+        adapter2 = new CustomAdapterPagos(getContext(), R.layout.item_pagos_textview, mList);
         list.setAdapter(adapter2);
         list.setItemsCanFocus(true);
         list.setOnItemClickListener(this);
