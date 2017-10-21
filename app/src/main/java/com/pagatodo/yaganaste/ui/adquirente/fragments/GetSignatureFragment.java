@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 import android.widget.FrameLayout;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.TextView;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
@@ -60,6 +61,8 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
     FrameLayout layout_content_firma;
     @BindView(R.id.sign_line)
     View signLine;
+    @BindView(R.id.txtSign)
+    TextView txtSign;
     private View rootview;
     private SigningViewYaGanaste signingView;
     private TransaccionEMVDepositResponse emvDepositResponse;
@@ -175,6 +178,7 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
         LinearLayout.LayoutParams paramsc = new LinearLayout.LayoutParams(LinearLayout.LayoutParams.MATCH_PARENT, 2);
         paramsc.setMargins(widthp / 7, 0, widthp / 7, 0);
         signLine.setLayoutParams(paramsc);
+        txtSign.setPadding(widthp / 7, 0, 0, 0);
     }
 
     /**
