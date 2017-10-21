@@ -964,7 +964,7 @@
     
     <!--Dialogo de cancelacion-->
     <string name="cancelacion_dialog_title">Cancelar Cobro</string>
-    <string name="cancelacion_dialog_message">Parsa Cancelar es Necesario Que tu Cliente\nPresente la Tarjeta Con la Que se Realizó el Cobro</string>
+    <string name="cancelacion_dialog_message">Para Cancelar es Necesario Que tu Cliente\nPresente la Tarjeta Con la Que se Realizó el Cobro</string>
     <string name="cancelacion_dialog_aceptar">Entendido</string>
 
     <!--Dialog de error-->

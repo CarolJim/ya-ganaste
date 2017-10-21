@@ -99,7 +99,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @Override
     public void initViews() {
         super.initViews();
-        txtAmountPayment.setText(String.format("$%s", StringUtils.getCurrencyValue(TransactionAdqData.getCurrentTransaction().getAmount())));
+        txtAmountPayment.setText(String.format(" %s", StringUtils.getCurrencyValue(TransactionAdqData.getCurrentTransaction().getAmount())));
 
 
         String mDescription = TransactionAdqData.getCurrentTransaction().getDescription();

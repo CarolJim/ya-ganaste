@@ -74,21 +74,33 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
 
     @Override
     public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        showLoader("");
         itemClicked.setColor(CANCELADO.getColor());
         itemClicked.getMovement().setEsReversada(true);
         itemClicked.setSubtituloDetalle(getString(R.string.cancelada));
         notifyDataSetChanged();
         onRefresh(null);
-        showLoader("");
+
+
     }
 
     @Override
     public void onRefresh(SwipyRefreshLayoutDirection direction) {
+        try{
         if ((direction.equals(SwipyRefreshLayoutDirection.BOTTOM))) {
             swipeContainer.setRefreshing(false);
+
         } else {
-            super.onRefresh(direction);
-            getDataForTab(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()));
+            try {
+                super.onRefresh(SwipyRefreshLayoutDirection.BOTTOM);
+                getDataForTab(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()));
+            } catch (Exception e) {
+                hideLoader();
+            }
+        }
+    }catch (Exception e){
+hideLoader();
+
         }
     }
 }

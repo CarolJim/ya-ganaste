@@ -6,6 +6,7 @@ import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +37,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_TERMINOS_LINEAC;
  * Created by flima on 24/04/2017.
  */
 
-public class LegalsDialog extends DialogFragment implements IProgressView {
+public class LegalsDialog extends DialogFragment implements IProgressView ,View.OnClickListener{
 
     public static String TAG = "LegalsDialog";
     public static String TYPE_LEGALS = "TYPE_LEGALS";
@@ -46,6 +47,8 @@ public class LegalsDialog extends DialogFragment implements IProgressView {
     ProgressLayout progressLayout;
     private View rootview;
     private Legales typeLegal;
+
+    private AppCompatImageView btnBack;
 
     public static LegalsDialog newInstance(Legales typeLegal) {
         LegalsDialog legalsDialog = new LegalsDialog();
@@ -63,6 +66,7 @@ public class LegalsDialog extends DialogFragment implements IProgressView {
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        btnBack = (AppCompatImageView) getActivity().findViewById(R.id.btn_back);
         if (getArguments() != null) {
             typeLegal = (Legales) getArguments().getSerializable(TYPE_LEGALS);
         }
@@ -99,11 +103,17 @@ public class LegalsDialog extends DialogFragment implements IProgressView {
         // getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         return rootview;
     }
-
+    @Override
+    public void onClick(View view) {
+       if(view.getId() == R.id.btn_back) {
+            getActivity().onBackPressed();
+        }
+    }
     public void initViews() {
         ButterKnife.bind(this, rootview);
         showLoader(getString(R.string.cargando));
         WebSettings settings = webViewLegalsContent.getSettings();
+        btnBack.setOnClickListener(this);
         settings.setJavaScriptEnabled(true);
         webViewLegalsContent.setScrollBarStyle(View.SCROLLBARS_OUTSIDE_OVERLAY);
         webViewLegalsContent.loadUrl(getUrlLegals());
