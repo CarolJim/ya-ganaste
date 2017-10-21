@@ -2,8 +2,6 @@ package com.pagatodo.yaganaste.utils.camera;
 
 import android.app.Activity;
 import android.app.AlertDialog;
-import android.content.ActivityNotFoundException;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
@@ -26,8 +24,6 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
-import com.pagatodo.yaganaste.ui._controllers.CropActivity;
-import com.pagatodo.yaganaste.ui._controllers.manager.AddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
@@ -36,7 +32,6 @@ import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
-
 
 import java.io.File;
 import java.io.IOException;
@@ -98,9 +93,10 @@ public class CameraManager {
     public CameraManager() {
     }
 
-    public CameraManager(ICropper listener){
+    public CameraManager(ICropper listener) {
         this.listener = listener;
     }
+
     public static Bitmap getBitmap() {
         return bitmapValue;
     }
@@ -281,15 +277,15 @@ public class CameraManager {
     }
 
 
-    public void setCropImage(Uri uriimage){
+    public void setCropImage(Uri uriimage) {
         this.uriImage = uriimage;
         bitmapLoader = new BitmapLoader(mContext, uriimage.getPath(), new BitmapBase64Listener() {
-                    @Override
-                    public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
-                        saveBmpImgUser(bitmap, imgbase64);
-                    }
-                });
-                bitmapLoader.execute();
+            @Override
+            public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
+                saveBmpImgUser(bitmap, imgbase64);
+            }
+        });
+        bitmapLoader.execute();
 
     }
 
@@ -312,7 +308,7 @@ public class CameraManager {
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
 
-                    mView.showProgress("Cargando Imagen. Por favor, espere . . .");
+                    //mView.showProgress("Cargando Imagen. Por favor, espere . . .");
                     mView.setPhotoToService(bitmap);
                     break;
             }
@@ -346,7 +342,7 @@ public class CameraManager {
             mediaScanIntent.setData(contentUri);
             mContext.sendBroadcast(mediaScanIntent);
 
-           // String path = SingletonUser.getInstance().getPathPictureTemp();
+            // String path = SingletonUser.getInstance().getPathPictureTemp();
             bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {
                 @Override
                 public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
@@ -356,7 +352,7 @@ public class CameraManager {
                 }
             });
 
-            //mView.showProgress("Cargando Imagen. Por favor, espere . . .");
+            mView.showProgress("Cargando Imagen. Por favor, espere . . .");
             this.listener.onCropper(contentUri);
         } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode != RESULT_OK) {
             // enableItems(true);
@@ -403,7 +399,7 @@ public class CameraManager {
     }
 
 
-    public Uri getUriImage(){
+    public Uri getUriImage() {
         return this.uriImage;
     }
 }
