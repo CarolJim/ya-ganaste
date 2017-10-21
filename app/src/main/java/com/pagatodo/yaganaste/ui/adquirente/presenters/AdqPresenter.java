@@ -118,6 +118,14 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
                 email));
     }
 
+    public void sendTicketShare(String emailToSend, String description, String idTransaction) {
+        iAdqView.showLoader(App.getContext().getString(R.string.enviando_ticket));
+        adqInteractor.enviarTicketCompraShare(UtilsAdquirente.buildTicketRequest(
+                description,
+                idTransaction,
+                emailToSend));
+    }
+
     @Override
     public void goToNextStepAccount(String event, Object data) {
         iAdqView.hideLoader();
@@ -139,6 +147,10 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
 //                iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION, error);
                 break;
             case ENVIAR_TICKET_COMPRA:
+                iAdqView.showError(error);
+//                iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT,error);
+                break;
+            case SHARED_TICKET_COMPRA:
                 iAdqView.showError(error);
 //                iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT,error);
                 break;
@@ -195,6 +207,10 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
                 iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION, data);
                 break;
             case ENVIAR_TICKET_COMPRA:
+                iAdqView.hideLoader();
+                iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT, data);
+                break;
+            case SHARED_TICKET_COMPRA:
                 iAdqView.hideLoader();
                 iAdqView.nextScreen(EVENT_GO_TRANSACTION_RESULT, data);
                 break;

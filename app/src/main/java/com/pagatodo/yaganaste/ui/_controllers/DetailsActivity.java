@@ -52,8 +52,10 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     public final static String EVENT_GO_TO_FINALIZE_SUCCESS = "FINALIZAR_CANCELACION_SUCCESS";
     public final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
     public final static String EVENT_GO_LOAD_SHARE_EMAIL = "EVENT_GO_LOAD_SHARE_EMAIL";
+    public final static String EVENT_CLOSE_ACT = "EVENT_CLOSE_ACT";
     CircleImageView imageView;
     ImageView imageshare;
+    private DataMovimientoAdq dataMovimentTmp;
 
     public static Intent createIntent(@NonNull Context from, MovimientosResponse data) {
         return createIntent(from, TYPES.EMISOR, data);
@@ -73,12 +75,13 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     }
 
     @Override
-    public void onEvent(String event, Object data) {
-        super.onEvent(event, data);
+    public void onEvent(String event, Object data2) {
+        super.onEvent(event, data2);
         switch (event) {
             case EVENT_GO_TRANSACTION_RESULT:
                 loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()), Direction.FORDWARD, true);
                 break;
+
             case EVENT_GO_TO_FINALIZE_SUCCESS:
                 setResult(RESULT_CANCEL_OK);
                 this.finish();
@@ -88,9 +91,18 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                 setResult(-1);
                 this.finish();
                 break;
+
+            case EVENT_CLOSE_ACT:
+                this.finish();
+                break;
+
+            /**
+             * Cargamos nuestro Fragmento de CompartirRecibo, pasandole el movimiento que tenemos
+             * en pantalla
+             */
             case EVENT_GO_LOAD_SHARE_EMAIL:
               //  loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()), Direction.FORDWARD, true);
-             //   loadFragment(CompartirReciboFragment.newInstance());
+                loadFragment(CompartirReciboFragment.newInstance(dataMovimentTmp), Direction.FORDWARD, true);
         }
 
     }
@@ -139,6 +151,12 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
             if (type.equals(TYPES.EMISOR)) {
                 loadFragment(DetailsEmisorFragment.newInstance((MovimientosResponse) data));
             } else if (type.equals(TYPES.ADQUIRENTE)) {
+                /**
+                 * Usamos una variable auxiliar dataMovimentTmp que se encarga de guardar en memoria
+                 * nuestro objeto DataMovimientoAdq, para enviarlo al fragmento CompartirReciboFragment
+                 */
+               // dataMovimentTmp = null;
+                dataMovimentTmp = (DataMovimientoAdq) data;
                 loadFragment(DetailsAdquirenteFragment.newInstance((DataMovimientoAdq) data));
             }
         } else {
@@ -157,6 +175,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
 
     @Override
     public void onBackPressed() {
+        // Hacemos null nuestra variable auxiliar
         if (!isLoaderShow) {
             super.onBackPressed();
         }

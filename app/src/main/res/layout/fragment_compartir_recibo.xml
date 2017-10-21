@@ -102,7 +102,7 @@ tools:context="com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.CompartirRe
                 style="@style/buttonSquareRoundedBlue"
                 android:layout_gravity="bottom"
                 android:gravity="center"
-                android:text="@string/txt_iniciar_sesion" />
+                android:text="@string/share_text" />
 
             <LinearLayout
                 android:layout_width="match_parent"

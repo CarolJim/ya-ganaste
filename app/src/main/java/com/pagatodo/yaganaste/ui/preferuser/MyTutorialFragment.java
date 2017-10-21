@@ -109,8 +109,8 @@ public class MyTutorialFragment extends GenericFragment implements View.OnClickL
         LandingActivitiesEnum activitiesEnum;
         switch (view.getId()) {
             case R.id.fragment_ayuda_tutoriales_inicio_sesion:
-               // activitiesEnum = isAdquirente ? INICIO_SESION_ADQUIRENTE : INICIO_SESION_EMISOR;
-                activitiesEnum = isAdquirente ? PANTALLA_COBROS : INICIO_SESION_ADQUIRENTE;
+               activitiesEnum = isAdquirente ? INICIO_SESION_ADQUIRENTE : INICIO_SESION_EMISOR;
+                activitiesEnum = isAdquirente ? PANTALLA_COBROS : PANTALLA_COBROS;
                 break;
             case R.id.fragment_ayuda_tutoriales_tu_pantalla_principal:
             //    activitiesEnum = PANTALLA_PRINCIPAL_EMISOR;

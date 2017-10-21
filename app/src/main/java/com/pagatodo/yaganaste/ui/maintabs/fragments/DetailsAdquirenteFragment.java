@@ -45,6 +45,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.ESTATUS_REMBOLSADO;
 
 public class DetailsAdquirenteFragment extends GenericFragment implements View.OnClickListener {
 
+    public static final String TRANS_STATUS_RED = "1";
+
     @BindView(R.id.layout_movement_type_color)
     View layoutMovementTypeColor;
     @BindView(R.id.txt_item_mov_date)
@@ -96,6 +98,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     private DataMovimientoAdq dataMovimientoAdq;
     CircleImageView imageView;
     ImageView imageViewshare;
+
     public static DetailsAdquirenteFragment newInstance(@NonNull DataMovimientoAdq dataMovimientoAdq) {
         DetailsAdquirenteFragment fragment = new DetailsAdquirenteFragment();
         Bundle args = new Bundle();
@@ -108,7 +111,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
-        imageViewshare= (ImageView) getActivity().findViewById(R.id.deposito_Share);
+        imageViewshare = (ImageView) getActivity().findViewById(R.id.deposito_Share);
         imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         if (args != null) {
             dataMovimientoAdq = (DataMovimientoAdq) args.getSerializable(DetailsActivity.DATA);
@@ -122,28 +125,40 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         return inflater.inflate(R.layout.fragment_detail_movements_adquirente, container, false);
     }
-    public void setVisibilityPrefer(Boolean mBoolean){
-        if(mBoolean){
+
+    public void setVisibilityPrefer(Boolean mBoolean) {
+        if (mBoolean) {
             imageView.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             imageView.setVisibility(View.GONE);
         }
     }
+
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         this.rootView = view;
         initViews();
     }
+
     @Override
     public void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
         setVisibilityPrefershare(true);
     }
-    public void setVisibilityPrefershare(Boolean mBoolean){
-        if(mBoolean){
-            imageViewshare.setVisibility(View.VISIBLE);
-        }else{
+
+    public void setVisibilityPrefershare(Boolean mBoolean) {
+        if (mBoolean) {
+            /**
+             * Si la transaccion tiene un estatus de 1 es un movimiento cancelado y no se debe
+             * compartir
+             */
+            if (dataMovimientoAdq.getEstatus().equals(TRANS_STATUS_RED)) {
+                imageViewshare.setVisibility(View.GONE);
+            } else {
+                imageViewshare.setVisibility(View.VISIBLE);
+            }
+        } else {
             imageViewshare.setVisibility(View.GONE);
         }
     }
@@ -181,8 +196,8 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
             btnCancel.setOnClickListener(this);
         }
 
-        txtIVADescripcion.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMontoAdqComisionIva()).replace("$","$ "));
-        txtComisionDescripcion.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMontoAdqComision()).replace("$","$ "));
+        txtIVADescripcion.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMontoAdqComisionIva()).replace("$", "$ "));
+        txtComisionDescripcion.setText(StringUtils.getCurrencyValue(dataMovimientoAdq.getMontoAdqComision()).replace("$", "$ "));
 
         btnVolver.setOnClickListener(this);
 
@@ -193,8 +208,8 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
                 .load(url)
                 .placeholder(R.mipmap.logo_ya_ganaste)
                 .into(imageDetail);
-        
-        switch (dataMovimientoAdq.getEstatus()){
+
+        switch (dataMovimientoAdq.getEstatus()) {
             case ESTATUS_CANCELADO:
                 txtEstatusDescripcion.setText(getString(R.string.status_cancelado));
                 break;
@@ -232,7 +247,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
                             public void actionCancel(Object... params) {
 
                             }
-                }, getString(R.string.cancelacion_dialog_aceptar), "");
+                        }, getString(R.string.cancelacion_dialog_aceptar), "");
 
                 break;
         }
