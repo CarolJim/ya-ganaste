@@ -129,6 +129,7 @@
                 android:id="@+id/btnBackDatosUsuario"
                 style="@style/buttonDirecctionBackSmall"
                 android:gravity="center"
+                android:visibility="gone"
                 android:text="@string/backButton"/>
 
             <android.support.v4.widget.Space

@@ -232,6 +232,7 @@
 
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnBackDomicilioActual"
+                android:visibility="gone"
                 style="@style/buttonDirecctionBackSmall"
                 android:text="@string/backButton" />
 

@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
 import android.os.Bundle;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -70,7 +71,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
     private boolean userExist = false; // Indica que el email ya se encuentra registrado.
     private AccountPresenterNew accountPresenter;
     private String passErrorMessage;
-
+    private AppCompatImageView btnBack;
     private boolean errorIsShowed = false;
 
     public DatosUsuarioFragment() {
@@ -89,6 +90,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
+        btnBack = (AppCompatImageView) getActivity().findViewById(R.id.btn_back);
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
 
@@ -125,6 +127,12 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         } else if (view.getId() == R.id.btnBackDatosUsuario) {
             getActivity().onBackPressed();
         }
+    }
+
+    @Override
+    public void onResume() {
+        super.onResume();
+        setVisibilityBack(true);
     }
 
     /*Implementación de ValidationForms*/
@@ -266,7 +274,13 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         });
 
     }
-
+    public void setVisibilityBack(boolean mBoolean){
+        if (mBoolean) {
+            btnBack.setVisibility(View.VISIBLE);
+        }else {
+            btnBack.setVisibility(View.GONE);
+        }
+    }
     @Override
     public void validateForm() {
         getDataForm();
