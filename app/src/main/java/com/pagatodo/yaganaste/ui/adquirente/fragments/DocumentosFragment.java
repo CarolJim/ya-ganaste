@@ -197,6 +197,19 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             btnRegresar.setVisibility(View.GONE);
             lnr_buttons.setVisibility(View.GONE);
         }
+
+        hideStatusPhoto();
+
+    }
+
+    private void hideStatusPhoto() {
+        /**
+         * Se ocultan los circulos de estado de carga de las imagenes
+         */
+        ifeFront.setVisibilityStatus(false);
+        ifeBack.setVisibilityStatus(false);
+        addressFront.setVisibilityStatus(false);
+        addressBack.setVisibilityStatus(false);
     }
 
     @Override
@@ -427,6 +440,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             lnr_buttons.setVisibility(VISIBLE);
             swipeRefreshLayout.setEnabled(false);
         }
+        hideStatusPhoto();
     }
 
     private File createImageFile() throws IOException {
@@ -800,6 +814,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void onRefresh() {
         swipeRefreshLayout.setRefreshing(false);
         refreshContent();
+        hideStatusPhoto();
     }
 
     private void refreshContent() {
