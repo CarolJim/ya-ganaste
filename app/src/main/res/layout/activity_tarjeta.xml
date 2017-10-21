@@ -128,9 +128,9 @@
                         <LinearLayout
                             android:id="@+id/layout_fecha"
                             android:layout_width="match_parent"
+                            android:visibility="gone"
                             android:layout_height="wrap_content"
-                            android:orientation="vertical"
-                            android:visibility="visible">
+                            android:orientation="vertical" >
 
                             <LinearLayout
                                 android:layout_width="match_parent"
@@ -207,7 +207,6 @@
                                         android:layout_width="wrap_content"
                                         android:layout_height="wrap_content"
                                         android:theme="@style/SCBSwitch"
-
                                         android:thumb="@drawable/block_card_switch"
                                         app:track="@drawable/switch_compat_custom_track" />
 
@@ -216,6 +215,7 @@
                                         android:layout_width="20dp"
                                         android:layout_marginLeft="15dp"
                                         android:layout_marginRight="10dp"
+                                        android:visibility="gone"
                                         android:layout_height="20dp"
                                         app:srcCompat="@drawable/ic_candado_open" />
                                 </LinearLayout>
