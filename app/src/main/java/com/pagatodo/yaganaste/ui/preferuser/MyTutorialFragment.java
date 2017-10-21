@@ -43,17 +43,12 @@ public class MyTutorialFragment extends GenericFragment implements View.OnClickL
     @BindView(R.id.fragment_ayuda_tutoriales_bloquear_tarjeta)
     LinearLayout layoutBloquearTarjeta;
     /**
-    @BindView(R.id.test1)
-    LinearLayout test1;
-    @BindView(R.id.test2)
-    LinearLayout test2;
-    @BindView(R.id.test3)
-    LinearLayout test3;
-    @BindView(R.id.test4)
-    LinearLayout test4;
-    @BindView(R.id.test5)
-    LinearLayout test5;
-    */
+     * @BindView(R.id.test1) LinearLayout test1;
+     * @BindView(R.id.test2) LinearLayout test2;
+     * @BindView(R.id.test3) LinearLayout test3;
+     * @BindView(R.id.test4) LinearLayout test4;
+     * @BindView(R.id.test5) LinearLayout test5;
+     */
 
     private boolean isAdquirente = true;
 
@@ -109,11 +104,11 @@ public class MyTutorialFragment extends GenericFragment implements View.OnClickL
         LandingActivitiesEnum activitiesEnum;
         switch (view.getId()) {
             case R.id.fragment_ayuda_tutoriales_inicio_sesion:
-               activitiesEnum = isAdquirente ? INICIO_SESION_ADQUIRENTE : INICIO_SESION_EMISOR;
-                activitiesEnum = isAdquirente ? PANTALLA_COBROS : PANTALLA_COBROS;
+                //activitiesEnum = isAdquirente ? PANTALLA_COBROS : PANTALLA_COBROS;
+                activitiesEnum = isAdquirente ? INICIO_SESION_ADQUIRENTE : INICIO_SESION_EMISOR;
                 break;
             case R.id.fragment_ayuda_tutoriales_tu_pantalla_principal:
-            //    activitiesEnum = PANTALLA_PRINCIPAL_EMISOR;
+                //    activitiesEnum = PANTALLA_PRINCIPAL_EMISOR;
                 activitiesEnum = PANTALLA_PRINCIPAL_EMISOR;
                 break;
             case R.id.fragment_ayuda_tutoriales_tu_pantalla_Cobros:

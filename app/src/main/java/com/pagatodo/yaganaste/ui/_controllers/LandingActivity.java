@@ -95,7 +95,8 @@ public class LandingActivity extends SupportFragmentActivity implements Animatio
          * setOnClick en el area auxiliar que tenemos en Omitir. Al dar Click terminamos la actividad
          * y quitamos los runnable que controlan la animacion
          */
-        if(nameCouchMark.equals(LandingActivitiesEnum.PANTALLA_PRINCIPAL_EMISOR.name())){
+        if(nameCouchMark.equals(LandingActivitiesEnum.PANTALLA_PRINCIPAL_EMISOR.name()) ||
+                nameCouchMark.equals(LandingActivitiesEnum.PANTALLA_COBROS.name())){
             ll_omitir.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
