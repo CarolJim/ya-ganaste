@@ -31,7 +31,6 @@ import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.view.View.GONE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_CONFIRM_PIN;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -86,7 +85,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        btnNextAsignarPin.setVisibility(GONE);
+        btnNextAsignarPin.setVisibility(View.GONE);
 
         keyboardView.setKeyBoard(getActivity(), R.xml.keyboard_nip);
         keyboardView.setPreviewEnabled(false);
@@ -112,8 +111,9 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
                 if (s.toString().length() == 4) {
-                    //keyboardView.hideCustomKeyboard();
-                    validateForm();
+                    keyboardView.hideCustomKeyboard();
+                    btnNextAsignarPin.setVisibility(View.VISIBLE);
+                    //validateForm();
                 }
             }
 
@@ -145,7 +145,12 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
                 return true; // Consume touch event
             }
         });
-
+        btnNextAsignarPin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                validateForm();
+            }
+        });
         setValidationRules();
         keyboardView.showCustomKeyboard(rootview);
         edtPin.requestEditFocus();
@@ -252,9 +257,5 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
 
     public boolean isCustomKeyboardVisible() {
         return false;
-    }
-
-    public void hideKeyboard() {
-        //keyboardView.hideCustomKeyboard();
     }
 }

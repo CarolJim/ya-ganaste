@@ -126,9 +126,9 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
             @Override
             public void afterTextChanged(Editable editable) {
                 if (editable.toString().length() == 4) {
-                    buttonIsVisible(false);
-                    //keyboardView.hideCustomKeyboard();
-                    validateForm();
+                    buttonIsVisible(true);
+                    keyboardView.hideCustomKeyboard();
+                    //validateForm();
                 }
             }
         });

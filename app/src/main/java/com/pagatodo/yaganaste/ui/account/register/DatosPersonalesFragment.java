@@ -121,6 +121,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
     int year;
     int month;
     int day;
+    private int errorVerificationData = 0;
 
     View.OnClickListener onClickListenerDatePicker = new View.OnClickListener() {
         @Override
@@ -621,7 +622,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
 
     @Override
     public void showError(Object error) {
-        if (!error.toString().isEmpty())
+        errorVerificationData++;
+        if (!error.toString().isEmpty() && errorVerificationData < 4) {
             //  UI.showToastShort(error.toString(), getActivity());
             UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
                     new DialogDoubleActions() {
@@ -634,8 +636,23 @@ public class DatosPersonalesFragment extends GenericFragment implements
                         public void actionCancel(Object... params) {
 
                         }
-                    },
-                    true, false);
+                    }, true, false);
+        } else {
+            String text = getString(R.string.problem_with_register);
+            String titulo = getString(R.string.titulo_extranjero);
+            seencuentra = true;
+            UI.createCustomDialogextranjero(titulo, text, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                @Override
+                public void actionConfirm(Object... params) {
+                    llamar();
+                }
+
+                @Override
+                public void actionCancel(Object... params) {
+                    /*llamar();*/
+                }
+            }, "", "Llamar");
+        }
     }
 
     @Override

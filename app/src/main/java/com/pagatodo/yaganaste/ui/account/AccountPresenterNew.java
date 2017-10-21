@@ -71,6 +71,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIA
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTATUS_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_DATOS_PERSONA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_ESTATUS_USUARIO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VALIDAR_FORMATO_CONTRASENIA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.VERIFICAR_ACTIVACION;
@@ -256,8 +257,11 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void onError(WebService ws, Object error) {
         accountView.hideLoader();
-
-        if (accountView instanceof IAccountRegisterView) {
+        if (accountView instanceof  IRenapoView){
+            if (ws == VALIDAR_DATOS_PERSONA){
+                accountView.showError(error.toString());
+            }
+        } else if (accountView instanceof IAccountRegisterView) {
             if (ws == CREAR_USUARIO_CLIENTE) {
                 ((IAccountRegisterView) accountView).clientCreateFailed(error.toString());
             } else if (ws == OBTENER_COLONIAS_CP) {
