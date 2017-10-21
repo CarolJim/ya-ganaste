@@ -46,6 +46,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRA_NIP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRA_NOTIFICACION;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DEVICE_DATA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.SHARED_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADQ;
 
@@ -199,6 +200,21 @@ public class ApiAdq extends Api {
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
         NetFacade.consumeWS(ENVIAR_TICKET_COMPRA,
+                METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqSendTicket),
+                headers, request, EnviarTicketCompraResponse.class, result);
+    }
+
+    /**
+     * Envía el ticket de compra.
+     *
+     * @param request {@link EnviarTicketCompraRequest} body de la petición.
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void enviarTicketCompraShare(EnviarTicketCompraRequest request, IRequestResult result) throws OfflineException {
+        Map<String, String> headers = getHeadersAdq();
+        headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
+        headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
+        NetFacade.consumeWS(SHARED_TICKET_COMPRA,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqSendTicket),
                 headers, request, EnviarTicketCompraResponse.class, result);
     }

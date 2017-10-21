@@ -358,27 +358,21 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             editFotoError.setVisibilityImageError(false);
             /*
             cameraManager.setBitmap(bitmap);
-
             // Procesamos el Bitmap a Base64
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();
             bitmap.compress(Bitmap.CompressFormat.PNG, 100, byteArrayOutputStream);
             byte[] byteArray = byteArrayOutputStream.toByteArray();
             String encoded = Base64.encodeToString(byteArray, Base64.DEFAULT);
-
-
            CODIGO ORIGINAL DE FOTO EN ListaOpcionesFRagment
            // Creamos el objeto ActualizarAvatarRequest
             ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
-
-
             onEventListener.onEvent("DISABLE_BACK", true);
-
             // Enviamos al presenter
             mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);*/
-
         } catch (IOException e) {
             e.printStackTrace();
         }
+        hideLoader();
     }
 
     @Override
@@ -519,6 +513,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
     @Override
     public void onCropSuccess(Uri croppedUri) {
+        showLoader(getString(R.string.load_photo_favorite));
         cameraManager.setCropImage(croppedUri);
     }
 

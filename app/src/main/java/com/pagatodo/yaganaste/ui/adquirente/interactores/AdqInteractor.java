@@ -39,6 +39,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELA_TRANSAC
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.SHARED_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SIGNATURE;
@@ -186,6 +187,17 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     }
 
     @Override
+    public void enviarTicketCompraShare(EnviarTicketCompraRequest request) {
+        try {
+            ApiAdq.enviarTicketCompraShare(request, this);
+        } catch (OfflineException e) {
+            e.printStackTrace();
+            accountManager.hideLoader();
+            accountManager.onError(SHARED_TICKET_COMPRA, context.getString(R.string.no_internet_access));
+        }
+    }
+
+    @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
         switch (dataSourceResult.getWebService()) {
 
@@ -208,6 +220,10 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 processSendTicket(dataSourceResult);
                 break;
 
+            case SHARED_TICKET_COMPRA:
+                processSendTicketShared(dataSourceResult);
+                break;
+
             case CANCELA_TRANSACTION_EMV_DEPOSIT:
                 //processCancelAdq(dataSourceResult);
                 processCancelAdq(dataSourceResult);
@@ -223,6 +239,9 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         switch (error.getWebService()) {
             case REGISTRO_DONGLE:
                 prefs.clearPreference(KSN_LECTOR);
+                break;
+            case SHARED_TICKET_COMPRA:
+               // prefs.clearPreference(KSN_LECTOR);
                 break;
         }
         accountManager.onError(error.getWebService(), error.getData().toString());
@@ -463,6 +482,17 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
             result.setPageResult(pageResult);
             result.setTransaccionResponse(new TransaccionEMVDepositResponse());
+            accountManager.onSucces(response.getWebService(), data.getMessage());
+        } /*else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
+            iSessionExpired.errorSessionExpired(response);
+        } */ else {
+            accountManager.onError(response.getWebService(), data.getMessage());//Retornamos mensaje de error.
+        }
+    }
+
+    private void processSendTicketShared(DataSourceResult response) {
+        EnviarTicketCompraResponse data = (EnviarTicketCompraResponse) response.getData();
+        if (data.getId().equals(ADQ_CODE_OK)) {
             accountManager.onSucces(response.getWebService(), data.getMessage());
         } /*else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
             iSessionExpired.errorSessionExpired(response);

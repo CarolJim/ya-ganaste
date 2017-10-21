@@ -138,18 +138,11 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 List<SubGiro> list = girosComercio.get(position).getListaSubgiros();
-                if (list != null && girosComercio.get(position).getIdGiro() != -1) {
-                    if (list.get(0).getIdSubgiro() != -1)
-                        list.add(0, new SubGiro(-1, getString(R.string.subgiro_commerce)));
-                    subgiroArrayAdapter = new SubBussinesLineSpinnerAdapter(getActivity(),
-                            R.layout.spinner_layout, list, DatosNegocioFragment.this);
-                    spinnerSubBussineLine.setAdapter(subgiroArrayAdapter);
-                    spinnerSubBussineLine.setVisibility(View.VISIBLE);
-                    errorSubBussineLineMessage.setVisibility(View.VISIBLE);
-                } else {
-                    spinnerSubBussineLine.setVisibility(View.GONE);
-                    errorSubBussineLineMessage.setVisibility(View.GONE);
-                }
+                if (list.get(0).getIdSubgiro() != -1)
+                    list.add(0, new SubGiro(-1, getString(R.string.subgiro_commerce)));
+                subgiroArrayAdapter = new SubBussinesLineSpinnerAdapter(getActivity(),
+                        R.layout.spinner_layout, list, DatosNegocioFragment.this);
+                spinnerSubBussineLine.setAdapter(subgiroArrayAdapter);
                 onSpinnerClick();
             }
 

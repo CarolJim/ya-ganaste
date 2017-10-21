@@ -29,12 +29,10 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
@@ -106,7 +104,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 public class EditFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
         IListaOpcionesView, ValidationForms, View.OnClickListener, OnListServiceListener,
         AdapterView.OnItemSelectedListener, ITextChangeListener, PaymentsCarrouselManager,
-        ICropper, CropIwaResultReceiver.Listener{
+        ICropper, CropIwaResultReceiver.Listener {
 
     public static final String TAG = AddNewFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
@@ -186,7 +184,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         setContentView(R.layout.activity_edit_favorites);
 
         favoritesPresenter = new FavoritesPresenter(this);
-        btn_back= (AppCompatImageView) findViewById(R.id.btn_back);
+        btn_back = (AppCompatImageView) findViewById(R.id.btn_back);
         btn_back.setOnClickListener(this);
         dataFavoritos = (DataFavoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
         idComercio = (int) dataFavoritos.getIdComercio();
@@ -203,15 +201,15 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this, false);
         paymentsCarouselPresenter.getCarouselItems();
         ButterKnife.bind(this);
-      //  imageViewCamera.setVisibilityStatus(true);
-       // imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
+        //  imageViewCamera.setVisibilityStatus(true);
+        // imageViewCamera.setStatusImage(ContextCompat.getDrawable(this, R.drawable.camara_white_blue_canvas));
 
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int widthp = metrics.widthPixels; // ancho absoluto en pixels
-        int paramentroT=widthp/3;
-        int paramentroimgc=paramentroT/4;
-        int distancia=paramentroT-paramentroimgc;
+        int paramentroT = widthp / 3;
+        int paramentroimgc = paramentroT / 4;
+        int distancia = paramentroT - paramentroimgc;
 
         ImageView deleteFav = (ImageView) findViewById(R.id.delete_fav);
         deleteFav.setVisibility(View.VISIBLE);
@@ -222,12 +220,12 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         circuloimage.setBackground(ContextCompat.getDrawable(this, R.drawable.ic_usuario_azul));
         RelativeLayout.LayoutParams paramsc = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
         paramsc.setMargins(distancia, 30, 0, 0);
-        paramsc.width=paramentroimgc;
-        paramsc.height=paramentroimgc;
+        paramsc.width = paramentroimgc;
+        paramsc.height = paramentroimgc;
         circuloimageupload.setLayoutParams(paramsc);
         RelativeLayout.LayoutParams params = new RelativeLayout.LayoutParams(RelativeLayout.LayoutParams.MATCH_PARENT, RelativeLayout.LayoutParams.WRAP_CONTENT);
-        params.width =paramentroT;
-        params.height =paramentroT;
+        params.width = paramentroT;
+        params.height = paramentroT;
         relativefav.setLayoutParams(params);
 
         /**
@@ -351,6 +349,10 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         editListServ.setFullOnClickListener(this);
         editListServ.setDrawableImage(R.drawable.menu_canvas);
 
+        Glide.with(this)
+                .load(dataFavoritos.getImagenURL())
+                .asBitmap()
+                .into(imageViewCamera.getCircleImageView());
 
         CropIwaResultReceiver cropResultReceiver = new CropIwaResultReceiver();
         cropResultReceiver.setListener(this);
@@ -583,7 +585,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
      * @param mResponse
      */
     @Override
-    public void toViewSuccessAdd(FavoritosNewDatosResponse mResponse) {   }
+    public void toViewSuccessAdd(FavoritosNewDatosResponse mResponse) {
+    }
 
     @Override
     public void toViewSuccessAddFoto(String mMensaje) {
@@ -591,7 +594,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     }
 
     @Override
-    public void toViewSuccessAdd(FavoritosDatosResponse response) {  }
+    public void toViewSuccessAdd(FavoritosDatosResponse response) {
+    }
 
     @Override
     public void toViewSuccessDeleteFavorite(String mMensaje) {
@@ -601,7 +605,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     @Override
     public void toViewSuccessEdit(FavoritosEditDatosResponse response) {
         // showDialogMesage(mMensaje, 1);
-        if(stringFoto!=null){
+        if (stringFoto != null) {
             AddFotoFavoritesRequest addFotoFavoritesRequest =
                     new AddFotoFavoritesRequest(stringFoto, "png");
             favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
@@ -711,6 +715,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         } catch (IOException e) {
             e.printStackTrace();
         }
+        hideLoader();
     }
 
     /**
@@ -907,7 +912,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     }
 
     @Override
-    public void getDataForm() { }
+    public void getDataForm() {
+    }
 
     /**
      * Encargada de reaccionar al codigo de pusacion KEYCODE_CALL=5 para cerrar el teclado
@@ -927,16 +933,20 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         }
     }*/
     @Override
-    public void showProgress(String mMensaje) {   }
+    public void showProgress(String mMensaje) {
+    }
 
     @Override
-    public void showExceptionToView(String mMesage) {  }
+    public void showExceptionToView(String mMesage) {
+    }
 
     @Override
-    public void sendSuccessAvatarToView(String mensaje) {  }
+    public void sendSuccessAvatarToView(String mensaje) {
+    }
 
     @Override
-    public void sendErrorAvatarToView(String mensaje) {  }
+    public void sendErrorAvatarToView(String mensaje) {
+    }
 
     /**
      * Listener que efectua varias tareas cuando se selecciona un servicio de la lista, dependiendo
@@ -1298,6 +1308,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
     @Override
     public void onCropSuccess(Uri croppedUri) {
+        showLoader(getString(R.string.load_photo_favorite));
         cameraManager.setCropImage(croppedUri);
     }
 

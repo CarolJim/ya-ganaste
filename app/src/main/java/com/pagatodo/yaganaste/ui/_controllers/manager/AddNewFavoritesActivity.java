@@ -258,7 +258,6 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         CropIwaResultReceiver cropResultReceiver = new CropIwaResultReceiver();
         cropResultReceiver.setListener(this);
         cropResultReceiver.register(this);
-
     }
 
     /**
@@ -609,11 +608,10 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         //ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
         // Enviamos al presenter
         //mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);
-
+        hideLoader();
     }
 
     /**
@@ -821,7 +819,6 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     }*/
     @Override
     public void showProgress(String mMensaje) {
-        //Log.d("TAG", "showProgress ");
     }
 
     @Override
@@ -1171,6 +1168,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
     @Override
     public void onCropSuccess(Uri croppedUri) {
+        showLoader(getString(R.string.load_photo_favorite));
         cameraManager.setCropImage(croppedUri);
     }
 

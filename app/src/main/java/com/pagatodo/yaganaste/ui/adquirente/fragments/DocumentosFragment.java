@@ -21,6 +21,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
@@ -119,6 +120,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     private AccountAdqPresenter adqPresenter;
     private Boolean mExisteDocs = false;
     ArrayList<EstatusDocumentosResponse> dataStatusDocuments;
+    private ImageView imageViewshare;
 
     public DocumentosFragment() {
     }
@@ -170,6 +172,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        imageViewshare = (ImageView) getActivity().findViewById(R.id.deposito_Share);
         swipeRefreshLayout.setOnRefreshListener(this);
 
         /**
@@ -809,6 +812,5 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         lnr_buttons.setVisibility(GONE);
         swipeRefreshLayout.setEnabled(true);
     }
-
 }
 

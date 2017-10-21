@@ -68,15 +68,13 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="0dp"
                     android:background="@null"
-                    android:visibility="gone"
                     app:backgroundTint="@color/transparent" />
 
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/errorSubBussineLineMessage"
                     style="@style/generic_text_style_2"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:visibility="gone" />
+                    android:layout_height="wrap_content" />
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/editBussinesPhone"
