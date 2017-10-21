@@ -327,7 +327,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 }*/
             } else if (currentFragment instanceof AsignarNIPFragment) {
                 if (((AsignarNIPFragment) currentFragment).isCustomKeyboardVisible()) {
-                    ((AsignarNIPFragment) currentFragment).hideKeyboard();
+                    //((AsignarNIPFragment) currentFragment).hideKeyboard();
                 } else {
                     resetRegisterData();// Eliminamos la información de registro almacenada.
                     showDialogOut();

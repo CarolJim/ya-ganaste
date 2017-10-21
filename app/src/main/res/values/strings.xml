@@ -264,11 +264,11 @@
     <!-- Lectura Dongle -->
     <string name="device_no_response">Lector no Responde, Por Favor Vuelva a Conectarlo</string>
     <string name="device_busy">Lector Ocupado, Por Favor Espere</string>
-    <string name="input_invalid">Lectura Incorrecta, Intente de Nuevo.</string>
-    <string name="comm_error">No Fue Posible Comunicarse Con el Lector, Revise su Entrada de Audio.</string>
+    <string name="input_invalid">Lectura Incorrecta, Intente de Nuevo</string>
+    <string name="comm_error">No Fue Posible Comunicarse Con el Lector, Revise su Entrada de Audio</string>
     <string name="registro_automatico">Inserta el Lector Para Registrarlo a su Cuenta</string>
     <string name="registro_small">Inserta el Lector Para Registrarlo</string>
-    <string name="error_de_lectura">No Fue Posible Completar la Operación, Intenta de Nuevo.</string>
+    <string name="error_de_lectura">No Fue Posible Completar la Operación, Intenta de Nuevo</string>
 
     <string name="cobrar">Cobrar</string>
     <string name="validatelector"></string>
@@ -296,22 +296,22 @@
     <string name="action_select_picture_cancel">Cancelar</string>
 
     <!--datos_usuario-->
-    <string name="datos_usuario_correo_existe">Este Correo ya ha Sido Registrado.</string>
+    <string name="datos_usuario_correo_existe">Este Correo ya ha Sido Registrado</string>
     <string name="userDataTitle">Datos de Usuario</string>
     <string name="confirmEmail">Confirma Correo</string>
     <string name="password">Contraseña</string>
     <string name="passwordConfirm">Confirma Contraseña</string>
     <string name="datos_usuario_correo">Introduce un Correo Válido (*)</string>
     <string name="datos_usuario_correo_formato">El Correo no es Válido</string>
-    <string name="datos_usuario_correo_confirma">Debes Confirmar el Correo.</string>
-    <string name="datos_usuario_correo_no_coinciden">El Correo no Coincide.</string>
-    <string name="datos_usuario_pass">Introduce la Contraseña.</string>
-    <string name="cambiar_pass_actual">Introduce la Contraseña Actual.</string>
-    <string name="datos_usuario_pass_c">Debes Confirmar la Nueva Contraseña.</string>
-    <string name="datos_usuario_pass_new">Introduce la Nueva Contraseña.</string>
-    <string name="datos_usuario_pass_confirm">Debes Confirmar la Nueva Contraseña.</string>
-    <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide.</string>
-    <string name="datos_usuario_pass_formato">Verifica tu Contraseña.</string>
+    <string name="datos_usuario_correo_confirma">Debes Confirmar el Correo</string>
+    <string name="datos_usuario_correo_no_coinciden">El Correo no Coincide</string>
+    <string name="datos_usuario_pass">Introduce la Contraseña</string>
+    <string name="cambiar_pass_actual">Introduce la Contraseña Actual</string>
+    <string name="datos_usuario_pass_c">Debes Confirmar la Nueva Contraseña</string>
+    <string name="datos_usuario_pass_new">Introduce la Nueva Contraseña</string>
+    <string name="datos_usuario_pass_confirm">Debes Confirmar la Nueva Contraseña</string>
+    <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide</string>
+    <string name="datos_usuario_pass_formato">Verifica tu Contraseña</string>
     <string name="bienvenido_usuario"><![CDATA[¡Bienvenido <b>%1$s</b>!]]></string>
     <string name="user_change_password">Asignando Nueva Contraseña</string>
     <string name="user_change_email">Asignando Nuevo Correo</string>
@@ -327,14 +327,14 @@
     <string name="nameHint">Nombre(s)</string>
     <string name="birthDay">Fecha de Nacimiento</string>
     <string name="county">País de Nacimiento</string>
-    <string name="datos_personal_nombre">Nombre Requerido, Verifique su Información.</string>
-    <string name="datos_personal_paterno">Primer Apellido Requerido, Verifique su Información.</string>
-    <string name="datos_personal_materno">Segundo Apellido Requerido, Verifique su Información.</string>
-    <string name="datos_personal_fecha">Fecha de Nacimiento Requerida, Verifique su Información.</string>
-    <string name="datos_personal_estado">Lugar de Nacimiento Requerido, Verifique su Información.</string>
-    <string name="datos_personal_nacionalidad">Nacionalidad Requerida, Verifique su Información.</string>
-    <string name="datos_personal_genero">Género Requerido, Verifique su Información.</string>
-    <string name="datos_personal_pais">País de Nacimiento Requerido, Verifique su Información.</string>
+    <string name="datos_personal_nombre">Nombre Requerido, Verifique su Información</string>
+    <string name="datos_personal_paterno">Primer Apellido Requerido, Verifique su Información</string>
+    <string name="datos_personal_materno">Segundo Apellido Requerido, Verifique su Información</string>
+    <string name="datos_personal_fecha">Fecha de Nacimiento Requerida, Verifique su Información</string>
+    <string name="datos_personal_estado">Lugar de Nacimiento Requerido, Verifique su Información</string>
+    <string name="datos_personal_nacionalidad">Nacionalidad Requerida, Verifique su Información</string>
+    <string name="datos_personal_genero">Género Requerido, Verifique su Información</string>
+    <string name="datos_personal_pais">País de Nacimiento Requerido, Verifique su Información</string>
     <string name="buscar_pais">Busca tu País</string>
     <!--datos_domicilio-->
     <string name="currentAddressTitle">Domicilio Personal</string>
@@ -343,31 +343,31 @@
     <string name="interiorNumber">N° Int</string>
     <string name="zipCodeHint">Código Postal</string>
     <string name="stateHint">Estado</string>
-    <string name="datos_domicilio_calle">Calle Requerida, Verifique su Información.</string>
-    <string name="datos_domicilio_num_ext">Número Exterior Requerido, Verifique su Información.</string>
-    <string name="datos_domicilio_cp">Código Postal Requerido, Verifique su Información.</string>
-    <string name="datos_domicilio_colonia">Colonia Requerida, Verifique su Información.</string>
-    <string name="datos_domicilio_terminos">Debes Aceptar Los Términos y Condiciones.</string>
+    <string name="datos_domicilio_calle">Calle Requerida, Verifique su Información</string>
+    <string name="datos_domicilio_num_ext">Número Exterior Requerido, Verifique su Información</string>
+    <string name="datos_domicilio_cp">Código Postal Requerido, Verifique su Información</string>
+    <string name="datos_domicilio_colonia">Colonia Requerida, Verifique su Información</string>
+    <string name="datos_domicilio_terminos">Debes Aceptar Los Términos y Condiciones</string>
     <string name="msg_register">Registrando Usuario</string>
     <string name="msg_renapo">Validando Información</string>
 
     <!--activacion_sms-->
-    <string name="activacion_sms_mes_1">Para Terminar tu Registro,\n Debemos Asociar tu Teléfono a tu\n Cuenta Ya Ganaste.</string>
+    <string name="activacion_sms_mes_1">Para Terminar tu Registro,\n Debemos Asociar tu Teléfono a tu\n Cuenta Ya Ganaste</string>
     <string name="activacion_sms_mes_2">Desliza el Botón y Enviaremos un \nSMS Para Realizar el Proceso</string>
     <string name="activacion_sms_loader">Verificando SMS</string>
     <string name="activacion_sms_verificando">Verificando Activación de Dispositivo</string>
     <!--tienes_tarjeta-->
-    <string name="tienes_tarjeta_numero">Verifica el Número de Tu Tarjeta.</string>
-    <string name="tienes_tarjeta_asignando">Asignando Tarjeta.</string>
-    <string name="tienes_tarjeta_validando_tarjeta">Validando Tarjeta.</string>
+    <string name="tienes_tarjeta_numero">Verifica el Número de Tu Tarjeta</string>
+    <string name="tienes_tarjeta_asignando">Asignando Tarjeta</string>
+    <string name="tienes_tarjeta_validando_tarjeta">Validando Tarjeta</string>
     <string name="tienes_tarjeta_no">No te Preocupes ¡Ya te Asignamos Una!\nTu Número de Tarjeta es:</string>
-    <string name="tienes_tarjeta_asignando_nip">Asignando NIP.</string>
+    <string name="tienes_tarjeta_asignando_nip">Asignando NIP</string>
     <string name="validando_password">Validando Contraseña</string>
     <!--tienes_tarjeta-->
     <string name="doYouHaveCardTitle">¿Tienes Tarjeta Ya Ganaste?</string>
     <string name="permission_request">Solicitud de Permisos</string>
-    <string name="permission_request_desc">Debes Aceptar Todos Los Permisos Para el Correcto Funcionamiento de Ya Ganaste.</string>
-    <string name="asignar_pin">Verifica tu NIP.</string>
+    <string name="permission_request_desc">Debes Aceptar Todos Los Permisos Para el Correcto Funcionamiento de Ya Ganaste</string>
+    <string name="asignar_pin">Verifica tu NIP</string>
     <string name="confirma_pin">Confirma tu NIP</string>
     <string name="confirmar_pin">El NIP no Coincide</string>
     <string name="longitud_nip">NIP de 4 Dígitos</string>
@@ -384,8 +384,8 @@
     <string name="title_informacion_adicional">Información Adicional</string>
     <string name="txt_eres_mexa">¿Eres Mexicano Naturalizado?</string>
     <string name="txt_cargo">Cargo</string>
-    <string name="error_parentesco">Parentesco Requerido, Verifique su Información.</string>
-    <string name="error_cargo">Cargo Requerido, Verifique su Información.</string>
+    <string name="error_parentesco">Parentesco Requerido, Verifique su Información</string>
+    <string name="error_cargo">Cargo Requerido, Verifique su Información</string>
     <string name="terminos_condiciones">Términos y Condiciones</string>
     <string name="terms_and_conditions_aditional_info">Al Continuar Haber Leído y Aceptado Los Términos y Condiciones</string>
 
@@ -393,14 +393,14 @@
     <string name="congratulation_text1">Tu Cuenta Ya Ganaste Está Lista</string>
     <string name="congratulation_text2">A Continuación, te Enseñaremos Todo lo\nQue Puedes Hacer Con Ella</string>
     <!--Registro Agente-->
-    <string name="datos_negocio_nombre">Nombre Requerido, Verifique su Información.</string>
-    <string name="datos_negocio_giro">Giro Requerido, Verifique su Información.</string>
-    <string name="datos_negocio_subgiro">Subgiro Requerido, Verifique su Información.</string>
-    <string name="datos_negocio_telefono">Teléfono Requerido, Verifique su Información.</string>
+    <string name="datos_negocio_nombre">Nombre Requerido, Verifique su Información</string>
+    <string name="datos_negocio_giro">Giro Requerido, Verifique su Información</string>
+    <string name="datos_negocio_subgiro">Subgiro Requerido, Verifique su Información</string>
+    <string name="datos_negocio_telefono">Teléfono Requerido, Verifique su Información</string>
     <string name="datos_telefono_incorrecto">Ingrese un Teléfono Válido</string>
-    <string name="datos_negocio_preguntas">Debes Contestar Todas Las Preguntas.</string>
+    <string name="datos_negocio_preguntas">Debes Contestar Todas Las Preguntas</string>
     <!--Server problem-->
-    <string name="message_generic_ws">Ocurrió un Error de Conexión.</string>
+    <string name="message_generic_ws">Ocurrió un Error de Conexión</string>
 
     <!-- Strings Menu Principal-->
     <string name="main_tab_inicio">Inicio</string>
@@ -414,14 +414,14 @@
     <!-- Strings Adq-->
     <string name="skipButton">Más Tarde</string>
     <string name="YesButton">Sí</string>
-    <string name="adq_message_hardsell">La Solución Más Completa\ny la Más Económica.</string>
+    <string name="adq_message_hardsell">La Solución Más Completa\ny la Más Económica</string>
     <string name="adq_title_hardsell">Cobra Con Tarjeta y</string>
     <string name="adq_subtitle_hardsell">¡Paga Menos Comisión!</string>
     <string name="adq_more_hardsell">Conoce Más</string>
     <string name="adq_message_entendido">Entendido</string>
 
     <!-- Proceso de enviar documentos -->
-    <string name="adq_must_upload_documents">Debes de Subir Todos Los Documentos.</string>
+    <string name="adq_must_upload_documents">Debes de Subir Todos Los Documentos</string>
     <string name="adq_upload_again">Subir de Nuevo</string>
     <string name="adq_upload_documents">Enviando Solicitud</string>
     <string name="adq_upgrade_documents">Actualizando Documentos</string>
@@ -437,10 +437,10 @@
     <string name="adq_subtitle_accept">Tus Documentos Han Sido\nAprobados</string>
     <string name="adq_msg_accept">A Continuación, te Enseñaremos tu\nNueva Sección de Cobros</string>
     <string name="adq_aproved">Aprobada</string>
-    <string name="adq_succes_aproved">El Pago Fue Completado\nCorrectamente\n\nYa Puedes\nRetirar la Tarjeta.</string>
+    <string name="adq_succes_aproved">El Pago Fue Completado\nCorrectamente\n\nYa Puedes\nRetirar la Tarjeta</string>
     <string name="adq_error_signature">No se ha Capturado Una Firma</string>
 
-    <string name="usuario_no_existe">Este Correo no se Encuentra Registrado.</string>
+    <string name="usuario_no_existe">Este Correo no se Encuentra Registrado</string>
 
     <string name="child_tab_recharge">Recargas</string>
     <string name="child_tab_services">Servicios</string>
@@ -538,7 +538,7 @@
 
     <string name="ok">OK</string>
     <string name="permission_camera_rationale">El Acceso a la Cámara es Necesario Para la Detección de Código de Barras</string>
-    <string name="no_camera_permission">Esta acción no se Puede Ejecutar Porque no Tiene el Permiso de Cámara.</string>
+    <string name="no_camera_permission">Esta acción no se Puede Ejecutar Porque no Tiene el Permiso de Cámara</string>
     <string name="low_storage_error">No se Pueden Descargar Las Dependencias del Detector de Códigos de Barras Debido al Bajo Almacenamiento del Dispositivo</string>
 
 
@@ -624,17 +624,17 @@
     <string name="txt_cancelar">Cancelar</string>
     <string name="error_enviando_ticket">Error Enviando Ticket</string>
 
-    <string name="txt_referencia_error">Error al Introducir el Campo Referencia.</string>
-    <string name="txt_referencia_empty">El Campo Referencia Está Vacío.</string>
-    <string name="txt_importe_empty">El Campo Importe Está Vacío.</string>
-    <string name="txt_importe_error">El Importe es Incorrecto.</string>
-    <string name="txt_concept_empty">El Campo Concepto Está Vacío.</string>
+    <string name="txt_referencia_error">Error al Introducir el Campo Referencia</string>
+    <string name="txt_referencia_empty">El Campo Referencia Está Vacío</string>
+    <string name="txt_importe_empty">El Campo Importe Está Vacío</string>
+    <string name="txt_importe_error">El Importe es Incorrecto</string>
+    <string name="txt_concept_empty">El Campo Concepto Está Vacío</string>
 
-    <string name="txt_tipo_envio_error">Por Favor Seleccione un Tipo de Envío.</string>
-    <string name="txt_name_empty">El Campo Nombre Está Vacío.</string>
-    <string name="txt_name_error">Error al Introducir el Nombre Del Destinatario.</string>
-    <string name="txt_concept_error">Error al Introducir el Campo Concepto.</string>g>
-    <string name="txt_referencia_number_invalid">El Campo Referencia Numérica es Inválido.</string>
+    <string name="txt_tipo_envio_error">Por Favor Seleccione un Tipo de Envío</string>
+    <string name="txt_name_empty">El Campo Nombre Está Vacío</string>
+    <string name="txt_name_error">Error al Introducir el Nombre Del Destinatario</string>
+    <string name="txt_concept_error">Error al Introducir el Campo Concepto</string>
+    <string name="txt_referencia_number_invalid">El Campo Referencia Numérica es Inválido</string>
 
     <string name="txt_referencia_envio_empty">Por Favor Ingrese un Número de Teléfono/Cuenta/CLABE</string>
     <string name="txt_referencia_envio_empty_telefono">Por Favor Ingrese un Número de Celular</string>
@@ -644,14 +644,14 @@
     <string name="txt_referencia_envio_error_telefono">Número de Celular Incorrecto</string>
     <string name="txt_referencia_envio_error_creditc">Número de Tarjeta de Débito Incorrecta</string>
     <string name="txt_referencia_envio_error_clabe">Número de CLABE Incorrecta</string>
-    <string name="txt_referencia_number_error">Error al Introducir el Campo Referencia Numérica.</string>
-    <string name="txt_referencia_number_empty">El Campo Referencia Numérica Está Vacío.</string>
-    <string name="txt_referencia_number_short">El Campo Referencia Numérica Debe Ser de 1 a 6 Dígitos.</string>
+    <string name="txt_referencia_number_error">Error al Introducir el Campo Referencia Numérica</string>
+    <string name="txt_referencia_number_empty">El Campo Referencia Numérica Está Vacío</string>
+    <string name="txt_referencia_number_short">El Campo Referencia Numérica Debe Ser de 1 a 6 Dígitos</string>
     <string name="title_activity_prefer_user">PreferUserActivity</string>
     <string name="recuperando_docs_estatus"></string>
     <string name="desea_cacelar">¿Deseas Salir y Cancelar la Operación Actual?</string>
-    <string name="no_sucursales">No Existen Sucursales en tu Área.</string>
-    <string name="no_sucursales2">No se Encontraron Coincidencias en tu Área.</string>
+    <string name="no_sucursales">No Existen Sucursales en tu Área</string>
+    <string name="no_sucursales2">No se Encontraron Coincidencias en tu Área</string>
     <string name="buscar_sucursal">Buscar Sucursal</string>
 
     <string name="cancelada">Cancelada</string>
@@ -689,8 +689,8 @@
     <string name="enviando_firma"></string>
     <string name="enviando_ticket">Enviando Recibo</string>
 
-    <string name="fecha_nacimiento_erronea">Fecha de Nacimiento Errónea, Verifique su Información.</string>
-    <string name="feha_nacimiento_menor_edad">Para Poder Continuar, Debes Ser Mayor de Edad.</string>
+    <string name="fecha_nacimiento_erronea">Fecha de Nacimiento Errónea, Verifique su Información</string>
+    <string name="feha_nacimiento_menor_edad">Para Poder Continuar, Debes Ser Mayor de Edad</string>
 
     <string name="perm_read">Ability to read files from this app</string>
     <string name="perm_read_label">Read Files</string>
@@ -701,14 +701,14 @@
     <string name="catalogo_version_init">0</string>
     <string name="asigna_nip">Asigna tu NIP</string>
 
-    <string name="vuelve_conectar_lector">Vuelve a Conectar el Lector.</string>
-    <string name="inserta_lector_valido">Inserta un Lector de Tarjeta Válido.</string>
-    <string name="verificando_email">Verificando Correo Electrónico.</string>
+    <string name="vuelve_conectar_lector">Vuelve a Conectar el Lector</string>
+    <string name="inserta_lector_valido">Inserta un Lector de Tarjeta Válido</string>
+    <string name="verificando_email">Verificando Correo Electrónico</string>
     <string name="actualizando_saldo"> </string>
     <!-- <string name="actualizando_saldo">Actualizando Saldo.</string> -->
     <string name="password_incorrect">Su Contraseña es Incorrecta</string>
     <string name="desea_cerrar_sesion">¿Desea Realmente Cerrar Sesión?</string>
-    <string name="sesion_close">La Sesión se ha Cerrado.</string>
+    <string name="sesion_close">La Sesión se ha Cerrado</string>
     <string name="search_zipcode"> </string>
     <string name="password_required">Contraseña Requerida, Verifique su Información</string>
 
@@ -745,7 +745,7 @@
     <string name="cancelation_success">Cancelación Exitosa</string>
     <string name="cancelation_success_message">El Cobro Fue Cancelado\nCorrectamente</string>
     <string name="mount_be_higer">El Monto Tiene Que Ser Mayor</string>
-    <string name="mount_valid">Ingresa un Monto Válido.</string>
+    <string name="mount_valid">Ingresa un Monto Válido</string>
     <string name="enter_mount">Por Favor Ingrese un Monto</string>
     <string name="mount_cero">$0.00</string>
     <string name="send_to_txt">Para:</string>
@@ -836,11 +836,11 @@
     <string name="cuantos_hijos">¿Cuántos Hijos Tienes?</string>
     <string name="relacion">Relación</string>
 
-    <string name="relacion_requerida">Relación Requerida, Verifique su Información.</string>
-    <string name="producto_servicio_requerido">Producto/Servicio Requerido, Verifique su Información.</string>
-    <string name="estado_civil_requerido">Estado Civil Requerido, Verifique su Información.</string>
-    <string name="numero_hijos_requerido">Cantidad de Hijos Requerida, Verifique su Información.</string>
-    <string name="opcion_requerido">Seleccione Una Opción, Verifique su Información.</string>
+    <string name="relacion_requerida">Relación Requerida, Verifique su Información</string>
+    <string name="producto_servicio_requerido">Producto/Servicio Requerido, Verifique su Información</string>
+    <string name="estado_civil_requerido">Estado Civil Requerido, Verifique su Información</string>
+    <string name="numero_hijos_requerido">Cantidad de Hijos Requerida, Verifique su Información</string>
+    <string name="opcion_requerido">Seleccione Una Opción, Verifique su Información</string>
     <string name="cupo_domicilio">¿Sigue Siendo Éste tu Domicilio?</string>
 
 
@@ -848,8 +848,8 @@
     <string name="cupo_subtitle_thanks">Tu Solicitud Está\n Siendo Evaluada</string>
     <string name="cupo_title_thanks_msg">Este Proceso Puede Tardar Hasta\n 24 Horas Habiles</string>
     <string name="cupo_numero">Últimos 4 Dígitos</string>
-    <string name="numero_tarjeta_vacio">Número Requerido.</string>
-    <string name="numero_tarjeta_invalido">Número Invalido.</string>
+    <string name="numero_tarjeta_vacio">Número Requerido</string>
+    <string name="numero_tarjeta_invalido">Número Invalido</string>
 
     <string name="titulo_referencia_familiar">Referencia Familiar</string>
     <string name="cupo_referencias">Referencias</string>
