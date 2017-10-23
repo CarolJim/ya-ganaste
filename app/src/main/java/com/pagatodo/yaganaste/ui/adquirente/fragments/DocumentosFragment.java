@@ -9,6 +9,7 @@ import android.content.pm.ResolveInfo;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.graphics.BitmapFactory;
+import android.graphics.Color;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
@@ -588,10 +589,10 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             tipoDoc = estatusDocs.getTipoDocumento();
 
             if (idStatus == STATUS_DOCTO_RECHAZADO) {
-                idDrawableStatus = R.drawable.ic_alerta;
+                idDrawableStatus = R.drawable.ic_alerta2;
             } else if (idStatus == STATUS_DOCTO_APROBADO) {
                 documentApproved++;
-                idDrawableStatus = R.drawable.ic_document_done;
+                idDrawableStatus = R.drawable.ic_document_done2;
             } else if (idStatus == STATUS_DOCTO_PENDIENTE) {
                 idDrawableStatus = R.drawable.ic_wait;
             } else {
@@ -607,6 +608,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             switch (tipoDoc) {
                 case DOC_ID_FRONT:
                     ifeFront.setImageBitmap(bitmap);
+
+                   // ifeFront.getCircleImageView().setBackgroundColor(Color.TRANSPARENT);
                   //  ifeFront.setBackground(ContextCompat.getDrawable(App.getContext(), R.drawable.ic_usuario_azul));
                     break;
                 case DOC_ID_BACK:
