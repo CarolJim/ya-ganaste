@@ -42,6 +42,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.SHARED_TICKET_COMPRA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.TRANSACCIONES_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SIGNATURE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_REMOVE_CARD;
@@ -399,12 +400,12 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
              */
             default:
                 result.setStatusTransaction(ADQ_TRANSACTION_ERROR);
-                PageResult pageResultError = new PageResult(R.drawable.ic_triangle_error,
+                PageResult pageResultError = new PageResult(R.drawable.ic_cancel,
                         context.getString(R.string.title_error),
                         data.getError().getMessage(),
                         true);
 
-                pageResultError.setNamerBtnPrimary(App.getInstance().getString(R.string.title_aceptar));
+                pageResultError.setNamerBtnPrimary(App.getInstance().getString(R.string.title_cancelar));
                 //pageResultError.setNamerBtnSecondary(App.getInstance().getString(R.string.title_reintentar));
                 pageResultError.setActionBtnPrimary(new Command() {
                     @Override
@@ -415,12 +416,12 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                         TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
                     }
                 });
-
+                pageResultError.setNamerBtnSecondary(App.getInstance().getString(R.string.title_reintentar));
                 pageResultError.setActionBtnSecondary(new Command() {
                     @Override
                     public void action(Context context, Object... params) {
                         INavigationView viewInterface = (INavigationView) params[0];
-                        viewInterface.nextScreen(EVENT_GO_MAINTAB, "");
+                        viewInterface.nextScreen(EVENT_RETRY_PAYMENT, "");
                         TransactionAdqData.getCurrentTransaction().resetDataToRetry(); // Reintentamos
                     }
                 });

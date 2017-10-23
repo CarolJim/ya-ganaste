@@ -84,6 +84,7 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     @Override
     public void onStop() {
         super.onStop();
+
     }
 
     @Override
@@ -126,6 +127,7 @@ public class TransactionResultFragment extends GenericFragment implements View.O
 
     @Override
     public void nextScreen(String event, Object data) {
+        //getActivity().getFragmentManager().popBackStack();
         onEventListener.onEvent(event, data);
     }
 

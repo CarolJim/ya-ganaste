@@ -237,6 +237,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             // }
         }
     };
+    
     private BroadcastReceiver headPhonesReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
@@ -555,7 +556,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
 
             }
         };
-        UI.createSimpleCustomDialog(getString(R.string.title_error), error.toString(), getFragmentManager(), doubleActions, true, false);
+        UI.createSimpleCustomDialog(getString(R.string.title_error), error.toString(), getFragmentManager(), doubleActions, true, true);
     }
 
     public void initListenerDongle() {

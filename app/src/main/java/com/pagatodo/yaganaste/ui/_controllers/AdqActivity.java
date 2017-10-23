@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
 
 
 public class AdqActivity extends LoaderActivity implements OnEventListener {
@@ -87,6 +88,9 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
             case EVENT_GO_LOGIN_FRAGMENT:
                 setResult(Activity.RESULT_OK);
                 finish();
+                break;
+            case EVENT_RETRY_PAYMENT:
+                loadFragment(InsertDongleFragment.newInstance(), Direction.FORDWARD, false);
                 break;
         }
     }
