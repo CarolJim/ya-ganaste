@@ -303,22 +303,14 @@
     <string name="password">Contraseña</string>
     <string name="passwordConfirm">Confirma Contraseña</string>
     <string name="datos_usuario_correo">Introduce un Correo Válido (*)</string>
-    <string name="datos_usuario_correonuevo">El Correo Electrónico no es Válido</string>
-
     <string name="datos_usuario_correo_formato">El Correo no es Válido</string>
     <string name="datos_usuario_correo_confirma">Debes Confirmar el Correo</string>
-    <string name="datos_usuario_correo_confirmanuevo">Confirma tu Correo Electónico</string>
     <string name="datos_usuario_correo_no_coinciden">El Correo no Coincide</string>
-    <string name="datos_usuario_correo_no_coincidennuevo">El Correo Electrónico no Coincide</string>
-
     <string name="datos_usuario_pass">Introduce la Contraseña</string>
-    <string name="datos_usuario_passnuevo">Ingresa tu Contraseña</string>
     <string name="cambiar_pass_actual">Introduce la Contraseña Actual</string>
     <string name="datos_usuario_pass_c">Debes Confirmar la Nueva Contraseña</string>
-    <string name="datos_usuario_pass_cnuevo">Confirma tu Contraseña</string>
     <string name="datos_usuario_pass_new">Introduce la Nueva Contraseña</string>
     <string name="datos_usuario_pass_confirm">Debes Confirmar la Nueva Contraseña</string>
-    <string name="datos_usuario_pass_confirmnuevo">Debes Confirma tu Contraseña</string>
     <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide</string>
     <string name="datos_usuario_pass_formato">Verifica tu Contraseña</string>
     <string name="bienvenido_usuario"><![CDATA[¡Bienvenido <b>%1$s</b>!]]></string>
@@ -336,14 +328,16 @@
     <string name="nameHint">Nombre(s)</string>
     <string name="birthDay">Fecha de Nacimiento</string>
     <string name="county">País de Nacimiento</string>
-    <string name="datos_personal_nombre">Nombre Requerido, Verifique su Información</string>
-    <string name="datos_personal_paterno">Primer Apellido Requerido, Verifique su Información</string>
+    <!-- Datos Personales -->
+    <string name="datos_personal_nombre">Ingresa tu Nombre</string>
+    <string name="datos_personal_paterno">Ingresa tu Primer Apellido</string>
     <string name="datos_personal_materno">Segundo Apellido Requerido, Verifique su Información</string>
-    <string name="datos_personal_fecha">Fecha de Nacimiento Requerida, Verifique su Información</string>
-    <string name="datos_personal_estado">Lugar de Nacimiento Requerido, Verifique su Información</string>
+    <string name="datos_personal_fecha">Ingresa tu Fecha de Nacimiento</string>
+    <string name="datos_personal_estado">Indica tu Lugar de Nacimiento</string>
     <string name="datos_personal_nacionalidad">Nacionalidad Requerida, Verifique su Información</string>
-    <string name="datos_personal_genero">Género Requerido, Verifique su Información</string>
+    <string name="datos_personal_genero">Indica tu Género</string>
     <string name="datos_personal_pais">País de Nacimiento Requerido, Verifique su Información</string>
+    <string name="datos_personal_mayor_edad">Debes Ser Mayor de Edad Para Continuar</string>
     <string name="buscar_pais">Busca tu País</string>
     <!--datos_domicilio-->
     <string name="currentAddressTitle">Domicilio Personal</string>
@@ -353,15 +347,11 @@
     <string name="zipCodeHint">Código Postal</string>
     <string name="stateHint">Estado</string>
     <string name="datos_domicilio_calle">Calle Requerida, Verifique su Información</string>
-
     <string name="datos_domicilio_num_ext">Número Exterior Requerido, Verifique su Información</string>
-
-
-    <string name="datos_domicilio_cp">Ingresa el Código Postal de tu Domicilio</string>
-
+    <string name="datos_domicilio_cp">Código Postal Requerido, Verifique su Información</string>
     <string name="datos_domicilio_colonia">Colonia Requerida, Verifique su Información</string>
     <string name="datos_domicilio_terminos">Debes Aceptar Los Términos y Condiciones</string>
-    <string name="msg_register">Registrando Usuario</string>
+    <string name="msg_register">Estamos Registrando tu Cuenta</string>
     <string name="msg_renapo">Validando Información</string>
 
     <!--activacion_sms-->
@@ -374,6 +364,7 @@
     <string name="tienes_tarjeta_asignando">Asignando Tarjeta</string>
     <string name="tienes_tarjeta_validando_tarjeta">Validando Tarjeta</string>
     <string name="tienes_tarjeta_validando_tarjetanuevo">Estamos Asignando tu Tarjeta</string>
+    <string name="tienes_tarjeta_validando_tarjeta_2">Estamos Asignando tu Tarjeta</string>
     <string name="tienes_tarjeta_no">No te Preocupes ¡Ya te Asignamos Una!\nTu Número de Tarjeta es:</string>
     <string name="tienes_tarjeta_asignando_nip">Asignando NIP</string>
     <string name="tienes_tarjeta_asignando_nipnuevo">Estamos Registrando el NIP de tu Tarjeta</string>
@@ -539,7 +530,8 @@
     <string name="no_offline_token">El Dispositivo no Cuenta con Token Offline, Asegúrate de Que
     tu Dispositivo Esté Asociado por SMS</string>
 
-    <string name="problem_with_register">No Pudimos Continuar Con tu Registro. \n Por Favor Contactanos Para \n Ayudar a Resolverlo</string>
+    <string name="problem_with_register1"> Por Favor Verifica tu Información</string>
+    <string name="problem_with_register2"> Por Favor Llama Sin Costo al Centro de Atención Telefónica Para Concluir Con tu Registro</string>
     <string name="titulo_extranjero">Tuvimos un Problema</string>
 
     <string name="generando_token">Generando Código</string>

@@ -43,7 +43,7 @@ public class LandingActivity extends SupportFragmentActivity implements Animatio
 
     private Runnable runnable;
     private Handler handler;
-    private static int HANDLER_TIME = 2000;
+    private static int HANDLER_TIME = 3000;
     boolean animaationEnd = true;
     int animationCounter = 1;
     public static String nameCouchMark = "";

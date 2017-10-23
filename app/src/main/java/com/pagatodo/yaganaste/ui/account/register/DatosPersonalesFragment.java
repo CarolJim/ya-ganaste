@@ -157,13 +157,13 @@ public class DatosPersonalesFragment extends GenericFragment implements
                     mCalendar.set(actualDate.get(Calendar.YEAR) - 18, actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH));
 
                     if (newDate.getTimeInMillis() > actualDate.getTimeInMillis()) {
-                        showValidationError(editBirthDay.getId(), getString(R.string.fecha_nacimiento_erronea));
+                        showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
                         editBirthDay.setIsInvalid();
                         return;
                     }
 
                     if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
-                        showValidationError(editBirthDay.getId(), getString(R.string.feha_nacimiento_menor_edad));
+                        showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_mayor_edad));
                         editBirthDay.setIsInvalid();
                         return;
                     }
@@ -386,7 +386,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         }
 
         if (!fechaNacimiento.isEmpty() && newDate != null && (newDate.getTimeInMillis() > actualDate.getTimeInMillis())) {
-            showValidationError(editBirthDay.getId(), getString(R.string.fecha_nacimiento_erronea));
+            showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_fecha));
             editBirthDay.setIsInvalid();
             isValid = false;
         }
@@ -397,7 +397,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
             mCalendar.set(actualDate.get(Calendar.YEAR) - 18, actualDate.get(Calendar.MONTH), actualDate.get(Calendar.DAY_OF_MONTH));
 
             if (newDate.getTimeInMillis() > mCalendar.getTimeInMillis()) {
-                showValidationError(editBirthDay.getId(), getString(R.string.feha_nacimiento_menor_edad));
+                showValidationError(editBirthDay.getId(), getString(R.string.datos_personal_mayor_edad));
                 editBirthDay.setIsInvalid();
                 isValid = false;
             }
@@ -623,9 +623,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
     @Override
     public void showError(Object error) {
         errorVerificationData++;
+        String titulo = "", text = "";
         if (!error.toString().isEmpty() && errorVerificationData < 4) {
             //  UI.showToastShort(error.toString(), getActivity());
-            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+            text = getString(R.string.problem_with_register1);
+            UI.createSimpleCustomDialog("", text, getFragmentManager(),
                     new DialogDoubleActions() {
                         @Override
                         public void actionConfirm(Object... params) {
@@ -638,8 +640,8 @@ public class DatosPersonalesFragment extends GenericFragment implements
                         }
                     }, true, false);
         } else {
-            String text = getString(R.string.problem_with_register);
-            String titulo = getString(R.string.titulo_extranjero);
+            text = getString(R.string.problem_with_register2);
+            titulo = getString(R.string.titulo_extranjero);
             seencuentra = true;
             UI.createCustomDialogextranjero(titulo, text, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                 @Override
@@ -693,7 +695,7 @@ public class DatosPersonalesFragment extends GenericFragment implements
         paises.add("BA");
         for (int i = 0; i < paises.size(); i++) {
             if (paises.get(i).equals(pais)) {
-                String text = getString(R.string.problem_with_register);
+                String text = getString(R.string.problem_with_register2);
                 String titulo = getString(R.string.titulo_extranjero);
                 seencuentra = true;
                 UI.createCustomDialogextranjero(titulo, text, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {

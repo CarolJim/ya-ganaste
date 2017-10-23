@@ -187,7 +187,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
     @Override
     public void checkCardAssigment(String numberCard) {
-        accountView.showLoader(context.getString(R.string.tienes_tarjeta_validando_tarjetanuevo));
+        accountView.showLoader(context.getString(R.string.tienes_tarjeta_validando_tarjeta_2));
         accountIteractor.checkCard(numberCard);
     }
 

@@ -5,7 +5,6 @@ import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.IdRes;
-import android.support.v7.widget.AppCompatImageView;
 import android.text.Editable;
 import android.text.InputType;
 import android.text.TextWatcher;
@@ -78,7 +77,6 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     StyleTextView dateTDC;
     @BindView(R.id.txt_tarjeta_user_name)
     StyleTextView userName;
-
 
 
     String a;
@@ -388,7 +386,14 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     public void showError(Object error) {
         if (!error.toString().isEmpty()) {
             // UI.showToastShort(error.toString(),getActivity());
-            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+            String errorS = error.toString();
+            String title = "";
+            if (error.toString().contains("_")) {
+                String[] custom = error.toString().split("_");
+                title = custom[0];
+                errorS = custom[1];
+            }
+            UI.createSimpleCustomDialog(title, errorS, getFragmentManager(),
                     new DialogDoubleActions() {
                         @Override
                         public void actionConfirm(Object... params) {

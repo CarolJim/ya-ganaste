@@ -86,7 +86,6 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_SIMPLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGIN_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ESTATUS_TARJETA;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_NUMERO_SMS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTIENE_DATOS_CUPO;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.RECUPERAR_CONTRASENIA;
@@ -122,10 +121,12 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private Request requestAccountOperation;
     private boolean logOutBefore;
     private Preferencias prefs = App.getInstance().getPrefs();
+    private CatalogsDbApi api;
 
     public AccountInteractorNew(IAccountManager accountManager) {
         this.accountManager = accountManager;
         prefs = App.getInstance().getPrefs();
+        this.api = new CatalogsDbApi(App.getContext());
     }
 
     @Override
@@ -142,6 +143,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     @Override
     public void login(IniciarSesionRequest request) {
         try {
+            api.deleteFavorites();
             ApiAdtvo.iniciarSesionSimple(request, this);
             SingletonUser.getInstance().setCardStatusId(null);
         } catch (OfflineException e) {
@@ -382,7 +384,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             ApiTrans.estatusCuenta(request, this);
         } catch (OfflineException e) {
             // e.printStackTrace();
-            accountManager.onError(ESTATUS_CUENTA,null);
+            accountManager.onError(ESTATUS_CUENTA, null);
         }
     }
 
@@ -557,24 +559,22 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         }
     }
 
-    private void validateStatusRespond(EstatusCuentaResponse dataSourceResult){
+    private void validateStatusRespond(EstatusCuentaResponse dataSourceResult) {
 
 
+        if (dataSourceResult.getCodigoRespuesta() == Recursos.CODE_OK) {
+            //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
+            //tarjetaUserPresenter.successGenericToPresenter(dataSourceResult);
+            App.getInstance().setStatusId(dataSourceResult.getData().getStatusId());
+            accountManager.onSuccesStateCuenta();
 
-            if (dataSourceResult.getCodigoRespuesta() == Recursos.CODE_OK) {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess " + response.getMensaje());
-                //tarjetaUserPresenter.successGenericToPresenter(dataSourceResult);
-                App.getInstance().setStatusId(dataSourceResult.getData().getStatusId());
-                accountManager.onSuccesStateCuenta();
-
-            } else {
-                //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess with Error " + response.getMensaje());
-                //tarjetaUserPresenter.errorGenericToPresenter(dataSourceResult);
-                accountManager.onError(ESTATUS_CUENTA, null);
-            }
+        } else {
+            //Log.d("PreferUserIteractor", "EstatusCuentaResponse Sucess with Error " + response.getMensaje());
+            //tarjetaUserPresenter.errorGenericToPresenter(dataSourceResult);
+            accountManager.onError(ESTATUS_CUENTA, null);
+        }
 
     }
-
 
 
     private void validateBalanceAdqResponse(ConsultaSaldoCupoResponse response) {
@@ -754,7 +754,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         } else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
             accountManager.sessionExpiredToPresenter(response);
         } else {
-            accountManager.onError(response.getWebService(), data.getMensaje());
+            accountManager.onError(response.getWebService(), App.getContext().getString(R.string.emisor_validate_card_fail_2));
         }
 
     }
