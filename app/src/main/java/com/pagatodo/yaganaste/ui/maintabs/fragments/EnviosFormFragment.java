@@ -23,6 +23,7 @@ import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.webservice.response.trans.DataTitular;
@@ -241,14 +242,69 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
     public void showError() {
         if (errorText != null && !errorText.equals("")) {
             //Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
-            UI.createSimpleCustomDialog("Error", errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
+            /**
+             * Comparamos la cadena que entrega el Servicio o el Presentes, con los mensajes que
+             * tenemos en el archivo de Strings, dependiendo del mensaje, hacemos un set al errorTittle
+             * para mostrarlo en el UI.createSimpleCustomDialog
+             */
+            String errorTittle = "";
+            if (errorText.equals(App.getContext().getString(R.string.txt_tipo_envio_error))) {
+                //errorTittle = App.getContext().getResources().getString(R.string.numero_telefono_incorrecto);
+                errorTittle = "Error";
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty))) {
+                errorTittle = "Error";
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty_clabe))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty_creditc))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty_telefono))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_error))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.new_body_envios_clabe_error))) {
+                errorTittle = App.getContext().getString(R.string.new_tittle_envios_clabe_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.new_body_envios_tdc_error))) {
+                errorTittle = App.getContext().getString(R.string.new_tittle_envios_tdc_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.new_body_envios_cellphone_error))) {
+                errorTittle = App.getContext().getString(R.string.new_tittle_envios_cellphone_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_importe_empty))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.new_body_envios_importe_error))) {
+                errorTittle = App.getContext().getString(R.string.new_tittle_envios_importe_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_name_empty))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_name_error))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_concept_empty))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_concept_error))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_empty))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_short))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_invalid))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_error))) {
+                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.new_body_saldo_error))) {
+                errorTittle = App.getContext().getString(R.string.new_tittle_saldo_error);
+            }
+            UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
     }
 
     @Override
     public void showError(String text) {
         if (!TextUtils.isEmpty(text)) {
-            UI.createSimpleCustomDialog("Error", text, getActivity().getSupportFragmentManager(), getFragmentTag());
+
+            UI.createSimpleCustomDialog("Error de Text", text, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
     }
 
