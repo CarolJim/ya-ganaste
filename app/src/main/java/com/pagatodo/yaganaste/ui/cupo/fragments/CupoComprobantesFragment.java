@@ -15,7 +15,6 @@ import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
 import android.support.v4.widget.SwipeRefreshLayout;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -26,10 +25,8 @@ import android.widget.LinearLayout;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
-import com.pagatodo.yaganaste.data.model.RegisterCupo;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoDocumentos;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
@@ -59,20 +56,14 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static android.app.Activity.RESULT_OK;
-import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.CUPO_PASO;
 import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.CUPO_PASO_DOCUMENTOS_ENVIADOS;
-import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.CUPO_PASO_REGISTRO_ENVIADO;
 import static com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity.ESTADO_REENVIAR_DOCUMENTOS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_CUPO_BACK;
 import static com.pagatodo.yaganaste.utils.Recursos.DOC_CUPO_FRONT;
-import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_BACK;
-import static com.pagatodo.yaganaste.utils.Recursos.DOC_DOM_FRONT;
-import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_BACK;
-import static com.pagatodo.yaganaste.utils.Recursos.DOC_ID_FRONT;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
@@ -548,21 +539,21 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
 
                 switch (estado) {
                     case STATUS_DOCTO_PENDIENTE:
-                        idDrawableStatus = R.drawable.ic_wait;
+                        idDrawableStatus = R.drawable.ic_wait2;
                         //itemWeNeedSmFilesAddressFront.setCenterDrawable(R.drawable.ic_status_pending);
                         itemWeNeedSmFilesAddressFront.setVisibilityStatus(false);
                         itemWeNeedSmFilesAddressFront.setOnClickListener(null);
                         itemWeNeedSmFilesAddressFront.setBackgroundResource(idDrawableStatus);
                         break;
                     case STATUS_DOCTO_APROBADO:
-                        idDrawableStatus = R.drawable.ic_document_done;
+                        idDrawableStatus = R.drawable.ic_document_done2;
                         //itemWeNeedSmFilesAddressFront.setCenterDrawable(R.drawable.ic_status_ok);
                         itemWeNeedSmFilesAddressFront.setVisibilityStatus(false);
                         itemWeNeedSmFilesAddressFront.setOnClickListener(null);
                         itemWeNeedSmFilesAddressFront.setBackgroundResource(idDrawableStatus);
                         break;
                     case STATUS_DOCTO_RECHAZADO:
-                        idDrawableStatus = R.drawable.ic_alerta;
+                        idDrawableStatus = R.drawable.ic_alerta2;
                         //itemWeNeedSmFilesAddressFront.setCenterDrawable(R.drawable.warning_1_canvas);
                         itemWeNeedSmFilesAddressFront.setVisibilityStatus(false);
                         itemWeNeedSmFilesAddressFront.setOnClickListener(this);
@@ -574,21 +565,21 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
             } else if (actual.getTipoDocumento() == DOC_CUPO_BACK) {
                 switch (estado) {
                     case STATUS_DOCTO_PENDIENTE:
-                        idDrawableStatus = R.drawable.ic_wait;
+                        idDrawableStatus = R.drawable.ic_wait2;
                         //itemWeNeedSmFilesAddressBack.setCenterDrawable(R.drawable.ic_status_pending);
                         itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
                         itemWeNeedSmFilesAddressBack.setOnClickListener(null);
                         itemWeNeedSmFilesAddressBack.setBackgroundResource(idDrawableStatus);
                         break;
                     case STATUS_DOCTO_APROBADO:
-                        idDrawableStatus = R.drawable.ic_document_done;
+                        idDrawableStatus = R.drawable.ic_document_done2;
                         //itemWeNeedSmFilesAddressBack.setCenterDrawable(R.drawable.ic_status_ok);
                         itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
                         itemWeNeedSmFilesAddressBack.setOnClickListener(null);
                         itemWeNeedSmFilesAddressBack.setBackgroundResource(idDrawableStatus);
                         break;
                     case STATUS_DOCTO_RECHAZADO:
-                        idDrawableStatus = R.drawable.ic_alerta;
+                        idDrawableStatus = R.drawable.ic_alerta2;
                         //itemWeNeedSmFilesAddressBack.setCenterDrawable(R.drawable.warning_1_canvas);
                         itemWeNeedSmFilesAddressBack.setVisibilityStatus(false);
                         itemWeNeedSmFilesAddressBack.setOnClickListener(this);

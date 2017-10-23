@@ -607,20 +607,21 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             switch (tipoDoc) {
                 case DOC_ID_FRONT:
                     ifeFront.setImageBitmap(bitmap);
+                  //  ifeFront.setBackground(ContextCompat.getDrawable(App.getContext(), R.drawable.ic_usuario_azul));
                     break;
                 case DOC_ID_BACK:
                     // ifeBack.setVisibilityStatus(true);
-                    // ifeBack.setBackgroundResource(R.drawable.ic_alerta);
+                    // ifeBack.setBackgroundResource(R.drawable.ic_alerta2);
                     ifeBack.setImageBitmap(bitmap);
                     break;
                 case DOC_DOM_FRONT:
                     // addressFront.setVisibilityStatus(true);
-                    // addressFront.setBackgroundResource(R.drawable.ic_alerta);
+                    // addressFront.setBackgroundResource(R.drawable.ic_alerta2);
                     addressFront.setImageBitmap(bitmap);
                     break;
                 case DOC_DOM_BACK:
                     // addressBack.setVisibilityStatus(true);
-                    // addressBack.setBackgroundResource(R.drawable.ic_alerta);
+                    // addressBack.setBackgroundResource(R.drawable.ic_alerta2);
                     addressBack.setImageBitmap(bitmap);
                     break;
             }
@@ -648,14 +649,14 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
             if (idStatus == STATUS_DOCTO_RECHAZADO) {
                 documentPendientes++;
-                idDrawableStatus = R.drawable.ic_alerta;
+                idDrawableStatus = R.drawable.ic_alerta2;
             } else if (idStatus == STATUS_DOCTO_APROBADO) {
                 documentApproved++;
-                idDrawableStatus = R.drawable.ic_document_done;
+                idDrawableStatus = R.drawable.ic_document_done2;
             } else if (idStatus == STATUS_DOCTO_PENDIENTE) {
-                idDrawableStatus = R.drawable.ic_wait;
+                idDrawableStatus = R.drawable.ic_wait2;
             } else {
-                idDrawableStatus = R.drawable.ic_wait;
+                idDrawableStatus = R.drawable.ic_wait2;
             }
 
             switch (tipoDoc) {
