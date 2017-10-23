@@ -73,7 +73,7 @@
     <string name="deseaDesasociarDispositivo">¿Desea Desasociar el Dispositivo?</string>
     <string name="deseaRealizarLlamada">¿Desea Llamar Ahora?</string>
     <string name="sel_fotografia">Seleccionar Fotografía</string>
-    <string name="error_take_photo">Imagen Duplicada, Seleccione Una Diferente</string>
+    <string name="error_take_photo">Toast: Imagen Duplicada, Intenta Con Una Diferente</string>
     <string name="myUserText">Mi Usuario</string>
     <string name="desvincular">Desvincular</string>
 
@@ -986,5 +986,7 @@
     <!--Text Error Favoritos AddNewFavoritesActivity-->
     <string name="respond_ok_add_new_favorite">Acabas de Agregar un Nuevo Favorito Con Éxito</string>
     <string name="title_dialog_favorite">Nuevo Favorito</string>
+    <string name="title_dialog_busqueda">Busqueda Favoritos</string>
     <string name="loader_15">Agregando Nuevo Favorito</string>
+    <string name="load_set_image">Asignando Imagen de Favorito</string>
 </resources>

@@ -352,7 +352,7 @@ public class CameraManager {
                 }
             });
 
-            mView.showProgress("Cargando Imagen. Por favor, espere . . .");
+            mView.showProgress(getContext().getString(R.string.load_set_image));
             this.listener.onCropper(contentUri);
         } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode != RESULT_OK) {
             // enableItems(true);

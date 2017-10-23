@@ -232,7 +232,7 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
                 dialog.show();
             } else {
                 //Toast.makeText(getActivity(),getString(R.string.empty_list_favorites), Toast.LENGTH_SHORT).show();
-                UI.createSimpleCustomDialog(" ",getString(R.string.empty_list_favorites),getFragmentManager(),"");
+                UI.createSimpleCustomDialog(getString(R.string.title_dialog_busqueda),getString(R.string.empty_list_favorites),getFragmentManager(),"");
             }
             isFromClick = false;
         } else {
