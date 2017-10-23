@@ -771,6 +771,7 @@
     <string name="adq_remove_tdc">Ya Puedes\nRetirar la Tarjeta</string>
     <string name="emisor_validate_card"><u>Tarjeta Válida</u></string>
     <string name="emisor_validate_card_fail"><u>Esta Tarjeta ya ha Sido Asignada, Ingresa Otra Tarjeta o Selecciona la Opción NO TENGO TARJETA</u></string>
+    <string name="emisor_validate_card_fail_2"><u>Número de Tarjeta Inválido_Número de Tarjeta Que Ingresaste no es  Inválido, Por Favor Intenta Nuevamente</u></string>
     <string name="emisor_validate_postalcode"><u>Verifica tu Código Postal</u></string>
 
     <!--  Menu de ayuda-->
