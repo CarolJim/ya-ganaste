@@ -3,7 +3,7 @@
     <path android:fillColor="@color/color_background_image_docs"
         android:pathData="M40.5,40.5m-39,0a39,39 0,1 1,78 0a39,39 0,1 1,-78 0"
         android:strokeColor="#1CC65D" android:strokeWidth="3"/>
-    <path android:fillColor="#FFFFFF"
+    <path android:fillColor="#1CC65D"
         android:pathData="M54.09,34.68C54.09,35.15 53.92,35.56 53.59,35.89L38.23,51.25C37.9,51.58 37.49,51.75 37.02,51.75C36.54,51.75 36.14,51.58 35.8,51.25L26.91,42.36C26.58,42.02 26.41,41.62 26.41,41.14C26.41,40.67 26.58,40.26 26.91,39.93L29.34,37.5C29.67,37.17 30.08,37 30.55,37C31.03,37 31.43,37.17 31.77,37.5L37.02,42.77L48.73,31.04C49.07,30.7 49.47,30.54 49.95,30.54C50.42,30.54 50.83,30.7 51.16,31.04L53.59,33.46C53.92,33.8 54.09,34.2 54.09,34.68Z"
         android:strokeColor="#00000000" android:strokeWidth="1"/>
 </vector>
