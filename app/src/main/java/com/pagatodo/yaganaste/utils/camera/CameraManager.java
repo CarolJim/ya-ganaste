@@ -308,7 +308,7 @@ public class CameraManager {
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
 
-                    //mView.showProgress("Cargando Imagen. Por favor, espere . . .");
+                    //mView.showProgress(getContext().getString(R.string.load_set_image));
                     mView.setPhotoToService(bitmap);
                     break;
             }

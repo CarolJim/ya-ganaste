@@ -636,7 +636,11 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
         //Validate format Servicios
         if (!editListServ.isValidText()) {
-            showValidationError(editListServ.getId(), getString(R.string.addFavoritesErrorServ));
+            if(current_tab2.getId() == 3){
+                showValidationError(editListServ.getId(), getString(R.string.addFavoritesErrorBank));
+            } else {
+                showValidationError(editListServ.getId(), getString(R.string.addFavoritesErrorServ));
+            }
             editListServ.setIsInvalid();
             isValid = false;
             //return;

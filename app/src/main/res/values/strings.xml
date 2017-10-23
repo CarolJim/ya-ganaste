@@ -73,7 +73,7 @@
     <string name="deseaDesasociarDispositivo">¿Desea Desasociar el Dispositivo?</string>
     <string name="deseaRealizarLlamada">¿Desea Llamar Ahora?</string>
     <string name="sel_fotografia">Seleccionar Fotografía</string>
-    <string name="error_take_photo">Toast: Imagen Duplicada, Intenta Con Una Diferente</string>
+    <string name="error_take_photo">Imagen Duplicada, Intenta Con Una Diferente</string>
     <string name="myUserText">Mi Usuario</string>
     <string name="desvincular">Desvincular</string>
 
@@ -624,7 +624,7 @@
     <string name="txt_phone_b">Teléfono: </string>
     <string name="add_favorites">Agregar a Favoritos</string>
     <string name="is_favorite">¡Encuentra Ésta Operación en Tus Favoritos!</string>
-    <string name="load_photo_favorite">Cargando Imagen\nPor favor, espere . . .</string>
+    <string name="load_photo_favorite">Asignando Imagen de Favorito</string>
     <string name="email_send_ticket">Envíar Comprobante (Opcional):</string>
     <string name="envia_comprobante_a">Envía Este Comprobante a </string>
     <string name="envia_comprobante_opcional"> (Opcional)</string>
@@ -952,6 +952,7 @@
     <string name="addFavoritesReferencia">Referencia</string>
     <string name="addFavoritesErrorAlias">Ingresa un Nombre</string>
     <string name="addFavoritesErrorServ">Elige una Compañía</string>
+    <string name="addFavoritesErrorBank">Elige un Banco</string>
     <string name="addFavoritesErrorEnvio">Es Necesario un Tipo de Envio</string>
     <string name="addFavoritesErrorFoto">Asigna Una Imagen a tu Favorito</string>
     <string name="addFavoritesErrorRefer">Es Necesario Una Referencia Para Proceder</string>
