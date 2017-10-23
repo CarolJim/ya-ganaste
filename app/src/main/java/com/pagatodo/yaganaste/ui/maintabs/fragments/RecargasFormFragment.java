@@ -88,7 +88,9 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             isIAVE = comercioItem.getIdComercio() == IAVE_ID;
             recargasPresenter = new RecargasPresenter(this, isIAVE);
             List<Double> montos = comercioItem.getListaMontos();
-            montos.add(0, 0D);
+            if(montos.get(0)!=0D){
+                montos.add(0, 0D);
+            }
             dataAdapter = new SpinnerArrayAdapter(getContext(), TAB1, montos);
 
             // Hacemos una referencia directa al Fragment Padre

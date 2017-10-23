@@ -293,10 +293,11 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         fragment.setArguments(args);
         return fragment;
     }
-    public void setVisibilityBack(boolean mBoolean){
+
+    public void setVisibilityBack(boolean mBoolean) {
         if (mBoolean) {
             btnBack.setVisibility(View.VISIBLE);
-        }else {
+        } else {
             btnBack.setVisibility(View.GONE);
         }
     }
@@ -369,19 +370,13 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         return request;
     }
 
-    private void readDongle() {
-        getKSN();
-    }
-
     public void getKSN() {
         App.getInstance().pos.getQposId();
     }
 
-
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
         rootview = inflater.inflate(R.layout.fragment_insert_dongle, container, false);
         initViews();
         return rootview;
@@ -396,17 +391,18 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     public void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
-        if (banderaCacelachevron=true) {
+        if (banderaCacelachevron = true) {
             setVisibilityBack(false);
         }
         App.getInstance().pos.openAudio();
         maxVolumenDevice = audioManager.getStreamMaxVolume(AudioManager.STREAM_MUSIC);
         audioManager.setStreamVolume(AudioManager.STREAM_MUSIC, maxVolumenDevice, 0);
     }
-    public void setVisibilityPrefer(Boolean mBoolean){
-        if(mBoolean){
+
+    public void setVisibilityPrefer(Boolean mBoolean) {
+        if (mBoolean) {
             imageView.setVisibility(View.VISIBLE);
-        }else{
+        } else {
             imageView.setVisibility(View.GONE);
         }
     }
@@ -414,13 +410,11 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     @Override
     public void onPause() {
         super.onPause();
-
         App.getInstance().pos.closeAudio();
     }
 
     @Override
     public void onDestroy() {
-
         unregisterReceiverDongle();
         unregisterReceiverHeadPhone();
         super.onDestroy();
@@ -469,12 +463,12 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             if (dataMovimientoAdq.getTipoTrans().equals(TIPO_TRANSACCION_CHIP)) {
                 message = getString(R.string.text_insert_cancelation);
             } else {
-               // showError("Mensaje de prueba dongle_swipe_card");
+                // showError("Mensaje de prueba dongle_swipe_card");
                 message = getString(R.string.text_slide_cancelation);
                 imgInsertCard.setImageResource(R.mipmap.dongle_swipe_card);
             }
         } else {
-           // message = getString(R.string.text_slide_or_insert);
+            // message = getString(R.string.text_slide_or_insert);
             message = getString(R.string.text_insert_or_slide);
         }
         imgInsertCard.setVisibility(VISIBLE);

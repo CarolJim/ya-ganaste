@@ -22,16 +22,16 @@ public class CustomErrors {
             switch (error.networkResponse.statusCode) {
 
                 case 404:
-                    errorMessage = App.getInstance().getString(R.string.message_generic_ws);
+                    errorMessage = App.getInstance().getString(R.string.message_generic_wsnuevo);
                     break;
 
                 default:
                     if (error.getMessage() != null)
-                        errorMessage = App.getInstance().getString(R.string.message_generic_ws);
+                        errorMessage = App.getInstance().getString(R.string.message_generic_wsnuevo);
             }
 
         } else {
-            errorMessage = App.getInstance().getString(R.string.message_generic_ws);
+            errorMessage = App.getInstance().getString(R.string.message_generic_wsnuevo);
         }
 
         return errorMessage;

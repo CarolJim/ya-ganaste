@@ -87,7 +87,7 @@ public class App extends Application {
                 getBaseContext().getResources().getDisplayMetrics());
         m_singleton = this;
         //MultiDex.install(this);
-        Stetho.initializeWithDefaults(this);
+        //Stetho.initializeWithDefaults(this);
 
         this.prefs = new Preferencias(this);
         System.loadLibrary("a01jni");
@@ -194,7 +194,7 @@ public class App extends Application {
         Log.e("APP", "Close From: " + Thread.currentThread().getStackTrace()[1].getMethodName());
 
         if (lifecycleHandler.isInBackground()) {
-            NotificationBuilder.createCloseSessionNotification(this, intent, getString(R.string.app_name), getString(R.string.close_sesion_body));
+            NotificationBuilder.createCloseSessionNotification(this, intent, getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo));
             List<Activity> toClose = new ArrayList<>();
             for (Map.Entry<String, Activity> current : quoeeuActivites.entrySet()) {
                 toClose.add(current.getValue());

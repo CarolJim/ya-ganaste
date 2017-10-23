@@ -69,6 +69,12 @@ public class CatalogsDbApi {
         genericDao.close();
     }
 
+    public static void deleteFavorites() {
+        genericDao.open();
+        genericDao.deleteAll(DataFavoritos.class);
+        genericDao.close();
+    }
+
     public static void insertFavorites(List<DataFavoritos> favorites) {
         genericDao.open();
         genericDao.deleteAll(DataFavoritos.class);
