@@ -10,6 +10,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
@@ -68,7 +69,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     CustomValidationEditText editPassword;
     @BindView(R.id.errorPasswordMessage)
     ErrorMessage errorPasswordMessage;
-
 
 
     String password;
@@ -168,7 +168,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     @Override
     public void showValidationError(int id, Object error) {
-        errorPasswordMessage.setMessageText(error.toString());
+        // Se elemina el mostrar errors debajo del campo de contrasenia ahora sera un PopUp
+        //errorPasswordMessage.setMessageText(error.toString());
+        showError(error.toString());
     }
 
     @Override
@@ -189,8 +191,18 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void showError(Object error) {
         hideLoader();
+
+        /**
+         * Comparamos la cadena que entrega el Servicio o el Presentes, con los mensajes que
+         * tenemos en el archivo de Strings, dependiendo del mensaje, hacemos un set al errorTittle
+         * para mostrarlo en el UI.createSimpleCustomDialog
+         */
+        String errorTittle = "";
+        String errorBody = "";
+        errorTittle = "Contraseña Inválida";
+        errorBody = "La Contraseña Ingresada no es Válida, Verifícala";
         if (!TextUtils.isEmpty(error.toString())) {
-            UI.createSimpleCustomDialog("Error", error.toString(), getActivity().getSupportFragmentManager(), getFragmentTag());
+            UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
     }
 

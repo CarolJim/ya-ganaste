@@ -90,17 +90,19 @@ public class EnviosPresenter implements IEnviosPresenter, IEnviosInteractor.OnVa
 
     @Override
     public void onNumberErrorCABLE() {
-        enviosManager.onError(App.getContext().getString(R.string.txt_referencia_envio_error_clabe));
+        //enviosManager.onError(App.getContext().getString(R.string.txt_referencia_envio_error_clabe));
+        enviosManager.onError(App.getContext().getString(R.string.new_body_envios_clabe_error));
     }
 
     @Override
     public void onNumberErrorCreditCard() {
-        enviosManager.onError(App.getContext().getString(R.string.txt_referencia_envio_error_creditc));
+        enviosManager.onError(App.getContext().getString(R.string.new_body_envios_tdc_error));
     }
 
     @Override
     public void onNumberErrorCellPhone() {
-        enviosManager.onError(App.getContext().getString(R.string.txt_referencia_envio_error_telefono));
+        //enviosManager.onError(App.getContext().getString(R.string.txt_referencia_envio_error_telefono));
+        enviosManager.onError(App.getContext().getString(R.string.new_body_envios_cellphone_error));
     }
 
     @Override
@@ -110,7 +112,8 @@ public class EnviosPresenter implements IEnviosPresenter, IEnviosInteractor.OnVa
 
     @Override
     public void onImporteError() {
-        enviosManager.onError(App.getContext().getString(R.string.txt_importe_error));
+        //enviosManager.onError(App.getContext().getString(R.string.txt_importe_error));
+        enviosManager.onError(App.getContext().getString(R.string.new_body_envios_importe_error));
     }
 
     @Override
