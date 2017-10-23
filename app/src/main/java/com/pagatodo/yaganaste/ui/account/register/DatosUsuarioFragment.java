@@ -185,10 +185,10 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                     edtitConfirmEmail.imageViewIsGone(true);
                 } else {
                      if (edtitConfirmEmail.getText().isEmpty()) {
-                        showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_confirmanuevo));
+                        showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_confirma));
                         edtitConfirmEmail.setIsInvalid();
                     } else if (!edtitConfirmEmail.getText().isEmpty() && !edtitConfirmEmail.getText().equals(editMail.getText())) {
-                        showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_no_coincidennuevo));
+                        showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_no_coinciden));
                         edtitConfirmEmail.setIsInvalid();
                     } else if (edtitConfirmEmail.getText().equals(editMail.getText())) {
                         hideValidationError(edtitConfirmEmail.getId());
@@ -220,7 +220,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                         showValidationError(editPassword.getId(), getString(R.string.no_internet_access));
                     }else if (editPassword.getText().isEmpty()) {
                         editPassword.setIsInvalid();
-                        showValidationError(editPassword.getId(), getString(R.string.datos_usuario_passnuevo));
+                        showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
                     } else if (!editPassword.isValidText() && !isValidPassword) {
                         editPassword.setIsInvalid();
                         showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass_formato));
@@ -252,7 +252,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
                     editPasswordConfirm.imageViewIsGone(true);
                 } else {
                     if (editPasswordConfirm.getText().isEmpty()) {
-                        showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_confirmnuevo));
+                        showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_confirm));
                         editPasswordConfirm.setIsInvalid();
                     } else if (!editPasswordConfirm.getText().isEmpty() && !editPasswordConfirm.getText().equals(editPassword.getText())) {
                         showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_no_coinciden));
@@ -321,7 +321,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
         //Valdiate Email confirm equals to Email
         if (!emailConfirmation.equals(email)) {
-            showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_no_coincidennuevo));
+            showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_no_coinciden));
             edtitConfirmEmail.setIsInvalid();
             isValid = false;
             //return;
@@ -329,7 +329,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
         //Validate Email Confirm is empty
         if (emailConfirmation.isEmpty()) {
-            showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_confirmanuevo));
+            showValidationError(edtitConfirmEmail.getId(), getString(R.string.datos_usuario_correo_confirma));
             edtitConfirmEmail.setIsInvalid();
             isValid = false;
             //return;
@@ -354,7 +354,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
         //Validate if Password is empty
          if (password.isEmpty()) {
-            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_passnuevo));
+            showValidationError(editPassword.getId(), getString(R.string.datos_usuario_pass));
             editPassword.setIsInvalid();
             isValid = false;
             //return;
@@ -378,7 +378,7 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
 
         //Validate if Password Confirmation is Empty
         if (passwordConfirmation.isEmpty()) {
-            showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_confirmnuevo));
+            showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_confirm));
             editPasswordConfirm.setIsInvalid();
             isValid = false;
             //return;

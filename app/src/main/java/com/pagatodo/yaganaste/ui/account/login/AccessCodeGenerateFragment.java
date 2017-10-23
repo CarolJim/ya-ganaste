@@ -82,7 +82,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             ((OtpInterface)getParentFragment()).loadCode(Utils.getSHA256(editPassword.getText()));
         } else if (editPassword.getText().isEmpty()) {
             editPassword.setIsInvalid();
-            errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_passnuevo));
+            errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass));
         } else {
             editPassword.setIsInvalid();
             errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass_formato));
