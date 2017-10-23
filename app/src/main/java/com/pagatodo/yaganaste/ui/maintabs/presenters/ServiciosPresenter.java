@@ -28,7 +28,7 @@ public class ServiciosPresenter implements IServiciosPresenter, IServiciosIntera
 
     @Override
     public void onReferenciaError() {
-        paymentsManager.onError(App.getContext().getResources().getString(R.string.txt_referencia_error));
+        paymentsManager.onError(App.getContext().getResources().getString(R.string.txt_referencia_errornuevo));
     }
 
     @Override
