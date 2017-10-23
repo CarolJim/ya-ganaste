@@ -101,7 +101,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
              * en pantalla
              */
             case EVENT_GO_LOAD_SHARE_EMAIL:
-              //  loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()), Direction.FORDWARD, true);
+                //  loadFragment(TransactionResultFragment.newInstance(TransactionAdqData.getCurrentTransaction().getPageResult()), Direction.FORDWARD, true);
                 loadFragment(CompartirReciboFragment.newInstance(dataMovimentTmp), Direction.FORDWARD, true);
         }
 
@@ -137,10 +137,12 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         imageshare.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                if(getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsEmisorFragment) {
+                if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsEmisorFragment) {
                     takeScreenshot();
-                }else if(getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsAdquirenteFragment){
-                    onEvent(EVENT_GO_LOAD_SHARE_EMAIL, "");
+                } else if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsAdquirenteFragment) {
+                    // TEMP para mostrar el ScreenShoot en vez del Ticket
+                    // onEvent(EVENT_GO_LOAD_SHARE_EMAIL, "");
+                    takeScreenshot();
                 }
             }
         });
@@ -154,8 +156,8 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                 /**
                  * Usamos una variable auxiliar dataMovimentTmp que se encarga de guardar en memoria
                  * nuestro objeto DataMovimientoAdq, para enviarlo al fragmento CompartirReciboFragment
+                 * PROCESO Detenido hasta liveracion de Ticket
                  */
-               // dataMovimentTmp = null;
                 dataMovimentTmp = (DataMovimientoAdq) data;
                 loadFragment(DetailsAdquirenteFragment.newInstance((DataMovimientoAdq) data));
             }
@@ -197,9 +199,11 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
             v1.setDrawingCacheEnabled(true);
             Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
             v1.setDrawingCacheEnabled(false);
-            File carpeta = new File(Environment.getExternalStorageDirectory()+ getString(R.string.path_image));
-            if(!carpeta.exists()){ carpeta.mkdir(); }
-            File imageFile = new File(Environment.getExternalStorageDirectory()+ getString(R.string.path_image)+"/", System.currentTimeMillis()+".jpg");
+            File carpeta = new File(Environment.getExternalStorageDirectory() + getString(R.string.path_image));
+            if (!carpeta.exists()) {
+                carpeta.mkdir();
+            }
+            File imageFile = new File(Environment.getExternalStorageDirectory() + getString(R.string.path_image) + "/", System.currentTimeMillis() + ".jpg");
             FileOutputStream outputStream = new FileOutputStream(imageFile);
             int quality = 100;
             bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
