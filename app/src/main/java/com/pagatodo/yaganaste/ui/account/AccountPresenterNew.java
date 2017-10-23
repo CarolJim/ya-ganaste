@@ -179,7 +179,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         if (accountView instanceof IDocumentApproved) {
             accountView.showLoader("Verificando Estado");
         } else {
-            accountView.showLoader(context.getString(R.string.verificando_sms_espera));
+            accountView.showLoader(context.getString(R.string.verificando_sms_esperanuevo));
         }
 
         accountIteractor.updateSessionData();
@@ -187,7 +187,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
     @Override
     public void checkCardAssigment(String numberCard) {
-        accountView.showLoader(context.getString(R.string.tienes_tarjeta_validando_tarjeta));
+        accountView.showLoader(context.getString(R.string.tienes_tarjeta_validando_tarjetanuevo));
         accountIteractor.checkCard(numberCard);
     }
 
@@ -212,13 +212,13 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
     @Override
     public void assignNIP(String nip) {
-        accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nip));
+        accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nipnuevo));
         AsignarNIPRequest request = new AsignarNIPRequest(Utils.cipherRSA(nip));
         accountIteractor.assignmentNIP(request, ASIGNAR_NIP);
     }
 
     public void assignNIP(String nip, String nipNewConfirm) {
-        accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nip));
+        accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nipnuevo));
         AsignarNIPRequest request = new AsignarNIPRequest(
                 Utils.cipherRSA(nip),
                 Utils.cipherRSA(nipNewConfirm)
@@ -228,7 +228,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
 
     @Override
     public void gerNumberToSMS() {
-        accountView.showLoader(context.getString(R.string.verificando_sms_espera));
+        accountView.showLoader(context.getString(R.string.verificando_sms_esperanuevo));
         accountIteractor.getSMSNumber();
     }
 

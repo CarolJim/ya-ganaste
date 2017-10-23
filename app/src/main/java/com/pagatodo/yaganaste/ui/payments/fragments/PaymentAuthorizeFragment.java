@@ -160,7 +160,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     public void validateForm() {
         getDataForm();
         if (TextUtils.isEmpty(password)) {
-            showValidationError(0, getString(R.string.datos_usuario_pass));
+            showValidationError(0, getString(R.string.datos_usuario_passnuevo));
         } else {
             paymentAuthorizePresenter.validatePasswordFormat(password);
         }

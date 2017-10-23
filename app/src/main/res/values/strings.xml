@@ -246,7 +246,8 @@
     <string name="text_insert_or_slide">Inserta o Desliza tu Tarjeta</string>
     <string name="finalizar">Finalizar</string>
     <string name="insert_slide_card">Inserta o Desliza la tarjeta</string>
-    <string name="no_internet_access">No Cuentas Con Conexión a Internet</string>
+    <string name="no_internet_access">Verifica Que Cuentes Con Conexión a Internet</string>
+    <string name="no_internet_accessnuevo">No Cuentas Con Conexión a Internet</string>
     <string name="something_is_wrong_try_again">Algo Salió Mal, Intenta de Nuevo</string>
     <string name="tag_number">Número de TAG </string>
 
@@ -302,14 +303,22 @@
     <string name="password">Contraseña</string>
     <string name="passwordConfirm">Confirma Contraseña</string>
     <string name="datos_usuario_correo">Introduce un Correo Válido (*)</string>
+    <string name="datos_usuario_correonuevo">El Correo Electrónico no es Válido</string>
+
     <string name="datos_usuario_correo_formato">El Correo no es Válido</string>
     <string name="datos_usuario_correo_confirma">Debes Confirmar el Correo</string>
+    <string name="datos_usuario_correo_confirmanuevo">Confirma tu Correo Electónico</string>
     <string name="datos_usuario_correo_no_coinciden">El Correo no Coincide</string>
+    <string name="datos_usuario_correo_no_coincidennuevo">El Correo Electrónico no Coincide</string>
+
     <string name="datos_usuario_pass">Introduce la Contraseña</string>
+    <string name="datos_usuario_passnuevo">Ingresa tu Contraseña</string>
     <string name="cambiar_pass_actual">Introduce la Contraseña Actual</string>
     <string name="datos_usuario_pass_c">Debes Confirmar la Nueva Contraseña</string>
+    <string name="datos_usuario_pass_cnuevo">Confirma tu Contraseña</string>
     <string name="datos_usuario_pass_new">Introduce la Nueva Contraseña</string>
     <string name="datos_usuario_pass_confirm">Debes Confirmar la Nueva Contraseña</string>
+    <string name="datos_usuario_pass_confirmnuevo">Debes Confirma tu Contraseña</string>
     <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide</string>
     <string name="datos_usuario_pass_formato">Verifica tu Contraseña</string>
     <string name="bienvenido_usuario"><![CDATA[¡Bienvenido <b>%1$s</b>!]]></string>
@@ -344,8 +353,12 @@
     <string name="zipCodeHint">Código Postal</string>
     <string name="stateHint">Estado</string>
     <string name="datos_domicilio_calle">Calle Requerida, Verifique su Información</string>
+
     <string name="datos_domicilio_num_ext">Número Exterior Requerido, Verifique su Información</string>
-    <string name="datos_domicilio_cp">Código Postal Requerido, Verifique su Información</string>
+
+
+    <string name="datos_domicilio_cp">Ingresa el Código Postal de tu Domicilio</string>
+
     <string name="datos_domicilio_colonia">Colonia Requerida, Verifique su Información</string>
     <string name="datos_domicilio_terminos">Debes Aceptar Los Términos y Condiciones</string>
     <string name="msg_register">Registrando Usuario</string>
@@ -360,8 +373,10 @@
     <string name="tienes_tarjeta_numero">Verifica el Número de Tu Tarjeta</string>
     <string name="tienes_tarjeta_asignando">Asignando Tarjeta</string>
     <string name="tienes_tarjeta_validando_tarjeta">Validando Tarjeta</string>
+    <string name="tienes_tarjeta_validando_tarjetanuevo">Estamos Asignando tu Tarjeta</string>
     <string name="tienes_tarjeta_no">No te Preocupes ¡Ya te Asignamos Una!\nTu Número de Tarjeta es:</string>
     <string name="tienes_tarjeta_asignando_nip">Asignando NIP</string>
+    <string name="tienes_tarjeta_asignando_nipnuevo">Estamos Registrando el NIP de tu Tarjeta</string>
     <string name="validando_password">Validando Contraseña</string>
     <!--tienes_tarjeta-->
     <string name="doYouHaveCardTitle">¿Tienes Tarjeta Ya Ganaste?</string>
@@ -401,6 +416,7 @@
     <string name="datos_negocio_preguntas">Debes Contestar Todas Las Preguntas</string>
     <!--Server problem-->
     <string name="message_generic_ws">Ocurrió un Error de Conexión</string>
+    <string name="message_generic_wsnuevo">Ocurrió un Error de Conexión al Intentar Realizar la Operación</string>
 
     <!-- Strings Menu Principal-->
     <string name="main_tab_inicio">Inicio</string>
@@ -581,6 +597,7 @@
     <string name="entendido_titulo">Entendido</string>
     <string name="no_sim_titulo">¡Atención!</string>
     <string name="no_sim_mensaje">Este Dispositivo no\nCuenta Con Una Tarjeta SIM</string>
+    <string name="no_sim_mensajenuevo">Este Dispositivo no Cuenta Con Una Tarjeta SIM,\n Inserta Una Para Continuar</string>
     <string name="no_sim_desc">No Puedes Usar Esta Aplicación\n Sin Tarjeta SIM</string>
 
     <!-- Mensajes de Espera para Registro adquirente -->
@@ -866,6 +883,7 @@
     <string name="security_code">Código de Seguridad</string>
     <string name="access_code_text">Ingresa tu Contraseña Para \nGenerar un Código de Seguridad</string>
     <string name="verificando_sms_espera">Estamos Verificando tu SMS, \nNos Tomará Sólo Unos Segundos</string>
+    <string name="verificando_sms_esperanuevo">Estamos Vinculando tu Celular \n a tu Cuenta</string>
     <string name="change_your_pass">Cambia tu Contraseña</string>
     <string name="unlike_your_device">Desvincula tu Dispositivo</string>
     <string name="without_items">Sin Resultados</string>
@@ -931,6 +949,8 @@
     <string name="status_rembolsado">Reembolsada</string>
 
     <string name="close_sesion_body">Por tu Seguridad, Hemos Cerrado la Sesión Por Falta de Actividad</string>
+    <string name="close_sesion_bodynuevo">Por Favor Inicia Sesión Nuevamente</string>
+
     <string name="addFavorites">Agregar a Favoritos</string>
     <string name="editarFavorites">Editar Favorito</string>
     <string name="addFavoritesAlias">Nombre</string>

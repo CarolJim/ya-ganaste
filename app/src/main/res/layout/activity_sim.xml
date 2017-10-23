@@ -52,7 +52,7 @@
         android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:layout_marginTop="@dimen/margin_small"
         android:gravity="center"
-        android:text="@string/no_sim_mensaje"
+        android:text="@string/no_sim_mensajenuevo"
         app:tipo="Subtitulo" />
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -63,6 +63,7 @@
         android:layout_below="@+id/txtSubtitleResult"
         android:layout_marginBottom="@dimen/btn_margin_bottom"
         android:gravity="center"
+        android:visibility="gone"
         android:text="@string/no_sim_desc"
         app:tipo="Subtitulo" />
 
