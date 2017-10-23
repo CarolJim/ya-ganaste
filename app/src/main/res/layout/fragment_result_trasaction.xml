@@ -7,6 +7,7 @@
     android:layout_height="match_parent"
     android:focusable="true"
     android:focusableInTouchMode="true"
+    android:padding="@dimen/activity_horizontal_margin"
     tools:context=".ui._controllers.AccountActivity">
 
     <RelativeLayout
@@ -25,7 +26,7 @@
             android:layout_centerVertical="true"
             android:layout_gravity="center_horizontal"
             android:layout_margin="15dp"
-            app:srcCompat="@drawable/ic_done" />
+            app:srcCompat="@drawable/ic_triangle_error" />
     </RelativeLayout>
 
     <com.pagatodo.yaganaste.utils.customviews.StyleTextView
@@ -96,15 +97,15 @@
                 android:layout_weight="30" />
         </LinearLayout>
 
-        <!--<com.pagatodo.yaganaste.utils.customviews.StyleButton-->
-        <!--style="@style/buttonDirecctionBack"-->
-        <!--android:id="@+id/btnNextResult"-->
-        <!--android:layout_weight="1"-->
-        <!--android:layout_margin="@dimen/margin_medium"-->
-        <!--android:text="@string/next"-->
-        <!--android:visibility="visible"-->
-        <!--android:textAllCaps="false"-->
-        <!--app:protectOnclick="true"/>-->
+        <!--<com.pagatodo.yaganaste.utils.customviews.StyleButton
+        style="@style/buttonDirecctionBack"
+        android:id="@+id/btnNextResult"
+        android:layout_weight="1"
+        android:layout_margin="@dimen/margin_medium"
+        android:text="@string/next"
+        android:visibility="visible"
+        android:textAllCaps="false"
+        app:protectOnclick="true"/>-->
 
         <!--<com.pagatodo.yaganaste.utils.customviews.StyleButton-->
         <!--android:id="@+id/btnErrorResult"-->

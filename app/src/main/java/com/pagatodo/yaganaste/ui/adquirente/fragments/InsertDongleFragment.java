@@ -237,6 +237,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
             // }
         }
     };
+    
     private BroadcastReceiver headPhonesReceiver = new BroadcastReceiver() {
         @Override
         public void onReceive(Context context, Intent intent) {
