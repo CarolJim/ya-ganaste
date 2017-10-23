@@ -767,7 +767,7 @@
     <!--  Menu de ayuda-->
     <string name="contactanos">Contáctanos</string>
     <string name="email">Email</string>
-    <string name="correo_vacio">El Mensaje Esta Vacío</string>
+    <string name="correo_vacio">El Mensaje Está Vacío</string>
     <string name="correo_enviado">El Mensaje Fué Enviado</string>
     <string name="enviar_email">Enviar Mail</string>
     <string name="como_ayudarte">¿Cómo Podemos Ayudarte?</string>
