@@ -636,6 +636,7 @@
     <string name="error_enviando_ticket">Error Enviando Ticket</string>
 
     <string name="txt_referencia_error">Error al Introducir el Campo Referencia</string>
+    <string name="txt_referencia_errornuevo">Verifica Que el Número de Referencia Que Ingresaste Sea Correcto</string>
     <string name="txt_referencia_empty">El Campo Referencia Está Vacío</string>
     <string name="txt_importe_empty">El Campo Importe Está Vacío</string>
     <string name="txt_importe_error">El Importe es Incorrecto</string>
