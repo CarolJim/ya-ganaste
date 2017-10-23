@@ -981,4 +981,12 @@
 
     <!--Dialog de error-->
     <string name="dialog_message_error">Mensaje de Error</string>
+
+
+    <!-- Nuevos Errores Recargas -->
+    <string name="new_body_phone_error">Verifica Que el Número de Teléfono Que Ingresaste Sea Correcto</string>
+    <string name="new_tittle_IAVE_error">Número de Tag Incorrecto</string>
+    <string name="new_body_IAVE_error">Verifica Que el Número de Tag Que Ingresaste Sea Correcto</string>
+    <string name="new_tittle_saldo_error">Saldo Insuficiente</string>
+    <string name="new_body_saldo_error">No Cuentas Con Saldo Suficiente Para Realizar Esta Transacción</string>
 </resources>

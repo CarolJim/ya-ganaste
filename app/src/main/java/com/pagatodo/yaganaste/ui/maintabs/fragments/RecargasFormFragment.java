@@ -239,8 +239,25 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
     @Override
     public void showError() {
         if (errorText != null && !errorText.equals("")) {
-            //Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
-            UI.createSimpleCustomDialog("Error", errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
+            /**
+             * Comparamos la cadena que entrega el Servicio o el Presentes, con los mensajes que
+             * tenemos en el archivo de Strings, dependiendo del mensaje, hacemos un set al errorTittle
+             * para mostrarlo en el UI.createSimpleCustomDialog
+             */
+            String errorTittle = "";
+            if (errorText.equals(App.getContext().getString(R.string.new_body_IAVE_error))) {
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_IAVE_error);
+
+            } else if(errorText.equals(App.getContext().getString(R.string.new_body_phone_error))) {
+                errorTittle = App.getContext().getResources().getString(R.string.numero_telefono_incorrecto);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.favor_selecciona_importe))){
+                errorTittle = "Error";
+
+            } else if (errorText.equals(App.getContext().getString(R.string.new_body_saldo_error))){
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_saldo_error);
+            }
+            UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
     }
 
