@@ -471,7 +471,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
      */
     @Override
     public void toViewErrorServer(String mMensaje) {
-        showDialogMesage(mMensaje, 0);
+        showDialogMesage("",mMensaje, 0);
     }
 
     /**
@@ -481,7 +481,10 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
      */
     @Override
     public void toViewSuccessAdd(FavoritosNewDatosResponse mResponse) {
-        showDialogMesage(mResponse.getMensaje(), 1);
+
+        //showDialogMesage(mResponse.getMensaje(), 1);
+        showDialogMesage(getString(R.string.title_dialog_favorite),
+                getString(R.string.respond_ok_add_new_favorite), 1);
 
         /*int idFavorito = mResponse.getData().getIdFavorito();
         *//**
@@ -495,7 +498,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
     @Override
     public void toViewSuccessAddFoto(String mMensaje) {
-        showDialogMesage(mMensaje, 1);
+        showDialogMesage("",mMensaje, 1);
     }
 
     @Override
@@ -513,8 +516,8 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
     }
 
-    private void showDialogMesage(final String mensaje, final int closeAct) {
-        UI.createSimpleCustomDialog("", mensaje, getSupportFragmentManager(),
+    private void showDialogMesage(final String title, final String mensaje, final int closeAct) {
+        UI.createSimpleCustomDialog(title, mensaje, getSupportFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
@@ -693,7 +696,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
             if (isOnline) {
                 onValidationSuccess();
             } else {
-                showDialogMesage(getResources().getString(R.string.no_internet_access), 0);
+                showDialogMesage("",getResources().getString(R.string.no_internet_access), 0);
             }
         }
     }
@@ -778,7 +781,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
         /* Si no tiene un favorito guardado con la misma referencia entonces se permite subirlo*/
         if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
-            favoritesPresenter.toPresenterAddNewFavorites(addFavoritesRequest);
+            favoritesPresenter.toPresenterAddNewFavorites(getString(R.string.loader_15),addFavoritesRequest);
         } else {
         /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
             UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(),

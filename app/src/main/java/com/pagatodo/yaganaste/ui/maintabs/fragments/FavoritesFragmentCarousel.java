@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.ListDialog;
 import com.pagatodo.yaganaste.utils.customviews.carousel.Carousel;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselAdapter;
@@ -230,7 +231,8 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
                 ListDialog dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
                 dialog.show();
             } else {
-                Toast.makeText(getActivity(),getString(R.string.empty_list_favorites), Toast.LENGTH_SHORT).show();
+                //Toast.makeText(getActivity(),getString(R.string.empty_list_favorites), Toast.LENGTH_SHORT).show();
+                UI.createSimpleCustomDialog(" ",getString(R.string.empty_list_favorites),getFragmentManager(),"");
             }
             isFromClick = false;
         } else {

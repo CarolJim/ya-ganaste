@@ -44,8 +44,9 @@ public class FavoritesPresenter implements IFavoritesPresenter {
 
 
     @Override
-    public void toPresenterAddNewFavorites(AddFavoritesRequest addFavoritesRequest) {
-        mView.showLoader("Procesando Datos");
+    public void toPresenterAddNewFavorites(String textLoader, AddFavoritesRequest addFavoritesRequest) {
+        //mView.showLoader("Procesando Datos");
+        mView.showLoader(textLoader);
         favoritesIteractor.toIteractorAddNewFavorites(addFavoritesRequest);
     }
 

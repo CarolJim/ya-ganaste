@@ -450,7 +450,7 @@
     <string name="title_servicio_success">¡Pago Exitoso!</string>
     <string name="title_envio_success">¡Envío Exitoso!</string>
     <string name="synch_favorites">Obteniendo Favoritos</string>
-    <string name="empty_list_favorites">No Cuenta Con Favoritos</string>
+    <string name="empty_list_favorites">Aún no Cuentas Con Ningún Favorito</string>
 
     <string name="transfer_phone">Número de Teléfono</string>
     <string name="transfer_phone_cellphone">Número de Celular</string>
@@ -936,10 +936,10 @@
     <string name="addFavoritesAlias">Nombre</string>
     <string name="addFavoritesServicio">Servicio</string>
     <string name="addFavoritesReferencia">Referencia</string>
-    <string name="addFavoritesErrorAlias">Es Necesario un Nombre Para Proceder</string>
-    <string name="addFavoritesErrorServ">Es Necesario un Servicio Para Proceder</string>
+    <string name="addFavoritesErrorAlias">Ingresa un Nombre</string>
+    <string name="addFavoritesErrorServ">Elige una Compañía</string>
     <string name="addFavoritesErrorEnvio">Es Necesario un Tipo de Envio</string>
-    <string name="addFavoritesErrorFoto">Es Necesario Enviar Una Foto</string>
+    <string name="addFavoritesErrorFoto">Asigna Una Imagen a tu Favorito</string>
     <string name="addFavoritesErrorRefer">Es Necesario Una Referencia Para Proceder</string>
     <string name="addFavoritesMsnAlta">Agregando a Favoritos</string>
     <string name="error_favorite_exist">Ya Existe un Favorito Guardado Con la Misma Referencia</string>
@@ -969,4 +969,9 @@
 
     <!--Dialog de error-->
     <string name="dialog_message_error">Mensaje de Error</string>
+    
+    <!--Text Error Favoritos AddNewFavoritesActivity-->
+    <string name="respond_ok_add_new_favorite">Acabas de Agregar un Nuevo Favorito Con Éxito</string>
+    <string name="title_dialog_favorite">Nuevo Favorito</string>
+    <string name="loader_15">Agregando Nuevo Favorito</string>
 </resources>
