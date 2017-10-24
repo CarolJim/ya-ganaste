@@ -125,7 +125,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
         imgPagosFavs.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favorites));
+                onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.synch_favoritessynch_favorites));
                 if (Utils.isDeviceOnline()) {
                     paymentsCarouselPresenter.getFavoriteCarouselItems();
                 } else {

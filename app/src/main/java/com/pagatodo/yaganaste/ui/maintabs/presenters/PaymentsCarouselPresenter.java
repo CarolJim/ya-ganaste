@@ -97,6 +97,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     public void getFavoriteCarouselItems() {
         if (App.getInstance().getPrefs().loadDataBoolean(CONSULT_FAVORITE)) {
             paymentsTabIteractor.getFavoritesFromService();
+           // paymentsTabIteractor.getFavoritesFromDB(current_tab.getId());
         } else {
             paymentsTabIteractor.getFavoritesFromService();
         }
