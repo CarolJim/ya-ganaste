@@ -168,6 +168,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     public void onSuccessDBFavorites(List<DataFavoritos> favoritos) {
         if (showFavorite) {
             paymentsManager.setCarouselData(getCarouselItemsFavoritos(favoritos));
+
         } else {
             paymentsManager.showFavorites();
         }
