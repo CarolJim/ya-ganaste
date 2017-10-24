@@ -44,8 +44,9 @@ public class FavoritesPresenter implements IFavoritesPresenter {
 
 
     @Override
-    public void toPresenterAddNewFavorites(AddFavoritesRequest addFavoritesRequest) {
-        mView.showLoader("Procesando Datos");
+    public void toPresenterAddNewFavorites(String textLoader, AddFavoritesRequest addFavoritesRequest) {
+        //mView.showLoader("Procesando Datos");
+        mView.showLoader(textLoader);
         favoritesIteractor.toIteractorAddNewFavorites(addFavoritesRequest);
     }
 
@@ -63,7 +64,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
 
     @Override
     public void toPresenterDeleteFavorite(DeleteFavoriteRequest deleteFavoriteRequest, int idFavorito) {
-        mView.showLoader("Procesando Peticion");
+        mView.showLoader(App.getContext().getString(R.string.delete_fav_request));
         this.idFavorito = idFavorito;
         favoritesIteractor.toIteractorDeleteFavorite(deleteFavoriteRequest, idFavorito);
     }

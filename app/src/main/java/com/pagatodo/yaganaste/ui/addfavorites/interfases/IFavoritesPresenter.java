@@ -24,7 +24,7 @@ public interface IFavoritesPresenter {
 
     void openMenuPhoto(int i, CameraManager cameraManager);
 
-    void toPresenterAddNewFavorites(AddFavoritesRequest addFavoritesRequest);
+    void toPresenterAddNewFavorites(String text_loader, AddFavoritesRequest addFavoritesRequest);
 
     void toPresenterAddFotoFavorites(AddFotoFavoritesRequest addFotoFavoritesRequest, int idFavorito);
 
