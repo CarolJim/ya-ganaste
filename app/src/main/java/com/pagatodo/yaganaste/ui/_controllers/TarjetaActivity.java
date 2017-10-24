@@ -68,7 +68,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         imgStatus=(AppCompatImageView) findViewById(R.id.img_status);
         txtNameTitular.setText(nombre());
         ultimaTransaccion();
-        printCard(cuenta());
+        //printCard(cuenta());
         estadotarjeta();
     }
 
@@ -81,7 +81,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     protected void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
-        printCard(cuenta());
+      //  printCard(cuenta());
     }
 
     private void estadotarjeta() {
@@ -145,19 +145,19 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                 mycard_switch.setChecked(true);
                 imgStatus.setImageResource(R.drawable.ic_candado_closed);
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_gray);
-                printCard(cuenta());
+              //  printCard(cuenta());
                 break;
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
                 mycard_switch.setChecked(false);
                 imgStatus.setImageResource(R.drawable.ic_candado_open);
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
-                printCard(cuenta());
+             //   printCard(cuenta());
                 break;
             default:
                 mycard_switch.setChecked(false);
                 imgStatus.setImageResource(R.drawable.ic_candado_open);
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
-                printCard(cuenta());
+               // printCard(cuenta());
                 break;
         }
     }

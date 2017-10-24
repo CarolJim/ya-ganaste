@@ -88,7 +88,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             isIAVE = comercioItem.getIdComercio() == IAVE_ID;
             recargasPresenter = new RecargasPresenter(this, isIAVE);
             List<Double> montos = comercioItem.getListaMontos();
-            if(montos.get(0)!=0D){
+            if (montos.get(0) != 0D) {
                 montos.add(0, 0D);
             }
             dataAdapter = new SpinnerArrayAdapter(getContext(), TAB1, montos);
@@ -163,10 +163,10 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             spinnerMontoRecarga.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
                 @Override
                 public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
-                    if(position != 0){
+                    if (position != 0) {
                         monto = (Double) spinnerMontoRecarga.getSelectedItem();
                         fragment.updateValueTabFrag(monto);
-                    }else{
+                    } else {
                         fragment.updateValueTabFrag(0.0);
                     }
                 }
@@ -248,14 +248,22 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             if (errorText.equals(App.getContext().getString(R.string.new_body_IAVE_error))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_IAVE_error);
 
-            } else if(errorText.equals(App.getContext().getString(R.string.new_body_phone_error))) {
+            } else if (errorText.equals(App.getContext().getString(R.string.new_body_phone_error))) {
                 errorTittle = App.getContext().getResources().getString(R.string.numero_telefono_incorrecto);
 
-            } else if (errorText.equals(App.getContext().getString(R.string.favor_selecciona_importe))){
-                errorTittle = "Error";
+            } else if (errorText.equals(App.getContext().getString(R.string.favor_selecciona_importe))) {
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_importe_error);
 
-            } else if (errorText.equals(App.getContext().getString(R.string.new_body_saldo_error))){
+            } else if (errorText.equals(App.getContext().getString(R.string.new_body_saldo_error))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_saldo_error);
+
+            }else if (errorText.equals(App.getContext().getString(R.string.numero_iave_vacio))) {
+                errorTittle = App.getContext().getResources().getString(R.string.iave_invalid);
+                errorText = App.getContext().getResources().getString(R.string.new_body_recargas_iave_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.numero_telefono_vacio))) {
+                errorTittle = App.getContext().getResources().getString(R.string.phone_invalid);
+                errorText = App.getContext().getResources().getString(R.string.new_body_recargas_phone_error);
             }
             UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
         }

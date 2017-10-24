@@ -249,18 +249,20 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
              */
             String errorTittle = "";
             if (errorText.equals(App.getContext().getString(R.string.txt_tipo_envio_error))) {
-                //errorTittle = App.getContext().getResources().getString(R.string.numero_telefono_incorrecto);
-                errorTittle = "Error";
+                errorTittle = App.getContext().getResources().getString(R.string.type_send_invalid);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty))) {
                 errorTittle = "Error";
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty_clabe))) {
-                errorTittle = "Error";
+                errorTittle = App.getContext().getResources().getString(R.string.transfer_cable);
+
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty_creditc))) {
-                errorTittle = "Error";
+                errorTittle = App.getContext().getResources().getString(R.string.number_card_invalid);
+
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_empty_telefono))) {
-                errorTittle = "Error";
+                errorTittle = App.getContext().getResources().getString(R.string.transfer_phone_cellphone);
+
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_envio_error))) {
                 errorTittle = "Error";
             } else if (errorText.equals(App.getContext().getString(R.string.new_body_envios_clabe_error))) {
@@ -273,20 +275,28 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
                 errorTittle = App.getContext().getString(R.string.new_tittle_envios_cellphone_error);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_importe_empty))) {
-                errorTittle = "Error";
+                errorTittle = App.getContext().getString(R.string.details_importe);
+
             } else if (errorText.equals(App.getContext().getString(R.string.new_body_envios_importe_error))) {
                 errorTittle = App.getContext().getString(R.string.new_tittle_envios_importe_error);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_name_empty))) {
-                errorTittle = "Error";
+                errorTittle = App.getContext().getString(R.string.destiny_invalid);
+                errorText = App.getContext().getString(R.string.new_body_envios_destiny_error);
+
             } else if (errorText.equals(App.getContext().getString(R.string.txt_name_error))) {
                 errorTittle = "Error";
+
             } else if (errorText.equals(App.getContext().getString(R.string.txt_concept_empty))) {
-                errorTittle = "Error";
+                errorTittle = App.getContext().getString(R.string.details_concepto);
+                errorText = App.getContext().getString(R.string.new_body_envios_concepto_error);
+
             } else if (errorText.equals(App.getContext().getString(R.string.txt_concept_error))) {
                 errorTittle = "Error";
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_empty))) {
-                errorTittle = "Error";
+                errorTittle = App.getContext().getString(R.string.detals_referencia_num);
+                errorText = App.getContext().getString(R.string.new_body_envios_refer_error);
+
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_short))) {
                 errorTittle = "Error";
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_invalid))) {
