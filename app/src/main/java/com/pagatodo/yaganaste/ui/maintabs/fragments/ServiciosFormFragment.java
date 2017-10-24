@@ -120,19 +120,19 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
         }
 
         // Agregamos un setOnFocusChangeListener a nuestro campo de importe, solo si es un favorito
-        if(favoriteItem != null){
+        if (favoriteItem != null) {
             serviceImport.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {
                     if (hasFocus) {
-                       // Toast.makeText(App.getContext(), "Tiene foco", Toast.LENGTH_SHORT).show();
+                        // Toast.makeText(App.getContext(), "Tiene foco", Toast.LENGTH_SHORT).show();
                     } else {
-                       // Toast.makeText(App.getContext(), "Foco fuera", Toast.LENGTH_SHORT).show();
-                        String serviceImportStr = serviceImport.getText().toString().substring(1).replace(",","");
-                        if(serviceImportStr != null && !serviceImportStr.isEmpty()){
+                        // Toast.makeText(App.getContext(), "Foco fuera", Toast.LENGTH_SHORT).show();
+                        String serviceImportStr = serviceImport.getText().toString().substring(1).replace(",", "");
+                        if (serviceImportStr != null && !serviceImportStr.isEmpty()) {
                             monto = Double.valueOf(serviceImportStr);
                             fragment.updateValueTabFrag(monto);
-                        }else{
+                        } else {
                             fragment.updateValueTabFrag(0.0);
                         }
                     }
@@ -158,8 +158,26 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
     @Override
     public void showError() {
         if (errorText != null && !errorText.equals("")) {
+
+            String errorTittle = "";
+            if (errorText.equals(App.getContext().getString(R.string.txt_referencia_empty))) {
+                errorTittle = App.getContext().getResources().getString(R.string.reference_invalid);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_errornuevo))) {
+                errorTittle = App.getContext().getResources().getString(R.string.reference_invalid);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_importe_empty))) {
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_importe_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_importe_error))) {
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_importe_error);
+                errorText = App.getContext().getResources().getString(R.string.new_body_envios_importe_error);
+
+            } else if (errorText.equals(App.getContext().getString(R.string.txt_concept_empty))) {
+                errorTittle = App.getContext().getResources().getString(R.string.concepto_invalid);
+            }
             //Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
-            UI.createSimpleCustomDialog("Error", errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
+            UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
     }
 
