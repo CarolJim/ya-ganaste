@@ -361,6 +361,15 @@ public class CarouselItem extends FrameLayout
         mImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
     }
 
+    public void setCommerceImageViewMargin() {
+        MarginLayoutParams marginParams = new MarginLayoutParams(mImage.getLayoutParams());
+        //marginParams.setMargins(60, 60, 60, 60);
+        marginParams.setMargins(Utils.convertDpToPixels(40), Utils.convertDpToPixels(40), Utils.convertDpToPixels(40), Utils.convertDpToPixels(40));
+        RelativeLayout.LayoutParams layoutParams = new RelativeLayout.LayoutParams(marginParams);
+        mImage.setLayoutParams(layoutParams);
+        mImage.setScaleType(ImageView.ScaleType.CENTER_INSIDE);
+    }
+
     public void setAddImageViewMargin() {
         MarginLayoutParams marginParams = new MarginLayoutParams(mImage.getLayoutParams());
         marginParams.setMargins(10, 10, 10, 10);
