@@ -14,7 +14,7 @@ import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 public interface IFavoritesPresenter {
 
-    void toPresenterAddFavorites(AddFavoritesRequest addFavoritesRequest);
+    void toPresenterAddFavorites(String textLoader, AddFavoritesRequest addFavoritesRequest);
 
     void toPresenterErrorServer(String mMensaje);
 
@@ -24,7 +24,7 @@ public interface IFavoritesPresenter {
 
     void openMenuPhoto(int i, CameraManager cameraManager);
 
-    void toPresenterAddNewFavorites(String text_loader, AddFavoritesRequest addFavoritesRequest);
+    void toPresenterAddNewFavorites(String textLoader, AddFavoritesRequest addFavoritesRequest);
 
     void toPresenterAddFotoFavorites(AddFotoFavoritesRequest addFotoFavoritesRequest, int idFavorito);
 

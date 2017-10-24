@@ -68,7 +68,7 @@
                 <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                     android:id="@+id/add_favorites_foto_error"
                     style="@style/generic_text_style_2"
-                    android:layout_width="180dp"
+                    android:layout_width="210dp"
                     android:layout_height="match_parent"
                     android:layout_marginLeft="3dp"
                     android:textAlignment="center"

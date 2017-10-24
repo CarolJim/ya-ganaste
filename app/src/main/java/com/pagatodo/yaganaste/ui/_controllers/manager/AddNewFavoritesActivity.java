@@ -16,6 +16,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -1176,6 +1177,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     @Override
     public void onCropSuccess(Uri croppedUri) {
         showLoader(getString(R.string.load_photo_favorite));
+        Log.d("CROPPE",croppedUri.getPath());
         cameraManager.setCropImage(croppedUri);
     }
 
