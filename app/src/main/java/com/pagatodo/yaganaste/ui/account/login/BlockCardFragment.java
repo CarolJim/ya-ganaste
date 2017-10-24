@@ -276,7 +276,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
         // Armamos
         showDialogMesage(messageStatus +
                 "\n" +
-                getResources().getString(R.string.card_num_autorization) + ": "
+                getResources().getString(R.string.card_num_autorization) + " "
                 + response.getData().getNumeroAutorizacion(), 1);
         try {
             ApiAdtvo.cerrarSesion();

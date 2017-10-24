@@ -326,7 +326,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
 
         showDialogCustom(messageStatus +
                 "\n" +
-                getResources().getString(R.string.card_num_autorization) + ": "
+                getResources().getString(R.string.card_num_autorization) + " "
                 + response.getData().getNumeroAutorizacion());
     }
 

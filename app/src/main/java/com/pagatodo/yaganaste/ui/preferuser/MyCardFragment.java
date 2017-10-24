@@ -263,7 +263,7 @@ public class MyCardFragment extends GenericFragment implements View.OnClickListe
 
         showDialogCustom(messageStatus +
                 "\n" +
-                getResources().getString(R.string.card_num_autorization) + ": "
+                getResources().getString(R.string.card_num_autorization) + " "
                 + response.getData().getNumeroAutorizacion());
     }
 
