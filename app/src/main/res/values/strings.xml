@@ -1011,5 +1011,9 @@
     <string name="new_body_envios_clabe_error">Verifica Que la Cuenta CLABE Que Ingresaste Sea Correcta</string>
     <string name="new_tittle_envios_importe_error">Importe Inválido</string>
     <string name="new_body_envios_importe_error">Verifica Que el Importe Sea Mayor o Igual a $1.00</string>
+    <string name="phone_invalid">Teléfono Inválido</string>
+    <string name="iave_invalid">IAVE Inválido</string>
+    <string name="new_body_recargas_iave_error">Por Favor Selecciona un IAVE Válido</string>
+    <string name="new_body_recargas_phone_error">Por Favor Ingresa un Número de Teléfono Válido</string>
 
 </resources>
