@@ -303,9 +303,8 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
                 errorTittle = "Error";
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_number_error))) {
                 errorTittle = "Error";
-            } else if (errorText.equals(App.getContext().getString(R.string.new_body_saldo_error))) {
-                errorTittle = App.getContext().getString(R.string.new_tittle_saldo_error);
             }
+
             UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
     }

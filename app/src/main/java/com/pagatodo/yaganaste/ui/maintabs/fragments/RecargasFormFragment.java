@@ -254,10 +254,7 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
             } else if (errorText.equals(App.getContext().getString(R.string.favor_selecciona_importe))) {
                 errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_importe_error);
 
-            } else if (errorText.equals(App.getContext().getString(R.string.new_body_saldo_error))) {
-                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_saldo_error);
-
-            }else if (errorText.equals(App.getContext().getString(R.string.numero_iave_vacio))) {
+            } else if (errorText.equals(App.getContext().getString(R.string.numero_iave_vacio))) {
                 errorTittle = App.getContext().getResources().getString(R.string.iave_invalid);
                 errorText = App.getContext().getResources().getString(R.string.new_body_recargas_iave_error);
 

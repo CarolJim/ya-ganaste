@@ -321,7 +321,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
 
                     clearSeekBar(childFragment);
 
-                    UI.createSimpleCustomDialog("Error", data.getStringExtra(MESSAGE), getSupportFragmentManager(),
+                    UI.createSimpleCustomDialog(App.getContext().getResources().getString(R.string.new_tittle_saldo_error), data.getStringExtra(MESSAGE), getSupportFragmentManager(),
                             new DialogDoubleActions() {
                                 @Override
                                 public void actionConfirm(Object... params) {
