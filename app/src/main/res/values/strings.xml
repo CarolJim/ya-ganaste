@@ -456,7 +456,7 @@
     <string name="title_recarga_success">¡Recarga Exitosa!</string>
     <string name="title_servicio_success">¡Pago Exitoso!</string>
     <string name="title_envio_success">¡Envío Exitoso!</string>
-    <string name="synch_favorites">Obteniendo Favoritos</string>
+    <string name="synch_favoritessynch_favorites">Obteniendo Favoritos</string>
     <string name="empty_list_favorites">Aún no Cuentas Con Ningún Favorito</string>
 
     <string name="transfer_phone">Número de Teléfono</string>
@@ -988,7 +988,7 @@
 
     
     <!--Text Error Favoritos AddNewFavoritesActivity-->
-    <string name="respond_ok_add_new_favorite">Acabas de Agregar un Nuevo Favorito Con Éxito</string>
+    <string name="respond_ok_add_new_favorite">Acabas de Agregar un Nuevo Favorito\n Con Éxito</string>
     <string name="title_dialog_favorite">Nuevo Favorito</string>
     <string name="title_dialog_busqueda">Busqueda Favoritos</string>
     <string name="loader_15">Agregando Nuevo Favorito</string>

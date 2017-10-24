@@ -123,6 +123,7 @@ public class SubBussinesLineSpinnerAdapter extends ArrayAdapter<SubGiro> {
             public void onClick(View v) {
                 spinnerClick.onSpinnerClick();
                 parent.performClick();
+                spinnerClick.hideKeyBoard();
             }
         };
 
@@ -133,6 +134,7 @@ public class SubBussinesLineSpinnerAdapter extends ArrayAdapter<SubGiro> {
             @Override
             public void onClick(View v) {
                 parent.performClick();
+                spinnerClick.hideKeyBoard();
             }
         });
 

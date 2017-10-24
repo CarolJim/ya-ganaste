@@ -1,11 +1,14 @@
 package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 
+import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.WindowManager;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -150,7 +153,10 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             public void onNothingSelected(AdapterView<?> parent) {
                 onSpinnerClick();
             }
+
+
         });
+
         spinnerSubBussineLine.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
@@ -414,6 +420,15 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         editBussinesName.clearFocus();
         editBussinesPhone.clearFocus();
         spinnerBussineLine.requestFocus();
+    }
+
+    @Override
+    public void hideKeyBoard() {
+       // getActivity().getWindow().setSoftInputMode(
+         //       WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        //final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        //imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
+        UI.hideKeyBoard(getActivity());
     }
 
     @Override

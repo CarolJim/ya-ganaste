@@ -669,6 +669,10 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
 
     }
 
+    @Override
+    public void hideKeyBoard() {
+
+    }
 
     private void showDialogMesage(final String mensaje) {
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),

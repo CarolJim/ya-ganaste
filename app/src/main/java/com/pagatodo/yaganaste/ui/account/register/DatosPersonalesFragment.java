@@ -668,6 +668,11 @@ public class DatosPersonalesFragment extends GenericFragment implements
     }
 
     @Override
+    public void hideKeyBoard() {
+
+    }
+
+    @Override
     public void onValidateUserDataSuccess() {
         onValidationSuccess();
     }

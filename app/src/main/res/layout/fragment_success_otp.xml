@@ -13,12 +13,13 @@
         style="@style/generic_text_style_2"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginBottom="@dimen/btn_navigation_bottom"
+        android:layout_marginBottom="60dp"
         android:gravity="center"
         android:text="@string/tu_codigo" />
 
 
     <FrameLayout
+        android:layout_marginTop="14dp"
         android:layout_width="300dp"
         android:layout_height="300dp">
 
@@ -61,6 +62,7 @@
         android:layout_width="match_parent"
         android:layout_height="0dp"
         android:layout_weight="1"
+        android:visibility="gone"
         android:layout_marginBottom="@dimen/btn_navigation_bottom"
         android:gravity="bottom|center_horizontal"
         android:orientation="vertical">
@@ -68,6 +70,7 @@
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btn_back"
             style="@style/buttonDirecctionBack"
+            android:visibility="gone"
             android:text="@string/volver" />
 
     </LinearLayout>

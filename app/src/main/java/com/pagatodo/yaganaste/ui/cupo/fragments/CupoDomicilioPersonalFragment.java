@@ -625,6 +625,10 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
 
     }
 
+    @Override
+    public void hideKeyBoard() {
+
+    }
 
     private class ZipWatcher extends AbstractTextWatcher {
 

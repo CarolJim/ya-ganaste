@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
 import android.app.Fragment;
+import android.nfc.Tag;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -8,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.Html;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -116,8 +118,13 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
         accountPresenterdongle = ((AccountActivity) getActivity()).getPresenter();
         loginContainerManager = ((QuickBalanceContainerFragment) getParentFragment()).getLoginContainerManager();
         quickBalanceManager = ((QuickBalanceContainerFragment) getParentFragment()).getQuickBalanceManager();
-        accountPresenter.setPurseReference(this);
-        Status = App.getInstance().getStatusId();
+        try {
+            accountPresenter.setPurseReference(this);
+        }catch (Exception e){
+            final String TAGCrash="QuiqBalance";
+            Log.d(TAGCrash,"Al instanciar metodo del presenter");
+        }
+            Status = App.getInstance().getStatusId();
 
     }
 

@@ -162,6 +162,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     AppCompatImageView btn_back;
     IFavoritesPresenter favoritesPresenter;
     DataFavoritos dataFavoritos;
+    DataFavoritos dataFavoritosLimpiar;
     int idTipoComercio, idComercio, idFavorito, idTipoEnvio, tipoTab, longitudRefer, keyIdComercio,
             maxLength, current_tab, longRefer;
     String stringFoto, nombreDest, mReferencia, tabName, formatoComercio = "", nombreComercio;
@@ -186,7 +187,11 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         favoritesPresenter = new FavoritesPresenter(this);
         btn_back = (AppCompatImageView) findViewById(R.id.btn_back);
         btn_back.setOnClickListener(this);
+
+
+
         dataFavoritos = (DataFavoritos) getIntent().getExtras().get(getString(R.string.favoritos_tag));
+
         idComercio = (int) dataFavoritos.getIdComercio();
         idTipoComercio = dataFavoritos.getIdTipoComercio();
         nombreComercio = dataFavoritos.getNombreComercio();
@@ -476,6 +481,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     public void sendAddFavoritos() {
         // Toast.makeText(this, "Open Presenter", Toast.LENGTH_SHORT).show();
         validateForm();
+        getIntent().removeExtra(getString(R.string.favoritos_tag));
     }
 
     @Override
