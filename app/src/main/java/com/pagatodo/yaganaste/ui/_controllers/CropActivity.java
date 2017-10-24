@@ -6,6 +6,7 @@ import android.net.Uri;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,7 +32,7 @@ public class CropActivity extends SupportFragmentActivity {
     CropIwaView cropIwaView;
     @BindView(R.id.toolbar_crop)
     Toolbar toolbar;
-
+    Uri imageUri;
     private CropIwaSaveConfig saveConfig;
 
     public static Intent callingIntent(Context context, Uri imageUri) {
@@ -46,7 +47,7 @@ public class CropActivity extends SupportFragmentActivity {
         ButterKnife.bind(this);
         //toolbar.setTitle(R.string.title_crop_gallery);
         setSupportActionBar(toolbar);
-        Uri imageUri = getIntent().getParcelableExtra(EXTRA_URI);
+        imageUri = getIntent().getParcelableExtra(EXTRA_URI);
         cropIwaView.setImageUri(imageUri);
 
     }
@@ -56,21 +57,10 @@ public class CropActivity extends SupportFragmentActivity {
         return false;
     }
 
-    public void onClickAceptar(View view){
-        this.saveConfig = new CropIwaSaveConfig(createNewEmptyFile());
-        cropIwaView.crop(saveConfig);
-        finish();
-    }
-
-    private void configDefault(){
-
-    }
-
     public static Uri createNewEmptyFile() {
         return Uri.fromFile(new File(
                 App.getInstance().getFilesDir(),
                 System.currentTimeMillis() + ".png"));
-        //return null;
     }
 
     @Override
@@ -84,6 +74,12 @@ public class CropActivity extends SupportFragmentActivity {
         if (item.getItemId() == R.id.done) {
             this.saveConfig = new CropIwaSaveConfig(createNewEmptyFile());
             cropIwaView.crop(saveConfig);
+            File file = new File(imageUri.getPath());
+            if(file.exists()){
+                if (file.delete()){
+                    Log.d("FILE IMAGE", "BORRADO");
+                }
+            }
             finish();
         }
         return super.onOptionsItemSelected(item);

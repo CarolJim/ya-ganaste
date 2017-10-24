@@ -988,7 +988,7 @@
 
     
     <!--Text Error Favoritos AddNewFavoritesActivity-->
-    <string name="respond_ok_add_new_favorite">Acabas de Agregar un Nuevo Favorito\n Con Éxito</string>
+    <string name="respond_ok_add_new_favorite">Agregaste un Nuevo Favorito Con Éxito</string>
     <string name="title_dialog_favorite">Nuevo Favorito</string>
     <string name="title_dialog_busqueda">Busqueda Favoritos</string>
     <string name="loader_15">Agregando Nuevo Favorito</string>

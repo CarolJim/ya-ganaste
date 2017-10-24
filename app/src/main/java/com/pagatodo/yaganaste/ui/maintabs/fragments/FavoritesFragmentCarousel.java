@@ -67,6 +67,7 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
         this.current_tab = MovementsTab.getMovementById(getArguments().getInt("TAB"));
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab, this, getContext(), true);
         fragment = (PaymentsTabFragment) getParentFragment();
@@ -100,6 +101,7 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
+        layoutCarouselFav.setVisibility(View.GONE);
         paymentsCarouselPresenter.getFavoriteCarouselItems();
         imgPagosMain.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -179,6 +181,7 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
 //                return false;
 //            }
 //        });
+        layoutCarouselFav.setClickable(true);
     }
 
     @Override

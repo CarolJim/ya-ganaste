@@ -168,6 +168,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
     public void onSuccessDBFavorites(List<DataFavoritos> favoritos) {
         if (showFavorite) {
             paymentsManager.setCarouselData(getCarouselItemsFavoritos(favoritos));
+
         } else {
             paymentsManager.showFavorites();
         }
@@ -181,13 +182,18 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
 
         //carouselItems.add(0, new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null));
         carouselItems.add(0, carouselItemSearch);
+        CarouselItem carouselItemCommerce;
         for (ComercioResponse comercio : comercios) {
             if (comercio.getIdTipoComercio() == current_tab.getId()) {
                 if (comercio.getIdComercio() != 0) {
                     if (comercio.getColorMarca().isEmpty()) {
-                        carouselItems.add(new CarouselItem(App.getContext(), comercio.getLogoURL(), "#10B2E6", CarouselItem.DRAG, comercio));
+                        carouselItemCommerce = new CarouselItem(App.getContext(), comercio.getLogoURL(), "#10B2E6", CarouselItem.DRAG, comercio);
+                        carouselItemCommerce.setCommerceImageViewMargin();
+                        carouselItems.add(carouselItemCommerce);
                     } else {
-                        carouselItems.add(new CarouselItem(App.getContext(), comercio.getLogoURL(), comercio.getColorMarca().toUpperCase(), CarouselItem.DRAG, comercio));
+                        carouselItemCommerce = new CarouselItem(App.getContext(), comercio.getLogoURL(), comercio.getColorMarca().toUpperCase(), CarouselItem.DRAG, comercio);
+                        carouselItemCommerce.setCommerceImageViewMargin();
+                        carouselItems.add(carouselItemCommerce);
                     }
                 } else {
                     //carouselItems.add(new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, comercio));

@@ -221,6 +221,7 @@ public class CameraManager {
         documentProcessed = document;
         Intent takePictureIntent = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
         if (takePictureIntent.resolveActivity(mContext.getPackageManager()) != null) {
+
             // Create the File where the photo should go
             File photoFile = null;
             try {

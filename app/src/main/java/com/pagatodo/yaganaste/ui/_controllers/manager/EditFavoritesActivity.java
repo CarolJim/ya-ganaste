@@ -582,7 +582,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
      */
     @Override
     public void toViewErrorServer(String mMensaje) {
-        showDialogMesage(mMensaje, 0);
+        showDialogMesage("",mMensaje, 0);
     }
 
     /**
@@ -596,7 +596,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
     @Override
     public void toViewSuccessAddFoto(String mMensaje) {
-        showDialogMesage(mMensaje, 1);
+        showDialogMesage("",mMensaje, 1);
     }
 
     @Override
@@ -605,7 +605,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
     @Override
     public void toViewSuccessDeleteFavorite(String mMensaje) {
-        showDialogMesage(mMensaje, 1);
+        showDialogMesage("",mMensaje, 1);
     }
 
     @Override
@@ -617,12 +617,13 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
         } else {
             favoritesPresenter.updateLocalFavorite(dataFavoritos);
-            showDialogMesage(response.getMensaje(), 1);
+            showDialogMesage(getString(R.string.title_dialog_favorite),
+                    getString(R.string.respond_ok_add_new_favorite), 1);
         }
     }
 
-    private void showDialogMesage(final String mensaje, final int closeAct) {
-        UI.createSimpleCustomDialog("", mensaje, getSupportFragmentManager(),
+    private void showDialogMesage(final String title,final String mensaje, final int closeAct) {
+        UI.createSimpleCustomDialog(title, mensaje, getSupportFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
@@ -807,7 +808,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             if (isOnline) {
                 onValidationSuccess();
             } else {
-                showDialogMesage(getResources().getString(R.string.no_internet_access), 0);
+                showDialogMesage("",getResources().getString(R.string.no_internet_access), 0);
             }
         }
     }
