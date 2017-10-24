@@ -119,7 +119,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
         container = (FrameLayout) findViewById(R.id.container);
 
         if (getIntent().getExtras().getBoolean(IS_FROM_TIMER, false)) {
-            UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_body),
+            UI.createSimpleCustomDialog(getString(R.string.app_name), getString(R.string.close_sesion_bodynuevo),
                     this.getSupportFragmentManager(), CustomErrorDialog.class.getSimpleName());
         }
         switch (action) {
