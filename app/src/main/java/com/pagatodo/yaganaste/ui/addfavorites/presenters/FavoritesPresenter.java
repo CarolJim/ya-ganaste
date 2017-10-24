@@ -64,7 +64,7 @@ public class FavoritesPresenter implements IFavoritesPresenter {
 
     @Override
     public void toPresenterDeleteFavorite(DeleteFavoriteRequest deleteFavoriteRequest, int idFavorito) {
-        mView.showLoader("Procesando Peticion");
+        mView.showLoader(App.getContext().getString(R.string.delete_fav_request));
         this.idFavorito = idFavorito;
         favoritesIteractor.toIteractorDeleteFavorite(deleteFavoriteRequest, idFavorito);
     }
