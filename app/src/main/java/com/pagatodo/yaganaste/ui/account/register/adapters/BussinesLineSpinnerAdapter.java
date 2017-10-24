@@ -9,9 +9,13 @@ import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Giros;
@@ -110,9 +114,9 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<Giros> {
 
             holder = new BussinesLineSpinnerAdapter.ViewHolder();
             holder.editText = (EditText) row.findViewById(R.id.editTextCustomSpinner);
-
             holder.editText.setTypeface(typeface);
             holder.downArrow = (ImageView) row.findViewById(R.id.imageViewCustomSpinner);
+
             row.setTag(holder);
         } else {
             holder = (BussinesLineSpinnerAdapter.ViewHolder) row.getTag();
@@ -123,16 +127,17 @@ public class BussinesLineSpinnerAdapter extends ArrayAdapter<Giros> {
             public void onClick(View v) {
                 spinnerClick.onSpinnerClick();
                 parent.performClick();
+                spinnerClick.hideKeyBoard();
             }
         };
 
         holder.editText.setOnClickListener(onClick);
         holder.downArrow.setOnClickListener(onClick);
-
         holder.editText.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 parent.performClick();
+                spinnerClick.hideKeyBoard();
             }
         });
 

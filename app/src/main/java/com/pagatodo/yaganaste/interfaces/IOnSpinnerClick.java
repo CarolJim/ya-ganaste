@@ -7,4 +7,5 @@ package com.pagatodo.yaganaste.interfaces;
 public interface IOnSpinnerClick {
     void onSpinnerClick();
     void onSubSpinnerClick();
+    void hideKeyBoard();
 }

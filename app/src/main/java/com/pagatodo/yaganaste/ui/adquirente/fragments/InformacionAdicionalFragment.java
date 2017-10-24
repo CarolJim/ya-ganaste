@@ -218,6 +218,11 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     }
 
     @Override
+    public void hideKeyBoard() {
+
+    }
+
+    @Override
     public void setValidationRules() {
         editCargo.setOnFocusChangeListener(new View.OnFocusChangeListener() {
             @Override

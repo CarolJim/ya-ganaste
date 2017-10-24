@@ -607,6 +607,11 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
 
     }
 
+    @Override
+    public void hideKeyBoard() {
+
+    }
+
     private void clearAllFocus() {
         editBussinesStreet.clearFocus();
         editBussinesExtNumber.clearFocus();
