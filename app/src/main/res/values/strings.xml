@@ -727,10 +727,10 @@
 
     <!-- Depositos -->
     <string name="datos_deposito">Tus Datos Para Depósitos</string>
-    <string name="datos_depsito_numero_celular">N° Celular:</string>
-    <string name="datos_deposito_titular">Titular:</string>
-    <string name="datos_deposito_num_card">N° Tarjeta:</string>
-    <string name="datos_deposito_clabe">CLABE:</string>
+    <string name="datos_depsito_numero_celular">N° Celular </string>
+    <string name="datos_deposito_titular">Titular </string>
+    <string name="datos_deposito_num_card">N° Tarjeta </string>
+    <string name="datos_deposito_clabe">CLABE </string>
     <string name="datos_deposito_donde_depos">¿Dónde Depositar?</string>
     <string name="datos_deposito_num_agent">N° de Agente: </string>
     <string name="datos_deposito_num_afil">N° de Afiliación: </string>
