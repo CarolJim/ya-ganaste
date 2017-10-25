@@ -103,6 +103,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
     private AppCompatImageView btnBack;
     private static boolean banderaCacelachevron = false;
     CircleImageView imageView;
+    ImageView deposito_Share;
     private Runnable starReaderEmvSwipe = new Runnable() {
         @Override
         public void run() {
@@ -307,6 +308,8 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         super.onCreate(savedInstanceState);
         isCancelation = getArguments().getBoolean(DATA_KEY);
         imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
+        deposito_Share = (ImageView) getActivity().findViewById(R.id.deposito_Share);
+        deposito_Share.setVisibility(View.GONE);
         dataMovimientoAdq = getArguments().getSerializable(DATA_MOVEMENTS) != null ? (DataMovimientoAdq) getArguments().getSerializable(DATA_MOVEMENTS) : null;
         prefs = App.getInstance().getPrefs();
         btnBack = (AppCompatImageView) getActivity().findViewById(R.id.btn_back);
