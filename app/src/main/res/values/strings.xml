@@ -642,7 +642,7 @@
     <string name="txt_importe_error">El Importe es Incorrecto</string>
     <string name="txt_concept_empty">El Campo Concepto Está Vacío</string>
 
-    <string name="txt_tipo_envio_error">Por Favor Seleccione un Tipo de Envío</string>
+    <string name="txt_tipo_envio_error">Por Favor Selecciona un Tipo de Envío</string>
     <string name="txt_name_empty">El Campo Nombre Está Vacío</string>
     <string name="txt_name_error">Error al Introducir el Nombre Del Destinatario</string>
     <string name="txt_concept_error">Error al Introducir el Campo Concepto</string>
@@ -689,7 +689,7 @@
 
     <string name="numero_telefono_vacio">Número de Teléfono Vacío</string>
     <string name="numero_iave_incorrecto">Número de IAVE Incorrecto</string>
-    <string name="numero_telefono_incorrecto">Número de Teléfono Incorrecto</string>
+    <string name="numero_telefono_incorrecto">Número de Teléfono Inválido</string>
 
     <string name="detalle_movimiento">Detalle de Movimiento</string>
     <string name="cobraste">Cobraste</string>
@@ -1003,25 +1003,34 @@
     <string name="new_body_saldo_error">No Cuentas Con Saldo Suficiente Para Realizar Esta Transacción</string>
 
     <!-- Nuevos Errores Envios -->
-    <string name="new_tittle_envios_cellphone_error">Número de Celular Incorrecto</string>
-    <string name="new_body_envios_cellphone_error">Verifica Que el Número de Celular Que Ingresaste Sea Correcto</string>
-    <string name="new_tittle_envios_tdc_error">Número de Tarjeta Incorrecto</string>
-    <string name="new_body_envios_tdc_error">Verifica Que el Número de Tarjeta Que Ingresaste Sea Correcto</string>
-    <string name="new_tittle_envios_clabe_error">Cuenta CLABE Incorrecta</string>
-    <string name="new_body_envios_clabe_error">Verifica Que la Cuenta CLABE Que Ingresaste Sea Correcta</string>
+    <string name="new_tittle_envios_cellphone_error">Número de Celular Inválido</string>
+    <string name="new_body_envios_cellphone_error">Verifica Que el Número de Celular Que Ingresaste Sea Válido</string>
+    <string name="new_tittle_envios_tdc_error">Número de Tarjeta Inválido</string>
+    <string name="new_body_envios_tdc_error">Verifica Que el Número de Tarjeta Que Ingresaste Sea Válido</string>
+    <string name="new_tittle_envios_clabe_error">Cuenta CLABE Inválida</string>
+    <string name="new_body_envios_clabe_error">Verifica Que la Cuenta CLABE Que Ingresaste Sea Válida</string>
     <string name="new_tittle_envios_importe_error">Importe Inválido</string>
     <string name="new_body_envios_importe_error">Verifica Que el Importe Sea Mayor o Igual a $1.00</string>
     <string name="phone_invalid">Teléfono Inválido</string>
     <string name="iave_invalid">IAVE Inválido</string>
-    <string name="type_send_invalid">Tipo de Envío</string>
-    <string name="number_card_invalid">Número de Tarjeta</string>
+    <string name="type_send_invalid">Tipo de Envío Inválido</string>
     <string name="reference_invalid">Referencia Inválida</string>
-    <string name="destiny_invalid"> Nombre Del Destinatario</string>
+    <string name="destiny_invalid"> Nombre Del Destinatario Inválido</string>
     <string name="new_body_envios_destiny_error">Por Favor Ingresa el Nombre Del Destinatario</string>
     <string name="concepto_invalid">Concepto Inválido</string>
     <string name="new_body_recargas_iave_error">Por Favor Selecciona un IAVE Válido</string>
     <string name="new_body_recargas_phone_error">Por Favor Ingresa un Número de Teléfono Válido</string>
+    <string name="new_tittle_envios_cell_empty_error">Número de Celular Inválido</string>
+    <string name="new_body_envios_cell_empty_error">Por Favor Ingresa un Número de Celular Válido</string>
+    <string name="new_tittle_envios_tdc_empty_error">Número de Tarjeta Inválido</string>
+    <string name="new_body_envios_tdc_empty_error">Por Favor Ingresa un Número de Tarjeta Válida</string>
+    <string name="new_tittle_envios_clabe_empty_error">Cuenta CLABE Inválida</string>
+    <string name="new_body_envios_clabe_empty_error">Por Favor Ingresa un Número de CLABE Válido</string>
+    <string name="new_tittle_envios_importe_empty_error">Importe Inválido</string>
+    <string name="new_body_envios_importe_empty_error">Por Favor Ingresa un Importe</string>
+    <string name="new_tittle_envios_concepto_error">Concepto Inválido</string>
     <string name="new_body_envios_concepto_error">Por Favor Ingresa el Concepto</string>
-    <string name="new_body_envios_refer_error">Por Favor Ingresa el Número de Referencia</string>
 
+    <string name="new_tittle_envios_refer_error">Referencia Numérica Inválida</string>
+    <string name="new_body_envios_refer_error">Por Favor Ingresa el Número de Referencia</string>
 </resources>
