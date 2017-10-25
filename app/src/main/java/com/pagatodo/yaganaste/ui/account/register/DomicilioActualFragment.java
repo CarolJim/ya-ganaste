@@ -21,6 +21,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountRegisterView;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
@@ -435,7 +436,25 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         if (isValid)
 
         {
-            onValidationSuccess();
+            if (!UtilsNet.isOnline(getActivity())) {
+                UI.createSimpleCustomDialog("", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        // Toast.makeText(getContext(), "Click CERRAR SESSION", Toast.LENGTH_SHORT).show();
+
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                }, true, false);
+
+            } else {
+
+                onValidationSuccess();
+            }
+
         }
 
     }
