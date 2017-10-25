@@ -74,12 +74,12 @@ public class CropActivity extends SupportFragmentActivity {
         if (item.getItemId() == R.id.done) {
             this.saveConfig = new CropIwaSaveConfig(createNewEmptyFile());
             cropIwaView.crop(saveConfig);
-            File file = new File(imageUri.getPath());
+            /*File file = new File(imageUri.getPath());
             if(file.exists()){
                 if (file.delete()){
                     Log.d("FILE IMAGE", "BORRADO");
                 }
-            }
+            }*/
             finish();
         }
         return super.onOptionsItemSelected(item);

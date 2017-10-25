@@ -14,10 +14,13 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataIniciarSesion;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.net.UtilsNet;
 import com.pagatodo.yaganaste.ui._controllers.LandingApprovedActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.adquirente.interfases.IDocumentApproved;
+import com.pagatodo.yaganaste.utils.UI;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -73,8 +76,26 @@ public class DocumentApprovedFragment extends GenericFragment implements
 
     @Override
     public void onRefresh() {
-        swipeRefreshLayout.setRefreshing(false);
-        refreshContent();
+
+        if (!UtilsNet.isOnline(getActivity())) {
+            swipeRefreshLayout.setRefreshing(false);
+            UI.createSimpleCustomDialog("", getString(R.string.no_internet_access), getActivity().getSupportFragmentManager(), new DialogDoubleActions() {
+                @Override
+                public void actionConfirm(Object... params) {
+                    // Toast.makeText(getContext(), "Click CERRAR SESSION", Toast.LENGTH_SHORT).show();
+
+                }
+
+                @Override
+                public void actionCancel(Object... params) {
+
+                }
+            }, true, false);
+
+        } else {
+            swipeRefreshLayout.setRefreshing(false);
+            refreshContent();
+        }
     }
 
     private void refreshContent() {
