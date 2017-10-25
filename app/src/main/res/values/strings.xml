@@ -661,6 +661,7 @@
     <string name="txt_referencia_number_short">El Campo Referencia Numérica Debe Ser de 1 a 6 Dígitos</string>
     <string name="title_activity_prefer_user">PreferUserActivity</string>
     <string name="recuperando_docs_estatus"></string>
+    <string name="change_avatar_success">Tu Imagen ha Sido Actualizada</string>
     <string name="desea_cacelar">¿Deseas Salir y Cancelar la Operación Actual?</string>
     <string name="no_sucursales">No Existen Sucursales en tu Área</string>
     <string name="no_sucursales2">No se Encontraron Coincidencias en tu Área</string>
@@ -989,7 +990,9 @@
     
     <!--Text Error Favoritos AddNewFavoritesActivity-->
     <string name="respond_ok_add_new_favorite">Agregaste un Nuevo Favorito Con Éxito</string>
+    <string name="respond_ok_edit_favorite">Editaste un Favorito Con Éxito</string>
     <string name="title_dialog_favorite">Nuevo Favorito</string>
+    <string name="title_dialog_edit_favorite">Editar Favorito</string>
     <string name="title_dialog_busqueda">Busqueda Favoritos</string>
     <string name="loader_15">Agregando Nuevo Favorito</string>
     <string name="load_set_image">Asignando Imagen de Favorito</string>

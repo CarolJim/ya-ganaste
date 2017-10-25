@@ -54,7 +54,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
  * A simple {@link Fragment} subclass.
  */
 public class ListaOpcionesFragment extends SupportFragment implements View.OnClickListener,
-        IListaOpcionesView,ICropper,CropIwaResultReceiver.Listener {
+        IListaOpcionesView, ICropper, CropIwaResultReceiver.Listener {
 
     private static final String TAG = DocumentosFragment.class.getSimpleName();
     public static String IS_ES_AGENTE = "IS_ES_AGENTE";
@@ -66,7 +66,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
     @BindView(R.id.fragment_list_opciones_name)
     TextView tv_name;
 
-//    @BindView(R.id.progressLayout)
+    //    @BindView(R.id.progressLayout)
 //    ProgressLayout progressLayout;
     @BindView(R.id.fragment_list_opciones_email)
     TextView tv_email;
@@ -163,7 +163,6 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
         }
 
 
-
         ll_cuenta.setOnClickListener(this);
         ll_card.setOnClickListener(this);
         ll_help_legal.setOnClickListener(this);
@@ -178,18 +177,18 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
 
         String nombreprimerUser;
         String apellidoMostrarUser;
-        if (userData.getPrimerApellido().isEmpty()){
-            apellidoMostrarUser=userData.getSegundoApellido();
-        }else {
-            apellidoMostrarUser=userData.getPrimerApellido();
+        if (userData.getPrimerApellido().isEmpty()) {
+            apellidoMostrarUser = userData.getSegundoApellido();
+        } else {
+            apellidoMostrarUser = userData.getPrimerApellido();
         }
-        nombreprimerUser= StringUtils.getFirstName(userData.getNombre());
-        if (nombreprimerUser.isEmpty()){
-            nombreprimerUser=userData.getNombre();
+        nombreprimerUser = StringUtils.getFirstName(userData.getNombre());
+        if (nombreprimerUser.isEmpty()) {
+            nombreprimerUser = userData.getNombre();
         }
 
         //tv_name.setText(mName);
-        tv_name.setText(nombreprimerUser+" "+apellidoMostrarUser);
+        tv_name.setText(nombreprimerUser + " " + apellidoMostrarUser);
         tv_email.setText(mEmail);
 
         // Hacemos Set de la version de codigo
@@ -197,8 +196,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
 
         iv_photo_item_status.setBackground(ContextCompat.getDrawable(getActivity(), R.drawable.camara_white_blue_canvas));
 
-       // updatePhoto();
-
+        // updatePhoto();
 
 
     }
@@ -252,13 +250,13 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
                 break;
             case R.id.fragment_lista_opciones_dongle:
                 onEventListener.onEvent(PREFER_USER_MY_DONGLE, 1);
-               // Toast.makeText(getContext(), "Click Help", Toast.LENGTH_SHORT).show();
+                // Toast.makeText(getContext(), "Click Help", Toast.LENGTH_SHORT).show();
                 break;
             case R.id.fragment_lista_opciones_close:
                 boolean isOnline2 = Utils.isDeviceOnline();
-                if(isOnline2) {
+                if (isOnline2) {
                     onEventListener.onEvent(PREFER_USER_CLOSE, 1);
-                }else{
+                } else {
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }
 
@@ -269,10 +267,10 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
              */
             case R.id.frag_lista_opciones_photo_item:
                 boolean isOnline = Utils.isDeviceOnline();
-                if(isOnline) {
+                if (isOnline) {
                     mPreferPresenter.openMenuPhoto(1, cameraManager);
 
-                }else{
+                } else {
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }
 
@@ -322,7 +320,7 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
 
     @Override
     public void sendSuccessAvatarToView(String mMesage) {
-        showDialogMesage(mMesage);
+        showDialogMesage(getString(R.string.change_avatar_success));
         mUserImage = SingletonUser.getInstance().getDataUser().getUsuario().getImagenAvatarURL();
         updatePhoto();
         CameraManager.cleanBitmap();
@@ -338,7 +336,6 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
         CameraManager.cleanBitmap();
         showDialogMesage(mensaje);
     }
-
 
 
     public void hideLoader() {
