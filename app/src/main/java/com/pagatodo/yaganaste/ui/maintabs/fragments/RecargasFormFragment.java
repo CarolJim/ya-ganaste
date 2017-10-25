@@ -19,7 +19,6 @@ import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -246,17 +245,17 @@ public class RecargasFormFragment extends PaymentFormBaseFragment implements Pay
              */
             String errorTittle = "";
             if (errorText.equals(App.getContext().getString(R.string.new_body_IAVE_error))) {
-                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_IAVE_error);
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_recarga_iave_error_empty);
 
             } else if (errorText.equals(App.getContext().getString(R.string.new_body_phone_error))) {
                 errorTittle = App.getContext().getResources().getString(R.string.numero_telefono_incorrecto);
 
             } else if (errorText.equals(App.getContext().getString(R.string.favor_selecciona_importe))) {
-                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_importe_error);
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_importe_empty_error);
 
             } else if (errorText.equals(App.getContext().getString(R.string.numero_iave_vacio))) {
-                errorTittle = App.getContext().getResources().getString(R.string.iave_invalid);
-                errorText = App.getContext().getResources().getString(R.string.new_body_recargas_iave_error);
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_recarga_iave_error_empty);
+                errorText = App.getContext().getResources().getString(R.string.new_body_recargas_iave_error_empty);
 
             } else if (errorText.equals(App.getContext().getString(R.string.numero_telefono_vacio))) {
                 errorTittle = App.getContext().getResources().getString(R.string.phone_invalid);

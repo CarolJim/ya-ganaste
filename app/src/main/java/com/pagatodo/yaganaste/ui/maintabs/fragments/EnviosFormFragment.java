@@ -282,7 +282,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
                 errorText = App.getContext().getString(R.string.new_body_envios_importe_empty_error);
 
             } else if (errorText.equals(App.getContext().getString(R.string.new_body_envios_importe_error))) {
-                errorTittle = App.getContext().getString(R.string.new_tittle_envios_importe_error);
+                errorTittle = App.getContext().getString(R.string.new_tittle_envios_importe_empty_error);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_name_empty))) {
                 errorTittle = App.getContext().getString(R.string.destiny_invalid);

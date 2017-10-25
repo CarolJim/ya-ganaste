@@ -12,7 +12,6 @@ import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
@@ -161,20 +160,23 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
 
             String errorTittle = "";
             if (errorText.equals(App.getContext().getString(R.string.txt_referencia_empty))) {
-                errorTittle = App.getContext().getResources().getString(R.string.reference_invalid);
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_serv_reference_error_empty);
+                errorText = App.getContext().getResources().getString(R.string.new_body_serv_reference_error_empty);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_referencia_errornuevo))) {
-                errorTittle = App.getContext().getResources().getString(R.string.reference_invalid);
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_serv_reference_error_empty);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_importe_empty))) {
-                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_importe_error);
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_serv_importe_error_empty);
+                errorText = App.getContext().getResources().getString(R.string.new_body_serv_importe_error_empty);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_importe_error))) {
-                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_importe_error);
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_envios_importe_empty_error);
                 errorText = App.getContext().getResources().getString(R.string.new_body_envios_importe_error);
 
             } else if (errorText.equals(App.getContext().getString(R.string.txt_concept_empty))) {
-                errorTittle = App.getContext().getResources().getString(R.string.concepto_invalid);
+                errorTittle = App.getContext().getResources().getString(R.string.new_tittle_serv_concepto_error_empty);
+                errorText = App.getContext().getResources().getString(R.string.new_body_serv_concepto_error_empty);
             }
             //Toast.makeText(getContext(), errorText, Toast.LENGTH_SHORT).show();
             UI.createSimpleCustomDialog(errorTittle, errorText, getActivity().getSupportFragmentManager(), getFragmentTag());
