@@ -617,8 +617,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
         } else {
             favoritesPresenter.updateLocalFavorite(dataFavoritos);
-            showDialogMesage(getString(R.string.title_dialog_favorite),
-                    getString(R.string.respond_ok_add_new_favorite), 1);
+            showDialogMesage(getString(R.string.title_dialog_edit_favorite),
+                    getString(R.string.respond_ok_edit_favorite), 1);
         }
     }
 
