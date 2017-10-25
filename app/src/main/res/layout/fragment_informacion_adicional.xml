@@ -291,6 +291,7 @@
                 style="@style/buttonDirecctionBack"
                 android:layout_weight="1"
                 android:text="@string/backButton"
+                android:visibility="gone"
                 android:textAllCaps="false"
                 android:textSize="@dimen/generic_button_normal_text_size" />
 

@@ -239,6 +239,7 @@
             <com.pagatodo.yaganaste.utils.customviews.StyleButton
                 android:id="@+id/btnRegresar"
                 style="@style/buttonDirecctionBackSmall"
+                android:visibility="gone"
                 android:text="@string/backButton" />
 
             <android.support.v4.widget.Space

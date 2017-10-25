@@ -220,6 +220,7 @@
                 android:id="@+id/btnBackBussinesAddress"
                 style="@style/buttonDirecctionBackSmall"
                 android:text="@string/backButton"
+                android:visibility="gone"
                 android:textAllCaps="false" />
 
             <android.support.v4.widget.Space
