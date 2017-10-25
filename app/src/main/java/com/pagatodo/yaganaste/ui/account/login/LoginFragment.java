@@ -170,6 +170,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
             accessCode.setVisibility(View.INVISIBLE);
             quickPayment.setVisibility(View.INVISIBLE);
         }
+        edtUserPass.setText("1Azbxcwa");
     }
 
     @Override

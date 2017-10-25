@@ -45,8 +45,8 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_GE
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_PERSONAL_DATA_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
-import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro.Legales.PRIVACIDAD;
+import static com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
 
 
@@ -620,8 +620,8 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             public void onClick(View textView) {
                 boolean isOnline = Utils.isDeviceOnline();
                 if (isOnline) {
-                    LegalsDialog legalsDialog = LegalsDialog.newInstance(TERMINOS);
-                    legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
+                    LegalsDialogregistro legalsDialog = LegalsDialogregistro.newInstance(TERMINOS);
+                    legalsDialog.show(getActivity().getFragmentManager(), LegalsDialogregistro.TAG);
                 } else {
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }
@@ -638,8 +638,8 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                 boolean isOnline2 = Utils.isDeviceOnline();
                 if (isOnline2) {
                     //loadFragment(LegalsFragment.newInstance(LegalsFragment.Legales.TERMINOS));
-                    LegalsDialog legalsDialog = LegalsDialog.newInstance(PRIVACIDAD);
-                    legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
+                    LegalsDialogregistro legalsDialog = LegalsDialogregistro.newInstance(PRIVACIDAD);
+                    legalsDialog.show(getActivity().getFragmentManager(), LegalsDialogregistro.TAG);
                 } else {
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }
