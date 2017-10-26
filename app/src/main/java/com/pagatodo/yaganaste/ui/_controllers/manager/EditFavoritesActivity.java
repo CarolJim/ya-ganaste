@@ -596,7 +596,9 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
     @Override
     public void toViewSuccessAddFoto(String mMensaje) {
-        showDialogMesage("",mMensaje, 1);
+       //  showDialogMesage("",mMensaje, 1); Viejpo mensaje
+        showDialogMesage(getString(R.string.title_dialog_edit_favorite),
+                getString(R.string.respond_ok_edit_favorite), 1);
     }
 
     @Override
@@ -615,6 +617,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             AddFotoFavoritesRequest addFotoFavoritesRequest =
                     new AddFotoFavoritesRequest(stringFoto, "png");
             favoritesPresenter.toPresenterAddFotoFavorites(addFotoFavoritesRequest, idFavorito);
+
         } else {
             favoritesPresenter.updateLocalFavorite(dataFavoritos);
             showDialogMesage(getString(R.string.title_dialog_edit_favorite),
