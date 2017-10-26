@@ -30,7 +30,7 @@
             android:adjustViewBounds="true"
             android:paddingBottom="5dp"
             android:paddingTop="5dp"
-            android:src="@mipmap/logo_mapfre" />
+            android:src="@mipmap/logo_ya_ganaste" />
 
         <com.pagatodo.yaganaste.utils.customviews.StyleTextView
             android:id="@android:id/text1"

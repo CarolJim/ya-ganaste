@@ -780,7 +780,7 @@
     <string name="contactanos">Contáctanos</string>
     <string name="email">Email</string>
     <string name="correo_vacio">El Mensaje Está Vacío</string>
-    <string name="correo_enviado">El Mensaje Fué Enviado</string>
+    <string name="correo_enviado">El Mensaje Fue Enviado</string>
     <string name="enviar_email">Enviar Mail</string>
     <string name="como_ayudarte">¿Cómo Podemos Ayudarte?</string>
     <string name="comunicate_con_nosotros">Comunícate Con Nosotros\n\n01 800 500 1000\ncontacto@yaganaste.com</string>

@@ -11,7 +11,7 @@
         android:layout_width="30dp"
         android:layout_height="30dp"
         android:adjustViewBounds="true"
-        android:src="@mipmap/logo_mapfre"
+        android:src="@mipmap/logo_ya_ganaste"
         android:visibility="visible" />
 
     <LinearLayout
