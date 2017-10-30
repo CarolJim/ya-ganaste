@@ -49,14 +49,14 @@
 
                         <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                             android:id="@+id/editNameReferenciaCupo"
-                            app:formato="text"
-                            app:hintText="@string/nameHint"
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="20"
                             android:hint="@string/name_cupo_hint"
                             android:longClickable="false"
-                            android:maxLength="12" />
+                            android:maxLength="12"
+                            app:formato="text"
+                            app:hintText="@string/nameHint" />
 
                         <!--
                         <RelativeLayout
@@ -143,11 +143,11 @@
                             android:layout_width="match_parent"
                             android:layout_height="wrap_content"
                             android:layout_weight="20"
-                            android:hint="@string/telefono_cupo_hint"
                             android:digits="abcdefghijklmnopqrstuvwxyz1234567890"
+                            android:hint="@string/telefono_cupo_hint"
+                            android:inputType="phone"
                             android:longClickable="false"
-                            android:maxLength="12"
-                            android:inputType="phone" />
+                            android:maxLength="12" />
 
                         <RelativeLayout
                             android:id="@+id/layoutImageContact"
@@ -240,6 +240,8 @@
                         android:id="@+id/txtLegales"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
+                        android:layout_marginLeft="16dp"
+                        android:layout_marginRight="16dp"
                         android:gravity="center"
                         android:text="@string/terms_and_conditions"
                         android:textSize="@dimen/text_screen_size_normal"

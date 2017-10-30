@@ -133,7 +133,7 @@
     <string name="add_your_address">Agrega tu Dirección</string>
     <string name="street">Calle, Avenida o Vía</string>
     <string name="colonia">Colonia</string>
-    <string name="terms_and_conditions">Al Continuar Reconozco Ser Mayor de Edad, Así Como Haber Leído y Aceptado Los Términos y Condiciones y el Aviso de Privacidad </string>
+    <string name="terms_and_conditions">Al Continuar Reconozco Haber Leído y Aceptado Los Términos y Condiciones</string>
     <string name="postal_code">C.P.</string>
     <string name="intern_number">No. Interior</string>
     <string name="outside_number">No. Exterior</string>

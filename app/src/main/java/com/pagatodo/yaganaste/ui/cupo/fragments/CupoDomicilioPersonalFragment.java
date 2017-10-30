@@ -445,8 +445,6 @@ public class CupoDomicilioPersonalFragment extends GenericFragment implements Vi
         Log.e("Id Colonia", "" + registerCupo.getIdColonia());
         cupoActivityManager.callEvent(RegistryCupoActivity.EVENT_GO_CUPO_COMPROBANTES, null);
         presenter.createCupoSolicitud();
-
-
     }
 
     @Override
