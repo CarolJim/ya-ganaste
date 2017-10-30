@@ -138,13 +138,13 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
             @Override
             public void onClick(View v) {
                 if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsEmisorFragment) {
-                    shareContent();
-                    //takeScreenshot();
+                    //shareContent();
+                    takeScreenshot();
                 } else if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsAdquirenteFragment) {
                     // TEMP para mostrar el ScreenShoot en vez del Ticket
                     // onEvent(EVENT_GO_LOAD_SHARE_EMAIL, "");
-                    shareContent();
-                    //takeScreenshot();
+                    //shareContent();
+                    takeScreenshot();
                 }
             }
         });
