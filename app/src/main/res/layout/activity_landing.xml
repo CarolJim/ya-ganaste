@@ -22,12 +22,13 @@
     <!-- Area auxilar para hacer funcinalidades al dar click en el boton de omitir-->
     <LinearLayout
         android:id="@+id/ll_omitir"
-        android:layout_width="40dp"
-        android:layout_height="40dp"
+        android:layout_width="50dp"
+        android:layout_height="50dp"
         android:layout_alignParentRight="true"
         android:layout_alignParentTop="true"
-        android:layout_marginRight="20dp"
-        android:layout_marginTop="40dp"
+        android:layout_marginRight="10dp"
+        android:layout_marginTop="10dp"
         tools:background="#991111"
+        android:visibility="invisible"
         android:orientation="horizontal" />
 </RelativeLayout>

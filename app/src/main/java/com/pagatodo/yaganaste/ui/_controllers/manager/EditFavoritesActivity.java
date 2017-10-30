@@ -73,6 +73,7 @@ import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CarouselItem;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
+import com.squareup.picasso.Picasso;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.ByteArrayOutputStream;
@@ -354,9 +355,16 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         editListServ.setFullOnClickListener(this);
         editListServ.setDrawableImage(R.drawable.menu_canvas);
 
-        Glide.with(this)
+    /*    Glide.with(this)
                 .load(dataFavoritos.getImagenURL())
                 .asBitmap()
+                .into(imageViewCamera.getCircleImageView());*/
+
+        Picasso.with(this)
+                .load(dataFavoritos.getImagenURL())
+                .error(R.drawable.ic_usuario_azul)
+                //.placeholder(R.drawable.user_placeholder)
+                //.error(R.drawable.user_placeholder_error)
                 .into(imageViewCamera.getCircleImageView());
 
         CropIwaResultReceiver cropResultReceiver = new CropIwaResultReceiver();
@@ -699,10 +707,14 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     public void setPhotoToService(Bitmap bitmap) {
         // Log.d("TAG", "setPhotoToService ");
         try {
-            Glide.with(this)
+            /*Glide.with(this)
                     .load(cameraManager.getUriImage())
                     .asBitmap()
+                    .into(imageViewCamera.getCircleImageView());*/
+            Picasso.with(this)
+                    .load(cameraManager.getUriImage())
                     .into(imageViewCamera.getCircleImageView());
+
             Bitmap bitmapAux = MediaStore.Images.Media.getBitmap(this.getContentResolver(), cameraManager.getUriImage());
             // Procesamos el Bitmap a Base64
             ByteArrayOutputStream byteArrayOutputStream = new ByteArrayOutputStream();

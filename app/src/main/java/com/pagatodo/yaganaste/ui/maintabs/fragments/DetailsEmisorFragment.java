@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
@@ -15,6 +16,9 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ItemMovements;
+import com.pagatodo.yaganaste.data.model.Envios;
+import com.pagatodo.yaganaste.data.model.Recarga;
+import com.pagatodo.yaganaste.data.model.Servicios;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.MovimientosResponse;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsColors;
@@ -22,8 +26,10 @@ import com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.StringUtils;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
+import com.squareup.picasso.Picasso;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,6 +39,7 @@ import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.RECARGA;
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.REEMBOLSO_ADQUIRIENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 
 /**
  * @author Juan Guerra on 12/04/2017.
@@ -220,9 +227,46 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         txtSubTituloDetalle.setText(item.getSubtituloDetalle());
 
         Glide.with(this)
+        //MovementsTab movementsType = MovementsTab.getMovementById(movimientosResponse.getIdTipoTransaccion());
+        TipoTransaccionPCODE tipoTransaccion = TipoTransaccionPCODE.getTipoTransaccionById(movimientosResponse.getIdTipoTransaccion());
+
+       /* BORRAR ESTE BLOQUE EN version aprobadas
+       Glide.with(this)
                 .load(movimientosResponse.getURLImagen())
                 .placeholder(R.mipmap.logo_ya_ganaste)
                 .into(imageDetail);
+
+        Picasso.with(getContext())
+                .load(movimientosResponse.getURLImagen())
+                .placeholder(R.mipmap.logo_ya_ganaste)
+                .error(R.mipmap.logo_ya_ganaste)
+                .into(imageDetail);
+                */
+
+        /**
+         * Esta validacion es debido a que Piccaso marca un NullPoint si la URL esta vacia, pero
+         * Glide permite falla y cargar un PlaceHolder
+         */
+        String url = movimientosResponse.getURLImagen();
+        if(url != null && !url.isEmpty()) {
+            Picasso.with(getContext())
+                    .load(url)
+                    .placeholder(R.mipmap.logo_ya_ganaste)
+                    .error(R.mipmap.logo_ya_ganaste)
+                    .into(imageDetail);
+        }else{
+            Glide.with(getContext())
+                    .load(url)
+                    .placeholder(R.mipmap.logo_ya_ganaste)
+                    .into(imageDetail);
+        }
+
+        /*
+         Glide.with(getContext())
+                    .load(url)
+                    .placeholder(R.mipmap.logo_ya_ganaste)
+                    .into(imageDetail);
+        */
 
         if (tipoTransaccion == RECARGA) {
             txtReferenciaTitle.setText(movimientosResponse.getIdComercio() == 7 ?

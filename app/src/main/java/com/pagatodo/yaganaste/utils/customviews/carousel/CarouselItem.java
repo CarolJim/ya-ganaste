@@ -17,6 +17,7 @@ import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.squareup.picasso.Picasso;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -99,8 +100,10 @@ public class CarouselItem extends FrameLayout
         this.imageUrl = imageUrl;
         this.comercio = comercio;
         inflateLayout();
-        Glide.with(getContext()).load(imageUrl).crossFade(0).into(mImage);
-
+        // Glide.with(getContext()).load(imageUrl).crossFade(0).into(mImage);
+        Picasso.with(getContext())
+                .load(imageUrl)
+                .into(mImage);
     }
 
     public CarouselItem(Context context, String imageUrl, int gestureType, DataFavoritos favoritos) {
@@ -110,7 +113,10 @@ public class CarouselItem extends FrameLayout
         this.imageUrl = imageUrl;
         this.favoritos = favoritos;
         inflateLayout();
-        Glide.with(getContext()).load(imageUrl).crossFade(0).into(mImage);
+        //  Glide.with(getContext()).load(imageUrl).crossFade(0).into(mImage);
+        Picasso.with(getContext())
+                .load(imageUrl)
+                .into(mImage);
 
     }
 
@@ -161,7 +167,12 @@ public class CarouselItem extends FrameLayout
         this.comercio = comercio;
         this.color = color;
         inflateLayout(color);
-        Glide.with(context).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
+        //Glide.with(context).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
+        Picasso.with(getContext())
+                .load(imageUrl)
+                .placeholder(R.mipmap.logo_ya_ganaste)
+                .error(R.mipmap.logo_ya_ganaste)
+                .into(mImage);
 
     }
 
@@ -174,9 +185,14 @@ public class CarouselItem extends FrameLayout
         this.favoritos = favoritos;
         this.color = color;
         inflateLayout(color);
-        //Glide.with(context).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
-        Glide.with(getContext()).load(imageUrl).placeholder(R.mipmap.icon_user).error(R.mipmap.icon_user)
-                .dontAnimate().into(mImageCiruclar);
+       /* Glide.with(getContext()).load(imageUrl).placeholder(R.mipmap.icon_user)
+                .error(R.mipmap.icon_user)
+                .dontAnimate().into(mImageCiruclar);*/
+        Picasso.with(getContext())
+                .load(imageUrl)
+                .placeholder(R.mipmap.icon_user)
+                .error(R.mipmap.icon_user)
+                .into(mImageCiruclar);
     }
 
 
