@@ -32,6 +32,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.RECARGA;
+import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.REEMBOLSO_ADQUIRIENTE;
 
 /**
  * @author Juan Guerra on 12/04/2017.
@@ -51,6 +52,13 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
     LinearLayout layoutMontoCompra;
     @BindView(R.id.txtMontoCompra)
     MontoTextView txtMontoCompra;
+
+    @BindView(R.id.layoutVentasTotales)
+    LinearLayout layoutVentasTotales;
+    @BindView(R.id.titleVentasTotales)
+    StyleTextView titleVentasTotales;
+    @BindView(R.id.txtVentasTotalesDescription)
+    MontoTextView txtVentasTotalesDescription;
 
     @BindView(R.id.layoutComision)
     LinearLayout layoutComision;
@@ -180,10 +188,22 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         initFieldsViews();
         //layoutRecibo.setVisibility(View.GONE);
         String[] date = movimientosResponse.getFechaMovimiento().split(" ");
-        ItemMovements item = new ItemMovements<>(movimientosResponse.getDescripcion(), movimientosResponse.getDetalle(),
-                movimientosResponse.getTotal(), date[0], date[1],
-                MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),
-                movimientosResponse);
+
+        //MovementsTab movementsType = MovementsTab.getMovementById(movimientosResponse.getIdTipoTransaccion());
+        TipoTransaccionPCODE tipoTransaccion = TipoTransaccionPCODE.getTipoTransaccionById(movimientosResponse.getIdTipoTransaccion());
+        ItemMovements item;
+
+        if (tipoTransaccion != REEMBOLSO_ADQUIRIENTE) {
+            item = new ItemMovements<>(movimientosResponse.getDescripcion(), movimientosResponse.getDetalle(),
+                    movimientosResponse.getTotal(), date[0], date[1],
+                    MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),
+                    movimientosResponse);
+        } else {
+            item = new ItemMovements<>(movimientosResponse.getDetalle(), movimientosResponse.getConcepto(),
+                    movimientosResponse.getTotal(), date[0], date[1],
+                    MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),
+                    movimientosResponse);
+        }
 
         txtMonto.setTextColor(ContextCompat.getColor(getContext(), item.getColor()));
         txtMonto.setText(StringUtils.getCurrencyValue(item.getMonto()));
@@ -199,9 +219,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         txtTituloDescripcion.setText(item.getTituloDescripcion());
         txtSubTituloDetalle.setText(item.getSubtituloDetalle());
 
-        //MovementsTab movementsType = MovementsTab.getMovementById(movimientosResponse.getIdTipoTransaccion());
-        TipoTransaccionPCODE tipoTransaccion = TipoTransaccionPCODE.getTipoTransaccionById(movimientosResponse.getIdTipoTransaccion());
-
         Glide.with(this)
                 .load(movimientosResponse.getURLImagen())
                 .placeholder(R.mipmap.logo_ya_ganaste)
@@ -215,6 +232,8 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
             txtRefernciaDescripcion.setSelected(true);
             layoutConcepto.setVisibility(GONE);
         }
+
+
         txtConceptoDescripcion.setSelected(true);
         txtClaveRastreo.setSelected(true);
         btnVolver.setOnClickListener(this);
@@ -327,6 +346,15 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 break;
             case COBRO_CON_TARJETA_DISPERSION_ADQ://13
 
+                break;
+            case REEMBOLSO_ADQUIRIENTE:
+                layoutVentasTotales.setVisibility(VISIBLE);
+                Double total = movimientosResponse.getTotal() + movimientosResponse.getComision() + movimientosResponse.getIVA();
+                txtVentasTotalesDescription.setText(StringUtils.getCurrencyValue(total));
+                layoutComision.setVisibility(VISIBLE);
+                txtComision.setText(StringUtils.getCurrencyValue(movimientosResponse.getComision()));
+                layoutIVA.setVisibility(VISIBLE);
+                txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
                 break;
             default:
                 break;

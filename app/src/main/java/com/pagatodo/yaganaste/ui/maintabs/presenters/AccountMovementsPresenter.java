@@ -25,6 +25,8 @@ import com.pagatodo.yaganaste.utils.StringConstants;
 import java.util.ArrayList;
 import java.util.List;
 
+import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.REEMBOLSO_ADQUIRIENTE;
+import static com.pagatodo.yaganaste.interfaces.enums.TipoTransaccionPCODE.getTipoTransaccionById;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 
 /**
@@ -97,10 +99,17 @@ public class AccountMovementsPresenter<T extends IEnumTab> extends TabPresenterI
         for (MovimientosResponse movimientosResponse : response.getData()) {
             date = movimientosResponse.getFechaMovimiento().split(" ");
             // TODO: 28/03/2017 Verificar si el color debe ser local o si viene del servicio
-            movementsList.add(new ItemMovements<>(movimientosResponse.getDescripcion(), movimientosResponse.getDetalle(),
-                    movimientosResponse.getTotal(), date[0], date[1],
-                    MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),
-                    movimientosResponse));
+            if (movimientosResponse.getIdTipoTransaccion()!=14) {
+                movementsList.add(new ItemMovements<>(movimientosResponse.getDescripcion(), movimientosResponse.getDetalle(),
+                        movimientosResponse.getTotal(), date[0], date[1],
+                        MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),
+                        movimientosResponse));
+            } else {
+                movementsList.add(new ItemMovements<>(movimientosResponse.getDetalle(), movimientosResponse.getConcepto(),
+                        movimientosResponse.getTotal(), date[0], date[1],
+                        MovementsColors.getMovementColorByType(movimientosResponse.getTipoMovimiento()).getColor(),
+                        movimientosResponse));
+            }
         }
         movementsView.loadMovementsResult(movementsList);
         movementsView.hideLoader();

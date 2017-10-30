@@ -74,7 +74,6 @@ public class PersonalAccountFragment extends AbstractAdEmFragment<MonthsMovement
             //showLoader("");
             getDataForTab(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()));
         }
-
     }
 
     @Override

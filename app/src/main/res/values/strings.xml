@@ -393,7 +393,7 @@
     <string name="error_parentesco">Parentesco Requerido, Verifique su Información</string>
     <string name="error_cargo">Cargo Requerido, Verifique su Información</string>
     <string name="terminos_condiciones">Términos y Condiciones</string>
-    <string name="terms_and_conditions_aditional_info">Al Continuar Haber Leído y Aceptado Los Términos y Condiciones</string>
+    <string name="terms_and_conditions_aditional_info">Al Continuar Reconozco Haber Leído y Aceptado Los Términos y Condiciones</string>
 
     <!--felicidades-->
     <string name="congratulation_text1">Tu Cuenta Ya Ganaste Está Lista</string>
@@ -915,6 +915,7 @@
 
     <string name="details_monto">Monto</string>
     <string name="details_comision">Comisión</string>
+    <string name="details_ventas_totales">Ventas Totales</string>
     <string name="details_iva">IVA</string>
     <string name="details_tarjeta">Tarjeta</string>
     <string name="details_concepto">Concepto</string>
@@ -978,7 +979,7 @@
     <string name="update_data">Actualizando Datos</string>
     <string name="get_status_card">Obteniendo Estatus de Tarjeta</string>
     <string name="myDongle">Mi Lector</string>
-    
+
     <!--Dialogo de cancelacion-->
     <string name="cancelacion_dialog_title">Cancelar Cobro</string>
     <string name="cancelacion_dialog_message">Para Cancelar es Necesario Que tu Cliente\nPresente la Tarjeta Con la Que se Realizó el Cobro</string>
@@ -987,7 +988,7 @@
     <!--Dialog de error-->
     <string name="dialog_message_error">Mensaje de Error</string>
 
-    
+
     <!--Text Error Favoritos AddNewFavoritesActivity-->
     <string name="respond_ok_add_new_favorite">Agregaste un Nuevo Favorito Con Éxito</string>
     <string name="respond_ok_edit_favorite">Editaste un Favorito Con Éxito</string>
