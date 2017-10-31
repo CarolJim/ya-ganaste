@@ -35,6 +35,7 @@ import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -139,6 +140,7 @@ public class CameraManager {
      * @param intIntent
      */
     public void createPhoto(int intIntent) {
+
         selectImageSource(intIntent);
     }
 
@@ -199,6 +201,7 @@ public class CameraManager {
         intent.setType("image/*");
         intent = Intent.createChooser(intent, "open");
         //startActivityForResult(intent, 1101);
+        //mView.showProgress("");
         mContext.startActivityForResult(Intent.createChooser(intent, "Selecciona Archivo"), SELECT_FILE_PHOTO);
     }
 
@@ -309,7 +312,7 @@ public class CameraManager {
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
 
-                    //mView.showProgress(getContext().getString(R.string.load_set_image));
+                    mView.showProgress(getContext().getString(R.string.load_set_image));
                     mView.setPhotoToService(bitmap);
                     break;
             }
@@ -353,7 +356,7 @@ public class CameraManager {
                 }
             });
 
-            mView.showProgress(getContext().getString(R.string.load_set_image));
+            //mView.showProgress(getContext().getString(R.string.load_set_image));
             this.listener.onCropper(contentUri);
         } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode != RESULT_OK) {
             // enableItems(true);
@@ -396,9 +399,17 @@ public class CameraManager {
             }
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode != RESULT_OK && data == null) {
 
+        } else if (requestCode == 40 && resultCode != RESULT_OK){
+            Log.d("LLEGO","AQUI");
         }
+
+
     }
 
+
+    public IListaOpcionesView getView(){
+        return this.mView;
+    }
 
     public Uri getUriImage() {
         return this.uriImage;

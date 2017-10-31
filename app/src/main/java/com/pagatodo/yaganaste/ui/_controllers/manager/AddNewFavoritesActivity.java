@@ -1177,7 +1177,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     @Override
     public void onCropSuccess(Uri croppedUri) {
         showLoader(getString(R.string.load_photo_favorite));
-        Log.d("CROPPE",croppedUri.getPath());
+        //og.d("CROPPE",croppedUri.getPath());
         cameraManager.setCropImage(croppedUri);
     }
 
@@ -1186,5 +1186,8 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         e.printStackTrace();
     }
 
-
+    @Override
+    public void onHideProgress() {
+        hideLoader();
+    }
 }

@@ -1,45 +1,53 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.app.Fragment;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.Toolbar;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuItem;
-import android.view.View;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity;
-import com.pagatodo.yaganaste.utils.BitmapLoader;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
+import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
+import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.steelkiwi.cropiwa.CropIwaView;
 import com.steelkiwi.cropiwa.config.CropIwaSaveConfig;
+import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
 import java.io.File;
+import java.io.Serializable;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-public class CropActivity extends SupportFragmentActivity {
+
+public class CropActivity extends SupportFragmentActivity{
 
     private static final String EXTRA_URI = "PICTURE";
-    private static final String EXTRA_TASK = "BITMAP";
+    private static final String EXTRA_CAMERA = "CAM";
 
     @BindView(R.id.crop_view)
     CropIwaView cropIwaView;
     @BindView(R.id.toolbar_crop)
     Toolbar toolbar;
     Uri imageUri;
+    private ICropper iCropper;
     private CropIwaSaveConfig saveConfig;
+    private Context context;
 
     public static Intent callingIntent(Context context, Uri imageUri) {
+
         Intent intent = new Intent(context, CropActivity.class);
         intent.putExtra(EXTRA_URI, imageUri);
         return intent;
     }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,4 +92,21 @@ public class CropActivity extends SupportFragmentActivity {
         }
         return super.onOptionsItemSelected(item);
     }
+
+    @Override
+    protected void onStop() {
+        //STATE_PROGRESS = true;
+        finish();
+        super.onStop();
+
+    }
+
+    @Override
+    public void onBackPressed() {
+        setResult(RESULT_OK);
+        super.onBackPressed();
+
+    }
+
+
 }

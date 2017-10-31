@@ -269,6 +269,11 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     }
 
     @Override
+    public void onHideProgress() {
+        hideLoader();
+    }
+
+    @Override
     public void toViewSuccessAdd(FavoritosDatosResponse mResponse) {
         //showDialogMesage(mResponse.getMensaje(), 1);
         showDialogMesage(getString(R.string.title_dialog_favorite),

@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.preferuser;
 
 import android.content.Context;
+import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
@@ -215,7 +216,19 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
 
     @Override
     public void onCropper(Uri uri) {
-        startActivity(CropActivity.callingIntent(getContext(), uri));
+
+        //startActivity(CropActivity.callingIntent(getContext(), uri));
+        startActivityForResult(CropActivity.callingIntent(getContext(), uri),40);
+    }
+
+    @Override
+    public void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+    }
+
+    @Override
+    public void onHideProgress() {
+
     }
 
     @Override

@@ -955,6 +955,11 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     public void sendErrorAvatarToView(String mensaje) {
     }
 
+    @Override
+    public void onHideProgress() {
+        hideLoader();
+    }
+
     /**
      * Listener que efectua varias tareas cuando se selecciona un servicio de la lista, dependiendo
      * del TAB realiza diversas funciones
