@@ -97,7 +97,7 @@ public class CropActivity extends SupportFragmentActivity{
 
     @Override
     protected void onStop() {
-        //STATE_PROGRESS = true;
+        setResult(CROP_RESULT);
         finish();
         super.onStop();
 

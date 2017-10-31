@@ -106,6 +106,8 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     private boolean errorIsShowed = false;
     private int idTipoEnvio;
 
+    public static boolean BACK_STATE_ADDFAVORITE = true;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -219,11 +221,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         return true;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setVisibilityPrefer(false);
-    }
+
 
     // Disparamos el evento de Camara
     @OnClick(R.id.add_favorites_camera)
@@ -269,10 +267,6 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         showDialogMesage("",mMensaje, 1);
     }
 
-    @Override
-    public void onHideProgress() {
-        hideLoader();
-    }
 
     @Override
     public void toViewSuccessAdd(FavoritosDatosResponse mResponse) {
@@ -380,6 +374,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         } catch (IOException e) {
             e.printStackTrace();
         }
+        BACK_STATE_ADDFAVORITE = true;
         hideLoader();
     }
 
@@ -491,7 +486,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
     @Override
     public void showProgress(String mMensaje) {
-        //Log.d("TAG", "showProgress ");
+        showLoader(getString(R.string.load_photo_favorite));
     }
 
     @Override
@@ -517,16 +512,37 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     @Override
     public void onCropper(Uri uri) {
         showLoader(getString(R.string.load_photo_favorite));
+        BACK_STATE_ADDFAVORITE = false;
         startActivityForResult(CropActivity.callingIntent(this, uri),CROP_RESULT);
     }
 
     @Override
     public void onCropSuccess(Uri croppedUri) {
+        hideLoader();
         cameraManager.setCropImage(croppedUri);
     }
 
     @Override
     public void onCropFailed(Throwable e) {
         e.printStackTrace();
+    }
+
+    @Override
+    public void onHideProgress() {
+        hideLoader();
+        BACK_STATE_ADDFAVORITE = true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(BACK_STATE_ADDFAVORITE) {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setVisibilityPrefer(false);
     }
 }

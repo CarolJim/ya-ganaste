@@ -286,6 +286,11 @@ public class CameraManager {
         this.uriImage = uriimage;
         bitmapLoader = new BitmapLoader(mContext, uriimage.getPath(), new BitmapBase64Listener() {
             @Override
+            public void onBegin() {
+                mView.showProgress(getContext().getString(R.string.load_set_image));
+            }
+
+            @Override
             public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
                 saveBmpImgUser(bitmap, imgbase64);
             }
@@ -294,7 +299,8 @@ public class CameraManager {
 
     }
 
-    private void saveBmpImgUser(Bitmap bitmap, String imgBase64) {
+    private void
+    saveBmpImgUser(Bitmap bitmap, String imgBase64) {
         Boolean validateDuplicado;
         contador.add(imgBase64);
         validateDuplicado = checkDuplicate(contador);
@@ -312,8 +318,8 @@ public class CameraManager {
                     dataDoc.setTipoDocumento(DOC_ID_FRONT);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
-                    this.listener.onHideProgress();
-                    mView.showProgress(getContext().getString(R.string.load_set_image));
+
+                    //mView.showProgress(getContext().getString(R.string.load_set_image));
                     mView.setPhotoToService(bitmap);
                     break;
             }
@@ -349,6 +355,11 @@ public class CameraManager {
 
             // String path = SingletonUser.getInstance().getPathPictureTemp();
             bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {
+                @Override
+                public void onBegin() {
+                    mView.showProgress(getContext().getString(R.string.load_set_image));
+                }
+
                 @Override
                 public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
                     //enableItems(true);
@@ -401,6 +412,7 @@ public class CameraManager {
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode != RESULT_OK && data == null) {
 
         } else if (resultCode == CROP_RESULT){
+
             this.listener.onHideProgress();
         }
     }

@@ -110,6 +110,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
     public static final String TAG = AddNewFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
+    public static boolean BACK_STATE_EDITFAVORITE = true;
 
     @BindView(R.id.add_favorites_alias)
     CustomValidationEditText editAlias;
@@ -467,11 +468,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         return true;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setVisibilityPrefer(false);
-    }
+
 
     // Disparamos el evento de Camara solo si tenemos intrnet
     @OnClick(R.id.add_favorites_camera)
@@ -738,6 +735,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         } catch (IOException e) {
             e.printStackTrace();
         }
+        BACK_STATE_EDITFAVORITE = true;
         hideLoader();
     }
 
@@ -957,6 +955,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     }*/
     @Override
     public void showProgress(String mMensaje) {
+        showLoader(getString(R.string.load_photo_favorite));
     }
 
     @Override
@@ -971,10 +970,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     public void sendErrorAvatarToView(String mensaje) {
     }
 
-    @Override
-    public void onHideProgress() {
-        hideLoader();
-    }
 
     /**
      * Listener que efectua varias tareas cuando se selecciona un servicio de la lista, dependiendo
@@ -1332,16 +1327,37 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     @Override
     public void onCropper(Uri uri) {
         showLoader(getString(R.string.load_photo_favorite));
+        BACK_STATE_EDITFAVORITE = false;
         startActivityForResult(CropActivity.callingIntent(this, uri),CROP_RESULT);
     }
 
     @Override
     public void onCropSuccess(Uri croppedUri) {
+        hideLoader();
         cameraManager.setCropImage(croppedUri);
     }
 
     @Override
     public void onCropFailed(Throwable e) {
         e.printStackTrace();
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(BACK_STATE_EDITFAVORITE) {
+            super.onBackPressed();
+        }
+    }
+
+    @Override
+    public void onHideProgress() {
+        hideLoader();
+        BACK_STATE_EDITFAVORITE = true;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setVisibilityPrefer(false);
     }
 }
