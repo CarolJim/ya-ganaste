@@ -11,10 +11,11 @@
         android:id="@+id/toolbarLy"
         layout="@layout/toolbar" />
 
-    <FrameLayout
-        android:id="@+id/container"
+    <LinearLayout
+        android:id="@+id/lyt_princpal"
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -108,7 +109,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:text="@string/datos_nombre_titular" />
+                                    android:text="@string/datos_nombre_titular"
+                                    android:textColor="@color/whiteColor" />
 
                                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                                     android:id="@+id/txtNameTitular"
@@ -124,6 +126,87 @@
                                 android:layout_height="0.5px"
                                 android:background="@color/margin_lines" />
                         </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/item_change_nip"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal">
+
+                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                    style="@style/generic_text_style_2.1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="20"
+                                    android:gravity="start"
+                                    android:text="@string/my_card_change_nip"
+                                    android:textColor="@color/whiteColor" />
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/arrow_canvas_blue" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="0.5px"
+                                android:background="@color/margin_lines" />
+                        </LinearLayout>
+
+                        <LinearLayout
+                            android:id="@+id/item_report_card"
+                            android:layout_width="match_parent"
+                            android:layout_height="wrap_content"
+                            android:layout_gravity="center"
+                            android:gravity="center"
+                            android:orientation="vertical"
+                            android:visibility="visible">
+
+                            <LinearLayout
+                                android:layout_width="match_parent"
+                                android:layout_height="wrap_content"
+                                android:layout_gravity="center"
+                                android:layout_marginBottom="5dp"
+                                android:layout_marginTop="5dp"
+                                android:orientation="horizontal">
+
+                                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                                    style="@style/generic_text_style_2.1"
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_weight="20"
+                                    android:gravity="start"
+                                    android:text="@string/my_card_report"
+                                    android:textColor="@color/whiteColor" />
+
+                                <android.support.v7.widget.AppCompatImageView
+                                    android:layout_width="0dp"
+                                    android:layout_height="wrap_content"
+                                    android:layout_marginRight="10dp"
+                                    android:layout_weight="1"
+                                    app:srcCompat="@drawable/arrow_canvas_blue" />
+                            </LinearLayout>
+
+                            <View
+                                android:layout_width="fill_parent"
+                                android:layout_height="0.5px"
+                                android:background="@color/margin_lines" />
+                        </LinearLayout>
+
 
                         <LinearLayout
                             android:id="@+id/layout_fecha"
@@ -192,7 +275,8 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:gravity="start"
-                                    android:text="@string/bloquear_tarjeta" />
+                                    android:text="@string/bloquear_tarjeta"
+                                    android:textColor="@color/whiteColor" />
 
                                 <LinearLayout
                                     android:layout_width="wrap_content"
@@ -235,12 +319,10 @@
 
             </LinearLayout>
         </LinearLayout>
-    </FrameLayout>
+    </LinearLayout>
 
-    <com.pagatodo.yaganaste.utils.customviews.ProgressLayout
-        android:id="@+id/progress_view"
+    <FrameLayout
+        android:id="@+id/container"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="@color/colorPrimaryAlpha"
-        android:visibility="gone" />
+        android:layout_height="match_parent" />
 </LinearLayout>

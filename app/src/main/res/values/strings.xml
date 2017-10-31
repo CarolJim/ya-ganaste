@@ -816,6 +816,8 @@
     <string name="cuentareebolso">Cuenta de Reembolso</string>
     <string name="solicitacredito">Solicita tu Línea de Crédito *</string>
     <string name="datos_nombre_titular">Titular</string>
+    <string name="my_card_change_nip">Cambia NIP</string>
+    <string name="my_card_report">Reporta tu Tarjeta</string>
 
     <!--start Cupo Strings-->
 
