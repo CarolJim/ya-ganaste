@@ -5,15 +5,16 @@ import android.graphics.BitmapFactory;
 import android.graphics.Canvas;
 import android.graphics.Color;
 import android.graphics.Typeface;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.support.v7.widget.SwitchCompat;
 import android.text.TextPaint;
-import android.util.Log;
 import android.view.View;
 import android.widget.CompoundButton;
+import android.widget.FrameLayout;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
@@ -24,17 +25,21 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuenta
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
-import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardView;
+import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
+import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
+import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
-import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
 import com.pagatodo.yaganaste.utils.FontCache;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
-import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.BLOQUEO;
 import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.DESBLOQUEO;
@@ -42,34 +47,46 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 public class TarjetaActivity extends LoaderActivity implements OnEventListener, IMyCardViewHome {
 
-    private String nombreCompleto,cuentaUsuario,ultimaTransaccion;
-    private ImageView imgYaGanasteCard;
-    private TextView txtNameTitular,mLastTimeTV;
-    private TarjetaUserPresenter mPreferPresenter;
-    private SwitchCompat mycard_switch;
-    private AppCompatImageView imgStatus;
+    private String nombreCompleto, cuentaUsuario, ultimaTransaccion;
+    @BindView(R.id.imgYaGanasteCard)
+    ImageView imgYaGanasteCard;
+    @BindView(R.id.txtNameTitular)
+    TextView txtNameTitular;
+    @BindView(R.id.txtultimopago)
+    TextView mLastTimeTV;
+    @BindView(R.id.mycard_switch)
+    SwitchCompat mycard_switch;
+    @BindView(R.id.img_status)
+    AppCompatImageView imgStatus;
+    @BindView(R.id.lyt_princpal)
+    LinearLayout lytPrincipal;
+    @BindView(R.id.item_change_nip)
+    LinearLayout lytChangeNIP;
+    @BindView(R.id.item_report_card)
+    LinearLayout lytReportCard;
+    @BindView(R.id.container)
+    FrameLayout container;
     int statusBloqueo;
     boolean statusOperation = true;
-
+    private TarjetaUserPresenter mPreferPresenter;
+    private AccountPresenterNew presenterAccount;
     protected OnEventListener onEventListener;
-    private String  mTDC;
+    private String mTDC;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mPreferPresenter = new TarjetaUserPresenter(this);
         setContentView(R.layout.activity_tarjeta);
-
-
+        ButterKnife.bind(this);
+        mPreferPresenter = new TarjetaUserPresenter(this);
+        presenterAccount = new AccountPresenterNew(this);
         checkDataCard();
-        imgYaGanasteCard=(ImageView) findViewById(R.id.imgYaGanasteCard);
-        txtNameTitular=(TextView) findViewById(R.id.txtNameTitular);
-        mLastTimeTV=(TextView) findViewById(R.id.txtultimopago);
-        mycard_switch=(SwitchCompat) findViewById(R.id.mycard_switch);
-        imgStatus=(AppCompatImageView) findViewById(R.id.img_status);
         txtNameTitular.setText(nombre());
         ultimaTransaccion();
         //printCard(cuenta());
         estadotarjeta();
+        lytChangeNIP.setOnClickListener(this);
+        lytReportCard.setOnClickListener(this);
     }
 
     @Override
@@ -81,7 +98,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     protected void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
-      //  printCard(cuenta());
+        //  printCard(cuenta());
     }
 
     private void estadotarjeta() {
@@ -139,28 +156,29 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
 
     }
 
-    private void checkState(String state){
-        switch (state){
+    private void checkState(String state) {
+        switch (state) {
             case Recursos.ESTATUS_CUENTA_BLOQUEADA:
                 mycard_switch.setChecked(true);
                 imgStatus.setImageResource(R.drawable.ic_candado_closed);
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_gray);
-              //  printCard(cuenta());
+                //  printCard(cuenta());
                 break;
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
                 mycard_switch.setChecked(false);
                 imgStatus.setImageResource(R.drawable.ic_candado_open);
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
-             //   printCard(cuenta());
+                //   printCard(cuenta());
                 break;
             default:
                 mycard_switch.setChecked(false);
                 imgStatus.setImageResource(R.drawable.ic_candado_open);
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
-               // printCard(cuenta());
+                // printCard(cuenta());
                 break;
         }
     }
+
     /**
      * Adminsitrador de mensaje que no tienen acciones, solo informativos, usados comunmente en errores
      *
@@ -180,47 +198,50 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                 },
                 true, false);
     }
+
     private void ultimaTransaccion() {
         ultimaTransaccion = SingletonUser.getInstance().getUltimaTransaccion();
-        if (ultimaTransaccion==null || ultimaTransaccion.isEmpty()){
+        if (ultimaTransaccion == null || ultimaTransaccion.isEmpty()) {
             mLastTimeTV.setText("   No Hay Fecha Del Ultimo Pago");
             mLastTimeTV.setSelected(true);
-        }else {
+        } else {
             mLastTimeTV.setText(ultimaTransaccion);
         }
     }
-   // public PreferUserPresenter getPreferPresenter() {
-   //   return mPreferPresenter;
-   // }
+
+    // public PreferUserPresenter getPreferPresenter() {
+    //   return mPreferPresenter;
+    // }
     @Override
     public boolean requiresTimer() {
         return false;
     }
 
-    public String nombre(){
+    public String nombre() {
         UsuarioClienteResponse userData = SingletonUser.getInstance().getDataUser().getUsuario();
 
         String nombreprimerUser;
 
         String apellidoMostrarUser;
-        if (userData.getPrimerApellido().isEmpty()){
-            apellidoMostrarUser=userData.getSegundoApellido();
-        }else {
-            apellidoMostrarUser=userData.getPrimerApellido();
+        if (userData.getPrimerApellido().isEmpty()) {
+            apellidoMostrarUser = userData.getSegundoApellido();
+        } else {
+            apellidoMostrarUser = userData.getPrimerApellido();
         }
-        nombreprimerUser= StringUtils.getFirstName(userData.getNombre());
-        if (nombreprimerUser.isEmpty()){
-            nombreprimerUser=userData.getNombre();
+        nombreprimerUser = StringUtils.getFirstName(userData.getNombre());
+        if (nombreprimerUser.isEmpty()) {
+            nombreprimerUser = userData.getNombre();
 
         }
 
         //tv_name.setText(mName);
         //mNameTV.setText(nombreprimerUser+" "+apellidoMostrarUser);
 
-        nombreCompleto=nombreprimerUser+" "+apellidoMostrarUser;
+        nombreCompleto = nombreprimerUser + " " + apellidoMostrarUser;
 
         return nombreCompleto;
     }
+
     private void checkDataCard() {
         /**
          * Si tenemos Internet consumos el servicio para actualizar la informacion de la ceunta,
@@ -246,6 +267,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
             showDialogMesage(getResources().getString(R.string.no_internet_access));
         }
     }
+
     private void showDialogMesage(final String mensaje) {
         UI.createSimpleCustomDialog("", mensaje, getSupportFragmentManager(),
                 new DialogDoubleActions() {
@@ -260,13 +282,15 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                 },
                 true, false);
     }
+
     private String cuenta() {
         UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
         mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
-        cuentaUsuario=(StringUtils.ocultarCardNumberFormat(mTDC));
+        cuentaUsuario = (StringUtils.ocultarCardNumberFormat(mTDC));
         //mCuentaTV.setText(getResources().getString(R.string.tarjeta) + ": " + StringUtils.ocultarCardNumberFormat(mTDC));
         return cuentaUsuario;
     }
+
     private void printCard(String cardNumber) {
         Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.main_card_zoom_blue);
         android.graphics.Bitmap.Config bitmapConfig =
@@ -305,9 +329,9 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
             checkState(App.getInstance().getStatusId());
         }
     }
-    public void sendErrorEstatusCuentaToView(String mensaje) {
-        showDialogMesage(mensaje);
-        //onEventListener.onEvent("DISABLE_BACK", false);
+
+    public AccountPresenterNew getPresenterAccount() {
+        return presenterAccount;
     }
 
     @Override
@@ -332,8 +356,43 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
 
     @Override
     public void sendErrorBloquearCuentaToView(String mensaje) {
-
     }
 
+    @Override
+    public void onClick(View v) {
+        switch (v.getId()) {
+            case R.id.item_change_nip:
+                lytPrincipal.setVisibility(View.GONE);
+                loadFragment(MyChangeNip.newInstance(), Direction.FORDWARD, false);
+                container.setVisibility(View.VISIBLE);
+                break;
+            case R.id.item_report_card:
+                lytPrincipal.setVisibility(View.GONE);
+                loadFragment(MyCardReportaTarjetaFragment.newInstance(), Direction.FORDWARD, false);
+                container.setVisibility(View.VISIBLE);
+                break;
+            case R.id.btn_back:
+                UI.hideKeyBoard(this);
+                onBackPressed();
+                break;
+            default:
+                break;
+        }
+    }
 
+    @Override
+    public void onBackPressed() {
+        // Si el boton no esta deshabilitado realizamos las operaciones de back
+        if (!isLoaderShow) {
+            Fragment currentFragment = getCurrentFragment();
+            if (currentFragment instanceof MyChangeNip ||
+                    currentFragment instanceof MyCardReportaTarjetaFragment) {
+                removeLastFragment();
+                lytPrincipal.setVisibility(View.VISIBLE);
+                container.setVisibility(View.GONE);
+            } else {
+                super.onBackPressed();
+            }
+        }
+    }
 }

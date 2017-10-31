@@ -74,10 +74,10 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
     LinearLayout ll_usuario;
     @BindView(R.id.fragment_lista_opciones_account)
     LinearLayout ll_cuenta;
-    @BindView(R.id.fragment_lista_opciones_card)
-    LinearLayout ll_card;
-    @BindView(R.id.fragment_lista_opciones_dongle)
-    LinearLayout ll_dongle;
+    /*@BindView(R.id.fragment_lista_opciones_card)
+    LinearLayout ll_card;*/
+    /*@BindView(R.id.fragment_lista_opciones_dongle)
+    LinearLayout ll_dongle;*/
     @BindView(R.id.fragment_lista_opciones_help_legal)
     LinearLayout ll_help_legal;
     @BindView(R.id.fragment_lista_opciones_close)
@@ -155,16 +155,16 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
 
             ll_cuenta.setOnClickListener(this);
         }
-        if (idEstatus >= IdEstatus.ADQUIRENTE.getId()) {
+        /*if (idEstatus >= IdEstatus.ADQUIRENTE.getId()) {
             ll_dongle.setVisibility(View.VISIBLE);
             View view_cuenta = rootview.findViewById(R.id.contenedordongle);
             view_cuenta.setVisibility(View.VISIBLE);
             ll_dongle.setOnClickListener(this);
-        }
+        }*/
 
 
         ll_cuenta.setOnClickListener(this);
-        ll_card.setOnClickListener(this);
+        //ll_card.setOnClickListener(this);
         ll_help_legal.setOnClickListener(this);
         ll_close.setOnClickListener(this);
         iv_photo_item.setOnClickListener(this);

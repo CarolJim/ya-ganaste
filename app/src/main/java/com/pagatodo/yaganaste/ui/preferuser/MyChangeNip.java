@@ -5,30 +5,22 @@ import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.text.Editable;
-import android.text.InputType;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
-import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
-import com.pagatodo.yaganaste.interfaces.enums.Direction;
-import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
-import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
+import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IChangeNIPView;
 import com.pagatodo.yaganaste.utils.AsignarNipCustomWatcher;
-import com.pagatodo.yaganaste.utils.AsignarNipTextWatcher;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
@@ -39,7 +31,6 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -118,7 +109,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         super.onCreate(savedInstanceState);
         if (getArguments() != null) {
         }
-        accountPresenter = ((PreferUserActivity) getActivity()).getPresenterAccount();
+        accountPresenter = ((TarjetaActivity) getActivity()).getPresenterAccount();
         accountPresenter.setIView(this);
     }
 
@@ -200,7 +191,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                     keyboardView.hideCustomKeyboard();
                     finishBtn.setVisibility(View.VISIBLE);
                     validateEt1();
-                } else if(s.toString().length() == 0){
+                } else if (s.toString().length() == 0) {
                     errorOldNip.setVisibility(View.INVISIBLE);
                 }
             }
@@ -225,7 +216,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                     finishBtn.setVisibility(View.VISIBLE);
                     //validateEt2();
                     validateEt1_Et2();
-                } else if(s.toString().length() == 0){
+                } else if (s.toString().length() == 0) {
                     errorNewNip.setVisibility(View.INVISIBLE);
                 }
             }
@@ -249,7 +240,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                     keyboardView.hideCustomKeyboard();
                     finishBtn.setVisibility(View.VISIBLE);
                     validateEt2_Et3();
-                } else if(s.toString().length() == 0){
+                } else if (s.toString().length() == 0) {
                     errorNewNipConfirm.setVisibility(View.INVISIBLE);
                 }
             }
@@ -316,7 +307,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
             @Override
             public void onFocusChange(View v, boolean hasFocus) {
                 if (!hasFocus) {
-                 //   validateEt3();
+                    //   validateEt3();
                     validateEt2_Et3();
                 }
             }
@@ -387,17 +378,17 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
     @Override
     public void onClick(View v) {
         getDataForm();
-         isValid = true;
+        isValid = true;
 
         validateEt1();
         validateEt2();
-      //  validateEt3();
+        //  validateEt3();
 
         validateEt1_Et2();
         validateEt2_Et3();
 
         if (isValid) {
-           // Toast.makeText(getContext(), "Validaciones listas", Toast.LENGTH_SHORT).show();
+            // Toast.makeText(getContext(), "Validaciones listas", Toast.LENGTH_SHORT).show();
             onValidationSuccess();
         }
     }
@@ -460,7 +451,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         }
     }
 
-    private void validateEt1(){
+    private void validateEt1() {
         if (!asinarNipWatcher1.isValid()) {
             errorOldNip.setMessageText(getContext().getResources().getString(R.string.new_nip_four_digits));
             errorOldNip.setVisibility(View.VISIBLE);
@@ -472,7 +463,7 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
     @Override
     public void nextScreen(String event, Object data) {
-        showErrorsucces(event,data);
+        showErrorsucces(event, data);
 
     }
 
@@ -513,14 +504,15 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                     true, false);
         }
     }
-    public void showErrorsucces(final String event , final Object error) {
+
+    public void showErrorsucces(final String event, final Object error) {
         if (!error.toString().isEmpty())
             //  UI.showToastShort(error.toString(), getActivity());
             UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
                     new DialogDoubleActions() {
                         @Override
                         public void actionConfirm(Object... params) {
-                            onEventListener.onEvent(event, error );
+                            onEventListener.onEvent(event, error);
                         }
 
                         @Override
@@ -530,8 +522,6 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                     },
                     true, false);
     }
-
-
 
 
 }
