@@ -86,20 +86,20 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
 
     @Override
     public void onRefresh(SwipyRefreshLayoutDirection direction) {
-        try{
-        if ((direction.equals(SwipyRefreshLayoutDirection.BOTTOM))) {
-            swipeContainer.setRefreshing(false);
+        try {
+            if ((direction.equals(SwipyRefreshLayoutDirection.BOTTOM))) {
+                swipeContainer.setRefreshing(false);
 
-        } else {
-            try {
-                super.onRefresh(SwipyRefreshLayoutDirection.BOTTOM);
-                getDataForTab(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()));
-            } catch (Exception e) {
-                hideLoader();
+            } else {
+                try {
+                    super.onRefresh(SwipyRefreshLayoutDirection.BOTTOM);
+                    getDataForTab(tabMonths.getCurrentData(tabMonths.getSelectedTabPosition()));
+                } catch (Exception e) {
+                    hideLoader();
+                }
             }
-        }
-    }catch (Exception e){
-hideLoader();
+        } catch (Exception e) {
+            hideLoader();
 
         }
     }

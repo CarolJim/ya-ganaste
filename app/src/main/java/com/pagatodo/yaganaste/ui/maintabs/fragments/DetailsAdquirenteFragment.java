@@ -26,6 +26,7 @@ import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
+import com.squareup.picasso.Picasso;
 
 import java.util.Calendar;
 
@@ -204,10 +205,29 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         CatalogsDbApi catalogsDbApi = new CatalogsDbApi(getContext());
         String url = catalogsDbApi.getURLIconComercio(dataMovimientoAdq.getBancoEmisor());
 
-        Glide.with(getContext())
-                .load(url)
-                .placeholder(R.mipmap.logo_ya_ganaste)
-                .into(imageDetail);
+        /**
+         * Esta validacion es debido a que Piccaso marca un NullPoint si la URL esta vacia, pero
+         * Glide permite falla y cargar un PlaceHolder
+         */
+        if(url != null && !url.isEmpty()) {
+            Picasso.with(getContext())
+                    .load(url)
+                    .placeholder(R.mipmap.logo_ya_ganaste)
+                    .error(R.mipmap.logo_ya_ganaste)
+                    .into(imageDetail);
+        }else{
+            Glide.with(getContext())
+                    .load(url)
+                    .placeholder(R.mipmap.logo_ya_ganaste)
+                    .into(imageDetail);
+        }
+
+        /* BORRAR ESTE BLOQUE EN version aprovadas
+         Glide.with(getContext())
+                    .load(url)
+                    .placeholder(R.mipmap.logo_ya_ganaste)
+                    .into(imageDetail);
+        */
 
         switch (dataMovimientoAdq.getEstatus()) {
             case ESTATUS_CANCELADO:
