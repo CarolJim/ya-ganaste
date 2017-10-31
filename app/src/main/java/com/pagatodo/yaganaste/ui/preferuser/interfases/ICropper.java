@@ -13,7 +13,7 @@ import java.io.Serializable;
  */
 
 public interface ICropper{
-    
+
     void onCropper(Uri uri);
     void onHideProgress();
 }

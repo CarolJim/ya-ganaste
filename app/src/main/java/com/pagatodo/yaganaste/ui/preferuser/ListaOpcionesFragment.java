@@ -50,6 +50,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_U
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_MY_USER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -216,19 +217,13 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
 
     @Override
     public void onCropper(Uri uri) {
-
-        //startActivity(CropActivity.callingIntent(getContext(), uri));
-        startActivityForResult(CropActivity.callingIntent(getContext(), uri),40);
-    }
-
-    @Override
-    public void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
+        showProgress("");
+        startActivityForResult(CropActivity.callingIntent(getContext(), uri),CROP_RESULT);
     }
 
     @Override
     public void onHideProgress() {
-
+        hideLoader();
     }
 
     @Override
@@ -349,7 +344,6 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
         CameraManager.cleanBitmap();
         showDialogMesage(mensaje);
     }
-
 
     public void hideLoader() {
         // progressLayout.setVisibility(GONE);

@@ -58,6 +58,7 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.TIPO_TAB;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
+import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 /**
  * Encargada de dar de alta Favoritos, primero en el servicio y luego en la base local
@@ -515,12 +516,12 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
     @Override
     public void onCropper(Uri uri) {
-        startActivity(CropActivity.callingIntent(this, uri));
+        showLoader(getString(R.string.load_photo_favorite));
+        startActivityForResult(CropActivity.callingIntent(this, uri),CROP_RESULT);
     }
 
     @Override
     public void onCropSuccess(Uri croppedUri) {
-        showLoader(getString(R.string.load_photo_favorite));
         cameraManager.setCropImage(croppedUri);
     }
 

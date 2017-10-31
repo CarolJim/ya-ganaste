@@ -91,6 +91,7 @@ import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
+import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 /**
  * Encargada de dar de alta Favoritos, pero capturando todos sus datos. primero en el servicio y luego en la base local
@@ -827,6 +828,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     }*/
     @Override
     public void showProgress(String mMensaje) {
+
     }
 
     @Override
@@ -1171,13 +1173,12 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     */
     @Override
     public void onCropper(Uri uri) {
-        startActivity(CropActivity.callingIntent(this, uri));
+        showLoader(getString(R.string.load_photo_favorite));
+        startActivityForResult(CropActivity.callingIntent(this, uri),CROP_RESULT);
     }
 
     @Override
     public void onCropSuccess(Uri croppedUri) {
-        showLoader(getString(R.string.load_photo_favorite));
-        //og.d("CROPPE",croppedUri.getPath());
         cameraManager.setCropImage(croppedUri);
     }
 

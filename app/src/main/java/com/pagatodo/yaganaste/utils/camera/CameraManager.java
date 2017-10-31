@@ -67,6 +67,7 @@ public class CameraManager {
 
     public static final int REQUEST_TAKE_PHOTO = 10; // Intent para Capturar fotografía
     public static final int SELECT_FILE_PHOTO = 20; // Intent para seleccionar fotografía
+    public static final int CROP_RESULT = 30;
     private static final String TAG = DocumentosFragment.class.getSimpleName();
     private static final int USER_PHOTO = 1;
     private static final int IFE_BACK = 2;
@@ -311,7 +312,7 @@ public class CameraManager {
                     dataDoc.setTipoDocumento(DOC_ID_FRONT);
                     dataDoc.setImagenBase64(imgBase64);
                     dataDoc.setExtension("jpg");
-
+                    this.listener.onHideProgress();
                     mView.showProgress(getContext().getString(R.string.load_set_image));
                     mView.setPhotoToService(bitmap);
                     break;
@@ -399,11 +400,9 @@ public class CameraManager {
             }
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode != RESULT_OK && data == null) {
 
-        } else if (requestCode == 40 && resultCode != RESULT_OK){
-            Log.d("LLEGO","AQUI");
+        } else if (resultCode == CROP_RESULT){
+            this.listener.onHideProgress();
         }
-
-
     }
 
 

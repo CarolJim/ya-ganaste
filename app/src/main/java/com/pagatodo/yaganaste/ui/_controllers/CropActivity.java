@@ -26,6 +26,8 @@ import java.io.Serializable;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
+
 
 public class CropActivity extends SupportFragmentActivity{
 
@@ -103,7 +105,7 @@ public class CropActivity extends SupportFragmentActivity{
 
     @Override
     public void onBackPressed() {
-        setResult(RESULT_OK);
+        setResult(CROP_RESULT);
         super.onBackPressed();
 
     }
