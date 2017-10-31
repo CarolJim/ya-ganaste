@@ -226,10 +226,6 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         txtTituloDescripcion.setText(item.getTituloDescripcion());
         txtSubTituloDetalle.setText(item.getSubtituloDetalle());
 
-        Glide.with(this)
-        //MovementsTab movementsType = MovementsTab.getMovementById(movimientosResponse.getIdTipoTransaccion());
-        TipoTransaccionPCODE tipoTransaccion = TipoTransaccionPCODE.getTipoTransaccionById(movimientosResponse.getIdTipoTransaccion());
-
        /* BORRAR ESTE BLOQUE EN version aprobadas
        Glide.with(this)
                 .load(movimientosResponse.getURLImagen())
