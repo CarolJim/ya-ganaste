@@ -186,7 +186,7 @@
                 android:layout_marginTop="10dp"
                 android:gravity="center"
                 android:orientation="vertical"
-                android:visibility="visible">
+                android:visibility="gone">
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -216,7 +216,7 @@
                 android:layout_height="1dp"
 
                 android:background="@color/borderLayoutColor"
-                android:visibility="visible" />
+                android:visibility="gone" />
             <LinearLayout
                 android:id="@+id/fragment_lista_opciones_dongle"
                 android:layout_width="match_parent"
