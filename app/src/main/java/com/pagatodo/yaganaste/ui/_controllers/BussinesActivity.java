@@ -8,21 +8,19 @@ import android.view.Window;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.Giros;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.SubGiro;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
-import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DatosNegocioFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DocumentosFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.DomicilioNegocioFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionAdicionalFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.InformacionLavadoDineroFragment;
 
 import java.util.List;
 
@@ -47,7 +45,8 @@ public class BussinesActivity extends LoaderActivity {
     public final static String EVENT_SET_COLONIES_LIST = "EVENT_SET_COLONIES_LIST";
     public final static String EVENT_GO_BUSSINES_ADITIONAL_INFORMATION = "EVENT_GO_BUSSINES_INFORMACION_ADICIONAL";
     public final static String EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK = "EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK";
-
+    public final static String EVENT_GO_BUSSINES_MONEY_LAUNDERING = "EVENT_GO_BUSSINES_MONEY_LAUNDERING";
+    public final static String EVENT_GO_BUSSINES_MONEY_LAUNDERING_BACK = "EVENT_GO_BUSSINES_MONEY_LAUNDERING_BACK";
 
     private DataObtenerDomicilio domicilio;
     private List<Giros> girosComercio;
@@ -102,16 +101,23 @@ public class BussinesActivity extends LoaderActivity {
                 resetRegisterData();
                 finish();
                 break;
-            case EVENT_GO_BUSSINES_DOCUMENTS:
-                loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD, false);
-                showBack(false);
-                break;
             case EVENT_GO_BUSSINES_ADITIONAL_INFORMATION:
                 loadFragment(InformacionAdicionalFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_BUSSINES_ADITIONAL_INFORMATION_BACK:
                 RegisterAgent.getInstance().resetAditionalInformation();
                 loadFragment(DomicilioNegocioFragment.newInstance(domicilio, listaColonias), Direction.BACK, false);
+                break;
+            case EVENT_GO_BUSSINES_MONEY_LAUNDERING:
+                loadFragment(InformacionLavadoDineroFragment.newInstance(), Direction.FORDWARD, false);
+                break;
+            case EVENT_GO_BUSSINES_MONEY_LAUNDERING_BACK:
+                RegisterAgent.getInstance().resetAditionalInformation();
+                loadFragment(DomicilioNegocioFragment.newInstance(domicilio, listaColonias), Direction.BACK, false);
+                break;
+            case EVENT_GO_BUSSINES_DOCUMENTS:
+                loadFragment(DocumentosFragment.newInstance(), Direction.FORDWARD, false);
+                showBack(false);
                 break;
             case EVENT_GO_BUSSINES_COMPLETE:
                 loadFragment(RegisterCompleteFragment.newInstance(ADQ_REVISION), Direction.FORDWARD, false);
