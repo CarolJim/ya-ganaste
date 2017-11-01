@@ -328,7 +328,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         if (item.getFavoritos() == null) {
             imgPagosServiceToPay.setVisibility(View.VISIBLE);
             imgPagosServiceToPayRound.setImageResource(R.mipmap.blacksquare);
-            Glide.with(getContext()).load(item.getImageUrl()).dontAnimate().into(imgPagosServiceToPay);
+            Glide.with(getContext()).load(getString(R.string.url_images_logos) + item.getImageUrl()).dontAnimate().into(imgPagosServiceToPay);
         } else {
             imgPagosServiceToPay.setVisibility(View.INVISIBLE);
             Glide.with(getContext()).load(item.getImageUrl()).dontAnimate().into(imgPagosServiceToPayRound);
@@ -411,7 +411,7 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     }
 
     public void hideFavorites() {
-        showFavorite=false;
+        showFavorite = false;
         setTab(currentTab);
     }
 

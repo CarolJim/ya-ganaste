@@ -13,6 +13,7 @@ import android.widget.ImageView;
 import android.widget.RelativeLayout;
 
 import com.bumptech.glide.Glide;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ComercioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
@@ -102,7 +103,7 @@ public class CarouselItem extends FrameLayout
         inflateLayout();
         // Glide.with(getContext()).load(imageUrl).crossFade(0).into(mImage);
         Picasso.with(getContext())
-                .load(imageUrl)
+                .load(App.getContext().getString(R.string.url_images_logos)+imageUrl)
                 .into(mImage);
     }
 
@@ -169,7 +170,7 @@ public class CarouselItem extends FrameLayout
         inflateLayout(color);
         //Glide.with(context).load(imageUrl).crossFade(0).placeholder(R.mipmap.logo_ya_ganaste).error(R.mipmap.logo_ya_ganaste).into(mImage);
         Picasso.with(getContext())
-                .load(imageUrl)
+                .load(App.getContext().getString(R.string.url_images_logos)+imageUrl)
                 .placeholder(R.mipmap.logo_ya_ganaste)
                 .error(R.mipmap.logo_ya_ganaste)
                 .into(mImage);
