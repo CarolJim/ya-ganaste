@@ -36,6 +36,7 @@ public class Recursos {
 
     //URL DE WS
     static {
+
         if (BuildConfig.DEBUG) {
 
             URL_SERVER_ADTVO = "http://189.201.137.21:8031/ServicioYaGanasteAdtvo.svc";
@@ -271,6 +272,8 @@ public class Recursos {
     public static final String ESTATUS_CANCELADO = "1";
     public static final String ESTATUS_POR_REMBOLSAR = "2";
     public static final String ESTATUS_REMBOLSADO = "3";
+
+    public static final String URL_SERVER_IMAGES_LOGOS = "http://10.10.45.11:8033/RecursosApp/RecursosYaGanaste/logos/android/";
 
 //     intent.putExtra(NOMBRE_COMERCIO, nombreComercio);
 //                intent.putExtra(ID_COMERCIO, idComercio);
