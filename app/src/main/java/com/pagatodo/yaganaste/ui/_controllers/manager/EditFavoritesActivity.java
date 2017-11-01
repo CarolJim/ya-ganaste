@@ -363,7 +363,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                 .into(imageViewCamera.getCircleImageView());*/
 
         Picasso.with(this)
-                .load(dataFavoritos.getImagenURL())
+                .load(getString(R.string.url_images_logos)+dataFavoritos.getImagenURL())
                 .error(R.drawable.ic_usuario_azul)
                 //.placeholder(R.drawable.user_placeholder)
                 //.error(R.drawable.user_placeholder_error)

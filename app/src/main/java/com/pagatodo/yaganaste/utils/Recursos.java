@@ -282,5 +282,4 @@ public class Recursos {
 //                intent.putExtra(REFERENCIA, referencia);
 //                intent.putExtra(TIPO_TAB, tipoTab);
 //                intent.putExtra(DESTINATARIO, nombreDest);
-//
 }
