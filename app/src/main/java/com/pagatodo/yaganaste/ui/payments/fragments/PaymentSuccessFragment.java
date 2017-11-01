@@ -406,11 +406,37 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     }
 
     private void sendScreenshot(File imageFile) {
+        //MovimientosResponse emisorData = ((MovimientosResponse) serializable);
+        /**
+         * Armamos la cadena de datos dependiendo el tipo de servicios que mostramos
+         */
+        String toShare = "";
+        if (pago instanceof Recarga) {
+            toShare = "¡Hola!\nSe Ha Realizado una Recarga en Ya Ganaste \n" + getString(R.string.share_recargas, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
+                    pago.getComercio().getNombreComercio(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString());
+        } else if (pago instanceof Servicios) {
+            toShare = "¡Hola!\nSe Ha Realizado un Pago de Servicio Desde Ya Ganaste \n" + getString(R.string.share_pds, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
+                    pago.getComercio().getNombreComercio(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString());
+        } else if (pago instanceof Envios) {
+            toShare = "¡Hola!\nSe Ha Realizado un Envío de Dinero Desde Ya Ganaste \n" + getString(R.string.share_envios, Utils.getCurrencyValue(pago.getMonto()), nombreEnvio.getText().toString(),
+                    titleReferencia.getText().toString(), txtReferencia.getText().toString(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString())
+                    .concat(pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE ? "" : getString(R.string.clave_rastreo, result.getData().getClaveRastreo()));
+        }
+
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("image/jpeg");
         Uri uri = Uri.fromFile(imageFile);
         intent.putExtra(Intent.EXTRA_STREAM, uri);
+        intent.putExtra(Intent.EXTRA_TEXT, toShare);
         startActivity(Intent.createChooser(intent, "Compartir Con..."));
+
+      /*  Intent intent = new Intent();
+        intent.setAction(Intent.ACTION_SEND);
+        intent.setType("image/jpeg");
+        Uri uri = Uri.fromFile(imageFile);
+        intent.putExtra(Intent.EXTRA_TEXT, toShare);
+        intent.putExtra(Intent.EXTRA_STREAM, uri);
+        startActivity(Intent.createChooser(intent, "Compartir Con..."));*/
     }
 }

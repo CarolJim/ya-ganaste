@@ -12,6 +12,7 @@ import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.Switch;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
@@ -28,6 +29,7 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.CompartirReciboFragment;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -56,6 +58,8 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     CircleImageView imageView;
     ImageView imageshare;
     private DataMovimientoAdq dataMovimentTmp;
+    private Serializable serializable;
+    private Object types;
 
     public static Intent createIntent(@NonNull Context from, MovimientosResponse data) {
         return createIntent(from, TYPES.EMISOR, data);
@@ -123,7 +127,8 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         imageshare.setVisibility(View.VISIBLE);
         if (extras != null && extras.getSerializable(DATA) != null
                 && extras.getString(TYPE) != null) {
-            Serializable serializable = extras.getSerializable(DATA);
+            serializable = extras.getSerializable(DATA);
+            types = TYPES.valueOf(extras.getString(TYPE));
             loadFragment(TYPES.valueOf(extras.getString(TYPE)), serializable);
         } else {
             throw new IllegalCallException("To call " + this.getClass().getSimpleName() +
@@ -138,12 +143,10 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
             @Override
             public void onClick(View v) {
                 if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsEmisorFragment) {
-                    //shareContent();
                     takeScreenshot();
                 } else if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsAdquirenteFragment) {
                     // TEMP para mostrar el ScreenShoot en vez del Ticket
                     // onEvent(EVENT_GO_LOAD_SHARE_EMAIL, "");
-                    //shareContent();
                     takeScreenshot();
                 }
             }
@@ -195,6 +198,21 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         return false;
     }
 
+    /*        View v1 = getWindow().getDecorView().getRootView();
+          v1.setDrawingCacheEnabled(true);
+          Bitmap bitmap = Bitmap.createBitmap(v1.getDrawingCache());
+          v1.setDrawingCacheEnabled(false);
+          File carpeta = new File(Environment.getExternalStorageDirectory() + getString(R.string.path_image));
+          if (!carpeta.exists()) {
+              carpeta.mkdir();
+          }
+          File imageFile = new File(Environment.getExternalStorageDirectory() + getString(R.string.path_image) + "/", System.currentTimeMillis() + ".jpg");
+          FileOutputStream outputStream = new FileOutputStream(imageFile);
+          int quality = 100;
+          bitmap.compress(Bitmap.CompressFormat.JPEG, quality, outputStream);
+          outputStream.flush();
+          outputStream.close();*/
+
     private void takeScreenshot() {
         try {
             View v1 = getWindow().getDecorView().getRootView();
@@ -218,33 +236,76 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     }
 
     private void sendScreenshot(File imageFile) {
+
+        MovimientosResponse emisorData = ((MovimientosResponse) serializable);
+        /**
+         * Armamos la cadena de datos dependiendo el tipo de servicios que mostramos
+         */
+        String toShare = "";
+        if (types != null) {
+            if (types.equals(TYPES.EMISOR)) {
+                switch (emisorData.getIdTipoTransaccion()) {
+                    case 1:
+                        toShare = "¡Hola!\nSe Ha Realizado una Recarga en Ya Ganaste "
+                                + "\nTelefono: " + emisorData.getReferencia()
+                                + "\nMonto: " + Utils.getCurrencyValue(emisorData.getTotal())
+                                + "\nFecha: " + emisorData.getFechaMovimiento()
+                                + "\nHora: " + emisorData.getHoraMovimiento() + " hrs"
+                                + "\nAutorizacion: " + emisorData.getNumAutorizacion();
+                        break;
+                    case 2:
+                        toShare = "¡Hola!\nSe Ha Realizado un Pago de Servicio Desde Ya Ganaste "
+                                + "\nCargo Por Servicio: $" + emisorData.getComision()
+                                + "\nIVA: $" + emisorData.getIVA()
+                                + "\nMonto: " + Utils.getCurrencyValue(emisorData.getTotal())
+                                + "\nReferencia: " + emisorData.getReferencia()
+                                + "\nFecha: " + emisorData.getFechaMovimiento()
+                                + "\nHora: " + emisorData.getHoraMovimiento() + " hrs"
+                                + "\nAutorizacion: " + emisorData.getNumAutorizacion();
+                        break;
+                    case 3:
+                        toShare = "¡Hola!\nSe Ha Realizado un Envío de Dinero Desde Ya Ganaste"
+                                + "\nReferencia: " + emisorData.getReferencia()
+                                + "\nConcepto: " + emisorData.getConcepto()
+                                + "\nMonto: " + Utils.getCurrencyValue(emisorData.getTotal())
+                                + "\nFecha: " + emisorData.getFechaMovimiento()
+                                + "\nHora: " + emisorData.getHoraMovimiento() + " hrs"
+                                + "\nAutorizacion: " + emisorData.getNumAutorizacion();
+                        break;
+                }
+            }
+        }
+
+
+        /*
+        IdTipoTransaccion = 1
+Telefono		Referencia
+Fecha			FechaMovimiento
+Hora			HoraMovimiento
+Autorizacion		NumAutorizacion
+
+IdTipoTransaccion = 2
+Cargo Por Servicio	Comision
+IVA			IVA
+Referencia		Referencia
+Fecha			FechaMovimiento
+Hora (hrs)			HoraMovimiento
+Autorizacion		NumAutorizacion
+
+IdTipoTransaccion = 3
+Telefono		Referencia
+Concepto		Concepto
+Fecha			FechaMovimiento
+Hora (hrs)		HoraMovimiento
+Autorizacion		NumAutorizacion
+*/
+
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
         intent.setType("image/jpeg");
         Uri uri = Uri.fromFile(imageFile);
         intent.putExtra(Intent.EXTRA_STREAM, uri);
-        startActivity(Intent.createChooser(intent, "Compartir Con..."));
-    }
-
-    private void shareContent() {
-        Intent intent = new Intent(Intent.ACTION_SEND);
-        intent.setType("text/plain");
-        String toShare = "Informacion to share";
-
-        /*
-        if (pago instanceof Recarga) {
-            toShare = "¡Hola!\nSe Ha Realizado una Recarga en Ya Ganaste \n" + getString(R.string.share_recargas, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
-                    pago.getComercio().getNombreComercio(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString());
-        } else if (pago instanceof Servicios) {
-            toShare = "¡Hola!\nSe Ha Realizado un Pago de Servicio Desde Ya Ganaste \n" + getString(R.string.share_pds, Utils.getCurrencyValue(pago.getMonto()), txtReferencia.getText().toString(),
-                    pago.getComercio().getNombreComercio(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString());
-        } else if (pago instanceof Envios) {
-            toShare = "¡Hola!\nSe Ha Realizado un Envío de Dinero Desde Ya Ganaste \n" + getString(R.string.share_envios, Utils.getCurrencyValue(pago.getMonto()), nombreEnvio.getText().toString(),
-                    titleReferencia.getText().toString(), txtReferencia.getText().toString(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString())
-                    .concat(pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE ? "" : getString(R.string.clave_rastreo, result.getData().getClaveRastreo()));
-        }
-        */
         intent.putExtra(Intent.EXTRA_TEXT, toShare);
-        startActivity(Intent.createChooser(intent, "Compartir Con: "));
+        startActivity(Intent.createChooser(intent, "Compartir Con..."));
     }
 }
