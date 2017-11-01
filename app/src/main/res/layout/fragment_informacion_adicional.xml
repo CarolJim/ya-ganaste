@@ -265,7 +265,8 @@
             android:layout_marginBottom="@dimen/margin_big"
             android:layout_marginTop="@dimen/margin_elements"
             android:gravity="center"
-            android:orientation="vertical">
+            android:orientation="vertical"
+            android:visibility="invisible">
 
             <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                 android:id="@+id/txtLegales"

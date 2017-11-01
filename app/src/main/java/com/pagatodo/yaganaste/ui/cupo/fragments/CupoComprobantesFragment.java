@@ -330,6 +330,11 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
             String path = SingletonUser.getInstance().getPathPictureTemp();
             bitmapLoader = new BitmapLoader(getActivity(), path, new BitmapBase64Listener() {
                 @Override
+                public void onBegin() {
+                    // TODO Show loader
+                }
+
+                @Override
                 public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
                     //enableItems(true);
                     saveBmpImgUser(bitmap, imgbase64);
@@ -353,6 +358,11 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
                     path = cursor.getString(columnIndex);
                 }
                 bitmapLoader = new BitmapLoader(getActivity(), path, new BitmapBase64Listener() {
+                    @Override
+                    public void onBegin() {
+                        //TODO showLoader
+                    }
+
                     @Override
                     public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
                         //enableItems(true);

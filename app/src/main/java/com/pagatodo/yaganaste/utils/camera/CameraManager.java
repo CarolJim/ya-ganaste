@@ -35,6 +35,7 @@ import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -66,6 +67,7 @@ public class CameraManager {
 
     public static final int REQUEST_TAKE_PHOTO = 10; // Intent para Capturar fotografía
     public static final int SELECT_FILE_PHOTO = 20; // Intent para seleccionar fotografía
+    public static final int CROP_RESULT = 30;
     private static final String TAG = DocumentosFragment.class.getSimpleName();
     private static final int USER_PHOTO = 1;
     private static final int IFE_BACK = 2;
@@ -139,6 +141,7 @@ public class CameraManager {
      * @param intIntent
      */
     public void createPhoto(int intIntent) {
+
         selectImageSource(intIntent);
     }
 
@@ -199,6 +202,7 @@ public class CameraManager {
         intent.setType("image/*");
         intent = Intent.createChooser(intent, "open");
         //startActivityForResult(intent, 1101);
+        //mView.showProgress("");
         mContext.startActivityForResult(Intent.createChooser(intent, "Selecciona Archivo"), SELECT_FILE_PHOTO);
     }
 
@@ -282,6 +286,11 @@ public class CameraManager {
         this.uriImage = uriimage;
         bitmapLoader = new BitmapLoader(mContext, uriimage.getPath(), new BitmapBase64Listener() {
             @Override
+            public void onBegin() {
+                mView.showProgress(getContext().getString(R.string.load_set_image));
+            }
+
+            @Override
             public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
                 saveBmpImgUser(bitmap, imgbase64);
             }
@@ -290,7 +299,8 @@ public class CameraManager {
 
     }
 
-    private void saveBmpImgUser(Bitmap bitmap, String imgBase64) {
+    private void
+    saveBmpImgUser(Bitmap bitmap, String imgBase64) {
         Boolean validateDuplicado;
         contador.add(imgBase64);
         validateDuplicado = checkDuplicate(contador);
@@ -346,6 +356,11 @@ public class CameraManager {
             // String path = SingletonUser.getInstance().getPathPictureTemp();
             bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {
                 @Override
+                public void onBegin() {
+                    mView.showProgress(getContext().getString(R.string.load_set_image));
+                }
+
+                @Override
                 public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
                     //enableItems(true);
                     saveBmpImgUser(bitmap, imgbase64);
@@ -353,7 +368,7 @@ public class CameraManager {
                 }
             });
 
-            mView.showProgress(getContext().getString(R.string.load_set_image));
+            //mView.showProgress(getContext().getString(R.string.load_set_image));
             this.listener.onCropper(contentUri);
         } else if (requestCode == REQUEST_TAKE_PHOTO && resultCode != RESULT_OK) {
             // enableItems(true);
@@ -396,9 +411,16 @@ public class CameraManager {
             }
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode != RESULT_OK && data == null) {
 
+        } else if (resultCode == CROP_RESULT){
+
+            this.listener.onHideProgress();
         }
     }
 
+
+    public IListaOpcionesView getView(){
+        return this.mView;
+    }
 
     public Uri getUriImage() {
         return this.uriImage;

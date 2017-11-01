@@ -91,6 +91,7 @@ import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
+import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 /**
  * Encargada de dar de alta Favoritos, pero capturando todos sus datos. primero en el servicio y luego en la base local
@@ -105,6 +106,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
     public static final String TAG = AddNewFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
+    public static boolean BACK_STATE_NEWFAVORITE = true;
 
     @BindView(R.id.add_favorites_alias)
     CustomValidationEditText editAlias;
@@ -355,11 +357,9 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         return true;
     }
 
-    @Override
-    protected void onResume() {
-        super.onResume();
-        setVisibilityPrefer(false);
-    }
+
+
+
 
     /**
      * EVENTOS OnClick de Butter Knife o Listener
@@ -582,6 +582,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     }
 
 
+
     /**
      * Resultado de procesar la imagen de la camara, aqui ya tenemos el Bitmap, y el codigo siguoente
      * es la BETA para poder darlo de alta en el servicio
@@ -615,6 +616,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         //ActualizarAvatarRequest avatarRequest = new ActualizarAvatarRequest(encoded, "png");
         // Enviamos al presenter
         //mPreferPresenter.sendPresenterActualizarAvatar(avatarRequest);
+        BACK_STATE_NEWFAVORITE = true;
         hideLoader();
     }
 
@@ -827,6 +829,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     }*/
     @Override
     public void showProgress(String mMensaje) {
+        showLoader(getString(R.string.load_photo_favorite));
     }
 
     @Override
@@ -836,7 +839,6 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
     @Override
     public void sendSuccessAvatarToView(String mensaje) {
-        //Log.d("TAG", "sendSuccessAvatarToView ");
     }
 
     @Override
@@ -1171,13 +1173,14 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     */
     @Override
     public void onCropper(Uri uri) {
-        startActivity(CropActivity.callingIntent(this, uri));
+        showLoader(getString(R.string.load_photo_favorite));
+        BACK_STATE_NEWFAVORITE = false;
+        startActivityForResult(CropActivity.callingIntent(this, uri),CROP_RESULT);
     }
 
     @Override
     public void onCropSuccess(Uri croppedUri) {
-        showLoader(getString(R.string.load_photo_favorite));
-        Log.d("CROPPE",croppedUri.getPath());
+        hideLoader();
         cameraManager.setCropImage(croppedUri);
     }
 
@@ -1186,5 +1189,24 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         e.printStackTrace();
     }
 
+    @Override
+    public void onHideProgress() {
+        hideLoader();
+        BACK_STATE_NEWFAVORITE = true;
 
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        setVisibilityPrefer(false);
+    }
+
+    @Override
+    public void onBackPressed() {
+        if(BACK_STATE_NEWFAVORITE) {
+            super.onBackPressed();
+        }
+    }
 }

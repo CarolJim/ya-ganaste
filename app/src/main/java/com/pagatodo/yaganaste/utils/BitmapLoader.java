@@ -40,6 +40,12 @@ public class BitmapLoader extends AsyncTask{
     }
 
     @Override
+    protected void onPreExecute() {
+        super.onPreExecute();
+        this.listener.onBegin();
+    }
+
+    @Override
     protected Bitmap doInBackground(Object... params) {
         try {
             if (bitmap != null) {

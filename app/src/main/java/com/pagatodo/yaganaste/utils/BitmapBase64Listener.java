@@ -7,5 +7,6 @@ import android.graphics.Bitmap;
  */
 
 public interface BitmapBase64Listener {
+    void onBegin();
     void OnBitmap64Listener(Bitmap bitmap, String imgbase64);
 }

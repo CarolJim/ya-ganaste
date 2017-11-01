@@ -56,7 +56,9 @@ import java.util.ArrayList;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_ADITIONAL_INFORMATION;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DOCUMENTS;
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_MONEY_LAUNDERING;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
@@ -180,7 +182,6 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
                 return false;
             }
         });
-        setClickLegales();
     }
 
     @Override
@@ -326,10 +327,9 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
                 }
             }
         }
-
         addNewCuestionarios(registerAgent);
-
-        infoAdicionalPresenter.createUsuarioAdquirente();
+        nextScreen(EVENT_GO_BUSSINES_MONEY_LAUNDERING, null);
+        //infoAdicionalPresenter.createUsuarioAdquirente();
     }
 
     private void addNewCuestionarios(RegisterAgent registerAgent) {
@@ -488,42 +488,4 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         onEventListener.onEvent(EVENT_SHOW_ERROR, error);
     }
 
-    private void setClickLegales() {
-        SpannableString ss = new SpannableString(getString(R.string.terms_and_conditions_aditional_info));
-        CustomClickableSpan span1 = new CustomClickableSpan() {
-            @Override
-            public void onClick(View textView) {
-                boolean isOnline = Utils.isDeviceOnline();
-                if(isOnline) {
-                    LegalsDialog legalsDialog = LegalsDialog.newInstance(TERMINOS);
-                    legalsDialog.show(getActivity().getFragmentManager(), LegalsDialog.TAG);
-                }else{
-                    showDialogMesage(getResources().getString(R.string.no_internet_access));
-                }
-
-            }
-        };
-
-        int startIndex = ss.toString().indexOf(getString(R.string.terminos_condiciones));
-        ss.setSpan(span1, startIndex, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), startIndex, ss.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-
-        txtLegales.setText(ss);
-        txtLegales.setMovementMethod(LinkMovementMethod.getInstance());
-    }
-
-    private void showDialogMesage(final String mensaje) {
-        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                    }
-
-                    @Override
-                    public void actionCancel(Object... params) {
-
-                    }
-                },
-                true, false);
-    }
 }

@@ -312,6 +312,11 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             String path = SingletonUser.getInstance().getPathPictureTemp();
             bitmapLoader = new BitmapLoader(getActivity(), path, new BitmapBase64Listener() {
                 @Override
+                public void onBegin() {
+                    //TODO ShowLoader
+                }
+
+                @Override
                 public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
                     //enableItems(true);
                     saveBmpImgUser(bitmap, imgbase64);
@@ -335,6 +340,11 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                     path = cursor.getString(columnIndex);
                 }
                 bitmapLoader = new BitmapLoader(getActivity(), path, new BitmapBase64Listener() {
+                    @Override
+                    public void onBegin() {
+                        //TODO showLoader
+                    }
+
                     @Override
                     public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
                         //enableItems(true);
