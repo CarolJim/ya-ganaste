@@ -247,11 +247,11 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                 switch (emisorData.getIdTipoTransaccion()) {
                     case 1:
                         toShare = "¡Hola!\nSe Ha Realizado una Recarga en Ya Ganaste "
-                                + "\nTelefono: " + emisorData.getReferencia()
+                                + "\nTeléfono: " + emisorData.getReferencia()
                                 + "\nMonto: " + Utils.getCurrencyValue(emisorData.getTotal())
                                 + "\nFecha: " + emisorData.getFechaMovimiento()
                                 + "\nHora: " + emisorData.getHoraMovimiento() + " hrs"
-                                + "\nAutorizacion: " + emisorData.getNumAutorizacion();
+                                + "\nAutorización: " + emisorData.getNumAutorizacion();
                         break;
                     case 2:
                         toShare = "¡Hola!\nSe Ha Realizado un Pago de Servicio Desde Ya Ganaste "
@@ -261,7 +261,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                                 + "\nReferencia: " + emisorData.getReferencia()
                                 + "\nFecha: " + emisorData.getFechaMovimiento()
                                 + "\nHora: " + emisorData.getHoraMovimiento() + " hrs"
-                                + "\nAutorizacion: " + emisorData.getNumAutorizacion();
+                                + "\nAutorización: " + emisorData.getNumAutorizacion();
                         break;
                     case 3:
                         toShare = "¡Hola!\nSe Ha Realizado un Envío de Dinero Desde Ya Ganaste"
@@ -270,7 +270,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                                 + "\nMonto: " + Utils.getCurrencyValue(emisorData.getTotal())
                                 + "\nFecha: " + emisorData.getFechaMovimiento()
                                 + "\nHora: " + emisorData.getHoraMovimiento() + " hrs"
-                                + "\nAutorizacion: " + emisorData.getNumAutorizacion();
+                                + "\nAutorización: " + emisorData.getNumAutorizacion();
                         break;
                 }
             }
