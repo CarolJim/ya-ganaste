@@ -1045,4 +1045,9 @@
     <string name="new_tittle_envios_refer_error">Referencia Numérica Inválida</string>
     <string name="new_body_envios_refer_error">Por Favor Ingresa el Número de Referencia</string>
     <string name="new_tittle_error_interno">Error Interno</string>
+    
+    <!-- Informacion adicional 2-->
+    <string name="hint_cobros_mesual">Cobros Mensuales</string>
+    <string name="hint_monto_mesual_estimado">Monto Mensual Estimado</string>
+    
 </resources>
