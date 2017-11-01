@@ -60,11 +60,11 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     Spinner spnMontoMensual;
     @BindView(R.id.errorMontoMensual)
     ErrorMessage errorMontoMensual;
-    @BindView(R.id.spnOrigenRecursos)
+    @BindView(R.id.editOrigenRecursos)
     Spinner spnOrigenRecursos;
     @BindView(R.id.errorOrigenRecursos)
     ErrorMessage errorOrigenRecursos;
-    @BindView(R.id.spnDestinoRecursos)
+    @BindView(R.id.editDestinoRecursos)
     Spinner spnDestinoRecursos;
     @BindView(R.id.errorDestinoRecursos)
     ErrorMessage errorDestinoRecursos;
