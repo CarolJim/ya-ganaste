@@ -97,7 +97,7 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-        rootView = inflater.inflate(R.layout.fragment_informacion_adicional, container, false);
+        rootView = inflater.inflate(R.layout.fragment_informacion_lavado_dinero, container, false);
         initViews();
         setValidationRules();
         return rootView;

@@ -146,9 +146,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                     takeScreenshot();
                 } else if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsAdquirenteFragment) {
                     // TEMP para mostrar el ScreenShoot en vez del Ticket
-                    // onEvent(EVENT_GO_LOAD_SHARE_EMAIL, "");
-                    onEvent(EVENT_GO_LOAD_SHARE_EMAIL, "");
-                    //shareContent();
+                     onEvent(EVENT_GO_LOAD_SHARE_EMAIL, "");
                     //takeScreenshot();
                 }
             }
@@ -248,7 +246,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
             if (types.equals(TYPES.EMISOR)) {
                 switch (emisorData.getIdTipoTransaccion()) {
                     case 1:
-                        toShare = "¡Hola!\nSe Ha Realizado una Recarga en Ya Ganaste "
+                        toShare = "¡Hola!\nSe Ha Realizado Una Recarga en Ya Ganaste "
                                 + "\nTeléfono: " + emisorData.getReferencia()
                                 + "\nMonto: " + Utils.getCurrencyValue(emisorData.getTotal())
                                 + "\nFecha: " + emisorData.getFechaMovimiento()

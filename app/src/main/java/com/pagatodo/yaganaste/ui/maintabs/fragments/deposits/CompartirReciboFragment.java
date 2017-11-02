@@ -162,7 +162,7 @@ public class CompartirReciboFragment extends GenericFragment implements Validati
         String description = dataMovimientoAdq.getNombre();
         //String description = dataMovimientoAdq.getConcepto();
         String getIdTransaction = dataMovimientoAdq.getIdTransaction();
-        getIdTransaction = "";
+      //  getIdTransaction = "";
         adqPresenter.sendTicketShare(emailToSend,
                 getIdTransaction,
                 ""
