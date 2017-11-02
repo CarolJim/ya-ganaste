@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.tarjeta;
 
+import com.pagatodo.yaganaste.App;
+import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ActualizarAvatarRequest;
@@ -10,9 +12,10 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CambiarEmailRe
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarCorreoContactanosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EstatusCuentaRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EnviarCorreoContactanosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
-import com.pagatodo.yaganaste.interfaces.ISessionExpired;
+import com.pagatodo.yaganaste.net.ApiAdtvo;
 import com.pagatodo.yaganaste.net.ApiTrans;
 import com.pagatodo.yaganaste.net.IRequestResult;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserIteractor;
@@ -25,7 +28,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.ESTATUS_CUENTA;
  */
 
 public class TarjetaUserIteractor implements IPreferUserIteractor, IRequestResult {
-    TarjetaUserPresenter tarjetaUserPresenter ;
+    TarjetaUserPresenter tarjetaUserPresenter;
 
 
     public TarjetaUserIteractor(TarjetaUserPresenter tarjetaUserPresenter) {
@@ -35,7 +38,21 @@ public class TarjetaUserIteractor implements IPreferUserIteractor, IRequestResul
 
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {
+        /**
+         * Instancia de peticion exitosa de enviar mensaje contactanos
+         */
+        if (dataSourceResult.getData() instanceof EnviarCorreoContactanosResponse) {
 
+            EnviarCorreoContactanosResponse response = (EnviarCorreoContactanosResponse) dataSourceResult.getData();
+
+            if (response.getCodigoRespuesta() == Recursos.CODE_OK) {
+                //Log.d("PreferUserIteractor", "DataSource Sucess " + response.getMensaje());
+                tarjetaUserPresenter.successGenericToPresenter(dataSourceResult);
+            } else {
+                //Log.d("PreferUserIteractor", "DataSource Sucess with Error " + response.getMensaje());
+                tarjetaUserPresenter.errorGenericToPresenter(dataSourceResult);
+            }
+        }
         if (dataSourceResult.getData() instanceof EstatusCuentaResponse) {
             EstatusCuentaResponse response = (EstatusCuentaResponse) dataSourceResult.getData();
 
@@ -128,6 +145,11 @@ public class TarjetaUserIteractor implements IPreferUserIteractor, IRequestResul
 
     @Override
     public void enviarCorreoContactanos(EnviarCorreoContactanosRequest enviarCorreoContactanosRequest) {
-
+        try {
+            ApiAdtvo.enviarCorreo(enviarCorreoContactanosRequest, this);
+        } catch (OfflineException e) {
+            // e.printStackTrace();
+            tarjetaUserPresenter.showExceptionCorreoContactanosPresenter(App.getContext().getString(R.string.no_internet_access));
+        }
     }
 }

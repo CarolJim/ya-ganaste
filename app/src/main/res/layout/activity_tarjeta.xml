@@ -68,14 +68,13 @@
                         android:layout_weight="1"
                         android:gravity="center">
 
-                        <ImageView
+                        <com.pagatodo.yaganaste.utils.customviews.YaGanasteCard
                             android:id="@+id/imgYaGanasteCard"
                             android:layout_width="200dp"
                             android:layout_height="match_parent"
-                            android:layout_gravity="center"
                             android:adjustViewBounds="true"
                             android:scaleType="centerInside"
-                            android:src="@mipmap/main_card_zoom_blue" />
+                            android:layout_gravity="center"/>
                     </LinearLayout>
                     <!--  Comienza la tabla  -->
                     <LinearLayout
