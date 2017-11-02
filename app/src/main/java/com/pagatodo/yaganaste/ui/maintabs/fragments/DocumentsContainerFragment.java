@@ -54,4 +54,7 @@ public class DocumentsContainerFragment extends SupportFragment {
     public void loadApprovedFragment() {
         loadFragment(DocumentApprovedFragment.newInstance());
     }
+    public void loadReenviarDocuemtsFragment() {
+        loadFragment(DocumentsContainerFragment.newInstance());
+    }
 }

@@ -62,9 +62,11 @@
         android:id="@+id/lnr_buttons"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginBottom="20dp"
+        android:gravity="center"
         android:layout_alignParentBottom="true"
-        android:layout_marginBottom="@dimen/btn_navigation_bottom"
-        android:gravity="center">
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
 
         <com.pagatodo.yaganaste.utils.customviews.StyleButton
             android:id="@+id/btnNextComplete"

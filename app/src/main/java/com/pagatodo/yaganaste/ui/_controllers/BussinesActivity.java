@@ -125,6 +125,7 @@ public class BussinesActivity extends LoaderActivity {
                 SingletonUser.getInstance().getDataUser().setEsAgente(true);
                 setResult(TabActivity.RESULT_ADQUIRENTE_SUCCESS);
                 finish();
+
                 break;
 
             case EVENT_SET_ADDRESS:
