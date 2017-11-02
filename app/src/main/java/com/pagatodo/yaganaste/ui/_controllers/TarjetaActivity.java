@@ -13,7 +13,6 @@ import android.text.TextPaint;
 import android.view.View;
 import android.widget.CompoundButton;
 import android.widget.FrameLayout;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,6 +29,7 @@ import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
+import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanosCorreo;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyCardViewHome;
 import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
 import com.pagatodo.yaganaste.utils.FontCache;
@@ -37,19 +37,21 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.BLOQUEO;
 import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.DESBLOQUEO;
+import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 public class TarjetaActivity extends LoaderActivity implements OnEventListener, IMyCardViewHome {
 
     private String nombreCompleto, cuentaUsuario, ultimaTransaccion;
     @BindView(R.id.imgYaGanasteCard)
-    ImageView imgYaGanasteCard;
+    YaGanasteCard imgYaGanasteCard;
     @BindView(R.id.txtNameTitular)
     TextView txtNameTitular;
     @BindView(R.id.txtultimopago)
@@ -70,7 +72,6 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     boolean statusOperation = true;
     private TarjetaUserPresenter mPreferPresenter;
     private AccountPresenterNew presenterAccount;
-    protected OnEventListener onEventListener;
     private String mTDC;
 
     @Override
@@ -177,6 +178,8 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                 // printCard(cuenta());
                 break;
         }
+        String cardNumber = App.getInstance().getPrefs().loadData(CARD_NUMBER);
+        imgYaGanasteCard.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
     }
 
     /**
@@ -197,6 +200,10 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                     }
                 },
                 true, false);
+    }
+
+    public TarjetaUserPresenter getmPreferPresenter() {
+        return mPreferPresenter;
     }
 
     private void ultimaTransaccion() {
@@ -380,6 +387,10 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         }
     }
 
+    public void onSendEmail() {
+        loadFragment(MyHelpContactanosCorreo.newInstance(), Direction.FORDWARD, false);
+    }
+
     @Override
     public void onBackPressed() {
         // Si el boton no esta deshabilitado realizamos las operaciones de back
@@ -390,6 +401,8 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                 removeLastFragment();
                 lytPrincipal.setVisibility(View.VISIBLE);
                 container.setVisibility(View.GONE);
+            } else if (currentFragment instanceof MyHelpContactanosCorreo) {
+                loadFragment(MyCardReportaTarjetaFragment.newInstance(), Direction.BACK, false);
             } else {
                 super.onBackPressed();
             }

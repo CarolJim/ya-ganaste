@@ -9,11 +9,11 @@ import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
 import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
@@ -21,8 +21,6 @@ import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_HELP_CORREO;
-import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_HELP_CORREO_REPORTA_TARJETA;
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
 
 /**
@@ -54,11 +52,10 @@ public class MyCardReportaTarjetaFragment extends GenericFragment implements Vie
     }
 
 
-
     @Override
     public void onClick(View view) {
 
-        switch (view.getId()){
+        switch (view.getId()) {
             case (R.id.btnllamar):
                 showDialogCallIntent();
                 break;
@@ -69,13 +66,10 @@ public class MyCardReportaTarjetaFragment extends GenericFragment implements Vie
                 showDialogCallIntent();
                 break;
             case (R.id.ll_contactanos_correo):
-                onEventListener.onEvent(PREFER_USER_HELP_CORREO_REPORTA_TARJETA, 1);
-                break;
-            case R.id.btnEmail:
-                onEventListener.onEvent(PREFER_USER_HELP_CORREO_REPORTA_TARJETA, 1);
+                //onEventListener.onEvent(PREFER_USER_HELP_CORREO_REPORTA_TARJETA, 1);
+                ((TarjetaActivity) getActivity()).onSendEmail();
                 break;
         }
-
     }
 
     @Override
@@ -98,7 +92,7 @@ public class MyCardReportaTarjetaFragment extends GenericFragment implements Vie
 
         if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
             ValidatePermissions.checkPermissions(getActivity(), new String[]{
-                    Manifest.permission.CALL_PHONE},PERMISSION_GENERAL);
+                    Manifest.permission.CALL_PHONE}, PERMISSION_GENERAL);
         } else {
             getActivity().startActivity(callIntent);
         }

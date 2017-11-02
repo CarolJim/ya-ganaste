@@ -789,7 +789,9 @@
     <string name="ayuda">Ayuda</string>
     <string name="enviando_mensaje">Enviando Mensaje</string>
     <string name="reporta_tu_tarjeta">Reporta tu Tarjeta</string>
-
+    <string name="email_report_succes_text">Su Reporte se ha Mandando</string>
+    <string name="email_report_error_text">Ha Ocurrido un Error, Vuelva a Intentarlo Más Tarde</string>
+    <string name="email_report_succes_title">Reportar Tarjeta</string>
 
     <string name="Tutoriales">Tutoriales</string>
     <string name="Inicio_de_Sesión">Inicio de Sesión</string>
