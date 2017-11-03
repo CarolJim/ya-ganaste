@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.pagatodo.yaganaste.utils.customviews.StyleTextView xmlns:android="http://schemas.android.com/apk/res/android"
+<com.pagatodo.yaganaste.utils.customviews.StyleTextView
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:id="@+id/textView_spinner"
     style="@style/generic_text_style_2"

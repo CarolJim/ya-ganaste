@@ -8,16 +8,20 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ForegroundColorSpan;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
+import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
@@ -25,6 +29,7 @@ import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.OnCountrySelectedListener;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
+import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
 import com.pagatodo.yaganaste.ui.adquirente.managers.InformationAdicionalManager;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.InfoAdicionalPresenter;
@@ -32,17 +37,24 @@ import com.pagatodo.yaganaste.ui.adquirente.presenters.interfaces.IinfoAdicional
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomClickableSpan;
+import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.HashSet;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DOCUMENTS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
+import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 
 /**
  * Created by Omar on 31/10/2017.
@@ -77,9 +89,13 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
 
     private View rootView;
     private IinfoAdicionalPresenter infoAdicionalPresenter;
-    private String montoMensual, cobroMensual, origenRecursos, destinoRecursos;
+    private List<String> cobrosMensual;
+    private List<String> montoMensual;
+    private List<String> origenRecursos;
+    private List<String> destinoRecursos;
     private StatesSpinnerAdapter spinnerParentescoAdapter;
     private IEnumSpinner parentesco;
+    private ArrayAdapter<String> adpaterCobros, adapterMonto, adpaterOrigen, adpaterDestino;
 
     public static InformacionLavadoDineroFragment newInstance() {
         InformacionLavadoDineroFragment fragment = new InformacionLavadoDineroFragment();
@@ -108,12 +124,37 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
         ButterKnife.bind(this, rootView);
         btnBack.setOnClickListener(this);
         btnNext.setOnClickListener(this);
+
+        cobrosMensual = Arrays.asList(getResources().getStringArray(R.array.cobros_mensual));
+        montoMensual = Arrays.asList(getResources().getStringArray(R.array.monto_mensual));
+        origenRecursos = Arrays.asList(getResources().getStringArray(R.array.origen_recursos));
+        destinoRecursos = Arrays.asList(getResources().getStringArray(R.array.destino_recursos));
+
+        adpaterCobros = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, cobrosMensual, this);
+        adapterMonto = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, montoMensual, this);
+        adpaterOrigen = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, origenRecursos, this);
+        adpaterDestino = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, destinoRecursos, this);
+
+        spnCobrosMensuales.setAdapter(adpaterCobros);
+        spnMontoMensual.setAdapter(adapterMonto);
+        spnOrigenRecursos.setAdapter(adpaterOrigen);
+        spnDestinoRecursos.setAdapter(adpaterDestino);
+        //fillAdapter();
         setClickLegales();
+    }
+
+    private void fillAdapter() {
+        montoMensual.add(getString(R.string.hint_cobros_mesual));
+        adapterMonto.notifyDataSetChanged();
     }
 
     @Override
     public void onClick(View v) {
-
+        switch (v.getId()){
+            case R.id.btnNext:
+                validateForm();
+                break;
+        }
     }
 
     @Override
@@ -133,11 +174,28 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
 
     @Override
     public void onSpinnerClick() {
+        hideValidationError(spnCobrosMensuales.getId());
+        hideValidationError(spnMontoMensual.getId());
+        hideValidationError(spnOrigenRecursos.getId());
+        hideValidationError(spnDestinoRecursos.getId());
 
+        spnCobrosMensuales.requestFocus();
+        spnMontoMensual.requestFocus();
+        spnOrigenRecursos.requestFocus();
+        spnDestinoRecursos.requestFocus();
     }
 
     @Override
     public void onSubSpinnerClick() {
+        hideValidationError(spnCobrosMensuales.getId());
+        hideValidationError(spnMontoMensual.getId());
+        hideValidationError(spnOrigenRecursos.getId());
+        hideValidationError(spnDestinoRecursos.getId());
+
+        spnCobrosMensuales.requestFocus();
+        spnMontoMensual.requestFocus();
+        spnOrigenRecursos.requestFocus();
+        spnDestinoRecursos.requestFocus();
 
     }
 
@@ -147,26 +205,30 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     }
 
     @Override
-    public void nextScreen(String event, Object data) { onEventListener.onEvent(event, data); }
+    public void nextScreen(String event, Object data) {
+        onEventListener.onEvent(event, data); }
 
     @Override
     public void backScreen(String event, Object data) {
+
         onEventListener.onEvent(event, data);
     }
 
     @Override
     public void showLoader(String message) {
+
         onEventListener.onEvent(EVENT_SHOW_LOADER, message);
     }
 
     @Override
     public void hideLoader() {
+
         onEventListener.onEvent(EVENT_HIDE_LOADER, null);
     }
 
     @Override
     public void showError(Object error) {
-
+        onEventListener.onEvent(EVENT_SHOW_ERROR, error);
     }
 
     @Override
@@ -181,21 +243,78 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
 
     @Override
     public void validateForm() {
+        boolean isValid = true;
 
+        if (spnCobrosMensuales.getSelectedItemPosition() == 0) {
+            showValidationError(errorCobrosMensuales.getId(),getString(R.string.text_error_cobros_mensual));
+            isValid = false;
+        }
+
+        if (spnMontoMensual.getSelectedItemPosition() == 0) {
+            showValidationError(errorMontoMensual.getId(),getString(R.string.text_error_monto_mensual));
+            isValid = false;
+        }
+
+        if (spnOrigenRecursos.getSelectedItemPosition() == 0) {
+            showValidationError(errorOrigenRecursos.getId(),getString(R.string.text_error_origen_recursos));
+            isValid = false;
+        }
+
+        if (spnDestinoRecursos.getSelectedItemPosition() == 0) {
+            showValidationError(errorDestinoRecursos.getId(),getString(R.string.text_error_cobros_mensual));
+            isValid = false;
+        }
+
+        if (isValid) {
+            onValidationSuccess();
+        }
     }
 
     @Override
-    public void showValidationError(int id, Object o) {
-
+    public void showValidationError(int id, Object error) {
+        switch (id) {
+            case R.id.errorCobrosMensuales:
+                errorCobrosMensuales.setMessageText(error.toString());
+                break;
+            case R.id.errorMontoMensual:
+                errorMontoMensual.setMessageText(error.toString());
+                break;
+            case R.id.errorOrigenRecursos:
+                errorOrigenRecursos.setMessageText(error.toString());
+                break;
+            case R.id.errorDestinoRecursos:
+                errorDestinoRecursos.setMessageText(error.toString());
+                break;
+        }
     }
 
     @Override
     public void hideValidationError(int id) {
-
+        switch (id) {
+            case R.id.spnCobrosMensuales:
+                errorCobrosMensuales.setVisibilityImageError(false);
+                break;
+            case R.id.spnMontoMensual:
+                errorMontoMensual.setVisibilityImageError(false);
+                break;
+            case R.id.spnOrigenRecursos:
+                errorOrigenRecursos.setVisibilityImageError(false);
+                break;
+            case R.id.spnDestinoRecursos:
+                errorDestinoRecursos.setVisibilityImageError(false);
+                break;
+        }
     }
 
     @Override
     public void onValidationSuccess() {
+
+        RegisterAgent registerAgent = RegisterAgent.getInstance();
+        registerAgent.setCobrosMensual(adpaterCobros.getItem(spnCobrosMensuales.getSelectedItemPosition()));
+        registerAgent.setMontoMensual(adapterMonto.getItem(spnMontoMensual.getSelectedItemPosition()));
+        registerAgent.setOrigenRecursos(adpaterOrigen.getItem(spnOrigenRecursos.getSelectedItemPosition()));
+        registerAgent.setDestinoRecursos(adpaterDestino.getItem(spnDestinoRecursos.getSelectedItemPosition()));
+
         infoAdicionalPresenter.createUsuarioAdquirente();
     }
 
@@ -231,12 +350,13 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
 
     @Override
     public void onSuccessCreateAgente() {
-
+        //App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
+        nextScreen(EVENT_GO_BUSSINES_DOCUMENTS, null);
     }
 
     @Override
     public void onErrorCreateAgente(ErrorObject error) {
-
+        showError(error);
     }
 
     private void setClickLegales() {

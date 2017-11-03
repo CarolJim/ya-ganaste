@@ -63,5 +63,35 @@
         <item>Mexicana</item>
         <item>Extranjero</item>
     </string-array>
+    
+    <string-array name="cobros_mensual">
+        <item>Cobros Mensuales</item>
+        <item>0&#8211;50K</item>
+        <item>50&#8211;150</item>
+        <item>150&#8211;300</item>
+        <item>300&#8211;500</item>
+    </string-array>
+
+    <string-array name="monto_mensual">
+        <item>Monto Mensual Estimado</item>
+        <item>0&#8211;50</item>
+        <item>50&#8211;100</item>
+        <item>100+</item>
+    </string-array>
+
+    <string-array name="origen_recursos">
+        <item>Origen de los Recursos</item>
+        <item>Ya Ganaste</item>
+        <item>Provinientes de Otro</item>
+    </string-array>
+
+    <string-array name="destino_recursos">
+        <item>Destino de los Recursos</item>
+        <item>Gastos de Negocio</item>
+        <item>Gastos Personales</item>
+
+    </string-array>
+
+
 
 </resources>

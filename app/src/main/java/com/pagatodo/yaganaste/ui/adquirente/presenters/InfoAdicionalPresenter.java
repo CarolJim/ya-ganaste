@@ -51,7 +51,8 @@ public class InfoAdicionalPresenter implements IinfoAdicionalPresenter {
         if (data.getCodigoRespuesta() == CODE_OK) {
             informationAdicionalManager.onSuccessCreateAgente();
         } else {
-            informationAdicionalManager.onErrorCreateAgente(new ErrorObject(data.getMensaje(), ((DataSourceResult) success).getWebService()));
+            informationAdicionalManager.onSuccessCreateAgente();
+            //informationAdicionalManager.onErrorCreateAgente(new ErrorObject(data.getMensaje(), ((DataSourceResult) success).getWebService()));
         }
     }
 

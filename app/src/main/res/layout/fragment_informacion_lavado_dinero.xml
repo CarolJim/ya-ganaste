@@ -47,31 +47,13 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content" />
 
-                    <!--<com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
-                        android:id="@+id/editCargo"
-                        style="@style/FragmentElementWithValidation"
-                        android:layout_width="match_parent"
-                        android:layout_height="wrap_content"
-                        app:formato="text"
-                        app:hintText="@string/txt_cargo"
-                        app:imageIsGone="true"
-                        app:isSingleLine="true"
-                        app:maxLength="30" />
-
-                    <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                        android:id="@+id/errorCargoMessage"
-                        style="@style/generic_text_style_2"
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:visibility="visible" />-->
-
                     <Spinner
                         android:id="@+id/spnMontoMensual"
-                        style="@style/SpinnerNoArrow"
+                        style="@style/CustomSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:backgroundTint="@color/transparent" />
+                        android:backgroundTint="@color/transparent"/>
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorMontoMensual"
@@ -81,11 +63,12 @@
 
                     <Spinner
                         android:id="@+id/spnOrigenRecursos"
-                        style="@style/SpinnerNoArrow"
+                        style="@style/CustomSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:backgroundTint="@color/transparent" />
+                        android:backgroundTint="@color/transparent"/>
+
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorOrigenRecursos"
@@ -95,17 +78,18 @@
 
                     <Spinner
                         android:id="@+id/spnDestinoRecursos"
-                        style="@style/SpinnerNoArrow"
+                        style="@style/CustomSpinner"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:background="@null"
-                        android:backgroundTint="@color/transparent" />
+                        android:backgroundTint="@color/transparent"/>
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
                         android:id="@+id/errorDestinoRecursos"
                         style="@style/generic_text_style_2"
                         android:layout_width="match_parent"
-                        android:layout_height="wrap_content" />
+                        android:layout_height="wrap_content"/>
+
                 </LinearLayout>
             </com.pagatodo.yaganaste.utils.customviews.BorderTitleLayout>
         </LinearLayout>
