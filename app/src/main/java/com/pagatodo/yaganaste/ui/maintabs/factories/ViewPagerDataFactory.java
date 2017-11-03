@@ -10,6 +10,7 @@ import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.exceptions.IllegalFactoryParameterException;
 import com.pagatodo.yaganaste.interfaces.View;
 import com.pagatodo.yaganaste.interfaces.enums.AdqEmTab;
+import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
 import com.pagatodo.yaganaste.interfaces.enums.MainTab;
 import com.pagatodo.yaganaste.interfaces.enums.SessionExistTab;
 import com.pagatodo.yaganaste.interfaces.enums.VoidTab;
@@ -17,6 +18,7 @@ import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.login.QuickBalanceFragment;
 import com.pagatodo.yaganaste.ui.account.profile.BalanceFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.GetMountFragment;
+import com.pagatodo.yaganaste.ui.adquirente.fragments.StatusRegisterAdquirienteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.AbstractAdEmFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.BlankFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
@@ -32,6 +34,7 @@ import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
 import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
+import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 
 /**
  * @author Juan Guerra on 24/03/2017.
@@ -53,6 +56,12 @@ public class ViewPagerDataFactory {
 
             case MAIN_TABS:
                 addMainFragments(fragmentList);
+                return new ViewPagerData<>(fragmentList, MainTab.values());
+            case MAIN_ELECTION:
+                addMainFragmentsselection(fragmentList);
+                return new ViewPagerData<>(fragmentList, MainTab.values());
+            case MAIN_ELECTION_ACTUALIZACIONDOCS:
+                addMainFragmentsselection(fragmentList);
                 return new ViewPagerData<>(fragmentList, MainTab.values());
 
             case HOME_FRAGMENT:
@@ -80,18 +89,48 @@ public class ViewPagerDataFactory {
                 throw new IllegalFactoryParameterException(type.toString());
         }
     }
+    private static void addMainFragmentsselection(List<Fragment> fragmentList) {
+        fragmentList.remove(StatusRegisterAdquirienteFragment.newInstance());
+        fragmentList.add(HomeTabFragment.newInstance());
+        fragmentList.add(PaymentsTabFragment.newInstance());
+        fragmentList.add(DepositsFragment.newInstance());
+        fragmentList.add(DocumentsContainerFragment.newInstance());
 
+    }
     private static void addMainFragments(List<Fragment> fragmentList) {
+       int Idestatus;
         fragmentList.add(HomeTabFragment.newInstance());
         fragmentList.add(PaymentsTabFragment.newInstance());
         fragmentList.add(DepositsFragment.newInstance());
 
+        Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
         if (SingletonUser.getInstance().getDataUser().isEsAgente()
                 && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_DOCTO_APROBADO) {
             fragmentList.add(GetMountFragment.newInstance());
+        }else if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                && Idestatus == IdEstatus.I6.getId() && SingletonUser.getInstance().getDataUser().getEstatusAgente() == STATUS_DOCTO_PENDIENTE) {
+            //fragmentList.add(DocumentsContainerFragment.newInstance());
+            fragmentList.add(InviteAdquirenteFragment.newInstance());
         } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
-                && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == STATUS_DOCTO_PENDIENTE) {
-            fragmentList.add(DocumentsContainerFragment.newInstance());
+                && Idestatus == IdEstatus.I6.getId()) {
+            //fragmentList.add(DocumentsContainerFragment.newInstance());
+            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
+            fragmentList.add(InviteAdquirenteFragment.newInstance());
+        } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                && Idestatus == IdEstatus.I7.getId()) {
+            //fragmentList.add(DocumentsContainerFragment.newInstance());
+            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
+        } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                && Idestatus == IdEstatus.I8.getId()) {
+            //fragmentList.add(DocumentsContainerFragment.newInstance());
+            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
+        } else if (SingletonUser.getInstance().getDataUser().isEsAgente() &&
+                   Idestatus == IdEstatus.I9.getId()) {
+            //fragmentList.add(DocumentsContainerFragment.newInstance());
+            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
+        } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
+                && SingletonUser.getInstance().getDataUser().getEstatusAgente() == STATUS_DOCTO_PENDIENTE) {
+            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
         } else {
             fragmentList.add(InviteAdquirenteFragment.newInstance());
         }
@@ -112,6 +151,8 @@ public class ViewPagerDataFactory {
     public enum TABS {
         MAIN_LOGIN,
         MAIN_TABS,
+        MAIN_ELECTION_ACTUALIZACIONDOCS,
+        MAIN_ELECTION,
         HOME_FRAGMENT,
         PERSONAL_ACCOUNT,
         PAYMENTS,

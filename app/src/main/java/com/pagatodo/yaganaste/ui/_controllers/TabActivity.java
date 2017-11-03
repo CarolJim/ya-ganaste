@@ -79,6 +79,8 @@ import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 public class TabActivity extends ToolBarPositionActivity implements TabsView, OnEventListener,
         IAprovView<ErrorObject>, IResetNIPView<ErrorObject> {
     public static final String EVENT_INVITE_ADQUIRENTE = "1";
+    public static final String EVENT_ERROR_DOCUMENTS = "EVENT_ERROR_DOCUMENTS";
+    public static final String EVENT_CARGA_DOCUMENTS= "EVENT_CARGA_DOCUMENTS";
     public static final String EVENT_DOCUMENT_APPROVED = "EVENT_DOCUMENT_APPROVED";
     public static final String EVENT_GO_HOME = "2";
     public static final String EVENT_CHANGE_MAIN_TAB_VISIBILITY = "3";
@@ -144,6 +146,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
         linearLayout.setDividerPadding(0);
         linearLayout.setDividerDrawable(drawable);
         mainTab.setSelectedTabIndicatorHeight(4);
+
         mainTab.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
             @Override
             public void onTabSelected(TabLayout.Tab tab) {
@@ -262,6 +265,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 hideMainTab();
             }
         } else if (event.equals(EVENT_HIDE_MANIN_TAB)) {
+
             hideMainTab();
         } else if (event.equals(EVENT_SHOW_MAIN_TAB)) {
             showMainTab();
@@ -269,8 +273,21 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
             DocumentsContainerFragment mFragment = (DocumentsContainerFragment)
                     getSupportFragmentManager().findFragmentById(R.id.main_view_pager);
             mFragment.loadApprovedFragment();
-
+        }else if (event.equals(EVENT_ERROR_DOCUMENTS)) {
+            showMainTab();
+            tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_ELECTION);
+            onInviteAdquirente();
+        } else if (event.equals(EVENT_CARGA_DOCUMENTS)) {
+            showMainTab();
+            tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
+            onInviteAdquirente();
         }
+        else if (event.equals(EVENT_CARGA_DOCUMENTS)) {
+            showMainTab();
+            tabPresenter.getPagerData(ViewPagerDataFactory.TABS.MAIN_TABS);
+            onInviteAdquirente();
+        }
+
     }
 
     protected void hideMainTab() {
