@@ -2,9 +2,11 @@ package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.text.SpannableString;
 import android.text.TextUtils;
 import android.text.style.AbsoluteSizeSpan;
@@ -63,7 +65,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
  * Created by Dell on 25/07/2017.
  */
 
-public class StatusRegisterAdquirienteFragment extends GenericFragment  implements View.OnClickListener {
+public class StatusRegisterAdquirienteFragment extends GenericFragment implements View.OnClickListener {
 
     public static final int PASO_CUPO_DOCUMENTACION_INCOMPLETA = 1;
     public static final int PASO_CUPO_VALIDACION_DE_DOCUMENTOS = 2;
@@ -81,7 +83,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment  implemen
 
 
     public static final int ESTATUS_GENERAL_DATOS_CAP = 1;  // Datos Capturados
-    public static final int ESTATUS_GENERAL_PENDIENTE_DOC= 2;  // Documentos en validación
+    public static final int ESTATUS_GENERAL_PENDIENTE_DOC = 2;  // Documentos en validación
     public static final int ESTATUS_GENERAL_RECHAZADO_DOC = 3;  // Documentos rechazados (parcial o total)
     public static final int ESTATUS_GENERAL_PENDIENTE_REF = 4;  // Referencias en validación
     public static final int ESTATUS_GENERAL_RECHAZADO_REF = 5;  // Referencias rechazadas (parcial o total)
@@ -92,17 +94,24 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment  implemen
 
     private int ESTADO_ACTUAL = 0;
 
-    @BindView(R.id.status_view)StatusViewCupo statusViewCupo;
-    @BindView(R.id.status_view_revisando_docs)StatusViewCupo statusViewadqrevdocs;
-    @BindView(R.id.status_view_revisando_sol)StatusViewCupo statusViewadqrevsolc;
-    @BindView(R.id.txt_status)StyleTextView statusText;
-    @BindView(R.id.txt_status_info)StyleTextView statusTextInfo;
-    @BindView(R.id.txt_contactanos)StyleTextView mTextContact;
-    @BindView(R.id.btnNextScreen)Button mButtonContinue;
-    @BindView(R.id.txt_importe) MontoTextView importe;
+    @BindView(R.id.status_view)
+    StatusViewCupo statusViewCupo;
+    @BindView(R.id.status_view_revisando_docs)
+    StatusViewCupo statusViewadqrevdocs;
+    @BindView(R.id.status_view_revisando_sol)
+    StatusViewCupo statusViewadqrevsolc;
+    @BindView(R.id.txt_status)
+    StyleTextView statusText;
+    @BindView(R.id.txt_status_info)
+    StyleTextView statusTextInfo;
+    @BindView(R.id.txt_contactanos)
+    StyleTextView mTextContact;
+    @BindView(R.id.btnNextScreen)
+    Button mButtonContinue;
+    @BindView(R.id.txt_importe)
+    MontoTextView importe;
 
     private View rootview;
-
 
 
     public static StatusRegisterAdquirienteFragment newInstance() {
@@ -122,9 +131,9 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment  implemen
     @Override
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
 
-         if (rootview == null) {
-             rootview = inflater.inflate(R.layout.activity_adq_status, container, false);
-             initViews();
+        if (rootview == null) {
+            rootview = inflater.inflate(R.layout.activity_adq_status, container, false);
+            initViews();
         }
         return rootview;
     }
@@ -148,44 +157,54 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment  implemen
         statusViewadqrevdocs.setVisibility(View.GONE);
         mTextContact.setOnClickListener(this);
 
-          if ( Idestatus == IdEstatus.I7.getId()) {
-              importe.setVisibility(View.GONE);
-              statusTextInfo.setText(getText(R.string.txt_validate_solic));
-              statusText.setText("Revisando Tus \nDocuemtos\n1/2");
-              statusViewadqrevdocs.setVisibility(View.VISIBLE);
-              statusViewadqrevdocs.updateStatus(50,0);
-              mTextContact.setVisibility(View.VISIBLE);
-              mButtonContinue.setVisibility(View.GONE);
-              mTextContact.setTextSize(12);
-        } else if ( Idestatus == IdEstatus.I8.getId()) {
-              importe.setVisibility(View.GONE);
-              statusTextInfo.setText(getText(R.string.txt_validate_solic));
-              statusText.setText("Aprobando tu\nSolicitud\n1/2");
-              statusViewadqrevsolc.updateStatus(50,50);
-              statusViewadqrevsolc.setVisibility(View.VISIBLE);
-              mButtonContinue.setVisibility(View.GONE);
-              mTextContact.setVisibility(View.VISIBLE);
-              mTextContact.setTextSize(12);
+        if (Idestatus == IdEstatus.I7.getId()) {
+            importe.setVisibility(View.GONE);
+            statusTextInfo.setText(getText(R.string.txt_validate_solic));
+            statusText.setText("Revisando Tus \nDocuemtos\n1/2");
+            statusViewadqrevdocs.setVisibility(View.VISIBLE);
+            statusViewadqrevdocs.updateStatus(50, 0);
+            mTextContact.setVisibility(View.VISIBLE);
+            mButtonContinue.setVisibility(View.GONE);
+            mTextContact.setTextSize(12);
+        } else if (Idestatus == IdEstatus.I8.getId()) {
+            importe.setVisibility(View.GONE);
+            statusTextInfo.setText(getText(R.string.txt_validate_solic));
+            statusText.setText("Aprobando tu\nSolicitud\n1/2");
+            statusViewadqrevsolc.updateStatus(50, 50);
+            statusViewadqrevsolc.setVisibility(View.VISIBLE);
+            mButtonContinue.setVisibility(View.GONE);
+            mTextContact.setVisibility(View.VISIBLE);
+            mTextContact.setTextSize(12);
+        } else if (Idestatus == IdEstatus.I11.getId()) {
+            importe.setVisibility(View.GONE);
+            statusTextInfo.setText(getText(R.string.txt_validate_solic));
+            statusText.setText("Aprobando tu\nSolicitud\n1/2");
+            statusViewadqrevsolc.updateStatus(50, 50);
+            statusViewadqrevsolc.setVisibility(View.VISIBLE);
+            mButtonContinue.setVisibility(View.GONE);
+            mTextContact.setVisibility(View.VISIBLE);
+            mTextContact.setTextSize(12);
         } else if (Idestatus == IdEstatus.I9.getId()) {
-              statusTextInfo.setText("Ocurrió un Error\nCon Tu Documentación");
-              statusText.setText("Reenvía Tus\nDocumentos\n1/2");
-              statusViewCupo.updateError(50,0);
-              mTextContact.setVisibility(View.VISIBLE);
-              mTextContact.setTextSize(12);
-              statusViewCupo.setVisibility(View.VISIBLE);
-              mTextContact.setVisibility(View.GONE);
-              mButtonContinue.setVisibility(View.VISIBLE);
+            statusTextInfo.setText("Ocurrió un Error\nCon Tu Documentación");
+            statusText.setText("Reenvía Tus\nDocumentos");
+            statusViewCupo.updateError(50, 0);
+            mTextContact.setVisibility(View.VISIBLE);
+            mTextContact.setTextSize(12);
+            statusViewCupo.setVisibility(View.VISIBLE);
+            mTextContact.setVisibility(View.GONE);
+            mButtonContinue.setVisibility(View.VISIBLE);
         } else {
             importe.setVisibility(View.GONE);
             statusTextInfo.setText(getText(R.string.txt_validate_solic));
             statusText.setText("Revisando Tus \nDocuemtos\n1/2");
             statusViewadqrevdocs.setVisibility(View.VISIBLE);
-            statusViewadqrevdocs.updateStatus(50,0);
+            statusViewadqrevdocs.updateStatus(50, 0);
             mTextContact.setVisibility(View.VISIBLE);
-              mTextContact.setTextSize(12);
+            mTextContact.setTextSize(12);
             mButtonContinue.setVisibility(View.GONE);
         }
     }
+
     private void showDialogCallIntent() {
         UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaRealizarLlamada), getFragmentManager(),
                 doubleActions, true, true);
@@ -200,11 +219,11 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment  implemen
 
             Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
 
-            if ( Idestatus == IdEstatus.I7.getId()) {
+            if (Idestatus == IdEstatus.I7.getId()) {
                 if (onEventListener != null) {
                     onEventListener.onEvent(TabActivity.EVENT_ERROR_DOCUMENTS, null);
                 }
-            } else if ( Idestatus == IdEstatus.I8.getId()) {
+            } else if (Idestatus == IdEstatus.I8.getId()) {
                 if (onEventListener != null) {
                     onEventListener.onEvent(TabActivity.EVENT_ERROR_DOCUMENTS, null);
                 }
@@ -222,6 +241,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment  implemen
         }
 
     }
+
     private void createCallIntent() {
         String number = getString(R.string.numero_telefono_contactanos);
         Intent callIntent = new Intent(Intent.ACTION_CALL);
@@ -230,8 +250,18 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment  implemen
 
         if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
             ValidatePermissions.checkPermissions(getActivity(), new String[]{
-                    Manifest.permission.CALL_PHONE},PERMISSION_GENERAL);
+                    Manifest.permission.CALL_PHONE}, PERMISSION_GENERAL);
         } else {
+            if (ActivityCompat.checkSelfPermission(this.getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+                // TODO: Consider calling
+                //    ActivityCompat#requestPermissions
+                // here to request the missing permissions, and then overriding
+                //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+                //                                          int[] grantResults)
+                // to handle the case where the user grants the permission. See the documentation
+                // for ActivityCompat#requestPermissions for more details.
+                return;
+            }
             getActivity().startActivity(callIntent);
         }
     }
