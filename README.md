@@ -1,5 +1,5 @@
 ********************************************************************************************************************************
-************************************************  YA GANASTE README ************************************************************
+YA GANASTE README
 ********************************************************************************************************************************
 
 Para poder mejorar el proceso de documentación de código así como las referencias y notas que cada versión contienen se ocupará
@@ -13,10 +13,10 @@ Las intrucciones de uso son las siguientes:
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
 
 ********************************************************************************************************************************
-********************************************************************************************************************************
 
-                                                VERSION 1.6.8 - 26 de Octubre del 2017
+                                                VERSION 1.6.8 - 25 de Septiembre a 26 de Octubre del 2017
 Descripción al desarrollador:
+
     * Pantalla para encuadrar fotos tomadas o imagenes de galería.
     * Cambios en diseño de flujo emisor y adquiriente.
     * Cambios en logos de carrusel.
@@ -29,9 +29,8 @@ Descripción al desarrollador:
     * Compartir por medio de Screenshots.
 
 Funcionalidades:
+
     * Editar y Eliminar Favoritos
     * Cambio en la pantalla de Login
     * Visualización diferente del diseño de tarjeta (Bloqueada/Desbloqueada)
     * Batería de Lector
-
-                                                                                                Ciclo: 25/Sep a 26/Oct

@@ -330,7 +330,7 @@ public class ApiAdtvo extends Api {
      */
     public static void crearAgente(CrearAgenteRequest request, IRequestResult result) throws OfflineException {
         Map<String, String> headers = getHeadersYaGanaste();
-        //headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
         headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
         NetFacade.consumeWS(CREAR_AGENTE,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.createAgentUrl),

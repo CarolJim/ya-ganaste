@@ -328,8 +328,8 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
             }
         }
         addNewCuestionarios(registerAgent);
-        //nextScreen(EVENT_GO_BUSSINES_MONEY_LAUNDERING, null);
-        infoAdicionalPresenter.createUsuarioAdquirente();
+        nextScreen(EVENT_GO_BUSSINES_MONEY_LAUNDERING, null);
+        //infoAdicionalPresenter.createUsuarioAdquirente();
     }
 
     private void addNewCuestionarios(RegisterAgent registerAgent) {
@@ -438,7 +438,6 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     @Override
     public void onSuccessCreateAgente() {
         App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
-        nextScreen(EVENT_GO_BUSSINES_DOCUMENTS, null);
     }
 
     @Override
