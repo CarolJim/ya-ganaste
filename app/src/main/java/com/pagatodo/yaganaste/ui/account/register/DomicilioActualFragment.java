@@ -649,7 +649,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             }
         };
 
-        //"Al Continuar Reconozco Ser Mayor de Edad, Así Como Haber Leído y Aceptado los Términos y Condiciones y el Aviso de Privacidad"
+        //Al Continuar Reconozco Haber Leído y Aceptado Los Términos y Condiciones
 
         CustomClickableSpan span2 = new CustomClickableSpan() {
             @Override
@@ -667,11 +667,11 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             }
         };
 
-        ss.setSpan(span1, 78, 100, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 78, 100, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(span1, 50, 72, Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 50, 72, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
 
-        ss.setSpan(span2, 106, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
-        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 106, ss.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        /*ss.setSpan(span2, 106, ss.length(), Spanned.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 106, ss.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);*/
 
 
         txtLegales.setText(ss);
