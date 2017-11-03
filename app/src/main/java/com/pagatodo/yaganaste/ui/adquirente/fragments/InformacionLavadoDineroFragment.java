@@ -144,7 +144,7 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     }
 
     private void fillAdapter() {
-        montoMensual.add(getString(R.string.hint_cobros_mesual));
+        montoMensual.add(getString(R.string.hint_cobros_mensual));
         adapterMonto.notifyDataSetChanged();
     }
 
