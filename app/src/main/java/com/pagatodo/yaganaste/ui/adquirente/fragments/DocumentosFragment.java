@@ -33,6 +33,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DataDocuments;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusDocumentosResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IUploadDocumentsView;
+import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
@@ -186,7 +187,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_PENDIENTE
                 && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == CRM_PENDIENTE) {  //si ya se hiso el proceso de envio de documentos
             mExisteDocs = true;
-            lnr_help.setVisibility(VISIBLE);
+           // lnr_help.setVisibility(VISIBLE);
             initSetClickableStatusDocs();
             btnWeNeedSmFilesNext.setVisibility(View.INVISIBLE);
 
@@ -447,7 +448,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             }
             bitmap = null;
             btnWeNeedSmFilesNext.setVisibility(VISIBLE);
-            btnRegresar.setVisibility(VISIBLE);
+            btnRegresar.setVisibility(GONE);
             lnr_buttons.setVisibility(VISIBLE);
             swipeRefreshLayout.setEnabled(false);
         }
@@ -555,6 +556,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void documentsUploaded(String message) {
         dataDocumnets.clear();
         nextScreen(EVENT_GO_BUSSINES_COMPLETE, null);
+        SingletonUser.getInstance().getDataUser().setIdEstatus(7);
+        onEventListener.onEvent(TabActivity.EVENT_CARGA_DOCUMENTS, null);
+
     }
 
     /***
@@ -565,6 +569,9 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     public void documentosActualizados(String s) {
         dataDocumnets.clear();
         refreshContent();
+        SingletonUser.getInstance().getDataUser().setIdEstatus(7);
+        onEventListener.onEvent(TabActivity.EVENT_CARGA_DOCUMENTS, null);
+
     }
 
     /**
