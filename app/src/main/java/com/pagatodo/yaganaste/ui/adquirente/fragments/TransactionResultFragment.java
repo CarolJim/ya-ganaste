@@ -99,11 +99,13 @@ public class TransactionResultFragment extends GenericFragment implements View.O
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        txtTitleResult.setText(!pageResultData.getTitle().isEmpty() ? pageResultData.getTitle() : "");
-        txtMessageResult.setText(!pageResultData.getMessage().isEmpty() ? pageResultData.getMessage() : "");
+        if (pageResultData != null) {
+            txtTitleResult.setText(!pageResultData.getTitle().isEmpty() ? pageResultData.getTitle() : "");
+            txtMessageResult.setText(!pageResultData.getMessage().isEmpty() ? pageResultData.getMessage() : "");
 
-        txtDescriptionResult.setText(!pageResultData.getDescription().isEmpty() ? pageResultData.getDescription() : "");
-        imgResult.setImageResource(pageResultData.getIdResurceIcon());
+            txtDescriptionResult.setText(!pageResultData.getDescription().isEmpty() ? pageResultData.getDescription() : "");
+            imgResult.setImageResource(pageResultData.getIdResurceIcon());
+        }
         setAndConfigureBtns(llContentBtns);
     }
 

@@ -30,12 +30,12 @@ tools:context="com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.CompartirRe
             style="@style/BorderTitleStyle"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="3"
             app:title="@string/share_ticket_email">
 
             <LinearLayout
                 style="@style/BorderLayoutContent"
                 android:layout_width="match_parent"
+                android:layout_marginTop="16dp"
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
