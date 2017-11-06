@@ -464,6 +464,7 @@ public class InsertDongleFragment extends GenericFragment implements View.OnClic
         if (isCancelation) {
             if (dataMovimientoAdq.getTipoTrans().equals(TIPO_TRANSACCION_CHIP)) {
                 message = getString(R.string.text_insert_cancelation);
+                imgInsertCard.setImageResource(R.mipmap.dongle_insert_card);
             } else {
                 // showError("Mensaje de prueba dongle_swipe_card");
                 message = getString(R.string.text_slide_cancelation);
