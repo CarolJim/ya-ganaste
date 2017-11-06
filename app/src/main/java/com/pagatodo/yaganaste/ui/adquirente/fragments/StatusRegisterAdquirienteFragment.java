@@ -160,7 +160,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
         if (Idestatus == IdEstatus.I7.getId()) {
             importe.setVisibility(View.GONE);
             statusTextInfo.setText(getText(R.string.txt_validate_solic));
-            statusText.setText("Revisando Tus \nDocuemtos\n1/2");
+            statusText.setText("Revisando Tus \nDocuemtos");
             statusViewadqrevdocs.setVisibility(View.VISIBLE);
             statusViewadqrevdocs.updateStatus(50, 0);
             mTextContact.setVisibility(View.VISIBLE);
@@ -169,7 +169,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
         } else if (Idestatus == IdEstatus.I8.getId()) {
             importe.setVisibility(View.GONE);
             statusTextInfo.setText(getText(R.string.txt_validate_solic));
-            statusText.setText("Aprobando tu\nSolicitud\n1/2");
+            statusText.setText("Aprobando tu\nSolicitud");
             statusViewadqrevsolc.updateStatus(50, 50);
             statusViewadqrevsolc.setVisibility(View.VISIBLE);
             mButtonContinue.setVisibility(View.GONE);
@@ -178,7 +178,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
         } else if (Idestatus == IdEstatus.I11.getId()) {
             importe.setVisibility(View.GONE);
             statusTextInfo.setText(getText(R.string.txt_validate_solic));
-            statusText.setText("Aprobando tu\nSolicitud\n1/2");
+            statusText.setText("Aprobando tu\nSolicitud");
             statusViewadqrevsolc.updateStatus(50, 50);
             statusViewadqrevsolc.setVisibility(View.VISIBLE);
             mButtonContinue.setVisibility(View.GONE);
@@ -196,7 +196,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
         } else {
             importe.setVisibility(View.GONE);
             statusTextInfo.setText(getText(R.string.txt_validate_solic));
-            statusText.setText("Revisando Tus \nDocuemtos\n1/2");
+            statusText.setText("Revisando Tus \nDocuemtos");
             statusViewadqrevdocs.setVisibility(View.VISIBLE);
             statusViewadqrevdocs.updateStatus(50, 0);
             mTextContact.setVisibility(View.VISIBLE);
