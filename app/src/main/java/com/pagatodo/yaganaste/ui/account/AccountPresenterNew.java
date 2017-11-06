@@ -129,6 +129,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void validateEmail(String usuario) {
         accountView.showLoader(context.getString(R.string.verificando_email));
+        RequestHeaders.setUsername(usuario);
         accountIteractor.validateUserStatus(usuario);
     }
 
