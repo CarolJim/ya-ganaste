@@ -345,7 +345,6 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
 
     @Override
     public void showValidationError(int id, Object error) {
-
         switch (id) {
             case R.id.editPassword:
                 errorPasswordMessage.setMessageText(error.toString());
@@ -435,7 +434,11 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
      */
     @Override
     public void sendErrorPassToView(String mensaje) {
-        showDialogMesage(mensaje);
+        if(mensaje.contains("Contraseña")) {
+            showDialogMesage(getString(R.string.error_service_verify_pass));
+        } else {
+            showDialogMesage(mensaje);
+        }
         hideLoader();
         onEventListener.onEvent("DISABLE_BACK", false);
     }

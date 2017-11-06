@@ -420,7 +420,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
             }
         } else if (accountView instanceof IChangeNIPView) {
             if (ws == ASIGNAR_NEW_NIP) {
-                accountView.nextScreen(EVENT_GO_CHANGE_NIP_SUCCESS, data);
+                ((IChangeNIPView)accountView).setSuccessChangeNip(data);
                 //accountView.showError(data.toString());
                // mensajesucces.showError(data.toString());
 

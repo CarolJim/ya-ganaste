@@ -37,6 +37,7 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import com.pagatodo.yaganaste.utils.customviews.YaGanasteCard;
 
 import butterknife.BindView;
@@ -68,6 +69,8 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     LinearLayout lytReportCard;
     @BindView(R.id.container)
     FrameLayout container;
+    @BindView(R.id.txtBlockCardDesc)
+    StyleTextView txtBlockCardDesc;
     int statusBloqueo;
     boolean statusOperation = true;
     private TarjetaUserPresenter mPreferPresenter;
@@ -163,18 +166,21 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                 mycard_switch.setChecked(true);
                 imgStatus.setImageResource(R.drawable.ic_candado_closed);
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_gray);
+                txtBlockCardDesc.setText(getString(R.string.desbloquear_tarjeta));
                 //  printCard(cuenta());
                 break;
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
                 mycard_switch.setChecked(false);
                 imgStatus.setImageResource(R.drawable.ic_candado_open);
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
+                txtBlockCardDesc.setText(getString(R.string.bloquear_tarjeta));
                 //   printCard(cuenta());
                 break;
             default:
                 mycard_switch.setChecked(false);
                 imgStatus.setImageResource(R.drawable.ic_candado_open);
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
+                txtBlockCardDesc.setText(getString(R.string.bloquear_tarjeta));
                 // printCard(cuenta());
                 break;
         }

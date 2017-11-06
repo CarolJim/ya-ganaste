@@ -7,58 +7,30 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.text.Spannable;
 import android.text.SpannableString;
-import android.text.TextUtils;
-import android.text.style.AbsoluteSizeSpan;
-import android.text.style.RelativeSizeSpan;
-import android.text.style.SuperscriptSpan;
-import android.util.Log;
+import android.text.style.ForegroundColorSpan;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.dto.ErrorObject;
-import com.pagatodo.yaganaste.data.model.Referencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataObtenerDomicilio;
-import com.pagatodo.yaganaste.data.model.webservice.response.cupo.DataEstadoSolicitud;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
-import com.pagatodo.yaganaste.interfaces.IAdqRegisterView;
-import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.IdEstatus;
-import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
 import com.pagatodo.yaganaste.ui._controllers.TabActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
-import com.pagatodo.yaganaste.ui.cupo.fragments.CupoDomicilioPersonalFragment;
-import com.pagatodo.yaganaste.ui.cupo.managers.CupoActivityManager;
-import com.pagatodo.yaganaste.ui.cupo.presenters.CupoDomicilioPersonalPresenter;
-import com.pagatodo.yaganaste.ui.cupo.view.IViewStatusRegisterCupo;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.DocumentsContainerFragment;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.InviteAdquirenteFragment;
-import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StatusViewCupo;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
-import java.util.List;
-
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.text.Spanned.SPAN_INCLUSIVE_INCLUSIVE;
-import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
-import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
-import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
-import static com.pagatodo.yaganaste.utils.Recursos.CRM_DOCTO_APROBADO;
-import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_PENDIENTE;
-import static com.pagatodo.yaganaste.utils.Recursos.STATUS_DOCTO_RECHAZADO;
 
 
 /**
@@ -203,6 +175,9 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
             mTextContact.setTextSize(12);
             mButtonContinue.setVisibility(View.GONE);
         }
+        SpannableString ss = new SpannableString(getString(R.string.txt_contacto_registro_circulos));
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 28, 42, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        mTextContact.setText(ss);
     }
 
     private void showDialogCallIntent() {

@@ -7,5 +7,5 @@ import com.pagatodo.yaganaste.interfaces.INavigationView;
  */
 
 public interface IChangeNIPView extends INavigationView {
-
+    void setSuccessChangeNip(Object data);
 }
