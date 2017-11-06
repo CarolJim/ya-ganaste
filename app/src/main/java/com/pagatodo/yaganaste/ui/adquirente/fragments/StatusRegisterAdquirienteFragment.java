@@ -132,7 +132,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
         if (Idestatus == IdEstatus.I7.getId()) {
             importe.setVisibility(View.GONE);
             statusTextInfo.setText(getText(R.string.txt_validate_solic));
-            statusText.setText("Revisando Tus \nDocuemtos");
+            statusText.setText("Revisando Tus \nDocumentos");
             statusViewadqrevdocs.setVisibility(View.VISIBLE);
             statusViewadqrevdocs.updateStatus(50, 0);
             mTextContact.setVisibility(View.VISIBLE);
@@ -168,7 +168,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
         } else {
             importe.setVisibility(View.GONE);
             statusTextInfo.setText(getText(R.string.txt_validate_solic));
-            statusText.setText("Revisando Tus \nDocuemtos");
+            statusText.setText("Revisando Tus \nDocumentos");
             statusViewadqrevdocs.setVisibility(View.VISIBLE);
             statusViewadqrevdocs.updateStatus(50, 0);
             mTextContact.setVisibility(View.VISIBLE);
@@ -176,7 +176,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
             mButtonContinue.setVisibility(View.GONE);
         }
         SpannableString ss = new SpannableString(getString(R.string.txt_contacto_registro_circulos));
-        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccentTransparent)), 28, 42, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        ss.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.circlecarousel1)), 27, 42, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         mTextContact.setText(ss);
     }
 
