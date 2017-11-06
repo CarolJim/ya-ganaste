@@ -463,7 +463,6 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
 
     @Override
     public void nextScreen(String event, Object data) {
-        showErrorsucces(event, data);
 
     }
 
@@ -505,14 +504,15 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
         }
     }
 
-    public void showErrorsucces(final String event, final Object error) {
-        if (!error.toString().isEmpty())
+    @Override
+    public void setSuccessChangeNip(Object data) {
+        if (!data.toString().isEmpty())
             //  UI.showToastShort(error.toString(), getActivity());
-            UI.createSimpleCustomDialog("", error.toString(), getFragmentManager(),
+            UI.createSimpleCustomDialog("", data.toString(), getFragmentManager(),
                     new DialogDoubleActions() {
                         @Override
                         public void actionConfirm(Object... params) {
-                            onEventListener.onEvent(event, error);
+                            getActivity().onBackPressed();
                         }
 
                         @Override
@@ -522,6 +522,4 @@ public class MyChangeNip extends GenericFragment implements ValidationForms, Vie
                     },
                     true, false);
     }
-
-
 }

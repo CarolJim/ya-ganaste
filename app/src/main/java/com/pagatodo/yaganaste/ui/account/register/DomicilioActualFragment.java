@@ -662,8 +662,6 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                 } else {
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }
-
-
             }
         };
 
