@@ -198,16 +198,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             titleReferencia.setText(((Envios) pago).getTipoEnvio().getShortName());
         }
 
-        String text = String.format("%.2f", pago.getMonto());
-        text = text.replace(",", ".");
-        importe.setText(text);
-        //editMail.setDrawableImage(R.drawable.mail_canvas);
-
-        /*
-        Bloqur para poner el formato de telefono o otros ejemplos
-        5534812289
-        0123456789
-         */
+        importe.setText(Utils.getCurrencyValue(pago.getMonto()));
         String formatoPago = pago.getReferencia();
 
         if (pago instanceof Recarga) {
