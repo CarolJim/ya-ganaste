@@ -202,12 +202,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         text = text.replace(",", ".");
         importe.setText(text);
         //editMail.setDrawableImage(R.drawable.mail_canvas);
-
-        /*
-        Bloqur para poner el formato de telefono o otros ejemplos
-        5534812289
-        0123456789
-         */
         String formatoPago = pago.getReferencia();
 
         if (pago instanceof Recarga) {
@@ -226,7 +220,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
                 formatoPago = StringUtils.formatoPagoMedios(formatoPago);
             }
         }
-
 
         txtReferencia.setText(formatoPago);
         txtReferencia.setSelected(true);
