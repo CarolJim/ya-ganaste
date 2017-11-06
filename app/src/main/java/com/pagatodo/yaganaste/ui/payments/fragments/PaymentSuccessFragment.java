@@ -199,6 +199,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         }
 
         importe.setText(Utils.getCurrencyValue(pago.getMonto()));
+
         String formatoPago = pago.getReferencia();
 
         if (pago instanceof Recarga) {
@@ -217,7 +218,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
                 formatoPago = StringUtils.formatoPagoMedios(formatoPago);
             }
         }
-
 
         txtReferencia.setText(formatoPago);
         txtReferencia.setSelected(true);
