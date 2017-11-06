@@ -246,7 +246,7 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
         String url = movimientosResponse.getURLImagen();
         if(url != null && !url.isEmpty()) {
             Picasso.with(getContext())
-                    .load(url)
+                    .load(getString(R.string.url_images_logos)+url)
                     .placeholder(R.mipmap.logo_ya_ganaste)
                     .error(R.mipmap.logo_ya_ganaste)
                     .into(imageDetail);

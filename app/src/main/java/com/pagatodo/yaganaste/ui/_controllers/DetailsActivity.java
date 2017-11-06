@@ -236,7 +236,6 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     }
 
     private void sendScreenshot(File imageFile) {
-
         MovimientosResponse emisorData = ((MovimientosResponse) serializable);
         /**
          * Armamos la cadena de datos dependiendo el tipo de servicios que mostramos
@@ -264,10 +263,12 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                                 + "\nAutorización: " + emisorData.getNumAutorizacion();
                         break;
                     case 3:
+                    case 4:
                         toShare = "¡Hola!\nSe Ha Realizado un Envío de Dinero Desde Ya Ganaste"
                                 + "\nReferencia: " + emisorData.getReferencia()
                                 + "\nConcepto: " + emisorData.getConcepto()
                                 + "\nMonto: " + Utils.getCurrencyValue(emisorData.getTotal())
+                                + "\nClave de Rastreo: " + emisorData.getClaveRastreo()
                                 + "\nFecha: " + emisorData.getFechaMovimiento()
                                 + "\nHora: " + emisorData.getHoraMovimiento() + " hrs"
                                 + "\nAutorización: " + emisorData.getNumAutorizacion();
@@ -275,30 +276,6 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
                 }
             }
         }
-
-
-        /*
-        IdTipoTransaccion = 1
-Telefono		Referencia
-Fecha			FechaMovimiento
-Hora			HoraMovimiento
-Autorizacion		NumAutorizacion
-
-IdTipoTransaccion = 2
-Cargo Por Servicio	Comision
-IVA			IVA
-Referencia		Referencia
-Fecha			FechaMovimiento
-Hora (hrs)			HoraMovimiento
-Autorizacion		NumAutorizacion
-
-IdTipoTransaccion = 3
-Telefono		Referencia
-Concepto		Concepto
-Fecha			FechaMovimiento
-Hora (hrs)		HoraMovimiento
-Autorizacion		NumAutorizacion
-*/
 
         Intent intent = new Intent();
         intent.setAction(Intent.ACTION_SEND);
