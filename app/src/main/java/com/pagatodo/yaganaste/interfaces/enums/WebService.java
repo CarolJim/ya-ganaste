@@ -44,6 +44,11 @@ public enum WebService {
     OBTENER_DOMICILIO,
     GENERAR_CODIGO_RECUPERACION,
     ENVIARCORREO_CONTACTANOS,
+    OBTENER_COBROS_MENSUALES,
+    OBTENER_MONTOS,
+    OBTENER_ORIGEN_RECURSOS,
+    OBTENER_DESTINO_RECURSOS,
+
     /**
      * WS Transaccional
      **/
@@ -83,6 +88,7 @@ public enum WebService {
     CONSULTA_SALDO_CUPO,
     CANCELA_TRANSACTION_EMV_DEPOSIT,
     OBTIENE_DATOS_CUPO,
+
     /**
      * Servicio para crer usuario
      **/

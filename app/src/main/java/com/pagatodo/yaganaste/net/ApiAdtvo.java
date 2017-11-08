@@ -30,6 +30,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarSesionR
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.IniciarTransaccionOnlineRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.LocalizarSucursalesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCatalogoRequest;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerCobrosMensualesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerColoniasPorCPRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.ObtenerDocumentosRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.RecuperarContraseniaRequest;
@@ -49,6 +50,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarContra
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CambiarEmailResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CargaDocumentosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CerrarSesionResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CobrosMensualesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarFavoritosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ConsultarMovimientosMesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse;
@@ -69,6 +71,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarSesion
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.IniciarTransaccionOnlineResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.LocalizarSucursalesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCatalogosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCobrosMensualesResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerColoniasPorCPResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerDomicilioResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerNumeroSMSResponse;
@@ -84,6 +87,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoDocument
 import com.pagatodo.yaganaste.data.model.webservice.response.cupo.EstadoSolicitudResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.preferuser.iteractors.PreferUserIteractor;
 
 import java.util.Map;
@@ -126,6 +130,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_SESION_
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.INICIAR_TRANSACCION_ONLINE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOCALIZAR_SUCURSALES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_CATALOGOS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COBROS_MENSUALES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COLONIAS_CP;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOCUMENTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DOMICILIO_PRINCIPAL;
@@ -936,5 +941,22 @@ public class ApiAdtvo extends Api {
         NetFacade.consumeWS(DELETE_FAVORITE,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.deleteFavorito),
                 headers, request, FavoritosDeleteDatosResponse.class, result);
+    }
+
+    /**
+     * Método que se invoca para obtener la lista de cobros mensuales.
+     *
+     * @param request {@link ObtenerCobrosMensualesRequest} body de la petición.
+     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     */
+    public static void obtenerCobrosMensuales(ObtenerCobrosMensualesRequest request, IRequestResult result, String metodo, WebService asd) throws OfflineException {
+        Map<String, String> headers = getHeadersYaGanaste();
+        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
+        /*NetFacade.consumeWS(OBTENER_COBROS_MENSUALES,
+                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerCobrosMensuales),
+                headers, request, ObtenerCobrosMensualesResponse.class, result);*/
+        NetFacade.consumeWS(asd,
+                METHOD_GET, URL_SERVER_ADTVO + metodo,
+                headers, request, ObtenerCobrosMensualesResponse.class, result);
     }
 }

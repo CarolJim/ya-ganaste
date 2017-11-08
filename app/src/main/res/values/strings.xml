@@ -67,6 +67,10 @@
     <string name="updateFavoritos">/ActualizarFavorito</string>
     <string name="deleteFavorito">/EliminarFavorito</string>
     <string name="url_images_logos">http://10.10.45.11:8033/RecursosApp/RecursosYaGanaste/logos/android/</string>
+    <string name="obtenerCobrosMensuales">/ObtenerCatalogoOperacionesPLD</string>
+    <string name="obtenerMontos">/ObtenerCatalogoMontosPLD</string>
+    <string name="obtenerOrigenRecursos">/ObtenerCatalogoOrigenRecursosPLD</string>
+    <string name="obtenerDestinoRecursos">/ObtenerCatalogoDestinoRecursosPLD</string>
 
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
     <string name="desvincula_dispositivo_texto">Al Desvincular tu Dispositivo ya no Estará Ligado a tu Cuenta Ya Ganaste. Si Quieres Volver a Usarlo, Deberás Enviar Nuevamente el SMS de Vinculación</string>

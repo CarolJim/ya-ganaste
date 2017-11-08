@@ -8,7 +8,6 @@ import android.text.SpannableString;
 import android.text.Spanned;
 import android.text.method.LinkMovementMethod;
 import android.text.style.ForegroundColorSpan;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,15 +17,16 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CobrosMensualesResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.OnCountrySelectedListener;
+import com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
@@ -37,24 +37,25 @@ import com.pagatodo.yaganaste.ui.adquirente.presenters.interfaces.IinfoAdicional
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomClickableSpan;
-import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
 import java.util.Arrays;
-import java.util.HashSet;
 import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_COBROS;
+import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_DESTINO;
+import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_MONTOS;
+import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_ORIGEN;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_DOCUMENTS;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
-import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
 
 /**
  * Created by Omar on 31/10/2017.
@@ -89,13 +90,15 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
 
     private View rootView;
     private IinfoAdicionalPresenter infoAdicionalPresenter;
-    private List<String> cobrosMensual;
-    private List<String> montoMensual;
-    private List<String> origenRecursos;
-    private List<String> destinoRecursos;
+    //private List<String> cobrosMensual;
+    //private List<String> montoMensual;
+    //private List<String> origenRecursos;
+    //private List<String> destinoRecursos;
     private StatesSpinnerAdapter spinnerParentescoAdapter;
     private IEnumSpinner parentesco;
     private ArrayAdapter<String> adpaterCobros, adapterMonto, adpaterOrigen, adpaterDestino;
+
+
 
     public static InformacionLavadoDineroFragment newInstance() {
         InformacionLavadoDineroFragment fragment = new InformacionLavadoDineroFragment();
@@ -125,28 +128,10 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
         btnBack.setOnClickListener(this);
         btnNext.setOnClickListener(this);
 
-        cobrosMensual = Arrays.asList(getResources().getStringArray(R.array.cobros_mensual));
-        montoMensual = Arrays.asList(getResources().getStringArray(R.array.monto_mensual));
-        origenRecursos = Arrays.asList(getResources().getStringArray(R.array.origen_recursos));
-        destinoRecursos = Arrays.asList(getResources().getStringArray(R.array.destino_recursos));
-
-        adpaterCobros = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, cobrosMensual, this);
-        adapterMonto = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, montoMensual, this);
-        adpaterOrigen = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, origenRecursos, this);
-        adpaterDestino = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, destinoRecursos, this);
-
-        spnCobrosMensuales.setAdapter(adpaterCobros);
-        spnMontoMensual.setAdapter(adapterMonto);
-        spnOrigenRecursos.setAdapter(adpaterOrigen);
-        spnDestinoRecursos.setAdapter(adpaterDestino);
-        //fillAdapter();
         setClickLegales();
+        infoAdicionalPresenter.setSpinner(SPINNER_PLD_COBROS);
     }
 
-    private void fillAdapter() {
-        montoMensual.add(getString(R.string.hint_cobros_mensual));
-        adapterMonto.notifyDataSetChanged();
-    }
 
     @Override
     public void onClick(View v) {
@@ -395,5 +380,51 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
                     }
                 },
                 true, false);
+    }
+
+    @Override
+    public void onSucessSpinnerList(List<CobrosMensualesResponse> Data, SpinnerPLD sp) {
+        List<String> stringList = new ArrayList<>();
+
+        if (sp == SPINNER_PLD_COBROS){
+            stringList.add(getString(R.string.hint_cobros_mensual));
+            for(int i = 0; i < Data.size(); i++){
+                stringList.add(Data.get(i).getDescripcion());
+            }
+
+            adpaterCobros = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, stringList, this);
+            spnCobrosMensuales.setAdapter(adpaterCobros);
+            infoAdicionalPresenter.setSpinner(SPINNER_PLD_MONTOS);
+        } else if (sp == SPINNER_PLD_MONTOS){
+            stringList.add(getString(R.string.hint_monto_mensual_estimado));
+            for(int i = 0; i < Data.size(); i++){
+                stringList.add(Data.get(i).getDescripcion());
+            }
+            adapterMonto = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, stringList, this);
+            spnMontoMensual.setAdapter(adapterMonto);
+
+            infoAdicionalPresenter.setSpinner(SPINNER_PLD_ORIGEN);
+        } else if (sp == SPINNER_PLD_ORIGEN){
+            stringList.add(getString(R.string.hint_origen_recursos));
+            for(int i = 0; i < Data.size(); i++){
+                stringList.add(Data.get(i).getDescripcion());
+            }
+            adpaterOrigen = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, stringList, this);
+            spnOrigenRecursos.setAdapter(adpaterOrigen);
+            infoAdicionalPresenter.setSpinner(SPINNER_PLD_DESTINO);
+
+        } else if (sp == SPINNER_PLD_DESTINO){
+            stringList.add(getString(R.string.hint_destino_recursos));
+            for(int i = 0; i < Data.size(); i++){
+                stringList.add(Data.get(i).getDescripcion());
+            }
+            adpaterDestino = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, stringList, this);
+            spnDestinoRecursos.setAdapter(adpaterDestino);
+        }
+    }
+
+    @Override
+    public void onErrorCobro() {
+
     }
 }

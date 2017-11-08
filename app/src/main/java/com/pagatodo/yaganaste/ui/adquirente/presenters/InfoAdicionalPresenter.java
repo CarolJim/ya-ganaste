@@ -4,6 +4,9 @@ import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CrearAgenteResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ObtenerCobrosMensualesResponse;
+import com.pagatodo.yaganaste.interfaces.INavigationView;
+import com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.adquirente.interactores.InfoAdicionalInteractor;
 import com.pagatodo.yaganaste.ui.adquirente.interactores.interfaces.IinfoAdicionalInteractor;
@@ -22,6 +25,7 @@ public class InfoAdicionalPresenter implements IinfoAdicionalPresenter {
 
     InformationAdicionalManager informationAdicionalManager;
     IinfoAdicionalInteractor infoAdicionalInteractor;
+    private INavigationView iAdqView;
 
     public InfoAdicionalPresenter(InformationAdicionalManager manager) {
         informationAdicionalManager = manager;
@@ -62,4 +66,36 @@ public class InfoAdicionalPresenter implements IinfoAdicionalPresenter {
         informationAdicionalManager.showError(new ErrorObject(error.toString(), ws));
     }
 
+    @Override
+    public void setSpinner(SpinnerPLD sp) {
+        informationAdicionalManager.showLoader("");
+        infoAdicionalInteractor.setSpinner(sp);
+    }
+
+
+    @Override
+    public void onSuccessSpinnerList(Object success, SpinnerPLD sp) {
+        informationAdicionalManager.hideLoader();
+        ObtenerCobrosMensualesResponse data = (ObtenerCobrosMensualesResponse) ((DataSourceResult) success).getData();
+
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            informationAdicionalManager.onSucessSpinnerList(data.getData(),sp);
+        } else {
+            informationAdicionalManager.onErrorCobro();
+            //informationAdicionalManager.onErrorCreateAgente(new ErrorObject(data.getMensaje(), ((DataSourceResult) success).getWebService()));
+        }
+    }
+/*
+    @Override
+    public void onSuccessMontos(Object success,SpinnerPLD sp) {
+        informationAdicionalManager.hideLoader();
+        ObtenerCobrosMensualesResponse data = (ObtenerCobrosMensualesResponse) ((DataSourceResult) success).getData();
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            informationAdicionalManager.onSucessMontos(data.getData());
+        } else {
+            informationAdicionalManager.onErrorCobro();
+            //informationAdicionalManager.onErrorCreateAgente(new ErrorObject(data.getMensaje(), ((DataSourceResult) success).getWebService()));
+        }
+    }
+    */
 }
