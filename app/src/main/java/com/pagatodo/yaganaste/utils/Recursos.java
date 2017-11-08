@@ -185,6 +185,8 @@ public class Recursos {
     public static final int PREGUNTA_DOMICILIO = 5;
     //public static final int PREGUNTA_BENEFICIARIOS = 6;
     public static final int PREGUNTA_ERES_MEXICANO_NATURALIZADO = 10;
+    public static final int PREGUNTA_COBROS = 1;
+    public static final int PREGUNTA_MONTOS = 2;
     public static final int PREGUNTA_ORIGEN_RECURSOS = 11;
     public static final int PREGUNTA_DESTINO_RECURSOS = 12;
 

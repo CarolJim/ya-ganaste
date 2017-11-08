@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.adquirente.presenters.interfaces;
 
+import com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD;
 import com.pagatodo.yaganaste.interfaces.enums.WebService;
 
 /**
@@ -14,4 +15,9 @@ public interface IinfoAdicionalPresenter<T> {
     void onSuccessCreateUsuarioAdquirente(Object success);
 
     void onWSError(WebService ws, T error);
+
+    void setSpinner(SpinnerPLD sp);
+
+    void onSuccessSpinnerList(Object success, SpinnerPLD sp);
+
 }

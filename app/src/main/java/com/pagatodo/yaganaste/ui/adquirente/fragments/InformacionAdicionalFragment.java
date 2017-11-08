@@ -25,10 +25,12 @@ import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEntity;
+import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CobrosMensualesResponse;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.OnCountrySelectedListener;
 import com.pagatodo.yaganaste.interfaces.enums.Parentescos;
+import com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD;
 import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.adapters.StatesSpinnerAdapter;
@@ -43,6 +45,7 @@ import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -473,6 +476,17 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     @Override
     public void showError(Object error) {
         onEventListener.onEvent(EVENT_SHOW_ERROR, error);
+    }
+
+
+    @Override
+    public void onSucessSpinnerList(List<CobrosMensualesResponse> Dat, SpinnerPLD sp) {
+
+    }
+
+    @Override
+    public void onErrorSpinnerList(SpinnerPLD sp) {
+
     }
 
 }
