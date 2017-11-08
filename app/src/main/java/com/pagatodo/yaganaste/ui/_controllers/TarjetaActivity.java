@@ -47,6 +47,7 @@ import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.BLOQUEO;
 import static com.pagatodo.yaganaste.ui.preferuser.MyCardFragment.DESBLOQUEO;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
+import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 
 public class TarjetaActivity extends LoaderActivity implements OnEventListener, IMyCardViewHome {
 
@@ -185,7 +186,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
                 break;
         }
         String cardNumber = App.getInstance().getPrefs().loadData(CARD_NUMBER);
-        imgYaGanasteCard.setCardNumber(StringUtils.ocultarCardNumberFormat(cardNumber));
+        imgYaGanasteCard.setCardNumber(getCreditCardFormat(cardNumber));
     }
 
     /**

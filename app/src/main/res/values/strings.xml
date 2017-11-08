@@ -70,7 +70,7 @@
 
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
     <string name="desvincula_dispositivo_texto">Al Desvincular tu Dispositivo ya no Estará Ligado a tu Cuenta Ya Ganaste. Si Quieres Volver a Usarlo, Deberás Enviar Nuevamente el SMS de Vinculación</string>
-    <string name="deseaDesasociarDispositivo">¿Desea Desasociar el Dispositivo?</string>
+    <string name="deseaDesasociarDispositivo">¿Desea Desvincular el Dispositivo?</string>
     <string name="deseaRealizarLlamada">¿Desea Llamar Ahora?</string>
     <string name="sel_fotografia">Seleccionar Fotografía</string>
     <string name="error_take_photo">Imagen Duplicada, Intenta Con Una Diferente</string>
@@ -302,7 +302,9 @@
     <string name="userDataTitle">Datos de Usuario</string>
     <string name="confirmEmail">Confirma Correo</string>
     <string name="password">Contraseña</string>
+    <string name="new_password">Nueva Contraseña</string>
     <string name="passwordConfirm">Confirma Contraseña</string>
+    <string name="passwordConfirmNew">Confirma Nueva Contraseña</string>
     <string name="datos_usuario_correo">Introduce un Correo Válido (*)</string>
     <string name="datos_usuario_correo_formato">El Correo no es Válido</string>
     <string name="datos_usuario_correo_confirma">Debes Confirmar el Correo</string>
@@ -329,6 +331,7 @@
     <string name="nameHint">Nombre(s)</string>
     <string name="birthDay">Fecha de Nacimiento</string>
     <string name="county">País de Nacimiento</string>
+    <string name="country_nationality">Nacionalidad</string>
     <!-- Datos Personales -->
     <string name="datos_personal_nombre">Ingresa tu Nombre</string>
     <string name="datos_personal_paterno">Ingresa tu Primer Apellido</string>
@@ -338,6 +341,7 @@
     <string name="datos_personal_nacionalidad">Nacionalidad Requerida, Verifique su Información</string>
     <string name="datos_personal_genero">Indica tu Género</string>
     <string name="datos_personal_pais">País de Nacimiento Requerido, Verifique su Información</string>
+    <string name="datos_personal_pais_nacionalidad">Nacionalidad Requerida, Verifique su Información</string>
     <string name="datos_personal_mayor_edad">Debes Ser Mayor de Edad Para Continuar</string>
     <string name="buscar_pais">Busca tu País</string>
     <!--datos_domicilio-->
@@ -389,7 +393,7 @@
 
     <!--Informacion Adicional-->
     <string name="title_informacion_adicional">Información Adicional</string>
-    <string name="txt_eres_mexa">¿Eres Mexicano Naturalizado?</string>
+    <string name="txt_eres_mexa">¿Tienes Nacionalidad Mexicana?</string>
     <string name="txt_cargo">Cargo</string>
     <string name="error_parentesco">Parentesco Requerido, Verifique su Información</string>
     <string name="error_cargo">Cargo Requerido, Verifique su Información</string>

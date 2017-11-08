@@ -35,7 +35,6 @@ public class InfoAdicionalPresenter implements IinfoAdicionalPresenter {
             arrayList = new ArrayList<>();
         }
         informationAdicionalManager.showDialogList(arrayList);
-
     }
 
     @Override

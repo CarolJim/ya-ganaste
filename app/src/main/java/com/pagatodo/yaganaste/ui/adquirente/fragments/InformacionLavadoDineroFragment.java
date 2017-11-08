@@ -308,7 +308,6 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
 
     @Override
     public void onValidationSuccess() {
-
         RegisterAgent registerAgent = RegisterAgent.getInstance();
         registerAgent.setCobrosMensual(adpaterCobros.getItem(spnCobrosMensuales.getSelectedItemPosition()));
         registerAgent.setMontoMensual(adapterMonto.getItem(spnMontoMensual.getSelectedItemPosition()));

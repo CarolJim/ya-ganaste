@@ -68,7 +68,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
         iAdqView.showLoader(msg);
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(DateUtil.getAdquirenteMovementDate(dataMovimientoAdq.getFecha()));
-        java.text.DateFormat dateFormat = new SimpleDateFormat("yyyy/mm/dd", Locale.US);
+        java.text.DateFormat dateFormat = new SimpleDateFormat("yyyy/MM/dd", Locale.US);
         java.text.DateFormat hourFormat = new SimpleDateFormat("HH:mm:ss", Locale.US);
 
 

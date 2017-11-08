@@ -242,25 +242,25 @@ public class DateUtil {
     }
 
     public static Date getAdquirenteMovementDate(String movDate) {
-        DateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy hh:mm", new Locale("es", "mx"));
+        DateFormat dateFormat = new SimpleDateFormat("dd/MMM/yyyy HH:mm:ss", new Locale("es", "mx"));
         Date date = null;
         try {
             date = dateFormat.parse(movDate);
         } catch (ParseException e) {
-            dateFormat = new SimpleDateFormat("dd/MMM/yyyy hh:mm", new Locale("es"));
+            dateFormat = new SimpleDateFormat("dd/MMM/yyyy HH:mm:ss", new Locale("es"));
             try {
                 date = dateFormat.parse(movDate);
             } catch (ParseException e1) {
-                dateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm", new Locale("es", "mx"));
+                dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", new Locale("es", "mx"));
                 try {
                     date = dateFormat.parse(movDate);
                 } catch (ParseException e2) {
-                    dateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm", new Locale("es"));
+                    dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", new Locale("es"));
                     try {
                         date = dateFormat.parse(movDate);
                     } catch (ParseException e3) {
                         e3.printStackTrace();
-                        dateFormat = new SimpleDateFormat("dd MMM yyyy hh:mm", Locale.getDefault());
+                        dateFormat = new SimpleDateFormat("dd MMM yyyy HH:mm:ss", Locale.getDefault());
                         try {
                             date = dateFormat.parse(movDate);
                         } catch (ParseException e4) {

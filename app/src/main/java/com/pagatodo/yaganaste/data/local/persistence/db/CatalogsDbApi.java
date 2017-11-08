@@ -190,7 +190,6 @@ public class CatalogsDbApi {
         genericDao.open();
         ArrayList<Countries> paises = genericDao.getArrayListByQueryOrderBy(Countries.class, DBContract.Paises.ID, null);
         genericDao.close();
-
         return paises;
     }
 
