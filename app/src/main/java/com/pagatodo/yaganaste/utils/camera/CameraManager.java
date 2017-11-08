@@ -35,6 +35,7 @@ import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStream;
 import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -381,12 +382,38 @@ public class CameraManager {
                 if (new File(selectedImage.getPath()).exists()) {
                     path = selectedImage.getPath();
                 } else {
-                    cursor = getContext().getContentResolver().query(selectedImage,
+                    String myPath = getImagePath(selectedImage);
+                   cursor = getContext().getContentResolver().query(selectedImage,
                             filePathColumn, null, null, null);
-                    cursor.moveToFirst();
-                    int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
-                    path = cursor.getString(columnIndex);
+                    if (cursor.moveToFirst()) {
+                        int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
+                        path = cursor.getString(columnIndex);
+                        if (path != null) {
+                            String extension = path.substring(path.lastIndexOf("."));
+                        }
+                    }
+                    // cursor.moveToFirst();
+
+                    // Obtenemos los ultimos
                 }
+             /*
+            public String getImagePath(Uri uri){
+   Cursor cursor = getContentResolver().query(uri, null, null, null, null);
+   cursor.moveToFirst();
+   String document_id = cursor.getString(0);
+   document_id = document_id.substring(document_id.lastIndexOf(":")+1);
+   cursor.close();
+
+   cursor = getContentResolver().query(
+   android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+   null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+   cursor.moveToFirst();
+   String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+   cursor.close();
+
+   return path;
+}
+                    */
 
                 //startCropActivity(data.getData());
 
@@ -411,14 +438,30 @@ public class CameraManager {
             }
         } else if (requestCode == SELECT_FILE_PHOTO && resultCode != RESULT_OK && data == null) {
 
-        } else if (resultCode == CROP_RESULT){
+        } else if (resultCode == CROP_RESULT) {
 
             this.listener.onHideProgress();
         }
     }
 
+    public String getImagePath(Uri uri){
+        Cursor cursor = getContext().getContentResolver().query(uri, null, null, null, null);
+        cursor.moveToFirst();
+        String document_id = cursor.getString(0);
+        document_id = document_id.substring(document_id.lastIndexOf(":")+1);
+        cursor.close();
 
-    public IListaOpcionesView getView(){
+        cursor = getContext().getContentResolver().query(
+                android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
+                null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
+        cursor.moveToFirst();
+        String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
+        cursor.close();
+
+        return path;
+    }
+
+    public IListaOpcionesView getView() {
         return this.mView;
     }
 
