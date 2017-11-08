@@ -21,16 +21,21 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
+import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.CropActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
 import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritesPresenter;
+import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritoPresenterAutoriza;
+import com.pagatodo.yaganaste.ui.otp.controllers.OtpView;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.StringUtils;
@@ -64,7 +69,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
  * Encargada de dar de alta Favoritos, primero en el servicio y luego en la base local
  */
 public class AddFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
-        IListaOpcionesView, ValidationForms, ICropper, CropIwaResultReceiver.Listener {
+        IListaOpcionesView, ValidationForms, ICropper, CropIwaResultReceiver.Listener,OtpView {
 
     @BindView(R.id.add_favorites_alias)
     CustomValidationEditText editTextAlias;
@@ -107,15 +112,15 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     private int idTipoEnvio;
 
     public static boolean BACK_STATE_ADDFAVORITE = true;
-
-
+    private static Preferencias preferencias = App.getInstance().getPrefs();
+    private FavoritoPresenterAutoriza favoritoPresenterAutoriza;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_favorites);
 
         favoritesPresenter = new FavoritesPresenter(this);
-
+        favoritoPresenterAutoriza = new FavoritoPresenterAutoriza(this, this);
         Intent intent = getIntent();
         idComercio = intent.getIntExtra(ID_COMERCIO, 99);
         idTipoComercio = intent.getIntExtra(ID_TIPO_COMERCIO, 98);
@@ -452,6 +457,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
         /* Si no tiene un favorito guardado con la misma referencia entonces se permite subirlo*/
         if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
+            favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
             favoritesPresenter.toPresenterAddFavorites(getString(R.string.loader_15),addFavoritesRequest);
         } else {
         /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
@@ -462,6 +468,16 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
     @Override
     public void getDataForm() {
+
+    }
+
+    @Override
+    public void onOtpGenerated(String otp) {
+        RequestHeaders.setTokenFreja(otp);
+    }
+
+    @Override
+    public void showError(Errors error) {
 
     }
 
