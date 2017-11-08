@@ -225,6 +225,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         autorizacion.setSelected(true);
         titleMail.setSelected(true);
         txtCompania.setSelected(true);
+        nombreEnvio.setSelected(true);
 
         autorizacion.setText(StringUtils.formatAutorization(result.getData().getNumeroAutorizacion()));
         SimpleDateFormat dateFormatH = new SimpleDateFormat("HH:mm:ss");

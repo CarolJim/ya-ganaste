@@ -39,7 +39,6 @@ public class InfoAdicionalPresenter implements IinfoAdicionalPresenter {
             arrayList = new ArrayList<>();
         }
         informationAdicionalManager.showDialogList(arrayList);
-
     }
 
     @Override
@@ -55,8 +54,7 @@ public class InfoAdicionalPresenter implements IinfoAdicionalPresenter {
         if (data.getCodigoRespuesta() == CODE_OK) {
             informationAdicionalManager.onSuccessCreateAgente();
         } else {
-            informationAdicionalManager.onSuccessCreateAgente();
-            //informationAdicionalManager.onErrorCreateAgente(new ErrorObject(data.getMensaje(), ((DataSourceResult) success).getWebService()));
+            informationAdicionalManager.onErrorCreateAgente(new ErrorObject(data.getMensaje(), ((DataSourceResult) success).getWebService()));
         }
     }
 
@@ -81,21 +79,8 @@ public class InfoAdicionalPresenter implements IinfoAdicionalPresenter {
         if (data.getCodigoRespuesta() == CODE_OK) {
             informationAdicionalManager.onSucessSpinnerList(data.getData(),sp);
         } else {
-            informationAdicionalManager.onErrorCobro();
+            informationAdicionalManager.onErrorSpinnerList(sp);
             //informationAdicionalManager.onErrorCreateAgente(new ErrorObject(data.getMensaje(), ((DataSourceResult) success).getWebService()));
         }
     }
-/*
-    @Override
-    public void onSuccessMontos(Object success,SpinnerPLD sp) {
-        informationAdicionalManager.hideLoader();
-        ObtenerCobrosMensualesResponse data = (ObtenerCobrosMensualesResponse) ((DataSourceResult) success).getData();
-        if (data.getCodigoRespuesta() == CODE_OK) {
-            informationAdicionalManager.onSucessMontos(data.getData());
-        } else {
-            informationAdicionalManager.onErrorCobro();
-            //informationAdicionalManager.onErrorCreateAgente(new ErrorObject(data.getMensaje(), ((DataSourceResult) success).getWebService()));
-        }
-    }
-    */
 }

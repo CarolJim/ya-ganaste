@@ -52,7 +52,6 @@ public class BussinesActivity extends LoaderActivity {
     private List<Giros> girosComercio;
     private List<ColoniasResponse> listaColonias;
 
-
     public static Intent createIntent(Context from) {
         return new Intent(from, BussinesActivity.class);
 

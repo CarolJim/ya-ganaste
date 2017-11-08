@@ -252,7 +252,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         boolean isValid = true;
         if (isExtranjero && !isMexaNaturalizado) {
             if (paisNacimiento == null) {
-                showValidationError(R.id.editCountry, getString(R.string.datos_personal_pais));
+                showValidationError(R.id.editCountry, getString(R.string.datos_personal_pais_nacionalidad));
                 isValid = false;
             }
         }
@@ -478,13 +478,15 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         onEventListener.onEvent(EVENT_SHOW_ERROR, error);
     }
 
-    @Override
-    public void onErrorCobro() {
-
-    }
 
     @Override
     public void onSucessSpinnerList(List<CobrosMensualesResponse> Dat, SpinnerPLD sp) {
 
     }
+
+    @Override
+    public void onErrorSpinnerList(SpinnerPLD sp) {
+
+    }
+
 }

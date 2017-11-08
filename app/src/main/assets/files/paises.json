@@ -1,1 +1,1292 @@
-[ { "Id": 1, "Descripcion": "Principado de Andorra", "IdPais": "AD" }, { "Id": 2, "Descripcion": "Emiratos Árabes Unidos", "IdPais": "AE" }, { "Id": 3, "Descripcion": "Afganistán", "IdPais": "AF" }, { "Id": 4, "Descripcion": "Antigua y Bermuda", "IdPais": "AG" }, { "Id": 5, "Descripcion": "Isla Anguilla", "IdPais": "AI" }, { "Id": 6, "Descripcion": "República de Albania", "IdPais": "AL" }, { "Id": 7, "Descripcion": "Antillas Neerlandesas", "IdPais": "AN" }, { "Id": 8, "Descripcion": "República de Angola", "IdPais": "AO" }, { "Id": 9, "Descripcion": "Antártica", "IdPais": "AQ" }, { "Id": 10, "Descripcion": "Argentina", "IdPais": "AR" }, { "Id": 11, "Descripcion": "Samoa Americana", "IdPais": "AS" }, { "Id": 12, "Descripcion": "Austria", "IdPais": "AT" }, { "Id": 13, "Descripcion": "Australia", "IdPais": "AU" }, { "Id": 14, "Descripcion": "Aruba", "IdPais": "AW" }, { "Id": 15, "Descripcion": "Barbados", "IdPais": "BB" }, { "Id": 16, "Descripcion": "Bangladesh", "IdPais": "BD" }, { "Id": 17, "Descripcion": "Bélgica", "IdPais": "BE" }, { "Id": 18, "Descripcion": "Burkina Faso", "IdPais": "BF" }, { "Id": 19, "Descripcion": "Bulgaria", "IdPais": "BG" }, { "Id": 20, "Descripcion": "Estado de Bahrein", "IdPais": "BH" }, { "Id": 21, "Descripcion": "Burundi", "IdPais": "BI" }, { "Id": 22, "Descripcion": "Benin", "IdPais": "BJ" }, { "Id": 23, "Descripcion": "Bermudas", "IdPais": "BM" }, { "Id": 24, "Descripcion": "Brunei Darussalam", "IdPais": "BN" }, { "Id": 25, "Descripcion": "Bolivia", "IdPais": "BO" }, { "Id": 26, "Descripcion": "Brasil", "IdPais": "BR" }, { "Id": 27, "Descripcion": "Commonwealth de las Bahamas", "IdPais": "BS" }, { "Id": 28, "Descripcion": "Buthan", "IdPais": "BT" }, { "Id": 29, "Descripcion": "Isla Bouvet", "IdPais": "BV" }, { "Id": 30, "Descripcion": "Botswana", "IdPais": "BW" }, { "Id": 31, "Descripcion": "Bielorrusia", "IdPais": "BY" }, { "Id": 32, "Descripcion": "Canadá", "IdPais": "CA" }, { "Id": 33, "Descripcion": "Isla de Cocos o Kelling", "IdPais": "CC" }, { "Id": 34, "Descripcion": "República Centro Africana", "IdPais": "CF" }, { "Id": 35, "Descripcion": "Congo", "IdPais": "CG" }, { "Id": 36, "Descripcion": "Suiza", "IdPais": "CH" }, { "Id": 37, "Descripcion": "Costa de Marfil", "IdPais": "CI" }, { "Id": 38, "Descripcion": "Islas Cook", "IdPais": "CK" }, { "Id": 39, "Descripcion": "Chile", "IdPais": "CL" }, { "Id": 40, "Descripcion": "Camerún", "IdPais": "CM" }, { "Id": 41, "Descripcion": "China", "IdPais": "CN" }, { "Id": 42, "Descripcion": "Colombia", "IdPais": "CO" }, { "Id": 43, "Descripcion": "República de Costa Rica", "IdPais": "CR" }, { "Id": 44, "Descripcion": "Cuba", "IdPais": "CU" }, { "Id": 45, "Descripcion": "República de Cabo Verde", "IdPais": "CV" }, { "Id": 46, "Descripcion": "República de Chipre", "IdPais": "CY" }, { "Id": 47, "Descripcion": "República de Djibouti", "IdPais": "DJ" }, { "Id": 48, "Descripcion": "Dinamarca", "IdPais": "DK" }, { "Id": 49, "Descripcion": "República Dominicana", "IdPais": "DM" }, { "Id": 50, "Descripcion": "Argelia", "IdPais": "DZ" }, { "Id": 51, "Descripcion": "Ecuador", "IdPais": "EC" }, { "Id": 52, "Descripcion": "Egipto", "IdPais": "EG" }, { "Id": 53, "Descripcion": "Sahara del Oeste", "IdPais": "EH" }, { "Id": 54, "Descripcion": "España", "IdPais": "ES" }, { "Id": 55, "Descripcion": "Etiopía", "IdPais": "ET" }, { "Id": 56, "Descripcion": "Finlandia", "IdPais": "FI" }, { "Id": 57, "Descripcion": "Fiji", "IdPais": "FJ" }, { "Id": 58, "Descripcion": "Islas Malvinas", "IdPais": "FK" }, { "Id": 59, "Descripcion": "Micronesia", "IdPais": "FM" }, { "Id": 60, "Descripcion": "Islas Faroe", "IdPais": "FO" }, { "Id": 61, "Descripcion": "Francia", "IdPais": "FR" }, { "Id": 62, "Descripcion": "Gabón", "IdPais": "GA" }, { "Id": 63, "Descripcion": "Granada", "IdPais": "GD" }, { "Id": 64, "Descripcion": "Guyana Francesa", "IdPais": "GF" }, { "Id": 65, "Descripcion": "Ghana", "IdPais": "GH" }, { "Id": 66, "Descripcion": "Gibraltar", "IdPais": "GI" }, { "Id": 67, "Descripcion": "Gambia", "IdPais": "GM" }, { "Id": 68, "Descripcion": "Guinea", "IdPais": "GN" }, { "Id": 69, "Descripcion": "Guadalupe", "IdPais": "GP" }, { "Id": 70, "Descripcion": "Guinea Ecuatorial", "IdPais": "GQ" }, { "Id": 71, "Descripcion": "Guatemala", "IdPais": "GT" }, { "Id": 72, "Descripcion": "Guam", "IdPais": "GU" }, { "Id": 73, "Descripcion": "Guinea Bissau", "IdPais": "GW" }, { "Id": 74, "Descripcion": "República de Guyana", "IdPais": "GY" }, { "Id": 75, "Descripcion": "Islas de Guernesey, Jersey, Alderney, Isla Great Sark, Herm, Little Sark, Berchou, Jethou, Lihou (Islas del Canal)", "IdPais": "GZ" }, { "Id": 76, "Descripcion": "Hong Kong", "IdPais": "HK" }, { "Id": 77, "Descripcion": "Islas Heard and Mc Donald", "IdPais": "HM" }, { "Id": 78, "Descripcion": "República de Honduras", "IdPais": "HN" }, { "Id": 79, "Descripcion": "Haití", "IdPais": "HT" }, { "Id": 80, "Descripcion": "Hungría", "IdPais": "HU" }, { "Id": 81, "Descripcion": "Indonesia", "IdPais": "ID" }, { "Id": 82, "Descripcion": "Irlanda", "IdPais": "IE" }, { "Id": 83, "Descripcion": "Israel", "IdPais": "IL" }, { "Id": 84, "Descripcion": "India", "IdPais": "IN" }, { "Id": 85, "Descripcion": "Territorio Británico en el Océano Indico", "IdPais": "IO" }, { "Id": 86, "Descripcion": "Islas Pacífico", "IdPais": "IP" }, { "Id": 87, "Descripcion": "Iraq", "IdPais": "IQ" }, { "Id": 88, "Descripcion": "Irán", "IdPais": "IR" }, { "Id": 89, "Descripcion": "Islandia", "IdPais": "IS" }, { "Id": 90, "Descripcion": "Italia", "IdPais": "IT" }, { "Id": 91, "Descripcion": "Jamaica", "IdPais": "JM" }, { "Id": 92, "Descripcion": "Reino Hachemita de Jordania", "IdPais": "JO" }, { "Id": 93, "Descripcion": "Japón", "IdPais": "JP" }, { "Id": 94, "Descripcion": "Kenia", "IdPais": "KE" }, { "Id": 95, "Descripcion": "Kiribati", "IdPais": "KI" }, { "Id": 96, "Descripcion": "Comoros", "IdPais": "KM" }, { "Id": 97, "Descripcion": "San Kitts", "IdPais": "KN" }, { "Id": 98, "Descripcion": "República Democrática de Corea", "IdPais": "KP" }, { "Id": 99, "Descripcion": "República de Corea", "IdPais": "KR" }, { "Id": 100, "Descripcion": "Estado de Kuwait", "IdPais": "KW" }, { "Id": 101, "Descripcion": "Islas Caimán", "IdPais": "KY" }, { "Id": 102, "Descripcion": "República Democrática de Laos", "IdPais": "LA" }, { "Id": 103, "Descripcion": "Líbano", "IdPais": "LB" }, { "Id": 104, "Descripcion": "Santa Lucía", "IdPais": "LC" }, { "Id": 105, "Descripcion": "Principado de Liechtenstein", "IdPais": "LI" }, { "Id": 106, "Descripcion": "República Socialista Democrática de Sri Lanka", "IdPais": "LK" }, { "Id": 107, "Descripcion": "Labuán", "IdPais": "LN" }, { "Id": 108, "Descripcion": "República de Liberia", "IdPais": "LR" }, { "Id": 109, "Descripcion": "Lesotho", "IdPais": "LS" }, { "Id": 110, "Descripcion": "Gran Ducado de Luxemburgo", "IdPais": "LU" }, { "Id": 111, "Descripcion": "Libia", "IdPais": "LY" }, { "Id": 112, "Descripcion": "Marruecos", "IdPais": "MA" }, { "Id": 113, "Descripcion": "Principado de Mónaco", "IdPais": "MC" }, { "Id": 114, "Descripcion": "Madagascar", "IdPais": "MG" }, { "Id": 115, "Descripcion": "República de las Islas Marshall", "IdPais": "MH" }, { "Id": 116, "Descripcion": "Malí", "IdPais": "ML" }, { "Id": 117, "Descripcion": "Mongolia", "IdPais": "MN" }, { "Id": 118, "Descripcion": "Macao", "IdPais": "MO" }, { "Id": 119, "Descripcion": "Islas Marianas del Noreste", "IdPais": "MP" }, { "Id": 120, "Descripcion": "Martinica", "IdPais": "MQ" }, { "Id": 121, "Descripcion": "Mauritania", "IdPais": "MR" }, { "Id": 122, "Descripcion": "Monserrat", "IdPais": "MS" }, { "Id": 123, "Descripcion": "Malta", "IdPais": "MT" }, { "Id": 124, "Descripcion": "República de Mauricio", "IdPais": "MU" }, { "Id": 125, "Descripcion": "República de Maldivas", "IdPais": "MV" }, { "Id": 126, "Descripcion": "Malawi", "IdPais": "MW" }, { "Id": 128, "Descripcion": "Malasia", "IdPais": "MY" }, { "Id": 129, "Descripcion": "Mozambique", "IdPais": "MZ" }, { "Id": 130, "Descripcion": "República de Namibia", "IdPais": "NA" }, { "Id": 131, "Descripcion": "Nueva Caledonia", "IdPais": "NC" }, { "Id": 132, "Descripcion": "Níger", "IdPais": "NE" }, { "Id": 133, "Descripcion": "Isla de Norfolk", "IdPais": "NF" }, { "Id": 134, "Descripcion": "Nigeria", "IdPais": "NG" }, { "Id": 135, "Descripcion": "Nicaragua", "IdPais": "NI" }, { "Id": 136, "Descripcion": "Holanda", "IdPais": "NL" }, { "Id": 137, "Descripcion": "Noruega", "IdPais": "NO" }, { "Id": 138, "Descripcion": "Nepal", "IdPais": "NP" }, { "Id": 139, "Descripcion": "República de Nauru", "IdPais": "NR" }, { "Id": 140, "Descripcion": "Niue", "IdPais": "NU" }, { "Id": 141, "Descripcion": "Nevis", "IdPais": "NV" }, { "Id": 142, "Descripcion": "Nueva Zelandia", "IdPais": "NZ" }, { "Id": 143, "Descripcion": "Sultanía de Omán", "IdPais": "OM" }, { "Id": 144, "Descripcion": "República de Panamá", "IdPais": "PA" }, { "Id": 145, "Descripcion": "Perú", "IdPais": "PE" }, { "Id": 146, "Descripcion": "Polinesia Francesa", "IdPais": "PF" }, { "Id": 147, "Descripcion": "Papúa Nueva Guinea", "IdPais": "PG" }, { "Id": 148, "Descripcion": "Filipinas", "IdPais": "PH" }, { "Id": 149, "Descripcion": "Pakistán", "IdPais": "PK" }, { "Id": 150, "Descripcion": "Polonia", "IdPais": "PL" }, { "Id": 151, "Descripcion": "Isla de San Pedro y Miguelón", "IdPais": "PM" }, { "Id": 152, "Descripcion": "Pitcairn", "IdPais": "PN" }, { "Id": 153, "Descripcion": "Estado Libre Asociado de Puerto Rico", "IdPais": "PR" }, { "Id": 154, "Descripcion": "Portugal", "IdPais": "PT" }, { "Id": 155, "Descripcion": "Patau", "IdPais": "PU" }, { "Id": 156, "Descripcion": "Palau", "IdPais": "PW" }, { "Id": 157, "Descripcion": "Paraguay", "IdPais": "PY" }, { "Id": 158, "Descripcion": "Estado de Quatar", "IdPais": "QA" }, { "Id": 159, "Descripcion": "Isla Qeshm", "IdPais": "QB" }, { "Id": 160, "Descripcion": "Reunión", "IdPais": "RE" }, { "Id": 161, "Descripcion": "Rumania", "IdPais": "RO" }, { "Id": 162, "Descripcion": "Rhuanda", "IdPais": "RW" }, { "Id": 163, "Descripcion": "Arabia Saudita", "IdPais": "SA" }, { "Id": 164, "Descripcion": "Islas Salomón", "IdPais": "SB" }, { "Id": 165, "Descripcion": "Seychelles Islas", "IdPais": "SC" }, { "Id": 166, "Descripcion": "Sudán", "IdPais": "SD" }, { "Id": 167, "Descripcion": "Suecia", "IdPais": "SE" }, { "Id": 168, "Descripcion": "Singapur", "IdPais": "SG" }, { "Id": 169, "Descripcion": "Santa Elena", "IdPais": "SH" }, { "Id": 170, "Descripcion": "Islas Svalbard and Jan Mayen", "IdPais": "SJ" }, { "Id": 171, "Descripcion": "Sierra Leona", "IdPais": "SL" }, { "Id": 172, "Descripcion": "Serenísima República de San Marino", "IdPais": "SM" }, { "Id": 173, "Descripcion": "Senegal", "IdPais": "SN" }, { "Id": 174, "Descripcion": "Somalia", "IdPais": "SO" }, { "Id": 175, "Descripcion": "Surinam", "IdPais": "SR" }, { "Id": 176, "Descripcion": "Sao Tome and Príncipe", "IdPais": "ST" }, { "Id": 177, "Descripcion": "El Salvador", "IdPais": "SV" }, { "Id": 178, "Descripcion": "Siria", "IdPais": "SY" }, { "Id": 179, "Descripcion": "Reino de Swazilandia", "IdPais": "SZ" }, { "Id": 180, "Descripcion": "Islas Turcas y Caicos", "IdPais": "TC" }, { "Id": 181, "Descripcion": "Chad", "IdPais": "TD" }, { "Id": 182, "Descripcion": "Territorios Franceses del Sureste", "IdPais": "TF" }, { "Id": 183, "Descripcion": "Togo", "IdPais": "TG" }, { "Id": 184, "Descripcion": "Thailandia", "IdPais": "TH" }, { "Id": 185, "Descripcion": "Tokelau", "IdPais": "TK" }, { "Id": 186, "Descripcion": "República de Túnez", "IdPais": "TN" }, { "Id": 187, "Descripcion": "Reino de Tonga", "IdPais": "TO" }, { "Id": 188, "Descripcion": "República de Trinidad y Tobago", "IdPais": "TT" }, { "Id": 189, "Descripcion": "Tuvalu", "IdPais": "TV" }, { "Id": 190, "Descripcion": "Taiwán", "IdPais": "TW" }, { "Id": 191, "Descripcion": "Tanzania", "IdPais": "TZ" }, { "Id": 192, "Descripcion": "Ucrania", "IdPais": "UA" }, { "Id": 193, "Descripcion": "Uganda", "IdPais": "UG" }, { "Id": 194, "Descripcion": "Islas menores alejadas de los Estados Unidos", "IdPais": "UM" }, { "Id": 195, "Descripcion": "Estados Unidos de América", "IdPais": "US" }, { "Id": 196, "Descripcion": "República Oriental del Uruguay", "IdPais": "UY" }, { "Id": 197, "Descripcion": "El Vaticano", "IdPais": "VA" }, { "Id": 198, "Descripcion": "San Vicente y Las Granadinas", "IdPais": "VC" }, { "Id": 199, "Descripcion": "Venezuela", "IdPais": "VE" }, { "Id": 200, "Descripcion": "Islas Vírgenes Británicas", "IdPais": "VG" }, { "Id": 201, "Descripcion": "Islas Vírgenes de Estados Unidos de América", "IdPais": "VI" }, { "Id": 202, "Descripcion": "Vietnam", "IdPais": "VN" }, { "Id": 203, "Descripcion": "República de Vanuatu", "IdPais": "VU" }, { "Id": 204, "Descripcion": "Islas Wallis y Funtuna", "IdPais": "WF" }, { "Id": 205, "Descripcion": "República del Yemen", "IdPais": "YE" }, { "Id": 206, "Descripcion": "Sudáfrica", "IdPais": "ZA" }, { "Id": 207, "Descripcion": "Zona Especial Canaria", "IdPais": "ZC" }, { "Id": 208, "Descripcion": "Zambia", "IdPais": "ZM" }, { "Id": 209, "Descripcion": "Zona Libre Ostrava", "IdPais": "ZO" }, { "Id": 210, "Descripcion": "Zimbabwe", "IdPais": "ZW" }, { "Id": 211, "Descripcion": "Ascensión", "IdPais": "AC" }, { "Id": 212, "Descripcion": "Belice", "IdPais": "BZ" }, { "Id": 213, "Descripcion": "Campione D’Italia", "IdPais": "CT" }, { "Id": 214, "Descripcion": "Isla de Christmas", "IdPais": "CX" }, { "Id": 215, "Descripcion": "República Checa y República Eslovaca", "IdPais": "CZ" }, { "Id": 216, "Descripcion": "Alemania", "IdPais": "DE" }, { "Id": 217, "Descripcion": "Commonwealth de Dominica", "IdPais": "DO" }, { "Id": 218, "Descripcion": "Grecia", "IdPais": "EL" }, { "Id": 219, "Descripcion": "Groenlandia", "IdPais": "GL" }, { "Id": 220, "Descripcion": "Islas Canarias", "IdPais": "IC" }, { "Id": 221, "Descripcion": "Isla del Hombre", "IdPais": "IM" }, { "Id": 222, "Descripcion": "CAMBOYA", "IdPais": "KH" }, { "Id": 223, "Descripcion": "Madeira", "IdPais": "MI" }, { "Id": 224, "Descripcion": "Timor Este", "IdPais": "TL" }, { "Id": 225, "Descripcion": "Turquía", "IdPais": "TR" }, { "Id": 226, "Descripcion": "Trieste", "IdPais": "TS" }, { "Id": 227, "Descripcion": "Gran Bretaña (Reino Unido)", "IdPais": "UK" }, { "Id": 228, "Descripcion": "Estado Independiente de Samoa Occidental", "IdPais": "WS" }, { "Id": 229, "Descripcion": "Islas Azores", "IdPais": "XA" }, { "Id": 230, "Descripcion": "Islas Åland", "IdPais": "AX" }, { "Id": 231, "Descripcion": "Armenia", "IdPais": "AM" }, { "Id": 232, "Descripcion": "Azerbaiyán", "IdPais": "AZ" }, { "Id": 233, "Descripcion": "Myanmar (Birmania)", "IdPais": "MM" }, { "Id": 234, "Descripcion": "Bosnia Y Herzegovina", "IdPais": "BA" }, { "Id": 235, "Descripcion": "Croacia", "IdPais": "HR" }, { "Id": 236, "Descripcion": "Eritrea", "IdPais": "ER" }, { "Id": 237, "Descripcion": "Estonia", "IdPais": "EE" }, { "Id": 238, "Descripcion": "Georgia", "IdPais": "GE" }, { "Id": 239, "Descripcion": "Islas de Guernesey, Jersey, Alderney, Isla Great Sark, Herm,", "IdPais": "GG" }, { "Id": 240, "Descripcion": "Georgia del Sur e Islas Sandwich del Sur", "IdPais": "GS" }, { "Id": 241, "Descripcion": "Jersey", "IdPais": "JE" }, { "Id": 242, "Descripcion": "Kazajstán", "IdPais": "KZ" }, { "Id": 243, "Descripcion": "Kirguistán", "IdPais": "KG" }, { "Id": 244, "Descripcion": "Letonia", "IdPais": "LV" }, { "Id": 245, "Descripcion": "Lituania", "IdPais": "LT" }, { "Id": 246, "Descripcion": "Mayotte", "IdPais": "YT" }, { "Id": 247, "Descripcion": "Moldova", "IdPais": "MD" }, { "Id": 248, "Descripcion": "Montenegro", "IdPais": "ME" }, { "Id": 249, "Descripcion": "República Democrática del Congo", "IdPais": "CD" }, { "Id": 250, "Descripcion": "Rusia", "IdPais": "RU" }, { "Id": 251, "Descripcion": "Serbia", "IdPais": "RS" }, { "Id": 252, "Descripcion": "Tayikistán", "IdPais": "TJ" }, { "Id": 253, "Descripcion": "Territorios Palestinos", "IdPais": "PS" }, { "Id": 254, "Descripcion": "Turkmenistán", "IdPais": "TM" }, { "Id": 255, "Descripcion": "Uzbekistán", "IdPais": "UZ" }, { "Id": 256, "Descripcion": "Clipperton", "IdPais": "CP" }, { "Id": 257, "Descripcion": "Eslovaquia", "IdPais": "SK" }, { "Id": 258, "Descripcion": "Eslovenia", "IdPais": "SI" } ]
+[
+  {
+    "IdPais": "AF",
+    "Descripcion": "Afganistán",
+    "Id": 4
+  },
+  {
+    "IdPais": "DE",
+    "Descripcion": "Alemania",
+    "Id": 216
+  },
+  {
+    "IdPais": "AQ",
+    "Descripcion": "Antártica",
+    "Id": 10
+  },
+  {
+    "IdPais": "AG",
+    "Descripcion": "Antigua y Bermuda",
+    "Id": 5
+  },
+  {
+    "IdPais": "AN",
+    "Descripcion": "Antillas Neerlandesas",
+    "Id": 8
+  },
+  {
+    "IdPais": "SA",
+    "Descripcion": "Arabia Saudita",
+    "Id": 163
+  },
+  {
+    "IdPais": "DZ",
+    "Descripcion": "Argelia",
+    "Id": 51
+  },
+  {
+    "IdPais": "AR",
+    "Descripcion": "Argentina",
+    "Id": 11
+  },
+  {
+    "IdPais": "AM",
+    "Descripcion": "Armenia",
+    "Id": 231
+  },
+  {
+    "IdPais": "AW",
+    "Descripcion": "Aruba",
+    "Id": 15
+  },
+  {
+    "IdPais": "AC",
+    "Descripcion": "Ascensión",
+    "Id": 211
+  },
+  {
+    "IdPais": "AU",
+    "Descripcion": "Australia",
+    "Id": 14
+  },
+  {
+    "IdPais": "AT",
+    "Descripcion": "Austria",
+    "Id": 13
+  },
+  {
+    "IdPais": "AZ",
+    "Descripcion": "Azerbaiyán",
+    "Id": 232
+  },
+  {
+    "IdPais": "BD",
+    "Descripcion": "Bangladesh",
+    "Id": 17
+  },
+  {
+    "IdPais": "BB",
+    "Descripcion": "Barbados",
+    "Id": 16
+  },
+  {
+    "IdPais": "BE",
+    "Descripcion": "Bélgica",
+    "Id": 18
+  },
+  {
+    "IdPais": "BZ",
+    "Descripcion": "Belice",
+    "Id": 212
+  },
+  {
+    "IdPais": "BJ",
+    "Descripcion": "Benin",
+    "Id": 23
+  },
+  {
+    "IdPais": "BM",
+    "Descripcion": "Bermudas",
+    "Id": 24
+  },
+  {
+    "IdPais": "BY",
+    "Descripcion": "Bielorrusia",
+    "Id": 32
+  },
+  {
+    "IdPais": "BO",
+    "Descripcion": "Bolivia",
+    "Id": 26
+  },
+  {
+    "IdPais": "BA",
+    "Descripcion": "Bosnia Y Herzegovina",
+    "Id": 234
+  },
+  {
+    "IdPais": "BW",
+    "Descripcion": "Botswana",
+    "Id": 31
+  },
+  {
+    "IdPais": "BR",
+    "Descripcion": "Brasil",
+    "Id": 27
+  },
+  {
+    "IdPais": "BN",
+    "Descripcion": "Brunei Darussalam",
+    "Id": 25
+  },
+  {
+    "IdPais": "BG",
+    "Descripcion": "Bulgaria",
+    "Id": 20
+  },
+  {
+    "IdPais": "BF",
+    "Descripcion": "Burkina Faso",
+    "Id": 19
+  },
+  {
+    "IdPais": "BI",
+    "Descripcion": "Burundi",
+    "Id": 22
+  },
+  {
+    "IdPais": "BT",
+    "Descripcion": "Buthan",
+    "Id": 29
+  },
+  {
+    "IdPais": "KH",
+    "Descripcion": "CAMBOYA",
+    "Id": 222
+  },
+  {
+    "IdPais": "CM",
+    "Descripcion": "Camerún",
+    "Id": 41
+  },
+  {
+    "IdPais": "CT",
+    "Descripcion": "Campione D’Italia",
+    "Id": 213
+  },
+  {
+    "IdPais": "CA",
+    "Descripcion": "Canadá",
+    "Id": 33
+  },
+  {
+    "IdPais": "TD",
+    "Descripcion": "Chad",
+    "Id": 181
+  },
+  {
+    "IdPais": "CL",
+    "Descripcion": "Chile",
+    "Id": 40
+  },
+  {
+    "IdPais": "CN",
+    "Descripcion": "China",
+    "Id": 42
+  },
+  {
+    "IdPais": "CP",
+    "Descripcion": "Clipperton",
+    "Id": 256
+  },
+  {
+    "IdPais": "CO",
+    "Descripcion": "Colombia",
+    "Id": 43
+  },
+  {
+    "IdPais": "DO",
+    "Descripcion": "Commonwealth de Dominica",
+    "Id": 217
+  },
+  {
+    "IdPais": "BS",
+    "Descripcion": "Commonwealth de las Bahamas",
+    "Id": 28
+  },
+  {
+    "IdPais": "KM",
+    "Descripcion": "Comoros",
+    "Id": 97
+  },
+  {
+    "IdPais": "CG",
+    "Descripcion": "Congo",
+    "Id": 36
+  },
+  {
+    "IdPais": "CI",
+    "Descripcion": "Costa de Marfil",
+    "Id": 38
+  },
+  {
+    "IdPais": "HR",
+    "Descripcion": "Croacia",
+    "Id": 235
+  },
+  {
+    "IdPais": "CU",
+    "Descripcion": "Cuba",
+    "Id": 45
+  },
+  {
+    "IdPais": "DK",
+    "Descripcion": "Dinamarca",
+    "Id": 49
+  },
+  {
+    "IdPais": "EC",
+    "Descripcion": "Ecuador",
+    "Id": 52
+  },
+  {
+    "IdPais": "EG",
+    "Descripcion": "Egipto",
+    "Id": 53
+  },
+  {
+    "IdPais": "SV",
+    "Descripcion": "El Salvador",
+    "Id": 177
+  },
+  {
+    "IdPais": "VA",
+    "Descripcion": "El Vaticano",
+    "Id": 197
+  },
+  {
+    "IdPais": "AE",
+    "Descripcion": "Emiratos Árabes Unidos",
+    "Id": 3
+  },
+  {
+    "IdPais": "ER",
+    "Descripcion": "Eritrea",
+    "Id": 236
+  },
+  {
+    "IdPais": "SK",
+    "Descripcion": "Eslovaquia",
+    "Id": 257
+  },
+  {
+    "IdPais": "SI",
+    "Descripcion": "Eslovenia",
+    "Id": 258
+  },
+  {
+    "IdPais": "ES",
+    "Descripcion": "España",
+    "Id": 55
+  },
+  {
+    "IdPais": "BH",
+    "Descripcion": "Estado de Bahrein",
+    "Id": 21
+  },
+  {
+    "IdPais": "KW",
+    "Descripcion": "Estado de Kuwait",
+    "Id": 101
+  },
+  {
+    "IdPais": "QA",
+    "Descripcion": "Estado de Quatar",
+    "Id": 158
+  },
+  {
+    "IdPais": "WS",
+    "Descripcion": "Estado Independiente de Samoa Occidental",
+    "Id": 228
+  },
+  {
+    "IdPais": "PR",
+    "Descripcion": "Estado Libre Asociado de Puerto Rico",
+    "Id": 153
+  },
+  {
+    "IdPais": "US",
+    "Descripcion": "Estados Unidos de América",
+    "Id": 195
+  },
+  {
+    "IdPais": "EE",
+    "Descripcion": "Estonia",
+    "Id": 237
+  },
+  {
+    "IdPais": "ET",
+    "Descripcion": "Etiopía",
+    "Id": 56
+  },
+  {
+    "IdPais": "FJ",
+    "Descripcion": "Fiji",
+    "Id": 58
+  },
+  {
+    "IdPais": "PH",
+    "Descripcion": "Filipinas",
+    "Id": 148
+  },
+  {
+    "IdPais": "FI",
+    "Descripcion": "Finlandia",
+    "Id": 57
+  },
+  {
+    "IdPais": "FR",
+    "Descripcion": "Francia",
+    "Id": 62
+  },
+  {
+    "IdPais": "GA",
+    "Descripcion": "Gabón",
+    "Id": 63
+  },
+  {
+    "IdPais": "GM",
+    "Descripcion": "Gambia",
+    "Id": 68
+  },
+  {
+    "IdPais": "GE",
+    "Descripcion": "Georgia",
+    "Id": 238
+  },
+  {
+    "IdPais": "GS",
+    "Descripcion": "Georgia del Sur e Islas Sandwich del Sur",
+    "Id": 240
+  },
+  {
+    "IdPais": "GH",
+    "Descripcion": "Ghana",
+    "Id": 66
+  },
+  {
+    "IdPais": "GI",
+    "Descripcion": "Gibraltar",
+    "Id": 67
+  },
+  {
+    "IdPais": "UK",
+    "Descripcion": "Gran Bretaña (Reino Unido)",
+    "Id": 227
+  },
+  {
+    "IdPais": "LU",
+    "Descripcion": "Gran Ducado de Luxemburgo",
+    "Id": 111
+  },
+  {
+    "IdPais": "GD",
+    "Descripcion": "Granada",
+    "Id": 64
+  },
+  {
+    "IdPais": "EL",
+    "Descripcion": "Grecia",
+    "Id": 218
+  },
+  {
+    "IdPais": "GL",
+    "Descripcion": "Groenlandia",
+    "Id": 219
+  },
+  {
+    "IdPais": "GP",
+    "Descripcion": "Guadalupe",
+    "Id": 70
+  },
+  {
+    "IdPais": "GU",
+    "Descripcion": "Guam",
+    "Id": 73
+  },
+  {
+    "IdPais": "GT",
+    "Descripcion": "Guatemala",
+    "Id": 72
+  },
+  {
+    "IdPais": "GN",
+    "Descripcion": "Guinea",
+    "Id": 69
+  },
+  {
+    "IdPais": "GW",
+    "Descripcion": "Guinea Bissau",
+    "Id": 74
+  },
+  {
+    "IdPais": "GQ",
+    "Descripcion": "Guinea Ecuatorial",
+    "Id": 71
+  },
+  {
+    "IdPais": "GF",
+    "Descripcion": "Guyana Francesa",
+    "Id": 65
+  },
+  {
+    "IdPais": "HT",
+    "Descripcion": "Haití",
+    "Id": 80
+  },
+  {
+    "IdPais": "NL",
+    "Descripcion": "Holanda",
+    "Id": 136
+  },
+  {
+    "IdPais": "HK",
+    "Descripcion": "Hong Kong",
+    "Id": 77
+  },
+  {
+    "IdPais": "HU",
+    "Descripcion": "Hungría",
+    "Id": 81
+  },
+  {
+    "IdPais": "IN",
+    "Descripcion": "India",
+    "Id": 85
+  },
+  {
+    "IdPais": "ID",
+    "Descripcion": "Indonesia",
+    "Id": 82
+  },
+  {
+    "IdPais": "IR",
+    "Descripcion": "Irán",
+    "Id": 89
+  },
+  {
+    "IdPais": "IQ",
+    "Descripcion": "Iraq",
+    "Id": 88
+  },
+  {
+    "IdPais": "IE",
+    "Descripcion": "Irlanda",
+    "Id": 83
+  },
+  {
+    "IdPais": "AI",
+    "Descripcion": "Isla Anguilla",
+    "Id": 6
+  },
+  {
+    "IdPais": "BV",
+    "Descripcion": "Isla Bouvet",
+    "Id": 30
+  },
+  {
+    "IdPais": "CX",
+    "Descripcion": "Isla de Christmas",
+    "Id": 214
+  },
+  {
+    "IdPais": "CC",
+    "Descripcion": "Isla de Cocos o Kelling",
+    "Id": 34
+  },
+  {
+    "IdPais": "NF",
+    "Descripcion": "Isla de Norfolk",
+    "Id": 133
+  },
+  {
+    "IdPais": "PM",
+    "Descripcion": "Isla de San Pedro y Miguelón",
+    "Id": 151
+  },
+  {
+    "IdPais": "IM",
+    "Descripcion": "Isla del Hombre",
+    "Id": 221
+  },
+  {
+    "IdPais": "QB",
+    "Descripcion": "Isla Qeshm",
+    "Id": 159
+  },
+  {
+    "IdPais": "IS",
+    "Descripcion": "Islandia",
+    "Id": 90
+  },
+  {
+    "IdPais": "AX",
+    "Descripcion": "Islas Åland",
+    "Id": 230
+  },
+  {
+    "IdPais": "XA",
+    "Descripcion": "Islas Azores",
+    "Id": 229
+  },
+  {
+    "IdPais": "KY",
+    "Descripcion": "Islas Caimán",
+    "Id": 102
+  },
+  {
+    "IdPais": "IC",
+    "Descripcion": "Islas Canarias",
+    "Id": 220
+  },
+  {
+    "IdPais": "CK",
+    "Descripcion": "Islas Cook",
+    "Id": 39
+  },
+  {
+    "IdPais": "GG",
+    "Descripcion": "Islas de Guernesey, Jersey, Alderney, Isla Great Sark, Herm, ",
+    "Id": 239
+  },
+  {
+    "IdPais": "GZ",
+    "Descripcion": "Islas de Guernesey, Jersey, Alderney, Isla Great Sark, Herm, Little Sark, Berchou, Jethou, Lihou (Islas del Canal)",
+    "Id": 76
+  },
+  {
+    "IdPais": "FO",
+    "Descripcion": "Islas Faroe",
+    "Id": 61
+  },
+  {
+    "IdPais": "HM",
+    "Descripcion": "Islas Heard and Mc Donald",
+    "Id": 78
+  },
+  {
+    "IdPais": "FK",
+    "Descripcion": "Islas Malvinas",
+    "Id": 59
+  },
+  {
+    "IdPais": "MP",
+    "Descripcion": "Islas Marianas del Noreste",
+    "Id": 120
+  },
+  {
+    "IdPais": "UM",
+    "Descripcion": "Islas menores alejadas de los Estados Unidos",
+    "Id": 194
+  },
+  {
+    "IdPais": "IP",
+    "Descripcion": "Islas Pacífico",
+    "Id": 87
+  },
+  {
+    "IdPais": "SB",
+    "Descripcion": "Islas Salomón",
+    "Id": 164
+  },
+  {
+    "IdPais": "SJ",
+    "Descripcion": "Islas Svalbard and Jan Mayen",
+    "Id": 170
+  },
+  {
+    "IdPais": "TC",
+    "Descripcion": "Islas Turcas y Caicos",
+    "Id": 180
+  },
+  {
+    "IdPais": "VG",
+    "Descripcion": "Islas Vírgenes Británicas",
+    "Id": 200
+  },
+  {
+    "IdPais": "VI",
+    "Descripcion": "Islas Vírgenes de Estados Unidos de América",
+    "Id": 201
+  },
+  {
+    "IdPais": "WF",
+    "Descripcion": "Islas Wallis y Funtuna",
+    "Id": 204
+  },
+  {
+    "IdPais": "IL",
+    "Descripcion": "Israel",
+    "Id": 84
+  },
+  {
+    "IdPais": "IT",
+    "Descripcion": "Italia",
+    "Id": 91
+  },
+  {
+    "IdPais": "JM",
+    "Descripcion": "Jamaica",
+    "Id": 92
+  },
+  {
+    "IdPais": "JP",
+    "Descripcion": "Japón",
+    "Id": 94
+  },
+  {
+    "IdPais": "JE",
+    "Descripcion": "Jersey",
+    "Id": 241
+  },
+  {
+    "IdPais": "KZ",
+    "Descripcion": "Kazajstán",
+    "Id": 242
+  },
+  {
+    "IdPais": "KE",
+    "Descripcion": "Kenia",
+    "Id": 95
+  },
+  {
+    "IdPais": "KG",
+    "Descripcion": "Kirguistán",
+    "Id": 243
+  },
+  {
+    "IdPais": "KI",
+    "Descripcion": "Kiribati",
+    "Id": 96
+  },
+  {
+    "IdPais": "LN",
+    "Descripcion": "Labuán",
+    "Id": 108
+  },
+  {
+    "IdPais": "LS",
+    "Descripcion": "Lesotho",
+    "Id": 110
+  },
+  {
+    "IdPais": "LV",
+    "Descripcion": "Letonia",
+    "Id": 244
+  },
+  {
+    "IdPais": "LB",
+    "Descripcion": "Líbano",
+    "Id": 104
+  },
+  {
+    "IdPais": "LY",
+    "Descripcion": "Libia",
+    "Id": 112
+  },
+  {
+    "IdPais": "LT",
+    "Descripcion": "Lituania",
+    "Id": 245
+  },
+  {
+    "IdPais": "MO",
+    "Descripcion": "Macao",
+    "Id": 119
+  },
+  {
+    "IdPais": "MG",
+    "Descripcion": "Madagascar",
+    "Id": 115
+  },
+  {
+    "IdPais": "MI",
+    "Descripcion": "Madeira",
+    "Id": 223
+  },
+  {
+    "IdPais": "MY",
+    "Descripcion": "Malasia ",
+    "Id": 128
+  },
+  {
+    "IdPais": "MW",
+    "Descripcion": "Malawi",
+    "Id": 127
+  },
+  {
+    "IdPais": "ML",
+    "Descripcion": "Malí",
+    "Id": 117
+  },
+  {
+    "IdPais": "MT",
+    "Descripcion": "Malta",
+    "Id": 124
+  },
+  {
+    "IdPais": "MA",
+    "Descripcion": "Marruecos",
+    "Id": 113
+  },
+  {
+    "IdPais": "MQ",
+    "Descripcion": "Martinica",
+    "Id": 121
+  },
+  {
+    "IdPais": "MR",
+    "Descripcion": "Mauritania",
+    "Id": 122
+  },
+  {
+    "IdPais": "YT",
+    "Descripcion": "Mayotte",
+    "Id": 246
+  },
+  {
+    "IdPais": "MX",
+    "Descripcion": "México",
+    "Id": 1
+  },
+  {
+    "IdPais": "FM",
+    "Descripcion": "Micronesia",
+    "Id": 60
+  },
+  {
+    "IdPais": "MD",
+    "Descripcion": "Moldova",
+    "Id": 247
+  },
+  {
+    "IdPais": "MN",
+    "Descripcion": "Mongolia",
+    "Id": 118
+  },
+  {
+    "IdPais": "MS",
+    "Descripcion": "Monserrat",
+    "Id": 123
+  },
+  {
+    "IdPais": "ME",
+    "Descripcion": "Montenegro",
+    "Id": 248
+  },
+  {
+    "IdPais": "MZ",
+    "Descripcion": "Mozambique",
+    "Id": 129
+  },
+  {
+    "IdPais": "MM",
+    "Descripcion": "Myanmar (Birmania)",
+    "Id": 233
+  },
+  {
+    "IdPais": "NP",
+    "Descripcion": "Nepal",
+    "Id": 138
+  },
+  {
+    "IdPais": "NV",
+    "Descripcion": "Nevis",
+    "Id": 141
+  },
+  {
+    "IdPais": "NI",
+    "Descripcion": "Nicaragua",
+    "Id": 135
+  },
+  {
+    "IdPais": "NE",
+    "Descripcion": "Níger",
+    "Id": 132
+  },
+  {
+    "IdPais": "NG",
+    "Descripcion": "Nigeria",
+    "Id": 134
+  },
+  {
+    "IdPais": "NU",
+    "Descripcion": "Niue",
+    "Id": 140
+  },
+  {
+    "IdPais": "NO",
+    "Descripcion": "Noruega",
+    "Id": 137
+  },
+  {
+    "IdPais": "NC",
+    "Descripcion": "Nueva Caledonia",
+    "Id": 131
+  },
+  {
+    "IdPais": "NZ",
+    "Descripcion": "Nueva Zelandia",
+    "Id": 142
+  },
+  {
+    "IdPais": "PK",
+    "Descripcion": "Pakistán",
+    "Id": 149
+  },
+  {
+    "IdPais": "PW",
+    "Descripcion": "Palau",
+    "Id": 156
+  },
+  {
+    "IdPais": "PG",
+    "Descripcion": "Papúa Nueva Guinea",
+    "Id": 147
+  },
+  {
+    "IdPais": "PY",
+    "Descripcion": "Paraguay",
+    "Id": 157
+  },
+  {
+    "IdPais": "PU",
+    "Descripcion": "Patau",
+    "Id": 155
+  },
+  {
+    "IdPais": "PE",
+    "Descripcion": "Perú",
+    "Id": 145
+  },
+  {
+    "IdPais": "PN",
+    "Descripcion": "Pitcairn",
+    "Id": 152
+  },
+  {
+    "IdPais": "PF",
+    "Descripcion": "Polinesia Francesa",
+    "Id": 146
+  },
+  {
+    "IdPais": "PL",
+    "Descripcion": "Polonia",
+    "Id": 150
+  },
+  {
+    "IdPais": "PT",
+    "Descripcion": "Portugal",
+    "Id": 154
+  },
+  {
+    "IdPais": "AD",
+    "Descripcion": "Principado de Andorra",
+    "Id": 2
+  },
+  {
+    "IdPais": "LI",
+    "Descripcion": "Principado de Liechtenstein",
+    "Id": 106
+  },
+  {
+    "IdPais": "MC",
+    "Descripcion": "Principado de Mónaco",
+    "Id": 114
+  },
+  {
+    "IdPais": "SZ",
+    "Descripcion": "Reino de Swazilandia",
+    "Id": 179
+  },
+  {
+    "IdPais": "TO",
+    "Descripcion": "Reino de Tonga",
+    "Id": 187
+  },
+  {
+    "IdPais": "JO",
+    "Descripcion": "Reino Hachemita de Jordania",
+    "Id": 93
+  },
+  {
+    "IdPais": "CF",
+    "Descripcion": "República Centro Africana",
+    "Id": 35
+  },
+  {
+    "IdPais": "CZ",
+    "Descripcion": "República Checa y República Eslovaca",
+    "Id": 215
+  },
+  {
+    "IdPais": "AL",
+    "Descripcion": "República de Albania",
+    "Id": 7
+  },
+  {
+    "IdPais": "AO",
+    "Descripcion": "República de Angola",
+    "Id": 9
+  },
+  {
+    "IdPais": "CV",
+    "Descripcion": "República de Cabo Verde",
+    "Id": 46
+  },
+  {
+    "IdPais": "CY",
+    "Descripcion": "República de Chipre",
+    "Id": 47
+  },
+  {
+    "IdPais": "KR",
+    "Descripcion": "República de Corea",
+    "Id": 100
+  },
+  {
+    "IdPais": "CR",
+    "Descripcion": "República de Costa Rica",
+    "Id": 44
+  },
+  {
+    "IdPais": "DJ",
+    "Descripcion": "República de Djibouti",
+    "Id": 48
+  },
+  {
+    "IdPais": "GY",
+    "Descripcion": "República de Guyana",
+    "Id": 75
+  },
+  {
+    "IdPais": "HN",
+    "Descripcion": "República de Honduras",
+    "Id": 79
+  },
+  {
+    "IdPais": "MH",
+    "Descripcion": "República de las Islas Marshall",
+    "Id": 116
+  },
+  {
+    "IdPais": "LR",
+    "Descripcion": "República de Liberia",
+    "Id": 109
+  },
+  {
+    "IdPais": "MV",
+    "Descripcion": "República de Maldivas",
+    "Id": 126
+  },
+  {
+    "IdPais": "MU",
+    "Descripcion": "República de Mauricio",
+    "Id": 125
+  },
+  {
+    "IdPais": "NA",
+    "Descripcion": "República de Namibia",
+    "Id": 130
+  },
+  {
+    "IdPais": "NR",
+    "Descripcion": "República de Nauru",
+    "Id": 139
+  },
+  {
+    "IdPais": "PA",
+    "Descripcion": "República de Panamá",
+    "Id": 144
+  },
+  {
+    "IdPais": "TT",
+    "Descripcion": "República de Trinidad y Tobago",
+    "Id": 188
+  },
+  {
+    "IdPais": "TN",
+    "Descripcion": "República de Túnez",
+    "Id": 186
+  },
+  {
+    "IdPais": "VU",
+    "Descripcion": "República de Vanuatu",
+    "Id": 203
+  },
+  {
+    "IdPais": "YE",
+    "Descripcion": "República del Yemen",
+    "Id": 205
+  },
+  {
+    "IdPais": "KP",
+    "Descripcion": "República Democrática de Corea",
+    "Id": 99
+  },
+  {
+    "IdPais": "LA",
+    "Descripcion": "República Democrática de Laos",
+    "Id": 103
+  },
+  {
+    "IdPais": "CD",
+    "Descripcion": "República Democrática del Congo",
+    "Id": 249
+  },
+  {
+    "IdPais": "DM",
+    "Descripcion": "República Dominicana",
+    "Id": 50
+  },
+  {
+    "IdPais": "UY",
+    "Descripcion": "República Oriental del Uruguay",
+    "Id": 196
+  },
+  {
+    "IdPais": "LK",
+    "Descripcion": "República Socialista Democrática de Sri Lanka",
+    "Id": 107
+  },
+  {
+    "IdPais": "RE",
+    "Descripcion": "Reunión",
+    "Id": 160
+  },
+  {
+    "IdPais": "RW",
+    "Descripcion": "Rhuanda",
+    "Id": 162
+  },
+  {
+    "IdPais": "RO",
+    "Descripcion": "Rumania",
+    "Id": 161
+  },
+  {
+    "IdPais": "RU",
+    "Descripcion": "Rusia",
+    "Id": 250
+  },
+  {
+    "IdPais": "EH",
+    "Descripcion": "Sahara del Oeste",
+    "Id": 54
+  },
+  {
+    "IdPais": "AS",
+    "Descripcion": "Samoa Americana",
+    "Id": 12
+  },
+  {
+    "IdPais": "KN",
+    "Descripcion": "San Kitts",
+    "Id": 98
+  },
+  {
+    "IdPais": "VC",
+    "Descripcion": "San Vicente y Las Granadinas",
+    "Id": 198
+  },
+  {
+    "IdPais": "SH",
+    "Descripcion": "Santa Elena",
+    "Id": 169
+  },
+  {
+    "IdPais": "LC",
+    "Descripcion": "Santa Lucía",
+    "Id": 105
+  },
+  {
+    "IdPais": "ST",
+    "Descripcion": "Sao Tome and Príncipe",
+    "Id": 176
+  },
+  {
+    "IdPais": "SN",
+    "Descripcion": "Senegal",
+    "Id": 173
+  },
+  {
+    "IdPais": "RS",
+    "Descripcion": "Serbia",
+    "Id": 251
+  },
+  {
+    "IdPais": "SM",
+    "Descripcion": "Serenísima República de San Marino",
+    "Id": 172
+  },
+  {
+    "IdPais": "SC",
+    "Descripcion": "Seychelles Islas",
+    "Id": 165
+  },
+  {
+    "IdPais": "SL",
+    "Descripcion": "Sierra Leona",
+    "Id": 171
+  },
+  {
+    "IdPais": "SG",
+    "Descripcion": "Singapur",
+    "Id": 168
+  },
+  {
+    "IdPais": "SY",
+    "Descripcion": "Siria",
+    "Id": 178
+  },
+  {
+    "IdPais": "SO",
+    "Descripcion": "Somalia",
+    "Id": 174
+  },
+  {
+    "IdPais": "ZA",
+    "Descripcion": "Sudáfrica",
+    "Id": 206
+  },
+  {
+    "IdPais": "SD",
+    "Descripcion": "Sudán",
+    "Id": 166
+  },
+  {
+    "IdPais": "SE",
+    "Descripcion": "Suecia",
+    "Id": 167
+  },
+  {
+    "IdPais": "CH",
+    "Descripcion": "Suiza",
+    "Id": 37
+  },
+  {
+    "IdPais": "OM",
+    "Descripcion": "Sultanía de Omán",
+    "Id": 143
+  },
+  {
+    "IdPais": "SR",
+    "Descripcion": "Surinam",
+    "Id": 175
+  },
+  {
+    "IdPais": "TW",
+    "Descripcion": "Taiwán",
+    "Id": 190
+  },
+  {
+    "IdPais": "TZ",
+    "Descripcion": "Tanzania",
+    "Id": 191
+  },
+  {
+    "IdPais": "TJ",
+    "Descripcion": "Tayikistán",
+    "Id": 252
+  },
+  {
+    "IdPais": "IO",
+    "Descripcion": "Territorio Británico en el Océano Indico",
+    "Id": 86
+  },
+  {
+    "IdPais": "TF",
+    "Descripcion": "Territorios Franceses del Sureste",
+    "Id": 182
+  },
+  {
+    "IdPais": "PS",
+    "Descripcion": "Territorios Palestinos",
+    "Id": 253
+  },
+  {
+    "IdPais": "TH",
+    "Descripcion": "Thailandia",
+    "Id": 184
+  },
+  {
+    "IdPais": "TL",
+    "Descripcion": "Timor Este",
+    "Id": 224
+  },
+  {
+    "IdPais": "TG",
+    "Descripcion": "Togo",
+    "Id": 183
+  },
+  {
+    "IdPais": "TK",
+    "Descripcion": "Tokelau",
+    "Id": 185
+  },
+  {
+    "IdPais": "TS",
+    "Descripcion": "Trieste",
+    "Id": 226
+  },
+  {
+    "IdPais": "TM",
+    "Descripcion": "Turkmenistán",
+    "Id": 254
+  },
+  {
+    "IdPais": "TR",
+    "Descripcion": "Turquía",
+    "Id": 225
+  },
+  {
+    "IdPais": "TV",
+    "Descripcion": "Tuvalu",
+    "Id": 189
+  },
+  {
+    "IdPais": "UA",
+    "Descripcion": "Ucrania",
+    "Id": 192
+  },
+  {
+    "IdPais": "UG",
+    "Descripcion": "Uganda",
+    "Id": 193
+  },
+  {
+    "IdPais": "UZ",
+    "Descripcion": "Uzbekistán",
+    "Id": 255
+  },
+  {
+    "IdPais": "VE",
+    "Descripcion": "Venezuela",
+    "Id": 199
+  },
+  {
+    "IdPais": "VN",
+    "Descripcion": "Vietnam",
+    "Id": 202
+  },
+  {
+    "IdPais": "ZM",
+    "Descripcion": "Zambia",
+    "Id": 208
+  },
+  {
+    "IdPais": "ZW",
+    "Descripcion": "Zimbabwe",
+    "Id": 210
+  },
+  {
+    "IdPais": "ZC",
+    "Descripcion": "Zona Especial Canaria",
+    "Id": 207
+  },
+  {
+    "IdPais": "ZO",
+    "Descripcion": "Zona Libre Ostrava",
+    "Id": 209
+  }
+]

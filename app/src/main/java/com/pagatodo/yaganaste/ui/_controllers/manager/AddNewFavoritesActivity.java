@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
@@ -29,26 +30,34 @@ import android.widget.TextView;
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
+import com.pagatodo.yaganaste.freja.Errors;
+import com.pagatodo.yaganaste.freja.otp.presenter.OtpPResenter;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ITextChangeListener;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.interfaces.enums.TransferType;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.CropActivity;
 import com.pagatodo.yaganaste.ui._controllers.ScannVisionActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
 import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritesPresenter;
+import com.pagatodo.yaganaste.ui.addfavorites.presenters.FavoritoPresenterAutoriza;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.PaymentsCarrouselManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsCarouselPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IPaymentsCarouselPresenter;
+import com.pagatodo.yaganaste.ui.otp.controllers.OtpView;
+import com.pagatodo.yaganaste.ui.otp.presenters.OtpPresenterImp;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.ICropper;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IListaOpcionesView;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
@@ -102,7 +111,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
         IListaOpcionesView, ValidationForms, View.OnClickListener, OnListServiceListener,
         AdapterView.OnItemSelectedListener, ITextChangeListener, PaymentsCarrouselManager,
-        ICropper, CropIwaResultReceiver.Listener {
+        ICropper, CropIwaResultReceiver.Listener ,OtpView {
 
     public static final String TAG = AddNewFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
@@ -178,13 +187,15 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
     IPaymentsCarouselPresenter paymentsCarouselPresenter;
     private TextWatcher currentTextWatcher;
     AppCompatImageView btn_back;
-
+    private FavoritoPresenterAutoriza favoritoPresenterAutoriza;
+    private static Preferencias preferencias = App.getInstance().getPrefs();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_new_favorites);
         ButterKnife.bind(this);
         favoritesPresenter = new FavoritesPresenter(this);
+        favoritoPresenterAutoriza = new FavoritoPresenterAutoriza(this, this);
 
         Intent intent = getIntent();
         //  backUpResponse = intent.getExtras().getParcelableArrayList(BACK_UP_RESPONSE);
@@ -788,6 +799,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
 
         /* Si no tiene un favorito guardado con la misma referencia entonces se permite subirlo*/
         if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
+            favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
             favoritesPresenter.toPresenterAddNewFavorites(getString(R.string.loader_15),addFavoritesRequest);
         } else {
         /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
@@ -1208,5 +1220,15 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         if(BACK_STATE_NEWFAVORITE) {
             super.onBackPressed();
         }
+    }
+
+    @Override
+    public void onOtpGenerated(String otp) {
+        RequestHeaders.setTokenFreja(otp);
+    }
+
+    @Override
+    public void showError(Errors error) {
+
     }
 }

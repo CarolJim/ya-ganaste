@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center"
-                android:text="@string/txt_change_pass" />
+                android:text="@string/change_your_pass" />
 
         </LinearLayout>
 
@@ -115,7 +115,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:formato="password"
-                        app:hintText="@string/password"
+                        app:hintText="@string/new_password"
                         app:isSingleLine="true"
                         app:maxLength="16" />
 
@@ -132,7 +132,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         app:formato="password"
-                        app:hintText="@string/passwordConfirm"
+                        app:hintText="@string/passwordConfirmNew"
                         app:isSingleLine="true"
                         app:maxLength="16" />
 

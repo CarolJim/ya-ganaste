@@ -146,6 +146,9 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
                 subgiroArrayAdapter = new SubBussinesLineSpinnerAdapter(getActivity(),
                         R.layout.spinner_layout, list, DatosNegocioFragment.this);
                 spinnerSubBussineLine.setAdapter(subgiroArrayAdapter);
+                if (list.size()==2){
+                    spinnerSubBussineLine.setSelection(1);
+                }
                 onSpinnerClick();
             }
 

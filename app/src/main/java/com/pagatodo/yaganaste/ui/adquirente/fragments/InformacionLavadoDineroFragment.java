@@ -17,10 +17,12 @@ import android.widget.Button;
 import android.widget.RadioGroup;
 import android.widget.Spinner;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
 import com.pagatodo.yaganaste.data.model.RegisterAgent;
 import com.pagatodo.yaganaste.data.model.db.Countries;
+import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.CuestionarioEntity;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.CobrosMensualesResponse;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
@@ -56,6 +58,11 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
+import static com.pagatodo.yaganaste.utils.Recursos.ADQ_PROCESS;
+import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_COBROS;
+import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_DESTINO_RECURSOS;
+import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_MONTOS;
+import static com.pagatodo.yaganaste.utils.Recursos.PREGUNTA_ORIGEN_RECURSOS;
 
 /**
  * Created by Omar on 31/10/2017.
@@ -300,6 +307,11 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
         registerAgent.setOrigenRecursos(adpaterOrigen.getItem(spnOrigenRecursos.getSelectedItemPosition()));
         registerAgent.setDestinoRecursos(adpaterDestino.getItem(spnDestinoRecursos.getSelectedItemPosition()));
 
+        registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_COBROS, true, spnCobrosMensuales.getSelectedItemPosition()));
+        registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_MONTOS, true, spnMontoMensual.getSelectedItemPosition()));
+        registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_ORIGEN_RECURSOS, true, spnOrigenRecursos.getSelectedItemPosition()));
+        registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_DESTINO_RECURSOS, true, spnDestinoRecursos.getSelectedItemPosition()));
+
         infoAdicionalPresenter.createUsuarioAdquirente();
     }
 
@@ -335,7 +347,7 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
 
     @Override
     public void onSuccessCreateAgente() {
-        //App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
+        App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
         nextScreen(EVENT_GO_BUSSINES_DOCUMENTS, null);
     }
 
@@ -385,7 +397,6 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     @Override
     public void onSucessSpinnerList(List<CobrosMensualesResponse> Data, SpinnerPLD sp) {
         List<String> stringList = new ArrayList<>();
-
         if (sp == SPINNER_PLD_COBROS){
             stringList.add(getString(R.string.hint_cobros_mensual));
             for(int i = 0; i < Data.size(); i++){
@@ -424,7 +435,7 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     }
 
     @Override
-    public void onErrorCobro() {
-
+    public void onErrorSpinnerList(SpinnerPLD sp) {
+        showError(getString(R.string.text_error_spinner));
     }
 }

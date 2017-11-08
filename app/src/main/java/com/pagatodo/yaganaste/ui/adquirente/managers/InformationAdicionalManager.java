@@ -27,9 +27,10 @@ public interface InformationAdicionalManager extends ValidationForms, INavigatio
 
     void onSuccessCreateAgente();
 
+    void onErrorCreateAgente(ErrorObject error);
+
     void onSucessSpinnerList(List<CobrosMensualesResponse> Dat,SpinnerPLD sp);
 
-    void onErrorCobro();
+    void onErrorSpinnerList(SpinnerPLD sp);
 
-    void onErrorCreateAgente(ErrorObject error);
 }

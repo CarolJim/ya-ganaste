@@ -115,7 +115,7 @@
                                 android:focusableInTouchMode="false"
                                 android:visibility="visible"
                                 app:formato="text"
-                                app:hintText="@string/county"
+                                app:hintText="@string/country_nationality"
                                 app:imageIsGone="false"
                                 app:isTextEnabled="false" />
 

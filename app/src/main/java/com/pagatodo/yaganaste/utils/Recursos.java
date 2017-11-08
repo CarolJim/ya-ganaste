@@ -178,14 +178,17 @@ public class Recursos {
     public static final int PAGO_DE_SERVICIO = 2;
     public static final int ENVIO_DE_DINERO = 3;
     /*Id's de Preguntas  en Cuestionario Negocio*/ //TODO esto debería de ser un catálogo de ws
-    public static final int PREGUNTA_VENTAS = 1;
-    public static final int PREGUNTA_TRANSACCIONES = 2;
-    public static final int PREGUNTA_GIRO = 3;
+    public static final int PREGUNTA_RANGOS_MONTOS = 1;
+    public static final int PREGUNTA_RANGO_OPERACIONES = 2;
+    //public static final int PREGUNTA_GIRO = 3;
     public static final int PREGUNTA_FAMILIAR = 4;
     public static final int PREGUNTA_DOMICILIO = 5;
-    public static final int PREGUNTA_BENEFICIARIOS = 6;
+    //public static final int PREGUNTA_BENEFICIARIOS = 6;
     public static final int PREGUNTA_ERES_MEXICANO_NATURALIZADO = 10;
-
+    public static final int PREGUNTA_COBROS = 1;
+    public static final int PREGUNTA_MONTOS = 2;
+    public static final int PREGUNTA_ORIGEN_RECURSOS = 11;
+    public static final int PREGUNTA_DESTINO_RECURSOS = 12;
 
     //Constantes
     public static final String CARD_PAY = "PAGO CON TARJETA";

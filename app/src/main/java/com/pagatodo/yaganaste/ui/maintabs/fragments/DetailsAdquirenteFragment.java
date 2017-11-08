@@ -212,8 +212,8 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         if(url != null && !url.isEmpty()) {
             Picasso.with(getContext())
                     .load(url)
-                    .placeholder(R.mipmap.logo_ya_ganaste)
-                    .error(R.mipmap.logo_ya_ganaste)
+                    .placeholder(R.mipmap.logo_yaganaste_hw)
+                    .error(R.mipmap.logo_yaganaste_hw)
                     .into(imageDetail);
         }else{
             Glide.with(getContext())
@@ -221,13 +221,6 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
                     .placeholder(R.mipmap.logo_ya_ganaste)
                     .into(imageDetail);
         }
-
-        /* BORRAR ESTE BLOQUE EN version aprovadas
-         Glide.with(getContext())
-                    .load(url)
-                    .placeholder(R.mipmap.logo_ya_ganaste)
-                    .into(imageDetail);
-        */
 
         switch (dataMovimientoAdq.getEstatus()) {
             case ESTATUS_CANCELADO:

@@ -30,7 +30,7 @@
             android:layout_height="match_parent"
             android:adjustViewBounds="true"
             android:scaleType="fitXY"
-            android:src="@mipmap/logo_ya_ganaste" />
+            android:src="@mipmap/logo_yaganaste_hw" />
     </RelativeLayout>
 
     <ScrollView

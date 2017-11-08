@@ -12,12 +12,15 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.db.Countries;
 import com.pagatodo.yaganaste.interfaces.OnCountrySelectedListener;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ListServicesSpinnerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -56,6 +59,12 @@ public class ListServDialogFragment extends DialogFragment implements SearchView
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         backUpResponse = getArguments().getParcelableArrayList("backUpResponse");
+        Collections.sort(backUpResponse, new Comparator<CustomCarouselItem>() {
+            @Override
+            public int compare(CustomCarouselItem countries, CustomCarouselItem t1) {
+                return countries.getNombreComercio().compareTo(t1.getNombreComercio());
+            }
+        });
     }
 
     @Override
