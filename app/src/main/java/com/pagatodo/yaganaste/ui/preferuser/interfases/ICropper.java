@@ -16,4 +16,5 @@ public interface ICropper{
 
     void onCropper(Uri uri);
     void onHideProgress();
+    void failLoadJpg();
 }

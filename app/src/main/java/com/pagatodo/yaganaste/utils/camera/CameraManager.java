@@ -35,8 +35,6 @@ import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
 import java.io.File;
 import java.io.IOException;
-import java.io.InputStream;
-import java.io.Serializable;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Date;
@@ -382,8 +380,9 @@ public class CameraManager {
                 if (new File(selectedImage.getPath()).exists()) {
                     path = selectedImage.getPath();
                 } else {
-                    String myPath = getImagePath(selectedImage);
-                   cursor = getContext().getContentResolver().query(selectedImage,
+                    path = getImagePath(selectedImage);
+
+                     /*  cursor = getContext().getContentResolver().query(selectedImage,
                             filePathColumn, null, null, null);
                     if (cursor.moveToFirst()) {
                         int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
@@ -391,42 +390,15 @@ public class CameraManager {
                         if (path != null) {
                             String extension = path.substring(path.lastIndexOf("."));
                         }
-                    }
-                    // cursor.moveToFirst();
-
-                    // Obtenemos los ultimos
+                    }*/
                 }
-             /*
-            public String getImagePath(Uri uri){
-   Cursor cursor = getContentResolver().query(uri, null, null, null, null);
-   cursor.moveToFirst();
-   String document_id = cursor.getString(0);
-   document_id = document_id.substring(document_id.lastIndexOf(":")+1);
-   cursor.close();
 
-   cursor = getContentResolver().query(
-   android.provider.MediaStore.Images.Media.EXTERNAL_CONTENT_URI,
-   null, MediaStore.Images.Media._ID + " = ? ", new String[]{document_id}, null);
-   cursor.moveToFirst();
-   String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
-   cursor.close();
-
-   return path;
-}
-                    */
-
-                //startCropActivity(data.getData());
-
-                //Proceso para obtener la imagen por medio de un contentResolver
-                /*bitmapLoader = new BitmapLoader(mContext, path, new BitmapBase64Listener() {
-                    @Override
-                    public void OnBitmap64Listener(Bitmap bitmap, String imgbase64) {
-                        saveBmpImgUser(bitmap, imgbase64);
-                    }
-                });
-                bitmapLoader.execute();*/
-
-                this.listener.onCropper(selectedImage);
+                if (path.equals(".jpg") || path.equals(".jpge")) {
+                    this.listener.onCropper(selectedImage);
+                } else {
+                   // Toast.makeText(getContext(), "No es jpg", Toast.LENGTH_SHORT).show();
+                    this.listener.failLoadJpg();
+                }
 
             } catch (Exception e) {
                 //e.printStackTrace();
@@ -444,11 +416,11 @@ public class CameraManager {
         }
     }
 
-    public String getImagePath(Uri uri){
+    public String getImagePath(Uri uri) {
         Cursor cursor = getContext().getContentResolver().query(uri, null, null, null, null);
         cursor.moveToFirst();
         String document_id = cursor.getString(0);
-        document_id = document_id.substring(document_id.lastIndexOf(":")+1);
+        document_id = document_id.substring(document_id.lastIndexOf(":") + 1);
         cursor.close();
 
         cursor = getContext().getContentResolver().query(
@@ -458,9 +430,21 @@ public class CameraManager {
         String path = cursor.getString(cursor.getColumnIndex(MediaStore.Images.Media.DATA));
         cursor.close();
 
+        path = path.substring(path.lastIndexOf("."));
         return path;
     }
 
+    /*
+     cursor = getContext().getContentResolver().query(selectedImage,
+                            filePathColumn, null, null, null);
+                    if (cursor.moveToFirst()) {
+                        int columnIndex = cursor.getColumnIndexOrThrow(filePathColumn[0]);
+                        path = cursor.getString(columnIndex);
+                        if (path != null) {
+                            String extension = path.substring(path.lastIndexOf("."));
+                        }
+                    }
+    * */
     public IListaOpcionesView getView() {
         return this.mView;
     }

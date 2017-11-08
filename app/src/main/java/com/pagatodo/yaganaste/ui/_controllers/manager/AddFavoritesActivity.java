@@ -523,6 +523,12 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     }
 
     @Override
+    public void failLoadJpg() {
+        showDialogMesage(getString(R.string.msg_format_image),
+                getString(R.string.msg_format_image_warning), 0);
+    }
+
+    @Override
     public void onCropFailed(Throwable e) {
         e.printStackTrace();
     }

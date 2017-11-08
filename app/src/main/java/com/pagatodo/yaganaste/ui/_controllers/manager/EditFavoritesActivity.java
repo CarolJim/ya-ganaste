@@ -1356,6 +1356,12 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     }
 
     @Override
+    public void failLoadJpg() {
+        showDialogMesage(getString(R.string.msg_format_image),
+                getString(R.string.msg_format_image_warning), 0);
+    }
+
+    @Override
     protected void onResume() {
         super.onResume();
         setVisibilityPrefer(false);

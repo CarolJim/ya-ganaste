@@ -218,12 +218,17 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
     @Override
     public void onCropper(Uri uri) {
         showProgress("");
-        startActivityForResult(CropActivity.callingIntent(getContext(), uri),CROP_RESULT);
+        startActivityForResult(CropActivity.callingIntent(getContext(), uri), CROP_RESULT);
     }
 
     @Override
     public void onHideProgress() {
         hideLoader();
+    }
+
+    @Override
+    public void failLoadJpg() {
+        showDialogMesage(getString(R.string.msg_format_image_warning));
     }
 
     @Override

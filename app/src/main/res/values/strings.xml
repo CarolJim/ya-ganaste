@@ -1065,5 +1065,7 @@
     <string name="text_error_monto_mensual">Monto Requerido, Verifique su Información</string>
     <string name="text_error_origen_recursos">Origen Requerido, Verifique su Información</string>
     <string name="text_error_destino_mensual">Destino Requerido, Verifique su Información</string>
+    <string name="msg_format_image">Formato de Imagen</string>
+    <string name="msg_format_image_warning">Es Necesario Escoger Una Imagen Con Extension JPG o JPGE</string>
 
 </resources>
