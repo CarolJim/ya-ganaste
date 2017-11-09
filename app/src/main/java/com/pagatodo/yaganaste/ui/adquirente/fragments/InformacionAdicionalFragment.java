@@ -50,6 +50,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_COBROS;
+import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_PAISES;
 import static com.pagatodo.yaganaste.ui._controllers.BussinesActivity.EVENT_GO_BUSSINES_MONEY_LAUNDERING;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
@@ -481,7 +483,23 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
     @Override
     public void onSucessSpinnerList(List<CobrosMensualesResponse> Dat, SpinnerPLD sp) {
+        ArrayList<String> stringList = new ArrayList<>();
+        if (sp == SPINNER_PLD_PAISES) {
+            stringList.add(getString(R.string.hint_cobros_mensual));
+            for (int i = 0; i < Dat.size(); i++) {
+                stringList.add(Dat.get(i).getDescripcion());
+            }
+            ArrayList<Countries> paises = new ArrayList<>();
+            for (int i = 0; i < Dat.size(); i++) {
+                paises.add(Dat.get(i).getDescripcion(),i);
+            }
 
+
+
+            CountriesDialogFragment dialogFragment = CountriesDialogFragment.newInstance(stringList);
+            dialogFragment.setOnCountrySelectedListener(this);
+            dialogFragment.show(getChildFragmentManager(), "FragmentDialog");
+        }
     }
 
     @Override

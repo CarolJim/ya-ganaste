@@ -25,11 +25,13 @@ import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_COB
 import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_DESTINO;
 import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_MONTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_ORIGEN;
+import static com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD.SPINNER_PLD_PAISES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CREAR_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_COBROS_MENSUALES;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_DESTINO_RECURSOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_MONTOS;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_ORIGEN_RECURSOS;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTENER_PAISES;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 
 /**
@@ -47,6 +49,9 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
     @Override
     public ArrayList<Countries> getPaisesList() {
         CatalogsDbApi api = new CatalogsDbApi(App.getContext());
+        ObtenerCobrosMensualesRequest request = new ObtenerCobrosMensualesRequest();
+        createProccesRequest(request,App.getContext().getString(R.string.obtenerCobrosMensuales),OBTENER_PAISES,App.getInstance().getString(R.string.no_internet_access));
+
         return api.getPaisesList();
     }
 
@@ -90,6 +95,9 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
             infoAdicionalPresenter.onSuccessCreateUsuarioAdquirente(result);
         }
 
+        if (result.getWebService() == OBTENER_PAISES){
+            processSpinnerResult(result,SPINNER_PLD_PAISES);
+        }
         if (result.getWebService() == OBTENER_COBROS_MENSUALES){
             processSpinnerResult(result,SPINNER_PLD_COBROS);
         }

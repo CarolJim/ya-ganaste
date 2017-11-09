@@ -5,7 +5,7 @@ package com.pagatodo.yaganaste.interfaces.enums;
  */
 
 public enum SpinnerPLD {
-
+    SPINNER_PLD_PAISES,
     SPINNER_PLD_COBROS,
     SPINNER_PLD_MONTOS,
     SPINNER_PLD_ORIGEN,
