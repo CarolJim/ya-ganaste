@@ -15,7 +15,7 @@ public interface IinfoAdicionalInteractor extends IRequestResult {
 
     void registrarAdquirente();
     void setSpinner(SpinnerPLD sp);
-
+    void setPaises();
 
 
 }

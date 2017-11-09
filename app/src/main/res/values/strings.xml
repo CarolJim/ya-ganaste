@@ -1074,5 +1074,6 @@
     <string name="msg_format_image_warning">Es Necesario Escoger Una Imagen Con Extension JPG o JPGE</string>
 
     <string name="text_error_spinner">Ocurrio un Problema al Obtener los Elementos</string>
+    <string name="text_error_contries">Ocurrio un Problema al Obtener los Paises</string>
 
 </resources>

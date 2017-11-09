@@ -23,13 +23,15 @@ public interface InformationAdicionalManager extends ValidationForms, INavigatio
 
     void onHasFamiliarNoCheck();
 
-    void showDialogList(ArrayList<Countries> paises);
-
     void onSuccessCreateAgente();
 
     void onErrorCreateAgente(ErrorObject error);
 
     void onSucessSpinnerList(List<CobrosMensualesResponse> Dat,SpinnerPLD sp);
+
+    void onSucessContryList(ArrayList<Countries> paises);
+
+    void onErroContryList();
 
     void onErrorSpinnerList(SpinnerPLD sp);
 

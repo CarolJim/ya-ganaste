@@ -5,6 +5,7 @@ import android.support.annotation.IdRes;
 import android.support.annotation.Nullable;
 import android.support.v4.widget.Space;
 import android.text.TextUtils;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -120,6 +121,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
     private Countries paisNacimiento;
     private StatesSpinnerAdapter spinnerParentescoAdapter;
     private IEnumSpinner parentesco;
+    private ArrayList<Countries> paises;
 
     public static InformacionAdicionalFragment newInstance() {
         InformacionAdicionalFragment fragment = new InformacionAdicionalFragment();
@@ -155,8 +157,8 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
             layoutEresMexa.setVisibility(View.VISIBLE);
             spaceFamiliar.setVisibility(View.VISIBLE);
             radioBtnEresMexaYes.setChecked(true);
-            editCountry.setFullOnClickListener(this);
-            editCountry.setOnClickListener(this);
+            //editCountry.setFullOnClickListener(this);
+            //editCountry.setOnClickListener(this);
         }
         radioBtnPublicServantNo.setChecked(true);
 
@@ -175,6 +177,8 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
                 return false;
             }
         });
+
+        this.paises = new ArrayList<>();
     }
 
     @Override
@@ -196,10 +200,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         }
     }
 
-    private void onCountryClick() {
-        infoAdicionalPresenter.getPaisesList();
-        hideValidationError(R.id.editCountry);
-    }
+
 
     @Override
     public void onSpinnerClick() {
@@ -376,8 +377,8 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         editCountry.setText("");
         editCountry.imageViewIsGone(false);
         editCountry.setDrawableImage(R.drawable.menu_canvas);
-
         paisNacimiento = null;
+
     }
 
     @Override
@@ -386,6 +387,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         editCountry.setText("");
         editCountry.imageViewIsGone(false);
         editCountry.setDrawableImage(R.drawable.menu_canvas);
+        infoAdicionalPresenter.getPaisesList();
     }
 
     @Override
@@ -421,12 +423,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
         parentesco = null;
     }
 
-    @Override
-    public void showDialogList(ArrayList<Countries> paises) {
-        CountriesDialogFragment dialogFragment = CountriesDialogFragment.newInstance(paises);
-        dialogFragment.setOnCountrySelectedListener(this);
-        dialogFragment.show(getChildFragmentManager(), "FragmentDialog");
-    }
+
 
     @Override
     public void onSuccessCreateAgente() {
@@ -483,23 +480,7 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
     @Override
     public void onSucessSpinnerList(List<CobrosMensualesResponse> Dat, SpinnerPLD sp) {
-        ArrayList<String> stringList = new ArrayList<>();
-        if (sp == SPINNER_PLD_PAISES) {
-            stringList.add(getString(R.string.hint_cobros_mensual));
-            for (int i = 0; i < Dat.size(); i++) {
-                stringList.add(Dat.get(i).getDescripcion());
-            }
-            ArrayList<Countries> paises = new ArrayList<>();
-            for (int i = 0; i < Dat.size(); i++) {
-                paises.add(Dat.get(i).getDescripcion(),i);
-            }
 
-
-
-            CountriesDialogFragment dialogFragment = CountriesDialogFragment.newInstance(stringList);
-            dialogFragment.setOnCountrySelectedListener(this);
-            dialogFragment.show(getChildFragmentManager(), "FragmentDialog");
-        }
     }
 
     @Override
@@ -507,4 +488,23 @@ public class InformacionAdicionalFragment extends GenericFragment implements Vie
 
     }
 
+    @Override
+    public void onSucessContryList(ArrayList<Countries> paises) {
+        this.paises = paises;
+        editCountry.setFullOnClickListener(this);
+        editCountry.setOnClickListener(this);
+
+    }
+
+    private void onCountryClick() {
+        CountriesDialogFragment dialogFragment = CountriesDialogFragment.newInstance(this.paises);
+        dialogFragment.setOnCountrySelectedListener(this);
+        dialogFragment.show(getChildFragmentManager(), "FragmentDialog");
+        hideValidationError(R.id.editCountry);
+    }
+
+    @Override
+    public void onErroContryList() {
+        showError(getString(R.string.text_error_contries));
+    }
 }

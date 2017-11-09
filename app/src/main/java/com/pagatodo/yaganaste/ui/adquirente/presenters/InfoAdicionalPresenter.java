@@ -14,6 +14,7 @@ import com.pagatodo.yaganaste.ui.adquirente.managers.InformationAdicionalManager
 import com.pagatodo.yaganaste.ui.adquirente.presenters.interfaces.IinfoAdicionalPresenter;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
 
@@ -32,14 +33,7 @@ public class InfoAdicionalPresenter implements IinfoAdicionalPresenter {
         infoAdicionalInteractor = new InfoAdicionalInteractor(this);
     }
 
-    @Override
-    public void getPaisesList() {
-        ArrayList<Countries> arrayList = infoAdicionalInteractor.getPaisesList();
-        if (arrayList == null) {
-            arrayList = new ArrayList<>();
-        }
-        informationAdicionalManager.showDialogList(arrayList);
-    }
+
 
     @Override
     public void createUsuarioAdquirente() {
@@ -70,6 +64,15 @@ public class InfoAdicionalPresenter implements IinfoAdicionalPresenter {
         infoAdicionalInteractor.setSpinner(sp);
     }
 
+    @Override
+    public void getPaisesList() {
+        informationAdicionalManager.showLoader("");
+        /*ArrayList<Countries> arrayList = infoAdicionalInteractor.getPaisesList();
+        if (arrayList == null) {
+            arrayList = new ArrayList<>();
+        }*/
+        infoAdicionalInteractor.setPaises();
+    }
 
     @Override
     public void onSuccessSpinnerList(Object success, SpinnerPLD sp) {
@@ -80,6 +83,24 @@ public class InfoAdicionalPresenter implements IinfoAdicionalPresenter {
             informationAdicionalManager.onSucessSpinnerList(data.getData(),sp);
         } else {
             informationAdicionalManager.onErrorSpinnerList(sp);
+            //informationAdicionalManager.onErrorCreateAgente(new ErrorObject(data.getMensaje(), ((DataSourceResult) success).getWebService()));
+        }
+    }
+
+    @Override
+    public void onSuccessPaisesList(Object success) {
+        informationAdicionalManager.hideLoader();
+        ObtenerCobrosMensualesResponse data = (ObtenerCobrosMensualesResponse) ((DataSourceResult) success).getData();
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            ArrayList<Countries> paises = new ArrayList<>();
+            for (int i = 0; i < data.getData().size();i++){
+                paises.add(new Countries(Integer.parseInt(data.getData().get(i).getIdPais()),
+                        data.getData().get(i).getDescripcion(),
+                        data.getData().get(i).getIdPais()));
+            }
+            informationAdicionalManager.onSucessContryList(paises);
+        } else {
+            informationAdicionalManager.onErroContryList();
             //informationAdicionalManager.onErrorCreateAgente(new ErrorObject(data.getMensaje(), ((DataSourceResult) success).getWebService()));
         }
     }

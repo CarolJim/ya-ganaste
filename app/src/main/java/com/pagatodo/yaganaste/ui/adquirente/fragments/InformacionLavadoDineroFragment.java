@@ -341,11 +341,6 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     }
 
     @Override
-    public void showDialogList(ArrayList<Countries> paises) {
-
-    }
-
-    @Override
     public void onSuccessCreateAgente() {
         App.getInstance().getPrefs().saveDataBool(ADQ_PROCESS, true);
         nextScreen(EVENT_GO_BUSSINES_DOCUMENTS, null);
@@ -437,5 +432,15 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     @Override
     public void onErrorSpinnerList(SpinnerPLD sp) {
         showError(getString(R.string.text_error_spinner));
+    }
+
+    @Override
+    public void onSucessContryList(ArrayList<Countries> paises) {
+
+    }
+
+    @Override
+    public void onErroContryList() {
+
     }
 }

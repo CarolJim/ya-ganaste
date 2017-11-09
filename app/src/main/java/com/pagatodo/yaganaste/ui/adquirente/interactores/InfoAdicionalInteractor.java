@@ -81,7 +81,14 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
         }
     }
 
-    private void createProccesRequest(ObtenerCobrosMensualesRequest request,String urlComplet, WebService ws, String msjError){
+    @Override
+    public void setPaises() {
+        ObtenerCobrosMensualesRequest request = new ObtenerCobrosMensualesRequest();
+        request.setIdTipoRegimenFiscal("1");
+        createProccesRequest(request,App.getContext().getString(R.string.obtenerPaisesPLD),OBTENER_PAISES,App.getInstance().getString(R.string.no_internet_access));
+    }
+
+    private void createProccesRequest(ObtenerCobrosMensualesRequest request, String urlComplet, WebService ws, String msjError){
         try {
             ApiAdtvo.obtenerCobrosMensuales(request, this, urlComplet, ws);
         } catch (OfflineException e) {
@@ -96,7 +103,7 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
         }
 
         if (result.getWebService() == OBTENER_PAISES){
-            processSpinnerResult(result,SPINNER_PLD_PAISES);
+            proccesPaises(result);
         }
         if (result.getWebService() == OBTENER_COBROS_MENSUALES){
             processSpinnerResult(result,SPINNER_PLD_COBROS);
@@ -114,6 +121,21 @@ public class InfoAdicionalInteractor implements IinfoAdicionalInteractor {
             processSpinnerResult(result,SPINNER_PLD_DESTINO);
         }
 
+    }
+
+    private void proccesPaises(DataSourceResult response){
+        ObtenerCobrosMensualesResponse data = (ObtenerCobrosMensualesResponse) response.getData();
+        if (data.getCodigoRespuesta() == CODE_OK) {
+            List<CobrosMensualesResponse> listaCobrosMensuales = data.getData();
+            if (listaCobrosMensuales != null && !listaCobrosMensuales.isEmpty()) {
+                infoAdicionalPresenter.onSuccessPaisesList(response);
+            } else {
+                infoAdicionalPresenter.onWSError(response.getWebService(), "Verifica tu Informacion");//Retornamos mensaje de error.
+            }
+        } else {
+            //TODO manejar respuesta no exitosa. Se retorna el Mensaje del servicio.
+            infoAdicionalPresenter.onWSError(response.getWebService(), data.getMensaje());//Retornamos mensaje de error.
+        }
     }
 
     private void processSpinnerResult(DataSourceResult response,SpinnerPLD sp){

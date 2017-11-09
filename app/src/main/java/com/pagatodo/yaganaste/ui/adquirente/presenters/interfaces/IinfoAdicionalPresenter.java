@@ -10,6 +10,8 @@ import com.pagatodo.yaganaste.interfaces.enums.WebService;
 public interface IinfoAdicionalPresenter<T> {
     void getPaisesList();
 
+    void onSuccessPaisesList(Object success);
+
     void createUsuarioAdquirente();
 
     void onSuccessCreateUsuarioAdquirente(Object success);

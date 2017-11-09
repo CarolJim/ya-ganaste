@@ -13,6 +13,8 @@ public class CobrosMensualesResponse implements Serializable {
     private String IdOperacion = "";
     private String IdDestinoRecurso = "";
     private String IdOrigenRecurso = "";
+    private String IdPais = "";
+    private String Clave = "";
 
     public CobrosMensualesResponse(){
 
@@ -53,5 +55,21 @@ public class CobrosMensualesResponse implements Serializable {
 
     public void setIdOrigenRecurso(String idOrigenRecurso) {
         IdOrigenRecurso = idOrigenRecurso;
+    }
+
+    public String getIdPais() {
+        return IdPais;
+    }
+
+    public void setIdPais(String idPais) {
+        IdPais = idPais;
+    }
+
+    public String getClave() {
+        return Clave;
+    }
+
+    public void setClave(String clave) {
+        Clave = clave;
     }
 }
