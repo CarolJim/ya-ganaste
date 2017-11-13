@@ -11,6 +11,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -30,6 +31,7 @@ import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import de.hdodenhof.circleimageview.CircleImageView;
 
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
@@ -65,7 +67,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     private String nip = "";
     private String nipToConfirm = "";
     private AccountPresenterNew accountPresenter;
-
+    ImageView imageView;
     public ConfirmarNIPFragment() {
     }
 
@@ -83,6 +85,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         nipToConfirm = getArguments().getString(PIN_TO_CONFIRM);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
+        imageView = (ImageView)getActivity().findViewById(R.id.btn_back);
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
 
@@ -110,7 +113,7 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);
         tv4Num = (TextView) rootview.findViewById(R.id.asignar_tv4);
         borderTitleLayout.setTitle(getString(R.string.confirma_pin));
-
+        imageView.setVisibility(View.VISIBLE);
         edtPin = (CustomValidationEditText) rootview.findViewById(R.id.asignar_edittext);
         edtPin.setMaxLength(4); // Se asigna un maximo de 4 caracteres para no tener problrmas
         edtPin.addCustomTextWatcher(new AsignarNipTextWatcher(edtPin, tv1Num, tv2Num, tv3Num, tv4Num));
@@ -275,5 +278,11 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
 
     public void hideKeyboard() {
         //keyboardView.hideCustomKeyboard();
+    }
+
+    @Override
+    public void onPause() {
+        super.onPause();
+
     }
 }

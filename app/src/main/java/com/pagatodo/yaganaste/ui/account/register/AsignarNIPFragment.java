@@ -62,7 +62,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     private View rootview;
     private String nip = "";
     private Keyboard keyboard;
-
+    ImageView imageView;
     public AsignarNIPFragment() {
     }
 
@@ -77,6 +77,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_asignar_nip, container, false);
+        imageView = (ImageView)getActivity().findViewById(R.id.btn_back);
         initViews();
         getActivity().getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         return rootview;
@@ -91,7 +92,7 @@ public class AsignarNIPFragment extends GenericFragment implements ValidationFor
         keyboardView.setPreviewEnabled(false);
 
         layout_control = (LinearLayout) rootview.findViewById(R.id.asignar_control_layout);
-
+        imageView.setVisibility(View.GONE);
         tv1Num = (TextView) rootview.findViewById(R.id.asignar_tv1);
         tv2Num = (TextView) rootview.findViewById(R.id.asignar_tv2);
         tv3Num = (TextView) rootview.findViewById(R.id.asignar_tv3);

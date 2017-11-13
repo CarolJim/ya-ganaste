@@ -13,6 +13,7 @@ import android.telephony.SmsManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -64,6 +65,9 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     private AccountPresenterNew accountPresenter;
     private Preferencias preferencias;
     App aplicacion;
+
+    ImageView imageView;
+
     /**
      * BroadcastReceiver para realizar el envío del SMS
      **/
@@ -108,6 +112,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.preferencias = App.getInstance().getPrefs();
+        imageView = (ImageView)getActivity().findViewById(R.id.btn_back);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
     }
@@ -115,7 +120,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        imageView.setVisibility(View.GONE);
         aplicacion = new App();
         rootview = inflater.inflate(R.layout.fragment_associate_sms, container, false);
         initViews();

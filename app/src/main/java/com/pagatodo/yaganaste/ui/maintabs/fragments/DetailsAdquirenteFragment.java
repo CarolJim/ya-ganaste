@@ -99,6 +99,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
     private DataMovimientoAdq dataMovimientoAdq;
     CircleImageView imageView;
     ImageView imageViewshare;
+    ImageView imageViewback;
 
     public static DetailsAdquirenteFragment newInstance(@NonNull DataMovimientoAdq dataMovimientoAdq) {
         DetailsAdquirenteFragment fragment = new DetailsAdquirenteFragment();
@@ -113,6 +114,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         super.onCreate(savedInstanceState);
         Bundle args = getArguments();
         imageViewshare = (ImageView) getActivity().findViewById(R.id.deposito_Share);
+        imageViewback = (ImageView) getActivity().findViewById(R.id.btn_back);
         imageView = (CircleImageView) getActivity().findViewById(R.id.imgToRight_prefe);
         if (args != null) {
             dataMovimientoAdq = (DataMovimientoAdq) args.getSerializable(DetailsActivity.DATA);
@@ -146,6 +148,7 @@ public class DetailsAdquirenteFragment extends GenericFragment implements View.O
         super.onResume();
         setVisibilityPrefer(false);
         setVisibilityPrefershare(true);
+        imageViewback.setVisibility(View.VISIBLE);
     }
 
     public void setVisibilityPrefershare(Boolean mBoolean) {
