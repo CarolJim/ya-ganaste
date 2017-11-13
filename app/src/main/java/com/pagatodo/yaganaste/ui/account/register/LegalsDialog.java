@@ -5,13 +5,10 @@ import android.app.DialogFragment;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
-import android.support.annotation.Nullable;
 import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.Window;
-import android.view.WindowManager;
 import android.webkit.WebSettings;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
@@ -37,7 +34,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_LEGALES_TERMINOS_LINEAC;
  * Created by flima on 24/04/2017.
  */
 
-public class LegalsDialog extends DialogFragment implements IProgressView {
+public class LegalsDialog extends DialogFragment implements IProgressView, View.OnClickListener {
 
     public static String TAG = "LegalsDialog";
     public static String TYPE_LEGALS = "TYPE_LEGALS";
@@ -45,6 +42,8 @@ public class LegalsDialog extends DialogFragment implements IProgressView {
     WebView webViewLegalsContent;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
+    @BindView(R.id.btn_back)
+    AppCompatImageView btnBack;
     private View rootview;
     private Legales typeLegal;
 
@@ -84,11 +83,11 @@ public class LegalsDialog extends DialogFragment implements IProgressView {
         final Dialog dialog = super.onCreateDialog(savedInstanceState);
         //dialog.getWindow().getAttributes().windowAnimations = R.style.DialogAnimation;
 //        dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
-      //  dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
+        //  dialog.getWindow().setFlags(WindowManager.LayoutParams.FLAG_FULLSCREEN, WindowManager.LayoutParams.FLAG_FULLSCREEN);
         dialog.getWindow().setLayout(ViewGroup.LayoutParams.MATCH_PARENT, ViewGroup.LayoutParams.MATCH_PARENT);
 
 
-       // NO dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
+        // NO dialog.getWindow().addFlags(WindowManager.LayoutParams.FLAG_TURN_SCREEN_ON);
 
         return dialog;
     }
@@ -115,6 +114,7 @@ public class LegalsDialog extends DialogFragment implements IProgressView {
                 hideLoader();
             }
         });
+        btnBack.setOnClickListener(this);
     }
 
     private String getUrlLegals() {
@@ -164,6 +164,13 @@ public class LegalsDialog extends DialogFragment implements IProgressView {
     @Override
     public void onSaveInstanceState(Bundle outState) {
         super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onClick(View v) {
+        if (v.getId() == R.id.btn_back) {
+            this.dismiss();
+        }
     }
 
     public enum Legales implements Serializable {

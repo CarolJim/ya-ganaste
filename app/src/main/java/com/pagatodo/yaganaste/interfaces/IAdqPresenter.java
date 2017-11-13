@@ -17,5 +17,5 @@ public interface IAdqPresenter {
 
     void sendSignature(SignatureData signatureData);
 
-    void sendTicket(String email);
+    void sendTicket(String email, boolean applyAgent);
 }

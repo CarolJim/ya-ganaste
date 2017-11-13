@@ -297,6 +297,9 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             case "PREFER_USER_TERMINOS":
                 loadFragment(TerminosyCondicionesFragment.newInstance(), Direction.FORDWARD, false);
                 break;
+            case "PREFER_USER_TERMINOS_BACK":
+                loadFragment(ListaAyudaLegalesFragment.newInstance(), Direction.BACK, false);
+                break;
             case "PREFER_USER_PRIVACIDAD_BACK":
                 loadFragment(ListaAyudaLegalesFragment.newInstance(), Direction.BACK, false);
                 break;

@@ -25,6 +25,16 @@ public class CancellationData implements Serializable {
     @SerializedName("TicketOriginalTransaction")
     private String ticketOriginalTransaction;
 
+    @SerializedName("FechaOriginalTransaction")
+    private String fechaOriginalTransaction;
+
+    public String getFechaOriginalTransaction() {
+        return fechaOriginalTransaction;
+    }
+
+    public void setFechaOriginalTransaction(String fechaOriginalTransaction) {
+        this.fechaOriginalTransaction = fechaOriginalTransaction;
+    }
 
     public String getNoauthorizationOriginalTransaction() {
         return noauthorizationOriginalTransaction;

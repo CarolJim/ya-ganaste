@@ -12,6 +12,15 @@ public class EnviarTicketCompraRequest extends AdqRequest implements Serializabl
     private ImplicitData implicitData;
     private String idTransaction = "";
     private String name = "";
+    private boolean aplicaAgente = false;
+
+    public boolean isAplicaAgente() {
+        return aplicaAgente;
+    }
+
+    public void setAplicaAgente(boolean aplicaAgente) {
+        this.aplicaAgente = aplicaAgente;
+    }
 
     public EnviarTicketCompraRequest() {
         implicitData = new ImplicitData();

@@ -19,6 +19,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVD
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
@@ -127,12 +128,17 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
 
         //txtMaskedPan.setText(String.format("%s", emvDepositResponse.getMaskedPan()));
         if (imgTypeCard != null) {
-            imgTypeCard.setImageResource(emvDepositResponse.getMarcaTarjetaBancaria().equals("Visa") ? R.drawable.visa : R.drawable.mastercard_canvas);
+            if (emvDepositResponse.getMarcaTarjetaBancaria() != null)
+                imgTypeCard.setImageResource(emvDepositResponse.getMarcaTarjetaBancaria().equals("Visa") ? R.drawable.visa : R.drawable.mastercard_canvas);
+            else
+                imgTypeCard.setImageResource(R.mipmap.pagatodo_icon);
         }
-
         /*imageshae = (ImageView) getActivity().findViewById(R.id.deposito_Share);
         imageshae.setVisibility(View.VISIBLE);
         imageshae.setOnClickListener(this);*/
+
+        // Automatic Ticket Send to User
+        adqPresenter.sendTicket(RequestHeaders.getUsername(), true);
     }
 
     @Override
@@ -171,7 +177,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @Override
     public void onValidationSuccess() {
         mySeekBar.setProgress(0);
-        adqPresenter.sendTicket(emailToSend);
+        adqPresenter.sendTicket(emailToSend, false);
     }
 
     @Override

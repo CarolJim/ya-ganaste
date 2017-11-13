@@ -1,15 +1,10 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
-import android.content.Context;
 import android.content.Intent;
-import android.hardware.fingerprint.FingerprintManager;
-import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
-import android.util.Log;
 import android.view.Window;
 
-import com.crashlytics.android.Crashlytics;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pagatodo.yaganaste.App;
@@ -30,8 +25,6 @@ import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import java.lang.reflect.Type;
 import java.util.List;
-
-import io.fabric.sdk.android.Fabric;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
@@ -81,18 +74,6 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
                 }
             }
         }, 2000);
-
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-            //Fingerprint API only available on from Android 6.0 (M)
-            FingerprintManager fingerprintManager = (FingerprintManager) App.getContext().getSystemService(Context.FINGERPRINT_SERVICE);
-            if (!fingerprintManager.isHardwareDetected()) {
-                Log.e(getString(R.string.app_name),"@Device without fingerprint hardware");
-            } else if (!fingerprintManager.hasEnrolledFingerprints()) {
-                Log.e(getString(R.string.app_name),"@Device without fingerprints enrolled");
-            } else {
-                Log.e(getString(R.string.app_name),"@Device ready for fingerprint inspection");
-            }
-        }
     }
 
     @Override

@@ -20,7 +20,7 @@ public interface IAdqIteractor {
 
     void sendSignalVoucher(FirmaDeVoucherRequest request);
 
-    void sendTicket(EnviarTicketCompraRequest request);
+    void sendTicket(EnviarTicketCompraRequest request, boolean applyAgent);
 
     void enviarTicketCompraShare(EnviarTicketCompraRequest enviarTicketCompraRequest);
 }

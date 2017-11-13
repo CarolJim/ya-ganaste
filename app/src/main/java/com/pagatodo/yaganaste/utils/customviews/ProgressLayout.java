@@ -52,9 +52,9 @@ public class ProgressLayout extends LinearLayout implements View.OnClickListener
         txtMessage.setText(message);
     }
 
-    public void setBackgroundColor(@DrawableRes int color) {
-        setBackgroundResource(color);
-    }
+    /*public void setBackgroundColor(@DrawableRes int color) {
+        setBackgroundResource(getResources().getColor(color));
+    }*/
 
     public void setVisivilityImage(int visibility){
         frameProgresGif.setVisibility(visibility);

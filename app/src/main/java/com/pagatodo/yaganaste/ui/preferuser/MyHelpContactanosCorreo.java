@@ -114,27 +114,30 @@ public class MyHelpContactanosCorreo extends GenericFragment implements View.OnC
 
     @Override
     public void sendErrorEnvioCorreoContactanos(String mensaje) {
-        showDialogMesage(getString(R.string.email_report_error_text));
+        showDialogMesage(getString(R.string.email_report_error_text), false);
         hideLoader();
     }
 
     @Override
     public void sendSuccessMensaje(String mensaje) {
-        showDialogMesage(mensaje);
+        showDialogMesage(mensaje, true);
         hideLoader();
         editbodyemail.setText("");
     }
 
     @Override
     public void showExceptionToView(String mMesage) {
-        showDialogMesage(mMesage);
+        showDialogMesage(mMesage, false);
     }
 
-    private void showDialogMesage(final String mensaje) {
+    private void showDialogMesage(final String mensaje, final boolean success) {
         UI.createSimpleCustomDialog(getString(R.string.email_report_succes_title), mensaje, getFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
+                        if(success){
+                            ((TarjetaActivity)getActivity()).onBackPressed();
+                        }
                     }
 
                     @Override

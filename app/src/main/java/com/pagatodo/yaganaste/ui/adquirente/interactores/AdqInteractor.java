@@ -20,7 +20,6 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adq.FirmaDeVoucherR
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.LoginAdqResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.RegistroDongleResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
-import com.pagatodo.yaganaste.data.model.webservice.response.manager.GenericResponse;
 import com.pagatodo.yaganaste.exceptions.OfflineException;
 import com.pagatodo.yaganaste.interfaces.Command;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
@@ -37,6 +36,7 @@ import java.io.Serializable;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELA_TRANSACTION_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA_AUTOM;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.REGISTRO_DONGLE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.SHARED_TICKET_COMPRA;
@@ -45,7 +45,6 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MA
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_GET_SIGNATURE;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_FRAGMENT;
-import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_REMOVE_CARD;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_ERROR;
@@ -148,43 +147,14 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     }
 
     @Override
-    public void sendTicket(EnviarTicketCompraRequest request) {
+    public void sendTicket(EnviarTicketCompraRequest request, boolean applyAgent) {
         try {
-            ApiAdq.enviarTicketCompra(request, this);
+            ApiAdq.enviarTicketCompra(request, this, applyAgent);
         } catch (OfflineException e) {
             e.printStackTrace();
             accountManager.hideLoader();
-            accountManager.onError(ENVIAR_TICKET_COMPRA, context.getString(R.string.no_internet_access));
+            accountManager.onError(applyAgent ? ENVIAR_TICKET_COMPRA_AUTOM : ENVIAR_TICKET_COMPRA, context.getString(R.string.no_internet_access));
         }
-
-//        new Handler().postDelayed(new Runnable() {
-//            public void run() {
-//
-//                TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
-//                PageResult pageResult = new PageResult(R.drawable.ic_done, "¡Listo!", "El Recibo Fue\nEnviado con Éxito.", false);
-//                pageResult.setActionBtnPrimary(new Command() {
-//                    @Override
-//                    public void action(Context context, Object... params) {
-//                        INavigationView viewInterface = (INavigationView) params[0];
-//
-//                        // Reiniciamos el control de CodeKey para cuando cargamos de nuevo el fragment
-//                        // GetAmountFragment, tengamos un inicio de $0.00
-//                        CustomKeyboardView.setCodeKey(0);
-//
-//                        //Borramos los datos de la transacción
-//                        TransactionAdqData.getCurrentTransaction().resetCurrentTransaction();
-//
-//                        viewInterface.nextScreen(EVENT_GO_MAINTAB, "Ejecución Éxitosa");
-//                    }
-//                });
-//
-//                pageResult.setNamerBtnPrimary("Continuar");
-//                result.setPageResult(pageResult);
-//                result.setTransaccionResponse(new TransaccionEMVDepositResponse());
-//
-//                accountManager.onSucces(ENVIAR_TICKET_COMPRA,"Ejecución Exitosa");
-//            }
-//        }, DELAY_MESSAGE_PROGRESS*3);
     }
 
     @Override
@@ -216,11 +186,12 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
             case FIRMA_DE_VOUCHER:
                 processSendSignal(dataSourceResult);
                 break;
-
+            case ENVIAR_TICKET_COMPRA_AUTOM:
+                processSendTicketAutom(dataSourceResult);
+                break;
             case ENVIAR_TICKET_COMPRA:
                 processSendTicket(dataSourceResult);
                 break;
-
             case SHARED_TICKET_COMPRA:
                 processSendTicketShared(dataSourceResult);
                 break;
@@ -242,7 +213,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 prefs.clearPreference(KSN_LECTOR);
                 break;
             case SHARED_TICKET_COMPRA:
-               // prefs.clearPreference(KSN_LECTOR);
+                // prefs.clearPreference(KSN_LECTOR);
                 break;
         }
         accountManager.onError(error.getWebService(), error.getData().toString());
@@ -446,6 +417,15 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
         } /*else if (((GenericResponse) response.getData()).getCodigoRespuesta() == CODE_SESSION_EXPIRED) {
             iSessionExpired.errorSessionExpired(response);
         } */ else {
+            accountManager.onError(response.getWebService(), data.getMessage());//Retornamos mensaje de error.
+        }
+    }
+
+    private void processSendTicketAutom(DataSourceResult response) {
+        EnviarTicketCompraResponse data = (EnviarTicketCompraResponse) response.getData();
+        if (data.getId().equals(ADQ_CODE_OK)) {
+            accountManager.onSucces(response.getWebService(), data.getMessage());
+        } else {
             accountManager.onError(response.getWebService(), data.getMessage());//Retornamos mensaje de error.
         }
     }

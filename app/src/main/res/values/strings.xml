@@ -321,6 +321,7 @@
     <string name="datos_usuario_pass_confirm">Debes Confirmar la Nueva Contraseña</string>
     <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide</string>
     <string name="datos_usuario_pass_formato">Verifica tu Contraseña</string>
+    <string name="datos_usuario_pass_equal_new">Tu Nueva Contraseña no Puede Ser Igual a la Anterior</string>
     <string name="bienvenido_usuario"><![CDATA[¡Bienvenido <b>%1$s</b>!]]></string>
     <string name="user_change_password">Asignando Nueva Contraseña</string>
     <string name="user_change_email">Asignando Nuevo Correo</string>
@@ -383,6 +384,7 @@
     <string name="doYouHaveCardTitle">¿Tienes Tarjeta Ya Ganaste?</string>
     <string name="permission_request">Solicitud de Permisos</string>
     <string name="permission_request_desc">Debes Aceptar Todos Los Permisos Para el Correcto Funcionamiento de Ya Ganaste</string>
+    <string name="change_nip_block_card">Para Cambiar tu Nip, Por Favor Desbloquea tu Tarjeta</string>
     <string name="asignar_pin">Verifica tu NIP</string>
     <string name="confirma_pin">Confirma tu NIP</string>
     <string name="confirmar_pin">El NIP no Coincide</string>
@@ -745,7 +747,7 @@
     <string name="datos_deposito_num_agent">N° de Agente: </string>
     <string name="datos_deposito_num_afil">N° de Afiliación: </string>
 
-    <string name="string_share_deposits">¡Hola! Estos Son Mis Datos de Depósito de mi Cuenta Ya Ganaste
+    <string name="string_share_deposits">¡Hola! Estos Son Los Datos de Depósito de mi Cuenta Ya Ganaste
         \nTitular: %1$s\nN° Celular: %2$s\nCLABE: %3$s\nN° Tarjeta: %4$s</string>
 
 
@@ -1008,8 +1010,10 @@
     <!--Text Error Favoritos AddNewFavoritesActivity-->
     <string name="respond_ok_add_new_favorite">Agregaste un Nuevo Favorito Con Éxito</string>
     <string name="respond_ok_edit_favorite">Editaste un Favorito Con Éxito</string>
+    <string name="respond_ok_delete_favorite">Borraste un Favorito Con Éxito</string>
     <string name="title_dialog_favorite">Nuevo Favorito</string>
     <string name="title_dialog_edit_favorite">Editar Favorito</string>
+    <string name="title_dialog_delete_favorite">Borrar Favorito</string>
     <string name="title_dialog_busqueda">Busqueda Favoritos</string>
     <string name="loader_15">Agregando Nuevo Favorito</string>
     <string name="load_set_image">Asignando Imagen de Favorito</string>

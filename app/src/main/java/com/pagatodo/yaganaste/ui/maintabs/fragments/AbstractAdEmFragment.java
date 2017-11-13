@@ -32,6 +32,8 @@ import java.util.List;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.R2.color.colorLoaderAlpha;
+
 
 /**
  * @author Juan Guerra on 27/11/2016.
@@ -113,7 +115,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
         //txtInfoMovements.setVisibility(View.GONE);
         //txtInfoMovements.setOnClickListener(this);
         progress_emisor.setVisibility(View.VISIBLE);
-        progress_emisor.setBackgroundColor(R.color.colorLoaderAlpha);
+        //progress_emisor.setBackgroundColor(getResources().getColor(R.color.colorLoaderAlpha));
         swipeContainer.setDirection(type == MOVEMENTS ? SwipyRefreshLayoutDirection.BOTH : SwipyRefreshLayoutDirection.TOP);
         swipeContainer.setOnRefreshListener(this);
         final LinearLayoutManager layoutManager = new LinearLayoutManager(getActivity());

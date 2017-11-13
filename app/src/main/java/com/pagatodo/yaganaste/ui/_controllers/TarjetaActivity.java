@@ -376,9 +376,13 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.item_change_nip:
-                lytPrincipal.setVisibility(View.GONE);
-                loadFragment(MyChangeNip.newInstance(), Direction.FORDWARD, false);
-                container.setVisibility(View.VISIBLE);
+                if (SingletonUser.getInstance().getCardStatusId().equals(Recursos.ESTATUS_CUENTA_DESBLOQUEADA)) {
+                    lytPrincipal.setVisibility(View.GONE);
+                    loadFragment(MyChangeNip.newInstance(), Direction.FORDWARD, false);
+                    container.setVisibility(View.VISIBLE);
+                } else {
+                    showDialogMesage(getString(R.string.change_nip_block_card));
+                }
                 break;
             case R.id.item_report_card:
                 lytPrincipal.setVisibility(View.GONE);

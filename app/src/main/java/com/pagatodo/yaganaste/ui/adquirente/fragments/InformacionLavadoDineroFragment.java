@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.interfaces.IEnumSpinner;
 import com.pagatodo.yaganaste.interfaces.IOnSpinnerClick;
 import com.pagatodo.yaganaste.interfaces.OnCountrySelectedListener;
 import com.pagatodo.yaganaste.interfaces.enums.SpinnerPLD;
+import com.pagatodo.yaganaste.ui._controllers.BussinesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
@@ -43,7 +44,6 @@ import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 import butterknife.BindView;
@@ -106,7 +106,6 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     private ArrayAdapter<String> adpaterCobros, adapterMonto, adpaterOrigen, adpaterDestino;
 
 
-
     public static InformacionLavadoDineroFragment newInstance() {
         InformacionLavadoDineroFragment fragment = new InformacionLavadoDineroFragment();
         Bundle args = new Bundle();
@@ -142,7 +141,10 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
 
     @Override
     public void onClick(View v) {
-        switch (v.getId()){
+        switch (v.getId()) {
+            case R.id.btnBack:
+                backScreen(BussinesActivity.EVENT_GO_BUSSINES_MONEY_LAUNDERING_BACK, null);
+                break;
             case R.id.btnNext:
                 validateForm();
                 break;
@@ -198,7 +200,8 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
 
     @Override
     public void nextScreen(String event, Object data) {
-        onEventListener.onEvent(event, data); }
+        onEventListener.onEvent(event, data);
+    }
 
     @Override
     public void backScreen(String event, Object data) {
@@ -238,22 +241,22 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
         boolean isValid = true;
 
         if (spnCobrosMensuales.getSelectedItemPosition() == 0) {
-            showValidationError(errorCobrosMensuales.getId(),getString(R.string.text_error_cobros_mensual));
+            showValidationError(errorCobrosMensuales.getId(), getString(R.string.text_error_cobros_mensual));
             isValid = false;
         }
 
         if (spnMontoMensual.getSelectedItemPosition() == 0) {
-            showValidationError(errorMontoMensual.getId(),getString(R.string.text_error_monto_mensual));
+            showValidationError(errorMontoMensual.getId(), getString(R.string.text_error_monto_mensual));
             isValid = false;
         }
 
         if (spnOrigenRecursos.getSelectedItemPosition() == 0) {
-            showValidationError(errorOrigenRecursos.getId(),getString(R.string.text_error_origen_recursos));
+            showValidationError(errorOrigenRecursos.getId(), getString(R.string.text_error_origen_recursos));
             isValid = false;
         }
 
         if (spnDestinoRecursos.getSelectedItemPosition() == 0) {
-            showValidationError(errorDestinoRecursos.getId(),getString(R.string.text_error_cobros_mensual));
+            showValidationError(errorDestinoRecursos.getId(), getString(R.string.text_error_destino_mensual));
             isValid = false;
         }
 
@@ -300,13 +303,7 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
 
     @Override
     public void onValidationSuccess() {
-
         RegisterAgent registerAgent = RegisterAgent.getInstance();
-        registerAgent.setCobrosMensual(adpaterCobros.getItem(spnCobrosMensuales.getSelectedItemPosition()));
-        registerAgent.setMontoMensual(adapterMonto.getItem(spnMontoMensual.getSelectedItemPosition()));
-        registerAgent.setOrigenRecursos(adpaterOrigen.getItem(spnOrigenRecursos.getSelectedItemPosition()));
-        registerAgent.setDestinoRecursos(adpaterDestino.getItem(spnDestinoRecursos.getSelectedItemPosition()));
-
         registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_COBROS, true, spnCobrosMensuales.getSelectedItemPosition()));
         registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_MONTOS, true, spnMontoMensual.getSelectedItemPosition()));
         registerAgent.getCuestionario().add(new CuestionarioEntity(PREGUNTA_ORIGEN_RECURSOS, true, spnOrigenRecursos.getSelectedItemPosition()));
@@ -392,36 +389,36 @@ public class InformacionLavadoDineroFragment extends GenericFragment implements 
     @Override
     public void onSucessSpinnerList(List<CobrosMensualesResponse> Data, SpinnerPLD sp) {
         List<String> stringList = new ArrayList<>();
-        if (sp == SPINNER_PLD_COBROS){
+        if (sp == SPINNER_PLD_COBROS) {
             stringList.add(getString(R.string.hint_cobros_mensual));
-            for(int i = 0; i < Data.size(); i++){
+            for (int i = 0; i < Data.size(); i++) {
                 stringList.add(Data.get(i).getDescripcion());
             }
 
             adpaterCobros = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, stringList, this);
             spnCobrosMensuales.setAdapter(adpaterCobros);
             infoAdicionalPresenter.setSpinner(SPINNER_PLD_MONTOS);
-        } else if (sp == SPINNER_PLD_MONTOS){
+        } else if (sp == SPINNER_PLD_MONTOS) {
             stringList.add(getString(R.string.hint_monto_mensual_estimado));
-            for(int i = 0; i < Data.size(); i++){
+            for (int i = 0; i < Data.size(); i++) {
                 stringList.add(Data.get(i).getDescripcion());
             }
             adapterMonto = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, stringList, this);
             spnMontoMensual.setAdapter(adapterMonto);
 
             infoAdicionalPresenter.setSpinner(SPINNER_PLD_ORIGEN);
-        } else if (sp == SPINNER_PLD_ORIGEN){
+        } else if (sp == SPINNER_PLD_ORIGEN) {
             stringList.add(getString(R.string.hint_origen_recursos));
-            for(int i = 0; i < Data.size(); i++){
+            for (int i = 0; i < Data.size(); i++) {
                 stringList.add(Data.get(i).getDescripcion());
             }
             adpaterOrigen = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, stringList, this);
             spnOrigenRecursos.setAdapter(adpaterOrigen);
             infoAdicionalPresenter.setSpinner(SPINNER_PLD_DESTINO);
 
-        } else if (sp == SPINNER_PLD_DESTINO){
+        } else if (sp == SPINNER_PLD_DESTINO) {
             stringList.add(getString(R.string.hint_destino_recursos));
-            for(int i = 0; i < Data.size(); i++){
+            for (int i = 0; i < Data.size(); i++) {
                 stringList.add(Data.get(i).getDescripcion());
             }
             adpaterDestino = new ColoniasArrayAdapter(getContext(), R.layout.spinner_layout, stringList, this);

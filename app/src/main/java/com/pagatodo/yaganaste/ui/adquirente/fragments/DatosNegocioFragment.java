@@ -1,14 +1,11 @@
 package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 
-import android.content.Context;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.view.WindowManager;
-import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
@@ -34,6 +31,8 @@ import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.List;
 
 import butterknife.BindView;
@@ -103,7 +102,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             if (subgiros != null) {
                 this.girosComercio = (List<Giros>) subgiros;
             }
-
         }
     }
 
@@ -141,12 +139,18 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             @Override
             public void onItemSelected(AdapterView<?> parent, View view, int position, long id) {
                 List<SubGiro> list = girosComercio.get(position).getListaSubgiros();
+                Collections.sort(list, new Comparator<SubGiro>() {
+                    @Override
+                    public int compare(SubGiro countries, SubGiro t1) {
+                        return countries.getSubgiro().compareTo(t1.getSubgiro());
+                    }
+                });
                 if (list.get(0).getIdSubgiro() != -1)
                     list.add(0, new SubGiro(-1, getString(R.string.subgiro_commerce)));
                 subgiroArrayAdapter = new SubBussinesLineSpinnerAdapter(getActivity(),
                         R.layout.spinner_layout, list, DatosNegocioFragment.this);
                 spinnerSubBussineLine.setAdapter(subgiroArrayAdapter);
-                if (list.size()==2){
+                if (list.size() == 2) {
                     spinnerSubBussineLine.setSelection(1);
                 }
                 onSpinnerClick();
@@ -184,6 +188,12 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void setGiros(List<Giros> giros) {
+        Collections.sort(giros, new Comparator<Giros>() {
+            @Override
+            public int compare(Giros countries, Giros t1) {
+                return countries.getGiro().compareTo(t1.getGiro());
+            }
+        });
         girosComercio.addAll(giros);
         setCurrentData();// Seteamos datos si hay registro en proceso.
     }
@@ -427,8 +437,8 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
     @Override
     public void hideKeyBoard() {
-       // getActivity().getWindow().setSoftInputMode(
-         //       WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
+        // getActivity().getWindow().setSoftInputMode(
+        //       WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //final InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
         //imm.hideSoftInputFromWindow(getView().getWindowToken(), 0);
         UI.hideKeyBoard(getActivity());

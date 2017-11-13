@@ -39,6 +39,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_SALDO
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_MOVIMIENTOS_MES_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTA_SESION_AGENTE;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA_AUTOM;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.FIRMA_DE_VOUCHER;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.LOGIN_ADQ;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.OBTIENE_DATOS_CUPO;
@@ -192,14 +193,15 @@ public class ApiAdq extends Api {
     /**
      * Envía el ticket de compra.
      *
-     * @param request {@link EnviarTicketCompraRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
+     * @param request    {@link EnviarTicketCompraRequest} body de la petición.
+     * @param result     {@link IRequestResult} listener del resultado de la petición.
+     * @param applyAgent {@true} Envío automático de ticket al agente
      */
-    public static void enviarTicketCompra(EnviarTicketCompraRequest request, IRequestResult result) throws OfflineException {
+    public static void enviarTicketCompra(EnviarTicketCompraRequest request, IRequestResult result, boolean applyAgent) throws OfflineException {
         Map<String, String> headers = getHeadersAdq();
         headers.put(RequestHeaders.IdCuentaAdq, RequestHeaders.getIdCuentaAdq());
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
-        NetFacade.consumeWS(ENVIAR_TICKET_COMPRA,
+        NetFacade.consumeWS(applyAgent ? ENVIAR_TICKET_COMPRA_AUTOM : ENVIAR_TICKET_COMPRA,
                 METHOD_POST, URL_SERVER_ADQ + App.getContext().getString(R.string.adqSendTicket),
                 headers, request, EnviarTicketCompraResponse.class, result);
     }

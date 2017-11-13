@@ -170,7 +170,10 @@ public class GetSignatureFragment extends GenericFragment implements View.OnClic
         // txtNameOwnerCard.setText(String.format("%s", emvDepositResponse.getName()));
 
         if (imgTypeCard != null) {
-            imgTypeCard.setImageDrawable(setDrawable());
+            if (emvDepositResponse.getMarcaTarjetaBancaria() != null)
+                imgTypeCard.setImageDrawable(setDrawable());
+            else
+                imgTypeCard.setImageDrawable(getDrawable(R.mipmap.pagatodo_icon));
         }
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);

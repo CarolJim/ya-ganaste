@@ -1,5 +1,7 @@
 package com.pagatodo.yaganaste.ui.adquirente.presenters;
 
+import android.util.Log;
+
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
@@ -8,9 +10,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adq.CancelaTransacci
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.CancellationData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.SignatureData;
 import com.pagatodo.yaganaste.data.model.webservice.request.adq.TransaccionEMVDepositRequest;
-import com.pagatodo.yaganaste.data.model.webservice.response.adq.ConsultaSaldoCupoResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
-import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarSaldoResponse;
 import com.pagatodo.yaganaste.interfaces.IAccountManager;
 import com.pagatodo.yaganaste.interfaces.IAdqIteractor;
 import com.pagatodo.yaganaste.interfaces.IAdqPresenter;
@@ -77,6 +77,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
         cancellationData.setIdOriginalTransaction(dataMovimientoAdq.getIdTransaction());
         cancellationData.setNoauthorizationOriginalTransaction(dataMovimientoAdq.getNoAutorizacion());
         cancellationData.setTicketOriginalTransaction(dataMovimientoAdq.getNoTicket());
+        cancellationData.setFechaOriginalTransaction(dataMovimientoAdq.getFechaOriginalTransaction());
         cancellationData.setTimeOriginalTransaction(hourFormat.format(calendar.getTime()).replace(":", ""));
 
         CancelaTransaccionDepositoEmvRequest cancelRequest = new CancelaTransaccionDepositoEmvRequest();
@@ -110,12 +111,12 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
     }
 
     @Override
-    public void sendTicket(String email) {
-        iAdqView.showLoader(App.getContext().getString(R.string.enviando_ticket));
+    public void sendTicket(String email, boolean applyAgent) {
+        if (!applyAgent) iAdqView.showLoader(App.getContext().getString(R.string.enviando_ticket));
         adqInteractor.sendTicket(UtilsAdquirente.buildTicketRequest(
                 TransactionAdqData.getCurrentTransaction().getTransaccionResponse().getId_transaction(),
                 TransactionAdqData.getCurrentTransaction().getDescription(),
-                email));
+                email, applyAgent), applyAgent);
     }
 
     public void sendTicketShare(String emailToSend, String description, String idTransaction) {
@@ -123,7 +124,7 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
         adqInteractor.enviarTicketCompraShare(UtilsAdquirente.buildTicketRequest(
                 description,
                 idTransaction,
-                emailToSend));
+                emailToSend, false));
     }
 
     @Override
@@ -145,6 +146,9 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
             case FIRMA_DE_VOUCHER:
                 iAdqView.showError(error);
 //                iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION, error);
+                break;
+            case ENVIAR_TICKET_COMPRA_AUTOM:
+                Log.e(App.getContext().getString(R.string.app_name), "No se pudo mandar correo automático al agente");
                 break;
             case ENVIAR_TICKET_COMPRA:
                 iAdqView.showError(error);
@@ -205,6 +209,9 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
             case FIRMA_DE_VOUCHER:
                 iAdqView.hideLoader();
                 iAdqView.nextScreen(EVENT_GO_DETAIL_TRANSACTION, data);
+                break;
+            case ENVIAR_TICKET_COMPRA_AUTOM:
+                Log.i(App.getContext().getString(R.string.app_name), "Notificación exitosa al Agente");
                 break;
             case ENVIAR_TICKET_COMPRA:
                 iAdqView.hideLoader();

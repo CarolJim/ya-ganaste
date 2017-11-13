@@ -3,6 +3,7 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.AppCompatImageView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -16,6 +17,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS_CUENTA_YA;
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_TERMINOS_LINEA_CREDITO;
 
@@ -55,8 +57,6 @@ public class TerminosyCondicionesFragment extends GenericFragment implements Vie
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         // Inflate the layout for this fragment
-
-
         Idestatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
         res = Idestatus;
         rootview = inflater.inflate(R.layout.fragment_terminosy_condiciones, container, false);
@@ -66,9 +66,10 @@ public class TerminosyCondicionesFragment extends GenericFragment implements Vie
 
     @Override
     public void onClick(View view) {
-
         switch (view.getId()) {
-
+            case R.id.btn_back:
+                onEventListener.onEvent(PREFER_USER_TERMINOS_BACK, 1);
+                break;
             case R.id.fragment_terminos_cuenta_ya_ganaste_Terminos:
                 onEventListener.onEvent(PREFER_USER_TERMINOS_CUENTA_YA, 1);
                 break;
@@ -93,7 +94,6 @@ public class TerminosyCondicionesFragment extends GenericFragment implements Vie
             ll_lcredito.setVisibility(View.VISIBLE);
             ll_lcredito.setOnClickListener(this);
         }
-
 
     }
 }

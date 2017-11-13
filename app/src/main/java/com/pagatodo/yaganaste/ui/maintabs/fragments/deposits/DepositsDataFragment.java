@@ -11,7 +11,6 @@ import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.text.TextPaint;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -37,7 +36,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 
 /**
@@ -107,21 +105,21 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
 
         String nombreprimerUser;
         String apellidoMostrarUser;
-        if (userData.getPrimerApellido().isEmpty()){
-            apellidoMostrarUser=userData.getSegundoApellido();
-        }else {
-            apellidoMostrarUser=userData.getPrimerApellido();
+        if (userData.getPrimerApellido().isEmpty()) {
+            apellidoMostrarUser = userData.getSegundoApellido();
+        } else {
+            apellidoMostrarUser = userData.getPrimerApellido();
         }
-        nombreprimerUser= StringUtils.getFirstName(userData.getNombre());
-        if (nombreprimerUser.isEmpty()){
-            nombreprimerUser=userData.getNombre();
+        nombreprimerUser = StringUtils.getFirstName(userData.getNombre());
+        if (nombreprimerUser.isEmpty()) {
+            nombreprimerUser = userData.getNombre();
         }
 
         UsuarioClienteResponse usuario = SingletonUser.getInstance().getDataUser().getUsuario();
         //String name = usuario.getNombre().concat(SPACE).concat(usuario.getPrimerApellido()).concat(SPACE).concat(usuario.getSegundoApellido());
 
         //txtNameTitular.setText(name);
-        String name=nombreprimerUser+" "+apellidoMostrarUser;
+        String name = nombreprimerUser + " " + apellidoMostrarUser;
         txtNameTitular.setText(name);
 
         String celPhone = "";
@@ -137,23 +135,15 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         txtCellPhone.setText(celPhone);
         txtNumberCard.setText(cardNumber);
 
-
-
-
         mensaje = getString(R.string.string_share_deposits, name, celPhone, clabe, cardNumber);
-
     }
-
-
 
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
         btnDepositar.setOnClickListener(this);
         imageshae.setOnClickListener(this);
-
     }
-
 
     @Override
     public void onClick(View v) {
@@ -179,7 +169,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
     public void onResume() {
         super.onResume();
         if (getParentFragment() != null && getParentFragment().isMenuVisible()) {
-            ((ToolBarActivity)getActivity()).setVisibilityPrefer(false);
+            ((ToolBarActivity) getActivity()).setVisibilityPrefer(false);
         }
         if (a == 100) {
             imageView.setVisibility(View.GONE);
@@ -195,11 +185,10 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         }
 
 
-
     }
 
-    private void checkState(String state){
-        switch (state){
+    private void checkState(String state) {
+        switch (state) {
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
                 //imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
                 printCard(cardNumber);
@@ -213,6 +202,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
                 break;
         }
     }
+
     private void showDialogMesage(final String mensaje) {
         UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
                 new DialogDoubleActions() {

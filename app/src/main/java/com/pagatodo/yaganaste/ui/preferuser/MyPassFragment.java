@@ -20,7 +20,6 @@ import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
-import com.pagatodo.yaganaste.ui.account.register.LegalsDialog;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassValidation;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyPassView;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
@@ -37,10 +36,8 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.PreferUserActivity.PREFER_USER_LISTA;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
-import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_ERROR;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.SupportFragmentActivity.EVENT_SESSION_EXPIRED;
-import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PUSH;
 
@@ -68,14 +65,10 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
     AccountPresenterNew accountPresenter;
     PreferUserPresenter mPreferPresenter;
     View rootview;
-    private String email = "";
-    private String emailConfirmation = "";
     private String password;
     private String passwordOld;
     private String passwordConfirmation;
     private boolean isValidPassword = false;
-    private boolean emailValidatedByWS = false; // Indica que el email ha sido validado por el ws.
-    private boolean userExist = false; // Indica que el email ya se encuentra registrado.
     private String passErrorMessage;
     private boolean errorIsShowed = false;
 
@@ -134,9 +127,9 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
         switch (v.getId()) {
             case R.id.fragment_myemail_btn:
                 boolean isOnline = Utils.isDeviceOnline();
-                if(isOnline) {
+                if (isOnline) {
                     validateForm();
-                }else{
+                } else {
                     showDialogMesage(getResources().getString(R.string.no_internet_access));
                 }
                 break;
@@ -324,6 +317,14 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
             isValid = false;
         }
 
+        //Validate new and old password not the same
+        if (password.equals(passwordOld)) {
+            showDialogMesage(getString(R.string.datos_usuario_pass_equal_new));
+            editPassword.setIsInvalid();
+            editPasswordConfirm.setIsInvalid();
+            isValid = false;
+        }
+
         //Validate if Password Confirmation is Empty
         if (passwordConfirmation.isEmpty()) {
             showValidationError(editPasswordConfirm.getId(), getString(R.string.datos_usuario_pass_confirm));
@@ -434,7 +435,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
      */
     @Override
     public void sendErrorPassToView(String mensaje) {
-        if(mensaje.contains("Contraseña")) {
+        if (mensaje.contains("Contraseña")) {
             showDialogMesage(getString(R.string.error_service_verify_pass));
         } else {
             showDialogMesage(mensaje);
@@ -455,7 +456,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
                     public void actionConfirm(Object... params) {
                         if (mensaje.equals(Recursos.MESSAGE_OPEN_SESSION)) {
                             onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
-                        }else if (mensaje.equals(Recursos.MESSAGE_CHANGE_PASS)) {
+                        } else if (mensaje.equals(Recursos.MESSAGE_CHANGE_PASS)) {
                             onEventListener.onEvent(PREFER_USER_LISTA, 1);
                         }
                     }
@@ -475,14 +476,17 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
         }
         //hideValidationError();
     }
+
     @Override
     public void nextScreen(String event, Object data) {
 
     }
+
     @Override
     public void backScreen(String event, Object data) {
 
     }
+
     @Override
     public void showError(Object error) {
 
@@ -538,7 +542,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
         endAndBack();
     }
 
-    private void endAndBack(){
+    private void endAndBack() {
         editOldPassword.setText("");
         editPassword.setText("");
         editPasswordConfirm.setText("");

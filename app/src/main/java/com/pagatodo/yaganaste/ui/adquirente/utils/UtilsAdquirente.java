@@ -50,12 +50,13 @@ public class UtilsAdquirente {
         return request;
     }
 
-    public static EnviarTicketCompraRequest buildTicketRequest(String idTransaction, String name, String email) {
+    public static EnviarTicketCompraRequest buildTicketRequest(String idTransaction, String name, String email, boolean applyAgent) {
         EnviarTicketCompraRequest request = new EnviarTicketCompraRequest();
         request.setEmail(email);
         request.setImplicitData(getImplicitData());
         request.setName(name);
         request.setIdTransaction(idTransaction);
+        request.setAplicaAgente(applyAgent);
         return request;
     }
 }

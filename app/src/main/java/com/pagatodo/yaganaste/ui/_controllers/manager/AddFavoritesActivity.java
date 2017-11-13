@@ -63,13 +63,14 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.TIPO_TAB;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
+import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 /**
  * Encargada de dar de alta Favoritos, primero en el servicio y luego en la base local
  */
 public class AddFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
-        IListaOpcionesView, ValidationForms, ICropper, CropIwaResultReceiver.Listener,OtpView {
+        IListaOpcionesView, ValidationForms, ICropper, CropIwaResultReceiver.Listener, OtpView {
 
     @BindView(R.id.add_favorites_alias)
     CustomValidationEditText editTextAlias;
@@ -114,6 +115,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     public static boolean BACK_STATE_ADDFAVORITE = true;
     private static Preferencias preferencias = App.getInstance().getPrefs();
     private FavoritoPresenterAutoriza favoritoPresenterAutoriza;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -170,7 +172,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             textViewServ.setHintText(getString(R.string.details_compania));
         } else if (tipoTab == 3) {
             if (formatoPago.length() == 16 || formatoPago.length() == 15) {
-                formatoPago = StringUtils.maskReference(StringUtils.format(formatoPago, SPACE, 4, 4, 4, 4), '*', formatoPago.length() - 12);
+                formatoPago = getCreditCardFormat(formatoPago);
             } else {
                 formatoPago = StringUtils.formatoPagoMedios(formatoPago);
             }
@@ -227,7 +229,6 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     }
 
 
-
     // Disparamos el evento de Camara
     @OnClick(R.id.add_favorites_camera)
     public void openCamera() {
@@ -254,7 +255,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
      */
     @Override
     public void toViewErrorServer(String mMensaje) {
-        showDialogMesage("",mMensaje, 0);
+        showDialogMesage("", mMensaje, 0);
     }
 
     /**
@@ -269,7 +270,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
     @Override
     public void toViewSuccessAddFoto(String mMensaje) {
-        showDialogMesage("",mMensaje, 1);
+        showDialogMesage("", mMensaje, 1);
     }
 
 
@@ -410,7 +411,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
             if (isOnline) {
                 onValidationSuccess();
             } else {
-                showDialogMesage("",getResources().getString(R.string.no_internet_access), 0);
+                showDialogMesage("", getResources().getString(R.string.no_internet_access), 0);
             }
         }
     }
@@ -458,7 +459,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
         /* Si no tiene un favorito guardado con la misma referencia entonces se permite subirlo*/
         if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
             favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
-            favoritesPresenter.toPresenterAddFavorites(getString(R.string.loader_15),addFavoritesRequest);
+            favoritesPresenter.toPresenterAddFavorites(getString(R.string.loader_15), addFavoritesRequest);
         } else {
         /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
             UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(),
@@ -529,7 +530,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
     public void onCropper(Uri uri) {
         showLoader(getString(R.string.load_photo_favorite));
         BACK_STATE_ADDFAVORITE = false;
-        startActivityForResult(CropActivity.callingIntent(this, uri),CROP_RESULT);
+        startActivityForResult(CropActivity.callingIntent(this, uri), CROP_RESULT);
     }
 
     @Override
@@ -557,7 +558,7 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
     @Override
     public void onBackPressed() {
-        if(BACK_STATE_ADDFAVORITE) {
+        if (BACK_STATE_ADDFAVORITE) {
             super.onBackPressed();
         }
     }

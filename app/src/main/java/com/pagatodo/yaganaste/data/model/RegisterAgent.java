@@ -34,11 +34,6 @@ public class RegisterAgent {
     private String colonia = "";
     private String idColonia = "";
     private String idEstado = "";
-    //Datos Lavado De Dinero
-    private String cobrosMensual;
-    private String montoMensual;
-    private String origenRecursos;
-    private String destinoRecursos;
 
     private RegisterAgent() {
         cuestionario = new ArrayList<>();
@@ -227,35 +222,4 @@ public class RegisterAgent {
         this.idEstado = idEstado;
     }
 
-    public String getCobrosMensual() {
-        return cobrosMensual;
-    }
-
-    public void setCobrosMensual(String cobrosMensual) {
-        this.cobrosMensual = cobrosMensual;
-    }
-
-    public String getMontoMensual() {
-        return montoMensual;
-    }
-
-    public void setMontoMensual(String montoMensual) {
-        this.montoMensual = montoMensual;
-    }
-
-    public String getOrigenRecursos() {
-        return origenRecursos;
-    }
-
-    public void setOrigenRecursos(String origenRecursos) {
-        this.origenRecursos = origenRecursos;
-    }
-
-    public String getDestinoRecursos() {
-        return destinoRecursos;
-    }
-
-    public void setDestinoRecursos(String destinoRecursos) {
-        this.destinoRecursos = destinoRecursos;
-    }
 }

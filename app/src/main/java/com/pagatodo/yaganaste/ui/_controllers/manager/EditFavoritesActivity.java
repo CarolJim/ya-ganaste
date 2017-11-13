@@ -30,7 +30,6 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
@@ -112,7 +111,7 @@ import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 public class EditFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
         IListaOpcionesView, ValidationForms, View.OnClickListener, OnListServiceListener,
         AdapterView.OnItemSelectedListener, ITextChangeListener, PaymentsCarrouselManager,
-        ICropper, CropIwaResultReceiver.Listener,OtpView {
+        ICropper, CropIwaResultReceiver.Listener, OtpView {
 
     public static final String TAG = AddNewFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
@@ -477,7 +476,6 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     }
 
 
-
     // Disparamos el evento de Camara solo si tenemos intrnet
     @OnClick(R.id.add_favorites_camera)
     public void openCamera() {
@@ -596,7 +594,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
      */
     @Override
     public void toViewErrorServer(String mMensaje) {
-        showDialogMesage("",mMensaje, 0);
+        showDialogMesage("", mMensaje, 0);
     }
 
     /**
@@ -610,7 +608,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
     @Override
     public void toViewSuccessAddFoto(String mMensaje) {
-       //  showDialogMesage("",mMensaje, 1); Viejpo mensaje
+        //  showDialogMesage("",mMensaje, 1); Viejpo mensaje
         showDialogMesage(getString(R.string.title_dialog_edit_favorite),
                 getString(R.string.respond_ok_edit_favorite), 1);
     }
@@ -621,7 +619,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
     @Override
     public void toViewSuccessDeleteFavorite(String mMensaje) {
-        showDialogMesage("",mMensaje, 1);
+        showDialogMesage(getString(R.string.title_dialog_delete_favorite), getString(R.string.respond_ok_delete_favorite), 1);
     }
 
     @Override
@@ -639,7 +637,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         }
     }
 
-    private void showDialogMesage(final String title,final String mensaje, final int closeAct) {
+    private void showDialogMesage(final String title, final String mensaje, final int closeAct) {
         UI.createSimpleCustomDialog(title, mensaje, getSupportFragmentManager(),
                 new DialogDoubleActions() {
                     @Override
@@ -830,7 +828,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
             if (isOnline) {
                 onValidationSuccess();
             } else {
-                showDialogMesage("",getResources().getString(R.string.no_internet_access), 0);
+                showDialogMesage("", getResources().getString(R.string.no_internet_access), 0);
             }
         }
     }
@@ -1337,7 +1335,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     public void onCropper(Uri uri) {
         showLoader(getString(R.string.load_photo_favorite));
         BACK_STATE_EDITFAVORITE = false;
-        startActivityForResult(CropActivity.callingIntent(this, uri),CROP_RESULT);
+        startActivityForResult(CropActivity.callingIntent(this, uri), CROP_RESULT);
     }
 
     @Override
@@ -1353,7 +1351,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
 
     @Override
     public void onBackPressed() {
-        if(BACK_STATE_EDITFAVORITE) {
+        if (BACK_STATE_EDITFAVORITE) {
             super.onBackPressed();
         }
     }

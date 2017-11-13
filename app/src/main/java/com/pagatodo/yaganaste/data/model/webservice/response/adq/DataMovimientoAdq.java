@@ -51,9 +51,18 @@ public class DataMovimientoAdq implements Serializable {
     private String estatus;
     @SerializedName("Concepto")
     private String concepto;
-
+    @SerializedName("FechaOriginalTransaction")
+    private String fechaOriginalTransaction;
 
     public DataMovimientoAdq() {
+    }
+
+    public String getFechaOriginalTransaction() {
+        return fechaOriginalTransaction;
+    }
+
+    public void setFechaOriginalTransaction(String fechaOriginalTransaction) {
+        this.fechaOriginalTransaction = fechaOriginalTransaction;
     }
 
     public String getCompania() {
