@@ -67,7 +67,7 @@
     <string name="updateFavoritos">/ActualizarFavorito</string>
     <string name="deleteFavorito">/EliminarFavorito</string>
     <!--<string name="url_images_logos">http://10.10.45.11:8033/RecursosApp/RecursosYaGanaste/logos/android/</string>-->
-    <string name="url_images_logos">https://www.yaganaste.com/Logos/logos/android/</string>
+    <string name="url_images_logos">https://www.yaganaste.com/Logos/android/</string>
     <string name="obtenerCobrosMensuales">/ObtenerCatalogoOperacionesPLD</string>
     <string name="obtenerPaisesPLD">/ObtenerPaisesPLD</string>
     <string name="obtenerMontos">/ObtenerCatalogoMontosPLD</string>
@@ -468,7 +468,7 @@
     <string name="comision_service_payment">La Comisión es de: %1$s (IVA Incluido)</string>
     <string name="title_recarga_success">¡Recarga Exitosa!</string>
     <string name="title_servicio_success">¡Pago Exitoso!</string>
-    <string name="title_envio_success">¡Envío Exitoso!</string>
+    <string name="title_envio_success">¡Envío en Proceso!</string>
     <string name="synch_favoritessynch_favorites">Obteniendo Favoritos</string>
     <string name="empty_list_favorites">Aún no Cuentas Con Ningún Favorito</string>
 
