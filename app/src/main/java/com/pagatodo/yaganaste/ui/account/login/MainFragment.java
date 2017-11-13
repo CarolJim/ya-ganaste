@@ -94,21 +94,29 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
             case R.id.btnMainCreateAccount:
                 Intent intent = new Intent(getActivity(), AddToFavoritesActivity.class);
                 intent.putExtra(SELECTION, GO_TO_REGISTER);
-                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 1);
-                intent.putExtra(AddToFavoritesActivity.TIPO_TAB, 1);
+                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
+                intent.putExtra(AddToFavoritesActivity.CURRENT_TAB_ID, 3);
+
+                intent.putExtra("nombreComercio", "nombreComercio");
+                intent.putExtra("idComercio", 117);
+                intent.putExtra("idTipoComercio", 1);
+                intent.putExtra("idTipoEnvio", 1);
+                intent.putExtra("referencia", "miReferencia");
+                //intent.putExtra("TIPO_TAB", tipoTab);
+                intent.putExtra("destinatario", "nombreDest");
+
                 startActivity(intent);
                 //getActivity().finish();
                 break;
 
             case R.id.btnLogin:
                 intent = new Intent(getActivity(), AddToFavoritesActivity.class);
-                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
-                intent.putExtra(AddToFavoritesActivity.TIPO_TAB, 2);
-                startActivity(intent);
+//                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
+//                intent.putExtra(AddToFavoritesActivity.TIPO_TAB, 2);
+//                startActivity(intent);
                 break;
         }
     }
-
 
 }
 
