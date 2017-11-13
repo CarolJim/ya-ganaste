@@ -23,6 +23,7 @@ import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.CustomTypefaceSpan;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -91,15 +92,18 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnMainCreateAccount:
-                Intent intent = new Intent(getActivity(), AccountActivity.class);
+                Intent intent = new Intent(getActivity(), AddToFavoritesActivity.class);
                 intent.putExtra(SELECTION, GO_TO_REGISTER);
+                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 1);
+                intent.putExtra(AddToFavoritesActivity.TIPO_TAB, 1);
                 startActivity(intent);
                 //getActivity().finish();
                 break;
 
             case R.id.btnLogin:
-                intent = new Intent(getActivity(), AccountActivity.class);
-                intent.putExtra(SELECTION, GO_TO_LOGIN);
+                intent = new Intent(getActivity(), AddToFavoritesActivity.class);
+                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
+                intent.putExtra(AddToFavoritesActivity.TIPO_TAB, 2);
                 startActivity(intent);
                 break;
         }
