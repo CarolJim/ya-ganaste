@@ -80,12 +80,12 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
 
         // Se encarga de hacer Set en el Adapter
         rollPagerView.setAdapter(new AdapterRollPager(rollPagerView, getActivity()));
-        ColorPointHintView ss= new ColorPointHintView(getActivity(),Color.WHITE, Color.parseColor("#7fffffff") );
+        ColorPointHintView ss = new ColorPointHintView(getActivity(), Color.WHITE, Color.parseColor("#7fffffff"));
         rollPagerView.setHintView(ss);
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int height = metrics.heightPixels; // alto absoluto en pixels
-        rollPagerView.setHintPadding(0,0,0,height/7);
+        rollPagerView.setHintPadding(0, 0, 0, height / 7);
     }
 
     @Override
@@ -95,20 +95,24 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
                 Intent intent = new Intent(getActivity(), AddToFavoritesActivity.class);
                 intent.putExtra(SELECTION, GO_TO_REGISTER);
                 intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 1);
-                intent.putExtra(AddToFavoritesActivity.CURRENT_TAB_ID, 3);
+                intent.putExtra(AddToFavoritesActivity.CURRENT_TAB_ID, 2);
 
-                //intent.putExtra("nombreComercio", "CFE");
+                intent.putExtra("nombreComercio", "CFE");
                 //intent.putExtra("nombreComercio", "TAG");
                 //intent.putExtra("nombreComercio", "Telcel");
-                intent.putExtra("nombreComercio", "BBVA Bancomer");
+                //intent.putExtra("nombreComercio", "BBVA Bancomer");
 
                 intent.putExtra("idComercio", 117);
                 //intent.putExtra("idComercio", 7);
                 intent.putExtra("idTipoComercio", 1);
-                intent.putExtra("idTipoEnvio", 3);
+                intent.putExtra("idTipoEnvio", 1);
+
                 intent.putExtra("referencia", "1234567890123456");
-              //  intent.putExtra("referencia", "5534812287");
+                //intent.putExtra("referencia", "5534812287");
+                //intent.putExtra("referencia", "123456QWERTY0");
+
                 //intent.putExtra("TIPO_TAB", tipoTab);
+                //intent.putExtra("destinatario", "Frank Manzo");
                 intent.putExtra("destinatario", "Frank Manzo");
 
                 startActivity(intent);
@@ -118,7 +122,7 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
             case R.id.btnLogin:
                 intent = new Intent(getActivity(), AddToFavoritesActivity.class);
                 intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
-                intent.putExtra(AddToFavoritesActivity.CURRENT_TAB_ID, 3);
+                intent.putExtra(AddToFavoritesActivity.CURRENT_TAB_ID, 1);
 
                 startActivity(intent);
 //                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);

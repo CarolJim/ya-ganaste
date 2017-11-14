@@ -360,6 +360,9 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                             textViewTipo.setText(getResources().getString(R.string.transfer_cable));
                             break;
                     }
+
+                    // Agregamos el tipo de envio al campo auxiliar de Spinner editSpinner
+                    editSpinner.setText("" + idTipoEnvio);
                     break;
             }
 
