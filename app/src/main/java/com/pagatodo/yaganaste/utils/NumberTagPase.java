@@ -34,14 +34,21 @@ public class NumberTagPase implements TextWatcher {
     public void afterTextChanged(Editable s) {
         editText.removeTextChangedListener(this);
         String text = s.toString();
-        String response = StringUtils.genericFormat(text.replaceAll(" ", ""), SPACE);
+        //String response = StringUtils.genericFormat(text.replaceAll(" ", ""), SPACE);
+        String response = StringUtils.format(s.toString().replaceAll(" ", ""), SPACE, 4, 4, 4,1);
 
-        if (response.length() > maxLength) {
-            editText.setText(response.substring(response.length() - maxLength, response.length()));
-        } else {
+        if (response.length() == 16) {
+            response = StringUtils.format(s.toString().replaceAll(" ", ""), SPACE, 4, 4, 4,1);
             editText.setText(response);
+        } else {
+            if (response.length() > maxLength) {
+                editText.setText(response.substring(response.length() - maxLength, response.length()));
+            } else {
+                editText.setText(response);
+            }
         }
-        editText.setSelection(Math.min(maxLength, editText.getText().length()));
-        editText.addTextChangedListener(this);
+            editText.setSelection(Math.min(maxLength, editText.getText().length()));
+            editText.addTextChangedListener(this);
+
     }
 }
