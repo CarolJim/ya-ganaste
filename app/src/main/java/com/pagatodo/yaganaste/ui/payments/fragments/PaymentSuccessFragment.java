@@ -69,6 +69,8 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     TextView txtReferencia;
     @BindView(R.id.txtAutorizacion)
     TextView autorizacion;
+    @BindView(R.id.txtClaveRastreo)
+    TextView txtClaveratreo;
     @BindView(R.id.txtFecha)
     TextView fecha;
     @BindView(R.id.txtHora)
@@ -102,6 +104,14 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
 
     @BindView(R.id.layout_addfavorites)
     LinearLayout addFavorites;
+
+    @BindView(R.id.layout_clave_rastreo)
+    LinearLayout layoutClaveRastreo;
+
+    @BindView(R.id.view_clave_rastreo)
+    View viewClaveRastreo;
+
+
 
     Payments pago;
     EjecutarTransaccionResponse result;
@@ -196,6 +206,17 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             isMailAviable = true;
 
             titleReferencia.setText(((Envios) pago).getTipoEnvio().getShortName());
+            if (!result.getData().getClaveRastreo().isEmpty()){
+                txtClaveratreo.setText(result.getData().getClaveRastreo());
+                txtClaveratreo.setSelected(true);
+                layoutClaveRastreo.setVisibility(View.VISIBLE);
+                viewClaveRastreo.setVisibility(View.VISIBLE);
+
+            } else {
+                layoutClaveRastreo.setVisibility(View.GONE);
+                viewClaveRastreo.setVisibility(View.GONE);
+            }
+
         }
 
         importe.setText(Utils.getCurrencyValue(pago.getMonto()));
