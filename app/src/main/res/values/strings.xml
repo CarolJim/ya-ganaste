@@ -107,7 +107,7 @@
     <!-- <string name="adqSendTicket">/agMov/sendTicket</string> -->
     <string name="adqSendTicket">/agMov/sendTicketADQ</string>
     <string name="adqResumeDay">/agMov/getResumenYG?fecha=</string>
-    <string name="adqResumeMonth">/agMov/getResumenMonthYG</string>
+    <string name="adqResumeMonth">/agMov/getResumenMonthYG?fecha=</string>
     <string name="adqGetBalance">/agMov/getSaldo</string>
     <string name="adqGetDatosCupo">/agMov/ObtieneDatosCupo</string>
     <string name="cancelationTransactionEmv">/agMov/CancellationTransactionEmvDeposit</string>

@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.os.Handler;
 import android.view.Window;
 
+import com.crashlytics.android.Crashlytics;
 import com.google.gson.Gson;
 import com.google.gson.reflect.TypeToken;
 import com.pagatodo.yaganaste.App;
@@ -26,6 +27,8 @@ import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import java.lang.reflect.Type;
 import java.util.List;
 
+import io.fabric.sdk.android.Fabric;
+
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
@@ -39,7 +42,7 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Fabric.with(this, new Crashlytics());
+        Fabric.with(this, new Crashlytics());
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash_activity_layout);
         api = new CatalogsDbApi(this);

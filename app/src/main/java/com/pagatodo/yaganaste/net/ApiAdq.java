@@ -233,8 +233,8 @@ public class ApiAdq extends Api {
         headers.put(RequestHeaders.TokenAdq, RequestHeaders.getTokenAdq());
 
         NetFacade.consumeWS(CONSULTA_MOVIMIENTOS_MES_ADQ,
-                METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqResumeMonth),
-                headers, request, ResumenMovimientosAdqResponse.class, result);
+                METHOD_GET, URL_SERVER_ADQ + App.getContext().getString(R.string.adqResumeMonth) + request.getFecha(),
+                headers, null, ResumenMovimientosAdqResponse.class, result);
     }
 
     /**
