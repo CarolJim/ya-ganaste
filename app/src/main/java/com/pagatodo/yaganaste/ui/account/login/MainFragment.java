@@ -94,16 +94,22 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
             case R.id.btnMainCreateAccount:
                 Intent intent = new Intent(getActivity(), AddToFavoritesActivity.class);
                 intent.putExtra(SELECTION, GO_TO_REGISTER);
-                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
+                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 1);
                 intent.putExtra(AddToFavoritesActivity.CURRENT_TAB_ID, 3);
 
-                intent.putExtra("nombreComercio", "nombreComercio");
+                //intent.putExtra("nombreComercio", "CFE");
+                //intent.putExtra("nombreComercio", "TAG");
+                //intent.putExtra("nombreComercio", "Telcel");
+                intent.putExtra("nombreComercio", "BBVA Bancomer");
+
                 intent.putExtra("idComercio", 117);
+                //intent.putExtra("idComercio", 7);
                 intent.putExtra("idTipoComercio", 1);
-                intent.putExtra("idTipoEnvio", 1);
-                intent.putExtra("referencia", "miReferencia");
+                intent.putExtra("idTipoEnvio", 3);
+                intent.putExtra("referencia", "1234567890123456");
+              //  intent.putExtra("referencia", "5534812287");
                 //intent.putExtra("TIPO_TAB", tipoTab);
-                intent.putExtra("destinatario", "nombreDest");
+                intent.putExtra("destinatario", "Frank Manzo");
 
                 startActivity(intent);
                 //getActivity().finish();
@@ -111,6 +117,10 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
 
             case R.id.btnLogin:
                 intent = new Intent(getActivity(), AddToFavoritesActivity.class);
+                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
+                intent.putExtra(AddToFavoritesActivity.CURRENT_TAB_ID, 3);
+
+                startActivity(intent);
 //                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
 //                intent.putExtra(AddToFavoritesActivity.TIPO_TAB, 2);
 //                startActivity(intent);

@@ -115,7 +115,7 @@
                     android:layout_height="match_parent"
                     android:visibility="visible" />
 
-                <!--<LinearLayout
+                <LinearLayout
                     android:id="@+id/add_favorites_linear_tipo"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
@@ -127,17 +127,16 @@
                         style="@style/FragmentElementWithValidation"
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        app:formato="text"
                         app:hintText="Tipo Servicio"
                         app:isSingleLine="true"
                         app:maxLength="50" />
 
                     <com.pagatodo.yaganaste.utils.customviews.ErrorMessage
-                        android:id="@+id/add_favorites_tipo_error"
+                        android:id="@+id/errorConfirmaMailMessage"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
-                        android:visibility="visible" />
-                </LinearLayout>-->
+                        android:visibility="invisible" />
+                </LinearLayout>
 
                 <com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText
                     android:id="@+id/add_favorites_referencia"

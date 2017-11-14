@@ -106,6 +106,8 @@ import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
+import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
+import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 import static com.pagatodo.yaganaste.utils.camera.CameraManager.CROP_RESULT;
 
 public class AddToFavoritesActivity extends LoaderActivity implements IAddFavoritesActivity,
@@ -137,6 +139,10 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     EditText recargaNumber;
     @BindView(R.id.layoutImg)
     RelativeLayout relativefav;
+    @BindView(R.id.add_favorites_tipo)
+    CustomValidationEditText textViewTipo;
+    @BindView(R.id.add_favorites_linear_tipo)
+    LinearLayout linearTipo;
 
     @BindView(R.id.imgItemGalleryMark)
     CircleImageView circuloimage;
@@ -192,11 +198,13 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     private FavoritoPresenterAutoriza favoritoPresenterAutoriza;
     private static Preferencias preferencias = App.getInstance().getPrefs();
     private int favoriteProcess;
+    private String nombreComercio;
+    private String nombreDest;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_add_new_favorites);
+        setContentView(R.layout.activity_add_to_favorites);
         ButterKnife.bind(this);
         favoritesPresenter = new FavoritesPresenter(this);
         // ** favoritoPresenterAutoriza = new FavoritoPresenterAutoriza(this, this);
@@ -211,9 +219,6 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         favoriteProcess = getIntent().getIntExtra(FAV_PROCESS, 1);
         current_tab = intent.getIntExtra(CURRENT_TAB_ID, 99);
 
-        Toast.makeText(this, "favoriteProcess " + favoriteProcess +
-                " current_tab " + current_tab, Toast.LENGTH_SHORT).show();
-
         btn_back = (AppCompatImageView) findViewById(R.id.btn_back);
         btn_back.setOnClickListener(this);
         // Iniciamos el presentes del carrousel
@@ -222,6 +227,9 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         paymentsCarouselPresenter = new PaymentsCarouselPresenter(this.current_tab2, this, this, false);
         paymentsCarouselPresenter.getCarouselItems();
 
+        /**
+         * Formato para ciruclos de Tomar foto
+         */
         DisplayMetrics metrics = new DisplayMetrics();
         getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int widthp = metrics.widthPixels; // ancho absoluto en pixels
@@ -242,19 +250,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         relativefav.setLayoutParams(params);
         //imageViewCamera.setNewHW(300, 300);
 
-        // Funcionalidad para agregar el Spinner
-        editListServ.imageViewIsGone(false);
-        editListServ.setEnabled(false);
-        editListServ.setFullOnClickListener(this);
-        if (current_tab2.getId() == 1) {
-            editListServ.setHintText(getString(R.string.details_compania));
-        } else if (current_tab2.getId() == 2) {
-            editListServ.setHintText(getString(R.string.details_compania));
-        } else if (current_tab2.getId() == 3) {
-            editListServ.setHintText(getString(R.string.details_bank));
-        }
-
-        // Iniciamos la funcionalidad e la camara
+        // Iniciamos la funcionalidad e la camara con su manager
         cameraManager = new CameraManager(this);
         cameraManager.initCameraUploadDocument(this, imageViewCamera, this);
 
@@ -271,20 +267,136 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         layoutImageContact.setOnClickListener(this);
         layoutImageContact2.setOnClickListener(this);
 
-        // Test de SET de todos los EditTExt, eliminar cuando tengamos servicios funcional
-        // editAlias.setText("MiReferencia");
-        // editListServ.setText("TelMex");
-        //editTipo.setText("Envio por CLABE");
-        // editRefer.setText("5534812287");
-
-        // Agregamos Flecha de Shebrom
-        editListServ.setEnabled(false);
-        editListServ.setFullOnClickListener(this);
-        editListServ.setDrawableImage(R.drawable.menu_canvas);
-
+        // Funcionalidad de Crop Mejorado
         CropIwaResultReceiver cropResultReceiver = new CropIwaResultReceiver();
         cropResultReceiver.setListener(this);
         cropResultReceiver.register(this);
+
+      /*  // Funcionalidad para agregar el Spinner
+        editListServ.imageViewIsGone(false);
+        editListServ.setEnabled(false);
+        editListServ.setFullOnClickListener(this);
+        if (current_tab2.getId() == 1) {
+            editListServ.setHintText(getString(R.string.details_compania));
+        } else if (current_tab2.getId() == 2) {
+            editListServ.setHintText(getString(R.string.details_compania));
+        } else if (current_tab2.getId() == 3) {
+            editListServ.setHintText(getString(R.string.details_bank));
+        }*/
+
+        /**
+         * PROCESOS BASICOS para cada tipo de EVENTO
+         *
+         * Mostramos las vistas iniciales o las ocultamos
+         */
+        if (favoriteProcess == 1) {
+            // REcibimos los datos del Intent que viene desde PagoExitoso
+            idComercio = intent.getIntExtra(ID_COMERCIO, 99);
+            idTipoComercio = intent.getIntExtra(ID_TIPO_COMERCIO, 98);
+            idTipoEnvio = intent.getIntExtra(ID_TIPO_ENVIO, 97);
+            nombreComercio = intent.getStringExtra(NOMBRE_COMERCIO);
+            mReferencia = intent.getStringExtra(REFERENCIA);
+            formatoComercio = intent.getStringExtra(REFERENCIA);
+
+            // Pago exitoso, mostramos los campos con sus datos si es necesario
+
+            // Set NOMBRE Destinatorio
+            nombreDest = intent.getStringExtra(DESTINATARIO);
+            if (nombreDest != null) {
+                editAlias.setText(nombreDest);
+            }
+
+            // Set NOMBRE COMERCION
+            editListServ.setText(nombreComercio);
+            String formatoPago = mReferencia;
+            if (current_tab == 1) {
+                if (idComercio != 7) {
+                    formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+                }
+                if (idComercio == 7) {
+                    formatoPago = StringUtils.formatoPagoMediostag(formatoPago);
+                }
+                editListServ.setHintText(getString(R.string.details_compania));
+            } else if (current_tab == 2) {
+                formatoPago = StringUtils.genericFormat(formatoPago, SPACE);
+                editListServ.setHintText(getString(R.string.details_compania));
+            } else if (current_tab == 3) {
+                if (formatoPago.length() == 16 || formatoPago.length() == 15) {
+                    formatoPago = getCreditCardFormat(formatoPago);
+                } else {
+                    formatoPago = StringUtils.formatoPagoMedios(formatoPago);
+                }
+                editListServ.setHintText(getString(R.string.details_bank));
+            }
+            //SET de la referencia, dependiendo del tipo de pestaña ponemos el formato
+            editRefer.setText(formatoPago);
+            editRefer.setVisibility(View.VISIBLE);
+
+            // Deshabilitamos la edicion de los CustomEditTExt para no modificarlos
+            //textViewServ.setFocusable(false);
+            // editRefer.setFocusable(false);
+            //textViewTipo.setFocusable(false);
+            editListServ.setFocusable(false);
+            editRefer.setEnabled(false);
+
+
+            // Localizamos el tipo de Tab con el que traajamos
+            switch (current_tab) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    linearTipo.setVisibility(View.VISIBLE);
+                    textViewTipo.setVisibility(View.VISIBLE);
+                    switch (idTipoEnvio) {
+                        case 1:
+                            textViewTipo.setText(getResources().getString(R.string.transfer_phone));
+                            break;
+                        case 2:
+                            textViewTipo.setText(getResources().getString(R.string.debit_card_number));
+                            break;
+                        case 3:
+                            textViewTipo.setText(getResources().getString(R.string.transfer_cable));
+                            break;
+                    }
+                    break;
+            }
+
+        } else if (favoriteProcess == 2) {
+            // Agregamos Flecha de Shebrom y habilitamos el evento OnClick
+            editListServ.setEnabled(false);
+            editListServ.setFullOnClickListener(this);
+            editListServ.setDrawableImage(R.drawable.menu_canvas);
+
+            // Nuevo Favorito desde Cero mostramos los campos poco a poco
+
+            // Localizamos el tipo de Tab con el que traajamos
+            switch (current_tab) {
+                case 1:
+                    break;
+                case 2:
+                    break;
+                case 3:
+                    break;
+            }
+
+            // Funcionalidad para agregar el Spinner
+            editListServ.imageViewIsGone(false);
+            editListServ.setEnabled(false);
+            editListServ.setFullOnClickListener(this);
+            if (current_tab == 1) {
+                editListServ.setHintText(getString(R.string.details_compania));
+            } else if (current_tab == 2) {
+                editListServ.setHintText(getString(R.string.details_compania));
+            } else if (current_tab == 3) {
+                editListServ.setHintText(getString(R.string.details_bank));
+            }
+
+            layoutImageContact.setOnClickListener(this);
+            layoutImageContact2.setOnClickListener(this);
+
+        }
     }
 
     /**
@@ -672,7 +784,15 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         /** Hacemos set de la validacion de referencia dependiendo del tipo de TAB */
 
         if (current_tab == 1) {
-            editRefer.setText(recargaNumber.getText().toString());
+            /**
+             * Se toma la bandera de favoriteProcess porque AddFavorito tomaba un EditTExt estatico
+             * como auxiliar, en cambio AddNewFavorito toma la referencia de campos dinamicos
+             */
+            if (favoriteProcess == 1) {
+                editRefer.setText(editRefer.getText().toString());
+            } else {
+                editRefer.setText(recargaNumber.getText().toString());
+            }
             //Validate format Referencia
             if (!editRefer.isValidText()) {
                 showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
@@ -681,7 +801,11 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                 //return;
             }
         } else if (current_tab == 2) {
-            editRefer.setText(referenceNumber.getText().toString());
+            if (favoriteProcess == 1) {
+                editRefer.setText(editRefer.getText().toString());
+            } else {
+                editRefer.setText(referenceNumber.getText().toString());
+            }
             //Validate format Referencia
             if (!editRefer.isValidText()) {
                 showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
@@ -698,7 +822,13 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                 //return;
             }
 
-            editRefer.setText(cardNumber.getText().toString());
+            if (favoriteProcess == 1) {
+                editRefer.setText(editRefer.getText().toString());
+            } else {
+                editRefer.setText(cardNumber.getText().toString());
+
+            }
+
             //Validate format Referencia
             if (!editRefer.isValidText()) {
                 showValidationError(editRefer.getId(), getString(R.string.addFavoritesErrorRefer));
