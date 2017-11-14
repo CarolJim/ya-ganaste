@@ -946,6 +946,7 @@
     <string name="details_monto_compra">Monto Compra</string>
     <string name="details_importe">Importe</string>
     <string name="details_ferencia">Referencia</string>
+    <string name="details_clave_de_rastreo">Clave de Rastreo</string>
     <string name="details_clave_rastreo">Clave Rastreo</string>
     <string name="detals_referencia_num">Referencia Numérica</string>
     <string name="details_iave_pase">IAVE/Pase Urbano</string>

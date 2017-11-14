@@ -8,6 +8,7 @@ import com.pagatodo.yaganaste.interfaces.enums.TransferType;
  */
 
 public class Envios extends Payments {
+
     private TransferType tipoEnvio;
     private String nombreDestinatario;
     private String referenciaNumerica;

@@ -307,12 +307,51 @@
                             android:paddingLeft="10dp"
                             android:scrollHorizontally="true"
                             android:singleLine="true" />
-                    </LinearLayout>
 
+
+                    </LinearLayout>
                     <View
                         android:layout_width="fill_parent"
                         android:layout_height="0.5px"
                         android:background="@color/margin_lines" />
+                    <LinearLayout
+                        android:id="@+id/layout_clave_rastreo"
+                        android:layout_width="match_parent"
+                        android:layout_height="@dimen/detail_movements_row_height"
+                        android:layout_gravity="center"
+                        android:gravity="center"
+                        android:orientation="horizontal"
+                        android:visibility="visible">
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            style="@style/generic_text_style_2.1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:gravity="start"
+                            android:text="@string/details_clave_de_rastreo" />
+
+                        <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                            android:id="@+id/txtClaveRastreo"
+                            style="@style/generic_text_style_2.1"
+                            android:layout_width="0dp"
+                            android:layout_height="wrap_content"
+                            android:layout_weight="1"
+                            android:ellipsize="marquee"
+                            android:focusable="true"
+                            android:focusableInTouchMode="true"
+                            android:gravity="end"
+                            android:marqueeRepeatLimit="marquee_forever"
+                            android:paddingLeft="10dp"
+                            android:scrollHorizontally="true"
+                            android:singleLine="true"
+                            />
+                    </LinearLayout>
+                    <View
+                        android:id="@+id/view_clave_rastreo"
+                        android:layout_width="fill_parent"
+                        android:layout_height="0.5px"
+                        android:background="@color/margin_lines"
+                        android:visibility="visible"/>
                 </LinearLayout>
             </LinearLayout>
 
