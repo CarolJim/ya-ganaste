@@ -75,7 +75,6 @@ public class Recursos {
                 PIN_YA = "af0758ac6ce95cddd1ea59eceba5ba001636cc1d";
                 PT_CLIENT_CODE = null;
             }
-
         }
     }
 
