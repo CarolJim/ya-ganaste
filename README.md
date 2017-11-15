@@ -1,5 +1,5 @@
 ********************************************************************************************************************************
-YA GANASTE README
+**`YA GANASTE README`**
 ********************************************************************************************************************************
 
 Para poder mejorar el proceso de documentación de código así como las referencias y notas que cada versión contienen se ocupará
@@ -12,9 +12,32 @@ Las intrucciones de uso son las siguientes:
     5. Funcionalidad: Agregar una descripción breve de las nuevas funcionalidades implementadas para el Usuario.
     6. Fechas de desarrollo: Al final de las descripciones se deberá poner las fechas de inicio y fin de desarrollo.
 
-********************************************************************************************************************************
+**_VERSION 1.7.0 - 30 de Octubre al 14 de Noviembre del 2017_**
 
-                                                VERSION 1.6.8 - 25 de Septiembre a 26 de Octubre del 2017
+Descripción al desarrollador:
+
+    * Token Freja para agregar y editar favoritos.
+    * Resolver incidencias.
+    * Compartir ticket Adquiriente por medio de correo.
+    * Envíos automáticos de Tickets.
+    * Corrección de coachmarks.
+    * Corrección de logos.
+    * Nueva pantalla de carga de documentos.
+    * Nueva pantalla en formulario de registro adquiriente (PLD)
+    * Obtención de países por servicio en registro adquiriente.
+    * Clave de rastreo para envíos bancarios.
+    * Compartir Screenshot y texto plano como descripción.
+    * Preferencias de Lector unificado a pantalla Mi Lector.
+    * Preferencias de Tarjeta unificado a pantalla Mi Tarjeta.
+    
+Funcionalidades:
+    
+    * Nuevos tutoriales.
+    * Screenshot con texto.
+    * Nueva vista de estatus de documentos.
+
+**_VERSION 1.6.8 - 25 de Septiembre a 26 de Octubre del 2017_**
+
 Descripción al desarrollador:
 
     * Pantalla para encuadrar fotos tomadas o imagenes de galería.
