@@ -92,42 +92,16 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
     public void onClick(View v) {
         switch (v.getId()) {
             case R.id.btnMainCreateAccount:
-                Intent intent = new Intent(getActivity(), AddToFavoritesActivity.class);
+                Intent intent = new Intent(getActivity(), AccountActivity.class);
                 intent.putExtra(SELECTION, GO_TO_REGISTER);
-                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 1);
-                intent.putExtra(AddToFavoritesActivity.CURRENT_TAB_ID, 2);
-
-                intent.putExtra("nombreComercio", "CFE");
-                //intent.putExtra("nombreComercio", "TAG");
-                //intent.putExtra("nombreComercio", "Telcel");
-                //intent.putExtra("nombreComercio", "BBVA Bancomer");
-
-                intent.putExtra("idComercio", 117);
-                //intent.putExtra("idComercio", 7);
-                intent.putExtra("idTipoComercio", 1);
-                intent.putExtra("idTipoEnvio", 1);
-
-                intent.putExtra("referencia", "1234567890123456");
-                //intent.putExtra("referencia", "5534812287");
-                //intent.putExtra("referencia", "123456QWERTY0");
-
-                //intent.putExtra("TIPO_TAB", tipoTab);
-                //intent.putExtra("destinatario", "Frank Manzo");
-                intent.putExtra("destinatario", "Frank Manzo");
-
                 startActivity(intent);
                 //getActivity().finish();
                 break;
 
             case R.id.btnLogin:
-                intent = new Intent(getActivity(), AddToFavoritesActivity.class);
-                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
-                intent.putExtra(AddToFavoritesActivity.CURRENT_TAB_ID, 1);
-
+                intent = new Intent(getActivity(), AccountActivity.class);
+                intent.putExtra(SELECTION, GO_TO_LOGIN);
                 startActivity(intent);
-//                intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
-//                intent.putExtra(AddToFavoritesActivity.TIPO_TAB, 2);
-//                startActivity(intent);
                 break;
         }
     }

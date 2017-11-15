@@ -30,6 +30,7 @@ import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
 
+import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.CommonStatusCodes;
 import com.google.android.gms.vision.barcode.Barcode;
 import com.pagatodo.yaganaste.App;
@@ -369,12 +370,26 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
                 .asBitmap()
                 .into(imageViewCamera.getCircleImageView());*/
 
-        Picasso.with(this)
-                .load(dataFavoritos.getImagenURL())
-                .error(R.drawable.ic_usuario_azul)
-                //.placeholder(R.drawable.user_placeholder)
-                //.error(R.drawable.user_placeholder_error)
-                .into(imageViewCamera.getCircleImageView());
+
+
+        /**
+         * Esta validacion es debido a que Piccaso marca un NullPoint si la URL esta vacia, pero
+         * Glide permite falla y cargar un PlaceHolder
+         */
+        String url = dataFavoritos.getImagenURL();
+        if(url != null && !url.isEmpty()) {
+            Picasso.with(this)
+                    .load(dataFavoritos.getImagenURL())
+                    .error(R.drawable.ic_usuario_azul)
+                    //.placeholder(R.drawable.user_placeholder)
+                    //.error(R.drawable.user_placeholder_error)
+                    .into(imageViewCamera.getCircleImageView());
+        }else{
+            Glide.with(this)
+                    .load(dataFavoritos.getImagenURL())
+                    .asBitmap()
+                    .into(imageViewCamera.getCircleImageView());
+        }
 
         CropIwaResultReceiver cropResultReceiver = new CropIwaResultReceiver();
         cropResultReceiver.setListener(this);

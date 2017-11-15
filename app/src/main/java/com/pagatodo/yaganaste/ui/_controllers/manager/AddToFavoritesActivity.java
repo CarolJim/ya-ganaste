@@ -119,7 +119,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
     public static boolean BACK_STATE_NEWFAVORITE = true;
     public static final String FAV_PROCESS = "FAV_PROCESS";
-    public static final String CURRENT_TAB_ID = "CURRENT_TAB_ID";
+    public static final String CURRENT_TAB_ID = "currentTabId";
 
     @BindView(R.id.add_favorites_alias)
     CustomValidationEditText editAlias;
@@ -207,7 +207,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         setContentView(R.layout.activity_add_to_favorites);
         ButterKnife.bind(this);
         favoritesPresenter = new FavoritesPresenter(this);
-        // ** favoritoPresenterAutoriza = new FavoritoPresenterAutoriza(this, this);
+        favoritoPresenterAutoriza = new FavoritoPresenterAutoriza(this, this);
 
         /**
          Identificar:
@@ -941,9 +941,9 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
         /* Si no tiene un favorito guardado con la misma referencia entonces se permite subirlo*/
         if (!favoritesPresenter.alreadyExistFavorite(referService, idComercio)) {
-            /**  favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
-             favoritesPresenter.toPresenterAddNewFavorites(getString(R.string.loader_15),addFavoritesRequest);
-             } else {
+            favoritoPresenterAutoriza.generateOTP(preferencias.loadData("SHA_256_FREJA"));
+            favoritesPresenter.toPresenterAddNewFavorites(getString(R.string.loader_15), addFavoritesRequest);
+        } else {
              /*  En caso de que ya exista un favorito con la misma referencia entonces muestra un Diálogo */
             UI.createSimpleCustomDialog(getString(R.string.title_error), getString(R.string.error_favorite_exist), getSupportFragmentManager(),
                     "");
