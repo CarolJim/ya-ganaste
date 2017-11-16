@@ -1,8 +1,12 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
 
+import android.app.KeyguardManager;
+import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -36,7 +40,6 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     StyleButton btnGenerateCode;
     View rootView;
 
-
     public interface OtpInterface {
         void loadCode(String code);
     }
@@ -61,7 +64,22 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
         ButterKnife.bind(this, rootView);
         btnGenerateCode.setOnClickListener(this);
         editPassword.addCustomTextWatcher(new MTextWatcher());
-
+        // Validar versión compatible con lectura de huellas digitales
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            FingerprintManager fingerprintManager = getActivity().getSystemService(FingerprintManager.class);
+            // Validar que el hardware esté disponible para lectura de huellas digitales
+            if(fingerprintManager.isHardwareDetected()){
+                if(fingerprintManager.hasEnrolledFingerprints()){
+                    // Llamar diálogo de lectura
+                    Log.i(getString(R.string.app_name), "Fingerprints Enrolled Detected");
+                } else {
+                    // Llamar diálogo de ayuda
+                    Log.i(getString(R.string.app_name), "No Fingerprints Enrolled Detected");
+                }
+            } else {
+                Log.e(getString(R.string.app_name), "No fingerprint hardware detected.");
+            }
+        }
     }
 
     @Override
@@ -79,7 +97,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     private void loadOtp() {
         if (editPassword.isValidText()) {
             onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
-            ((OtpInterface)getParentFragment()).loadCode(Utils.getSHA256(editPassword.getText()));
+            ((OtpInterface) getParentFragment()).loadCode(Utils.getSHA256(editPassword.getText()));
         } else if (editPassword.getText().isEmpty()) {
             editPassword.setIsInvalid();
             errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass));
