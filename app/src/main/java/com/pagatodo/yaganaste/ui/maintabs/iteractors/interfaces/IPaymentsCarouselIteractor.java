@@ -15,5 +15,5 @@ public interface IPaymentsCarouselIteractor {
 
     void getFavoritesFromDB(int tabID);
 
-    ObtenerCatalogosResponse getCatalogos();
+   // ObtenerCatalogosResponse getCatalogos();
 }

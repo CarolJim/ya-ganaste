@@ -70,12 +70,12 @@ public class PaymentsCarouselIteractor implements IPaymentsCarouselIteractor, IR
         carouselPresenter.onSuccessDBFavorites(catalogos);
     }
 
-    @Override
+    /*@Override
     public ObtenerCatalogosResponse getCatalogos() {
         Gson gson = new Gson();
         String catalogosJSONStringResponse = Utils.getJSONStringFromAssets(App.getContext(), "files/catalogos.json");
         return gson.fromJson(catalogosJSONStringResponse, ObtenerCatalogosResponse.class);
-    }
+    }*/
 
     @Override
     public void onSuccess(DataSourceResult dataSourceResult) {

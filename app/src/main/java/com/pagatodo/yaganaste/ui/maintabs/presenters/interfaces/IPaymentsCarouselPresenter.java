@@ -19,7 +19,7 @@ public interface IPaymentsCarouselPresenter {
 
     void getFavoriteCarouselItems();
 
-    ArrayList<CarouselItem> getCarouselArray();
+    //ArrayList<CarouselItem> getCarouselArray();
 
     void onErrorService();
 

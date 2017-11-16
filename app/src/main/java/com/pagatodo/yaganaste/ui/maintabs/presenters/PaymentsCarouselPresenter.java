@@ -51,7 +51,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         return this.current_tab;
     }
 
-    @Override
+    /*@Override
     public ArrayList<CarouselItem> getCarouselArray() {
         ArrayList<CarouselItem> carouselItems = new ArrayList<>();
         CarouselItem ite = new CarouselItem(App.getContext(), R.mipmap.buscar_con_texto, "#FFFFFF", CarouselItem.CLICK, null, null);
@@ -81,7 +81,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
             }
         }
         return carouselItems;
-    }
+    }*/
 
     @Override
     public void getCarouselItems() {
