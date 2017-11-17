@@ -202,6 +202,12 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     private String nombreDest;
 
     @Override
+    protected void onDestroy() {
+        super.onDestroy();
+       // cropResultReceiver.unregister(this);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_add_to_favorites);
