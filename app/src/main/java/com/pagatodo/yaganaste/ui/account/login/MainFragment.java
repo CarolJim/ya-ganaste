@@ -23,6 +23,7 @@ import com.jude.rollviewpager.hintview.ColorPointHintView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.RegistryCupoActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.customviews.CustomTypefaceSpan;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -79,12 +80,12 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
 
         // Se encarga de hacer Set en el Adapter
         rollPagerView.setAdapter(new AdapterRollPager(rollPagerView, getActivity()));
-        ColorPointHintView ss= new ColorPointHintView(getActivity(),Color.WHITE, Color.parseColor("#7fffffff") );
+        ColorPointHintView ss = new ColorPointHintView(getActivity(), Color.WHITE, Color.parseColor("#7fffffff"));
         rollPagerView.setHintView(ss);
         DisplayMetrics metrics = new DisplayMetrics();
         getActivity().getWindowManager().getDefaultDisplay().getMetrics(metrics);
         int height = metrics.heightPixels; // alto absoluto en pixels
-        rollPagerView.setHintPadding(0,0,0,height/7);
+        rollPagerView.setHintPadding(0, 0, 0, height / 7);
     }
 
     @Override
@@ -104,7 +105,6 @@ public class MainFragment extends GenericFragment implements View.OnClickListene
                 break;
         }
     }
-
 
 }
 

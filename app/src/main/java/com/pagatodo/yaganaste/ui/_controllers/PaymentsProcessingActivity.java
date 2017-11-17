@@ -22,6 +22,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.ISessionExpired;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddFavoritesActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentSuccessFragment;
@@ -54,6 +55,7 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     public static final String ID_TIPO_ENVIO = "idTipoEnvio";
     public static final String REFERENCIA = "referencia";
     public static final String TIPO_TAB = "tipoTab";
+    public static final String CURRENT_TAB_ID = "currentTabId";
     public static final String DESTINATARIO = "destinatario";
     public static final int REQUEST_CODE_FAVORITES = 1;
     public static final String EVENT_SEND_PAYMENT = "EVENT_SEND_PAYMENT";
@@ -260,13 +262,14 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
      */
     public void openAddFavoritos(View view) {
         if (!((Payments) pago).isFavorite()) {
-            Intent intent = new Intent(this, AddFavoritesActivity.class);
+            Intent intent = new Intent(this, AddToFavoritesActivity.class);
+            intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 1);
             intent.putExtra(NOMBRE_COMERCIO, nombreComercio);
             intent.putExtra(ID_COMERCIO, idComercio);
             intent.putExtra(ID_TIPO_COMERCIO, idTipoComercio);
             intent.putExtra(ID_TIPO_ENVIO, idTipoEnvio);
             intent.putExtra(REFERENCIA, referencia);
-            intent.putExtra(TIPO_TAB, tipoTab);
+            intent.putExtra(CURRENT_TAB_ID, tipoTab);
             intent.putExtra(DESTINATARIO, nombreDest);
             startActivityForResult(intent, REQUEST_CODE_FAVORITES);
         }

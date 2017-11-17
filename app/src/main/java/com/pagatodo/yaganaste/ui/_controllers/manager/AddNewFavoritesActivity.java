@@ -195,7 +195,7 @@ public class AddNewFavoritesActivity extends LoaderActivity implements IAddFavor
         setContentView(R.layout.activity_add_new_favorites);
         ButterKnife.bind(this);
         favoritesPresenter = new FavoritesPresenter(this);
-        favoritoPresenterAutoriza = new FavoritoPresenterAutoriza(this, this);
+       // favoritoPresenterAutoriza = new FavoritoPresenterAutoriza(this, this);
 
         Intent intent = getIntent();
         //  backUpResponse = intent.getExtras().getParcelableArrayList(BACK_UP_RESPONSE);
