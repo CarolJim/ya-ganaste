@@ -30,6 +30,7 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClient
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.interfaces.enums.MovementsTab;
 import com.pagatodo.yaganaste.ui._controllers.manager.AddNewFavoritesActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.AddToFavoritesActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.maintabs.adapters.FragmentPagerAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.PaymentsTabPresenter;
@@ -309,8 +310,10 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
      * visualizando para mostrar o no algunos campos
      */
     public void addNewFavorite() {
-        Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
+        //Intent intent = new Intent(getContext(), AddNewFavoritesActivity.class);
+        Intent intent = new Intent(getContext(), AddToFavoritesActivity.class);
         intent.putExtra(CURRENT_TAB_ID, currentTab.getId());
+        intent.putExtra(AddToFavoritesActivity.FAV_PROCESS, 2);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             getActivity().startActivityForResult(intent, NEW_FAVORITE, ActivityOptions.makeSceneTransitionAnimation(getActivity()).toBundle());
         } else {

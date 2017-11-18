@@ -1065,13 +1065,13 @@
     <string name="new_tittle_envios_refer_error">Referencia Numérica Inválida</string>
     <string name="new_body_envios_refer_error">Por Favor Ingresa el Número de Referencia</string>
     <string name="new_tittle_error_interno">Error Interno</string>
-    
+
     <!-- Informacion adicional 2-->
     <string name="hint_cobros_mensual">Cobros Mensuales</string>
     <string name="hint_monto_mensual_estimado">Monto Mensual Estimado</string>
     <string name="hint_origen_recursos">Origen de los Recursos</string>
     <string name="hint_destino_recursos">Destino de los Recursos</string>
-    
+
     <string name="text_error_cobros_mensual">Cobro Requerido, Verifique su Información</string>
     <string name="text_error_monto_mensual">Monto Requerido, Verifique su Información</string>
     <string name="text_error_origen_recursos">Origen Requerido, Verifique su Información</string>
