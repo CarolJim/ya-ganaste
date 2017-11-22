@@ -80,9 +80,6 @@ public class OtpContainerFratgment  extends SupportFragment implements
         imgArrowNext.bringToFront();
     }
 
-
-
-
     @Override
     public void loadCode(String code) {
         imgArrowNext.setVisibility(View.GONE);

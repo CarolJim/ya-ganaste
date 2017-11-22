@@ -171,11 +171,6 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
         }
     }
 
-    public void loadCancelFragment(DataMovimientoAdq data) {
-        imageshare.setVisibility(View.GONE);
-        loadFragment(DetailTransactionAdqCancel.newInstance(data), Direction.FORDWARD, true);
-    }
-
     public void loadInsertDongleFragment(DataMovimientoAdq dataMovimientoAdq) {
         loadFragment(InsertDongleFragment.newInstance(true, dataMovimientoAdq), Direction.FORDWARD, true);
     }

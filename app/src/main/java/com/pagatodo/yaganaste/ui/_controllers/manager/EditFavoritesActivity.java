@@ -114,7 +114,7 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
         AdapterView.OnItemSelectedListener, ITextChangeListener, PaymentsCarrouselManager,
         ICropper, CropIwaResultReceiver.Listener, OtpView {
 
-    public static final String TAG = AddNewFavoritesActivity.class.getSimpleName();
+    public static final String TAG = EditFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
     public static boolean BACK_STATE_EDITFAVORITE = true;
 

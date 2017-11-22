@@ -74,15 +74,6 @@
     <string name="obtenerOrigenRecursos">/ObtenerCatalogoOrigenRecursosPLD</string>
     <string name="obtenerDestinoRecursos">/ObtenerCatalogoDestinoRecursosPLD</string>
 
-    <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
-    <string name="desvincula_dispositivo_texto">Al Desvincular tu Dispositivo ya no Estará Ligado a tu Cuenta Ya Ganaste. Si Quieres Volver a Usarlo, Deberás Enviar Nuevamente el SMS de Vinculación</string>
-    <string name="deseaDesasociarDispositivo">¿Desea Desvincular el Dispositivo?</string>
-    <string name="deseaRealizarLlamada">¿Desea Llamar Ahora?</string>
-    <string name="sel_fotografia">Seleccionar Fotografía</string>
-    <string name="error_take_photo">Imagen Duplicada, Intenta Con Una Diferente</string>
-    <string name="myUserText">Mi Usuario</string>
-    <string name="desvincular">Desvincular</string>
-
     <!--Métodos de WS Adquiriente-->
     <string name="adqLogin">/agMov/login</string>
     <string name="adqRegisterDongle">/agMov/register_dongle</string>
@@ -111,6 +102,16 @@
     <string name="adqGetBalance">/agMov/getSaldo</string>
     <string name="adqGetDatosCupo">/agMov/ObtieneDatosCupo</string>
     <string name="cancelationTransactionEmv">/agMov/CancellationTransactionEmvDeposit</string>
+
+    <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
+    <string name="desvincula_dispositivo_texto">Al Desvincular tu Dispositivo ya no Estará Ligado a tu Cuenta Ya Ganaste. Si Quieres Volver a Usarlo, Deberás Enviar Nuevamente el SMS de Vinculación</string>
+    <string name="deseaDesasociarDispositivo">¿Desea Desvincular el Dispositivo?</string>
+    <string name="deseaRealizarLlamada">¿Desea Llamar Ahora?</string>
+    <string name="sel_fotografia">Seleccionar Fotografía</string>
+    <string name="error_take_photo">Imagen Duplicada, Intenta Con Una Diferente</string>
+    <string name="myUserText">Mi Usuario</string>
+    <string name="desvincular">Desvincular</string>
+
     <!--Textos de la Aplicación-->
     <string name="txt_registrate">Regístrate</string>
     <string name="txt_inicia_sesion">INICIA TU REGISTRO</string><!--TODO licencia que se tomaron los de QA lo cambio por que esta reportado-->

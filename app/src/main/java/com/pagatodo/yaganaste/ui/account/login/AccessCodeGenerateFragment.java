@@ -79,6 +79,8 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             } else {
                 Log.e(getString(R.string.app_name), "No fingerprint hardware detected.");
             }
+        } else {
+            Log.e(getString(R.string.app_name), "O.S. minor than required");
         }
     }
 

@@ -29,7 +29,7 @@ public class QuickBalanceAdapter extends FragmentPagerAdapter {
         this.isAdquirente = isAdquirente;
         fragmentList = new ArrayList<>();
 
-        fragmentList.add(OtpContainerFratgment.newInstance());
+        //fragmentList.add(OtpContainerFratgment.newInstance());
         if (isAdquirente) {
             if (!App.getInstance().getPrefs().loadDataBoolean(StringConstants.IS_CUPO)) {
                 fragmentList.add(QuickBalanceAdquirenteFragment.newInstance());
@@ -50,6 +50,6 @@ public class QuickBalanceAdapter extends FragmentPagerAdapter {
 
     @Override
     public int getCount() {
-        return isAdquirente ? 3 : 2;
+        return isAdquirente ? 2 : 1;
     }
 }

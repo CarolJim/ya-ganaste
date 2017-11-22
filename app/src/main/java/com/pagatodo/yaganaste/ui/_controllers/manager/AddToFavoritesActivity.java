@@ -5,11 +5,10 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.graphics.Bitmap;
 import android.net.Uri;
+import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.InputFilter;
 import android.text.InputType;
@@ -25,7 +24,6 @@ import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.Spinner;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.google.android.gms.common.api.CommonStatusCodes;
@@ -99,9 +97,6 @@ import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.ID_TIPO_ENVIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.NOMBRE_COMERCIO;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.REFERENCIA;
-import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.TIPO_TAB;
-import static com.pagatodo.yaganaste.ui._controllers.manager.AddNewFavoritesActivity.CONTACTS_CONTRACT_LOCAL;
-import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragmentCarousel.CURRENT_TAB_ID;
 import static com.pagatodo.yaganaste.utils.Constants.BARCODE_READER_REQUEST_CODE;
 import static com.pagatodo.yaganaste.utils.Constants.CONTACTS_CONTRACT;
 import static com.pagatodo.yaganaste.utils.Constants.IAVE_ID;
@@ -115,7 +110,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         AdapterView.OnItemSelectedListener, ITextChangeListener, PaymentsCarrouselManager,
         ICropper, CropIwaResultReceiver.Listener, OtpView {
 
-    public static final String TAG = AddNewFavoritesActivity.class.getSimpleName();
+    public static final String TAG = AddToFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
     public static boolean BACK_STATE_NEWFAVORITE = true;
     public static final String FAV_PROCESS = "FAV_PROCESS";
