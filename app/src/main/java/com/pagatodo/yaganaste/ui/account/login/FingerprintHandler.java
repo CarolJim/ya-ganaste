@@ -10,6 +10,7 @@ import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.Manifest;
 import android.os.CancellationSignal;
+import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
@@ -25,6 +26,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     private Context context;
     private generateCode generateCode;
     private boolean mSelfCancelled;
+    private int errorIntent=0;
     public FingerprintHandler(Context mContext) {
         context = mContext;
 
@@ -36,7 +38,9 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
             return;
         }
         cancellationSignal = new CancellationSignal();
+
         mSelfCancelled = false;
+
         manager.authenticate(cryptoObject, cancellationSignal, 0, this, null);
     }
 
@@ -45,6 +49,14 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         if (cancellationSignal != null) {
             mSelfCancelled = true;
             cancellationSignal.cancel();
+
+            cancellationSignal = null;
+        }
+    }
+
+    public void stopListeningcontraseña() {
+        if (cancellationSignal != null) {
+            mSelfCancelled = true;
             cancellationSignal = null;
         }
     }
@@ -57,19 +69,25 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     @Override
     public void onAuthenticationError(int errMsgId,
                                       CharSequence errString) {
+        //Toast.makeText(context, "Error de Autenticación\n" + errString, Toast.LENGTH_LONG).show();
+        String mensaje="Error de Autenticación, Demaciados intentos fallidos  Intentalo Más Tarde";
+        generateCode.generatecode(mensaje);
 
-        Toast.makeText(context,
-                "Error de Autenticación\n" + errString,
-                Toast.LENGTH_LONG).show();
     }
 
     @Override
     public void onAuthenticationFailed() {
-        Toast.makeText(context,
-                "Operación Denegada",
-                Toast.LENGTH_LONG).show();
-            String mensaje="Operación Denegada";
+       // Toast.makeText(context, "Autenticación Fallida", Toast.LENGTH_LONG).show();
+            String mensaje="Huella no Reconocida Intentalo Otra Vez";
         generateCode.generatecode(mensaje);
+
+                errorIntent++;
+                generateCode.generatecode(mensaje);
+                if (errorIntent==4){
+                    mensaje="";
+                    generateCode.generatecode(mensaje,errorIntent);
+                }
+
     }
 
     @Override
@@ -81,26 +99,15 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     }
 
 
-    public void stopautetication(FingerprintManager manager, FingerprintManager.CryptoObject cryptoObject){
-        cancellationSignal = new CancellationSignal();
-        manager.authenticate(cryptoObject, cancellationSignal, 0, this, null);
-
-    }
-
     @Override
     public void onAuthenticationSucceeded(
             FingerprintManager.AuthenticationResult result) {
-
-
-        Toast.makeText(context,
-                "Transacción Autorizada !",
-                Toast.LENGTH_LONG).show();
-
         generateCode.generatecode();
     }
 
     public  interface generateCode{
         void generatecode();
         void generatecode(String mensaje);
+        void generatecode(String mensaje,int errors);
     }
 }

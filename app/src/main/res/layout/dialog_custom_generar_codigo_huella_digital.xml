@@ -44,8 +44,8 @@
             android:layout_height="wrap_content"
             android:layout_marginTop="17dp"
             android:gravity="center"
+            android:lines="5"
             android:padding="5dp"
-            android:lines="3"
 
             android:text="Mensaje de error"
             android:textColor="@color/whiteColor"

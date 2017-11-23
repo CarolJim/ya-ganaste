@@ -3,11 +3,14 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 import android.Manifest;
 import android.app.KeyguardManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Vibrator;
 import android.provider.Settings;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
@@ -32,6 +35,7 @@ import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -93,14 +97,32 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     FingerprintHandler helper;
     View rootView;
 
+
+
     @Override
     public void generatecode() {
         loadOtpHuella();
     }
     @Override
     public void generatecode(String mensaje) {
-        customErrorDialog.setTitleMessageNotification(mensaje);
 
+        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+        // Vibrate for 500 milliseconds
+        v.vibrate(100);
+                    customErrorDialog.setTitleMessageNotification(mensaje);
+
+    }
+
+    @Override
+    public void generatecode(String mensaje, int errors) {
+        if (errors==4) {
+            helper.stopListening();
+            Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+            // Vibrate for 500 milliseconds
+            v.vibrate(100);
+            customErrorDialog.setTitleMessageNotification("Demaciados Intentos Fallidos Por Favor ingresa la Contraseña");
+
+        }
     }
 
     public interface OtpInterface {
@@ -164,7 +186,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                     (FingerprintManager) getActivity().getSystemService(FINGERPRINT_SERVICE);
 
 
-            texto = "Coloque su Huella Digital Para Verificar su Identidad";
+
             if (!fingerprintManager.isHardwareDetected()) {
 
                 textView.setText("Su dispositivo no es compatible con la autenticación de huellas dactilares");
@@ -174,7 +196,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                 texto=("Por favor active el permiso de huella digital");
             } else if (!fingerprintManager.hasEnrolledFingerprints()) {
                 textView.setText("NO existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo");
-                texto=("NO existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo");
+                texto=("No existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo");
                 customErrorDialog= UI.createCustomDialogIraConfiguracion(titulo, texto, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
@@ -193,7 +215,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                 texto=("Habilite la seguridad de LockScreen en la configuración de su dispositivo");
             } else {
 
-
+                texto = "Coloque su Huella Digital Para Verificar su Identidad";
                 String mensaje=""+texto;
 
                 try {
@@ -203,6 +225,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
 
                         helper.setGenerateCode(this);
+
                         helper.startAuth(fingerprintManager, cryptoObject);
 
 
@@ -239,13 +262,14 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
     public void stopautentication(){
 
-        helper.stopListening();
+        helper.stopListeningcontraseña();
+        customErrorDialog.setTitleMessageNotification("Coloque su Huella Digital Para Verificar su Identidad");
 
     }
     @Override
     public void onPause() {
         super.onPause();
-        helper.stopListening();
+        helper.stopListeningcontraseña();
     }
     private void generateKey() throws FingerprintException {
         try {
