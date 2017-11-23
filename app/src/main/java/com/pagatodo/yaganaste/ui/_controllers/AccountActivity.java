@@ -2,18 +2,16 @@ package com.pagatodo.yaganaste.ui._controllers;
 
 import android.app.Activity;
 import android.content.Intent;
-import android.os.Build;
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.AppCompatImageView;
-import android.transition.Explode;
 import android.util.Log;
 import android.view.Menu;
-import android.view.View;
 import android.view.Window;
 import android.widget.FrameLayout;
-import android.widget.Toast;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
+import com.crashlytics.android.answers.LoginEvent;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -28,9 +26,7 @@ import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.ui.account.login.BlockCardFragment;
-import com.pagatodo.yaganaste.ui.account.login.LoginFragment;
 import com.pagatodo.yaganaste.ui.account.login.LoginManagerContainerFragment;
-import com.pagatodo.yaganaste.ui.account.login.OtpContainerFratgment;
 import com.pagatodo.yaganaste.ui.account.login.RecoveryFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsignarNIPFragment;
 import com.pagatodo.yaganaste.ui.account.register.AsociatePhoneAccountFragment;
@@ -41,17 +37,12 @@ import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
-import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
-import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 
-import butterknife.BindView;
-
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_FAILED;
 import static com.pagatodo.yaganaste.freja.provisioning.presenter.ProvisioningPresenterAbs.EVENT_APROV_SUCCES;
-import static com.pagatodo.yaganaste.interfaces.enums.WebService.ASIGNAR_NEW_NIP;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
@@ -99,7 +90,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
     private LoginManagerContainerFragment loginContainerFragment;
     private static AccountPresenterNew presenterAccount;
     App aplicacion;
-    Boolean back=false;
+    Boolean back = false;
 
     private String action = "";
 
@@ -216,7 +207,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 loadFragment(DomicilioActualFragment.newInstance(), Direction.BACK, false);
                 break;
             case EVENT_GO_GET_CARD:
-                back=false;
+                back = false;
                 setVisibilityBack(back);
                 loadFragment(TienesTarjetaFragment.newInstance(), Direction.FORDWARD, true);
 
@@ -252,7 +243,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 break;
 
             case EVENT_BLOCK_CARD_BACK:
-               // loadFragment(loginContainerFragment.newInstance(), Direction.BACK, false);
+                // loadFragment(loginContainerFragment.newInstance(), Direction.BACK, false);
                 //loginContainerFragment.loadLoginBackFragment();
                 onBackPressed();
                 break;
@@ -287,7 +278,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 // Lineas de prueba, comentar al tener version lista para pruebas
                 //tokenSesionAdquirente = "MiSuperTokenAdquirente";
                 //isAdquirente = "";
-
+                Answers.getInstance().logLogin(new LoginEvent());
                 if (tokenSesionAdquirente != null && !tokenSesionAdquirente.isEmpty() && !isAdquirente) {
                     // getActivity().finish();
                     Intent intent = new Intent(AccountActivity.this, LandingApprovedActivity.class);
@@ -346,7 +337,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 onEvent(EVENT_RECOVERY_PASS_BACK, null);
             } else if (currentFragment instanceof BlockCardFragment) {
                 //Toast.makeText(this, "Click Back. Main Responde", Toast.LENGTH_SHORT).show();
-               onEvent(EVENT_BLOCK_CARD_BACK, null);
+                onEvent(EVENT_BLOCK_CARD_BACK, null);
 
             } else {
                 resetRegisterData();// Eliminamos la información de registro almacenada.

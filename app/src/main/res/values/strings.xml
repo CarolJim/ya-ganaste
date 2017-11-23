@@ -103,6 +103,15 @@
     <string name="adqGetDatosCupo">/agMov/ObtieneDatosCupo</string>
     <string name="cancelationTransactionEmv">/agMov/CancellationTransactionEmvDeposit</string>
 
+    <!-- Fabric Custom Name Events -->
+    <string name="ce_pays">Pagos</string>
+    <string name="ce_pays_type">Tipo de Pago</string>
+    <string name="ce_pays_merchant">Comercio</string>
+    <string name="ce_tae">TAE</string>
+    <string name="ce_pds">PDS</string>
+    <string name="ce_envios_1">TRASPASO</string>
+    <string name="ce_envios_2">ENVIO_INTERBANCARIO</string>
+
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
     <string name="desvincula_dispositivo_texto">Al Desvincular tu Dispositivo ya no Estará Ligado a tu Cuenta Ya Ganaste. Si Quieres Volver a Usarlo, Deberás Enviar Nuevamente el SMS de Vinculación</string>
     <string name="deseaDesasociarDispositivo">¿Desea Desvincular el Dispositivo?</string>
