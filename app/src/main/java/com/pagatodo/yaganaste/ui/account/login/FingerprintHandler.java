@@ -68,6 +68,8 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         Toast.makeText(context,
                 "Operación Denegada",
                 Toast.LENGTH_LONG).show();
+            String mensaje="Operación Denegada";
+        generateCode.generatecode(mensaje);
     }
 
     @Override
@@ -99,7 +101,6 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
     public  interface generateCode{
         void generatecode();
-
-
+        void generatecode(String mensaje);
     }
 }

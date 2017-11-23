@@ -214,6 +214,7 @@ public class UI {
                 title, message, true, false);
 
 
+
         customErrorDialog.setTitleBtnAcept(btnAceptar);
         customErrorDialog.setTitleBtnCancel(btnCancelar);
         customErrorDialog.setCancelable(false);
@@ -221,6 +222,20 @@ public class UI {
         customErrorDialog.show(fragmentManager, tag);
         return customErrorDialog;
     }
+
+    public static CustomErrorDialog createCustomDialogIraConfiguracion(String title, String message, FragmentManager fragmentManager, String tag,
+                                                                         DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_generar_codigo_huella_digital,
+                title, message, true, true);
+
+        customErrorDialog.setTitleBtnAcept(btnAceptar);
+        customErrorDialog.setTitleBtnCancel(btnCancelar);
+        customErrorDialog.setCancelable(true);
+        customErrorDialog.setDialogActions(actions);
+        customErrorDialog.show(fragmentManager, tag);
+        return customErrorDialog;
+    }
+
 
 
 

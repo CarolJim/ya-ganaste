@@ -129,14 +129,23 @@
             android:id="@+id/btnCancelDialog"
             style="?android:attr/borderlessButtonStyle"
             android:layout_width="wrap_content"
+            android:textStyle="bold"
             android:layout_height="wrap_content"
-            android:visibility="gone"
-            android:gravity="center"
-            android:text=""
+            android:layout_weight="2"
+            android:gravity="right"
+            android:text="Usar Contraseña"
             android:textAllCaps="false"
             android:textColor="@color/colorAccent"
-            android:textSize="@dimen/size_text_style_2_value"
+
             app:cornerRadius="@dimen/btn_corner_radius"
             app:intercepterOnclick="true" />
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
+        <android.support.v4.widget.Space
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="0.1" />
     </LinearLayout>
 </LinearLayout>

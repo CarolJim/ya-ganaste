@@ -222,6 +222,10 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
         this.titleBtnAcept = titleBtnAcept;
     }
 
+    public void setTitleMessageNotification(String message) {
+        this.messageNotification = message;
+    }
+
     public void myCardNameUser(String nombreusuario) {
         this.my_card_name_user = nombreusuario;
     }

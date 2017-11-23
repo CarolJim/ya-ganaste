@@ -3,10 +3,12 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 import android.Manifest;
 import android.app.KeyguardManager;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.provider.Settings;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
@@ -74,6 +76,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     private  String texto;
     private static Preferencias preferencias = App.getInstance().getPrefs();
     private CustomErrorDialog customErrorDialog;
+    String titulo;
     ///////////////7
 
 
@@ -93,8 +96,10 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     @Override
     public void generatecode() {
         loadOtpHuella();
-
-
+    }
+    @Override
+    public void generatecode(String mensaje) {
+        customErrorDialog.setTitleMessageNotification(mensaje);
 
     }
 
@@ -112,7 +117,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
-
+        titulo = getString(R.string.titulo_dialogo_huella_generacion_codigo);
         cryptoObject = new FingerprintManager.CryptoObject(cipher);
         helper = new FingerprintHandler(this.getContext());
 
@@ -170,11 +175,24 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             } else if (!fingerprintManager.hasEnrolledFingerprints()) {
                 textView.setText("NO existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo");
                 texto=("NO existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo");
+                customErrorDialog= UI.createCustomDialogIraConfiguracion(titulo, texto, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        opensettings();
+
+                    }
+
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                }, "Ir a la Configuración", "Usar Contraseña");
+
             }else if (!keyguardManager.isKeyguardSecure()) {
                 textView.setText("Habilite la seguridad de LockScreen en la configuración de su dispositivo");
                 texto=("Habilite la seguridad de LockScreen en la configuración de su dispositivo");
             } else {
-                String titulo = getString(R.string.titulo_dialogo_huella_generacion_codigo);
+
 
                 String mensaje=""+texto;
 
@@ -213,12 +231,22 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
 
     }
+
+    private void opensettings() {
+        Intent intent = new Intent(Settings.ACTION_SETTINGS);
+        startActivity(intent);
+    }
+
     public void stopautentication(){
 
         helper.stopListening();
 
     }
-
+    @Override
+    public void onPause() {
+        super.onPause();
+        helper.stopListening();
+    }
     private void generateKey() throws FingerprintException {
         try {
 
