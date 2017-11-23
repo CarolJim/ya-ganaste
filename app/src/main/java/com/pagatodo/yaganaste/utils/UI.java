@@ -208,6 +208,23 @@ public class UI {
         customErrorDialog.setDialogActions(actions);
         customErrorDialog.show(fragmentManager, tag);
     }
+    public static CustomErrorDialog createCustomDialogGeneraciondeCodigo(String title, String message, FragmentManager fragmentManager, String tag,
+                                                          DialogDoubleActions actions, String btnAceptar, String btnCancelar) {
+        final CustomErrorDialog customErrorDialog = CustomErrorDialog.getInstance(R.layout.dialog_custom_generar_codigo_huella_digital,
+                title, message, true, false);
+
+
+        customErrorDialog.setTitleBtnAcept(btnAceptar);
+        customErrorDialog.setTitleBtnCancel(btnCancelar);
+        customErrorDialog.setCancelable(false);
+        customErrorDialog.setDialogActions(actions);
+        customErrorDialog.show(fragmentManager, tag);
+        return customErrorDialog;
+    }
+
+
+
+
 
     public static void createCustomDialogCardHome(String title, String message,String nombre,String cuenta, FragmentManager fragmentManager, String tag,
                                                     DialogDoubleActions actions, String btnAceptar, String btnCancelar) {

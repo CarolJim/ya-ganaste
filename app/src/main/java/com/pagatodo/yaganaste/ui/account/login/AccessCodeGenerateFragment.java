@@ -1,28 +1,56 @@
 package com.pagatodo.yaganaste.ui.account.login;
 
 
+import android.Manifest;
 import android.app.KeyguardManager;
+import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.security.keystore.KeyGenParameterSpec;
+import android.security.keystore.KeyPermanentlyInvalidatedException;
+import android.security.keystore.KeyProperties;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.InvalidKeyException;
+import java.security.KeyStore;
+import java.security.KeyStoreException;
+import java.security.NoSuchAlgorithmException;
+import java.security.NoSuchProviderException;
+import java.security.UnrecoverableKeyException;
+import java.security.cert.CertificateException;
+
+import javax.crypto.Cipher;
+import javax.crypto.KeyGenerator;
+import javax.crypto.NoSuchPaddingException;
+import javax.crypto.SecretKey;
+
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static android.content.Context.FINGERPRINT_SERVICE;
+import static android.content.Context.KEYGUARD_SERVICE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
 /**
@@ -30,7 +58,26 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
  * Use the {@link AccessCodeGenerateFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class AccessCodeGenerateFragment extends GenericFragment implements View.OnClickListener {
+public class AccessCodeGenerateFragment extends GenericFragment implements View.OnClickListener, FingerprintHandler.generateCode {
+
+
+
+    ///////////////
+
+    private static final String KEY_NAME = "yourKey";
+    private Cipher cipher;
+    private KeyStore keyStore;
+    private KeyGenerator keyGenerator;
+    private FingerprintManager.CryptoObject cryptoObject;
+    private FingerprintManager fingerprintManager;
+    private KeyguardManager keyguardManager;
+    private  String texto;
+    private static Preferencias preferencias = App.getInstance().getPrefs();
+    private CustomErrorDialog customErrorDialog;
+    ///////////////7
+
+
+
 
     @BindView(R.id.editPassword)
     CustomValidationEditText editPassword;
@@ -38,7 +85,18 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     ErrorMessage errorPasswordMessage;
     @BindView(R.id.btnGenerateCode)
     StyleButton btnGenerateCode;
+    @BindView(R.id.textView2)
+    TextView textView;
+    FingerprintHandler helper;
     View rootView;
+
+    @Override
+    public void generatecode() {
+        loadOtpHuella();
+
+
+
+    }
 
     public interface OtpInterface {
         void loadCode(String code);
@@ -54,8 +112,15 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
+
+        cryptoObject = new FingerprintManager.CryptoObject(cipher);
+        helper = new FingerprintHandler(this.getContext());
+
         rootView = inflater.inflate(R.layout.fragment_access_code_generate, container, false);
+        texto=getString(R.string.authorize_payment_title);
         initViews();
+
+
         return rootView;
     }
 
@@ -65,6 +130,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
         btnGenerateCode.setOnClickListener(this);
         editPassword.addCustomTextWatcher(new MTextWatcher());
         // Validar versión compatible con lectura de huellas digitales
+       /*
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
             FingerprintManager fingerprintManager = getActivity().getSystemService(FingerprintManager.class);
             // Validar que el hardware esté disponible para lectura de huellas digitales
@@ -82,7 +148,151 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
         } else {
             Log.e(getString(R.string.app_name), "O.S. minor than required");
         }
+        */
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+
+
+            keyguardManager =
+                    (KeyguardManager) getActivity().getSystemService(KEYGUARD_SERVICE);
+            fingerprintManager =
+                    (FingerprintManager) getActivity().getSystemService(FINGERPRINT_SERVICE);
+
+
+            texto = "Coloque su Huella Digital Para Verificar su Identidad";
+            if (!fingerprintManager.isHardwareDetected()) {
+
+                textView.setText("Su dispositivo no es compatible con la autenticación de huellas dactilares");
+                texto=("Su dispositivo no es compatible con la autenticación de huellas dactilares");
+            }else if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+                textView.setText("Por favor active el permiso de huella digital");
+                texto=("Por favor active el permiso de huella digital");
+            } else if (!fingerprintManager.hasEnrolledFingerprints()) {
+                textView.setText("NO existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo");
+                texto=("NO existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo");
+            }else if (!keyguardManager.isKeyguardSecure()) {
+                textView.setText("Habilite la seguridad de LockScreen en la configuración de su dispositivo");
+                texto=("Habilite la seguridad de LockScreen en la configuración de su dispositivo");
+            } else {
+                String titulo = getString(R.string.titulo_dialogo_huella_generacion_codigo);
+
+                String mensaje=""+texto;
+
+                try {
+
+                    generateKey();
+                    if (initCipher()) {
+
+
+                        helper.setGenerateCode(this);
+                        helper.startAuth(fingerprintManager, cryptoObject);
+
+
+                    }
+                    customErrorDialog= UI.createCustomDialogGeneraciondeCodigo(titulo, mensaje, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                        @Override
+                        public void actionConfirm(Object... params) {
+                            stopautentication();
+
+                        }
+
+                        @Override
+                        public void actionCancel(Object... params) {
+                            stopautentication();
+                        }
+                    }, "Usar Contraseña", "");
+                } catch (FingerprintException e) {
+                    e.printStackTrace();
+                }
+
+            }
+
+        }
+
+
+
+
     }
+    public void stopautentication(){
+
+        helper.stopListening();
+
+    }
+
+    private void generateKey() throws FingerprintException {
+        try {
+
+            keyStore = KeyStore.getInstance("AndroidKeyStore");
+
+
+            keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
+
+            keyStore.load(null);
+            keyGenerator.init(new
+                    KeyGenParameterSpec.Builder(KEY_NAME,
+                    KeyProperties.PURPOSE_ENCRYPT |
+                            KeyProperties.PURPOSE_DECRYPT)
+                    .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+                    .setUserAuthenticationRequired(true)
+                    .setEncryptionPaddings(
+                            KeyProperties.ENCRYPTION_PADDING_PKCS7)
+                    .build());
+
+            keyGenerator.generateKey();
+
+        } catch (KeyStoreException
+                | NoSuchAlgorithmException
+                | NoSuchProviderException
+                | InvalidAlgorithmParameterException
+                | CertificateException
+                | IOException exc) {
+            exc.printStackTrace();
+            throw new FingerprintException(exc);
+        }
+
+
+    }
+
+
+
+    public boolean initCipher() {
+        try {
+            cipher = Cipher.getInstance(
+                    KeyProperties.KEY_ALGORITHM_AES + "/"
+                            + KeyProperties.BLOCK_MODE_CBC + "/"
+                            + KeyProperties.ENCRYPTION_PADDING_PKCS7);
+        } catch (NoSuchAlgorithmException |
+                NoSuchPaddingException e) {
+            throw new RuntimeException("Failed to get Cipher", e);
+        }
+
+        try {
+            keyStore.load(null);
+            SecretKey key = (SecretKey) keyStore.getKey(KEY_NAME,
+                    null);
+            cipher.init(Cipher.ENCRYPT_MODE, key);
+            return true;
+        } catch (KeyPermanentlyInvalidatedException e) {
+            return false;
+        } catch (KeyStoreException | CertificateException
+                | UnrecoverableKeyException | IOException
+                | NoSuchAlgorithmException | InvalidKeyException e) {
+            throw new RuntimeException("Failed to init Cipher", e);
+        }
+    }
+
+
+
+    private class FingerprintException extends Exception {
+
+        public FingerprintException(Exception e) {
+            super(e);
+        }
+    }
+
+
+
+
 
     @Override
     public void onClick(View v) {
@@ -95,6 +305,14 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                 break;
         }
     }
+
+    public void loadOtpHuella() {
+        customErrorDialog.dismiss();
+            onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
+            ((OtpInterface) getParentFragment()).loadCode(preferencias.loadData("SHA_256_FREJA"));
+
+    }
+
 
     private void loadOtp() {
         if (editPassword.isValidText()) {
@@ -126,4 +344,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             UI.hideKeyBoard(getActivity());
         }
     }
+
+
+
 }

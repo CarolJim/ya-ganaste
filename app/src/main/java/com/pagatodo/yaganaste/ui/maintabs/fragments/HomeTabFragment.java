@@ -279,4 +279,6 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         Intent intent = new Intent(getContext(), DongleBatteryHome.class);
         startActivity(intent);
     }
+
+
 }

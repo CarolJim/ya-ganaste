@@ -298,7 +298,8 @@
     <string name="saldo_comercial">SALDO COMERCIAL</string>
 
     <string name="authorize_payment_title">Autoriza el Envío</string>
-
+    <string name="titulo_dialogo_huella_generacion_codigo">Generar Código de Seguridad</string>
+    <string name="authorize_generacion_codigo_huella_digital">Coloque su Huella Digital Para Verificar su Identidad</string>
     <string name="action_picture">Seleccionar Fotografía</string>
     <string name="action_take_picture">Abrir Cámara</string>
     <string name="action_select_picture">Abrir Galería</string>
