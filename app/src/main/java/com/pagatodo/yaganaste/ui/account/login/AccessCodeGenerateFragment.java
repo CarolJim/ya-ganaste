@@ -108,17 +108,19 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
         v.vibrate(100);
+                    customErrorDialog.setTitleNotification("Reintentar");
                     customErrorDialog.setTitleMessageNotification(mensaje);
 
     }
 
     @Override
     public void generatecode(String mensaje, int errors) {
-        if (errors==4) {
+        if (errors>=3) {
             helper.stopListening();
             Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
             // Vibrate for 500 milliseconds
             v.vibrate(100);
+            customErrorDialog.setTitleNotification("Error de Autenticación");
             customErrorDialog.setTitleMessageNotification("Demaciados Intentos Fallidos Por Favor ingresa la Contraseña");
 
         }

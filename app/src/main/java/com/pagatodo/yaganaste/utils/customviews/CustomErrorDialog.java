@@ -232,6 +232,17 @@ try {
 
     }
 
+
+    public void setTitleNotification(String title) {
+        try {
+            StyleTextView txtMessageNotification = (StyleTextView) getDialog().findViewById(R.id.txtTitleNotification);
+            txtMessageNotification.setText(title);
+        }catch (Exception e){
+
+        }
+
+    }
+
     public void myCardNameUser(String nombreusuario) {
         this.my_card_name_user = nombreusuario;
     }

@@ -109,12 +109,12 @@ public class ViewPagerDataFactory {
             fragmentList.add(GetMountFragment.newInstance());
         }else if (SingletonUser.getInstance().getDataUser().isEsAgente()
                 && Idestatus == IdEstatus.I6.getId() && SingletonUser.getInstance().getDataUser().getEstatusAgente() == STATUS_DOCTO_PENDIENTE) {
-            fragmentList.add(DocumentsContainerFragment.newInstance());
+           // fragmentList.add(DocumentsContainerFragment.newInstance());
             fragmentList.add(InviteAdquirenteFragment.newInstance());
         } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
                 && Idestatus == IdEstatus.I6.getId()) {
             //fragmentList.add(DocumentsContainerFragment.newInstance());
-            fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
+         //   fragmentList.add(StatusRegisterAdquirienteFragment.newInstance());
             fragmentList.add(InviteAdquirenteFragment.newInstance());
         } else if (SingletonUser.getInstance().getDataUser().isEsAgente()
                 && Idestatus == IdEstatus.I7.getId()) {

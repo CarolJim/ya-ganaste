@@ -69,8 +69,8 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     public void onAuthenticationError(int errMsgId,
                                       CharSequence errString) {
         //Toast.makeText(context, "Error de Autenticación\n" + errString, Toast.LENGTH_LONG).show();
-        String mensaje="Error de Autenticación, Demaciados intentos fallidos  Intentalo Más Tarde";
-        generateCode.generatecode(mensaje);
+        String mensaje=" Demaciados intentos fallidos  Intentalo Más Tarde";
+        generateCode.generatecode(mensaje,errorIntent);
 
     }
 
