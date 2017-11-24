@@ -199,7 +199,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     @Override
     protected void onDestroy() {
         super.onDestroy();
-       // cropResultReceiver.unregister(this);
+        // cropResultReceiver.unregister(this);
     }
 
     @Override
@@ -1089,7 +1089,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         } else {
             currentTextWatcher = new PhoneTextWatcher(recargaNumber);
             recargaNumber.setHint(getString(R.string.phone_number_hint));
-
+            layoutImageContact.setVisibility(View.VISIBLE);
             layoutImageContact.setOnClickListener(this);
         }
 
