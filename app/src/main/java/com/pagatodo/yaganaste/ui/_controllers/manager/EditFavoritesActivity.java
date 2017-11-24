@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -71,6 +72,7 @@ import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
@@ -117,6 +119,8 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     public static final String TAG = EditFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
     public static boolean BACK_STATE_EDITFAVORITE = true;
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
+    private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
 
     @BindView(R.id.add_favorites_alias)
     CustomValidationEditText editAlias;
@@ -494,7 +498,32 @@ public class EditFavoritesActivity extends LoaderActivity implements IAddFavorit
     // Disparamos el evento de Camara solo si tenemos intrnet
     @OnClick(R.id.add_favorites_camera)
     public void openCamera() {
-        favoritesPresenter.openMenuPhoto(1, cameraManager);
+        boolean isValid = true;
+
+        int permissionCamera = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA);
+        int permissionStorage = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+        if (permissionCamera == -1) {
+            ValidatePermissions.checkPermissions(this,
+                    new String[]{Manifest.permission.CAMERA},
+                    MY_PERMISSIONS_REQUEST_CAMERA);
+            isValid = false;
+        }
+
+        // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+        if (permissionStorage == -1) {
+            ValidatePermissions.checkPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_STORAGE);
+            isValid = false;
+        }
+
+        if(isValid){
+            favoritesPresenter.openMenuPhoto(1, cameraManager);
+        }
     }
 
     // Cerramos esta actividad de favoritos

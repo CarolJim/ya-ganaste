@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.preferuser;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -16,6 +17,7 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -33,6 +35,7 @@ import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.steelkiwi.cropiwa.image.CropIwaResultReceiver;
 
@@ -63,6 +66,8 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
     public static String USER_NAME = "USER_NAME";
     public static String USER_EMAIL = "USER_EMAIL";
     public static String USER_IMAGE = "USER_IMAGE";
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
+    private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
     PreferUserPresenter mPreferPresenter;
     SwipeRefreshLayout swipeRefreshLayout;
     @BindView(R.id.fragment_list_opciones_name)
@@ -281,7 +286,32 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
             case R.id.frag_lista_opciones_photo_item:
                 boolean isOnline = Utils.isDeviceOnline();
                 if (isOnline) {
-                    mPreferPresenter.openMenuPhoto(1, cameraManager);
+                    boolean isValid = true;
+
+                    int permissionCamera = ContextCompat.checkSelfPermission(App.getContext(),
+                            Manifest.permission.CAMERA);
+                    int permissionStorage = ContextCompat.checkSelfPermission(App.getContext(),
+                            Manifest.permission.READ_EXTERNAL_STORAGE);
+
+                    // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+                    if (permissionCamera == -1) {
+                        ValidatePermissions.checkPermissions(getActivity(),
+                                new String[]{Manifest.permission.CAMERA},
+                                MY_PERMISSIONS_REQUEST_CAMERA);
+                        isValid = false;
+                    }
+
+                    // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+                    if (permissionStorage == -1) {
+                        ValidatePermissions.checkPermissions(getActivity(),
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                MY_PERMISSIONS_REQUEST_STORAGE);
+                        isValid = false;
+                    }
+
+                    if(isValid){
+                        mPreferPresenter.openMenuPhoto(1, cameraManager);
+                    }
 
                 } else {
                     showDialogMesage(getResources().getString(R.string.no_internet_access));

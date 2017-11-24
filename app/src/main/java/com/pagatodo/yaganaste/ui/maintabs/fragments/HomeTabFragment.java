@@ -1,16 +1,19 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.os.Vibrator;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ViewPagerData;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
@@ -28,6 +31,7 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.GenericPagerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager;
 import com.pagatodo.yaganaste.utils.customviews.yaganasteviews.CardEmisorSelected;
@@ -46,6 +50,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeTabFragment extends SupportFragment implements TabsView, TabLayoutEmAd.InviteAdquirenteCallback,
         AbstractAdEmFragment.UpdateBalanceCallback, TabLayoutEmAd.onBlockCard, TabLayoutEmAd.clikdongle {
 
+    private static final int MY_PERMISSIONS_REQUEST_SOUND = 100;
     @BindView(R.id.my_card_name_user)
     TextView mNameTV;
     @BindView(R.id.my_card_num_cuenta)
@@ -273,11 +278,28 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
 
     @Override
     public void longclickdongle() {
-        Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
-        // Vibrate for 500 milliseconds
-        v.vibrate(100);
-        Intent intent = new Intent(getContext(), DongleBatteryHome.class);
-        startActivity(intent);
+        boolean isValid = true;
+
+        int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.RECORD_AUDIO);
+
+        // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+        if (permissionCall == -1) {
+            ValidatePermissions.checkPermissions(getActivity(),
+                    new String[]{Manifest.permission.RECORD_AUDIO},
+                    MY_PERMISSIONS_REQUEST_SOUND);
+            isValid = false;
+        }
+
+        if(isValid){
+            Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
+            // Vibrate for 500 milliseconds
+            v.vibrate(100);
+            Intent intent = new Intent(getContext(), DongleBatteryHome.class);
+            startActivity(intent);
+        }
+
+
     }
 
 

@@ -67,6 +67,7 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
         super.onEvent(event, data);
         switch (event) {
             case EVENT_GO_INSERT_DONGLE:
+                // AQUI
                 loadFragment(InsertDongleFragment.newInstance(), Direction.FORDWARD, false);
                 break;
             case EVENT_GO_TRANSACTION_RESULT:

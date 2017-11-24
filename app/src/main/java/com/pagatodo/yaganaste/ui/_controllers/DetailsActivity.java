@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers;
 
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Bitmap;
@@ -9,6 +10,7 @@ import android.os.Environment;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.Menu;
 import android.view.View;
 import android.widget.ImageView;
@@ -16,6 +18,7 @@ import android.widget.Switch;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ShareEvent;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
@@ -31,7 +34,9 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsEmisorFragment;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.deposits.CompartirReciboFragment;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 
 import java.io.File;
 import java.io.FileOutputStream;
@@ -57,6 +62,8 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
     public final static String EVENT_GO_TO_FINALIZE_ERROR = "FINALIZAR_CANCELACION_ERROR";
     public final static String EVENT_GO_LOAD_SHARE_EMAIL = "EVENT_GO_LOAD_SHARE_EMAIL";
     public final static String EVENT_CLOSE_ACT = "EVENT_CLOSE_ACT";
+    public static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 117;
+    private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
     CircleImageView imageView;
     ImageView imageshare;
     private DataMovimientoAdq dataMovimentTmp;
@@ -146,7 +153,36 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
             public void onClick(View v) {
                 if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsEmisorFragment) {
                     Answers.getInstance().logShare(new ShareEvent());
-                    takeScreenshot();
+
+                    boolean isValid = true;
+
+                    int permissionSMS = ContextCompat.checkSelfPermission(App.getContext(),
+                            Manifest.permission.SEND_SMS);
+
+                    int permissionStorage = ContextCompat.checkSelfPermission(App.getContext(),
+                            Manifest.permission.READ_EXTERNAL_STORAGE);
+
+                    // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+                    if (permissionSMS == -1) {
+                        ValidatePermissions.checkPermissions(DetailsActivity.this,
+                                new String[]{Manifest.permission.SEND_SMS},
+                                MY_PERMISSIONS_REQUEST_SEND_SMS);
+                        isValid = false;
+                    }
+
+                    // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+                    if (permissionStorage == -1) {
+                        ValidatePermissions.checkPermissions(DetailsActivity.this,
+                                new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                                MY_PERMISSIONS_REQUEST_STORAGE);
+                        isValid = false;
+                    }
+
+                    if(isValid){
+                        takeScreenshot();
+                    }
+
+
                 } else if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsAdquirenteFragment) {
                     // TEMP para mostrar el ScreenShoot en vez del Ticket
                      onEvent(EVENT_GO_LOAD_SHARE_EMAIL, "");

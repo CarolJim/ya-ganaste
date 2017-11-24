@@ -1,7 +1,9 @@
 package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
+import android.Manifest;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.InputType;
 import android.text.Selection;
 import android.view.KeyEvent;
@@ -15,13 +17,16 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.interfaces.EditTextImeBackListener;
+import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentFormBaseFragment;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.CustomKeyboardView;
 import com.pagatodo.yaganaste.utils.customviews.StyleEdittext;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -32,6 +37,7 @@ import static com.pagatodo.yaganaste.utils.Constants.PAYMENTS_ADQUIRENTE;
 
 public class GetMountFragment extends PaymentFormBaseFragment implements EditTextImeBackListener {
 
+    private static final int MY_PERMISSIONS_REQUEST_SOUND = 100;
     @BindView(R.id.et_amount)
     EditText et_amount;
     @BindView(R.id.edtConcept)
@@ -193,7 +199,22 @@ public class GetMountFragment extends PaymentFormBaseFragment implements EditTex
 
     @Override
     protected void continuePayment() {
-        actionCharge();
+        boolean isValid = true;
+
+        int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.RECORD_AUDIO);
+
+        // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+        if (permissionCall == -1) {
+            ValidatePermissions.checkPermissions(getActivity(),
+                    new String[]{Manifest.permission.RECORD_AUDIO},
+                    MY_PERMISSIONS_REQUEST_SOUND);
+            isValid = false;
+        }
+
+        if(isValid){
+            actionCharge();
+        }
     }
 
     private void showValidationError(String error) {

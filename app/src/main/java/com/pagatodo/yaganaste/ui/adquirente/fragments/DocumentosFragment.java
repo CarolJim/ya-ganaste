@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.adquirente.fragments;
 
 
+import android.Manifest;
 import android.app.AlertDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -40,6 +41,7 @@ import com.pagatodo.yaganaste.ui.preferuser.interfases.IPreferUserGeneric;
 import com.pagatodo.yaganaste.utils.BitmapBase64Listener;
 import com.pagatodo.yaganaste.utils.BitmapLoader;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.UploadDocumentView;
 
 import java.io.File;
@@ -88,6 +90,8 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
     private static final int IFE_BACK = 2;
     private static final int COMPROBANTE_FRONT = 3;
     private static final int COMPROBANTE_BACK = 4;
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
+    private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
     @BindView(R.id.itemWeNeedSmFilesIFEfront)
     UploadDocumentView ifeFront;
     @BindView(R.id.itemWeNeedSmFilesIFEBack)
@@ -187,7 +191,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
                 && SingletonUser.getInstance().getDataUser().getEstatusAgente() == CRM_PENDIENTE
                 && SingletonUser.getInstance().getDataUser().getEstatusDocumentacion() == CRM_PENDIENTE) {  //si ya se hiso el proceso de envio de documentos
             mExisteDocs = true;
-           // lnr_help.setVisibility(VISIBLE);
+            // lnr_help.setVisibility(VISIBLE);
             initSetClickableStatusDocs();
             btnWeNeedSmFilesNext.setVisibility(View.INVISIBLE);
 
@@ -195,7 +199,7 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
         } else {     // si no se han enviado los documentos
             initSetClickableDocs();
         }
-        if (mExisteDocs){
+        if (mExisteDocs) {
             btnRegresar.setVisibility(View.GONE);
             lnr_buttons.setVisibility(View.GONE);
         }
@@ -513,38 +517,62 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
 
     /*Agregamos selección de carrete*/
     private void selectImageSource(final int documentId) {
-        final CharSequence[] items = {getString(R.string.action_take_picture), getString(R.string.action_select_picture), getString(R.string.action_select_picture_cancel)};
+        boolean isValid = true;
 
-        LayoutInflater inflater = getActivity().getLayoutInflater();
-        View dialogView = inflater.inflate(R.layout.dialog_camera, null);
-        LayoutInflater titleInflater = getActivity().getLayoutInflater();
-        View dialogTittle = titleInflater.inflate(R.layout.tittle_dialog, null);
-        dialogView.setLayoutParams(new LinearLayout.LayoutParams(
-                LinearLayout.LayoutParams.WRAP_CONTENT,
-                LinearLayout.LayoutParams.WRAP_CONTENT));
-        AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
-        dialogBuilder.setCustomTitle(dialogTittle);
-        dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                switch (which) {
-                    case 0:
-                        takeDocumentPicture(documentId);
-                        break;
-                    case 1:
-                        takeGallery(documentId);
-                        break;
-                    case 2:
-                        dialog.dismiss();
-                        break;
+        int permissionCamera = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.CAMERA);
+        int permissionStorage = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+        if (permissionCamera == -1) {
+            ValidatePermissions.checkPermissions(getActivity(),
+                    new String[]{Manifest.permission.CAMERA},
+                    MY_PERMISSIONS_REQUEST_CAMERA);
+            isValid = false;
+        }
+
+        // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+        if (permissionStorage == -1) {
+            ValidatePermissions.checkPermissions(getActivity(),
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_STORAGE);
+            isValid = false;
+        }
+
+        if (isValid) {
+            final CharSequence[] items = {getString(R.string.action_take_picture), getString(R.string.action_select_picture), getString(R.string.action_select_picture_cancel)};
+
+            LayoutInflater inflater = getActivity().getLayoutInflater();
+            View dialogView = inflater.inflate(R.layout.dialog_camera, null);
+            LayoutInflater titleInflater = getActivity().getLayoutInflater();
+            View dialogTittle = titleInflater.inflate(R.layout.tittle_dialog, null);
+            dialogView.setLayoutParams(new LinearLayout.LayoutParams(
+                    LinearLayout.LayoutParams.WRAP_CONTENT,
+                    LinearLayout.LayoutParams.WRAP_CONTENT));
+            AlertDialog.Builder dialogBuilder = new AlertDialog.Builder(getActivity());
+            dialogBuilder.setCustomTitle(dialogTittle);
+            dialogBuilder.setItems(items, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    switch (which) {
+                        case 0:
+                            takeDocumentPicture(documentId);
+                            break;
+                        case 1:
+                            takeGallery(documentId);
+                            break;
+                        case 2:
+                            dialog.dismiss();
+                            break;
+                    }
                 }
-            }
-        });
-        AlertDialog alertDialog = dialogBuilder.create();
-        alertDialog.setCancelable(false);
-        alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
-        alertDialog.show();
-
+            });
+            AlertDialog alertDialog = dialogBuilder.create();
+            alertDialog.setCancelable(false);
+            alertDialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+            alertDialog.show();
+        }
     }
 
     /**
@@ -620,14 +648,14 @@ public class DocumentosFragment extends GenericFragment implements View.OnClickL
             options.inSampleSize = 1; // make sure pixels are 1:1
             options.inPreferQualityOverSpeed = true;
             bitmap = BitmapFactory.decodeResource(App.getContext().getResources(),
-                    idDrawableStatus,options);
+                    idDrawableStatus, options);
 
             switch (tipoDoc) {
                 case DOC_ID_FRONT:
                     ifeFront.setImageBitmap(bitmap);
 
-                   // ifeFront.getCircleImageView().setBackgroundColor(Color.TRANSPARENT);
-                  //  ifeFront.setBackground(ContextCompat.getDrawable(App.getContext(), R.drawable.ic_usuario_azul));
+                    // ifeFront.getCircleImageView().setBackgroundColor(Color.TRANSPARENT);
+                    //  ifeFront.setBackground(ContextCompat.getDrawable(App.getContext(), R.drawable.ic_usuario_azul));
                     break;
                 case DOC_ID_BACK:
                     // ifeBack.setVisibilityStatus(true);

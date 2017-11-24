@@ -32,12 +32,13 @@ public class ValidatePermissions {
      * Arreglo de permisos que se tienen que validar
      */
     public static String[] permissionsCheck = new String[]{
-           // Manifest.permission.SEND_SMS,
-            Manifest.permission.CAMERA,
-            Manifest.permission.ACCESS_FINE_LOCATION,
-            Manifest.permission.READ_EXTERNAL_STORAGE
-            , Manifest.permission.CALL_PHONE
-            , Manifest.permission.RECORD_AUDIO};
+            //Manifest.permission.SEND_SMS,
+            //Manifest.permission.CAMERA,
+            //Manifest.permission.READ_EXTERNAL_STORAGE
+            //Manifest.permission.CALL_PHONE,
+            //Manifest.permission.RECORD_AUDIO,
+            Manifest.permission.ACCESS_FINE_LOCATION
+            };
 
     /**
      * Devuelve el arreglo de permisos a validar.

@@ -7,6 +7,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.ForegroundColorSpan;
@@ -15,6 +16,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -63,7 +65,7 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
     public static final int ESTATUS_GENERAL_SUCCESS = 7;  // Línea de crédito aprobada
     public static final int ESTATUS_GENERAL_ABORTED = 8;  // Rechazo definitivo
 
-
+    private static final int MY_PERMISSIONS_REQUEST_PHONE = 100;
     private int ESTADO_ACTUAL = 0;
 
     @BindView(R.id.status_view)
@@ -181,8 +183,24 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
     }
 
     private void showDialogCallIntent() {
-        UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaRealizarLlamada), getFragmentManager(),
-                doubleActions, true, true);
+        boolean isValid = true;
+
+        int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.CALL_PHONE);
+
+        // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+        if (permissionCall == -1) {
+            ValidatePermissions.checkPermissions(getActivity(),
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    MY_PERMISSIONS_REQUEST_PHONE);
+            isValid = false;
+        }
+
+        if(isValid){
+            UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaRealizarLlamada), getFragmentManager(),
+                    doubleActions, true, true);
+        }
+
     }
 
 

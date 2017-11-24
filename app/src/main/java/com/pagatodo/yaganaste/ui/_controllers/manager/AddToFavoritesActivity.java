@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui._controllers.manager;
 
+import android.Manifest;
 import android.app.Activity;
 import android.content.Intent;
 import android.database.Cursor;
@@ -16,6 +17,7 @@ import android.text.Spanned;
 import android.text.TextWatcher;
 import android.util.Base64;
 import android.util.DisplayMetrics;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -63,6 +65,7 @@ import com.pagatodo.yaganaste.utils.PhoneTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
@@ -112,6 +115,8 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
     public static final String TAG = AddToFavoritesActivity.class.getSimpleName();
     public static final int CONTACTS_CONTRACT_LOCAL = 51;
+    private static final int MY_PERMISSIONS_REQUEST_CAMERA = 100;
+    private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
     public static boolean BACK_STATE_NEWFAVORITE = true;
     public static final String FAV_PROCESS = "FAV_PROCESS";
     public static final String CURRENT_TAB_ID = "currentTabId";
@@ -505,8 +510,32 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     // Disparamos el evento de Camara solo si tenemos intrnet
     @OnClick(R.id.add_favorites_camera)
     public void openCamera() {
-        favoritesPresenter.openMenuPhoto(1, cameraManager);
+        boolean isValid = true;
 
+        int permissionCamera = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.CAMERA);
+        int permissionStorage = ContextCompat.checkSelfPermission(this,
+                Manifest.permission.READ_EXTERNAL_STORAGE);
+
+        // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+        if (permissionCamera == -1) {
+            ValidatePermissions.checkPermissions(this,
+                    new String[]{Manifest.permission.CAMERA},
+                    MY_PERMISSIONS_REQUEST_CAMERA);
+            isValid = false;
+        }
+
+        // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+        if (permissionStorage == -1) {
+            ValidatePermissions.checkPermissions(this,
+                    new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                    MY_PERMISSIONS_REQUEST_STORAGE);
+            isValid = false;
+        }
+
+        if(isValid){
+            favoritesPresenter.openMenuPhoto(1, cameraManager);
+        }
     }
 
     // Cerramos esta actividad de favoritos
