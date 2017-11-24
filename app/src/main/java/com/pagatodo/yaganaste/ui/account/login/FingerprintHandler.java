@@ -38,7 +38,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
             return;
         }
         cancellationSignal = new CancellationSignal();
-
+        errorIntent=0;
         mSelfCancelled = false;
 
         manager.authenticate(cryptoObject, cancellationSignal, 0, this, null);
@@ -49,7 +49,6 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
         if (cancellationSignal != null) {
             mSelfCancelled = true;
             cancellationSignal.cancel();
-
             cancellationSignal = null;
         }
     }

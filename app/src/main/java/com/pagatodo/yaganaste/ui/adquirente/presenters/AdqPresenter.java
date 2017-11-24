@@ -122,8 +122,8 @@ public class AdqPresenter extends GenericPresenterMain<IPreferUserGeneric> imple
     public void sendTicketShare(String emailToSend, String description, String idTransaction) {
         iAdqView.showLoader(App.getContext().getString(R.string.enviando_ticket));
         adqInteractor.enviarTicketCompraShare(UtilsAdquirente.buildTicketRequest(
-                description,
                 idTransaction,
+                description,
                 emailToSend, false));
     }
 

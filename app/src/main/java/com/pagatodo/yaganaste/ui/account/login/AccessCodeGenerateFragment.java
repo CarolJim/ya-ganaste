@@ -92,8 +92,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     ErrorMessage errorPasswordMessage;
     @BindView(R.id.btnGenerateCode)
     StyleButton btnGenerateCode;
-    @BindView(R.id.textView2)
-    TextView textView;
+
     FingerprintHandler helper;
     View rootView;
 
@@ -189,13 +188,13 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
             if (!fingerprintManager.isHardwareDetected()) {
 
-                textView.setText("Su dispositivo no es compatible con la autenticación de huellas dactilares");
+               // textView.setText("Su dispositivo no es compatible con la autenticación de huellas dactilares");
                 texto=("Su dispositivo no es compatible con la autenticación de huellas dactilares");
             }else if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
-                textView.setText("Por favor active el permiso de huella digital");
+                //textView.setText("Por favor active el permiso de huella digital");
                 texto=("Por favor active el permiso de huella digital");
             } else if (!fingerprintManager.hasEnrolledFingerprints()) {
-                textView.setText("NO existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo");
+                //textView.setText("NO existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo");
                 texto=("No existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo");
                 customErrorDialog= UI.createCustomDialogIraConfiguracion(titulo, texto, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                     @Override
@@ -211,7 +210,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                 }, "Ir a la Configuración", "Usar Contraseña");
 
             }else if (!keyguardManager.isKeyguardSecure()) {
-                textView.setText("Habilite la seguridad de LockScreen en la configuración de su dispositivo");
+              //  textView.setText("Habilite la seguridad de LockScreen en la configuración de su dispositivo");
                 texto=("Habilite la seguridad de LockScreen en la configuración de su dispositivo");
             } else {
 
@@ -262,7 +261,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
     public void stopautentication(){
 
-        helper.stopListeningcontraseña();
+        helper.stopListening();
         customErrorDialog.setTitleMessageNotification("Coloque su Huella Digital Para Verificar su Identidad");
 
     }

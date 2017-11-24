@@ -14,6 +14,8 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.Switch;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ShareEvent;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
@@ -143,6 +145,7 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
             @Override
             public void onClick(View v) {
                 if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsEmisorFragment) {
+                    Answers.getInstance().logShare(new ShareEvent());
                     takeScreenshot();
                 } else if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsAdquirenteFragment) {
                     // TEMP para mostrar el ScreenShoot en vez del Ticket
