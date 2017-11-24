@@ -51,6 +51,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro.Legales.PRIVACIDAD;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialogregistro.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
+import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
 
 /**
@@ -613,7 +614,9 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     @Override
     public void clientCreatedSuccess(String message) {
         showLoader("");
-        Answers.getInstance().logSignUp(new SignUpEvent());
+        if (!DEBUG) {
+            Answers.getInstance().logSignUp(new SignUpEvent());
+        }
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();

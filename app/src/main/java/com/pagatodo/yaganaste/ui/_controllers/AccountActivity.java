@@ -10,7 +10,6 @@ import android.view.Window;
 import android.widget.FrameLayout;
 
 import com.crashlytics.android.answers.Answers;
-import com.crashlytics.android.answers.CustomEvent;
 import com.crashlytics.android.answers.LoginEvent;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -50,6 +49,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
+import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
 
 
@@ -278,7 +278,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
                 // Lineas de prueba, comentar al tener version lista para pruebas
                 //tokenSesionAdquirente = "MiSuperTokenAdquirente";
                 //isAdquirente = "";
-                Answers.getInstance().logLogin(new LoginEvent());
+                if (!DEBUG) {
+                    Answers.getInstance().logLogin(new LoginEvent());
+                }
                 if (tokenSesionAdquirente != null && !tokenSesionAdquirente.isEmpty() && !isAdquirente) {
                     // getActivity().finish();
                     Intent intent = new Intent(AccountActivity.this, LandingApprovedActivity.class);
