@@ -223,8 +223,12 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
     }
 
     public void setTitleMessageNotification(String message) {
-        StyleTextView txtMessageNotification = (StyleTextView) getDialog().findViewById(R.id.txtMessageNotification);
-        txtMessageNotification.setText(message);
+try {
+    StyleTextView txtMessageNotification = (StyleTextView) getDialog().findViewById(R.id.txtMessageNotification);
+    txtMessageNotification.setText(message);
+}catch (Exception e){
+
+}
 
     }
 
