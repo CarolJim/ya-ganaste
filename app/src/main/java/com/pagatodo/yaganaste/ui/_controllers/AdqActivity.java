@@ -8,6 +8,8 @@ import android.support.v4.app.Fragment;
 import android.view.Menu;
 import android.view.Window;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.PurchaseEvent;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
@@ -75,6 +77,7 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
                 showBack(false);
                 break;
             case EVENT_GO_GET_SIGNATURE:
+                Answers.getInstance().logPurchase(new PurchaseEvent());
                 loadFragment(GetSignatureFragment.newInstance(), Direction.FORDWARD, false);
                 showBack(false);
                 break;

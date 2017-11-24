@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.CustomEvent;
+import com.crashlytics.android.answers.ShareEvent;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
@@ -372,6 +373,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
                 finalizePayment();
             }
         } else if (v.getId() == R.id.deposito_Share) {
+            Answers.getInstance().logShare(new ShareEvent());
             takeScreenshot();
             //shareContent();
         }
