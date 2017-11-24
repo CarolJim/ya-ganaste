@@ -2,8 +2,10 @@ package com.pagatodo.yaganaste.ui._controllers;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.AppCompatImageView;
 import android.transition.Explode;
@@ -56,6 +58,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_LOGIN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.GO_TO_REGISTER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
+import static com.pagatodo.yaganaste.ui.account.register.AsociatePhoneAccountFragment.MY_PERMISSIONS_REQUEST_SEND_SMS;
 import static com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment.COMPLETE_MESSAGES.EMISOR;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.COUCHMARK_EMISOR;
@@ -396,5 +399,21 @@ public class AccountActivity extends LoaderActivity implements OnEventListener {
         UI.createSimpleCustomDialog("", error.getErrorMessage(), getSupportFragmentManager(), error.getErrorActions(), error.hasConfirm(), error.hasCancel());
     }
 
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+        switch (requestCode) {
+            case MY_PERMISSIONS_REQUEST_SEND_SMS: {
+                if (grantResults.length > 0
+                        && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
+                    AsociatePhoneAccountFragment myFragment = (AsociatePhoneAccountFragment) getSupportFragmentManager().findFragmentById(R.id.container);
+                    myFragment.onRequestPermissionsResult();
+                    return;
+                } else {
+                    return;
+                }
+            }
+        }
+    }
 }
 

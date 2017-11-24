@@ -1,19 +1,26 @@
 package com.pagatodo.yaganaste.ui.account.register;
 
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.PendingIntent;
 import android.content.BroadcastReceiver;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.pm.PackageManager;
 import android.os.Bundle;
 import android.os.Handler;
+import android.support.annotation.NonNull;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.telephony.SmsManager;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -32,6 +39,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountPresenterNew;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.ProgressLayout;
 import com.pagatodo.yaganaste.utils.customviews.SeekBarBaseFragment;
 
@@ -56,6 +64,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
     private static final String TAG = AsociatePhoneAccountFragment.class.getSimpleName();
     private static final long CHECK_SMS_VALIDATE_DELAY = 10000;
+    public static final int MY_PERMISSIONS_REQUEST_SEND_SMS = 117;
     @BindView(R.id.progressLayout)
     ProgressLayout progressLayout;
     int counterRetry = 1;
@@ -112,7 +121,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         this.preferencias = App.getInstance().getPrefs();
-        imageView = (ImageView)getActivity().findViewById(R.id.btn_back);
+        imageView = (ImageView) getActivity().findViewById(R.id.btn_back);
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
     }
@@ -135,6 +144,21 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
 
     @Override
     protected void continuePayment() {
+        int permissionCheck = ContextCompat.checkSelfPermission(getContext(),
+                Manifest.permission.SEND_SMS);
+        Log.d("AsociatePhone", "permissionCheck " + permissionCheck);
+
+        // Si no tenemos el permiso lo solicitamos, en cawso contrario entramos al proceso de envio del MSN
+        if (permissionCheck == -1) {
+            ValidatePermissions.checkPermissions(getActivity(),
+                    new String[]{Manifest.permission.SEND_SMS},
+                    MY_PERMISSIONS_REQUEST_SEND_SMS);
+        } else {
+            onRequestPermissionsResult();
+        }
+    }
+
+    public void onRequestPermissionsResult() {
         mySeekBar.setEnabled(false);
         accountPresenter.gerNumberToSMS();
     }
@@ -164,7 +188,7 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         /*if (SingletonUser.getInstance().needsReset()) {
             accountPresenter.doReseting(preferencias.loadData(SHA_256_FREJA));
         } else {*/
-            nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
+        nextScreen(EVENT_GO_REGISTER_COMPLETE, null);
         //}
     }
 
@@ -310,22 +334,22 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         hideLoader();
         if (!message.toString().isEmpty())
 
-        UI.createCustomDialogSMS("", message, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
-            @Override
-            public void actionConfirm(Object... params) {
-                counterRetry = 1;
-                continuePayment();
-            }
+            UI.createCustomDialogSMS("", message, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                @Override
+                public void actionConfirm(Object... params) {
+                    counterRetry = 1;
+                    continuePayment();
+                }
 
-            @Override
-            public void actionCancel(Object... params) {
-                //No-Op
-                aplicacion.cerrarAppsms();
-                goToLogin();
+                @Override
+                public void actionCancel(Object... params) {
+                    //No-Op
+                    aplicacion.cerrarAppsms();
+                    goToLogin();
 
 
-            }
-        }, "Reintentar", "Cancelar");
+                }
+            }, "Reintentar", "Cancelar");
 
         //UI.createSimpleCustomDialogNoCancel("", message, getChildFragmentManager(),);
     }
@@ -341,7 +365,5 @@ public class AsociatePhoneAccountFragment extends SeekBarBaseFragment implements
         mySeekBar.setEnabled(true);
         mySeekBar.setProgress(0);
     }
-
-
 }
 

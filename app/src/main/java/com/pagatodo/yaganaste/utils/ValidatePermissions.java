@@ -32,7 +32,7 @@ public class ValidatePermissions {
      * Arreglo de permisos que se tienen que validar
      */
     public static String[] permissionsCheck = new String[]{
-            Manifest.permission.SEND_SMS,
+           // Manifest.permission.SEND_SMS,
             Manifest.permission.CAMERA,
             Manifest.permission.ACCESS_FINE_LOCATION,
             Manifest.permission.READ_EXTERNAL_STORAGE
