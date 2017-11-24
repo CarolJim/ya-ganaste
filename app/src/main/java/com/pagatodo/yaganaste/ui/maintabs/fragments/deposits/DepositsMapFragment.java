@@ -269,8 +269,6 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
 
     private void printSucursalesOnRecycler(final List<DataLocalizaSucursal> sucursalList) {
         if (sucursalList.size() > 0) {
-
-
             // Lineas para probar el buscador de Filtro, eliminar en versiones posteriores
             /*
             sucursalList.add(new DataLocalizaSucursal("Direccion1", "Direccion2", "Horario", 2.0, 3.0, "Plaza Loreto", "12345678"));
@@ -331,11 +329,8 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
                 //   showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
             }
         }
-
         //map.setOnMarkerClickListener(this);
         map.setOnInfoWindowClickListener(this);
-
-
     }
 
     private void getSucursales() {
