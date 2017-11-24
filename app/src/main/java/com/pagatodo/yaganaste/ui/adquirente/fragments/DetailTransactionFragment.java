@@ -43,6 +43,7 @@ import butterknife.BindView;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
 
 /**
@@ -231,7 +232,9 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.deposito_Share) {
-            Answers.getInstance().logShare(new ShareEvent());
+            if (!DEBUG) {
+                Answers.getInstance().logShare(new ShareEvent());
+            }
             takeScreenshot();
             //shareContent();
         }

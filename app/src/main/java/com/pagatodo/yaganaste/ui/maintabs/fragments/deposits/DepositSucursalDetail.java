@@ -113,6 +113,7 @@ public class DepositSucursalDetail extends SupportFragment implements View.OnCli
         date.setText(" / ");
         hour.setText(sucursal.getHorario());
         phone.setText(sucursal.getNumTelefonico());
+        address.setSelected(true);
         imgtelefonosucursal.setOnClickListener(this);
         btnRoute.setOnClickListener(this);
         btnShare.setOnClickListener(this);

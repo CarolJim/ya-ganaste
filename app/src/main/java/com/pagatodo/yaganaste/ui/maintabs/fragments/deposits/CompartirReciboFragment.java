@@ -2,32 +2,27 @@ package com.pagatodo.yaganaste.ui.maintabs.fragments.deposits;
 
 
 import android.os.Bundle;
-import android.support.v4.app.Fragment;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
-import android.widget.Toast;
 
 import com.crashlytics.android.answers.Answers;
 import com.crashlytics.android.answers.ShareEvent;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
-import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.DataMovimientoAdq;
 import com.pagatodo.yaganaste.exceptions.IllegalCallException;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.INavigationView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
 import com.pagatodo.yaganaste.net.RequestHeaders;
-import com.pagatodo.yaganaste.ui._controllers.AdqActivity;
 import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.adquirente.presenters.AdqPresenter;
-import com.pagatodo.yaganaste.ui.maintabs.fragments.DetailsAdquirenteFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
@@ -39,6 +34,7 @@ import butterknife.OnClick;
 import static com.pagatodo.yaganaste.ui._controllers.DetailsActivity.EVENT_CLOSE_ACT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 
 public class CompartirReciboFragment extends GenericFragment implements ValidationForms,
@@ -77,7 +73,7 @@ public class CompartirReciboFragment extends GenericFragment implements Validati
     @Override
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        imageViewshare= (ImageView) getActivity().findViewById(R.id.deposito_Share);
+        imageViewshare = (ImageView) getActivity().findViewById(R.id.deposito_Share);
         imageViewshare.setVisibility(View.GONE);
         adqPresenter = new AdqPresenter(this);
 
@@ -124,7 +120,8 @@ public class CompartirReciboFragment extends GenericFragment implements Validati
 
     }
 
-    @OnClick(R.id.btnLoginExistUser) public void sendMail(){
+    @OnClick(R.id.btnLoginExistUser)
+    public void sendMail() {
         validateForm();
     }
 
@@ -164,12 +161,14 @@ public class CompartirReciboFragment extends GenericFragment implements Validati
         String description = dataMovimientoAdq.getNombre();
         //String description = dataMovimientoAdq.getConcepto();
         String getIdTransaction = dataMovimientoAdq.getIdTransaction();
-      //  getIdTransaction = "";
-        Answers.getInstance().logShare(new ShareEvent());
+        //  getIdTransaction = "";
+        if (!DEBUG) {
+            Answers.getInstance().logShare(new ShareEvent());
+        }
         adqPresenter.sendTicketShare(emailToSend,
                 "",
                 getIdTransaction
-                );
+        );
     }
 
     @Override
@@ -207,7 +206,7 @@ public class CompartirReciboFragment extends GenericFragment implements Validati
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
-                        if(mControl == 1){
+                        if (mControl == 1) {
                             onEventListener.onEvent(EVENT_CLOSE_ACT, null);
                         }
                     }

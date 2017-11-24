@@ -48,6 +48,7 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
@@ -155,8 +156,10 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         }
 
         if (pago instanceof Recarga) {
-            Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
-                    .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_tae)));
+            if (!DEBUG) {
+                Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
+                        .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_tae)));
+            }
             layoutEnviado.setVisibility(View.GONE);
             title.setText(R.string.title_recarga_success);
             Double comision = result.getData().getComision();
@@ -179,8 +182,10 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             isMailAviable = true;
             txtCompania.setText(pago.getComercio().getNombreComercio());
         } else if (pago instanceof Servicios) {
-            Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
-                    .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_pds)));
+            if (!DEBUG) {
+                Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
+                        .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_pds)));
+            }
             layoutEnviado.setVisibility(View.GONE);
             title.setText(R.string.title_servicio_success);
             //layoutComision.setVisibility(View.VISIBLE);
@@ -194,12 +199,14 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             isMailAviable = true;
             txtCompania.setText(pago.getComercio().getNombreComercio());
         } else if (pago instanceof Envios) {
-            if (pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE) {
-                Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
-                        .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_envios_1)));
-            } else {
-                Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
-                        .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_envios_2)));
+            if (!DEBUG) {
+                if (pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE) {
+                    Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
+                            .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_envios_1)));
+                } else {
+                    Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
+                            .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_envios_2)));
+                }
             }
             layoutCompania.setVisibility(View.GONE);
             title.setText(R.string.title_envio_success);
@@ -373,7 +380,9 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
                 finalizePayment();
             }
         } else if (v.getId() == R.id.deposito_Share) {
-            Answers.getInstance().logShare(new ShareEvent());
+            if (!DEBUG) {
+                Answers.getInstance().logShare(new ShareEvent());
+            }
             takeScreenshot();
             //shareContent();
         }
