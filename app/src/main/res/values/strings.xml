@@ -1104,5 +1104,7 @@
     <string name="fingerprint_failed">Demaciados Intentos Fallidos Por Favor ingresa la Contraseña</string>
     <string name="fingerprint_try_later">Error de Autenticación, Demaciados intentos fallidos  Intentalo Más Tarde</string>
     <string name="fingerprint_unrecognized">Huella no Reconocida\nIntentalo Otra Vez</string>
+    <string name="fingerprint_failed_authentification">Error de Autenticación</string>
+
 
 </resources>

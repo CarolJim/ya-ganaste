@@ -70,8 +70,10 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     @Override
     public void onAuthenticationError(int errMsgId,
                                       CharSequence errString) {
+
         String mensaje = context.getString(R.string.fingerprint_try_later);
-        generateCode.generatecode(mensaje);
+        generateCode.generatecode(mensaje,errorIntent);
+
     }
 
     @Override
