@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
+import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
@@ -46,7 +47,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
  * Created by Jordan on 02/05/2017.
  */
 
-public class PaymentAuthorizeFragment extends GenericFragment implements View.OnClickListener, PaymentAuthorizeManager {
+public class PaymentAuthorizeFragment extends GenericFragment implements View.OnClickListener, PaymentAuthorizeManager, DialogDoubleActions {
 
     IPaymentAuthorizePresenter paymentAuthorizePresenter;
 
@@ -74,6 +75,8 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     String password;
     Envios envio;
     private View rootview;
+
+    private CustomErrorDialog dialogFingerPrint;
 
     public static PaymentAuthorizeFragment newInstance(Payments envio) {
         PaymentAuthorizeFragment fragment = new PaymentAuthorizeFragment();
@@ -125,6 +128,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         }
         setValidationRules();
         btnContinueEnvio.setOnClickListener(this);
+
+        //Huella
+        dialogFingerPrint = UI.createCustomDialogIraConfiguracion("Title","Mensaje",getFragmentManager(),getFragmentTag(),this,"Ir a la Configuración", "Usar Contraseña");
     }
 
     @Override
@@ -255,5 +261,15 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
         UI.createSimpleCustomDialog("", error.getMessage(), getActivity().getSupportFragmentManager(),
                 actions, true, error.allowsReintent());
+    }
+
+    @Override
+    public void actionConfirm(Object... params) {
+
+    }
+
+    @Override
+    public void actionCancel(Object... params) {
+
     }
 }
