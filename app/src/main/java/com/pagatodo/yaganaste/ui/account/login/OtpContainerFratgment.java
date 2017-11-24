@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
+import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -10,6 +11,7 @@ import android.widget.ImageView;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.enums.Direction;
 import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
+import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.IQuickBalanceManager;
 import com.pagatodo.yaganaste.ui.otp.fragments.OtpViewFragment;
 
@@ -32,6 +34,10 @@ public class OtpContainerFratgment  extends SupportFragment implements
         Bundle args = new Bundle();
         fragment.setArguments(args);
         return fragment;
+    }
+
+    public static Fragment newInstance(boolean flag){
+        return new Fragment();
     }
 
 

@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.ShareEvent;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.TransactionAdqData;
 import com.pagatodo.yaganaste.data.model.webservice.response.adq.TransaccionEMVDepositResponse;
@@ -229,6 +231,7 @@ public class DetailTransactionFragment extends PaymentFormBaseFragment implement
     @Override
     public void onClick(View v) {
         if (v.getId() == R.id.deposito_Share) {
+            Answers.getInstance().logShare(new ShareEvent());
             takeScreenshot();
             //shareContent();
         }

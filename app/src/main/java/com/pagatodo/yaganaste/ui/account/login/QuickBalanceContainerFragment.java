@@ -71,7 +71,7 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
     public void initViews() {
         ButterKnife.bind(this, rootView);
         viewPagerQuickBalance.setAdapter(quickBalanceAdapter);
-        viewPagerQuickBalance.setCurrentItem(0);
+        viewPagerQuickBalance.setCurrentItem(1);
         //viewPagerQuickBalance.setIsSwipeable(true);
         // Se deshabilita el Swipe para los nuevos cambios.
         viewPagerQuickBalance.setIsSwipeable(false);
@@ -104,7 +104,7 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
      */
     @Override
     public void onBackPress() {
-        /*if (viewPagerQuickBalance.getCurrentItem() == 0) {
+        if (viewPagerQuickBalance.getCurrentItem() == 0) {
             if (!((OtpContainerFratgment) quickBalanceAdapter.getItem(0)).onBack()) {
                 viewPagerQuickBalance.setCurrentItem(1);
             } else {
@@ -113,9 +113,9 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
 
         } else if (viewPagerQuickBalance.getCurrentItem() == 2) {
             viewPagerQuickBalance.setCurrentItem(1);
-        } else {*/
+        } else {
             getActivity().finish();
-        /*}*/
+        }
     }
 
     @Override
@@ -130,11 +130,11 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
      */
     @Override
     public void backPage() {
-        /*if (viewPagerQuickBalance.getCurrentItem() == 2) {
+        if (viewPagerQuickBalance.getCurrentItem() == 2) {
             viewPagerQuickBalance.setCurrentItem(1);
         } else if (viewPagerQuickBalance.getCurrentItem() == 1) {
             viewPagerQuickBalance.setCurrentItem(0);
-        }*/
+        }
     }
 
 
@@ -144,10 +144,10 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
      */
     @Override
     public void nextPage() {
-        /*if (viewPagerQuickBalance.getCurrentItem() == 0) {
+        if (viewPagerQuickBalance.getCurrentItem() == 0) {
             viewPagerQuickBalance.setCurrentItem(1);
         } else if (viewPagerQuickBalance.getCurrentItem() == 1) {
             viewPagerQuickBalance.setCurrentItem(2);
-        }*/
+        }
     }
 }

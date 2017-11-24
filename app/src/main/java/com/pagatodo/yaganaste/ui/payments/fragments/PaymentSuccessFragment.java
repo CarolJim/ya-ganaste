@@ -13,6 +13,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.CustomEvent;
+import com.crashlytics.android.answers.ShareEvent;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.Envios;
 import com.pagatodo.yaganaste.data.model.Payments;
@@ -24,7 +27,6 @@ import com.pagatodo.yaganaste.ui._controllers.manager.SupportFragment;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentSuccessManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentSuccessPresenter;
 import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsSuccessPresenter;
-import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
@@ -46,8 +48,6 @@ import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.utils.Constants.RESULT;
-import static com.pagatodo.yaganaste.utils.Constants.RESULT_CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.IDCOMERCIO_YA_GANASTE;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
@@ -112,7 +112,6 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
     View viewClaveRastreo;
 
 
-
     Payments pago;
     EjecutarTransaccionResponse result;
     /****/
@@ -156,6 +155,8 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         }
 
         if (pago instanceof Recarga) {
+            Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
+                    .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_tae)));
             layoutEnviado.setVisibility(View.GONE);
             title.setText(R.string.title_recarga_success);
             Double comision = result.getData().getComision();
@@ -178,6 +179,8 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             isMailAviable = true;
             txtCompania.setText(pago.getComercio().getNombreComercio());
         } else if (pago instanceof Servicios) {
+            Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
+                    .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_pds)));
             layoutEnviado.setVisibility(View.GONE);
             title.setText(R.string.title_servicio_success);
             //layoutComision.setVisibility(View.VISIBLE);
@@ -191,6 +194,13 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             isMailAviable = true;
             txtCompania.setText(pago.getComercio().getNombreComercio());
         } else if (pago instanceof Envios) {
+            if (pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE) {
+                Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
+                        .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_envios_1)));
+            } else {
+                Answers.getInstance().logCustom(new CustomEvent(getString(R.string.ce_pays))
+                        .putCustomAttribute(getString(R.string.ce_pays_type), getString(R.string.ce_envios_2)));
+            }
             layoutCompania.setVisibility(View.GONE);
             title.setText(R.string.title_envio_success);
             //txtComision.setVisibility(View.GONE);
@@ -206,7 +216,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
             isMailAviable = true;
 
             titleReferencia.setText(((Envios) pago).getTipoEnvio().getShortName());
-            if (!result.getData().getClaveRastreo().isEmpty()){
+            if (!result.getData().getClaveRastreo().isEmpty()) {
                 txtClaveratreo.setText(result.getData().getClaveRastreo());
                 txtClaveratreo.setSelected(true);
                 layoutClaveRastreo.setVisibility(View.VISIBLE);
@@ -363,6 +373,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
                 finalizePayment();
             }
         } else if (v.getId() == R.id.deposito_Share) {
+            Answers.getInstance().logShare(new ShareEvent());
             takeScreenshot();
             //shareContent();
         }
@@ -380,7 +391,7 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
                     pago.getComercio().getNombreComercio(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString());
         } else if (pago instanceof Envios) {
             toShare = "¡Hola!\nSe Ha Realizado un Envío de Dinero Desde Ya Ganaste \n" + getString(R.string.share_envios, Utils.getCurrencyValue(pago.getMonto()), nombreEnvio.getText().toString(),
-                    titleReferencia.getText().toString(), txtReferencia.getText().toString(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString())
+                    ((Envios) pago).getTipoEnvio().getShortName(), txtReferencia.getText().toString(), fecha.getText().toString(), hora.getText().toString(), autorizacion.getText().toString())
                     .concat(pago.getComercio().getIdComercio() == IDCOMERCIO_YA_GANASTE ? "" : getString(R.string.clave_rastreo, result.getData().getClaveRastreo()));
         }
         intent.putExtra(Intent.EXTRA_TEXT, toShare);

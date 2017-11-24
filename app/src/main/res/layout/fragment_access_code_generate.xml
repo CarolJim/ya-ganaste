@@ -27,7 +27,7 @@
                 android:layout_height="wrap_content"
                 android:orientation="vertical">
 
-                <TextView
+                <!--<TextView
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:textAlignment="center"
@@ -35,7 +35,7 @@
                     android:layout_marginBottom="20dp"
                     android:text="Coloque la su yema del dedo en el botón de Inicio para verificar su identidad \n \n  O"
                     android:id="@+id/textView2"
-                    />
+                    />-->
 
                 <com.pagatodo.yaganaste.utils.customviews.StyleTextView
                     android:id="@+id/seleccionaGenero"

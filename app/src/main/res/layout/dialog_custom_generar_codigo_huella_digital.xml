@@ -16,6 +16,7 @@
         android:layout_gravity="center"
         app:srcCompat="@drawable/ic_fingerprint_white_48dp"
         />
+
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -42,10 +43,10 @@
             android:id="@+id/txtMessageNotification"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="17dp"
+            android:layout_marginTop="0dp"
             android:gravity="center"
+            android:lines="5"
             android:padding="5dp"
-            android:lines="3"
 
             android:text="Mensaje de error"
             android:textColor="@color/whiteColor"

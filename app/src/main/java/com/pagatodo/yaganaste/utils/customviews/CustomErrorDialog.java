@@ -223,7 +223,24 @@ public class CustomErrorDialog extends DialogFragment implements ViewTreeObserve
     }
 
     public void setTitleMessageNotification(String message) {
-        this.messageNotification = message;
+try {
+    StyleTextView txtMessageNotification = (StyleTextView) getDialog().findViewById(R.id.txtMessageNotification);
+    txtMessageNotification.setText(message);
+}catch (Exception e){
+
+}
+
+    }
+
+
+    public void setTitleNotification(String title) {
+        try {
+            StyleTextView txtMessageNotification = (StyleTextView) getDialog().findViewById(R.id.txtTitleNotification);
+            txtMessageNotification.setText(title);
+        }catch (Exception e){
+
+        }
+
     }
 
     public void myCardNameUser(String nombreusuario) {

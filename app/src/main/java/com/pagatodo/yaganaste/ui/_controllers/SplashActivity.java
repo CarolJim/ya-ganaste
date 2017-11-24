@@ -42,7 +42,7 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        //Fabric.with(this, new Crashlytics());
+        Fabric.with(this, new Crashlytics());
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash_activity_layout);
         api = new CatalogsDbApi(this);

@@ -13,6 +13,8 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Spinner;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.SignUpEvent;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.ColoniasResponse;
@@ -304,7 +306,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
                     hideValidationError(editZipCode.getId());
                     editZipCode.imageViewIsGone(true);
                 } else {
-                     if (editZipCode.getText().isEmpty()) {
+                    if (editZipCode.getText().isEmpty()) {
                         showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
                         editZipCode.setIsInvalid();
                     } else {
@@ -410,14 +412,13 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
             editExtNumber.setIsInvalid();
             isValid = false;
         }
-         if (!editZipCode.isValidText()) {
+        if (!editZipCode.isValidText()) {
             showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
             editZipCode.setIsInvalid();
             isValid = false;
         }
 
-        if (codigoPostal.isEmpty())
-        {
+        if (codigoPostal.isEmpty()) {
             showValidationError(editZipCode.getId(), getString(R.string.datos_domicilio_cp));
             editZipCode.setIsInvalid();
             isValid = false;
@@ -518,7 +519,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
         registerUser.setEstadoDomicilio(estado);
         registerUser.setColonia(colonia);
         registerUser.setIdColonia(Idcolonia);
-       // editZipCode.removeCustomTextWatcher(textWatcherZipCode);
+        // editZipCode.removeCustomTextWatcher(textWatcherZipCode);
         //TODO Creamos usuario Implementando la secuencia necesaria de métodos.
         accountPresenter.createUser();
     }
@@ -612,6 +613,7 @@ public class DomicilioActualFragment extends GenericFragment implements View.OnC
     @Override
     public void clientCreatedSuccess(String message) {
         showLoader("");
+        Answers.getInstance().logSignUp(new SignUpEvent());
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
