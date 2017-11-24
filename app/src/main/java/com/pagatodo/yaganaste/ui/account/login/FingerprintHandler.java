@@ -5,6 +5,7 @@ package com.pagatodo.yaganaste.ui.account.login;
  */
 
 
+import android.annotation.SuppressLint;
 import android.content.Context;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
@@ -20,6 +21,7 @@ import com.pagatodo.yaganaste.interfaces.OnEventListener;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 
 
+@SuppressLint("NewApi")
 public class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
 
     private CancellationSignal cancellationSignal;
@@ -68,16 +70,14 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     @Override
     public void onAuthenticationError(int errMsgId,
                                       CharSequence errString) {
-        //Toast.makeText(context, "Error de Autenticación\n" + errString, Toast.LENGTH_LONG).show();
-        String mensaje="Error de Autenticación, Demaciados intentos fallidos  Intentalo Más Tarde";
+        String mensaje = context.getString(R.string.fingerprint_try_later);
         generateCode.generatecode(mensaje);
-
     }
 
     @Override
     public void onAuthenticationFailed() {
-       // Toast.makeText(context, "Autenticación Fallida", Toast.LENGTH_LONG).show();
-            String mensaje="Huella no Reconocida Intentalo Otra Vez";
+
+            String mensaje = context.getString(R.string.fingerprint_unrecognized);
         generateCode.generatecode(mensaje);
 
                 errorIntent++;
@@ -86,7 +86,6 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
                     mensaje="";
                     generateCode.generatecode(mensaje,errorIntent);
                 }
-
     }
 
     @Override

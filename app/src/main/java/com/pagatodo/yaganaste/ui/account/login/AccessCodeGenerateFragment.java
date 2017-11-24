@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 
 import android.Manifest;
+import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
@@ -66,10 +67,7 @@ import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVEN
  */
 public class AccessCodeGenerateFragment extends GenericFragment implements View.OnClickListener, FingerprintHandler.generateCode {
 
-
-
     ///////////////
-
     private static final String KEY_NAME = "yourKey";
     private Cipher cipher;
     private KeyStore keyStore;
@@ -77,14 +75,11 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     private FingerprintManager.CryptoObject cryptoObject;
     private FingerprintManager fingerprintManager;
     private KeyguardManager keyguardManager;
-    private  String texto;
+    private String texto;
     private static Preferencias preferencias = App.getInstance().getPrefs();
     private CustomErrorDialog customErrorDialog;
     String titulo;
     ///////////////7
-
-
-
 
     @BindView(R.id.editPassword)
     CustomValidationEditText editPassword;
@@ -119,8 +114,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
             // Vibrate for 500 milliseconds
             v.vibrate(100);
-            customErrorDialog.setTitleMessageNotification("Demaciados Intentos Fallidos Por Favor ingresa la Contraseña");
-
+            customErrorDialog.setTitleMessageNotification(getString(R.string.fingerprint_failed));
         }
     }
 
@@ -139,44 +133,23 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         titulo = getString(R.string.titulo_dialogo_huella_generacion_codigo);
-        cryptoObject = new FingerprintManager.CryptoObject(cipher);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            cryptoObject = new FingerprintManager.CryptoObject(cipher);
+        }
         helper = new FingerprintHandler(this.getContext());
 
         rootView = inflater.inflate(R.layout.fragment_access_code_generate, container, false);
-        texto=getString(R.string.authorize_payment_title);
+        texto = getString(R.string.authorize_payment_title);
         initViews();
-
-
         return rootView;
     }
-
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
         btnGenerateCode.setOnClickListener(this);
         editPassword.addCustomTextWatcher(new MTextWatcher());
-        // Validar versión compatible con lectura de huellas digitales
-       /*
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
-            FingerprintManager fingerprintManager = getActivity().getSystemService(FingerprintManager.class);
-            // Validar que el hardware esté disponible para lectura de huellas digitales
-            if(fingerprintManager.isHardwareDetected()){
-                if(fingerprintManager.hasEnrolledFingerprints()){
-                    // Llamar diálogo de lectura
-                    Log.i(getString(R.string.app_name), "Fingerprints Enrolled Detected");
-                } else {
-                    // Llamar diálogo de ayuda
-                    Log.i(getString(R.string.app_name), "No Fingerprints Enrolled Detected");
-                }
-            } else {
-                Log.e(getString(R.string.app_name), "No fingerprint hardware detected.");
-            }
-        } else {
-            Log.e(getString(R.string.app_name), "O.S. minor than required");
-        }
-        */
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
 
 
             keyguardManager =
@@ -184,18 +157,14 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             fingerprintManager =
                     (FingerprintManager) getActivity().getSystemService(FINGERPRINT_SERVICE);
 
-
-
+            assert fingerprintManager != null;
             if (!fingerprintManager.isHardwareDetected()) {
-
-               // textView.setText("Su dispositivo no es compatible con la autenticación de huellas dactilares");
-                texto=("Su dispositivo no es compatible con la autenticación de huellas dactilares");
+                texto = getString(R.string.fingerprint_no_supported);
             }else if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
-                //textView.setText("Por favor active el permiso de huella digital");
-                texto=("Por favor active el permiso de huella digital");
+                texto = getString(R.string.fingerprint_permission);
             } else if (!fingerprintManager.hasEnrolledFingerprints()) {
-                //textView.setText("NO existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo");
-                texto=("No existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo");
+
+                texto=getString(R.string.fingerprint_no_found);
                 customErrorDialog= UI.createCustomDialogIraConfiguracion(titulo, texto, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
@@ -207,27 +176,20 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                     public void actionCancel(Object... params) {
 
                     }
-                }, "Ir a la Configuración", "Usar Contraseña");
+                }, getString(R.string.fingerprint_go_to_settings), getString(R.string.fingerprint_use_password));
 
             }else if (!keyguardManager.isKeyguardSecure()) {
-              //  textView.setText("Habilite la seguridad de LockScreen en la configuración de su dispositivo");
-                texto=("Habilite la seguridad de LockScreen en la configuración de su dispositivo");
+                texto = getString(R.string.fingerprint_eneable_security);
             } else {
-
-                texto = "Coloque su Huella Digital Para Verificar su Identidad";
-                String mensaje=""+texto;
+                texto = getString(R.string.fingerprint_verification);
+                String mensaje = "" + texto;
 
                 try {
 
                     generateKey();
                     if (initCipher()) {
-
-
                         helper.setGenerateCode(this);
-
                         helper.startAuth(fingerprintManager, cryptoObject);
-
-
                     }
                     customErrorDialog= UI.createCustomDialogGeneraciondeCodigo(titulo, mensaje, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                         @Override
@@ -240,7 +202,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                         public void actionCancel(Object... params) {
                             stopautentication();
                         }
-                    }, "Usar Contraseña", "");
+                    }, getString(R.string.fingerprint_use_password), "");
                 } catch (FingerprintException e) {
                     e.printStackTrace();
                 }
@@ -248,8 +210,6 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             }
 
         }
-
-
 
 
     }
@@ -260,34 +220,34 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     }
 
     public void stopautentication(){
-
         helper.stopListening();
-        customErrorDialog.setTitleMessageNotification("Coloque su Huella Digital Para Verificar su Identidad");
-
+        customErrorDialog.setTitleMessageNotification(getString(R.string.fingerprint_verification));
     }
     @Override
     public void onPause() {
         super.onPause();
         helper.stopListeningcontraseña();
     }
+
     private void generateKey() throws FingerprintException {
         try {
 
             keyStore = KeyStore.getInstance("AndroidKeyStore");
 
-
             keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
 
             keyStore.load(null);
-            keyGenerator.init(new
-                    KeyGenParameterSpec.Builder(KEY_NAME,
-                    KeyProperties.PURPOSE_ENCRYPT |
-                            KeyProperties.PURPOSE_DECRYPT)
-                    .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
-                    .setUserAuthenticationRequired(true)
-                    .setEncryptionPaddings(
-                            KeyProperties.ENCRYPTION_PADDING_PKCS7)
-                    .build());
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                keyGenerator.init(new
+                        KeyGenParameterSpec.Builder(KEY_NAME,
+                        KeyProperties.PURPOSE_ENCRYPT |
+                                KeyProperties.PURPOSE_DECRYPT)
+                        .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+                        .setUserAuthenticationRequired(true)
+                        .setEncryptionPaddings(
+                                KeyProperties.ENCRYPTION_PADDING_PKCS7)
+                        .build());
+            }
 
             keyGenerator.generateKey();
 
@@ -303,8 +263,6 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
 
     }
-
-
 
     public boolean initCipher() {
         try {
@@ -323,7 +281,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                     null);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return true;
-        } catch (KeyPermanentlyInvalidatedException e) {
+        } catch (@SuppressLint("NewApi") KeyPermanentlyInvalidatedException e) {
             return false;
         } catch (KeyStoreException | CertificateException
                 | UnrecoverableKeyException | IOException
@@ -332,18 +290,12 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
         }
     }
 
-
-
     private class FingerprintException extends Exception {
 
         public FingerprintException(Exception e) {
             super(e);
         }
     }
-
-
-
-
 
     @Override
     public void onClick(View v) {
@@ -364,7 +316,6 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
     }
 
-
     private void loadOtp() {
         if (editPassword.isValidText()) {
             onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
@@ -377,7 +328,6 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass_formato));
         }
     }
-
 
     private class MTextWatcher extends AbstractTextWatcher {
         @Override

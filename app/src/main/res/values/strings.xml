@@ -1093,4 +1093,16 @@
     <string name="text_error_spinner">Ocurrio un Problema al Obtener los Elementos</string>
     <string name="text_error_contries">Ocurrio un Problema al Obtener los Paises</string>
 
+    <!-- FingerPrint -->
+    <string name="fingerprint_no_supported">Su dispositivo no es compatible con la autenticación de huellas dactilares</string>
+    <string name="fingerprint_permission">Por favor active el permiso de huella digital</string>
+    <string name="fingerprint_no_found">No existe una huella digital configurada. Registre al menos una huella digital en la configuración de su dispositivo</string>
+    <string name="fingerprint_go_to_settings">Ir a la Configuración</string >
+    <string name="fingerprint_use_password">Usar Contraseña</string>
+    <string name="fingerprint_eneable_security">Habilite la seguridad de LockScreen en la configuración de su dispositivo</string>
+    <string name="fingerprint_verification">Coloque su Huella Digital Para Verificar su Identidad</string>
+    <string name="fingerprint_failed">Demaciados Intentos Fallidos Por Favor ingresa la Contraseña</string>
+    <string name="fingerprint_try_later">Error de Autenticación, Demaciados intentos fallidos  Intentalo Más Tarde</string>
+    <string name="fingerprint_unrecognized">Huella no Reconocida\nIntentalo Otra Vez</string>
+
 </resources>
