@@ -191,6 +191,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
                 getSucursales();
             }
         } else {
+            ((TabActivity) getActivity()).hideProgresLayout();
             showDialogMesage(getActivity().getResources().getString(R.string.ask_permission_gps));
         }
     }
@@ -251,10 +252,10 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         parentActivity.hideProgresLayout();
         txtInfoSucursales.setVisibility(View.VISIBLE);
 
-        try{
+        try {
             ((DepositsFragment) getParentFragment()).showErrorMessage(errorTxt != null ? errorTxt : getString(R.string.error_respuesta));
             ((DepositsFragment) getParentFragment()).onBtnBackPress();
-        } catch (Exception e){
+        } catch (Exception e) {
             Log.d(TAG, "Exception de Fragment " + e);
         }
     }
@@ -344,6 +345,7 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
         } catch (OfflineException e) {
             e.printStackTrace();
             //Toast.makeText(getContext(), "Sin Conexión", Toast.LENGTH_SHORT).show();
+            ((TabActivity) getActivity()).hideProgresLayout();
             ((DepositsFragment) getParentFragment()).showErrorMessage(getString(R.string.no_internet_access));
             ((DepositsFragment) getParentFragment()).onBtnBackPress();
         }
@@ -401,6 +403,6 @@ public class DepositsMapFragment extends SupportFragment implements DepositMapMa
 
     @Override
     public void onLocationChanged(Location location) {
-      //  actualLocation = location;
+        //  actualLocation = location;
     }
 }
