@@ -33,6 +33,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.NO_SIM_CARD;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CODE_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
 public class SplashActivity extends SupportFragmentActivity implements IRequestResult {
     private Preferencias pref;
@@ -42,7 +43,9 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        Fabric.with(this, new Crashlytics());
+        if(!DEBUG) {
+            Fabric.with(this, new Crashlytics());
+        }
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.splash_activity_layout);
         api = new CatalogsDbApi(this);
