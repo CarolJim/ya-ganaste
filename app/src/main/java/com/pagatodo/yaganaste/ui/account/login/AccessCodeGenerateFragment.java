@@ -10,7 +10,6 @@ import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
-import android.os.Handler;
 import android.os.Vibrator;
 import android.provider.Settings;
 import android.security.keystore.KeyGenParameterSpec;
@@ -18,11 +17,9 @@ import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
@@ -36,7 +33,6 @@ import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
-import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import java.io.IOException;
 import java.security.InvalidAlgorithmParameterException;
@@ -60,6 +56,7 @@ import static android.content.Context.FINGERPRINT_SERVICE;
 import static android.content.Context.KEYGUARD_SERVICE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
+import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -93,26 +90,24 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     FingerprintHandler helper;
     View rootView;
 
-
-
     @Override
     public void generatecode() {
         loadOtpHuella();
     }
+
     @Override
     public void generatecode(String mensaje) {
-
         Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
         // Vibrate for 500 milliseconds
         v.vibrate(100);
-                    customErrorDialog.setTitleNotification("Reintentar");
-                    customErrorDialog.setTitleMessageNotification(mensaje);
+        customErrorDialog.setTitleNotification("Reintentar");
+        customErrorDialog.setTitleMessageNotification(mensaje);
 
     }
 
     @Override
     public void generatecode(String mensaje, int errors) {
-        if (errors>=3) {
+        if (errors >= 3) {
             helper.stopListening();
             Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
             // Vibrate for 500 milliseconds
@@ -148,33 +143,29 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
         initViews();
         return rootView;
     }
+
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
         btnGenerateCode.setOnClickListener(this);
         editPassword.addCustomTextWatcher(new MTextWatcher());
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)) {
             keyguardManager =
                     (KeyguardManager) getActivity().getSystemService(KEYGUARD_SERVICE);
             fingerprintManager =
                     (FingerprintManager) getActivity().getSystemService(FINGERPRINT_SERVICE);
-
             assert fingerprintManager != null;
             if (!fingerprintManager.isHardwareDetected()) {
                 texto = getString(R.string.fingerprint_no_supported);
-            }else if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
+            } else if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
                 texto = getString(R.string.fingerprint_permission);
             } else if (!fingerprintManager.hasEnrolledFingerprints()) {
-
-                texto=getString(R.string.fingerprint_no_found);
-                customErrorDialog= UI.createCustomDialogIraConfiguracion(titulo, texto, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                texto = getString(R.string.fingerprint_no_found);
+                customErrorDialog = UI.createCustomDialogIraConfiguracion(titulo, texto, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
                         opensettings();
-
                     }
 
                     @Override
@@ -183,22 +174,18 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                     }
                 }, getString(R.string.fingerprint_go_to_settings), getString(R.string.fingerprint_use_password));
 
-            }else if (!keyguardManager.isKeyguardSecure()) {
+            } else if (!keyguardManager.isKeyguardSecure()) {
                 texto = getString(R.string.fingerprint_eneable_security);
             } else {
                 texto = getString(R.string.fingerprint_verification);
                 String mensaje = "" + texto;
-
                 try {
-                    Boolean intentoshuella=preferencias.loadDataBoolean("HUELLA_FAIL");
-
-                    if (intentoshuella==true){
-
-                        customErrorDialog= UI.createCustomDialogGeneraciondeCodigo(titulo, getString(R.string.fingerprint_failed), getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                    Boolean intentoshuella = preferencias.loadDataBoolean("HUELLA_FAIL", false);
+                    if (intentoshuella == true) {
+                        customErrorDialog = UI.createCustomDialogGeneraciondeCodigo(titulo, getString(R.string.fingerprint_failed), getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                             @Override
                             public void actionConfirm(Object... params) {
                                 stopautentication();
-
                             }
 
                             @Override
@@ -206,7 +193,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                                 stopautentication();
                             }
                         }, getString(R.string.fingerprint_use_password), "");
-                    }else {
+                    } else {
                         texto = getString(R.string.fingerprint_verification);
                         mensaje = "" + texto;
                         generateKey();
@@ -215,11 +202,10 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                             helper.startAuth(fingerprintManager, cryptoObject);
                         }
 
-                        customErrorDialog= UI.createCustomDialogGeneraciondeCodigo(titulo, mensaje, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                        customErrorDialog = UI.createCustomDialogGeneraciondeCodigo(titulo, mensaje, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
                             @Override
                             public void actionConfirm(Object... params) {
                                 stopautentication();
-
                             }
 
                             @Override
@@ -231,12 +217,8 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                 } catch (FingerprintException e) {
                     e.printStackTrace();
                 }
-
             }
-
         }
-
-
     }
 
     private void opensettings() {
@@ -244,10 +226,11 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
         startActivity(intent);
     }
 
-    public void stopautentication(){
+    public void stopautentication() {
         helper.stopListening();
-       // customErrorDialog.setTitleMessageNotification(getString(R.string.fingerprint_verification));
+        // customErrorDialog.setTitleMessageNotification(getString(R.string.fingerprint_verification));
     }
+
     @Override
     public void onPause() {
         super.onPause();
@@ -256,11 +239,8 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
     private void generateKey() throws FingerprintException {
         try {
-
             keyStore = KeyStore.getInstance("AndroidKeyStore");
-
             keyGenerator = KeyGenerator.getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
-
             keyStore.load(null);
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
                 keyGenerator.init(new
@@ -273,9 +253,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                                 KeyProperties.ENCRYPTION_PADDING_PKCS7)
                         .build());
             }
-
             keyGenerator.generateKey();
-
         } catch (KeyStoreException
                 | NoSuchAlgorithmException
                 | NoSuchProviderException
@@ -316,7 +294,6 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     }
 
     private class FingerprintException extends Exception {
-
         public FingerprintException(Exception e) {
             super(e);
         }
@@ -335,10 +312,13 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     }
 
     public void loadOtpHuella() {
-            customErrorDialog.dismiss();
-            onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
-            ((OtpInterface) getParentFragment()).loadCode(preferencias.loadData("SHA_256_FREJA"));
-            prefs.saveDataBool(HUELLA_FAIL, false);
+        customErrorDialog.dismiss();
+        onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
+        ((OtpInterface) getParentFragment()).loadCode(preferencias.loadData("SHA_256_FREJA"));
+        customErrorDialog.dismiss();
+        onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
+        ((OtpInterface) getParentFragment()).loadCode(preferencias.loadData("SHA_256_FREJA"));
+        prefs.saveDataBool(HUELLA_FAIL, false);
 
     }
 
@@ -373,7 +353,4 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             UI.hideKeyBoard(getActivity());
         }
     }
-
-
-
 }

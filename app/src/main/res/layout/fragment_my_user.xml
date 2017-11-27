@@ -36,6 +36,35 @@
             android:layout_height="match_parent"
             android:orientation="vertical">
 
+
+            <LinearLayout
+                android:id="@+id/fragment_myuser_fingerprint"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginBottom="10dp"
+                android:orientation="horizontal"
+                android:paddingTop="10dp"
+                android:visibility="gone">
+
+                <com.pagatodo.yaganaste.utils.customviews.StyleTextView
+                    style="@style/generic_text_style_2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_marginLeft="10dp"
+                    android:layout_weight="2"
+                    android:text="@string/use_fingerprint" />
+
+                <android.support.v7.widget.SwitchCompat
+                    android:id="@+id/fingerprint_switch"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="20dp"
+                    android:theme="@style/SCBSwitch"
+                    android:thumb="@drawable/block_card_switch"
+                    app:track="@drawable/switch_compat_custom_track" />
+            </LinearLayout>
+
             <View
                 android:layout_width="match_parent"
                 android:layout_height="1dp"

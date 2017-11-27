@@ -75,6 +75,7 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.EVENT_SEND_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
@@ -184,9 +185,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         btnContinueEnvio.setOnClickListener(this);
 
         //Huella
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-
-
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)) {
             keyguardManager =
                     (KeyguardManager) getActivity().getSystemService(KEYGUARD_SERVICE);
             fingerprintManager =

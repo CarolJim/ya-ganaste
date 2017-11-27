@@ -222,7 +222,7 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
     protected void onResume() {
         super.onResume();
 
-        if (pref.containsData(CUPO_COMPLETE) &&  pref.loadDataBoolean(CUPO_COMPLETE) ) {
+        if (pref.containsData(CUPO_COMPLETE) &&  pref.loadDataBoolean(CUPO_COMPLETE, false) ) {
             pref.saveDataBool(CUPO_COMPLETE, false);
             Log.e("Test" , "Mostrar Ventana Tutorial");
         }

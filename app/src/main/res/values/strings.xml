@@ -911,6 +911,7 @@
     <string name="verificando_sms_esperanuevo">Estamos Vinculando tu Celular \n a tu Cuenta</string>
     <string name="change_your_pass">Cambia tu Contraseña</string>
     <string name="unlike_your_device">Desvincula tu Dispositivo</string>
+    <string name="use_fingerprint">Uso de Huella Digital</string>
     <string name="without_items">Sin Resultados</string>
     <string name="title_activity_landing_approved">LandingApprovedActivity</string>
 

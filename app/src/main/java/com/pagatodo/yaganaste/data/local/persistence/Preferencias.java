@@ -47,8 +47,8 @@ public class Preferencias {
         return this.preferences.getBoolean(key, false);
     }
 
-    public boolean loadDataBoolean(String key) {
-        return this.preferences.getBoolean(key, false);
+    public boolean loadDataBoolean(String key, boolean defValue) {
+        return this.preferences.getBoolean(key, defValue);
     }
 
     public Serializable loadData(String key, Boolean isObject) {

@@ -121,6 +121,8 @@ public class Recursos {
     public static final String URL_PHOTO_USER = "URL_PHOTO_USER";
     public static final String CONSULT_FAVORITE = "CONSULT_FAVORITE";
 
+    // Preferencias Uso de Huella Digital
+    public static final String USE_FINGERPRINT = "USE_FINGERPRINT";
 
     /**
      * Catálogos
@@ -148,7 +150,7 @@ public class Recursos {
     // Documentos Cupo
 
     public static final int DOC_CUPO_FRONT = 3;
-    public static final int DOC_CUPO_BACK  = 29;
+    public static final int DOC_CUPO_BACK = 29;
 
 
     public static final int STATUS_DOCTO_ACTUALIZADO = 5;

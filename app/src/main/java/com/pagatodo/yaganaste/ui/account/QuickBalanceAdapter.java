@@ -31,7 +31,7 @@ public class QuickBalanceAdapter extends FragmentPagerAdapter {
 
         fragmentList.add(OtpContainerFratgment.newInstance(true));
         if (isAdquirente) {
-            if (!App.getInstance().getPrefs().loadDataBoolean(StringConstants.IS_CUPO)) {
+            if (!App.getInstance().getPrefs().loadDataBoolean(StringConstants.IS_CUPO, false)) {
                 fragmentList.add(QuickBalanceAdquirenteFragment.newInstance());
             } else {
                 fragmentList.add(QuickBalanceCupoFragment.newInstance());
