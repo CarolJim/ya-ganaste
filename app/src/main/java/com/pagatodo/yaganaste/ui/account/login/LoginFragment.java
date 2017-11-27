@@ -47,6 +47,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOV
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SECURE_CODE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
@@ -57,7 +58,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
  */
 public class LoginFragment extends GenericFragment implements View.OnClickListener, ILoginView,
         ValidationForms {
-
+    private Preferencias prefs = App.getInstance().getPrefs();
     @BindView(R.id.imgLoginExistProfile)
     CircleImageView imgLoginExistProfile;
 
@@ -360,6 +361,7 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
 
     @Override
     public void loginSucced() {
+        prefs.saveDataBool(HUELLA_FAIL, false);
         App.getInstance().getStatusId();
         SingletonUser.getInstance().setCardStatusId(null);
         Intent intentLogin = new Intent(getActivity(), TabActivity.class);

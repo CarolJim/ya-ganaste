@@ -109,6 +109,9 @@ public class Recursos {
     public static String CO_QUICK_ADQ = "CO_QUICK_ADQ";
 
     public static String SHA_256_FREJA = "SHA_256_FREJA";
+    public static String HUELLA_FAIL = "HUELLA_FAIL";
+
+
     public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
     public static final String ADQ_PROCESS = "FLAG_PROCESS";
     public static final String CUPO_PROCESS = "FLAG_PROCESS_CUPO";

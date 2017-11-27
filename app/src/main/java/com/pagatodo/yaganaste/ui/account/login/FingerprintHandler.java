@@ -15,15 +15,20 @@ import android.os.Handler;
 import android.support.v4.app.ActivityCompat;
 import android.widget.Toast;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.OnEventListener;
+import com.pagatodo.yaganaste.utils.Utils;
 
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 
 
 @SuppressLint("NewApi")
 public class FingerprintHandler extends FingerprintManager.AuthenticationCallback {
-
+    private Preferencias prefs = App.getInstance().getPrefs();
     private CancellationSignal cancellationSignal;
     private Context context;
     private generateCode generateCode;
@@ -40,7 +45,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
             return;
         }
         cancellationSignal = new CancellationSignal();
-        errorIntent=0;
+
         mSelfCancelled = false;
 
         manager.authenticate(cryptoObject, cancellationSignal, 0, this, null);
@@ -84,7 +89,8 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
 
                 errorIntent++;
                 generateCode.generatecode(mensaje);
-                if (errorIntent==4){
+                if (errorIntent==3){
+                    prefs.saveDataBool(HUELLA_FAIL, true);//Huella Fail
                     mensaje="";
                     generateCode.generatecode(mensaje,errorIntent);
                 }
@@ -93,7 +99,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     @Override
     public void onAuthenticationHelp(int helpMsgId,
                                      CharSequence helpString) {
-        //Toast.makeText(context, "Ayuda de autenticación\n" + helpString, Toast.LENGTH_LONG).show();
+        Toast.makeText(context, "Ayuda de autenticación\n" + helpString, Toast.LENGTH_LONG).show();
     }
 
 

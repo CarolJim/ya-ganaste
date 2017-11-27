@@ -59,6 +59,7 @@ import butterknife.ButterKnife;
 import static android.content.Context.FINGERPRINT_SERVICE;
 import static android.content.Context.KEYGUARD_SERVICE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -79,6 +80,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     private static Preferencias preferencias = App.getInstance().getPrefs();
     private CustomErrorDialog customErrorDialog;
     String titulo;
+    private Preferencias prefs = App.getInstance().getPrefs();
     ///////////////7
 
     @BindView(R.id.editPassword)
@@ -188,24 +190,44 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                 String mensaje = "" + texto;
 
                 try {
+                    Boolean intentoshuella=preferencias.loadDataBoolean("HUELLA_FAIL");
 
-                    generateKey();
-                    if (initCipher()) {
-                        helper.setGenerateCode(this);
-                        helper.startAuth(fingerprintManager, cryptoObject);
+                    if (intentoshuella==true){
+
+                        customErrorDialog= UI.createCustomDialogGeneraciondeCodigo(titulo, getString(R.string.fingerprint_failed), getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                            @Override
+                            public void actionConfirm(Object... params) {
+                                stopautentication();
+
+                            }
+
+                            @Override
+                            public void actionCancel(Object... params) {
+                                stopautentication();
+                            }
+                        }, getString(R.string.fingerprint_use_password), "");
+                    }else {
+                        texto = getString(R.string.fingerprint_verification);
+                        mensaje = "" + texto;
+                        generateKey();
+                        if (initCipher()) {
+                            helper.setGenerateCode(this);
+                            helper.startAuth(fingerprintManager, cryptoObject);
+                        }
+
+                        customErrorDialog= UI.createCustomDialogGeneraciondeCodigo(titulo, mensaje, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
+                            @Override
+                            public void actionConfirm(Object... params) {
+                                stopautentication();
+
+                            }
+
+                            @Override
+                            public void actionCancel(Object... params) {
+                                stopautentication();
+                            }
+                        }, getString(R.string.fingerprint_use_password), "");
                     }
-                    customErrorDialog= UI.createCustomDialogGeneraciondeCodigo(titulo, mensaje, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
-                        @Override
-                        public void actionConfirm(Object... params) {
-                            stopautentication();
-
-                        }
-
-                        @Override
-                        public void actionCancel(Object... params) {
-                            stopautentication();
-                        }
-                    }, getString(R.string.fingerprint_use_password), "");
                 } catch (FingerprintException e) {
                     e.printStackTrace();
                 }
@@ -224,7 +246,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
     public void stopautentication(){
         helper.stopListening();
-        customErrorDialog.setTitleMessageNotification(getString(R.string.fingerprint_verification));
+       // customErrorDialog.setTitleMessageNotification(getString(R.string.fingerprint_verification));
     }
     @Override
     public void onPause() {
@@ -313,9 +335,10 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     }
 
     public void loadOtpHuella() {
-        customErrorDialog.dismiss();
+            customErrorDialog.dismiss();
             onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
             ((OtpInterface) getParentFragment()).loadCode(preferencias.loadData("SHA_256_FREJA"));
+            prefs.saveDataBool(HUELLA_FAIL, false);
 
     }
 
@@ -323,6 +346,8 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
         if (editPassword.isValidText()) {
             onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
             ((OtpInterface) getParentFragment()).loadCode(Utils.getSHA256(editPassword.getText()));
+            prefs.saveDataBool(HUELLA_FAIL, false);
+
         } else if (editPassword.getText().isEmpty()) {
             editPassword.setIsInvalid();
             errorPasswordMessage.setMessageText(getString(R.string.datos_usuario_pass));

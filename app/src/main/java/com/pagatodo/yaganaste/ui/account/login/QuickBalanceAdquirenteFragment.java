@@ -50,6 +50,7 @@ import butterknife.ButterKnife;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.FLIP_TIMER;
+import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_BALANCE;
 import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
@@ -133,6 +134,7 @@ public class QuickBalanceAdquirenteFragment extends GenericFragment implements I
     public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         rootViewfragment = inflater.inflate(R.layout.fragment_quick_balance_adquirente, container, false);
         prefs = App.getInstance().getPrefs();
+        prefs.saveDataBool(HUELLA_FAIL, false);
         return rootViewfragment;
     }
 

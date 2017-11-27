@@ -26,6 +26,7 @@ import static com.pagatodo.yaganaste.interfaces.enums.LandingActivitiesEnum.INIC
 import static com.pagatodo.yaganaste.utils.Recursos.CO_QUICK_ADQ;
 import static com.pagatodo.yaganaste.utils.Recursos.CO_QUICK_EM;
 import static com.pagatodo.yaganaste.utils.Recursos.CO_QUICK_EM_2;
+import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 
 /**
  * Created by Jordan on 14/07/2017.
@@ -35,7 +36,7 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
 
     private QuickBalanceAdapter quickBalanceAdapter;
     private View rootView;
-
+    private Preferencias prefs = App.getInstance().getPrefs();
     @BindView(R.id.viewPagerQuickBalance)
     NoSwipeViewPager viewPagerQuickBalance;
     ILoginContainerManager loginContainerManager;
@@ -51,6 +52,7 @@ public class QuickBalanceContainerFragment extends SupportFragment implements IQ
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        prefs.saveDataBool(HUELLA_FAIL, false);
         quickBalanceAdapter = new QuickBalanceAdapter(getChildFragmentManager(), !RequestHeaders.getTokenAdq().isEmpty());
         loginContainerManager = ((LoginManagerContainerFragment) getParentFragment()).getLoginContainerManager();
     }
