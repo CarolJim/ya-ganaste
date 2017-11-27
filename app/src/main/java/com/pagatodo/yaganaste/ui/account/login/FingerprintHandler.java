@@ -93,9 +93,7 @@ public class FingerprintHandler extends FingerprintManager.AuthenticationCallbac
     @Override
     public void onAuthenticationHelp(int helpMsgId,
                                      CharSequence helpString) {
-        Toast.makeText(context,
-                "Ayuda de autenticación\n" + helpString,
-                Toast.LENGTH_LONG).show();
+        //Toast.makeText(context, "Ayuda de autenticación\n" + helpString, Toast.LENGTH_LONG).show();
     }
 
 
