@@ -19,4 +19,6 @@ public interface IFavoritesIteractor {
     void toIteractorEditFavorites(EditFavoritesRequest editFavoritesRequest, int idFavorito);
 
     void toIteractorDeleteFavorite(DeleteFavoriteRequest deleteFavoriteRequest, int idFavorito);
+
+    void getTitularName(String cuenta);
 }

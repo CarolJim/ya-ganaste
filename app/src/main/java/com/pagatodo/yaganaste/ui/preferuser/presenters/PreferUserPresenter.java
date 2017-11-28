@@ -187,6 +187,7 @@ public class PreferUserPresenter extends GenericPresenterMain<IPreferUserGeneric
     @Override
     public void showExceptionBloquearCuentaToPresenter(String s) {
 
+
     }
 
     @Override

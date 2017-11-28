@@ -86,7 +86,7 @@ public class App extends Application {
         getBaseContext().getResources().updateConfiguration(config,
                 getBaseContext().getResources().getDisplayMetrics());
         m_singleton = this;
-        //MultiDex.install(this);
+        MultiDex.install(this);
         //Stetho.initializeWithDefaults(this);
 
         this.prefs = new Preferencias(this);

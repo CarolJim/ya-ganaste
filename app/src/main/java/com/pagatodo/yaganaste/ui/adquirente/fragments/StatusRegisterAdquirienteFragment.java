@@ -195,15 +195,11 @@ public class StatusRegisterAdquirienteFragment extends GenericFragment implement
                     MY_PERMISSIONS_REQUEST_PHONE);
             isValid = false;
         }
-
         if(isValid){
             UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaRealizarLlamada), getFragmentManager(),
                     doubleActions, true, true);
         }
-
     }
-
-
     @Override
     public void onClick(View view) {
         int id = view.getId();

@@ -13,8 +13,6 @@
     <string name="assignPaswordUrl">/AsignarContrasena</string>
     <string name="assignAccountAvailableUrl">/AsignarCuentaDisponible</string>
     <string name="assignNIPUrl">/AsignarNIP</string>
-    <string name="assignCard2AccountUrl">/AsociarTarjetaCuenta</string>
-    <string name="lockTempCardUrl">/BloquearTemporalmenteTarjeta</string>
     <string name="changePasswordUrl">/CambiarContrasena</string>
     <string name="uploadDocumentsUrl">/CargaDocumentos</string>
     <string name="logoutUrl">/CerrarSesion</string>
@@ -24,7 +22,6 @@
     <string name="getBalanceUrl">/ConsultarSaldo</string>
     <string name="getAccountOwnerUrl">/ConsultarTitularCuenta</string>
     <string name="createAgentUrl">/CrearAgente</string>
-    <string name="createClientUrl">/CrearCliente</string>
     <string name="createUserUrl">/CrearUsuarioFWS</string>
     <string name="createUserLoginUrl">/CrearUsuarioFWSInicioSesion</string>
     <string name="createUserClientUrl">/CrearUsuarioCliente</string>
@@ -1031,7 +1028,7 @@
     <string name="title_dialog_favorite">Nuevo Favorito</string>
     <string name="title_dialog_edit_favorite">Editar Favorito</string>
     <string name="title_dialog_delete_favorite">Borrar Favorito</string>
-    <string name="title_dialog_busqueda">Busqueda Favoritos</string>
+    <string name="title_dialog_busqueda">Búsqueda Favoritos</string>
     <string name="loader_15">Agregando Nuevo Favorito</string>
     <string name="load_set_image">Asignando Imagen de Favorito</string>
 

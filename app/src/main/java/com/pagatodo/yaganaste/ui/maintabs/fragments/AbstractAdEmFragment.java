@@ -210,7 +210,7 @@ public abstract class AbstractAdEmFragment<T extends IEnumTab, ItemRecycler> ext
 
     @Override
     public void showError(String error) {
-        UI.showToastShort(error, getActivity());
+  //      UI.showToastShort(error, getActivity());
         hideLoader();
     }
 
