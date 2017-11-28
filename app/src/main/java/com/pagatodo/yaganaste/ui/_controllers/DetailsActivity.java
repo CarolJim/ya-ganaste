@@ -49,6 +49,7 @@ import static android.R.attr.data;
 import static android.R.attr.fragment;
 import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_TRANSACTION_RESULT;
 import static com.pagatodo.yaganaste.ui.maintabs.fragments.PaymentsFragment.RESULT_CANCEL_OK;
+import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
 /**
  * @author Juan Guerra on 11/04/2017.
@@ -152,7 +153,9 @@ public class DetailsActivity extends LoaderActivity implements OnEventListener {
             @Override
             public void onClick(View v) {
                 if (getSupportFragmentManager().findFragmentById(R.id.container) instanceof DetailsEmisorFragment) {
-                    Answers.getInstance().logShare(new ShareEvent());
+                    if(!DEBUG) {
+                        Answers.getInstance().logShare(new ShareEvent());
+                    }
 
                     boolean isValid = true;
 

@@ -23,9 +23,11 @@ import com.pagatodo.yaganaste.ui.adquirente.fragments.InsertDongleFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.RemoveCardFragment;
 import com.pagatodo.yaganaste.ui.adquirente.fragments.TransactionResultFragment;
 
+import java.math.BigDecimal;
+import java.util.Currency;
+
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RETRY_PAYMENT;
-import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 
 
 public class AdqActivity extends LoaderActivity implements OnEventListener {
@@ -79,9 +81,6 @@ public class AdqActivity extends LoaderActivity implements OnEventListener {
                 showBack(false);
                 break;
             case EVENT_GO_GET_SIGNATURE:
-                if(!DEBUG) {
-                    Answers.getInstance().logPurchase(new PurchaseEvent());
-                }
                 loadFragment(GetSignatureFragment.newInstance(), Direction.FORDWARD, false);
                 showBack(false);
                 break;

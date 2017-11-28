@@ -2,6 +2,8 @@ package com.pagatodo.yaganaste.ui.adquirente.interactores;
 
 import android.content.Context;
 
+import com.crashlytics.android.answers.Answers;
+import com.crashlytics.android.answers.PurchaseEvent;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.DataSourceResult;
@@ -33,6 +35,8 @@ import com.pagatodo.yaganaste.ui._controllers.DetailsActivity;
 import com.pagatodo.yaganaste.utils.NumberCalcTextWatcher;
 
 import java.io.Serializable;
+import java.math.BigDecimal;
+import java.util.Currency;
 
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.CANCELA_TRANSACTION_EMV_DEPOSIT;
 import static com.pagatodo.yaganaste.interfaces.enums.WebService.ENVIAR_TICKET_COMPRA;
@@ -48,6 +52,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AdqActivity.EVENT_GO_LOGIN_
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_CODE_OK;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_APROVE;
 import static com.pagatodo.yaganaste.utils.Recursos.ADQ_TRANSACTION_ERROR;
+import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.KSN_LECTOR;
 
 /**
@@ -64,6 +69,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     private Preferencias prefs = App.getInstance().getPrefs();
     private int retryLogin = 0;
     private Context context = App.getInstance().getApplicationContext();
+    private CancelaTransaccionDepositoEmvRequest cancelaTransaccionDepositoEmvRequest;
 
     public AdqInteractor(IAccountManager accountManager, INavigationView iSessionExpired) {
         this.accountManager = accountManager;
@@ -108,6 +114,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
 
     @Override
     public void initCancelPayment(CancelaTransaccionDepositoEmvRequest request) {
+        cancelaTransaccionDepositoEmvRequest = request;
         try {
             ApiAdq.cancelaTransaccionDepositoEmv(request, this);
         } catch (OfflineException e) {
@@ -225,7 +232,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     private void processCancelAdq(DataSourceResult response) {
         TransaccionEMVDepositResponse data = (TransaccionEMVDepositResponse) response.getData();
         TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
-
+        String marcaBancaria = result.getTransaccionResponse().getMarcaTarjetaBancaria();
         switch (data.getError().getId()) {
             case ADQ_CODE_OK:
                 result.setStatusTransaction(ADQ_TRANSACTION_APROVE);
@@ -244,6 +251,14 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 });
                 pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
                 result.setPageResult(pageResult);
+                if (!DEBUG) {
+                    Answers.getInstance().logPurchase(new PurchaseEvent()
+                            .putItemPrice(BigDecimal.valueOf(Double.parseDouble(cancelaTransaccionDepositoEmvRequest.getAmount()) * -1))
+                            .putCurrency(Currency.getInstance("MXN"))
+                            .putItemName(App.getContext().getString(R.string.ce_cobro_cancelado))
+                            .putItemType(marcaBancaria == null ? "PagaTodo" : marcaBancaria));
+                }
+                cancelaTransaccionDepositoEmvRequest = null;
                 accountManager.onSucces(response.getWebService(), data.getError().getMessage());
                 break;
             default:
@@ -342,6 +357,7 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
     private void processTransactionResult(DataSourceResult response) {
         TransaccionEMVDepositResponse data = (TransaccionEMVDepositResponse) response.getData();
         TransactionAdqData result = TransactionAdqData.getCurrentTransaction();
+        String marcaBancaria = result.getTransaccionResponse().getMarcaTarjetaBancaria();
         switch (data.getError().getId()) {
             case ADQ_CODE_OK:
                 result.setStatusTransaction(ADQ_TRANSACTION_APROVE);
@@ -362,6 +378,14 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 pageResult.setBtnPrimaryType(PageResult.BTN_DIRECTION_NEXT);
                 pageResult.setDescription(App.getContext().getString(R.string.adq_remove_tdc));
                 result.setPageResult(pageResult);
+                if (!DEBUG) {
+                    Answers.getInstance().logPurchase(new PurchaseEvent()
+                            .putItemPrice(BigDecimal.valueOf(Double.parseDouble(TransactionAdqData.getCurrentTransaction().getAmount())))
+                            .putCurrency(Currency.getInstance("MXN"))
+                            .putItemName(App.getContext().getString(R.string.ce_cobro_aceptado))
+                            .putItemType(marcaBancaria == null ? "PagaTodo" : marcaBancaria)
+                            .putSuccess(true));
+                }
                 accountManager.onSucces(response.getWebService(), data.getError().getMessage());
                 break;
             /* Se realizo un cambio de EVENT_GO_REMOVE_CARD a EVENT_GO_GET_SIGNATURE para evitar
@@ -399,7 +423,14 @@ public class AdqInteractor implements Serializable, IAdqIteractor, IRequestResul
                 pageResultError.setBtnPrimaryType(PageResult.BTN_ACTION_ERROR);
                 pageResultError.setBtnSecundaryType(PageResult.BTN_ACTION_OK);
                 result.setPageResult(pageResultError);
-
+                if (!DEBUG) {
+                    Answers.getInstance().logPurchase(new PurchaseEvent()
+                            .putItemPrice(BigDecimal.valueOf(Double.parseDouble(TransactionAdqData.getCurrentTransaction().getAmount())))
+                            .putCurrency(Currency.getInstance("MXN"))
+                            .putItemName(App.getContext().getString(R.string.ce_cobro_rechazado))
+                            .putItemType(marcaBancaria == null ? "PagaTodo" : marcaBancaria)
+                            .putSuccess(false));
+                }
                 accountManager.onError(response.getWebService(), data.getError().getMessage());//Retornamos mensaje de error.
                 break;
         }

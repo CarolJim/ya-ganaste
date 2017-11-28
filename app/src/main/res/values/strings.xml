@@ -111,6 +111,9 @@
     <string name="ce_pds">PDS</string>
     <string name="ce_envios_1">TRASPASO</string>
     <string name="ce_envios_2">ENVIO_INTERBANCARIO</string>
+    <string name="ce_cobro_aceptado">ACEPTADO</string>
+    <string name="ce_cobro_rechazado">RECHAZADO</string>
+    <string name="ce_cobro_cancelado">CANCELADO</string>
 
     <string name="desasociarDispositivoTittle">Desvincula tu Dispositivo</string>
     <string name="desvincula_dispositivo_texto">Al Desvincular tu Dispositivo ya no Estará Ligado a tu Cuenta Ya Ganaste. Si Quieres Volver a Usarlo, Deberás Enviar Nuevamente el SMS de Vinculación</string>
