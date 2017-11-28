@@ -444,7 +444,7 @@ public class CupoComprobantesFragment extends GenericFragment implements View.On
     private void sendDocuments(ArrayList<DataDocuments> toSend) {
         for (String s : imgs)
             if (s == null || s.isEmpty()) {
-                showError(App.getContext().getResources().getString(R.string.adq_must_upload_documents));
+               // showError(App.getContext().getResources().getString(R.string.adq_must_upload_documents));
                 return;
             }
         presenter.sendDocumentos(toSend);
