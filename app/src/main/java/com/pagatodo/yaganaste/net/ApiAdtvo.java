@@ -158,19 +158,6 @@ import static com.pagatodo.yaganaste.utils.Recursos.URL_SERVER_ADTVO;
 public class ApiAdtvo extends Api {
 
     /**
-     * Método que se invoca para activar el Servicio de Banca Móvil, asociando una Cuenta con el telefóno
-     * desde el cual se recibió el SMS.
-     *
-     * @param request {@link ActivacionServicioMovilRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void activacionServicioMovil(ActivacionServicioMovilRequest request, IRequestResult result) throws OfflineException {
-        NetFacade.consumeWS(ACTIVACION_SERVICIO_MOVIL,
-                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.activateMobileServiceUrl),
-                getHeadersYaGanaste(), request, ActivacionServicioMovilResponse.class, result);
-    }
-
-    /**
      * Método que se usa para enviar un mensaje de la sección contactanos.
      *
      * @param request {@link EnviarCorreoContactanosRequest} body de la petición.
@@ -216,18 +203,6 @@ public class ApiAdtvo extends Api {
         NetFacade.consumeWS(ACTUALIZAR_INFO_SESION,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.updateSessionUrl),
                 headers, null, ActualizarInformacionSesionResponse.class, result);
-    }
-
-    /**
-     * Método que se invoca para asignar una nueva Contraseña a un Usuario cuando este solicita Recuperar su Contraseña.
-     *
-     * @param request {@link AsignarContraseniaRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void asigarContrasenia(AsignarContraseniaRequest request, IRequestResult result) throws OfflineException {
-        NetFacade.consumeWS(ASIGNAR_CONTRASENIA,
-                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.assignPaswordUrl),
-                getHeadersYaGanaste(), request, AsignarContraseniaResponse.class, result);
     }
 
     /**
@@ -343,34 +318,6 @@ public class ApiAdtvo extends Api {
     }
 
     /**
-     * Método que se invoca cuando se desea generar un nuevo Usuario en el FWS Externo de BPT.
-     *
-     * @param request {@link CrearUsuarioFWSRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void crearUsuarioFWS(CrearUsuarioFWSRequest request, IRequestResult result) throws OfflineException {
-        NetFacade.consumeWS(CREAR_USUARIO_FWS,
-                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.createUserUrl),
-                getHeadersYaGanaste(), request, CrearUsuarioFWSResponse.class, result);
-    }
-
-    /**
-     * Método que se invoca cuando se desea generar un nuevo Usuario en el FWS Externo de BPT
-     * y obtener un TokenSesion para continuar con el flujo de registro sin necesidad de lanzar
-     * otra conexión.
-     *
-     * @param request {@link CrearUsuarioFWSRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void crearUsuarioFWSInicioSesion(CrearUsuarioFWSRequest request, IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
-        NetFacade.consumeWS(CREAR_USUARIO_FWS_LOGIN,
-                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.createUserLoginUrl),
-                headers, request, CrearUsuarioClienteResponse.class, result);
-    }
-
-    /**
      * Método que se invoca cuando se desea generar un nuevo Usuario en el FWS Externo de BPT
      * y obtener un TokenSesion para continuar con el flujo de registro sin necesidad de lanzar
      * otra conexión.
@@ -384,38 +331,6 @@ public class ApiAdtvo extends Api {
         NetFacade.consumeWS(CREAR_USUARIO_CLIENTE,
                 METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.createUserClientUrl),
                 headers, request, CrearUsuarioClienteResponse.class, result);
-    }
-
-    /**
-     * Método que se invoca para remover la imagen asignada para el Avatar.
-     *
-     * @param result {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void eliminarAvatar(IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        NetFacade.consumeWS(ELIMINAR_AVATAR,
-                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.deleteAvatarUrl),
-                headers, null, EliminarAvatarResponse.class, result);
-    }
-
-    /**
-     * Método que se invoca para realizar el inicio de sesión de un Usuario o un Cliente BPT.
-     *
-     * @param request {@link IniciarSesionRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void iniciarSesion(IniciarSesionRequest request, IRequestResult result) throws OfflineException {
-        App.getInstance().getPrefs().saveDataBool(CONSULT_FAVORITE, false);
-        Map<String, String> headers = getHeadersYaGanaste();
-        //headers.put(RequestHeaders.TokenDispositivo, RequestHeaders.getTokendevice());
-        headers.put(RequestHeaders.TokenDispositivo, "dasdasd");
-        //if (!RequestHeaders.getTokenauth().equals(""))//Si ya se almaceno el tokenAuth, se envia en el login
-        //    headers.put(RequestHeaders.TokenAutenticacion, RequestHeaders.getTokenauth());
-
-        NetFacade.consumeWS(INICIAR_SESION,
-                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.loginUrl),
-                headers, request, IniciarSesionResponse.class, result);
     }
 
     /**
@@ -602,41 +517,6 @@ public class ApiAdtvo extends Api {
     }
 
     /**
-     * No Description
-     *
-     * @param request {@link IniciarTransaccionOnlineRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    /*TODO revisar request de este servicio*/
-    public static void iniciarTransaccionOnline(IniciarTransaccionOnlineRequest request, IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        headers.put(RequestHeaders.IdTransaccionFreja, RequestHeaders.getIdTransaccionFreja());
-        headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
-
-        NetFacade.consumeWS(INICIAR_TRANSACCION_ONLINE,
-                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.initOnlineTransactionUrl),
-                headers, request, IniciarTransaccionOnlineResponse.class, result);
-    }
-
-    /**
-     * No Description
-     *
-     * @param request {@link GetJsonWebTokenRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    /*TODO revisar request de este servicio*/
-    public static void getJsonWebTokenUrl(GetJsonWebTokenRequest request, IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
-        NetFacade.consumeWS(GET_JSONWEBTOKEN,
-                METHOD_POST, URL_SERVER_ADTVO + App.getContext().getString(R.string.getJsonWebTokenUrlUrl),
-                headers, request, GetJsonWebTokenResponse.class, result);
-    }
-
-
-    /**
      * Obtiene los subgiros par registro de Negocio.
      *
      * @param result {@link IRequestResult} listener del resultado de la petición.
@@ -663,26 +543,6 @@ public class ApiAdtvo extends Api {
                 METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerDomicilioPrincipal),
                 headers, null, ObtenerDomicilioResponse.class, result);
     }
-
-
-    /**
-     * Metodo para obtener el domicilio del usuario
-     */
-
-    /**
-     * Método que se invoca cuando se desea actualizar la información obtenida del Usuario/Cliente.
-     *
-     * @param result {@link IRequestResult} listener del resultado de la petición.
-     * */
-    /*public static void obtenerDomicilioPrincipal(IRequestResult result)  throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-
-        NetFacade.consumeWS(OBTENER_DOMICILIO,
-                METHOD_GET, URL_SERVER_ADTVO + App.getContext().getString(R.string.obtenerDomicilio),
-                headers,null, ObtenerDomicilioResponse.class,result);
-    }*/
-
 
     /**
      * @param request

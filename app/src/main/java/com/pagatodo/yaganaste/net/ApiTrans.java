@@ -96,33 +96,6 @@ public class ApiTrans extends Api {
     }
 
     /**
-     * Método que se invoca para asociar una Tarjeta con una Cuenta.
-     *
-     * @param request {@link AsociarTarjetaCuentaRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void asociarTarjetaCuenta(AsociarTarjetaCuentaRequest request, IRequestResult result) throws OfflineException {
-        NetFacade.consumeWS(ASOCIAR_TARJETA_CUENTA,
-                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.assignCard2AccountUrl),
-                getHeadersYaGanaste(), request, AsociarTarjetaCuentaResponse.class, result);
-    }
-
-    /**
-     * Método que se invoca para Bloquear o Desbloquear una Tarjeta de manera Temporal.
-     *
-     * @param request {@link BloquearTemporalmenteTarjetaRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void bloquearTemporalmenteTarjeta(BloquearTemporalmenteTarjetaRequest request, IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
-        NetFacade.consumeWS(BLOQUEAR_TEMPORALMENTE_TARJETA,
-                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.lockTempCardUrl),
-                headers, request, BloquearTemporalmenteTarjetaResponse.class, result);
-    }
-
-    /**
      * Método que se invoca para ver si una Tarjeta ya está asociada a un Cliente, y/o si esta Existe..
      *
      * @param request {@link ConsultaAsignacionTarjetaRequest} body de la petición.
@@ -166,20 +139,6 @@ public class ApiTrans extends Api {
     }
 
     /**
-     * Método que se invoca cuando se desea generar un nuevo Cliente de BPT.
-     *
-     * @param request {@link CrearClienteRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void crearCliente(CrearClienteRequest request, IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        NetFacade.consumeWS(CREAR_CLIENTE,
-                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.createClientUrl),
-                headers, request, CrearClienteResponse.class, result);
-    }
-
-    /**
      * Método que se invoca cuando se realiza una Recarga, Pago de Servicio o Envío de Dinero.
      *
      * @param request {@link EjecutarTransaccionRequest} body de la petición.
@@ -217,66 +176,6 @@ public class ApiTrans extends Api {
         NetFacade.consumeWS(EJECUTAR_TRANSACCION,
                 METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.executeTransactionUrl),
                 headers, request, EjecutarTransaccionResponse.class, result);
-    }
-
-    /**
-     * Método que se invoca cuando se desea validar el Estatus de una Transacción, permitiendo ejecutar
-     * nuevamente la transacción en caso de requerirse (Modo Transaccional).
-     *
-     * @param request {@link ValidarTransaccionRequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void validarEstatusTransaccion(ValidarTransaccionRequest request, IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        headers.put(RequestHeaders.IdTransaccionFreja, RequestHeaders.getIdTransaccionFreja());
-        headers.put(RequestHeaders.TokenFreja, RequestHeaders.getTokenFreja());
-        headers.put(RequestHeaders.TokenCuenta, RequestHeaders.getTokenCuenta());
-
-        NetFacade.consumeWS(VALIDAR_ESTATUS_TRANSACCION,
-                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.validateStatusTransactionUrl),
-                headers, request, ValidarEstatusTransaccionResponse.class, result);
-    }
-
-    /**
-     * Método que se invoca para traspasar dinero de una cuenta en banco PagaTodo hacia el saldo del comercio
-     * en PTH (Cupo), esto para poder hacer transacciones PTH con un agente full.
-     *
-     * @param request {@link FondearCUPORequest} body de la petición.
-     * @param result  {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void fondearCupo(FondearCUPORequest request, IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        NetFacade.consumeWS(FONDEAR_CUPO,
-                METHOD_POST, URL_SERVER_TRANS + App.getContext().getString(R.string.fondearCupoUrl),
-                headers, request, FondearCupoResponse.class, result);
-    }
-
-    /**
-     * Consulta el saldo de adquirente.
-     *
-     * @param result {@link IRequestResult} listener del resultado de la petición.
-     */
-    public static void consultarSaldoADQ(IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
-        NetFacade.consumeWS(CONSULTAR_SALDO_ADQ,
-                METHOD_GET, URL_SERVER_TRANS + App.getContext().getString(R.string.getBalanceAdqUrl),
-                headers, null, ConsultarSaldoADQResponse.class, result);
-    }
-
-    public static void consultaStatusRegistroCupo(IRequestResult result) throws OfflineException {
-        Map<String, String> headers = getHeadersYaGanaste();
-        headers.put(RequestHeaders.TokenSesion, RequestHeaders.getTokensesion());
-        headers.put(RequestHeaders.IdCuenta, RequestHeaders.getIdCuenta());
-
-        //todo CUPO  poner URL correcta  y Class Response adecuada
-        String URL = "";
-        Class classResponse = Object.class;
-
-        NetFacade.consumeWS(CONSULTA_STATUS_REGISTRO_CUPO, METHOD_GET, URL, headers, null, classResponse, result);
     }
 
     /**
