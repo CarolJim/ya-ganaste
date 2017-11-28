@@ -53,7 +53,7 @@ public class StatusRegisterCupoPresenter  implements IStatusRegisterCupo {
 
             //todo CUPO ajustar flujo en caso de que el request falle
             if(dataSourceResult.getData() instanceof OfflineException){
-                mView.showError(dataSourceResult.getData().toString());
+               // mView.showError(dataSourceResult.getData().toString());
             }
         }
     }
