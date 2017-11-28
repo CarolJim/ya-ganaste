@@ -6,6 +6,7 @@ import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
 import android.support.annotation.Nullable;
+import android.util.Log;
 import android.view.MotionEvent;
 import android.view.View;
 import android.view.Window;
@@ -27,7 +28,7 @@ import butterknife.ButterKnife;
  * Created by Jordan on 27/07/2017.
  */
 
-public class LandingActivity extends SupportFragmentActivity implements Animation.AnimationListener {
+public class LandingActivity extends SupportFragmentActivity implements Animation.AnimationListener, View.OnClickListener{
 
     public static String LANDING_EXTRAS_ARRAY_DRAWABLE = "LANDING_EXTRAS_ARRAY_DRAWABLE";
     public static String LANDING_EXTRAS_BACKGROUND_IMAGE = "LANDING_EXTRAS_BACKGROUND_IMAGE";
@@ -71,6 +72,7 @@ public class LandingActivity extends SupportFragmentActivity implements Animatio
         setContentView(R.layout.activity_landing);
         ButterKnife.bind(this);
         imageView = (ImageView) findViewById(R.id.imageLanding);
+        imageView.setOnClickListener(this);
         ImageView imageViewBack = (ImageView) findViewById(R.id.imageBack);
 
         Bundle extras = getIntent().getExtras();
@@ -100,7 +102,7 @@ public class LandingActivity extends SupportFragmentActivity implements Animatio
             ll_omitir.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    handler.removeCallbacks(runnable);
+                   // handler.removeCallbacks(runnable);
                     finishActivity();
                 }
             });
@@ -112,7 +114,7 @@ public class LandingActivity extends SupportFragmentActivity implements Animatio
         animFadeOut.setAnimationListener(this);
         animFadeIn.setAnimationListener(this);
 
-        startTimerNextAnimation();
+        //startTimerNextAnimation();
 
         //        Ocultamos la navegacion inferior
 //        View decorView = getWindow().getDecorView();
@@ -247,9 +249,15 @@ public class LandingActivity extends SupportFragmentActivity implements Animatio
     public void onBackPressed() {
 
     }
+
+    @Override
+    public void onClick(View v) {
+        if (animationCounter < drawable.length) {
+            imageView.setImageResource(drawable[animationCounter]);
+            animationCounter++;
+        } else {
+            finishActivity();
+        }
+
+    }
 }
-
-/**
- *
-
- **/
