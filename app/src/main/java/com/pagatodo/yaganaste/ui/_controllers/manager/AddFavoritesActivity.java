@@ -299,6 +299,16 @@ public class AddFavoritesActivity extends LoaderActivity implements IAddFavorite
 
     }
 
+    @Override
+    public void onFailGetTitulaName(String error) {
+
+    }
+
+    @Override
+    public void toViewErrorCuentaFail(String mensaje) {
+
+    }
+
     private void showDialogMesage(final String title, final String mensaje, final int closeAct) {
         UI.createSimpleCustomDialog(title, mensaje, getSupportFragmentManager(),
                 new DialogDoubleActions() {

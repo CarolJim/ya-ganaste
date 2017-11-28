@@ -14,11 +14,15 @@ import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosDele
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosEditDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewDatosResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.FavoritosNewFotoDatosResponse;
+import com.pagatodo.yaganaste.data.model.webservice.response.trans.ConsultarTitularCuentaResponse;
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IAddFavoritesActivity;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesIteractor;
 import com.pagatodo.yaganaste.ui.addfavorites.interfases.IFavoritesPresenter;
 import com.pagatodo.yaganaste.ui.addfavorites.iteractors.FavoritesIteractor;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
+
+import static com.pagatodo.yaganaste.interfaces.enums.WebService.CONSULTAR_TITULAR_CUENTA;
 
 /**
  * Created by Francisco Manzo on 14/09/2017.
@@ -79,6 +83,22 @@ public class FavoritesPresenter implements IFavoritesPresenter {
     @Override
     public boolean alreadyExistFavorite(String reference, int idComercio) {
         return api.favoriteExists(reference, idComercio);
+    }
+
+    @Override
+    public void getTitularName(String cuenta) {
+        mView.showLoader("");
+        cuenta = cuenta.replaceAll(" ", "");
+        favoritesIteractor.getTitularName(cuenta);
+    }
+//(WebService ws, Object error)
+    @Override
+    public void onError(WebService ws, String error) {
+        mView.hideLoader();
+        if(ws == CONSULTAR_TITULAR_CUENTA){
+            mView.onFailGetTitulaName(error);
+        }
+       // mView.showErrorTitular(error.toString());
     }
 
     /**
@@ -178,7 +198,6 @@ public class FavoritesPresenter implements IFavoritesPresenter {
             mView.toViewSuccessEdit(response);
         }
 
-
         /**
          * Instancia de peticion exitosa y operacion exitosa de FavoritosNewDatosResponse
          */
@@ -187,6 +206,15 @@ public class FavoritesPresenter implements IFavoritesPresenter {
             api.deleteFavorite(idFavorito);
             idFavorito = 0;
             FavoritosDeleteDatosResponse response = (FavoritosDeleteDatosResponse) dataSourceResult.getData();
+            mView.toViewSuccessDeleteFavorite(response.getMensaje());
+        }
+
+        /**
+         * Instancia de peticion exitosa y operacion exitosa de ConsultarTitularCuentaResponse
+         */
+        if (dataSourceResult.getData() instanceof ConsultarTitularCuentaResponse) {
+            mView.hideLoader();
+            ConsultarTitularCuentaResponse response = (ConsultarTitularCuentaResponse) dataSourceResult.getData();
             mView.toViewSuccessDeleteFavorite(response.getMensaje());
         }
     }
@@ -243,6 +271,14 @@ public class FavoritesPresenter implements IFavoritesPresenter {
             mView.toViewErrorServer(response.getMensaje());
         }
 
+        /**
+         * ConsultarTitularCuentaResponse
+         */
+        if (dataSourceResult.getData() instanceof ConsultarTitularCuentaResponse) {
+            mView.hideLoader();
+            ConsultarTitularCuentaResponse response = (ConsultarTitularCuentaResponse) dataSourceResult.getData();
+            mView.toViewErrorCuentaFail(response.getMensaje());
+        }
     }
 
     @Override

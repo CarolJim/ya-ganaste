@@ -6,6 +6,7 @@ import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.AddFotoFavorit
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.DeleteFavoriteRequest;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EditFavoritesRequest;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.DataFavoritos;
+import com.pagatodo.yaganaste.interfaces.enums.WebService;
 import com.pagatodo.yaganaste.utils.camera.CameraManager;
 
 /**
@@ -36,5 +37,7 @@ public interface IFavoritesPresenter {
 
     boolean alreadyExistFavorite(String reference, int idComercio);
 
+    void getTitularName(String trim);
 
+    void onError(WebService consultarTitularCuenta, String string);
 }

@@ -24,6 +24,7 @@ import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.Spinner;
 import android.widget.TextView;
 
@@ -121,6 +122,8 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     public static final String FAV_PROCESS = "FAV_PROCESS";
     public static final String CURRENT_TAB_ID = "currentTabId";
 
+    @BindView(R.id.scrollView)
+    ScrollView scrollView;
     @BindView(R.id.add_favorites_alias)
     CustomValidationEditText editAlias;
     @BindView(R.id.add_favorites_alias_error)
@@ -675,11 +678,32 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
     @Override
     public void toViewSuccessDeleteFavorite(String mensaje) {
-
+        Log.d(TAG, "toViewSuccessDeleteFavorite " + mensaje);
     }
 
     @Override
     public void toViewSuccessEdit(FavoritosEditDatosResponse response) {
+
+    }
+
+    @Override
+    public void onFailGetTitulaName(String error) {
+        Log.d(TAG, "onFailGetTitulaName " + error);
+    }
+
+    /**
+     * Error al tener un numero que no tiene cuenta de YaGanaste
+     * @param mMensaje
+     */
+    @Override
+    public void toViewErrorCuentaFail(String mMensaje) {
+        showDialogMesage("", mMensaje, 0);
+        showValidationError(editRefer.getId(), mMensaje);
+        String myNumber = cardNumber.getText().toString();
+        cardNumber.setHint(myNumber);
+        cardNumber.setText("");
+      //  editRefer.setText("");
+        scrollView.fullScroll(View.FOCUS_DOWN);
 
     }
 
@@ -1299,7 +1323,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
     @Override
     public void onTextComplete() {
-
+        favoritesPresenter.getTitularName(cardNumber.getText().toString().trim());
     }
 
     @Override
@@ -1409,4 +1433,5 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
     public void showError(Errors error) {
 
     }
+
 }

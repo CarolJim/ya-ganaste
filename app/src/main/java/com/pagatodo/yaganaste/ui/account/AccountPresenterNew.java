@@ -422,8 +422,8 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         } else if (accountView instanceof IChangeNIPView) {
             if (ws == ASIGNAR_NEW_NIP) {
                 ((IChangeNIPView)accountView).setSuccessChangeNip(data);
-                //accountView.showError(data.toString());
-               // mensajesucces.showError(data.toString());
+                //accountView.showErrorTitular(data.toString());
+               // mensajesucces.showErrorTitular(data.toString());
 
             }
         } else if (accountView instanceof IVerificationSMSView) {
