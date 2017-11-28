@@ -23,9 +23,7 @@ import android.text.TextUtils;
 import android.text.format.DateFormat;
 import android.util.Base64;
 import android.util.DisplayMetrics;
-import android.util.Log;
 import android.util.Patterns;
-import android.view.View;
 import android.widget.TextView;
 
 import com.google.gson.Gson;
@@ -1218,7 +1216,8 @@ public class Utils {
         return value;
     }
 
-    public static String cipherRSA(String text) {
+    /* @value{encryptText} = (true)ENCRYPT_MODE / (false)DECRYPT_MODE */
+    public static String cipherRSA(String text, boolean encryptText) {
         String result;
         try {
             byte[] expBytes = Base64.decode("AQAB".getBytes("UTF-8"), Base64.DEFAULT);
@@ -1233,7 +1232,10 @@ public class Utils {
             RSAPublicKeySpec pubSpec = new RSAPublicKeySpec(modules, exponent);
 
             PublicKey pubKey = factory.generatePublic(pubSpec);
-            cipher.init(Cipher.ENCRYPT_MODE, pubKey);
+            if (encryptText)
+                cipher.init(Cipher.ENCRYPT_MODE, pubKey);
+            else
+                cipher.init(Cipher.DECRYPT_MODE, pubKey);
             byte[] encrypted = cipher.doFinal(text.getBytes());
 
             result = Base64.encodeToString(encrypted, Base64.DEFAULT);
@@ -1277,10 +1279,9 @@ public class Utils {
         ConnectivityManager connManager = (ConnectivityManager) App.getContext().getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo networkInfo = connManager.getActiveNetworkInfo();
 
-        if(networkInfo != null && networkInfo.isConnectedOrConnecting()){
+        if (networkInfo != null && networkInfo.isConnectedOrConnecting()) {
             return true;
-        }
-        else{
+        } else {
             return false;
         }
     }
@@ -1290,9 +1291,7 @@ public class Utils {
     }
 
 
-
-
-    public static String contactPicked(Intent data , Context context) {
+    public static String contactPicked(Intent data, Context context) {
         Cursor cursor;
         String phoneNo = null;
         Uri uri = data.getData();
@@ -1318,7 +1317,7 @@ public class Utils {
                     response = response + " ";
                 }
             }
-            returnString =  response;
+            returnString = response;
         }
 
         return returnString;

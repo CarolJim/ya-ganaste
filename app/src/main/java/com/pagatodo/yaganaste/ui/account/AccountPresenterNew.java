@@ -159,7 +159,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
         RequestHeaders.setTokendevice(Utils.getTokenDevice(App.getInstance().getApplicationContext()));
         accountView.showLoader("");
         prefs.saveData(SHA_256_FREJA, Utils.getSHA256(password));//Freja
-        IniciarSesionRequest requestLogin = new IniciarSesionRequest(user, Utils.cipherRSA(password), "");//TODO Validar si se envia el telefono vacío-
+        IniciarSesionRequest requestLogin = new IniciarSesionRequest(user, Utils.cipherRSA(password, true), "");//TODO Validar si se envia el telefono vacío-
         // Validamos estatus de la sesion, si se encuentra abierta, la cerramos.
         accountIteractor.checkSessionState(requestLogin);
         ///accountIteractor.login(requestLogin);
@@ -202,7 +202,7 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void validatePasswordFormat(String password) {
         accountView.showLoader(App.getInstance().getString(R.string.validando_password));
-        accountIteractor.validatePassword(Utils.cipherRSA(password));
+        accountIteractor.validatePassword(Utils.cipherRSA(password, true));
     }
 
     @Override
@@ -214,15 +214,15 @@ public class AccountPresenterNew extends AprovPresenter implements IAccountPrese
     @Override
     public void assignNIP(String nip) {
         accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nipnuevo));
-        AsignarNIPRequest request = new AsignarNIPRequest(Utils.cipherRSA(nip));
+        AsignarNIPRequest request = new AsignarNIPRequest(Utils.cipherRSA(nip,true));
         accountIteractor.assignmentNIP(request, ASIGNAR_NIP);
     }
 
     public void assignNIP(String nip, String nipNewConfirm) {
         accountView.showLoader(context.getString(R.string.tienes_tarjeta_asignando_nipnuevo));
         AsignarNIPRequest request = new AsignarNIPRequest(
-                Utils.cipherRSA(nip),
-                Utils.cipherRSA(nipNewConfirm)
+                Utils.cipherRSA(nip, true),
+                Utils.cipherRSA(nipNewConfirm, true)
         );
         accountIteractor.assignmentNIP(request, ASIGNAR_NEW_NIP);
     }

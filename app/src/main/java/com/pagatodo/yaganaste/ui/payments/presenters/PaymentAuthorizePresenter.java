@@ -31,7 +31,7 @@ public class PaymentAuthorizePresenter extends OtpPresenterImp implements IPayme
     @Override
     public void validatePasswordFormat(String password) {
         manager.showLoader("");
-        interactor.validatePasswordFormat(Utils.cipherRSA(password));
+        interactor.validatePasswordFormat(Utils.cipherRSA(password, true));
     }
 
     @Override

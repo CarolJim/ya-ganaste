@@ -258,7 +258,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         /*Creamos Request para realizar registro*/
         CrearUsuarioClienteRequest request = new CrearUsuarioClienteRequest(
                 registerUser.getEmail(),
-                Utils.cipherRSA(registerUser.getContrasenia()),
+                Utils.cipherRSA(registerUser.getContrasenia(),true),
                 registerUser.getNombre(),
                 registerUser.getApellidoPaterno(),
                 registerUser.getApellidoMaterno(),
