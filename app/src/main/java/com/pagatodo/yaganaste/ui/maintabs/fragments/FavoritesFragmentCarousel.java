@@ -62,7 +62,7 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
     PaymentsTabPresenter paymentsTabPresenter;
     PaymentsTabFragment fragment;
     MovementsTab current_tab;
-    boolean isFromClick = false;
+    boolean isFromClick = false, longClicked;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -97,7 +97,6 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
         initViews();
     }
 
-
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootView);
@@ -109,13 +108,6 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
                 fragment.hideFavorites();
             }
         });
-    }
-
-    boolean longClicked;
-
-    @Override
-    public void onResume() {
-        super.onResume();
         carouselFav.setOnDragCarouselListener(new CarouselAdapter.OnDragCarouselListener() {
             @Override
             public void onStarDrag(CarouselItem item) {
@@ -160,27 +152,11 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
                 return false;
             }
         });
+    }
 
-//        carouselFav.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                Toast.makeText(getContext(), "setOnTouchListener", Toast.LENGTH_SHORT).show();
-//                if(longClicked){
-//                    //Do whatever you want here!!
-//                    longClicked = false;
-//                }
-//                return false;
-//            }
-//        });
-
-//        carouselFav.setOnTouchListener(new View.OnTouchListener() {
-//            @Override
-//            public boolean onTouch(View v, MotionEvent event) {
-//                Toast.makeText(getContext(), "setOnTouchListener", Toast.LENGTH_SHORT).show();
-//
-//                return false;
-//            }
-//        });
+    @Override
+    public void onResume() {
+        super.onResume();
         layoutCarouselFav.setClickable(true);
     }
 

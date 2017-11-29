@@ -88,8 +88,7 @@ dependencies {
     compile('cn.trinea.android.view.autoscrollviewpager:android-auto-scroll-view-pager:1.1.2') {
         exclude module: 'support-v4'
     }
-
-    compile('com.crashlytics.sdk.android:crashlytics:2.7.1@aar') {
+    compile('com.crashlytics.sdk.android:crashlytics:2.8.0@aar') {
         transitive = true;
     }
 

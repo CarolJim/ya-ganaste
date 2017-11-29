@@ -24,6 +24,7 @@ import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.AccountAdqPresenter;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ColoniasArrayAdapter;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
+import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.ErrorMessage;
 
@@ -626,6 +627,7 @@ public class DomicilioNegocioFragment extends GenericFragment implements Validat
         public void afterTextChanged(String s) {
             if (editBussinesZipCode.isValidText()) {
                 adqPresenter.getNeighborhoods(s.trim());//Buscamos por CP
+                UI.hideKeyBoard(getActivity());
             } else {
                 if (listaColonias != null) {
                     listaColonias.clear();
