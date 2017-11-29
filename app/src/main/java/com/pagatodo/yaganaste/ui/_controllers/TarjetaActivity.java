@@ -15,9 +15,11 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
@@ -77,7 +79,8 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     private TarjetaUserPresenter mPreferPresenter;
     private AccountPresenterNew presenterAccount;
     private String mTDC;
-
+    private String cadena;
+    private static Preferencias preferencias = App.getInstance().getPrefs();
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -92,6 +95,9 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         estadotarjeta();
         lytChangeNIP.setOnClickListener(this);
         lytReportCard.setOnClickListener(this);
+        cadena=preferencias.loadData("HUELLACADENA");
+        Toast.makeText(this, "Cadena: "+cadena, Toast.LENGTH_SHORT).show();
+
     }
 
     @Override

@@ -15,7 +15,9 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -68,6 +70,8 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     private String nipToConfirm = "";
     private AccountPresenterNew accountPresenter;
     ImageView imageView;
+    private String cadenaHuella=null;
+    private static Preferencias preferencias = App.getInstance().getPrefs();
     public ConfirmarNIPFragment() {
     }
 
@@ -86,6 +90,16 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
         imageView = (ImageView)getActivity().findViewById(R.id.btn_back);
+
+        cadenaHuella= App.getInstance().getCadenaHuella();
+        /*
+        cadenaHuella= new StringBuilder()
+                .append(cadenaHuella)
+                .append("-")
+                .append(preferencias.loadData("SHA_256_FREJA"))
+                .toString();
+        App.getInstance().setCadenaHuella(cadenaHuella);
+*/
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
 
@@ -99,6 +113,8 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_asignar_nip, container, false);
+
+
         initViews();
         return rootview;
     }

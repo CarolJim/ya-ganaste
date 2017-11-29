@@ -62,6 +62,8 @@ public class App extends Application {
     //variable de status de cuenta
     private String statusId;
 
+    private String datoHuellaC;
+
     private ApplicationLifecycleHandler lifecycleHandler;
 
     private Map<String, Activity> quoeeuActivites;
@@ -110,6 +112,7 @@ public class App extends Application {
         }
         //
         statusId = "0";
+        datoHuellaC="";
     }
 
     //Get & Set Status
@@ -122,6 +125,18 @@ public class App extends Application {
     public void setStatusId(String statusId) {
         this.statusId = statusId;
     }
+
+    //Get & Set huella
+
+
+    public String getCadenaHuella() {
+        return datoHuellaC;
+    }
+
+    public void setCadenaHuella(String datoHuellaCd) {
+        this.datoHuellaC = datoHuellaCd;
+    }
+
 
     public void addToQuee(Activity activity) {
         quoeeuActivites.put(activity.getClass().getSimpleName(), activity);

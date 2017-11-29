@@ -6,6 +6,7 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -443,7 +444,9 @@ public class DatosUsuarioFragment extends GenericFragment implements View.OnClic
         RegisterUser registerUser = RegisterUser.getInstance();
         registerUser.setEmail(email);
         registerUser.setContrasenia(password);
-        nextScreen(EVENT_PERSONAL_DATA, null);//Mostramos la siguiente pantalla de registro.
+        App.getInstance().setCadenaHuella(password);
+
+                nextScreen(EVENT_PERSONAL_DATA, null);//Mostramos la siguiente pantalla de registro.
     }
 
     @Override

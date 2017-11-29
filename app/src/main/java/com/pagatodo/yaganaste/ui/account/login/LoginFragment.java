@@ -31,6 +31,7 @@ import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.StringConstants;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
+import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
 import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
@@ -47,9 +48,12 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_RECOV
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_SECURE_CODE;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.HUELLACADENA;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
+import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.Recursos.URL_PHOTO_USER;
 import static com.pagatodo.yaganaste.utils.StringConstants.ADQUIRENTE_APPROVED;
+import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_SESSION;
 
 
@@ -362,6 +366,27 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void loginSucced() {
         prefs.saveDataBool(HUELLA_FAIL, false);
+        App.getInstance().setCadenaHuella(password);
+
+        String cadena= new StringBuilder().append( App.getInstance().getCadenaHuella())
+                .append("-")
+                .append(preferencias.loadData("SHA_256_FREJA"))
+                .append("-")
+                .append(App.getInstance().getPrefs().loadData(CARD_NUMBER))
+                .toString();
+
+        if (cadena!=null){
+
+            cadena=Utils.cipherRSA(cadena,true);
+        }
+
+        prefs.saveData(HUELLACADENA,cadena);
+
+
+
+
+
+
         App.getInstance().getStatusId();
         SingletonUser.getInstance().setCardStatusId(null);
         Intent intentLogin = new Intent(getActivity(), TabActivity.class);

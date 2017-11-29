@@ -23,7 +23,9 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.RegisterUser;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
@@ -77,7 +79,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
     StyleTextView dateTDC;
     @BindView(R.id.txt_tarjeta_user_name)
     StyleTextView userName;
-
+    private static Preferencias preferencias = App.getInstance().getPrefs();
 
     String a;
     private View rootview;
@@ -90,7 +92,7 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
             Log.i(getTag(), "LongPress");
         }
     };
-
+    private String cadenaHuella=null;
     public TienesTarjetaFragment() {
     }
 
@@ -108,6 +110,21 @@ public class TienesTarjetaFragment extends GenericFragment implements View.OnCli
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
 
+        cadenaHuella=App.getInstance().getCadenaHuella();
+
+        cadenaHuella= new StringBuilder()
+                .append(cadenaHuella)
+                .append("-")
+                .append(preferencias.loadData("SHA_256_FREJA"))
+                .toString();
+        App.getInstance().setCadenaHuella(cadenaHuella);
+
+        String f= cadenaHuella;
+
+if (f!=null){
+
+
+}
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
 
