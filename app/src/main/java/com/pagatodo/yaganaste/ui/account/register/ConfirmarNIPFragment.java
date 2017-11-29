@@ -90,6 +90,12 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        imageView.setVisibility(VISIBLE);
+    }
+
+    @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_asignar_nip, container, false);
