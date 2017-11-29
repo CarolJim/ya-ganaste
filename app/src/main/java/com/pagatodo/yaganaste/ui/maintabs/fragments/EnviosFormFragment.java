@@ -32,6 +32,7 @@ import com.pagatodo.yaganaste.ui.maintabs.adapters.SpinnerArrayAdapter;
 import com.pagatodo.yaganaste.ui.maintabs.managers.EnviosManager;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.EnviosPresenter;
 import com.pagatodo.yaganaste.ui.maintabs.presenters.interfaces.IEnviosPresenter;
+import com.pagatodo.yaganaste.utils.DateUtil;
 import com.pagatodo.yaganaste.utils.NumberCardTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberClabeTextWatcher;
 import com.pagatodo.yaganaste.utils.NumberTextWatcher;
@@ -172,6 +173,10 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
                 return false;
             }
         });
+
+        // Hacemos SET de informacion para Concepto y Referencia con valores iniciales
+        concept.setText(App.getContext().getResources().getString(R.string.trans_spei_envio_txt));
+        numberReference.setText(DateUtil.getDayMonthYear());
 
         SpinnerArrayAdapter dataAdapter = new SpinnerArrayAdapter(getContext(), TAB3, tipoPago);
         tipoEnvio.setAdapter(dataAdapter);
