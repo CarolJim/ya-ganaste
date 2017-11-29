@@ -685,10 +685,12 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         if (isStoped && mOnDragListener != null && (y > 0 && y < (lastMeasureHeigth + (lastMeasureHeigth / 4)) && x > offsetLeft &&
                 x < offsetRight && !isDraggin) && (e2.getAction() == MotionEvent.ACTION_MOVE) && isVerticalMovement && angleMovement > 30 &&
                 heightSelectedArea && widthSelectedArea && !isScrolling) {
+
         /*if (mOnDragListener != null && (distanceX < 35 && distanceX > -35) &&
                 (y > 0 && y < ((lastMeasureHeigth)) && x > ((getWidth() / 2) - lastMeasureWidth / 2) &&
                         x < ((getWidth() / 2) + lastMeasureWidth / 2) && !isDraggin) && !isScrolling) {*/
             if (!isDraggin) {
+
                 CarouselItem lastCarouselItem = (CarouselItem) getSelectedView();
                 if (lastCarouselItem.getGestureType() != CarouselItem.DRAG)
                     return true;
@@ -749,7 +751,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         }
 
         isStoped = false;
-
         return false;
     }
 
@@ -788,8 +789,6 @@ public class Carousel extends CarouselSpinner implements GestureDetector.OnGestu
         child.setItemX(x);
         child.setItemZ(z);
         child.setItemY(y);
-
-
     }
 
     /**

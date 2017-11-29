@@ -240,7 +240,7 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
             }
         }
 
-        int toAdd = 5 - carouselItems.size();
+        int toAdd = 8 - carouselItems.size();
         for (int n = 0; n < toAdd; n++) {
             carouselItems.add(createItemToAddFav());
         }
