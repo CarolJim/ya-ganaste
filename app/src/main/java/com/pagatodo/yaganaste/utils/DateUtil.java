@@ -26,6 +26,7 @@ public class DateUtil {
     public static String simpleDateFormatCustom = "dd MMM yyyy";
     public static String completeDateFormat = "dd MMM yyyy hh:mm:ss";
     public static String simpleDateFormatFirstYear = "yyyy-MM-dd";
+    public static String simpleDateDayMonthYear = "ddMMyy";
 
 
     public static String renameDateMonth(String fullDateName) {
@@ -39,10 +40,22 @@ public class DateUtil {
         return fullDateName.replace(".", "");
     }
 
-
     public static String getBirthDateCustomString(Calendar date) {
         SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateFormatCustom, new Locale("es", "mx"));
         return renameDateMonth(dateFormat.format(date.getTime()));
+
+    }
+
+    /**
+     * Entrega un formato de tipo ddMMyy, por ejemplo 29 de Noviembre de 2017 = 291117
+     * @return
+     */
+    public static String getDayMonthYear() {
+        SimpleDateFormat sdf = new SimpleDateFormat(simpleDateDayMonthYear);
+        String currentDateandTime = sdf.format(new Date());
+
+       // SimpleDateFormat dateFormat = new SimpleDateFormat(simpleDateDayMonthYear, new Locale("es", "mx"));
+        return currentDateandTime;
 
     }
 
