@@ -273,13 +273,39 @@ public class QuickBalanceFragment extends GenericFragment implements IBalanceVie
             //UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
             //String mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
             String mTDC = preferencias.loadData(CARD_NUMBER);
-            accountPresenter.geEstatusCuenta(mTDC);
+            if (!isCancel(mTDC)) {
+                accountPresenter.geEstatusCuenta(mTDC);
+                App.getInstance().setCancel(false);
+            }
+            else {
+                Status = "2";
+                App.getInstance().setCancel(true);
+                setCancel();
+            }
         } else {
             Status = f;
             App.getInstance().setStatusId(f);
             accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter, f));
         }
+
+
     }
+
+
+    private boolean isCancel(String card){
+        return card.isEmpty();
+    }
+
+    private void setCancel(){
+        //Tarjeta en gris
+        accountPresenter.loadCardCover(R.id.llsaldo, CardCover.newInstance(accountPresenter, Status));
+
+        //Ocultar Boton Desbloquear
+
+        //Quitar String de la tarjeta
+
+    }
+
 
     @Override
     public void updateStatus() {

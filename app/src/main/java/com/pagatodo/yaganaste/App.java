@@ -61,6 +61,7 @@ public class App extends Application {
     private Preferencias prefs;
     //variable de status de cuenta
     private String statusId;
+    private boolean cancel;
 
     private ApplicationLifecycleHandler lifecycleHandler;
 
@@ -242,5 +243,13 @@ public class App extends Application {
             }
         };
         countDownTimer.start();
+    }
+
+    public boolean isCancel() {
+        return cancel;
+    }
+
+    public void setCancel(boolean cancel) {
+        this.cancel = cancel;
     }
 }

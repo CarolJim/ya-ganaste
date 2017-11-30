@@ -3,7 +3,6 @@ package com.pagatodo.yaganaste.utils.customviews.yaganasteviews;
 import android.content.Context;
 import android.support.annotation.Nullable;
 import android.util.AttributeSet;
-import android.util.Log;
 import android.util.TypedValue;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -19,6 +18,7 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
+import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
@@ -60,14 +60,14 @@ public class CardEmisorSelected extends TabViewElement {
 
         String nombreprimerUser;
         String apellidoMostrarUser;
-        if (userData.getPrimerApellido().isEmpty()){
-        apellidoMostrarUser=userData.getSegundoApellido();
-        }else {
-            apellidoMostrarUser=userData.getPrimerApellido();
+        if (userData.getPrimerApellido().isEmpty()) {
+            apellidoMostrarUser = userData.getSegundoApellido();
+        } else {
+            apellidoMostrarUser = userData.getPrimerApellido();
         }
-        nombreprimerUser= StringUtils.getFirstName(userData.getNombre());
-        if (nombreprimerUser.isEmpty()){
-            nombreprimerUser=userData.getNombre();
+        nombreprimerUser = StringUtils.getFirstName(userData.getNombre());
+        if (nombreprimerUser.isEmpty()) {
+            nombreprimerUser = userData.getNombre();
         }
 
         txtNombre.setText(nombreprimerUser.concat(SPACE.concat(apellidoMostrarUser)));
@@ -94,7 +94,9 @@ public class CardEmisorSelected extends TabViewElement {
 
         String statusId = SingletonUser.getInstance().getCardStatusId();
 
-        if (statusId != null && !statusId.isEmpty()) {
+        if (App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+            checkState("0");
+        } else if (statusId != null && !statusId.isEmpty()) {
             // && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)
             checkState(statusId);
 
@@ -103,8 +105,11 @@ public class CardEmisorSelected extends TabViewElement {
         }
     }
 
-    private void checkState(String state){
-        switch (state){
+    private void checkState(String state) {
+        switch (state) {
+            case "0":
+                cardYaganaste.setImageResource(R.mipmap.main_card_zoom_gray);
+                break;
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
                 cardYaganaste.setImageResource(R.mipmap.main_card_zoom_blue);
                 break;

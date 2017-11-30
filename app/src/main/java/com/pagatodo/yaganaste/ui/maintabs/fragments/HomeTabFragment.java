@@ -172,8 +172,6 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
 
     public void setCurrentItem(int item) {
         pagerAdquirente.setCurrentItem(item);
-
-
     }
 
     public String nombre() {
@@ -213,67 +211,12 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
         startActivity(intent);
     }
 
-
-    private Boolean estadoTarejta() {
-        String statusId = SingletonUser.getInstance().getCardStatusId();
-        Boolean estado;
-        if (statusId != null && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)) {
-            //mycard_switch.setChecked(false);
-            //imgStatus.setImageResource(R.drawable.ic_candado_open);
-            estado = true;
-        } else {
-            //mycard_switch.setChecked(true);
-            //imgStatus.setImageResource(R.drawable.ic_candado_closed);
-            estado = false;
-        }
-        return estado;
-    }
-
     private String cuenta() {
         UsuarioClienteResponse usuarioClienteResponse = SingletonUser.getInstance().getDataUser().getUsuario();
         mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
         cuentaUsuario = (getResources().getString(R.string.tarjeta) + ": " + StringUtils.ocultarCardNumberFormat(mTDC));
         //mCuentaTV.setText(getResources().getString(R.string.tarjeta) + ": " + StringUtils.ocultarCardNumberFormat(mTDC));
         return cuentaUsuario;
-    }
-
-    private void checkDataCard() {
-        /**
-         * Si tenemos Internet consumos el servicio para actualizar la informacion de la ceunta,
-         * consulamos el estado de bloquero y la informacion de ultimo acceso
-         * else mostramos la unformacion que traemos desde sl Singleton
-         */
-        boolean isOnline = Utils.isDeviceOnline();
-        if (isOnline) {
-            // Verificamos el estado de bloqueo de la Card
-            String f = SingletonUser.getInstance().getCardStatusId();
-            if (f == null || f.isEmpty() || f.equals("0")) {
-                mPreferPresenter.toPresenterEstatusCuenta(mTDC);
-            }
-
-            // Obtenemos el estado de la Card actual
-            // Creamos el objeto ActualizarAvatarRequest
-            // TODO Frank se comento este metodo debido a cambios, borrar en versiones posteriores
-            /*ActualizarDatosCuentaRequest datosCuentaRequest = new ActualizarDatosCuentaRequest();
-            mPreferPresenter.sendPresenterUpdateDatosCuenta(datosCuentaRequest);*/
-        } else {
-            showDialogMesage(getResources().getString(R.string.no_internet_access));
-        }
-    }
-
-    private void showDialogMesage(final String mensaje) {
-        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
-                new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                    }
-
-                    @Override
-                    public void actionCancel(Object... params) {
-
-                    }
-                },
-                true, false);
     }
 
     @Override
@@ -298,9 +241,5 @@ public class HomeTabFragment extends SupportFragment implements TabsView, TabLay
             Intent intent = new Intent(getContext(), DongleBatteryHome.class);
             startActivity(intent);
         }
-
-
     }
-
-
 }
