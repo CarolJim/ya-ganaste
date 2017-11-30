@@ -7,6 +7,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -89,6 +90,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @BindView(R.id.quickPayment)
     LinearLayout quickPayment;
 
+
+
     private View rootview;
     private AccountPresenterNew accountPresenter;
 
@@ -136,6 +139,8 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+
+
         btnLogin.setOnClickListener(this);
         blockCard.setOnClickListener(this);
         accessCode.setOnClickListener(this);
@@ -160,7 +165,12 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
         // Mostramos los elementos de facil acceso, solo si tenemos session
         Preferencias prefs = App.getInstance().getPrefs();
         if (prefs.containsData(HAS_SESSION) && !RequestHeaders.getTokenauth().isEmpty()) {
-            blockCard.setVisibility(View.VISIBLE);
+            if (App.getInstance().isCancel()){
+                blockCard.setVisibility(GONE);
+            }
+            else {
+                blockCard.setVisibility(VISIBLE);
+            }
             accessCode.setVisibility(View.VISIBLE);
             boolean isAdquirente = prefs.containsData(ADQUIRENTE_APPROVED);
             if (isAdquirente) {

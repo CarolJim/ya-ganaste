@@ -140,7 +140,8 @@ public class StringUtils {
             String lastFourNumbers = cardNumber.substring(cardNumber.length() - 4);
             return comodines + separador + comodines + separador + comodines + separador + lastFourNumbers;
         } else {
-            return comodines + separador + comodines + separador + comodines + separador + "1234";
+            //return comodines + separador + comodines + separador + comodines + separador + "1234";
+            return "";
         }
     }
 
