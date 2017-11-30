@@ -21,6 +21,7 @@ public class RegisterUser {
     private String fechaNacimiento = "";
     private String fechaNacimientoToShow = "";
     private String nacionalidad = "";
+    private String idPaisNacimiento = "";
     private String lugarNacimiento = "";
     private String idEstadoNacimineto = "";
     //Datos Domicilio Actual
@@ -45,15 +46,13 @@ public class RegisterUser {
     public void setPaisNacimiento(Countries paisNacimiento) {
         this.paisNacimiento = paisNacimiento;
         this.nacionalidad = paisNacimiento.getIdPais();
+        this.idPaisNacimiento = paisNacimiento.getIdPais();
     }
 
     public static synchronized RegisterUser getInstance() {
-
         if (registerUser == null)
             registerUser = new RegisterUser();
-
         return registerUser;
-
     }
 
     public static void resetRegisterUser() {
@@ -212,11 +211,4 @@ public class RegisterUser {
         this.idColonia = idColonia;
     }
 
-    public String getNacionalidad() {
-        return nacionalidad;
-    }
-
-    public void setNacionalidad(String nacionalidad) {
-        this.nacionalidad = nacionalidad;
-    }
 }
