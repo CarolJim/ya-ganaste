@@ -94,7 +94,9 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
             lytChangeNIP.setOnClickListener(this);
             lytReportCard.setOnClickListener(this);
         } else {
+            lytPrincipal.setVisibility(View.GONE);
             loadFragment(MyCardReportaTarjetaFragment.newInstance(), Direction.FORDWARD, false);
+            container.setVisibility(View.VISIBLE);
         }
     }
 

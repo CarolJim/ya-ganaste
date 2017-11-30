@@ -439,9 +439,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             } else if (currentFragment instanceof MyHelpContactanos) {
                 onEvent(PREFER_USER_HELP_BACK, null);
             } else if (currentFragment instanceof MyCardReportaTarjetaFragment) {
-                onEvent(PREFER_USER_REPORTA_TARJETA_BACK, null);
-            } else if (currentFragment instanceof MyHelpContactanosCorreo) {
-                onEvent(PREFER_USER_HELP_CORREO_REPORTA_TARJETA_BACK, null);
+                onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof MyHelpAcercaApp) {
                 onEvent(PREFER_USER_HELP_BACK, null);
             } else if (currentFragment instanceof MyHelpContactanosCorreo) {
