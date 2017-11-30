@@ -265,7 +265,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 hideMainTab();
             }
         } else if (event.equals(EVENT_HIDE_MANIN_TAB)) {
-
             hideMainTab();
         } else if (event.equals(EVENT_SHOW_MAIN_TAB)) {
             showMainTab();
@@ -325,7 +324,6 @@ public class TabActivity extends ToolBarPositionActivity implements TabsView, On
                 || requestCode == BACK_FROM_PAYMENTS
                 || requestCode == Constants.NEW_FAVORITE
                 || requestCode == Constants.EDIT_FAVORITE ) {
-
             Fragment childFragment = getFragment(0);
             if (childFragment != null && requestCode != BACK_FROM_PAYMENTS) {
                 childFragment.onActivityResult(requestCode, resultCode, data);

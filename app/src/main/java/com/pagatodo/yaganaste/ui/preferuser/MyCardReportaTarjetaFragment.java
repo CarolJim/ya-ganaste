@@ -11,22 +11,29 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.ValidatePermissions;
+import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
 import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
+import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MyCardReportaTarjetaFragment extends GenericFragment implements View.OnClickListener {
+
+
+    @BindView(R.id.textView2)
+    StyleTextView txtTitle;
 
     @BindView(R.id.ll_contactanos_llamasr)
     LinearLayout ll_llamar1;
@@ -75,6 +82,8 @@ public class MyCardReportaTarjetaFragment extends GenericFragment implements Vie
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
+        if (App.getInstance().getPrefs().loadData(CARD_NUMBER).equals(""))
+            txtTitle.setText(getString(R.string.tarjeta_cancelada));
         ll_llamar1.setOnClickListener(this);
         ll_correo.setOnClickListener(this);
     }

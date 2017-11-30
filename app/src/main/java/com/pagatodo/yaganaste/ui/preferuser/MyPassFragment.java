@@ -2,6 +2,7 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -47,6 +48,8 @@ import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PUSH;
 public class MyPassFragment extends GenericFragment implements View.OnFocusChangeListener, View.OnClickListener,
         ValidationForms, IMyPassValidation, IMyPassView, IChangeNipView, IResetNIPView {
     //  ValidationForms, IUserDataRegisterView,
+
+    public static final String TAG = MyPassFragment.class.getSimpleName();
 
     @BindView(R.id.fragment_myemail_btn)
     StyleButton sendButton;
@@ -424,8 +427,24 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
             changeNipPresenterImp.doChangeNip(Utils.getSHA256(editOldPassword.getText()),
                     Utils.getSHA256(editPassword.getText()));
         }
+
     }
 
+    public void cleanViewSucess(){
+        // Reiniciamos los campos y ocultamos los mensajes de error
+        editOldPassword.setText("");
+        editPassword.setText("");
+        editPasswordConfirm.setText("");
+
+        hideValidationError(editOldPassword.getId());
+        editOldPassword.imageViewIsGone(true);
+
+        hideValidationError(editPassword.getId());
+        editPassword.imageViewIsGone(true);
+
+        hideValidationError(editPasswordConfirm.getId());
+        editPasswordConfirm.imageViewIsGone(true);
+    }
     /**
      * Exito en la peticion de servidor y Fail en el cambio de Pass.
      * Tambien se usa para mostrar un error de conexion al servidor, desde el Presenter para no tener
@@ -457,6 +476,7 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
                         if (mensaje.equals(Recursos.MESSAGE_OPEN_SESSION)) {
                             onEventListener.onEvent(EVENT_SESSION_EXPIRED, 1);
                         } else if (mensaje.equals(Recursos.MESSAGE_CHANGE_PASS)) {
+                            cleanViewSucess();
                             onEventListener.onEvent(PREFER_USER_LISTA, 1);
                         }
                     }

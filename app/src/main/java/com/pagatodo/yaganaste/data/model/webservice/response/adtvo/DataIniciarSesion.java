@@ -19,7 +19,7 @@ public class DataIniciarSesion implements Serializable {
     private int IdEstatus;
     private int EstatusDocumentacion; // TODO validar, ya que no se encuentra en la documentacion
     private int EstatusAgente = CRM_DOCTO_APROBADO;//CRM_DOCTO_APROBADO; // TODO validar, ya que no se encuentra en la documentacion
-    private boolean RequiereActivacionSMS;
+    private boolean RequiereActivacionSMS=false;
     private String Semilla = "";
     private UsuarioClienteResponse Usuario;
 
