@@ -99,7 +99,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     StyleButton btnGenerateCode;
     @BindView(R.id.purchase_button_not_invalidated_description)
     TextView invalidDesc;
-
+    FingerprintAuthenticationDialogFragment fragment;
     FingerprintHandler helper;
     View rootView;
     static AccessCodeGenerateFragment fragmentCode;
@@ -319,7 +319,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
                 // Show the fingerprint dialog. The user has the option to use the fingerprint with
                 // crypto, or you can fall back to using a server-side verified password.
-                FingerprintAuthenticationDialogFragment fragment
+                 fragment
                         = new FingerprintAuthenticationDialogFragment();
                 fragment.setCryptoObject(new FingerprintManager.CryptoObject(cipherNotInvalidated));
                 boolean useFingerprintPreference = mSharedPreferences
@@ -359,12 +359,12 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
         if (!keyguardManager.isKeyguardSecure()) {
             // Show a message that the user hasn't set up a fingerprint or lock screen.
-            Toast.makeText(getContext(),
-                    "Secure lock screen hasn't set up.\n"
-                            + "Go to 'Settings -> Security -> Fingerprint' to set up a fingerprint",
-                    Toast.LENGTH_LONG).show();
-            purchaseButton.setEnabled(false);
-            purchaseButtonNotInvalidated.setEnabled(false);
+           // Toast.makeText(getContext(),
+                //    "Secure lock screen hasn't set up.\n"
+              //              + "Go to 'Settings -> Security -> Fingerprint' to set up a fingerprint",
+            //        Toast.LENGTH_LONG).show();
+          //  purchaseButton.setEnabled(false);
+        //    purchaseButtonNotInvalidated.setEnabled(false);
             return;
         }
 
@@ -375,9 +375,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
         if (!fingerprintManager.hasEnrolledFingerprints()) {
             purchaseButton.setEnabled(false);
             // This happens when no fingerprints are registered.
-            Toast.makeText(getContext(),
-                    "Go to 'Settings -> Security -> Fingerprint' and register at least one fingerprint",
-                    Toast.LENGTH_LONG).show();
+            //Toast.makeText(getContext(), "Go to 'Settings -> Security -> Fingerprint' and register at least one fingerprint", Toast.LENGTH_LONG).show();
             return;
         }
         createKey(DEFAULT_KEY_NAME, true);
@@ -420,7 +418,8 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             return false;
         } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException
                 | NoSuchAlgorithmException | InvalidKeyException e) {
-            throw new RuntimeException("Failed to init Cipher", e);
+            //throw new RuntimeException("Failed to init Cipher", e);
+            return false;
         }
     }
 

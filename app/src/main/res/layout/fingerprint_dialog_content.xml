@@ -30,7 +30,7 @@
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_alignParentTop="true"
-        android:layout_marginTop="-20dp"
+        android:layout_marginTop="7dp"
         android:text="@string/fingerprint_description"
         android:textAppearance="@android:style/TextAppearance.Material.Subhead"
         android:textColor="?android:attr/textColorSecondary"/>
