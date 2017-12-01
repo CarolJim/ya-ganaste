@@ -18,7 +18,18 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:orientation="vertical">
-
+    <TextView
+        android:id="@+id/fingerprint_titulo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentTop="true"
+        android:layout_marginTop="0dp"
+        android:layout_marginLeft="20dp"
+        android:textStyle="bold"
+        android:text="@string/fingerprint_description"
+        android:textAppearance="@android:style/TextAppearance.Material.Subhead"
+        android:textColor="@color/black"/>
     <FrameLayout
         android:layout_width="wrap_content"
         android:layout_height="wrap_content">

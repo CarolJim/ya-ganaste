@@ -53,6 +53,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     private CheckBox mUseFingerprintFutureCheckBox;
     private TextView mPasswordDescriptionTextView;
     private TextView mNewFingerprintEnrolledTextView;
+    private TextView fingerprint_titulo;
 
 
     private Stage mStage = Stage.FINGERPRINT;
@@ -89,7 +90,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                 dismiss();
             }
         });
-
+        fingerprint_titulo= (TextView) v.findViewById(R.id.fingerprint_titulo);
         mSecondDialogButton = (Button) v.findViewById(R.id.second_dialog_button);
         mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -246,7 +247,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     private void updateStage() {
         switch (mStage) {
             case FINGERPRINT:
-
+                fingerprint_titulo.setText(R.string.generar_codigo_seguridad);
                 mCancelButton.setText(R.string.cancel);
                 mSecondDialogButton.setText(R.string.use_password);
 
