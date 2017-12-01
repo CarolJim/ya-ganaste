@@ -97,6 +97,8 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     ErrorMessage errorPasswordMessage;
     @BindView(R.id.btnGenerateCode)
     StyleButton btnGenerateCode;
+    @BindView(R.id.purchase_button_not_invalidated_description)
+    TextView invalidDesc;
 
     FingerprintHandler helper;
     View rootView;
@@ -350,8 +352,9 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             // Hide the purchase button which uses a non-invalidated key
             // if the app doesn't work on Android N preview
             purchaseButtonNotInvalidated.setVisibility(View.GONE);
-            getActivity().findViewById(R.id.purchase_button_not_invalidated_description)
-                    .setVisibility(View.GONE);
+            invalidDesc.setVisibility(View.GONE);
+           /* getActivity().findViewById(R.id.purchase_button_not_invalidated_description)
+                    .setVisibility(View.GONE);*/
         }
 
         if (!keyguardManager.isKeyguardSecure()) {
