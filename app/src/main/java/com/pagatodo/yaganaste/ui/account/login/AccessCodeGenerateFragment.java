@@ -100,7 +100,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
     FingerprintHandler helper;
     View rootView;
-
+    static AccessCodeGenerateFragment fragmentCode;
 
 
 
@@ -132,13 +132,8 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     Button purchaseButtonNotInvalidated;
     ///////////
 
-
-
-
-
-
     @Override
-    public void generatecode() {
+    public  void  generatecode() {
         loadOtpHuella();
     }
 
@@ -170,10 +165,10 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     }
 
     public static AccessCodeGenerateFragment newInstance() {
-        AccessCodeGenerateFragment fragment = new AccessCodeGenerateFragment();
+        fragmentCode = new AccessCodeGenerateFragment();
         Bundle args = new Bundle();
-        fragment.setArguments(args);
-        return fragment;
+        fragmentCode.setArguments(args);
+        return fragmentCode;
     }
 
     @Override
@@ -333,6 +328,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                     fragment.setStage(
                             FingerprintAuthenticationDialogFragment.Stage.PASSWORD);
                 }
+                fragment.setFragmentInstance(fragmentCode);
                 fragment.show(getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
             } else {
                 // This happens if the lock screen has been disabled or or a fingerprint got
@@ -344,6 +340,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
                 fragment.setCryptoObject(new FingerprintManager.CryptoObject(cipherNotInvalidated));
                 fragment.setStage(
                         FingerprintAuthenticationDialogFragment.Stage.NEW_FINGERPRINT_ENROLLED);
+                fragment.setFragmentInstance(fragmentCode);
                 fragment.show(  getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
             }
 
@@ -443,10 +440,10 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
     // Show confirmation, if fingerprint was used show crypto information.
     private void showConfirmation(byte[] encrypted) {
-        getActivity().findViewById(R.id.confirmation_message).setVisibility(View.VISIBLE);
+       // getActivity().findViewById(R.id.confirmation_message).setVisibility(View.VISIBLE);
         if (encrypted != null) {
             TextView v = (TextView) getActivity().findViewById(R.id.encrypted_message);
-            v.setVisibility(View.VISIBLE);
+          //  v.setVisibility(View.VISIBLE);
             v.setText(Base64.encodeToString(encrypted, 0 /* flags */));
         }
     }
@@ -647,10 +644,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     }
 
     public void loadOtpHuella() {
-        customErrorDialog.dismiss();
-        onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
-        ((OtpInterface) getParentFragment()).loadCode(preferencias.loadData("SHA_256_FREJA"));
-        customErrorDialog.dismiss();
+
         onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
         ((OtpInterface) getParentFragment()).loadCode(preferencias.loadData("SHA_256_FREJA"));
         prefs.saveDataBool(HUELLA_FAIL, false);
@@ -687,5 +681,10 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             editPassword.setText(null);
             UI.hideKeyBoard(getActivity());
         }
+    }
+
+    interface accesacode{
+        public void accesacode();
+
     }
 }

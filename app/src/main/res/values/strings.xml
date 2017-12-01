@@ -1115,13 +1115,13 @@
     <!-- Finger print nativo -->
     <string name="application_name">FingerprintDialog</string>
     <string name="action_settings">Settings</string>
-    <string name="cancel">Cancel</string>
+    <string name="cancel">Cancelar</string>
     <string name="use_password">Use password</string>
     <string name="sign_in">Sign in</string>
 
     <string name="fingerprint_description">Confirm fingerprint to continue</string>
     <string name="fingerprint_hint">Touch sensor</string>
-    <string name="password_description">Enter your store password to continue</string>
+    <string name="password_description">Enter your store passwFord to continue</string>
     <string name="purchase">Purchase</string>
     <string name="purchase_not_invalidated">Purchase not invalidated</string>
     <string name="purchase_button_not_invalidated_description">
