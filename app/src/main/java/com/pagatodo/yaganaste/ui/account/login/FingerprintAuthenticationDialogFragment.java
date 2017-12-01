@@ -192,7 +192,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         mFingerprintUiHelper.stopListening();
     }
     private void goToBackupintetos() {
-        mStage = Stage.INTENTS;
+        mStage = Stage.PASSWORD;
         updateStage();
       // mPassword.requestFocus();
 
@@ -253,7 +253,6 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                 mCancelButton.setText(R.string.cancel);
                 mSecondDialogButton.setText(R.string.use_password);
 
-                getDialog().getWindow().setTitleColor(R.color.colorAccent);
                 mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -265,7 +264,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                         getActivity().findViewById(R.id.editPassword).requestFocus();
                     }
                 });
-                mSecondDialogButton.setTextColor(Color.BLACK);
+
                 mFingerprintContent.setVisibility(View.VISIBLE);
                 mBackupContent.setVisibility(View.GONE);
                 break;
