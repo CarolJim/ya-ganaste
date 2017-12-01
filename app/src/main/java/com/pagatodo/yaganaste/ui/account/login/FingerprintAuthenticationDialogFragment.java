@@ -272,11 +272,22 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                 // Intentional fall through
 
             case INTENTS:
-                mPasswordDescriptionTextView.setText("Demasiados Intentos\n Por Favor\n Usa Tú Contraseña");
+                mPasswordDescriptionTextView.setText("Demasiados Intentos\nFallidos, Por Favor\nUsa Tú Contraseña");
                 mCancelButton.setText("Usar Contraseña");
                 mFingerprintContent.setVisibility(View.GONE);
                 mBackupContent.setVisibility(View.VISIBLE);
                 mSecondDialogButton.setVisibility(View.GONE);
+                mCancelButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        dismiss();
+
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                        getActivity().findViewById(R.id.editPassword).requestFocus();
+                    }
+                });
                 break;
             case PASSWORD:
                 mCancelButton.setText(R.string.cancel);
