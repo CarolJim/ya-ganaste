@@ -611,7 +611,9 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                 // future
                 FingerprintAuthenticationDialogFragment fragment
                         = new FingerprintAuthenticationDialogFragment();
-                fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                    fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));
+                }
                 fragment.setStage(
                         FingerprintAuthenticationDialogFragment.Stage.NEW_FINGERPRINT_ENROLLED);
                 fragment.show(getFragmentManager(), DIALOG_FRAGMENT_TAG);

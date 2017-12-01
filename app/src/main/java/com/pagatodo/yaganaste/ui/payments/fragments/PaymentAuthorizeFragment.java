@@ -5,15 +5,18 @@ import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Vibrator;
+import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
+import android.support.annotation.RequiresApi;
 import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -22,6 +25,7 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
@@ -34,6 +38,7 @@ import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
+import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintHandler;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentAuthorizeManager;
 import com.pagatodo.yaganaste.ui.payments.presenters.PaymentAuthorizePresenter;
@@ -86,6 +91,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         PaymentAuthorizeManager, FingerprintHandler.generateCode {
 
     private static final String KEY_NAME = "yourKey";
+    private static final String KEY_NAME_NOT_INVALIDATED = "key_not_invalidated";
+    private static final String DIALOG_FRAGMENT_TAG = "myFragment";
+    static final String DEFAULT_KEY_NAME = "default_key";
 
     IPaymentAuthorizePresenter paymentAuthorizePresenter;
 
@@ -125,13 +133,17 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     private KeyGenerator keyGenerator;
     private FingerprintHandler helper;
     private static Preferencias preferencias = App.getInstance().getPrefs();
+    private SharedPreferences mSharedPreferences;
+    static PaymentAuthorizeFragment fragmentCode;
+
 
     public static PaymentAuthorizeFragment newInstance(Payments envio) {
-        PaymentAuthorizeFragment fragment = new PaymentAuthorizeFragment();
+        fragmentCode = new PaymentAuthorizeFragment();
+        //PaymentAuthorizeFragment fragment = new PaymentAuthorizeFragment();
         Bundle args = new Bundle();
         args.putSerializable("envios", envio);
-        fragment.setArguments(args);
-        return fragment;
+        fragmentCode.setArguments(args);
+        return fragmentCode;
     }
 
 
@@ -153,6 +165,11 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         }
         helper = new FingerprintHandler(this.getContext());
         texto = getString(R.string.authorize_payment_title);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            keyguardManager = getActivity().getSystemService(KeyguardManager.class);
+            fingerprintManager = getActivity().getSystemService(FingerprintManager.class);
+        }
+
         initViews();
         return rootview;
     }
@@ -185,63 +202,114 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         btnContinueEnvio.setOnClickListener(this);
 
         //Huella
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)) {
-            keyguardManager =
-                    (KeyguardManager) getActivity().getSystemService(KEYGUARD_SERVICE);
-            fingerprintManager =
-                    (FingerprintManager) getActivity().getSystemService(FINGERPRINT_SERVICE);
-
-            assert fingerprintManager != null;
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!fingerprintManager.isHardwareDetected()) {
-                texto = getString(R.string.fingerprint_no_supported);
-            }else if (ActivityCompat.checkSelfPermission(this.getContext(), Manifest.permission.USE_FINGERPRINT) != PackageManager.PERMISSION_GRANTED) {
-                texto = getString(R.string.fingerprint_permission);
-            } else if (!fingerprintManager.hasEnrolledFingerprints()) {
 
-                texto = getString(R.string.fingerprint_no_found);
-                customErrorDialog= UI.createCustomDialogIraConfiguracion(titulo, texto, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
-                    @Override
-                    public void actionConfirm(Object... params) {
-                        opensettings();
-                    }
-
-                    @Override
-                    public void actionCancel(Object... params) {
-
-                    }
-                }, getString(R.string.fingerprint_go_to_settings), getString(R.string.fingerprint_use_password));
-
-            }else if (!keyguardManager.isKeyguardSecure()) {
-                texto = getString(R.string.fingerprint_eneable_security);
-            } else {
-                texto = getString(R.string.fingerprint_verification);
-                String mensaje = "" + texto;
-
+            }else {
                 try {
+                    keyStore = KeyStore.getInstance("AndroidKeyStore");
+                } catch (KeyStoreException e) {
+                    throw new RuntimeException("Failed to get an instance of KeyStore", e);
+                }
+                try {
+                    keyGenerator = KeyGenerator
+                            .getInstance(KeyProperties.KEY_ALGORITHM_AES, "AndroidKeyStore");
+                } catch (NoSuchAlgorithmException | NoSuchProviderException e) {
+                    throw new RuntimeException("Failed to get an instance of KeyGenerator", e);
+                }
+                Cipher defaultCipher;
+                Cipher cipherNotInvalidated;
+                try {
+                    defaultCipher = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/"
+                            + KeyProperties.BLOCK_MODE_CBC + "/"
+                            + KeyProperties.ENCRYPTION_PADDING_PKCS7);
+                    cipherNotInvalidated = Cipher.getInstance(KeyProperties.KEY_ALGORITHM_AES + "/"
+                            + KeyProperties.BLOCK_MODE_CBC + "/"
+                            + KeyProperties.ENCRYPTION_PADDING_PKCS7);
+                } catch (NoSuchAlgorithmException | NoSuchPaddingException e) {
+                    throw new RuntimeException("Failed to get an instance of Cipher", e);
+                }
+                mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
 
-                    generateKey();
-                    if (initCipher()) {
-                        helper.setGenerateCode(this);
-                        helper.startAuth(fingerprintManager, cryptoObject);
+
+
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)){
+
+
+
+
+                    if (initCipher(cipherNotInvalidated, KEY_NAME_NOT_INVALIDATED)) {
+
+                        // Show the fingerprint dialog. The user has the option to use the fingerprint with
+                        // crypto, or you can fall back to using a server-side verified password.
+                        FingerprintAuthenticationDialogFragment fragment
+                                = new FingerprintAuthenticationDialogFragment();
+                        fragment.setCryptoObject(new FingerprintManager.CryptoObject(cipherNotInvalidated));
+                        boolean useFingerprintPreference = mSharedPreferences
+                                .getBoolean(getString(R.string.use_fingerprint_to_authenticate_key),
+                                        true);
+                        if (useFingerprintPreference) {
+                            fragment.setStage(
+                                    FingerprintAuthenticationDialogFragment.Stage.FINGERPRINT);
+                        } else {
+                            fragment.setStage(
+                                    FingerprintAuthenticationDialogFragment.Stage.PASSWORD);
+                        }
+                        fragment.setFragmentInstance(fragmentCode);
+                        fragment.show(getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
+                    } else {
+                        // This happens if the lock screen has been disabled or or a fingerprint got
+                        // enrolled. Thus show the dialog to authenticate with their password first
+                        // and ask the user if they want to authenticate with fingerprints in the
+                        // future
+                        FingerprintAuthenticationDialogFragment fragment
+                                = new FingerprintAuthenticationDialogFragment();
+                        fragment.setCryptoObject(new FingerprintManager.CryptoObject(cipherNotInvalidated));
+                        fragment.setStage(
+                                FingerprintAuthenticationDialogFragment.Stage.NEW_FINGERPRINT_ENROLLED);
+                        fragment.setFragmentInstance(fragmentCode);
+                        fragment.show(  getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
                     }
-                    customErrorDialog= UI.createCustomDialogGeneraciondeCodigo(titulo, mensaje, getFragmentManager(), getFragmentTag(), new DialogDoubleActions() {
-                        @Override
-                        public void actionConfirm(Object... params) {
-                            stopautentication();
 
-                        }
-
-                        @Override
-                        public void actionCancel(Object... params) {
-                            stopautentication();
-                        }
-                    }, getString(R.string.fingerprint_use_password), "");
-                } catch (FingerprintException e) {
-                    e.printStackTrace();
+                } else {
+                    // Hide the purchase button which uses a non-invalidated key
+                    // if the app doesn't work on Android N preview
+                    //purchaseButtonNotInvalidated.setVisibility(View.GONE);
+                    //invalidDesc.setVisibility(View.GONE);
+               /* getActivity().findViewById(R.id.purchase_button_not_invalidated_description)
+                        .setVisibility(View.GONE);*/
                 }
 
-            }
+                if (!keyguardManager.isKeyguardSecure()) {
+                    // Show a message that the user hasn't set up a fingerprint or lock screen.
+                    Toast.makeText(getContext(),
+                            "Secure lock screen hasn't set up.\n"
+                                    + "Go to 'Settings -> Security -> Fingerprint' to set up a fingerprint",
+                            Toast.LENGTH_LONG).show();
+                    //purchaseButton.setEnabled(false);
+                    //purchaseButtonNotInvalidated.setEnabled(false);
+                    return;
+                }
 
+                // Now the protection level of USE_FINGERPRINT permission is normal instead of dangerous.
+                // See http://developer.android.com/reference/android/Manifest.permission.html#USE_FINGERPRINT
+                // The line below prevents the false positive inspection from Android Studio
+                // noinspection ResourceType
+                if (!fingerprintManager.hasEnrolledFingerprints()) {
+                    //purchaseButton.setEnabled(false);
+                    // This happens when no fingerprints are registered.
+                    Toast.makeText(getContext(),
+                            "Go to 'Settings -> Security -> Fingerprint' and register at least one fingerprint",
+                            Toast.LENGTH_LONG).show();
+                    return;
+                }
+                createKey(DEFAULT_KEY_NAME, true);
+                createKey(KEY_NAME_NOT_INVALIDATED, false);
+                //purchaseButton.setEnabled(true);
+                //purchaseButton.setOnClickListener(
+                        //new PurchaseButtonClickListener(defaultCipher, DEFAULT_KEY_NAME));
+
+            }
         }
     }
 
@@ -284,29 +352,72 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
     }
 
-    public boolean initCipher() {
-        try {
-            cipher = Cipher.getInstance(
-                    KeyProperties.KEY_ALGORITHM_AES + "/"
-                            + KeyProperties.BLOCK_MODE_CBC + "/"
-                            + KeyProperties.ENCRYPTION_PADDING_PKCS7);
-        } catch (NoSuchAlgorithmException |
-                NoSuchPaddingException e) {
-            throw new RuntimeException("Failed to get Cipher", e);
-        }
-
+    @RequiresApi(api = Build.VERSION_CODES.M)
+    private boolean initCipher(Cipher cipher, String keyName) {
         try {
             keyStore.load(null);
-            SecretKey key = (SecretKey) keyStore.getKey(KEY_NAME,
-                    null);
+            SecretKey key = (SecretKey) keyStore.getKey(keyName, null);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return true;
-        } catch (@SuppressLint("NewApi") KeyPermanentlyInvalidatedException e) {
+        } catch (KeyPermanentlyInvalidatedException e) {
             return false;
-        } catch (KeyStoreException | CertificateException
-                | UnrecoverableKeyException | IOException
+        } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException
                 | NoSuchAlgorithmException | InvalidKeyException e) {
-            throw new RuntimeException("Failed to init Cipher", e);
+            //throw new RuntimeException("Failed to init Cipher", e);
+            return false;
+        }
+    }
+
+    /**
+     * Creates a symmetric key in the Android Key Store which can only be used after the user has
+     * authenticated with fingerprint.
+     *
+     * @param keyName the name of the key to be created
+     * @param invalidatedByBiometricEnrollment if {@code false} is passed, the created key will not
+     *                                         be invalidated even if a new fingerprint is enrolled.
+     *                                         The default value is {@code true}, so passing
+     *                                         {@code true} doesn't change the behavior
+     *                                         (the key will be invalidated if a new fingerprint is
+     *                                         enrolled.). Note that this parameter is only valid if
+     *                                         the app works on Android N developer preview.
+     *
+     */
+    public void createKey(String keyName, boolean invalidatedByBiometricEnrollment) {
+        // The enrolling flow for fingerprint. This is where you ask the user to set up fingerprint
+        // for your flow. Use of keys is necessary if you need to know if the set of
+        // enrolled fingerprints has changed.
+        try {
+            keyStore.load(null);
+            // Set the alias of the entry in Android KeyStore where the key will appear
+            // and the constrains (purposes) in the constructor of the Builder
+
+            KeyGenParameterSpec.Builder builder = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                builder = new KeyGenParameterSpec.Builder(keyName,
+                        KeyProperties.PURPOSE_ENCRYPT |
+                                KeyProperties.PURPOSE_DECRYPT)
+                        .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+                        // Require the user to authenticate with a fingerprint to authorize every use
+                        // of the key
+                        .setUserAuthenticationRequired(true)
+                        .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7);
+            }
+
+            // This is a workaround to avoid crashes on devices whose API level is < 24
+            // because KeyGenParameterSpec.Builder#setInvalidatedByBiometricEnrollment is only
+            // visible on API level +24.
+            // Ideally there should be a compat library for KeyGenParameterSpec.Builder but
+            // which isn't available yet.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                builder.setInvalidatedByBiometricEnrollment(invalidatedByBiometricEnrollment);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                keyGenerator.init(builder.build());
+            }
+            keyGenerator.generateKey();
+        } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException
+                | CertificateException | IOException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -471,13 +582,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     }
 
     public void loadOtpHuella() {
-       /*
-        RequestHeaders.setTokenFreja(preferencias.loadData("SHA_256_FREJA"));
-        onEventListener.onEvent(EVENT_SEND_PAYMENT, envio);*/
-        customErrorDialog.dismiss();
-       paymentAuthorizePresenter.generateOTP(preferencias.loadData("SHA_256_FREJA"));
-        //onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
-        //((AccessCodeGenerateFragment.OtpInterface) getParentFragment()).loadCode(preferencias.loadData("SHA_256_FREJA"));
+        paymentAuthorizePresenter.generateOTP(preferencias.loadData("SHA_256_FREJA"));
 
     }
 

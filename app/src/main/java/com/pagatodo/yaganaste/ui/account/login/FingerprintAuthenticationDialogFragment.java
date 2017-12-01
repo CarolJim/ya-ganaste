@@ -13,6 +13,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.hardware.fingerprint.FingerprintManager;
+import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
@@ -36,6 +37,12 @@ import android.widget.Toast;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.CropActivity;
+import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
+import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
+
+import java.security.KeyStore;
+
+import javax.crypto.KeyGenerator;
 
 import static android.content.Context.INPUT_METHOD_SERVICE;
 
@@ -61,12 +68,15 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
 
     private FingerprintManager.CryptoObject mCryptoObject;
     private FingerprintUiHelper mFingerprintUiHelper;
-    private AccountActivity mActivity;
+    private LoaderActivity mActivity;
+    //private PaymentsProcessingActivity paymentsProcessingActivity;
     private AccessCodeGenerateFragment accessCodeGenerateFragment;
     private generateCodehuella generateCode;
     private InputMethodManager mInputMethodManager;
     private SharedPreferences mSharedPreferences;
     private Fragment fragmentInstance;
+    private KeyStore mKeyStore;
+    private KeyGenerator mKeyGenerator;
 
     @Override
     public void onCreate(Bundle savedInstanceState) {
@@ -118,10 +128,12 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
 
         mNewFingerprintEnrolledTextView = (TextView)
                 v.findViewById(R.id.new_fingerprint_enrolled_description);
-        mFingerprintUiHelper = new FingerprintUiHelper(
-                mActivity.getSystemService(FingerprintManager.class),
-                (ImageView) v.findViewById(R.id.fingerprint_icon),
-                (TextView) v.findViewById(R.id.fingerprint_status), this);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mFingerprintUiHelper = new FingerprintUiHelper(
+                    mActivity.getSystemService(FingerprintManager.class),
+                    (ImageView) v.findViewById(R.id.fingerprint_icon),
+                    (TextView) v.findViewById(R.id.fingerprint_status), this);
+        }
         updateStage();
 
         // If fingerprint authentication is not available, switch immediately to the backup
@@ -155,9 +167,14 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     @Override
     public void onAttach(Context context) {
         super.onAttach(context);
-        mActivity = (AccountActivity) getActivity();
-
-        mInputMethodManager = context.getSystemService(InputMethodManager.class);
+        //mActivity = (AccountActivity) getActivity();
+        if (context instanceof AccountActivity)
+             mActivity = (AccountActivity) getActivity();
+        if (context instanceof PaymentsProcessingActivity)
+            mActivity = (PaymentsProcessingActivity) getActivity();
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            mInputMethodManager = context.getSystemService(InputMethodManager.class);
+        }
         mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(context);
     }
 

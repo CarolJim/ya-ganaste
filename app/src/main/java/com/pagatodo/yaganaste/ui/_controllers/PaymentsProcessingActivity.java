@@ -2,7 +2,10 @@ package com.pagatodo.yaganaste.ui._controllers;
 
 import android.app.Activity;
 import android.content.Intent;
+import android.os.Build;
 import android.os.Bundle;
+import android.security.keystore.KeyGenParameterSpec;
+import android.security.keystore.KeyProperties;
 import android.support.annotation.Nullable;
 import android.support.v4.content.ContextCompat;
 import android.view.Menu;
@@ -32,6 +35,14 @@ import com.pagatodo.yaganaste.ui.payments.presenters.interfaces.IPaymentsProcess
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.UI;
+
+import java.io.IOException;
+import java.security.InvalidAlgorithmParameterException;
+import java.security.KeyStore;
+import java.security.NoSuchAlgorithmException;
+import java.security.cert.CertificateException;
+
+import javax.crypto.KeyGenerator;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -76,6 +87,8 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
     private String referencia = "", nombreDest = "";
     private int idTipoEnvio = 0;
     private int tipoTab = 0;
+    private KeyStore mKeyStore;
+    private KeyGenerator mKeyGenerator;
 
 
     @Override
@@ -313,5 +326,57 @@ public class PaymentsProcessingActivity extends LoaderActivity implements Paymen
             }
         }
 
+    }
+
+    /**
+     * Creates a symmetric key in the Android Key Store which can only be used after the user has
+     * authenticated with fingerprint.
+     *
+     * @param keyName                          the name of the key to be created
+     * @param invalidatedByBiometricEnrollment if {@code false} is passed, the created key will not
+     *                                         be invalidated even if a new fingerprint is enrolled.
+     *                                         The default value is {@code true}, so passing
+     *                                         {@code true} doesn't change the behavior
+     *                                         (the key will be invalidated if a new fingerprint is
+     *                                         enrolled.). Note that this parameter is only valid if
+     *                                         the app works on Android N developer preview.
+     */
+    public void createKey(String keyName, boolean invalidatedByBiometricEnrollment) {
+        // The enrolling flow for fingerprint. This is where you ask the user to set up fingerprint
+        // for your flow. Use of keys is necessary if you need to know if the set of
+        // enrolled fingerprints has changed.
+        try {
+            mKeyStore.load(null);
+            // Set the alias of the entry in Android KeyStore where the key will appear
+            // and the constrains (purposes) in the constructor of the Builder
+
+            KeyGenParameterSpec.Builder builder = null;
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                builder = new KeyGenParameterSpec.Builder(keyName,
+                        KeyProperties.PURPOSE_ENCRYPT |
+                                KeyProperties.PURPOSE_DECRYPT)
+                        .setBlockModes(KeyProperties.BLOCK_MODE_CBC)
+                        // Require the user to authenticate with a fingerprint to authorize every use
+                        // of the key
+                        .setUserAuthenticationRequired(true)
+                        .setEncryptionPaddings(KeyProperties.ENCRYPTION_PADDING_PKCS7);
+            }
+
+            // This is a workaround to avoid crashes on devices whose API level is < 24
+            // because KeyGenParameterSpec.Builder#setInvalidatedByBiometricEnrollment is only
+            // visible on API level +24.
+            // Ideally there should be a compat library for KeyGenParameterSpec.Builder but
+            // which isn't available yet.
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+                builder.setInvalidatedByBiometricEnrollment(invalidatedByBiometricEnrollment);
+            }
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+                mKeyGenerator.init(builder.build());
+            }
+            mKeyGenerator.generateKey();
+        } catch (NoSuchAlgorithmException | InvalidAlgorithmParameterException
+                | CertificateException | IOException e) {
+            throw new RuntimeException(e);
+        }
     }
 }
