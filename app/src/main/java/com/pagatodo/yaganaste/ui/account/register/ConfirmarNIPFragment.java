@@ -15,9 +15,8 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.interfaces.IAccountCardNIPView;
 import com.pagatodo.yaganaste.interfaces.ValidationForms;
@@ -38,6 +37,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 import static android.view.View.GONE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_ASOCIATE_PHONE;
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_GO_MAINTAB;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Constants.DELAY_MESSAGE_PROGRESS;
@@ -70,8 +70,6 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     private String nipToConfirm = "";
     private AccountPresenterNew accountPresenter;
     ImageView imageView;
-    private String cadenaHuella=null;
-    private static Preferencias preferencias = App.getInstance().getPrefs();
     public ConfirmarNIPFragment() {
     }
 
@@ -90,16 +88,6 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         accountPresenter = ((AccountActivity) getActivity()).getPresenter();
         accountPresenter.setIView(this);
         imageView = (ImageView)getActivity().findViewById(R.id.btn_back);
-
-        cadenaHuella= App.getInstance().getCadenaHuella();
-        /*
-        cadenaHuella= new StringBuilder()
-                .append(cadenaHuella)
-                .append("-")
-                .append(preferencias.loadData("SHA_256_FREJA"))
-                .toString();
-        App.getInstance().setCadenaHuella(cadenaHuella);
-*/
         //accountPresenter = new AccountPresenterNew(getActivity(),this);
     }
 
@@ -113,8 +101,6 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         rootview = inflater.inflate(R.layout.fragment_asignar_nip, container, false);
-
-
         initViews();
         return rootview;
     }
@@ -263,7 +249,11 @@ public class ConfirmarNIPFragment extends GenericFragment implements View.OnClic
         new Handler().postDelayed(new Runnable() {
             public void run() {
                 hideLoader();
-                onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
+                if (SingletonUser.getInstance().getDataUser().isRequiereActivacionSMS()) {
+                    onEventListener.onEvent(EVENT_GO_ASOCIATE_PHONE, null);//Mostramos la siguiente pantalla SMS.
+                } else {
+                    onEventListener.onEvent(EVENT_GO_MAINTAB, null);
+                }
             }
         }, DELAY_MESSAGE_PROGRESS);
     }

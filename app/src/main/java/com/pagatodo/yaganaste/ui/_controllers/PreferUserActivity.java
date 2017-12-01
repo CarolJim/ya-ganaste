@@ -25,6 +25,7 @@ import com.pagatodo.yaganaste.ui.preferuser.DesasociarPhoneFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaAyudaLegalesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.ListaOpcionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyAccountFragment;
+import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyCardReportaTarjetaFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyChangeNip;
 import com.pagatodo.yaganaste.ui.preferuser.MyEmailFragment;
@@ -34,7 +35,6 @@ import com.pagatodo.yaganaste.ui.preferuser.MyHelpContactanosCorreo;
 import com.pagatodo.yaganaste.ui.preferuser.MyPassFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyTutorialFragment;
 import com.pagatodo.yaganaste.ui.preferuser.MyUserFragment;
-import com.pagatodo.yaganaste.ui.preferuser.MyCardFragment;
 import com.pagatodo.yaganaste.ui.preferuser.TerminosyCondicionesFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.MyDongleFragment;
 import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
@@ -46,6 +46,7 @@ import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PR
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.PRIVACIDADLC;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOS;
 import static com.pagatodo.yaganaste.ui.account.register.LegalsDialog.Legales.TERMINOSLC;
+import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 
 public class PreferUserActivity extends LoaderActivity implements OnEventListener {
 
@@ -134,7 +135,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
         if (usuarioClienteResponse.getCuentas().get(0).getTarjeta() != null
                 && !usuarioClienteResponse.getCuentas().get(0).getTarjeta().isEmpty()) {
             mTDC = usuarioClienteResponse.getCuentas().get(0).getTarjeta();
-        }else{
+        } else {
             mTDC = "Error Con Tarjeta";
         }
         //mClabe = "123456789012345678";
@@ -151,7 +152,8 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
 
         // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
-        checkDataCard();
+        if (!App.getInstance().getPrefs().loadData(CARD_NUMBER).equals(""))
+            checkDataCard();
     }
 
     public AccountPresenterNew getPresenterAccount() {
@@ -437,9 +439,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
             } else if (currentFragment instanceof MyHelpContactanos) {
                 onEvent(PREFER_USER_HELP_BACK, null);
             } else if (currentFragment instanceof MyCardReportaTarjetaFragment) {
-                onEvent(PREFER_USER_REPORTA_TARJETA_BACK, null);
-            } else if (currentFragment instanceof MyHelpContactanosCorreo) {
-                onEvent(PREFER_USER_HELP_CORREO_REPORTA_TARJETA_BACK, null);
+                onEvent(PREFER_USER_LISTA, null);
             } else if (currentFragment instanceof MyHelpAcercaApp) {
                 onEvent(PREFER_USER_HELP_BACK, null);
             } else if (currentFragment instanceof MyHelpContactanosCorreo) {

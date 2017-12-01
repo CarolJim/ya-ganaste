@@ -156,11 +156,11 @@ public class ListaOpcionesFragment extends SupportFragment implements View.OnCli
 
         int idEstatus = SingletonUser.getInstance().getDataUser().getIdEstatus();
         if (idEstatus >= IdEstatus.ADQUIRENTE.getId()) {
-            ll_cuenta.setVisibility(View.VISIBLE);
+           /* ll_cuenta.setVisibility(View.VISIBLE);
             View view_cuenta = rootview.findViewById(R.id.content_prefer_view_acount);
             view_cuenta.setVisibility(View.VISIBLE);
 
-            ll_cuenta.setOnClickListener(this);
+            ll_cuenta.setOnClickListener(this);*/
         }
         /*if (idEstatus >= IdEstatus.ADQUIRENTE.getId()) {
             ll_dongle.setVisibility(View.VISIBLE);

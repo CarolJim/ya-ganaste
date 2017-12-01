@@ -15,11 +15,9 @@ import android.widget.CompoundButton;
 import android.widget.FrameLayout;
 import android.widget.LinearLayout;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.BloquearCuentaResponse;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.EstatusCuentaResponse;
@@ -79,8 +77,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
     private TarjetaUserPresenter mPreferPresenter;
     private AccountPresenterNew presenterAccount;
     private String mTDC;
-    private String cadena;
-    private static Preferencias preferencias = App.getInstance().getPrefs();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -88,16 +85,19 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         ButterKnife.bind(this);
         mPreferPresenter = new TarjetaUserPresenter(this);
         presenterAccount = new AccountPresenterNew(this);
-        checkDataCard();
-        txtNameTitular.setText(nombre());
-        ultimaTransaccion();
-        //printCard(cuenta());
-        estadotarjeta();
-        lytChangeNIP.setOnClickListener(this);
-        lytReportCard.setOnClickListener(this);
-        cadena=preferencias.loadData("HUELLACADENA");
-        Toast.makeText(this, "Cadena: "+cadena, Toast.LENGTH_SHORT).show();
-
+        if (!App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+            checkDataCard();
+            txtNameTitular.setText(nombre());
+            ultimaTransaccion();
+            //printCard(cuenta());
+            estadotarjeta();
+            lytChangeNIP.setOnClickListener(this);
+            lytReportCard.setOnClickListener(this);
+        } else {
+            lytPrincipal.setVisibility(View.GONE);
+            loadFragment(MyCardReportaTarjetaFragment.newInstance(), Direction.FORDWARD, false);
+            container.setVisibility(View.VISIBLE);
+        }
     }
 
     @Override
@@ -311,34 +311,6 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         return cuentaUsuario;
     }
 
-    private void printCard(String cardNumber) {
-        Bitmap bitmap = BitmapFactory.decodeResource(getResources(), R.mipmap.main_card_zoom_blue);
-        android.graphics.Bitmap.Config bitmapConfig =
-                bitmap.getConfig();
-        // set default bitmap config if none
-        if (bitmapConfig == null) {
-            bitmapConfig = android.graphics.Bitmap.Config.ARGB_8888;
-        }
-        // resource bitmaps are imutable,
-        // so we need to convert it to mutable one
-        bitmap = bitmap.copy(bitmapConfig, true);
-
-        Canvas canvas = new Canvas(bitmap);
-        // new antialised Paint
-        TextPaint textPaint = new TextPaint();
-        Typeface typeface = FontCache.getTypeface("fonts/roboto/Roboto-Regular.ttf", this);
-        textPaint.setColor(Color.WHITE);
-        textPaint.setTypeface(typeface);
-
-        float heigth = canvas.getHeight();
-        float width = canvas.getWidth();
-        textPaint.setTextSize(heigth * 0.115f);
-
-        canvas.drawText(StringUtils.format(cardNumber, SPACE, 4, 4, 4, 4), width * 0.07f, heigth * 0.6f, textPaint);
-
-        imgYaGanasteCard.setImageBitmap(bitmap);
-    }
-
     @Override
     public void sendSuccessEstatusCuentaToView(EstatusCuentaResponse response) {
         String statusId = response.getData().getStatusId();
@@ -413,7 +385,10 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         // Si el boton no esta deshabilitado realizamos las operaciones de back
         if (!isLoaderShow) {
             Fragment currentFragment = getCurrentFragment();
-            if (currentFragment instanceof MyChangeNip ||
+            if (currentFragment instanceof  MyCardReportaTarjetaFragment &&
+                    App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+                super.onBackPressed();
+            } else if (currentFragment instanceof MyChangeNip ||
                     currentFragment instanceof MyCardReportaTarjetaFragment) {
                 removeLastFragment();
                 lytPrincipal.setVisibility(View.VISIBLE);

@@ -11,9 +11,11 @@ import android.view.ViewGroup;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.webservice.request.adtvo.EnviarCorreoContactanosRequest;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.ui._controllers.PreferUserActivity;
 import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.ui.preferuser.interfases.IMyHelpMensajeContactanos;
+import com.pagatodo.yaganaste.ui.preferuser.presenters.PreferUserPresenter;
 import com.pagatodo.yaganaste.ui.tarjeta.TarjetaUserPresenter;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -32,6 +34,7 @@ public class MyHelpContactanosCorreo extends GenericFragment implements View.OnC
         IMyHelpMensajeContactanos {
 
     TarjetaUserPresenter mPreferPresenter;
+    PreferUserPresenter mPreferPresenter2;
     View rootview;
     private String mensaje = "";
     @BindView(R.id.edtxtUserName)
@@ -45,8 +48,13 @@ public class MyHelpContactanosCorreo extends GenericFragment implements View.OnC
 
     @Override
     public void onAttach(Context context) {
-        mPreferPresenter = ((TarjetaActivity) getActivity()).getmPreferPresenter();
-        mPreferPresenter.setIView(this);
+        if (getActivity() instanceof TarjetaActivity) {
+            mPreferPresenter = ((TarjetaActivity) getActivity()).getmPreferPresenter();
+            mPreferPresenter.setIView(this);
+        } else {
+            mPreferPresenter2 = ((PreferUserActivity) getActivity()).getPreferPresenter();
+            mPreferPresenter2.setIView(this);
+        }
         super.onAttach(context);
     }
 
@@ -91,7 +99,11 @@ public class MyHelpContactanosCorreo extends GenericFragment implements View.OnC
             // Enviamos al presenter
             //   onValidationSuccess();
             showLoader(getString(R.string.enviando_mensaje));
-            mPreferPresenter.enviarCorreoContactanosPresenter(mensajeRequest);
+            if (getActivity() instanceof TarjetaActivity) {
+                mPreferPresenter.enviarCorreoContactanosPresenter(mensajeRequest);
+            } else {
+                mPreferPresenter2.enviarCorreoContactanosPresenter(mensajeRequest);
+            }
         }
     }
 
@@ -135,8 +147,8 @@ public class MyHelpContactanosCorreo extends GenericFragment implements View.OnC
                 new DialogDoubleActions() {
                     @Override
                     public void actionConfirm(Object... params) {
-                        if(success){
-                            ((TarjetaActivity)getActivity()).onBackPressed();
+                        if (success) {
+                            ((TarjetaActivity) getActivity()).onBackPressed();
                         }
                     }
 

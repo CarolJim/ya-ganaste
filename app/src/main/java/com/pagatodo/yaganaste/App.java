@@ -61,6 +61,7 @@ public class App extends Application {
     private Preferencias prefs;
     //variable de status de cuenta
     private String statusId;
+    private boolean cancel;
 
     private String datoHuellaC;
 
@@ -89,7 +90,7 @@ public class App extends Application {
                 getBaseContext().getResources().getDisplayMetrics());
         m_singleton = this;
         MultiDex.install(this);
-        //Stetho.initializeWithDefaults(this);
+        Stetho.initializeWithDefaults(this);
 
         this.prefs = new Preferencias(this);
         System.loadLibrary("a01jni");
@@ -257,5 +258,13 @@ public class App extends Application {
             }
         };
         countDownTimer.start();
+    }
+
+    public boolean isCancel() {
+        return cancel;
+    }
+
+    public void setCancel(boolean cancel) {
+        this.cancel = cancel;
     }
 }

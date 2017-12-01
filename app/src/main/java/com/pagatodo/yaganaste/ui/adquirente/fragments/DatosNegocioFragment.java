@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.Spinner;
+import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.dto.ErrorObject;
@@ -291,6 +292,19 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
 
         if (subgiroArrayAdapter.getItem(spinnerSubBussineLine.getSelectedItemPosition()).getIdSubgiro() == -1) {
             showValidationError(spinnerSubBussineLine.getId(), getString(R.string.datos_negocio_subgiro));
+            isValid = false;
+        }
+
+        // Validacion especial para que el telefono sea mayor a 000000001
+        //int myPhone = 0000000000;
+        int phoneUser = 0;
+        if (!editBussinesPhone.getText().toString().isEmpty()) {
+            phoneUser = Integer.parseInt(editBussinesPhone.getText().toString());
+        }
+
+        if (editBussinesPhone.isValidText() && phoneUser < 0000000001) {
+            showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
+            editBussinesPhone.setIsInvalid();
             isValid = false;
         }
 
