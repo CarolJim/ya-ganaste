@@ -304,7 +304,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
 
 
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)){
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)){
             purchaseButtonNotInvalidated.setEnabled(true);
             purchaseButtonNotInvalidated.setOnClickListener(
                     new PurchaseButtonClickListener(cipherNotInvalidated,

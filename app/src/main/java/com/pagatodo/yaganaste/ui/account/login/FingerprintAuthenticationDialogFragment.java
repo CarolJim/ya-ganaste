@@ -22,6 +22,7 @@ import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
@@ -81,7 +82,8 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     public View onCreateView(LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
 
-        getDialog().setTitle(getString(R.string.sign_in));
+        //getDialog().setTitle(getString(R.string.sign_in));
+        getDialog().requestWindowFeature(Window.FEATURE_NO_TITLE);
         View v = inflater.inflate(R.layout.fingerprint_dialog_container, container, false);
         mCancelButton = (Button) v.findViewById(R.id.cancel_button);
         mCancelButton.setOnClickListener(new View.OnClickListener() {
