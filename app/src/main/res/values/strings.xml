@@ -168,7 +168,7 @@
     <string name="no">No</string>
     <string name="yes">Sí</string>
     <string name="help_us_to_know_your_commerce">Ayúdanos a Conocer\nMejor tu Comercio</string>
-    <string name="commerce_name">Nombre Del Comercio</string>
+    <string name="commerce_name">Nombre del Comercio</string>
     <string name="r_social">Razon Social</string>
     <string name="my_commerce_is">Mi Comercio es…</string>
     <string name="giro_commerce">Giro Del Comercio</string>
@@ -211,7 +211,7 @@
     <string name="txt_login">INGRESAR</string>
     <string name="txt_ingresar">Ingresar</string>
     <string name="txt_iniciar_sesion">Iniciar Sesión</string>
-    <string name="recover_pass">¿Olvidaste tu Contraseña?</string>
+    <string name="recover_pass"><u>Olvidé mi Contraseña</u></string>
     <string name="ingress_mail_to_recover_pass">Ingresa el Correo Electrónico\nCon el Que Registraste tu\nCuenta Ya Ganaste</string>
     <string name="txt_mail">Correo Electrónico</string>
     <string name="send">ENVIAR</string>
@@ -244,7 +244,7 @@
     <string name="txt_ver_mapa">VER MAPA</string>
     <string name="hint_importe">Importe</string>
     <string name="hint_importe_envio">Importe a Enviar</string>
-    <string name="hint_name_destinatario">Nombre Del Destinatario</string>
+    <string name="hint_name_destinatario">Nombre del Destinatario</string>
     <string name="txt_fecha">Fecha:</string>
     <string name="txt_hora">Hora:</string>
     <string name="beneficiario">A:</string>
