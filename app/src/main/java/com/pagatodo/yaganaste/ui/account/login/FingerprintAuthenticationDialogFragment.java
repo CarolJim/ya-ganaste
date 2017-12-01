@@ -209,7 +209,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         mFingerprintUiHelper.stopListening();
     }
     private void goToBackupintetos() {
-        mStage = Stage.INTENTS;
+        mStage = Stage.PASSWORD;
         updateStage();
       // mPassword.requestFocus();
 
@@ -270,7 +270,6 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                 mCancelButton.setText(R.string.cancel);
                 mSecondDialogButton.setText(R.string.use_password);
 
-                getDialog().getWindow().setTitleColor(R.color.colorAccent);
                 mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
 
                     @Override
@@ -282,7 +281,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                         getActivity().findViewById(R.id.editPassword).requestFocus();
                     }
                 });
-                mSecondDialogButton.setTextColor(Color.BLACK);
+
                 mFingerprintContent.setVisibility(View.VISIBLE);
                 mBackupContent.setVisibility(View.GONE);
                 break;
@@ -290,11 +289,22 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                 // Intentional fall through
 
             case INTENTS:
-                mPasswordDescriptionTextView.setText("Demasiados Intentos\n Por Favor\n Usa Tú Contraseña");
+                mPasswordDescriptionTextView.setText("Demasiados Intentos\nFallidos, Por Favor\nUsa Tú Contraseña");
                 mCancelButton.setText("Usar Contraseña");
                 mFingerprintContent.setVisibility(View.GONE);
                 mBackupContent.setVisibility(View.VISIBLE);
                 mSecondDialogButton.setVisibility(View.GONE);
+                mCancelButton.setOnClickListener(new View.OnClickListener() {
+
+                    @Override
+                    public void onClick(View view) {
+                        dismiss();
+
+                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                        getActivity().findViewById(R.id.editPassword).requestFocus();
+                    }
+                });
                 break;
             case PASSWORD:
                 mCancelButton.setText(R.string.cancel);

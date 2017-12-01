@@ -200,6 +200,7 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
 
         // Agregamos un setOnFocusChangeListener a nuestro campo de importe, solo si es un favorito
         if (favoriteItem != null) {
+            fragment.updateValueTabFrag(0.0);
             amountToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override
                 public void onFocusChange(View v, boolean hasFocus) {

@@ -291,8 +291,10 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
             idComercioKey = 0;
             txtAliasName.setText(item.getFavoritos().getNombre());
             txtAliasName.setVisibility(View.VISIBLE);
-            txtCompanyName.setText(item.getFavoritos().getNombreComercio());
-            txtCompanyName.setVisibility(View.GONE);
+            //txtCompanyName.setText(item.getFavoritos().getNombreComercio());
+            //txtCompanyName.setVisibility(View.GONE);
+
+            txtCompanyName.setText("Monto: " + StringUtils.getCurrencyValue(0.00));
         }
 
         if (item.getComercio() != null && item.getComercio().getIdComercio() == -1) {
