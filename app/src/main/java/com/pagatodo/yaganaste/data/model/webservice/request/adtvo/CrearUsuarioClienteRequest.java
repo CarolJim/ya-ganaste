@@ -1,6 +1,5 @@
 package com.pagatodo.yaganaste.data.model.webservice.request.adtvo;
 
-import com.google.gson.annotations.SerializedName;
 import com.pagatodo.yaganaste.data.model.webservice.request.Request;
 
 import java.io.Serializable;
@@ -20,8 +19,8 @@ public class CrearUsuarioClienteRequest extends Request implements Serializable 
     private String FechaNacimiento = "";
     private String RFC = "";
     private String CURP = "";
-    @SerializedName("IdPaisNacimiento")
-    private int nacionalidad;
+    private int IdPaisNacimiento;
+    private String Nacionalidad;
     private String IdEstadoNacimiento;
     private String Correo = "";
     private String Telefono = "";
@@ -40,9 +39,9 @@ public class CrearUsuarioClienteRequest extends Request implements Serializable 
 
     public CrearUsuarioClienteRequest(String usuario, String contrasena, String nombre, String primerApellido,
                                       String segundoApellido, String genero, String fechaNacimiento, String RFC,
-                                      String CURP, int nacionalidad, String idEstadoNacimiento, String correo,
+                                      String CURP, String nacionalidad, String idEstadoNacimiento, String correo,
                                       String telefono, String telefonoCelular, String idColonia, String colonia,
-                                      String CP, String calle, String numeroExterior, String numeroInterior) {
+                                      String CP, String calle, String numeroExterior, String numeroInterior, int idPaisNacimiento) {
         this.Usuario = usuario;
         this.Contrasena = contrasena;
         this.Nombre = nombre;
@@ -52,7 +51,7 @@ public class CrearUsuarioClienteRequest extends Request implements Serializable 
         this.FechaNacimiento = fechaNacimiento;
         this.RFC = RFC;
         this.CURP = CURP;
-        this.nacionalidad = nacionalidad;
+        this.Nacionalidad = nacionalidad;
         this.IdEstadoNacimiento = idEstadoNacimiento;
         this.Correo = correo;
         this.Telefono = telefono;
@@ -63,6 +62,7 @@ public class CrearUsuarioClienteRequest extends Request implements Serializable 
         this.Calle = calle;
         this.NumeroExterior = numeroExterior;
         this.NumeroInterior = numeroInterior;
+        this.IdPaisNacimiento = idPaisNacimiento;
     }
 
     public String getUsuario() {
@@ -137,8 +137,8 @@ public class CrearUsuarioClienteRequest extends Request implements Serializable 
         this.CURP = CURP;
     }
 
-    public int getNacionalidad() {
-        return nacionalidad;
+    public String getNacionalidad() {
+        return Nacionalidad;
     }
 
     public void setNacionalidad(String nacionalidad) {
@@ -223,5 +223,13 @@ public class CrearUsuarioClienteRequest extends Request implements Serializable 
 
     public void setNumeroInterior(String numeroInterior) {
         NumeroInterior = numeroInterior;
+    }
+
+    public int getIdPaisNacimiento() {
+        return IdPaisNacimiento;
+    }
+
+    public void setIdPaisNacimiento(int idPaisNacimiento) {
+        IdPaisNacimiento = idPaisNacimiento;
     }
 }

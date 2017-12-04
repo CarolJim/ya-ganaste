@@ -386,16 +386,10 @@ public class LoginFragment extends GenericFragment implements View.OnClickListen
                 .toString();
 
         if (cadena!=null){
-
-            cadena=Utils.cipherRSA(cadena,true);
+            cadena=Utils.cipherRSA(cadena);
         }
 
         prefs.saveData(HUELLACADENA,cadena);
-
-
-
-
-
 
         App.getInstance().getStatusId();
         SingletonUser.getInstance().setCardStatusId(null);

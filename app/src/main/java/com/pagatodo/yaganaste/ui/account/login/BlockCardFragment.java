@@ -72,6 +72,7 @@ import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
+import static com.pagatodo.yaganaste.utils.StringConstants.PSW_CPR;
 
 /**
  * Encargada de bloquear la Card por medio de nuestra contraseña.
@@ -81,7 +82,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
  * 4 - Cerramos session
  */
 public class BlockCardFragment extends GenericFragment implements ValidationForms,
-        ILoginView, IMyCardView{
+        ILoginView, IMyCardView {
 
 
     ///////////////
@@ -101,7 +102,6 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     FingerprintHandler helper;
 
     ///////////////7
-
 
 
     public static final int BLOQUEO = 1;
@@ -130,7 +130,6 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     private int statusBloqueo;
 
 
-
     ////////////
 
     private static final String TAG = AccessCodeGenerateFragment.class.getSimpleName();
@@ -145,12 +144,11 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     private SharedPreferences mSharedPreferences;
 
 
-    KeyguardManager keyguardManager ;
+    KeyguardManager keyguardManager;
     FingerprintManager fingerprintManager;
 
     @BindView(R.id.purchase_button)
     Button purchaseButton;
-
 
 
     static BlockCardFragment fragmentCode;
@@ -165,7 +163,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     }
 
     public static BlockCardFragment newInstance() {
-        fragmentCode  = new BlockCardFragment();
+        fragmentCode = new BlockCardFragment();
         Bundle args = new Bundle();
         fragmentCode.setArguments(args);
 
@@ -189,8 +187,6 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
                 R.id.purchase_button_not_invalidated);
 
 
-
-
         if (getArguments() != null) {
             accountPresenter = ((AccountActivity) getActivity()).getPresenter();
             accountPresenter.setIView(this);
@@ -212,8 +208,6 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
                 statusBloqueo = DESBLOQUEO;
             }
         }
-
-
 
 
     }
@@ -257,7 +251,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
         if (!fingerprintManager.isHardwareDetected()) {
 
-        }else {
+        } else {
             try {
                 mKeyStore = KeyStore.getInstance("AndroidKeyStore");
             } catch (KeyStoreException e) {
@@ -284,8 +278,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
             mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
 
 
-
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)){
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)) {
                 purchaseButtonNotInvalidated.setEnabled(true);
                 purchaseButtonNotInvalidated.setOnClickListener(
                         new BlockCardFragment.PurchaseButtonClickListener(cipherNotInvalidated,
@@ -293,8 +286,6 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
                 purchaseButton.setVisibility(View.GONE);
                 purchaseButtonNotInvalidated.setVisibility(View.GONE);
-
-
 
 
                 if (initCipher(cipherNotInvalidated, KEY_NAME_NOT_INVALIDATED)) {
@@ -329,7 +320,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
                     fragment.setStage(
                             FingerprintAuthenticationDialogFragment.Stage.NEW_FINGERPRINT_ENROLLED);
                     fragment.setFragmentInstance(fragmentCode);
-                    fragment.show(  getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
+                    fragment.show(getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
                 }
 
             } else {
@@ -369,17 +360,17 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
                     new BlockCardFragment.PurchaseButtonClickListener(defaultCipher, DEFAULT_KEY_NAME));
 
 
-
         }
 
 
     }
-    public void loadOtpHuella() {
-       //// Succes de la validación de huella digital
-        Preferencias preferencias = App.getInstance().getPrefs();
-        accountPresenter.login(RequestHeaders.getUsername(), "1Azbxcwa");
-        onEventListener.onEvent(EVENT_SHOW_LOADER, getContext().getString(R.string.update_data));
 
+    public void loadOtpHuella() {
+        //// Succes de la validación de huella digital
+        Preferencias preferencias = App.getInstance().getPrefs();
+        String[] pass = Utils.cipherAES(preferencias.loadData(PSW_CPR), false).split("-");
+        accountPresenter.login(RequestHeaders.getUsername(), pass[0]);
+        onEventListener.onEvent(EVENT_SHOW_LOADER, getContext().getString(R.string.update_data));
     }
 
 
@@ -411,7 +402,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
      * Proceed the purchase operation
      *
      * @param withFingerprint {@code true} if the purchase was made by using a fingerprint
-     * @param cryptoObject the Crypto object
+     * @param cryptoObject    the Crypto object
      */
     public void onPurchased(boolean withFingerprint,
                             @Nullable FingerprintManager.CryptoObject cryptoObject) {
@@ -455,7 +446,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
      * Creates a symmetric key in the Android Key Store which can only be used after the user has
      * authenticated with fingerprint.
      *
-     * @param keyName the name of the key to be created
+     * @param keyName                          the name of the key to be created
      * @param invalidatedByBiometricEnrollment if {@code false} is passed, the created key will not
      *                                         be invalidated even if a new fingerprint is enrolled.
      *                                         The default value is {@code true}, so passing
@@ -463,7 +454,6 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
      *                                         (the key will be invalidated if a new fingerprint is
      *                                         enrolled.). Note that this parameter is only valid if
      *                                         the app works on Android N developer preview.
-     *
      */
     public void createKey(String keyName, boolean invalidatedByBiometricEnrollment) {
         // The enrolling flow for fingerprint. This is where you ask the user to set up fingerprint
@@ -544,18 +534,16 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
                 fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));
                 fragment.setStage(
                         FingerprintAuthenticationDialogFragment.Stage.NEW_FINGERPRINT_ENROLLED);
-                fragment.show(  getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
+                fragment.show(getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
             }
         }
     }
+
     @Override
     public void onPause() {
         super.onPause();
         helper.stopListeningcontraseña();
     }
-
-
-
 
 
     @OnClick(R.id.btnLoginExistUser)

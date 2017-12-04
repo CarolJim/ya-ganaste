@@ -36,7 +36,6 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringUtils.getCreditCardFormat;
 
 /**
@@ -178,7 +177,7 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
         }
 
         String statusId = SingletonUser.getInstance().getCardStatusId();
-        if(App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta().equals("")) {
             checkState("0");
         } else if (statusId != null && !statusId.isEmpty()) {
             // && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)
@@ -197,9 +196,11 @@ public class DepositsDataFragment extends SupportFragment implements View.OnClic
             case Recursos.ESTATUS_CUENTA_DESBLOQUEADA:
                 //imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);
                 printCard(cardNumber);
+                txtNumberCard.setText(cardNumber);
                 break;
             case Recursos.ESTATUS_CUENTA_BLOQUEADA:
                 imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_gray);
+                txtNumberCard.setText(cardNumber);
                 break;
             default:
                 //imgYaGanasteCard.setImageResource(R.mipmap.main_card_zoom_blue);

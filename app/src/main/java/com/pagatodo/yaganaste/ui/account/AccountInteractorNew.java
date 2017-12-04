@@ -104,6 +104,7 @@ import static com.pagatodo.yaganaste.utils.Recursos.DEVICE_ALREADY_ASSIGNED;
 import static com.pagatodo.yaganaste.utils.Recursos.SHA_256_FREJA;
 import static com.pagatodo.yaganaste.utils.StringConstants.HAS_PROVISIONING;
 import static com.pagatodo.yaganaste.utils.StringConstants.OLD_NIP;
+import static com.pagatodo.yaganaste.utils.StringConstants.PSW_CPR;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_ADQ;
 import static com.pagatodo.yaganaste.utils.StringConstants.UPDATE_DATE_BALANCE_CUPO;
@@ -122,6 +123,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     private boolean logOutBefore;
     private Preferencias prefs = App.getInstance().getPrefs();
     private CatalogsDbApi api;
+    private String pass;
 
     public AccountInteractorNew(IAccountManager accountManager) {
         this.accountManager = accountManager;
@@ -194,7 +196,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
     }
 
     @Override
-    public void checkSessionState(Request request) {
+    public void checkSessionState(Request request, String password) {
+        this.pass = password;
         this.requestAccountOperation = request;
         if (request instanceof IniciarSesionRequest) {
             this.operationAccount = LOGIN;
@@ -258,7 +261,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
         /*Creamos Request para realizar registro*/
         CrearUsuarioClienteRequest request = new CrearUsuarioClienteRequest(
                 registerUser.getEmail(),
-                Utils.cipherRSA(registerUser.getContrasenia(),true),
+                Utils.cipherRSA(registerUser.getContrasenia()),
                 registerUser.getNombre(),
                 registerUser.getApellidoPaterno(),
                 registerUser.getApellidoMaterno(),
@@ -266,7 +269,7 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 registerUser.getFechaNacimiento(),
                 "",/*RFC*/
                 "",/*CURP*/
-                registerUser.getPaisNacimiento().getId(),/*Nacionalidad*/
+                registerUser.getPaisNacimiento().getIdPais(),/*Nacionalidad*/
                 registerUser.getIdEstadoNacimineto(),
                 registerUser.getEmail(),
                 "",/*Telefono*/
@@ -276,10 +279,11 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
                 registerUser.getCodigoPostal(),
                 registerUser.getCalle(),
                 registerUser.getNumExterior(),
-                registerUser.getNumInterior()
+                registerUser.getNumInterior(),
+                registerUser.getPaisNacimiento().getId()
         );
 
-        checkSessionState(request);
+        checkSessionState(request, registerUser.getContrasenia());
     }
 
     @Override
@@ -664,6 +668,8 @@ public class AccountInteractorNew implements IAccountIteractorNew, IRequestResul
             if (dataUser.isEsUsuario()) {
                 user.setDataUser(dataUser);// Si Usuario
                 user.getDataUser().setEsAgente(dataUser.isEsAgente());
+                String pswcph = pass + "-" + Utils.getSHA256(pass) + "-" + System.currentTimeMillis();
+                App.getInstance().getPrefs().saveData(PSW_CPR, Utils.cipherAES(pswcph, true));
                 RequestHeaders.setTokensesion(dataUser.getUsuario().getTokenSesion());//Guardamos Token de sesion
                 RequestHeaders.setTokenAdq(dataUser.getUsuario().getTokenSesionAdquirente());
                 RequestHeaders.setIdCuentaAdq(dataUser.getUsuario().getIdUsuarioAdquirente());

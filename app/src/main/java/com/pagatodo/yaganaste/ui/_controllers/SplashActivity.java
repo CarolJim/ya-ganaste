@@ -43,7 +43,7 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(!DEBUG) {
+        if (!DEBUG) {
             Fabric.with(this, new Crashlytics());
         }
         this.requestWindowFeature(Window.FEATURE_NO_TITLE);
@@ -53,7 +53,6 @@ public class SplashActivity extends SupportFragmentActivity implements IRequestR
         final IRequestResult iRequestResult = this;
         final Handler handler = new Handler();
         preferencias = App.getInstance().getPrefs();
-
         handler.postDelayed(new Runnable() {
             @Override
             public void run() {

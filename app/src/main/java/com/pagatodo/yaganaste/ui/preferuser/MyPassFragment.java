@@ -388,8 +388,8 @@ public class MyPassFragment extends GenericFragment implements View.OnFocusChang
         onEventListener.onEvent("DISABLE_BACK", true);
 
         mPreferPresenter.changePassToPresenter(
-                Utils.cipherRSA(editOldPassword.getText().trim(), true),
-                Utils.cipherRSA(editPassword.getText().trim(), true)
+                Utils.cipherRSA(editOldPassword.getText().trim()),
+                Utils.cipherRSA(editPassword.getText().trim())
         );
     }
 

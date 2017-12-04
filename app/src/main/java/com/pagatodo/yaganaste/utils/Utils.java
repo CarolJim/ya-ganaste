@@ -70,9 +70,11 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import javax.crypto.Cipher;
+import javax.crypto.spec.SecretKeySpec;
 
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
+import static com.pagatodo.yaganaste.utils.Recursos.FINGERPRINT_KEY;
 import static com.pagatodo.yaganaste.utils.Recursos.GROUP_FORMAT;
 import static com.pagatodo.yaganaste.utils.Recursos.PUBLIC_KEY_RSA;
 
@@ -1216,8 +1218,7 @@ public class Utils {
         return value;
     }
 
-    /* @value{encryptText} = (true)ENCRYPT_MODE / (false)DECRYPT_MODE */
-    public static String cipherRSA(String text, boolean encryptText) {
+    public static String cipherRSA(String text) {
         String result;
         try {
             byte[] expBytes = Base64.decode("AQAB".getBytes("UTF-8"), Base64.DEFAULT);
@@ -1232,17 +1233,34 @@ public class Utils {
             RSAPublicKeySpec pubSpec = new RSAPublicKeySpec(modules, exponent);
 
             PublicKey pubKey = factory.generatePublic(pubSpec);
-            if (encryptText)
-                cipher.init(Cipher.ENCRYPT_MODE, pubKey);
-            else
-                cipher.init(Cipher.DECRYPT_MODE, pubKey);
+            cipher.init(Cipher.ENCRYPT_MODE, pubKey);
             byte[] encrypted = cipher.doFinal(text.getBytes());
-
             result = Base64.encodeToString(encrypted, Base64.DEFAULT);
         } catch (Exception e) {
             result = null;
         }
         return result;
+    }
+
+    /** Method used only to cipher string with password.
+     * Implementation in {@link com.pagatodo.yaganaste.ui.account.AccountInteractorNew} line 672
+     * @value{mode} = (true)ENCRYPT_MODE / (false)DECRYPT_MODE */
+    public static String cipherAES(String text, boolean mode) {
+        String strData = "";
+        try {
+            SecretKeySpec skeyspec = new SecretKeySpec(FINGERPRINT_KEY.getBytes(), "AES/ECB/PKCS5Padding");
+            Cipher cipher = Cipher.getInstance("AES/ECB/PKCS5Padding");
+            if (mode) {
+                cipher.init(Cipher.ENCRYPT_MODE, skeyspec);
+                strData = new String(Base64.encode(cipher.doFinal(text.getBytes("UTF-8")), Base64.DEFAULT));
+            } else {
+                cipher.init(Cipher.DECRYPT_MODE, skeyspec);
+                strData = new String(cipher.doFinal(Base64.decode(text.getBytes("UTF-8"), Base64.DEFAULT)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return strData;
     }
 
     /**

@@ -41,6 +41,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
 import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
+import static com.pagatodo.yaganaste.utils.Recursos.VERSION_APP;
 
 /**
  * Created by flima on 17/03/17.
@@ -90,12 +91,16 @@ public class App extends Application {
                 getBaseContext().getResources().getDisplayMetrics());
         m_singleton = this;
         MultiDex.install(this);
-        Stetho.initializeWithDefaults(this);
+        //Stetho.initializeWithDefaults(this);
 
         this.prefs = new Preferencias(this);
         System.loadLibrary("a01jni");
         initEMVListener();
         RequestHeaders.initHeaders(this);
+        if (BuildConfig.VERSION_NAME != prefs.loadData(VERSION_APP)) {
+            prefs.saveData(VERSION_APP, BuildConfig.VERSION_NAME);
+            clearCache();
+        }
 
         lifecycleHandler = new ApplicationLifecycleHandler();
         registerActivityLifecycleCallbacks(lifecycleHandler);
@@ -107,17 +112,38 @@ public class App extends Application {
         StrictMode.VmPolicy.Builder builder = new StrictMode.VmPolicy.Builder();
         StrictMode.setVmPolicy(builder.build());
         // Se crea la carpeta donde almacenar los Screenshot para compartir.
-        File f = new File(Environment.getExternalStorageDirectory()+getString(R.string.path_image));
-        if(!f.exists()){
+        File f = new File(Environment.getExternalStorageDirectory() + getString(R.string.path_image));
+        if (!f.exists()) {
             f.mkdir();
         }
-        //
-        statusId = "0";
+        statusId = "-1";
         datoHuellaC="";
     }
 
-    //Get & Set Status
+    public void clearCache() {
+        try {
+            File dir = getContext().getCacheDir();
+            deleteDir(dir);
+        } catch (Exception e) {
+        }
+    }
 
+    private static boolean deleteDir(File dir) {
+        if (dir != null && dir.isDirectory()) {
+            String[] children = dir.list();
+            for (int i = 0; i < children.length; i++) {
+                boolean success = deleteDir(new File(dir, children[i]));
+                if (!success) {
+                    return false;
+                }
+            }
+            return dir.delete();
+        } else if (dir != null && dir.isFile()) {
+            return dir.delete();
+        } else {
+            return false;
+        }
+    }
 
     public String getStatusId() {
         return statusId;
@@ -148,17 +174,13 @@ public class App extends Application {
 
     public void removeFromQuee(Activity activity) {
         quoeeuActivites.remove(activity.getClass().getSimpleName());
-
         Set<Map.Entry<String, Activity>> mapValues = quoeeuActivites.entrySet();
         int maplength = mapValues.size();
-
         final Map.Entry<String, Activity>[] test = new Map.Entry[maplength];
         mapValues.toArray(test);
-
         if (test.length > 0 && test[maplength - 1].getValue() instanceof SupportFragmentActivity) {
             this.currentActivity = (SupportFragmentActivity) test[maplength - 1].getValue();
         }
-
     }
 
 
@@ -186,23 +208,21 @@ public class App extends Application {
 
     public void cerrarAppsms() {
         VolleySingleton.getInstance(App.getContext()).deleteQueue();
-
         try {
             ApiAdtvo.cerrarSesion();// Se envia null ya que el Body no aplica.
         } catch (OfflineException e) {
             e.printStackTrace();
         }
     }
+
     public void cerrarApp() {
         VolleySingleton.getInstance(App.getContext()).deleteQueue();
         prefs.saveDataBool(CONSULT_FAVORITE, false);
-
         try {
             ApiAdtvo.cerrarSesion();// Se envia null ya que el Body no aplica.
         } catch (OfflineException e) {
             e.printStackTrace();
         }
-
         Intent intent = new Intent(this, MainActivity.class);
         intent.putExtra(SELECTION, MAIN_SCREEN);
         intent.addFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TOP | Intent.FLAG_ACTIVITY_CLEAR_TASK);
@@ -222,7 +242,6 @@ public class App extends Application {
             intent.putExtra(IS_FROM_TIMER, true);
             startActivity(intent);
         }
-
     }
 
     public void resetTimer(SupportFragmentActivity from) {
@@ -249,7 +268,6 @@ public class App extends Application {
         countDownTimer = new CountDownTimer(DISCONNECT_TIMEOUT, DISCONNECT_TIMEOUT) {
             @Override
             public void onTick(long millisUntilFinished) {
-
             }
 
             @Override

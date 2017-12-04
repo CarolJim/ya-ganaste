@@ -85,7 +85,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         ButterKnife.bind(this);
         mPreferPresenter = new TarjetaUserPresenter(this);
         presenterAccount = new AccountPresenterNew(this);
-        if (!App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+        if (!SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta().equals("")) {
             checkDataCard();
             txtNameTitular.setText(nombre());
             ultimaTransaccion();
@@ -386,7 +386,7 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
         if (!isLoaderShow) {
             Fragment currentFragment = getCurrentFragment();
             if (currentFragment instanceof  MyCardReportaTarjetaFragment &&
-                    App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+                    SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta().equals("")) {
                 super.onBackPressed();
             } else if (currentFragment instanceof MyChangeNip ||
                     currentFragment instanceof MyCardReportaTarjetaFragment) {

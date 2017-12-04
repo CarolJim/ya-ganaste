@@ -152,7 +152,7 @@ public class PreferUserActivity extends LoaderActivity implements OnEventListene
 
 
         // Este metodo hace referencia al padre para ocultar el icono de preferencias de la ToolBar
-        if (!App.getInstance().getPrefs().loadData(CARD_NUMBER).equals(""))
+        if (!SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta().equals(""))
             checkDataCard();
     }
 

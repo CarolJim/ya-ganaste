@@ -111,7 +111,7 @@ public class Recursos {
     public static String SHA_256_FREJA = "SHA_256_FREJA";
     public static String HUELLACADENA = "HUELLACADENA";
     public static String HUELLA_FAIL = "HUELLA_FAIL";
-
+    public static String VERSION_APP = "VERSION_APP";
 
     public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
     public static final String ADQ_PROCESS = "FLAG_PROCESS";
@@ -124,6 +124,7 @@ public class Recursos {
 
     // Preferencias Uso de Huella Digital
     public static final String USE_FINGERPRINT = "USE_FINGERPRINT";
+    public static final String FINGERPRINT_KEY = "YAGANASTEFINGERK";
 
     /**
      * Catálogos
@@ -186,7 +187,6 @@ public class Recursos {
 
     //Constantes
     public static final String CARD_PAY = "PAGO CON TARJETA";
-
 
 	/* Codigos de Acciones*/
 
@@ -266,16 +266,8 @@ public class Recursos {
     /**
      * Estatus de movimiento
      */
-
     public static final String ESTATUS_CANCELADO = "1";
     public static final String ESTATUS_POR_REMBOLSAR = "2";
     public static final String ESTATUS_REMBOLSADO = "3";
 
-//     intent.putExtra(NOMBRE_COMERCIO, nombreComercio);
-//                intent.putExtra(ID_COMERCIO, idComercio);
-//                intent.putExtra(ID_TIPO_COMERCIO, idTipoComercio);
-//                intent.putExtra(ID_TIPO_ENVIO, idTipoEnvio);
-//                intent.putExtra(REFERENCIA, referencia);
-//                intent.putExtra(TIPO_TAB, tipoTab);
-//                intent.putExtra(DESTINATARIO, nombreDest);
 }

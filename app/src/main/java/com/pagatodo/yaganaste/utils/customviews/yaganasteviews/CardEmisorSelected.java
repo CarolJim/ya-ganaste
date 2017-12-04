@@ -18,7 +18,6 @@ import com.pagatodo.yaganaste.utils.Recursos;
 import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 
-import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
 /**
@@ -94,7 +93,7 @@ public class CardEmisorSelected extends TabViewElement {
 
         String statusId = SingletonUser.getInstance().getCardStatusId();
 
-        if (App.getInstance().getPrefs().loadData(CARD_NUMBER).equals("")) {
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta().equals("")) {
             checkState("0");
         } else if (statusId != null && !statusId.isEmpty()) {
             // && statusId.equals(Recursos.ESTATUS_DE_NO_BLOQUEADA)

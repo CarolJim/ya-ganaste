@@ -29,7 +29,7 @@ public interface IAccountIteractorNew<T> {
 
     void updateSessionData();
 
-    void checkSessionState(Request request);
+    void checkSessionState(Request request, String password);
 
     void checkCard(String numberCard);
 

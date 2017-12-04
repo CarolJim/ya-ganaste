@@ -13,6 +13,7 @@ import android.widget.LinearLayout;
 
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
+import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.ui._controllers.TarjetaActivity;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
@@ -82,7 +83,7 @@ public class MyCardReportaTarjetaFragment extends GenericFragment implements Vie
     @Override
     public void initViews() {
         ButterKnife.bind(this, rootview);
-        if (App.getInstance().getPrefs().loadData(CARD_NUMBER).equals(""))
+        if (SingletonUser.getInstance().getDataUser().getUsuario().getCuentas().get(0).getTarjeta().equals(""))
             txtTitle.setText(getString(R.string.tarjeta_cancelada));
         ll_llamar1.setOnClickListener(this);
         ll_correo.setOnClickListener(this);
