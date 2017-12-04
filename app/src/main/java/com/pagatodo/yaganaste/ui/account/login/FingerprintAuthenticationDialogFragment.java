@@ -39,6 +39,7 @@ import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
 import com.pagatodo.yaganaste.ui._controllers.CropActivity;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
+import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 
 import java.security.KeyStore;
 
@@ -266,21 +267,56 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     private void updateStage() {
         switch (mStage) {
             case FINGERPRINT:
-                fingerprint_titulo.setText(R.string.generar_codigo_seguridad);
+                if (fragmentInstance instanceof BlockCardFragment){
+                    fingerprint_titulo.setText("Bloquear Tarjeta ");
+                    mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+                            dismiss();
+
+                            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                            getActivity().findViewById(R.id.editUserPassword).requestFocus();
+
+                        }
+                    });
+                }else if (fragmentInstance instanceof AccessCodeGenerateFragment) {
+
+                    fingerprint_titulo.setText(R.string.generar_codigo_seguridad);
+                    mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+                            dismiss();
+
+                            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                            getActivity().findViewById(R.id.editPassword).requestFocus();
+
+                        }
+                    });
+
+                }
+                else if (fragmentInstance instanceof PaymentAuthorizeFragment) {
+
+                    fingerprint_titulo.setText(R.string.authorize_payment_title);
+                    mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
+
+                        @Override
+                        public void onClick(View view) {
+                            dismiss();
+
+                            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+                            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+                            getActivity().findViewById(R.id.editPassword).requestFocus();
+
+                        }
+                    });
+
+                }
                 mCancelButton.setText(R.string.cancel);
                 mSecondDialogButton.setText(R.string.use_password);
-
-                mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
-
-                    @Override
-                    public void onClick(View view) {
-                        dismiss();
-
-                        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-                        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-                        getActivity().findViewById(R.id.editPassword).requestFocus();
-                    }
-                });
 
                 mFingerprintContent.setVisibility(View.VISIBLE);
                 mBackupContent.setVisibility(View.GONE);
@@ -311,7 +347,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                 mSecondDialogButton.setText("Configuración");
                 mFingerprintContent.setVisibility(View.GONE);
                 mBackupContent.setVisibility(View.VISIBLE);
-                mPasswordDescriptionTextView.setText("No Existe una Huella digital registrada, \n por favor \n ingresa a configuración");
+                mPasswordDescriptionTextView.setText("No Existe una Huella Digital Registrada, Por Favor \nIngrese a Configuración");
                 mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {

@@ -565,6 +565,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     public void generatecodehue(Fragment fm) {
         if (fm instanceof AccessCodeGenerateFragment)
             ((AccessCodeGenerateFragment)fm).loadOtpHuella();
+        if (fm instanceof BlockCardFragment)
+            ((BlockCardFragment)fm).loadOtpHuella();
 
     }
 
