@@ -1,5 +1,6 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
+import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
@@ -8,6 +9,7 @@ import android.text.InputType;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.EditText;
 import android.widget.RelativeLayout;
 import android.widget.SeekBar;
@@ -87,16 +89,22 @@ public class ServiciosFormFragment extends PaymentFormBaseFragment implements Pa
         rootview = inflater.inflate(R.layout.fragment_servicios_form, container, false);
 
         initViews();
+
         return rootview;
     }
 
     @Override
     public void initViews() {
-
-
         super.initViews();
+
+
+
+
         layoutImageReference.setOnClickListener(this);
         serviceImport.addTextChangedListener(new NumberTextWatcher(serviceImport));
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        serviceImport.requestFocus();
         if (comercioItem.getLongitudReferencia() > 0) {
             InputFilter[] fArray = new InputFilter[1];
             maxLength = Utils.calculateFilterLength(comercioItem.getLongitudReferencia());

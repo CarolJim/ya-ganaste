@@ -282,7 +282,7 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     protected void onResume() {
         super.onResume();
         setVisibilityPrefer(false);
-        setVisibilityBack(back);
+       // setVisibilityBack(back);
     }
 
     @Override

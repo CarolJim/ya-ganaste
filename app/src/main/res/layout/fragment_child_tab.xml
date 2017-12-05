@@ -51,15 +51,7 @@
 
     </RelativeLayout>
 
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:fillViewport="true">
 
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
 
             <LinearLayout
                 android:id="@+id/containerPay"
@@ -277,7 +269,15 @@
 
 
             </LinearLayout>
+            <ScrollView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:fillViewport="true">
 
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:orientation="vertical">
             <com.pagatodo.yaganaste.utils.customviews.NoSwipeViewPager
                 android:id="@+id/payment_view_pager"
                 android:layout_width="match_parent"
