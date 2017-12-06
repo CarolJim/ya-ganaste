@@ -21,6 +21,7 @@ import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -203,6 +204,27 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
                     break;
             }
         }
+        concept.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionid, KeyEvent keyEvent) {
+                if (actionid== EditorInfo.IME_ACTION_NEXT) {
+                    // si pasamos al siguiente item
+
+                    final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+                    scrollView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                            numberReference.setFocusable(true);
+                            numberReference.requestFocus();
+                        }
+                    });
+                    return true; // Focus will do whatever you put in the logic.)
+                }
+                return false;
+            }
+        });
+
 
         // Agregamos un setOnFocusChangeListener a nuestro campo de importe, solo si es un favorito
         if (favoriteItem != null) {
