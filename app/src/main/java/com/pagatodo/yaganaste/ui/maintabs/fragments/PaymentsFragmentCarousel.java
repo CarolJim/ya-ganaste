@@ -56,7 +56,8 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     public static final String BACK_UP_RESPONSE = "backUpResponse";
     public static final String CURRENT_TAB_NAME = "currentTabName";
     public static final String CURRENT_TAB_ID = "currentTabId";
-    private static int MAX_CAROUSEL_ITEMS = 12;
+    private static int MAX_CAROUSEL_ITEMS = 10;
+    public int maxCarouselItem = 0;
     @BindView(R.id.carouselMain)
     Carousel carouselMain;
     /* @BindView(R.id.carouselFavorite)
@@ -227,6 +228,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
             dialog.show();
             isFromClick = false;
         } else {
+
             if (response.size() > MAX_CAROUSEL_ITEMS) {
                 ArrayList<CarouselItem> subList = new ArrayList<>(response.subList(0, MAX_CAROUSEL_ITEMS));
                 setBackUpResponse(subList);
