@@ -118,7 +118,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     private String titulo;
     private KeyStore keyStore;
     private KeyGenerator keyGenerator;
-    private FingerprintHandler helper;
     private static Preferencias preferencias = App.getInstance().getPrefs();
     private SharedPreferences mSharedPreferences;
     static PaymentAuthorizeFragment fragmentCode;
@@ -150,7 +149,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             cryptoObject = new FingerprintManager.CryptoObject(cipher);
         }
-        helper = new FingerprintHandler(this.getContext());
         texto = getString(R.string.authorize_payment_title);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             keyguardManager = getActivity().getSystemService(KeyguardManager.class);
@@ -397,7 +395,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     }
 
     public void stopautentication() {
-        helper.stopListening();
         customErrorDialog.setTitleMessageNotification(getString(R.string.fingerprint_verification));
     }
 
@@ -548,7 +545,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void generatecode(String mensaje, int errors) {
         if (errors == 4) {
-            helper.stopListening();
             Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
             // Vibrate for 500 milliseconds
             v.vibrate(100);
