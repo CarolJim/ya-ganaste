@@ -269,6 +269,11 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
                     throw new RuntimeException("Failed to get an instance of Cipher", e);
                 }
                 mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
+                createKey(DEFAULT_KEY_NAME, true);
+                createKey(KEY_NAME_NOT_INVALIDATED, false);
+                purchaseButton.setEnabled(true);
+                purchaseButton.setOnClickListener(
+                        new PurchaseButtonClickListener(defaultCipher, DEFAULT_KEY_NAME));
                 if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)) {
                     purchaseButtonNotInvalidated.setEnabled(true);
                     purchaseButtonNotInvalidated.setOnClickListener(
@@ -336,13 +341,6 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
                     //Toast.makeText(getContext(), "Go to 'Settings -> Security -> Fingerprint' and register at least one fingerprint", Toast.LENGTH_LONG).show();
                     return;
                 }
-                createKey(DEFAULT_KEY_NAME, true);
-                createKey(KEY_NAME_NOT_INVALIDATED, false);
-                purchaseButton.setEnabled(true);
-                purchaseButton.setOnClickListener(
-                        new PurchaseButtonClickListener(defaultCipher, DEFAULT_KEY_NAME));
-
-
             }
         }
 
