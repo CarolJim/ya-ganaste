@@ -92,7 +92,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     @BindView(R.id.purchase_button_not_invalidated_description)
     TextView invalidDesc;
     FingerprintAuthenticationDialogFragment fragment;
-    FingerprintHandler helper;
+
     View rootView;
     static AccessCodeGenerateFragment fragmentCode;
 
@@ -140,7 +140,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     @Override
     public void generatecode(String mensaje, int errors) {
         if (errors >= 3) {
-            helper.stopListening();
+          //  helper.stopListening();
             Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
             // Vibrate for 500 milliseconds
             v.vibrate(100);
@@ -168,7 +168,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             cryptoObject = new FingerprintManager.CryptoObject(cipher);
         }
-        helper = new FingerprintHandler(this.getContext());
+       // helper = new FingerprintHandler(this.getContext());
 
         rootView = inflater.inflate(R.layout.fragment_access_code_generate, container, false);
         texto = getString(R.string.authorize_payment_title);
@@ -294,7 +294,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     }
 
     public void stopautentication() {
-        helper.stopListening();
+      //  helper.stopListening();
         // customErrorDialog.setTitleMessageNotification(getString(R.string.fingerprint_verification));
     }
 
@@ -467,7 +467,7 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
     @Override
     public void onPause() {
         super.onPause();
-        helper.stopListeningcontraseña();
+       // helper.stopListeningcontraseña();
     }
 
     private void generateKey() throws FingerprintException {

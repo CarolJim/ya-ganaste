@@ -99,7 +99,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     private Preferencias prefs = App.getInstance().getPrefs();
 
     FingerprintAuthenticationDialogFragment fragment;
-    FingerprintHandler helper;
+
 
     ///////////////7
 
@@ -175,7 +175,7 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
             keyguardManager = getActivity().getSystemService(KeyguardManager.class);
             fingerprintManager = getActivity().getSystemService(FingerprintManager.class);
         }
-        helper = new FingerprintHandler(this.getContext());
+       // helper = new FingerprintHandler(this.getContext());
         texto = getString(R.string.authorize_payment_title);
         purchaseButton = (Button) getActivity().findViewById(R.id.purchase_button);
         purchaseButtonNotInvalidated = (Button) getActivity().findViewById(
@@ -524,7 +524,8 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
     @Override
     public void onPause() {
         super.onPause();
-        helper.stopListeningcontraseña();
+     //
+        //   helper.stopListeningcontraseña();
     }
 
 
