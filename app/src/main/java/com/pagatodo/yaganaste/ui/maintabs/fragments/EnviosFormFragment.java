@@ -535,19 +535,32 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
     private void contactPicked(Intent data) {
         Cursor cursor;
         String phoneNo = null;
+        String nameDisplay = "";
         Uri uri = data.getData();
         cursor = getContext().getContentResolver().query(uri, null, null, null, null);
         if (cursor != null) {
             cursor.moveToFirst();
             //get column index of the Phone Number
             int phoneIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.NUMBER);
+            int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
             // column index of the contact name
             //int nameIndex = cursor.getColumnIndex(ContactsContract.CommonDataKinds.Phone.DISPLAY_NAME);
             phoneNo = cursor.getString(phoneIndex).replaceAll("\\s", "").replaceAll("\\+", "").replaceAll("-", "").trim();
+            nameDisplay = cursor.getString(nameIndex);
             if (phoneNo.length() > 10) {
                 phoneNo = phoneNo.substring(phoneNo.length() - 10);
             }
         }
         cardNumber.setText(phoneNo);
+
+        /**
+         * Validacion de nombre vacio
+         */
+        try{
+            int oneNumbre = Integer.parseInt(nameDisplay.substring(0,2));
+            receiverName.setText("");
+        }catch (Exception e){
+            receiverName.setText(nameDisplay);
+        }
     }
 }
