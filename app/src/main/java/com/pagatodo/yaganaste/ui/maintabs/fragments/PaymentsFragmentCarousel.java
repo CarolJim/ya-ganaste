@@ -75,7 +75,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     PaymentsTabFragment fragment;
     MovementsTab current_tab;
     boolean isFromClick = false;
-    ArrayList<CustomCarouselItem> backUpResponse;
+    ArrayList<CarouselItem> backUpResponse;
 
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
@@ -92,6 +92,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     }
 
     public void setCarouselAdapter(ArrayList<CarouselItem> items) {
+
         txtLoadingServices.setVisibility(View.GONE);
         mainImageAdapter = new Carousel.ImageAdapter(getContext(), items);
         carouselMain.setAdapter(mainImageAdapter);
@@ -139,6 +140,7 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
     @Override
     public void onResume() {
         super.onResume();
+
         carouselMain.setOnDragCarouselListener(new CarouselAdapter.OnDragCarouselListener() {
             @Override
             public void onStarDrag(CarouselItem item) {
@@ -247,17 +249,15 @@ public abstract class PaymentsFragmentCarousel extends GenericFragment implement
      * @param mResponse
      */
     private void setBackUpResponse(ArrayList<CarouselItem> mResponse) {
-        for (CarouselItem carouselItem : mResponse) {
-            if (carouselItem.getComercio() != null) {
-                backUpResponse.add(new CustomCarouselItem(
-                        carouselItem.getComercio().getIdComercio(),
-                        carouselItem.getComercio().getIdTipoComercio(),
-                        carouselItem.getComercio().getNombreComercio(),
-                        carouselItem.getComercio().getFormato(),
-                        carouselItem.getComercio().getLongitudReferencia()
-                ));
-            }
-        }
+        backUpResponse = mResponse;
+    }
+
+    public void resumeTest() {
+        mainImageAdapter = null;
+        carouselMain.setVisibility(View.GONE);
+        setCarouselAdapter(backUpResponse);
+        carouselMain.setVisibility(View.VISIBLE);
+        setCarouselAdapter(backUpResponse);
     }
 
     /*@Override

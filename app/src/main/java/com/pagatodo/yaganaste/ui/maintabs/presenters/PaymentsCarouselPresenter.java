@@ -221,12 +221,25 @@ public class PaymentsCarouselPresenter implements IPaymentsCarouselPresenter {
         }
 
         /**
+         * Hacemos un ajuste adicional para mostrar la lupa en la posicion del nuevo cambio. El item
+         * pos. 9 debe de pasar a pos 0, y el resto en las posiciones posteriores
+         */
+        ArrayList<CarouselItem> auxList = new ArrayList<>();
+        auxList.add(finalList.get(9));
+        for(int x=0; x<9; x++){
+            auxList.add(finalList.get(x));
+        }
+        // Igualamos la lista auxiliar ordenada para que sea nuestra nueva finalList
+        finalList = auxList;
+        /**
          * Terminado el proceso anterior, tomamos el resto de la originalList y lo agregamos a nuestra
          * finalList
          */
         for(int x=0; x<originalList.size(); x++){
             finalList.add(originalList.get(x));
         }
+
+
 
         return finalList;
 
