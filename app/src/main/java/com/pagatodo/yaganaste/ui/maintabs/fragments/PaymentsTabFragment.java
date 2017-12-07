@@ -24,6 +24,7 @@ import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.bumptech.glide.Glide;
+import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.model.SingletonUser;
 import com.pagatodo.yaganaste.data.model.webservice.response.adtvo.UsuarioClienteResponse;
@@ -182,12 +183,18 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         showBack(false);
         switch (v.getId()) {
             case R.id.tab_recargas:
+                payment_view_pager.setAdapter(viewPAgerAdapter);
+                payment_view_pager.setCurrentItem(0);
                 changeTab(v, TAB1);
                 break;
             case R.id.tab_servicios:
+                payment_view_pager.setAdapter(viewPAgerAdapter);
+                payment_view_pager.setCurrentItem(1);
                 changeTab(v, TAB2);
                 break;
             case R.id.tab_envios:
+                payment_view_pager.setAdapter(viewPAgerAdapter);
+                payment_view_pager.setCurrentItem(2);
                 changeTab(v, TAB3);
                 break;
             case R.id.rlimgPagosServiceToPay:
@@ -232,6 +239,10 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
     }
 
     private void setTab(MovementsTab TAB) {
+        // Solucion provicional
+        /*payment_view_pager.setAdapter(null);
+        payment_view_pager.setAdapter(viewPAgerAdapter);*/
+
         payment_view_pager.setVisibility(View.VISIBLE);
         container.setVisibility(View.GONE);
         payment_view_pager.setCurrentItem(TAB.getId() - 1);
@@ -239,6 +250,12 @@ public class PaymentsTabFragment extends SupportFragment implements View.OnClick
         onEventListener.onEvent(EVENT_SHOW_MAIN_TAB, true);
         imgPagosServiceToPayRound.setBorderColor(Color.BLACK);
         imgPagosServiceToPay.setImageResource(R.mipmap.circulo_add_servicio);
+
+        /**
+         * Localizamos el fragmento que este enel ViewPager
+         */
+        Fragment page = getFragmentManager().findFragmentByTag("android:switcher:" + R.id.payment_view_pager + ":" + 0);
+
     }
 
     private void changeBackTabs(View v, MovementsTab TAB) {

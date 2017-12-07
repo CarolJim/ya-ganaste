@@ -1091,7 +1091,7 @@
     <string name="text_error_origen_recursos">Origen Requerido, Verifique su Información</string>
     <string name="text_error_destino_mensual">Destino Requerido, Verifique su Información</string>
     <string name="msg_format_image">Formato de Imagen</string>
-    <string name="msg_format_image_warning">Es Necesario Escoger Una Imagen Con Extension JPG o JPGE</string>
+    <string name="msg_format_image_warning">Es Necesario Escoger Una Imagen Con Extensión JPG o JPEG</string>
 
     <string name="text_error_spinner">Ocurrio un Problema al Obtener los Elementos</string>
     <string name="text_error_contries">Ocurrio un Problema al Obtener los Paises</string>
