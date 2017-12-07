@@ -18,7 +18,7 @@ public enum LandingActivitiesEnum {
 
     INICIO_SESION_EMISOR(3, R.drawable.img_couch_quick_em_1, R.drawable.img_couch_quick_em_1),
 
-    PANTALLA_COBROS(4, R.drawable.coachmark_adq_back,
+    PANTALLA_COBROS(4, R.drawable.img_couch_em_back,
             R.drawable.coachmark_adquirente_1,
             R.drawable.coachmark_adquirente_2,
             R.drawable.coachmark_adquirente_3,
