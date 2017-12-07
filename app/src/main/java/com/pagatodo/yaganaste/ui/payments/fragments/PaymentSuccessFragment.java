@@ -1,10 +1,12 @@
 package com.pagatodo.yaganaste.ui.payments.fragments;
 
+import android.Manifest;
 import android.content.Intent;
 import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Environment;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -32,6 +34,7 @@ import com.pagatodo.yaganaste.utils.StringUtils;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.Utils;
 import com.pagatodo.yaganaste.utils.ValidateForm;
+import com.pagatodo.yaganaste.utils.ValidatePermissions;
 import com.pagatodo.yaganaste.utils.customviews.CustomValidationEditText;
 import com.pagatodo.yaganaste.utils.customviews.MontoTextView;
 import com.pagatodo.yaganaste.utils.customviews.StyleButton;
@@ -59,7 +62,7 @@ import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 public class PaymentSuccessFragment extends SupportFragment implements PaymentSuccessManager,
         View.OnClickListener {
 
-
+    private static final int MY_PERMISSIONS_REQUEST_STORAGE = 101;
     @BindView(R.id.txt_paymentTitle)
     TextView title;
     @BindView(R.id.txt_importe)
@@ -382,6 +385,10 @@ public class PaymentSuccessFragment extends SupportFragment implements PaymentSu
         } else if (v.getId() == R.id.deposito_Share) {
             if (!DEBUG) {
                 Answers.getInstance().logShare(new ShareEvent());
+            }
+            if (ContextCompat.checkSelfPermission(getActivity(), Manifest.permission.READ_EXTERNAL_STORAGE) == -1) {
+                ValidatePermissions.checkPermissions(getActivity(), new String[]{Manifest.permission.READ_EXTERNAL_STORAGE},
+                        MY_PERMISSIONS_REQUEST_STORAGE);
             }
             takeScreenshot();
             //shareContent();

@@ -135,7 +135,7 @@
                 android:id="@+id/numberReference"
                 style="@style/GenericStyleEditText"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
                 android:hint="@string/hint_referencia_numerica"
                 android:inputType="number"
                 android:maxLength="6" />

@@ -348,6 +348,8 @@ public class TarjetaActivity extends LoaderActivity implements OnEventListener, 
 
     @Override
     public void sendErrorBloquearCuentaToView(String mensaje) {
+        hideLoader();
+        sendErrorBloquearCuentaToView("No hay internet ");
     }
 
     @Override
