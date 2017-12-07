@@ -1,12 +1,9 @@
 package com.pagatodo.yaganaste.ui.payments.fragments;
 
-import android.Manifest;
-import android.annotation.SuppressLint;
 import android.app.KeyguardManager;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.pm.PackageManager;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
@@ -17,17 +14,12 @@ import android.security.keystore.KeyGenParameterSpec;
 import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
-import android.support.v4.app.ActivityCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ImageView;
-import android.widget.LinearLayout;
-import android.widget.TextView;
 import android.widget.Toast;
 
-import com.bumptech.glide.Glide;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
@@ -37,7 +29,6 @@ import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintHandler;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentAuthorizeManager;
@@ -72,10 +63,6 @@ import javax.crypto.SecretKey;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static android.content.Context.FINGERPRINT_SERVICE;
-import static android.content.Context.KEYGUARD_SERVICE;
-import static android.view.View.GONE;
-import static android.view.View.INVISIBLE;
 import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.EVENT_SEND_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
@@ -131,7 +118,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     private String titulo;
     private KeyStore keyStore;
     private KeyGenerator keyGenerator;
-    private FingerprintHandler helper;
+
     private static Preferencias preferencias = App.getInstance().getPrefs();
     private SharedPreferences mSharedPreferences;
     static PaymentAuthorizeFragment fragmentCode;
@@ -163,7 +150,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             cryptoObject = new FingerprintManager.CryptoObject(cipher);
         }
-        helper = new FingerprintHandler(this.getContext());
+       // helper = new FingerprintHandler(this.getContext());
         texto = getString(R.string.authorize_payment_title);
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             keyguardManager = getActivity().getSystemService(KeyguardManager.class);
@@ -205,7 +192,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             if (!fingerprintManager.isHardwareDetected()) {
 
-            }else {
+            } else {
                 try {
                     keyStore = KeyStore.getInstance("AndroidKeyStore");
                 } catch (KeyStoreException e) {
@@ -230,14 +217,9 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
                     throw new RuntimeException("Failed to get an instance of Cipher", e);
                 }
                 mSharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getContext());
-
-
-
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)){
-
-
-
-
+                createKey(DEFAULT_KEY_NAME, true);
+                createKey(KEY_NAME_NOT_INVALIDATED, false);
+                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M && App.getInstance().getPrefs().loadDataBoolean(USE_FINGERPRINT, true)) {
                     if (initCipher(cipherNotInvalidated, KEY_NAME_NOT_INVALIDATED)) {
 
                         // Show the fingerprint dialog. The user has the option to use the fingerprint with
@@ -268,7 +250,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
                         fragment.setStage(
                                 FingerprintAuthenticationDialogFragment.Stage.NEW_FINGERPRINT_ENROLLED);
                         fragment.setFragmentInstance(fragmentCode);
-                        fragment.show(  getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
+                        fragment.show(getActivity().getFragmentManager(), DIALOG_FRAGMENT_TAG);
                     }
 
                 } else {
@@ -303,12 +285,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
                             Toast.LENGTH_LONG).show();
                     return;
                 }
-                createKey(DEFAULT_KEY_NAME, true);
-                createKey(KEY_NAME_NOT_INVALIDATED, false);
-                //purchaseButton.setEnabled(true);
-                //purchaseButton.setOnClickListener(
-                        //new PurchaseButtonClickListener(defaultCipher, DEFAULT_KEY_NAME));
-
             }
         }
     }
@@ -372,7 +348,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
      * Creates a symmetric key in the Android Key Store which can only be used after the user has
      * authenticated with fingerprint.
      *
-     * @param keyName the name of the key to be created
+     * @param keyName                          the name of the key to be created
      * @param invalidatedByBiometricEnrollment if {@code false} is passed, the created key will not
      *                                         be invalidated even if a new fingerprint is enrolled.
      *                                         The default value is {@code true}, so passing
@@ -380,7 +356,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
      *                                         (the key will be invalidated if a new fingerprint is
      *                                         enrolled.). Note that this parameter is only valid if
      *                                         the app works on Android N developer preview.
-     *
      */
     public void createKey(String keyName, boolean invalidatedByBiometricEnrollment) {
         // The enrolling flow for fingerprint. This is where you ask the user to set up fingerprint
@@ -421,8 +396,8 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         }
     }
 
-    public void stopautentication(){
-        helper.stopListening();
+    public void stopautentication() {
+      //  helper.stopListening();
         customErrorDialog.setTitleMessageNotification(getString(R.string.fingerprint_verification));
     }
 
@@ -573,7 +548,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void generatecode(String mensaje, int errors) {
         if (errors == 4) {
-            helper.stopListening();
+          //  helper.stopListening();
             Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
             // Vibrate for 500 milliseconds
             v.vibrate(100);

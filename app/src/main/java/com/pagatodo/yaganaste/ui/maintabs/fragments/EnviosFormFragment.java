@@ -1,6 +1,7 @@
 package com.pagatodo.yaganaste.ui.maintabs.fragments;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.net.Uri;
@@ -14,11 +15,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.inputmethod.EditorInfo;
+import android.view.inputmethod.InputMethodManager;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.SeekBar;
 import android.widget.Spinner;
 import android.widget.TextView;
@@ -143,6 +146,10 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
         tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(getContext()));
         tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(getContext()));
 
+        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
+        amountToSend.requestFocus();
+
         if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
             //receiverName.setVisibility(GONE);
             receiverName.setEnabled(false);
@@ -197,6 +204,27 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
                     break;
             }
         }
+        concept.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int actionid, KeyEvent keyEvent) {
+                if (actionid== EditorInfo.IME_ACTION_NEXT) {
+                    // si pasamos al siguiente item
+
+                    final ScrollView scrollView = (ScrollView) getActivity().findViewById(R.id.scrollView);
+                    scrollView.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            scrollView.fullScroll(ScrollView.FOCUS_DOWN);
+                            numberReference.setFocusable(true);
+                            numberReference.requestFocus();
+                        }
+                    });
+                    return true; // Focus will do whatever you put in the logic.)
+                }
+                return false;
+            }
+        });
+
 
         // Agregamos un setOnFocusChangeListener a nuestro campo de importe, solo si es un favorito
         if (favoriteItem != null) {

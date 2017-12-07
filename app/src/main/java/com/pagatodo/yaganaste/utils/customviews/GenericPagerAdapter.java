@@ -64,8 +64,6 @@ public class GenericPagerAdapter<T extends IEnumTab> extends FragmentPagerAdapte
     @Override
     public void destroyItem(ViewGroup container, int position, Object object) {
         FragmentTransaction fragmentTransaction = fragmentManager.beginTransaction();
-
         fragmentTransaction.remove((Fragment) object).commitNowAllowingStateLoss();
     }
-
 }

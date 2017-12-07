@@ -334,7 +334,7 @@
     <string name="datos_usuario_pass_no_coinciden">La Contraseña no Coincide</string>
     <string name="datos_usuario_pass_formato">Verifica tu Contraseña</string>
     <string name="datos_usuario_pass_equal_new">Tu Nueva Contraseña no Puede Ser Igual a la Anterior</string>
-    <string name="bienvenido_usuario"><![CDATA[¡Bienvenido <b>%1$s</b>!]]></string>
+    <string name="bienvenido_usuario"><![CDATA[¡Hola <b>%1$s</b>!]]></string>
     <string name="user_change_password">Asignando Nueva Contraseña</string>
     <string name="user_change_email">Asignando Nuevo Correo</string>
     <string name="user_change_desasociar">En Proceso</string>
@@ -1091,7 +1091,7 @@
     <string name="text_error_origen_recursos">Origen Requerido, Verifique su Información</string>
     <string name="text_error_destino_mensual">Destino Requerido, Verifique su Información</string>
     <string name="msg_format_image">Formato de Imagen</string>
-    <string name="msg_format_image_warning">Es Necesario Escoger Una Imagen Con Extension JPG o JPGE</string>
+    <string name="msg_format_image_warning">Es Necesario Escoger Una Imagen Con Extensión JPG o JPEG</string>
 
     <string name="text_error_spinner">Ocurrio un Problema al Obtener los Elementos</string>
     <string name="text_error_contries">Ocurrio un Problema al Obtener los Paises</string>

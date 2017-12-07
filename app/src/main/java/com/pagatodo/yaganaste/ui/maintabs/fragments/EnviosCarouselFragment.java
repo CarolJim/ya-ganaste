@@ -25,5 +25,6 @@ public class EnviosCarouselFragment extends PaymentsFragmentCarousel {
     @Override
     public void onResume() {
         super.onResume();
+        super.resumeTest();
     }
 }
