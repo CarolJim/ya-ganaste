@@ -29,6 +29,7 @@ import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
+import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintHandler;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentAuthorizeManager;
@@ -67,6 +68,7 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.EVENT_SEND_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
+import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
@@ -557,7 +559,14 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     }
 
     public void loadOtpHuella() {
-        paymentAuthorizePresenter.generateOTP(preferencias.loadData("SHA_256_FREJA"));
+        boolean isOnline = Utils.isDeviceOnline();
+        if (isOnline) {
+            paymentAuthorizePresenter.generateOTP(preferencias.loadData("SHA_256_FREJA"));
+        } else {
+            //(getResources().getString(R.string.no_internet_access), 0);
+            showError(getResources().getString(R.string.no_internet_access));
+        }
+
 
     }
 
