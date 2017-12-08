@@ -29,6 +29,8 @@ import android.widget.Toast;
 import com.pagatodo.yaganaste.App;
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.data.local.persistence.Preferencias;
+import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
+import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
 import com.pagatodo.yaganaste.utils.AbstractTextWatcher;
 import com.pagatodo.yaganaste.utils.UI;
@@ -58,9 +60,11 @@ import javax.crypto.SecretKey;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
+import static com.pagatodo.yaganaste.ui._controllers.AccountActivity.EVENT_BLOCK_CARD_BACK;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
 import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
+import static com.pagatodo.yaganaste.utils.StringConstants.PSW_CPR;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -546,12 +550,37 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
 
     public void loadOtpHuella() {
 
-        onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
-        ((OtpInterface) getParentFragment()).loadCode(preferencias.loadData("SHA_256_FREJA"));
-        prefs.saveDataBool(HUELLA_FAIL, false);
+        boolean isOnline = Utils.isDeviceOnline();
+        if (isOnline) {
+            onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
+            ((OtpInterface) getParentFragment()).loadCode(preferencias.loadData("SHA_256_FREJA"));
+            prefs.saveDataBool(HUELLA_FAIL, false);
+        } else {
+            //(getResources().getString(R.string.no_internet_access), 0);
+            showDialogMesage(getResources().getString(R.string.no_internet_access), 0);
+        }
+
+
 
     }
+    private void showDialogMesage(final String mensaje, final int backAction) {
+        UI.createSimpleCustomDialog("", mensaje, getFragmentManager(),
+                new DialogDoubleActions() {
+                    @Override
+                    public void actionConfirm(Object... params) {
+                        if (backAction == 1) {
+                            // Accion de Out
+                            onEventListener.onEvent(EVENT_BLOCK_CARD_BACK, "");
+                        }
+                    }
 
+                    @Override
+                    public void actionCancel(Object... params) {
+
+                    }
+                },
+                true, false);
+    }
     private void loadOtp() {
         if (editPassword.isValidText()) {
             onEventListener.onEvent(EVENT_SHOW_LOADER, getString(R.string.generando_token));
