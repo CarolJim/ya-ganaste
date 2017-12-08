@@ -1108,7 +1108,7 @@
     <string name="fingerprint_try_later">Error de Autenticación, Demaciados intentos fallidos  Intentalo Más Tarde</string>
     <string name="fingerprint_unrecognized">Huella no Reconocida\nIntentalo Otra Vez</string>
     <string name="fingerprint_failed_authentification">Error de Autenticación</string>
-    <string name="trans_spei_envio_txt">Transferencia SPEI</string>
+    <string name="trans_spei_envio_txt">Traspaso Mismo Banco</string>
     <string name="generar_codigo_seguridad">Generar Código de Seguridad</string>
 
 
