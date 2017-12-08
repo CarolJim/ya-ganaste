@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Pattern;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -271,7 +272,6 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             }
         });
     }
-
     @Override
     public void validateForm() {
 
@@ -295,20 +295,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             isValid = false;
         }
 
-        // Validacion especial para que el telefono sea mayor a 000000001
-        //int myPhone = 0000000000;
-        int phoneUser = 0;
-        if (!editBussinesPhone.getText().toString().isEmpty()) {
-            phoneUser = Integer.parseInt(editBussinesPhone.getText().toString());
-        }
-
-        if (editBussinesPhone.isValidText() && phoneUser < 0000000001) {
-            showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
-            editBussinesPhone.setIsInvalid();
-            isValid = false;
-        }
-
-        if (!editBussinesPhone.isValidText()) {
+        if (!isPhone(editBussinesPhone.getText()) || editBussinesPhone.getText().equalsIgnoreCase("0000000000")) {
             showValidationError(editBussinesPhone.getId(), getString(R.string.datos_telefono_incorrecto));
             editBussinesPhone.setIsInvalid();
             isValid = false;
@@ -323,6 +310,10 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
         if (isValid) {
             onValidationSuccess();
         }
+    }
+
+    private boolean isPhone(String input){
+        return Pattern.compile("\\d{10}").matcher(input).find();
     }
 
 
