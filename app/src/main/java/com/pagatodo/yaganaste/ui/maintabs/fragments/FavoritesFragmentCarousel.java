@@ -121,26 +121,30 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
         carouselFav.setOnItemClickListener(new CarouselAdapter.OnItemClickListener() {
             @Override
             public void onItemClick(CarouselAdapter<?> parent, CarouselItem view, int position, long id) {
-                if (msnOpen) {
-                    msnOpen = false;
-                    if (position == 0) {
-                        isFromClick = true;
+
+                if (position == 0) {
+                    isFromClick = true;
+                    if (msnOpen) {
+                        msnOpen = false;
                         paymentsCarouselPresenter.getFavoriteCarouselItems();
-                    } else if (((CarouselItem) favoriteImageAdapter.getItem(position)).getComercio() != null &&
-                            ((CarouselItem) favoriteImageAdapter.getItem(position)).getComercio().getIdComercio() == -1) {
-                        paymentsTabPresenter.setCarouselItem((CarouselItem) favoriteImageAdapter.getItem(position));
-                        fragment.onItemSelected();
-                    } else if (((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getIdComercio() != 0) {
-                        paymentsTabPresenter.setCarouselItem((CarouselItem) favoriteImageAdapter.getItem(position));
-                        fragment.onItemSelected();
                     }
+                } else if (((CarouselItem) favoriteImageAdapter.getItem(position)).getComercio() != null &&
+                        ((CarouselItem) favoriteImageAdapter.getItem(position)).getComercio().getIdComercio() == -1) {
+                    paymentsTabPresenter.setCarouselItem((CarouselItem) favoriteImageAdapter.getItem(position));
+                    fragment.onItemSelected();
+                } else if (((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos().getIdComercio() != 0) {
+                    paymentsTabPresenter.setCarouselItem((CarouselItem) favoriteImageAdapter.getItem(position));
+                    fragment.onItemSelected();
                 }
             }
         });
 
-        carouselFav.setOnItemLongClickListener(new CarouselAdapter.OnItemLongClickListener() {
+        carouselFav.setOnItemLongClickListener(new CarouselAdapter.OnItemLongClickListener()
+
+        {
             @Override
-            public boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position, long id) {
+            public boolean onItemLongClick(CarouselAdapter<?> parent, View view, int position,
+                                           long id) {
                 DataFavoritos dataFavoritos = ((CarouselItem) favoriteImageAdapter.getItem(position)).getFavoritos();
                 if (dataFavoritos != null) {
                     Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
@@ -214,8 +218,10 @@ public class FavoritesFragmentCarousel extends GenericFragment implements Paymen
                 }
             });
             if (response.size() > 0) {
+                msnOpen = true;
                 ListDialog dialog = new ListDialog(getContext(), response, paymentsTabPresenter, fragment);
                 dialog.show();
+
             } else {
                 //Toast.makeText(getActivity(),getString(R.string.empty_list_favorites), Toast.LENGTH_SHORT).show();
                 //  UI.createSimpleCustomDialog(getString(R.string.title_dialog_busqueda),getString(R.string.empty_list_favorites),getFragmentManager(),"");
