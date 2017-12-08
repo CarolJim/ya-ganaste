@@ -349,10 +349,16 @@ public class BlockCardFragment extends GenericFragment implements ValidationForm
 
     public void loadOtpHuella() {
         //// Succes de la validación de huella digital
-        Preferencias preferencias = App.getInstance().getPrefs();
-        String[] pass = Utils.cipherAES(preferencias.loadData(PSW_CPR), false).split("-");
-        accountPresenter.login(RequestHeaders.getUsername(), pass[0]);
-        onEventListener.onEvent(EVENT_SHOW_LOADER, getContext().getString(R.string.update_data));
+        boolean isOnline = Utils.isDeviceOnline();
+        if (isOnline) {
+            Preferencias preferencias = App.getInstance().getPrefs();
+            String[] pass = Utils.cipherAES(preferencias.loadData(PSW_CPR), false).split("-");
+            accountPresenter.login(RequestHeaders.getUsername(), pass[0]);
+            onEventListener.onEvent(EVENT_SHOW_LOADER, getContext().getString(R.string.update_data));
+        } else {
+            showDialogMesage(getResources().getString(R.string.no_internet_access), 0);
+        }
+
     }
 
 
