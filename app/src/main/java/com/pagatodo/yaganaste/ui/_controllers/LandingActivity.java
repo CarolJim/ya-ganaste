@@ -188,6 +188,7 @@ public class LandingActivity extends SupportFragmentActivity implements View.OnC
         coachMarkAdpater = new CoachMarkAdpater(this, drawable);
 
         viewPagerCoachMark.setAdapter(coachMarkAdpater);
+        viewPagerCoachMark.setCurrentItem(0);
         viewPagerCoachMark.addOnPageChangeListener(new ViewPager.OnPageChangeListener() {
             @Override
             public void onPageScrolled(int position, float positionOffset, int positionOffsetPixels) {
@@ -225,8 +226,6 @@ public class LandingActivity extends SupportFragmentActivity implements View.OnC
 
             }
         });
-
-        viewPagerCoachMark.setCurrentItem(2);
         ll_omitir.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

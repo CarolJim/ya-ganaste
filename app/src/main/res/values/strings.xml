@@ -277,7 +277,7 @@
     <string name="we_need_your_files">Necesitamos Tus Documentos</string>
     <string name="omit_files_message">En Caso de no Tener Tus Documentos a la Mano, Podrás Continuar Con el Registro, Pero Deberás Agregarlos Posteriormente</string>
     <string name="omit">Omitir</string>
-    <string name="ob_get_started">Empezar</string>
+    <string name="ob_get_started">Comenzar</string>
 
     <!-- Lectura Dongle -->
     <string name="device_no_response">Lector no Responde, Por Favor Vuelva a Conectarlo</string>

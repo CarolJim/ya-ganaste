@@ -22,7 +22,8 @@ public enum LandingActivitiesEnum {
             R.drawable.coachmark_adquirente_1,
             R.drawable.coachmark_adquirente_2,
             R.drawable.coachmark_adquirente_3,
-            R.drawable.coachmark_adquirente_4),
+            R.drawable.coachmark_adquirente_4,
+            R.drawable.coachmark_adquirente_5),
 
     INICIO_SESION_EMISOR_2(5, R.drawable.img_couch_qem_back, R.drawable.img_couch_quick_em_3),
 
