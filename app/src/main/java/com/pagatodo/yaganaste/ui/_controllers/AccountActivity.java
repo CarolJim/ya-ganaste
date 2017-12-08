@@ -125,7 +125,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
     Boolean back = false;
 
     private String action = "";
-    AccessCodeGenerateFragment obj;
 
     private static final String TAG = MainActivity.class.getSimpleName();
 
@@ -148,7 +147,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         pref = App.getInstance().getPrefs();
         resetRegisterData();
         setUpActionBar();
-        obj = new AccessCodeGenerateFragment();
 
         App aplicacion = new App();
         presenterAccount = new AccountPresenterNew(this);
@@ -432,22 +430,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                     finish();
                 }
                 break;
-
-
-        }
-    }
-
-    private boolean initCipher(Cipher cipher, String keyName) {
-        try {
-            mKeyStore.load(null);
-            SecretKey key = (SecretKey) mKeyStore.getKey(keyName, null);
-            cipher.init(Cipher.ENCRYPT_MODE, key);
-            return true;
-        } catch (KeyPermanentlyInvalidatedException e) {
-            return false;
-        } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException
-                | NoSuchAlgorithmException | InvalidKeyException e) {
-            throw new RuntimeException("Failed to init Cipher", e);
         }
     }
 
@@ -568,59 +550,6 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
         if (fm instanceof BlockCardFragment)
             ((BlockCardFragment)fm).loadOtpHuella();
 
-    }
-
-    private class PurchaseButtonClickListener implements View.OnClickListener {
-
-        Cipher mCipher;
-        String mKeyName;
-
-        PurchaseButtonClickListener(Cipher cipher, String keyName) {
-            mCipher = cipher;
-            mKeyName = keyName;
-        }
-
-        @Override
-        public void onClick(View view) {
-            findViewById(R.id.confirmation_message).setVisibility(View.GONE);
-            findViewById(R.id.encrypted_message).setVisibility(View.GONE);
-
-            // Set up the crypto object for later. The object will be authenticated by use
-            // of the fingerprint.
-            if (initCipher(mCipher, mKeyName)) {
-
-                // Show the fingerprint dialog. The user has the option to use the fingerprint with
-                // crypto, or you can fall back to using a server-side verified password.
-                FingerprintAuthenticationDialogFragment fragment
-                        = new FingerprintAuthenticationDialogFragment();
-
-                fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));
-                boolean useFingerprintPreference = mSharedPreferences
-                        .getBoolean(getString(R.string.use_fingerprint_to_authenticate_key),
-                                true);
-                if (useFingerprintPreference) {
-                    fragment.setStage(
-                            FingerprintAuthenticationDialogFragment.Stage.FINGERPRINT);
-                } else {
-                    fragment.setStage(
-                            FingerprintAuthenticationDialogFragment.Stage.PASSWORD);
-                }
-                fragment.show(getFragmentManager(), DIALOG_FRAGMENT_TAG);
-            } else {
-                // This happens if the lock screen has been disabled or or a fingerprint got
-                // enrolled. Thus show the dialog to authenticate with their password first
-                // and ask the user if they want to authenticate with fingerprints in the
-                // future
-                FingerprintAuthenticationDialogFragment fragment
-                        = new FingerprintAuthenticationDialogFragment();
-                if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
-                    fragment.setCryptoObject(new FingerprintManager.CryptoObject(mCipher));
-                }
-                fragment.setStage(
-                        FingerprintAuthenticationDialogFragment.Stage.NEW_FINGERPRINT_ENROLLED);
-                fragment.show(getFragmentManager(), DIALOG_FRAGMENT_TAG);
-            }
-        }
     }
 }
 

@@ -308,8 +308,6 @@ public class AccessCodeGenerateFragment extends GenericFragment implements View.
             SecretKey key = (SecretKey) mKeyStore.getKey(keyName, null);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return true;
-        } catch (KeyPermanentlyInvalidatedException e) {
-            return false;
         } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException
                 | NoSuchAlgorithmException | InvalidKeyException e) {
             //throw new RuntimeException("Failed to init Cipher", e);
