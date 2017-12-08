@@ -11,7 +11,6 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.security.keystore.KeyGenParameterSpec;
-import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
@@ -148,13 +147,10 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             cryptoObject = new FingerprintManager.CryptoObject(cipher);
-        }
-        texto = getString(R.string.authorize_payment_title);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             keyguardManager = getActivity().getSystemService(KeyguardManager.class);
             fingerprintManager = getActivity().getSystemService(FingerprintManager.class);
         }
-
+        texto = getString(R.string.authorize_payment_title);
         initViews();
         return rootview;
     }
@@ -333,8 +329,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
             SecretKey key = (SecretKey) keyStore.getKey(keyName, null);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return true;
-        } catch (KeyPermanentlyInvalidatedException e) {
-            return false;
         } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException
                 | NoSuchAlgorithmException | InvalidKeyException e) {
             //throw new RuntimeException("Failed to init Cipher", e);
