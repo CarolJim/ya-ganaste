@@ -35,6 +35,7 @@ import java.util.ArrayList;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
+import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import butterknife.BindView;
@@ -272,6 +273,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
             }
         });
     }
+
     @Override
     public void validateForm() {
 
@@ -315,6 +317,7 @@ public class DatosNegocioFragment extends GenericFragment implements View.OnClic
     private boolean isPhone(String input){
         return Pattern.compile("\\d{10}").matcher(input).find();
     }
+
 
 
     @Override

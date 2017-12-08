@@ -396,7 +396,13 @@ public class DetailsEmisorFragment extends GenericFragment implements View.OnCli
                 layoutIVA.setVisibility(VISIBLE);
                 txtIVA.setText(StringUtils.getCurrencyValue(movimientosResponse.getIVA()));
                 break;
+            case DEVOLUCION:
+                layoutConcepto.setVisibility(VISIBLE);
+                txtConceptoDescripcion.setText(movimientosResponse.getConcepto());
+                layoutAutorizacon.setVisibility(GONE);
+                break;
             default:
+
                 break;
         }
 

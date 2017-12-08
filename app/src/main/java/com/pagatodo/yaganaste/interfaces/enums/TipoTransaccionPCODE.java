@@ -19,7 +19,8 @@ public enum TipoTransaccionPCODE {
     CASH_BACK("Cash Back", 11),
     COMISION("Comisión", 12),
     COBRO_CON_TARJETA_DISPERSION_ADQ("Cobro con Tarjeta", 13),
-    REEMBOLSO_ADQUIRIENTE("Reembolso Adquiriente", 14);
+    REEMBOLSO_ADQUIRIENTE("Reembolso Adquiriente", 14),
+    DEVOLUCION("Devolucion", 14);
 
     private String name;
     private int id;

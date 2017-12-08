@@ -194,5 +194,7 @@
     <dimen name="detail_movements_margin_top_elements">40dp</dimen>
 
     <dimen name="switch_card_thumb_size">20dp</dimen>
+
+    <dimen name="pager_dot_size">11dp</dimen>
 </resources>
 

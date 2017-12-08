@@ -89,7 +89,6 @@ public class PaymentsFragment extends AbstractAdEmFragment<AdquirentePaymentsTab
         try {
             if ((direction.equals(SwipyRefreshLayoutDirection.BOTTOM))) {
                 swipeContainer.setRefreshing(false);
-
             } else {
                 try {
                     super.onRefresh(SwipyRefreshLayoutDirection.BOTTOM);
