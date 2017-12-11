@@ -127,31 +127,28 @@
             android:name="com.google.android.geo.API_KEY"
             android:value="AIzaSyDyaKKktDzaNdnjjxMFz-4jmbiUA191DCo" />
 
-        <!--
-             <meta-data
-             android:name="com.google.android.geo.API_KEY"
-             android:value="@string/google_maps_key" />
-        -->
-        <!--
-             <meta-data
-             android:name="com.google.android.geo.API_KEY"
-             android:value="@string/google_maps_key" />
-        -->
+        <!-- Set custom default icon. This is used when no icon is set for incoming notification messages.
+      See README(https://goo.gl/l4GJaQ) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@mipmap/ic_launcher" />
+        <!-- Set color used with incoming notification messages. This is used when no color is set for the incoming
+             notification message. See README(https://goo.gl/6BKBk7) for more. -->
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/colorAccentTransparent" />
 
-        <service
-            android:name=".net.MessagingService"
-            android:enabled="true"
-            android:exported="true">
-            <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
-            </intent-filter>
-        </service>
         <service
             android:name=".notifications.FirebaseInstanceServer"
             android:enabled="true"
             android:exported="true">
             <intent-filter>
                 <action android:name="com.google.firebase.INSTANCE_ID_EVENT" />
+            </intent-filter>
+        </service>
+        <service android:name=".notifications.MessagingService">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
             </intent-filter>
         </service>
 

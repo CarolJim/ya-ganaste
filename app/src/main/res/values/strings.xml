@@ -287,6 +287,7 @@
     <string name="registro_automatico">Inserta el Lector Para Registrarlo a su Cuenta</string>
     <string name="registro_small">Inserta el Lector Para Registrarlo</string>
     <string name="error_de_lectura">No Fue Posible Completar la Operación, Intenta de Nuevo</string>
+    <string name="error_codigo_de_seguridad">El Código de Seguridad es Inválido</string>
 
     <string name="cobrar">Cobrar</string>
     <string name="validatelector"></string>

@@ -11,7 +11,6 @@ import android.os.Vibrator;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
 import android.security.keystore.KeyGenParameterSpec;
-import android.security.keystore.KeyPermanentlyInvalidatedException;
 import android.security.keystore.KeyProperties;
 import android.support.annotation.RequiresApi;
 import android.text.TextUtils;
@@ -29,7 +28,6 @@ import com.pagatodo.yaganaste.freja.Errors;
 import com.pagatodo.yaganaste.interfaces.DialogDoubleActions;
 import com.pagatodo.yaganaste.net.RequestHeaders;
 import com.pagatodo.yaganaste.ui._manager.GenericFragment;
-import com.pagatodo.yaganaste.ui.account.login.AccessCodeGenerateFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintAuthenticationDialogFragment;
 import com.pagatodo.yaganaste.ui.account.login.FingerprintHandler;
 import com.pagatodo.yaganaste.ui.payments.managers.PaymentAuthorizeManager;
@@ -68,7 +66,6 @@ import static android.view.View.VISIBLE;
 import static com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity.EVENT_SEND_PAYMENT;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_HIDE_LOADER;
 import static com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity.EVENT_SHOW_LOADER;
-import static com.pagatodo.yaganaste.utils.Recursos.HUELLA_FAIL;
 import static com.pagatodo.yaganaste.utils.Recursos.USE_FINGERPRINT;
 import static com.pagatodo.yaganaste.utils.StringConstants.SPACE;
 
@@ -120,7 +117,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     private String titulo;
     private KeyStore keyStore;
     private KeyGenerator keyGenerator;
-
     private static Preferencias preferencias = App.getInstance().getPrefs();
     private SharedPreferences mSharedPreferences;
     static PaymentAuthorizeFragment fragmentCode;
@@ -151,14 +147,10 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             cryptoObject = new FingerprintManager.CryptoObject(cipher);
-        }
-       // helper = new FingerprintHandler(this.getContext());
-        texto = getString(R.string.authorize_payment_title);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
             keyguardManager = getActivity().getSystemService(KeyguardManager.class);
             fingerprintManager = getActivity().getSystemService(FingerprintManager.class);
         }
-
+        texto = getString(R.string.authorize_payment_title);
         initViews();
         return rootview;
     }
@@ -337,8 +329,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
             SecretKey key = (SecretKey) keyStore.getKey(keyName, null);
             cipher.init(Cipher.ENCRYPT_MODE, key);
             return true;
-        } catch (KeyPermanentlyInvalidatedException e) {
-            return false;
         } catch (KeyStoreException | CertificateException | UnrecoverableKeyException | IOException
                 | NoSuchAlgorithmException | InvalidKeyException e) {
             //throw new RuntimeException("Failed to init Cipher", e);
@@ -399,7 +389,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     }
 
     public void stopautentication() {
-      //  helper.stopListening();
         customErrorDialog.setTitleMessageNotification(getString(R.string.fingerprint_verification));
     }
 
@@ -477,7 +466,15 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         String errorBody = "";
         errorTittle = "Contraseña Inválida";
         errorBody = "La Contraseña Ingresada no es Válida, Verifícala";
-        if (!TextUtils.isEmpty(error.toString())) {
+        if (error.toString().equals(getString(R.string.error_codigo_de_seguridad))) {
+            errorTittle = "Contraseña Inválida";
+            errorBody = "La Contraseña Ingresada no es Válida, Verifícala";
+            UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
+        } else if (error.toString().equals(getString(R.string.no_internet_access))) {
+            errorTittle = "Ya Ganaste";
+            errorBody =getString(R.string.no_internet_access);
+            UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
+        }else if (!TextUtils.isEmpty(error.toString())) {
             UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
     }
@@ -550,7 +547,6 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     @Override
     public void generatecode(String mensaje, int errors) {
         if (errors == 4) {
-          //  helper.stopListening();
             Vibrator v = (Vibrator) getContext().getSystemService(Context.VIBRATOR_SERVICE);
             // Vibrate for 500 milliseconds
             v.vibrate(100);
@@ -559,14 +555,7 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
     }
 
     public void loadOtpHuella() {
-        boolean isOnline = Utils.isDeviceOnline();
-        if (isOnline) {
-            paymentAuthorizePresenter.generateOTP(preferencias.loadData("SHA_256_FREJA"));
-        } else {
-            //(getResources().getString(R.string.no_internet_access), 0);
-            showError(getResources().getString(R.string.no_internet_access));
-        }
-
+        paymentAuthorizePresenter.generateOTP(preferencias.loadData("SHA_256_FREJA"));
 
     }
 

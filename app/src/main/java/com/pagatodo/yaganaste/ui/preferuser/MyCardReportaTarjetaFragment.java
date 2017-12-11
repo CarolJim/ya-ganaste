@@ -3,9 +3,12 @@ package com.pagatodo.yaganaste.ui.preferuser;
 
 import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -24,15 +27,12 @@ import com.pagatodo.yaganaste.utils.customviews.StyleTextView;
 import butterknife.BindView;
 import butterknife.ButterKnife;
 
-import static com.pagatodo.yaganaste.utils.Constants.PERMISSION_GENERAL;
-import static com.pagatodo.yaganaste.utils.StringConstants.CARD_NUMBER;
-
 /**
  * A simple {@link Fragment} subclass.
  */
 public class MyCardReportaTarjetaFragment extends GenericFragment implements View.OnClickListener {
 
-
+    private static final int MY_PERMISSIONS_REQUEST_PHONE = 100;
     @BindView(R.id.textView2)
     StyleTextView txtTitle;
 
@@ -90,8 +90,20 @@ public class MyCardReportaTarjetaFragment extends GenericFragment implements Vie
     }
 
     private void showDialogCallIntent() {
-        UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaRealizarLlamada), getFragmentManager(),
-                doubleActions, true, true);
+        boolean isValid = true;
+        int permissionCall = ContextCompat.checkSelfPermission(App.getContext(),
+                Manifest.permission.CALL_PHONE);
+        // Si no tenemos el permiso lo solicitamos y pasamos la bandera a falso
+        if (permissionCall == -1) {
+            ValidatePermissions.checkPermissions(getActivity(),
+                    new String[]{Manifest.permission.CALL_PHONE},
+                    MY_PERMISSIONS_REQUEST_PHONE);
+            isValid = false;
+        }
+        if (isValid) {
+            UI.createSimpleCustomDialog("", getResources().getString(R.string.deseaRealizarLlamada), getFragmentManager(),
+                    doubleActions, true, true);
+        }
     }
 
     private void createCallIntent() {
@@ -99,13 +111,17 @@ public class MyCardReportaTarjetaFragment extends GenericFragment implements Vie
         Intent callIntent = new Intent(Intent.ACTION_CALL);
         callIntent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
         callIntent.setData(Uri.parse("tel:" + number));
-
-        if (!ValidatePermissions.isAllPermissionsActives(getActivity(), ValidatePermissions.getPermissionsCheck())) {
-            ValidatePermissions.checkPermissions(getActivity(), new String[]{
-                    Manifest.permission.CALL_PHONE}, PERMISSION_GENERAL);
-        } else {
-            getActivity().startActivity(callIntent);
+        if (ActivityCompat.checkSelfPermission(getActivity(), Manifest.permission.CALL_PHONE) != PackageManager.PERMISSION_GRANTED) {
+            // TODO: Consider calling
+            //    ActivityCompat#requestPermissions
+            // here to request the missing permissions, and then overriding
+            //   public void onRequestPermissionsResult(int requestCode, String[] permissions,
+            //                                          int[] grantResults)
+            // to handle the case where the user grants the permission. See the documentation
+            // for ActivityCompat#requestPermissions for more details.
+            return;
         }
+        getActivity().startActivity(callIntent);
     }
 
 

@@ -109,6 +109,7 @@ public class Recursos {
     public static String HUELLACADENA = "HUELLACADENA";
     public static String HUELLA_FAIL = "HUELLA_FAIL";
     public static String VERSION_APP = "VERSION_APP";
+    public static String FIREBASE_KEY = "FIREBASE_KEY";
 
     public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
     public static final String ADQ_PROCESS = "FLAG_PROCESS";
