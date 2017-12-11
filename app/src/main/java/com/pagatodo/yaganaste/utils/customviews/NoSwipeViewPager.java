@@ -35,5 +35,4 @@ public class NoSwipeViewPager extends ViewPager {
         this.swipeable = swipeable;
     }
 
-
 }

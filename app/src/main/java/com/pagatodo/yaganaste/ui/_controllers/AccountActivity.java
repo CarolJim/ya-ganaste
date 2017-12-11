@@ -52,6 +52,7 @@ import com.pagatodo.yaganaste.ui.account.register.DatosUsuarioFragment;
 import com.pagatodo.yaganaste.ui.account.register.DomicilioActualFragment;
 import com.pagatodo.yaganaste.ui.account.register.RegisterCompleteFragment;
 import com.pagatodo.yaganaste.ui.account.register.TienesTarjetaFragment;
+import com.pagatodo.yaganaste.ui_wallet.WalletMainActivity;
 import com.pagatodo.yaganaste.utils.Constants;
 import com.pagatodo.yaganaste.utils.UI;
 import com.pagatodo.yaganaste.utils.customviews.CustomErrorDialog;
@@ -427,7 +428,8 @@ public class AccountActivity extends LoaderActivity implements OnEventListener, 
                     Intent intent = new Intent(AccountActivity.this, LandingApprovedActivity.class);
                     startActivity(intent);
                 } else {
-                    Intent intent = new Intent(AccountActivity.this, TabActivity.class);
+                    //Intent intent = new Intent(AccountActivity.this, TabActivity.class);
+                    Intent intent = new Intent(AccountActivity.this, WalletMainActivity.class);
                     startActivity(intent);
                     finish();
                 }
