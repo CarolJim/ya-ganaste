@@ -4,6 +4,9 @@ import android.util.Log;
 
 import com.google.firebase.iid.FirebaseInstanceId;
 import com.google.firebase.iid.FirebaseInstanceIdService;
+import com.pagatodo.yaganaste.App;
+
+import static com.pagatodo.yaganaste.utils.Recursos.FIREBASE_KEY;
 
 /**
  * @author Juan Guerra on 10/04/2017.
@@ -27,5 +30,6 @@ public class FirebaseInstanceServer extends FirebaseInstanceIdService {
 
     private void sendRegistrationToServer(String token) {
         // Implement this method to send token to your app server.
+        App.getInstance().getPrefs().saveData(FIREBASE_KEY, token);
     }
 }

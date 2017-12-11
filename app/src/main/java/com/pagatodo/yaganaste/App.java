@@ -92,7 +92,7 @@ public class App extends Application {
                 getBaseContext().getResources().getDisplayMetrics());
         m_singleton = this;
         MultiDex.install(this);
-        if (!DEBUG) {
+        if (DEBUG) {
             Stetho.initializeWithDefaults(this);
         }
 

@@ -6,6 +6,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.EditText;
@@ -70,8 +71,8 @@ public class ListDialog extends Dialog implements AdapterView.OnItemClickListene
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        requestWindowFeature(Window.FEATURE_NO_TITLE);
         setContentView(R.layout.dialog_listview);
-        this.setTitle("Selecciona");
         filterText = (EditText) findViewById(R.id.searchText);
         filterText.addTextChangedListener(filterTextWatcher);
         list = (ListView) findViewById(R.id.list);

@@ -8,12 +8,11 @@ import android.support.v7.widget.SearchView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.view.Window;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.pagatodo.yaganaste.R;
-import com.pagatodo.yaganaste.data.model.db.Countries;
-import com.pagatodo.yaganaste.interfaces.OnCountrySelectedListener;
 import com.pagatodo.yaganaste.interfaces.OnListServiceListener;
 import com.pagatodo.yaganaste.ui.account.register.adapters.ListServicesSpinnerAdapter;
 import com.pagatodo.yaganaste.utils.customviews.carousel.CustomCarouselItem;
@@ -44,6 +43,7 @@ public class ListServDialogFragment extends DialogFragment implements SearchView
 
     /**
      * Recibimos el Array CustomCarouselItem para mostrar los nombres de los Comercios
+     *
      * @param backUpResponse
      * @return
      */
@@ -97,9 +97,10 @@ public class ListServDialogFragment extends DialogFragment implements SearchView
 
     /**
      * Hacemos SET dede AddNewFavorites para atrapar el resultado de hacer Clic
+     *
      * @param listener
      */
-    public void setOnListServiceListener(OnListServiceListener listener){
+    public void setOnListServiceListener(OnListServiceListener listener) {
         this.onListServiceListener = listener;
     }
 
@@ -116,6 +117,7 @@ public class ListServDialogFragment extends DialogFragment implements SearchView
 
     /**
      * Usamos la interfase OnListServiceListener para comunicar este Dialog fragment con la actividad
+     *
      * @param parent
      * @param view
      * @param position

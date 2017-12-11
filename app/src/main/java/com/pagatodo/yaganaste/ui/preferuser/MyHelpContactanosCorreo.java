@@ -148,7 +148,11 @@ public class MyHelpContactanosCorreo extends GenericFragment implements View.OnC
                     @Override
                     public void actionConfirm(Object... params) {
                         if (success) {
-                            ((TarjetaActivity) getActivity()).onBackPressed();
+                            if (getActivity() instanceof TarjetaActivity) {
+                                ((TarjetaActivity) getActivity()).onBackPressed();
+                            } else {
+                                ((PreferUserActivity) getActivity()).onBackPressed();
+                            }
                         }
                     }
 

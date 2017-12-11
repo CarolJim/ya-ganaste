@@ -25,7 +25,7 @@ public class Recursos {
     public static final int IDCOMERCIO_YA_GANASTE = 8609;
     public static final int GROUP_FORMAT = 4;
 
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
 
     /*Freja*/
     public static final String PT_CLIENT_CODE = null;
@@ -109,6 +109,7 @@ public class Recursos {
     public static String HUELLACADENA = "HUELLACADENA";
     public static String HUELLA_FAIL = "HUELLA_FAIL";
     public static String VERSION_APP = "VERSION_APP";
+    public static String FIREBASE_KEY = "FIREBASE_KEY";
 
     public static String SEND_DOCUMENTS = "FLAG_DOCUMENTS";
     public static final String ADQ_PROCESS = "FLAG_PROCESS";
