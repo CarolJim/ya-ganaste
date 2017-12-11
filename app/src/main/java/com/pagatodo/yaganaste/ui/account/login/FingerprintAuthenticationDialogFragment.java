@@ -6,25 +6,21 @@ package com.pagatodo.yaganaste.ui.account.login;
 
 
 import android.annotation.SuppressLint;
-import android.app.Dialog;
 import android.app.DialogFragment;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.hardware.fingerprint.FingerprintManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.provider.Settings;
-import android.support.annotation.ColorInt;
 import android.support.v4.app.Fragment;
 import android.view.KeyEvent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.Window;
-import android.view.WindowManager;
 import android.view.inputmethod.EditorInfo;
 import android.view.inputmethod.InputMethodManager;
 import android.widget.Button;
@@ -32,11 +28,9 @@ import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.TextView;
-import android.widget.Toast;
 
 import com.pagatodo.yaganaste.R;
 import com.pagatodo.yaganaste.ui._controllers.AccountActivity;
-import com.pagatodo.yaganaste.ui._controllers.CropActivity;
 import com.pagatodo.yaganaste.ui._controllers.PaymentsProcessingActivity;
 import com.pagatodo.yaganaste.ui._controllers.manager.LoaderActivity;
 import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
@@ -44,8 +38,6 @@ import com.pagatodo.yaganaste.ui.payments.fragments.PaymentAuthorizeFragment;
 import java.security.KeyStore;
 
 import javax.crypto.KeyGenerator;
-
-import static android.content.Context.INPUT_METHOD_SERVICE;
 
 /**
  * A dialog which uses fingerprint APIs to authenticate the user, and falls back to password
@@ -103,7 +95,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                 dismiss();
             }
         });
-        fingerprint_titulo= (TextView) v.findViewById(R.id.fingerprint_titulo);
+        fingerprint_titulo = (TextView) v.findViewById(R.id.fingerprint_titulo);
         mSecondDialogButton = (Button) v.findViewById(R.id.second_dialog_button);
         mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -124,7 +116,6 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         mPasswordDescriptionTextView = (TextView) v.findViewById(R.id.password_description);
         mUseFingerprintFutureCheckBox = (CheckBox)
                 v.findViewById(R.id.use_fingerprint_in_future_check);
-
 
 
         mNewFingerprintEnrolledTextView = (TextView)
@@ -170,7 +161,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         super.onAttach(context);
         //mActivity = (AccountActivity) getActivity();
         if (context instanceof AccountActivity)
-             mActivity = (AccountActivity) getActivity();
+            mActivity = (AccountActivity) getActivity();
         if (context instanceof PaymentsProcessingActivity)
             mActivity = (PaymentsProcessingActivity) getActivity();
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
@@ -186,6 +177,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     public void setGenerateCode(generateCodehuella generateCodec) {
         generateCode = generateCodec;
     }
+
     /**
      * Sets the crypto object to be passed in when authenticating with fingerprint.
      */
@@ -209,13 +201,14 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         // Fingerprint is not used anymore. Stop listening for it.
         mFingerprintUiHelper.stopListening();
     }
+
     private void goToBackupintetos() {
         mStage = Stage.PASSWORD;
         updateStage();
-      // mPassword.requestFocus();
+        // mPassword.requestFocus();
 
         // Show the keyboard.
-       // mPassword.postDelayed(mShowKeyboardRunnable, 500);
+        // mPassword.postDelayed(mShowKeyboardRunnable, 500);
 
         // Fingerprint is not used anymore. Stop listening for it.
         mFingerprintUiHelper.stopListening();
@@ -267,7 +260,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
     private void updateStage() {
         switch (mStage) {
             case FINGERPRINT:
-                if (fragmentInstance instanceof BlockCardFragment){
+                if (fragmentInstance instanceof BlockCardFragment) {
                     fingerprint_titulo.setText("Bloquear Tarjeta ");
                     mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
 
@@ -281,7 +274,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
 
                         }
                     });
-                }else if (fragmentInstance instanceof AccessCodeGenerateFragment) {
+                } else if (fragmentInstance instanceof AccessCodeGenerateFragment) {
 
                     fingerprint_titulo.setText(R.string.generar_codigo_seguridad);
                     mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
@@ -297,8 +290,7 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
                         }
                     });
 
-                }
-                else if (fragmentInstance instanceof PaymentAuthorizeFragment) {
+                } else if (fragmentInstance instanceof PaymentAuthorizeFragment) {
 
                     fingerprint_titulo.setText(R.string.authorize_payment_title);
                     mSecondDialogButton.setOnClickListener(new View.OnClickListener() {
@@ -379,14 +371,17 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         // successful.
         mActivity.generatecodehue(fragmentInstance);
         mActivity.onPurchased(true /* withFingerprint */, mCryptoObject);
-        dismiss();
+        try {
+            dismiss();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void onError() {
         goToBackup();
     }
-
 
 
     /**
@@ -398,7 +393,8 @@ public class FingerprintAuthenticationDialogFragment extends DialogFragment
         PASSWORD,
         INTENTS
     }
-    public  interface generateCodehuella{
+
+    public interface generateCodehuella {
         void generatecodehue(Fragment fm);
     }
 }

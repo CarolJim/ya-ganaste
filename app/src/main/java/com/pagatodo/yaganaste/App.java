@@ -40,6 +40,7 @@ import static com.pagatodo.yaganaste.ui.account.login.MainFragment.IS_FROM_TIMER
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.MAIN_SCREEN;
 import static com.pagatodo.yaganaste.ui.account.login.MainFragment.SELECTION;
 import static com.pagatodo.yaganaste.utils.Recursos.CONSULT_FAVORITE;
+import static com.pagatodo.yaganaste.utils.Recursos.DEBUG;
 import static com.pagatodo.yaganaste.utils.Recursos.DISCONNECT_TIMEOUT;
 import static com.pagatodo.yaganaste.utils.Recursos.VERSION_APP;
 
@@ -91,7 +92,9 @@ public class App extends Application {
                 getBaseContext().getResources().getDisplayMetrics());
         m_singleton = this;
         MultiDex.install(this);
-        //Stetho.initializeWithDefaults(this);
+        if (DEBUG) {
+            Stetho.initializeWithDefaults(this);
+        }
 
         this.prefs = new Preferencias(this);
         System.loadLibrary("a01jni");
@@ -117,7 +120,7 @@ public class App extends Application {
             f.mkdir();
         }
         statusId = "-1";
-        datoHuellaC="";
+        datoHuellaC = "";
     }
 
     public void clearCache() {

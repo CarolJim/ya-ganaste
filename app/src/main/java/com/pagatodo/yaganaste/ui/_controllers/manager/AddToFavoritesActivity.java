@@ -9,6 +9,7 @@ import android.net.Uri;
 import android.os.Bundle;
 import android.provider.ContactsContract;
 import android.provider.MediaStore;
+import android.support.v4.app.DialogFragment;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.AppCompatImageView;
 import android.text.InputFilter;
@@ -536,7 +537,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
             isValid = false;
         }
 
-        if(isValid){
+        if (isValid) {
             favoritesPresenter.openMenuPhoto(1, cameraManager);
         }
     }
@@ -565,6 +566,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
                  * 3 - Mostramos el dialogo
                  */
                 ListServDialogFragment dialogFragment = ListServDialogFragment.newInstance(backUpResponse);
+                dialogFragment.setStyle(DialogFragment.STYLE_NO_TITLE, 0);
                 dialogFragment.setOnListServiceListener(this);
                 dialogFragment.show(getSupportFragmentManager(), "FragmentDialog");
                 break;
@@ -693,6 +695,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
 
     /**
      * Error al tener un numero que no tiene cuenta de YaGanaste
+     *
      * @param mMensaje
      */
     @Override
@@ -702,7 +705,7 @@ public class AddToFavoritesActivity extends LoaderActivity implements IAddFavori
         String myNumber = cardNumber.getText().toString();
         cardNumber.setHint(myNumber);
         cardNumber.setText("");
-      //  editRefer.setText("");
+        //  editRefer.setText("");
         scrollView.fullScroll(View.FOCUS_DOWN);
 
     }
