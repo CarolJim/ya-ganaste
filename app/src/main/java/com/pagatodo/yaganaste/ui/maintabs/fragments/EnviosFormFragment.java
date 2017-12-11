@@ -146,9 +146,8 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
         tipoPago.add(NUMERO_TELEFONO.getId(), NUMERO_TELEFONO.getName(getContext()));
         tipoPago.add(NUMERO_TARJETA.getId(), NUMERO_TARJETA.getName(getContext()));
 
-        InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
-        imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
-        amountToSend.requestFocus();
+
+
 
         if (keyIdComercio == IDCOMERCIO_YA_GANASTE) {
             //receiverName.setVisibility(GONE);
@@ -228,6 +227,9 @@ public class EnviosFormFragment extends PaymentFormBaseFragment implements Envio
 
         // Agregamos un setOnFocusChangeListener a nuestro campo de importe, solo si es un favorito
         if (favoriteItem != null) {
+            amountToSend.requestFocus();
+            InputMethodManager imm = (InputMethodManager) getActivity().getSystemService(Context.INPUT_METHOD_SERVICE);
+            imm.toggleSoftInput(InputMethodManager.SHOW_FORCED, 0);
             fragment.updateValueTabFrag(0.0);
             amountToSend.setOnFocusChangeListener(new View.OnFocusChangeListener() {
                 @Override

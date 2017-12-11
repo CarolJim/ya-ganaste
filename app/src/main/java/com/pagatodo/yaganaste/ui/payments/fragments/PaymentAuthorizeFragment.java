@@ -466,7 +466,15 @@ public class PaymentAuthorizeFragment extends GenericFragment implements View.On
         String errorBody = "";
         errorTittle = "Contraseña Inválida";
         errorBody = "La Contraseña Ingresada no es Válida, Verifícala";
-        if (!TextUtils.isEmpty(error.toString())) {
+        if (error.toString().equals(getString(R.string.error_codigo_de_seguridad))) {
+            errorTittle = "Contraseña Inválida";
+            errorBody = "La Contraseña Ingresada no es Válida, Verifícala";
+            UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
+        } else if (error.toString().equals(getString(R.string.no_internet_access))) {
+            errorTittle = "Ya Ganaste";
+            errorBody =getString(R.string.no_internet_access);
+            UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
+        }else if (!TextUtils.isEmpty(error.toString())) {
             UI.createSimpleCustomDialog(errorTittle, errorBody, getActivity().getSupportFragmentManager(), getFragmentTag());
         }
     }
